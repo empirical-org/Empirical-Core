@@ -408,7 +408,9 @@ exports[`Results component should render when there are no results 1`] = `
                   <div
                     className="name-and-tooltip"
                   >
-                    <span>
+                    <span
+                      className="skill-name"
+                    >
                       Compound-Complex Sentences
                     </span>
                     <SkillGroupTooltip
@@ -459,7 +461,6 @@ exports[`Results component should render when there are no results 1`] = `
                       </Tooltip>
                     </SkillGroupTooltip>
                   </div>
-                  0
                 </th>
                 <th
                   className="skill-group-header"
@@ -468,7 +469,9 @@ exports[`Results component should render when there are no results 1`] = `
                   <div
                     className="name-and-tooltip"
                   >
-                    <span>
+                    <span
+                      className="skill-name"
+                    >
                       Appositive Phrases
                     </span>
                     <SkillGroupTooltip
@@ -519,7 +522,6 @@ exports[`Results component should render when there are no results 1`] = `
                       </Tooltip>
                     </SkillGroupTooltip>
                   </div>
-                  0
                 </th>
                 <th
                   className="skill-group-header"
@@ -528,7 +530,9 @@ exports[`Results component should render when there are no results 1`] = `
                   <div
                     className="name-and-tooltip"
                   >
-                    <span>
+                    <span
+                      className="skill-name"
+                    >
                       Relative Clauses
                     </span>
                     <SkillGroupTooltip
@@ -579,7 +583,6 @@ exports[`Results component should render when there are no results 1`] = `
                       </Tooltip>
                     </SkillGroupTooltip>
                   </div>
-                  0
                 </th>
                 <th
                   className="skill-group-header"
@@ -588,7 +591,9 @@ exports[`Results component should render when there are no results 1`] = `
                   <div
                     className="name-and-tooltip"
                   >
-                    <span>
+                    <span
+                      className="skill-name"
+                    >
                       Participal Phrases
                     </span>
                     <SkillGroupTooltip
@@ -639,7 +644,6 @@ exports[`Results component should render when there are no results 1`] = `
                       </Tooltip>
                     </SkillGroupTooltip>
                   </div>
-                  0
                 </th>
                 <th
                   className="skill-group-header"
@@ -648,7 +652,9 @@ exports[`Results component should render when there are no results 1`] = `
                   <div
                     className="name-and-tooltip"
                   >
-                    <span>
+                    <span
+                      className="skill-name"
+                    >
                       Parallel Structure
                     </span>
                     <SkillGroupTooltip
@@ -699,7 +705,6 @@ exports[`Results component should render when there are no results 1`] = `
                       </Tooltip>
                     </SkillGroupTooltip>
                   </div>
-                  0
                 </th>
                 <th
                   className="skill-group-header"
@@ -708,7 +713,9 @@ exports[`Results component should render when there are no results 1`] = `
                   <div
                     className="name-and-tooltip"
                   >
-                    <span>
+                    <span
+                      className="skill-name"
+                    >
                       Advanced Combining
                     </span>
                     <SkillGroupTooltip
@@ -759,7 +766,6 @@ exports[`Results component should render when there are no results 1`] = `
                       </Tooltip>
                     </SkillGroupTooltip>
                   </div>
-                  0
                 </th>
               </tr>
             </thead>
@@ -775,6 +781,7 @@ exports[`Results component should render when there are no results 1`] = `
             </div>
             <tbody>
               <StudentRow
+                isPreTest={true}
                 key="Ja'shonda Abbott"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -835,6 +842,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Ja'shonda Abbott
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -863,6 +877,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Paulo Azevedo"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -923,6 +938,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Paulo Azevedo
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -951,6 +973,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Charlotte Bronte"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -1011,6 +1034,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Charlotte Bronte
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -1039,6 +1069,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Edgar Burroughs"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -1099,6 +1130,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Edgar Burroughs
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -1127,6 +1165,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Kaylesh Chaganlal"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -1187,6 +1226,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Kaylesh Chaganlal
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -1215,6 +1261,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Justin Cole"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -1275,6 +1322,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Justin Cole
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -1303,6 +1357,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Victoria De"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -1363,6 +1418,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Victoria De
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -1391,6 +1453,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Vishal Dewan"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -1451,6 +1514,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Vishal Dewan
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -1479,6 +1549,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Joan Didion"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -1539,6 +1610,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Joan Didion
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -1567,6 +1645,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="John Donne"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -1627,6 +1706,13 @@ exports[`Results component should render when there are no results 1`] = `
                           John Donne
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -1655,6 +1741,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Loise Erdrich"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -1715,6 +1802,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Loise Erdrich
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -1743,6 +1837,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Gabriel De La Concordia Garcia"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -1832,6 +1927,13 @@ exports[`Results component should render when there are no results 1`] = `
                           </span>
                         </Tooltip>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -1860,6 +1962,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Rual Guzman"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -1920,6 +2023,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Rual Guzman
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -1948,6 +2058,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Jacob De Haas"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -2008,6 +2119,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Jacob De Haas
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -2036,6 +2154,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Grace Hatton"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -2096,6 +2215,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Grace Hatton
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -2124,6 +2250,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Tymon Jabłoński"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -2184,6 +2311,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Tymon Jabłoński
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -2212,6 +2346,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Dehab Lee Kassis-washington"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -2301,6 +2436,13 @@ exports[`Results component should render when there are no results 1`] = `
                           </span>
                         </Tooltip>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -2329,6 +2471,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Rudyard Kipling"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -2389,6 +2532,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Rudyard Kipling
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -2417,6 +2567,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Leone Lafontaine"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -2477,6 +2628,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Leone Lafontaine
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -2505,6 +2663,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Henry Wadsworth Longfellow"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -2594,6 +2753,13 @@ exports[`Results component should render when there are no results 1`] = `
                           </span>
                         </Tooltip>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -2622,6 +2788,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Hilary Mantel"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -2682,6 +2849,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Hilary Mantel
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -2710,6 +2884,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Mary Masters"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -2770,6 +2945,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Mary Masters
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -2798,6 +2980,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Daphne Maurier"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -2858,6 +3041,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Daphne Maurier
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -2886,6 +3076,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Stephanie Montgomery"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -2946,6 +3137,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Stephanie Montgomery
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -2974,6 +3172,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="George Nichols"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -3034,6 +3233,13 @@ exports[`Results component should render when there are no results 1`] = `
                           George Nichols
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -3062,6 +3268,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Joyce Oates"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -3122,6 +3329,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Joyce Oates
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -3150,6 +3364,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Banjo Paterson"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -3210,6 +3425,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Banjo Paterson
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -3238,6 +3460,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Sarah Pennington"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -3298,6 +3521,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Sarah Pennington
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -3326,6 +3556,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Annie Proulx"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -3386,6 +3617,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Annie Proulx
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -3414,6 +3652,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Sarah Scott"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -3474,6 +3713,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Sarah Scott
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -3502,6 +3748,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Zadie Smith"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -3562,6 +3809,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Zadie Smith
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -3590,6 +3844,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Rabindranath Tagore"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -3650,6 +3905,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Rabindranath Tagore
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -3678,6 +3940,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Judy Heier-hammond Name Keeps Going For A Long Long Tim"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -3767,6 +4030,13 @@ exports[`Results component should render when there are no results 1`] = `
                           </span>
                         </Tooltip>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -3795,6 +4065,7 @@ exports[`Results component should render when there are no results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Virginia Walker"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -3855,6 +4126,13 @@ exports[`Results component should render when there are no results 1`] = `
                           Virginia Walker
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -8099,7 +8377,9 @@ exports[`Results component should render when there are results 1`] = `
                   <div
                     className="name-and-tooltip"
                   >
-                    <span>
+                    <span
+                      className="skill-name"
+                    >
                       Capitalization
                     </span>
                     <SkillGroupTooltip
@@ -8168,7 +8448,9 @@ exports[`Results component should render when there are results 1`] = `
                   <div
                     className="name-and-tooltip"
                   >
-                    <span>
+                    <span
+                      className="skill-name"
+                    >
                       Plural and Possessive Nouns
                     </span>
                     <SkillGroupTooltip
@@ -8237,7 +8519,9 @@ exports[`Results component should render when there are results 1`] = `
                   <div
                     className="name-and-tooltip"
                   >
-                    <span>
+                    <span
+                      className="skill-name"
+                    >
                       Adjectives and Adverbs
                     </span>
                     <SkillGroupTooltip
@@ -8305,7 +8589,9 @@ exports[`Results component should render when there are results 1`] = `
                   <div
                     className="name-and-tooltip"
                   >
-                    <span>
+                    <span
+                      className="skill-name"
+                    >
                       Prepositional Phrases
                     </span>
                     <SkillGroupTooltip
@@ -8374,7 +8660,9 @@ exports[`Results component should render when there are results 1`] = `
                   <div
                     className="name-and-tooltip"
                   >
-                    <span>
+                    <span
+                      className="skill-name"
+                    >
                       Compound Subjects, Objects, and Predicates
                     </span>
                     <SkillGroupTooltip
@@ -8443,7 +8731,9 @@ exports[`Results component should render when there are results 1`] = `
                   <div
                     className="name-and-tooltip"
                   >
-                    <span>
+                    <span
+                      className="skill-name"
+                    >
                       Commonly Confused Words
                     </span>
                     <SkillGroupTooltip
@@ -8509,6 +8799,7 @@ exports[`Results component should render when there are results 1`] = `
             </thead>
             <tbody>
               <StudentRow
+                isPreTest={true}
                 key="Ja'shonda Abbott"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -8789,6 +9080,13 @@ exports[`Results component should render when there are results 1`] = `
                           Ja'shonda Abbott
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -10177,6 +10475,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Paulo Azevedo"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -10457,6 +10756,13 @@ exports[`Results component should render when there are results 1`] = `
                           Paulo Azevedo
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -11845,6 +12151,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Charlotte Bronte"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -12125,6 +12432,13 @@ exports[`Results component should render when there are results 1`] = `
                           Charlotte Bronte
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -13513,6 +13827,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Edgar Burroughs"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -13793,6 +14108,13 @@ exports[`Results component should render when there are results 1`] = `
                           Edgar Burroughs
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -15181,6 +15503,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Kaylesh Chaganlal"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -15461,6 +15784,13 @@ exports[`Results component should render when there are results 1`] = `
                           Kaylesh Chaganlal
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -16849,6 +17179,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Justin Cole"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -17129,6 +17460,13 @@ exports[`Results component should render when there are results 1`] = `
                           Justin Cole
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -18517,6 +18855,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Victoria De"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -18797,6 +19136,13 @@ exports[`Results component should render when there are results 1`] = `
                           Victoria De
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -20185,6 +20531,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Vishal Dewan"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -20465,6 +20812,13 @@ exports[`Results component should render when there are results 1`] = `
                           Vishal Dewan
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -21853,6 +22207,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Joan Didion"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -21963,6 +22318,13 @@ exports[`Results component should render when there are results 1`] = `
                           Joan Didion
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -21991,6 +22353,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="John Donne"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -22271,6 +22634,13 @@ exports[`Results component should render when there are results 1`] = `
                           John Donne
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -23659,6 +24029,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Gabriel De La Concordia Garcia"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -23798,6 +24169,13 @@ exports[`Results component should render when there are results 1`] = `
                           </span>
                         </Tooltip>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -23826,6 +24204,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Jacob De Haas"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -23936,6 +24315,13 @@ exports[`Results component should render when there are results 1`] = `
                           Jacob De Haas
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -23964,6 +24350,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Grace Hatton"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -24244,6 +24631,13 @@ exports[`Results component should render when there are results 1`] = `
                           Grace Hatton
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -25632,6 +26026,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Tymon Jabłoński"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -25742,6 +26137,13 @@ exports[`Results component should render when there are results 1`] = `
                           Tymon Jabłoński
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -25770,6 +26172,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Dehab Lee Kassis-washington"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -25909,6 +26312,13 @@ exports[`Results component should render when there are results 1`] = `
                           </span>
                         </Tooltip>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -25937,6 +26347,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Rudyard Kipling"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -26217,6 +26628,13 @@ exports[`Results component should render when there are results 1`] = `
                           Rudyard Kipling
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -27605,6 +28023,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Leone Lafontaine"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -27715,6 +28134,13 @@ exports[`Results component should render when there are results 1`] = `
                           Leone Lafontaine
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -27743,6 +28169,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Henry Wadsworth Longfellow"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -27882,6 +28309,13 @@ exports[`Results component should render when there are results 1`] = `
                           </span>
                         </Tooltip>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -27910,6 +28344,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Hilary Mantel"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -28020,6 +28455,13 @@ exports[`Results component should render when there are results 1`] = `
                           Hilary Mantel
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -28048,6 +28490,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Daphne Maurier"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -28158,6 +28601,13 @@ exports[`Results component should render when there are results 1`] = `
                           Daphne Maurier
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -28186,6 +28636,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Stephanie Montgomery"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -28296,6 +28747,13 @@ exports[`Results component should render when there are results 1`] = `
                           Stephanie Montgomery
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -28324,6 +28782,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="George Nichols"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -28434,6 +28893,13 @@ exports[`Results component should render when there are results 1`] = `
                           George Nichols
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -28462,6 +28928,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Joyce Oates"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -28572,6 +29039,13 @@ exports[`Results component should render when there are results 1`] = `
                           Joyce Oates
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -28600,6 +29074,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Banjo Paterson"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -28710,6 +29185,13 @@ exports[`Results component should render when there are results 1`] = `
                           Banjo Paterson
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -28738,6 +29220,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Sarah Pennington"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -28848,6 +29331,13 @@ exports[`Results component should render when there are results 1`] = `
                           Sarah Pennington
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -28876,6 +29366,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Annie Proulx"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -28986,6 +29477,13 @@ exports[`Results component should render when there are results 1`] = `
                           Annie Proulx
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -29014,6 +29512,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Sarah Scott"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -29124,6 +29623,13 @@ exports[`Results component should render when there are results 1`] = `
                           Sarah Scott
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -29152,6 +29658,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Zadie Smith"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -29262,6 +29769,13 @@ exports[`Results component should render when there are results 1`] = `
                           Zadie Smith
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -29290,6 +29804,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Rabindranath Tagore"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -29400,6 +29915,13 @@ exports[`Results component should render when there are results 1`] = `
                           Rabindranath Tagore
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -29428,6 +29950,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Judy Heier-hammond Name Keeps Going For A Long Long Tim"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -29567,6 +30090,13 @@ exports[`Results component should render when there are results 1`] = `
                           </span>
                         </Tooltip>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >
@@ -29595,6 +30125,7 @@ exports[`Results component should render when there are results 1`] = `
                 </tr>
               </StudentRow>
               <StudentRow
+                isPreTest={true}
                 key="Virginia Walker"
                 openPopover={Object {}}
                 responsesLink={[Function]}
@@ -29705,6 +30236,13 @@ exports[`Results component should render when there are results 1`] = `
                           Virginia Walker
                         </span>
                       </StudentNameOrTooltip>
+                      <div
+                        className="name-section-subheader"
+                      >
+                        <span
+                          className="correct-skill-text"
+                        />
+                      </div>
                       <span
                         className="name-section-subheader"
                       >

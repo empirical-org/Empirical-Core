@@ -42,7 +42,7 @@ module ResultsSummary
           total_correct_questions_count: total_correct_questions_count,
           total_correct_skill_groups_count: total_correct_skill_groups_count,
           total_possible_questions_count: total_possible_questions_count,
-          correct_question_text: "#{total_correct_questions_count} of #{total_possible_questions_count} questions",
+          correct_question_text: "#{total_correct_questions_count} of #{total_possible_questions_count} questions correct",
           correct_skill_groups_text: "#{total_correct_skill_groups_count} of #{skill_groups.count} skill groups"
         }
       else

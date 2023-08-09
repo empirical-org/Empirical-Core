@@ -45,6 +45,7 @@ module GrowthResultsSummary
         total_correct_skill_groups_count = skill_groups.select { |sg| GROWTH_PROFICIENCY_TEXTS.include?(sg[:proficiency_text]) }.flatten.uniq.count
         total_correct_questions_count = post_test_concept_results_grouped_by_question.reduce(0) { |sum, crs| sum += get_score_for_question(crs) > 0 ? 1 : 0 }
         total_pre_correct_questions_count = pre_test_concept_results_grouped_by_question.reduce(0) { |sum, crs| sum += get_score_for_question(crs) > 0 ? 1 : 0 }
+        total_maintained_skill_group_proficiency_count = skill_groups.select{ |skill_group| skill_group[:proficiency_text] == MAINTAINED_PROFICIENCY }.flatten.uniq.count
         {
           name: assigned_student.name,
           id: assigned_student.id,
@@ -54,7 +55,8 @@ module GrowthResultsSummary
           total_pre_correct_questions_count: total_pre_correct_questions_count,
           total_possible_questions_count: total_possible_questions_count,
           total_pre_possible_questions_count: total_pre_possible_questions_count,
-          correct_question_text: "#{total_correct_questions_count} of #{total_possible_questions_count} questions",
+          total_maintained_skill_group_proficiency_count: total_maintained_skill_group_proficiency_count,
+          correct_question_text: "#{total_correct_questions_count} of #{total_possible_questions_count} questions correct",
           correct_skill_groups_text: "#{total_correct_skill_groups_count} of #{skill_groups.count} skill groups"
         }
       else

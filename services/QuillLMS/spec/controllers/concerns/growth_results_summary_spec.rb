@@ -119,7 +119,7 @@ describe GrowthResultsSummary do
             total_pre_correct_questions_count: 1,
             total_pre_possible_questions_count: 2,
             total_possible_questions_count: 2,
-            correct_question_text: "2 of 2 questions",
+            correct_question_text: "2 of 2 questions correct",
             correct_skill_groups_text: "1 of 1 skill groups",
           },
           {
@@ -217,7 +217,7 @@ describe GrowthResultsSummary do
             total_pre_correct_questions_count: 1,
             total_pre_possible_questions_count: 2,
             total_possible_questions_count: 2,
-            correct_question_text: "2 of 2 questions",
+            correct_question_text: "2 of 2 questions correct",
             correct_skill_groups_text: "1 of 1 skill groups",
           },
           {

@@ -74,7 +74,7 @@ describe ResultsSummary do
             total_correct_questions_count: 1,
             total_correct_skill_groups_count: 0,
             total_possible_questions_count: 2,
-            correct_question_text: "1 of 2 questions",
+            correct_question_text: "1 of 2 questions correct",
             correct_skill_groups_text: "0 of 1 skill groups",
           },
           {
@@ -107,7 +107,7 @@ describe ResultsSummary do
             total_correct_questions_count: 1,
             total_correct_skill_groups_count: 1,
             total_possible_questions_count: 1,
-            correct_question_text: "1 of 1 questions",
+            correct_question_text: "1 of 1 questions correct",
             correct_skill_groups_text: "1 of 1 skill groups",
           }
         ]
@@ -166,7 +166,7 @@ describe ResultsSummary do
             total_correct_questions_count: 1,
             total_correct_skill_groups_count: 0,
             total_possible_questions_count: 2,
-            correct_question_text: "1 of 2 questions",
+            correct_question_text: "1 of 2 questions correct",
             correct_skill_groups_text: "0 of 1 skill groups",
           },
           {
