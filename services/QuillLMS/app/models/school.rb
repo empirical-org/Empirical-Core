@@ -119,21 +119,6 @@ class School < ApplicationRecord
     12 => HIGH,
   }
 
-  LEAP_CSV_HEADERS = %w[
-    QuillID
-    DistrictID
-    StudentName
-    StudentEmail
-    TeacherName
-    ClassroomName
-    SchoolName
-    Percentage
-    Date
-    ActivityName
-    StandardName
-    MinutesSpent
-  ].freeze
-
   def self.school_year_start(time)
     time.month >= SCHOOL_YEAR_START_MONTH ? time.beginning_of_year + HALF_A_YEAR : time.beginning_of_year - HALF_A_YEAR
   end
@@ -163,9 +148,9 @@ class School < ApplicationRecord
     data[ulocal.to_s.to_sym]
   end
 
-  def generate_leap_csv(activities_since = Date.parse("2010-01-01"))
-    CSV.generate do |csv_file|
-      csv_file << LEAP_CSV_HEADERS
+  def generate_leap_csv(activities_since = Date.parse("2010-01-01"), options = {})
+    CSV.generate(options) do |csv_file|
+      csv_file << %w(QuillID DistrictID StudentName StudentEmail TeacherName ClassroomName SchoolName Percentage Date ActivityName StandardName MinutesSpent)
 
       students.each do |student|
         student.activity_sessions.where("completed_at >= ?", activities_since).where.not(completed_at: nil).each do |activity_session|

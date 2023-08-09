@@ -7,7 +7,7 @@ describe CanvasIntegration::StudentCreator do
 
   let(:user_external_id) { CanvasAccount.build_user_external_id(canvas_instance.id, external_id) }
   let(:canvas_instance) { create(:canvas_instance) }
-  let(:external_id) { Faker::Number.number.to_s }
+  let(:external_id) { Faker::Number.number }
   let(:email) { Faker::Internet.email }
   let(:name) { Faker::Name.custom_name }
 

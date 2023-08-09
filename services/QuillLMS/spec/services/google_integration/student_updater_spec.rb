@@ -10,7 +10,7 @@ module GoogleIntegration
     let(:role) { described_class::ROLE }
 
     let(:email) { Faker::Internet.email }
-    let(:user_external_id) { Faker::Number.number(digits: 21).to_s }
+    let(:user_external_id) { Faker::Number.number }
 
     let(:data) { { email: email, user_external_id: user_external_id } }
 

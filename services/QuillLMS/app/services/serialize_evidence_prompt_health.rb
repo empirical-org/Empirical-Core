@@ -50,12 +50,7 @@ class SerializeEvidencePromptHealth
   end
 
   private def rule_feedback_histories
-    @rule_feedback_histories ||=
-      RuleFeedbackHistory.generate_report(**{
-        activity_id: prompt.activity.id,
-        activity_version: prompt.activity.version,
-        conjunction: prompt.conjunction
-      })
+    @rule_feedback_histories ||= RuleFeedbackHistory.generate_report({activity_id: prompt.activity.id, conjunction: prompt.conjunction, activity_version: prompt.activity.version})
   end
 
   private def total_responses

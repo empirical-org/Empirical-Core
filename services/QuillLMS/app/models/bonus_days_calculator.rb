@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class BonusDaysCalculator < ApplicationService
+
   attr_reader :user, :start
 
   delegate :school, to: :user

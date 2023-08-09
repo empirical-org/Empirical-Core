@@ -41,6 +41,10 @@ RSpec.describe ConceptResult, type: :model do
     it { should belong_to(:concept_result_question_type) }
   end
 
+  context 'validations' do
+    it { should validate_inclusion_of(:correct).in_array([true, false]) }
+  end
+
   context 'methods' do
     context 'self.create_from_json' do
       let(:question) { create(:question) }

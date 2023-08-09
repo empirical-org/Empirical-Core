@@ -14,9 +14,9 @@ module GoogleIntegration
       end
 
       transient do
-        course_id { Faker::Number.number(digits: 12) }
+        course_id { Faker::Number.number(12) }
         profile { create(:google_classroom_api_user_profile, user_id: user_id) }
-        user_id { Faker::Number.number(digits: 21) }
+        user_id { Faker::Number.number(21) }
       end
     end
   end
