@@ -26,6 +26,30 @@ module Snapshots
 
         it { expect(results).to eq(count: 0) }
       end
+
+      context 'teachers who do not have classrooms' do
+        # Unrelated models required to be in the CTE so the query has relevant tables to look at
+        let(:unrelated_classrooms) { create(:classroom) }
+        let(:unrelated_classrooms_teachers) { create(:classrooms_teacher, classroom: unrelated_classrooms) }
+        let(:cte_records) do
+          [
+            unrelated_classrooms,
+            teachers,
+            unrelated_classrooms_teachers,
+            schools_users,
+            schools
+          ]
+        end
+        let(:query_args) do
+          {
+            timeframe_start: timeframe_start,
+            timeframe_end: timeframe_end,
+            school_ids: school_ids
+          }
+        end
+
+        it { expect(results).to eq(count: teachers.length) }
+      end
     end
   end
 end
