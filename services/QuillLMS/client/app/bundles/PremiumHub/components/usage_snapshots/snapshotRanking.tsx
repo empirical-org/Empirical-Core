@@ -129,7 +129,7 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
       const schoolIdsAreEqual = selectionsEqual(message.school_ids, selectedSchoolIds)
       const teacherIdsAreEqual = selectionsEqual(message.teacher_ids, selectedTeacherIds)
       const classroomIdsAreEqual = selectionsEqual(message.classroom_ids, selectedClassroomIds)
-      const gradesAreEqual =  selectionsEqual(message.grades, selectedGrades.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
+      const gradesAreEqual =  selectionsEqual(message.grades, selectedGrades?.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
 
       if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {
         getData()
