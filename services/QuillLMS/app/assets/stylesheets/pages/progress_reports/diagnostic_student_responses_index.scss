@@ -9,14 +9,31 @@
     margin-top: 24px;
     .data-table-headers {
       height: 32px;
-      &.individual-responses-header {
-        text-align: center !important;
+      background-color: #F8F8F8;
+      min-height: 68px;
+      padding: 0px 8px;
+      th {
+        height: 100%;
+        &:not(:last-child) {
+          border-right: 1px solid #CFCFCF;
+        }
       }
       .data-table-header {
+        font-weight: 700;
+        color: #373737;
+        margin-right: 8px;
+        align-items: center;
+        &.individual-responses-header {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
         button {
           align-items: center;
           width: 100%;
+          height: 48px;
           justify-content: space-between;
+          margin-right: 8px;
           .quill-tooltip {
             text-align: left;
           }
@@ -32,11 +49,18 @@
       }
       .data-table-body {
         .data-table-row {
+          min-height: 68px;
+          padding: 0px 8px;
           .data-table-row-section {
             font-size: 12px;
+            margin-right: 8px;
             &.individual-responses-link {
               display: flex;
               justify-content: center;
+            }
+            &.name-section {
+              font-weight: 700;
+              color: #373737;
             }
           }
         }
