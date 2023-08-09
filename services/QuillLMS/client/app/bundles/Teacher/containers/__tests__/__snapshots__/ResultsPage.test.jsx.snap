@@ -47,7 +47,7 @@ exports[`ResultsPage container anonymous should render 1`] = `
             className="icon"
             style={
               Object {
-                "backgroundColor": "#4ea500",
+                "backgroundColor": "#eb9911",
               }
             }
           >
@@ -57,7 +57,7 @@ exports[`ResultsPage container anonymous should render 1`] = `
             />
           </div>
           <span>
-            Nearly proficient
+            Sometimes demonstrated skill
           </span>
         </div>
       </ResultsIcon>
@@ -85,16 +85,6 @@ exports[`ResultsPage container anonymous should render 1`] = `
           className="result-section"
           key="Nearly proficient"
         >
-          <div
-            className="result-section-header"
-          >
-            <div
-              className="colored-square nearly-proficient"
-            />
-            <span>
-              Nearly proficient
-            </span>
-          </div>
           <h2>
             Concepts you have almost mastered. Keep practicing!
           </h2>
@@ -110,16 +100,6 @@ exports[`ResultsPage container anonymous should render 1`] = `
           className="result-section"
           key="Not yet proficient"
         >
-          <div
-            className="result-section-header"
-          >
-            <div
-              className="colored-square not-yet-proficient"
-            />
-            <span>
-              Not yet proficient
-            </span>
-          </div>
           <h2>
             Concepts you have not mastered yet. Try again!
           </h2>
@@ -135,16 +115,6 @@ exports[`ResultsPage container anonymous should render 1`] = `
           className="result-section"
           key="Proficient"
         >
-          <div
-            className="result-section-header"
-          >
-            <div
-              className="colored-square proficient"
-            />
-            <span>
-              Proficient
-            </span>
-          </div>
           <h2>
             Concepts you have mastered. Good work!
           </h2>
@@ -220,7 +190,7 @@ exports[`ResultsPage container integration should render 1`] = `
             className="icon"
             style={
               Object {
-                "backgroundColor": "#4ea500",
+                "backgroundColor": "#eb9911",
               }
             }
           >
@@ -230,7 +200,7 @@ exports[`ResultsPage container integration should render 1`] = `
             />
           </div>
           <span>
-            Nearly proficient
+            Sometimes demonstrated skill
           </span>
         </div>
       </ResultsIcon>
@@ -258,16 +228,6 @@ exports[`ResultsPage container integration should render 1`] = `
           className="result-section"
           key="Nearly proficient"
         >
-          <div
-            className="result-section-header"
-          >
-            <div
-              className="colored-square nearly-proficient"
-            />
-            <span>
-              Nearly proficient
-            </span>
-          </div>
           <h2>
             Concepts you have almost mastered. Keep practicing!
           </h2>
@@ -283,16 +243,6 @@ exports[`ResultsPage container integration should render 1`] = `
           className="result-section"
           key="Not yet proficient"
         >
-          <div
-            className="result-section-header"
-          >
-            <div
-              className="colored-square not-yet-proficient"
-            />
-            <span>
-              Not yet proficient
-            </span>
-          </div>
           <h2>
             Concepts you have not mastered yet. Try again!
           </h2>
@@ -308,16 +258,6 @@ exports[`ResultsPage container integration should render 1`] = `
           className="result-section"
           key="Proficient"
         >
-          <div
-            className="result-section-header"
-          >
-            <div
-              className="colored-square proficient"
-            />
-            <span>
-              Proficient
-            </span>
-          </div>
           <h2>
             Concepts you have mastered. Good work!
           </h2>
@@ -391,7 +331,7 @@ exports[`ResultsPage container not anonymous should render 1`] = `
             className="icon"
             style={
               Object {
-                "backgroundColor": "#4ea500",
+                "backgroundColor": "#eb9911",
               }
             }
           >
@@ -401,7 +341,7 @@ exports[`ResultsPage container not anonymous should render 1`] = `
             />
           </div>
           <span>
-            Nearly proficient
+            Sometimes demonstrated skill
           </span>
         </div>
       </ResultsIcon>
@@ -429,16 +369,6 @@ exports[`ResultsPage container not anonymous should render 1`] = `
           className="result-section"
           key="Nearly proficient"
         >
-          <div
-            className="result-section-header"
-          >
-            <div
-              className="colored-square nearly-proficient"
-            />
-            <span>
-              Nearly proficient
-            </span>
-          </div>
           <h2>
             Concepts you have almost mastered. Keep practicing!
           </h2>
@@ -454,16 +384,6 @@ exports[`ResultsPage container not anonymous should render 1`] = `
           className="result-section"
           key="Not yet proficient"
         >
-          <div
-            className="result-section-header"
-          >
-            <div
-              className="colored-square not-yet-proficient"
-            />
-            <span>
-              Not yet proficient
-            </span>
-          </div>
           <h2>
             Concepts you have not mastered yet. Try again!
           </h2>
@@ -479,16 +399,6 @@ exports[`ResultsPage container not anonymous should render 1`] = `
           className="result-section"
           key="Proficient"
         >
-          <div
-            className="result-section-header"
-          >
-            <div
-              className="colored-square proficient"
-            />
-            <span>
-              Proficient
-            </span>
-          </div>
           <h2>
             Concepts you have mastered. Good work!
           </h2>

@@ -64,13 +64,13 @@ const incompleteHeaders = [
 
 const completeHeaders = [
   {
-    width: '560px',
+    width: '474px',
     name: 'Activity',
     attribute: 'name',
     headerClassName: 'name-section',
     rowSectionClassName: 'name-section'
   }, {
-    width: '144px',
+    width: '230px',
     name: 'Score',
     attribute: 'score',
     noTooltip: true,
@@ -191,14 +191,14 @@ export default class StudentProfileUnit extends React.Component {
     }
 
     if (maxPercentage >= PROFICIENT_CUTOFF) {
-      return (<div className="score"><div className="proficient" /><span>Proficient</span></div>)
+      return (<div className="score"><div className="proficient" /><span>Frequently demonstrated skill</span></div>)
     }
 
     if (maxPercentage >= NEARLY_PROFICIENT_CUTOFF) {
-      return (<div className="score"><div className="nearly-proficient" /><span>Nearly proficient</span></div>)
+      return (<div className="score"><div className="nearly-proficient" /><span>Sometimes demonstrated skill</span></div>)
     }
 
-    return (<div className="score"><div className="not-yet-proficient" /><span>Not yet proficient</span></div>)
+    return (<div className="score"><div className="not-yet-proficient" /><span>Rarely demonstrated skill</span></div>)
   }
 
   toolIcon = (key) => {
