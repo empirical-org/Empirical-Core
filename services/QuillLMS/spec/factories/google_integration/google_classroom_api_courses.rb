@@ -19,9 +19,9 @@ module GoogleIntegration
       transient do
         course_state { RestClient::ACTIVE_STATE }
         creation_time { Time.current.iso8601(3) }
-        id { Faker::Number.number(12) }
+        id { Faker::Number.number(digits: 12) }
         name { Faker::Educator.course_name }
-        owner_id { Faker::Number.number(21) }
+        owner_id { Faker::Number.number(digits: 21) }
         section { nil }
       end
 
