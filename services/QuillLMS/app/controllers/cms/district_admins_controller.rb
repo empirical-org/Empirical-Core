@@ -52,6 +52,9 @@ class Cms::DistrictAdminsController < Cms::CmsController
     district_admin = @district.district_admins.build(user_id: user.id)
 
     if district_admin.save!
+      admin_info = AdminInfo.find_or_create_by!(user: user)
+      admin_info.update(approver_role: User::STAFF, approval_status: AdminInfo::APPROVED)
+
       determine_district_admin_worker(user.id, @district.id, new_user)
       returned_message = new_user ? t('district_admin.new_account') : t('district_admin.existing_account')
       render json: { message: returned_message }, status: 200

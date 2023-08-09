@@ -13,35 +13,68 @@ describe Cms::DistrictAdminsController do
   end
 
   describe '#create' do
-    it 'creates a new user account and district admin for a new user, and sends the expected email' do
-      Sidekiq::Testing.inline! do
+    describe 'for a new user' do
+
+      it 'creates the user admin info record as staff approved' do
         post :create, params: { district_id: district1.id, email: 'test@email.com', first_name: 'Test', last_name: 'User' }
 
         new_user = User.find_by(email: 'test@email.com')
-        expect(new_user).to be
-        expect(DistrictAdmin.find_by_user_id(new_user.id)).to be
-        expect(ActionMailer::Base.deliveries.last.subject).to eq('[Action Required] Test, a Quill district admin account was created for you')
-        expect(ActionMailer::Base.deliveries.last.to).to eq(['test@email.com'])
+        expect(new_user.admin_info.approver_role).to eq(User::STAFF)
+        expect(new_user.admin_info.approval_status).to eq(AdminInfo::APPROVED)
+      end
+
+      it 'creates a new user account and district admin, and sends the expected email' do
+        Sidekiq::Testing.inline! do
+          post :create, params: { district_id: district1.id, email: 'test@email.com', first_name: 'Test', last_name: 'User' }
+
+          new_user = User.find_by(email: 'test@email.com')
+          expect(new_user).to be
+          expect(DistrictAdmin.find_by_user_id(new_user.id)).to be
+          expect(ActionMailer::Base.deliveries.last.subject).to eq('[Action Required] Test, a Quill district admin account was created for you')
+          expect(ActionMailer::Base.deliveries.last.to).to eq(['test@email.com'])
+        end
       end
     end
 
-    it 'creates a new district admin for an existing user and sends the expected email' do
-      Sidekiq::Testing.inline! do
-        post :create, params: { district_id: district2.id, email: admin.email}
+    describe 'for an existing user' do
+      describe 'who already has an admin info record' do
+        let!(:admin_info) { create(:admin_info, user: admin, approval_status: AdminInfo::PENDING, approver_role: User::ADMIN )}
 
-        expect(DistrictAdmin.find_by_user_id(admin.id)).to be
-        expect(ActionMailer::Base.deliveries.last.subject).to eq("#{admin.first_name}, you are now a Quill admin for #{district2.name}")
-        expect(ActionMailer::Base.deliveries.last.to).to eq([admin.email])
+        it 'updates the admin info record to be staff approved' do
+          post :create, params: { district_id: district1.id, email: admin.email}
+
+          expect(admin.admin_info.reload.approver_role).to eq(User::STAFF)
+          expect(admin.admin_info.reload.approval_status).to eq(AdminInfo::APPROVED)
+        end
       end
-    end
 
-    it 'does not create a new district admin if one already exists' do
-      create(:district_admin, district: district1, user: admin)
-      expect(DistrictAdmin.count).to eq(1)
+      describe 'who does not already have an admin info record' do
+        it 'creates the admin info record as staff approved' do
+          post :create, params: { district_id: district1.id, email: admin.email}
 
-      post :create, params: { district_id: district1.id, email: admin.email}
+          expect(admin.admin_info.approver_role).to eq(User::STAFF)
+          expect(admin.admin_info.approval_status).to eq(AdminInfo::APPROVED)
+        end
+      end
 
-      expect(DistrictAdmin.count).to eq(1)
+      it 'creates a new district admin and sends the expected email' do
+        Sidekiq::Testing.inline! do
+          post :create, params: { district_id: district2.id, email: admin.email}
+
+          expect(DistrictAdmin.find_by_user_id(admin.id)).to be
+          expect(ActionMailer::Base.deliveries.last.subject).to eq("#{admin.first_name}, you are now a Quill admin for #{district2.name}")
+          expect(ActionMailer::Base.deliveries.last.to).to eq([admin.email])
+        end
+      end
+
+      it 'does not create a new district admin if one already exists' do
+        create(:district_admin, district: district1, user: admin)
+        expect(DistrictAdmin.count).to eq(1)
+
+        post :create, params: { district_id: district1.id, email: admin.email}
+
+        expect(DistrictAdmin.count).to eq(1)
+      end
     end
   end
 
