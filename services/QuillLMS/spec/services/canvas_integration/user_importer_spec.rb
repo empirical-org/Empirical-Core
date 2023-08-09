@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe CanvasIntegration::UserImporter do
-  subject { described_class.run(params) }
+  subject { described_class.run(**params) }
 
   let(:params) do
     {
