@@ -44,6 +44,7 @@ RSpec.describe ClassroomsTeacher, type: :model, redis: true do
   end
 
   describe 'validations' do
+
     it 'should prevent saving arbitrary role' do
       expect{classrooms_teacher_with_arbitrary_role.save}.to raise_error ActiveRecord::StatementInvalid
     end
@@ -62,7 +63,7 @@ RSpec.describe ClassroomsTeacher, type: :model, redis: true do
     let(:teacher) { classrooms_teacher.teacher }
 
     it 'should delete_classroom_minis_cache on create' do
-      $redis.set("user_id:#{teacher.id}_classroom_minis", {something: 'something'}.to_json)
+      $redis.set("user_id:#{teacher.id}_classroom_minis", {something: 'something'})
       classrooms_teacher.save
       expect($redis.get("user_id:#{teacher.id}_classroom_minis")).to eq nil
     end

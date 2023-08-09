@@ -28,17 +28,13 @@ module CanvasIntegration
     end
 
     private def import_user
-      CanvasIntegration::UserImporter.run(**import_user_params)
-    end
-
-    private def import_user_params
-      {
+      CanvasIntegration::UserImporter.run(
         email:  params[:custom_canvas_user_email],
         external_id: params[:custom_canvas_user_external_id],
         name: params[:custom_canvas_user_name],
         role: role,
         url: params[:custom_canvas_instance_url]
-      }
+      )
     end
 
     private def role

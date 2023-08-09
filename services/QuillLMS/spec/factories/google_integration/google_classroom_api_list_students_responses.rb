@@ -8,7 +8,7 @@ module GoogleIntegration
       initialize_with { new(students: students, next_page_token: next_page_token) }
 
       transient do
-        course_id { Faker::Number.number(digits: 12) }
+        course_id { Faker::Number.number(12) }
         next_page_token { nil }
         num_students { 2 }
 

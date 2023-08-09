@@ -107,7 +107,7 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-    addressable (2.8.5)
+    addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
     afm (0.2.2)
     analytics-ruby (2.0.13)
@@ -179,6 +179,7 @@ GEM
     case_transform (0.2)
       activesupport
     cgi (0.3.6)
+    childprocess (3.0.0)
     clever-ruby (2.0.2)
       json (>= 1.8, < 3)
       typhoeus (~> 1.0, >= 1.0.1)
@@ -190,8 +191,8 @@ GEM
     connection_pool (2.2.3)
     coolline (0.5.0)
       unicode_utils (~> 1.4)
-    crack (0.4.5)
-      rexml
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
     crass (1.0.6)
     css_parser (1.7.0)
       addressable
@@ -218,8 +219,8 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    faker (3.2.0)
-      i18n (>= 1.8.11, < 2)
+    faker (1.9.3)
+      i18n (>= 0.7)
     fakeredis (0.7.0)
       redis (>= 3.2, < 5.0)
     faraday (0.17.6)
@@ -348,7 +349,7 @@ GEM
     guard-shell (0.7.1)
       guard (>= 2.0.0)
       guard-compat (~> 1.0)
-    hashdiff (1.0.1)
+    hashdiff (0.3.8)
     hashery (2.1.2)
     hashie (5.0.0)
     haversine (0.3.2)
@@ -499,7 +500,7 @@ GEM
     parslet (1.8.2)
     patience_diff (1.2.0)
       optimist (~> 3.0)
-    pdf-core (0.9.0)
+    pdf-core (0.7.0)
     pdf-inspector (1.3.0)
       pdf-reader (>= 1.0, < 3.0.a)
     pdf-reader (2.2.0)
@@ -511,9 +512,9 @@ GEM
     pg (1.4.2)
     pragmatic_segmenter (0.3.23)
       unicode
-    prawn (2.4.0)
-      pdf-core (~> 0.9.0)
-      ttfunk (~> 1.7)
+    prawn (2.2.2)
+      pdf-core (~> 0.7.0)
+      ttfunk (~> 1.5)
     prawn-table (0.2.2)
       prawn (>= 1.3.0, < 3.0.0)
     premailer (1.11.1)
@@ -696,6 +697,7 @@ GEM
     rspec-support (3.11.1)
     ruby-rc4 (0.1.5)
     rubyzip (1.3.0)
+    safe_yaml (1.0.4)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -714,10 +716,9 @@ GEM
     scout_apm (5.3.3)
       parser
     secure_headers (6.3.2)
-    selenium-webdriver (4.11.0)
-      rexml (~> 3.2, >= 3.2.5)
-      rubyzip (>= 1.2.2, < 3.0)
-      websocket (~> 1.0)
+    selenium-webdriver (3.142.7)
+      childprocess (>= 0.5, < 4.0)
+      rubyzip (>= 1.2.2)
     sentry-rails (5.10.0)
       railties (>= 5.0)
       sentry-ruby (~> 5.10.0)
@@ -779,7 +780,7 @@ GEM
     timecop (0.9.1)
     timeout (0.4.0)
     trailblazer-option (0.1.2)
-    ttfunk (1.7.0)
+    ttfunk (1.5.1)
     turbo-rails (1.4.0)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
@@ -801,18 +802,17 @@ GEM
     uniform_notifier (1.16.0)
     validates_email_format_of (1.6.3)
       i18n
-    vcr (6.2.0)
+    vcr (4.0.0)
     version_gem (1.1.3)
-    webmock (3.18.1)
-      addressable (>= 2.8.0)
+    webmock (3.5.1)
+      addressable (>= 2.3.6)
       crack (>= 0.3.2)
-      hashdiff (>= 0.4.0, < 2.0.0)
+      hashdiff
     webpacker (3.0.2)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
       railties (>= 4.2)
     webrick (1.8.1)
-    websocket (1.2.9)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -932,7 +932,6 @@ DEPENDENCIES
   redis-rack-cache
   redis-rails
   responders
-  rexml
   rspec-rails
   rspec-redis_helper
   rspec-retry
@@ -941,7 +940,7 @@ DEPENDENCIES
   sass-rails
   scout_apm
   secure_headers (= 6.3.2)
-  selenium-webdriver (~> 4.11.0)
+  selenium-webdriver (~> 3)
   sentry-rails
   sentry-ruby
   sentry-sidekiq
@@ -971,7 +970,7 @@ DEPENDENCIES
   ziptz
 
 RUBY VERSION
-   ruby 3.0.6p216
+   ruby 2.7.8
 
 BUNDLED WITH
    2.3.17

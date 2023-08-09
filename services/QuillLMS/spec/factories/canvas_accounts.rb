@@ -23,7 +23,7 @@
 #
 FactoryBot.define do
   factory :canvas_account do
-    external_id { Faker::Number.number.to_s }
+    external_id { Faker::Number.number }
     user
     canvas_instance
   end

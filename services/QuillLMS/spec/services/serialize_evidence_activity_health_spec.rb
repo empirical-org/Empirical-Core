@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe SerializeEvidenceActivityHealth do
+describe 'SerializeEvidenceActivityHealth' do
 
   before do
     @activity = create(:evidence_activity, notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
@@ -45,7 +45,7 @@ RSpec.describe SerializeEvidenceActivityHealth do
     create(:feedback_history_rating, user_id: @user.id, rating: true, feedback_history_id: @first_session_feedback3.id)
     create(:feedback_history_rating, user_id: @user.id, rating: false, feedback_history_id: @first_session_feedback4.id)
 
-    @prompt_feedback_history = PromptFeedbackHistory.run(**{activity_id: @activity.id, activity_version: @activity.version})
+    @prompt_feedback_history = PromptFeedbackHistory.run({activity_id: @activity.id, activity_version: @activity.version})
   end
 
   it 'gets the correct basic data for that activity' do
@@ -111,7 +111,7 @@ RSpec.describe SerializeEvidenceActivityHealth do
 
   it 'returns nil for relevent columns if there are no feedback histories yet' do
     @activity.increment_version!
-    prompt_feedback_history = PromptFeedbackHistory.run(**{activity_id: @activity.id, activity_version: @activity.version})
+    prompt_feedback_history = PromptFeedbackHistory.run({activity_id: @activity.id, activity_version: @activity.version})
     data = SerializeEvidenceActivityHealth.new(@activity, prompt_feedback_history).data
     expect(data[:name]).to eq(@activity.title)
     expect(data[:flag]).to eq(@activity.flag.to_s)

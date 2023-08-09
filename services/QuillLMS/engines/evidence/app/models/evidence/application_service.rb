@@ -2,8 +2,8 @@
 
 module Evidence
   class ApplicationService
-    def self.run(*args, **options, &block)
-      new(*args, **options, &block).run
+    def self.run(*args, &block)
+      new(*args, &block).run
     end
   end
 end

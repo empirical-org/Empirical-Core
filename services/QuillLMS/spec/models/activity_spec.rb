@@ -381,14 +381,14 @@ describe Activity, type: :model, redis: true do
     let(:activity) { create(:activity) }
 
     it 'deletes the default_activity_search from the cache' do
-      $redis.set('default_activity_search', {something: 'something'}.to_json)
+      $redis.set('default_activity_search', {something: 'something'})
       Activity.clear_activity_search_cache
       expect($redis.get('default_activity_search')).to eq nil
     end
 
     it 'deletes all redis keys as defined in UserFlagset' do
       UserFlagset::FLAGSETS.keys.map{|x| "#{x}_"}.push("").each do |flagset|
-        $redis.set("default_#{flagset}activity_search", {a_key: 'a_value'}.to_json )
+        $redis.set("default_#{flagset}activity_search", {a_key: 'a_value'} )
       end
 
       Activity.clear_activity_search_cache
