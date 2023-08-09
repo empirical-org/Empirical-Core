@@ -114,7 +114,7 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
 
   function selectionsEqual(firstSelection, secondSelection) {
     return (
-      firstSelection == secondSelection ||
+      firstSelection == secondSelection || // less strict comparison so that undefined and null are treated as equal
       unorderedArraysAreEqual(firstSelection, secondSelection)
     )
   }
