@@ -29,6 +29,7 @@ RSpec.describe Utils::String do
 
   describe 'parse_null_to_nil' do
     subject { described_class.parse_null_to_nil(arg) }
+
     let(:arg) { "foo" }
 
     it { expect(subject).to eq(arg) }
