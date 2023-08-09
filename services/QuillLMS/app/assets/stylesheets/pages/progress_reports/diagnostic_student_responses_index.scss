@@ -9,6 +9,9 @@
     margin-top: 24px;
     .data-table-headers {
       height: 32px;
+      &.individual-responses-header {
+        text-align: center !important;
+      }
     }
     &.hide-on-mobile {
       &.pre-test {
@@ -21,6 +24,10 @@
         .data-table-row {
           .data-table-row-section {
             font-size: 12px;
+            &.individual-responses-link {
+              display: flex;
+              justify-content: center;
+            }
           }
         }
       }

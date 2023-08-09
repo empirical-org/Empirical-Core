@@ -49,9 +49,10 @@ const preTestDesktopHeaders = (isSortable) => ([
   {
     name: 'Pre: Skills Proficient',
     attribute: 'preSkillsProficientElement',
+    sortAttribute: 'totalPreCorrectSkillsCount',
     width: STANDARD_CELL_WIDTH,
-    isSortable: false,
-    noTooltip: true
+    noTooltip: true,
+    isSortable
   },
   {
     name: 'Responses',
@@ -74,14 +75,15 @@ const postTestDesktopHeaders = (isSortable) => ([
   {
     name: 'Pre to Post: Improved Skills',
     attribute: 'preToPostImprovedSkills',
+    sortAttribute: 'totalAcquiredSkillGroupsCount',
     width: '184px',
-    isSortable: false,
-    noTooltip: true
+    noTooltip: true,
+    isSortable
   },
   {
     name: 'Pre: Questions Correct',
     attribute: 'preSkillsCorrectElement',
-    sortAttribute: 'totalPreCorrectSkillsCount',
+    sortAttribute: 'totalPreCorrectQuestionsCount',
     width: STANDARD_CELL_WIDTH,
     rowSectionClassName: 'score-section',
     headerClassName: 'score-header',
@@ -91,9 +93,10 @@ const postTestDesktopHeaders = (isSortable) => ([
   {
     name: 'Pre: Skills Proficient',
     attribute: 'preSkillsProficientElement',
+    sortAttribute: 'totalPreCorrectSkillsCount',
     width: STANDARD_CELL_WIDTH,
-    isSortable: false,
-    noTooltip: true
+    noTooltip: true,
+    isSortable
   },
   {
     name: 'Post: Questions Correct',
@@ -108,9 +111,10 @@ const postTestDesktopHeaders = (isSortable) => ([
   {
     name: 'Post: Skills Improved or Maintained',
     attribute: 'postSkillsImprovedOrMaintained',
+    sortAttribute: 'totalAcquiredOrMaintainedSkillGroupsCount',
     width: '184px',
-    isSortable: false,
-    noTooltip: true
+    noTooltip: true,
+    isSortable
   },
   {
     name: 'Responses',
@@ -181,6 +185,14 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
       }
 
     )
+  }
+
+  function getPreSkillsProficientCount({ total_correct_questions_count, total_correct_skill_groups_count, skill_groups }) {
+    if (total_correct_questions_count === undefined) { return null }
+
+    if (total_correct_skill_groups_count) { return total_correct_skill_groups_count }
+
+    return skill_groups.filter(skillGroup => skillGroup.pre_test_proficiency === PROFICIENCY).length
   }
 
   function renderPreToPostImprovedSkillsElement(total_acquired_skill_groups_count) {
@@ -262,15 +274,17 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
 
   const desktopRows = students.map(student => {
     const { name, total_possible_questions_count, total_correct_questions_count, total_pre_correct_questions_count, total_pre_possible_questions_count, skill_groups, total_correct_skill_groups_count, correct_skill_groups_text, total_acquired_skill_groups_count, total_maintained_skill_group_proficiency_count, id } = student
-    console.log("🚀 ~ file: studentResponsesIndex.tsx:243 ~ desktopRows ~ student:", student)
-
+    const totalAcquiredOrMaintainedSkillGroupsCount = total_acquired_skill_groups_count + total_maintained_skill_group_proficiency_count
     return {
       id: id || name,
       name,
       alphabeticalName: alphabeticalName(name),
       preToPostImprovedSkills: renderPreToPostImprovedSkillsElement(total_acquired_skill_groups_count),
       totalCorrectSkillsCount: total_correct_questions_count,
-      totalPreCorrectSkillsCount: total_pre_correct_questions_count,
+      totalPreCorrectQuestionsCount: total_pre_correct_questions_count,
+      totalPreCorrectSkillsCount: getPreSkillsProficientCount({ total_correct_questions_count, total_correct_skill_groups_count, skill_groups }),
+      totalAcquiredSkillGroupsCount: total_acquired_skill_groups_count,
+      totalAcquiredOrMaintainedSkillGroupsCount: totalAcquiredOrMaintainedSkillGroupsCount > 0 ? totalAcquiredOrMaintainedSkillGroupsCount : 0,
       preSkillsProficientElement: renderPreSkillsProficient({ total_correct_questions_count, total_pre_correct_questions_count, skill_groups, total_correct_skill_groups_count, correct_skill_groups_text }),
       preSkillsCorrectElement: renderPreSkillsCorrectElement({ total_pre_correct_questions_count, total_pre_possible_questions_count, total_possible_questions_count }),
       activeDiagnosticSkillsCorrectElement: renderActiveDiagnosticSkillsCorrectElement({ total_correct_questions_count, total_possible_questions_count }),
