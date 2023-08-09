@@ -4,7 +4,12 @@ import { Link, withRouter, } from 'react-router-dom';
 
 import {
   fileDocumentIcon,
-  PROFICIENCY
+  PROFICIENCY,
+  preToPostImprovedSkillsTooltipText,
+  preQuestionsCorrectTooltipText,
+  preSkillsProficientTooltipText,
+  postQuestionsCorrectTooltipText,
+  postSkillsImprovedOrMaintainTooltipText
 } from './shared';
 
 import { requestGet } from '../../../../../../modules/request/index';
@@ -37,20 +42,28 @@ const preTestDesktopHeaders = (isSortable) => ([
     isSortable: true
   },
   {
-    name: 'Pre: Questions Correct',
+    name: '',
     attribute: 'activeDiagnosticSkillsCorrectElement',
     sortAttribute: 'totalCorrectSkillsCount',
     width: STANDARD_CELL_WIDTH,
     rowSectionClassName: 'score-section',
     headerClassName: 'score-header',
+    primaryTitle: 'Pre:',
+    secondaryTitle: 'Questions Correct',
+    tooltipName: 'Pre: Questions Correct',
+    tooltipDescription: preQuestionsCorrectTooltipText,
     noTooltip: true,
     isSortable
   },
   {
-    name: 'Pre: Skills Proficient',
+    name: '',
     attribute: 'preSkillsProficientElement',
     sortAttribute: 'totalPreCorrectSkillsCount',
     width: STANDARD_CELL_WIDTH,
+    primaryTitle: 'Pre:',
+    secondaryTitle: 'Skills Proficient',
+    tooltipName: 'Pre: Skills Proficient',
+    tooltipDescription: preSkillsProficientTooltipText,
     noTooltip: true,
     isSortable
   },
@@ -73,36 +86,52 @@ const postTestDesktopHeaders = (isSortable) => ([
     isSortable: true
   },
   {
-    name: 'Pre to Post: Improved Skills',
+    name: '',
     attribute: 'preToPostImprovedSkills',
     sortAttribute: 'totalAcquiredSkillGroupsCount',
     width: '184px',
+    primaryTitle: 'Pre to Post:',
+    secondaryTitle: 'Improved Skills',
+    tooltipName: 'Pre to Post: Improved Skills',
+    tooltipDescription: preToPostImprovedSkillsTooltipText,
     noTooltip: true,
     isSortable
   },
   {
-    name: 'Pre: Questions Correct',
+    name: '',
     attribute: 'preSkillsCorrectElement',
     sortAttribute: 'totalPreCorrectQuestionsCount',
     width: STANDARD_CELL_WIDTH,
+    primaryTitle: 'Pre:',
+    secondaryTitle: 'Questions Correct',
+    tooltipName: 'Pre to Post: Improved Skills',
+    tooltipDescription: preQuestionsCorrectTooltipText,
     rowSectionClassName: 'score-section',
     headerClassName: 'score-header',
     noTooltip: true,
     isSortable
   },
   {
-    name: 'Pre: Skills Proficient',
+    name: '',
     attribute: 'preSkillsProficientElement',
     sortAttribute: 'totalPreCorrectSkillsCount',
     width: STANDARD_CELL_WIDTH,
+    primaryTitle: 'Pre:',
+    secondaryTitle: 'Skills Proficient',
+    tooltipName: 'Pre: Skills Proficient',
+    tooltipDescription: preSkillsProficientTooltipText,
     noTooltip: true,
     isSortable
   },
   {
-    name: 'Post: Questions Correct',
+    name: '',
     attribute: 'activeDiagnosticSkillsCorrectElement',
     sortAttribute: 'totalCorrectSkillsCount',
     width: STANDARD_CELL_WIDTH,
+    primaryTitle: 'Post:',
+    secondaryTitle: 'Questions Correct',
+    tooltipName: 'Post: Questions Correct',
+    tooltipDescription: postQuestionsCorrectTooltipText,
     rowSectionClassName: 'score-section',
     headerClassName: 'score-header',
     noTooltip: true,
@@ -112,14 +141,18 @@ const postTestDesktopHeaders = (isSortable) => ([
     name: 'Post: Skills Improved or Maintained',
     attribute: 'postSkillsImprovedOrMaintained',
     sortAttribute: 'totalAcquiredOrMaintainedSkillGroupsCount',
-    width: '184px',
+    width: '210px',
+    primaryTitle: 'Post:',
+    secondaryTitle: 'Skills Improved or Maintained',
+    tooltipName: 'Post: Skills Improved or Maintained',
+    tooltipDescription: postSkillsImprovedOrMaintainTooltipText,
     noTooltip: true,
     isSortable
   },
   {
     name: 'Responses',
     attribute: 'individualResponsesLink',
-    width: '210px',
+    width: STANDARD_CELL_WIDTH,
     noTooltip: true,
     rowSectionClassName: 'individual-responses-link',
     headerClassName: 'individual-responses-header'
@@ -148,6 +181,23 @@ const mobileHeaders = (isSortable) => ([
     isSortable
   }
 ])
+
+// const tableHeaders = skillGroupSummaries.map(skillGroupSummary => {
+//   const { name, description, not_yet_proficient_student_names, not_yet_proficient_in_post_test_student_names, } = skillGroupSummary
+//   const notYetProficientStudentCount = (not_yet_proficient_student_names || not_yet_proficient_in_post_test_student_names).length
+//   const proficientStudentCount = completedStudentCount - notYetProficientStudentCount
+//   return (
+//     <th className="skill-group-header" key={name}>
+//       <div className="name-and-tooltip">
+//         <span className="skill-name">{name}</span>
+//         <SkillGroupTooltip description={description} key={name} name={name} />
+//       </div>
+//       {renderCountData({ completedStudentCount, proficientStudentCount })}
+//     </th>
+//   )
+// })
+
+function renderP
 
 function calculateSkillsPercentage(correct, total) {
   return Math.round((correct/total) * 100)

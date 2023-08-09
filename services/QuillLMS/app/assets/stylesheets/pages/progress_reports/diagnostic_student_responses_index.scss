@@ -12,6 +12,16 @@
       &.individual-responses-header {
         text-align: center !important;
       }
+      .data-table-header {
+        button {
+          align-items: center;
+          width: 100%;
+          justify-content: space-between;
+          .quill-tooltip {
+            text-align: left;
+          }
+        }
+      }
     }
     &.hide-on-mobile {
       &.pre-test {
