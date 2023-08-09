@@ -59,6 +59,10 @@ class ActivitySession < ApplicationRecord
   NOT_YET_PROFICIENT = 'Not yet proficient'
   PROFICIENT = 'Proficient'
 
+  SOMETIMES_DEMONSTRATED_SKILL = 'Sometimes demonstrated skill'
+  RARELY_DEMONSTRATED_SKILL = 'Rarely demonstrated skill'
+  FREQUENTLY_DEMONSTRATED_SKILL = 'Frequently demonstrated skill'
+
   RESULTS_PER_PAGE = 25
 
   STATE_UNSTARTED = 'unstarted'

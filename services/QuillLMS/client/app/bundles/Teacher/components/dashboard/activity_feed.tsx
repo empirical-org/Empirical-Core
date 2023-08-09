@@ -10,11 +10,11 @@ const headers = [
     name: 'Student',
     attribute: 'studentName',
   }, {
-    width: '380px',
+    width: '296px',
     name: 'Activity',
     attribute: 'activityName',
   }, {
-    width: '124px',
+    width: '210px',
     name: 'Score',
     attribute: 'scoreTag',
   }, {
