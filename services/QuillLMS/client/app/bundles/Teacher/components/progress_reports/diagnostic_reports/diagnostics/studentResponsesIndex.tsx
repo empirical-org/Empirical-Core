@@ -222,8 +222,8 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
       const countOfSkillsToPractice = skill_groups.length - countOfPreSkillsProficienct
       return (
         <div className="skills-correct-element">
-          <p>{countOfPreSkillsProficienct} of {skill_groups.length} skills</p>
-          {!!countOfSkillsToPractice && <p>({countOfSkillsToPractice} skills to practice)</p>}
+          <p>{countOfPreSkillsProficienct} of {skill_groups.length} Skills</p>
+          {!!countOfSkillsToPractice && <p>({countOfSkillsToPractice} Skills to Practice)</p>}
         </div>
       )
     }
@@ -232,7 +232,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
     return(
       <div className="skills-correct-element">
         <p>{correct_skill_groups_text}</p>
-        {!!countOfSkillsToPractice && <p>({countOfSkillsToPractice} skills to practice)</p>}
+        {!!countOfSkillsToPractice && <p>({countOfSkillsToPractice} Skills to Practice)</p>}
       </div>
     )
   }
