@@ -2,8 +2,7 @@
 
 require 'rails_helper'
 
-describe 'SerializeEvidencePromptHealth' do
-
+describe SerializeEvidencePromptHealth do
   before do
     @activity = create(:evidence_activity, notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
     @activity.update(flag: "production")
@@ -57,7 +56,7 @@ describe 'SerializeEvidencePromptHealth' do
     @fifth_session_feedback = create(:feedback_history, feedback_session_uid: @activity_session5_uid, prompt_id: @because_prompt1.id, optimal: false, activity_version: @activity.version, rule_uid: @opinion_rule.uid)
     @fifth_session_feedback2 = create(:feedback_history, feedback_session_uid: @activity_session5_uid, prompt_id: @because_prompt1.id, attempt: 2, optimal: true, activity_version: @activity.version, rule_uid: @grammar_rule.uid)
 
-    @prompt_feedback_history = PromptFeedbackHistory.run({activity_id: @activity.id, activity_version: @activity.version})
+    @prompt_feedback_history = PromptFeedbackHistory.run(**{activity_id: @activity.id, activity_version: @activity.version})
   end
 
   let(:expected_results) do
@@ -87,7 +86,7 @@ describe 'SerializeEvidencePromptHealth' do
     expect(data).to eq expected_results
   end
 
-  it 'will return without errring if prompt_feedback_history object is empty' do
+  it 'will return without erring if prompt_feedback_history object is empty' do
     nil_data_object = {
       prompt_id: @because_prompt1.id,
       activity_short_name: @activity.notes,

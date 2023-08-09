@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'clever-ruby'
+
 module CleverIntegration
   class DistrictClient
     attr_reader :district_token
@@ -24,9 +26,9 @@ module CleverIntegration
 
     private def data_api
       @data_api ||= begin
-        config = Clever::Configuration.new
+        config = ::Clever::Configuration.new
         config.access_token = district_token
-        api_instance = Clever::DataApi.new
+        api_instance = ::Clever::DataApi.new
         api_instance.api_client.config = config
         api_instance
       end

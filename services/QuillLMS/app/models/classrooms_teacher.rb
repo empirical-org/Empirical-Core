@@ -28,6 +28,10 @@ class ClassroomsTeacher < ApplicationRecord
 
   ROLE_TYPES = {coteacher: 'coteacher', owner: 'owner'}
 
+  def self.classroom_minis_cache_key(teacher_id)
+    "user_id:#{teacher_id}_classroom_minis"
+  end
+
   def teacher
     user
   end
