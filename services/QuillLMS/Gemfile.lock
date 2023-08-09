@@ -523,12 +523,12 @@ GEM
     premailer-rails (1.11.1)
       actionmailer (>= 3)
       premailer (~> 1.7, >= 1.7.9)
-    pry (0.13.1)
+    pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pry-byebug (3.9.0)
+    pry-byebug (3.10.1)
       byebug (~> 11.0)
-      pry (~> 0.13.0)
+      pry (>= 0.13, < 0.15)
     pry-coolline (0.2.6)
       coolline (~> 0.5)
       pry (~> 0.13)
@@ -537,7 +537,7 @@ GEM
     pry-remote (0.1.8)
       pry (~> 0.9)
       slop (~> 3.0)
-    pry-rescue (1.5.0)
+    pry-rescue (1.5.2)
       interception (>= 0.5)
       pry (>= 0.12.0)
     pry-stack_explorer (0.6.1)
@@ -901,7 +901,7 @@ DEPENDENCIES
   prawn
   prawn-table
   premailer-rails
-  pry (~> 0.13.1)
+  pry
   pry-byebug
   pry-coolline
   pry-rails

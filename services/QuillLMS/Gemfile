@@ -182,7 +182,7 @@ end
 
 group :test, :development do
   gem 'parallel_tests'
-  gem 'pry', '~> 0.13.1'
+  gem 'pry'
   gem 'pry-rails'
   gem 'pry-remote'
   gem 'pry-stack_explorer'
