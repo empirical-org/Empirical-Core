@@ -34,7 +34,7 @@ module Snapshots
         ]
       end
 
-      let(:results) { test_period_query.run(**query_args, runner: runner) }
+      let(:results) { test_period_query.run(**query_args, options: {runner: runner}) }
 
       it { expect(results).to match_array(classroom_ids) }
 
@@ -53,7 +53,7 @@ module Snapshots
         context 'filter for one school' do
           let!(:school_ids) { [schools[0].id] }
 
-          it { expect(results).to match_array([classroom_ids[0]]) }
+          it { expect(results).to match_array(classroom_ids[0]) }
         end
 
         context 'filter for one grade' do
@@ -65,7 +65,7 @@ module Snapshots
           end
           let(:filters) { { grades: [classrooms[0].grade] } }
 
-          it { expect(results).to match_array([classroom_ids[0]]) }
+          it { expect(results).to match_array(classroom_ids[0]) }
         end
 
         context 'filter for null grade' do
@@ -81,13 +81,13 @@ module Snapshots
         context 'filter for one teacher' do
           let(:filters) { { teacher_ids: [teachers[0].id] } }
 
-          it { expect(results).to match_array([classroom_ids[0]]) }
+          it { expect(results).to match_array(classroom_ids[0]) }
         end
 
         context 'filter for one classroom' do
           let(:filters) { { classroom_ids: [classrooms[0].id] } }
 
-          it { expect(results).to match_array([classroom_ids[0]]) }
+          it { expect(results).to match_array(classroom_ids[0]) }
         end
 
         context 'timeframe filters' do

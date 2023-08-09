@@ -34,11 +34,11 @@ FactoryBot.define do
     grade { [(1..12).to_a, 'University', 'Kindergarten'].flatten.sample.to_s }
 
     trait :from_google do
-      google_classroom_id { Faker::Number.number(digits: 11) }
+      google_classroom_id { (1..10).map { (1..9).to_a.sample }.join } # mock a google id
     end
 
     trait :from_clever do
-      clever_id { SecureRandom.hex(12) }
+      clever_id { (1..24).map { (('a'..'f').to_a + (1..9).to_a).sample }.join } # mock a clever id
     end
 
     trait :from_canvas do

@@ -131,7 +131,7 @@ FactoryBot.define do
 
       trait :signed_up_with_google do
         signed_up_with_google { true }
-        google_id { Faker::Number.number(digits: 21).to_s }
+        google_id { (1..21).map{(1..9).to_a.sample}.join } # mock a google id
         password { nil }
         username { nil }
       end
@@ -139,7 +139,7 @@ FactoryBot.define do
       trait :signed_up_with_clever do
         password { nil }
         username { nil }
-        clever_id { SecureRandom.hex(12) }
+        clever_id { (1..24).map{(('a'..'f').to_a + (1..9).to_a).sample}.join } # mock a clever id
       end
 
       trait :with_classrooms_students_and_activities do
@@ -194,7 +194,7 @@ FactoryBot.define do
 
       trait :signed_up_with_google do
         signed_up_with_google { true }
-        google_id { Faker::Number.number(digits: 21).to_s }
+        google_id { (1..21).map{(1..9).to_a.sample}.join }
         password { nil }
         username { "#{name}@student" }
       end
@@ -202,7 +202,7 @@ FactoryBot.define do
       trait :signed_up_with_clever do
         password { nil }
         username { "#{name}@student" }
-        clever_id { SecureRandom.hex(12) }
+        clever_id { (1..24).map{(('a'..'f').to_a + (1..9).to_a).sample}.join } # mock a clever id
       end
 
       trait :in_one_classroom do

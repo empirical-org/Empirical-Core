@@ -4,6 +4,7 @@ require 'rails_helper'
 
 module CanvasIntegration
   describe LtiController, type: :request do
+
     context '#lts_launch_config' do
       before { subject }
 

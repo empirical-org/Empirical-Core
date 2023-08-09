@@ -45,8 +45,8 @@ RSpec.describe CanvasAccount, type: :model do
   describe '.build_user_external_id' do
     subject { described_class.build_user_external_id(canvas_instance_id, external_id) }
 
-    let(:canvas_instance_id) { Faker::Number.number.to_s }
-    let(:external_id) { Faker::Number.number.to_s }
+    let(:canvas_instance_id) { Faker::Number.number }
+    let(:external_id) { Faker::Number.number }
 
     it { is_expected.to eq [canvas_instance_id, external_id].join(':') }
 

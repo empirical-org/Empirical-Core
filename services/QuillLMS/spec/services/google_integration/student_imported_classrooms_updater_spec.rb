@@ -8,7 +8,7 @@ module GoogleIntegration
 
     let(:user) { create(:student) }
     let(:client) { double('client', student_classrooms: student_classrooms) }
-    let(:external_classroom_id) { Faker::Number.number(digits: 12) }
+    let(:external_classroom_id) { Faker::Number.number(12) }
 
     before { allow(ClientFetcher).to receive(:run).with(user).and_return(client) }
 

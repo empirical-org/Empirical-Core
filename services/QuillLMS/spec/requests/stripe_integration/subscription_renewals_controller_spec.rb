@@ -7,8 +7,8 @@ RSpec.describe StripeIntegration::SubscriptionRenewalsController, type: :request
 
   let(:stripe_subscription_id) { "sub_#{SecureRandom.hex}" }
   let(:cancel_at_period_end) { true }
-  let(:options) { { cancel_at_period_end: cancel_at_period_end } }
-  let(:update_stripe_subscription) { allow(Stripe::Subscription).to receive(:update).with(stripe_subscription_id, **options) }
+  let(:args) { [stripe_subscription_id, cancel_at_period_end: cancel_at_period_end] }
+  let(:update_stripe_subscription) { allow(Stripe::Subscription).to receive(:update).with(*args) }
   let(:url) { '/stripe_integration/subscription_renewals' }
   let(:params) { { stripe_subscription_id: stripe_subscription_id, cancel_at_period_end: cancel_at_period_end } }
 

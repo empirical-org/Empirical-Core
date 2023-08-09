@@ -7,7 +7,7 @@ module GoogleIntegration
     subject { described_class.run(data) }
 
     let(:email) { 'first_user@gmail.com' }
-    let(:user_external_id) { Faker::Number.number(digits: 21).to_s }
+    let(:user_external_id) { Faker::Number.number }
     let(:name) { 'First User' }
     let(:first_name) { 'First' }
     let(:last_name) { 'User' }

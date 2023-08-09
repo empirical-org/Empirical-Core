@@ -63,31 +63,31 @@ class EgFormBuilder < CMS::FormBuilder
     text(name, options.merge(label: options[:label], append: counter))
   end
 
-  def boolean(*args, **options)
+  def boolean(*args)
     field :boolean, *_apply_default_options(args, label_first: false)
   end
 
-  def string(*args, **options)
+  def string(*args)
     field :string, *args
   end
 
-  def search(*args, **options)
+  def search(*args)
     field :search, *args
   end
 
-  def text(*args, **options)
+  def text(*args)
     field :text, *args
   end
 
-  def email(*args, **options)
+  def email(*args)
     field :email, *args
   end
 
-  def password(*args, **options)
-    field :password, *args, **options
+  def password *args
+    field :password, *args
   end
 
-  def hidden(*args, **options)
+  def hidden(*args)
     field :hidden, *_apply_default_options(args, label: false, wrap_field: false)
   end
 
@@ -132,7 +132,7 @@ class EgFormBuilder < CMS::FormBuilder
     end
   end
 
-  def modal_actions(**options)
+  def modal_actions(options = {})
     options.reverse_merge! save: 'Save', saving: 'Saving...', class: 'modal-footer'
     @template.content_tag(:div, class: options.delete(:class)) do
       actions = ''.html_safe
@@ -141,7 +141,7 @@ class EgFormBuilder < CMS::FormBuilder
     end
   end
 
-  def status(**options)
+  def status(options = {})
     options.reverse_merge! success: 'Saved!', error: 'Failed!'
     out = @template.content_tag(:div, class: 'status') do
       status = ''.html_safe
@@ -158,7 +158,7 @@ class EgFormBuilder < CMS::FormBuilder
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def field(*args, **kwargs, &block)
+  def field(*args, &block)
     type, name, options = _extract_field_args(args)
     out = ''.html_safe
 

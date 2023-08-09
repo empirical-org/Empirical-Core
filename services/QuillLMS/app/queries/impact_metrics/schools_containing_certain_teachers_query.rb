@@ -4,10 +4,10 @@ module ImpactMetrics
   class SchoolsContainingCertainTeachersQuery < ::QuillBigQuery::Query
     attr_reader :teacher_ids
 
-    def initialize(teacher_ids:, **options)
+    def initialize(teacher_ids:, options: {})
       @teacher_ids = teacher_ids
 
-      super(**options)
+      super(options)
     end
 
     def run
