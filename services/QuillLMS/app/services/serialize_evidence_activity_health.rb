@@ -14,8 +14,8 @@ class SerializeEvidenceActivityHealth
       flag: activity.flag.to_s,
       activity_id: activity.id,
       version: activity.version,
-      version_plays: FeedbackHistory.get_total_count({activity_id: activity.id, activity_version: activity.version}),
-      total_plays: FeedbackHistory.get_total_count({activity_id: activity.id}),
+      version_plays: FeedbackHistory.get_total_count(**{activity_id: activity.id, activity_version: activity.version}),
+      total_plays: FeedbackHistory.get_total_count(**{activity_id: activity.id}),
       completion_rate: activity_feedback_history[:average_completion_rate],
       because_final_optimal: percent_final_optimal_for_conjunction(FeedbackHistory::BECAUSE),
       but_final_optimal: percent_final_optimal_for_conjunction(FeedbackHistory::BUT),
@@ -41,7 +41,7 @@ class SerializeEvidenceActivityHealth
   end
 
   private def activity_feedback_history
-    @activity_feedback_history ||= ActivityFeedbackHistory.run({activity_id: activity.id, activity_version: activity.version})
+    @activity_feedback_history ||= ActivityFeedbackHistory.run(**{activity_id: activity.id, activity_version: activity.version})
   end
 
 end
