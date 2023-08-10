@@ -4,7 +4,6 @@ import { selectionsEqual, } from './shared'
 
 import { requestPost, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'
-import { unorderedArraysAreEqual, } from '../../../../modules/unorderedArraysAreEqual'
 
 const expandImg = <img alt="" src={`${process.env.CDN_URL}/images/pages/administrator/expand.svg`} />
 
@@ -125,15 +124,6 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
       const teacherIdsAreEqual = selectionsEqual(message.teacher_ids, selectedTeacherIds)
       const classroomIdsAreEqual = selectionsEqual(message.classroom_ids, selectedClassroomIds)
       const gradesAreEqual =  selectionsEqual(message.grades, selectedGrades?.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
-
-      console.log(message.teacher_ids)
-      console.log(selectedTeacherIds)
-      console.log(message.classroom_ids)
-      console.log(selectedClassroomIds)
-      console.log(message.grades)
-      console.log(selectedGrades)
-
-      console.log(`filters match: ${(queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual)}`)
 
       if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {
         getData()

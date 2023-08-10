@@ -99,13 +99,6 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     })
   }
 
-  function selectionsEqual(firstSelection, secondSelection) {
-    return (
-      firstSelection == secondSelection || // less strict comparison so that undefined and null are treated as equal
-      unorderedArraysAreEqual(firstSelection, secondSelection)
-    )
-  }
-
   function initializePusher() {
     pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
       const { message, } = body
