@@ -32,13 +32,22 @@ module GoogleIntegration
       let(:user) { create(:teacher, :signed_up_with_google) }
       let(:user_id) { user.id }
 
-      before { create(:google_auth_credential, user: user) }
-
       it do
         expect(ErrorNotifier).not_to receive(:report)
-        expect(TeacherClassroomsCacheHydrator).to receive(:run).with(user)
-        expect(TeacherImportedClassroomsUpdater).to receive(:run).with(user)
+        expect(TeacherClassroomsCacheHydrator).to_not receive(:run)
+        expect(TeacherImportedClassroomsUpdater).to_not receive(:run)
         subject
+      end
+
+      context 'is google_authorized' do
+        before { create(:google_auth_credential, user: user) }
+
+        it do
+          expect(ErrorNotifier).not_to receive(:report)
+          expect(TeacherClassroomsCacheHydrator).to receive(:run).with(user)
+          expect(TeacherImportedClassroomsUpdater).to receive(:run).with(user)
+          subject
+        end
       end
     end
   end
