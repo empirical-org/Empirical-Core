@@ -81,6 +81,9 @@ table.data-table {
     .interactive-wrapper {
       display: flex;
     }
+    .multi-line-header {
+      text-align: left;
+    }
   }
 
   .data-table-headers {

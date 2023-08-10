@@ -4,6 +4,7 @@ import { SortableHandle, } from 'react-sortable-hoc';
 
 import { SortableList, } from './sortableList';
 import { Tooltip } from './tooltip';
+import { helpIcon } from '../../images';
 
 export const descending = 'desc'
 export const ascending = 'asc'
@@ -259,12 +260,43 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     let className = `${dataTableHeaderClassName} ${header.headerClassName}`
     let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
     let headerContent = header.name
+    let headerTitle = header.name
+    let headerTooltip = null
+    const isMultilineHeader = header.primaryTitle && header.secondaryTitle
+
+    if (header.isSortable && isMultilineHeader) {
+      headerTitle = (
+        <div className="multi-line-header">
+          <p>{header.primaryTitle}</p>
+          <p>{header.secondaryTitle}</p>
+        </div>
+      )
+    } else if(isMultilineHeader) {
+      headerContent = (
+        <div className="multi-line-header">
+          <p>{header.primaryTitle}</p>
+          <p>{header.secondaryTitle}</p>
+        </div>
+      )
+    }
+
+    if(header.tooltipName && header.tooltipDescription) {
+      headerTooltip = (
+        <Tooltip
+          tooltipText={`<p>${header.tooltipName}<br/><br/>${header.tooltipDescription}</p>`}
+          tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
+        />
+      )
+    }
+
     if (header.isSortable) {
       const sortDirection = sortAscending ? ascending : descending
       const onClick = () => this.changeSort(header.sortAttribute || header.attribute)
       const sortArrow = [header.attribute, header.sortAttribute].includes(sortAttribute) ? <img alt="arrow" className={`sort-arrow ${sortDirection}`} src={arrowSrc} /> : null
       className+= ' sortable'
-      headerContent = <button className="interactive-wrapper focus-on-light" onClick={onClick} type="button">{header.name}{sortArrow}</button>
+      headerContent = <button className="interactive-wrapper focus-on-light" onClick={onClick} type="button">{headerTitle}{sortArrow}{!!headerTooltip && headerTooltip}</button>
+      // resetting to not render tooltip twice
+      headerTooltip = null
     }
 
     return (
@@ -274,6 +306,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
         style={style as any}
       >
         {headerContent}
+        {!!headerTooltip && headerTooltip}
       </th>
     )
   }
