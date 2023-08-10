@@ -36,6 +36,14 @@
           height: 48px;
           justify-content: space-between;
           margin-right: 8px;
+          .sort-tooltip-container {
+            .quill-tooltip-trigger {
+              margin-right: 0px;
+            }
+            .sort-arrow {
+              margin-right: 4px;
+            }
+          }
           .quill-tooltip {
             text-align: left;
           }

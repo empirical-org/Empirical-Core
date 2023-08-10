@@ -148,7 +148,7 @@ const postTestDesktopHeaders = (isSortable) => ([
     name: 'Post: Skills Improved or Maintained',
     attribute: 'postSkillsImprovedOrMaintained',
     sortAttribute: 'totalAcquiredOrMaintainedSkillGroupsCount',
-    width: '202px',
+    width: '230px',
     primaryTitle: 'Post:',
     secondaryTitle: 'Skills Improved or Maintained',
     tooltipName: 'Post: Skills Improved or Maintained',

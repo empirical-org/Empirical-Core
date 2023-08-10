@@ -294,7 +294,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
       const onClick = () => this.changeSort(header.sortAttribute || header.attribute)
       const sortArrow = [header.attribute, header.sortAttribute].includes(sortAttribute) ? <img alt="arrow" className={`sort-arrow ${sortDirection}`} src={arrowSrc} /> : null
       className+= ' sortable'
-      headerContent = <button className="interactive-wrapper focus-on-light" onClick={onClick} type="button">{headerTitle}{sortArrow}{!!headerTooltip && headerTooltip}</button>
+      headerContent = <button className="interactive-wrapper focus-on-light" onClick={onClick} type="button">{headerTitle}<div className="sort-tooltip-container">{sortArrow}{!!headerTooltip && headerTooltip}</div></button>
       // resetting to not render tooltip twice
       headerTooltip = null
     }

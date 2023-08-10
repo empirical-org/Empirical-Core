@@ -14,7 +14,7 @@ module GoogleIntegration
 
         next_page_token { nil }
         num_courses { 0 }
-        owner_id { Faker::Number.number(21) }
+        owner_id { Faker::Number.number(digits: 21) }
       end
     end
   end

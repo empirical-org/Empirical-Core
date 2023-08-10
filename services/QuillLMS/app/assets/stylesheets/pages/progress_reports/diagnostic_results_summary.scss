@@ -365,10 +365,10 @@
         max-height: 100vh;
         overflow: scroll;
         header {
-          flex-direction: row;
           width: 100%;
           padding: 0px 20px;
           display: flex;
+          flex-direction: row;
           justify-content: space-between;
           align-items: center;
           h3 {

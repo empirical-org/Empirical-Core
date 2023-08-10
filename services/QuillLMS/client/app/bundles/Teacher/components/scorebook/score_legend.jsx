@@ -20,7 +20,7 @@ export default class ScoreLegend extends React.Component {
             <div className="icon-wrapper icon-orange" />
             <div className="icons-description-wrapper">
               <p className="title">Sometimes demonstrated skill</p>
-              <p className="explanation">{`${cutOff.proficient}%-${cutOff.nearlyProficient - 1}% of prompts`}</p>
+              <p className="explanation">{`${cutOff.proficient - 1}%-${cutOff.nearlyProficient}% of prompts`}</p>
             </div>
           </div>
           <div className="icon">

@@ -45,7 +45,7 @@ exports[`ScoreLegend component should render 1`] = `
         <p
           className="explanation"
         >
-          83%-31% of prompts
+          82%-32% of prompts
         </p>
       </div>
     </div>
