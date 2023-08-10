@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { SMALL, POSITIVE, NEGATIVE, NONE, } from './shared'
+import { SMALL, POSITIVE, NEGATIVE, NONE, selectionsEqual, } from './shared'
 
 import { requestPost, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'

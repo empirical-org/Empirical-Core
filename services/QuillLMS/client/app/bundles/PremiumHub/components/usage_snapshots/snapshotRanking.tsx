@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import { selectionsEqual, } from './shared'
+
 import { requestPost, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'
 import { unorderedArraysAreEqual, } from '../../../../modules/unorderedArraysAreEqual'
@@ -110,13 +112,6 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
         setLoading(false)
       }
     })
-  }
-
-  function selectionsEqual(firstSelection, secondSelection) {
-    return (
-      firstSelection == secondSelection || // less strict comparison so that undefined and null are treated as equal
-      unorderedArraysAreEqual(firstSelection, secondSelection)
-    )
   }
 
   function initializePusher() {
