@@ -1,5 +1,104 @@
 $sitewidepagewidth: 1200px;
 
+// standardized to Figma Color Palette (https://www.figma.com/file/5TNa9Tn6TNVCmNjzbDTaMI/Quill---Product---Web?type=design&node-id=6417-242132&mode=dev) as of 8/10/23
+$quill-black: #000;
+$quill-grey-90: #373737;
+$quill-grey-80: #404040;
+$quill-grey-70: #4D4D4D;
+$quill-grey-60: #545454;
+$quill-grey-50: #5C5C5C;
+$quill-grey-40: #666;
+$quill-grey-35: #757575;
+$quill-grey-30: #878787;
+$quill-grey-25: #989898;
+$quill-grey-20: #AEAEAE;
+$quill-grey-15: #CFCFCF;
+$quill-grey-10: #D9D9D9;
+$quill-grey-5: #E0E0E0;
+$quill-grey-3: #EBEBEB;
+$quill-grey-2: #F1F1F1;
+$quill-grey-1: #F8F8F8;
+$quill-white: #FFF;
+
+$quill-green: #06806B;
+$quill-green-50: #099A81;
+$quill-green-20: #ACD6CF;
+$quill-green-10: #D6EFEC;
+$quill-green-5: #E3F0EE;
+$quill-green-1: #F0F8F7;
+
+$quill-green-warm: #499C70;
+$quill-green-warm-50: #78BF9C;
+$quill-green-warm-20: #BEE5D2;
+$quill-green-warm-10: #E0FAEB;
+$quill-green-warm-5: #E8F9EF;
+$quill-green-warm-1: #F3FAF6;
+
+$quill-green-vibrant: #2A5900;
+$quill-green-vibrant-50: #79C933;
+$quill-green-vibrant-20: #B0E185;
+$quill-green-vibrant-10: #EBF8E0;
+$quill-green-vibrant-5: #FAFFF5;
+$quill-green-vibrant-1: #FAFFF6;
+
+$quill-teal: #2C7F9B;
+$quill-teal-50: #8DCFE2;
+$quill-teal-20: #AADAE9;
+$quill-teal-10: #C6E5EE;
+$quill-teal-5: #DEF0F5;
+$quill-teal-1: #EFF7FA;
+
+$quill-blue: #4D8DD9;
+$quill-blue-50: #B4D5FF;
+$quill-blue-20: #CAE2FF;
+$quill-blue-10: #DAE7F6;
+$quill-blue-5: #E7F2FF;
+$quill-blue-1: #F0F7FF;
+
+$quill-purple: #9035D6;
+$quill-purple-50: #CD91FB;
+$quill-purple-20: #DDB4FD;
+$quill-purple-10: #F2E0FF;
+$quill-purple-5: #F5E9FE;
+$quill-purple-1: #FBF5FF;
+
+$quill-violet: #AD277B;
+$quill-violet-50: #DA66AE;
+$quill-violet-20: #F0B3DC;
+$quill-violet-10: #F8DDEF;
+$quill-violet-5: #FCEAF6;
+$quill-violet-1: #FFF3FB;
+
+$quill-red: #EB4F47;
+$quill-red-50: #FB8079;
+$quill-red-20: #F9B3AF;
+$quill-red-10: #F9D2D0;
+$quill-red-5: #FEEDEC;
+$quill-red-1: #FFF6F5;
+
+$quill-maroon: #C04500;
+$quill-maroon-50: #C04500;
+$quill-maroon-20: #FFB489;
+$quill-maroon-10: #FFDCC8;
+$quill-maroon-5: #FCEAE1;
+$quill-maroon-1: #FDF5F0;
+
+$quill-gold: #DF9E3D;
+$quill-gold-50: #F8A823;
+$quill-gold-20: #FFD999;
+$quill-gold-10: #FCE3BD;
+$quill-gold-5: #FFEFD6;
+$quill-gold-1: #FFF9EF;
+
+$quill-gold-dark: #9F6405;
+$quill-gold-dark-50: #C97C00;
+$quill-gold-dark-20: #E3BB7A;
+$quill-gold-dark-10: #E4D0B0;
+$quill-gold-dark-5: #F6E9D5;
+$quill-gold-dark-1: #FBF2E5;
+
+// older
+
 $quillnavbar: #e6e6e6;
 $quillgreen: #00c2a2;
 $quillgreenlight: #E3F0EE;
@@ -18,7 +117,6 @@ $quillgoldextradark: #9F6405;
 $quillviolet: #AD277B;
 $quillpalered: #EB4F47;
 
-
 $white: #fff;
 $black: #000;
 $orange: #f8a724;
@@ -30,16 +128,13 @@ $purple: #9c2bde;
 $lessonspurple: #a51070;
 
 $darkorange: #EA9A1A;
-$darkblue: #0f4c7a;
 
 $green: #58b146;
 $darkgreen: #027360;
-$darkgreen2: #0a980a;
 
 $gray: #b7b7b7;
 $verylightgray: rgb(230,230,230);
 $lightgray: #cecece;
-$mediumdarkgray: rgb(150, 150, 150);
 $lightgray2: #f4f2f2;
 $darkgray: #3b3b3b;
 $anothergray: #707070;
@@ -51,48 +146,14 @@ $row-hover-green-white: #f9fffe;
 
 $color_tapa_approx: #737373;
 $white_20: rgba(255, 255, 255, 0.2);
-$black_40: rgba(0, 0, 0, 0.4);
 $color_coral_red_approx: #fc3e3b;
 $color_concrete_approx: #f1f2f2;
 $color_tradewind_approx: #5cc2aa;
 $black_70: rgba(0, 0, 0, 0.7);
 $color_mine_shaft_approx: #333333;
-$color_oracle_approx: #2e7c6a;
 $color_rusty_nail_approx: #875a12;
 $color_thunderbird_approx: #c51916;
 
-
-// TODO: The variables below are ported from the old design.
-// Please deprecate and remove these.
-
-$skyblue:        #409cc8;
-$skyblue-darker: #b5e2ff;
-$yellow:         #fcd000;
-$pink:           #d90053;
-
-$missed-color: #d54141;
-$missed-color-light: #ffeade;
-$found-color: #78ca47;
-$found-color-light: #e1ffd3;
-$introduced-color: #9060c7;
-$introduced-color-light: #f5deff;
-$tried-color: #ffba00;
-$tried-color-light: #fff9d6;
-$spinner-color:      #ffffff;
-$spinner-size:       30px;
-$spinner-speed:      0.75s;
-$spinner-thickness:  8px;
-
-.con-skyblue        { background: $skyblue; }
-.con-skyblue-darker { background: $skyblue-darker; }
-.con-yellow         { background: $yellow; }
-.con-pink           { background: $pink; }
-.con-white          { background: $white; }
-.con-darkblue       { background: $darkblue; }
-.con-darkgrey       { background: $darkgray; }
-
-$baseFontFamily: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-$headingsFontWeight: normal;
 $family-sans-serif: "adelle-sans", "Arial", sans-serif;
 $family-monospace: "Roboto-mono", "Monaco", "Inconsolata", monospace;
 
