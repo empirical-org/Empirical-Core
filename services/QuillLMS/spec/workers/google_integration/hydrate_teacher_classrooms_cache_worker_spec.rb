@@ -10,6 +10,7 @@ module GoogleIntegration
       let(:user_id) { nil }
 
       it do
+        expect(ErrorNotifier).to receive(:report).with(described_class::UserNotFoundError, user_id: user_id)
         expect(TeacherClassroomsCacheHydrator).not_to receive(:run)
         subject
       end
@@ -19,18 +20,30 @@ module GoogleIntegration
       let(:user_id) { 0 }
 
       it do
+        expect(ErrorNotifier).to receive(:report).with(described_class::UserNotFoundError, user_id: user_id)
         expect(TeacherClassroomsCacheHydrator).not_to receive(:run)
         subject
       end
     end
 
     context 'user exists' do
-      let(:user) { create(:teacher) }
+      let(:user) { create(:teacher, :signed_up_with_google) }
       let(:user_id) { user.id }
 
       it do
-        expect(TeacherClassroomsCacheHydrator).to receive(:run).with(user)
+        expect(ErrorNotifier).not_to receive(:report)
+        expect(TeacherClassroomsCacheHydrator).not_to receive(:run)
         subject
+      end
+
+      context 'is google_authorized' do
+        before { create(:google_auth_credential, user: user) }
+
+        it do
+          expect(ErrorNotifier).not_to receive(:report)
+          expect(TeacherClassroomsCacheHydrator).to receive(:run).with(user)
+          subject
+        end
       end
     end
   end
