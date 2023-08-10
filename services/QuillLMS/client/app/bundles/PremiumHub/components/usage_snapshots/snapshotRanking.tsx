@@ -126,6 +126,15 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
       const classroomIdsAreEqual = selectionsEqual(message.classroom_ids, selectedClassroomIds)
       const gradesAreEqual =  selectionsEqual(message.grades, selectedGrades?.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
 
+      console.log(message.teacher_ids)
+      console.log(selectedTeacherIds)
+      console.log(message.classroom_ids)
+      console.log(selectedClassroomIds)
+      console.log(message.grades)
+      console.log(selectedGrades)
+
+      console.log(`filters match: ${(queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual)}`)
+
       if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {
         getData()
       }
