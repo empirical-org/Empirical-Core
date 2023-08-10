@@ -8,20 +8,11 @@ class SegmentAnalytics {
   analytics: Object;
 
   constructor() {
-    try {
-      this.analytics = (<any>window).analytics;
-    } catch(e) {
-      this.reportError(e);
-      this.analytics = null;
-    }
+    this.analytics = window['analytics'] ? window['analytics'] : this.reportError(e)
   }
 
   attachAnalytics() {
-    try {
-      this.analytics = window['analytics'];
-    } catch(e) {
-      this.reportError(e);
-    }
+    this.analytics = window['analytics'] ? window['analytics'] : this.reportError(e)
   }
 
   async track(event: Event, params?: object) {
@@ -97,7 +88,7 @@ class SegmentAnalytics {
     };
   }
 
-  reportError(e: Error): void {
+  reportError(e: Error):  {
     // placeholder for actual error reporting
     // to do - do something with this error
   }
@@ -106,7 +97,6 @@ class SegmentAnalytics {
 const segmentInstance = new SegmentAnalytics();
 
 export {
-  segmentInstance as SegmentAnalytics,
-  Events,
+  Events, segmentInstance as SegmentAnalytics
 };
 
