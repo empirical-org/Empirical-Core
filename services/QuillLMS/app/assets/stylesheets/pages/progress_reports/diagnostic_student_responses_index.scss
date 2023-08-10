@@ -22,6 +22,8 @@
         font-weight: 700;
         color: #373737;
         margin-right: 8px;
+        display: flex;
+        justify-content: space-between;
         align-items: center;
         &.individual-responses-header {
           display: flex;
@@ -37,6 +39,9 @@
           .quill-tooltip {
             text-align: left;
           }
+        }
+        .quill-tooltip-trigger {
+          margin-right: 8px;
         }
       }
     }

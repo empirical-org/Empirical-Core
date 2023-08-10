@@ -30,8 +30,10 @@ interface Student {
   correct_skill_groups_text: string;
 }
 
-const OUTER_CELL_WIDTH = '176px'
-const INNER_CELL_WIDTH = '184px'
+const S_CELL_WIDTH = '176px'
+const M_CELL_WIDTH = '184px'
+const L_CELL_WIDTH = '244px'
+const XL_CELL_WIDTH = '252px'
 const NOT_AVAILABLE = 'Not available'
 
 const diagnosticNotCompletedElement = (<span>Diagnostic not completed</span>)
@@ -40,7 +42,7 @@ const preTestDesktopHeaders = (isSortable) => ([
   {
     name: 'Name',
     attribute: 'name',
-    width: OUTER_CELL_WIDTH,
+    width: L_CELL_WIDTH,
     rowSectionClassName: 'name-section',
     sortAttribute: 'alphabeticalName',
     isSortable: true
@@ -49,7 +51,7 @@ const preTestDesktopHeaders = (isSortable) => ([
     name: '',
     attribute: 'activeDiagnosticSkillsCorrectElement',
     sortAttribute: 'totalCorrectSkillsCount',
-    width: INNER_CELL_WIDTH,
+    width: XL_CELL_WIDTH,
     rowSectionClassName: 'score-section',
     headerClassName: 'score-header',
     primaryTitle: 'Pre:',
@@ -63,7 +65,7 @@ const preTestDesktopHeaders = (isSortable) => ([
     name: '',
     attribute: 'preSkillsProficientElement',
     sortAttribute: 'totalPreCorrectSkillsCount',
-    width: INNER_CELL_WIDTH,
+    width: XL_CELL_WIDTH,
     primaryTitle: 'Pre:',
     secondaryTitle: 'Skills Proficient',
     tooltipName: 'Pre: Skills Proficient',
@@ -74,7 +76,7 @@ const preTestDesktopHeaders = (isSortable) => ([
   {
     name: 'Responses',
     attribute: 'individualResponsesLink',
-    width: OUTER_CELL_WIDTH,
+    width: S_CELL_WIDTH,
     noTooltip: true,
     rowSectionClassName: 'individual-responses-link',
     headerClassName: 'individual-responses-header'
@@ -85,7 +87,7 @@ const postTestDesktopHeaders = (isSortable) => ([
   {
     name: 'Name',
     attribute: 'name',
-    width: OUTER_CELL_WIDTH,
+    width: S_CELL_WIDTH,
     sortAttribute: 'alphabeticalName',
     rowSectionClassName: 'name-section',
     isSortable: true
@@ -94,7 +96,7 @@ const postTestDesktopHeaders = (isSortable) => ([
     name: '',
     attribute: 'preToPostImprovedSkills',
     sortAttribute: 'totalAcquiredSkillGroupsCount',
-    width: INNER_CELL_WIDTH,
+    width: M_CELL_WIDTH,
     primaryTitle: 'Pre to Post:',
     secondaryTitle: 'Improved Skills',
     tooltipName: 'Pre to Post: Improved Skills',
@@ -106,10 +108,10 @@ const postTestDesktopHeaders = (isSortable) => ([
     name: '',
     attribute: 'preSkillsCorrectElement',
     sortAttribute: 'totalPreCorrectQuestionsCount',
-    width: INNER_CELL_WIDTH,
+    width: M_CELL_WIDTH,
     primaryTitle: 'Pre:',
     secondaryTitle: 'Questions Correct',
-    tooltipName: 'Pre to Post: Improved Skills',
+    tooltipName: 'Pre: Questions Correct',
     tooltipDescription: preQuestionsCorrectTooltipText,
     rowSectionClassName: 'score-section',
     headerClassName: 'score-header',
@@ -120,7 +122,7 @@ const postTestDesktopHeaders = (isSortable) => ([
     name: '',
     attribute: 'preSkillsProficientElement',
     sortAttribute: 'totalPreCorrectSkillsCount',
-    width: INNER_CELL_WIDTH,
+    width: M_CELL_WIDTH,
     primaryTitle: 'Pre:',
     secondaryTitle: 'Skills Proficient',
     tooltipName: 'Pre: Skills Proficient',
@@ -132,7 +134,7 @@ const postTestDesktopHeaders = (isSortable) => ([
     name: '',
     attribute: 'activeDiagnosticSkillsCorrectElement',
     sortAttribute: 'totalCorrectSkillsCount',
-    width: INNER_CELL_WIDTH,
+    width: M_CELL_WIDTH,
     primaryTitle: 'Post:',
     secondaryTitle: 'Questions Correct',
     tooltipName: 'Post: Questions Correct',
@@ -157,7 +159,7 @@ const postTestDesktopHeaders = (isSortable) => ([
   {
     name: 'Responses',
     attribute: 'individualResponsesLink',
-    width: OUTER_CELL_WIDTH,
+    width: S_CELL_WIDTH,
     noTooltip: true,
     rowSectionClassName: 'individual-responses-link',
     headerClassName: 'individual-responses-header'
@@ -306,7 +308,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
     return(
       <div className="skills-correct-element">
         <p>{correct_skill_groups_text}</p>
-        <p>{acquiredSkillsText}, {maintainedSkillsText}</p>
+        <p>({acquiredSkillsText}, {maintainedSkillsText})</p>
       </div>
     )
   }

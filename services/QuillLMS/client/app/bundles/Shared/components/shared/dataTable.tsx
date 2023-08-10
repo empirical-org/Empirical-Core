@@ -262,9 +262,17 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     let headerContent = header.name
     let headerTitle = header.name
     let headerTooltip = null
+    const isMultilineHeader = header.primaryTitle && header.secondaryTitle
 
-    if (header.primaryTitle && header.secondaryTitle) {
+    if (header.isSortable && isMultilineHeader) {
       headerTitle = (
+        <div className="multi-line-header">
+          <p>{header.primaryTitle}</p>
+          <p>{header.secondaryTitle}</p>
+        </div>
+      )
+    } else if(isMultilineHeader) {
+      headerContent = (
         <div className="multi-line-header">
           <p>{header.primaryTitle}</p>
           <p>{header.secondaryTitle}</p>
