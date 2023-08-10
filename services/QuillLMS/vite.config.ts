@@ -20,9 +20,22 @@ export default defineConfig(({command, mode}) => {
   // Load env file based on `mode` in the current working directory.
   // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
   const env = loadEnv(mode, process.cwd(), '')
+  //const env_stuff = {...process.env, ...loadEnv(mode, process.cwd())};
+  // console.log("--")
+  // console.log(process.env)
+  // console.log("--")
+
+
+  const railsEnv = process.env.RAILS_ENV || process.env.NODE_ENV
+  const pusherKey = process.env.PUSHER_KEY;
+  const defaultUrl = process.env.DEFAULT_URL || 'http://localhost:3000'
+  const cdnUrl = process.env.CDN_URL || 'https://assets.quill.org'
+  const grammarUrl = process.env.QUILL_GRAMMAR_URL || 'http://localhost:3000/grammar/#';
+  const lessonsWebsocketsUrl = process.env.LESSONS_WEBSOCKETS_URL || 'http://localhost:3200';
+  const quillCmsUrl = process.env.QUILL_CMS || 'http://localhost:3100';
 
   return {
-    customLogger: logger, // ready to activate later, if we want.
+    //customLogger: logger, // ready to activate later, if we want.
     resolve: {
       alias: {
         src: resolve(__dirname, 'client', 'app'),
@@ -44,39 +57,20 @@ export default defineConfig(({command, mode}) => {
     },
     plugins: [
       replace({
-        'process.env.NODE_ENV': JSON.stringify('production'), // TODO: parameterize
-        'process.env.BAR': JSON.stringify('foo')
+        'process.env.RAILS_ENV': JSON.stringify(railsEnv),
+        'process.env.PUSHER_KEY': JSON.stringify(pusherKey),
+        'process.env.DEFAULT_URL': JSON.stringify(defaultUrl),
+        'process.env.CDN_URL': JSON.stringify(cdnUrl),
+        'process.env.QUILL_GRAMMAR_URL': JSON.stringify(grammarUrl),
+        'process.env.LESSONS_WEBSOCKETS_URL': JSON.stringify(lessonsWebsocketsUrl),
+        'process.env.QUILL_CMS': JSON.stringify(quillCmsUrl)
       }),
       requireTransform(),
       viteCommonjs(),
       friendlyTypeImports(),
-
       RubyPlugin(),
-      //react() // required, to address the 'global' not found error
-      // react({
-      //   //jsxRuntime: 'classic',
-      // })
     ],
     esbuild: {
-      //loader: "tsx",//may not want this directive at all; still experimenting
-      //include: /src\/.*\.jsx?$/
-      // // Business as usual for .jsx and .tsx files
-      // "client/**/*.jsx",
-      // "client/**/*.tsx",
-      // "node_modules/**/*.jsx",
-      // "node_modules/**/*.tsx",
-      // "client/node_modules/**/*.jsx",
-      // "client/node_modules/**/*.tsx",
-
-      // // js file rules
-      // "client/**/*.js",
-      // "node_modules/**/*.js",
-      // "client/node_modules/**/*.js",
-
-      // // Add these lines to allow all .ts files to contain JSX
-      // "client/**/*.ts",
-      // "node_modules/**/*.ts",
-      // "client/node_modules/**/*.ts",
       include: /\.(tsx?|jsx?)$/,
       exclude: [],
       loader: 'tsx'
