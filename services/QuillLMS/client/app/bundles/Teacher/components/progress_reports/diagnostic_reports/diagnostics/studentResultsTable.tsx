@@ -63,7 +63,7 @@ function renderDelta(count: number) {
 
 function renderStudentHeaderSkillsData({ isPreTest, totalAcquiredSkillGroupsCount, correct_question_text, total_acquired_skill_groups_count, total_maintained_skill_group_proficiency_count, correct_skill_groups_text }) {
   const diagnosticNotCompletedMessage = <span className="name-section-subheader">Diagnostic not completed</span>
-  const tooltipText = "The number of improved skills helps you celebrate each student’s learning and growth. It shows you how many skills the student improved between the pre and post-diagnostic. A skill is considered “improved” if the student answered more questions for that skill correctly on the post-diagnostic than they did on the pre. <br/><br/> In parentheses, you see the number of skills the student maintained.A skill is considered “maintained” if the student answered all the questions for that skill correctly on both the pre and the post - diagnostic."
+  const tooltipText = "The number of improved skills helps you celebrate each student's learning and growth. It shows you how many skills the student improved between the pre and post-diagnostic. A skill is considered “improved” if the student answered more questions for that skill correctly on the post-diagnostic than they did on the pre. <br/><br/> In parentheses, you see the number of skills the student maintained.A skill is considered “maintained” if the student answered all the questions for that skill correctly on both the pre and the post - diagnostic."
   const skillsDelta = (<div className="skills-delta">
     <Tooltip
       tooltipText={tooltipText}
@@ -75,8 +75,8 @@ function renderStudentHeaderSkillsData({ isPreTest, totalAcquiredSkillGroupsCoun
   const noSkillChange = !total_acquired_skill_groups_count && !total_maintained_skill_group_proficiency_count
 
   if (!isPreTest && !noSkillChange) {
-    const acquiredText = totalAcquiredSkillGroupsCount === 1 ? '1 improved skill' : `${totalAcquiredSkillGroupsCount} improved skills`
-    const maintainedText = total_maintained_skill_group_proficiency_count === 1 ? '(1 maintained)' : `(${total_maintained_skill_group_proficiency_count} maintained)`
+    const acquiredText = totalAcquiredSkillGroupsCount === 1 ? '1 Improved Skill' : `${totalAcquiredSkillGroupsCount} Improved Skills`
+    const maintainedText = total_maintained_skill_group_proficiency_count === 1 ? '(1 Maintained)' : `(${total_maintained_skill_group_proficiency_count} Maintained)`
     skillGroupsSubHeader = (
       <div className="name-section-subheader">
         <div className="skills-delta">{brightGreenTriangleUpIcon}</div>
@@ -228,21 +228,20 @@ const StudentResultsTable = ({ isPreTest, skillGroupSummaries, studentResults, o
     if (!completedStudentCount) { return }
 
     if (isPreTest) {
-      return <span className="label">{proficientStudentCount} of {completedStudentCount} student{proficientStudentCount === 1 ? '' : 's'}{' proficient'}</span>
+      return <span className="label">{proficientStudentCount} of {completedStudentCount} Student{proficientStudentCount === 1 ? '' : 's'}{' Proficient'}</span>
     }
 
     return (
       <div className="student-proficiency-data-container">
-        <span className="label">{proficientStudentCount} of {completedStudentCount} student{proficientStudentCount === 1 ? '' : 's'}{' improved or maintained skill'}</span>
+        <span className="label">{proficientStudentCount} of {completedStudentCount} Student{proficientStudentCount === 1 ? '' : 's'}{' Improved or Maintained Skill'}</span>
         {renderDelta(proficientStudentCount)}
       </div>
     )
   }
 
   const tableHeaders = skillGroupSummaries.map(skillGroupSummary => {
-    const { name, description, not_yet_proficient_student_names, not_yet_proficient_in_post_test_student_names, } = skillGroupSummary
-    const notYetProficientStudentCount = (not_yet_proficient_student_names || not_yet_proficient_in_post_test_student_names).length
-    const proficientStudentCount = completedStudentCount - notYetProficientStudentCount
+    const { name, description, gained_proficiency_in_post_test_student_names } = skillGroupSummary
+    const proficientStudentCount = gained_proficiency_in_post_test_student_names.length
     return (
       <th className="skill-group-header" key={name}>
         <div className="name-and-tooltip">
