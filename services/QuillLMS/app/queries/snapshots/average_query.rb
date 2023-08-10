@@ -4,7 +4,7 @@ module Snapshots
   class AverageQuery < PeriodQuery
     attr_reader :params
 
-    def initialize(*params)
+    def initialize(**params)
       # We pull params here because we're going to do a naive pass-through to sibling queries below
       @params = params
 
@@ -26,11 +26,11 @@ module Snapshots
     end
 
     def numerator
-      numerator_query.run(*params)[:count]
+      numerator_query.run(**params)[:count]
     end
 
     def denominator
-      denominator_query.run(*params)[:count]
+      denominator_query.run(**params)[:count]
     end
 
     def numerator_query

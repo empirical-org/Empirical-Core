@@ -4,8 +4,8 @@ module ImpactMetrics
   class ActiveTeachersAllTimeQuery < ::QuillBigQuery::Query
     ACTIVITY_SESSION_MINIMUM = 9
 
-    def initialize(options: {})
-      super(options)
+    def initialize(options)
+      super(**options)
     end
 
     def run
