@@ -280,7 +280,9 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
           className="link-section"
         >
           <a
-            href="undefined/teacher-center/introducing-quills-new-writing-and-reading-tool-quill-evidence"
+            href="undefined/teacher-center/quill-scoring-updates-2023"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <span>
               Learn more about Quill's updates to activity scores
@@ -420,7 +422,9 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
           className="link-section"
         >
           <a
-            href="undefined/teacher-center/introducing-quills-new-writing-and-reading-tool-quill-evidence"
+            href="undefined/teacher-center/quill-scoring-updates-2023"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <span>
               Learn more about Quill's updates to activity scores
@@ -728,7 +732,9 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
           className="link-section"
         >
           <a
-            href="undefined/teacher-center/introducing-quills-new-writing-and-reading-tool-quill-evidence"
+            href="undefined/teacher-center/quill-scoring-updates-2023"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <span>
               Learn more about Quill's updates to activity scores
@@ -868,7 +874,9 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
           className="link-section"
         >
           <a
-            href="undefined/teacher-center/introducing-quills-new-writing-and-reading-tool-quill-evidence"
+            href="undefined/teacher-center/quill-scoring-updates-2023"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <span>
               Learn more about Quill's updates to activity scores
@@ -1176,7 +1184,9 @@ exports[`PromotionalCard container ScoringUpdatesCard rendering behavior when th
           className="link-section"
         >
           <a
-            href="undefined/teacher-center/introducing-quills-new-writing-and-reading-tool-quill-evidence"
+            href="undefined/teacher-center/quill-scoring-updates-2023"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <span>
               Learn more about Quill's updates to activity scores
