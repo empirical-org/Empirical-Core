@@ -1,15 +1,12 @@
 import { viteCommonjs } from '@originjs/vite-plugin-commonjs';
-//import react from '@vitejs/plugin-react';
 import replace from '@rollup/plugin-replace';
+//import react from '@vitejs/plugin-react';
 import fs from 'fs/promises';
 import path, { resolve } from 'path';
 import friendlyTypeImports from 'rollup-plugin-friendly-type-imports';
 import { createLogger, defineConfig, loadEnv } from 'vite';
 import requireTransform from 'vite-plugin-require-transform';
 import RubyPlugin from 'vite-plugin-ruby';
-
-// Environmental Variables can be obtained from import.meta.env as usual.
-// - https://vitejs.dev/config/
 
 const logger = createLogger();
 const originalWarning = logger.warn;
@@ -23,12 +20,22 @@ export default defineConfig(({command, mode}) => {
   // Load env file based on `mode` in the current working directory.
   // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
   const env = loadEnv(mode, process.cwd(), '')
-  //console.log("vite config: env: ", env)
-  // console.log("local import meta: ", import.meta.env) not available here
-  //process.env = Object.assign(process.env, loadEnv(mode, process.cwd(), ''));
+  //const env_stuff = {...process.env, ...loadEnv(mode, process.cwd())};
+  // console.log("--")
+  // console.log(process.env)
+  // console.log("--")
+
+
+  const railsEnv = process.env.RAILS_ENV || process.env.NODE_ENV
+  const pusherKey = process.env.PUSHER_KEY;
+  const defaultUrl = process.env.DEFAULT_URL || 'http://localhost:3000'
+  const cdnUrl = process.env.CDN_URL || 'https://assets.quill.org'
+  const grammarUrl = process.env.QUILL_GRAMMAR_URL || 'http://localhost:3000/grammar/#';
+  const lessonsWebsocketsUrl = process.env.LESSONS_WEBSOCKETS_URL || 'http://localhost:3200';
+  const quillCmsUrl = process.env.QUILL_CMS || 'http://localhost:3100';
 
   return {
-    customLogger: logger, // ready to activate later, if we want.
+    //customLogger: logger, // ready to activate later, if we want.
     resolve: {
       alias: {
         src: resolve(__dirname, 'client', 'app'),
@@ -37,48 +44,43 @@ export default defineConfig(({command, mode}) => {
       }
     },
 
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import "./app/assets/stylesheets/variables.scss";`
+        }
+      }
+    },
+
     define: {
-      // global: {}
-      //process: { env: {}}
-
-      // Note: declare node-accessible variable (i.e. CDN_URL) in .env.<mode>, not here
-      // 'process': {
-      //   env: {
-      //     DEFAULT_URL: 1//import.meta.env.DEFAULT_URL
-      //   }
-      // },
-      //'FOOBAR': env.LOCAL_TEST_ENV_VALUE, // not visible from js code,
-      //'process.env.LOCAL_TEST_ENV_VALUE': `"${env.LOCAL_TEST_ENV_VALUE}"` // not visible
-
-
+      //process: ({ env: {}}) // Doing this triggers a rollup parse error
     },
     plugins: [
       replace({
-        'process.env.NODE_ENV': JSON.stringify('production'),
-        'process.env.BAR': JSON.stringify('foo')
+        'process.env.RAILS_ENV': JSON.stringify(railsEnv),
+        'process.env.PUSHER_KEY': JSON.stringify(pusherKey),
+        'process.env.DEFAULT_URL': JSON.stringify(defaultUrl),
+        'process.env.CDN_URL': JSON.stringify(cdnUrl),
+        'process.env.QUILL_GRAMMAR_URL': JSON.stringify(grammarUrl),
+        'process.env.LESSONS_WEBSOCKETS_URL': JSON.stringify(lessonsWebsocketsUrl),
+        'process.env.QUILL_CMS': JSON.stringify(quillCmsUrl)
       }),
       requireTransform(),
       viteCommonjs(),
       friendlyTypeImports(),
-
       RubyPlugin(),
-      //react() // required, to address the 'global' not found error
-      // react({
-      //   jsxRuntime: 'classic',
-      // })
     ],
     esbuild: {
-      // define: {
-      //   global: "window"
-      // },
-      // loader: "jsx",
-      //include: /src\/.*\.jsx?$/,
+      include: /\.(tsx?|jsx?)$/,
+      exclude: [],
+      loader: 'tsx'
 
     },
     optimizeDeps: {
       esbuildOptions: {
 
         // so jsx syntax can be detected
+        // Removing the plugin does not fix "SyntaxError: Unexpected token" in build mode
         plugins: [
           {
             name: "load-js-files-as-jsx",
