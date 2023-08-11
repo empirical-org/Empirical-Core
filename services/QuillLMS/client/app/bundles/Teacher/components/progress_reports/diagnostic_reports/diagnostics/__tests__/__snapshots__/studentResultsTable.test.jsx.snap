@@ -9,41 +9,49 @@ exports[`StudentResultsTable component should render when there is no student da
     Array [
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Compound-Complex Sentences",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Appositive Phrases",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Relative Clauses",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Participal Phrases",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Parallel Structure",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Advanced Combining",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Subject-Verb Agreement",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Nouns, Pronouns, and Verbs",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
@@ -601,41 +609,49 @@ exports[`StudentResultsTable component should render when there is no student da
             Array [
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Compound-Complex Sentences",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Appositive Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Relative Clauses",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Participal Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Parallel Structure",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Advanced Combining",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Subject-Verb Agreement",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Nouns, Pronouns, and Verbs",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
@@ -712,41 +728,49 @@ exports[`StudentResultsTable component should render when there is no student da
             Array [
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Compound-Complex Sentences",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Appositive Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Relative Clauses",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Participal Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Parallel Structure",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Advanced Combining",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Subject-Verb Agreement",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Nouns, Pronouns, and Verbs",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
@@ -823,41 +847,49 @@ exports[`StudentResultsTable component should render when there is no student da
             Array [
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Compound-Complex Sentences",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Appositive Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Relative Clauses",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Participal Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Parallel Structure",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Advanced Combining",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Subject-Verb Agreement",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Nouns, Pronouns, and Verbs",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
@@ -934,41 +966,49 @@ exports[`StudentResultsTable component should render when there is no student da
             Array [
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Compound-Complex Sentences",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Appositive Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Relative Clauses",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Participal Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Parallel Structure",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Advanced Combining",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Subject-Verb Agreement",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Nouns, Pronouns, and Verbs",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
@@ -1045,41 +1085,49 @@ exports[`StudentResultsTable component should render when there is no student da
             Array [
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Compound-Complex Sentences",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Appositive Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Relative Clauses",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Participal Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Parallel Structure",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Advanced Combining",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Subject-Verb Agreement",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Nouns, Pronouns, and Verbs",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
@@ -1162,11 +1210,13 @@ exports[`StudentResultsTable component should render when there is student data 
     Array [
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Capitalization",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Plural and Possessive Nouns",
         "not_yet_proficient_in_post_test_student_names": Array [
           "Angie Thomas",
@@ -1174,6 +1224,7 @@ exports[`StudentResultsTable component should render when there is student data 
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Adjectives and Adverbs",
         "not_yet_proficient_in_post_test_student_names": Array [
           "Angie Thomas",
@@ -1181,6 +1232,7 @@ exports[`StudentResultsTable component should render when there is student data 
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Prepositional Phrases",
         "not_yet_proficient_in_post_test_student_names": Array [
           "Angie Thomas",
@@ -1188,11 +1240,13 @@ exports[`StudentResultsTable component should render when there is student data 
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Compound Subjects, Objects, and Predicates",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Commonly Confused Words",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
@@ -1645,24 +1699,19 @@ exports[`StudentResultsTable component should render when there is student data 
               <span
                 className="label"
               >
-                1
+                0
                  of 
                 1
-                 student
-                 improved or maintained skill
+                 Student
+                s
+                 Improved or Maintained Skill
               </span>
               <div
                 className="skills-delta"
               >
-                <img
-                  alt="Bright green triangle up icon"
-                  src="undefined/images/pages/diagnostic_reports/icons-triangle-up-bright-green.svg"
-                />
                 <span
                   className="skill-count"
-                >
-                  1
-                </span>
+                />
               </div>
             </div>
           </th>
@@ -1735,9 +1784,9 @@ exports[`StudentResultsTable component should render when there is student data 
                 0
                  of 
                 1
-                 student
+                 Student
                 s
-                 improved or maintained skill
+                 Improved or Maintained Skill
               </span>
               <div
                 className="skills-delta"
@@ -1817,9 +1866,9 @@ exports[`StudentResultsTable component should render when there is student data 
                 0
                  of 
                 1
-                 student
+                 Student
                 s
-                 improved or maintained skill
+                 Improved or Maintained Skill
               </span>
               <div
                 className="skills-delta"
@@ -1899,9 +1948,9 @@ exports[`StudentResultsTable component should render when there is student data 
                 0
                  of 
                 1
-                 student
+                 Student
                 s
-                 improved or maintained skill
+                 Improved or Maintained Skill
               </span>
               <div
                 className="skills-delta"
@@ -1978,24 +2027,19 @@ exports[`StudentResultsTable component should render when there is student data 
               <span
                 className="label"
               >
-                1
+                0
                  of 
                 1
-                 student
-                 improved or maintained skill
+                 Student
+                s
+                 Improved or Maintained Skill
               </span>
               <div
                 className="skills-delta"
               >
-                <img
-                  alt="Bright green triangle up icon"
-                  src="undefined/images/pages/diagnostic_reports/icons-triangle-up-bright-green.svg"
-                />
                 <span
                   className="skill-count"
-                >
-                  1
-                </span>
+                />
               </div>
             </div>
           </th>
@@ -2065,24 +2109,19 @@ exports[`StudentResultsTable component should render when there is student data 
               <span
                 className="label"
               >
-                1
+                0
                  of 
                 1
-                 student
-                 improved or maintained skill
+                 Student
+                s
+                 Improved or Maintained Skill
               </span>
               <div
                 className="skills-delta"
               >
-                <img
-                  alt="Bright green triangle up icon"
-                  src="undefined/images/pages/diagnostic_reports/icons-triangle-up-bright-green.svg"
-                />
                 <span
                   className="skill-count"
-                >
-                  1
-                </span>
+                />
               </div>
             </div>
           </th>
@@ -2098,11 +2137,13 @@ exports[`StudentResultsTable component should render when there is student data 
             Array [
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Capitalization",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Plural and Possessive Nouns",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
@@ -2110,6 +2151,7 @@ exports[`StudentResultsTable component should render when there is student data 
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Adjectives and Adverbs",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
@@ -2117,6 +2159,7 @@ exports[`StudentResultsTable component should render when there is student data 
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Prepositional Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
@@ -2124,11 +2167,13 @@ exports[`StudentResultsTable component should render when there is student data 
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Compound Subjects, Objects, and Predicates",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Commonly Confused Words",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
@@ -2199,11 +2244,13 @@ exports[`StudentResultsTable component should render when there is student data 
             Array [
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Capitalization",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Plural and Possessive Nouns",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
@@ -2211,6 +2258,7 @@ exports[`StudentResultsTable component should render when there is student data 
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Adjectives and Adverbs",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
@@ -2218,6 +2266,7 @@ exports[`StudentResultsTable component should render when there is student data 
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Prepositional Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
@@ -2225,11 +2274,13 @@ exports[`StudentResultsTable component should render when there is student data 
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Compound Subjects, Objects, and Predicates",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Commonly Confused Words",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
@@ -2300,11 +2351,13 @@ exports[`StudentResultsTable component should render when there is student data 
             Array [
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Capitalization",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Plural and Possessive Nouns",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
@@ -2312,6 +2365,7 @@ exports[`StudentResultsTable component should render when there is student data 
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Adjectives and Adverbs",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
@@ -2319,6 +2373,7 @@ exports[`StudentResultsTable component should render when there is student data 
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Prepositional Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
@@ -2326,11 +2381,13 @@ exports[`StudentResultsTable component should render when there is student data 
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Compound Subjects, Objects, and Predicates",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Commonly Confused Words",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
@@ -2401,11 +2458,13 @@ exports[`StudentResultsTable component should render when there is student data 
             Array [
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Capitalization",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Plural and Possessive Nouns",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
@@ -2413,6 +2472,7 @@ exports[`StudentResultsTable component should render when there is student data 
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Adjectives and Adverbs",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
@@ -2420,6 +2480,7 @@ exports[`StudentResultsTable component should render when there is student data 
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Prepositional Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
@@ -2427,11 +2488,13 @@ exports[`StudentResultsTable component should render when there is student data 
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Compound Subjects, Objects, and Predicates",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Commonly Confused Words",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
@@ -2502,11 +2565,13 @@ exports[`StudentResultsTable component should render when there is student data 
             Array [
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Capitalization",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Plural and Possessive Nouns",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
@@ -2514,6 +2579,7 @@ exports[`StudentResultsTable component should render when there is student data 
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Adjectives and Adverbs",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
@@ -2521,6 +2587,7 @@ exports[`StudentResultsTable component should render when there is student data 
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Prepositional Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
@@ -2528,11 +2595,13 @@ exports[`StudentResultsTable component should render when there is student data 
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Compound Subjects, Objects, and Predicates",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Commonly Confused Words",
                 "not_yet_proficient_in_post_test_student_names": Array [],
               },
