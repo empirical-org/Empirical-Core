@@ -104,16 +104,17 @@
       letter-spacing: normal;
     }
     &.proficiency, &.maintained-proficiency {
-      background-color: #b8db99;
+      background-color: #B0E185;
       span {
         color: #2a5900;
       }
+      border: 1px solid #79C933;
     }
     &.gained-some-proficiency {
-      background-color: #e9f4e0;
-      border: 1px solid #2A5900;
+      background-color: #EBF8E0;
+      border: 1px solid #B0E185;
       span {
-        color: #367300;
+        color: #2A5900;
       }
     }
     &.no-proficiency, &.partial-proficiency {
@@ -192,7 +193,7 @@
       }
       > tbody > tr > td, > tbody > tr > th, > thead > tr > th {
         padding: 8px 16px;
-        width: 180px;
+        width: 184px;
         border-bottom: 1px solid #e0e0e0;
         border-right: 1px solid #e0e0e0;
         background-color: white;
@@ -245,7 +246,7 @@
           display: none;
         }
       }
-      width: 216px;
+      width: 232px;
       height: 92px;
       padding: 16px;
       .student-name {
@@ -280,6 +281,15 @@
           display: flex;
           margin-right: 4px;
         }
+        .correct-skill-text {
+          &.acquired {
+            font-weight: 600;
+            margin: 0px 2px;
+          }
+          &.acquired, &.maintained {
+            color: #2A5900;
+          }
+        }
       }
       .quill-tooltip-wrapper {
         left: 0px;
@@ -294,6 +304,9 @@
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
+      .skill-name {
+        font-weight: 700;
+      }
       .quill-tooltip-trigger {
         margin-left: 16px;
       }
@@ -305,7 +318,7 @@
       vertical-align: bottom;
       border-radius: 8px 0px 0px;
       border-left: 1px solid #e0e0e0;
-      width: 216px;
+      width: 232px;
       left: 0;
       z-index: 2;
       position: sticky;
@@ -352,7 +365,7 @@
         max-height: 100vh;
         overflow: scroll;
         header {
-          width: 512px;
+          width: 100%;
           padding: 0px 20px;
           display: flex;
           flex-direction: row;
@@ -399,9 +412,19 @@
         margin-top: 2px;
         display: block;
         text-align: left;
+        white-space: break-spaces;
       }
       &:last-of-type {
         border-radius: 0px 8px 0px 0px;
+      }
+      .student-proficiency-data-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+
+        .label {
+          max-width: 140px;
+        }
       }
     }
   }

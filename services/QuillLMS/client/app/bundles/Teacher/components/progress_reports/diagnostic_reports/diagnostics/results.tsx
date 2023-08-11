@@ -12,7 +12,10 @@ import {
   noProficiencyTag,
   partialProficiencyTag,
   proficiencyTag,
-  timeRewindIllustration
+  timeRewindIllustration,
+  noProficencyExplanation,
+  prePartialProficiencyExplanation,
+  proficiencyExplanation
 } from './shared';
 import IneligibleForQuestionScoring from './ineligibleForQuestionScoring'
 import StudentResultsTable from './studentResultsTable';
@@ -96,15 +99,15 @@ export const Results = ({ passedStudentResults, passedSkillGroupSummaries, match
         <section className="proficiency-keys">
           <div className="proficiency-key">
             {noProficiencyTag}
-            <p>The student did not use any of the skills correctly.</p>
+            <p>{noProficencyExplanation}</p>
           </div>
           <div className="proficiency-key">
             {partialProficiencyTag}
-            <p>The student’s response contained some correct responses, but not all of the responses were marked correct.</p>
+            <p>{prePartialProficiencyExplanation}</p>
           </div>
           <div className="proficiency-key">
             {proficiencyTag}
-            <p>The student used each skill correctly 100% of the time.</p>
+            <p>{proficiencyExplanation}</p>
           </div>
         </section>
       )}

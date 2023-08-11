@@ -40,6 +40,7 @@ describe GrowthResultsSummary do
             name: pre_test_skill_group_activity.skill_group.name,
             description: pre_test_skill_group_activity.skill_group.description,
             not_yet_proficient_in_post_test_student_names: [],
+            gained_proficiency_in_post_test_student_names: [student1.name],
             proficiency_scores_by_student: {
               student1.name => {
                 pre: 0.5,
@@ -102,7 +103,7 @@ describe GrowthResultsSummary do
                     pre: nil
                   }
                 ],
-                number_of_correct_questions_text: "2 of 2 questions correct",
+                number_of_correct_questions_text: "2 of 2 Questions Correct",
                 proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
                 pre_test_proficiency: GrowthResultsSummary::PARTIAL_PROFICIENCY,
                 pre_test_proficiency_score: 0.5,
@@ -118,9 +119,10 @@ describe GrowthResultsSummary do
             total_correct_questions_count: 2,
             total_pre_correct_questions_count: 1,
             total_pre_possible_questions_count: 2,
+            total_maintained_skill_group_proficiency_count: 0,
             total_possible_questions_count: 2,
-            correct_question_text: "2 of 2 questions",
-            correct_skill_groups_text: "1 of 1 skill groups",
+            correct_question_text: "2 of 2 Questions Correct",
+            correct_skill_groups_text: "1 of 1 Skills",
           },
           {
             name: student2.name
@@ -137,6 +139,7 @@ describe GrowthResultsSummary do
           name: pre_test_skill_group_activity.skill_group.name,
           description: pre_test_skill_group_activity.skill_group.description,
           not_yet_proficient_in_post_test_student_names: [],
+          gained_proficiency_in_post_test_student_names: [],
           proficiency_scores_by_student: {}
         }
       ]
@@ -200,7 +203,7 @@ describe GrowthResultsSummary do
                     pre: nil
                   }
                 ],
-                number_of_correct_questions_text: "2 of 2 questions correct",
+                number_of_correct_questions_text: "2 of 2 Questions Correct",
                 proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
                 pre_test_proficiency: GrowthResultsSummary::PARTIAL_PROFICIENCY,
                 pre_test_proficiency_score: 0.5,
@@ -214,11 +217,12 @@ describe GrowthResultsSummary do
             ],
             total_acquired_skill_groups_count: 1,
             total_correct_questions_count: 2,
+            total_maintained_skill_group_proficiency_count: 0,
             total_pre_correct_questions_count: 1,
             total_pre_possible_questions_count: 2,
             total_possible_questions_count: 2,
-            correct_question_text: "2 of 2 questions",
-            correct_skill_groups_text: "1 of 1 skill groups",
+            correct_question_text: "2 of 2 Questions Correct",
+            correct_skill_groups_text: "1 of 1 Skills",
           },
           {
             name: student2.name
@@ -233,6 +237,7 @@ describe GrowthResultsSummary do
           name: pre_test_skill_group_activity.skill_group.name,
           description: pre_test_skill_group_activity.skill_group.description,
           not_yet_proficient_in_post_test_student_names: [],
+          gained_proficiency_in_post_test_student_names: [],
           proficiency_scores_by_student: {}
         }
       ]
@@ -259,6 +264,7 @@ describe GrowthResultsSummary do
           name: pre_test_skill_group_activity.skill_group.name,
           description: pre_test_skill_group_activity.skill_group.description,
           not_yet_proficient_in_post_test_student_names: [],
+          gained_proficiency_in_post_test_student_names: [],
           proficiency_scores_by_student: {}
         }
       ]
@@ -312,7 +318,7 @@ describe GrowthResultsSummary do
               pre: nil
             }
           ],
-          number_of_correct_questions_text: "2 of 2 questions correct",
+          number_of_correct_questions_text: "2 of 2 Questions Correct",
           proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
           pre_test_proficiency: GrowthResultsSummary::PARTIAL_PROFICIENCY,
           pre_test_proficiency_score: 0.5,
@@ -332,6 +338,7 @@ describe GrowthResultsSummary do
           name: pre_test_skill_group_activity.skill_group.name,
           description: pre_test_skill_group_activity.skill_group.description,
           not_yet_proficient_in_post_test_student_names: [],
+          gained_proficiency_in_post_test_student_names: [],
           proficiency_scores_by_student: {}
         }
       ]
