@@ -6,45 +6,63 @@ module GoogleIntegration
   describe AuthorizationClientFetcher do
     subject { described_class.run(auth_credential) }
 
-    let(:auth_credential) { create(:google_auth_credential, expires_at: expires_at) }
-    let(:client) { double(Signet::OAuth2::Client, refresh!: nil) }
-    let(:client_id) { 'client_id' }
-    let(:client_secret) { 'client_secret' }
+    let(:auth_credential) { create(:google_auth_credential, refresh_token: original_refresh_token) }
+    let(:original_refresh_token) { 'original_refresh_token' }
+    let(:new_auth_credential) { double(GoogleAuthCredential, refresh_token: updated_refresh_token) }
+    let(:updated_refresh_token) { 'updated_refresh_token' }
 
-    let(:client_args) do
-      {
-        client_id: client_id,
-        client_secret: client_secret,
-        refresh_token: auth_credential.refresh_token,
-        token_credential_uri: described_class::TOKEN_CREDENTIAL_URI
-      }
+    context 'validate refresh token fails' do
+      let(:error) { RefreshTokenValidator::ClientFetchAccessTokenError.new('error') }
+
+      before do
+        allow(RefreshTokenValidator)
+          .to receive(:run)
+          .with(auth_credential)
+          .and_raise(error)
+      end
+
+      it { expect { subject }.to raise_error(error) }
     end
 
-    before {
-      stub_const('Auth::Google::CLIENT_ID', client_id)
-      stub_const('Auth::Google::CLIENT_SECRET', client_secret)
-      allow(Signet::OAuth2::Client).to receive(:new).with(**client_args).and_return(client)
-    }
+    context 'validate refresh token succeeds' do
+      before { allow(RefreshTokenValidator).to receive(:run).with(auth_credential) }
 
-    context 'when the access token is expired' do
-      let(:expires_at) { GoogleAuthCredential::EXPIRATION_DURATION.ago }
-
-      before { allow(AccessTokenRefresher).to receive(:run).with(auth_credential, client) }
+      it { expect(subject).to be_a(Signet::OAuth2::Client)}
 
       it do
-        expect(AccessTokenRefresher).to receive(:run).with(auth_credential, client)
+        expect(SignetClientFetcher).to receive(:run).with(original_refresh_token)
         subject
       end
-    end
 
-    context 'when the access token is not expired' do
-      let(:expires_at) { 1.day.from_now }
+      context 'access token is expired' do
+        before { allow(auth_credential).to receive(:access_token_expired?).and_return(true) }
 
-      it { is_expected.to eq client }
+        context 'refresh access token succeeds' do
+          before do
+            allow(AccessTokenRefresher).to receive(:run).with(auth_credential).and_return(true)
+            allow(auth_credential).to receive(:reload).and_return(new_auth_credential)
+          end
 
-      it do
-        expect(AccessTokenRefresher).not_to receive(:run)
-        subject
+          it { expect(subject).to be_a(Signet::OAuth2::Client) }
+
+          it do
+            expect(SignetClientFetcher).to receive(:run).with(updated_refresh_token)
+            subject
+          end
+        end
+
+        context 'refresh access token fails' do
+          let(:error) { AccessTokenRefresher::ClientRefreshError.new('error') }
+
+          before do
+            allow(AccessTokenRefresher)
+              .to receive(:run)
+              .with(auth_credential)
+              .and_raise(error)
+          end
+
+          it { expect { subject }.to raise_error(error) }
+        end
       end
     end
   end
