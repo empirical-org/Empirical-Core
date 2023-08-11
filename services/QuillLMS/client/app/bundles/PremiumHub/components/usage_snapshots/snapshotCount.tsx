@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { SMALL, POSITIVE, NEGATIVE, NONE, } from './shared'
+import { SMALL, POSITIVE, NEGATIVE, NONE, selectionsEqual, } from './shared'
 
 import { requestPost, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'
@@ -75,11 +75,11 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
         const { results, } = body
         const { previous, current, } = results
 
-        const roundedCurrent = Math.round(current || 0)
+        const roundedCurrent = (current === null) ? 'N/A' : Math.round(current || 0)
 
         setCount(roundedCurrent)
 
-        if (!previous) {
+        if (!previous || current === null) {
           setChangeDirection(NONE)
           setLoading(false)
           return
@@ -105,10 +105,10 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
 
       const queryKeysAreEqual = message.query === queryKey
       const timeframesAreEqual = message.timeframe === selectedTimeframe
-      const schoolIdsAreEqual = unorderedArraysAreEqual(message.school_ids, selectedSchoolIds)
-      const teacherIdsAreEqual = unorderedArraysAreEqual(message.teacher_ids, selectedTeacherIds)
-      const classroomIdsAreEqual = unorderedArraysAreEqual(message.classroom_ids, selectedClassroomIds)
-      const gradesAreEqual =  unorderedArraysAreEqual(message.grades, selectedGrades.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
+      const schoolIdsAreEqual = selectionsEqual(message.school_ids, selectedSchoolIds)
+      const teacherIdsAreEqual = selectionsEqual(message.teacher_ids, selectedTeacherIds)
+      const classroomIdsAreEqual = selectionsEqual(message.classroom_ids, selectedClassroomIds)
+      const gradesAreEqual =  selectionsEqual(message.grades, selectedGrades?.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
 
       if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {
         getData()

@@ -349,6 +349,18 @@ describe SnapshotsController, type: :controller do
       expect(json_response['classrooms']).to eq([{"id" => classroom.id, "name" => classroom.name}])
     end
 
+    context 'classrooms with visible = false' do
+      let(:classroom) { create(:classroom, grade: target_grade, visible: false) }
+      let(:result) { JSON.parse(response.body) }
+
+      before do
+        get :options
+      end
+
+      it { expect(result['teachers']).to eq([{"id" => teacher.id, "name" => teacher.name}]) }
+      it { expect(result['classrooms']).to eq([{"id" => classroom.id, "name" => classroom.name}]) }
+    end
+
     context 'teachers in multiple classrooms' do
       let(:classroom2) { create(:classroom, grade: target_grade) }
       let!(:classrooms_teacher2) { create(:classrooms_teacher, user: teacher, classroom: classroom2, role: 'owner') }
@@ -421,6 +433,19 @@ describe SnapshotsController, type: :controller do
         json_response = JSON.parse(response.body)
 
         expect(json_response['classrooms']).to eq([])
+      end
+
+      context '"null" in grade params' do
+        let(:target_grade) { nil }
+
+        it 'should match teachers who teach nil grade classrooms' do
+
+          get :options, params: { grades: ["null"] }
+
+          json_response = JSON.parse(response.body)
+
+          expect(json_response['teachers']).to eq([{"id" => teacher.id, "name" => teacher.name}])
+        end
       end
     end
   end
