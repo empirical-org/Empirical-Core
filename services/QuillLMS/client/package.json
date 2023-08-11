@@ -163,7 +163,6 @@
     "redux-test-utils": "^1.0.2",
     "resolve-url-loader": "^3.1.1",
     "ts-jest": "^27.0.5",
-    "webpack-dev-server": "^4.10.1",
     "whatwg-fetch": "^2.0.4"
   },
   "browser": {
@@ -175,21 +174,12 @@
     "jscs": "jscs --verbose .",
     "jscs:fix": "jscs --verbose -x . --silent",
     "test": "npm run build:test && rspec",
-    "build:test": "RAILS_ENV=test webpack --config webpack.client.dev.rails.build.config.js && npm run build:server",
-    "build:production:client": "NODE_ENV=production node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js --config webpack.client.rails.build.config.js",
-    "build:production:server": "NODE_ENV=production webpack --config webpack.server.rails.build.config.js",
-    "build:client": "webpack --config webpack.client.rails.build.config.js",
-    "build:dev:client:prod-cms": "RAILS_ENV=development QUILL_CMS=https://cms.quill.org node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js -w --config webpack.client.dev.rails.build.config.js",
-    "build:dev:client": "RAILS_ENV=development  node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js -w --config webpack.client.dev.rails.build.config.js ",
-    "build:dev:server": "webpack -w --config webpack.server.rails.build.config.js",
-    "build:server": "webpack --config webpack.server.rails.build.config.js",
     "hot-assets": "NODE_ENV=development babel-node server-rails-hot.js",
     "install-react-on-rails": "npm install 'react-on-rails'",
     "jest": "node --expose-gc ./node_modules/.bin/jest --maxWorkers=1 --logHeapUsage",
     "jest:watch": "jest --watch",
     "jest:coverage": "jest --coverage",
-    "jest:silent": "jest --silent",
-    "webpack-dev-server": "webpack-dev-server --config webpack.client.rails.hot.config.js"
+    "jest:silent": "jest --silent"
   },
   "jest": {
     "roots": [
