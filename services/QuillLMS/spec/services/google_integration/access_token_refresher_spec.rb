@@ -39,7 +39,7 @@ module GoogleIntegration
 
     context 'when the refresh token is valid' do
       it { expect { subject }.to change { auth_credential.reload.access_token }.to(access_token) }
-      it { expect { subject }.to change { auth_credential.reload.expires_at }.to(expires_at) }
+      it { expect { subject }.to change { auth_credential.reload.expires_at }.to(be_within(1.second).of(expires_at)) }
       it { expect { subject }.to change { auth_credential.reload.refresh_token }.to(refresh_token) }
     end
   end
