@@ -91,7 +91,7 @@ module GrowthResultsSummary
     proficiency_text = summarize_student_proficiency_for_skill_overall(present_skill_number, correct_skill_number, pre_correct_skill_number, acquired_skills)
     skill_group_summary_index = @skill_group_summaries.find_index { |sg| sg[:name] == skill_group.name }
     @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name] = { pre: nil, post: nil }
-    @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names].push(student_name) unless GROWTH_PROFICIENCY_TEXTS.include?(proficiency_text)
+    @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names].push(student_name) unless FULL_OR_MAINTAINED_PROFICIENCY_TEXTS.include?(proficiency_text)
     @skill_group_summaries[skill_group_summary_index][:gained_proficiency_in_post_test_student_names].push(student_name) if GAINED_PROFICIENCY_TEXTS.include?(proficiency_text)
     @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names] = @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names].uniq
     @skill_group_summaries[skill_group_summary_index][:gained_proficiency_in_post_test_student_names] = @skill_group_summaries[skill_group_summary_index][:gained_proficiency_in_post_test_student_names].uniq

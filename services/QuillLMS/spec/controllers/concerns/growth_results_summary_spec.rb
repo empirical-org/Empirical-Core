@@ -40,7 +40,7 @@ describe GrowthResultsSummary do
             name: pre_test_skill_group_activity.skill_group.name,
             description: pre_test_skill_group_activity.skill_group.description,
             not_yet_proficient_in_post_test_student_names: [],
-            gained_proficiency_in_post_test_student_names: [],
+            gained_proficiency_in_post_test_student_names: [student1.name],
             proficiency_scores_by_student: {
               student1.name => {
                 pre: 0.5,

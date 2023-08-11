@@ -8436,9 +8436,9 @@ exports[`Results component should render when there are results 1`] = `
                     6
                      of 
                     11
-                     student
+                     Student
                     s
-                     proficient
+                     Proficient
                   </span>
                 </th>
                 <th
@@ -8507,9 +8507,9 @@ exports[`Results component should render when there are results 1`] = `
                     5
                      of 
                     11
-                     student
+                     Student
                     s
-                     proficient
+                     Proficient
                   </span>
                 </th>
                 <th
@@ -8578,8 +8578,8 @@ exports[`Results component should render when there are results 1`] = `
                     1
                      of 
                     11
-                     student
-                     proficient
+                     Student
+                     Proficient
                   </span>
                 </th>
                 <th
@@ -8648,9 +8648,9 @@ exports[`Results component should render when there are results 1`] = `
                     3
                      of 
                     11
-                     student
+                     Student
                     s
-                     proficient
+                     Proficient
                   </span>
                 </th>
                 <th
@@ -8719,9 +8719,9 @@ exports[`Results component should render when there are results 1`] = `
                     3
                      of 
                     11
-                     student
+                     Student
                     s
-                     proficient
+                     Proficient
                   </span>
                 </th>
                 <th
@@ -8790,9 +8790,9 @@ exports[`Results component should render when there are results 1`] = `
                     4
                      of 
                     11
-                     student
+                     Student
                     s
-                     proficient
+                     Proficient
                   </span>
                 </th>
               </tr>
