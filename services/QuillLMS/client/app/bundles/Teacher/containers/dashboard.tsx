@@ -9,7 +9,7 @@ import CollegeBoard from '../components/dashboard/college_board';
 import DailyTinyTip from '../components/dashboard/daily_tiny_tip';
 import DemoModal from '../components/dashboard/demo_modal';
 import DiagnosticMini from '../components/dashboard/diagnostic_mini';
-import BulkArchiveOrEvidenceCard from '../components/dashboard/bulk_archive_or_evidence_card';
+import PromotionalCard from '../components/dashboard/promotional_card';
 import HandyActions from '../components/dashboard/handy_actions';
 import KeyMetrics from '../components/dashboard/key_metrics';
 import LessonsMini from '../components/dashboard/lessons_mini';
@@ -127,7 +127,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSe
           {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
           {showTeacherInfoModal && <TeacherInfoModal close={closeTeacherInfoModal} subjectAreas={subjectAreas} />}
           <main>
-            <BulkArchiveOrEvidenceCard
+            <PromotionalCard
               classrooms={classrooms}
               handleBulkArchiveSuccess={handleBulkArchiveSuccess}
               showEvidencePromotionCard={showEvidencePromotionCard}

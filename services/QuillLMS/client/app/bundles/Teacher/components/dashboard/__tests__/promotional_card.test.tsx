@@ -2,8 +2,9 @@ import { mount } from 'enzyme';
 import 'isomorphic-fetch';
 import * as React from 'react';
 
-import BulkArchiveOrEvidenceCard from '../bulk_archive_or_evidence_card';
+import PromotionalCard from '../promotional_card';
 import BulkArchiveClassesCard from '../bulk_archive_classrooms_card'
+import ScoringUpdatesCard from '../scoring_updates_card'
 
 const classrooms = [
   {
@@ -93,7 +94,47 @@ const sharedProps = {
   showEvidencePromotionCard: true
 }
 
-describe('BulkArchiveOrEvidenceCard container', () => {
+describe('PromotionalCard container', () => {
+
+  describe('ScoringUpdatesCard rendering behavior', () => {
+    describe('when the bulk archive classes card has been closed for the calendar year', () => {
+      beforeEach(() => {
+        window.localStorage.clear();
+
+        jest.spyOn(global.Date, 'now').mockImplementation(() =>
+          new Date('2023-04-08T11:01:58.135Z').valueOf()
+        );
+
+        window.localStorage.setItem('2022BulkArchiveBannerClosedForUser1', 'true')
+      });
+
+      it('should render the ScoringUpdatesCard if it has not been closed for that user', () => {
+        const wrapper = mount(
+          <PromotionalCard
+            passedBulkArchiveCardClosedForRelevantYear={true}
+            {...sharedProps}
+          />
+        );
+
+        expect(wrapper).toMatchSnapshot()
+        expect(wrapper.find(ScoringUpdatesCard)).toHaveLength(1);
+      })
+
+      describe('it should not render the ScoringUpdatesCard if it has been closed for that user', () => {
+        const wrapper = mount(
+          <PromotionalCard
+            passedBulkArchiveCardClosedForRelevantYear={true}
+            passedScoringUpdatesCardClosed={true}
+            {...sharedProps}
+          />
+        );
+
+        expect(wrapper).toMatchSnapshot()
+        expect(wrapper.find(ScoringUpdatesCard)).toHaveLength(0);
+      })
+
+    })
+  })
 
   describe('BulkArchiveClassesCard rendering behavior', () => {
 
@@ -110,8 +151,8 @@ describe('BulkArchiveOrEvidenceCard container', () => {
         window.localStorage.setItem('2022BulkArchiveBannerClosedForUser1', 'true')
 
         const wrapper = mount(
-          <BulkArchiveOrEvidenceCard
-            passedCardClosedForRelevantYear={true}
+          <PromotionalCard
+            passedBulkArchiveCardClosedForRelevantYear={true}
             {...sharedProps}
           />
         );
@@ -126,8 +167,8 @@ describe('BulkArchiveOrEvidenceCard container', () => {
         );
 
         const wrapper = mount(
-          <BulkArchiveOrEvidenceCard
-            passedCardClosedForRelevantYear={false}
+          <PromotionalCard
+            passedBulkArchiveCardClosedForRelevantYear={false}
             {...sharedProps}
           />
         );
@@ -144,8 +185,8 @@ describe('BulkArchiveOrEvidenceCard container', () => {
         window.localStorage.setItem(`2021BulkArchiveBannerClosedForUser1`, 'true')
 
         const wrapper = mount(
-          <BulkArchiveOrEvidenceCard
-            passedCardClosedForRelevantYear={false}
+          <PromotionalCard
+            passedBulkArchiveCardClosedForRelevantYear={false}
             {...sharedProps}
           />
         );
@@ -164,8 +205,8 @@ describe('BulkArchiveOrEvidenceCard container', () => {
         window.localStorage.setItem(`2023BulkArchiveBannerClosedForUser1`, 'true')
 
         const wrapper = mount(
-          <BulkArchiveOrEvidenceCard
-            passedCardClosedForRelevantYear={true}
+          <PromotionalCard
+            passedBulkArchiveCardClosedForRelevantYear={true}
             {...sharedProps}
           />
         );
@@ -180,8 +221,8 @@ describe('BulkArchiveOrEvidenceCard container', () => {
         );
 
         const wrapper = mount(
-          <BulkArchiveOrEvidenceCard
-            passedCardClosedForRelevantYear={false}
+          <PromotionalCard
+            passedBulkArchiveCardClosedForRelevantYear={false}
             {...sharedProps}
           />
         );
@@ -196,8 +237,8 @@ describe('BulkArchiveOrEvidenceCard container', () => {
         );
 
         const wrapper = mount(
-          <BulkArchiveOrEvidenceCard
-            passedCardClosedForRelevantYear={false}
+          <PromotionalCard
+            passedBulkArchiveCardClosedForRelevantYear={false}
             {...sharedProps}
           />
         );
