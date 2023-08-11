@@ -50,6 +50,7 @@ namespace :users do
               FROM users
               WHERE email IS NOT NULL
               AND TRIM(email) != ''
+              AND role = 'student'
               GROUP BY email
               HAVING COUNT(email) > 1
           ),
