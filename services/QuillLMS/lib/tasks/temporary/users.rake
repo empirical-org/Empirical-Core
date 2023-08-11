@@ -81,6 +81,13 @@ namespace :users do
         SQL
       ).first['ids'].split(',')
 
+    puts "#{user_ids.count} users to delete"
+    misses = User.where(id: user_ids).select { |u| !u.student? || u.activity_sessions.count != 0 || u.classrooms.count != 0 || User.where(email: u.email).count <  2;  }.map { |u| [u.id, u.activity_sessions.count, u.classrooms.count, User.where(email: u.email).count] }
+    return if misses.count > 0
+
+    puts "Going to delete #{user_ids.count} users"
+    puts "Deleting #{user_ids.count} users"
     User.where(id: user_ids).destroy_all
+    puts "Deleted #{user_ids.count} users"
   end
 end
