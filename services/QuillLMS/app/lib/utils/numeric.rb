@@ -26,7 +26,7 @@ module Utils::Numeric
     (time.split(":")[0].to_i * 60) + (time.split(":")[1].to_i)
   end
 
-  def self.safe_division(numerator, denominator, fallback = 0)
+  def self.safe_division(numerator, denominator, fallback = nil)
     return fallback if denominator == 0
 
     numerator.to_f / denominator

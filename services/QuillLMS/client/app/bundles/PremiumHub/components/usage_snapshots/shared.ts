@@ -1,3 +1,5 @@
+import { unorderedArraysAreEqual, } from '../../../../modules/unorderedArraysAreEqual'
+
 // interfaces
 export interface Grade {
   label: string;
@@ -314,3 +316,10 @@ export const snapshotSections = [
     ]
   }
 ]
+
+export function selectionsEqual(firstSelection, secondSelection) {
+  return (
+    firstSelection == secondSelection || // less strict comparison so that undefined and null are treated as equal
+    unorderedArraysAreEqual(firstSelection, secondSelection)
+  )
+}

@@ -100,7 +100,7 @@ RSpec.describe Utils::Numeric do
     context '0 denominator' do
       let(:denominator) { 0 }
 
-      it { expect(subject).to eq(0) }
+      it { expect(subject).to eq(nil) }
     end
 
     context 'passing custom fallback value' do
