@@ -114,6 +114,11 @@ module PagesHelper
             img: 'team-rachel-calabrese.webp'
           },
           {
+            name: 'CJ Colicchio',
+            title: 'Social Studies Curriculum Developer',
+            img: 'team-cj-colicchio.webp'
+          },
+          {
             name: 'Nattalie Dai',
             title: 'Partnerships Specialist II',
             img: 'team-nattalie-dai.webp'
@@ -152,6 +157,11 @@ module PagesHelper
             name: 'Scarlet Melo',
             title: 'Instructional Coach',
             img: 'team-scarlet-melo.webp'
+          },
+          {
+            name: 'Jamie Monville',
+            title: 'Associate Curriculum Product Manager',
+            img: 'team-jamie-monville.webp'
           },
           {
             name: 'Katie Moylan',
