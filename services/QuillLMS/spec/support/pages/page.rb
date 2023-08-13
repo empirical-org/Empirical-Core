@@ -63,7 +63,7 @@ class Page
   end
 
   def self.has_input_field(value_method, element_method, locator)
-    has_form_element   element_method, locator
+    has_form_element element_method, locator
     has_form_field_value value_method, element_method
   end
 

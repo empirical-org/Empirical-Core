@@ -32,10 +32,7 @@ describe ProfilesController, type: :controller do
       )
     end
     let!(:other_student) {create(:student)}
-    let!(:units) do [
-        create(:unit),
-        create(:unit)
-      ]
+    let!(:units) do create_list(:unit, 2)
     end
     let!(:post_test) { create(:activity) }
     let!(:activities) do [
@@ -75,10 +72,8 @@ describe ProfilesController, type: :controller do
         create(:classroom_unit_activity_state, unit_activity: unit_activities[4], classroom_unit: classroom_units[1])
       ]
     end
-    let!(:activity_sessions) do [
-        create(:activity_session, classroom_unit: classroom_units[0], user: student, visible: true, activity: activities[1], percentage: 0.9)
-      ]
-    end
+
+    let!(:activity_sessions) { create_list(:activity_session, 1, classroom_unit: classroom_units[0], user: student, visible: true, activity: activities[1], percentage: 0.9) }
 
     before do
       session[:user_id] = student.id
