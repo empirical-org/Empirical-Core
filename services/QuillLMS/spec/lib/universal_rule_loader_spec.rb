@@ -36,10 +36,9 @@ RSpec.describe UniversalRuleLoader do
       end
 
       it 'should ignore rules that are not universal or grammar' do
-        expect do
-          UniversalRuleLoader.update_from_csv(type: rule_type, iostream: csv2)
-        end.to change(Evidence::Rule, :count).by(0)
-        .and change(Evidence::Feedback, :count).by(0)
+        expect { UniversalRuleLoader.update_from_csv(type: rule_type, iostream: csv2) }
+          .to change(Evidence::Rule, :count).by(0)
+          .and change(Evidence::Feedback, :count).by(0)
       end
 
       it 'should not create a rule when a rule exists that is not universal or grammar' do
@@ -68,10 +67,9 @@ RSpec.describe UniversalRuleLoader do
       end
 
       it 'should create a new rule and new feedback' do
-        expect do
-          UniversalRuleLoader.update_from_csv(type: rule_type, iostream: csv1)
-        end.to change(Evidence::Rule, :count).by(1)
-        .and change(Evidence::Feedback, :count).by(1)
+        expect { UniversalRuleLoader.update_from_csv(type: rule_type, iostream: csv1) }
+          .to change(Evidence::Rule, :count).by(1)
+          .and change(Evidence::Feedback, :count).by(1)
 
         rule = Evidence::Rule.find_by_uid '1d66a'
         expect(rule.concept_uid).to eq '4d5e3'
