@@ -2,27 +2,37 @@
 
 module GoogleIntegration
   class AccessTokenRefresher < ::ApplicationService
-    attr_reader :auth_credential, :authorization_client
+    class ClientRefreshError < ::StandardError; end
 
-    def initialize(auth_credential, authorization_client)
+    attr_reader :auth_credential
+
+    delegate :refresh_token, to: :auth_credential
+
+    def initialize(auth_credential)
       @auth_credential = auth_credential
-      @authorization_client = authorization_client
     end
 
     def run
-      refresh_access_token
+      refresh_client
       update_auth_credential
     end
 
-    private def refresh_access_token
-      authorization_client.refresh!
+    private def client
+      @client ||= SignetClientFetcher.run(refresh_token)
+    end
+
+    private def refresh_client
+      client.refresh!
+    rescue ::Signet::AuthorizationError => e
+      auth_credential.destroy!
+      raise ClientRefreshError, e
     end
 
     private def update_auth_credential
-      auth_credential.update(
-        access_token: authorization_client.access_token,
-        expires_at: authorization_client.expires_at,
-        refresh_token: authorization_client.refresh_token
+      auth_credential.update!(
+        access_token: client.access_token,
+        expires_at: client.expires_at,
+        refresh_token: client.refresh_token
       )
     end
   end

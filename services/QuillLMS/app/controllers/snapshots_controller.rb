@@ -70,11 +70,12 @@ class SnapshotsController < ApplicationController
   end
 
   private def teacher_options
-    grades = option_params[:grades]
+    grades = option_params[:grades]&.map { |i| Utils::String.parse_null_to_nil(i) }
 
     teachers = User.distinct
       .joins(:schools_users)
-      .joins(:classrooms_i_teach)
+      .joins(:classrooms_teachers)
+      .joins("INNER JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id") # manual join to avoid the default scope on Classroom
       .where(schools_users: {school_id: filtered_schools.pluck(:id)})
 
     return teachers.where(classrooms: {grade: grades}) if grades.present?
@@ -96,7 +97,8 @@ class SnapshotsController < ApplicationController
   end
 
   private def classroom_options
-    Classroom.distinct
+    Classroom.unscoped
+      .distinct
       .joins(:classrooms_teachers)
       .where(classrooms_teachers: {user_id: filtered_teachers.pluck(:id)})
       .order(:name)

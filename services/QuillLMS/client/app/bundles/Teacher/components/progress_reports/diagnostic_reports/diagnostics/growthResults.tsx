@@ -12,7 +12,12 @@ import {
   maintainedProficiencyTag,
   noProficiencyTag,
   partialProficiencyTag,
-  gainedSomeProficiencyTag
+  gainedSomeProficiencyTag,
+  noProficencyExplanation,
+  postPartialProficiencyExplanation,
+  gainedSomeProficiencyExplanation,
+  gainedFullProficiencyExplanation,
+  maintainedProficiencyExplanation
 } from './shared';
 import IneligibleForQuestionScoring from './ineligibleForQuestionScoring'
 import StudentResultsTable from './studentResultsTable';
@@ -83,23 +88,23 @@ export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries,
           <section className="proficiency-keys">
             <div className="proficiency-key">
               {noProficiencyTag}
-              <p>The student did not use any of the skills correctly.</p>
+              <p>{noProficencyExplanation}</p>
             </div>
             <div className="proficiency-key">
               {partialProficiencyTag}
-              <p>The student&apos;s response contained some correct responses, but not all of the responses were marked correct.</p>
+              <p>{postPartialProficiencyExplanation}</p>
             </div>
             <div className="proficiency-key">
               {gainedSomeProficiencyTag}
-              <p>The student used one or more skills incorrectly on the baseline diagnostic but then used some of the skills correctly on the growth diagnostic.</p>
+              <p>{gainedSomeProficiencyExplanation}</p>
             </div>
             <div className="proficiency-key">
               {gainedProficiencyTag}
-              <p>The student used one or more skills incorrectly on the baseline diagnostic but used all skills correctly on the growth diagnostic.</p>
+              <p>{gainedFullProficiencyExplanation}</p>
             </div>
             <div className="proficiency-key">
               {maintainedProficiencyTag}
-              <p>The student used all skills correctly 100% of the time on both the baseline diagnostic and the growth diagnostic.</p>
+              <p>{maintainedProficiencyExplanation}</p>
             </div>
           </section>
           <section className="student-results">

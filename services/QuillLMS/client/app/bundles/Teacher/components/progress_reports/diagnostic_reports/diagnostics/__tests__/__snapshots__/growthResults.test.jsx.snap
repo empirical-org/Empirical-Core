@@ -20,41 +20,49 @@ exports[`GrowthResults component should render when there are no results 1`] = `
     Array [
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Compound-Complex Sentences",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Appositive Phrases",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Relative Clauses",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Participal Phrases",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Parallel Structure",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Advanced Combining",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Subject-Verb Agreement",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Nouns, Pronouns, and Verbs",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
@@ -177,11 +185,13 @@ exports[`GrowthResults component should render when there are results 1`] = `
     Array [
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Capitalization",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Plural and Possessive Nouns",
         "not_yet_proficient_in_post_test_student_names": Array [
           "Angie Thomas",
@@ -189,6 +199,7 @@ exports[`GrowthResults component should render when there are results 1`] = `
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Adjectives and Adverbs",
         "not_yet_proficient_in_post_test_student_names": Array [
           "Angie Thomas",
@@ -196,6 +207,7 @@ exports[`GrowthResults component should render when there are results 1`] = `
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Prepositional Phrases",
         "not_yet_proficient_in_post_test_student_names": Array [
           "Angie Thomas",
@@ -203,11 +215,13 @@ exports[`GrowthResults component should render when there are results 1`] = `
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Compound Subjects, Objects, and Predicates",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Commonly Confused Words",
         "not_yet_proficient_in_post_test_student_names": Array [],
       },

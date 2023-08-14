@@ -6,7 +6,8 @@ export const baseImageSrc = `${process.env.CDN_URL}/images`
 export const baseDiagnosticImageSrc = `${baseImageSrc}/pages/diagnostic_reports`
 export const accountCommentIcon = <img alt="Person messaging icon" src={`${baseDiagnosticImageSrc}/icons-comment-account.svg`} />
 export const triangleUpIcon = <img alt="Triangle up icon" src={`${baseDiagnosticImageSrc}/icons-triangle-up-green.svg`} />
-export const lightGreenTriangleUpIcon = <img alt="Triangle up icon" src={`${baseDiagnosticImageSrc}/icons-triangle-up-light-green.svg`} />
+export const brightGreenTriangleUpIcon = <img alt="Bright green triangle up icon" src={`${baseDiagnosticImageSrc}/icons-triangle-up-bright-green.svg`} />
+export const lightGreenTriangleUpIcon = <img alt="Light green triangle up icon" src={`${baseDiagnosticImageSrc}/icons-triangle-up-light-green.svg`} />
 export const closeIcon = <img alt="Close icon" src={`${baseImageSrc}/icons/close.svg`} />
 export const fileDocumentIcon = <img alt="File document icon" src={`${baseDiagnosticImageSrc}/icons-file-document.svg`} />
 export const expandIcon = <img alt="Expand icon" className="expand-icon" src={`${baseImageSrc}/icons/expand.svg`} />
@@ -83,12 +84,26 @@ export const noDataYet = (<div className="no-data-yet">
 export const PRE = 'pre'
 export const POST = 'post'
 
-const PROFICIENCY = 'Full Proficiency'
+export const PROFICIENCY = 'Full Proficiency'
 const PARTIAL_PROFICIENCY = 'Partial Proficiency'
 const NO_PROFICIENCY = 'No Proficiency'
 const MAINTAINED_PROFICIENCY = 'Maintained Proficiency'
 const GAINED_SOME_PROFICIENCY = 'Gained Some Proficiency'
 const GAINED_PROFICIENCY = 'Gained Full Proficiency'
+
+export const noProficencyExplanation = "The student did not answer any questions for this skill correctly."
+export const prePartialProficiencyExplanation = "The student answered some questions for this skill correctly."
+export const postPartialProficiencyExplanation = "The student answered some questions for this skill correctly but did not improve in this skill from the pre-diagnostic."
+export const gainedSomeProficiencyExplanation = "The student showed growth by answering more questions for this skill correctly on the post-diagnostic than on the pre, but still answered one or more questions for this skill incorrectly."
+export const gainedFullProficiencyExplanation = "The student showed growth by answering all questions for this skill correctly on the post, while not answering all questions correctly on the pre."
+export const maintainedProficiencyExplanation = "The student answered all questions for this skill correctly on both the pre and the post-diagnostic."
+export const proficiencyExplanation = "The student answered all questions for this skill correctly."
+
+export const preToPostImprovedSkillsTooltipText = 'The number of skills the student showed improvement in on the post-diagnostic. A skill is considered “improved” if the student answered more questions for that skill correctly on the post-diagnostic than they did on the pre.'
+export const preQuestionsCorrectTooltipText = 'The total number of questions answered correctly on the pre-diagnostic.'
+export const preSkillsProficientTooltipText = 'The number of skills the student demonstrated proficiency in on the pre-diagnostic. A student demonstrates proficiency by answering all questions for that skill correctly. If a student is not fully proficient in a skill, Quill provides a recommended activity pack so that you can assign  practice activities.'
+export const postQuestionsCorrectTooltipText = 'The total number of questions answered correctly on the post-diagnostic.'
+export const postSkillsImprovedOrMaintainTooltipText = 'The number of skills the student maintained or showed improvement in on the post-diagnostic. A skill is considered “improved” if the student answered more questions for that skill correctly on the post-diagnostic than they did on the pre. A skill is considered “maintained” if the student answered all questions for the skill correctly on both the pre and the post-diagnostic.'
 
 export const FULLY_CORRECT = 'Fully correct'
 
