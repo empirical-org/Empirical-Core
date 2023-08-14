@@ -31,13 +31,10 @@ describe ProfilesController, type: :controller do
         classroom: classroom
       )
     end
-    let!(:other_student) {create(:student)}
-    let!(:units) do [
-        create(:unit),
-        create(:unit)
-      ]
-    end
+    let!(:other_student) { create(:student) }
+    let!(:units) { create_list(:unit, 2) }
     let!(:post_test) { create(:activity) }
+
     let!(:activities) do [
         create(:activity),
         create(:activity, follow_up_activity_id: post_test.id),
@@ -46,6 +43,7 @@ describe ProfilesController, type: :controller do
         post_test
       ]
     end
+
     let!(:unit_activities) do [
         create(:unit_activity, unit: units[0], activity: activities[0], order_number: 3),
         create(:unit_activity, unit: units[0], activity: activities[1], order_number: 2),
@@ -54,6 +52,7 @@ describe ProfilesController, type: :controller do
         create(:unit_activity, unit: units[1], activity: activities[4], order_number: 1),
       ]
     end
+
     let!(:classroom_units) do [
         create(:classroom_unit,
           unit: units[0],
@@ -67,7 +66,9 @@ describe ProfilesController, type: :controller do
         )
       ]
     end
-    let!(:classroom_unit_activity_states) do [
+
+    let!(:classroom_unit_activity_states) do
+      [
         create(:classroom_unit_activity_state, unit_activity: unit_activities[0], classroom_unit: classroom_units[0], locked: true),
         create(:classroom_unit_activity_state, unit_activity: unit_activities[1], classroom_unit: classroom_units[0]),
         create(:classroom_unit_activity_state, unit_activity: unit_activities[2], classroom_unit: classroom_units[0], pinned: true),
@@ -75,14 +76,10 @@ describe ProfilesController, type: :controller do
         create(:classroom_unit_activity_state, unit_activity: unit_activities[4], classroom_unit: classroom_units[1])
       ]
     end
-    let!(:activity_sessions) do [
-        create(:activity_session, classroom_unit: classroom_units[0], user: student, visible: true, activity: activities[1], percentage: 0.9)
-      ]
-    end
 
-    before do
-      session[:user_id] = student.id
-    end
+    let!(:activity_sessions) { create_list(:activity_session, 1, classroom_unit: classroom_units[0], user: student, visible: true, activity: activities[1], percentage: 0.9) }
+
+    before { session[:user_id] = student.id }
 
     it 'redirects to the student classes page' do
       get :show

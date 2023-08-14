@@ -183,9 +183,7 @@ describe AccountsController, type: :controller do
     it 'should redirect with a flash error if the token is not present' do
       get :edit, params: { token: 'not-a-token' }
       expect(response).to redirect_to profile_path
-      # rubocop:disable Rails/OutputSafety
       expect(flash[:notice]).to eq(I18n.t('accounts.edit.expired_link').html_safe)
-      # rubocop:enable Rails/OutputSafety
     end
   end
 end

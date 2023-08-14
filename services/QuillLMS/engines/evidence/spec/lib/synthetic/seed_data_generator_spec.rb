@@ -33,9 +33,9 @@ module Evidence
     let(:chunk2_prompt_alternate2) {"five six seven eight. Even though Intro,"}
     let(:chunk2_response) {['four response']}
 
-    let(:example) {'Example to paraphrase.'}
+    let(:an_example) {'Example to paraphrase.'}
     let(:label) { 'label1' }
-    let(:label_config) {{'label' => label, 'examples' => [example]}}
+    let(:label_config) {{'label' => label, 'examples' => [an_example]}}
     let(:example_prompt) { "rephrase with some synonyms:\n\nExample to paraphrase." }
     let(:example_response) { ["Example to rephrase."] }
 

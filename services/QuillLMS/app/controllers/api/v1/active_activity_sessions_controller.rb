@@ -32,7 +32,7 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
 
   private def update_params
     params['active_activity_session']
-      .reject {|key, _| key == 'uid' }
+      .except('uid')
       .to_unsafe_hash
   end
 
