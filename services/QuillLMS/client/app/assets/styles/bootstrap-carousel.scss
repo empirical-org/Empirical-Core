@@ -76,7 +76,7 @@ h1 {
 }
 mark {
   background: #ff0;
-  color: #000;
+  color: $quill-black;
 }
 small {
   font-size: 80%;
@@ -462,7 +462,7 @@ hr {
   border: 1px solid #ffffff;
   border-radius: 10px;
   cursor: pointer;
-  background-color: #000 \9;
+  background-color: $quill-black \9;
   background-color: rgba(0, 0, 0, 0);
 }
 .carousel-indicators .active {

@@ -459,7 +459,7 @@ $lightgray: #cecece;
 .recommendations-explanation {
   margin-top: 8px;
   font-size: 14px;
-  color: #000000;
+  color: $quill-black;
 }
 
 .recommendations-container {
@@ -694,7 +694,7 @@ $lightgray: #cecece;
 
       &.selected {
         p {
-          color: #000000;
+          color: $quill-black;
         }
       }
       &.previously-assigned {

@@ -420,7 +420,7 @@
   left: 0;
   z-index: 2;
   opacity: 0.5;
-  background-color: #000;
+  background-color: $quill-black;
 }
 
 .welcome-modal-container {
@@ -546,7 +546,7 @@
     }
     .activity-pack-link {
       font-size: 16px;
-      color: #000000;
+      color: $quill-black;
       word-break: break-word;
     }
     &.hide-modal-element {
@@ -598,7 +598,7 @@
         align-items: flex-start;
         .button-text {
           margin: 0px 0px 0px 8px;
-          color: #000000;
+          color: $quill-black;
         }
       }
     }
@@ -625,7 +625,7 @@
     font-size: 24px;
     font-weight: bold;
     line-height: 1.33;
-    color: #000;
+    color: $quill-black;
   }
   .modal-body {
     padding: 0px;
@@ -703,7 +703,7 @@
     font-weight: 700;
     font-size: 32px;
     line-height: 39px;
-    color: #000000;
+    color: $quill-black;
     margin-bottom: 8px;
   }
   button {
@@ -745,7 +745,7 @@
         font-weight: 700;
         font-size: 22px;
         line-height: 27px;
-        color: #000000;
+        color: $quill-black;
         margin-bottom: 8px;
       }
       p {
@@ -1046,7 +1046,7 @@
     .dropdown-container {
       width: 110px;
       label {
-        color: #000;
+        color: $quill-black;
         font-size: 14px;
         margin-top: 0px !important;
       }
@@ -1211,7 +1211,7 @@
         margin-right: 24px;
       }
       .active {
-        color: #000;
+        color: $quill-black;
       }
     }
   }
@@ -1228,7 +1228,7 @@
     .dropdown-container {
       width: 110px;
       label {
-        color: #000;
+        color: $quill-black;
         font-size: 14px;
         margin-top: 0px;
       }

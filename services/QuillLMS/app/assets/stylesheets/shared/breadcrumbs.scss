@@ -32,16 +32,16 @@
         padding: 6px 38px;
         position: relative;
         margin: 0;
-        color: #000;
+        color: $quill-black;
         font-size: 14px;
         text-decoration: none;
         border: 1px solid #cecece;
         &:hover {
-          color: #000;
+          color: $quill-black;
         }
         &.active {
           background: #fff;
-          color: #000;
+          color: $quill-black;
           &:after {
             border-left: 16px solid #fff;
           }

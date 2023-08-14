@@ -460,7 +460,7 @@
   .scorebook-dropdown-icon {
     float: left;
     margin-right: 10px;
-    color: #000000;
+    color: $quill-black;
     font-size: 14px;
     margin-top: 2px;
   }
@@ -473,7 +473,7 @@
     a {
       padding: 5px 14px;
       display: block;
-      color: #000;
+      color: $quill-black;
       &:hover {
         background: #f0f0f0;
         -webkit-appearance: none;
@@ -486,7 +486,7 @@
     span, button {
       padding: 5px 14px;
       display: block;
-      color: #000;
+      color: $quill-black;
       width: 100%;
       text-align: left;
       &:hover {

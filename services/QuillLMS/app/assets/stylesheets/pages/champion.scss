@@ -18,7 +18,7 @@
 
     h1 {
       font-weight: bold;
-      color: #000000;
+      color: $quill-black;
       font-size: 24px;
       padding-top: 16px;
     }
@@ -112,7 +112,7 @@
       }
 
       h2 {
-        color: #000;
+        color: $quill-black;
         font-weight: 700;
         font-size: 16px;
         margin: 22px 0 8px;
@@ -136,7 +136,7 @@
     text-align: center;
 
     h2 {
-      color: #000000;
+      color: $quill-black;
       font-size: 16px;
       font-weight: bold;
     }
@@ -167,7 +167,7 @@
 
     input[type='text'] {
       font-size: 14px;
-      color: #000;
+      color: $quill-black;
       width: 481px;
     }
 

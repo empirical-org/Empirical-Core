@@ -6,7 +6,7 @@
   width: 100%;
   max-width: 1000px;
   margin: auto;
-  color: #000;
+  color: $quill-black;
   .main-content {
     width: 100%;
     .easy-join-name-form-wrapper {
@@ -118,14 +118,14 @@
     background-color: #e5e5e5;
     font-size: 24px;
     line-height: 1.33;
-    color: #000;
+    color: $quill-black;
     padding: 20px;
     margin: 8px 0px 24px;
   }
   ol {
     font-size: 24px;
     line-height: 1.25;
-    color: #000;
+    color: $quill-black;
     margin-top: 16px;
     li {
       margin-bottom: 16px;
@@ -156,7 +156,7 @@
     span {
       font-size: 20px;
       font-weight: 600;
-      color: #000;
+      color: $quill-black;
     }
   }
   .students-watch-tag {
@@ -170,7 +170,7 @@
   .answered-count {
     font-size: 20px;
     line-height: 1.45;
-    color: #000;
+    color: $quill-black;
   }
 }
 
@@ -180,7 +180,7 @@
   width: 140px;
   height: 140px;
   opacity: 0.3;
-  background-color: #000000;
+  background-color: $quill-black;
   border-radius: 78px;
   top: 50%;
   cursor: pointer;

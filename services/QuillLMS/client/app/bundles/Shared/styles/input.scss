@@ -45,7 +45,7 @@
     border-radius: 0px;
     width: 100%;
     font-size: 16px;
-    color: #000;
+    color: $quill-black;
     -webkit-transition: all 0.2s ease-in;
     -moz-transition: all 0.2s ease-in;
     -o-transition: all 0.2s ease-in;
@@ -142,7 +142,7 @@
       }
     }
     .dropdown__single-value {
-      color: #000;
+      color: $quill-black;
       font-size: 16px;
       margin-left: 0px;
       overflow: visible;
@@ -155,13 +155,13 @@
       padding: 0px;
       font-size: 16px;
       line-height: 1;
-      color: #000;
+      color: $quill-black;
     }
     .dropdown__indicator-separator {
       display: none;
     }
     .dropdown__value-label {
-      color: #000;
+      color: $quill-black;
     }
     .dropdown__multi-value-wrapper {
       &:focus {

@@ -81,7 +81,7 @@
   }
   #q-and-a {
     background-color: #ffffff;
-    color: #000000;
+    color: $quill-black;
     .q-and-a-inner-wrapper {
       .qa-section {
         border-bottom: solid 1px #C1C1C1;
@@ -92,11 +92,11 @@
           padding: 0;
         }
         .answer {
-          color: #000000;
+          color: $quill-black;
           margin: 0px 0px 32px 0px;
           p {
             a {
-              color:#000000;
+              color:$quill-black;
             }
             .header-link {
               font-weight: 600;
@@ -117,7 +117,7 @@
         }
       }
       .support-link {
-        color: #000000;
+        color: $quill-black;
       }
     }
   }

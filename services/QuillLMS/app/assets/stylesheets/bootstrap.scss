@@ -62,7 +62,7 @@ h1 {
 }
 mark {
   background: #ff0;
-  color: #000;
+  color: $quill-black;
 }
 small {
   font-size: 80%;
@@ -184,7 +184,7 @@ th {
 @media print {
   * {
     text-shadow: none !important;
-    color: #000 !important;
+    color: $quill-black !important;
     background: transparent !important;
     box-shadow: none !important;
   }
@@ -240,10 +240,10 @@ th {
   }
   .btn > .caret,
   .dropup > .btn > .caret {
-    border-top-color: #000 !important;
+    border-top-color: $quill-black !important;
   }
   .label {
-    border: 1px solid #000;
+    border: 1px solid $quill-black;
   }
   .table {
     border-collapse: collapse !important;
@@ -272,7 +272,7 @@ body {
   font-family: "adelle-sans", "Arial", sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
-  color: #000000;
+  color: $quill-black;
   background-color: #f7f5f5;
 }
 input,
@@ -284,12 +284,12 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #000000;
+  color: $quill-black;
   text-decoration: none;
 }
 a:hover,
 a:focus {
-  color: #000000;
+  color: $quill-black;
   text-decoration: underline;
 }
 a:focus {
@@ -527,10 +527,10 @@ mark,
   color: #777777;
 }
 .text-primary {
-  color: #000000;
+  color: $quill-black;
 }
 a.text-primary:hover {
-  color: #000000;
+  color: $quill-black;
 }
 .text-success {
   color: #3c763d;
@@ -558,10 +558,10 @@ a.text-danger:hover {
 }
 .bg-primary {
   color: #fff;
-  background-color: #000000;
+  background-color: $quill-black;
 }
 a.bg-primary:hover {
-  background-color: #000000;
+  background-color: $quill-black;
 }
 .bg-success {
   background-color: #dff0d8;
@@ -2181,8 +2181,8 @@ fieldset[disabled] .btn-default.active {
 }
 .btn-primary {
   color: #ffffff;
-  background-color: #000000;
-  border-color: #000000;
+  background-color: $quill-black;
+  border-color: $quill-black;
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -2190,8 +2190,8 @@ fieldset[disabled] .btn-default.active {
 .btn-primary.active,
 .open > .dropdown-toggle.btn-primary {
   color: #ffffff;
-  background-color: #000000;
-  border-color: #000000;
+  background-color: $quill-black;
+  border-color: $quill-black;
 }
 .btn-primary:active,
 .btn-primary.active,
@@ -2213,11 +2213,11 @@ fieldset[disabled] .btn-primary:active,
 .btn-primary.disabled.active,
 .btn-primary[disabled].active,
 fieldset[disabled] .btn-primary.active {
-  background-color: #000000;
-  border-color: #000000;
+  background-color: $quill-black;
+  border-color: $quill-black;
 }
 .btn-primary .badge {
-  color: #000000;
+  color: $quill-black;
   background-color: #ffffff;
 }
 .btn-success {
@@ -2385,7 +2385,7 @@ fieldset[disabled] .btn-danger.active {
   background-color: #ffffff;
 }
 .btn-link {
-  color: #000000;
+  color: $quill-black;
   font-weight: normal;
   cursor: pointer;
   border-radius: 0;
@@ -2406,7 +2406,7 @@ fieldset[disabled] .btn-link {
 }
 .btn-link:hover,
 .btn-link:focus {
-  color: #000000;
+  color: $quill-black;
   text-decoration: underline;
   background-color: transparent;
 }
@@ -2546,7 +2546,7 @@ tbody.collapse.in {
   color: #ffffff;
   text-decoration: none;
   outline: 0;
-  background-color: #000000;
+  background-color: $quill-black;
 }
 .dropdown-menu > .disabled > a,
 .dropdown-menu > .disabled > a:hover,
@@ -2977,7 +2977,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav .open > a:hover,
 .nav .open > a:focus {
   background-color: #eeeeee;
-  border-color: #000000;
+  border-color: $quill-black;
 }
 .nav .nav-divider {
   height: 1px;
@@ -3002,7 +3002,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
-  color: #000000;
+  color: $quill-black;
   background-color: #fff;
   cursor: default;
 }
@@ -3063,7 +3063,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
   color: #ffffff;
-  background-color: #000000;
+  background-color: $quill-black;
 }
 .nav-stacked > li {
   float: none;
@@ -3681,7 +3681,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   padding: 9.5px 15px;
   line-height: 1.42857143;
   text-decoration: none;
-  color: #000000;
+  color: $quill-black;
   background-color: #f7f5f5;
   border: 1px solid #cecece;
   border-top: none;
@@ -3706,7 +3706,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > li > span:hover,
 .pagination > li > a:focus,
 .pagination > li > span:focus {
-  color: #000000;
+  color: $quill-black;
   background-color: #eeeeee;
   border-color: #dddddd;
 }
@@ -3717,7 +3717,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > .active > a:focus,
 .pagination > .active > span:focus {
   z-index: 2;
-  color: #000000;
+  color: $quill-black;
   background-color: #e6e6e6;
   border-color: #cecece;
   cursor: default;
@@ -3834,11 +3834,11 @@ a.label:focus {
   background-color: #5e5e5e;
 }
 .label-primary {
-  background-color: #000000;
+  background-color: $quill-black;
 }
 .label-primary[href]:hover,
 .label-primary[href]:focus {
-  background-color: #000000;
+  background-color: $quill-black;
 }
 .label-success {
   background-color: #5cb85c;
@@ -3901,7 +3901,7 @@ a.badge:focus {
 }
 a.list-group-item.active > .badge,
 .nav-pills > .active > a > .badge {
-  color: #000000;
+  color: $quill-black;
   background-color: #ffffff;
 }
 .nav-pills > li > a > .badge {
@@ -3965,11 +3965,11 @@ a.list-group-item.active > .badge,
 a.thumbnail:hover,
 a.thumbnail:focus,
 a.thumbnail.active {
-  border-color: #000000;
+  border-color: $quill-black;
 }
 .thumbnail .caption {
   padding: 9px;
-  color: #000000;
+  color: $quill-black;
 }
 .alert {
   padding: 15px;
@@ -4079,7 +4079,7 @@ a.thumbnail.active {
   line-height: 20px;
   color: #ffffff;
   text-align: center;
-  background-color: #000000;
+  background-color: $quill-black;
   -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   -webkit-transition: width 0.6s ease;
@@ -4230,8 +4230,8 @@ a.list-group-item:focus {
 .list-group-item.active:focus {
   z-index: 2;
   color: #ffffff;
-  background-color: #000000;
-  border-color: #000000;
+  background-color: $quill-black;
+  border-color: $quill-black;
 }
 .list-group-item.active .list-group-item-heading,
 .list-group-item.active:hover .list-group-item-heading,
@@ -4563,22 +4563,22 @@ a.list-group-item-danger.active:focus {
   border-bottom-color: #cecece;
 }
 .panel-primary {
-  border-color: #000000;
+  border-color: $quill-black;
 }
 .panel-primary > .panel-heading {
   color: #ffffff;
-  background-color: #000000;
-  border-color: #000000;
+  background-color: $quill-black;
+  border-color: $quill-black;
 }
 .panel-primary > .panel-heading + .panel-collapse > .panel-body {
-  border-top-color: #000000;
+  border-top-color: $quill-black;
 }
 .panel-primary > .panel-heading .badge {
-  color: #000000;
+  color: $quill-black;
   background-color: #ffffff;
 }
 .panel-primary > .panel-footer + .panel-collapse > .panel-body {
-  border-bottom-color: #000000;
+  border-bottom-color: $quill-black;
 }
 .panel-success {
   border-color: #d6e9c6;
@@ -4704,14 +4704,14 @@ a.list-group-item-danger.active:focus {
   font-size: 21px;
   font-weight: bold;
   line-height: 1;
-  color: #000000;
+  color: $quill-black;
   text-shadow: 0 1px 0 #ffffff;
   opacity: 0.2;
   filter: alpha(opacity=20);
 }
 .close:hover,
 .close:focus {
-  color: #000000;
+  color: $quill-black;
   text-decoration: none;
   cursor: pointer;
   opacity: 0.5;
@@ -4778,7 +4778,7 @@ button.close {
   bottom: 0;
   left: 0;
   z-index: 1040;
-  background-color: #000000;
+  background-color: $quill-black;
 }
 .modal-backdrop.fade {
   opacity: 0;
@@ -4880,7 +4880,7 @@ button.close {
 .tooltip-inner {
   max-width: 310px;
   padding: 20px;
-  color: #000;
+  color: $quill-black;
   text-align: left;
   text-decoration: none;
   background-color: #fff;
@@ -5207,7 +5207,7 @@ button.close {
   border: 1px solid #ffffff;
   border-radius: 10px;
   cursor: pointer;
-  background-color: #000 \9;
+  background-color: $quill-black \9;
   background-color: rgba(0, 0, 0, 0);
 }
 .carousel-indicators .active {
@@ -5569,14 +5569,14 @@ button.close {
 .input-mixin {
   border-radius: 5px;
   border: 1px solid #cecece;
-  color: #000;
+  color: $quill-black;
   font-size: 14px;
   padding: 9px 12px;
 }
 .select-mixin, .gray-button {
   border-radius: 5px;
   border: 1px solid #cecece;
-  color: #000;
+  color: $quill-black;
   font-size: 14px;
   padding: 9px 14px;
 }

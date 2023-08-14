@@ -130,7 +130,7 @@
           font-size: 16px;
           line-height: 1;
           font-weight: normal;
-          color: #000000;
+          color: $quill-black;
           margin-bottom: 8px;
         }
         .interactive-wrapper {
@@ -152,7 +152,7 @@
         display: block;
         line-height: normal;
         font-size: 16px;
-        color: #000;
+        color: $quill-black;
       }
       .options {
         display: flex;

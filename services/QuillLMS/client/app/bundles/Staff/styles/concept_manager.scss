@@ -47,7 +47,7 @@
     height: 48px;
     padding: 0px 44px;
     font-size: 16px;
-    color: #000;
+    color: $quill-black;
     &::placeholder, &:placeholder {
       color: #757575;
     }
@@ -113,7 +113,7 @@
     margin-left: 31px;
    a {
       font-weight: 500;
-      color: #000;
+      color: $quill-black;
       min-width: 136px;
       white-space: nowrap;
       display: flex;
@@ -343,7 +343,7 @@
   .concept-change-logs-header {
     display: flex;
     justify-content: space-between;
-    color: #000;
+    color: $quill-black;
     cursor: pointer;
     margin-top: 35px;
     margin-bottom: 20px;
@@ -362,13 +362,13 @@
       color: #a7a7a7;
     }
     .action {
-      color: #000;
+      color: $quill-black;
       font-weight: 600;
       margin-bottom: 11px;
     }
     .explanation {
       line-height: 1.5;
-      color: #000;
+      color: $quill-black;
     }
     .user {
       display: flex;
@@ -379,7 +379,7 @@
         color: #b8b8b8;
       }
       span {
-        color: #000;
+        color: $quill-black;
       }
     }
   }
@@ -419,7 +419,7 @@
     p {
       margin-left: 20px;
       margin-bottom: 0px;
-      color: #000;
+      color: $quill-black;
     }
   }
   .cancel-concept-attribute-field {
@@ -479,7 +479,7 @@
   left: 0;
   z-index: 99;
   opacity: 0.5;
-  background-color: #000;
+  background-color: $quill-black;
 }
 
 .change-log-modal {

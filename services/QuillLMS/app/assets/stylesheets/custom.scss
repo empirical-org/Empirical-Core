@@ -30,7 +30,7 @@ input:disabled {
 .input-mixin {
   border-radius: 5px;
   border: 1px solid #cecece;
-  color: #000;
+  color: $quill-black;
   font-size: 14px;
   padding: 9px 12px;
 }
@@ -38,7 +38,7 @@ input:disabled {
 .select-mixin {
   border-radius: 5px;
   border: 1px solid #cecece;
-  color: #000;
+  color: $quill-black;
   font-size: 14px;
   padding: 9px 14px;
 }

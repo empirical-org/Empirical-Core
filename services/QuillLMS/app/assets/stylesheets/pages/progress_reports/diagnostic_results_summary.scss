@@ -6,7 +6,7 @@
     }
     h2 {
       font-weight: bold;
-      color: #000;
+      color: $quill-black;
       max-width: 520px;
     }
     p, ol {
@@ -327,7 +327,7 @@
         justify-content: space-between;
         &:focus, &:hover {
           border-radius: 8px;
-          box-shadow: 0 1px 8px 0 #0003, 0 3px 3px -2px #0000001e, 0 3px 4px 0 #0000000f;
+          box-shadow: 0 1px 8px 0 $quill-black3, 0 3px 3px -2px $quill-black1e, 0 3px 4px 0 $quill-black0f;
         }
       }
       .number-of-correct-skills-text {
@@ -347,7 +347,7 @@
         width: 512px;
         padding: 16px 0px 0px;
         border-radius: 10px;
-        box-shadow: 0 1px 8px 0 #0003, 0 3px 3px -2px #0000001e, 0 3px 4px 0 #00000023;
+        box-shadow: 0 1px 8px 0 $quill-black3, 0 3px 3px -2px $quill-black1e, 0 3px 4px 0 $quill-black23;
         background-color: #fff;
         max-height: 100vh;
         overflow: scroll;

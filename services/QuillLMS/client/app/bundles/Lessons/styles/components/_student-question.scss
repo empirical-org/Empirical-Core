@@ -25,7 +25,7 @@
         font-weight: normal;
         font-style: normal;
         font-stretch: normal;
-        color: #000000;
+        color: $quill-black;
     }
   }
 }
@@ -99,7 +99,7 @@
     padding: 5px 8px;
     font-size: 24px;
     line-height: 1.25;
-    color: #000;
+    color: $quill-black;
   }
 
   img {
@@ -108,7 +108,7 @@
 
   .cue-explanation {
     font-size: 24px;
-    color: #000;
+    color: $quill-black;
     line-height: 1.25;
   }
 }

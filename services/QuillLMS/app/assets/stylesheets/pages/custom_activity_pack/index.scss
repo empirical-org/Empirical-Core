@@ -85,7 +85,7 @@
           .sort-dropdown-label {
             color: #7c7c7c;
             span {
-              color: #000;
+              color: $quill-black;
             }
             .is-open {
               transform: rotate(180deg)
@@ -136,7 +136,7 @@
             height: 48px;
             padding: 0px 44px;
             font-size: 16px;
-            color: #000;
+            color: $quill-black;
             &::placeholder, &:placeholder {
               color: #757575;
             }
