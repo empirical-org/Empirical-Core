@@ -14,6 +14,4 @@ gem install unicode-display_width
 gem install rubocop -v 1.56.0
 gem install rubocop-rspec -v 2.23.2
 gem install rubocop-rails -v 2.20.2
-#gem install rubocop-ast -v 1.29
-#gem install ruby-progressbar
 rubocop
