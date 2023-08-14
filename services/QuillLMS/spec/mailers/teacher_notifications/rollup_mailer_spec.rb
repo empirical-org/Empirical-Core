@@ -9,11 +9,7 @@ module TeacherNotifications
     end
 
     let(:user) { create(:teacher) }
-    let(:notifications) {
-      [
-        create(:teacher_notification_student_completed_all_assigned_activities, user: user)
-      ]
-    }
+    let(:notifications) { create_list(:teacher_notification_student_completed_all_assigned_activities, 1, user: user) }
     let(:mailer) { described_class.rollup(user, notifications) }
     let(:mail) { mailer.deliver_now }
 
@@ -37,19 +33,19 @@ module TeacherNotifications
     end
 
     context 'should include the diagnostics section if diagnostic notifications are provided' do
-      let(:notifications) { [create(:teacher_notification_student_completed_diagnostic, user: user)] }
+      let(:notifications) { create_list(:teacher_notification_student_completed_diagnostic, 1, user: user) }
 
       it { expect(mail.body.encoded).to match("View results and recommendations") }
     end
 
     context 'should include the all assignments section if all assignment notifications are provided' do
-      let(:notifications) { [create(:teacher_notification_student_completed_all_assigned_activities, user: user)] }
+      let(:notifications) { create_list(:teacher_notification_student_completed_all_assigned_activities, 1, user: user) }
 
       it { expect(mail.body.encoded).to match("Assign your students more activities") }
     end
 
     context 'should include the diagnostic recommendations section if diagnostic recommendation notifications are provided' do
-      let(:notifications) { [create(:teacher_notification_student_completed_all_diagnostic_recommendations, user: user)] }
+      let(:notifications) { create_list(:teacher_notification_student_completed_all_diagnostic_recommendations, 1, user: user) }
 
       it { expect(mail.body.encoded).to match("Assign a growth diagnostic") }
     end

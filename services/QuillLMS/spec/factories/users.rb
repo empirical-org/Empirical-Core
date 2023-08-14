@@ -206,11 +206,11 @@ FactoryBot.define do
       end
 
       trait :in_one_classroom do
-        classrooms { [FactoryBot.create(:classroom)] }
+        classrooms { FactoryBot.create_list(:classroom, 1) }
       end
 
       factory :student_with_many_activities do
-        classrooms { [FactoryBot.create(:classroom)] }
+        classrooms { FactoryBot.create_list(:classroom, 1) }
 
         transient { activity_count { 5 } }
 

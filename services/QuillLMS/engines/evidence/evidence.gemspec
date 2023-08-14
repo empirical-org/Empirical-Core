@@ -18,7 +18,6 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.5'
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.rdoc']
-  s.test_files = Dir['spec/**/*']
 
   s.add_dependency 'google-cloud-automl', '~> 1.3.0'
   s.add_dependency 'google-cloud-automl-v1', '~> 0.7.0'

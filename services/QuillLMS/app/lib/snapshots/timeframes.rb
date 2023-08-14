@@ -84,7 +84,7 @@ module Snapshots
         {
           value: timeframe[:value],
           name: timeframe[:name],
-          default: (DEFAULT_TIMEFRAME == timeframe[:value])
+          default: (timeframe[:value] == DEFAULT_TIMEFRAME)
         }
       end
     end
