@@ -44,10 +44,9 @@ RSpec.describe UniversalRuleLoader do
 
       it 'should not create a rule when a rule exists that is not universal or grammar' do
         rule = create(:evidence_rule, uid: 'abc6a', rule_type: rule_type, universal: false)
-        expect do
-          UniversalRuleLoader.update_from_csv(type: rule_type, iostream: csv3)
-        end.to change(Evidence::Rule, :count).by(0)
-        .and change(Evidence::Feedback, :count).by(0)
+        expect { UniversalRuleLoader.update_from_csv(type: rule_type, iostream: csv3) }
+          .to change(Evidence::Rule, :count).by(0)
+          .and change(Evidence::Feedback, :count).by(0)
       end
 
 
@@ -55,10 +54,9 @@ RSpec.describe UniversalRuleLoader do
         rule = create(:evidence_rule, uid: '1d66a', rule_type: rule_type, universal: true)
         create(:evidence_feedback, rule: rule, order: 0)
 
-        expect do
-          UniversalRuleLoader.update_from_csv(type: rule_type, iostream: csv1)
-        end.to change(Evidence::Rule, :count).by(0)
-        .and change(Evidence::Feedback, :count).by(0)
+        expect { UniversalRuleLoader.update_from_csv(type: rule_type, iostream: csv1) }
+          .to change(Evidence::Rule, :count).by(0)
+          .and change(Evidence::Feedback, :count).by(0)
 
         rule = Evidence::Rule.find_by_uid '1d66a'
         expect(rule.concept_uid).to eq '4d5e3'
