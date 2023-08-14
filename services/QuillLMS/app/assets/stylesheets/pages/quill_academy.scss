@@ -27,7 +27,7 @@
       }
       &.accessible {
         background-color: rgba(6, 128, 107, 0.1);
-        color: $quillgreenmedium;
+        color: $quill-green;
       }
       &.restricted {
         background-color: rgba(223, 158, 61, 0.1);
@@ -44,10 +44,10 @@
         box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
         border-radius: 30px;
         &:hover, &:focus {
-          outline: 2px solid $quillgreenmedium;
+          outline: 2px solid $quill-green;
         }
         .quill-button:hover {
-          background-color: $quillgreenmedium !important;
+          background-color: $quill-green !important;
         }
       }
       h2 {
@@ -132,7 +132,7 @@
           }
         }
         .available {
-          color: $quillgreenmedium;
+          color: $quill-green;
           font-weight: 700;
           font-size: 14px;
         }
@@ -155,7 +155,7 @@
     p {
       font-weight: 700;
       font-size: 22px;
-      color: $quillgreenmedium;
+      color: $quill-green;
     }
   }
   .content-section.second > .category-card {

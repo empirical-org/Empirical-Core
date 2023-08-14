@@ -46,7 +46,7 @@
     box-shadow: none;
     div {
       height: 100%;
-      background-color: #06806b;
+      background-color: $quill-green;
       &.step-one {
         width: 10%;
       }
@@ -146,8 +146,8 @@
         border-bottom: 2px solid transparent;
         margin-bottom: -1px;
         &.active {
-          color: #06806b;
-          border-bottom: 2px solid #06806b;
+          color: $quill-green;
+          border-bottom: 2px solid $quill-green;
         }
       }
     }

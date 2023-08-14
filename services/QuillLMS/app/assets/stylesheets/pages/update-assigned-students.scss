@@ -74,10 +74,10 @@
         background-color: #F7F5F5;
       }
       &.will-be-assigned {
-        background-color: #D6EFEC;
-        border: 1px solid #06806B;
+        background-color: $quill-green-10;
+        border: 1px solid $quill-green;
         .description {
-          color: #06806B;
+          color: $quill-green;
         }
       }
       &.will-be-removed {

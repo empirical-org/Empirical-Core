@@ -60,7 +60,7 @@
             border-bottom: dashed 1px #808080;
           }
           .image-attribution-tooltip:focus {
-            outline: dashed 2px #06806b;
+            outline: dashed 2px $quill-green;
             outline-offset: 4px;
           }
           .quill-tooltip-wrapper {

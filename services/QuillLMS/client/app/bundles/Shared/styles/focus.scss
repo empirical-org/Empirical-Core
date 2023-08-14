@@ -7,7 +7,7 @@
 
 .focus-on-light {
   &:focus {
-    outline: dashed 2px #06806b;
+    outline: dashed 2px $quill-green;
     outline-offset: 6px;
   }
 }

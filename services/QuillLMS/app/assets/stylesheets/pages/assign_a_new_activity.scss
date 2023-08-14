@@ -37,7 +37,7 @@
       line-height: 1;
       margin: 4px 0px;
       display: inline-block;
-      color: #06806b;
+      color: $quill-green;
     }
   }
   .body {
@@ -83,7 +83,7 @@
   .diagnostic-banner {
     padding: 0px 0px 16px;
     border-radius: 6px;
-    border: solid 1px #06806b;
+    border: solid 1px $quill-green;
     display: flex;
     background-color: #e1f3f1;
     margin-bottom: 24px;

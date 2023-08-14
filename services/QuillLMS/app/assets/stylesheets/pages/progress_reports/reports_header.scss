@@ -31,9 +31,9 @@
       color: #5c5c5c;
       margin-bottom: -1px;
       &.active {
-        border-bottom: 2px solid #06806b;
+        border-bottom: 2px solid $quill-green;
         font-weight: bold;
-        color: #06806b;
+        color: $quill-green;
       }
     }
   }

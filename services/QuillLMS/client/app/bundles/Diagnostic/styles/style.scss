@@ -384,7 +384,7 @@ textarea.submission {
 }
 
 .header {
-  background-color: #06806b;
+  background-color: $quill-green;
   height: 64px;
   padding: 0 50px;
   color: rgba(0, 0, 0, 0.65);
@@ -396,7 +396,7 @@ textarea.submission {
     button {
       display: flex;
       align-items: center;
-      background-color: #06806b;
+      background-color: $quill-green;
       color: white;
       border: none;
       img {

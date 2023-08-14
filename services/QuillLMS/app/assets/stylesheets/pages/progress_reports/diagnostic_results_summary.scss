@@ -106,12 +106,12 @@
     &.proficiency, &.maintained-proficiency {
       background-color: #b8db99;
       span {
-        color: #2a5900;
+        color: $quill-green-vibrant;
       }
     }
     &.gained-some-proficiency {
       background-color: #e9f4e0;
-      border: 1px solid #2A5900;
+      border: 1px solid $quill-green-vibrant;
       span {
         color: #367300;
       }

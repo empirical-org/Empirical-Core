@@ -19,7 +19,7 @@
         border: none;
       }
       &.editing:not(.error) {
-        border: solid 2px #06806b;
+        border: solid 2px $quill-green;
       }
       &.error {
         border-bottom: solid 4px #b17410;

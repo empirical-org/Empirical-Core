@@ -50,7 +50,7 @@
   &.primary {
     &.contained {
       color: #ffffff;
-      background-color: #06806b;
+      background-color: $quill-green;
       &:not(.disabled) {
         &:hover, &:focus {
           background-color: #08907b;

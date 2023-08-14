@@ -75,7 +75,7 @@
             padding: 13.5px 16px 10px 16px;
             border-radius: 6px;
             &.hover {
-              background-color: $quillgreenlight;
+              background-color: $quill-green-5;
             }
             &#my-account-tab {
               border-top: 1px solid rgba(6, 128, 107, 0.3);
@@ -128,7 +128,7 @@
             }
             a {
               padding: 0;
-              color: $quillgreenmedium !important;
+              color: $quill-green !important;
               background-color: inherit;
               font-size: 16px;
               font-weight: 600;
@@ -158,7 +158,7 @@
       }
       .right-side-mobile-nav {
         .active-tab {
-          color: $quillgreenmedium;
+          color: $quill-green;
           &.red {
             color: $quillmaroon;
           }
@@ -182,7 +182,7 @@
               }
             }
             .horizontal-line {
-              background: $quillgreenmedium;
+              background: $quill-green;
             }
           }
         }
@@ -200,7 +200,7 @@
   border-radius: 0px;
   margin-bottom: 0px;
   &.non-standard-navbar {
-    background-color: $quillgreenmedium;
+    background-color: $quill-green;
     .navbar-header {
       display: flex;
       justify-content: center;
@@ -217,7 +217,7 @@
 .navbar-divider-bar {
   height: 16px;
   &.green {
-    background-color: $quillgreenmedium;
+    background-color: $quill-green;
   }
   &.gold {
     background-color: $quillgoldmedium;
@@ -306,7 +306,7 @@
     align-items: center;
     display: flex;
     border-radius: 6px;
-    border: $quillgreenmedium 1px solid;
+    border: $quill-green 1px solid;
     &:hover {
       color: #00c2a2 !important;
       background-color: #ffffff;
@@ -325,15 +325,15 @@
   margin-top: 2px;
   &.on-dashboard {
     .user-dropdown-button {
-      background-color: $quillgreenlight;
-      color: $quillgreenmedium;
+      background-color: $quill-green-5;
+      color: $quill-green;
     }
   }
   &.not-on-dashboard {
     .user-dropdown-button {
       border: solid 1px #ffffff;
-      background-color: $quillgreenlight;
-      color: $quillgreenmedium;
+      background-color: $quill-green-5;
+      color: $quill-green;
     }
   }
   &.show-notification-badges {
@@ -406,7 +406,7 @@
       font-weight: 600px;
       color: #027360;
       &:hover {
-          background-color: $quillgreenlight;
+          background-color: $quill-green-5;
         }
       .image-container {
         display: flex;
@@ -522,7 +522,7 @@ nav.q-navbar-home {
     align-items: center;
 
     .nav-element {
-      color: $quillgreenmedium;
+      color: $quill-green;
     }
 
     .nav-element, .navbar-tooltip-trigger {
@@ -831,7 +831,7 @@ nav.q-navbar-home {
   margin-bottom: -20px;
   padding-bottom: 20px;
   span {
-    color: $quillgreenmedium;
+    color: $quill-green;
   }
   &:nth-child(3) {
     &#teacher-center {
@@ -892,7 +892,7 @@ nav.q-navbar-home {
         width: 100%;
         padding: 8px;
         &:hover {
-          background-color: $quillgreenlight;
+          background-color: $quill-green-5;
         }
         &#premium-section {
           h3, p {
@@ -916,7 +916,7 @@ nav.q-navbar-home {
         h3 {
           font-size: 16px;
           font-weight: 600;
-          color: $quillgreenmedium;
+          color: $quill-green;
           margin-top: 0px;
           margin-bottom: 6px;
         }

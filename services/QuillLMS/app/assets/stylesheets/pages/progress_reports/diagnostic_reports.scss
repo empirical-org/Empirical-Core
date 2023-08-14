@@ -250,7 +250,7 @@ $lightgray: #cecece;
     &.correct {
       border: 1px solid #58AD0C;
       background: #B8DB99;
-      color: #2A5900;
+      color: $quill-green-vibrant;
     }
     &.incorrect {
       border: 1px solid #E4D0B0;
@@ -264,7 +264,7 @@ $lightgray: #cecece;
   }
 
   .correct-target-skill-background {
-    background-color: #EBF8E0;
+    background-color: $quill-green-vibrant-10;
   }
 
   .concept-results-cell {

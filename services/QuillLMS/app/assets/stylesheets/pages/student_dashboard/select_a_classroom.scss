@@ -52,7 +52,7 @@
         color: #5c5c5c;
       }
       &:hover, &:focus, &:active {
-        box-shadow: 0 0 0 2px #06806b !important;
+        box-shadow: 0 0 0 2px $quill-green !important;
         outline: none;
       }
     }

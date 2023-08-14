@@ -23,8 +23,8 @@
       outline: none;
     }
     &.active {
-      border-bottom: 2px #06806b solid;
-      color: #06806b;
+      border-bottom: 2px $quill-green solid;
+      color: $quill-green;
     }
   }
 }

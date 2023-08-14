@@ -93,7 +93,7 @@ p {
 }
 
 .view-results a {
-  color: #06806B;
+  color: $quill-green;
   font-weight: 700;
   font-size: 14px;
 }

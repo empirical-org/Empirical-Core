@@ -152,8 +152,8 @@
     display: flex;
     align-items: flex-start;
     margin-bottom: 40px;
-    background: #F0F8F7;
-    border: 1px solid #ACD6CF;
+    background: $quill-green-1;
+    border: 1px solid $quill-green-20;
     border-radius: 8px;
     img {
       margin-right: 18px;
@@ -163,14 +163,14 @@
         font-weight: 700;
         font-size: 18px;
         line-height: 20px;
-        color: #06806B;
+        color: $quill-green;
         margin-bottom: 10px;
       }
       p {
         font-weight: 400;
         font-size: 14px;
         line-height: 20px;
-        color: #06806B;
+        color: $quill-green;
       }
     }
   }
