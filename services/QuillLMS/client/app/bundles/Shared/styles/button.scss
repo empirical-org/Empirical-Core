@@ -49,7 +49,7 @@
   }
   &.primary {
     &.contained {
-      color: #ffffff;
+      color: $quill-white;
       background-color: $quill-green;
       &:not(.disabled) {
         &:hover, &:focus {
@@ -58,7 +58,7 @@
       }
     }
     &.outlined {
-      background-color: #ffffff;
+      background-color: $quill-white;
       color: #009a80;
       &:hover, &:focus {
         background-color: #f6fcfa;
@@ -74,7 +74,7 @@
     }
   }
   &.disabled {
-    color: #878787 !important;
+    color: $quill-grey-30 !important;
     &.contained {
       background-color: #cccccc;
     }

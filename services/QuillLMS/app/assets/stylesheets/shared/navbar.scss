@@ -35,7 +35,7 @@
         font-size: 18px;
         margin: 0;
         margin: 0;
-        color: #FFFFFF;
+        color: $quill-white;
       }
       .mobile-hamburger-container {
         .hamburger-icon {
@@ -49,7 +49,7 @@
           .horizontal-line {
             width: 24px;
             height: 2px;
-            background: #FFFFFF;
+            background: $quill-white;
             border-radius: 1px;
             margin-bottom: 6px;
           }
@@ -150,7 +150,7 @@
       }
     }
     &.sub-page {
-      background-color: #FFFFFF;
+      background-color: $quill-white;
       .logo-and-badge-container {
         .mobile-quill-logo {
           background-image: url('https://assets.quill.org/images/icons/quill-logo-mobile-green.svg');
@@ -195,7 +195,7 @@
   display: flex;
   align-items: center;
   height: 70px;
-  background-color: #FFFFFF;
+  background-color: $quill-white;
   margin-top: 0px;
   border-radius: 0px;
   margin-bottom: 0px;
@@ -250,7 +250,7 @@
     .quill-academy-tab {
       &.active {
         a {
-          color: #FFFFFF;
+          color: $quill-white;
           background-color: $quillmaroon;
           .large-diamond-icon {
             background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
@@ -309,13 +309,13 @@
     border: $quill-green 1px solid;
     &:hover {
       color: #00c2a2 !important;
-      background-color: #ffffff;
+      background-color: $quill-white;
     }
   }
   .on-home-page {
-    color: #FFFFFF !important;
+    color: $quill-white !important;
     &.sign-up-button {
-      border: #FFFFFF 1px solid;
+      border: $quill-white 1px solid;
     }
   }
 }
@@ -331,7 +331,7 @@
   }
   &.not-on-dashboard {
     .user-dropdown-button {
-      border: solid 1px #ffffff;
+      border: solid 1px $quill-white;
       background-color: $quill-green-5;
       color: $quill-green;
     }
@@ -384,7 +384,7 @@
     position: absolute;
     list-style: none;
     left: 0;
-    background-color: #ffffff;
+    background-color: $quill-white;
     z-index: 100;
     padding: 16px;
     border-radius: 10px;
@@ -861,7 +861,7 @@ nav.q-navbar-home {
     position: absolute;
     width: max-content !important;
     border-radius: 5px;
-    background-color: #ffffff;
+    background-color: $quill-white;
     box-shadow: 0 1px 5px 0 #c0c0c0;
     flex-direction: column;
     top: 40px;

@@ -3,8 +3,8 @@
   width: 950px;
 
   #champion-hero {
-    background: #fff;
-    border: solid 1px #e0e0e0;
+    background: $quill-white;
+    border: solid 1px $quill-grey-5;
     border-radius: 4px;
     margin: 26px 0 39px;
     padding: 30px 10px;
@@ -64,7 +64,7 @@
       input[type='button'] {
         background: #348fdf;
         border: none;
-        color: #ffffff;
+        color: $quill-white;
         font-weight: 600;
       }
     }
@@ -93,7 +93,7 @@
         align-items: center;
         background: #f7f5f5;
         border-radius: 50%;
-        color: #666666;
+        color: $quill-grey-40;
         display: flex;
         border: 1px solid;
         font-size: 20px;
@@ -121,15 +121,15 @@
       p {
         font-size: 16px;
         line-height: 1.56;
-        color: #666666;
+        color: $quill-grey-40;
       }
     }
   }
 
   #callout-box {
 
-    background: #fff;
-    border: solid 1px #e0e0e0;
+    background: $quill-white;
+    border: solid 1px $quill-grey-5;
     border-radius: 4px;
     margin: 26px 0 40px 0;
     padding: 30px 10px;
@@ -149,7 +149,7 @@
   }
 
   #share-box {
-    color: #666666;
+    color: $quill-grey-40;
     font-size: 16px;
     padding-top: 40px;
     text-align: center;
@@ -174,7 +174,7 @@
     #copy-button {
       background: #00c2a2;
       border: none;
-      color: #ffffff;
+      color: $quill-white;
       font-family: $family-sans-serif;
       font-weight: 600;
       margin-left: 10px;

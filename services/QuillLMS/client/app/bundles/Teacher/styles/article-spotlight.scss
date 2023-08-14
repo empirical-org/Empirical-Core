@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  background-color: #FFFFFF;
+  background-color: $quill-white;
   padding: 0px 16px;
   .inner-container {
     max-width: 1200px;
@@ -14,7 +14,7 @@
       justify-content: space-between;
       align-items: flex-start;
       .header-section {
-        color: #373737;
+        color: $quill-grey-90;
         padding: 0;
         border-bottom: none;
         h3 {
@@ -48,7 +48,7 @@
     .content-section {
       padding: 0;
       border-bottom: none;
-      background: #FFFFFF;
+      background: $quill-white;
       box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
       border-radius: 10px;
       padding: 16px;
@@ -69,7 +69,7 @@
         padding-bottom: 16px;
         padding: 0;
         border-radius: 0;
-        color: #757575;
+        color: $quill-grey-35;
         p {
           padding-bottom: 8px;
           font-size: 14px;
@@ -92,7 +92,7 @@
         margin-top: 16px;
         border-bottom: none;
         .author {
-          color: #666666;
+          color: $quill-grey-40;
           font-weight: 600;
           font-size: 14px;
         }

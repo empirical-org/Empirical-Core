@@ -3,7 +3,7 @@
 }
 
 .certain-category-search-dropdown .ant-select-dropdown-menu-item-group-title {
-  color: #666;
+  color: $quill-grey-40;
   font-weight: bold;
 }
 
@@ -43,13 +43,13 @@
   input {
     width: 100%;
     border-radius: 24px;
-    border: solid 1px #e0e0e0;
+    border: solid 1px $quill-grey-5;
     height: 48px;
     padding: 0px 44px;
     font-size: 16px;
     color: $quill-black;
     &::placeholder, &:placeholder {
-      color: #757575;
+      color: $quill-grey-35;
     }
   }
 }
@@ -69,7 +69,7 @@
   align-items: center;
   margin-bottom: 1em;
   width: 100%;
-  border-bottom: 1px solid #ebebeb;
+  border-bottom: 1px solid $quill-grey-3;
   padding-left: 31px;
   button, a {
     font-weight: 500;
@@ -102,8 +102,8 @@
 
 .cms-manager-nav {
   width: 100%;
-  border-bottom: 1px solid #ebebeb;
-  background-color: #f8f8f8;
+  border-bottom: 1px solid $quill-grey-3;
+  background-color: $quill-grey-1;
   height: 70px;
   .cms-manager-links {
     display: -ms-flexbox;
@@ -120,10 +120,10 @@
       border-collapse: collapse;
       align-items: center;
       justify-content: center;
-      border-left: 1px solid #ebebeb;
+      border-left: 1px solid $quill-grey-3;
       padding: 10px;
       &:last-of-type {
-        border-right: 1px solid #ebebeb;
+        border-right: 1px solid $quill-grey-3;
       }
     }
     a.active {
@@ -154,7 +154,7 @@
   width: 1200px;
   padding: 30px 20px;
   background-color: white;
-  border: 1px solid #ebebeb;
+  border: 1px solid $quill-grey-3;
   border-radius: 6px;
   margin-right: 20px;
   td div {
@@ -182,14 +182,14 @@
 }
 
 .concept-column {
-  border: 1px solid #ebebeb;
+  border: 1px solid $quill-grey-3;
   width: 300px;
   height: 863px;
   border-radius: 6px;
   margin-right: 20px;
   padding: 10px 0px;
   .concept-column-head {
-    border-bottom: 1px solid #ebebeb;
+    border-bottom: 1px solid $quill-grey-3;
     padding: 0px 30px;
     display: flex;
     justify-content: space-between;
@@ -228,7 +228,7 @@
 
 .concept-list-item {
   padding: 15px 10px;
-  border-bottom: 1px solid #ebebeb;
+  border-bottom: 1px solid $quill-grey-3;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -349,7 +349,7 @@
     margin-bottom: 20px;
   }
   .change-log-items {
-    border-left: 1px solid #CFCFCF;
+    border-left: 1px solid $quill-grey-15;
   }
   .change-log-item {
     padding-left: 30px;
@@ -391,7 +391,7 @@
     left: -8px;
     top: 0px;
     background-color: white;
-    border: 1px solid #CFCFCF;
+    border: 1px solid $quill-grey-15;
     border-radius: 50%;
     z-index: 1;
   }
@@ -399,8 +399,8 @@
 }
 
 .concept-attribute-field {
-  border-top: 1px solid #ebebeb;
-  border-bottom: 1px solid #ebebeb;
+  border-top: 1px solid $quill-grey-3;
+  border-bottom: 1px solid $quill-grey-3;
   width: 498px;
   position: relative;
   right: 35px;
@@ -437,7 +437,7 @@
       width: 100%;
       min-height: 200px;
       resize: none;
-      border: 1px solid #ebebeb;
+      border: 1px solid $quill-grey-3;
       padding: 6px 10px;
       &:focus {
         outline: none;
@@ -460,9 +460,9 @@
     }
   }
   .card {
-    border: 1px solid #ebebeb;
+    border: 1px solid $quill-grey-3;
     .card-header {
-      border-bottom: 1px solid #ebebeb;
+      border-bottom: 1px solid $quill-grey-3;
     }
     .card-content {
       min-height: 60px;
@@ -487,7 +487,7 @@
   overflow: scroll;
   width: 560px;
   border-radius: 6px;
-  background-color: #ffffff;
+  background-color: $quill-white;
   z-index: 100;
   position: fixed;
   top: 45%;

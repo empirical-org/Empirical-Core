@@ -108,7 +108,7 @@
 		}
 
     .average-score, .time-spent {
-      color: #666666;
+      color: $quill-grey-40;
     }
 
 		a.activity-scores-link {
@@ -237,20 +237,20 @@ $chevroncolor: #027360;
   border: 0;
   cursor: default; }
   .CalendarDay--outside:active {
-    background: #fff; }
+    background: $quill-white; }
 
 .CalendarDay--hovered {
   background: #eee;
   border: 1px double #ddd;
-  color: #666; }
+  color: $quill-grey-40; }
 
 .CalendarDay--blocked-minimum-nights {
   color: #cacccd;
-  background: #fff;
+  background: $quill-white;
   border: 1px solid #e4e7e7;
   cursor: default; }
   .CalendarDay--blocked-minimum-nights:active {
-    background: #fff; }
+    background: $quill-white; }
 
 .CalendarDay--selected-span {
   background: $quillgreen;
@@ -276,7 +276,7 @@ $chevroncolor: #027360;
 .CalendarDay--selected {
   background: $accentcolor;
   border: 1px double $accentcolor;
-  color: #fff; }
+  color: $quill-white; }
   .CalendarDay--selected-start:active,
   .CalendarDay--selected-end:active,
   .CalendarDay--selected:active {
@@ -291,11 +291,11 @@ $chevroncolor: #027360;
 
 .CalendarDay--blocked-out-of-range {
   color: #cacccd;
-  background: #fff;
+  background: $quill-white;
   border: 1px solid #e4e7e7;
   cursor: default; }
   .CalendarDay--blocked-out-of-range:active {
-    background: #fff; }
+    background: $quill-white; }
 
 .CalendarMonth {
   text-align: center;
@@ -336,7 +336,7 @@ $chevroncolor: #027360;
   padding: 5px 0; }
 
 .CalendarMonthGrid {
-  background: #fff;
+  background: $quill-white;
   z-index: 0;
   text-align: left; }
 
@@ -359,7 +359,7 @@ $chevroncolor: #027360;
   overflow-y: scroll; }
 
 .DayPicker {
-  background: #fff;
+  background: $quill-white;
   position: relative;
   text-align: left; }
 
@@ -369,7 +369,7 @@ $chevroncolor: #027360;
 }
 
 .DayPicker--horizontal {
-  background: #fff;
+  background: $quill-white;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.07);
   border-radius: 3px; }
   .DayPicker--horizontal.DayPicker--portal {
@@ -391,7 +391,7 @@ $chevroncolor: #027360;
   margin-left: 9px; }
 
 .DayPicker__week-header {
-  color: #757575;
+  color: $quill-grey-35;
   position: absolute;
   top: 45px;
   z-index: 2;
@@ -485,8 +485,8 @@ $chevroncolor: #027360;
 .DayPickerNavigation__prev--default,
 .DayPickerNavigation__next--default {
   border: 1px solid #dce0e0;
-  background-color: #fff;
-  color: #757575; }
+  background-color: $quill-white;
+  color: $quill-grey-35; }
   .DayPickerNavigation__prev--default:focus, .DayPickerNavigation__prev--default:hover,
   .DayPickerNavigation__next--default:focus,
   .DayPickerNavigation__next--default:hover {
@@ -521,7 +521,7 @@ $chevroncolor: #027360;
     fill: #82888a; }
 
 .DayPickerNavigation--vertical {
-  background: #fff;
+  background: $quill-white;
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
   position: absolute;
   bottom: 0;
@@ -607,12 +607,12 @@ $chevroncolor: #027360;
     left: -28px; }
 
 .DayPickerKeyboardShortcuts__show_span {
-  color: #fff;
+  color: $quill-white;
   position: absolute; }
 
 .DayPickerKeyboardShortcuts__panel {
   overflow: auto;
-  background: #fff;
+  background: $quill-white;
   border: 1px solid #dbdbdb;
   border-radius: 2px;
   position: absolute;
@@ -683,7 +683,7 @@ $chevroncolor: #027360;
   font-weight: 300;
   font-size: 15px;
   line-height: 25px;
-  color: #757575;
+  color: $quill-grey-35;
   margin: 0;
   padding: 5px;
   position: relative;
@@ -711,7 +711,7 @@ $chevroncolor: #027360;
 
 .DateInput--open-down.DateInput--with-caret::after {
   top: 45px;
-  border-bottom-color: #fff; }
+  border-bottom-color: $quill-white; }
 
 .DateInput--open-up.DateInput--with-caret::before,
 .DateInput--open-up.DateInput--with-caret::after {
@@ -723,7 +723,7 @@ $chevroncolor: #027360;
 
 .DateInput--open-up.DateInput--with-caret::after {
   top: -25px;
-  border-top-color: #fff; }
+  border-top-color: $quill-white; }
 
 .DateInput--disabled {
   background: #cacccd; }
@@ -773,7 +773,7 @@ $chevroncolor: #027360;
 
 .DateRangePicker__picker {
   z-index: 1;
-  background-color: #fff;
+  background-color: $quill-white;
   position: absolute; }
 
 .DateRangePicker__picker--rtl {
@@ -800,7 +800,7 @@ $chevroncolor: #027360;
   width: 100%; }
 
 .DateRangePicker__picker--full-screen-portal {
-  background-color: #fff; }
+  background-color: $quill-white; }
 
 .DateRangePicker__close {
   background: none;
@@ -825,7 +825,7 @@ $chevroncolor: #027360;
     text-decoration: none; }
 
 .DateRangePickerInput {
-  background-color: #fff;
+  background-color: $quill-white;
   border: 1px solid #cacccd;
   display: inline-block;
  	border-radius: 5px;
@@ -899,7 +899,7 @@ $chevroncolor: #027360;
 
 .SingleDatePicker__picker {
   z-index: 1;
-  background-color: #fff;
+  background-color: $quill-white;
   position: absolute; }
 
 .SingleDatePicker__picker--rtl {
@@ -926,7 +926,7 @@ $chevroncolor: #027360;
   width: 100%; }
 
 .SingleDatePicker__picker--full-screen-portal {
-  background-color: #fff; }
+  background-color: $quill-white; }
 
 .SingleDatePicker__close {
   background: none;
@@ -951,7 +951,7 @@ $chevroncolor: #027360;
     text-decoration: none; }
 
 .SingleDatePickerInput {
-  background-color: #fff;
+  background-color: $quill-white;
   border: 1px solid #dbdbdb; }
 
 .SingleDatePickerInput--rtl {

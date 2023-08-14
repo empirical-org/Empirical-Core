@@ -36,7 +36,7 @@
         margin-right: 8px;
       }
       p {
-        color: #5C5C5C;
+        color: $quill-grey-50;
       }
       span {
         font-weight: 700;
@@ -53,7 +53,7 @@
     }
   }
   .post-test-table {
-    border-left: 1px solid #e0e0e0 !important;
+    border-left: 1px solid $quill-grey-5 !important;
     margin-left: 32px !important;
   }
   .recommendations-buttons-container {
@@ -132,15 +132,15 @@
     }
     table {
       font-size: 12px;
-      color: #5c5c5c;
+      color: $quill-grey-50;
       margin: 0;
       border: none;
       border-collapse: separate;
       border-spacing: 0;
       table-layout: fixed;
       &.empty {
-        border-right: 1px solid #e0e0e0;
-        border-bottom: 1px solid #e0e0e0;
+        border-right: 1px solid $quill-grey-5;
+        border-bottom: 1px solid $quill-grey-5;
         border-radius: 8px;
         empty-cells: hide;
         position: relative;
@@ -178,21 +178,21 @@
       > tbody > tr > td, > tbody > tr > th, > thead > tr > th {
         padding: 8px 16px;
         min-width: 160px;
-        border-bottom: 1px solid #e0e0e0;
-        border-right: 1px solid #e0e0e0;
+        border-bottom: 1px solid $quill-grey-5;
+        border-right: 1px solid $quill-grey-5;
         background-color: white;
         flex: 1;
       }
       th {
         text-align: left;
-        color: #5c5c5c;
+        color: $quill-grey-50;
         font-size: 12px;
         font-weight: 600;
         line-height: 1.33;
       }
       > thead {
         > th {
-          border-top: 1px solid #e0e0e0;
+          border-top: 1px solid $quill-grey-5;
         }
       }
       > tbody > tr > th {
@@ -200,7 +200,7 @@
         left: 0;
         background: white;
         z-index: 1;
-        border-left: 1px solid #e0e0e0;
+        border-left: 1px solid $quill-grey-5;
       }
     }
 
@@ -224,13 +224,13 @@
     .post-test-table-wrapper {
       .recommendation-header {
         border-radius: 8px 8px 0px 0px !important;
-        border: 1px solid #e0e0e0;
+        border: 1px solid $quill-grey-5;
         background-color: white;
       }
       .recommendation-cell {
-        border-left: 1px solid #e0e0e0;
+        border-left: 1px solid $quill-grey-5;
         > .interactive-wrapper.recommended {
-          background-color: #FFF8EE;
+          background-color: $quill-white8EE;
         }
       }
       table {
@@ -243,7 +243,7 @@
       }
       table > tbody > tr:last-of-type > td:last-of-type {
         border-radius: 0px 0px 8px 8px;
-        border: 1px solid #e0e0e0;
+        border: 1px solid $quill-grey-5;
         border-top: none;
       }
       .empty-cell {
@@ -325,7 +325,7 @@
     .corner-header {
       vertical-align: bottom;
       border-radius: 8px 0px 0px;
-      border-left: 1px solid #e0e0e0;
+      border-left: 1px solid $quill-grey-5;
       position: sticky;
       left: 0px;
       z-index: 1;
@@ -335,7 +335,7 @@
       min-width: 216px;
     }
     .corner-header, .recommendation-header {
-      border-top: 1px solid #e0e0e0;
+      border-top: 1px solid $quill-grey-5;
       flex-direction: column;
       justify-content: flex-end;
       display: flex;
@@ -406,7 +406,7 @@
     max-width: $sitewidepagewidth;
     .lessons-recommendation {
       border-radius: 8px;
-      border: solid 1px #e0e0e0;
+      border: solid 1px $quill-grey-5;
       width: 100%;
       margin-top: 16px;
       .top-row {
@@ -438,7 +438,7 @@
           color: #262626;
         }
         > span, .students-needing-instruction-wrapper > span {
-          color: #5c5c5c;
+          color: $quill-grey-50;
         }
         .activities-count {
           margin-left: 40px;
@@ -463,7 +463,7 @@
           transform: rotate(180deg);
         }
         .top-row {
-          border-bottom: solid 1px #e0e0e0;
+          border-bottom: solid 1px $quill-grey-5;
           border-radius: 8px 8px 0px 0px
         }
         .activity-row {
@@ -471,7 +471,7 @@
           display: flex;
           justify-content: space-between;
           padding: 12px 0px;
-          border-bottom: 1px solid #e0e0e0;
+          border-bottom: 1px solid $quill-grey-5;
           img {
             margin-right: 4px;
           }
@@ -528,7 +528,7 @@
       margin-left: 16px;
     }
     .post-test-table {
-      border-left: 1px solid #e0e0e0 !important;
+      border-left: 1px solid $quill-grey-5 !important;
       margin-left: 32px !important;
     }
     .post-test-assignment-button {

@@ -23,8 +23,8 @@
           align-items: center;
           gap: 8px;
           border-radius: 8px;
-          border: 1px solid #E0E0E0;
-          background: #F8F8F8;
+          border: 1px solid $quill-grey-5;
+          background: $quill-grey-1;
           margin: 0px 8px 8px 0px;
           label {
             font-weight: 400;
@@ -38,7 +38,7 @@
         display: flex;
         padding: 16px;
         border-radius: 8px;
-        border: 1px solid #E0E0E0;
+        border: 1px solid $quill-grey-5;
         background: #F4F4F4;
         margin: 16px 0px 24px 0px;
         img {
@@ -47,21 +47,21 @@
       }
     }
     .data-export-table {
-      border: 1px solid #E0E0E0;
+      border: 1px solid $quill-grey-5;
       overflow: auto;
       width: min-content;
       max-width: 994px;
       .data-table-headers {
-        background-color: #F8F8F8;
+        background-color: $quill-grey-1;
         min-height: 52px;
         th {
-          color: #373737;
+          color: $quill-grey-90;
           font-weight: 700;
           align-items: center;
           min-height: 52px;
           max-width: 152px;
           &:not(:last-child) {
-            border-right: 1px solid #E0E0E0;
+            border-right: 1px solid $quill-grey-5;
           }
         }
       }
@@ -76,7 +76,7 @@
             padding-right: 24px;
             margin-right: 24px !important;
             &:not(:last-child) {
-              border-right: 1px solid #E0E0E0;
+              border-right: 1px solid $quill-grey-5;
             }
             .quill-tooltip-trigger {
               span {

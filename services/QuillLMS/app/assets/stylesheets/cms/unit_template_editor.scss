@@ -48,7 +48,7 @@
             .data-table-header {
               font-size: 12px;
               font-weight: 600;
-              color: #5c5c5c;
+              color: $quill-grey-50;
               display: flex;
               background-color: transparent;
               border: none;
@@ -105,7 +105,7 @@
     .text-editor {
       max-width: 1000px;
       padding: 10px;
-      border: 1px solid #e0e0e0;
+      border: 1px solid $quill-grey-5;
       border-radius: 6px;
     }
   }
@@ -132,7 +132,7 @@
   .card {
     max-width: unset !important;
     padding: 10px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid $quill-grey-5;
     border-radius: 6px;
     background-color: white;
   }

@@ -93,7 +93,7 @@
   }
 
   .subscription-status {
-    background-color: #fff;
+    background-color: $quill-white;
     padding-top: 16px;
     color: #3b3b3b;
     padding-bottom: 0px;
@@ -166,17 +166,17 @@
       justify-content: center;
       min-height: 174px;
       padding: 41px;
-      color: #666;
+      color: $quill-grey-40;
       p {
         margin-top: 5px;
       }
       h3 {
         font-size: 16px;
         font-weight: 600;
-        color: #666666;
+        color: $quill-grey-40;
       }
       a {
-        color: #666;
+        color: $quill-grey-40;
         text-decoration: underline;
       }
     }
@@ -191,7 +191,7 @@
 
 
   .current-subscription-information-and-cta {
-    border: 1px solid #fff;
+    border: 1px solid $quill-white;
     .current-subscription-information {
       font-size: 16px;
       color: #3b3b3b;
@@ -236,7 +236,7 @@
         margin-bottom: 20px;
         font-size: 16px;
         font-weight: 600;
-        color: #666;
+        color: $quill-grey-40;
       }
     }
 
@@ -276,7 +276,7 @@
 
     .button {
       background-color: $quillgolddark;
-      border: solid 1px #fff;
+      border: solid 1px $quill-white;
       font-size: 16px;
       color: white;
       margin: 0;
@@ -313,7 +313,7 @@
 
     tr {
       height: 41px;
-      background-color: #ffffff;
+      background-color: $quill-white;
 
       &:first-of-type {
         border: none;
@@ -374,12 +374,12 @@
     .subscription-row {
       font-size: 14px;
       font-style: italic;
-      color: #666666;
+      color: $quill-grey-40;
     }
   }
 
   p {
-    color: #666666;
+    color: $quill-grey-40;
   }
 }
 

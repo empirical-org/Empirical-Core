@@ -26,15 +26,15 @@
 
     .ReactTable.unit-template-profile-activities {
       thead {
-        background-color: #ffffff;
+        background-color: $quill-white;
         padding: 18px 0px 18px 6px;
         border-top-left-radius: 6px;
         border-top-right-radius: 6px;
         tr {
           th {
-            color:#5C5C5C;
+            color:$quill-grey-50;
             font-size: 12px;
-            background-color: #ffffff;;
+            background-color: $quill-white;;
           }
         }
       }
@@ -61,7 +61,7 @@
         }
         .quill-tooltip-wrapper {
           width: 595px;
-          background-color: #5C5C5C;
+          background-color: $quill-grey-50;
         }
         .quill-tooltip-trigger {
           white-space: normal;
@@ -210,7 +210,7 @@
       padding: 0;
       border-bottom: none;
       .evidence-warning {
-        background-color: #ffffe0;
+        background-color: $quill-whitefe0;
         padding: 16px 24px;
         border: 1px solid #cecece;
         margin-bottom: 24px;

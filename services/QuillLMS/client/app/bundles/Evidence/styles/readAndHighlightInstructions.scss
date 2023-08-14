@@ -6,7 +6,7 @@
   .unhighlight-instructions {
     font-size: 14px;
     font-weight: 600;
-    color: #5c5c5c;
+    color: $quill-grey-50;
     margin-top: 22px;
   }
   &.hide-on-desktop {
@@ -17,7 +17,7 @@
     font-size: 14px;
     font-weight: 600;
     line-height: 1.43;
-    color: #5c5c5c;
+    color: $quill-grey-50;
   }
   h3 {
     margin-bottom: 12px;
@@ -36,10 +36,10 @@
         background-color: white;
       }
       25% {
-        background-color: #fff3e0;
+        background-color: $quill-white3e0;
       }
       75% {
-        background-color: #fff3e0;
+        background-color: $quill-white3e0;
       }
       100% {
         background-color: white;
@@ -106,7 +106,7 @@
     padding: 16px 20px;
     border-radius: 10px;
     box-shadow: 0 1px 8px 0 $quill-black33, 0 3px 3px -2px $quill-black1e, 0 3px 4px 0 $quill-black23;
-    background-color: #ffffff;
+    background-color: $quill-white;
     position: absolute;
     width: 320px;
     left: -310px;

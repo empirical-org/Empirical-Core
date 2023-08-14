@@ -40,10 +40,10 @@
           color: $quill-black;
         }
         &.active {
-          background: #fff;
+          background: $quill-white;
           color: $quill-black;
           &:after {
-            border-left: 16px solid #fff;
+            border-left: 16px solid $quill-white;
           }
         }
         &:after {
@@ -60,7 +60,7 @@
           content: "";
           border-top: 16px solid transparent;
           border-bottom: 16px solid transparent;
-          border-left: 16px solid #fff;
+          border-left: 16px solid $quill-white;
           position: absolute;
           right: -16px;
           top: 0;
@@ -92,7 +92,7 @@
         }
       }
       a:hover {
-        background: #fff;
+        background: $quill-white;
         &:after:not(.active) {
           border-left-color: #e6e6e6;
         }

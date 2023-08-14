@@ -30,7 +30,7 @@
     height: 252px;
     padding: 16px;
     border-radius: 8px;
-    border: solid 1px #e0e0e0;
+    border: solid 1px $quill-grey-5;
     margin-right: 16px;
     margin-bottom: 16px;
     .card-header {
@@ -52,7 +52,7 @@
       font-size: 12px;
       display: block;
       line-height: 1.33;
-      color: #5c5c5c;
+      color: $quill-grey-50;
     }
     .percentage-circle {
       margin: 0px auto 28px;
@@ -60,9 +60,9 @@
     .need-practice-element {
       font-size: 12px;
       line-height: 1.33;
-      color: #5c5c5c;
+      color: $quill-grey-50;
       &:not(.no-practice-needed) {
-        border-bottom: #5c5c5c dotted 1px;
+        border-bottom: $quill-grey-50 dotted 1px;
       }
     }
     .quill-tooltip, .quill-tooltip-wrapper {
@@ -81,7 +81,7 @@
       color: #262626;
     }
     p {
-      color: #5c5c5c;
+      color: $quill-grey-50;
     }
   }
   .proficiency-tag {
@@ -117,7 +117,7 @@
       }
     }
     &.no-proficiency, &.partial-proficiency {
-      background-color: #fff3e0;
+      background-color: $quill-white3e0;
       border: 1px solid #E3BB7A;
       span {
         color: #995f00;
@@ -154,7 +154,7 @@
     }
     > table {
       font-size: 12px;
-      color: #5c5c5c;
+      color: $quill-grey-50;
       width: max-content;
       margin: 0;
       border: none;
@@ -162,8 +162,8 @@
       border-spacing: 0;
       table-layout: fixed;
       &.empty {
-        border-right: 1px solid #e0e0e0;
-        border-bottom: 1px solid #e0e0e0;
+        border-right: 1px solid $quill-grey-5;
+        border-bottom: 1px solid $quill-grey-5;
         border-radius: 8px;
         empty-cells: hide;
         position: relative;
@@ -193,13 +193,13 @@
       > tbody > tr > td, > tbody > tr > th, > thead > tr > th {
         padding: 8px 16px;
         width: 180px;
-        border-bottom: 1px solid #e0e0e0;
-        border-right: 1px solid #e0e0e0;
+        border-bottom: 1px solid $quill-grey-5;
+        border-right: 1px solid $quill-grey-5;
         background-color: white;
       }
       th {
         text-align: left;
-        color: #5c5c5c;
+        color: $quill-grey-50;
         font-size: 12px;
         font-weight: 600;
         line-height: 1.33;
@@ -213,7 +213,7 @@
           height: 48px;
         }
         > th {
-          border-top: 1px solid #e0e0e0;
+          border-top: 1px solid $quill-grey-5;
         }
       }
       > tbody > tr > th {
@@ -221,7 +221,7 @@
         left: 0;
         background: white;
         z-index: 1;
-        border-left: 1px solid #e0e0e0;
+        border-left: 1px solid $quill-grey-5;
       }
     }
     .skills-table-container {
@@ -304,14 +304,14 @@
     .corner-header {
       vertical-align: bottom;
       border-radius: 8px 0px 0px;
-      border-left: 1px solid #e0e0e0;
+      border-left: 1px solid $quill-grey-5;
       width: 216px;
       left: 0;
       z-index: 2;
       position: sticky;
     }
     .corner-header, .skill-group-header {
-      border-top: 1px solid #e0e0e0;
+      border-top: 1px solid $quill-grey-5;
     }
     .student-result-cell {
       padding: 0px;
@@ -333,8 +333,8 @@
       .number-of-correct-skills-text {
         font-size: 12px;
         line-height: 1.33;
-        color: #5c5c5c;
-        border-bottom: 1px dotted #5c5c5c;
+        color: $quill-grey-50;
+        border-bottom: 1px dotted $quill-grey-50;
       }
       .student-results-popover-container {
         position: absolute;
@@ -348,7 +348,7 @@
         padding: 16px 0px 0px;
         border-radius: 10px;
         box-shadow: 0 1px 8px 0 $quill-black3, 0 3px 3px -2px $quill-black1e, 0 3px 4px 0 $quill-black23;
-        background-color: #fff;
+        background-color: $quill-white;
         max-height: 100vh;
         overflow: scroll;
         header {
@@ -367,14 +367,14 @@
         p {
           font-size: 14px;
           line-height: 1.43;
-          color: #5c5c5c;
+          color: $quill-grey-50;
           margin: 16px 20px 24px;
         }
         a {
           padding: 16px 20px;
           margin-top: 24px;
           display: block;
-          border-top: 1px solid #e0e0e0;
+          border-top: 1px solid $quill-grey-5;
           span {
             font-size: 14px;
             color: #262626;

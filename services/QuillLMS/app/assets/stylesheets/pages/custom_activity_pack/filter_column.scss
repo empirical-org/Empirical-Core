@@ -122,7 +122,7 @@
         font-size: 9px;
         display: flex;
         align-items: center;
-        color: #FFFFFF;
+        color: $quill-white;
         background: #F3AC4E;
         border-radius: 5px;
         width: 32px;
@@ -308,7 +308,7 @@
           }
           .grade-text {
             height: 18px;
-            background-color: #AEAEAE;
+            background-color: $quill-grey-20;
             border-radius: 5px;
             color: white;
             margin-top: 4px;
@@ -337,7 +337,7 @@
       top: 70;
     }
     .filter-column-wrapper {
-      border-right: #e0e0e0 1px solid;
+      border-right: $quill-grey-5 1px solid;
       padding-right: 24px;
     }
   }

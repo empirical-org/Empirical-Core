@@ -58,8 +58,8 @@
     max-width: 444px;
     width: 100%;
     border-radius: 6px;
-    border: solid 1px #e0e0e0;
-    background-color: #ffffff;
+    border: solid 1px $quill-grey-5;
+    background-color: $quill-white;
     margin: auto;
     min-height: 480px;
     padding: 40px 32px;
@@ -88,7 +88,7 @@
         justify-content: center;
         border-radius: 4px;
         box-shadow: 0 0 0 1px #bdbdbd;
-        background-color: #ffffff;
+        background-color: $quill-white;
         font-size: 15px;
         font-weight: 600 !important;
         color: $quill-black;
@@ -113,7 +113,7 @@
       align-items: center;
       color: #646464;
       span {
-        border-bottom: #e0e0e0 1px solid;
+        border-bottom: $quill-grey-5 1px solid;
         width: 100%;
         max-width: 167px;
         height: 1px;

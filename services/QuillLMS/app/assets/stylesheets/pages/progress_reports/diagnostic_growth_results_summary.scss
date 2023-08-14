@@ -9,7 +9,7 @@
     .lower-header-section {
       display: flex;
       align-items: center;
-      border: 1px solid #E0E0E0;
+      border: 1px solid $quill-grey-5;
       padding: 16px;
       margin-top: 24px;
       border-radius: 8px;
@@ -49,8 +49,8 @@
       margin-right: 4px;
     }
     &.no-growth {
-      color: #5c5c5c;
-      background-color: #ebebeb;
+      color: $quill-grey-50;
+      background-color: $quill-grey-3;
     }
     &:not(.no-growth) {
       color: $quill-green-vibrant;

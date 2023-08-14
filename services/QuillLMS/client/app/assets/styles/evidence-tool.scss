@@ -80,13 +80,13 @@
     }
   }
   #q-and-a {
-    background-color: #ffffff;
+    background-color: $quill-white;
     color: $quill-black;
     .q-and-a-inner-wrapper {
       .qa-section {
         border-bottom: solid 1px #C1C1C1;
         .question, .expand-collapse-button {
-          background-color: #ffffff;
+          background-color: $quill-white;
         }
         .question {
           padding: 0;
@@ -143,7 +143,7 @@
         background-color: #194E60;
         font-size: 20px;
         font-weight: 700;
-        color: #ffffff;
+        color: $quill-white;
       }
       .step-text {
         font-size: 24px;
@@ -151,7 +151,7 @@
         margin-top: 12px;
         padding: 0px 16px;
         font-weight: bold;
-        color: #ffffff;
+        color: $quill-white;
         margin-bottom: 24px;
       }
     }
@@ -181,7 +181,7 @@
           #header {
             font-size: 24px;
             font-weight: 700;
-            color: #ffffff;
+            color: $quill-white;
             margin: 0px;
           }
         }
@@ -193,7 +193,7 @@
         .subtext {
           font-size: 16px;
           font-weight: 600;
-          color: #ffffff;
+          color: $quill-white;
           max-width: 264px;
         }
       }
@@ -211,7 +211,7 @@
       position: relative;
       width: 448px;
       height: 410px;
-      background: #FFFFFF !important;
+      background: $quill-white !important;
       box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15) !important;
       border-radius: 8px;
     }
@@ -372,7 +372,7 @@
         background-image: none;
         #information-section {
           padding: 24px 0px 24px 0px;
-          border-bottom: 1px solid #ffffff;
+          border-bottom: 1px solid $quill-white;
           .subtext {
             max-width: none;
           }

@@ -39,7 +39,7 @@
     }
     .edition-name-and-sample-question {
       min-height: 83px;
-      background-color: #ffffff;
+      background-color: $quill-white;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -73,7 +73,7 @@
   }
   .note {
     height: 168px;
-    background-color: #fff3df;
+    background-color: $quill-white3df;
     width: 100%;
     display: flex;
     justify-content: space-between;

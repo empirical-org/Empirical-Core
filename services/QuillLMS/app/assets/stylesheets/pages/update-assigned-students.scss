@@ -25,16 +25,16 @@
     }
   }
   .classroom-section {
-    border: 1px solid #CFCFCF;
+    border: 1px solid $quill-grey-15;
     border-radius: 8px;
     margin-bottom: 64px;
     .classroom-header {
       display: flex;
-      background-color: #EBEBEB;
+      background-color: $quill-grey-3;
       padding: 12px 24px;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #CFCFCF;
+      border-bottom: 1px solid $quill-grey-15;
       div {
         display: flex;
         align-items: center;
@@ -53,7 +53,7 @@
     gap: 8px;
     .student {
       display: flex;
-      border: 1px solid #E0E0E0;
+      border: 1px solid $quill-grey-5;
       justify-content: space-between;
       border-radius: 8px;
       padding: 8px;

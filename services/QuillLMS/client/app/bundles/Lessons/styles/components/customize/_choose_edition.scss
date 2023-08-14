@@ -95,7 +95,7 @@
     position: relative;
     height: 80px;
     border-radius: 3px;
-    background-color: #ffffff;
+    background-color: $quill-white;
     box-shadow: 0 0 3px 0 #e9e9e9;
     border: solid 1px #e9e9e9;
     align-items: center;
@@ -112,8 +112,8 @@
     }
     .locked-unit {
       border-radius: 14px;
-      border: solid 1px #666666;
-      color: #666666;
+      border: solid 1px $quill-grey-40;
+      color: $quill-grey-40;
       padding: 0px 10px;
       position: relative;
       margin-left: 17px;
@@ -154,10 +154,10 @@
     .select-button {
       border: none;
       background-color: #00c2a2;
-      color: #ffffff;
+      color: $quill-white;
     }
     .resume-button {
-      background-color: #ffffff;
+      background-color: $quill-white;
       border: solid 1px #00c2a2;
       color: #00c2a2;
     }
@@ -167,7 +167,7 @@
         width: 160px;
         height: 40px;
         border-radius: 3px;
-        background-color: #ffffff;
+        background-color: $quill-white;
         border: solid 1px #c0c0c0;
         color: #969696;
         display: flex;
@@ -193,7 +193,7 @@
         position: absolute;
         width: 160px;
         border-radius: 3px;
-        background-color: #ffffff;
+        background-color: $quill-white;
         box-shadow: 0 0 1px 0 #c0c0c0;
         border: solid 0.5px #e9e9e9;
         top: 45;

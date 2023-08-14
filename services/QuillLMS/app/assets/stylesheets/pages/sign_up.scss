@@ -99,10 +99,10 @@
       max-width: 427px;
       width: 100%;
       border-radius: 6px 0px 0px 6px;
-      border: solid 1px #e0e0e0;
+      border: solid 1px $quill-grey-5;
       border-right: none;
-      background-color: #666666;
-      color: #ffffff;
+      background-color: $quill-grey-40;
+      color: $quill-white;
       padding: 40px 64px;
       h2 {
         font-size: 24px;
@@ -117,7 +117,7 @@
       }
       li:before {
         content: "";
-        border: 2px #fff solid !important;
+        border: 2px $quill-white solid !important;
         border-radius: 50px;
         margin-top: 11px;
         margin-left: -25px;
@@ -128,7 +128,7 @@
       flex-direction: column;
       .account-container, .info {
         border-radius: 6px;
-        border: solid 1px #e0e0e0;
+        border: solid 1px $quill-grey-5;
         margin: 0px auto 20px;
       }
     }
@@ -204,7 +204,7 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 12px;
-    color: #373737;
+    color: $quill-grey-90;
     margin-bottom: 32px;
   }
   .helper-text {
@@ -223,7 +223,7 @@
 
 .admin-access-request-section {
   .admin-selection-table {
-    border: 1px solid #E0E0E0;
+    border: 1px solid $quill-grey-5;
     border-radius: 6px;
     padding: 16px;
     margin-bottom: 32px;
@@ -304,22 +304,22 @@
 .school-search-container {
   max-width: 577px;
   border-radius: 6px;
-  border: solid 1px #e0e0e0;
-  background-color: #ffffff;
+  border: solid 1px $quill-grey-5;
+  background-color: $quill-white;
   margin: auto;
   padding: 14px 32px 0px;
   .schools-list-section {
     margin: 38px 0px;
     max-width: 513px;
     border-radius: 6px;
-    border: solid 1px #e0e0e0;
+    border: solid 1px $quill-grey-5;
     .title {
       padding: 18px 16px;
       line-height: 1px;
       font-size: 12px;
       font-weight: 600;
       color: #888888;
-      border-bottom: 1px solid #e0e0e0;
+      border-bottom: 1px solid $quill-grey-5;
     }
     .list {
       overflow: scroll;
@@ -335,7 +335,7 @@
       }
     }
     .school-not-listed {
-      border-top: 1px solid #e0e0e0;
+      border-top: 1px solid $quill-grey-5;
       font-size: 14px;
       padding: 16px 16px 18px;
       line-height: 1;

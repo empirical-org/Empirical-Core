@@ -2,7 +2,7 @@
   .data-table {
     overflow: visible;
     border-radius: 8px;
-    border: solid 1px #e0e0e0;
+    border: solid 1px $quill-grey-5;
     margin-top: 24px;
     .data-table-headers {
       height: 48px;
@@ -11,7 +11,7 @@
     &.hide-on-mobile {
       width: 950px;
       .directions {
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px solid $quill-grey-5;
       }
       .data-table-row {
         height: 73px;
@@ -54,10 +54,10 @@
           background-color: #f1f8eb;
         }
         &.nearly-proficient {
-          background-color: #fff5e5;
+          background-color: $quill-white5e5;
         }
         &.not-yet-proficient {
-          background-color: #fff0f2;
+          background-color: $quill-white0f2;
         }
       }
     }
@@ -73,7 +73,7 @@
         > span:not(.quill-tooltip-trigger) {
           font-size: 14px;
           line-height: 1.43;
-          color: #5c5c5c;
+          color: $quill-grey-50;
           width: 80px;
         }
       }

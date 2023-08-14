@@ -37,7 +37,7 @@
         background: $quill-green;
         border-bottom: none;
         border-left-width: 0;
-        color: #FFFFFF;
+        color: $quill-white;
         position: relative;
 
         &:after {
@@ -81,13 +81,13 @@
         }
         a {
           border-radius: 6px;
-          color: #FFFFFF;
+          color: $quill-white;
           font-size: 13px;
           height: 35px;
           padding: 5px 16px;
 
           &.active {
-            background: #FFFFFF;
+            background: $quill-white;
             color: $quill-green;
           }
 
@@ -136,7 +136,7 @@
             a {
               padding: 0px;
               margin-left: 16px;
-              color: #ffffff;
+              color: $quill-white;
               font-weight: 600;
               line-height: 20px;
               background-color: transparent !important;
@@ -170,7 +170,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background-color: #ffffff;
+        background-color: $quill-white;
         line-height: 20px;
         color: $quill-green;
         width: 100%;
@@ -198,7 +198,7 @@
           background-color: $quillmaroon;
           li {
             a {
-              color: #FFFFFF !important;
+              color: $quill-white !important;
             }
           }
         }
@@ -225,13 +225,13 @@
     background-color: rgba(255, 255, 255, 0.35);
     color: white;
     &.active {
-      background-color: #FFFFFF;
+      background-color: $quill-white;
       color: $quill-green;
       .small-diamond-icon {
         background-image: url("https://assets.quill.org/images/icons/green-diamond.svg");
       }
       &:hover {
-        color: #FFFFFF;
+        color: $quill-white;
         .small-diamond-icon {
           background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
         }

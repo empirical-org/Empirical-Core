@@ -100,7 +100,7 @@
 li.active.premium-tab > a {
   background-color: $quillgoldmedium !important;
   span {
-    color: #ffffff;
+    color: $quill-white;
     .large-diamond-icon {
       background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
     }
@@ -157,7 +157,7 @@ li.premium-tab > a:hover {
           width: 100%;
         }
         &:not(:last-of-type) {
-          border-right: 1px solid #E0E0E0;
+          border-right: 1px solid $quill-grey-5;
         }
         &:last-of-type {
           border-right: 1px solid transparent;
@@ -268,7 +268,7 @@ li.premium-tab > a:hover {
     }
   }
   .pricing-minis {
-    border: solid 1px #e0e0e0;
+    border: solid 1px $quill-grey-5;
     border-bottom: none;
     display: flex;
     border-radius: 8px 8px 0px 0px;
@@ -276,7 +276,7 @@ li.premium-tab > a:hover {
   .pricing-mini {
     background-color: white;
     border-radius: 8px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid $quill-grey-5;
   }
   .premium-button-container {
     display: flex;
@@ -292,7 +292,7 @@ li.premium-tab > a:hover {
       font-style: italic;
       font-size: 12px;
       line-height: 20px;
-      color: #5C5C5C;
+      color: $quill-grey-50;
       margin-top: 4px;
     }
   }
@@ -346,7 +346,7 @@ li.premium-tab > a:hover {
       p {
         margin: 8px 0 24px;
         line-height: 1.43;
-        color: #5c5c5c;
+        color: $quill-grey-50;
       }
     }
   }
@@ -413,8 +413,8 @@ li.premium-tab > a:hover {
 
 .features {
   background-color: white;
-  border-top: 1px solid #e0e0e0;
-  border-bottom: 1px solid #e0e0e0;
+  border-top: 1px solid $quill-grey-5;
+  border-bottom: 1px solid $quill-grey-5;
   padding-bottom: 80px;
   section {
     border-style: none;
@@ -485,7 +485,7 @@ li.premium-tab > a:hover {
           font-size: 12px;
           font-weight: 600;
           line-height: 1.33;
-          color: #5c5c5c;
+          color: $quill-grey-50;
         }
       }
     }
@@ -502,14 +502,14 @@ li.premium-tab > a:hover {
       }
       p {
         text-align: left;
-        color: #5c5c5c;
+        color: $quill-grey-50;
       }
       span {
         font-size: 12px;
         line-height: 1.33;
         text-align: left;
         display: block;
-        color: #5c5c5c;
+        color: $quill-grey-50;
         margin-bottom: 4px;
         &:last-of-type {
           margin-bottom: 8px;
@@ -537,7 +537,7 @@ li.premium-tab > a:hover {
             font-size: 12px;
             font-weight: 600;
             line-height: 1.33;
-            color: #ffffff;
+            color: $quill-white;
             position: absolute;
             top: 2px;
             left: 6px;
@@ -592,7 +592,7 @@ li.premium-tab > a:hover {
     }
     .qa-section {
       color: black;
-      border-top: 1px solid #e0e0e0;
+      border-top: 1px solid $quill-grey-5;
       border-bottom: none;
       text-align: left;
       .question {
@@ -630,7 +630,7 @@ li.premium-tab > a:hover {
       }
     }
     .q-and-a-inner-wrapper:last-child div {
-      border-bottom: 1px solid #e0e0e0
+      border-bottom: 1px solid $quill-grey-5
     }
     .support-link {
       width: 249px;
@@ -707,8 +707,8 @@ li.premium-tab > a:hover {
         text-align: left;
       }
       &:nth-of-type(2) {
-        border-left: 1px solid #e0e0e0;
-        border-right: 1px solid #e0e0e0;
+        border-left: 1px solid $quill-grey-5;
+        border-right: 1px solid $quill-grey-5;
         border-radius: 0px;
       }
     }
@@ -746,7 +746,7 @@ li.premium-tab > a:hover {
           width: calc(100vw - 52px);
           max-width: 300px;
           border-right: 0px !important;
-          border-bottom: 1px solid #e0e0e0;
+          border-bottom: 1px solid $quill-grey-5;
           padding: 32px 0px;
           margin: 0px 16px;
           h2 {
@@ -797,7 +797,7 @@ li.premium-tab > a:hover {
     .pricing-mini {
       max-width: 360px;
       width: 100%;
-      border: solid 1px #e0e0e0;
+      border: solid 1px $quill-grey-5;
       margin-bottom: 32px;
       h2 {
         height: min-content;
@@ -829,17 +829,17 @@ li.premium-tab > a:hover {
     }
 
     .individual-features-table-container {
-      border-top: 1px solid #e0e0e0;
+      border-top: 1px solid $quill-grey-5;
 
       .interactive-wrapper {
         font-size: 14px;
         font-weight: 600;
-        color: #5c5c5c;
+        color: $quill-grey-50;
         margin: 14px;
       }
 
       .header-row {
-        border-top: 1px solid #e0e0e0;
+        border-top: 1px solid $quill-grey-5;
         padding: 32px 16px 8px;
         text-align: left;
         h3 {
@@ -854,7 +854,7 @@ li.premium-tab > a:hover {
         display: flex;
         padding: 16px;
         justify-content: space-between;
-        border-top: 1px solid #e0e0e0;
+        border-top: 1px solid $quill-grey-5;
         text-align: left;
         .quill-tooltip-trigger {
           width: 16px;

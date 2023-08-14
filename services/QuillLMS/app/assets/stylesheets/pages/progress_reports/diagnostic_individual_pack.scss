@@ -11,8 +11,8 @@
   .diagnostic-report-navigation {
     width: 268px;
     min-width: 260px;
-    background-color: #fff;
-    border-right: 1px solid #e0e0e0;
+    background-color: $quill-white;
+    border-right: 1px solid $quill-grey-5;
     min-height: min-content;
     padding: 40px 0px;
     z-index: 4;
@@ -21,7 +21,7 @@
       padding: 0px 16px;
       min-height: 58px;
       justify-content: flex-start;
-      border-bottom: 1px solid #E0E0E0;
+      border-bottom: 1px solid $quill-grey-5;
     }
     .post-diagnostic-card {
       background-color: #f5f5f5;
@@ -42,7 +42,7 @@
       }
       p {
         text-align: center;
-        color: #5c5c5c;
+        color: $quill-grey-50;
         margin: 24px 0px 16px;
       }
       div {
@@ -62,7 +62,7 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        color: #5c5c5c;
+        color: $quill-grey-50;
         font-weight: 700;
         font-size: 13px;
         line-height: 16px;
@@ -76,10 +76,10 @@
           height: min-content;
           width: min-content;
           margin-top: 4px;
-          border: 2px solid #5C5C5C;
+          border: 2px solid $quill-grey-50;
         }
         .post-badge {
-          background: #5C5C5C;
+          background: $quill-grey-50;
           color: white;
         }
         span:has(.activity-name) {
@@ -131,7 +131,7 @@
         justify-content: center;
         align-items: center;
         font-size: 14px;
-        color: #5c5c5c;
+        color: $quill-grey-50;
         img {
           margin-right: 2px;
         }
@@ -153,7 +153,7 @@
       color: #262626;
     }
     p {
-      color: #5c5c5c;
+      color: $quill-grey-50;
     }
   }
 

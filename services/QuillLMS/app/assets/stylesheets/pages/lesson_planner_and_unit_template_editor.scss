@@ -35,8 +35,8 @@
   .activity-page-dropdown-wrapper {
     padding: 16px 32px;
     border-radius: 6px;
-    border: solid 1px #e0e0e0;
-    background-color: #fff;
+    border: solid 1px $quill-grey-5;
+    background-color: $quill-white;
   }
 }
 
@@ -64,7 +64,7 @@
     }
     .assignment-section {
       border-radius: 6px;
-      border: solid 1px #e0e0e0;
+      border: solid 1px $quill-grey-5;
       background-color: white;
       padding: 32px;
       margin-bottom: 24px;
@@ -156,7 +156,7 @@
           display: flex;
           padding: 24px 32px;
           border-radius: 6px;
-          border: solid 1px #e0e0e0;
+          border: solid 1px $quill-grey-5;
           align-items: flex-end;
           margin-top: 24px;
           .empty-class-students {
@@ -201,8 +201,8 @@
           }
         }
         .create-a-class-inline-content {
-          border-top: 1px solid #e0e0e0;
-          border-bottom: 1px solid #e0e0e0;
+          border-top: 1px solid $quill-grey-5;
+          border-bottom: 1px solid $quill-grey-5;
           padding: 32px;
           margin-left: -32px;
           margin-right: -32px;
@@ -410,7 +410,7 @@
     &#assign {
       margin-left: 20px;
       border: none;
-      color: #fff;
+      color: $quill-white;
       font-weight: bold;
       //margin-top: 20px;
     }
@@ -628,7 +628,7 @@
     text-align: center;
   }
   .referral-card {
-    border: solid 1px #e0e0e0;
+    border: solid 1px $quill-grey-5;
     background-color: white;
     display: flex;
     padding: 32px;
