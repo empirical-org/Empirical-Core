@@ -19,7 +19,7 @@
 .premium-tab {
   a {
     background-color: $quillgoldlight !important;
-    color: $quillgolddark !important;
+    color: $quill-gold-dark-50 !important;
     padding-left: 40px;
     padding-right: 40px;
     border-radius: 8px 8px 0px 0px !important;
@@ -98,7 +98,7 @@
 
 }
 li.active.premium-tab > a {
-  background-color: $quillgoldmedium !important;
+  background-color: $quill-gold !important;
   span {
     color: $quill-white;
     .large-diamond-icon {

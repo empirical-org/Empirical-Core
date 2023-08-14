@@ -253,9 +253,9 @@ $lightgray: #cecece;
       color: $quill-green-vibrant;
     }
     &.incorrect {
-      border: 1px solid #E4D0B0;
-      background: #FFEFD6;
-      color: #9F6405;
+      border: 1px solid $quill-gold-dark-10;
+      background: $quill-gold-5;
+      color: $quill-gold-dark;
     }
   }
 

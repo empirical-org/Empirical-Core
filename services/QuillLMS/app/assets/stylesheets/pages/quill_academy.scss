@@ -31,7 +31,7 @@
       }
       &.restricted {
         background-color: rgba(223, 158, 61, 0.1);
-        color: #9F6405;
+        color: $quill-gold-dark;
       }
     }
     .quill-academy-button-or-info-section {
@@ -165,7 +165,7 @@
     p {
       font-weight: 700;
       font-size: 22px;
-      color: $quillpalered;
+      color: $quill-red;
     }
   }
   .content-section.third >.category-card {
@@ -175,7 +175,7 @@
     p {
       font-weight: 700;
       font-size: 22px;
-      color: $quillviolet;
+      color: $quill-violet;
     }
   }
 }

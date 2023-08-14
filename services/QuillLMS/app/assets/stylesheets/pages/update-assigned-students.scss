@@ -82,9 +82,9 @@
       }
       &.will-be-removed {
         background-color: #FFEDEC;
-        border: 1px solid #EB4F47;
+        border: 1px solid $quill-red;
         .description {
-          color: #EB4F47;
+          color: $quill-red;
         }
       }
     }

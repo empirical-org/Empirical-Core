@@ -47,19 +47,19 @@
     margin: 16px;
     border-bottom: 1px solid #d1d1d1;
     padding: 16px;
-    border: 1px solid $quillgoldmedium;
+    border: 1px solid $quill-gold;
     border-radius: 8px;
     background-color: $quillgoldlight;
 
     h2 {
       font-size: 14px;
       font-weight: bold;
-      color: $quillgoldextradark;
+      color: $quill-gold-dark;
     }
     p {
       padding-top: 4px;
       font-size: 14px;
-      color: $quillgoldextradark;
+      color: $quill-gold-dark;
     }
   }
   .title-section {

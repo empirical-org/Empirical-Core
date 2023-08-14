@@ -104,22 +104,22 @@
       letter-spacing: normal;
     }
     &.proficiency, &.maintained-proficiency {
-      background-color: #B0E185;
+      background-color: $quill-green-vibrant-20;
       span {
         color: $quill-green-vibrant;
       }
-      border: 1px solid #79C933;
+      border: 1px solid $quill-green-vibrant-50;
     }
     &.gained-some-proficiency {
-      border: 1px solid $quill-green-vibrant;
-      background-color: #EBF8E0;
+      border: 1px solid $quill-green-vibrant-10;
+      background-color: $quill-green-vibrant-20;
       span {
-        color: #2A5900;
+        color: $quill-green-vibrant;
       }
     }
     &.no-proficiency, &.partial-proficiency {
       background-color: $quill-white3e0;
-      border: 1px solid #E3BB7A;
+      border: 1px solid $quill-gold-dark-20;
       span {
         color: #995f00;
       }
@@ -287,7 +287,7 @@
             margin: 0px 2px;
           }
           &.acquired, &.maintained {
-            color: #2A5900;
+            color: $quill-green-vibrant;
           }
         }
       }

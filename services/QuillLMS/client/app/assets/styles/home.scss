@@ -186,7 +186,7 @@ a.q-button {
 
 
 
-$list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar, quillforestgreen: $quillforestgreen, quillblue: $quillblue, quillteal: $quillteal, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, green: $green, lightgray: $lightgray, darkgray: $darkgray, purple: $purple, lessonspurple: $lessonspurple);
+$list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar, quillforestgreen: $quillforestgreen, quillblue: $quillblue, quill-teal: $quill-teal, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, green: $green, lightgray: $lightgray, darkgray: $darkgray, purple: $purple, lessonspurple: $lessonspurple);
 
 @each $name, $color in $list {
   .text-#{"" + $name} {
@@ -428,7 +428,7 @@ section.q-hero {
     padding-top: 64px;
     .topic-section {
       background-color: white;
-      color: #2C7F9B;
+      color: $quill-teal;
       max-width: 355px;
       border-radius: 8px;
       .topic {
@@ -456,13 +456,13 @@ section.q-hero {
       }
       .q-button {
         margin-bottom: 18px;
-        border: 1px solid #2C7F9B;
+        border: 1px solid $quill-teal;
         border-radius: 4px;
         font-size: 14px;
         padding: 13px 16px 13px 16px;
       }
       .q-button:hover {
-        background-color: #2C7F9B;
+        background-color: $quill-teal;
         color: $quill-white;
       }
     }
@@ -481,7 +481,7 @@ section.q-hero {
       background-color: white;
       border-radius: 4px;
       p, a {
-        color: #2C7F9B !important;
+        color: $quill-teal !important;
         height: auto !important;
       }
       .topic {
@@ -498,7 +498,7 @@ section.q-hero {
       }
       .q-button {
         font-size: 14px;
-        border: 1px solid #2C7F9B;
+        border: 1px solid $quill-teal;
         margin-top: 16px;
         margin-bottom: 16px;
       }

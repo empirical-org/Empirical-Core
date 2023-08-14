@@ -1,6 +1,6 @@
 .teacher-premium {
   .navbar-divider-bar {
-    background-color: $quillgoldmedium;
+    background-color: $quill-gold;
   }
   .container {
     display: flex;
@@ -88,16 +88,16 @@
 
     .quill-button {
       margin: 16px 0px 32px;
-      background-color: $quillgoldmedium;
+      background-color: $quill-gold;
       &:hover, &:focus {
-        background-color: $quillgolddark !important;
+        background-color: $quill-gold-dark-50 !important;
       }
     }
 
     a:not(.quill-button) {
       font-weight: 700;
       line-height: 14px;
-      color: $quillgolddark;
+      color: $quill-gold-dark-50;
     }
   }
 

@@ -43,7 +43,7 @@
       padding-top: 64px;
       .topic-section {
         background-color: white;
-        color: #2C7F9B;
+        color: $quill-teal;
         max-width: 355px;
         border-radius: 8px;
         .topic {
@@ -71,7 +71,7 @@
         }
         .q-button {
           margin-bottom: 18px;
-          border: 1px solid #2C7F9B;
+          border: 1px solid $quill-teal;
           border-radius: 4px;
           font-size: 14px;
           padding: 13px 16px 13px 16px;
@@ -124,7 +124,7 @@
   #instructions-container {
     display: flex;
     justify-content: center;
-    background-color: #2C7F9B;
+    background-color: $quill-teal;
     padding: 48px 0px 30px 0px;
     .instruction-container {
       display: flex;
@@ -157,7 +157,7 @@
     }
   }
   .evidence-feature-container {
-    background-color: #2C7F9B;
+    background-color: $quill-teal;
     padding: 72px 0px 72px 0px;
     justify-content: center;
     display: flex;
@@ -275,7 +275,7 @@
       margin-bottom: 32px;
     }
     button {
-      background-color: $quillteal !important;
+      background-color: $quill-teal !important;
     }
   }
 }
