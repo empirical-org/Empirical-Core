@@ -1,3 +1,5 @@
+@import "variables";
+
 .header {
   background-color: $quill-green;
   padding-top: 50px;
