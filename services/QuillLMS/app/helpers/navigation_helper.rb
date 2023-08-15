@@ -227,7 +227,7 @@ module NavigationHelper
   def premium_tab_copy(current_user)
     middle_diamond_img = "<div class='large-diamond-icon is-in-middle'></div>"
     end_diamond_img = "<div class='large-diamond-icon'></div>"
-    case current_user.premium_state
+    case current_user&.premium_state
     when TRIAL
       "<span>Premium</span>#{middle_diamond_img}<span>#{current_user.trial_days_remaining} Days Left</span>"
     when LOCKED
