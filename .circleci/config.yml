@@ -265,7 +265,7 @@ jobs:
           discovery.seed_hosts: null
       - image: docker.elastic.co/elasticsearch/elasticsearch:7.2.1
         environment:
-          - xpack.security.enabled: false
+          xpack.security.enabled: false
           node.data: true
           network.host: 0.0.0.0
           discovery.seed_hosts: null
