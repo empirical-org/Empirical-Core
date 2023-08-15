@@ -8,5 +8,5 @@ Rails.application.config.assets.precompile += [
   'jquery-1.8.2',
   'sign_up_email.css',
   'stats_email.scss',
-  'rollup_email.css'
+  'rollup_email.scss'
 ]
