@@ -5,7 +5,7 @@
   margin-bottom: 40px;
   position: relative;
   right: 75px;
-  border-bottom: solid 1px #e0e0e0;
+  border-bottom: solid 1px $quill-grey-5;
   > .bs-wizard-step {
     padding: 0;
     position: relative;
@@ -15,7 +15,7 @@
       margin-bottom: 5px;
     }
     .bs-wizard-info {
-      color: #000;
+      color: $quill-black;
       font-size: 14px;
       margin-top: 15px;
     }

@@ -8,20 +8,20 @@
     font-weight: 700;
     font-size: 32px;
     line-height: 30px;
-    color: #373737;
+    color: $quill-grey-90;
   }
 
   h2 {
     font-weight: 600;
     font-size: 28px;
     line-height: 25px;
-    color: #373737;
+    color: $quill-grey-90;
     margin-bottom: 16px;
   }
 
   section {
     margin-top: 48px;
-    border-top: #CFCFCF 1px solid;
+    border-top: $quill-grey-15 1px solid;
     padding: 48px 0px 0px;
     border-bottom: none;
   }
@@ -39,7 +39,7 @@
   .data-table {
     background-color: white;
     overflow: visible;
-    border: 1px solid #E0E0E0;
+    border: 1px solid $quill-grey-5;
     margin-top: 16px;
   }
 
@@ -47,7 +47,7 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
-    color: #757575;
+    color: $quill-grey-35;
   }
 
   .featured-section {

@@ -27,11 +27,11 @@
       }
       &.accessible {
         background-color: rgba(6, 128, 107, 0.1);
-        color: $quillgreenmedium;
+        color: $quill-green;
       }
       &.restricted {
         background-color: rgba(223, 158, 61, 0.1);
-        color: #9F6405;
+        color: $quill-gold-dark;
       }
     }
     .quill-academy-button-or-info-section {
@@ -44,10 +44,10 @@
         box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
         border-radius: 30px;
         &:hover, &:focus {
-          outline: 2px solid $quillgreenmedium;
+          outline: 2px solid $quill-green;
         }
         .quill-button:hover {
-          background-color: $quillgreenmedium !important;
+          background-color: $quill-green !important;
         }
       }
       h2 {
@@ -84,7 +84,7 @@
     display: flex;
     justify-content: space-between;
     padding-bottom: 128px;
-    border-bottom: 1px solid #cfcfcf;
+    border-bottom: 1px solid $quill-grey-15;
     .category-card {
       .icon-image {
         background-color: #EEF8F7;
@@ -108,7 +108,7 @@
         justify-content: space-between;
         max-width: 360px;
         padding: 32px;
-        background-color: #F8F8F8;
+        background-color: $quill-grey-1;
         border-radius: 8px;
         margin-bottom: 32px;
         .top-section {
@@ -116,7 +116,7 @@
           flex-direction: column;
           align-items: flex-start;
           h3 {
-            color: #373737;
+            color: $quill-grey-90;
             font-weight: 700;
             font-size: 20px;
             margin: 16px 0px;
@@ -126,18 +126,18 @@
             width: auto;
           }
           p {
-            color: #5C5C5C;
+            color: $quill-grey-50;
             font-weight: 400;
             font-size: 16px;
           }
         }
         .available {
-          color: $quillgreenmedium;
+          color: $quill-green;
           font-weight: 700;
           font-size: 14px;
         }
         .coming-soon {
-          color: #373737;
+          color: $quill-grey-90;
           font-weight: 700;
           font-size: 14px;
         }
@@ -146,7 +146,7 @@
   }
   .content-section:not(:last-child) {
     padding-bottom: 96px;
-    border-bottom: 1px solid #cfcfcf;
+    border-bottom: 1px solid $quill-grey-15;
   }
   .content-section.first >.category-card {
     .icon-image {
@@ -155,7 +155,7 @@
     p {
       font-weight: 700;
       font-size: 22px;
-      color: $quillgreenmedium;
+      color: $quill-green;
     }
   }
   .content-section.second > .category-card {
@@ -165,7 +165,7 @@
     p {
       font-weight: 700;
       font-size: 22px;
-      color: $quillpalered;
+      color: $quill-red;
     }
   }
   .content-section.third >.category-card {
@@ -175,7 +175,7 @@
     p {
       font-weight: 700;
       font-size: 22px;
-      color: $quillviolet;
+      color: $quill-violet;
     }
   }
 }

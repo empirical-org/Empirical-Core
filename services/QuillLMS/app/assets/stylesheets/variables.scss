@@ -77,7 +77,7 @@ $quill-red-5: #FEEDEC;
 $quill-red-1: #FFF6F5;
 
 $quill-maroon: #C04500;
-$quill-maroon-50: #C04500;
+$quill-maroon-50: #E36E2C;
 $quill-maroon-20: #FFB489;
 $quill-maroon-10: #FFDCC8;
 $quill-maroon-5: #FCEAE1;
@@ -101,24 +101,14 @@ $quill-gold-dark-1: #FBF2E5;
 
 $quillnavbar: #e6e6e6;
 $quillgreen: #00c2a2;
-$quillgreenlight: #E3F0EE;
-$quillgreenmedium: #06806B;
 $quillgreendark: #086252;
 $quillforestgreen: #027360;
 $quillblue: #348fdf;
 $quillred: #ff4542;
-$quillteal: #2C7F9B;
-$quillmaroon: #C04500;
-$quillmaroonlight: #FFDCC8;
 $quillgoldlight: #FFE8C5;
-$quillgoldmedium: #DF9E3D;
-$quillgolddark: #C97C00;
-$quillgoldextradark: #9F6405;
-$quillviolet: #AD277B;
-$quillpalered: #EB4F47;
 
-$white: #fff;
-$black: #000;
+$white: $quill-white;
+$black: $quill-black;
 $orange: #f8a724;
 
 $red: #e8522c;

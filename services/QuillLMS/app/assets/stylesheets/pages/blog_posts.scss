@@ -1,10 +1,10 @@
-$blogpostgreen: #06806B;
-$blogpostpurple: #9035D6;
-$blogpostblue: #4D8DD9;
-$blogpostgold: #DF9E3D;
-$blogpostred: #EB4F47;
-$blogpostviolet: #AD277B;
-$blogpostteal: #2C7F9B;
+$blogpostgreen: $quill-green;
+$blogpostpurple: $quill-purple;
+$blogpostblue: $quill-blue;
+$blogpostgold: $quill-gold;
+$blogpostred: $quill-red;
+$blogpostviolet: $quill-violet;
+$blogpostteal: $quill-teal;
 
 $blogpostlightgreen: rgba(6, 128, 107, 0.08);
 $blogpostlightpurple: rgba(144, 53, 214, 0.08);
@@ -32,7 +32,7 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
 }
 
 .topic-section, .search-result-header {
-  border-top: 1px solid #cfcfcf;
+  border-top: 1px solid $quill-grey-15;
   padding: 48px 0px 40px;
 }
 
@@ -277,7 +277,7 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
 
       h2 {
         font-size: 16px;
-        color: #373737;
+        color: $quill-grey-90;
         margin-right: 14px;
       }
 
@@ -311,7 +311,7 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
 
     h2 {
 	     font-size: 30px;
-	     color: #666666;
+	     color: $quill-grey-40;
        margin-top: 50px;
     }
   }
@@ -339,7 +339,7 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
 
   .preview-card-body {
     padding-bottom: 16px;
-    border-bottom: 1px solid #CFCFCF;
+    border-bottom: 1px solid $quill-grey-15;
     overflow: hidden;
 
     .button-container {
@@ -394,7 +394,7 @@ a.preview-card-link {
 }
 
 a.all-blog-posts-back-button {
-  color: #666;
+  color: $quill-grey-40;
   display: block;
   margin-bottom: 24px;
 
@@ -412,7 +412,7 @@ a.all-blog-posts-back-button {
 }
 
 #article-container {
-  background: #ffffff;
+  background: $quill-white;
 
 
   div p img {
@@ -461,7 +461,7 @@ a.all-blog-posts-back-button {
       }
 
       .date, .author {
-        color: #666666;
+        color: $quill-grey-40;
         font-weight: 400;
         font-size: 16px;
         margin-top: 14px;
@@ -471,7 +471,7 @@ a.all-blog-posts-back-button {
     main {
       margin-top: 48px;
       padding-top: 48px;
-      border-top: 1px solid #CFCFCF;
+      border-top: 1px solid $quill-grey-15;
       font-weight: 400;
       font-size: 20px;
       line-height: 33px;
@@ -540,7 +540,7 @@ a.all-blog-posts-back-button {
 }
 
 #quill-article-paywall {
-  background: #fff;
+  background: $quill-white;
   border-radius: 10px;
   border: 3px solid #eee;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
@@ -563,7 +563,7 @@ a.all-blog-posts-back-button {
   a {
     background: #f8a724;
     border-radius: 3px;
-    color: #fff;
+    color: $quill-white;
     display: block;
     font-size: 16px;
     font-weight: 600;
@@ -595,7 +595,7 @@ a.all-blog-posts-back-button {
 
 .article-cta-primary, .article-cta-primary:hover, .article-cta-primary:focus {
   background: $quillgreen;
-  color: #fff;
+  color: $quill-white;
 }
 
 .article-cta-secondary, .article-cta-secondary:hover {

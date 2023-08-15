@@ -3,7 +3,7 @@
   max-width: 1072px;
   width: 90%;
   display: flex;
-  border: 1px solid #e0e0e0;
+  border: 1px solid $quill-grey-5;
   justify-content: space-between;
   border-radius: 8px;
 
@@ -23,7 +23,7 @@
 
     p {
       line-height: 1.43;
-      color: #5c5c5c;
+      color: $quill-grey-50;
       margin-bottom: 24px;
     }
 
@@ -46,9 +46,9 @@
         &.unchecked {
           width: 32px;
           height: 32px;
-          border: solid 1px #e0e0e0;
+          border: solid 1px $quill-grey-5;
           border-radius: 20px;
-          background-color: #ffffff;
+          background-color: $quill-white;
         }
       }
       span {

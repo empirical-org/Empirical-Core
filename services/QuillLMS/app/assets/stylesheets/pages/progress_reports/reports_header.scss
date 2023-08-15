@@ -1,6 +1,6 @@
 .reports-header {
   background-color: white;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid $quill-grey-5;
   .name-and-classroom-dropdown {
     padding-top: 32px;
     min-height: 72px;
@@ -28,12 +28,12 @@
       background-color: white;
       padding: 14px 16px;
       font-weight: 600;
-      color: #5c5c5c;
+      color: $quill-grey-50;
       margin-bottom: -1px;
       &.active {
-        border-bottom: 2px solid #06806b;
+        border-bottom: 2px solid $quill-green;
         font-weight: bold;
-        color: #06806b;
+        color: $quill-green;
       }
     }
   }

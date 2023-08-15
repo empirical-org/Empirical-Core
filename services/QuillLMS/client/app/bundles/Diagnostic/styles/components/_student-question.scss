@@ -25,7 +25,7 @@
         font-weight: normal;
         font-style: normal;
         font-stretch: normal;
-        color: #000000;
+        color: $quill-black;
     }
   }
 }
@@ -58,7 +58,7 @@
   display: inline-flex;
   align-items: center;
   .cue {
-    background-color: #fffed5;
+    background-color: #FFFED5;
     line-height: 28px;
     font-size: 20px;
     margin-right: 13px;
@@ -330,7 +330,7 @@
   }
   &:focus {
     outline: none;
-    border: solid 2px #06806b;
+    border: solid 2px $quill-green;
     border-radius: 4px;
   }
 }

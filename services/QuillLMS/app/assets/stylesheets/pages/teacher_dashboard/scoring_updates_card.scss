@@ -4,7 +4,7 @@
   justify-content: space-between;
   background: #FFE8C5;
   position: relative;
-  border: 1px solid #C97C00;
+  border: 1px solid $quill-gold-dark-50;
   .close-button {
     position: absolute;
     top: 20px;
@@ -16,7 +16,7 @@
     font-weight: 700;
     font-size: 12px;
     line-height: 15px;
-    color: #C97C00;
+    color: $quill-gold-dark-50;
   }
   h2 {
     font-size: 20px;

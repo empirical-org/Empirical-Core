@@ -1,3 +1,4 @@
+@import '../../../../../app/assets/stylesheets/variables.scss';
 @import 'variables';
 @import 'textbox';
 @import "components/admin-regex-rules";
@@ -187,14 +188,14 @@ textarea.submission {
   &:hover,
   &:focus {
     color: #333; //$dropdown-link-color;
-    background-color: #fff; //$dropdown-bg;
+    background-color: $quill-white; //$dropdown-bg;
   }
 }
 .dropdown-input.dropdown-menu > .active > a {
   &:hover,
   &:focus {
     text-decoration: none;
-    color: #fff; // $dropdown-link-hover-color;  // #fff
+    color: $quill-white; // $dropdown-link-hover-color;  // $quill-white
     background-color: #337ab7; // $dropdown-link-hover-bg;  // #337ab7
   }
 }
@@ -384,7 +385,7 @@ textarea.submission {
 }
 
 .header {
-  background-color: #06806b;
+  background-color: $quill-green;
   height: 64px;
   padding: 0 50px;
   color: rgba(0, 0, 0, 0.65);
@@ -396,7 +397,7 @@ textarea.submission {
     button {
       display: flex;
       align-items: center;
-      background-color: #06806b;
+      background-color: $quill-green;
       color: white;
       border: none;
       img {
