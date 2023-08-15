@@ -1,6 +1,6 @@
 .teacher-premium {
   .navbar-divider-bar {
-    background-color: $quillgoldmedium;
+    background-color: $quill-gold;
   }
   .container {
     display: flex;
@@ -38,8 +38,8 @@
 
   .explanation {
     text-align: center;
-    border-top: 1px solid #E0E0E0;
-    border-bottom: 1px solid #E0E0E0;
+    border-top: 1px solid $quill-grey-5;
+    border-bottom: 1px solid $quill-grey-5;
     padding: 64px 0px;
     display: flex;
     flex-direction: column;
@@ -49,7 +49,7 @@
       margin-top: 8px;
       font-size: 16px;
       line-height: 22px;
-      color: #373737;
+      color: $quill-grey-90;
       max-width: 800px;
     }
   }
@@ -70,7 +70,7 @@
 
       max-width: 584px;
 
-      background: #F8F8F8;
+      background: $quill-grey-1;
       border-radius: 8px;
       text-align: center;
     }
@@ -83,21 +83,21 @@
       min-height: 90px;
       font-size: 16px;
       line-height: 24px;
-      color: #373737;
+      color: $quill-grey-90;
     }
 
     .quill-button {
       margin: 16px 0px 32px;
-      background-color: $quillgoldmedium;
+      background-color: $quill-gold;
       &:hover, &:focus {
-        background-color: $quillgolddark !important;
+        background-color: $quill-gold-dark-50 !important;
       }
     }
 
     a:not(.quill-button) {
       font-weight: 700;
       line-height: 14px;
-      color: $quillgolddark;
+      color: $quill-gold-dark-50;
     }
   }
 

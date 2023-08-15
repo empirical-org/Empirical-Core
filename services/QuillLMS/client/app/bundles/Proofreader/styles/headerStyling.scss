@@ -1,7 +1,9 @@
+@import '../../../../../app/assets/stylesheets/variables.scss';
+
 .header {
   height: 64px;
   width: 100%;
-  background-color: #06806b;
+  background-color: $quill-green;
   padding: 0 16px;
   a, button {
     color: white;

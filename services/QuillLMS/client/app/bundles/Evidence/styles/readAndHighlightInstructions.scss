@@ -6,7 +6,7 @@
   .unhighlight-instructions {
     font-size: 14px;
     font-weight: 600;
-    color: #5c5c5c;
+    color: $quill-grey-50;
     margin-top: 22px;
   }
   &.hide-on-desktop {
@@ -17,7 +17,7 @@
     font-size: 14px;
     font-weight: 600;
     line-height: 1.43;
-    color: #5c5c5c;
+    color: $quill-grey-50;
   }
   h3 {
     margin-bottom: 12px;
@@ -36,10 +36,10 @@
         background-color: white;
       }
       25% {
-        background-color: #fff3e0;
+        background-color: #FFF3E0;
       }
       75% {
-        background-color: #fff3e0;
+        background-color: #FFF3E0;
       }
       100% {
         background-color: white;
@@ -105,8 +105,9 @@
   section.read-the-directions-modal {
     padding: 16px 20px;
     border-radius: 10px;
-    box-shadow: 0 1px 8px 0 #00000033, 0 3px 3px -2px #0000001e, 0 3px 4px 0 #00000023;
-    background-color: #ffffff;
+    box-shadow: 0 1px 8px 0 #00000033, 0 3px 3px -2px #0000001e, 0 3px 4px 0 #00000023
+;
+    background-color: $quill-white;
     position: absolute;
     width: 320px;
     left: -310px;

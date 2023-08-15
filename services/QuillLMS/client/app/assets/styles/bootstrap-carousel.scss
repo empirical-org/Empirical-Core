@@ -1,3 +1,5 @@
+@import '../../../../app/assets/stylesheets/variables.scss';
+
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.
@@ -76,7 +78,7 @@ h1 {
 }
 mark {
   background: #ff0;
-  color: #000;
+  color: $quill-black;
 }
 small {
   font-size: 80%;
@@ -218,7 +220,7 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #333333;
-  background-color: #ffffff;
+  background-color: $quill-white;
 }
 input,
 button,
@@ -260,7 +262,7 @@ img {
 .img-thumbnail {
   padding: 4px;
   line-height: 1.42857143;
-  background-color: #ffffff;
+  background-color: $quill-white;
   border: 1px solid #dddddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
@@ -389,7 +391,7 @@ hr {
   opacity: 0.5;
   filter: alpha(opacity=50);
   font-size: 20px;
-  color: #ffffff;
+  color: $quill-white;
   text-align: center;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
   background-color: rgba(0, 0, 0, 0);
@@ -401,7 +403,7 @@ hr {
 .carousel-control:hover,
 .carousel-control:focus {
   outline: 0;
-  color: #ffffff;
+  color: $quill-white;
   text-decoration: none;
   opacity: 0.9;
   filter: alpha(opacity=90);
@@ -459,17 +461,17 @@ hr {
   height: 10px;
   margin: 1px;
   text-indent: -999px;
-  border: 1px solid #ffffff;
+  border: 1px solid $quill-white;
   border-radius: 10px;
   cursor: pointer;
-  background-color: #000 \9;
+  background-color: $quill-black \9;
   background-color: rgba(0, 0, 0, 0);
 }
 .carousel-indicators .active {
   margin: 0;
   width: 12px;
   height: 12px;
-  background-color: #ffffff;
+  background-color: $quill-white;
 }
 .carousel-caption {
   position: absolute;
@@ -479,7 +481,7 @@ hr {
   z-index: 10;
   padding-top: 20px;
   padding-bottom: 20px;
-  color: #ffffff;
+  color: $quill-white;
   text-align: center;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }

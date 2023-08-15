@@ -9,18 +9,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #FFFFFF;
+    background-color: $quill-white;
     width: 100%;
     max-width: 1200px;
     margin-bottom: 40px;
     border-radius: 6px;
-    border: solid 1px #e0e0e0;
+    border: solid 1px $quill-grey-5;
     .review-response-header-section {
       margin-top: 40px;
       max-width: 808px;
       width: 100%;
       text-align: center;
-      border-bottom: 1px solid #e0e0e0;
+      border-bottom: 1px solid $quill-grey-5;
       .sub-header-subtext {
         margin-bottom: 40px;
       }
@@ -28,7 +28,7 @@
     .response-exemplars-section {
       display: flex;
       margin-top: 16px;
-      border-bottom: 1px solid #e0e0e0;
+      border-bottom: 1px solid $quill-grey-5;
       .response-section {
         margin-right: 16px;
         .response-exemplar-header {
@@ -82,7 +82,7 @@
       text-align: center;
       font-size: 40px;
       font-weight: bold;
-      color: #ffffff;
+      color: $quill-white;
       max-width: 616px;
       margin-bottom: 8px;
       line-height: 1.2;
@@ -115,7 +115,7 @@
   }
 
   .sub-header-text {
-    color: #000000;
+    color: $quill-black;
     font-weight: bold;
   }
   .sub-header-subtext {

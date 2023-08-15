@@ -9,7 +9,7 @@
     p {
       max-width: 336px;
       text-align: center;
-      color: #5c5c5c;
+      color: $quill-grey-50;
     }
   }
   &.populated {
@@ -38,7 +38,7 @@
       background-color: #ffe0e3;
     }
     &.completed {
-      background-color: #ebebeb;
+      background-color: $quill-grey-3;
     }
   }
   @media (max-width: 1210px) {

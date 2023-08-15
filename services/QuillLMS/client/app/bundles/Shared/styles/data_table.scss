@@ -14,7 +14,7 @@
 .data-table-headers, .data-table-row {
   min-height: 48px;
   padding: 0px 16px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid $quill-grey-5;
   display: flex;
   align-items: center;
   min-width: min-content;
@@ -43,7 +43,7 @@
 .data-table-header, .data-table-row-section {
   margin-right: 24px;
   &.sortable {
-    color: #000;
+    color: $quill-black;
     cursor: pointer;
   }
   &.reorder-header {
@@ -73,7 +73,7 @@ table.data-table {
   .data-table-header {
     font-size: 12px;
     font-weight: 600;
-    color: #5c5c5c;
+    color: $quill-grey-50;
     display: flex;
     background-color: transparent;
     border: none;
@@ -152,7 +152,7 @@ table.data-table {
       width: 207px;
       height: 48px;
       display: flex;
-      color: #000;
+      color: $quill-black;
       font-size: 16px;
       align-items: center;
       padding: 0px 16px;

@@ -1,7 +1,7 @@
 .slider-container {
   &.display-as-disabled {
     .thumb {
-      background-color: #989898;
+      background-color: $quill-grey-25;
     }
   }
 
@@ -14,7 +14,7 @@
     }
     &:not(.display-as-disabled) {
       .track::after {
-        background-color: #06806b;
+        background-color: $quill-green;
       }
     }
   }
@@ -53,7 +53,7 @@
     width: 16px;
     height: 16px;
     border-radius: 9px;
-    background-color: #06806b;
+    background-color: $quill-green;
     &:focus {
       outline: none;
       &::before {
@@ -68,7 +68,7 @@
         transform: translate(-50%, -50%);
         border-radius: 17px;
         bottom: 0px;
-        border: 2px dotted #06806b;
+        border: 2px dotted $quill-green;
       }
     }
   }

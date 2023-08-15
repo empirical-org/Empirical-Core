@@ -127,7 +127,7 @@ a.q-button {
     font-weight: 600;
   }
   &.cta-home:hover {
-    color: #ffffff;
+    color: $quill-white;
     background-color: #00DFB1;
   }
   &:hover.text-white {
@@ -186,7 +186,7 @@ a.q-button {
 
 
 
-$list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar, quillforestgreen: $quillforestgreen, quillblue: $quillblue, quillteal: $quillteal, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, darkblue: $darkblue, green: $green, darkgreen2: $darkgreen2, lightgray: $lightgray, darkgray: $darkgray, purple: $purple, lessonspurple: $lessonspurple);
+$list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar, quillforestgreen: $quillforestgreen, quillblue: $quillblue, quill-teal: $quill-teal, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, green: $green, lightgray: $lightgray, darkgray: $darkgray, purple: $purple, lessonspurple: $lessonspurple);
 
 @each $name, $color in $list {
   .text-#{"" + $name} {
@@ -300,7 +300,7 @@ section.q-hero {
     background-color: initial;
     .navbar-tooltip-trigger {
       span {
-        color: #FFFFFF;
+        color: $quill-white;
       }
     }
   }
@@ -376,7 +376,7 @@ section.q-hero {
         margin: 0;
       }
       .divider-tab {
-        background-color: #FFFFFF;
+        background-color: $quill-white;
         width: 29px;
         height: 6px;
         opacity: 0.2;
@@ -390,7 +390,7 @@ section.q-hero {
       position: relative;
       width: 450px;
       height: 410px;
-      background: #FFFFFF !important;
+      background: $quill-white !important;
       box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15) !important;
       border-radius: 8px;
       video {
@@ -428,7 +428,7 @@ section.q-hero {
     padding-top: 64px;
     .topic-section {
       background-color: white;
-      color: #2C7F9B;
+      color: $quill-teal;
       max-width: 355px;
       border-radius: 8px;
       .topic {
@@ -456,14 +456,14 @@ section.q-hero {
       }
       .q-button {
         margin-bottom: 18px;
-        border: 1px solid #2C7F9B;
+        border: 1px solid $quill-teal;
         border-radius: 4px;
         font-size: 14px;
         padding: 13px 16px 13px 16px;
       }
       .q-button:hover {
-        background-color: #2C7F9B;
-        color: #FFFFFF;
+        background-color: $quill-teal;
+        color: $quill-white;
       }
     }
   }
@@ -481,7 +481,7 @@ section.q-hero {
       background-color: white;
       border-radius: 4px;
       p, a {
-        color: #2C7F9B !important;
+        color: $quill-teal !important;
         height: auto !important;
       }
       .topic {
@@ -498,7 +498,7 @@ section.q-hero {
       }
       .q-button {
         font-size: 14px;
-        border: 1px solid #2C7F9B;
+        border: 1px solid $quill-teal;
         margin-top: 16px;
         margin-bottom: 16px;
       }
@@ -511,7 +511,7 @@ section.q-hero {
       width: 8px;
       &.active {
         margin: 0px 2px 0px 2px;
-        background-color: #FFFFFF !important;
+        background-color: $quill-white !important;
         height: 8px;
         width: 8px;
       }
@@ -521,7 +521,7 @@ section.q-hero {
 
 .evidence-new-tag {
   background-color:#F3AC4E;
-  color: #ffffff;
+  color: $quill-white;
   border-radius: 8px;
   font-weight: 600;
   font-size: 16px !important;
@@ -542,7 +542,7 @@ section.q-hero {
     margin-bottom: 128px;
   }
   .text-quillgreen:hover {
-    color: #ffffff;
+    color: $quill-white;
     background-color: #00DFB1;
   }
   @media only screen and (max-width : 600px) {

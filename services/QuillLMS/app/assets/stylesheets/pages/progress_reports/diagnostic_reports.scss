@@ -102,7 +102,7 @@ $lightgray: #cecece;
   header, .time-spent-and-target-skills-count {
     span {
       font-weight: 600;
-      color: #5c5c5c;
+      color: $quill-grey-50;
     }
     h3 {
       font-weight: 700;
@@ -122,7 +122,7 @@ $lightgray: #cecece;
       max-width: 50vw;
     }
     div:first-of-type {
-      border-right: 1px solid #D9D9D9;
+      border-right: 1px solid $quill-grey-10;
       padding-right: 32px;
     }
     div:last-of-type {
@@ -150,14 +150,14 @@ $lightgray: #cecece;
   .helpful-tips {
     margin-top: 48px;
     border-radius: 8px;
-    border: 1px solid #CFCFCF;
-    background: #F8F8F8;
+    border: 1px solid $quill-grey-15;
+    background: $quill-grey-1;
     padding: 24px;
     .helpful-tips-header {
       display: flex;
       align-items: center;
       padding-bottom: 16px;
-      border-bottom: 1px solid #D9D9D9;
+      border-bottom: 1px solid $quill-grey-10;
       img {
         margin-right: 8px;
       }
@@ -165,9 +165,9 @@ $lightgray: #cecece;
         font-size: 14px;
         font-weight: 700;
         line-height: 22px;
-        color: #373737;
+        color: $quill-grey-90;
         span {
-          color: #5c5c5c;
+          color: $quill-grey-50;
           font-weight: 400;
         }
       }
@@ -184,12 +184,12 @@ $lightgray: #cecece;
         }
       }
       &.scoring-explanation {
-        border-bottom: 1px solid #D9D9D9;
+        border-bottom: 1px solid $quill-grey-10;
         padding-bottom: 16px;
       }
 
       h4 {
-        color: #373737;
+        color: $quill-grey-90;
         font-size: 14px;
         font-weight: 600;
         line-height: 22px;
@@ -203,7 +203,7 @@ $lightgray: #cecece;
 
       .body {
         margin-top: 16px;
-        color: #373737;
+        color: $quill-grey-90;
         font-size: 13px;
         font-style: normal;
         font-weight: 400;
@@ -250,12 +250,12 @@ $lightgray: #cecece;
     &.correct {
       border: 1px solid #58AD0C;
       background: #B8DB99;
-      color: #2A5900;
+      color: $quill-green-vibrant;
     }
     &.incorrect {
-      border: 1px solid #E4D0B0;
-      background: #FFEFD6;
-      color: #9F6405;
+      border: 1px solid $quill-gold-dark-10;
+      background: $quill-gold-5;
+      color: $quill-gold-dark;
     }
   }
 
@@ -264,7 +264,7 @@ $lightgray: #cecece;
   }
 
   .correct-target-skill-background {
-    background-color: #EBF8E0;
+    background-color: $quill-green-vibrant-10;
   }
 
   .concept-results-cell {
@@ -292,7 +292,7 @@ $lightgray: #cecece;
       display: flex;
       background-color: white;
       border-radius: 8px;
-      border: 1px solid #D9D9D9;
+      border: 1px solid $quill-grey-10;
       padding: 16px 0px;
     }
     .question-index {
@@ -410,7 +410,7 @@ $lightgray: #cecece;
   }
 }
 .yellow-score-color, .orange-score-color {
-  background-color: #fff6e2;
+  background-color: #FFF6E2;
   &:hover {
     background-color: #FEF0D2;
   }
@@ -419,7 +419,7 @@ $lightgray: #cecece;
   background: #f7f5f5;
 }
 .in-progress-row {
-  background: #ffffff;
+  background: $quill-white;
 }
 
 
@@ -459,7 +459,7 @@ $lightgray: #cecece;
 .recommendations-explanation {
   margin-top: 8px;
   font-size: 14px;
-  color: #000000;
+  color: $quill-black;
 }
 
 .recommendations-container {
@@ -634,7 +634,7 @@ $lightgray: #cecece;
       padding: 12px;
       font-size: 12px;
       line-height: 1.25;
-      background-color: #ffffff;
+      background-color: $quill-white;
       border: solid 1px #cecece;
       display: -webkit-box;
       display: -ms-flexbox;
@@ -678,7 +678,7 @@ $lightgray: #cecece;
       font-size: 12px;
       line-height: 1.25;
       overflow: hidden;
-      background-color: #ffffff;
+      background-color: $quill-white;
       border: solid 1px #cecece;
       border-left: none;
       -webkit-box-align: center;
@@ -694,7 +694,7 @@ $lightgray: #cecece;
 
       &.selected {
         p {
-          color: #000000;
+          color: $quill-black;
         }
       }
       &.previously-assigned {

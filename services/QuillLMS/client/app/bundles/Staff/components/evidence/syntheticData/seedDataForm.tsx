@@ -205,7 +205,7 @@ const SeedDataForm = ({ history, match }) => {
     const capitalizeConjunction = conjunction.charAt(0).toUpperCase() + conjunction.substring(1)
     return (
       <div className='label-section'>
-        <h4 className='bg-quillteal label-title'>
+        <h4 className='bg-quill-teal label-title'>
           <span className='highlight'>{capitalizeConjunction}</span>
           &nbsp;Label Examples
         </h4>

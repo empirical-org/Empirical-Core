@@ -26,8 +26,8 @@
       font-size: 13px;
       padding: 0px;
       margin: 0px;
-      color: #000000;
-      border-bottom: 1px solid #CFCFCF;
+      color: $quill-black;
+      border-bottom: 1px solid $quill-grey-15;
       padding-bottom: 6px;
       margin-bottom: 16px;
       .row, .tooltip-message {
@@ -53,10 +53,10 @@
         }
 
         .correct-answer {
-          color: #79C933;
+          color: $quill-green-vibrant-50;
         }
         .incorrect-answer {
-          color: #C97C00;
+          color: $quill-gold-dark-50;
         }
       }
     }

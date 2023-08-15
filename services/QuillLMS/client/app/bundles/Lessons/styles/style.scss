@@ -1,3 +1,4 @@
+@import '../../../../../app/assets/stylesheets/variables.scss';
 @import 'variables';
 @import "components/student-nav";
 @import "components/student-container";
@@ -177,14 +178,14 @@ textarea.submission {
   &:hover,
   &:focus {
     color: #333; //$dropdown-link-color;
-    background-color: #fff; //$dropdown-bg;
+    background-color: $quill-white; //$dropdown-bg;
   }
 }
 .dropdown-input.dropdown-menu > .active > a {
   &:hover,
   &:focus {
     text-decoration: none;
-    color: #fff; // $dropdown-link-hover-color;  // #fff
+    color: $quill-white; // $dropdown-link-hover-color;  // $quill-white
     background-color: #337ab7; // $dropdown-link-hover-bg;  // #337ab7
   }
 }

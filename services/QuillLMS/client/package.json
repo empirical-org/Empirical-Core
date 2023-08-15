@@ -15,7 +15,7 @@
   "dependencies": {
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-env": "^7.22.10",
     "@babel/preset-react": "^7.0.0",
     "@draft-js-plugins/editor": "^4.1.0",
     "@redux-devtools/core": "^3.11.0",
@@ -146,7 +146,7 @@
     "webpack-cli": "^4.8.0",
     "webpack-manifest-plugin": "^4.0.2",
     "webpack-merge": "^5.1.3",
-    "xlsx": "^0.17.0"
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.0/xlsx-0.20.0.tgz"
   },
   "devDependencies": {
     "@testing-library/react-hooks": "^3.4.2",

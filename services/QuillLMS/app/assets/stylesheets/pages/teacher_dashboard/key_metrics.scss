@@ -39,7 +39,7 @@
     .quill-tooltip-trigger {
       &:first-of-type {
         .key-metric {
-          border-right: 1px solid #e0e0e0;
+          border-right: 1px solid $quill-grey-5;
         }
       }
     }
@@ -56,7 +56,7 @@
       span {
         font-size: 14px;
         line-height: 1.43;
-        color: #5c5c5c;
+        color: $quill-grey-50;
       }
     }
   }

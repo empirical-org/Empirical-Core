@@ -1,6 +1,6 @@
 .student-profile-header {
-  background-color: #fff;
-  border-bottom: #e0e0e0 1px solid;
+  background-color: $quill-white;
+  border-bottom: $quill-grey-5 1px solid;
   .container {
     display: flex;
     height: 88px;
@@ -21,7 +21,7 @@
         font-size: 12px;
         font-weight: 600;
         line-height: 1;
-        color: #5c5c5c;
+        color: $quill-grey-50;
         margin-bottom: 4px;
       }
       h4 {
