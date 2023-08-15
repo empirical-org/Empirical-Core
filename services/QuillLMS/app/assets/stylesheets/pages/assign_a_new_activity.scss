@@ -37,7 +37,7 @@
       line-height: 1;
       margin: 4px 0px;
       display: inline-block;
-      color: #06806b;
+      color: $quill-green;
     }
   }
   .body {
@@ -54,7 +54,7 @@
         font-weight: 700;
         font-size: 14px;
         line-height: 21px;
-        color: #373737;
+        color: $quill-grey-90;
       }
     }
   }
@@ -83,7 +83,7 @@
   .diagnostic-banner {
     padding: 0px 0px 16px;
     border-radius: 6px;
-    border: solid 1px #06806b;
+    border: solid 1px $quill-green;
     display: flex;
     background-color: #e1f3f1;
     margin-bottom: 24px;
@@ -135,7 +135,7 @@
     .view-assigned-activities {
       width: 172px;
       height: 33px;
-      background: #FFFFFF;
+      background: $quill-white;
       border: 1px solid #BDBDBD;
       border-radius: 4px;
       margin-left: 5px;
@@ -143,7 +143,7 @@
       padding-top: 8px;
       padding-left: 15px;
       a {
-        color: #373737;
+        color: $quill-grey-90;
         font-weight: 400;
         font-size: 13px;
         line-height: 13px;
@@ -180,7 +180,7 @@
 }
 
 .suggested-activities-table {
-  border: 1px solid #E0E0E0;
+  border: 1px solid $quill-grey-5;
   border-radius: 6px;
   margin-bottom: 145px;
   overflow: auto !important;
@@ -202,7 +202,7 @@
   }
   tbody {
     tr:not(:last-child) {
-      border-bottom: 1px solid #e0e0e0 !important;
+      border-bottom: 1px solid $quill-grey-5 !important;
       padding-bottom: 15px;
     }
     .data-table-row {
@@ -238,7 +238,7 @@
       font-weight: 400;
       font-size: 13px;
       line-height: 13px;
-      color: #373737;
+      color: $quill-grey-90;
       min-width: 69px;
       height: 33px;
       margin-left: 16px;

@@ -63,7 +63,7 @@
 .ReactTable .rt-thead.-filters input,
 .ReactTable .rt-thead.-filters select {
 	border: 1px solid rgba(0, 0, 0, 0.1);
-	background: #fff;
+	background: $quill-white;
 	padding: 5px 7px;
 	font-size: inherit;
 	border-radius: 3px;
@@ -144,7 +144,7 @@
 
 .ReactTable .rt-thead .rt-header-pivot:after {
 	border-color: rgba(255, 255, 255, 0);
-	border-left-color: #fff;
+	border-left-color: $quill-white;
 	border-width: 8px;
 	margin-top: -8px
 }
@@ -329,7 +329,7 @@
 .ReactTable .-pagination input,
 .ReactTable .-pagination select {
 	border: 1px solid rgba(0, 0, 0, 0.1);
-	background: #fff;
+	background: $quill-white;
 	padding: 5px 7px;
 	font-size: inherit;
 	border-radius: 3px;
@@ -362,7 +362,7 @@
 
 .ReactTable .-pagination .-btn:not([disabled]):hover {
 	background: rgba(0, 0, 0, 0.3);
-	color: #fff
+	color: $quill-white
 }
 
 .ReactTable .-pagination .-previous,

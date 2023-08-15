@@ -1,6 +1,6 @@
 .nav.student-nav {
   height: 64px;
-  background-color: #06806b;
+  background-color: $quill-green;
 
   .container {
     max-width: 800px;
@@ -50,7 +50,7 @@
   position: absolute;
   min-height: 1000vh;
   top: 64px;
-  background-color: #fff;
+  background-color: $quill-white;
   z-index: 100;
   overflow-y: hidden;
   width: 100vw;

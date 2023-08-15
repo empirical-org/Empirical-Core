@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     padding: 16px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid $quill-grey-5;
     position: relative;
     h2 {
       font-size: 16px;
@@ -99,13 +99,13 @@
           font-size: 12px;
           line-height: 22px;
           &.filtered {
-            background: #06806B;
+            background: $quill-green;
           }
           &:first-of-type {
             margin-left: 8px;
           }
           &.not-recommended {
-            background: #E0E0E0;
+            background: $quill-grey-5;
             color: rgba(55, 55, 55, 0.3);
           }
         }
@@ -234,7 +234,7 @@
         }
       }
       &.is-first {
-        border-top: 1px solid #e0e0e0;
+        border-top: 1px solid $quill-grey-5;
       }
       .expanded-section {
         flex-direction: column;
@@ -309,7 +309,7 @@
     left: initial;
     transform: none;
     .quill-tooltip {
-      background-color: #5C5C5C;
+      background-color: $quill-grey-50;
       padding: 16px;
       font-size: 14px;
       font-weight: normal;
@@ -362,7 +362,7 @@
     @media (max-width: 1050px) {
       align-items: flex-start;
       margin: 0px 16px;
-      border-bottom: 1px solid #e0e0e0;
+      border-bottom: 1px solid $quill-grey-5;
       padding: 0px;
       .activity-row {
         margin: 0px;
@@ -380,7 +380,7 @@
   .selected-activity-row {
     background-color: #e8f7f3;
     padding: 0px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid $quill-grey-5;
   }
   .activity-row {
     border: none;

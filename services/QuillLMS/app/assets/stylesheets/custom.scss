@@ -30,7 +30,7 @@ input:disabled {
 .input-mixin {
   border-radius: 5px;
   border: 1px solid #cecece;
-  color: #000;
+  color: $quill-black;
   font-size: 14px;
   padding: 9px 12px;
 }
@@ -38,7 +38,7 @@ input:disabled {
 .select-mixin {
   border-radius: 5px;
   border: 1px solid #cecece;
-  color: #000;
+  color: $quill-black;
   font-size: 14px;
   padding: 9px 14px;
 }
@@ -178,14 +178,14 @@ button {
 
 .button-gray {
   background-color: #737373;
-  color: #fff;
+  color: $quill-white;
   &:hover {
     background-color: #616161;
   }
 }
 .button-light-gray {
   background-color: #c0c0c0;
-  color: #fff;
+  color: $quill-white;
   &:hover {
     background-color: #c0c0c0;
   }
@@ -193,7 +193,7 @@ button {
 
 .btn-orange {
   height: 40px;
-  background-color: $quillgoldmedium;
+  background-color: $quill-gold;
   color: white;
   &:hover {
     opacity: 0.85;
@@ -216,10 +216,10 @@ button {
 
 .button-green {
   background-color: #00c2a2;
-  color: #fff;
+  color: $quill-white;
   &:hover {
     background-color: #44b49a;
-    color: #fff;
+    color: $quill-white;
   }
   &#assign {
     float: right;
@@ -260,7 +260,7 @@ button {
 
 .grade-select {
   width: 140px;
-  background-color: #ebebeb;
+  background-color: $quill-grey-3;
 }
 
 .railsFormatDate {
@@ -322,7 +322,7 @@ label.css-label {
   }
   &:hover, &:focus {
     text-decoration: none;
-    color: #fff;
+    color: $quill-white;
   }
 }
 
@@ -332,7 +332,7 @@ label.css-label {
 
 .button-red {
   background-color: #fc3e3b;
-  color: #fff;
+  color: $quill-white;
   &:hover {
     background-color: #fc2f2c;
   }
@@ -340,7 +340,7 @@ label.css-label {
 
 .button-marine {
   background-color: #00c2a2;
-  color: #fff;
+  color: $quill-white;
   &:hover {
     background-color: #009e84;
   }
@@ -348,7 +348,7 @@ label.css-label {
 
 .button-yellow {
   background-color: #ea9a1a;
-  color: #fff;
+  color: $quill-white;
   &:hover {
     background-color: #e09215;
   }
@@ -356,7 +356,7 @@ label.css-label {
 
 .button-blue {
   background-color: #348fdf;
-  color: #fff;
+  color: $quill-white;
   &:hover {
     background-color: #217dcf;
   }

@@ -35,7 +35,7 @@
         font-size: 18px;
         margin: 0;
         margin: 0;
-        color: #FFFFFF;
+        color: $quill-white;
       }
       .mobile-hamburger-container {
         .hamburger-icon {
@@ -49,7 +49,7 @@
           .horizontal-line {
             width: 24px;
             height: 2px;
-            background: #FFFFFF;
+            background: $quill-white;
             border-radius: 1px;
             margin-bottom: 6px;
           }
@@ -75,7 +75,7 @@
             padding: 13.5px 16px 10px 16px;
             border-radius: 6px;
             &.hover {
-              background-color: $quillgreenlight;
+              background-color: $quill-green-5;
             }
             &#my-account-tab {
               border-top: 1px solid rgba(6, 128, 107, 0.3);
@@ -108,7 +108,7 @@
             }
             &#premium-tab {
               a {
-                color: $quillgoldextradark !important;
+                color: $quill-gold-dark !important;
               }
             }
             &#quill-academy-tab {
@@ -118,7 +118,7 @@
             }
             &#admin-tab, &#quill-academy-tab {
               a {
-                color: $quillmaroon !important;
+                color: $quill-maroon !important;
               }
             }
             &#logout-tab {
@@ -128,7 +128,7 @@
             }
             a {
               padding: 0;
-              color: $quillgreenmedium !important;
+              color: $quill-green !important;
               background-color: inherit;
               font-size: 16px;
               font-weight: 600;
@@ -150,7 +150,7 @@
       }
     }
     &.sub-page {
-      background-color: #FFFFFF;
+      background-color: $quill-white;
       .logo-and-badge-container {
         .mobile-quill-logo {
           background-image: url('https://assets.quill.org/images/icons/quill-logo-mobile-green.svg');
@@ -158,31 +158,31 @@
       }
       .right-side-mobile-nav {
         .active-tab {
-          color: $quillgreenmedium;
+          color: $quill-green;
           &.red {
-            color: $quillmaroon;
+            color: $quill-maroon;
           }
           &.yellow {
-            color: $quillgoldmedium;
+            color: $quill-gold;
           }
         }
         .mobile-hamburger-container {
           .hamburger-icon {
             background-color: rgba(227, 240, 238, 1);
             &.red {
-              background-color: $quillmaroonlight;
+              background-color: $quill-maroon-10;
               .horizontal-line {
-                background: $quillmaroon;
+                background: $quill-maroon;
               }
             }
             &.yellow {
               background-color: $quillgoldlight;
               .horizontal-line {
-                background: $quillgoldmedium;
+                background: $quill-gold;
               }
             }
             .horizontal-line {
-              background: $quillgreenmedium;
+              background: $quill-green;
             }
           }
         }
@@ -195,12 +195,12 @@
   display: flex;
   align-items: center;
   height: 70px;
-  background-color: #FFFFFF;
+  background-color: $quill-white;
   margin-top: 0px;
   border-radius: 0px;
   margin-bottom: 0px;
   &.non-standard-navbar {
-    background-color: $quillgreenmedium;
+    background-color: $quill-green;
     .navbar-header {
       display: flex;
       justify-content: center;
@@ -217,13 +217,13 @@
 .navbar-divider-bar {
   height: 16px;
   &.green {
-    background-color: $quillgreenmedium;
+    background-color: $quill-green;
   }
   &.gold {
-    background-color: $quillgoldmedium;
+    background-color: $quill-gold;
   }
   &.maroon {
-    background-color: $quillmaroon;
+    background-color: $quill-maroon;
   }
 }
 
@@ -250,8 +250,8 @@
     .quill-academy-tab {
       &.active {
         a {
-          color: #FFFFFF;
-          background-color: $quillmaroon;
+          color: $quill-white;
+          background-color: $quill-maroon;
           .large-diamond-icon {
             background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
           }
@@ -261,8 +261,8 @@
       a {
         display: flex;
         align-items: center;
-        background-color: $quillmaroonlight;
-        color: $quillmaroon;
+        background-color: $quill-maroon-10;
+        color: $quill-maroon;
         margin-left: 4px;
         border-radius: 8px 8px 0px 0px;
         border-left: none;
@@ -273,7 +273,7 @@
 
       a:hover {
         background-color: #EFA67E;
-        color: $quillmaroon;
+        color: $quill-maroon;
         .large-diamond-icon {
             background-image: url("https://assets.quill.org/images/icons/red-diamond.svg");
           }
@@ -306,16 +306,16 @@
     align-items: center;
     display: flex;
     border-radius: 6px;
-    border: $quillgreenmedium 1px solid;
+    border: $quill-green 1px solid;
     &:hover {
       color: #00c2a2 !important;
-      background-color: #ffffff;
+      background-color: $quill-white;
     }
   }
   .on-home-page {
-    color: #FFFFFF !important;
+    color: $quill-white !important;
     &.sign-up-button {
-      border: #FFFFFF 1px solid;
+      border: $quill-white 1px solid;
     }
   }
 }
@@ -325,15 +325,15 @@
   margin-top: 2px;
   &.on-dashboard {
     .user-dropdown-button {
-      background-color: $quillgreenlight;
-      color: $quillgreenmedium;
+      background-color: $quill-green-5;
+      color: $quill-green;
     }
   }
   &.not-on-dashboard {
     .user-dropdown-button {
-      border: solid 1px #ffffff;
-      background-color: $quillgreenlight;
-      color: $quillgreenmedium;
+      border: solid 1px $quill-white;
+      background-color: $quill-green-5;
+      color: $quill-green;
     }
   }
   &.show-notification-badges {
@@ -384,7 +384,7 @@
     position: absolute;
     list-style: none;
     left: 0;
-    background-color: #ffffff;
+    background-color: $quill-white;
     z-index: 100;
     padding: 16px;
     border-radius: 10px;
@@ -406,7 +406,7 @@
       font-weight: 600px;
       color: #027360;
       &:hover {
-          background-color: $quillgreenlight;
+          background-color: $quill-green-5;
         }
       .image-container {
         display: flex;
@@ -482,7 +482,7 @@ nav.q-navbar-home {
       text-decoration: none;
       &.yellow {
         background-color: $quillgoldlight;
-        color: $quillgolddark;
+        color: $quill-gold-dark-50;
         .small-diamond-icon {
           background-image: url("https://assets.quill.org/images/icons/yellow-diamond.svg");
         }
@@ -491,8 +491,8 @@ nav.q-navbar-home {
         }
       }
       &.red {
-        background-color: $quillmaroonlight;
-        color: $quillmaroon;
+        background-color: $quill-maroon-10;
+        color: $quill-maroon;
         .small-diamond-icon {
           background-image: url("https://assets.quill.org/images/icons/red-diamond.svg");
         }
@@ -522,7 +522,7 @@ nav.q-navbar-home {
     align-items: center;
 
     .nav-element {
-      color: $quillgreenmedium;
+      color: $quill-green;
     }
 
     .nav-element, .navbar-tooltip-trigger {
@@ -831,7 +831,7 @@ nav.q-navbar-home {
   margin-bottom: -20px;
   padding-bottom: 20px;
   span {
-    color: $quillgreenmedium;
+    color: $quill-green;
   }
   &:nth-child(3) {
     &#teacher-center {
@@ -861,7 +861,7 @@ nav.q-navbar-home {
     position: absolute;
     width: max-content !important;
     border-radius: 5px;
-    background-color: #ffffff;
+    background-color: $quill-white;
     box-shadow: 0 1px 5px 0 #c0c0c0;
     flex-direction: column;
     top: 40px;
@@ -892,11 +892,11 @@ nav.q-navbar-home {
         width: 100%;
         padding: 8px;
         &:hover {
-          background-color: $quillgreenlight;
+          background-color: $quill-green-5;
         }
         &#premium-section {
           h3, p {
-            color: $quillgoldextradark;
+            color: $quill-gold-dark;
           }
         }
         .image-container {
@@ -916,7 +916,7 @@ nav.q-navbar-home {
         h3 {
           font-size: 16px;
           font-weight: 600;
-          color: $quillgreenmedium;
+          color: $quill-green;
           margin-top: 0px;
           margin-bottom: 6px;
         }

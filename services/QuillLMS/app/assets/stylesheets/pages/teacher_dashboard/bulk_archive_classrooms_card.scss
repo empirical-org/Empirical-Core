@@ -16,12 +16,12 @@
     right: 40px;
   }
   .title-tag {
-    color: #FFF;
+    color: $quill-white;
     text-align: center;
     font-size: 9px;
     font-weight: 700;
     padding: 5px;
-    background-color: #06806B;
+    background-color: $quill-green;
     border-radius: 5px;
     margin-bottom: 8px;
     display: inline-block;
@@ -38,7 +38,7 @@
     font-size: 14px;
     font-weight: 700;
     line-height: 20px;
-    color: #5c5c5c;
+    color: $quill-grey-50;
     margin-top: 10px;
     img {
       margin-left: 5px;

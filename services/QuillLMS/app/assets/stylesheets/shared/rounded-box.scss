@@ -4,7 +4,7 @@ $leftPadding: 180px;
 .simple-rounded-box {
   border-radius: 15px;
   padding: 20px;
-  background-color: #fff;
+  background-color: $quill-white;
   @include pie-clearfix;
 
   .l-section {

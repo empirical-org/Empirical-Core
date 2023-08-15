@@ -5,7 +5,7 @@
   font-stretch: normal;
   line-height: 1.5;
   letter-spacing: normal;
-  color: #000;
+  color: $quill-black;
 
   ol {
     margin-top: 8px;
@@ -60,7 +60,7 @@
       margin-top: 8px;
       padding: 32px;
       border-radius: 6px;
-      border: solid 1px #e0e0e0;
+      border: solid 1px $quill-grey-5;
 
       .job-section:nth-child(n+2) {
         margin-top: 48px;

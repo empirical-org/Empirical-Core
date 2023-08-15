@@ -5,9 +5,9 @@
   width: 100%;
   li {
     a {
-      background: $quillgreenlight;
+      background: $quill-green-5;
       border-left: 1px solid #BAD6D1;
-      color: $quillgreenmedium;
+      color: $quill-green;
       font-size: 14px;
       font-weight: 600;
       line-height: 41px;
@@ -34,10 +34,10 @@
 
     &.active {
       a {
-        background: $quillgreenmedium;
+        background: $quill-green;
         border-bottom: none;
         border-left-width: 0;
-        color: #FFFFFF;
+        color: $quill-white;
         position: relative;
 
         &:after {
@@ -59,7 +59,7 @@
 
 .tab-subnavigation-wrapper {
   &.desktop {
-    background: $quillgreenmedium;
+    background: $quill-green;
     min-height: 48px;
     padding: 8px 0;
 
@@ -81,14 +81,14 @@
         }
         a {
           border-radius: 6px;
-          color: #FFFFFF;
+          color: $quill-white;
           font-size: 13px;
           height: 35px;
           padding: 5px 16px;
 
           &.active {
-            background: #FFFFFF;
-            color: $quillgreenmedium;
+            background: $quill-white;
+            color: $quill-green;
           }
 
           .fa-external-link {
@@ -111,7 +111,7 @@
       position: absolute;
       width: 100%;
       padding: 16px;
-      background-color: $quillgreenmedium;
+      background-color: $quill-green;
       .open {
         .dropdown-menu {
           display: block;
@@ -119,7 +119,7 @@
           padding: 0px 16px 16px 16px;
           border: none;
           border-radius: 0px 0px 10px 10px;
-          background-color: $quillgreenmedium;
+          background-color: $quill-green;
           li {
             padding: 16px 0px;
             font-size: 16px;
@@ -136,7 +136,7 @@
             a {
               padding: 0px;
               margin-left: 16px;
-              color: #ffffff;
+              color: $quill-white;
               font-weight: 600;
               line-height: 20px;
               background-color: transparent !important;
@@ -170,9 +170,9 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background-color: #ffffff;
+        background-color: $quill-white;
         line-height: 20px;
-        color: $quillgreenmedium;
+        color: $quill-green;
         width: 100%;
         height: 44px;
         border-radius: 6px;
@@ -190,15 +190,15 @@
     }
     &.red {
       .dropdown-container {
-        background-color: $quillmaroon;
+        background-color: $quill-maroon;
         #mobile-subnav-dropdown {
-          color: $quillmaroon;
+          color: $quill-maroon;
         }
         .dropdown-menu {
-          background-color: $quillmaroon;
+          background-color: $quill-maroon;
           li {
             a {
-              color: #FFFFFF !important;
+              color: $quill-white !important;
             }
           }
         }
@@ -225,13 +225,13 @@
     background-color: rgba(255, 255, 255, 0.35);
     color: white;
     &.active {
-      background-color: #FFFFFF;
-      color: $quillgreenmedium;
+      background-color: $quill-white;
+      color: $quill-green;
       .small-diamond-icon {
         background-image: url("https://assets.quill.org/images/icons/green-diamond.svg");
       }
       &:hover {
-        color: #FFFFFF;
+        color: $quill-white;
         .small-diamond-icon {
           background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
         }

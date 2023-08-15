@@ -51,7 +51,7 @@
   margin-bottom: 50px;
   margin-top: 50px;
   padding-bottom: 25px;
-  border-bottom: 1px solid #CFCFCF;
+  border-bottom: 1px solid $quill-grey-15;
 }
 
 .hi-header {
@@ -93,7 +93,7 @@ p {
 }
 
 .view-results a {
-  color: #06806B;
+  color: $quill-green;
   font-weight: 700;
   font-size: 14px;
 }
@@ -110,6 +110,6 @@ p {
 }
 
 hr {
-  background: #CFCFCF;
+  background: $quill-grey-15;
   width: 600px;
 }

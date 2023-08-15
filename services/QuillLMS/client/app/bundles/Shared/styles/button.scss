@@ -49,8 +49,8 @@
   }
   &.primary {
     &.contained {
-      color: #ffffff;
-      background-color: #06806b;
+      color: $quill-white;
+      background-color: $quill-green;
       &:not(.disabled) {
         &:hover, &:focus {
           background-color: #08907b;
@@ -58,7 +58,7 @@
       }
     }
     &.outlined {
-      background-color: #ffffff;
+      background-color: $quill-white;
       color: #009a80;
       &:hover, &:focus {
         background-color: #f6fcfa;
@@ -67,14 +67,14 @@
   }
   &.secondary {
     &.outlined {
-      color: #000;
+      color: $quill-black;
       &:hover, &:focus {
         background-color: #f5f5f5;
       }
     }
   }
   &.disabled {
-    color: #878787 !important;
+    color: $quill-grey-30 !important;
     &.contained {
       background-color: #cccccc;
     }

@@ -49,7 +49,7 @@
     padding: 20px;
     resize: none;
     line-height: 1.45;
-    color: #000;
+    color: $quill-black;
     background-color: white;
     margin-top: 20px;
     &:focus {
@@ -62,7 +62,7 @@
 
   .input-field:empty::before {
     content: attr(placeholder);
-    color: #757575;
+    color: $quill-grey-35;
     font-size: 20px;
   }
 
@@ -98,7 +98,7 @@
     background-color: #00c2a2;
     font-size: 1em;
     font-weight: 700;
-    color: #fff;
+    color: $quill-white;
     border: none;
     height: 40px;
   }

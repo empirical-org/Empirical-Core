@@ -1,7 +1,7 @@
 .skills-table-container {
   .skills-table, .growth-skills-table {
     border-radius: 8px;
-    border: solid 1px #e0e0e0;
+    border: solid 1px $quill-grey-5;
     border-collapse: separate;
     &.contracted {
       border-radius: 8px 8px 0px 0px;
@@ -15,7 +15,7 @@
     th {
       border: none;
       text-align: left;
-      color: #5c5c5c;
+      color: $quill-grey-50;
       font-size: 12px;
       font-weight: 600;
       line-height: 1.33;
@@ -29,7 +29,7 @@
       font-size: 12px;
       line-height: 1.33;
       color: #262626;
-      border-top: 1px solid #e0e0e0;
+      border-top: 1px solid $quill-grey-5;
       border-bottom: none;
       border-right: none;
       border-radius: 0px !important;
@@ -52,7 +52,7 @@
         padding: 8px;
         line-height: 16px;
         &:first-of-type {
-          border-bottom: 1px solid #e0e0e0;
+          border-bottom: 1px solid $quill-grey-5;
         }
         &.fully-correct.contains-skill-gained-tag {
           padding: 6px;
@@ -96,7 +96,7 @@
         font-style: normal;
         line-height: 1;
         letter-spacing: normal;
-        color: #2a5900;
+        color: $quill-green-vibrant;
       }
     }
   }
@@ -106,9 +106,9 @@
     width: 100%;
     padding: 12px 0px;
     border-radius: 0px 0px 8px 8px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid $quill-grey-5;
     border-top: none;
-    color: #5c5c5c;
+    color: $quill-grey-50;
     &:hover, &:focus {
       background-color: #f5f5f5;
     }

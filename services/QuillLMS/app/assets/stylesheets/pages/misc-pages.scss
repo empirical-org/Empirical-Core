@@ -74,7 +74,7 @@
 	}
 	p {
 		font-size: 16px;
-		color: #666666;
+		color: $quill-grey-40;
 
 	}
 	.dropdown-container {
@@ -85,7 +85,7 @@
 	}
 	.button-select {
 		border-radius: 6px;
-		background-color: #ffffff;
+		background-color: $quill-white;
 		border: solid 1px #cecece;
 	}
 	ul.dropdown-menu {
@@ -123,7 +123,7 @@
     margin-right: 20px;
 	}
 	.activity-description {
-		color: #666666;
+		color: $quill-grey-40;
 		max-width: 600px;
 		width: 100%;
 	}
@@ -142,12 +142,12 @@
 }
 
 .white-background {
-	background-color: #FFFFFF;
+	background-color: $quill-white;
 	width: 100%;
 }
 
 .white-page {
-	background-color: #FFFFFF;
+	background-color: $quill-white;
 }
 
 .pages-faq {
@@ -160,11 +160,11 @@
 }
 
 .standards-tabs {
-	background: #fff;
+	background: $quill-white;
 	border-bottom: 1px solid #cecece;
 	min-height: 48px;
 	li {
-		background-color: #fff;
+		background-color: $quill-white;
 		border-right: none !important;
 	}
 }

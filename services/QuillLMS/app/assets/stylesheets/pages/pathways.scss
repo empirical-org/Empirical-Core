@@ -12,7 +12,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    border: solid 1px #e0e0e0;
+    border: solid 1px $quill-grey-5;
     padding: 24px;
     margin: 120px 0px 120px 0px;
     border-radius: 4px;
@@ -24,7 +24,7 @@
         margin: 0px;
       }
       .cta-subheader {
-        color: #5c5c5c;
+        color: $quill-grey-50;
         margin: 0px;
         font-size: 16px;
       }
