@@ -254,7 +254,8 @@ jobs:
           RACK_ENV: test
           node.data: true
           network.host: 0.0.0.0
-          discovery.seed_hosts: null
+          discovery.seed_hosts:
+            - 0.0.0.0:9300
       - image: postgres:13.7-alpine
         environment:
           POSTGRES_USER: ubuntu
@@ -262,13 +263,15 @@ jobs:
           POSTGRES_PASSWORD: password
           node.data: true
           network.host: 0.0.0.0
-          discovery.seed_hosts: null
+          discovery.seed_hosts:
+            - 0.0.0.0:9300
       - image: docker.elastic.co/elasticsearch/elasticsearch:7.2.1
         environment:
           xpack.security.enabled: false
           node.data: true
           network.host: 0.0.0.0
-          discovery.seed_hosts: null
+          discovery.seed_hosts:
+            - 0.0.0.0:9300
     steps:
       - checkout
       - restore_cache:
