@@ -1,7 +1,7 @@
 $sitewidepagewidth: 1200px;
 
 // standardized to Figma Color Palette (https://www.figma.com/file/5TNa9Tn6TNVCmNjzbDTaMI/Quill---Product---Web?type=design&node-id=6417-242132&mode=dev) as of 8/10/23
-$quill-black: $quill-black;
+$quill-black: #000;
 $quill-grey-90: #373737;
 $quill-grey-80: #404040;
 $quill-grey-70: #4D4D4D;
@@ -107,7 +107,7 @@ $quillblue: #348fdf;
 $quillred: #ff4542;
 $quillgoldlight: #FFE8C5;
 
-$white: #fff;
+$white: $quill-white;
 $black: $quill-black;
 $orange: #f8a724;
 

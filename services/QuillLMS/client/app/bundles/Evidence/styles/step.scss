@@ -248,18 +248,18 @@
     }
     .feedback {
       border: solid 1px #ff9f00;
-      background-color: $quill-white5e5;
+      background-color: #FFF5E5;
       animation: revisepulse 0.8s 1;
 
       @keyframes revisepulse {
         0%  {
-          background-color: $quill-white5e5;
+          background-color: #FFF5E5;
         }
         50% {
           background-color: #FF9F00;
         }
         100% {
-          background-color: $quill-white5e5;
+          background-color: #FFF5E5;
         }
       }
       .label-section p {

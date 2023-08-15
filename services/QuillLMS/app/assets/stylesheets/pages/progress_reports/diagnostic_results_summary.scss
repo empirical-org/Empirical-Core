@@ -118,7 +118,7 @@
       }
     }
     &.no-proficiency, &.partial-proficiency {
-      background-color: $quill-white3e0;
+      background-color: #FFF3E0;
       border: 1px solid $quill-gold-dark-20;
       span {
         color: #995f00;
@@ -340,7 +340,7 @@
         justify-content: space-between;
         &:focus, &:hover {
           border-radius: 8px;
-          box-shadow: 0 1px 8px 0 $quill-black3, 0 3px 3px -2px $quill-black1e, 0 3px 4px 0 $quill-black0f;
+          box-shadow: 0 1px 8px 0 #0003, 0 3px 3px -2px #0000001e, 0 3px 4px 0 #0000000f;
         }
       }
       .number-of-correct-skills-text {
@@ -360,7 +360,7 @@
         width: 512px;
         padding: 16px 0px 0px;
         border-radius: 10px;
-        box-shadow: 0 1px 8px 0 $quill-black3, 0 3px 3px -2px $quill-black1e, 0 3px 4px 0 $quill-black23;
+        box-shadow: 0 1px 8px 0 #0003, 0 3px 3px -2px #0000001e, 0 3px 4px 0 #00000023;
         background-color: $quill-white;
         max-height: 100vh;
         overflow: scroll;

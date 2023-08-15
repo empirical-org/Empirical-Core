@@ -1,3 +1,4 @@
+@import '../../../../../app/assets/stylesheets/variables.scss';
 @import 'variables';
 @import 'textbox';
 @import "components/activity-health";
@@ -81,11 +82,11 @@ ul.is-unstyled {
 }
 
 .not-found-response {
-  background-color: $quill-white0F2;
+  background-color: #FFF0F2;
 }
 
 .human-sub-optimal-response {
-  background-color: $quill-white9E8;
+  background-color: #FFF9E8;
 }
 .human-optimal-response {
   background-color: #F5FAEF;
