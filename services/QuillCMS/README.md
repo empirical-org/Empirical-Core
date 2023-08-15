@@ -3,7 +3,7 @@
 
 ## Installation / Setup
 1.  clone the repo
-1. `brew install elasticsearch@7.2.1`
+1. `brew install elasticsearch@6`
 1. `gem install bundler`
 1. `bundle install`
 1. Choose one:
