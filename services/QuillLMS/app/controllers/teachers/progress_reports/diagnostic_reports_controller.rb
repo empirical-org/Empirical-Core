@@ -171,7 +171,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     last_activity_session = ActivitySession.where(classroom_unit: classroom_units, activity_id: activity_id, is_final_score: true).order(updated_at: :desc).limit(1)&.first
     classroom_id = last_activity_session&.classroom_unit&.classroom_id
 
-    # rubocop:disable Style/GuardClause
     if !classroom_id
       return render json: {}, status: 404
     elsif Activity.diagnostic_activity_ids.include?(activity_id.to_i)
@@ -182,7 +181,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     else
       render json: { url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students" }
     end
-    # rubocop:enable Style/GuardClause
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
@@ -237,11 +235,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     activity = Activity.find_by_id_or_uid(params[:activity_id])
     url = classroom_report_url(params[:classroom_unit_id].to_i, activity.id)
 
-    if url
-      redirect_to url
-    else
-      redirect_to teachers_progress_reports_landing_page_path
-    end
+    redirect_to url || teachers_progress_reports_landing_page_path
   end
 
   def report_from_classroom_unit_and_activity_and_user
