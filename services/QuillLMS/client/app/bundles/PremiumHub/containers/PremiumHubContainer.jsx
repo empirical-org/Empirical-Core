@@ -7,6 +7,7 @@ import DistrictConceptReportsProgressReport from './DistrictConceptReports';
 import DistrictStandardsReportsProgressReport from './DistrictStandardsReports';
 import DataExport from './DataExportContainer';
 import SchoolSubscriptionsContainer from './SchoolSubscriptionsContainer';
+import IntegrationsContainer from './IntegrationsContainer';
 import UsageSnapshotsContainer from './UsageSnapshotsContainer';
 
 import { requestGet, } from '../../../modules/request/index';
@@ -141,6 +142,7 @@ const PremiumHubContainer = ({ id, location, children, }) => {
             <Route component={routerProps => <DistrictConceptReportsProgressReport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_concept_reports" />
             <Route component={routerProps => <DistrictStandardsReportsProgressReport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_standards_reports" />
             <Route component={routerProps => <SchoolSubscriptionsContainer {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/school_subscriptions" />
+            <Route component={routerProps => <IntegrationsContainer {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/integrations" />
             <Route component={routerProps => <UsageSnapshotsContainer {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/usage_snapshot_report" />
             <Route component={routerProps => <PremiumHub adminId={id} {...sharedProps} {...routerProps} />} exact path="/teachers/premium_hub/" />
           </Switch>
