@@ -344,7 +344,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.7)
   elasticsearch-model (~> 7.2.1)
   elasticsearch-rails (~> 7.2.1)
-  factory_bot_rails (~> 4.8.2)
+  factory_bot_rails
   faraday-httpclient (~> 2.0, >= 2.0.1)
   httparty (~> 0.18)
   kaminari (~> 1.2)
@@ -363,7 +363,7 @@ DEPENDENCIES
   redis-namespace (~> 1.8)
   redis-rails (~> 5.0)
   redis-store (~> 1.9)
-  rspec-rails (~> 4.0)
+  rspec-rails
   rubyzip (~> 2.3)
   scenic (~> 1.5.4)
   sidekiq (~> 5.2.10)

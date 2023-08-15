@@ -64,9 +64,9 @@ end
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'factory_bot_rails', '~> 4.8.2'
+  gem 'factory_bot_rails'
   gem 'pry', '~> 0.10.4'
   gem 'rb-readline'
-  gem 'rspec-rails', '~> 4.0'
+  gem 'rspec-rails'
   gem 'webmock'
 end
