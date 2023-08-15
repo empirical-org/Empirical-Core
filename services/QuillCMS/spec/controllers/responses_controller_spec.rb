@@ -105,12 +105,12 @@ RSpec.describe ResponsesController, type: :controller do
       count = Response.count
       response_payload = {question_uid: '12345', text: 'response text', optimal: true}
 
-      expect(Pusher::Client).to receive(:new).with(
+      expect(Pusher::Client).to receive(:new).with({
         app_id: ENV['PUSHER_APP_ID'],
         key: ENV['PUSHER_KEY'],
         secret: ENV['PUSHER_SECRET'],
         encrypted: true
-      )
+      })
       expect(client).to receive(:trigger).with("admin-12345", "new-response", message: "time to reload!")
       post :create_or_update, params: {response: response_payload}
 
