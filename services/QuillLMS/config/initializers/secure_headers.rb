@@ -95,7 +95,8 @@ SecureHeaders::Configuration.default do |config|
       "https://*.coview.com",
       "https://*.fontawesome.com",
       "https://*.googleapis.com",
-      "https://*.gstatic.com"
+      "https://*.gstatic.com",
+      "https://rsms.me"
     ],
 
     connect_src: [                                                # for XHR, etc

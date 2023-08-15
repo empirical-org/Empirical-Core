@@ -16,6 +16,7 @@ module GrowthResultsSummary
         name: skill_group.name,
         description: skill_group.description,
         not_yet_proficient_in_post_test_student_names: [],
+        gained_proficiency_in_post_test_student_names: [],
         proficiency_scores_by_student: {}
       }
     end
@@ -45,6 +46,7 @@ module GrowthResultsSummary
         total_correct_skill_groups_count = skill_groups.select { |sg| GROWTH_PROFICIENCY_TEXTS.include?(sg[:proficiency_text]) }.flatten.uniq.count
         total_correct_questions_count = post_test_concept_results_grouped_by_question.reduce(0) { |sum, crs| sum += get_score_for_question(crs) > 0 ? 1 : 0 }
         total_pre_correct_questions_count = pre_test_concept_results_grouped_by_question.reduce(0) { |sum, crs| sum += get_score_for_question(crs) > 0 ? 1 : 0 }
+        total_maintained_skill_group_proficiency_count = skill_groups.select{ |skill_group| skill_group[:proficiency_text] == MAINTAINED_PROFICIENCY }.flatten.uniq.count
         {
           name: assigned_student.name,
           id: assigned_student.id,
@@ -54,8 +56,9 @@ module GrowthResultsSummary
           total_pre_correct_questions_count: total_pre_correct_questions_count,
           total_possible_questions_count: total_possible_questions_count,
           total_pre_possible_questions_count: total_pre_possible_questions_count,
-          correct_question_text: "#{total_correct_questions_count} of #{total_possible_questions_count} questions",
-          correct_skill_groups_text: "#{total_correct_skill_groups_count} of #{skill_groups.count} skill groups"
+          total_maintained_skill_group_proficiency_count: total_maintained_skill_group_proficiency_count,
+          correct_question_text: "#{total_correct_questions_count} of #{total_possible_questions_count} Questions Correct",
+          correct_skill_groups_text: "#{total_correct_skill_groups_count} of #{skill_groups.count} Skills"
         }
       else
         { name: assigned_student.name }
@@ -88,15 +91,17 @@ module GrowthResultsSummary
     proficiency_text = summarize_student_proficiency_for_skill_overall(present_skill_number, correct_skill_number, pre_correct_skill_number, acquired_skills)
     skill_group_summary_index = @skill_group_summaries.find_index { |sg| sg[:name] == skill_group.name }
     @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name] = { pre: nil, post: nil }
-    @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names].push(student_name) unless GROWTH_PROFICIENCY_TEXTS.include?(proficiency_text)
-    @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names] =   @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names].uniq
+    @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names].push(student_name) unless FULL_OR_MAINTAINED_PROFICIENCY_TEXTS.include?(proficiency_text)
+    @skill_group_summaries[skill_group_summary_index][:gained_proficiency_in_post_test_student_names].push(student_name) if GAINED_PROFICIENCY_TEXTS.include?(proficiency_text)
+    @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names] = @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names].uniq
+    @skill_group_summaries[skill_group_summary_index][:gained_proficiency_in_post_test_student_names] = @skill_group_summaries[skill_group_summary_index][:gained_proficiency_in_post_test_student_names].uniq
     @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name][:post] = post_test_proficiency_score
     @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name][:pre] = pre_test_proficiency_score
     {
       skill_group: skill_group.name,
       description: skill_group.description,
       skills: skills,
-      number_of_correct_questions_text: "#{correct_skill_number} of #{present_skill_number} questions correct",
+      number_of_correct_questions_text: "#{correct_skill_number} of #{present_skill_number} Questions Correct",
       proficiency_text: proficiency_text,
       pre_test_proficiency: summarize_student_proficiency_for_skill_per_activity(pre_present_skill_number, pre_correct_skill_number),
       pre_test_proficiency_score: pre_test_proficiency_score,

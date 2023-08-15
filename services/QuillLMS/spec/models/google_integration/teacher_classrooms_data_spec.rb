@@ -8,6 +8,12 @@ module GoogleIntegration
 
     subject { described_class.new(teacher, serialized_classrooms_data) }
 
+    context 'nil serialized_classrooms_data' do
+      let(:serialized_classrooms_data) { nil }
+
+      it { expect(subject.count).to eq 0 }
+    end
+
     context 'no classrooms' do
       let(:serialized_classrooms_data) { [].to_json }
 

@@ -7,7 +7,7 @@ module TeacherNotifications
     private def should_send_notification?
       unit_template = @activity_session.unit_template
       # False if the activity that was just completed wasn't a recommendation
-      return false unless unit_template&.recommendations&.present?
+      return false unless unit_template&.recommendations.present?
 
       # False if the user has never completed a Diagnostic since any activities that they might be assigned can't be from recommendations in that case
       return false unless @activity_session.user.activity_sessions
