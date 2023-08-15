@@ -778,6 +778,8 @@ EmpiricalGrammar::Application.routes.draw do
     get page => "pages##{page}", as: page.to_s
   end
 
+  get 'debug' => 'pages#debug'
+
   # These are legacy routes that we are redirecting for posterity.
   get 'comprehension', to: redirect('evidence')
   get 'blog_posts', to: redirect('/news')

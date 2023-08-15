@@ -29,6 +29,10 @@ class PagesController < ApplicationController
     @activity = Activity.with_classification.find_by_uid(ENVr.fetch('HOMEPAGE_ACTIVITY_UID', ''))
   end
 
+  def debug
+    1/0
+  end
+
   # rubocop:disable Metrics/CyclomaticComplexity
   def home_new
     redirect_to(locker_path) && return if current_user && signed_in? && staff?
