@@ -3,6 +3,10 @@
 class CanvasInstancesController < ApplicationController
   before_action :admin!
 
+  def index
+    render json: { canvas_integrations: canvas_integrations }
+  end
+
   def create
     render json: canvas_objects, status: :created
   rescue ActiveRecord::NotNullViolation, ActiveRecord::RecordInvalid => e
@@ -42,8 +46,16 @@ class CanvasInstancesController < ApplicationController
       .permit(school_ids: [])
   end
 
+  private def canvas_integrations
+    current_user
+      .administered_school_canvas_instances_with_canvas_configs
+      .map { |canvas_instance| { schoolNames: canvas_instance.schools.pluck(:name), url: canvas_instance.url } }
+  end
+
   private def canvas_objects
     ActiveRecord::Base.transaction do
+      canvas_instance.canvas_instance_schools.destroy_all
+
       {
         canvas_instance: canvas_instance,
         canvas_config: canvas_config,
