@@ -41,8 +41,9 @@ FactoryBot.define do
     stripe_subscription_id { nil }
     plan { nil }
 
-    trait(:recurring) { recurring true }
-    trait(:non_recurring) { recurring false }
+    trait(:recurring) { recurring { true } }
+    trait(:non_recurring) { recurring { false } }
+
     trait(:stripe) do
       stripe_subscription_id { "sub_#{SecureRandom.hex}" }
       stripe_invoice_id { "in_#{SecureRandom.hex}" }

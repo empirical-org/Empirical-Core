@@ -17,7 +17,7 @@ module GoogleIntegration
 
     private def classrooms_data
       JSON
-        .parse(serialized_classrooms_data)
+        .parse(serialized_classrooms_data || [].to_json)
         .map(&:deep_symbolize_keys)
         .map { |data| data.merge(teacher_id: user.id) }
     end

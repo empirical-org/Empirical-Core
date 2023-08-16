@@ -67,7 +67,7 @@ $green: #00c2a2;
             &.green-true {
                 background-color: $green;
                 border: solid 1px $green;
-                color: #fff;
+                color: $quill-white;
                 font-weight: 800;
             }
             span {
@@ -176,7 +176,7 @@ $green: #00c2a2;
             color: #027360;
         }
         li a {
-            color: #000;
+            color: $quill-black;
         }
         #subtext:after {
             display: block;

@@ -7,10 +7,11 @@ import {
   StudentResult,
 } from './interfaces';
 import PercentageCircle from './percentageCircle';
+import IneligibleForQuestionScoring from './ineligibleForQuestionScoring'
 import {
-  baseDiagnosticImageSrc,
   fileDocumentIcon,
   noDataYet,
+  timeRewindIllustration,
 } from './shared';
 import SkillGroupTooltip from './skillGroupTooltip';
 
@@ -20,8 +21,6 @@ import {
 } from '../../../../../Shared/index';
 import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_RESULTS_SUMMARY, } from '../../../shared/demo_onboarding_tour';
 import LoadingSpinner from '../../../shared/loading_indicator.jsx';
-
-const timeRewindIllustration = <img alt="Illustration of a clock with an arrow pointing backwards" src={`${baseDiagnosticImageSrc}/time-rewind.svg`} />
 
 const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => {
   const { name, description, not_yet_proficient_student_names, proficiency_scores_by_student } = skillGroupSummary
@@ -65,7 +64,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => 
   )
 }
 
-export const Summary = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, location, }) => {
+export const Summary = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, location, eligibleForQuestionScoring, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedStudentResults);
   const [studentResults, setStudentResults] = React.useState<StudentResult[]>(passedStudentResults || []);
   const [skillGroupSummaries, setSkillGroupSummaries] = React.useState<SkillGroupSummary[]>(passedSkillGroupSummaries || []);
@@ -75,12 +74,12 @@ export const Summary = ({ passedStudentResults, passedSkillGroupSummaries, match
   const unitQueryString = unitId ? `&unit_id=${unitId}` : ''
 
   React.useEffect(() => {
-    getResults()
-  }, [])
-
-  React.useEffect(() => {
-    setLoading(true)
-    getResults()
+    if (eligibleForQuestionScoring) {
+      setLoading(true)
+      getResults()
+    } else {
+      setLoading(false)
+    }
   }, [activityId, classroomId, unitId])
 
   function getResults() {
@@ -97,7 +96,9 @@ export const Summary = ({ passedStudentResults, passedSkillGroupSummaries, match
 
   let emptyState
 
-  if (!skillGroupSummaries.length) {
+  if (!eligibleForQuestionScoring) {
+    emptyState = <IneligibleForQuestionScoring pageName="class summary" />
+  } else if (!skillGroupSummaries.length) {
     emptyState = (<section className="results-empty-state">
       {timeRewindIllustration}
       <h2>This report is unavailable for diagnostics assigned before a certain date.</h2>

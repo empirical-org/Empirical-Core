@@ -2,9 +2,9 @@
 
 module Snapshots
   class PeriodQuery < ::QuillBigQuery::Query
-    attr_accessor :timeframe_start, :timeframe_end, :school_ids, :grades, :teacher_ids, :classroom_ids
+    attr_reader :timeframe_start, :timeframe_end, :school_ids, :grades, :teacher_ids, :classroom_ids
 
-    def initialize(timeframe_start:, timeframe_end:, school_ids:, grades: nil, teacher_ids: nil, classroom_ids: nil, options: {})
+    def initialize(timeframe_start:, timeframe_end:, school_ids:, grades: nil, teacher_ids: nil, classroom_ids: nil, **options)
       @timeframe_start = timeframe_start
       @timeframe_end = timeframe_end
       @school_ids = school_ids
@@ -12,18 +12,18 @@ module Snapshots
       @teacher_ids = teacher_ids
       @classroom_ids = classroom_ids
 
-      super(options)
+      super(**options)
     end
 
     def from_and_join_clauses
       <<-SQL
-        FROM lms.classrooms
-          JOIN lms.classrooms_teachers
-            ON classrooms.id = classrooms_teachers.classroom_id
-          JOIN lms.schools_users
-            ON classrooms_teachers.user_id = schools_users.user_id
-          JOIN lms.schools
-            ON schools_users.school_id = schools.id
+        FROM lms.schools
+        JOIN lms.schools_users
+          ON schools.id = schools_users.school_id
+        LEFT OUTER JOIN lms.classrooms_teachers
+          ON schools_users.user_id = classrooms_teachers.user_id
+        LEFT OUTER JOIN lms.classrooms
+          ON classrooms_teachers.classroom_id = classrooms.id
       SQL
     end
 

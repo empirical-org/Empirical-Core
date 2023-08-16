@@ -8,7 +8,7 @@ module ImpactMetrics
       include_context 'QuillBigQuery TestRunner Setup'
 
       let(:activity_sessions) { create_list(:activity_session, 20, :finished) }
-      let(:unfinished_activity_sessions) { create_list(:activity_session, 10, state: 'started') }
+      let(:unfinished_activity_sessions) { create_list(:activity_session, 10, :started) }
       let(:query_args) { {} }
 
       let(:cte_records) {
@@ -18,7 +18,7 @@ module ImpactMetrics
         ]
       }
 
-      it { expect(results).to eq([{"count" => 20}]) }
+      it { expect(results).to eq [{ count: 20 }] }
     end
   end
 end

@@ -25,7 +25,7 @@
     a {
       border-bottom: 3px solid white;
       font-size: 14px;
-      color: #666666;
+      color: $quill-grey-40;
       display: inline-block;
       align-items: center;
       cursor: pointer;
@@ -35,7 +35,7 @@
       padding-left: 5px;
       padding-right: 5px;
       &:focus {
-        outline: dashed 2px $quillgreenmedium;
+        outline: dashed 2px $quill-green;
         outline-offset: -3px;
       }
     }
@@ -98,8 +98,8 @@
     }
     &#evidence.active {
       a {
-        border-bottom: 3px solid #2C7F9B;
-        color: #2C7F9B;
+        border-bottom: 3px solid $quill-teal;
+        color: $quill-teal;
       }
     }
   }

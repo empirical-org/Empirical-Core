@@ -140,6 +140,7 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
 
   function getFilters() {
     const searchParams = {
+      timeframe: selectedTimeframe,
       school_ids: selectedSchools?.map(s => s.id) || null,
       teacher_ids: selectedTeachers?.map(t => t.id) || null,
       classroom_ids: selectedClassrooms?.map(c => c.id) || null,
@@ -237,6 +238,12 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
 
   function handleClickDownloadReport() { window.print() }
 
+  function mapItemsIfNotAll(selectedItems, allItems, mapKey = 'id') {
+    if (unorderedArraysAreEqual(selectedItems, allItems)) return null
+
+    return selectedItems.map(i => i[mapKey])
+  }
+
   const tabs = TAB_NAMES.map(s => (
     <Tab
       key={s}
@@ -271,10 +278,10 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
       name={section.name}
       pusherChannel={pusherChannel}
       searchCount={searchCount}
-      selectedClassroomIds={selectedClassrooms.map(c => c.id)}
-      selectedGrades={selectedGrades.map(g => g.value)}
+      selectedClassroomIds={mapItemsIfNotAll(selectedClassrooms, allClassrooms)}
+      selectedGrades={mapItemsIfNotAll(selectedGrades, allGrades, 'value')}
       selectedSchoolIds={selectedSchools.map(s => s.id)}
-      selectedTeacherIds={selectedTeachers.map(t => t.id)}
+      selectedTeacherIds={mapItemsIfNotAll(selectedTeachers, allTeachers)}
       selectedTimeframe={selectedTimeframe.value}
     />
   ))

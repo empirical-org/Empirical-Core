@@ -1,4 +1,3 @@
-'use strict';
 import React from 'react';
 
 import { proficiencyCutoffsAsPercentage } from '../../../../modules/proficiency_cutoffs.js';
@@ -13,22 +12,22 @@ export default class ScoreLegend extends React.Component {
           <div className="icon">
             <div className="icon-wrapper icon-green" />
             <div className="icons-description-wrapper">
-              <p className="title">Proficient</p>
-              <p className="explanation">{`${cutOff.proficient}-100%`}</p>
+              <p className="title">Frequently demonstrated skill</p>
+              <p className="explanation">{`100%-${cutOff.proficient}% of prompts`}</p>
             </div>
           </div>
           <div className="icon">
             <div className="icon-wrapper icon-orange" />
             <div className="icons-description-wrapper">
-              <p className="title">Nearly proficient</p>
-              <p className="explanation">{`${cutOff.nearlyProficient}-${cutOff.proficient - 1}%`}</p>
+              <p className="title">Sometimes demonstrated skill</p>
+              <p className="explanation">{`${cutOff.proficient - 1}%-${cutOff.nearlyProficient}% of prompts`}</p>
             </div>
           </div>
           <div className="icon">
             <div className="icon-wrapper icon-red" />
             <div className="icons-description-wrapper">
-              <p className="title">Not yet proficient</p>
-              <p className="explanation">{`0-${cutOff.nearlyProficient - 1}%`}</p>
+              <p className="title">Rarely demonstrated skill</p>
+              <p className="explanation">{`${cutOff.nearlyProficient - 1}%-0% of prompts`}</p>
             </div>
           </div>
           <Tooltip

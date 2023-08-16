@@ -215,6 +215,35 @@ describe SnapshotsController, type: :controller do
           expect(json_response).to eq("message" => "Generating snapshot")
         end
 
+        it 'should trigger a job to cache data if the cache is empty for data_export' do
+          query_name = 'data-export'
+
+          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return([previous_timeframe, previous_end, current_timeframe, timeframe_end])
+          expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
+          expect(Snapshots::CachePremiumReportsWorker).to receive(:perform_async).with(cache_key,
+            query_name,
+            user.id,
+            {
+              name: timeframe_name,
+              previous_start: previous_timeframe,
+              previous_end: previous_end,
+              current_start: current_timeframe,
+              current_end: timeframe_end
+            },
+            school_ids,
+            {
+              grades: nil,
+              teacher_ids: nil,
+              classroom_ids: nil
+            })
+
+          get :data_export, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
+
+          json_response = JSON.parse(response.body)
+
+          expect(json_response).to eq("message" => "Generating snapshot")
+        end
+
         it 'should include school_ids and grades in the call to the cache worker if they are in params' do
           query_name = 'active-classrooms'
           grades = ["Kindergarten", "1", "2"]
@@ -320,6 +349,18 @@ describe SnapshotsController, type: :controller do
       expect(json_response['classrooms']).to eq([{"id" => classroom.id, "name" => classroom.name}])
     end
 
+    context 'classrooms with visible = false' do
+      let(:classroom) { create(:classroom, grade: target_grade, visible: false) }
+      let(:result) { JSON.parse(response.body) }
+
+      before do
+        get :options
+      end
+
+      it { expect(result['teachers']).to eq([{"id" => teacher.id, "name" => teacher.name}]) }
+      it { expect(result['classrooms']).to eq([{"id" => classroom.id, "name" => classroom.name}]) }
+    end
+
     context 'teachers in multiple classrooms' do
       let(:classroom2) { create(:classroom, grade: target_grade) }
       let!(:classrooms_teacher2) { create(:classrooms_teacher, user: teacher, classroom: classroom2, role: 'owner') }
@@ -392,6 +433,19 @@ describe SnapshotsController, type: :controller do
         json_response = JSON.parse(response.body)
 
         expect(json_response['classrooms']).to eq([])
+      end
+
+      context '"null" in grade params' do
+        let(:target_grade) { nil }
+
+        it 'should match teachers who teach nil grade classrooms' do
+
+          get :options, params: { grades: ["null"] }
+
+          json_response = JSON.parse(response.body)
+
+          expect(json_response['teachers']).to eq([{"id" => teacher.id, "name" => teacher.name}])
+        end
       end
     end
   end

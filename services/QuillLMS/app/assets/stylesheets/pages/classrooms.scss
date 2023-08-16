@@ -99,13 +99,13 @@
   .coteacher-invitation {
     height: 122px;
     border-radius: 6px;
-    border: solid 1px #e0e0e0;
+    border: solid 1px $quill-grey-5;
     padding: 32px;
     margin-bottom: 24px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #ffffff;
+    background-color: $quill-white;
     .coteacher-invitation-content {
       display: flex;
       justify-content: space-between;
@@ -152,8 +152,8 @@
     display: flex;
     align-items: flex-start;
     margin-bottom: 40px;
-    background: #F0F8F7;
-    border: 1px solid #ACD6CF;
+    background: $quill-green-1;
+    border: 1px solid $quill-green-20;
     border-radius: 8px;
     img {
       margin-right: 18px;
@@ -163,14 +163,14 @@
         font-weight: 700;
         font-size: 18px;
         line-height: 20px;
-        color: #06806B;
+        color: $quill-green;
         margin-bottom: 10px;
       }
       p {
         font-weight: 400;
         font-size: 14px;
         line-height: 20px;
-        color: #06806B;
+        color: $quill-green;
       }
     }
   }
@@ -210,7 +210,7 @@
       }
     }
     .data-table-row:last-of-type {
-      border-bottom: 1px solid #e0e0e0;
+      border-bottom: 1px solid $quill-grey-5;
     }
   }
 
@@ -250,7 +250,7 @@
       width: 207px;
       height: 48px;
       display: flex;
-      color: #000;
+      color: $quill-black;
       font-size: 16px;
       align-items: center;
       padding: 0px 16px;
@@ -294,8 +294,8 @@
 .classroom {
   width: 100%;
   border-radius: 6px;
-  border: solid 1px #e0e0e0;
-  background-color: #ffffff;
+  border: solid 1px $quill-grey-5;
+  background-color: $quill-white;
   margin-bottom: 24px;
   h3 {
     font-size: 16px;
@@ -335,7 +335,7 @@
     }
   }
   .class-settings, .students-section {
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid $quill-grey-5;
   }
   .class-settings {
     padding: 0px 32px 32px;

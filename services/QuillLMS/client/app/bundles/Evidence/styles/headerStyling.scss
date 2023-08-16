@@ -1,7 +1,9 @@
+@import '../../../../../app/assets/stylesheets/variables.scss';
+
 .header {
   height: 60px;
   width: 100%;
-  background-color: #06806b;
+  background-color: $quill-green;
   padding: 0 40px;
   z-index: 10;
   position: relative;
@@ -71,7 +73,7 @@
     max-width: 630px;
     width: 100%;
     .save-and-exit {
-      background-color: #06806b;
+      background-color: $quill-green;
       border: none;
       color: white;
       cursor: pointer;
@@ -86,7 +88,7 @@
       .step-counter-label {
         font-size: 14px;
         font-weight: 600;
-        color: #ffffff;
+        color: $quill-white;
         margin-right: 8px;
       }
       img {

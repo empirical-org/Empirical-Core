@@ -40,7 +40,7 @@ module Snapshots
 
       context 'all activity_sessions' do
         let(:expected_result) do
-          (0..9).map { |i| {"count"=>activity_session_bundles[i].length, "value"=>classrooms[i].grade} }
+          (0..9).map { |i| { count: activity_session_bundles[i].length, value: classrooms[i].grade} }
         end
         let(:cte_records) { [runner_context, activity_session_bundles] }
 
@@ -51,7 +51,7 @@ module Snapshots
             classrooms.each { |classroom| classroom.update(grade: nil) }
           end
 
-          it { expect(results).to eq([{'value' => described_class::NULL_GRADE_LABEL, 'count' => activity_session_bundles.flatten.length}]) }
+          it { expect(results).to eq [{ count: activity_session_bundles.flatten.length, value: described_class::NULL_GRADE_LABEL }] }
         end
       end
 

@@ -41,7 +41,7 @@
       display: block;
       width: 87px;
       margin: 17px auto 20px;
-      border-top: solid 1px #ebebeb;
+      border-top: solid 1px $quill-grey-3;
     }
   }
 
@@ -178,7 +178,7 @@
     border-radius: 3px;
   	border: dashed 1px #c0c0c0;
     font-weight: 600;
-    color: #666666;
+    color: $quill-grey-40;
     width: 350px;
     height: 55px;
     margin-bottom: 20px;
@@ -275,7 +275,7 @@
     background-repeat: no-repeat;
     max-height: 628px;
     max-width: 470px;
-    background-color: #ffffff;
+    background-color: $quill-white;
     border: 1px solid rgba(0, 0, 0, 0.2);
     background-clip: padding-box;
     top: 50%;
@@ -347,12 +347,12 @@
   }
   .pricing-info {
     padding-top: 33px;
-    color: #666;
+    color: $quill-grey-40;
     padding: 15px 15px;
   }
   .cta-section {
         padding: 28px 15px;
-        background-color: #fff;
+        background-color: $quill-white;
         .q-button {
           font-size: 14px;
           font-weight: 700;
@@ -420,7 +420,7 @@
   left: 0;
   z-index: 2;
   opacity: 0.5;
-  background-color: #000;
+  background-color: $quill-black;
 }
 
 .welcome-modal-container {
@@ -431,7 +431,7 @@
 
 .quill-modal {
   border-radius: 6px;
-  background-color: #ffffff;
+  background-color: $quill-white;
   z-index: 3;
   position: fixed !important;
   top: 50%;
@@ -546,7 +546,7 @@
     }
     .activity-pack-link {
       font-size: 16px;
-      color: #000000;
+      color: $quill-black;
       word-break: break-word;
     }
     &.hide-modal-element {
@@ -598,7 +598,7 @@
         align-items: flex-start;
         .button-text {
           margin: 0px 0px 0px 8px;
-          color: #000000;
+          color: $quill-black;
         }
       }
     }
@@ -619,13 +619,13 @@
   width: 560px;
   padding: 32px;
   border-radius: 6px;
-  background-color: #fff;
+  background-color: $quill-white;
   min-height: min-content;
   .title {
     font-size: 24px;
     font-weight: bold;
     line-height: 1.33;
-    color: #000;
+    color: $quill-black;
   }
   .modal-body {
     padding: 0px;
@@ -703,7 +703,7 @@
     font-weight: 700;
     font-size: 32px;
     line-height: 39px;
-    color: #000000;
+    color: $quill-black;
     margin-bottom: 8px;
   }
   button {
@@ -714,14 +714,14 @@
     display: flex;
     align-items: center;
     padding: 32px;
-    background-color: #F8F8F8;
+    background-color: $quill-grey-1;
     margin-bottom: 32px;
     .text {
       margin-right: 32px;
       p {
         font-size: 20px;
         line-height: 26px;
-        color: #5C5C5C;
+        color: $quill-grey-50;
       }
     }
     img {
@@ -745,13 +745,13 @@
         font-weight: 700;
         font-size: 22px;
         line-height: 27px;
-        color: #000000;
+        color: $quill-black;
         margin-bottom: 8px;
       }
       p {
         font-size: 16px;
         line-height: 20px;
-        color: #5C5C5C;
+        color: $quill-grey-50;
         margin-bottom: 16px;
       }
     }
@@ -986,7 +986,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid $quill-grey-5;
   padding: 0px 32px;
   .quill-button {
     margin-left: 24px;
@@ -1046,7 +1046,7 @@
     .dropdown-container {
       width: 110px;
       label {
-        color: #000;
+        color: $quill-black;
         font-size: 14px;
         margin-top: 0px !important;
       }
@@ -1187,7 +1187,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid $quill-grey-5;
     padding: 0px 32px;
     &.with-back-button {
       justify-content: space-between;
@@ -1197,7 +1197,7 @@
   .create-a-class-modal-header {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid $quill-grey-5;
     padding: 0px 32px;
     height: 70px;
     align-items: center;
@@ -1211,7 +1211,7 @@
         margin-right: 24px;
       }
       .active {
-        color: #000;
+        color: $quill-black;
       }
     }
   }
@@ -1228,7 +1228,7 @@
     .dropdown-container {
       width: 110px;
       label {
-        color: #000;
+        color: $quill-black;
         font-size: 14px;
         margin-top: 0px;
       }
@@ -1287,14 +1287,14 @@
       height: calc(100% - 58px);
     }
     .data-table-row:last-of-type {
-      border-bottom: 1px solid #e0e0e0 !important;
+      border-bottom: 1px solid $quill-grey-5 !important;
     }
   }
   .bottom-section {
     padding: 24px 32px;
     display: flex;
     justify-content: flex-end;
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid $quill-grey-5;
   }
 }
 

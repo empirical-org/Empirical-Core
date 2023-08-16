@@ -8,12 +8,16 @@ import {
   StudentResult
 } from './interfaces';
 import {
-  baseDiagnosticImageSrc,
   fileDocumentIcon,
   noProficiencyTag,
   partialProficiencyTag,
-  proficiencyTag
+  proficiencyTag,
+  timeRewindIllustration,
+  noProficencyExplanation,
+  prePartialProficiencyExplanation,
+  proficiencyExplanation
 } from './shared';
+import IneligibleForQuestionScoring from './ineligibleForQuestionScoring'
 import StudentResultsTable from './studentResultsTable';
 
 import { requestGet } from '../../../../../../modules/request/index';
@@ -22,9 +26,7 @@ import {
 } from '../../../../../Shared/index';
 import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
-const timeRewindIllustration = <img alt="Illustration of a clock with an arrow pointing backwards" src={`${baseDiagnosticImageSrc}/time-rewind.svg`} />
-
-export const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, location, }) => {
+export const Results = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, location, eligibleForQuestionScoring, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedStudentResults);
   const [studentResults, setStudentResults] = React.useState<StudentResult[]>(passedStudentResults || []);
   const [skillGroupSummaries, setSkillGroupSummaries] = React.useState<SkillGroupSummary[]>(passedSkillGroupSummaries || []);
@@ -35,12 +37,12 @@ export const Results = ({ passedStudentResults, passedSkillGroupSummaries, match
   const unitQueryString = unitId ? `&unit_id=${unitId}` : ''
 
   React.useEffect(() => {
-    getResults()
-  }, [])
-
-  React.useEffect(() => {
-    setLoading(true)
-    getResults()
+    if (eligibleForQuestionScoring) {
+      setLoading(true)
+      getResults()
+    } else {
+      setLoading(false)
+    }
   }, [activityId, classroomId, unitId])
 
   React.useEffect(() => {
@@ -76,7 +78,9 @@ export const Results = ({ passedStudentResults, passedSkillGroupSummaries, match
 
   let emptyState
 
-  if (!skillGroupSummaries.length) {
+  if (!eligibleForQuestionScoring) {
+    emptyState = <IneligibleForQuestionScoring pageName="student results page" />
+  } else if (!skillGroupSummaries.length) {
     emptyState = (<section className="results-empty-state">
       {timeRewindIllustration}
       <h2>This report is unavailable for diagnostics assigned before a certain date.</h2>
@@ -95,15 +99,15 @@ export const Results = ({ passedStudentResults, passedSkillGroupSummaries, match
         <section className="proficiency-keys">
           <div className="proficiency-key">
             {noProficiencyTag}
-            <p>The student did not use any of the skills correctly.</p>
+            <p>{noProficencyExplanation}</p>
           </div>
           <div className="proficiency-key">
             {partialProficiencyTag}
-            <p>The student’s response contained some correct responses, but not all of the responses were marked correct.</p>
+            <p>{prePartialProficiencyExplanation}</p>
           </div>
           <div className="proficiency-key">
             {proficiencyTag}
-            <p>The student used each skill correctly 100% of the time.</p>
+            <p>{proficiencyExplanation}</p>
           </div>
         </section>
       )}

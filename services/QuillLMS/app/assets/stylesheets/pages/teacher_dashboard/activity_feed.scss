@@ -9,7 +9,7 @@
     p {
       max-width: 336px;
       text-align: center;
-      color: #5c5c5c;
+      color: $quill-grey-50;
     }
   }
   &.populated {
@@ -28,17 +28,17 @@
   .score-tag {
     border-radius: 4px;
     padding: 0 6px;
-    &.proficient {
+    &.frequently-demonstrated-skill {
       background-color: #dcedcc;
     }
-    &.nearly-proficient {
+    &.sometimes-demonstrated-skill {
       background-color: #ffeccc;
     }
-    &.not-yet-proficient {
+    &.rarely-demonstrated-skill {
       background-color: #ffe0e3;
     }
     &.completed {
-      background-color: #ebebeb;
+      background-color: $quill-grey-3;
     }
   }
   @media (max-width: 1210px) {

@@ -121,7 +121,7 @@ export default class ClassReport extends React.Component {
     const overviewBoxes = students ? <OverviewBoxes data={students} /> : null
 
     return (
-      <div id='individual-classroom-view'>
+      <div className="container" id='individual-classroom-view'>
         {overviewBoxes}
         <div>
           <ProgressReport

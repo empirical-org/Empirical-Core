@@ -5,6 +5,7 @@ import PremiumHub from './PremiumHub';
 import DistrictActivityScoresProgressReport from './DistrictActivityScores';
 import DistrictConceptReportsProgressReport from './DistrictConceptReports';
 import DistrictStandardsReportsProgressReport from './DistrictStandardsReports';
+import DataExport from './DataExportContainer';
 import SchoolSubscriptionsContainer from './SchoolSubscriptionsContainer';
 import UsageSnapshotsContainer from './UsageSnapshotsContainer';
 
@@ -135,6 +136,7 @@ const PremiumHubContainer = ({ id, location, children, }) => {
           {renderBanner()}
           <Switch>
             <Route component={routerProps => <ActivityScoresStudentOverview {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_activity_scores/student_overview" />
+            <Route component={routerProps => <DataExport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/data_export" />
             <Route component={routerProps => <DistrictActivityScoresProgressReport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_activity_scores" />
             <Route component={routerProps => <DistrictConceptReportsProgressReport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_concept_reports" />
             <Route component={routerProps => <DistrictStandardsReportsProgressReport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_standards_reports" />

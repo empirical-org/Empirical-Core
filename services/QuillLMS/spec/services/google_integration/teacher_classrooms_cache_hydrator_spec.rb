@@ -2,36 +2,45 @@
 
 require 'rails_helper'
 
-describe GoogleIntegration::TeacherClassroomsCacheHydrator do
-  subject { described_class.run(user) }
+module GoogleIntegration
+  RSpec.describe TeacherClassroomsCacheHydrator do
+    subject { described_class.run(user) }
 
-  let(:user) { create(:user) }
+    let(:data) { ['classroom_data', 'classroom_data'] }
 
-  it 'should trigger a pusher notification when now errors are raised' do
-    expect(GoogleIntegration::Classroom::Main)
-      .to receive(:pull_data)
-      .with(user)
-      .and_return({})
+    context 'teacher has no auth_credential' do
+      let(:user) { create(:teacher) }
 
-    expect(PusherTrigger).to receive(:run)
-    subject
-  end
+      it 'does not cache any teacher classrooms and it reports an error' do
+        expect(TeacherClassroomsCache).not_to receive(:write)
+        expect(PusherTrigger).not_to receive(:run)
+        expect(ErrorNotifier).to receive(:report)
+        subject
+      end
+    end
 
-  it 'should rescue GoogleIntegration::RefreshAccessToken::RefreshAccessTokenError in the Google integration' do
-    expect(GoogleIntegration::Classroom::Main)
-      .to receive(:pull_data)
-      .with(user)
-      .and_raise(GoogleIntegration::RefreshAccessToken::RefreshAccessTokenError)
+    context 'teacher has google auth_credential' do
+      let(:user) { create(:google_auth_credential).user }
+      let(:client) { double(:google_client, teacher_classrooms: data) }
 
-    subject
-  end
+      it do
+        expect(ClientFetcher).to receive(:run).with(user).and_return(client)
+        expect(TeacherClassroomsCache).to receive(:write).with(user.id, data.to_json)
+        expect(PusherTrigger).to receive(:run)
 
-  it 'should rescue GoogleIntegration::Client::AccessTokenError in the Google integration' do
-    expect(GoogleIntegration::Classroom::Main)
-      .to receive(:pull_data)
-      .with(user)
-      .and_raise(GoogleIntegration::Client::AccessTokenError)
+        subject
+      end
+    end
 
-    subject
+    context 'teacher has canvas auth_credential' do
+      let(:user) { create(:canvas_auth_credential).user }
+
+      it 'does not cache any teacher classrooms and it reports an error' do
+        expect(TeacherClassroomsCache).not_to receive(:write)
+        expect(PusherTrigger).not_to receive(:run)
+        expect(ErrorNotifier).to receive(:report)
+        subject
+      end
+    end
   end
 end

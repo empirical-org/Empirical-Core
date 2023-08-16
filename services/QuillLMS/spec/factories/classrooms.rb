@@ -26,7 +26,7 @@
 #
 FactoryBot.define do
   factory :simple_classroom, class: Classroom do
-    name 'a'
+    name { 'a' }
   end
 
   factory :classroom do
@@ -34,11 +34,11 @@ FactoryBot.define do
     grade { [(1..12).to_a, 'University', 'Kindergarten'].flatten.sample.to_s }
 
     trait :from_google do
-      google_classroom_id { (1..10).map { (1..9).to_a.sample }.join } # mock a google id
+      google_classroom_id { Faker::Number.number(digits: 11) }
     end
 
     trait :from_clever do
-      clever_id { (1..24).map { (('a'..'f').to_a + (1..9).to_a).sample }.join } # mock a clever id
+      clever_id { SecureRandom.hex(12) }
     end
 
     trait :from_canvas do
@@ -109,9 +109,7 @@ FactoryBot.define do
       end
     end
 
-    trait :archived do
-      visible false
-    end
+    trait(:archived) { visible { false } }
 
     after(:create) do |classroom|
       if classroom.classrooms_teachers.none?

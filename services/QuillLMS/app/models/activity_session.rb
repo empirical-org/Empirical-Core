@@ -59,6 +59,10 @@ class ActivitySession < ApplicationRecord
   NOT_YET_PROFICIENT = 'Not yet proficient'
   PROFICIENT = 'Proficient'
 
+  SOMETIMES_DEMONSTRATED_SKILL = 'Sometimes demonstrated skill'
+  RARELY_DEMONSTRATED_SKILL = 'Rarely demonstrated skill'
+  FREQUENTLY_DEMONSTRATED_SKILL = 'Frequently demonstrated skill'
+
   RESULTS_PER_PAGE = 25
 
   STATE_UNSTARTED = 'unstarted'
@@ -390,7 +394,7 @@ class ActivitySession < ApplicationRecord
       concept_result[:activity_session_id] = activity_session_id
       concept_result.delete(:activity_session_uid)
 
-      SaveActivitySessionConceptResultsWorker.perform_async({
+      SaveActivitySessionConceptResultsWorker.perform_async(**{
         concept_id: concept_result[:concept_id],
         question_type: concept_result[:question_type],
         activity_session_id: concept_result[:activity_session_id],

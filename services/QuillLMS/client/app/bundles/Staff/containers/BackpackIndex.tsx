@@ -1,4 +1,6 @@
 import * as React from 'react'
+
+import ColorPalette from '../components/styleGuide/colorPalette'
 import Buttons from '../components/styleGuide/buttons'
 import Cards from '../components/styleGuide/cards'
 import DataTables from '../components/styleGuide/dataTables'
@@ -26,6 +28,7 @@ export default class BackpackIndex extends React.Component {
           CSS Elements
           </p>
           <ul className="menu-list">
+            {this.renderLink('#color-palette', 'Color Palette')}
             {this.renderLink('#buttons', 'Buttons')}
           </ul>
           <p className="menu-label">
@@ -44,8 +47,9 @@ export default class BackpackIndex extends React.Component {
         </aside>
         <div className="style-guide">
           <h1>Backpack</h1>
-          <h2>Quill's Style Guide</h2>
-          <p>For CSS elements, the text above the element is a list of class names necessary to apply the styles. For React components, the text is the code for rendering the component. All React components in Backpack are exportable from the `Shared/index` folder.</p>
+          <h2>Quill&#39;s Style Guide</h2>
+          <p>For CSS elements, the text above the element is a list of class names necessary to apply the styles or the variable used for the color. For React components, the text is the code for rendering the component. All React components in Backpack are exportable from the `Shared/index` folder.</p>
+          <ColorPalette />
           <Buttons />
           <Cards />
           <Menus />

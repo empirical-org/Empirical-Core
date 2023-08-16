@@ -961,7 +961,7 @@ exports[`StudentProfileUnit component should render 1`] = `
               "headerClassName": "name-section",
               "name": "Activity",
               "rowSectionClassName": "name-section",
-              "width": "560px",
+              "width": "474px",
             },
             Object {
               "attribute": "score",
@@ -969,7 +969,7 @@ exports[`StudentProfileUnit component should render 1`] = `
               "name": "Score",
               "noTooltip": true,
               "rowSectionClassName": "score-section tooltip-section",
-              "width": "144px",
+              "width": "230px",
             },
             Object {
               "attribute": "tool",
@@ -1026,7 +1026,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   className="proficient"
                 />
                 <span>
-                  Proficient
+                  Frequently demonstrated skill
                 </span>
               </div>,
               "tool": undefined,
@@ -1050,7 +1050,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   className="nearly-proficient"
                 />
                 <span>
-                  Nearly proficient
+                  Sometimes demonstrated skill
                 </span>
               </div>,
               "tool": undefined,
@@ -1069,9 +1069,9 @@ exports[`StudentProfileUnit component should render 1`] = `
               scope="col"
               style={
                 Object {
-                  "minWidth": "560px",
+                  "minWidth": "474px",
                   "textAlign": "left",
-                  "width": "560px",
+                  "width": "474px",
                 }
               }
             >
@@ -1082,9 +1082,9 @@ exports[`StudentProfileUnit component should render 1`] = `
               scope="col"
               style={
                 Object {
-                  "minWidth": "144px",
+                  "minWidth": "230px",
                   "textAlign": "left",
-                  "width": "144px",
+                  "width": "230px",
                 }
               }
             >
@@ -1153,9 +1153,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="name-9"
                 style={
                   Object {
-                    "minWidth": "560px",
+                    "minWidth": "474px",
                     "textAlign": "left",
-                    "width": "560px",
+                    "width": "474px",
                   }
                 }
               >
@@ -1166,9 +1166,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="score-9"
                 style={
                   Object {
-                    "minWidth": "144px",
+                    "minWidth": "230px",
                     "textAlign": "left",
-                    "width": "144px",
+                    "width": "230px",
                   }
                 }
               >
@@ -1179,7 +1179,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                     className="proficient"
                   />
                   <span>
-                    Proficient
+                    Frequently demonstrated skill
                   </span>
                 </div>
               </td>
@@ -1247,9 +1247,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="name-5"
                 style={
                   Object {
-                    "minWidth": "560px",
+                    "minWidth": "474px",
                     "textAlign": "left",
-                    "width": "560px",
+                    "width": "474px",
                   }
                 }
               >
@@ -1260,9 +1260,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="score-5"
                 style={
                   Object {
-                    "minWidth": "144px",
+                    "minWidth": "230px",
                     "textAlign": "left",
-                    "width": "144px",
+                    "width": "230px",
                   }
                 }
               >
@@ -1273,7 +1273,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                     className="nearly-proficient"
                   />
                   <span>
-                    Nearly proficient
+                    Sometimes demonstrated skill
                   </span>
                 </div>
               </td>

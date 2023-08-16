@@ -16,10 +16,33 @@ AllCops:
     - "QuillLMS/client/node_modules/**/*"
 
 #######################################################################################################################
+# CAPYBARA
+#######################################################################################################################
+
+Capybara/VisibilityMatcher:
+  Enabled: true
+
+#######################################################################################################################
+# FACTORY BOT
+#######################################################################################################################
+
+FactoryBot/AttributeDefinedStatically:
+  Enabled: true
+
+FactoryBot/CreateList:
+  Enabled: true
+
+FactoryBot/FactoryClassName:
+  Enabled: true
+
+FactoryBot/SyntaxMethods:
+  Enabled: true
+
+#######################################################################################################################
 # GEMSPEC
 #######################################################################################################################
 
-Gemspec/DateAssignment:
+Gemspec/DeprecatedAttributeAssignment:
   Enabled: true
 
 # TODO enable this
@@ -130,7 +153,7 @@ Lint/AmbiguousAssignment:
 
 Lint/AmbiguousBlockAssociation:
   Enabled: true
-  IgnoredMethods:
+  AllowedMethods:
     - change
     - not_change
 
@@ -373,9 +396,6 @@ RSpec/AroundBlock:
 RSpec/BeEql:
   Enabled: true
 
-RSpec/Capybara/VisibilityMatcher:
-  Enabled: true
-
 # TODO enable due to https://github.com/rubocop/rubocop-rspec/issues/735#issuecomment-540116917
 RSpec/DescribedClassModuleWrapping:
   Enabled: false
@@ -396,18 +416,6 @@ RSpec/ExcessiveDocstringSpacing:
   Enabled: true
 
 RSpec/ExpectOutput:
-  Enabled: true
-
-RSpec/FactoryBot/AttributeDefinedStatically:
-  Enabled: true
-
-RSpec/FactoryBot/CreateList:
-  Enabled: true
-
-RSpec/FactoryBot/FactoryClassName:
-  Enabled: true
-
-RSpec/FactoryBot/SyntaxMethods:
   Enabled: true
 
 RSpec/Focus:
@@ -587,6 +595,7 @@ Style/FormatStringToken:
 
 Style/FrozenStringLiteralComment:
   Enabled: true
+  SafeAutoCorrect: true
   Include:
     - "QuillLMS/**/*"
 

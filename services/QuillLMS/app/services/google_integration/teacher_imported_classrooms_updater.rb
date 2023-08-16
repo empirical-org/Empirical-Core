@@ -30,7 +30,7 @@ module GoogleIntegration
     end
 
     private def serialized_classrooms_data
-      GoogleIntegration::TeacherClassroomsCache.read(user.id)
+      TeacherClassroomsCache.read(user.id)
     end
 
     private def update_classrooms

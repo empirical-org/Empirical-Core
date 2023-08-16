@@ -3,8 +3,8 @@
   .admin-access {
     padding: 40px 32px;
     max-width: 577px;
-    background: #FFFFFF;
-    border: 1px solid #E0E0E0;
+    background: $quill-white;
+    border: 1px solid $quill-grey-5;
     border-radius: 6px;
     margin: 44px auto 0px;
   }
@@ -25,7 +25,7 @@
   h2 {
     font-weight: 700;
     padding-bottom: 16px;
-    border-bottom: 1px solid #CFCFCF;
+    border-bottom: 1px solid $quill-grey-15;
   }
   a {
     font-weight: 700;
@@ -44,7 +44,7 @@
   }
   .admin-table, .admin-selection-table {
     padding: 16px;
-    border: 1px solid #E0E0E0;
+    border: 1px solid $quill-grey-5;
     border-radius: 6px;
     margin-top: 40px;
     p {
@@ -58,7 +58,7 @@
       text-decoration: none;
     }
     .disabled-link {
-      color: #878787;
+      color: $quill-grey-30;
     }
     .quill-tooltip {
       font-weight: 400;
@@ -116,7 +116,7 @@
     margin-right: 24px;
   }
   .email {
-    color: #666666;
+    color: $quill-grey-40;
   }
   div {
     display: flex;
@@ -125,7 +125,7 @@
   &.top-row {
     padding-bottom: 16px;
     align-items: center;
-    border-bottom: 1px solid #CFCFCF;
+    border-bottom: 1px solid $quill-grey-15;
   }
   &:not(.top-row) {
     margin-top: 16px;

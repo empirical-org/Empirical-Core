@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '2.7.8'
+ruby File.read('.ruby-version').chomp
 
 # CORE DEPS
 gem 'rails', '7.0.6'
@@ -55,9 +55,10 @@ gem 'maxminddb'
 # OTHERS
 gem 'global'
 gem 'lms-api', require: 'lms_api'
-gem 'google-api-client', '0.8.6'
+gem 'google-cloud-bigquery', '~> 1.43.0'
+gem 'google-apis-classroom_v1', '~> 0.27.0'
 gem 'faraday_middleware'
-gem 'newrelic_rpm', '~> 7.2'
+gem 'newrelic_rpm', '~> 9.3.1'
 gem 'stripe', '~> 5.30'
 gem 'prawn'
 gem 'prawn-table'
@@ -145,7 +146,7 @@ gem 'sentry-sidekiq'
 gem 'rack-heartbeat'
 
 # INTEGRATIONS
-gem 'clever-ruby', '~> 2.0.1'
+gem 'commonlit-clever-ruby'
 
 # Memory profiling
 gem 'puma_worker_killer'
@@ -158,6 +159,8 @@ gem 'rb-readline'
 gem 'awesome_print'
 
 gem 'capitalize-names', require: 'capitalize_names'
+
+gem 'rexml'
 
 group :production, :staging do
   gem 'rails-autoscale-web'
@@ -179,15 +182,15 @@ end
 
 group :test, :development do
   gem 'parallel_tests'
-  gem 'pry', '~> 0.13.1'
+  gem 'pry'
   gem 'pry-rails'
   gem 'pry-remote'
   gem 'pry-stack_explorer'
   gem 'pry-coolline'
   gem 'pry-rescue'
   gem 'pry-byebug'
-  gem 'rspec-rails', '~> 5.0'
-  gem 'factory_bot_rails', '~> 4.8.2', require: false
+  gem 'rspec-rails'
+  gem 'factory_bot_rails', require: false
   gem 'timecop'
   gem 'byebug'
   gem 'guard'
@@ -210,7 +213,7 @@ group :test do
   gem 'mini_racer', '= 0.4.0'
   gem 'fakeredis', '~> 0.7.0'
   gem 'rails-controller-testing'
-  gem 'selenium-webdriver', '~> 3'
+  gem 'selenium-webdriver', '~> 4.11.0'
   gem 'shoulda-matchers', '~> 4'
   gem 'shoulda-callback-matchers', '~> 1.1.1'
   gem 'super_diff', require: false

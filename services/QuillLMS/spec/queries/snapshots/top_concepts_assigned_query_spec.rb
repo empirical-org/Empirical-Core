@@ -47,7 +47,7 @@ module Snapshots
 
       context 'query LIMITs and shape' do
         let(:expected_result) do
-          (0..9).map { |i| {"count"=>unit_activity_bundles[i].length, "value"=>activity_categories[i].name} }
+          (0..9).map { |i| { count: unit_activity_bundles[i].length, value: activity_categories[i].name} }
         end
 
         it { expect(results).to eq(expected_result) }

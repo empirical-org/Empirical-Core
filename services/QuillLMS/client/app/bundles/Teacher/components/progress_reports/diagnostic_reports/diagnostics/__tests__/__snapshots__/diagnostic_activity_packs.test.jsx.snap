@@ -4716,14 +4716,15 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       <h4>
                         Growth summary
                       </h4>
-                    </div>
-                    <div>
-                      <a
-                        className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
-                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1680/classroom/1/growth_summary"
-                      >
-                        View growth
-                      </a>
+                      <p>
+                        <img
+                          alt="Bar chart growth icon"
+                          src="undefined/images/pages/diagnostic_reports/icons-bar-graph-increasing.svg"
+                        />
+                        <span>
+                          Not available for diagnostics completed before August 2023.
+                        </span>
+                      </p>
                     </div>
                   </section>
                 </GrowthSummarySection>
@@ -4914,14 +4915,15 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       <h4>
                         Growth summary
                       </h4>
-                    </div>
-                    <div>
-                      <a
-                        className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
-                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1669/classroom/1/growth_summary"
-                      >
-                        View growth
-                      </a>
+                      <p>
+                        <img
+                          alt="Bar chart growth icon"
+                          src="undefined/images/pages/diagnostic_reports/icons-bar-graph-increasing.svg"
+                        />
+                        <span>
+                          Not available for diagnostics completed before August 2023.
+                        </span>
+                      </p>
                     </div>
                   </section>
                 </GrowthSummarySection>
@@ -5112,14 +5114,15 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       <h4>
                         Growth summary
                       </h4>
-                    </div>
-                    <div>
-                      <a
-                        className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
-                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1664/classroom/1/growth_summary"
-                      >
-                        View growth
-                      </a>
+                      <p>
+                        <img
+                          alt="Bar chart growth icon"
+                          src="undefined/images/pages/diagnostic_reports/icons-bar-graph-increasing.svg"
+                        />
+                        <span>
+                          Not available for diagnostics completed before August 2023.
+                        </span>
+                      </p>
                     </div>
                   </section>
                 </GrowthSummarySection>

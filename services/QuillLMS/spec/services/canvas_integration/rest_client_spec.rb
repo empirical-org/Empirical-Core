@@ -45,7 +45,7 @@ describe CanvasIntegration::RestClient do
           alreadyImported: already_imported,
           classroom_external_id: classroom_external_id,
           name: course_name,
-          students: []
+          studentCount: 0
         }
       end
 

@@ -8,8 +8,8 @@ module QuillBigQuery
       @cte_records = cte_records
     end
 
-    def execute(query, **array_params)
-      QuillBigQuery::Runner.execute(translate_to_big_query_with_cte(query), **array_params)
+    def execute(query)
+      Runner.execute(translate_to_big_query_with_cte(query))
     end
 
     private def translate_to_big_query_with_cte(query)
@@ -56,7 +56,7 @@ module QuillBigQuery
       if value.nil?
         "NULL"
       elsif value.is_a?(Array)
-        value.map { |v| attr_type_value(attr_type, v) }
+        "ARRAY#{value.map { |v| attr_type_value(attr_type, v) }}"
       else
         attr_type_value(attr_type, value)
       end

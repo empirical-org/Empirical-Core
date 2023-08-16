@@ -54,7 +54,7 @@
     }
   }
   .tabs {
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid $quill-grey-5;
     margin-bottom: 24px;
     max-width: 950px;
   }
@@ -62,7 +62,7 @@
   .tab {
     font-size: 14px;
     font-weight: 600;
-    color: #5c5c5c;
+    color: $quill-grey-50;
     width: 156px;
     max-width: 50%;
     padding: 16px 14px;
@@ -70,14 +70,14 @@
     border-bottom: 2px solid transparent;
     background-color: transparent;
     &.active {
-      color: #06806b;
-      border-bottom: 2px solid #06806b;
+      color: $quill-green;
+      border-bottom: 2px solid $quill-green;
     }
   }
   .data-table {
     max-width: 950px;
     border-radius: 8px;
-    border: solid 1px #e0e0e0;
+    border: solid 1px $quill-grey-5;
     overflow: visible;
     margin-bottom: 24px;
     .data-table-headers {
@@ -123,22 +123,22 @@
     .mobile-data-table {
       display: block;
       border-radius: 8px;
-      border: solid 1px #e0e0e0;
+      border: solid 1px $quill-grey-5;
       margin-bottom: 16px;
       .header {
         font-size: 12px;
         font-weight: 600;
         line-height: 1.33;
-        color: #5c5c5c;
+        color: $quill-grey-50;
         padding: 8px 16px;
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px solid $quill-grey-5;
       }
       .mobile-data-table-row {
         display: flex;
         flex-direction: column;
         margin: 0px 16px;
         padding: 16px 0px 12px;
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px solid $quill-grey-5;
         > span {
           margin-bottom: 4px;
         }

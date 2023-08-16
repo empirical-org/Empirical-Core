@@ -22,7 +22,7 @@
       height: min-content;
       display: flex;
       justify-content: center;
-      border-bottom: 1px solid #e0e0e0;
+      border-bottom: 1px solid $quill-grey-5;
       position: sticky;
       top: 0px;
       z-index: 1;
@@ -51,7 +51,7 @@
           margin-left: 4px;
         }
         .sortable-list {
-          border-top: 1px solid #e0e0e0;
+          border-top: 1px solid $quill-grey-5;
         }
         .save-button, .saved-button {
           display: none;
@@ -79,13 +79,13 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-bottom: 1px solid #e0e0e0 !important;
+        border-bottom: 1px solid $quill-grey-5 !important;
         .sort-wrapper {
           position: relative;
           .sort-dropdown-label {
             color: #7c7c7c;
             span {
-              color: #000;
+              color: $quill-black;
             }
             .is-open {
               transform: rotate(180deg)
@@ -100,7 +100,7 @@
             box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.14);
             z-index: 2;
             right: 0;
-            background-color: #fff;
+            background-color: $quill-white;
             top: 24px;
             padding: 8px 0px;
             button {
@@ -132,13 +132,13 @@
           input {
             width: 100%;
             border-radius: 24px;
-            border: solid 1px #e0e0e0;
+            border: solid 1px $quill-grey-5;
             height: 48px;
             padding: 0px 44px;
             font-size: 16px;
-            color: #000;
+            color: $quill-black;
             &::placeholder, &:placeholder {
-              color: #757575;
+              color: $quill-grey-35;
             }
           }
         }
@@ -146,12 +146,12 @@
       .filter-and-sort {
         height: 56px;
         display: flex;
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px solid $quill-grey-5;
         justify-content: center;
         align-items: center;
         margin-bottom: 24px;
         .divider {
-          border-left: 1px solid #e0e0e0;
+          border-left: 1px solid $quill-grey-5;
           height: 24px;
           margin: 0px 41px;
         }
@@ -170,7 +170,7 @@
         width: 36px;
         height: 36px;
         border-radius: 4px;
-        border: solid 1px #e0e0e0;
+        border: solid 1px $quill-grey-5;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -185,9 +185,9 @@
         }
         &.active {
           border-radius: 4px;
-          background-color: #06806b;
+          background-color: $quill-green;
           border: none;
-          color: #fff;
+          color: $quill-white;
           font-weight: bold;
         }
       }

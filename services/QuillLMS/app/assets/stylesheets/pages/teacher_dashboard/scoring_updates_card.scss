@@ -1,0 +1,37 @@
+.post-checklist-container main section.scoring-updates-card {
+  flex-direction: row;
+  padding: 20px;
+  justify-content: space-between;
+  background: #FFE8C5;
+  position: relative;
+  border: 1px solid $quill-gold-dark-50;
+  .close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    filter: brightness(0%);
+  }
+  .title-tag {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15px;
+    color: $quill-gold-dark-50;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 26px;
+    margin: 10px 0px 18px;
+  }
+  .link-section a {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    color: #5c5c5c;
+    margin-top: 10px;
+    img {
+      margin-left: 5px;
+    }
+  }
+}

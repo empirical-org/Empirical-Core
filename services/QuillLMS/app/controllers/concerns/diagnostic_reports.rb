@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module DiagnosticReports
+  include GetScoreForQuestion
   extend ActiveSupport::Concern
 
   NOT_PRESENT = 'Not present'
@@ -14,15 +15,24 @@ module DiagnosticReports
   GAINED_PROFICIENCY = 'Gained Full Proficiency'
   GAINED_SOME_PROFICIENCY = 'Gained Some Proficiency'
   MAINTAINED_PROFICIENCY = 'Maintained Proficiency'
+  GAINED_PROFICIENCY_TEXTS = [GAINED_PROFICIENCY, GAINED_SOME_PROFICIENCY]
   GROWTH_PROFICIENCY_TEXTS = [GAINED_PROFICIENCY, GAINED_SOME_PROFICIENCY, MAINTAINED_PROFICIENCY]
+  FULL_OR_MAINTAINED_PROFICIENCY_TEXTS = [GAINED_PROFICIENCY, MAINTAINED_PROFICIENCY]
 
-  def data_for_skill_by_activity_session(all_concept_results, skill)
-    concept_results = all_concept_results.select {|cr| cr.concept_id.in?(skill.concept_ids)}
-    number_correct = concept_results.select(&:correct).length
-    number_incorrect = concept_results.reject(&:correct).length
+  def data_for_question_by_activity_session(all_concept_results, diagnostic_question_skill)
+    return {} if all_concept_results.any? { |cr| cr.extra_metadata.nil? }
+
+    concept_results = all_concept_results.select { |cr| cr.extra_metadata['question_uid'] == diagnostic_question_skill.question.uid }
+
+    return nil if concept_results.empty?
+
+    optimal = get_score_for_question(concept_results) > 0
+    number_correct = optimal ? 1 : 0
+    number_incorrect = optimal ? 0 : 1
+
     {
-      id: skill.id,
-      skill: skill.name,
+      id: diagnostic_question_skill.id,
+      name: diagnostic_question_skill.name,
       number_correct: number_correct,
       number_incorrect: number_incorrect,
       proficiency_score: calculate_proficiency_score(number_correct, number_incorrect),
@@ -54,14 +64,14 @@ module DiagnosticReports
       classroom_unit = ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
       @assigned_students = User.where(id: classroom_unit.assigned_student_ids).sort_by { |u| u.last_name }
       @activity_sessions = ActivitySession
-        .includes(:concept_results, activity: {skills: :concepts})
+        .includes(:concept_results, activity: {diagnostic_question_skills: :question})
         .where(classroom_unit: classroom_unit, is_final_score: true, user_id: classroom_unit.assigned_student_ids, activity_id: activity_id)
     else
       classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: {unit_activities: {activity_id: activity_id}})
       assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
       @assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
       @activity_sessions = ActivitySession
-        .includes(:concept_results, activity: {skills: :concepts})
+        .includes(:concept_results, activity: {diagnostic_question_skills: :question})
         .where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, is_final_score: true, user_id: assigned_student_ids)
         .order(completed_at: :desc)
         .uniq { |activity_session| activity_session.user_id }
@@ -78,7 +88,7 @@ module DiagnosticReports
     assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
     @pre_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
     @pre_test_activity_sessions = ActivitySession
-      .includes(:concept_results, activity: {skills: :concepts})
+      .includes(:concept_results, activity: {diagnostic_question_skills: :question})
       .where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished', user_id: assigned_student_ids)
       .order(completed_at: :desc)
       .uniq { |activity_session| activity_session.user_id }
@@ -93,7 +103,7 @@ module DiagnosticReports
     assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
     @post_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
     @post_test_activity_sessions = ActivitySession
-      .includes(:concept_results, activity: :skills)
+      .includes(:concept_results, activity: :diagnostic_question_skills)
       .where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished', user_id: assigned_student_ids)
       .order(completed_at: :desc)
       .uniq { |activity_session| activity_session.user_id }

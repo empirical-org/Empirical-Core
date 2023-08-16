@@ -182,6 +182,9 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
             type="button"
           >
             Pack type
+            <div
+              className="sort-tooltip-container"
+            />
           </button>
         </th>
         <th
@@ -201,6 +204,9 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
             type="button"
           >
             Pack name
+            <div
+              className="sort-tooltip-container"
+            />
           </button>
         </th>
         <th
@@ -220,6 +226,9 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
             type="button"
           >
             Tools
+            <div
+              className="sort-tooltip-container"
+            />
           </button>
         </th>
         <th
@@ -239,6 +248,9 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
             type="button"
           >
             Grade Level
+            <div
+              className="sort-tooltip-container"
+            />
           </button>
         </th>
         <th
@@ -258,6 +270,9 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
             type="button"
           >
             Activities
+            <div
+              className="sort-tooltip-container"
+            />
           </button>
         </th>
         <th
@@ -277,6 +292,9 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
             type="button"
           >
             Duration
+            <div
+              className="sort-tooltip-container"
+            />
           </button>
         </th>
       </tr>

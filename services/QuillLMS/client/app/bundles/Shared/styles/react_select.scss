@@ -42,8 +42,8 @@
 .Select.is-open > .Select-control {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
-  background: #fff;
-  border-color: #b3b3b3 #ccc #d9d9d9;
+  background: $quill-white;
+  border-color: #b3b3b3 #ccc $quill-grey-10;
 }
 .Select.is-open > .Select-control .Select-arrow {
   top: -2px;
@@ -57,12 +57,12 @@
   cursor: text;
 }
 .Select.is-focused > .Select-control {
-  background: #fff;
+  background: $quill-white;
 }
 .Select.is-focused:not(.is-open) > .Select-control {
   border-color: #007eff;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px rgba(0, 126, 255, 0.1);
-  background: #fff;
+  background: $quill-white;
 }
 .Select.has-value.is-clearable.Select--single > .Select-control .Select-value {
   padding-right: 42px;
@@ -86,22 +86,22 @@
 }
 .Select.has-value.Select--single > .Select-control .Select-value a.Select-value-label:focus,
 .Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value a.Select-value-label:focus {
-  background: #fff;
+  background: $quill-white;
 }
 .Select.has-value.is-pseudo-focused .Select-input {
   opacity: 0;
 }
 .Select.is-open .Select-arrow,
 .Select .Select-arrow-zone:hover > .Select-arrow {
-  border-top-color: #666;
+  border-top-color: $quill-grey-40;
 }
 .Select.Select--rtl {
   direction: rtl;
   text-align: right;
 }
 .Select-control {
-  background-color: #fff;
-  border-color: #d9d9d9 #ccc #b3b3b3;
+  background-color: $quill-white;
+  border-color: $quill-grey-10 #ccc #b3b3b3;
   border-radius: 4px;
   border: 1px solid #ccc;
   color: #333;
@@ -120,7 +120,7 @@
 }
 .Select-control .Select-input:focus {
   outline: none;
-  background: #fff;
+  background: $quill-white;
 }
 .Select-placeholder,
 .Select--single > .Select-control .Select-value {
@@ -272,7 +272,7 @@
 .Select-menu-outer {
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
-  background-color: #fff;
+  background-color: $quill-white;
   border: 1px solid #ccc;
   border-top-color: #e6e6e6;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
@@ -292,8 +292,8 @@
 }
 .Select-option {
   box-sizing: border-box;
-  background-color: #fff;
-  color: #666666;
+  background-color: $quill-white;
+  color: $quill-grey-40;
   cursor: pointer;
   display: block;
   padding: 8px 10px;
