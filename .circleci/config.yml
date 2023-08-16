@@ -259,7 +259,7 @@ jobs:
           POSTGRES_DB: quill_cms_test_db
           POSTGRES_PASSWORD: password
           discovery.type: single-node
-      - image: docker.elastic.co/elasticsearch/elasticsearch:7.2.1
+      - image: docker.elastic.co/elasticsearch/elasticsearch:6.8.0
         environment:
           xpack.security.enabled: false
           discovery.type: single-node

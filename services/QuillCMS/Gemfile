@@ -40,8 +40,8 @@ gem 'rails_autoscale_agent', '~> 0.10'
 gem 'active_model_serializers', '~> 0.10'
 
 # SEARCH
-gem 'elasticsearch-model', '~> 7.2.1'
-gem 'elasticsearch-rails', '~> 7.2.1'
+gem 'elasticsearch-model', '~> 6.1.2'
+gem 'elasticsearch-rails', '~> 6.1.2'
 gem 'kaminari', '~> 1.2'
 
 # OTHER
