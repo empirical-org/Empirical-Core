@@ -191,7 +191,7 @@ const CanvasIntegrationForm = ({ passedSchools }) => {
   }
 
   const renderCanvasIntegrationForm = () => (
-    <form id='new_canvas_integration' className='container' style={{ marginTop: '20px' }}>
+    <form className='container' id='new_canvas_integration' style={{ marginTop: '20px' }}>
       <h4>New Canvas Integration</h4>
       <br />
       {urlInput()}

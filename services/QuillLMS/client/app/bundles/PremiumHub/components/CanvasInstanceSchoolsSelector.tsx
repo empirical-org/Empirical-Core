@@ -32,13 +32,13 @@ const CanvasInstanceSchoolsSelector = ({ schools, setSelectedSchoolIds, selected
 
   return (
     <DataTable
-      rows={selectedSchools}
-      headers={headers}
-      showCheckboxes={true}
-      checkRow={checkRow}
-      uncheckRow={uncheckRow}
-      uncheckAllRows={uncheckAllRows}
       checkAllRows={checkAllRows}
+      checkRow={checkRow}
+      headers={headers}
+      rows={selectedSchools}
+      showCheckboxes={true}
+      uncheckAllRows={uncheckAllRows}
+      uncheckRow={uncheckRow}
     />
   );
 };
