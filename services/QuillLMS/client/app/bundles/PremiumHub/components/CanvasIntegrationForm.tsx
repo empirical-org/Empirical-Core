@@ -9,7 +9,8 @@ export const SCHOOLS_WITH_SUBSCRIPTIONS_PATH = '/subscriptions/school_admin_subs
 
 type InputElement = React.ChangeEvent<HTMLInputElement>
 
-const CanvasIntegrationForm = ({ passedSchools }) => {
+// passedSchools for testing purposes
+const CanvasIntegrationForm = ({ passedSchools = [] }) => {
   const [canvasIntegrations, setCanvasIntegrations] = React.useState([])
   const [clientId, setClientId] = React.useState('')
   const [clientSecret, setClientSecret] = React.useState('')
