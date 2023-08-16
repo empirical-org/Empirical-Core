@@ -11,8 +11,6 @@ import AdminsTeachers from '../components/adminsTeachers.tsx';
 import CreateNewAccounts from '../components/createNewAccounts.tsx';
 import PremiumFeatures from '../components/premiumFeatures.tsx';
 import { FULL, LIMITED, RESTRICTED, } from '../shared';
-import CanvasInstanceForm from '../components/CanvasInstanceForm';
-import { handleHasAppSetting } from "../../Shared/utils/appSettingAPIs";
 
 const DEFAULT_MODEL = { teachers: [] }
 
@@ -22,15 +20,12 @@ const PremiumHub = ({ adminId, accessType, passedModel, }) => {
   const [error, setError] = React.useState(null)
   const [showSnackbar, setShowSnackbar] = React.useState(false);
   const [snackbarText, setSnackbarText] = React.useState('');
-  const [hasAppSetting, setHasAppSetting] = React.useState(false);
-
-  handleHasAppSetting({appSettingSetter: setHasAppSetting, errorSetter: setError, key: 'canvas_integration' })
 
   React.useEffect(getData, [])
 
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
-  function getData(skipLoading=false) {
+  function getData(skipLoading = false) {
     initializePusher(skipLoading);
     requestGet(
       `${process.env.DEFAULT_URL}/admins/${adminId}`,
@@ -135,11 +130,11 @@ const PremiumHub = ({ adminId, accessType, passedModel, }) => {
     uploadTeachersViaCSVElement = <a className="quill-button secondary outlined fun focus-on-light csv-button" href="mailto:hello@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email.">Upload teachers via CSV</a>
   }
 
-  if(loading) {
+  if (loading) {
     return <LoadingSpinner />;
   }
 
-  return(
+  return (
     <div className="container gray-background-accommodate-footer">
       <div className="sub-container">
         <Snackbar text={snackbarText} visible={showSnackbar} />
@@ -168,7 +163,6 @@ const PremiumHub = ({ adminId, accessType, passedModel, }) => {
           refreshData={getData}
           schools={model.schools}
         />
-        {hasAppSetting && <CanvasInstanceForm />}
       </div>
     </div>
   );
