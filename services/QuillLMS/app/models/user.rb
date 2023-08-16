@@ -179,6 +179,15 @@ class User < ApplicationRecord
   has_many :canvas_accounts, dependent: :destroy
   has_many :canvas_instances, through: :canvas_accounts
 
+  has_many :administered_school_canvas_instance_schools, through: :administered_schools, source: :canvas_instance_schools
+
+  has_many :administered_school_canvas_instances_with_canvas_configs,
+    -> { joins(:canvas_config).where.not(canvas_configs: { id: nil }).distinct },
+    through: :administered_school_canvas_instance_schools,
+    source: :canvas_instance
+
+  has_many :administered_school_canvas_configs, through: :administered_school_canvas_instances, source: :canvas_config
+
   accepts_nested_attributes_for :auth_credential, :canvas_accounts
 
   delegate :name, :mail_city, :mail_state,
