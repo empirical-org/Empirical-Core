@@ -25,7 +25,7 @@ class CanvasInstancesController < ApplicationController
   end
 
   private def canvas_instance
-    @canvas_instance ||= CanvasInstance.find_or_create_by!(canvas_instance_params)
+    @canvas_instance ||= CanvasInstance.find_or_create_by!(url: canvas_instance_params[:url].chomp('/'))
   end
 
   private def canvas_instance_params
