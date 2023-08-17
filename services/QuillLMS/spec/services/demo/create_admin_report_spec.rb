@@ -57,7 +57,7 @@ RSpec.describe Demo::CreateAdminReport do
     end
   end
 
-  it 'should create every classroom from the data hash, associated with the correct teacher, each with five students and between 112-140 activity sessions' do
+  it 'should create every classroom from the data hash, associated with the correct teacher, each with five students and between 10-30 activity sessions' do
     subject.data.each do |row|
       classroom = Classroom.find_by_name(row['Classroom'])
       teacher = User.find_by_name(row['Teacher'])
