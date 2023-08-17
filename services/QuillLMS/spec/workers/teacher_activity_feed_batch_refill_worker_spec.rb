@@ -12,7 +12,7 @@ describe TeacherActivityFeedBatchRefillWorker, type: :worker do
     expect(TeacherActivityFeedRefillWorker).to receive(:perform_in).with(0, teacher_in_window1.id)
     expect(TeacherActivityFeedRefillWorker).to receive(:perform_in).with(7, teacher_in_window2.id)
 
-    run_delay = 7
+    run_delay = 7.seconds.to_i
 
     worker.perform('2020-01-01', '2020-01-31', run_delay)
   end
