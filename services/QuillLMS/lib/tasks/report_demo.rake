@@ -9,7 +9,7 @@ namespace :report_demo do
     Demo::ReportDemoCreator::create_demo("hello+#{name}@quill.org")
   end
 
-  desc "Assign ACTIVITY_PACK_TEMPLATES with the result of this rake task"
+  desc "Generate new data for the ACTIVITY_PACK_TEMPLATES"
   task :generate_new_data, [:email] => :environment do |_, args|
     user = User.find_by(email: args[:email])
     classroom = user.classrooms_i_teach.first
@@ -30,6 +30,8 @@ namespace :report_demo do
       end
     end
 
+    # Copy and paste result into the ACTIVITY_PACK_TEMPLATES constant in Demo::ReportDemoCreator
+    # Add necessary formatting to make it look like the previous template
     puts result
   end
 end
