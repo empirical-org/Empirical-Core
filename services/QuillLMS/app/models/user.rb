@@ -861,6 +861,10 @@ class User < ApplicationRecord
       &.user_external_id
   end
 
+  def unlink_clever_and_google_accounts!
+    update!(clever_id: nil, google_id: nil, signed_up_with_google: false)
+  end
+
   private def validate_flags
     invalid_flags = flags - VALID_FLAGS
 
