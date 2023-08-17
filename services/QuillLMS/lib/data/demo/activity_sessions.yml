@@ -1,1 +1,2837 @@
---- []
+---
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 194022626
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 2371
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862324
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-14 17:32:29.546376000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: DYEMjx_LPEvQG_AFC_6XPg
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"so": 63, "but": 15, "because": 46,
+      "reading": 85, "onboarding": 3}, "student_highlights": ["There is one animal,
+      however, that he doesn’t seem to mind being particularly close to—the red-billed
+      oxpecker.", "Scientists have discovered that the tiny birds could possibly play
+      a key role in black rhinos’ long term survival."]}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-14 17:28:52.753382000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-14 17:32:29.546502000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-14 17:28:52.747613000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225719
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 212
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 194022050
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 2317
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862324
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-14 17:28:37.987511000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: jPUnyrqc6d_k9l6IQDxM0Q
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"so": 41, "but": 99, "because": 37,
+      "reading": 74, "onboarding": 5}, "student_highlights": ["Administrators and
+      teachers also argue that the appeal of texting, social media, and other apps
+      makes cell phones distracting and disruptive.", "As Ms. Frank put it, “You’ve
+      got to teach the kids how to manage their technology… if we’re not going to
+      do it in school, where’s it going to be done?”"]}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-14 17:24:11.419770000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-14 17:28:37.987709000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-14 17:24:11.414065000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225719
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 256
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 194020789
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 1676
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862324
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-14 17:24:00.131260000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: um797-ZEJ6i2AEifOZZY_A
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"so": 66, "but": 71, "because": 138,
+      "reading": 64, "onboarding": 3}, "student_highlights": ["Some proposed that
+      New York City invest in building flood walls and levees on the shore rather
+      than surge barriers in the water.", "For example, the surge barrier could interrupt
+      the spawning season for many fish."]}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-14 17:16:11.459380000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-14 17:24:00.131441000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-14 17:16:11.453740000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225719
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 342
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193965931
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 846
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862322
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.4
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-11 20:20:20.833204000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: VOx8NzQBjx1bL4aGlsyMmw
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 3, "prompt_1": 58, "prompt_2":
+      81, "prompt_3": 66, "prompt_4": 115, "prompt_5": 55}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-11 20:14:01.479737000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-11 20:20:20.833305000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-11 20:14:01.474971000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7226350
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 378
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193965251
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 600
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862322
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.44
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-11 20:13:53.519185000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: h7SU_hrDXufXI_wkjMW9YQ
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 3, "prompt_1": 56, "prompt_2":
+      75, "prompt_3": 39, "prompt_4": 52, "prompt_5": 60, "prompt_6": 32, "prompt_7":
+      50, "prompt_8": 96, "prompt_9": 55}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-11 19:59:28.745673000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-11 20:13:53.519295000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-11 19:59:28.741583000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7226350
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 518
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193964597
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 712
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862322
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.57
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-11 19:55:31.766406000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: 6HutaszaEHltHwuIzMejNg
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 3, "prompt_1": 65, "prompt_2":
+      45, "prompt_3": 31, "prompt_4": 56, "prompt_5": 76, "prompt_6": 12, "prompt_7":
+      11}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-11 19:46:24.299836000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-11 19:55:31.766511000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-11 19:46:24.294934000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7226350
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 299
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193964138
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 599
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862322
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.5
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-11 19:46:17.753184000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: PFT_NPlGY71wKULiuaj_kA
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 3, "prompt_1": 94, "prompt_2":
+      42, "prompt_3": 40, "prompt_4": 46, "prompt_5": 22, "prompt_6": 22, "prompt_7":
+      43, "prompt_8": 34, "prompt_9": 37, "prompt_10": 32}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-11 19:39:21.157512000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-11 19:46:17.753313000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-11 19:39:21.152084000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7226350
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 415
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193963515
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 765
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862322
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.5
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-11 19:39:11.659291000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: ezKl3kbslKo3VIKg1iEceQ
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 5, "prompt_1": 62, "prompt_2":
+      47, "prompt_3": 42, "prompt_4": 35, "prompt_5": 38, "prompt_6": 17, "prompt_7":
+      25, "prompt_8": 36, "prompt_9": 32, "prompt_10": 39}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-11 19:32:15.575814000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-11 19:39:11.659401000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-11 19:32:15.571422000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7226350
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 378
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193845643
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 886
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862323
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.9
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 15:34:15.624379000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: 2coRlQ0XgQpC2A8vu-_XiQ
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 5, "prompt_1": 24, "prompt_2":
+      52, "prompt_3": 26, "prompt_4": 19, "prompt_5": 17, "prompt_6": 31, "prompt_7":
+      43, "prompt_8": 28, "prompt_9": 18, "prompt_10": 21}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 15:29:32.903919000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 15:34:15.624496000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 15:29:32.892308000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 284
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193845322
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 887
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862323
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.7
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 15:29:25.546239000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: yur39GLYx_aKwpfB-mV-Uw
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 4, "prompt_1": 42, "prompt_2":
+      33, "prompt_3": 10, "prompt_4": 20, "prompt_5": 17, "prompt_6": 22, "prompt_7":
+      19, "prompt_8": 18, "prompt_9": 21, "prompt_10": 45}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 15:25:16.116282000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 15:29:25.546355000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 15:25:16.111417000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 251
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193845147
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 801
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862323
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.9
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 15:25:07.461446000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: eQ1w1bpZ0zWfaUKQ4rERvA
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 3, "prompt_1": 22, "prompt_2":
+      8, "prompt_3": 17, "prompt_4": 14, "prompt_5": 17, "prompt_6": 16, "prompt_7":
+      8, "prompt_8": 54, "prompt_9": 8, "prompt_10": 13}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 15:22:05.508310000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 15:25:07.461596000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 15:22:05.502348000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 180
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193844857
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 885
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862323
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.7
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 15:21:55.937876000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: uTt5f0H3B5thNsyXrUDsmw
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 57, "prompt_1": 41, "prompt_2":
+      12, "prompt_3": 29, "prompt_4": 18, "prompt_5": 15, "prompt_6": 42, "prompt_7":
+      15, "prompt_8": 19, "prompt_9": 51, "prompt_10": 19}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 15:16:33.298815000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 15:21:55.938016000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 15:16:33.294075000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 318
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193844668
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 804
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862323
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.9
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 15:16:16.859350000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: "-si_XtbUIftSvSEu6HGVqw"
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 5, "prompt_1": 28, "prompt_2":
+      13, "prompt_3": 13, "prompt_4": 15, "prompt_5": 21, "prompt_6": 14, "prompt_7":
+      20, "prompt_8": 18, "prompt_9": 14, "prompt_10": 21}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 15:13:14.930366000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 15:16:16.859451000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 15:13:14.924915000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 182
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193844347
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 181
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862323
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.67
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 15:13:09.966637000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: 5R5q1oifoY4hy-zy4nHZ-Q
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 3, "prompt_1": 17, "prompt_2":
+      8, "prompt_3": 72, "prompt_4": 57, "prompt_5": 14, "prompt_6": 59, "prompt_7":
+      25, "prompt_8": 13, "prompt_9": 14}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 15:08:27.605286000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 15:13:09.966771000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 15:08:27.600337000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 282
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193843988
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 802
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862323
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.6
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 15:08:16.591542000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: rMgzsE8VHmskbXRwxsZudw
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 3, "prompt_1": 66, "prompt_2":
+      44, "prompt_3": 52, "prompt_4": 14, "prompt_5": 35, "prompt_6": 37, "prompt_7":
+      56, "prompt_8": 49, "prompt_9": 13, "prompt_10": 7}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 15:01:59.478689000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 15:08:16.591668000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 15:01:59.474396000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 376
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193885144
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 801
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862321
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-10 15:42:10.159093000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: _5_x96Amc9rdN9cpWxFG6w
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 2, "prompt_1": 41, "prompt_2":
+      57, "prompt_3": 20, "prompt_4": 62, "prompt_5": 13, "prompt_6": 11, "prompt_7":
+      15, "prompt_8": 12, "prompt_9": 15, "prompt_10": 10}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-10 15:37:40.004224000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-10 15:42:10.159251000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-10 15:37:39.999833000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 258
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193884485
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 887
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862321
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-10 15:37:19.123646000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: wiVf6TNOEXkfZCsHpmtfWA
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 2, "prompt_1": 16, "prompt_2":
+      10, "prompt_3": 10, "prompt_4": 43, "prompt_5": 12, "prompt_6": 17, "prompt_7":
+      24, "prompt_8": 18, "prompt_9": 24, "prompt_10": 36}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-10 15:29:56.934179000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-10 15:37:19.123813000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-10 15:29:56.929406000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 212
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193848952
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 804
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862321
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.8
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 16:47:04.033201000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: odqgalNX9wZR78WuYv_ObQ
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 16, "prompt_1": 27, "prompt_2":
+      67, "prompt_3": 30, "prompt_4": 23, "prompt_5": 15, "prompt_6": 12, "prompt_7":
+      10, "prompt_8": 14, "prompt_9": 14, "prompt_10": 18}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 16:14:29.395417000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 16:47:04.033319000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 16:14:29.388790000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 246
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193851419
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 885
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862321
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-10 15:29:14.353005000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: 2pujXyBY561HlOVcHifjzg
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 4, "prompt_1": 11, "prompt_2":
+      9, "prompt_3": 11, "prompt_4": 20, "prompt_5": 12, "prompt_6": 10, "prompt_7":
+      14, "prompt_8": 13, "prompt_9": 17, "prompt_10": 18}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 16:47:21.221961000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-10 15:29:14.353157000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 16:47:21.216961000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 139
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193883688
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 886
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862321
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.7
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-10 15:26:32.245131000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: LMQ-obeJXHjyIm6mk6jD_g
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 3, "prompt_1": 36, "prompt_2":
+      40, "prompt_3": 34, "prompt_4": 36, "prompt_5": 30, "prompt_6": 31, "prompt_7":
+      62, "prompt_8": 35, "prompt_9": 14, "prompt_10": 20}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-10 15:20:50.381550000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-10 15:26:32.245331000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-10 15:20:50.377122000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 341
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193847614
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 181
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862321
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.67
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 16:13:47.420691000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: hDF4jJ85rAnstOcNzg0iBg
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 3, "prompt_1": 17, "prompt_2":
+      17, "prompt_3": 19, "prompt_4": 20, "prompt_5": 56, "prompt_6": 23, "prompt_7":
+      57, "prompt_8": 56, "prompt_9": 110}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 15:55:40.479148000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 16:13:47.420814000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 15:55:40.474601000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 378
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193846496
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 802
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862321
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.9
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 15:51:23.364882000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: DDdvz2qL66VTiQe20t-HGA
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 3, "prompt_1": 14, "prompt_2":
+      29, "prompt_3": 93, "prompt_4": 12, "prompt_5": 36, "prompt_6": 17, "prompt_7":
+      78, "prompt_8": 37, "prompt_9": 12, "prompt_10": 62}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 15:41:25.338331000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 15:51:23.364997000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 15:41:25.333508000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 393
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193850488
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 804
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862320
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 16:38:03.469428000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: 705UXW09FiyFxHpOO3AnwA
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 2, "prompt_1": 7, "prompt_2":
+      14, "prompt_3": 11, "prompt_4": 14, "prompt_5": 10, "prompt_6": 9, "prompt_7":
+      12, "prompt_8": 13, "prompt_9": 11, "prompt_10": 49}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 16:35:29.625231000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 16:38:03.469539000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 16:35:29.620603000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 152
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193850081
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 886
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862320
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 16:32:39.515824000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: rVbRggL59tVHtHtvqLSbVQ
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 4, "prompt_1": 21, "prompt_2":
+      18, "prompt_3": 20, "prompt_4": 13, "prompt_5": 18, "prompt_6": 10, "prompt_7":
+      21, "prompt_8": 21, "prompt_9": 11, "prompt_10": 13}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 16:29:49.409528000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 16:32:39.515946000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 16:29:49.405095000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 170
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193849766
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 887
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862320
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.9
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 16:29:45.717122000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: XbJnXky7cq3DzCwDYP93AA
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 2, "prompt_1": 19, "prompt_2":
+      13, "prompt_3": 15, "prompt_4": 22, "prompt_5": 22, "prompt_6": 21, "prompt_7":
+      20, "prompt_8": 27, "prompt_9": 17, "prompt_10": 21}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 16:26:24.959441000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 16:29:45.717237000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 16:26:24.954151000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 199
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193849554
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 801
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862320
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.4
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 16:26:21.385018000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: w29pQBtL9PZ4TWCizd-sOw
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 2, "prompt_1": 25, "prompt_2":
+      18, "prompt_3": 26, "prompt_4": 24, "prompt_5": 26, "prompt_6": 19, "prompt_7":
+      12, "prompt_8": 12, "prompt_9": 10, "prompt_10": 10}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 16:23:15.648240000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 16:26:21.385129000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 16:23:15.642758000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 184
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193849441
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 885
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862320
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 16:23:12.472668000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: Nd8Qtz9W88gJjT1VyJF0ng
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 3, "prompt_1": 8, "prompt_2":
+      6, "prompt_3": 6, "prompt_4": 9, "prompt_5": 6, "prompt_6": 7, "prompt_7": 7,
+      "prompt_8": 10, "prompt_9": 24, "prompt_10": 13}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 16:21:33.762234000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 16:23:12.472770000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 16:21:33.757314000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 99
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193848943
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 181
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862320
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.22
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 16:17:55.872545000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: r_XFFpx0-I0JJ3gkEGkJrQ
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 3, "prompt_1": 34, "prompt_2":
+      31, "prompt_3": 24, "prompt_4": 27, "prompt_5": 27, "prompt_6": 21, "prompt_7":
+      12, "prompt_8": 9, "prompt_9": 24}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 16:14:23.331076000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 16:17:55.872683000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 16:14:23.325030000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 212
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193848639
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 802
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862320
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.4
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 16:14:18.259788000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: Pj0ZAd5ofW837v9EPK3nUA
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 3, "prompt_1": 47, "prompt_2":
+      35, "prompt_3": 37, "prompt_4": 23, "prompt_5": 24, "prompt_6": 23, "prompt_7":
+      26, "prompt_8": 8, "prompt_9": 6, "prompt_10": 5}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 16:10:20.334758000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 16:14:18.259902000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 16:10:20.330387000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225691
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 237
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193841233
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 1664
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862324
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 14:28:57.462455000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: 9eFUS03Jydj_B4R794l1gA
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 2, "prompt_1": 5, "prompt_2":
+      6, "prompt_3": 4, "prompt_4": 7, "prompt_5": 8, "prompt_6": 4, "prompt_7": 18,
+      "prompt_8": 14, "prompt_9": 20, "prompt_10": 12, "prompt_11": 7, "prompt_12":
+      12, "prompt_13": 17, "prompt_14": 14, "prompt_15": 18, "prompt_16": 17, "prompt_17":
+      15, "prompt_18": 30, "prompt_19": 9, "prompt_20": 12, "prompt_21": 66, "title_card_1":
+      1, "title_card_2": 1}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 14:14:08.478303000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 14:28:57.462574000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 14:14:08.454947000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225692
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 319
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193846072
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 1664
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862323
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 15:41:54.604480000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: 1gfOl0sZsuGUWx2Qv2bNEQ
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 1, "prompt_1": 40, "prompt_2":
+      12, "prompt_3": 6, "prompt_4": 13, "prompt_5": 10, "prompt_6": 13, "prompt_7":
+      5, "prompt_8": 39, "prompt_9": 13, "prompt_10": 14, "prompt_11": 12, "prompt_12":
+      18, "prompt_13": 14, "prompt_14": 25, "prompt_15": 22, "prompt_16": 16, "prompt_17":
+      9, "prompt_18": 31, "prompt_19": 20, "prompt_20": 8, "prompt_21": 19, "title_card_1":
+      36, "title_card_2": 5}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 15:34:46.537598000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 15:41:54.604589000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 15:34:46.532455000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225692
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 401
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193962171
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 1664
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862322
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-14 18:58:09.804948000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: 43TlhDRvxEmuukd3Tu3E4g
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 6, "prompt_1": 17, "prompt_2":
+      9, "prompt_3": 9, "prompt_4": 41, "prompt_5": 15, "prompt_6": 8, "prompt_7":
+      18, "prompt_8": 20, "prompt_9": 29, "prompt_10": 15, "prompt_11": 10, "prompt_12":
+      32, "prompt_13": 20, "prompt_14": 38, "prompt_15": 71, "prompt_16": 42, "prompt_17":
+      19, "prompt_18": 18, "prompt_19": 21, "prompt_20": 18, "prompt_21": 34, "title_card_1":
+      2, "title_card_2": 1}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-11 19:16:41.021849000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-14 18:58:09.805084000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-11 19:16:41.016903000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225692
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 513
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193885534
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 1664
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862321
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-10 15:49:43.394330000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: irWgv0YIyfcni0TbzTqqjA
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 1, "prompt_1": 8, "prompt_2":
+      6, "prompt_3": 4, "prompt_4": 9, "prompt_5": 7, "prompt_6": 6, "prompt_7": 6,
+      "prompt_8": 16, "prompt_9": 28, "prompt_10": 15, "prompt_11": 12, "prompt_12":
+      12, "prompt_13": 14, "prompt_14": 15, "prompt_15": 19, "prompt_16": 83, "prompt_17":
+      15, "prompt_18": 53, "prompt_19": 12, "prompt_20": 9, "prompt_21": 24, "title_card_1":
+      4, "title_card_2": 1}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-10 15:42:40.651924000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-10 15:49:43.394493000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-10 15:42:40.647571000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225692
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 379
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193851076
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 1664
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862320
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 16:46:05.571899000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: rm3Akt6nQqiN_CrBY0cM0w
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 1, "prompt_1": 4, "prompt_2":
+      3, "prompt_3": 3, "prompt_4": 6, "prompt_5": 5, "prompt_6": 4, "prompt_7": 3,
+      "prompt_8": 10, "prompt_9": 13, "prompt_10": 9, "prompt_11": 9, "prompt_12":
+      10, "prompt_13": 8, "prompt_14": 14, "prompt_15": 10, "prompt_16": 13, "prompt_17":
+      10, "prompt_18": 11, "prompt_19": 16, "prompt_20": 8, "prompt_21": 9, "title_card_1":
+      1, "title_card_2": 1}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 16:43:02.743580000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 16:46:05.572008000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 16:43:02.738663000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7225692
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 181
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193941266
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 1440
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862324
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.9
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-11 16:41:54.038221000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: Y43_-cUzkN2QNW_Dsah2Tw
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 2, "prompt_1": 38, "prompt_2":
+      8, "prompt_3": 5, "prompt_4": 14, "prompt_5": 30, "prompt_6": 11, "prompt_7":
+      4, "prompt_8": 5, "prompt_9": 4, "prompt_10": 4}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-11 16:25:44.781662000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-11 16:41:54.038345000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-11 16:25:44.776190000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7224124
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 125
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193841031
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 283
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862324
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 14:13:47.694250000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: 0y5OeD4VissWZUW8z-hfpw
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 4, "prompt_1": 13, "prompt_2":
+      15, "prompt_3": 11, "prompt_4": 14, "prompt_5": 33, "prompt_6": 9, "prompt_7":
+      9, "prompt_8": 11, "prompt_9": 10, "prompt_10": 9}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 14:11:29.598089000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 14:13:47.694351000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 14:11:29.583958000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7224124
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 138
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193838575
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 252
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862324
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.5714285714285714
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 13:26:33.000534000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: B6HSi7Xzy--qft4b1MAaRg
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 2, "prompt_1": 55, "prompt_2":
+      9, "proofreading_the_passage": 64}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 13:23:27.105006000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 13:26:33.000635000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 13:23:27.100202000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7224124
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 130
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193838191
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 808
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862324
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.5
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 13:14:51.211577000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: 7idJfQ2wFrdLacr9lzZPQQ
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 4, "prompt_1": 37, "prompt_2":
+      34, "prompt_3": 17, "prompt_4": 14, "prompt_5": 81, "prompt_6": 38, "prompt_7":
+      46, "prompt_8": 22}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 13:09:52.657508000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 13:14:51.211676000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 13:09:52.652620000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7224124
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 293
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193837704
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 1308
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862324
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.7
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 13:04:23.390331000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: YVUC4OhIohYB9HhXweJs4g
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 3, "prompt_1": 45, "prompt_2":
+      89, "prompt_3": 60, "prompt_4": 53, "prompt_5": 69, "prompt_6": 9, "prompt_7":
+      7, "prompt_8": 8, "prompt_9": 8, "prompt_10": 7}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 12:58:17.870434000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 13:04:23.390433000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 12:58:17.865368000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7224124
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 358
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193802545
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 803
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862324
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-07 20:09:42.403582000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: lR2tfBmYU2IRKkMqJkaaAA
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 3, "prompt_1": 25, "prompt_2":
+      12, "prompt_3": 19, "prompt_4": 8, "prompt_5": 9, "prompt_6": 11, "prompt_7":
+      12, "prompt_8": 15, "prompt_9": 9}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-07 20:07:38.022432000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-07 20:09:42.403683000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-07 20:07:38.017356000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7224124
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 123
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193802056
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 1663
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862324
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-07 19:48:51.621495000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: H9sPH-d34dhaed8h-8QGvQ
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 1, "prompt_1": 6, "prompt_2":
+      8, "prompt_3": 7, "prompt_4": 6, "prompt_5": 8, "prompt_6": 5, "prompt_7": 8,
+      "prompt_8": 23, "prompt_9": 27, "prompt_10": 16, "prompt_11": 12, "prompt_12":
+      13, "prompt_13": 13, "prompt_14": 17, "prompt_15": 12, "prompt_16": 24, "prompt_17":
+      15, "prompt_18": 22, "prompt_19": 24, "prompt_20": 10, "prompt_21": 18, "title_card_1":
+      1, "title_card_2": 1}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-07 19:43:51.835942000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-07 19:48:51.621616000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-07 19:43:51.831039000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7224044
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 297
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193843174
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 1663
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862323
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 14:55:46.131361000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: 1AdpYgGqJlZidmn9FjMlGw
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 1, "prompt_1": 44, "prompt_2":
+      11, "prompt_3": 6, "prompt_4": 11, "prompt_5": 10, "prompt_6": 11, "prompt_7":
+      29, "prompt_8": 19, "prompt_9": 21, "prompt_10": 15, "prompt_11": 17, "prompt_12":
+      14, "prompt_13": 18, "prompt_14": 21, "prompt_15": 16, "prompt_16": 16, "prompt_17":
+      15, "prompt_18": 19, "prompt_19": 32, "prompt_20": 21, "prompt_21": 19, "title_card_1":
+      1, "title_card_2": 1}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 14:47:57.889468000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 14:55:46.131509000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 14:47:57.884962000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7224044
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 388
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193858917
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 1663
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862322
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 18:31:07.869070000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: 4MAzOPCaT_SBZzKWBdKV1A
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 13, "prompt_1": 39, "prompt_2":
+      7, "prompt_3": 3, "prompt_4": 10, "prompt_5": 11, "prompt_6": 6, "prompt_7":
+      4, "prompt_8": 14, "prompt_9": 19, "prompt_10": 13, "prompt_11": 10, "prompt_12":
+      14, "prompt_13": 15, "prompt_14": 18, "prompt_15": 14, "prompt_16": 20, "prompt_17":
+      10, "prompt_18": 15, "prompt_19": 12, "prompt_20": 11, "prompt_21": 13, "title_card_1":
+      1, "title_card_2": 1}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 18:24:47.740997000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 18:31:07.869224000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 18:24:47.736270000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7224044
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 293
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193845015
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 1663
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862321
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 15:28:39.583481000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: HXWLC4XZUvLzqotEICy2Nw
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 2, "prompt_1": 7, "prompt_2":
+      8, "prompt_3": 6, "prompt_4": 11, "prompt_5": 20, "prompt_6": 41, "prompt_7":
+      6, "prompt_8": 20, "prompt_9": 26, "prompt_10": 18, "prompt_11": 10, "prompt_12":
+      26, "prompt_13": 16, "prompt_14": 20, "prompt_15": 22, "prompt_16": 28, "prompt_17":
+      16, "prompt_18": 22, "prompt_19": 20, "prompt_20": 9, "prompt_21": 13, "title_card_1":
+      1, "title_card_2": 4}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 15:19:56.242066000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 15:28:39.583621000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 15:19:56.236423000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7224044
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 372
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193846340
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 1663
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14862320
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-08-09 15:47:48.455949000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: dBJq_86i4Vsu3NXKH4eC5g
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 2, "prompt_1": 5, "prompt_2":
+      3, "prompt_3": 4, "prompt_4": 25, "prompt_5": 13, "prompt_6": 5, "prompt_7":
+      4, "prompt_8": 68, "prompt_9": 28, "prompt_10": 8, "prompt_11": 8, "prompt_12":
+      18, "prompt_13": 10, "prompt_14": 21, "prompt_15": 9, "prompt_16": 45, "prompt_17":
+      8, "prompt_18": 8, "prompt_19": 26, "prompt_20": 36, "prompt_21": 10, "title_card_1":
+      2, "title_card_2": 1}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-08-09 15:39:05.064094000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-08-09 15:47:48.456064000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-08-09 15:39:05.058629000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7224044
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 367
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 11281766
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+    value_before_type_cast: 690774
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 434
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 312664
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2017-01-11 15:09:32.229060000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: 3WkzYfJju1rNOBx8NS78vA
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: "{}"
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2017-01-11 14:21:59.604906000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-07-21 15:46:20.702818000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2017-01-11 15:06:07.175873000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 1832347
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+  new_record: false
+  active_record_yaml_version: 2
