@@ -51,8 +51,8 @@ RSpec.describe Demo::ReportDemoCreator do
     let!(:teacher) {create(:teacher)}
     let(:session_data) { Demo::SessionData.new }
     # essentially using these as fixtures to test the demo data
-    let(:activity_id) { 1663 }
-    let(:user_id) { 9706466 }
+    let(:activity_id) { described_class::STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID }
+    let(:user_id) { described_class::STUDENT_ID1 }
     let!(:activity) { create(:activity, id: activity_id) }
 
     let(:concept_ids) { [566, 506, 508, 641, 640, 671, 239, 551, 488, 385, 524, 540, 664, 83, 673, 450] }

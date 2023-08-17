@@ -1,24 +1,26 @@
 # frozen_string_literal: true
 
 module Demo::ReportDemoCreator
-  EMAIL = "hello+demoteacher@quill.org"
+  EMAIL = 'hello+demoteacher@quill.org'
   REPLAYED_ACTIVITY_ID = 434
   REPLAYED_SAMPLE_USER_ID = 312664
 
-  STUDENT_ID1 = 14862324
-  STUDENT_ID2 = 14862323
-  STUDENT_ID3 = 14862322
-  STUDENT_ID4 = 14862321
-  STUDENT_ID5 = 14862320
+  STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID = 1663
+
+  ANGIE_ID = 14862320
+  NIC_ID = 14862321
+  JASON_ID = 14862322
+  TAHEREH_ID= 14862323
+  KEN_ID = 14862324
 
   ACTIVITY_PACKS_TEMPLATES = [
     {
       name: 'Reading for Evidence Pack',
       activity_sessions: [
         {
-          2371 => STUDENT_ID1,
-          2317 => STUDENT_ID1,
-          1676 => STUDENT_ID1
+          2371 => KEN_ID,
+          2317 => KEN_ID,
+          1676 => KEN_ID
         }
       ]
     },
@@ -26,11 +28,11 @@ module Demo::ReportDemoCreator
       name: 'Prepositional Phrases (Starter Baseline Recommendation)',
       activity_sessions: [
         {
-          846 => STUDENT_ID3,
-          600 => STUDENT_ID3,
-          712 => STUDENT_ID3,
-          599 => STUDENT_ID3,
-          765 => STUDENT_ID3
+          846 => JASON_ID,
+          600 => JASON_ID,
+          712 => JASON_ID,
+          599 => JASON_ID,
+          765 => JASON_ID
         }
       ]
     },
@@ -38,31 +40,31 @@ module Demo::ReportDemoCreator
       name: 'Capitalization (Starter Baseline Recommendation)',
       activity_sessions: [
         {
-          886 => STUDENT_ID2,
-          887 => STUDENT_ID2,
-          801 => STUDENT_ID2,
-          885 => STUDENT_ID2,
-          804 => STUDENT_ID2,
-          181 => STUDENT_ID2,
-          802 => STUDENT_ID2
+          886 => TAHEREH_ID,
+          887 => TAHEREH_ID,
+          801 => TAHEREH_ID,
+          885 => TAHEREH_ID,
+          804 => TAHEREH_ID,
+          181 => TAHEREH_ID,
+          802 => TAHEREH_ID
         },
         {
-          801 => STUDENT_ID4,
-          887 => STUDENT_ID4,
-          804 => STUDENT_ID4,
-          885 => STUDENT_ID4,
-          886 => STUDENT_ID4,
-          181 => STUDENT_ID4,
-          802 => STUDENT_ID4
+          801 => NIC_ID,
+          887 => NIC_ID,
+          804 => NIC_ID,
+          885 => NIC_ID,
+          886 => NIC_ID,
+          181 => NIC_ID,
+          802 => NIC_ID
         },
         {
-          804 => STUDENT_ID5,
-          886 => STUDENT_ID5,
-          887 => STUDENT_ID5,
-          801 => STUDENT_ID5,
-          885 => STUDENT_ID5,
-          181 => STUDENT_ID5,
-          802 => STUDENT_ID5
+          804 => ANGIE_ID,
+          886 => ANGIE_ID,
+          887 => ANGIE_ID,
+          801 => ANGIE_ID,
+          885 => ANGIE_ID,
+          181 => ANGIE_ID,
+          802 => ANGIE_ID
         }
       ]
     },
@@ -70,19 +72,19 @@ module Demo::ReportDemoCreator
       name: 'Starter Growth Diagnostic (Post)',
       activity_sessions: [
         {
-          1664 => STUDENT_ID1
+          1664 => KEN_ID
         },
         {
-          1664 => STUDENT_ID2
+          1664 => TAHEREH_ID
         },
         {
-          1664 => STUDENT_ID3
+          1664 => JASON_ID
         },
         {
-          1664 => STUDENT_ID4
+          1664 => NIC_ID
         },
         {
-          1664 => STUDENT_ID5
+          1664 => ANGIE_ID
         }
       ]
     },
@@ -90,12 +92,12 @@ module Demo::ReportDemoCreator
       name: 'Plural and Possessive Nouns (Starter Baseline Recommendation)',
       activity_sessions: [
         {
-          1440 => STUDENT_ID1,
-          283 => STUDENT_ID1,
-          252 => STUDENT_ID1,
-          808 => STUDENT_ID1,
-          1308 => STUDENT_ID1,
-          803 => STUDENT_ID1
+          1440 => KEN_ID,
+          283 => KEN_ID,
+          252 => KEN_ID,
+          808 => KEN_ID,
+          1308 => KEN_ID,
+          803 => KEN_ID
         }
       ]
     },
@@ -103,19 +105,19 @@ module Demo::ReportDemoCreator
       name: 'Starter Baseline Diagnostic (Pre)',
       activity_sessions: [
         {
-          1663 => STUDENT_ID1
+          STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => KEN_ID
         },
         {
-          1663 => STUDENT_ID2
+          STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => TAHEREH_ID
         },
         {
-          1663 => STUDENT_ID3
+          STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => JASON_ID
         },
         {
-          1663 => STUDENT_ID4
+          STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => NIC_ID
         },
         {
-          1663 => STUDENT_ID5
+          STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => ANGIE_ID
         }
       ]
     }
@@ -134,14 +136,14 @@ module Demo::ReportDemoCreator
   end
 
   STUDENT_TEMPLATES = [
-    StudentTemplate.new(name: "Ken Liu", email_eligible: false),
-    StudentTemplate.new(name: "Jason Reynolds", email_eligible: false),
-    StudentTemplate.new(name: "Nic Stone", email_eligible: false),
-    StudentTemplate.new(name: "Tahereh Mafi", email_eligible: false),
-    StudentTemplate.new(name: "Angie Thomas", email_eligible: true)
+    StudentTemplate.new(name: 'Ken Liu', email_eligible: false),
+    StudentTemplate.new(name: 'Jason Reynolds', email_eligible: false),
+    StudentTemplate.new(name: 'Nic Stone', email_eligible: false),
+    StudentTemplate.new(name: 'Tahereh Mafi', email_eligible: false),
+    StudentTemplate.new(name: 'Angie Thomas', email_eligible: true)
   ]
   PASSWORD = 'password'
-  CLASSROOM_NAME = "Quill Classroom"
+  CLASSROOM_NAME = 'Quill Classroom'
 
   STUDENT_COUNT = STUDENT_TEMPLATES.count
   UNITS_COUNT = ACTIVITY_PACKS_TEMPLATES.count
@@ -227,12 +229,12 @@ module Demo::ReportDemoCreator
     existing_teacher.destroy if existing_teacher
 
     User.create(
-      name: "Demo Teacher",
+      name: 'Demo Teacher',
       email: email,
       role: User::TEACHER,
       password: 'password',
       password_confirmation: 'password',
-      flags: ["beta"]
+      flags: ['beta']
     )
   end
 
@@ -243,7 +245,7 @@ module Demo::ReportDemoCreator
 
   def self.create_classroom(teacher)
     values = {
-      name: "Quill Classroom",
+      name: 'Quill Classroom',
       code: classcode(teacher.id),
       grade: '9'
     }
@@ -337,7 +339,7 @@ module Demo::ReportDemoCreator
 
     return unless session_to_clone
 
-    act_session = ActivitySession.create!(activity_id: clone_activity_id, classroom_unit_id: classroom_unit_id, user_id: student_id, state: "finished", percentage: session_to_clone.percentage)
+    act_session = ActivitySession.create!(activity_id: clone_activity_id, classroom_unit_id: classroom_unit_id, user_id: student_id, state: 'finished', percentage: session_to_clone.percentage)
     concept_results = session_data.concept_results.select {|cr| cr.activity_session_id == session_to_clone.id }
     concept_results.each do |cr|
       question_type = session_data.concept_result_question_types.first {|qt| qt.id == cr.concept_result_question_type_id}
