@@ -3,7 +3,7 @@
 class TeacherActivityFeedBatchRefillWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW
-  DELAY = 3.seconds
+  DELAY = 3.seconds.to_i
 
   def perform(start_date, end_date, delay = DELAY)
     teachers = User
