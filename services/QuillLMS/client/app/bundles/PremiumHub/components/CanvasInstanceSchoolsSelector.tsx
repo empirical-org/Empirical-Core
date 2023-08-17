@@ -4,15 +4,15 @@ import { DataTable } from '../../Shared/index';
 
 const CanvasInstanceSchoolsSelector = ({ schools, setSelectedSchoolIds, selectedSchoolIds }) => {
   const checkRow = (id) => {
-    if (!selectedSchoolIds.includes(id)) {
-      setSelectedSchoolIds([...selectedSchoolIds, id]);
-    }
+    if (selectedSchoolIds.includes(id)) { return }
+
+    setSelectedSchoolIds([...selectedSchoolIds, id]);
   };
 
   const uncheckRow = (id) => {
-    if (selectedSchoolIds.includes(id)) {
-      setSelectedSchoolIds(selectedSchoolIds.filter((selectedSchoolId) => selectedSchoolId !== id));
-    }
+    if (!selectedSchoolIds.includes(id)) { return }
+
+    setSelectedSchoolIds(selectedSchoolIds.filter((selectedSchoolId) => selectedSchoolId !== id));
   };
 
   const checkAllRows = () => {

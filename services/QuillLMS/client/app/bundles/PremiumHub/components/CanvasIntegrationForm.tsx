@@ -11,6 +11,9 @@ type InputElement = React.ChangeEvent<HTMLInputElement>
 
 // passedSchools for testing purposes
 const CanvasIntegrationForm = ({ passedSchools = [] }) => {
+  React.useEffect(() => { getSchoolsWithSubscriptions() }, [])
+  React.useEffect(() => { getCanvasIntegrations() }, [])
+
   const [canvasIntegrations, setCanvasIntegrations] = React.useState([])
   const [clientId, setClientId] = React.useState('')
   const [clientSecret, setClientSecret] = React.useState('')
@@ -70,9 +73,6 @@ const CanvasIntegrationForm = ({ passedSchools = [] }) => {
     }
   }
 
-  React.useEffect(() => { getSchoolsWithSubscriptions() }, [])
-  React.useEffect(() => { getCanvasIntegrations() }, [])
-
   const getSchoolsWithSubscriptions = () => {
     requestGet(SCHOOLS_WITH_SUBSCRIPTIONS_PATH, (body) => {
       setSchoolsWithSubscriptions(body.schools)
@@ -92,7 +92,7 @@ const CanvasIntegrationForm = ({ passedSchools = [] }) => {
     && selectedSchoolIds.length > 0
   )
 
-  const urlInput = () => (
+  const urlInput = (
     <Input
       className="form-input url"
       handleChange={handleChangeInstanceUrl}
@@ -104,7 +104,7 @@ const CanvasIntegrationForm = ({ passedSchools = [] }) => {
     />
   )
 
-  const clientIdInput = () => (
+  const clientIdInput = (
     <Input
       className="form-input password"
       handleChange={handleChangeClientId}
@@ -116,7 +116,7 @@ const CanvasIntegrationForm = ({ passedSchools = [] }) => {
     />
   )
 
-  const clientSecretInput = () => (
+  const clientSecretInput = (
     <Input
       className="form-input password"
       handleChange={handleChangeClientSecret}
@@ -128,7 +128,7 @@ const CanvasIntegrationForm = ({ passedSchools = [] }) => {
     />
   )
 
-  const canvasInstanceSchoolsSelector = () => (
+  const canvasInstanceSchoolsSelector = (
     <CanvasInstanceSchoolsSelector
       schools={schoolsWithSubscriptions}
       selectedSchoolIds={selectedSchoolIds}
@@ -136,7 +136,7 @@ const CanvasIntegrationForm = ({ passedSchools = [] }) => {
     />
   )
 
-  const submitButton = () => (
+  const submitButton = (
     <button
       className={`quill-button medium primary contained focus-on-light ${validInput ? '' : 'disabled'}`}
       disabled={!validInput}
@@ -148,7 +148,7 @@ const CanvasIntegrationForm = ({ passedSchools = [] }) => {
     </button>
   )
 
-  const cancelButton = () => (
+  const cancelButton = (
     <button
       className="quill-button medium contained focus-on-light"
       id='cancel_create_canvas_integration'
@@ -195,12 +195,12 @@ const CanvasIntegrationForm = ({ passedSchools = [] }) => {
     <form className='container' id='new_canvas_integration' style={{ marginTop: '20px' }}>
       <h4>New Canvas Integration</h4>
       <br />
-      {urlInput()}
-      {clientIdInput()}
-      {clientSecretInput()}
-      {canvasInstanceSchoolsSelector()}
-      {submitButton()}
-      {cancelButton()}
+      {urlInput}
+      {clientIdInput}
+      {clientSecretInput}
+      {canvasInstanceSchoolsSelector}
+      {submitButton}
+      {cancelButton}
     </form>
   )
 
