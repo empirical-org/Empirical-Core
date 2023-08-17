@@ -9,11 +9,12 @@ namespace :report_demo do
     Demo::ReportDemoCreator::create_demo("hello+#{name}@quill.org")
   end
 
+  desc "Assign ACTIVITY_PACK_TEMPLATES with the result of this rake task"
   task :generate_new_data, [:email] => :environment do |_, args|
     user = User.find_by(email: args[:email])
     classroom = user.classrooms_i_teach.first
 
-    classroom.units.map do |unit|
+    result = classroom.units.map do |unit|
       {}.tap do |unit_result|
         unit_result[:name] = unit.name
         unit_result[:activity_sessions] = []
@@ -28,5 +29,7 @@ namespace :report_demo do
         end
       end
     end
+
+    puts result
   end
 end

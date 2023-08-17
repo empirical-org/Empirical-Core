@@ -13,6 +13,7 @@ module Demo::ReportDemoCreator
   TAHEREH_ID = 14862323
   KEN_ID = 14862324
 
+  # Use report_demo:generate_new_data to generate new data
   ACTIVITY_PACKS_TEMPLATES = [
     {
       name: 'Reading for Evidence Pack',
