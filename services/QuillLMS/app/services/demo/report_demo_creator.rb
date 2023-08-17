@@ -1,244 +1,125 @@
 # frozen_string_literal: true
 
 module Demo::ReportDemoCreator
-
   EMAIL = "hello+demoteacher@quill.org"
   REPLAYED_ACTIVITY_ID = 434
   REPLAYED_SAMPLE_USER_ID = 312664
 
+  STUDENT_ID1 = 14862324
+  STUDENT_ID2 = 14862323
+  STUDENT_ID3 = 14862322
+  STUDENT_ID4 = 14862321
+  STUDENT_ID5 = 14862320
+
   ACTIVITY_PACKS_TEMPLATES = [
     {
-      name: "Quill Activity Pack",
+      name: 'Reading for Evidence Pack',
       activity_sessions: [
         {
-          1663 => 9706466,
-          437 => 313241,
-          434 => 446637,
-          215 => 369874,
-          41 => 438155,
-          386 => 387966,
-          289 => 442653,
-          295 => 442645,
-          418 => 662204,
-          995 => 14814066
-        },
-        {
-          1663 => 9706465,
-          437 => 409030,
-          434 => 313319,
-          215 => 370995,
-          41 => 459240,
-          386 => 387956,
-          289 => 442649,
-          295 => 442649,
-          418 => 662204
-        },
-        {
-          1663 => 9706463,
-          437 => 446637,
-          434 => 312664,
-          215 => 369875,
-          41 => 438144,
-          386 => 387967,
-          289 => 442670,
-          295 => 442638,
-          418 => 662204
-        },
-        {
-          1663 => 9962415,
-          437 => 312664,
-          434 => 313241,
-          215 => 369883,
-          41 => 438171,
-          386 => 387954,
-          289 => 442645,
-          295 => 442653,
-          418 => 662204
-        },
-        {
-          1663 => 9962377,
-          437 => 446641,
-          434 => 446641,
-          215 => 369872,
-          41 => 438152,
-          386 => 387948,
-          289 => 442656,
-          295 => 442643,
-          418 => 662204
+          2371 => STUDENT_ID1,
+          2317 => STUDENT_ID1,
+          1676 => STUDENT_ID1
         }
       ]
     },
     {
-      name: "Paragraph Transitions",
+      name: 'Prepositional Phrases (Starter Baseline Recommendation)',
       activity_sessions: [
         {
-          851 => 9962415,
-          863 => 9962415,
-          861 => 9962415,
-          985 => 9962415,
-          986 => 9962415,
-          1446 => 9962415
-        },
-        {
-          851 => 9706466,
-          863 => 9706466,
-          861 => 9706466,
-          985 => 9706466,
-          986 => 9706466,
-          1446 => 9706466
-        },
-        {
-          851 => 9706464,
-          863 => 9706464,
-          861 => 9706464,
-          985 => 9706464,
-          986 => 9706464,
-          1446 => 9706464
-        },
-        {
-          851 => 9706465,
-          863 => 9706465,
-          861 => 9706465,
-          985 => 9706465,
-          986 => 9706465,
-          1446 => 9706465
-        },
-        {
-          851 => 9962377,
-          863 => 9962377,
-          861 => 9962377,
-          985 => 9962377,
-          986 => 9962377,
-          1446 => 9962377
+          846 => STUDENT_ID3,
+          600 => STUDENT_ID3,
+          712 => STUDENT_ID3,
+          599 => STUDENT_ID3,
+          765 => STUDENT_ID3
         }
       ]
     },
     {
-      name: "Social Studies: Maya, Aztec, and Inca Sentence Combining Practice",
+      name: 'Capitalization (Starter Baseline Recommendation)',
       activity_sessions: [
         {
-          627 => 9962415,
-          628 =>  9962415,
-          629 => 9962415,
-          535 => 9962415,
-          523 => 9962415
+          886 => STUDENT_ID2,
+          887 => STUDENT_ID2,
+          801 => STUDENT_ID2,
+          885 => STUDENT_ID2,
+          804 => STUDENT_ID2,
+          181 => STUDENT_ID2,
+          802 => STUDENT_ID2
         },
         {
-          627 => 9706466,
-          628 =>  9706466,
-          629 => 9706466,
-          535 => 9706466,
-          523 => 9706466
+          801 => STUDENT_ID4,
+          887 => STUDENT_ID4,
+          804 => STUDENT_ID4,
+          885 => STUDENT_ID4,
+          886 => STUDENT_ID4,
+          181 => STUDENT_ID4,
+          802 => STUDENT_ID4
         },
         {
-          627 => 9706464,
-          628 =>  9706464,
-          629 => 9706464,
-          535 => 9706464,
-          523 => 9706464
-        },
-        {
-          627 => 9706465,
-          628 =>  9706465,
-          629 => 9706465,
-          535 => 9706465,
-          523 => 9706465
-        },
-        {
-          627 => 9962377,
-          628 =>  9962377,
-          629 => 9962377,
-          535 => 9962377,
-          523 => 9962377
+          804 => STUDENT_ID5,
+          886 => STUDENT_ID5,
+          887 => STUDENT_ID5,
+          801 => STUDENT_ID5,
+          885 => STUDENT_ID5,
+          181 => STUDENT_ID5,
+          802 => STUDENT_ID5
         }
       ]
     },
     {
-      name: "Subject-Verb Agreement Practice",
+      name: 'Starter Growth Diagnostic (Post)',
       activity_sessions: [
         {
-          742 => 9962415,
-          751 => 9962415,
-          765 => 9962415
+          1664 => STUDENT_ID1
         },
         {
-          742 => 9706466,
-          751 => 9706466,
-          765 => 9706466
+          1664 => STUDENT_ID2
         },
         {
-          742 => 9706464,
-          751 => 9706464,
-          765 => 9706464
+          1664 => STUDENT_ID3
         },
         {
-          742 => 9706465,
-          751 => 9706465,
-          765 => 9706465
+          1664 => STUDENT_ID4
         },
         {
-          742 => 9962377,
-          751 => 9962377,
-          765 => 9962377
+          1664 => STUDENT_ID5
         }
       ]
     },
     {
-      name: "Starter Growth Diagnostic (Post)",
+      name: 'Plural and Possessive Nouns (Starter Baseline Recommendation)',
       activity_sessions: [
         {
-          1664 => 11662573
-        },
-        {
-          1664 => 9706466
-        },
-        {
-          1664 => 9706464
-        },
-        {
-          1664 => 9706465
-        },
-        {
-          1664 => 9962377
+          1440 => STUDENT_ID1,
+          283 => STUDENT_ID1,
+          252 => STUDENT_ID1,
+          808 => STUDENT_ID1,
+          1308 => STUDENT_ID1,
+          803 => STUDENT_ID1
         }
       ]
     },
     {
-      name: "Evidence-Based Writing: Ethics in Science [Beta]",
+      name: 'Starter Baseline Diagnostic (Pre)',
       activity_sessions: [
         {
-          1726 => 11776892,
-          1815 => 11776892,
-          1813 => 11776892,
-          1830 => 11776892
+          1663 => STUDENT_ID1
         },
         {
-          1726 => 11776894,
-          1815 => 11776894,
-          1813 => 11776894,
-          1830 => 11776894
+          1663 => STUDENT_ID2
         },
         {
-          1726 => 11776893,
-          1815 => 11776893,
-          1813 => 11776893,
-          1830 => 11776893
+          1663 => STUDENT_ID3
         },
         {
-          1726 => 11776896,
-          1815 => 11776896,
-          1813 => 11776896,
-          1830 => 11776896
+          1663 => STUDENT_ID4
         },
         {
-          1726 => 11776895,
-          1815 => 11776895,
-          1813 => 11776895,
-          1830 => 11776895
+          1663 => STUDENT_ID5
         }
       ]
     }
-  ]
+]
 
   StudentTemplate = Struct.new(:name, :email_eligible, keyword_init: true) do
     def username(classroom_id)
