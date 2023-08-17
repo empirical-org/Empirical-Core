@@ -119,7 +119,7 @@ module Demo::ReportDemoCreator
         }
       ]
     }
-]
+  ]
 
   StudentTemplate = Struct.new(:name, :email_eligible, keyword_init: true) do
     def username(classroom_id)
