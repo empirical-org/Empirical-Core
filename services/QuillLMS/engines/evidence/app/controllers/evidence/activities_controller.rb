@@ -7,7 +7,7 @@ module Evidence
 
     # GET /activities.json
     def index
-      @activities = Evidence::Activity.order(:title).map { |a| a.serializable_hash(include: []) }
+      @activities = Evidence::Activity.order(:title).map { |a| a.serializable_hash(include: [], methods: [:flag]) }
 
       render json: @activities
     end
