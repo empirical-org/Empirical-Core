@@ -28,11 +28,12 @@ function getIcon(activeTab: string, tabLabel: string) {
 
 function renderListItem({ tabs, activeStates, handleLinkClick, tabLabel, i }) {
   const onMobile = window.innerWidth <= MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR;
-
+  const premiumClass = premiumHubReportingTabs.includes(tabLabel) ? 'premium' : ''
+  const linkClass = `${activeStates[i]} ${premiumClass}`
   if (onMobile) {
     return(
       <li>
-        <Link className={activeStates[i]} onClick={handleLinkClick} to={tabs[tabLabel].url}>
+        <Link className={`${activeStates[i]} ${premiumClass}`} onClick={handleLinkClick} to={tabs[tabLabel].url}>
           {tabLabel}
         </Link>
         <div className={`checkmark-icon ${activeStates[i]}`} />
@@ -41,7 +42,7 @@ function renderListItem({ tabs, activeStates, handleLinkClick, tabLabel, i }) {
   }
   return (
     <li>
-      <Link className={activeStates[i]} onClick={handleLinkClick} to={tabs[tabLabel].url}>
+      <Link className={linkClass} onClick={handleLinkClick} to={tabs[tabLabel].url}>
         {tabLabel}
         {getIcon(activeStates[i], tabLabel)}
       </Link>

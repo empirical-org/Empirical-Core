@@ -241,10 +241,10 @@
       background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
     }
 
-    &:hover {
-      text-decoration: none;
-      background-color: rgba(255, 255, 255, 0.5);
-    }
+  }
+  a:hover {
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.5);
   }
 
   li a img {
