@@ -38,7 +38,10 @@ class SerializeEvidenceActivityHealth
     num_final_attempt_optimal = prompt_feedback_history[prompt.id]["num_final_attempt_optimal"]
     num_final_attempt_not_optimal = prompt_feedback_history[prompt.id]["num_final_attempt_not_optimal"]
     num_final_attempts = num_final_attempt_optimal + num_final_attempt_not_optimal
-
+    puts "num_final_attempt_optimal: #{num_final_attempt_optimal}"
+    puts "num_final_attempt_optimal.to_f: #{num_final_attempt_optimal.to_f }"
+    puts "num_final_attempts: #{num_final_attempts}"
+    puts "num_final_attempt_optimal.to_f / num_final_attempts: #{num_final_attempt_optimal.to_f / num_final_attempts}"
     return nil if !num_final_attempt_optimal || !num_final_attempts
 
     ((num_final_attempt_optimal.to_f / num_final_attempts) * 100).round
