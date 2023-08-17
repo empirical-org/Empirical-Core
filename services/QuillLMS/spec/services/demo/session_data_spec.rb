@@ -38,7 +38,7 @@ RSpec.describe Demo::SessionData do
         :directions,
         :prompt,
         :questionNumber,
-        :questionScore,
+        :questionScore
       ]
     end
 
