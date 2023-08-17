@@ -162,3 +162,14 @@ export const fetchActivityVersions = async ({ queryKey, }) => {
     error: handleApiError('Failed to fetch change log, please refresh the page.', response)
   };
 }
+
+export const fetchInvalidHighlights = async ({ queryKey, }) => {
+  const [key, activityId]: [string, string] = queryKey
+  const response = await apiFetch(`activities/${activityId}/invalid_highlights`);
+  const invalid_highlights = await response.json();
+
+  return {
+    invalid_highlights,
+    error: handleApiError('Failed to fetch highlights_valid value, please refresh the page.', response)
+  };
+}

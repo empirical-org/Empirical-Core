@@ -5,11 +5,12 @@ Evidence::Engine.routes.draw do
     member do
       get :activity_versions
       get :change_logs
+      get :invalid_higlights
+      put :increment_version
       get :rules
       get :topic_optimal_info
-      put :increment_version
-      post :seed_data
       post :labeled_synthetic_data
+      post :seed_data
     end
   end
 
