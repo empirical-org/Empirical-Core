@@ -64,7 +64,7 @@ RSpec.describe Demo::CreateAdminReport do
       expect(classroom).to be
       expect(classroom.owner).to eq(teacher)
       expect(classroom.students.count).to eq(5)
-      expect(classroom.activity_sessions.count).to be_between(112, 140)
+      expect(classroom.activity_sessions.count).to be_between(10, 30)
     end
   end
 end

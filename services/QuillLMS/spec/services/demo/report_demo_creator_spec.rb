@@ -52,7 +52,7 @@ RSpec.describe Demo::ReportDemoCreator do
     let(:session_data) { Demo::SessionData.new }
     # essentially using these as fixtures to test the demo data
     let(:activity_id) { described_class::STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID }
-    let(:user_id) { described_class::STUDENT_ID1 }
+    let(:user_id) { described_class::KEN_ID }
     let!(:activity) { create(:activity, id: activity_id) }
 
     let(:concept_ids) { [566, 506, 508, 641, 640, 671, 239, 551, 488, 385, 524, 540, 664, 83, 673, 450] }
@@ -181,17 +181,17 @@ RSpec.describe Demo::ReportDemoCreator do
         Demo::ReportDemoCreator.create_classroom_units(classroom, units)
         total_act_sesh_count = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.map {|ap| ap[:activity_sessions][0].keys.count}.sum
         expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom, session_data)}.to change {ActivitySession.count}.by(total_act_sesh_count)
-        act_sesh = ActivitySession.last
+        activity_session = ActivitySession.last
 
         last_template = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.last
-        expect(act_sesh.activity_id).to eq(last_template[:activity_sessions][0].keys.last)
-        expect(act_sesh.user_id).to eq(student.id)
-        expect(act_sesh.state).to eq('finished')
+        expect(activity_session.activity_id).to eq(last_template[:activity_sessions][0].keys.last)
+        expect(activity_session.user_id).to eq(student.id)
+        expect(activity_session.state).to eq('finished')
 
-        expect(act_sesh.percentage).to eq(session_clone.percentage)
-        expect(act_sesh.concept_results.first.extra_metadata).to be nil
+        expect(activity_session.percentage).to eq(session_clone.percentage)
+        expect(activity_session.concept_results.first.extra_metadata.keys).to match_array ['question_uid', 'question_concept_uid']
         # Taken from actual concept_result
-        expect(act_sesh.concept_results.first.answer).to eq("Pho is a soup made with herbs, bone broth and noodles.")
+        expect(activity_session.concept_results.first.answer).to eq('Traveling is easier with a guide than without one.')
       end
     end
 

@@ -10,7 +10,7 @@ module Demo::ReportDemoCreator
   ANGIE_ID = 14862320
   NIC_ID = 14862321
   JASON_ID = 14862322
-  TAHEREH_ID= 14862323
+  TAHEREH_ID = 14862323
   KEN_ID = 14862324
 
   ACTIVITY_PACKS_TEMPLATES = [
@@ -21,24 +21,33 @@ module Demo::ReportDemoCreator
           2371 => KEN_ID,
           2317 => KEN_ID,
           1676 => KEN_ID
-        }
+        },
+        {}, # Tahereh Mafi
+        {}, # Jason Reynolds
+        {}, # Nic Stone
+        {}  # Angie Thomas
       ]
     },
     {
       name: 'Prepositional Phrases (Starter Baseline Recommendation)',
       activity_sessions: [
+        {}, # Ken Liu
+        {}, # Tahereh Mafi
         {
           846 => JASON_ID,
           600 => JASON_ID,
           712 => JASON_ID,
           599 => JASON_ID,
           765 => JASON_ID
-        }
+        },
+        {}, # Nic Stone
+        {}  # Angie Thomas
       ]
     },
     {
       name: 'Capitalization (Starter Baseline Recommendation)',
       activity_sessions: [
+        {}, # Ken Liu
         {
           886 => TAHEREH_ID,
           887 => TAHEREH_ID,
@@ -48,6 +57,7 @@ module Demo::ReportDemoCreator
           181 => TAHEREH_ID,
           802 => TAHEREH_ID
         },
+        {}, # Jason Reynolds
         {
           801 => NIC_ID,
           887 => NIC_ID,
@@ -98,7 +108,11 @@ module Demo::ReportDemoCreator
           808 => KEN_ID,
           1308 => KEN_ID,
           803 => KEN_ID
-        }
+        },
+        {}, # Tahereh Mafi
+        {}, # Jason Reynolds
+        {}, # Nic Stone
+        {}  # Angie Thomas
       ]
     },
     {
@@ -357,8 +371,8 @@ module Demo::ReportDemoCreator
       ACTIVITY_PACKS_TEMPLATES.each do |activity_pack|
         unit = Unit.where(name: activity_pack[:name]).last
         classroom_unit = ClassroomUnit.find_by(classroom: classroom, unit: unit)
-        act_sessions = activity_pack[:activity_sessions]
-        act_sessions[num].each do |clone_activity_id, clone_user_id|
+        activity_sessions = activity_pack[:activity_sessions]
+        activity_sessions[num].each do |clone_activity_id, clone_user_id|
           clone_activity_session(
             student.id,
             classroom_unit.id,

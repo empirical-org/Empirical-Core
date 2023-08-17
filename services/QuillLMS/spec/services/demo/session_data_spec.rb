@@ -7,7 +7,7 @@ RSpec.describe Demo::SessionData do
 
   context 'activity_sessions' do
     it "should load an array of ActivitySessions" do
-      expect(subject.activity_sessions.count).to eq 141
+      expect(subject.activity_sessions.count).to eq 46
       expect(subject.activity_sessions.class).to eq Array
       expect(subject.activity_sessions.first.class).to eq ActivitySession
     end
@@ -15,7 +15,7 @@ RSpec.describe Demo::SessionData do
 
   context 'concept_results' do
     it "should load an array of ConceptResults" do
-      expect(subject.concept_results.count).to eq 2030
+      expect(subject.concept_results.count).to eq 1187
       expect(subject.concept_results.class).to eq Array
       expect(subject.concept_results.first.class).to eq ConceptResult
     end
@@ -30,13 +30,25 @@ RSpec.describe Demo::SessionData do
   end
 
   context 'concept_result_legacy_metadata' do
+    let(:metadata_keys) do
+      [
+        :answer,
+        :attemptNumber,
+        :correct,
+        :directions,
+        :prompt,
+        :questionNumber,
+        :questionScore,
+      ]
+    end
+
     it "should load a hash of integer to hash of key/values" do
-      expect(subject.concept_result_legacy_metadata.count).to eq 2030
+      expect(subject.concept_result_legacy_metadata.count).to eq 1187
       expect(subject.concept_result_legacy_metadata.class).to eq Hash
 
       expect(subject.concept_result_legacy_metadata.first.first.class).to eq Integer
       expect(subject.concept_result_legacy_metadata.first.last.class).to eq Hash
-      expect(subject.concept_result_legacy_metadata.first.last.symbolize_keys.keys.sort).to eq([:answer, :browser, :correct, :directions, :os, :prompt, :questionNumber, :questionScore, :questionUid, :questionUrl, :wpm])
+      expect(subject.concept_result_legacy_metadata.first.last.symbolize_keys.keys.sort).to eq metadata_keys
     end
   end
 end
