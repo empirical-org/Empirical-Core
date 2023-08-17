@@ -9,10 +9,10 @@
 1. Choose one:
    * Docker: `docker-compose up`
    * Postgres.app:
-     1. ```echo "DEV_POSTGRES_USER=`whoami` \nDEV_POSTGRES_PASSWORD= " >> .env ```
+     1. ```echo "DEV_POSTGRES_USER=`whoami` \nDEV_POSTGRES_PASSWORD= " >> .env ``` 
      1. Add profile![Add profile](readme-assets/add-profile.png)
      1. Set port to 5433![Set port to 5433](readme-assets/port-settings.png)
-
+   
 1. `rake db:create`
 1. `rake db:migrate`
 1. `rake 'responses_csv:import['your/path/to/sample-responses.csv']'`
@@ -32,14 +32,14 @@ bundle exec rspec spec
 ## Deployment
 Prerequisites:
 
-1. Ensure the elastic beanstalk CLI is [installed and configured](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html)
+1. Ensure the elastic beanstalk CLI is [installed and configured](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html) 
 1. `QuillCMS$ eb init --interactive`
 	- default region -> `us-east-1 : US East (N. Virginia)`
 	- application -> `QuillCMS`
 	- default environment -> `Quillcms-production`
 	- platform -> `Puma with Ruby 2.6 on 64bit Amazon Linux`
 1. `QuillCMS$ git checkout production && git pull`
-1. `QuillCMS$ bash deploy.sh staging|prod`
+1. `QuillCMS$ bash deploy.sh staging|prod` 
 
 If you need to ssh into an instance and `eb ssh` throws a publickey error exception, try `eb ssh --setup`. [More details here](https://serverfault.com/questions/941463/can-ssh-to-ec2-instance-but-cant-eb-ssh).
 
