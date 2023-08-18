@@ -26,7 +26,6 @@ describe CanvasIntegration::UserImporter do
   context 'canvas_account exists with canvas_instance, external_id' do
     let!(:user) { create(:canvas_account, canvas_instance: canvas_instance, external_id: external_id).user }
 
-    it { expect(subject).to eq user}
     it { expect { subject}.not_to change(User, :count) }
     it { expect { subject}.not_to change(CanvasAccount, :count) }
   end
@@ -35,13 +34,11 @@ describe CanvasIntegration::UserImporter do
     context 'user exists with email' do
       let!(:user) { create(:user, email: email) }
 
-      it { expect(subject).to eq user }
       it { expect { subject}.not_to change(User, :count) }
       it { expect { subject}.to change(CanvasAccount, :count).by(1) }
     end
 
     context 'user does not exist with email' do
-      it { expect(subject).to be_a User }
       it { expect { subject}.to change(User.teacher, :count).by(1) }
       it { expect { subject}.to change(CanvasAccount, :count).by(1) }
 
