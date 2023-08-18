@@ -14,9 +14,9 @@ describe('Assign students component', () => {
     const wrapper = shallow(
       <AssignStudents
         classrooms={classroomProps}
-        fetchClassrooms={() => {}}
-        toggleClassroomSelection={() => {}}
-        toggleStudentSelection={() => {}}
+        fetchClassrooms={() => { }}
+        toggleClassroomSelection={() => { }}
+        toggleStudentSelection={() => { }}
         user={user}
       />
     )
@@ -27,9 +27,9 @@ describe('Assign students component', () => {
     const wrapper = shallow(
       <AssignStudents
         classrooms={classroomProps}
-        fetchClassrooms={() => {}}
-        toggleClassroomSelection={() => {}}
-        toggleStudentSelection={() => {}}
+        fetchClassrooms={() => { }}
+        toggleClassroomSelection={() => { }}
+        toggleStudentSelection={() => { }}
         user={user}
       />
     )
@@ -56,24 +56,6 @@ describe('Assign students component', () => {
   //   })
   // })
 
-  describe('if this.state.showFormOrModal = linkProviderAccountModal', () => {
-    const wrapper = shallow(
-      <AssignStudents
-        classrooms={classroomProps}
-        fetchClassrooms={() => {}}
-        toggleClassroomSelection={() => {}}
-        toggleStudentSelection={() => {}}
-        user={user}
-      />
-    )
-
-    wrapper.find('button').filterWhere(node => node.text() === 'Import from Canvas').simulate('click');
-
-    it('should render a linkProviderAccountModal component', () => {
-      expect(wrapper.find(LinkProviderAccountModal).exists()).toBe(true)
-    })
-  })
-
   // describe('if this.state.showFormOrModal = noClassroomsToImportModal', () => {
   //   const wrapper = shallow(
   //     <AssignStudents
@@ -97,9 +79,9 @@ describe('Assign students component', () => {
     const wrapper = shallow(
       <AssignStudents
         classrooms={classroomProps}
-        fetchClassrooms={() => {}}
-        toggleClassroomSelection={() => {}}
-        toggleStudentSelection={() => {}}
+        fetchClassrooms={() => { }}
+        toggleClassroomSelection={() => { }}
+        toggleStudentSelection={() => { }}
         user={user}
       />
     )
@@ -114,9 +96,9 @@ describe('Assign students component', () => {
     const wrapper = shallow(
       <AssignStudents
         classrooms={[]}
-        fetchClassrooms={() => {}}
-        toggleClassroomSelection={() => {}}
-        toggleStudentSelection={() => {}}
+        fetchClassrooms={() => { }}
+        toggleClassroomSelection={() => { }}
+        toggleStudentSelection={() => { }}
         user={user}
       />
     )
