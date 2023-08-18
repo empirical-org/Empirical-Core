@@ -7,7 +7,7 @@ import Navigation from './navigation';
 import { DataTable, Error, FlagDropdown, Spinner, } from '../../../Shared/index';
 import { getCheckIcon, renderErrorsContainer } from "../../helpers/evidence/renderHelpers";
 import { ActivityInterface } from '../../interfaces/evidenceInterfaces';
-import { fetchActivities, fetchInvalidHighlights } from '../../utils/evidence/activityAPIs';
+import { fetchActivities, fetchInvalidHighlights, } from '../../utils/evidence/activityAPIs';
 
 const Activities = ({ location, match }) => {
 
@@ -18,9 +18,11 @@ const Activities = ({ location, match }) => {
 
   const filteredActivities = activitiesData && activitiesData.activities && activitiesData.activities.filter(act => flag === 'All Flags' || act.flag === flag) || []
 
+  const invalidHighlights = activitiesData && activitiesData.activities && Object.fromEntries(activitiesData.activities.map(act => [act.id, useQuery(['invalidHighlight', act.id], fetchInvalidHighlights)]))
+
   const formattedRows = filteredActivities.map((activity: ActivityInterface) => {
     const { id, title, parent_activity_id, notes } = activity;
-    const { invalid_highlights, } = useQuery(["invalidHighlights", id], fetchInvalidHighlights)
+    const { invalid_highlights, } = invalidHighlights[id];
     const activityLink = (<Link to={`/activities/${id}`}>{title}</Link>);
     const highlightLabel = (<Link to={`/activities/${id}`}>{getCheckIcon(!(invalid_highlights && invalid_highlights.length))}</Link>);
     return {
