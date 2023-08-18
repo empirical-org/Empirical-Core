@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { renderNavList } from '../../Shared';
 
-const OVERVIEW = 'Overview';
-const SCHOOL_SUBSCRIPTIONS = 'School Subscriptions';
 const ACTIVITY_SCORES = 'Activity Scores';
 const CONCEPT_REPORTS = 'Concept Reports';
+const INTEGRATIONS = 'Integrations';
+const OVERVIEW = 'Overview';
+const SCHOOL_SUBSCRIPTIONS = 'School Subscriptions';
 const STANDARDS_REPORTS = 'Standards Reports';
 const USAGE_SNAPSHOT_REPORT = 'Usage Snapshot Report'
 const DATA_EXPORT = 'Data Export'
@@ -29,7 +30,11 @@ const tabsWithoutUsageSnapshotAndDataExportReport = {
   [STANDARDS_REPORTS]: {
     label: STANDARDS_REPORTS,
     url: '/teachers/premium_hub/district_standards_reports'
-  }
+  },
+  [INTEGRATIONS]: {
+    label: INTEGRATIONS,
+    url: '/teachers/premium_hub/integrations'
+  },
 }
 
 const tabs = {
@@ -56,7 +61,18 @@ export default class AdminSubnav extends React.Component<any, any> {
   }
 
   getStateFromProps(props) {
-    const state = {activityScores: '', conceptReports: '', standardsReports: '', overview: '', schoolSubscriptions: '', activeTab: '', usageSnapshotReport: '', dataExport: ''}
+    const state = {
+      activeTab: '',
+      activityScores: '',
+      conceptReports: '',
+      dataExport: '',
+      integrations: '',
+      overview: '',
+      schoolSubscriptions: '',
+      standardsReports: '',
+      usageSnapshotReport: '',
+    }
+
     if (props.path.pathname.includes('/district_activity_scores')) {
       state.activityScores = 'active'
       state.activeTab = ACTIVITY_SCORES
@@ -75,6 +91,9 @@ export default class AdminSubnav extends React.Component<any, any> {
     } else if (props.path.pathname.includes('data_export')) {
       state.dataExport = 'active'
       state.activeTab = DATA_EXPORT
+    } else if (props.path.pathname.includes('integrations')) {
+      state.integrations = 'active'
+      state.activeTab = INTEGRATIONS
     } else if (props.path.pathname.includes('premium_hub')) {
       state.overview = 'active'
       state.activeTab = OVERVIEW
@@ -92,8 +111,31 @@ export default class AdminSubnav extends React.Component<any, any> {
   }
 
   render() {
-    const { overview, schoolSubscriptions, activityScores, conceptReports, standardsReports, dropdownOpen, usageSnapshotReport, dataExport, activeTab } = this.state
-    const activeStates = [overview, schoolSubscriptions, activityScores, conceptReports, standardsReports, dataExport, usageSnapshotReport]
+    const {
+      activeTab,
+      activityScores,
+      conceptReports,
+      dataExport,
+      dropdownOpen,
+      integrations,
+      overview,
+      schoolSubscriptions,
+      standardsReports,
+      usageSnapshotReport,
+    } = this.state
+
+    // Order here is coupled to subnav_tab layout
+    const activeStates = [
+      overview,
+      schoolSubscriptions,
+      activityScores,
+      conceptReports,
+      standardsReports,
+      dataExport,
+      integrations,
+      usageSnapshotReport,
+    ]
+
     const dropdownClass = dropdownOpen ? 'open' : '';
 
     const tabsToShow = window.location.href.includes('usage_snapshot') || window.location.href.includes('data_export') ? tabs : tabsWithoutUsageSnapshotAndDataExportReport

@@ -52,7 +52,8 @@ require('../../../assets/styles/home.scss');
 
 // This is how react_on_rails can see the TeacherApp in the browser.
 
-ReactOnRails.register({ TeacherGuideApp,
+ReactOnRails.register({
+  TeacherGuideApp,
   DashboardApp,
   LessonPlannerApp,
   TeacherAccountApp,

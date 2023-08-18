@@ -106,7 +106,7 @@ const ActiveClassrooms = ({
   const closeModal = (callback = null) => {
     setVisibleModal(null)
 
-    if (callback && typeof(callback) === 'function') { callback() }
+    if (callback && typeof (callback) === 'function') { callback() }
   }
 
   const getClassroomCardsWithHandle = (classroomCards) => {
@@ -261,7 +261,7 @@ const ActiveClassrooms = ({
 
     requestPut('/classrooms_teachers/update_order', { updated_classrooms: JSON.stringify(newlySortedClassrooms) }, body => {
       const { classrooms } = body
-      if(classrooms) { setClassrooms(newlySortedClassrooms) }
+      if (classrooms) { setClassrooms(newlySortedClassrooms) }
     })
   }
 
@@ -335,7 +335,7 @@ const ActiveClassrooms = ({
         onClick={() => openModal(createAClassModal)}
         type="button"
       >
-      Create a class
+        Create a class
       </button>
     )
   }
@@ -409,6 +409,7 @@ const ActiveClassrooms = ({
 
   const renderImportFromProviderButton = (theProvider: string) => {
     if (provider && provider != theProvider) { return null }
+    if (!provider && theProvider === canvasProvider) { return null }
 
     const theProviderTitle = providerConfigLookup[theProvider].title
 
@@ -466,10 +467,7 @@ const ActiveClassrooms = ({
     let link = ''
     let linkAccountProvider = ''
 
-    if (visibleModal === linkCanvasAccountModal) {
-      link = canvasLink
-      linkAccountProvider = canvasProvider
-    } else if (visibleModal === linkCleverAccountModal) {
+    if (visibleModal === linkCleverAccountModal) {
       link = cleverLink
       linkAccountProvider = cleverProvider
     } else if (visibleModal === linkGoogleAccountModal) {

@@ -32,13 +32,18 @@ RSpec.describe CanvasInstance, type: :model do
 
   context 'callbacks' do
     context 'before_validation' do
-      it 'converts the url to lower case' do
-        canvas_instance = build(:canvas_instance, url: 'http://EXAMPLE.com')
+      let(:canvas_instance) { build(:canvas_instance, url: url) }
 
-        expect { canvas_instance.validate }
-          .to change { canvas_instance.url }
-          .from('http://EXAMPLE.com')
-          .to('http://example.com')
+      context 'url with upper case' do
+        let(:url) { 'http://EXAMPLE.com' }
+
+        it { expect { canvas_instance.validate }.to change(canvas_instance, :url).from(url).to('http://example.com') }
+      end
+
+      context 'url with trailing slash' do
+        let(:url) { 'http://example.com/' }
+
+        it { expect { canvas_instance.validate }.to change(canvas_instance, :url).from(url).to('http://example.com') }
       end
     end
   end

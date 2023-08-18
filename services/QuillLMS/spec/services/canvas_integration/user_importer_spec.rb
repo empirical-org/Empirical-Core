@@ -58,4 +58,17 @@ describe CanvasIntegration::UserImporter do
       end
     end
   end
+
+  context 'clever_account exists' do
+    let!(:user) { create(:teacher, :signed_up_with_clever, email: email) }
+
+    it { expect { subject}.to change { user.reload.clever_id }.to(nil) }
+  end
+
+  context 'google_account exists' do
+    let!(:user) { create(:teacher, :signed_up_with_google, email: email) }
+
+    it { expect { subject}.to change { user.reload.google_id }.to(nil) }
+    it { expect { subject}.to change { user.reload.signed_up_with_google}.to(false) }
+  end
 end

@@ -95,11 +95,6 @@ describe('ActiveClassrooms component', () => {
       wrapper.find('button').filterWhere(node => node.text() === 'Archive').simulate('click');
       expect(wrapper.find(ArchiveClassModal).exists()).toBe(true)
     })
-
-    it('should render the LinkProviderAccountModal if user clicks Import from [Provider] and does not have account', () => {
-      wrapper.find('button').filterWhere(node => node.text() === 'Import from Canvas').simulate('click');
-      expect(wrapper.find(LinkProviderAccountModal).exists()).toBe(true)
-    })
   })
 
   // it('should render the import classrooms modal', () => {

@@ -645,19 +645,6 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
           type="button"
         >
           <img
-            alt="Canvas Icon"
-            className="import-from-provider-button-icon"
-            src="undefined/images/icons/canvas.svg"
-          />
-          Import from 
-          Canvas
-        </button>
-        <button
-          className="interactive-wrapper import-from-provider-button"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
             alt="Clever Icon"
             className="import-from-provider-button-icon"
             src="undefined/images/icons/clever.svg"
@@ -9258,19 +9245,6 @@ exports[`ActiveClassrooms component with no classrooms or coteacher invitations 
       <div
         className="buttons"
       >
-        <button
-          className="interactive-wrapper import-from-provider-button"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Canvas Icon"
-            className="import-from-provider-button-icon"
-            src="undefined/images/icons/canvas.svg"
-          />
-          Import from 
-          Canvas
-        </button>
         <button
           className="interactive-wrapper import-from-provider-button"
           onClick={[Function]}
