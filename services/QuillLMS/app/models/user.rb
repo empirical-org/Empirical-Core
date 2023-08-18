@@ -179,6 +179,15 @@ class User < ApplicationRecord
   has_many :canvas_accounts, dependent: :destroy
   has_many :canvas_instances, through: :canvas_accounts
 
+  has_many :administered_school_canvas_instance_schools, through: :administered_schools, source: :canvas_instance_schools
+
+  has_many :administered_school_canvas_instances_with_canvas_configs,
+    -> { joins(:canvas_config).where.not(canvas_configs: { id: nil }).distinct },
+    through: :administered_school_canvas_instance_schools,
+    source: :canvas_instance
+
+  has_many :administered_school_canvas_configs, through: :administered_school_canvas_instances, source: :canvas_config
+
   accepts_nested_attributes_for :auth_credential, :canvas_accounts
 
   delegate :name, :mail_city, :mail_state,
@@ -850,6 +859,10 @@ class User < ApplicationRecord
     canvas_accounts
       .find_by(canvas_instance: canvas_instance)
       &.user_external_id
+  end
+
+  def unlink_clever_and_google_accounts!
+    update!(clever_id: nil, google_id: nil, signed_up_with_google: false)
   end
 
   private def validate_flags

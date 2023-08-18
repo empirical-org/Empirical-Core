@@ -16,6 +16,10 @@ module CanvasIntegration
     end
 
     def run
+      canvas_account_user.unlink_clever_and_google_accounts!
+    end
+
+    private def canvas_account_user
       existing_canvas_account_user || new_canvas_account_user
     end
 

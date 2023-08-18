@@ -86,7 +86,7 @@ const AssignStudents = ({
   const closeModal = (callback = null) => {
     setVisibleModal(null)
 
-    if (callback && typeof(callback) === 'function') { callback() }
+    if (callback && typeof (callback) === 'function') { callback() }
   }
 
   const importFromCanvas = () => {
@@ -231,7 +231,7 @@ const AssignStudents = ({
               onClick={() => openModal(createAClassForm)}
               type="button"
             >
-            Create a class
+              Create a class
             </button>
           </div>
         </div>
@@ -252,6 +252,7 @@ const AssignStudents = ({
 
   const renderImportFromProviderButton = (theProvider: string) => {
     if (provider && provider != theProvider) { return null }
+    if (!provider && theProvider !== canvasProvider) { return null }
 
     const theProviderTitle = providerConfigLookup[theProvider].title
 
@@ -294,10 +295,10 @@ const AssignStudents = ({
     let linkAccountProvider = ''
 
     switch (visibleModal) {
-      case linkCanvasAccountModal:
-        link = canvasLink
-        linkAccountProvider = canvasProvider
-        break;
+      // case linkCanvasAccountModal:
+      //   link = canvasLink
+      //   linkAccountProvider = canvasProvider
+      //   break;
       case linkCleverAccountModal:
         link = cleverLink
         linkAccountProvider = cleverProvider

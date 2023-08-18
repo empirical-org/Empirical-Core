@@ -24,7 +24,7 @@ class CanvasInstance < ApplicationRecord
 
   has_many :canvas_instance_auth_credentials, dependent: :destroy
 
-  before_validation :downcase_url
+  before_validation :downcase_url, :remove_trailing_slash
 
   validates :url,
     presence: true,
@@ -41,5 +41,9 @@ class CanvasInstance < ApplicationRecord
 
   private def downcase_url
     self.url = url.downcase if url.present?
+  end
+
+  private def remove_trailing_slash
+    self.url = url.chomp('/') if url.present?
   end
 end

@@ -3,7 +3,14 @@ import { Link } from 'react-router-dom';
 import { MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR } from '../utils/constants';
 import { redDiamondIcon, whiteDiamondIcon } from '../images';
 
-const premiumHubReportingTabs = ['Activity Scores', 'Concept Reports', 'Standards Reports', 'Data Export', 'Usage Snapshot Report'];
+const premiumHubReportingTabs = [
+  'Activity Scores',
+  'Concept Reports',
+  'Data Export',
+  'Integrations',
+  'Standards Reports',
+  'Usage Snapshot Report'
+];
 
 interface renderNavListProps {
   tabs: {
@@ -31,7 +38,7 @@ function renderListItem({ tabs, activeStates, handleLinkClick, tabLabel, i }) {
   const premiumClass = premiumHubReportingTabs.includes(tabLabel) ? 'premium' : ''
   const linkClass = `${activeStates[i]} ${premiumClass}`
   if (onMobile) {
-    return(
+    return (
       <li>
         <Link className={`${activeStates[i]} ${premiumClass}`} onClick={handleLinkClick} to={tabs[tabLabel].url}>
           {tabLabel}
@@ -50,8 +57,8 @@ function renderListItem({ tabs, activeStates, handleLinkClick, tabLabel, i }) {
   )
 }
 
-export function renderNavList({tabs, activeStates, handleLinkClick, listClass}: renderNavListProps) {
-  return(
+export function renderNavList({ tabs, activeStates, handleLinkClick, listClass }: renderNavListProps) {
+  return (
     <ul className={listClass}>
       {Object.keys(tabs).map((tabLabel, i) => {
         return renderListItem({ tabs, activeStates, handleLinkClick, tabLabel, i })

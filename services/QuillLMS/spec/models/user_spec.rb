@@ -2154,5 +2154,30 @@ describe User, type: :model do
       it { is_expected.to be described_class::CANVAS_PROVIDER }
     end
   end
+
+  describe '#unlink_clever_and_google_accounts!' do
+    subject { user.unlink_clever_and_google_accounts! }
+
+    context 'user has google_account' do
+      let(:user) { create(:teacher, :signed_up_with_google) }
+
+      it { expect { subject }.to change(user, :google_id).from(user.google_id).to(nil) }
+      it { expect { subject }.to change(user, :signed_up_with_google).from(true).to(false) }
+    end
+
+    context 'user has clever_id' do
+      let(:user) { create(:teacher, :signed_up_with_clever) }
+
+      it { expect { subject }.to change(user, :clever_id).from(user.clever_id).to(nil) }
+    end
+
+    context 'user has neither google nor clever_id' do
+      let(:user) { create(:user) }
+
+      it { expect { subject }.not_to change(user, :google_id) }
+      it { expect { subject }.not_to change(user, :signed_up_with_google) }
+      it { expect { subject }.not_to change(user, :clever_id) }
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength
