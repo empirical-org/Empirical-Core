@@ -142,7 +142,7 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
             <div className="find-and-replace-section">
               <div className="find-and-replace-section-header">
                 <div className="section-number">1</div>
-                <a href="https://data.quill.org/question/1064-concepts-in-use-query-7-27-v3" target="_blank">View Concepts in use</a>
+                <a href="https://data.quill.org/question/1064-concepts-in-use-query-7-27-v3" rel="noopener noreferrer" target="_blank">View Concepts in use</a>
               </div>
             </div>
             <form acceptCharset="UTF-8" className="find-and-replace-form" onSubmit={this.handleSubmit} >
