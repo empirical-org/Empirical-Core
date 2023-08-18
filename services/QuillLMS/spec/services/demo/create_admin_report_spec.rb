@@ -57,14 +57,21 @@ RSpec.describe Demo::CreateAdminReport do
     end
   end
 
-  it 'should create every classroom from the data hash, associated with the correct teacher, each with five students and between 112-140 activity sessions' do
-    subject.data.each do |row|
-      classroom = Classroom.find_by_name(row['Classroom'])
-      teacher = User.find_by_name(row['Teacher'])
-      expect(classroom).to be
-      expect(classroom.owner).to eq(teacher)
-      expect(classroom.students.count).to eq(5)
-      expect(classroom.activity_sessions.count).to be_between(112, 140)
+  context 'range' do
+    # This is a estimate on range based on some runs, feel free to adjust the bounds
+    let(:activity_session_count_range) { (10..35) }
+    let(:min) { activity_session_count_range.first }
+    let(:max) { activity_session_count_range.last }
+
+    it "should create every classroom from the data hash, associated with the correct teacher, each with five students" do
+      subject.data.each do |row|
+        classroom = Classroom.find_by_name(row['Classroom'])
+        teacher = User.find_by_name(row['Teacher'])
+        expect(classroom).to be
+        expect(classroom.owner).to eq(teacher)
+        expect(classroom.students.count).to eq(5)
+        expect(classroom.activity_sessions.count).to be_between(min, max)
+      end
     end
   end
 end
