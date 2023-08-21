@@ -3,14 +3,22 @@
 class IdentifyStripeInvoicesWithoutSubscriptionsWorker
   include Sidekiq::Worker
 
+  FAILED_CHARGE = 'failed'
   # We don't care about invoices created before we began using this workflow
   INVOICE_START_EPOCH = DateTime.new(2023,1,1).to_i
-  RELEVANT_INVOICE_STATUSES = ['open', 'paid']
+  RELEVANT_INVOICE_STATUSES = ['open', 'paid'].freeze
 
   def perform
     StripeIntegration::Mailer
       .invoices_without_subscriptions(invoice_payloads)
       .deliver_now!
+  end
+
+  private def failed_charge?(invoice)
+    return false unless invoice.charge
+
+    charge = Stripe::Charge.retrieve(invoice.charge)
+    charge.status == FAILED_CHARGE
   end
 
   private def invoice_payloads
@@ -31,7 +39,8 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
       RELEVANT_INVOICE_STATUSES.include?(invoice.status) &&
         !invoice_ids_with_subscriptions.include?(invoice.id) &&
         positive_amount?(invoice) &&
-        !invoice_refunded?(invoice)
+        !invoice_refunded?(invoice) &&
+        !failed_charge?(invoice)
     end
   end
 
