@@ -169,7 +169,7 @@ export const fetchInvalidHighlights = async ({ queryKey, }) => {
   const invalid_highlights = await response.json();
 
   return {
-    invalid_highlights,
+    invalid_highlights: invalid_highlights.invalid_highlights,
     error: handleApiError('Failed to fetch highlights_valid value, please refresh the page.', response)
   };
 }
