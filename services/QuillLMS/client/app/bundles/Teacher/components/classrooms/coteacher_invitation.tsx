@@ -44,8 +44,8 @@ export const CoteacherInvitation = ({ getClassroomsAndCoteacherInvitations, show
   function renderButtons() {
     if(loading) {
       const isAccepting = action === ACCEPT
-      const acceptElement = isAccepting ? <Spinner/> : 'Accept'
-      const declineElement = !isAccepting ? <Spinner/> : 'Decline'
+      const acceptElement = isAccepting ? <Spinner /> : 'Accept'
+      const declineElement = !isAccepting ? <Spinner /> : 'Decline'
       return(
         <div className="accept-or-decline">
           <button className="quill-button secondary outlined small disabled" disabled={true} onClick={rejectInvitation}>{declineElement}</button>

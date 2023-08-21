@@ -2,7 +2,7 @@ import * as moment from 'moment';
 import * as React from 'react';
 
 import { requestPost, } from '../../../../modules/request/index';
-import { ButtonLoadingSpinner, DataTable, Input, Spinner, } from '../../../Shared/index';
+import { DataTable, Input, Spinner, } from '../../../Shared/index';
 
 interface InviteCoteachersModalProps {
   close: () => void;
@@ -148,7 +148,7 @@ export const InviteCoteachersModal = ({ close, onSuccess, classrooms, classroom,
         <div className="buttons">
           <button className="quill-button outlined secondary medium disabled" disabled={true} onClick={close}>Cancel</button>
           <button className="quill-button contained primary medium disabled" disabled={true} onClick={inviteCoteachers}>
-            <Spinner/>
+            <Spinner />
           </button>
         </div>
       )
