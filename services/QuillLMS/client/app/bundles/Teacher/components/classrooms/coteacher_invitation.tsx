@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { requestPost } from '../../../../modules/request/index';
+import { Spinner } from '../../../Shared';
 
 interface CoteacherInvitationProps {
   getClassroomsAndCoteacherInvitations: () => void;
@@ -8,46 +9,67 @@ interface CoteacherInvitationProps {
   coteacherInvitation: any;
 }
 
-export default class CoteacherInvitation extends React.Component<CoteacherInvitationProps, {}> {
-  constructor(props) {
-    super(props)
+const ACCEPT = 'accept'
+const REJECT = 'reject'
 
-    this.acceptInvitation = this.acceptInvitation.bind(this)
-    this.rejectInvitation = this.rejectInvitation.bind(this)
-  }
+export const CoteacherInvitation = ({ getClassroomsAndCoteacherInvitations, showSnackbar, coteacherInvitation }: CoteacherInvitationProps) => {
 
-  acceptInvitation() {
-    const { getClassroomsAndCoteacherInvitations, coteacherInvitation, showSnackbar, } = this.props
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [action, setAction] = React.useState<string>('')
+
+  function acceptInvitation() {
     const dataForInvite = { coteacher_invitation_ids: [coteacherInvitation.id] }
+    setAction(ACCEPT)
+    setLoading(true)
     requestPost('/coteacher_classroom_invitations/accept_pending_coteacher_invitations', dataForInvite, (body) => {
       getClassroomsAndCoteacherInvitations()
       showSnackbar('Invitation accepted')
+      setAction('')
+      setLoading(false)
     })
   }
 
-  rejectInvitation() {
-    const { getClassroomsAndCoteacherInvitations, coteacherInvitation, showSnackbar, } = this.props
+  function rejectInvitation() {
     const dataForInvite = { coteacher_invitation_ids: [coteacherInvitation.id] }
+    setAction(REJECT)
+    setLoading(true)
     requestPost('/coteacher_classroom_invitations/reject_pending_coteacher_invitations', dataForInvite, (body) => {
       getClassroomsAndCoteacherInvitations()
       showSnackbar('Invitation declined')
+      setAction('')
+      setLoading(false)
     })
   }
 
-  render() {
-    const { coteacherInvitation } = this.props
-    const { classroom_name, inviter_name, inviter_email } = coteacherInvitation
-    return (
-      <div className="coteacher-invitation">
-        <h2>Invitation to co-teach "{classroom_name}"</h2>
-        <div className="coteacher-invitation-content">
-          <p>{inviter_name} ({inviter_email}) invited you to co-teach.</p>
-          <div className="accept-or-decline">
-            <span onClick={this.rejectInvitation}>Decline</span>
-            <span onClick={this.acceptInvitation}>Accept</span>
-          </div>
+  function renderButtons() {
+    if(loading) {
+      const isAccepting = action === ACCEPT
+      const acceptElement = isAccepting ? <Spinner/> : 'Accept'
+      const declineElement = !isAccepting ? <Spinner/> : 'Decline'
+      return(
+        <div className="accept-or-decline">
+          <button className="quill-button secondary outlined small disabled" disabled={true} onClick={rejectInvitation}>{declineElement}</button>
+          <button className="quill-button primary contained small disabled" disabled={true} onClick={acceptInvitation}>{acceptElement}</button>
         </div>
+      )
+    }
+    return(
+      <div className="accept-or-decline">
+        <button className="quill-button secondary outlined small" onClick={rejectInvitation}>Decline</button>
+        <button className="quill-button primary contained small" onClick={acceptInvitation}>Accept</button>
       </div>
     )
   }
+
+  return (
+    <div className="coteacher-invitation">
+      <h2>Invitation to co-teach "{coteacherInvitation.classroom_name}"</h2>
+      <div className="coteacher-invitation-content">
+        <p>{coteacherInvitation.inviter_name} ({coteacherInvitation.inviter_email}) invited you to co-teach.</p>
+        {renderButtons()}
+      </div>
+    </div>
+  )
 }
+
+export default CoteacherInvitation
