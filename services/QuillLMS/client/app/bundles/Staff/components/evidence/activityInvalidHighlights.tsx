@@ -15,7 +15,7 @@ const ActivityInvalidHighlights = ({ activityId }) => {
 
   if (!invalidHighlights) {
     return (
-      <span></span>
+      <span />
     )
   }
 
