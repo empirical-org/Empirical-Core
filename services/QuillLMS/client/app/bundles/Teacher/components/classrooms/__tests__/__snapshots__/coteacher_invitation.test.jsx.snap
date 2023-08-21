@@ -22,13 +22,13 @@ exports[`CoteacherInvitation component should render CoteacherInvitation 1`] = `
       className="accept-or-decline"
     >
       <button
-        className="quill-button secondary outlined small"
+        className="quill-button secondary outlined small focus-on-light"
         onClick={[Function]}
       >
         Decline
       </button>
       <button
-        className="quill-button primary contained small"
+        className="quill-button primary contained small focus-on-light"
         onClick={[Function]}
       >
         Accept

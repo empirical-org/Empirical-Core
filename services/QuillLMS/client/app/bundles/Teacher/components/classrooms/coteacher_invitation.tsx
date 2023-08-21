@@ -55,8 +55,8 @@ export const CoteacherInvitation = ({ getClassroomsAndCoteacherInvitations, show
     }
     return(
       <div className="accept-or-decline">
-        <button className="quill-button secondary outlined small" onClick={rejectInvitation}>Decline</button>
-        <button className="quill-button primary contained small" onClick={acceptInvitation}>Accept</button>
+        <button className="quill-button secondary outlined small focus-on-light" onClick={rejectInvitation}>Decline</button>
+        <button className="quill-button primary contained small focus-on-light" onClick={acceptInvitation}>Accept</button>
       </div>
     )
   }
