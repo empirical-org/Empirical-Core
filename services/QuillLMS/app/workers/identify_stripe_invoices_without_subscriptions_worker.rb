@@ -8,13 +8,13 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
   RELEVANT_INVOICE_STATUSES = ['open', 'paid']
 
   def perform
-    invoice_payloads = map_invoices_for_template(relevant_stripe_invoices)
-
-    StripeIntegration::Mailer.invoices_without_subscriptions(invoice_payloads).deliver_now!
+    StripeIntegration::Mailer
+      .invoices_without_subscriptions(invoice_payloads)
+      .deliver_now!
   end
 
-  private def map_invoices_for_template(invoices)
-    invoices.map do |invoice|
+  private def invoice_payloads
+    relevant_stripe_invoices.map do |invoice|
       {
         id: invoice.id,
         created: Time.at(invoice.created).getlocal.to_datetime,
@@ -36,7 +36,10 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
   end
 
   private def invoice_ids_with_subscriptions
-    @invoice_ids_with_subscriptions ||= Subscription.where(stripe_invoice_id: stripe_invoice_ids).pluck(:stripe_invoice_id)
+    @invoice_ids_with_subscriptions ||=
+      Subscription
+        .where(stripe_invoice_id: stripe_invoice_ids)
+        .pluck(:stripe_invoice_id)
   end
 
   private def invoice_refunded?(invoice)
