@@ -143,7 +143,7 @@ export const InviteCoteachersModal = ({ close, onSuccess, classrooms, classroom,
   }
 
   function renderButtons() {
-    if(!loading) {
+    if(loading) {
       return(
         <div className="buttons">
           <button className="quill-button outlined secondary medium disabled" disabled={true} onClick={close}>Cancel</button>

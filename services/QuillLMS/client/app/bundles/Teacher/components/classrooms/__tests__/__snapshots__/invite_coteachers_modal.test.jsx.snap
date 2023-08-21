@@ -90,18 +90,16 @@ exports[`InviteCoteacherModal component if a coteacher does not get passed shoul
         className="buttons"
       >
         <button
-          className="quill-button outlined secondary medium disabled"
-          disabled={true}
+          className="quill-button outlined secondary medium"
           onClick={[Function]}
         >
           Cancel
         </button>
         <button
           className="quill-button contained primary medium disabled"
-          disabled={true}
           onClick={[Function]}
         >
-          <Spinner />
+          Invite
         </button>
       </div>
     </div>
@@ -192,18 +190,16 @@ exports[`InviteCoteacherModal component if a coteacher gets passed should render
         className="buttons"
       >
         <button
-          className="quill-button outlined secondary medium disabled"
-          disabled={true}
+          className="quill-button outlined secondary medium"
           onClick={[Function]}
         >
           Cancel
         </button>
         <button
-          className="quill-button contained primary medium disabled"
-          disabled={true}
+          className="quill-button contained primary medium"
           onClick={[Function]}
         >
-          <Spinner />
+          Invite
         </button>
       </div>
     </div>
