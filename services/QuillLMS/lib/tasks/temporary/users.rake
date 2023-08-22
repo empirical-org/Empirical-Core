@@ -90,4 +90,13 @@ namespace :users do
     User.where(id: user_ids).destroy_all
     puts "Deleted #{user_ids.count} users"
   end
+
+  task backfill_capitalize_names: :environment do
+    progress_bar = ProgressBar.new(User.count)
+
+    User.find_each do |user|
+      user.capitalize_name
+      progress_bar.increment
+    end
+  end
 end
