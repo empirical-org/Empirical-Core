@@ -67,7 +67,7 @@ const ActivityPack = ({
   function onSuccess(snackbarCopy) {
     getUnits()
     closeModal()
-    showSnackbar(snackbarCopy)
+    if (snackbarCopy) showSnackbar(snackbarCopy)
   }
 
   function getActivityPackData() {
