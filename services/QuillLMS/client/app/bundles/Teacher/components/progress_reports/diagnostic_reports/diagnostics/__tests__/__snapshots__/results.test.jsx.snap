@@ -8579,6 +8579,7 @@ exports[`Results component should render when there are results 1`] = `
                      of 
                     11
                      Student
+                    s
                      Proficient
                   </span>
                 </th>
