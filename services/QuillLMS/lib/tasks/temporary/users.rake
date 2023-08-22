@@ -96,6 +96,7 @@ namespace :users do
 
     User.find_each do |user|
       user.capitalize_name
+      user.save
       progress_bar.increment
     end
   end
