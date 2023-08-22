@@ -6,7 +6,7 @@ RSpec.describe CleverIntegration::TeacherCreator do
   subject { described_class.run(data) }
 
   let(:email) { Faker::Internet.email }
-  let(:name) { Faker::Name.custom_name }
+  let(:name) { 'Clever Teacher' }
   let(:user_external_id) { SecureRandom.hex(12) }
   let(:username) { Faker::Internet.user_name }
 

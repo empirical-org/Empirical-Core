@@ -352,6 +352,38 @@ describe User, type: :model do
     end
   end
 
+  context 'capitalize_name callback' do
+    subject { user.save }
+
+    let!(:user) { create(:user) }
+
+    context 'name not changed' do
+      it do
+        expect(user).not_to receive(:capitalize_name)
+        subject
+      end
+    end
+
+    context 'name changed' do
+      before { user.name = 'Ronald Macdonald' }
+
+      it do
+        expect(user).to receive(:capitalize_name)
+        subject
+      end
+
+      context 'skip_capitalize_names_callback is true' do
+        before { user.skip_capitalize_names_callback = true }
+
+        it do
+          expect(user).not_to receive(:capitalize_name)
+          subject
+        end
+      end
+    end
+
+  end
+
   describe '#admin?' do
     let!(:user) { create(:admin) }
 
