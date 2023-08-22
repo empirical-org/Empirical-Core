@@ -9,7 +9,7 @@ describe CanvasIntegration::StudentCreator do
   let(:canvas_instance) { create(:canvas_instance) }
   let(:external_id) { Faker::Number.number.to_s }
   let(:email) { Faker::Internet.email }
-  let(:name) { Faker::Name.custom_name }
+  let(:name) { 'Canvas Student' }
 
   let(:data) do
     {

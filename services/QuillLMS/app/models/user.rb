@@ -115,7 +115,10 @@ class User < ApplicationRecord
 
   SCHOOL_CHANGELOG_ATTRIBUTE = 'school_id'
 
-  attr_accessor :validate_username, :require_password_confirmation_when_password_present, :newsletter
+  attr_accessor :newsletter,
+    :require_password_confirmation_when_password_present,
+    :skip_capitalize_names_callback,
+    :validate_username
 
   has_secure_password validations: false
   has_one :admin_info, dependent: :destroy
@@ -231,7 +234,7 @@ class User < ApplicationRecord
 
   before_validation :generate_student_username_if_absent
   before_validation :prep_authentication_terms
-  before_save :capitalize_name
+  before_save :capitalize_name, if: proc { will_save_change_to_name? && !skip_capitalize_names_callback }
   before_save :set_time_zone, unless: :time_zone
   after_save  :update_invitee_email_address, if: proc { saved_change_to_email? }
   after_save :check_for_school
