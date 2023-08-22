@@ -121,6 +121,18 @@
         cursor: pointer;
         margin-left: 40px;
       }
+      .accept-or-decline {
+        display: flex;
+        button:first-of-type {
+          margin-right: 16px;
+        }
+        .spinner-container {
+          margin: 0;
+          .spinner {
+            height: 24px;
+          }
+        }
+      }
     }
   }
 

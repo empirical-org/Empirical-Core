@@ -714,16 +714,18 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
             <div
               className="accept-or-decline"
             >
-              <span
+              <button
+                className="quill-button secondary outlined small focus-on-light"
                 onClick={[Function]}
               >
                 Decline
-              </span>
-              <span
+              </button>
+              <button
+                className="quill-button primary contained small focus-on-light"
                 onClick={[Function]}
               >
                 Accept
-              </span>
+              </button>
             </div>
           </div>
         </div>
@@ -765,16 +767,18 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
             <div
               className="accept-or-decline"
             >
-              <span
+              <button
+                className="quill-button secondary outlined small focus-on-light"
                 onClick={[Function]}
               >
                 Decline
-              </span>
-              <span
+              </button>
+              <button
+                className="quill-button primary contained small focus-on-light"
                 onClick={[Function]}
               >
                 Accept
-              </span>
+              </button>
             </div>
           </div>
         </div>
@@ -816,16 +820,18 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
             <div
               className="accept-or-decline"
             >
-              <span
+              <button
+                className="quill-button secondary outlined small focus-on-light"
                 onClick={[Function]}
               >
                 Decline
-              </span>
-              <span
+              </button>
+              <button
+                className="quill-button primary contained small focus-on-light"
                 onClick={[Function]}
               >
                 Accept
-              </span>
+              </button>
             </div>
           </div>
         </div>
@@ -867,16 +873,18 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
             <div
               className="accept-or-decline"
             >
-              <span
+              <button
+                className="quill-button secondary outlined small focus-on-light"
                 onClick={[Function]}
               >
                 Decline
-              </span>
-              <span
+              </button>
+              <button
+                className="quill-button primary contained small focus-on-light"
                 onClick={[Function]}
               >
                 Accept
-              </span>
+              </button>
             </div>
           </div>
         </div>
@@ -918,16 +926,18 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
             <div
               className="accept-or-decline"
             >
-              <span
+              <button
+                className="quill-button secondary outlined small focus-on-light"
                 onClick={[Function]}
               >
                 Decline
-              </span>
-              <span
+              </button>
+              <button
+                className="quill-button primary contained small focus-on-light"
                 onClick={[Function]}
               >
                 Accept
-              </span>
+              </button>
             </div>
           </div>
         </div>
@@ -969,16 +979,18 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
             <div
               className="accept-or-decline"
             >
-              <span
+              <button
+                className="quill-button secondary outlined small focus-on-light"
                 onClick={[Function]}
               >
                 Decline
-              </span>
-              <span
+              </button>
+              <button
+                className="quill-button primary contained small focus-on-light"
                 onClick={[Function]}
               >
                 Accept
-              </span>
+              </button>
             </div>
           </div>
         </div>
@@ -1020,16 +1032,18 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
             <div
               className="accept-or-decline"
             >
-              <span
+              <button
+                className="quill-button secondary outlined small focus-on-light"
                 onClick={[Function]}
               >
                 Decline
-              </span>
-              <span
+              </button>
+              <button
+                className="quill-button primary contained small focus-on-light"
                 onClick={[Function]}
               >
                 Accept
-              </span>
+              </button>
             </div>
           </div>
         </div>
@@ -1071,16 +1085,18 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
             <div
               className="accept-or-decline"
             >
-              <span
+              <button
+                className="quill-button secondary outlined small focus-on-light"
                 onClick={[Function]}
               >
                 Decline
-              </span>
-              <span
+              </button>
+              <button
+                className="quill-button primary contained small focus-on-light"
                 onClick={[Function]}
               >
                 Accept
-              </span>
+              </button>
             </div>
           </div>
         </div>
@@ -1122,16 +1138,18 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
             <div
               className="accept-or-decline"
             >
-              <span
+              <button
+                className="quill-button secondary outlined small focus-on-light"
                 onClick={[Function]}
               >
                 Decline
-              </span>
-              <span
+              </button>
+              <button
+                className="quill-button primary contained small focus-on-light"
                 onClick={[Function]}
               >
                 Accept
-              </span>
+              </button>
             </div>
           </div>
         </div>
