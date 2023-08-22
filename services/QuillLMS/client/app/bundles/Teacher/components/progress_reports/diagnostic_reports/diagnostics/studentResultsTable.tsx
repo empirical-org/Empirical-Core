@@ -228,12 +228,12 @@ const StudentResultsTable = ({ isPreTest, skillGroupSummaries, studentResults, o
     if (!completedStudentCount) { return }
 
     if (isPreTest) {
-      return <span className="label">{proficientStudentCount} of {completedStudentCount} Student{proficientStudentCount === 1 ? '' : 's'}{' Proficient'}</span>
+      return <span className="label">{proficientStudentCount} of {completedStudentCount} Student{completedStudentCount === 1 ? '' : 's'}{' Proficient'}</span>
     }
 
     return (
       <div className="student-proficiency-data-container">
-        <span className="label">{proficientStudentCount} of {completedStudentCount} Student{proficientStudentCount === 1 ? '' : 's'}{' Improved or Maintained Skill'}</span>
+        <span className="label">{proficientStudentCount} of {completedStudentCount} Student{completedStudentCount === 1 ? '' : 's'}{' Improved or Maintained Skill'}</span>
         {renderDelta(proficientStudentCount)}
       </div>
     )

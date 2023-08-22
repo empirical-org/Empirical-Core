@@ -9,7 +9,7 @@ describe IdentifyStripeInvoicesWithoutSubscriptionsWorker do
 
   describe '#perform' do
     let(:mailer_double) { double(deliver_now!: nil) }
-    let(:charge_double) { double(amount: 100, amount_refunded: 0) }
+    let(:charge_double) { double(amount: 100, amount_refunded: 0, status: nil) }
 
     before do
       list_double = double
@@ -58,6 +58,14 @@ describe IdentifyStripeInvoicesWithoutSubscriptionsWorker do
 
     it 'should send an email that does not include invoices that have been refunded' do
       expect(charge_double).to receive(:amount_refunded).and_return(100)
+
+      expect(StripeIntegration::Mailer).to receive(:invoices_without_subscriptions).with([]).and_return(mailer_double)
+
+      subject.perform
+    end
+
+    it 'should send an email that does not include invoices that have failed charges' do
+      expect(charge_double).to receive(:status).and_return(described_class::FAILED_CHARGE)
 
       expect(StripeIntegration::Mailer).to receive(:invoices_without_subscriptions).with([]).and_return(mailer_double)
 

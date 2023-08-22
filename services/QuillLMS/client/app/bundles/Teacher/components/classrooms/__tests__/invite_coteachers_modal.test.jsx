@@ -58,12 +58,5 @@ describe('InviteCoteacherModal component', () => {
     it('should render a datatable', () => {
       expect(wrapper.find(DataTable).exists()).toBe(true)
     })
-
-    it('should trim trailing whitespace for coteacher email after submission', () => {
-      wrapper.setState({ email: "test-user@gmail.com "})
-      wrapper.instance().inviteCoteachers()
-      expect(requestPost).toHaveBeenCalledWith("/invitations/create_coteacher_invitation", {classroom_ids: [285383], invitee_email: "test-user@gmail.com"}, expect.any(Function))
-    })
   })
-
 })

@@ -3,18 +3,26 @@
 class IdentifyStripeInvoicesWithoutSubscriptionsWorker
   include Sidekiq::Worker
 
+  FAILED_CHARGE = 'failed'
   # We don't care about invoices created before we began using this workflow
   INVOICE_START_EPOCH = DateTime.new(2023,1,1).to_i
-  RELEVANT_INVOICE_STATUSES = ['open', 'paid']
+  RELEVANT_INVOICE_STATUSES = ['open', 'paid'].freeze
 
   def perform
-    invoice_payloads = map_invoices_for_template(relevant_stripe_invoices)
-
-    StripeIntegration::Mailer.invoices_without_subscriptions(invoice_payloads).deliver_now!
+    StripeIntegration::Mailer
+      .invoices_without_subscriptions(invoice_payloads)
+      .deliver_now!
   end
 
-  private def map_invoices_for_template(invoices)
-    invoices.map do |invoice|
+  private def failed_charge?(invoice)
+    return false unless invoice.charge
+
+    charge = Stripe::Charge.retrieve(invoice.charge)
+    charge.status == FAILED_CHARGE
+  end
+
+  private def invoice_payloads
+    relevant_stripe_invoices.map do |invoice|
       {
         id: invoice.id,
         created: Time.at(invoice.created).getlocal.to_datetime,
@@ -31,12 +39,16 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
       RELEVANT_INVOICE_STATUSES.include?(invoice.status) &&
         !invoice_ids_with_subscriptions.include?(invoice.id) &&
         positive_amount?(invoice) &&
-        !invoice_refunded?(invoice)
+        !invoice_refunded?(invoice) &&
+        !failed_charge?(invoice)
     end
   end
 
   private def invoice_ids_with_subscriptions
-    @invoice_ids_with_subscriptions ||= Subscription.where(stripe_invoice_id: stripe_invoice_ids).pluck(:stripe_invoice_id)
+    @invoice_ids_with_subscriptions ||=
+      Subscription
+        .where(stripe_invoice_id: stripe_invoice_ids)
+        .pluck(:stripe_invoice_id)
   end
 
   private def invoice_refunded?(invoice)

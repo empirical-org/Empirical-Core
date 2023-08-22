@@ -2,7 +2,7 @@ import * as moment from 'moment';
 import * as React from 'react';
 
 import { requestPost, } from '../../../../modules/request/index';
-import { DataTable, Input, } from '../../../Shared/index';
+import { DataTable, Input, Spinner, } from '../../../Shared/index';
 
 interface InviteCoteachersModalProps {
   close: () => void;
@@ -10,11 +10,6 @@ interface InviteCoteachersModalProps {
   classrooms: Array<any>;
   classroom: any;
   coteacher: any;
-}
-
-interface InviteCoteachersModalState {
-  selectedClassroomIds: Array<string|number>;
-  email: string;
 }
 
 const headers = [
@@ -29,71 +24,55 @@ const headers = [
   }
 ]
 
-export default class InviteCoteachersModal extends React.Component<InviteCoteachersModalProps, InviteCoteachersModalState> {
-  constructor(props) {
-    super(props)
+export const InviteCoteachersModal = ({ close, onSuccess, classrooms, classroom, coteacher }: InviteCoteachersModalProps) => {
+  const [email, setEmail] = React.useState<string>(coteacher && coteacher.email ? coteacher.email : '');
+  const [selectedClassroomIds, setSelectedClassroomIds] = React.useState<number[]>([classroom.id]);
+  const [loading, setLoading] = React.useState<boolean>(false);
 
-    this.state = {
-      email: props.coteacher ? props.coteacher.email : '',
-      selectedClassroomIds: [props.classroom.id]
-    }
-
-    this.inviteCoteachers = this.inviteCoteachers.bind(this)
-    this.handleEmailChange = this.handleEmailChange.bind(this)
-    this.checkRow = this.checkRow.bind(this)
-    this.uncheckRow = this.uncheckRow.bind(this)
-    this.checkAllRows = this.checkAllRows.bind(this)
-    this.uncheckAllRows = this.uncheckAllRows.bind(this)
-  }
-
-  footerButtonClass() {
-    const { selectedClassroomIds, email } = this.state
-    let buttonClass = 'quill-button contained primary medium';
+  function footerButtonClass() {
+    let buttonClass = 'quill-button contained primary medium focus-on-light';
     if (!selectedClassroomIds.length || !email) {
       buttonClass += ' disabled';
     }
     return buttonClass;
   }
 
-  handleEmailChange(event) {
-    this.setState({ email: event.target.value })
+  function handleEmailChange(event) {
+    const { target } = event
+    const { value } = target
+    setEmail(value)
   }
 
-  checkRow(id) {
-    const { selectedClassroomIds } = this.state
+  function checkRow(id) {
     const newSelectedClassroomIds = selectedClassroomIds.concat(id)
-    this.setState({ selectedClassroomIds: newSelectedClassroomIds })
+    setSelectedClassroomIds(newSelectedClassroomIds)
   }
 
-  uncheckRow(id) {
-    const { selectedClassroomIds } = this.state
+  function uncheckRow(id) {
     const newSelectedClassroomIds = selectedClassroomIds.filter(selectedId => selectedId !== id)
-    this.setState({ selectedClassroomIds: newSelectedClassroomIds })
+    setSelectedClassroomIds(newSelectedClassroomIds)
   }
 
-  checkAllRows() {
-    const { classrooms } = this.props
+  function checkAllRows() {
     const newSelectedClassroomIds = classrooms.map(classroom => classroom.id)
-    this.setState({ selectedClassroomIds: newSelectedClassroomIds })
+    setSelectedClassroomIds(newSelectedClassroomIds)
   }
 
-  uncheckAllRows() {
-    this.setState({ selectedClassroomIds: [] })
+  function uncheckAllRows() {
+    setSelectedClassroomIds([])
   }
 
-  inviteCoteachers() {
-    const { onSuccess, close, } = this.props
-    const { email, selectedClassroomIds } = this.state
+  function inviteCoteachers() {
     const dataForInvite = { classroom_ids: selectedClassroomIds, invitee_email: email.trim() }
+    setLoading(true)
     requestPost('/invitations/create_coteacher_invitation', dataForInvite, (body) => {
       onSuccess('Co-teacher invited')
+      setLoading(false)
       close()
     })
   }
 
-  renderEmailInput() {
-    const { coteacher } = this.props
-    const { email } = this.state
+  function renderEmailInput() {
     if (coteacher) {
       return (
         <Input
@@ -108,7 +87,7 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
       return (
         <Input
           className="email"
-          handleChange={this.handleEmailChange}
+          handleChange={handleEmailChange}
           label="Co-teacher email"
           placeholder="teacher@example.edu"
           type="text"
@@ -118,19 +97,17 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
     }
   }
 
-  renderModalContent() {
+  function renderModalContent() {
     return (
       <div className="invite-coteachers-modal-content">
         <p>Co-teachers can do everything you can except move or merge students, archive classes, edit activity packs, and access your Premium features.</p>
-        {this.renderEmailInput()}
-        {this.renderDataTable()}
+        {renderEmailInput()}
+        {renderDataTable()}
       </div>
     )
   }
 
-  renderDataTable() {
-    const { classrooms, coteacher, } = this.props
-    const { selectedClassroomIds, } = this.state
+  function renderDataTable() {
 
     let possibleClassrooms = classrooms
 
@@ -154,41 +131,55 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
 
     return (
       <DataTable
-        checkAllRows={this.checkAllRows}
-        checkRow={this.checkRow}
+        checkAllRows={checkAllRows}
+        checkRow={checkRow}
         headers={headers}
         rows={rows}
         showCheckboxes={true}
-        uncheckAllRows={this.uncheckAllRows}
-        uncheckRow={this.uncheckRow}
+        uncheckAllRows={uncheckAllRows}
+        uncheckRow={uncheckRow}
       />
     )
   }
 
-  render() {
-    const { close } = this.props
-    return (
-      <div className="modal-container invite-coteachers-modal-container">
-        <div className="modal-background" />
-        <div className="invite-coteachers-modal quill-modal">
-
-          <div className="invite-coteachers-modal-header">
-            <h3 className="title">Invite co-teachers</h3>
-          </div>
-
-          <div className="invite-coteachers-modal-body modal-body">
-            {this.renderModalContent()}
-          </div>
-
-          <div className="invite-coteachers-modal-footer">
-            <div className="buttons">
-              <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
-              <button className={this.footerButtonClass()} onClick={this.inviteCoteachers}>Invite</button>
-            </div>
-          </div>
-
+  function renderButtons() {
+    if(loading) {
+      return(
+        <div className="buttons">
+          <button className="quill-button outlined secondary medium disabled" disabled={true} onClick={close}>Cancel</button>
+          <button className="quill-button contained primary medium disabled" disabled={true} onClick={inviteCoteachers}>
+            <Spinner />
+          </button>
         </div>
+      )
+    }
+    return(
+      <div className="buttons">
+        <button className="quill-button outlined secondary medium focus-on-light" onClick={close}>Cancel</button>
+        <button className={footerButtonClass()} onClick={inviteCoteachers}>Invite</button>
       </div>
     )
   }
+
+  return (
+    <div className="modal-container invite-coteachers-modal-container">
+      <div className="modal-background" />
+      <div className="invite-coteachers-modal quill-modal">
+
+        <div className="invite-coteachers-modal-header">
+          <h3 className="title">Invite co-teachers</h3>
+        </div>
+
+        <div className="invite-coteachers-modal-body modal-body">
+          {renderModalContent()}
+        </div>
+
+        <div className="invite-coteachers-modal-footer">
+          {renderButtons()}
+        </div>
+      </div>
+    </div>
+  )
 }
+
+export default InviteCoteachersModal
