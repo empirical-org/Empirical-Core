@@ -2,7 +2,7 @@
 
 module Evidence
   class ActivitiesController < ApiController
-    before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :seed_data, :change_logs, :labeled_synthetic_data, :topic_optimal_info]
+    before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :seed_data, :change_logs, :labeled_synthetic_data, :topic_optimal_info, :invalid_highlights]
     before_action :set_lms_user_id, only: [:create, :destroy, :update]
 
     # GET /activities.json
@@ -145,6 +145,13 @@ module Evidence
       render json: {
         concept_uids: prompt_concept_uids,
         rule_types: topic_optimal_rule_types
+      }
+    end
+
+    # params [:id]
+    def invalid_highlights
+      render json: {
+        invalid_highlights: @activity.invalid_highlights
       }
     end
 
