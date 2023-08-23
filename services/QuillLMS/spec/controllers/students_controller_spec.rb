@@ -6,7 +6,9 @@ require 'rails_helper'
 describe StudentsController do
   let(:user) { create(:student) }
 
-  before { allow(controller).to receive(:current_user) { user } }
+  before do
+    allow(controller).to(receive(:current_user) { user })
+  end
 
   it { should use_before_action :authorize! }
 
@@ -23,6 +25,16 @@ describe StudentsController do
     it 'should find the classroom and set flash' do
       get :index, params: { joined: "success", classroom: classroom.id }
       expect(flash["join-class-notification"]).to eq "You have joined #{classroom.name} 🎉🎊"
+    end
+
+    context 'Unit is closed and ClassroomUnit is missing' do
+      let(:unit) { create(:unit, open: false) }
+      let(:nonexistent_classroom_id) { 9999 }
+
+      it 'should not double render' do
+        get :index, params: { classroom: nonexistent_classroom_id, unit_id: unit.id }
+        expect(response).to redirect_to '/classes'
+      end
     end
   end
 
