@@ -4,7 +4,7 @@ module Snapshots
   class StudentLearningHoursQuery < ActivitySessionCountQuery
     def select_clause
       # timespent stores seconds
-      "SELECT SUM(activity_sessions.timespent) / 3600.0 AS count"
+      "SELECT IFNULL(SUM(activity_sessions.timespent), 0) / 3600.0 AS count"
     end
   end
 end
