@@ -127,6 +127,11 @@ describe "Cron", type: :model do
       expect(TeacherNotifications::EnqueueUsersForRollupEmailWorker).to receive(:perform_async).with(TeacherInfo::DAILY_EMAIL)
       Cron.interval_1_day
     end
+
+    it do
+      expect(SendgridIntegration::MonthlyEmailCapWarningWorker).to receive(:perform_async)
+      Cron.interval_1_day
+    end
   end
 
   describe "#run_weekday" do
