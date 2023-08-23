@@ -118,21 +118,19 @@ class StudentsController < ApplicationController
 
   private def flash_errors
     unit = Unit.find(params["unit_id"])
-    should_redirect = false
+    classroom_id = params["classroom"]
+
     if !unit.open
       flash[:error] = t('activity_link.errors.activity_pack_closed')
       flash.keep(:error)
-      should_redirect = true
+      redirect_to(classes_path) and return
     end
 
-    redirect_to(classes_path) and return if should_redirect
-
-    classroom_id = params["classroom"]
-    unit_id = params["unit_id"]
-    classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
+    classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit.id)
     if classroom_unit && classroom_unit.assigned_student_ids.include?(current_user.id)
       return
     end
+
     flash[:error] = t('activity_link.errors.activity_pack_not_assigned')
     flash.keep(:error)
     redirect_to(classes_path)
