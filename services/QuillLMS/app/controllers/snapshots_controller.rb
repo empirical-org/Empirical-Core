@@ -74,8 +74,8 @@ class SnapshotsController < ApplicationController
 
     teachers = User.distinct
       .joins(:schools_users)
-      .joins(:classrooms_teachers)
-      .joins("INNER JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id") # manual join to avoid the default scope on Classroom
+      .left_outer_joins(:classrooms_teachers)
+      .joins("LEFT OUTER JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id") # manual join to avoid the default scope on Classroom
       .where(schools_users: {school_id: filtered_schools.pluck(:id)})
 
     return teachers.where(classrooms: {grade: grades}) if grades.present?
