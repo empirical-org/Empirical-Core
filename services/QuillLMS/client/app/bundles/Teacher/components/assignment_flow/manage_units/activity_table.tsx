@@ -170,7 +170,7 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
     const activity = classroomActivityArray.find(act => act.activityId === activityId)
     if (!activity){ return }
     const toolIcon = getIconForActivityClassification(activity.activityClassificationId)
-    const previewLink = <a className="interactive-wrapper focus-on-light" id={`tool-and-name-section-${activity.uaId}`} href={`/activity_sessions/anonymous?activity_id=${activity.activityId}`} rel="noopener noreferrer" target="_blank">{activity.name}</a>
+    const previewLink = <a className="interactive-wrapper focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activity.activityId}`} id={`tool-and-name-section-${activity.uaId}`} rel="noopener noreferrer" target="_blank">{activity.name}</a>
     activity.toolAndNameSection = (
       <div className="tool-icon-and-name">
         <span className="tool-icon-wrapper">{toolIcon}</span>
