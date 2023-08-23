@@ -632,55 +632,61 @@ exports[`LessonsMini component not on mobile should render when there are lesson
       <table
         className="data-table undefined"
       >
-        <tr
-          className="data-table-headers"
-        >
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "290px",
-                "textAlign": "left",
-                "width": "290px",
+        <thead>
+          <tr
+            className="data-table-headers"
+          >
+            <th
+              className="data-table-header undefined"
+              key="0"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "290px",
+                  "textAlign": "left",
+                  "width": "290px",
+                }
               }
-            }
-          >
-            Quill Lesson
-          </th>
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "300px",
-                "textAlign": "left",
-                "width": "300px",
+            >
+              Quill Lesson
+            </th>
+            <th
+              className="data-table-header undefined"
+              key="1"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "300px",
+                  "textAlign": "left",
+                  "width": "300px",
+                }
               }
-            }
-          >
-            Class
-          </th>
-          <th
-            className="data-table-header actions-header"
-            scope="col"
-          >
-            More
-          </th>
-          <th
-            className="data-table-header last-header"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "78px",
-                "textAlign": "left",
-                "width": "78px",
+            >
+              Class
+            </th>
+            <th
+              className="data-table-header actions-header"
+              key="2"
+              scope="col"
+            >
+              More
+            </th>
+            <th
+              className="data-table-header last-header"
+              key="3"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "78px",
+                  "textAlign": "left",
+                  "width": "78px",
+                }
               }
-            }
-          >
-            Present
-          </th>
-        </tr>
+            >
+              Present
+            </th>
+          </tr>
+        </thead>
         <tbody
           className="data-table-body"
         >
@@ -688,7 +694,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             className="data-table-row  "
             key="649-1-undefined"
           >
-            <td>
+            <td
+              key="lesson-649-1-undefined"
+            >
               <Tooltip
                 isTabbable={true}
                 key="lesson-649-1-undefined"
@@ -712,7 +720,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               >
                 <span
                   aria-hidden={false}
-                  className="quill-tooltip-trigger "
+                  className="quill-tooltip-trigger  "
                   role="tooltip"
                   style={
                     Object {
@@ -768,6 +776,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             </td>
             <td
               className="data-table-row-section actions-section"
+              key="649-1-undefined"
             >
               <button
                 className="quill-button actions-button focus-on-light"
@@ -837,6 +846,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             </td>
             <td
               className="data-table-row-section actions-section"
+              key="563-6-undefined"
             >
               <button
                 className="quill-button actions-button focus-on-light"
@@ -906,6 +916,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             </td>
             <td
               className="data-table-row-section actions-section"
+              key="829-6-undefined"
             >
               <button
                 className="quill-button actions-button focus-on-light"
@@ -947,7 +958,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             className="data-table-row  "
             key="566-6-undefined"
           >
-            <td>
+            <td
+              key="lesson-566-6-undefined"
+            >
               <Tooltip
                 isTabbable={true}
                 key="lesson-566-6-undefined"
@@ -971,7 +984,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               >
                 <span
                   aria-hidden={false}
-                  className="quill-tooltip-trigger "
+                  className="quill-tooltip-trigger  "
                   role="tooltip"
                   style={
                     Object {
@@ -1027,6 +1040,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             </td>
             <td
               className="data-table-row-section actions-section"
+              key="566-6-undefined"
             >
               <button
                 className="quill-button actions-button focus-on-light"
@@ -1096,6 +1110,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             </td>
             <td
               className="data-table-row-section actions-section"
+              key="568-6-undefined"
             >
               <button
                 className="quill-button actions-button focus-on-light"

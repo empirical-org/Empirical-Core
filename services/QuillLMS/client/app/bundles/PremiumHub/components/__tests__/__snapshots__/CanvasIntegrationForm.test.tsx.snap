@@ -170,34 +170,37 @@ exports[`CanvasIntegrationForm  renders form 1`] = `
           <table
             className="data-table undefined"
           >
-            <tr
-              className="data-table-headers"
-            >
-              <th
-                className="data-table-header"
-                scope="col"
+            <thead>
+              <tr
+                className="data-table-headers"
               >
-                <button
-                  aria-label="Unchecked checkbox"
-                  className="quill-checkbox unselected"
-                  onClick={[Function]}
-                  type="button"
-                />
-              </th>
-              <th
-                className="data-table-header undefined"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "356px",
-                    "textAlign": "left",
-                    "width": "356px",
+                <th
+                  className="data-table-header"
+                  scope="col"
+                >
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                </th>
+                <th
+                  className="data-table-header undefined"
+                  key="0"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "356px",
+                      "textAlign": "left",
+                      "width": "356px",
+                    }
                   }
-                }
-              >
-                Schools
-              </th>
-            </tr>
+                >
+                  Schools
+                </th>
+              </tr>
+            </thead>
             <tbody
               className="data-table-body"
             >
@@ -205,7 +208,9 @@ exports[`CanvasIntegrationForm  renders form 1`] = `
                 className="data-table-row  "
                 key="1"
               >
-                <td>
+                <td
+                  key="1"
+                >
                   <button
                     aria-label="Unchecked checkbox"
                     className="quill-checkbox unselected data-table-row-section"

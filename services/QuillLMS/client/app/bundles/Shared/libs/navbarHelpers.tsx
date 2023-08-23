@@ -39,7 +39,7 @@ function renderListItem({ tabs, activeStates, handleLinkClick, tabLabel, i }) {
   const linkClass = `${activeStates[i]} ${premiumClass}`
   if (onMobile) {
     return (
-      <li>
+      <li key={i}>
         <Link className={`${activeStates[i]} ${premiumClass}`} onClick={handleLinkClick} to={tabs[tabLabel].url}>
           {tabLabel}
         </Link>
@@ -48,7 +48,7 @@ function renderListItem({ tabs, activeStates, handleLinkClick, tabLabel, i }) {
     )
   }
   return (
-    <li>
+    <li key={i}>
       <Link className={linkClass} onClick={handleLinkClick} to={tabs[tabLabel].url}>
         {tabLabel}
         {getIcon(activeStates[i], tabLabel)}

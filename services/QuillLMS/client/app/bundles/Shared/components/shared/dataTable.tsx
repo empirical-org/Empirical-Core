@@ -182,11 +182,11 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     return <th className={`${dataTableHeaderClassName} reorder-header`} scope="col">Order</th>
   }
 
-  renderActionsHeader(header) {
+  renderActionsHeader(header, index) {
     const { showActions } = this.props
     if (!showActions) { return null }
 
-    return <th className={`${dataTableHeaderClassName} actions-header`} scope="col">{header.name || 'Actions'}</th>
+    return <th className={`${dataTableHeaderClassName} actions-header`} key={index} scope="col">{header.name || 'Actions'}</th>
   }
 
   renderRowCheckbox(row) {
@@ -194,11 +194,11 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
     if (!showCheckboxes) { return null }
 
-    if (row.checked) { return <td><button className="quill-checkbox selected data-table-row-section" onClick={() => uncheckRow(row.id)} type="button"><img alt="check" src={smallWhiteCheckSrc} /></button></td> }
+    if (row.checked) { return <td key={row.id}><button className="quill-checkbox selected data-table-row-section" onClick={() => uncheckRow(row.id)} type="button"><img alt="check" src={smallWhiteCheckSrc} /></button></td> }
 
-    if (row.checkDisabled) { return <td className="quill-checkbox disabled data-table-row-section" /> }
+    if (row.checkDisabled) { return <td className="quill-checkbox disabled data-table-row-section" key={row.id} /> }
 
-    return <td><button aria-label="Unchecked checkbox" className="quill-checkbox unselected data-table-row-section" onClick={() => checkRow(row.id)} type="button" /></td>
+    return <td key={row.id}><button aria-label="Unchecked checkbox" className="quill-checkbox unselected data-table-row-section" onClick={() => checkRow(row.id)} type="button" /></td>
   }
 
   renderRowRemoveIcon(row) {
@@ -207,10 +207,10 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     if (!showRemoveIcon) { return }
 
     if (row.removable) {
-      return <td><button className="removable data-table-row-section focus-on-light" id={`remove-button-${row.id}`} onClick={() => removeRow(row.id)} type="button"><img alt="x" src={removeSrc} /></button></td>
+      return <td key={row.id}><button className="removable data-table-row-section focus-on-light" id={`remove-button-${row.id}`} onClick={() => removeRow(row.id)} type="button"><img alt="x" src={removeSrc} /></button></td>
     }
 
-    return <td className='removable data-table-row-section' />
+    return <td className='removable data-table-row-section' key={row.id} />
   }
 
   renderActions(row) {
@@ -220,7 +220,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const actionsIsOpen = rowWithActionsOpen === row.id;
 
     return (
-      <td className="data-table-row-section actions-section">
+      <td className="data-table-row-section actions-section" key={row.id}>
         {actionsIsOpen ? this.renderOpenActions(row) : this.renderClosedActions(row)}
       </td>
     )
@@ -253,8 +253,8 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     )
   }
 
-  renderHeader(header) {
-    if (header.isActions) { return this.renderActionsHeader(header) }
+  renderHeader(header, index) {
+    if (header.isActions) { return this.renderActionsHeader(header, index) }
 
     const { sortAscending, sortAttribute, } = this.state
     let className = `${dataTableHeaderClassName} ${header.headerClassName}`
@@ -302,6 +302,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     return (
       <th
         className={className}
+        key={index}
         scope="col"
         style={style as any}
       >
@@ -313,8 +314,12 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
   renderHeaders() {
     const { headers, } = this.props
-    const headerItems = headers.map(header => this.renderHeader(header))
-    return <tr className="data-table-headers">{this.renderHeaderCheckbox()}{this.renderHeaderForOrder()}{headerItems}{this.renderHeaderForRemoval()}</tr>
+    const headerItems = headers.map((header, index) => this.renderHeader(header, index))
+    return(
+      <thead>
+        <tr className="data-table-headers">{this.renderHeaderCheckbox()}{this.renderHeaderForOrder()}{headerItems}{this.renderHeaderForRemoval()}</tr>
+      </thead>
+    )
   }
 
   renderRowSection(row, header) {
@@ -337,7 +342,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
     if (!header.noTooltip && (String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
       return (
-        <td>
+        <td key={key}>
           <Tooltip
             key={key}
             tooltipText={rowDisplayText}
@@ -367,7 +372,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
     // using a div as the outer element instead of a button here because something about default button behavior overrides the keypress handling by sortablehandle
     const DragHandle = SortableHandle(() => <div className="focus-on-light" role="button" tabIndex={0}><img alt="Reorder icon" className="reorder-icon" src={reorderSrc} /></div>);
-    return <span className='reorder-section data-table-row-section'><DragHandle /></span>
+    return <td className='reorder-section data-table-row-section'><DragHandle /></td>
   }
 
   renderRow(row) {

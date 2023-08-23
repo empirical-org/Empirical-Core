@@ -2933,7 +2933,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       >
         <span
           aria-hidden={true}
-          className="quill-tooltip-trigger "
+          className="quill-tooltip-trigger  "
           role="tooltip"
         >
           <span
@@ -4465,7 +4465,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       >
         <span
           aria-hidden={true}
-          className="quill-tooltip-trigger "
+          className="quill-tooltip-trigger  "
           role="tooltip"
         >
           <span
@@ -7454,7 +7454,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       >
         <span
           aria-hidden={true}
-          className="quill-tooltip-trigger "
+          className="quill-tooltip-trigger  "
           role="tooltip"
         >
           <span

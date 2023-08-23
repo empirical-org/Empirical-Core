@@ -4632,7 +4632,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
       >
         <span
           aria-hidden={false}
-          className="quill-tooltip-trigger "
+          className="quill-tooltip-trigger  "
           role="tooltip"
         >
           <span
@@ -4771,92 +4771,100 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
       <table
         className="data-table show-overflow"
       >
-        <tr
-          className="data-table-headers"
-        >
-          <th
-            className="data-table-header"
-            scope="col"
+        <thead>
+          <tr
+            className="data-table-headers"
           >
-            <button
-              aria-label="Unchecked checkbox"
-              className="quill-checkbox unselected"
-              onClick={[Function]}
-              type="button"
-            />
-          </th>
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "220px",
-                "textAlign": "left",
-                "width": "220px",
+            <th
+              className="data-table-header"
+              scope="col"
+            >
+              <button
+                aria-label="Unchecked checkbox"
+                className="quill-checkbox unselected"
+                onClick={[Function]}
+                type="button"
+              />
+            </th>
+            <th
+              className="data-table-header undefined"
+              key="0"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "220px",
+                  "textAlign": "left",
+                  "width": "220px",
+                }
               }
-            }
-          >
-            Name
-          </th>
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "330px",
-                "textAlign": "left",
-                "width": "330px",
+            >
+              Name
+            </th>
+            <th
+              className="data-table-header undefined"
+              key="1"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "330px",
+                  "textAlign": "left",
+                  "width": "330px",
+                }
               }
-            }
-          >
-            Username/Email
-          </th>
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "110px",
-                "textAlign": "left",
-                "width": "110px",
+            >
+              Username/Email
+            </th>
+            <th
+              className="data-table-header undefined"
+              key="2"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "110px",
+                  "textAlign": "left",
+                  "width": "110px",
+                }
               }
-            }
-          >
-            Log-in Method
-          </th>
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "110px",
-                "textAlign": "left",
-                "width": "110px",
+            >
+              Log-in Method
+            </th>
+            <th
+              className="data-table-header undefined"
+              key="3"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "110px",
+                  "textAlign": "left",
+                  "width": "110px",
+                }
               }
-            }
-          >
-            Last Active
-          </th>
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "70px",
-                "textAlign": "right",
-                "width": "70px",
+            >
+              Last Active
+            </th>
+            <th
+              className="data-table-header undefined"
+              key="4"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "70px",
+                  "textAlign": "right",
+                  "width": "70px",
+                }
               }
-            }
-          >
-            Activities
-          </th>
-          <th
-            className="data-table-header actions-header"
-            scope="col"
-          >
-            Actions
-          </th>
-        </tr>
+            >
+              Activities
+            </th>
+            <th
+              className="data-table-header actions-header"
+              key="5"
+              scope="col"
+            >
+              Actions
+            </th>
+          </tr>
+        </thead>
         <tbody
           className="data-table-body"
         >
@@ -4864,7 +4872,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             className="data-table-row  "
             key="2851870"
           >
-            <td>
+            <td
+              key="2851870"
+            >
               <button
                 aria-label="Unchecked checkbox"
                 className="quill-checkbox unselected data-table-row-section"
@@ -4937,6 +4947,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             />
             <td
               className="data-table-row-section actions-section"
+              key="2851870"
             >
               <button
                 className="quill-button actions-button focus-on-light"
@@ -4954,7 +4965,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             className="data-table-row  "
             key="2851866"
           >
-            <td>
+            <td
+              key="2851866"
+            >
               <button
                 aria-label="Unchecked checkbox"
                 className="quill-checkbox unselected data-table-row-section"
@@ -5025,6 +5038,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             />
             <td
               className="data-table-row-section actions-section"
+              key="2851866"
             >
               <button
                 className="quill-button actions-button focus-on-light"

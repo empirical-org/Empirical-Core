@@ -93,7 +93,7 @@ class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean
     const { tooltipVisible, } = this.state
     const tabIndex = isTabbable ? 0 : null;
 
-    const triggerClass = `quill-tooltip-trigger ${tooltipVisible ? 'active' : ''}`
+    const triggerClass = `quill-tooltip-trigger  ${tooltipVisible ? 'active' : ''}`
 
     return (
       <span

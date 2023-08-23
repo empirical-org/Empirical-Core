@@ -220,6 +220,9 @@
       .no-right-margin {
         margin-right: 0px;
       }
+      .reorder-section {
+        margin-top: 2px;
+      }
     }
   }
 
@@ -284,17 +287,21 @@
 }
 
 .tool-and-name-section {
-  a {
-    height: 22px;
-    width: 650px;
-    display: inline-block;
-    color: #027360;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-  .interactive-wrapper {
+  .tool-icon-and-name {
     display: flex;
     align-items: center;
+    height: 26px;
+    a {
+      max-width: 650px;
+      display: inline-block;
+      color: #027360;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    a:focus {
+      outline-offset: 2px;
+      text-decoration: none;
+    }
   }
 }
