@@ -192,7 +192,7 @@ exports[`AdminsTeachers component should match snapshot 1`] = `
     </span>
      Any changes you make when you access a teacher account will impact the teacher and student facing dashboards. This list provides you with the ability to sign in to all of the teacher accounts for the schools you have admin access.
     <strong>
-      The data below represents usage from this school year, beginning July 1st.
+      The data above represents usage from this school year, beginning July 1st.
     </strong>
   </p>
 </div>
