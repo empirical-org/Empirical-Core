@@ -32,6 +32,8 @@ gem 'rack-attack', '~> 6.3'
 
 # EMAIL
 gem 'premailer-rails'
+gem 'sendgrid-ruby'
+
 gem 'nokogiri', '>= 1.13.2'
 
 # VALIDATIONS
