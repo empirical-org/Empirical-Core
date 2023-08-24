@@ -6,7 +6,6 @@ services:
     environment:
       POSTGRES_USER: 'root'
       POSTGRES_PASSWORD: 'password'
-      discovery.type: single-node
     ports:
       - '5433:5432'
     volumes:
