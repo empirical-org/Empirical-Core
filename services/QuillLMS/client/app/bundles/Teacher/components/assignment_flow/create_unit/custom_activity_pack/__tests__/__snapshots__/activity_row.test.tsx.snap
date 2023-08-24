@@ -91,7 +91,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
         >
           <span
             aria-hidden={false}
-            className="quill-tooltip-trigger  "
+            className="quill-tooltip-trigger "
             role="tooltip"
           >
             <span
@@ -507,7 +507,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
         >
           <span
             aria-hidden={false}
-            className="quill-tooltip-trigger  "
+            className="quill-tooltip-trigger "
             role="tooltip"
           >
             <span
@@ -984,7 +984,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
         >
           <span
             aria-hidden={false}
-            className="quill-tooltip-trigger  "
+            className="quill-tooltip-trigger "
             role="tooltip"
           >
             <span
@@ -1467,7 +1467,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
         >
           <span
             aria-hidden={false}
-            className="quill-tooltip-trigger  "
+            className="quill-tooltip-trigger "
             role="tooltip"
           >
             <span

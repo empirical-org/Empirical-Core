@@ -75,7 +75,7 @@ exports[`readabilityGradeLevelFilters component should render 1`] = `
     >
       <span
         aria-hidden={true}
-        className="quill-tooltip-trigger  "
+        className="quill-tooltip-trigger "
         role="tooltip"
       >
         <span

@@ -68,7 +68,7 @@ exports[`ReleaseMethodModal component with IMMEDIATE as the original release met
               >
                 <span
                   aria-hidden={false}
-                  className="quill-tooltip-trigger  "
+                  className="quill-tooltip-trigger "
                   role="tooltip"
                 >
                   <span
@@ -154,7 +154,7 @@ exports[`ReleaseMethodModal component with IMMEDIATE as the original release met
               >
                 <span
                   aria-hidden={false}
-                  className="quill-tooltip-trigger  "
+                  className="quill-tooltip-trigger "
                   role="tooltip"
                 >
                   <span
@@ -298,7 +298,7 @@ exports[`ReleaseMethodModal component with IMMEDIATE as the original release met
               >
                 <span
                   aria-hidden={false}
-                  className="quill-tooltip-trigger  "
+                  className="quill-tooltip-trigger "
                   role="tooltip"
                 >
                   <span
@@ -384,7 +384,7 @@ exports[`ReleaseMethodModal component with IMMEDIATE as the original release met
               >
                 <span
                   aria-hidden={false}
-                  className="quill-tooltip-trigger  "
+                  className="quill-tooltip-trigger "
                   role="tooltip"
                 >
                   <span
@@ -528,7 +528,7 @@ exports[`ReleaseMethodModal component with STAGGERED as the original release met
               >
                 <span
                   aria-hidden={false}
-                  className="quill-tooltip-trigger  "
+                  className="quill-tooltip-trigger "
                   role="tooltip"
                 >
                   <span
@@ -614,7 +614,7 @@ exports[`ReleaseMethodModal component with STAGGERED as the original release met
               >
                 <span
                   aria-hidden={false}
-                  className="quill-tooltip-trigger  "
+                  className="quill-tooltip-trigger "
                   role="tooltip"
                 >
                   <span
@@ -758,7 +758,7 @@ exports[`ReleaseMethodModal component with STAGGERED as the original release met
               >
                 <span
                   aria-hidden={false}
-                  className="quill-tooltip-trigger  "
+                  className="quill-tooltip-trigger "
                   role="tooltip"
                 >
                   <span
@@ -844,7 +844,7 @@ exports[`ReleaseMethodModal component with STAGGERED as the original release met
               >
                 <span
                   aria-hidden={false}
-                  className="quill-tooltip-trigger  "
+                  className="quill-tooltip-trigger "
                   role="tooltip"
                 >
                   <span
@@ -986,7 +986,7 @@ exports[`ReleaseMethodModal component with no original release method should ren
               >
                 <span
                   aria-hidden={false}
-                  className="quill-tooltip-trigger  "
+                  className="quill-tooltip-trigger "
                   role="tooltip"
                 >
                   <span
@@ -1072,7 +1072,7 @@ exports[`ReleaseMethodModal component with no original release method should ren
               >
                 <span
                   aria-hidden={false}
-                  className="quill-tooltip-trigger  "
+                  className="quill-tooltip-trigger "
                   role="tooltip"
                 >
                   <span
@@ -1213,7 +1213,7 @@ exports[`ReleaseMethodModal component with no original release method should ren
               >
                 <span
                   aria-hidden={false}
-                  className="quill-tooltip-trigger  "
+                  className="quill-tooltip-trigger "
                   role="tooltip"
                 >
                   <span
@@ -1299,7 +1299,7 @@ exports[`ReleaseMethodModal component with no original release method should ren
               >
                 <span
                   aria-hidden={false}
-                  className="quill-tooltip-trigger  "
+                  className="quill-tooltip-trigger "
                   role="tooltip"
                 >
                   <span
@@ -1440,7 +1440,7 @@ exports[`ReleaseMethodModal component with no original release method should ren
               >
                 <span
                   aria-hidden={false}
-                  className="quill-tooltip-trigger  "
+                  className="quill-tooltip-trigger "
                   role="tooltip"
                 >
                   <span
@@ -1526,7 +1526,7 @@ exports[`ReleaseMethodModal component with no original release method should ren
               >
                 <span
                   aria-hidden={false}
-                  className="quill-tooltip-trigger  "
+                  className="quill-tooltip-trigger "
                   role="tooltip"
                 >
                   <span

@@ -423,7 +423,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
             >
               <span
                 aria-hidden={false}
-                className="quill-tooltip-trigger  "
+                className="quill-tooltip-trigger "
                 role="tooltip"
               >
                 <span
@@ -482,7 +482,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
             >
               <span
                 aria-hidden={false}
-                className="quill-tooltip-trigger  "
+                className="quill-tooltip-trigger "
                 role="tooltip"
               >
                 <span
@@ -1419,7 +1419,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                 >
                   <span
                     aria-hidden={false}
-                    className="quill-tooltip-trigger  "
+                    className="quill-tooltip-trigger "
                     role="tooltip"
                   >
                     <span
@@ -1478,7 +1478,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                 >
                   <span
                     aria-hidden={false}
-                    className="quill-tooltip-trigger  "
+                    className="quill-tooltip-trigger "
                     role="tooltip"
                   >
                     <span
@@ -13786,7 +13786,7 @@ exports[`ActivityPack component renders if the current user did not create the u
                 >
                   <span
                     aria-hidden={false}
-                    className="quill-tooltip-trigger  "
+                    className="quill-tooltip-trigger "
                     role="tooltip"
                   >
                     <span
@@ -13845,7 +13845,7 @@ exports[`ActivityPack component renders if the current user did not create the u
                 >
                   <span
                     aria-hidden={false}
-                    className="quill-tooltip-trigger  "
+                    className="quill-tooltip-trigger "
                     role="tooltip"
                   >
                     <span

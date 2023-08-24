@@ -7989,7 +7989,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {
@@ -8456,7 +8456,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {
@@ -8906,7 +8906,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {
@@ -8997,7 +8997,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {
@@ -9464,7 +9464,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {
@@ -9914,7 +9914,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {
@@ -10005,7 +10005,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {
@@ -10455,7 +10455,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {
@@ -10546,7 +10546,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {
@@ -11013,7 +11013,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {
@@ -11480,7 +11480,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {
@@ -11947,7 +11947,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {
@@ -12397,7 +12397,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {
@@ -12488,7 +12488,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {
@@ -12955,7 +12955,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {
@@ -13422,7 +13422,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {
@@ -13872,7 +13872,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {
@@ -13963,7 +13963,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {
@@ -14430,7 +14430,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {
@@ -14897,7 +14897,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {
@@ -15364,7 +15364,7 @@ exports[`BlogPostTable component renders 1`] = `
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger  "
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                                 style={
                                   Object {

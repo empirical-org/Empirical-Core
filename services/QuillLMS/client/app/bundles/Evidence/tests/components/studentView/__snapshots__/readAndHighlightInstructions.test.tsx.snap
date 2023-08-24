@@ -86,7 +86,7 @@ exports[`ReadAndHighlightInstructions component when the student has not started
         >
           <span
             aria-hidden={false}
-            className="quill-tooltip-trigger  "
+            className="quill-tooltip-trigger "
             role="tooltip"
           >
             <span
@@ -218,7 +218,7 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
         >
           <span
             aria-hidden={false}
-            className="quill-tooltip-trigger  "
+            className="quill-tooltip-trigger "
             role="tooltip"
           >
             <span

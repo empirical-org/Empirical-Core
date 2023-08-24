@@ -430,7 +430,7 @@ exports[`Results component should render when there are no results 1`] = `
                       >
                         <span
                           aria-hidden={false}
-                          className="quill-tooltip-trigger  "
+                          className="quill-tooltip-trigger "
                           role="tooltip"
                         >
                           <span
@@ -491,7 +491,7 @@ exports[`Results component should render when there are no results 1`] = `
                       >
                         <span
                           aria-hidden={false}
-                          className="quill-tooltip-trigger  "
+                          className="quill-tooltip-trigger "
                           role="tooltip"
                         >
                           <span
@@ -552,7 +552,7 @@ exports[`Results component should render when there are no results 1`] = `
                       >
                         <span
                           aria-hidden={false}
-                          className="quill-tooltip-trigger  "
+                          className="quill-tooltip-trigger "
                           role="tooltip"
                         >
                           <span
@@ -613,7 +613,7 @@ exports[`Results component should render when there are no results 1`] = `
                       >
                         <span
                           aria-hidden={false}
-                          className="quill-tooltip-trigger  "
+                          className="quill-tooltip-trigger "
                           role="tooltip"
                         >
                           <span
@@ -674,7 +674,7 @@ exports[`Results component should render when there are no results 1`] = `
                       >
                         <span
                           aria-hidden={false}
-                          className="quill-tooltip-trigger  "
+                          className="quill-tooltip-trigger "
                           role="tooltip"
                         >
                           <span
@@ -735,7 +735,7 @@ exports[`Results component should render when there are no results 1`] = `
                       >
                         <span
                           aria-hidden={false}
-                          className="quill-tooltip-trigger  "
+                          className="quill-tooltip-trigger "
                           role="tooltip"
                         >
                           <span
@@ -1900,7 +1900,7 @@ exports[`Results component should render when there are no results 1`] = `
                         >
                           <span
                             aria-hidden={false}
-                            className="quill-tooltip-trigger  "
+                            className="quill-tooltip-trigger "
                             role="tooltip"
                           >
                             <span
@@ -2409,7 +2409,7 @@ exports[`Results component should render when there are no results 1`] = `
                         >
                           <span
                             aria-hidden={false}
-                            className="quill-tooltip-trigger  "
+                            className="quill-tooltip-trigger "
                             role="tooltip"
                           >
                             <span
@@ -2726,7 +2726,7 @@ exports[`Results component should render when there are no results 1`] = `
                         >
                           <span
                             aria-hidden={false}
-                            className="quill-tooltip-trigger  "
+                            className="quill-tooltip-trigger "
                             role="tooltip"
                           >
                             <span
@@ -4003,7 +4003,7 @@ exports[`Results component should render when there are no results 1`] = `
                         >
                           <span
                             aria-hidden={false}
-                            className="quill-tooltip-trigger  "
+                            className="quill-tooltip-trigger "
                             role="tooltip"
                           >
                             <span
@@ -8399,7 +8399,7 @@ exports[`Results component should render when there are results 1`] = `
                       >
                         <span
                           aria-hidden={false}
-                          className="quill-tooltip-trigger  "
+                          className="quill-tooltip-trigger "
                           role="tooltip"
                         >
                           <span
@@ -8470,7 +8470,7 @@ exports[`Results component should render when there are results 1`] = `
                       >
                         <span
                           aria-hidden={false}
-                          className="quill-tooltip-trigger  "
+                          className="quill-tooltip-trigger "
                           role="tooltip"
                         >
                           <span
@@ -8541,7 +8541,7 @@ exports[`Results component should render when there are results 1`] = `
                       >
                         <span
                           aria-hidden={false}
-                          className="quill-tooltip-trigger  "
+                          className="quill-tooltip-trigger "
                           role="tooltip"
                         >
                           <span
@@ -8612,7 +8612,7 @@ exports[`Results component should render when there are results 1`] = `
                       >
                         <span
                           aria-hidden={false}
-                          className="quill-tooltip-trigger  "
+                          className="quill-tooltip-trigger "
                           role="tooltip"
                         >
                           <span
@@ -8683,7 +8683,7 @@ exports[`Results component should render when there are results 1`] = `
                       >
                         <span
                           aria-hidden={false}
-                          className="quill-tooltip-trigger  "
+                          className="quill-tooltip-trigger "
                           role="tooltip"
                         >
                           <span
@@ -8754,7 +8754,7 @@ exports[`Results component should render when there are results 1`] = `
                       >
                         <span
                           aria-hidden={false}
-                          className="quill-tooltip-trigger  "
+                          className="quill-tooltip-trigger "
                           role="tooltip"
                         >
                           <span
@@ -24143,7 +24143,7 @@ exports[`Results component should render when there are results 1`] = `
                         >
                           <span
                             aria-hidden={false}
-                            className="quill-tooltip-trigger  "
+                            className="quill-tooltip-trigger "
                             role="tooltip"
                           >
                             <span
@@ -26286,7 +26286,7 @@ exports[`Results component should render when there are results 1`] = `
                         >
                           <span
                             aria-hidden={false}
-                            className="quill-tooltip-trigger  "
+                            className="quill-tooltip-trigger "
                             role="tooltip"
                           >
                             <span
@@ -28283,7 +28283,7 @@ exports[`Results component should render when there are results 1`] = `
                         >
                           <span
                             aria-hidden={false}
-                            className="quill-tooltip-trigger  "
+                            className="quill-tooltip-trigger "
                             role="tooltip"
                           >
                             <span
@@ -30064,7 +30064,7 @@ exports[`Results component should render when there are results 1`] = `
                         >
                           <span
                             aria-hidden={false}
-                            className="quill-tooltip-trigger  "
+                            className="quill-tooltip-trigger "
                             role="tooltip"
                           >
                             <span

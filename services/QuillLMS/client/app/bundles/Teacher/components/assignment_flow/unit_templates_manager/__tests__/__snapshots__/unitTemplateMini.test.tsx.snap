@@ -186,7 +186,7 @@ exports[`UnitTemplateMini component should render activity_info has html 1`] = `
   >
     <span
       aria-hidden={true}
-      className="quill-tooltip-trigger  "
+      className="quill-tooltip-trigger "
       role="tooltip"
     >
       <span
