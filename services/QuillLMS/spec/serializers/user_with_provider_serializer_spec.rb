@@ -9,13 +9,38 @@ describe UserWithProviderSerializer, type: :serializer do
   describe '#to_json output' do
     let(:json) { serializer.to_json(root: 'user') }
     let(:parsed) { JSON.parse(json) }
+    let(:parsed_user) { parsed['user'] }
 
     it { expect(parsed.keys).to include('user')}
+    it { expect(parsed_user.keys).to include('provider') }
+    it { expect(parsed_user.keys).to include('user_external_id') }
 
-    describe "'user' object" do
-      let(:parsed_user) { parsed['user'] }
+    context 'when user is a google user' do
+      let(:google_id) { Faker::Number.number(digits: 21).to_s }
 
-      it { expect(parsed_user.keys).to include('provider') }
+      before { user.update(google_id: google_id) }
+
+      it { expect(parsed_user['provider']).to eq User::GOOGLE_PROVIDER  }
+      it { expect(parsed_user['user_external_id']).to eq google_id  }
+    end
+
+    context 'when user is a clever user' do
+      let(:clever_id) { SecureRandom.hex(12) }
+
+      before { user.update(clever_id: clever_id) }
+
+      it { expect(parsed_user['provider']).to eq User::CLEVER_PROVIDER  }
+      it { expect(parsed_user['user_external_id']).to eq clever_id  }
+    end
+
+    # The canvas user construction is different since we can't uniquely identify
+    # the user_external_id without a canvas_auth_credential which ties the canvas_instance to the user
+    context 'when user is a canvas user' do
+      let(:user) { create(:canvas_auth_credential).user }
+      let(:canvas_instance) { user.canvas_instances.first }
+
+      it { expect(parsed_user['provider']).to eq User::CANVAS_PROVIDER }
+      it { expect(parsed_user['user_external_id']).to eq user.user_external_id(canvas_instance: canvas_instance) }
     end
   end
 end
