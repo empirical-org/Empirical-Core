@@ -16,7 +16,7 @@ module Auth
       @auth_hash ||= request.env['omniauth.auth']
     end
 
-    private def district_success
+    private def district_success(_data, _redirect)
       redirect_to '/clever/district_success'
     end
 
