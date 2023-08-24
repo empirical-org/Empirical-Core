@@ -16,8 +16,8 @@ module Auth
       @auth_hash ||= request.env['omniauth.auth']
     end
 
-    private def district_success(data, redirect=nil)
-      render status: 200, nothing: true # Don't bother rendering anything.
+    private def district_success(data, redirect)
+      redirect_to '/clever/district_success'
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity
@@ -64,6 +64,7 @@ module Auth
 
     private def handle_user_success_redirection(user)
       sign_in(user)
+
       if session[ApplicationController::POST_AUTH_REDIRECT].present?
         url = session[ApplicationController::POST_AUTH_REDIRECT]
         session.delete(ApplicationController::POST_AUTH_REDIRECT)
