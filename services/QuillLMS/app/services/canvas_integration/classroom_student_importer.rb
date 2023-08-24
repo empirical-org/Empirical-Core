@@ -16,7 +16,7 @@ module CanvasIntegration
     end
 
     private def assign_classroom
-      ::Associators::StudentsToClassrooms.run(imported_student, classroom)
+      ::StudentClassroomAssociator.run(imported_student, classroom)
     end
 
     private def canvas_account
