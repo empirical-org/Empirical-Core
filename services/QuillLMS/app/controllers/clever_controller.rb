@@ -12,4 +12,8 @@ class CleverController < ApplicationController
   def no_classroom
     render 'clever/no_classroom'
   end
+
+  def district_success
+    render 'clever/district_success'
+  end
 end
