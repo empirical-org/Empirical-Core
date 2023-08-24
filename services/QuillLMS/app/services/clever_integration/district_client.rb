@@ -10,6 +10,13 @@ module CleverIntegration
       @district_token = district_token
     end
 
+    def district_name(district_clever_id)
+      data_api
+        .get_district(district_clever_id)
+        .data
+        .name
+    end
+
     def teacher_classrooms(teacher_clever_id)
       data_api
         .get_sections_for_teacher(teacher_clever_id)

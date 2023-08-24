@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe CleverIntegration::LibraryTeacherIntegration do
   let(:teacher) { classroom.owner }
-  let(:token) { "ila49754462" }
+  let(:token) { "il#{SecureRandom.hex(19)}" }
   let(:auth_credential_class) { CleverLibraryAuthCredential }
   let(:classroom) { create(:classroom, :from_clever, students: [student]) }
   let(:student) { create(:student, :signed_up_with_clever) }
