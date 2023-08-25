@@ -71,7 +71,7 @@ class StudentsController < ApplicationController
         classcode = params[:classcode].downcase
         begin
           classroom = Classroom.find_by!(code: classcode)
-          Associators::StudentsToClassrooms.run(current_user, classroom)
+          StudentClassroomAssociator.run(current_user, classroom)
         rescue ActiveRecord::RecordNotFound => e
           if Classroom.unscoped.find_by(code: classcode).nil?
             flash[:error] = "Oops! There is no class with the code #{classcode}. Ask your teacher for help."

@@ -63,7 +63,7 @@ class Teachers::ClassroomsController < ApplicationController
     create_students_params[:students].each do |s|
       s[:account_type] = 'Teacher Created Account'
       student = Creators::StudentCreator.create_student(s, classroom.id)
-      Associators::StudentsToClassrooms.run(student, classroom)
+      StudentClassroomAssociator.run(student, classroom)
     end
     render json: { students: classroom.students }
   end
