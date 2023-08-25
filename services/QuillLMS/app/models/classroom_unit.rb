@@ -84,11 +84,11 @@ class ClassroomUnit < ApplicationRecord
 
   def manage_user_pack_sequence_items
     pack_sequence_items.reload.each do |pack_sequence_item|
-      existing_user_ids = pack_sequence_item.users.pluck(:id)
+      existing_user_ids = pack_sequence_item.reload.users.pluck(:id)
       new_user_ids = assigned_student_ids - existing_user_ids
       deleted_user_ids = existing_user_ids - assigned_student_ids
 
-      new_user_ids.each { |user_id| pack_sequence_item.user_pack_sequence_items.create!(user_id: user_id) }
+      new_user_ids.each { |user_id| pack_sequence_item.user_pack_sequence_items.find_or_create_by!(user_id: user_id) }
 
       pack_sequence_item
         .user_pack_sequence_items
