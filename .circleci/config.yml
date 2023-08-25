@@ -246,7 +246,7 @@ jobs:
   cms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
-      - image: ruby:2.7.6
+      - image: ruby:3.0.2
         environment:
           PG_DB: quill_cms_test_db
           PG_USER: ubuntu
@@ -257,9 +257,9 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: quill_cms_test_db
           POSTGRES_PASSWORD: password
-      - image: docker.elastic.co/elasticsearch/elasticsearch:5.6.2
+      - image: docker.elastic.co/elasticsearch/elasticsearch:6.8.0
         environment:
-          - xpack.security.enabled: false
+          xpack.security.enabled: false
     steps:
       - checkout
       - restore_cache:

@@ -7,7 +7,7 @@ module ResponseSearch
       sort: sort_values,
       query: query_values
     }
-    results = Response.__elasticsearch__.search(search_payload)
+    results = Response.__elasticsearch__.search(**search_payload)
     page_number = query_filters[:pageNumber]
     {
       numberOfPages: results.page(page_number).total_pages,
