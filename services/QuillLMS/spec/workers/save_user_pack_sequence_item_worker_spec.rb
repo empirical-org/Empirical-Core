@@ -29,10 +29,19 @@ RSpec.describe SaveUserPackSequenceItemWorker do
     end
   end
 
-  context 'nil pack_sequence_item' do
+  context 'pack_sequence_item does not exist' do
     before { PackSequenceItem.find_by(id: pack_sequence_item_id).destroy }
 
-    it 'should_not_query_user_pack_sequence_item' do
+    it do
+      expect(UserPackSequenceItem).not_to receive(:create_or_find_by!)
+      subject
+    end
+  end
+
+  context 'user does not exist' do
+    before { User.find_by(id: user_id).destroy }
+
+    it do
       expect(UserPackSequenceItem).not_to receive(:create_or_find_by!)
       subject
     end
