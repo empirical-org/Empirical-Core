@@ -2,11 +2,31 @@
 
 require 'rails_helper'
 
-describe Associators::StudentsToClassrooms do
+RSpec.describe StudentClassroomAssociator do
   subject { described_class.run(student, classroom) }
 
-  let!(:student) { create(:student) }
-  let!(:classroom) { create(:classroom) }
+  let(:student) { create(:student) }
+  let(:classroom) { create(:classroom) }
+
+  it { expect { subject }.to change(student.classrooms, :count).by(1) }
+
+  context 'when classroom is destroyed' do
+    before { classroom.destroy }
+
+    it { expect { subject }.not_to change(student.classrooms, :count) }
+  end
+
+  context 'when classroom is not visible' do
+    before { classroom.update(visible: false) }
+
+    it { expect { subject }.not_to change(student.classrooms, :count) }
+  end
+
+  context 'when classroom owner does not exist' do
+    before { classroom.owner.destroy }
+
+    it { expect { subject }.not_to change(student.classrooms, :count) }
+  end
 
   context 'race conditions' do
     # While twenty parallel calls does feel a bit excessive, testing locally
