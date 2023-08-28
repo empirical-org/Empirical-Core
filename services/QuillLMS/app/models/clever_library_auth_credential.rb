@@ -28,6 +28,8 @@ class CleverLibraryAuthCredential < AuthCredential
   PROVIDER = 'clever_library'
 
   def clever_authorized?
-    true
+    return false if expires_at.nil?
+
+    Time.current < expires_at
   end
 end
