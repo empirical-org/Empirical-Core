@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as Pusher from 'pusher-js';
+import * as moment from 'moment';
 
 import { requestPost, } from '../../../modules/request'
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
@@ -18,7 +19,7 @@ const ACTIVITY = "Activity";
 const TOOL = "Tool";
 const SCORE = "Score";
 const STANDARD = "Standard";
-const TIME_SPENT = "Time Spent";
+const TIME_SPENT = "Time Spent (Mins)";
 
 interface DataExportTableAndFieldsProps {
   adminId: number;
@@ -82,7 +83,7 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
       checked: showClass
     },
     [COMPLETED_DATE]: {
-      dataTableField: { name: COMPLETED_DATE, attribute: "completed_date", width: STANDARD_WIDTH },
+      dataTableField: { name: COMPLETED_DATE, attribute: "completed_at", width: STANDARD_WIDTH },
       setterFunction: setShowCompletedDate,
       checked: showCompletedDate
     },
@@ -145,7 +146,9 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
         const { results, } = body
         // We consider `null` to be a lack of data, so if the result is `[]` we need to explicitly `setData(null)`
         const data = results.length > 0 ? results : null
-        setData(data)
+        const formattedData = formatData(data)
+        setData(formattedData)
+        // setData(data)
         setLoading(false)
       }
     })
@@ -169,6 +172,34 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
       }
     });
   };
+
+  function getTimeSpentInMinutes(seconds: number) {
+    if (!seconds) {
+      return 'N/A';
+    }
+    if (seconds < 60) {
+      return `<1`;
+    }
+    if (seconds >= 60 && seconds < 120) {
+      return '1';
+    }
+    return `${Math.floor((seconds % 3600) / 60)}`;
+  }
+
+  function formatData(data) {
+    if(!data) { return null }
+
+    return data.map(entry => {
+      const formattedEntry = {...entry}
+      const score = Math.round(parseFloat(entry.score) * 100);
+      const percentage = isNaN(score) || score < 0 ? 'N/A' : score + '%';
+
+      formattedEntry.completed_at = moment(entry.completed_at).format("MM/DD/YYYY");
+      formattedEntry.timespent = getTimeSpentInMinutes(entry.timespent)
+      formattedEntry.score = percentage
+      return formattedEntry
+    })
+  }
 
   function toggleCheckbox(e) {
     e.preventDefault();

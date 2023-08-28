@@ -254,7 +254,7 @@ const DataExportContainer = ({ adminInfo, accessType, }) => {
       <Filters
         {...filterProps}
       />
-      <main>
+      <main className="data-export-main">
         <div className="header">
           <h1>Data Export</h1>
           <button className="quill-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">Download Report</button>
