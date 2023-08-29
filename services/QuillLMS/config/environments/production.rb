@@ -68,7 +68,6 @@ EmpiricalGrammar::Application.configure do
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
   config.assets.precompile += %w(
                                  cms.js
-                                 cms.css
                                  scorebook/*
                                  scorebook/**/*
                                  sign_up_email.css
