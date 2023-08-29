@@ -70,10 +70,7 @@ exports[`SnapshotCount component size medium should match snapshot 1`] = `
     <div
       className="change"
     >
-      <span>
-        0
-        %
-      </span>
+      <span />
     </div>
   </section>
 </SnapshotCount>
@@ -158,8 +155,7 @@ exports[`SnapshotCount component size medium when there is data with a negative 
         src="undefined/images/pages/administrator/usage_snapshot_report/arrow_down_icon.svg"
       />
       <span>
-        50
-        %
+        50%
       </span>
     </div>
   </section>
@@ -245,8 +241,7 @@ exports[`SnapshotCount component size medium when there is data with a positive 
         src="undefined/images/pages/administrator/usage_snapshot_report/arrow_up_icon.svg"
       />
       <span>
-        50
-        %
+        50%
       </span>
     </div>
   </section>
@@ -323,10 +318,7 @@ exports[`SnapshotCount component size medium when there is no data  should match
     <div
       className="change"
     >
-      <span>
-        0
-        %
-      </span>
+      <span />
     </div>
   </section>
 </SnapshotCount>
@@ -402,10 +394,7 @@ exports[`SnapshotCount component size small when it is coming soon should match 
     <div
       className="change"
     >
-      <span>
-        0
-        %
-      </span>
+      <span />
     </div>
   </section>
 </SnapshotCount>
@@ -490,8 +479,7 @@ exports[`SnapshotCount component size small when there is data with a negative t
         src="undefined/images/pages/administrator/usage_snapshot_report/arrow_down_icon.svg"
       />
       <span>
-        50
-        %
+        50%
       </span>
     </div>
   </section>
@@ -577,8 +565,7 @@ exports[`SnapshotCount component size small when there is data with a positive t
         src="undefined/images/pages/administrator/usage_snapshot_report/arrow_up_icon.svg"
       />
       <span>
-        50
-        %
+        50%
       </span>
     </div>
   </section>
@@ -655,10 +642,7 @@ exports[`SnapshotCount component size small when there is no data  should match 
     <div
       className="change"
     >
-      <span>
-        0
-        %
-      </span>
+      <span />
     </div>
   </section>
 </SnapshotCount>
