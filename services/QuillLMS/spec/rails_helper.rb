@@ -13,7 +13,7 @@ require 'factory_bot_rails'
 require 'spec_helper'
 
 # This should eager load the TeacherNotification sub-classes which is necessary in our testing environment because we use the TeacherNotification.subclasses call for validation, and without eager loading that value starts as an empty array
-Dir[File.join(__dir__, '..', 'app', 'models', 'teacher_notifications', '*.rb')].sort.each { |file| require file }
+Dir[File.join(__dir__, '..', 'app', 'models', 'teacher_notifications', '*.rb')].each { |file| require file }
 
 # Use a fake Sidekiq since we don't maintain redis for testing
 Sidekiq::Testing.fake!
@@ -41,10 +41,10 @@ RSpec::Matchers.define_negated_matcher :not_change, :change
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[Rails.root.join("spec/support/**/*.rb")].sort.each {|f| require f}
+Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 # shared contexts and groups to behave like
-Dir[Rails.root.join("spec/shared/**/*.rb")].sort.each {|f| require f}
+Dir[Rails.root.join("spec/shared/**/*.rb")].each {|f| require f}
 
 # ensure the db is properly migrated
 ActiveRecord::Migration.maintain_test_schema!

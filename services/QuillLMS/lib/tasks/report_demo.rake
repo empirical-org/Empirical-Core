@@ -24,8 +24,7 @@ namespace :report_demo do
             student
               .activity_sessions
               .where(activity_id: unit.activities.pluck(:id))
-              .map { |activity_session| [activity_session.activity_id, student.id] }
-              .to_h
+              .to_h { |activity_session| [activity_session.activity_id, student.id] }
         end
       end
     end

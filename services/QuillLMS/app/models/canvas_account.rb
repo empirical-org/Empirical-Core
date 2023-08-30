@@ -24,7 +24,7 @@
 class CanvasAccount < ApplicationRecord
   class InvalidUserExternalIdFormatError < StandardError; end
 
-  VALID_USER_EXTERNAL_ID_FORMAT = /\A\d+:[a-fA-F0-9]+\z/.freeze
+  VALID_USER_EXTERNAL_ID_FORMAT = /\A\d+:[a-fA-F0-9]+\z/
 
   belongs_to :canvas_instance
   belongs_to :user

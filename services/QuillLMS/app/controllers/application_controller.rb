@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   before_action :set_default_cache_security_headers
 
   def show_errors
-    status = env['PATH_INFO'][1..-1]
+    status = env['PATH_INFO'][1..]
     render_error(status)
   end
 

@@ -43,8 +43,7 @@ class UserActivityClassification < ApplicationRecord
   # returns {user_id: total}
   def self.completed_activities_by_student(user_ids)
     completed_activities_for_user_ids(user_ids)
-    .map{|r| [r['user_id'], r['total'].to_i]}
-    .to_h
+    .to_h{|r| [r['user_id'], r['total'].to_i]}
   end
 
   def self.count_for(user, activity_classification)

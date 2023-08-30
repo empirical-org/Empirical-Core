@@ -684,8 +684,8 @@ RSpec.describe FeedbackHistory, type: :model do
       end
 
       it 'should take the query from #session_data_for_csv and return a shaped payload with records qualifying for scoring' do
-        histories_for_scoring = @histories[2..-1]
-        prompts_for_scoring = @prompts[2..-1]
+        histories_for_scoring = @histories[2..]
+        prompts_for_scoring = @prompts[2..]
 
         responses = FeedbackHistory.session_data_for_csv(responses_for_scoring: true).map(&:serialize_csv_data)
 

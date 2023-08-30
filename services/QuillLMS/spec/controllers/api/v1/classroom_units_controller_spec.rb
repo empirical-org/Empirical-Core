@@ -284,7 +284,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
   end
 
   describe '#classroom_teacher_and_coteacher_ids' do
-    let(:teacher_ids) { classroom.teacher_ids.collect {|i| [i, true]}.to_h }
+    let(:teacher_ids) { classroom.teacher_ids.to_h {|i| [i, true]} }
 
     before { session[:user_id] = teacher.id }
 
