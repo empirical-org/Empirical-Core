@@ -54,6 +54,7 @@
           border: 1px solid $quill-grey-5;
           background: #F4F4F4;
           margin: 16px 0px 24px 0px;
+          max-width: 1030px;
           img {
             margin-right: 10px;
           }
@@ -64,7 +65,7 @@
         border-radius: 8px;
         overflow: auto;
         width: min-content;
-        max-width: 994px;
+        max-width: 1030px;
         .data-table-headers {
           background-color: $quill-grey-1;
           min-height: 52px;

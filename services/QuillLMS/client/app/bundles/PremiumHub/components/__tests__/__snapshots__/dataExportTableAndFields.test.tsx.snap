@@ -250,7 +250,7 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
         <button
           aria-label="Checked checkbox"
           className="quill-checkbox selected"
-          id="Time Spent"
+          id="Time Spent (Mins)"
           onClick={[Function]}
           type="button"
         >
@@ -260,9 +260,9 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
           />
         </button>
         <label
-          htmlFor="Time Spent"
+          htmlFor="Time Spent (Mins)"
         >
-          Time Spent
+          Time Spent (Mins)
         </label>
       </div>
     </div>

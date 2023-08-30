@@ -146,6 +146,7 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
         const { results, } = body
         // We consider `null` to be a lack of data, so if the result is `[]` we need to explicitly `setData(null)`
         const data = results.length > 0 ? results : null
+        console.log("🚀 ~ file: dataExportTableAndFields.tsx:149 ~ requestPost ~ data:", data)
         const formattedData = formatData(data)
         setData(formattedData)
         // setData(data)
@@ -261,6 +262,7 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
       {!loading && <DataTable
         className="data-export-table"
         defaultSortAttribute="name"
+        emptyStateMessage={'There are no activities available for the filters selected. Try modifying or removing a filter to see results.'}
         headers={getHeaders()}
         rows={data || []}
       />}
