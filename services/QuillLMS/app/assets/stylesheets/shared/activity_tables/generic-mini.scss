@@ -43,10 +43,10 @@
     line-height: 25px;
   }
   .img-wrapper {
-    height: 135px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    min-height: 117px;
     img {
       padding-top: 20px;
     }
