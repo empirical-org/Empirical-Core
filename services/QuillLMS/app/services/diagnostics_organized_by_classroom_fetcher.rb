@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
-  attr_reader :user, :is_demo
+  attr_reader :user
 
   ACTIVITY_IDS_TO_NAMES = {
     Activity::STARTER_DIAGNOSTIC_ACTIVITY_ID => 'Starter Diagnostic',
@@ -14,9 +14,8 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
 
   QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE = DateTime.new(2023, 7, 19, 0, 0, 0)
 
-  def initialize(user, is_demo)
+  def initialize(user)
     @user = user
-    @is_demo = is_demo
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
@@ -96,7 +95,7 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
     record = records[0]
     return if !record
 
-    record['eligible_for_question_scoring'] = !is_demo && (activity_sessions.empty? || activity_sessions.last.completed_at  > QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE)
+    record['eligible_for_question_scoring'] = activity_sessions.empty? || activity_sessions.last.completed_at  > QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE
     record['completed_count'] = activity_sessions.size
     record['assigned_count'] = assigned_student_ids.size
     record.except('unit_id', 'unit_name', 'classroom_unit_id', 'assigned_student_ids')
