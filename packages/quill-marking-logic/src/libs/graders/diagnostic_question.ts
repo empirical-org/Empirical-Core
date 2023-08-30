@@ -52,12 +52,12 @@ function* firstPassMatchers(data) {
   const {response, responses, focusPoints, incorrectSequences} = data;
   const submission = response
   yield exactMatch(submission, responses)
+  yield minLengthChecker(submission, responses, true)
   yield focusPointChecker(submission, focusPoints, responses);
   yield incorrectSequenceChecker(submission, incorrectSequences, responses);
   yield caseInsensitiveChecker(submission, responses, true)
   yield punctuationInsensitiveChecker(submission, responses, true)
   yield punctuationAndCaseInsensitiveChecker(submission, responses, true)
-  yield minLengthChecker(submission, responses, true)
   yield levenshteinMatchObjectChecker(submission, responses)
   yield whitespaceChecker(submission, responses)
 }

@@ -14,5 +14,9 @@ class SaveUserPackSequenceItemWorker
     return if upsi.status == status
 
     upsi.update!(status: status)
+
+  # While create_or_find_by! runs a race condition with pack sequence item destroyed elsewhere
+  rescue ActiveRecord::InvalidForeignKey
+    retry
   end
 end
