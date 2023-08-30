@@ -42,11 +42,7 @@ exports[`LandingPage component matches the snapshot 1`] = `
               />
             </div>
             <p
-              style={
-                Object {
-                  "padding": "0px 2px",
-                }
-              }
+              style={Object {}}
             >
               Quickly see which activities your students have completed and the skills that were demonstrated.
             </p>
@@ -133,11 +129,7 @@ exports[`LandingPage component matches the snapshot 1`] = `
               />
             </div>
             <p
-              style={
-                Object {
-                  "padding": "0px 7px",
-                }
-              }
+              style={Object {}}
             >
               View and download each student’s overall score and their individual scores per activity as a PDF or CSV.
             </p>

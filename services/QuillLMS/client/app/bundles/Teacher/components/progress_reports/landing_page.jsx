@@ -11,7 +11,6 @@ const miniList = () => {
       href: '/teachers/classrooms/scorebook',
       img: `${process.env.CDN_URL}/images/shared/visual_overview.svg`,
       bodyText: 'Quickly see which activities your students have completed and the skills that were demonstrated.',
-      pStyle: { padding: '0px 2px', },
       flag: null,
     }, {
       title: 'Activity Analysis Report',
@@ -33,7 +32,6 @@ const miniList = () => {
       img: `${process.env.CDN_URL}/images/illustrations/activity-scores-illustration.svg`,
       bodyText: 'View and download each student’s overall score and their individual scores per activity as a PDF or CSV.',
       flag: null,
-      pStyle: { padding: '0px 7px', },
     }, {
       title: 'Concepts Report',
       premium: true,
