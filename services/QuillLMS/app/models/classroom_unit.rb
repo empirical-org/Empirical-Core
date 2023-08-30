@@ -88,7 +88,11 @@ class ClassroomUnit < ApplicationRecord
       new_user_ids = assigned_student_ids - existing_user_ids
       deleted_user_ids = existing_user_ids - assigned_student_ids
 
-      new_user_ids.each { |user_id| pack_sequence_item.user_pack_sequence_items.find_or_create_by!(user_id: user_id) }
+      new_user_ids.each do |user_id|
+        UserPackSequenceItem.find_or_create_by!(pack_sequence_item_id: pack_sequence_item.id, user_id: user_id)
+      rescue ActiveRecord::RecordNotUnique
+        retry
+      end
 
       pack_sequence_item
         .user_pack_sequence_items
