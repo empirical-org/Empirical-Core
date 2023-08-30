@@ -79,7 +79,7 @@ module DiagnosticReports
 
     return unless hashify_activity_sessions
 
-    @activity_sessions = @activity_sessions.map { |session| [session.user_id, session] }.to_h
+    @activity_sessions = @activity_sessions.to_h { |session| [session.user_id, session] }
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
@@ -95,7 +95,7 @@ module DiagnosticReports
 
     return unless hashify_activity_sessions
 
-    @pre_test_activity_sessions = @pre_test_activity_sessions.map { |session| [session.user_id, session] }.to_h
+    @pre_test_activity_sessions = @pre_test_activity_sessions.to_h { |session| [session.user_id, session] }
   end
 
   private def set_post_test_activity_sessions_and_assigned_students(activity_id, classroom_id, hashify_activity_sessions: false)
@@ -110,7 +110,7 @@ module DiagnosticReports
 
     return unless hashify_activity_sessions
 
-    @post_test_activity_sessions = @post_test_activity_sessions.map { |session| [session.user_id, session] }.to_h
+    @post_test_activity_sessions = @post_test_activity_sessions.to_h { |session| [session.user_id, session] }
   end
 
   private def summarize_student_proficiency_for_skill_per_activity(present_skill_number, correct_skill_number)

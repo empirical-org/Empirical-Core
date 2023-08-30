@@ -127,7 +127,7 @@ describe ResultsSummary do
       ]
       @skill_groups = [skill_group_activity.skill_group]
       @assigned_students = [student1, student2]
-      @activity_sessions = [activity_session1].map { |session| [session.user_id, session] }.to_h
+      @activity_sessions = [activity_session1].to_h { |session| [session.user_id, session] }
 
       expect(student_results).to eq(
         [
