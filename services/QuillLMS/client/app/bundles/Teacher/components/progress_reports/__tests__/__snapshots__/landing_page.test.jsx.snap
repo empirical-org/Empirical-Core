@@ -175,7 +175,7 @@ exports[`LandingPage component matches the snapshot 1`] = `
             <p
               style={Object {}}
             >
-              View an overall summary of how each of your students is performing across all writing and grammar concepts.
+              View an overall summary of how your students are performing across all writing and grammar concepts.
             </p>
           </a>
         </div>

@@ -39,7 +39,7 @@ const miniList = () => {
       premium: true,
       href: '/teachers/progress_reports/concepts/students',
       img: `${process.env.CDN_URL}/images/shared/concepts.svg`,
-      bodyText: 'View an overall summary of how each of your students is performing across all writing and grammar concepts.',
+      bodyText: 'View an overall summary of how your students are performing across all writing and grammar concepts.',
       flag: null,
     }, {
       title: 'Standards Report',
