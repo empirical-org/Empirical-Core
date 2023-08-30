@@ -234,6 +234,21 @@ describe ClassroomUnit, type: :model, redis: true do
           it { expect { subject }.not_to change(UserPackSequenceItem, :count)}
         end
       end
+
+      context 'race condition exists with user_pack_sequence_item creation' do
+        let(:new_assigned_student_ids) { [student.id, another_student.id]}
+
+        before do
+          allow(UserPackSequenceItem)
+            .to receive(:find_or_create_by!)
+            .with(pack_sequence_item_id: pack_sequence_item.id, user_id: another_student.id)
+            .and_raise(ActiveRecord::RecordNotUnique)
+            .once
+            .and_call_original
+        end
+
+        it { expect { subject }.to change(UserPackSequenceItem, :count).from(1).to(2) }
+      end
     end
   end
 end
