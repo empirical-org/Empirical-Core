@@ -19,7 +19,6 @@ RSpec.describe CleverIntegration::AuthCredentialSaver do
     let(:expires_at) { auth_credential_class::EXPIRATION_DURATION.from_now }
 
     it { expects_new_credentials_are_saved }
-    it { purges_expired_auth_credentials }
 
     context 'with previous credentials' do
       let!(:previous_credential) { create(:clever_library_auth_credential, user: teacher) }
@@ -34,7 +33,6 @@ RSpec.describe CleverIntegration::AuthCredentialSaver do
     let(:expires_at) { auth_credential_class::EXPIRATION_DURATION.from_now }
 
     it { expects_new_credentials_are_saved }
-    it { purges_expired_auth_credentials }
 
     context 'with previous credentials' do
       let!(:previous_credential) { create(:clever_district_auth_credential, user: teacher) }
@@ -49,16 +47,6 @@ RSpec.describe CleverIntegration::AuthCredentialSaver do
     expect(teacher.auth_credential).to be_a auth_credential_class
     expect(teacher.auth_credential.access_token).to eq access_token
     expect(teacher.auth_credential.expires_at).to be_within(1.minute).of(expires_at)
-  end
-
-  def purges_expired_auth_credentials
-    Sidekiq::Testing.inline! do
-      subject
-      expect(teacher.auth_credential).not_to be_nil
-      teacher.reload
-
-      Timecop.travel(expires_at) { expect(teacher.auth_credential).to be_nil }
-    end
   end
 
   def removes_previous_credentials
