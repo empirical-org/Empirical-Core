@@ -17,6 +17,7 @@
     justify-content: space-around;
     flex-wrap: wrap;
     margin: auto;
+    gap: 32px;
     a {
       color: black;
     }
@@ -24,12 +25,11 @@
 .generic-mini {
   font-size: 12px;
   width: 100%;
-  max-width: 379px;
-  min-height: 301px;
+  max-width: 378px;
+  min-height: 270px;
   background: #FFF;
   border: solid 1px #cecece;
   padding: 10px;
-  margin-bottom: 32px;
   cursor: pointer;
   display: flex;
   padding: 24px 16px 32px 16px;

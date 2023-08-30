@@ -25,13 +25,13 @@ exports[`LandingPage component matches the snapshot 1`] = `
       >
         <div
           className="generic-mini"
-          key="Activity Summary"
+          key="Activity Summary Report"
         >
           <a
             href="/teachers/classrooms/scorebook"
           >
             <h3>
-              Activity Summary
+              Activity Summary Report
             </h3>
             <div
               className="img-wrapper"
@@ -54,13 +54,13 @@ exports[`LandingPage component matches the snapshot 1`] = `
         </div>
         <div
           className="generic-mini"
-          key="Activity Analysis"
+          key="Activity Analysis Report"
         >
           <a
             href="/teachers/progress_reports/diagnostic_reports#/activity_packs"
           >
             <h3>
-              Activity Analysis
+              Activity Analysis Report
             </h3>
             <div
               className="img-wrapper"
@@ -80,13 +80,13 @@ exports[`LandingPage component matches the snapshot 1`] = `
         <div
           className="generic-mini"
           id="diagnostic-reports-card"
-          key="Diagnostics"
+          key="Diagnostics Report"
         >
           <a
             href="/teachers/progress_reports/diagnostic_reports/#/diagnostics"
           >
             <h3>
-              Diagnostics
+              Diagnostics Report
             </h3>
             <div
               className="img-wrapper"
@@ -105,13 +105,13 @@ exports[`LandingPage component matches the snapshot 1`] = `
         </div>
         <div
           className="generic-mini"
-          key="Activity Scores"
+          key="Activity Scores Report"
         >
           <a
             href="/teachers/progress_reports/activities_scores_by_classroom"
           >
             <h3>
-              Activity Scores
+              Activity Scores Report
             </h3>
             <h4
               className="premium"
@@ -145,13 +145,13 @@ exports[`LandingPage component matches the snapshot 1`] = `
         </div>
         <div
           className="generic-mini"
-          key="Concepts"
+          key="Concepts Report"
         >
           <a
             href="/teachers/progress_reports/concepts/students"
           >
             <h3>
-              Concepts
+              Concepts Report
             </h3>
             <h4
               className="premium"
@@ -181,13 +181,13 @@ exports[`LandingPage component matches the snapshot 1`] = `
         </div>
         <div
           className="generic-mini"
-          key="Standards"
+          key="Standards Report"
         >
           <a
             href="/teachers/progress_reports/standards/classrooms"
           >
             <h3>
-              Standards
+              Standards Report
             </h3>
             <h4
               className="premium"

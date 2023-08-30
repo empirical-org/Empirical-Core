@@ -7,27 +7,27 @@ import DemoOnboardingTour, { DEMO_ONBOARDING_STUDENT_REPORTS_LANDING_PAGE, } fro
 const miniList = () => {
   return [
     {
-      title: 'Activity Summary',
+      title: 'Activity Summary Report',
       href: '/teachers/classrooms/scorebook',
       img: `${process.env.CDN_URL}/images/shared/visual_overview.svg`,
       bodyText: 'Quickly see which activities your students have completed and the skills that were demonstrated.',
       pStyle: { padding: '0px 2px', },
       flag: null,
     }, {
-      title: 'Activity Analysis',
+      title: 'Activity Analysis Report',
       href: '/teachers/progress_reports/diagnostic_reports#/activity_packs',
       img: `${process.env.CDN_URL}/images/shared/activity_analysis.svg`,
       bodyText: 'See how students responded to each question and get a clear analysis of the skills they demonstrated.',
       flag: null,
     }, {
-      title: 'Diagnostics',
+      title: 'Diagnostics Report',
       href: '/teachers/progress_reports/diagnostic_reports/#/diagnostics',
       id: 'diagnostic-reports-card',
       img: `${process.env.CDN_URL}/images/shared/diagnostic.svg`,
       bodyText: 'View diagnostic results and get a personalized learning plan with recommended activities.',
       flag: null,
     }, {
-      title: 'Activity Scores',
+      title: 'Activity Scores Report',
       premium: true,
       href: '/teachers/progress_reports/activities_scores_by_classroom',
       img: `${process.env.CDN_URL}/images/illustrations/activity-scores-illustration.svg`,
@@ -35,14 +35,14 @@ const miniList = () => {
       flag: null,
       pStyle: { padding: '0px 7px', },
     }, {
-      title: 'Concepts',
+      title: 'Concepts Report',
       premium: true,
       href: '/teachers/progress_reports/concepts/students',
       img: `${process.env.CDN_URL}/images/shared/concepts.svg`,
       bodyText: 'View an overall summary of how each of your students is performing across all writing and grammar concepts.',
       flag: null,
     }, {
-      title: 'Standards',
+      title: 'Standards Report',
       premium: true,
       href: '/teachers/progress_reports/standards/classrooms',
       img: `${process.env.CDN_URL}/images/shared/common_core.svg`,
