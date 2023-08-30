@@ -241,8 +241,8 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
 
   function mapItemsIfNotAll(selectedItems, allItems, mapKey = 'id') {
     // selectedItems may, by design, be a superset of allItems, but if everything in allItems is in selectedItems, we want to treat it as "everything" being selected
-    const allItemsSelected = allItems.every((i) => {
-      return _.some(selectedItems, i)
+    const allItemsSelected = allItems.every((item) => {
+      return _.some(selectedItems, item)
     })
 
     if (allItemsSelected || selectionsEqual(selectedItems, allItems)) return null
