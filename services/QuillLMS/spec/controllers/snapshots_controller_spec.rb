@@ -343,6 +343,7 @@ describe SnapshotsController, type: :controller do
 
     context 'teachers with no classrooms' do
       subject { get :options }
+
       let(:json_response) { JSON.parse(response.body) }
 
       before do
