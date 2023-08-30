@@ -4,9 +4,6 @@ import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_const
 
 import DemoOnboardingTour, { DEMO_ONBOARDING_STUDENT_REPORTS_LANDING_PAGE, } from '../shared/demo_onboarding_tour';
 
-const ALL = 'ALL'
-const ALL_OPTION = { label: 'All classrooms', value: ALL }
-
 const miniList = () => {
   return [
     {
@@ -80,7 +77,7 @@ const miniBuilder = (mini) => {
 };
 
 
-const LandingPage = ({ classrooms, flag, }) => {
+const LandingPage = ({ flag, }) => {
   const minis = () => {
     const minisArr = [];
     miniList().forEach((mini) => {

@@ -1,0 +1,262 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LandingPage component matches the snapshot 1`] = `
+<LandingPage>
+  <div
+    className="progress-reports-landing-page"
+  >
+    <DemoOnboardingTour
+      pageKey="demo-onboarding-student-reports-landing-page"
+    >
+      <span />
+    </DemoOnboardingTour>
+    <div
+      className="generic-mini-container"
+    >
+      <div
+        className="header"
+      >
+        <h1>
+          Choose which type of report you’d like to see:
+        </h1>
+      </div>
+      <div
+        className="generic-minis"
+      >
+        <div
+          className="generic-mini"
+          key="Activity Summary"
+        >
+          <a
+            href="/teachers/classrooms/scorebook"
+          >
+            <h3>
+              Activity Summary
+            </h3>
+            <div
+              className="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/shared/visual_overview.svg"
+              />
+            </div>
+            <p
+              style={
+                Object {
+                  "padding": "0px 2px",
+                }
+              }
+            >
+              Quickly see which activities your students have completed and the skills that were demonstrated.
+            </p>
+          </a>
+        </div>
+        <div
+          className="generic-mini"
+          key="Activity Analysis"
+        >
+          <a
+            href="/teachers/progress_reports/diagnostic_reports#/activity_packs"
+          >
+            <h3>
+              Activity Analysis
+            </h3>
+            <div
+              className="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/shared/activity_analysis.svg"
+              />
+            </div>
+            <p
+              style={Object {}}
+            >
+              See how students responded to each question and get a clear analysis of the skills they demonstrated.
+            </p>
+          </a>
+        </div>
+        <div
+          className="generic-mini"
+          id="diagnostic-reports-card"
+          key="Diagnostics"
+        >
+          <a
+            href="/teachers/progress_reports/diagnostic_reports/#/diagnostics"
+          >
+            <h3>
+              Diagnostics
+            </h3>
+            <div
+              className="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/shared/diagnostic.svg"
+              />
+            </div>
+            <p
+              style={Object {}}
+            >
+              View diagnostic results and get a personalized learning plan with recommended activities.
+            </p>
+          </a>
+        </div>
+        <div
+          className="generic-mini"
+          key="Activity Scores"
+        >
+          <a
+            href="/teachers/progress_reports/activities_scores_by_classroom"
+          >
+            <h3>
+              Activity Scores
+            </h3>
+            <h4
+              className="premium"
+            >
+              <span>
+                Premium
+              </span>
+              <img
+                alt=""
+                src="undefined/images/icons/yellow-diamond.svg"
+              />
+            </h4>
+            <div
+              className="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/illustrations/activity-scores-illustration.svg"
+              />
+            </div>
+            <p
+              style={
+                Object {
+                  "padding": "0px 7px",
+                }
+              }
+            >
+              View and download each student’s overall score and their individual scores per activity as a PDF or CSV.
+            </p>
+          </a>
+        </div>
+        <div
+          className="generic-mini"
+          key="Concepts"
+        >
+          <a
+            href="/teachers/progress_reports/concepts/students"
+          >
+            <h3>
+              Concepts
+            </h3>
+            <h4
+              className="premium"
+            >
+              <span>
+                Premium
+              </span>
+              <img
+                alt=""
+                src="undefined/images/icons/yellow-diamond.svg"
+              />
+            </h4>
+            <div
+              className="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/shared/concepts.svg"
+              />
+            </div>
+            <p
+              style={Object {}}
+            >
+              View an overall summary of how each of your students is performing across all writing and grammar concepts.
+            </p>
+          </a>
+        </div>
+        <div
+          className="generic-mini"
+          key="Standards"
+        >
+          <a
+            href="/teachers/progress_reports/standards/classrooms"
+          >
+            <h3>
+              Standards
+            </h3>
+            <h4
+              className="premium"
+            >
+              <span>
+                Premium
+              </span>
+              <img
+                alt=""
+                src="undefined/images/icons/yellow-diamond.svg"
+              />
+            </h4>
+            <div
+              className="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/shared/common_core.svg"
+              />
+            </div>
+            <p
+              style={Object {}}
+            >
+              View this report to see how your students are performing on specific National standards.
+            </p>
+          </a>
+        </div>
+        <div
+          className="generic-mini"
+          key="Data Export"
+        >
+          <a
+            href="/teachers/progress_reports/activity_sessions"
+          >
+            <h3>
+              Data Export
+            </h3>
+            <h4
+              className="premium"
+            >
+              <span>
+                Premium
+              </span>
+              <img
+                alt=""
+                src="undefined/images/icons/yellow-diamond.svg"
+              />
+            </h4>
+            <div
+              className="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/shared/list_overview.svg"
+              />
+            </div>
+            <p
+              style={
+                Object {
+                  "marginTop": "-17px",
+                }
+              }
+            >
+              You can export the data as a CSV file by filtering for the classrooms, activity packs, or students you would like to export and then pressing “Download Report.”
+            </p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</LandingPage>
+`;
