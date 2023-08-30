@@ -4,6 +4,7 @@ import * as _ from 'lodash'
 import * as Pusher from 'pusher-js';
 
 import { FULL, restrictedPage, } from '../shared';
+import { selectionsEqual, } from '../components/usage_snapshots/shared'
 import CustomDateModal from '../components/usage_snapshots/customDateModal'
 import SnapshotSection from '../components/usage_snapshots/snapshotSection'
 import Filters from '../components/usage_snapshots/filters'
@@ -239,7 +240,12 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   function handleClickDownloadReport() { window.print() }
 
   function mapItemsIfNotAll(selectedItems, allItems, mapKey = 'id') {
-    if (unorderedArraysAreEqual(selectedItems, allItems)) return null
+    // selectedItems may, by design, be a superset of allItems, but if everything in allItems is in selectedItems, we want to treat it as "everything" being selected
+    const allItemsSelected = allItems.every((i) => {
+      return _.some(selectedItems, i)
+    })
+
+    if (allItemsSelected || selectionsEqual(selectedItems, allItems)) return null
 
     return selectedItems.map(i => i[mapKey])
   }
