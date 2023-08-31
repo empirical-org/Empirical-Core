@@ -215,13 +215,18 @@
     align-items: center;
     li {
       padding: 0px 5px !important;
+      a {
+        height: 28px !important;
+      }
     }
   }
 
-  a:not(.default) {
+  a {
     display: flex;
     align-items: center;
     height: auto;
+  }
+  a:not(.default) {
     background-color: rgba(255, 255, 255, 0.35);
     color: white;
     &.active {
