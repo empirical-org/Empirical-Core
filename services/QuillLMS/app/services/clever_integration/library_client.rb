@@ -37,7 +37,7 @@ module CleverIntegration
       case response.code
       when 200
         response.parsed_response['data']
-      when 401
+      when 401, 404
         error_data
       else
         ErrorNotifier.report(HttpError.new("HTTP #{response.code}"))
