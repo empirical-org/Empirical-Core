@@ -18,12 +18,10 @@ module CleverIntegration
     end
 
     def teacher_classrooms(teacher_clever_id)
-      handle_client_errors do
-        data_api
-          .get_sections_for_teacher(teacher_clever_id)
-          .data
-          .map { |classroom_data| DistrictClassroomDataAdapter.run(classroom_data) }
-      end
+      data_api
+        .get_sections_for_teacher(teacher_clever_id)
+        .data
+        .map { |classroom_data| DistrictClassroomDataAdapter.run(classroom_data) }
     end
 
     def classroom_students(classroom_clever_id)
@@ -43,12 +41,6 @@ module CleverIntegration
         api_instance.api_client.config = config
         api_instance
       end
-    end
-
-    private def handle_client_errors
-      yield
-    rescue ::Clever::ApiError => e
-      e.code == 404 ? [] : ErrorNotifier.report(e)
     end
   end
 end
