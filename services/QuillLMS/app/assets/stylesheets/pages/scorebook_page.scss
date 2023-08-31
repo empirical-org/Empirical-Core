@@ -13,11 +13,16 @@
   .input-container {
     width: 240px;
 
+    .dropdown {
+      margin-bottom: 0px;
+    }
+
     .dropdown__control {
       border: 1px #E0E0E0;
       border-style: solid;
       padding: 4px 16px;
       border-radius: 4px !important;
+      margin-bottom: 0px;
     }
 
     .dropdown__single-value {
@@ -46,12 +51,13 @@
 	}
 
 	.icons-wrapper.score-legend {
-		padding-bottom: 30px;
-		border-bottom: 1px solid rgb(206,206,206);
+		border-bottom: 1px solid $quill-grey-15;
+    padding: 48px 0px;
 	}
 
 	.icons-wrapper.icon-legend {
 		.icons {
+      gap: 30px;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
@@ -61,8 +67,18 @@
 				align-items: center;
 				.icons-description-wrapper {
 					.title {
-						font-weight: 600;
+            color: $quill-grey-90;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 14px;
 					}
+          .explanation, .description {
+            color: $quill-grey-35;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 16px;
+            margin-top: 2px;
+          }
 				}
 				.icon-wrapper {
 					position: relative;
@@ -72,40 +88,18 @@
 	}
 
 	.app-legend {
-		padding-top: 25px;
+		margin: 48px 0px;
 		.icon {
-      background-color: #f7f5f5;
       text-align: left;
       min-width: min-content;
-      margin-right: 20px;
-      margin-bottom: 20px;
     }
     .icon:focus, .icon:hover {
       outline-offset: 6px;
       text-decoration: none;
     }
-		.title {
-			color: #717171;
-			margin-bottom: 6px;
-		}
-		.description {
-			color: #888888;
-		}
-		.icon-puzzle-embossed, .icon-flag-embossed, .icon-connect-embossed, .icon-lessons-embossed, .icon-diagnostic-embossed, .icon-evidence-lightgray {
-			background-position: top;
-		}
-    .icon-evidence-lightgray {
-      display: none;
+    .icons-description-wrapper {
+      margin-left: 10px;
     }
-		.icon-wrapper {
-			margin-bottom: 3px;
-      &.evidence-icon {
-        height: 30px;
-      }
-		}
-		.icons-description-wrapper {
-			margin-left: 5px;
-		}
 	}
 
 	.in-progress-symbol, .attempt-symbol, .scheduled-symbol, .locked-symbol {
@@ -1074,12 +1068,6 @@ $chevroncolor: #027360;
         .icon {
           max-width: 150px;
           align-items: flex-start !important;
-          .icon-evidence-lightgray {
-            display: inherit !important;
-          }
-          .evidence-icon {
-            display: none !important;
-          }
           .icons-description-wrapper {
             p {
               font-size: 12px;

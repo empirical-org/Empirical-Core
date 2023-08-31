@@ -1,11 +1,6 @@
 /* ==========================================================================
    Icons
    ========================================================================== */
-
-.icons-wrapper {
-  padding-top: 30px;
-}
-
 .icon-wrapper {
   width: 40px;
   height: 40px;
@@ -29,33 +24,29 @@
 }
 
 .icon-green {
-  background: #58b146;
+  background: $quill-green-vibrant-50;
 }
 
 .icon-orange {
-  background: #f8a724;
+  background: $quill-gold-50;
 }
 
 .icon-red {
-  background: #e8522c;
-}
-
-.icon-gray {
-  background: #b7b7b7;
+  background: $quill-red;
 }
 
 .icon-blue {
-  background-color: #348fdf;
+  background-color: $quill-blue;
 }
 
 .icon-progress {
-  background-color: $quill-white;
-  border: solid 1px #348fdf;
+  background-color: $quill-blue-1;
+  border: solid 1px $quill-blue-50;
 }
 
 .icon-unstarted {
-  background-color: #f6f3f3;
-  border: solid 1px #969696;
+  background: $quill-grey-1;
+  border: solid 1px $quill-grey-15;
 }
 
 .icon-pencil {
