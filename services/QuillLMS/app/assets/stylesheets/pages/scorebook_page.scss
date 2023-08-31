@@ -1,4 +1,46 @@
 #scorebook {
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    margin: 32px 0px 16px;
+  }
+
+  section {
+    padding: 0px;
+  }
+
+  .input-container {
+    width: 240px;
+
+    .dropdown__control {
+      border: 1px #E0E0E0;
+      border-style: solid;
+      padding: 4px 16px;
+      border-radius: 4px !important;
+    }
+
+    .dropdown__single-value {
+      display: flex;
+    }
+
+    &.classroom-dropdown-input {
+      .dropdown__single-value::before {
+        content: url('https://assets.quill.org/images/pages/activity_summary/students.svg');
+        position: relative;
+        margin-right: 8px;
+      }
+    }
+
+    &.activity-pack-dropdown-input {
+      .dropdown__single-value::before {
+        content: url('https://assets.quill.org/images/pages/activity_summary/book.svg');
+        position: relative;
+        margin-right: 8px;
+      }
+    }
+  }
+
 	.section-content-wrapper {
 		padding-bottom: 5px;
 	}

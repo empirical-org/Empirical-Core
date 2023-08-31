@@ -311,9 +311,10 @@ export default createReactClass({
 
     return (
       <React.Fragment>
-        <div className="page-content-wrapper gray-background-accommodate-footer">
+        <div className="page-content-wrapper white-background-accommodate-footer">
           <div className="tab-pane" id="scorebook">
             <div className="container">
+              <h1>Activity Summary</h1>
               <section className="section-content-wrapper">
                 <ScorebookFilters
                   beginDate={beginDate}
