@@ -91,7 +91,7 @@ class ClassroomUnit < ApplicationRecord
       new_user_ids.each do |user_id|
         UserPackSequenceItem.find_or_create_by!(pack_sequence_item_id: pack_sequence_item.id, user_id: user_id)
       rescue ActiveRecord::RecordNotUnique
-        retry
+        next
       end
 
       pack_sequence_item
