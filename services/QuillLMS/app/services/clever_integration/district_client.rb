@@ -25,12 +25,10 @@ module CleverIntegration
     end
 
     def classroom_students(classroom_clever_id)
-      handle_client_errors do
-        data_api
-          .get_students_for_section(classroom_clever_id)
-          .data
-          .map { |student_data| DistrictStudentDataAdapter.run(student_data) }
-      end
+      data_api
+        .get_students_for_section(classroom_clever_id)
+        .data
+        .map { |student_data| DistrictStudentDataAdapter.run(student_data) }
     end
 
     private def data_api
