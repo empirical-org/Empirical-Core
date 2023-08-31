@@ -273,7 +273,7 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: $quill-black;
-  background-color: #f7f5f5;
+  background-color: $quill-grey-1;
 }
 input,
 button,
@@ -319,7 +319,7 @@ img {
 .img-thumbnail {
   padding: 4px;
   line-height: 1.42857143;
-  background-color: #f7f5f5;
+  background-color: $quill-grey-1;
   border: 1px solid #dddddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
@@ -1465,7 +1465,7 @@ th {
   border-top: 2px solid #dddddd;
 }
 .table .table {
-  background-color: #f7f5f5;
+  background-color: $quill-grey-1;
 }
 .table-condensed > thead > tr > th,
 .table-condensed > tbody > tr > th,
@@ -3047,7 +3047,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .nav-tabs.nav-justified > .active > a,
   .nav-tabs.nav-justified > .active > a:hover,
   .nav-tabs.nav-justified > .active > a:focus {
-    border-bottom-color: #f7f5f5;
+    border-bottom-color: $quill-grey-1;
   }
 }
 .nav-pills > li {
@@ -3115,7 +3115,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .nav-tabs-justified > .active > a,
   .nav-tabs-justified > .active > a:hover,
   .nav-tabs-justified > .active > a:focus {
-    border-bottom-color: #f7f5f5;
+    border-bottom-color: $quill-grey-1;
   }
 }
 .tab-content > .tab-pane {
@@ -3450,7 +3450,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default {
-  background-color: #f7f5f5;
+  background-color: $quill-grey-1;
   border-color: transparent;
 }
 .navbar-default .navbar-brand {
@@ -3682,7 +3682,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   line-height: 1.42857143;
   text-decoration: none;
   color: $quill-black;
-  background-color: #f7f5f5;
+  background-color: $quill-grey-1;
   border: 1px solid #cecece;
   border-top: none;
   border-top-left-radius: 0;
@@ -3776,7 +3776,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pager li > span {
   display: inline-block;
   padding: 5px 14px;
-  background-color: #f7f5f5;
+  background-color: $quill-grey-1;
   border: 1px solid #dddddd;
   border-radius: 15px;
 }
@@ -3798,7 +3798,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pager .disabled > a:focus,
 .pager .disabled > span {
   color: #777777;
-  background-color: #f7f5f5;
+  background-color: $quill-grey-1;
   cursor: not-allowed;
 }
 .label {
@@ -3950,7 +3950,7 @@ a.list-group-item.active > .badge,
   padding: 4px;
   margin-bottom: 20px;
   line-height: 1.42857143;
-  background-color: #f7f5f5;
+  background-color: $quill-grey-1;
   border: 1px solid #dddddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
