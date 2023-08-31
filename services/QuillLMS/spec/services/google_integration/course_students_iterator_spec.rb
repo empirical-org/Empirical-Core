@@ -40,5 +40,10 @@ module GoogleIntegration
 
       it { expect(subject.to_a).to eq [page1_response, page2_response] }
     end
+
+    context 'list_course_students raises an error' do
+      let(:next_page_token1) { nil }
+      let(:error) { Google::Apis::TransmissionError }
+    end
   end
 end
