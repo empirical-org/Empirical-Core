@@ -58,10 +58,10 @@ module Snapshots
       }, {
         value: 'custom',
         name: 'Custom',
-        previous_start: proc { |_, custom_start, custom_end| DateTime.parse(custom_start) - (DateTime.parse(custom_end) - DateTime.parse(custom_start)) },
-        previous_end: proc { |_, custom_start| DateTime.parse(custom_start) },
-        current_start: proc { |_, custom_start| DateTime.parse(custom_start) },
-        current_end: proc { |_, _, custom_end| DateTime.parse(custom_end) }
+        previous_start: proc { |_, custom_start, custom_end| (DateTime.parse(custom_start) - (DateTime.parse(custom_end) - DateTime.parse(custom_start))).beginning_of_day },
+        previous_end: proc { |_, custom_start| DateTime.parse(custom_start).end_of_day },
+        current_start: proc { |_, custom_start| DateTime.parse(custom_start).beginning_of_day },
+        current_end: proc { |_, _, custom_end| DateTime.parse(custom_end).end_of_day }
       }
     ]
 

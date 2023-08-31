@@ -244,9 +244,10 @@ describe ClassroomUnit, type: :model, redis: true do
             .with(pack_sequence_item_id: pack_sequence_item.id, user_id: another_student.id)
             .and_raise(ActiveRecord::RecordNotUnique)
             .once
+            .and_call_original
         end
 
-        it { expect { subject }.not_to change(UserPackSequenceItem, :count) }
+        it { expect { subject }.to change(UserPackSequenceItem, :count).from(1).to(2) }
       end
     end
   end
