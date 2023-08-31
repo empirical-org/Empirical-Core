@@ -135,7 +135,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
       </div>
       <div className="change">
         {icon}
-        <span>{change}%</span>
+        <span>{change === 0 ? null : `${change}%`}</span>
       </div>
     </section>
   )
