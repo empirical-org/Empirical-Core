@@ -188,10 +188,7 @@ exports[`SnapshotSection component when the section is Classrooms should match s
               <div
                 className="change"
               >
-                <span>
-                  0
-                  %
-                </span>
+                <span />
               </div>
             </section>
           </SnapshotCount>
@@ -263,10 +260,7 @@ exports[`SnapshotSection component when the section is Classrooms should match s
               <div
                 className="change"
               >
-                <span>
-                  0
-                  %
-                </span>
+                <span />
               </div>
             </section>
           </SnapshotCount>
@@ -339,10 +333,7 @@ exports[`SnapshotSection component when the section is Classrooms should match s
               <div
                 className="change"
               >
-                <span>
-                  0
-                  %
-                </span>
+                <span />
               </div>
             </section>
           </SnapshotCount>
@@ -414,10 +405,7 @@ exports[`SnapshotSection component when the section is Classrooms should match s
               <div
                 className="change"
               >
-                <span>
-                  0
-                  %
-                </span>
+                <span />
               </div>
             </section>
           </SnapshotCount>
@@ -726,10 +714,7 @@ exports[`SnapshotSection component when the section is Highlights should match s
               <div
                 className="change"
               >
-                <span>
-                  0
-                  %
-                </span>
+                <span />
               </div>
             </section>
           </SnapshotCount>
@@ -802,10 +787,7 @@ exports[`SnapshotSection component when the section is Highlights should match s
               <div
                 className="change"
               >
-                <span>
-                  0
-                  %
-                </span>
+                <span />
               </div>
             </section>
           </SnapshotCount>
@@ -1080,10 +1062,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
               <div
                 className="change"
               >
-                <span>
-                  0
-                  %
-                </span>
+                <span />
               </div>
             </section>
           </SnapshotCount>
@@ -1156,10 +1135,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
               <div
                 className="change"
               >
-                <span>
-                  0
-                  %
-                </span>
+                <span />
               </div>
             </section>
           </SnapshotCount>
@@ -1232,10 +1208,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
               <div
                 className="change"
               >
-                <span>
-                  0
-                  %
-                </span>
+                <span />
               </div>
             </section>
           </SnapshotCount>
@@ -1308,10 +1281,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
               <div
                 className="change"
               >
-                <span>
-                  0
-                  %
-                </span>
+                <span />
               </div>
             </section>
           </SnapshotCount>
@@ -1656,10 +1626,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
               <div
                 className="change"
               >
-                <span>
-                  0
-                  %
-                </span>
+                <span />
               </div>
             </section>
           </SnapshotCount>
@@ -1732,10 +1699,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
               <div
                 className="change"
               >
-                <span>
-                  0
-                  %
-                </span>
+                <span />
               </div>
             </section>
           </SnapshotCount>
@@ -1808,10 +1772,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
               <div
                 className="change"
               >
-                <span>
-                  0
-                  %
-                </span>
+                <span />
               </div>
             </section>
           </SnapshotCount>
@@ -1884,10 +1845,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
               <div
                 className="change"
               >
-                <span>
-                  0
-                  %
-                </span>
+                <span />
               </div>
             </section>
           </SnapshotCount>
@@ -1959,10 +1917,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
               <div
                 className="change"
               >
-                <span>
-                  0
-                  %
-                </span>
+                <span />
               </div>
             </section>
           </SnapshotCount>
@@ -2680,10 +2635,7 @@ exports[`SnapshotSection component when the section is Users should match snapsh
               <div
                 className="change"
               >
-                <span>
-                  0
-                  %
-                </span>
+                <span />
               </div>
             </section>
           </SnapshotCount>
@@ -2756,10 +2708,7 @@ exports[`SnapshotSection component when the section is Users should match snapsh
               <div
                 className="change"
               >
-                <span>
-                  0
-                  %
-                </span>
+                <span />
               </div>
             </section>
           </SnapshotCount>
@@ -2832,10 +2781,7 @@ exports[`SnapshotSection component when the section is Users should match snapsh
               <div
                 className="change"
               >
-                <span>
-                  0
-                  %
-                </span>
+                <span />
               </div>
             </section>
           </SnapshotCount>
@@ -2908,10 +2854,7 @@ exports[`SnapshotSection component when the section is Users should match snapsh
               <div
                 className="change"
               >
-                <span>
-                  0
-                  %
-                </span>
+                <span />
               </div>
             </section>
           </SnapshotCount>
