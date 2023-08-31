@@ -42,7 +42,7 @@ RSpec.describe CleverIntegration::LibraryClient do
       let(:classroom_external_id)  { classroom1_attrs[:classroom_external_id] }
 
       it { is_expected.to eq [] }
-      it { is_not_expected_to_report_error }
+      it { not_expected_to_report_error? }
     end
 
     context 'resource not found' do
@@ -51,7 +51,7 @@ RSpec.describe CleverIntegration::LibraryClient do
       let(:classroom_external_id)  { classroom1_attrs[:classroom_external_id] }
 
       it { is_expected.to eq [] }
-      it { is_not_expected_to_report_error }
+      it { not_expected_to_report_error? }
     end
 
     context 'unknown error' do
@@ -60,7 +60,7 @@ RSpec.describe CleverIntegration::LibraryClient do
       let(:classroom_external_id)  { classroom1_attrs[:classroom_external_id] }
 
       it { is_expected.to eq [] }
-      it { is_expected_to_report_error }
+      it { expected_to_report_error? }
     end
   end
 
@@ -75,7 +75,7 @@ RSpec.describe CleverIntegration::LibraryClient do
       let(:classrooms_attrs) { [classroom1_attrs, classroom2_attrs]}
 
       it { is_expected.to eq classrooms_attrs }
-      it { is_not_expected_to_report_error }
+      it { not_expected_to_report_error? }
     end
 
     context 'unauthorized token' do
@@ -84,7 +84,7 @@ RSpec.describe CleverIntegration::LibraryClient do
       let(:classroom_external_id)  { classroom1_attrs[:classroom_external_id] }
 
       it { is_expected.to eq [] }
-      it { is_not_expected_to_report_error }
+      it { not_expected_to_report_error? }
     end
 
     context 'resource not found' do
@@ -92,7 +92,7 @@ RSpec.describe CleverIntegration::LibraryClient do
       let(:parsed_response) { {'error' => 'Resource not found' } }
 
       it { is_expected.to eq [] }
-      it { is_not_expected_to_report_error }
+      it { not_expected_to_report_error? }
     end
 
     context 'unknown error' do
@@ -100,16 +100,16 @@ RSpec.describe CleverIntegration::LibraryClient do
       let(:parsed_response) { {'error' => 'Unknown error' } }
 
       it { is_expected.to eq [] }
-      it { is_expected_to_report_error }
+      it { expected_to_report_error? }
     end
   end
 
-  def is_not_expected_to_report_error
+  def not_expected_to_report_error?
     expect(ErrorNotifier).not_to receive(:report)
     subject
   end
 
-  def is_expected_to_report_error
+  def expected_to_report_error?
     expect(ErrorNotifier).to receive(:report).with(an_instance_of(described_class::HttpError))
     subject
   end
