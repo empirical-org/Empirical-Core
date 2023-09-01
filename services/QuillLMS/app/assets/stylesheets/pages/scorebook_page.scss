@@ -13,6 +13,10 @@
   .input-container {
     width: 240px;
 
+    input {
+      font-size: 14px !important;
+    }
+
     .dropdown {
       margin-bottom: 0px;
     }
@@ -109,9 +113,16 @@
 		right: -8px;
 	}
 
-  .scheduled-symbol, .locked-symbol {
+  .scheduled-symbol {
     height: 16px;
     background-color: #f7f5f5;
+  }
+
+  .locked-symbol {
+    height: 12;
+    background-color: #f7f5f5;
+    right: -2px;
+    top: -3px;
   }
 
 	.missed-indicator {
@@ -127,48 +138,72 @@
 		font-size: 11px;
 	}
 
-	.overview-section {
-		margin: 0 auto;
-		max-width: calc(#{$sitewidepagewidth} + 20px); // accounting for right padding on each activity icon
-    padding-left: 10px; // accounting for overflow
-	}
+  .overview-section {
+    padding: 32px 0px;
+    .flex-row {
+      gap: 16px;
+    }
+  }
 
 	.student-header {
 		align-items: center;
 		display: flex;
-		margin-bottom: 26px;
-    margin-right: 10px;  // accounting for right padding on each activity icon
+		margin-bottom: 32px;
 
-		.average-score {
-      margin-left: 16px;
-		}
+    .vertical-divider {
+      border-left: 1px solid $quill-grey-10;
+      display: block;
+      margin: 0px 16px;
+      height: 41px;
+    }
 
     .average-score, .time-spent {
-      color: $quill-grey-40;
+      display: flex;
+      flex-direction: column;
+      .data {
+        color: $quill-grey-90;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: normal;
+      }
+      .data-label {
+        color: $quill-grey-50;
+        font-size: 12px;
+        line-height: 20px;
+      }
     }
 
 		a.activity-scores-link {
-			border: solid 1px $orange;
-			border-radius: 15px;
-			color: $color_rusty_nail_approx;
-			margin-left: 10px;
-			padding: 4px 12px 4px 14px;
+      margin-left: 32px;
+      border-radius: 4px;
+      border: 1px solid $quill-gold-dark-20;
+      background: $quill-gold-1;
+      color: $quill-gold-dark-50;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 13px; /* 100% */
+      height: 32px;
+      display: flex;
+      align-items: center;
+      padding: 0px 16px;
+
+      img {
+        height: 11px;
+        width: 14px;
+        margin-left: 4px;
+      }
 
 			&:hover {
 				text-decoration: none;
-			}
-
-			.fas{
-				color: $orange;
-				font-size: 16px;
-				margin-left: 8px;
-				vertical-align: middle;
 			}
 		}
 	}
 
 	.student-name {
-		flex-grow: 1;
+    flex-grow: 1;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 26px;
 	}
 
 	.date-range-filter {

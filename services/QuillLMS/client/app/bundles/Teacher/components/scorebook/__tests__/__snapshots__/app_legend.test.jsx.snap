@@ -9,41 +9,13 @@ exports[`AppLegend component should render 1`] = `
   >
     <a
       className="icon focus-on-light"
-      href="undefined/tools/evidence"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <img
-        alt="Book representing Quill Reading for Evidence"
-        className="icon-wrapper evidence-icon"
-        src="undefined/images/icons/tool-evidence-light-gray.svg"
-      />
-      <div
-        className="icon-wrapper icon-evidence-lightgray"
-      />
-      <div
-        className="icons-description-wrapper"
-      >
-        <p
-          className="title"
-        >
-          Quill Reading for Evidence
-        </p>
-        <p
-          className="description"
-        >
-          Use a text to write with evidence
-        </p>
-      </div>
-    </a>
-    <a
-      className="icon focus-on-light"
       href="undefined/tools/diagnostic"
       rel="noopener noreferrer"
       target="_blank"
     >
-      <div
-        className="icon-wrapper icon-diagnostic-embossed"
+      <img
+        alt=""
+        src="undefined/images/pages/activity_summary/diagnostic-grey.svg"
       />
       <div
         className="icons-description-wrapper"
@@ -66,8 +38,9 @@ exports[`AppLegend component should render 1`] = `
       rel="noopener noreferrer"
       target="_blank"
     >
-      <div
-        className="icon-wrapper icon-lessons-embossed"
+      <img
+        alt=""
+        src="undefined/images/pages/activity_summary/lessons-grey.svg"
       />
       <div
         className="icons-description-wrapper"
@@ -90,8 +63,9 @@ exports[`AppLegend component should render 1`] = `
       rel="noopener noreferrer"
       target="_blank"
     >
-      <div
-        className="icon-wrapper icon-connect-embossed"
+      <img
+        alt=""
+        src="undefined/images/pages/activity_summary/connect-grey.svg"
       />
       <div
         className="icons-description-wrapper"
@@ -114,8 +88,9 @@ exports[`AppLegend component should render 1`] = `
       rel="noopener noreferrer"
       target="_blank"
     >
-      <div
-        className="icon-wrapper icon-flag-embossed"
+      <img
+        alt=""
+        src="undefined/images/pages/activity_summary/proofreader-grey.svg"
       />
       <div
         className="icons-description-wrapper"
@@ -138,8 +113,9 @@ exports[`AppLegend component should render 1`] = `
       rel="noopener noreferrer"
       target="_blank"
     >
-      <div
-        className="icon-wrapper icon-puzzle-embossed"
+      <img
+        alt=""
+        src="undefined/images/pages/activity_summary/grammar-grey.svg"
       />
       <div
         className="icons-description-wrapper"
@@ -153,6 +129,31 @@ exports[`AppLegend component should render 1`] = `
           className="description"
         >
           Practice mechanics
+        </p>
+      </div>
+    </a>
+    <a
+      className="icon focus-on-light"
+      href="undefined/tools/evidence"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <img
+        alt=""
+        src="undefined/images/pages/activity_summary/evidence-grey.svg"
+      />
+      <div
+        className="icons-description-wrapper"
+      >
+        <p
+          className="title"
+        >
+          Quill Reading for Evidence
+        </p>
+        <p
+          className="description"
+        >
+          Use a text to write with evidence
         </p>
       </div>
     </a>

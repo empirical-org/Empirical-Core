@@ -332,8 +332,8 @@ export default createReactClass({
                 <ScoreLegend />
                 <AppLegend />
               </section>
+              {content}
             </div>
-            {content}
           </div>
         </div>
         <ArticleSpotlight blogPostId={ACTIVITY_SUMMARY_FEATURED_BLOG_POST_ID} />
