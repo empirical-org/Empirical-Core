@@ -60,7 +60,8 @@ module FooterHelper
       { href: '/pathways', label: 'Pathways Initiative' },
       { href: '/team', label: 'Team' },
       { href: '/careers', label: 'Careers' },
-      { href: '/press', label: 'Press' }
+      { href: '/press', label: 'Press' },
+      { href: '/contact', label: 'Contact Us' }
     ]
   end
 end
