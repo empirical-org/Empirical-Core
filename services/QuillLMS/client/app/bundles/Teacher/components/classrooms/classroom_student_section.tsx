@@ -2,7 +2,8 @@ import * as moment from 'moment'
 import * as React from 'react'
 import { useState } from 'react'
 
-import { canvasProvider, cleverProvider, googleProvider } from './providerHelpers'
+import { canvasProvider, cleverProvider, classroomProviders, googleProvider, providerConfigLookup } from './providerHelpers'
+
 import EditStudentAccountModal from './edit_student_account_modal'
 import MergeStudentAccountsModal from './merge_student_accounts_modal'
 import MoveStudentsModal from './move_students_modal'
@@ -59,7 +60,7 @@ function activeHeaders(hasClassroomProvider: boolean) {
     rowSectionClassName: 'show-overflow'
   }
 
-  const actions =  {
+  const actions = {
     name: 'Actions',
     attribute: 'actions',
     isActions: true
@@ -105,11 +106,11 @@ enum modalNames {
 }
 
 interface ClassroomStudentSectionProps {
-  user: any;
   classroom: any;
   classrooms: Array<any>;
   isOwnedByCurrentUser: boolean;
   provider?: string;
+  user: any;
   onSuccess: (event) => void;
   inviteStudents?: (event) => void;
   importProviderClassroomStudents?: (event) => void;
@@ -123,10 +124,11 @@ const ClassroomStudentSection = ({
   inviteStudents,
   isOwnedByCurrentUser,
   onSuccess,
+  user,
   viewAsStudent,
 }: ClassroomStudentSectionProps) => {
-  const [selectedStudentIds, setSelectedStudentIds] = useState<Array<string|number>>([])
-  const [studentIdsForModal, setStudentIdsForModal] = useState<Array<string|number>>([])
+  const [selectedStudentIds, setSelectedStudentIds] = useState<Array<string | number>>([])
+  const [studentIdsForModal, setStudentIdsForModal] = useState<Array<string | number>>([])
   const [showModal, setShowModal] = useState<modalNames>()
 
   const allStudentsAreProvider = (provider: string) => {
@@ -210,11 +212,11 @@ const ClassroomStudentSection = ({
     if (user_external_id) {
       return synced ? [viewAsStudent] : [viewAsStudent, moveClass, removeFromClass]
     } else if (classrooms.length > 1 && isOwnedByCurrentUser) {
-      return [ editAccount, resetPassword, viewAsStudent, mergeAccounts, moveClass, removeFromClass ]
+      return [editAccount, resetPassword, viewAsStudent, mergeAccounts, moveClass, removeFromClass]
     } else if (isOwnedByCurrentUser) {
-      return [ editAccount, resetPassword, viewAsStudent, mergeAccounts, removeFromClass ]
+      return [editAccount, resetPassword, viewAsStudent, mergeAccounts, removeFromClass]
     } else {
-      return [ editAccount, resetPassword, viewAsStudent, removeFromClass ]
+      return [editAccount, resetPassword, viewAsStudent, removeFromClass]
     }
   }
 
@@ -243,7 +245,7 @@ const ClassroomStudentSection = ({
     viewAsStudent(null)
   }
 
-  const onClickViewAsIndividualStudent = (id: string|number) => {
+  const onClickViewAsIndividualStudent = (id: string | number) => {
     viewAsStudent(id)
   }
 
@@ -251,31 +253,31 @@ const ClassroomStudentSection = ({
     action.value()
   }
 
-  const editStudentAccount = (id=null) => {
+  const editStudentAccount = (id = null) => {
     // we will only show the edit student account dropdown option when only one student is selected
     setShowModal(modalNames.editStudentAccountModal)
     setStudentIdsForModal([id || selectedStudentIds[0]])
   }
 
-  const resetStudentPassword = (id=null) => {
+  const resetStudentPassword = (id = null) => {
     // we will only show the reset password account dropdown option when only one student is selected
     setShowModal(modalNames.resetStudentPasswordModal)
     setStudentIdsForModal([id || selectedStudentIds[0]])
   }
 
-  const mergeStudentAccounts = (id=null) => {
+  const mergeStudentAccounts = (id = null) => {
     // we will only show the merge student accounts account dropdown option when one or two students are selected
     setShowModal(modalNames.mergeStudentAccountsModal)
     setStudentIdsForModal(id ? [id] : selectedStudentIds)
   }
 
-  const moveClass = (id=null) => {
+  const moveClass = (id = null) => {
     // we will show the move class dropdown option when any number of students are selected
     setShowModal(modalNames.moveStudentsModal)
     setStudentIdsForModal(id ? [id] : selectedStudentIds)
   }
 
-  const removeStudentFromClass = (id=null) => {
+  const removeStudentFromClass = (id = null) => {
     // we will show the remove student from class dropdown option when any number of students are selected
     const studentIds = id ? [id] : selectedStudentIds
     setShowModal(modalNames.removeStudentsModal)
@@ -372,28 +374,28 @@ const ClassroomStudentSection = ({
     } = dropdownActions()
 
     if (anySelectedProviderStudents) {
-      return [ viewAsStudent, removeFromClass ]
+      return [viewAsStudent, removeFromClass]
     } else if (classrooms.length > 1 && isOwnedByCurrentUser) {
       if (selectedStudentIds.length === 1) {
-        return [ editAccount, resetPassword, viewAsStudent, mergeAccounts, moveClass, removeFromClass ]
+        return [editAccount, resetPassword, viewAsStudent, mergeAccounts, moveClass, removeFromClass]
       } else if (selectedStudentIds.length === 2) {
-        return [ viewAsStudent, mergeAccounts, moveClass, removeFromClass ]
+        return [viewAsStudent, mergeAccounts, moveClass, removeFromClass]
       } else {
-        return [ viewAsStudent, moveClass, removeFromClass ]
+        return [viewAsStudent, moveClass, removeFromClass]
       }
     } else if (isOwnedByCurrentUser) {
       if (selectedStudentIds.length === 1) {
-        return [ editAccount, resetPassword, viewAsStudent, mergeAccounts, removeFromClass ]
+        return [editAccount, resetPassword, viewAsStudent, mergeAccounts, removeFromClass]
       } else if (selectedStudentIds.length === 2) {
-        return [ viewAsStudent, mergeAccounts, removeFromClass ]
+        return [viewAsStudent, mergeAccounts, removeFromClass]
       } else {
-        return [ viewAsStudent, removeFromClass ]
+        return [viewAsStudent, removeFromClass]
       }
     } else {
       if (selectedStudentIds.length === 1) {
-        return [ editAccount, resetPassword, viewAsStudent, removeFromClass ]
+        return [editAccount, resetPassword, viewAsStudent, removeFromClass]
       } else {
-        return [ viewAsStudent, removeFromClass ]
+        return [viewAsStudent, removeFromClass]
       }
     }
   }
@@ -426,13 +428,19 @@ const ClassroomStudentSection = ({
 
       if (allStudentsAreGoogle) {
         header = <h4>This class is managed through <u>Google</u></h4>
-        copy = "Your students’ account information is linked to your Google Classroom account. Go to your Google Classroom account to edit your students."
+        copy = user.classroom_provider === googleProvider
+          ? "Your students’ account information is linked to your Google Classroom account. Go to your Google Classroom account to edit your students."
+          : "Your students’ account information is on Google Classroom. To enable auto-syncing, you'll need to link your account to Google."
       } else if (allStudentsAreClever) {
         header = <h4>This class is managed through <u>Clever</u></h4>
-        copy = "Your students’ account information is auto-synced from your Clever account. You can modify your Quill class rosters from your Clever account."
+        copy = user.classroom_provider === cleverProvider
+          ? "Your students’ account information is auto-synced from your Clever account. You can modify your Quill class rosters from your Clever account."
+          : "Your students’ account information is on Clever.  To enable auto-syncing, you'll need to link your account to Clever."
       } else if (allStudentsAreCanvas) {
         header = <h4>This class is managed through <u>Canvas</u></h4>
-        copy = "Your students’ account information is auto-synced from your Canvas Instance. Go to your Canvas Instance to edit your students."
+        copy = user.classroom_provider === canvasProvider
+          ? "Your students’ account information is auto-synced from your Canvas Instance. Go to your Canvas Instance to edit your students."
+          : "Your students’ account information is on Canvas. To enable auto-syncing, you'll need to link your account to Canvas."
       }
       return (
         <div className="provider-note-of-explanation">
@@ -577,10 +585,16 @@ const ClassroomStudentSection = ({
     const { classroomProvider } = classroom
 
     if (classroomProvider) {
+      const isDisabled = providerConfigLookup[user.provider].title !== classroomProvider
       const lastUpdatedDate = moment(classroom.updated_at).format('MMM D, YYYY')
       return (
         <div className="invite-provider-classroom-students">
-          <button className="quill-button primary outlined small" onClick={importProviderClassroomStudents} type="button">
+          <button
+            className={`quill-button primary outlined small ${isDisabled ? 'disabled' : ''}`}
+            disabled={isDisabled}
+            onClick={importProviderClassroomStudents}
+            type="button"
+          >
             Import {classroomProvider} students
           </button>
           <span>Last imported {lastUpdatedDate}</span>
@@ -615,11 +629,12 @@ const ClassroomStudentSection = ({
       )
     } else if (classroom.visible) {
       let copy = 'Click on the "Invite students" button to get started with your writing instruction!'
-      if (classroom.google_classroom_id) {
-        copy = 'Click on the "Import Google Classroom students" button to get started with your writing instruction!'
-      } else if (classroom.clever_id) {
-        copy = 'Add students to your class in Clever and they will automatically appear here.'
+      const { classroom_provider } = classroom
+
+      if (classroomProviders.includes(classroom_provider)) {
+        copy = `Add students to your class in ${classroom_provider} and they will automatically appear here.`
       }
+
       return (
         <div className="students-section">
           <div className="students-section-header">
