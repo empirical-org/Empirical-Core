@@ -740,6 +740,7 @@ EmpiricalGrammar::Application.routes.draw do
     beta
     board
     press
+    contact
     mission
     about
     faq
