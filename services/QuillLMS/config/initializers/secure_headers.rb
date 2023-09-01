@@ -74,8 +74,9 @@ SecureHeaders::Configuration.default do |config|
       "https://*.quill.org",
       "https://*.typekit.net",
       "https://*.fontawesome.com",
-      "https://*.gstatic.com"
-
+      "https://*.gstatic.com",
+      "https://rsms.me",
+      "https://*.rsms.me"
     ],
 
     img_src: [
