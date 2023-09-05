@@ -41,7 +41,7 @@ class Teachers::UnitsController < ApplicationController
     if unit_params[:name] && unit_params[:name] === ''
       render json: {errors: { name: 'Unit must have a name'} }, status: 422
     elsif unit_template_names.include?(unit_params[:name].downcase)
-      render json: {errors: { name: "Each activity pack needs a unique name. You're already using that name for another activity pack. Please choose a different name."} }, status: 422
+      render json: {errors: { name: "Existing activity packs cannot be updated to share a name with featured activity packs. Please choose a different name."} }, status: 422
     elsif Unit.find(params[:id])&.update(unit_params)
       render json: {}
     else
