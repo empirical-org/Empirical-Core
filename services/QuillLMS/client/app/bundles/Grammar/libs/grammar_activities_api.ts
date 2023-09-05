@@ -28,8 +28,6 @@ class GrammarActivityApi {
 }
 
 export {
-    GrammarActivityApi,
-    grammarActivityApiBaseUrl,
-    TYPE_GRAMMAR_ACTIVITY
+  GrammarActivityApi, TYPE_GRAMMAR_ACTIVITY, grammarActivityApiBaseUrl
 };
 

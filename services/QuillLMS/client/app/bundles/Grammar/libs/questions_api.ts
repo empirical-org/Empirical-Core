@@ -92,10 +92,6 @@ class IncorrectSequenceApi {
 }
 
 export {
-    QuestionApi,
-    FocusPointApi,
-    IncorrectSequenceApi,
-    GRAMMAR_QUESTION_TYPE,
-    questionApiBaseUrl
+  FocusPointApi, GRAMMAR_QUESTION_TYPE, IncorrectSequenceApi, QuestionApi, questionApiBaseUrl
 };
 

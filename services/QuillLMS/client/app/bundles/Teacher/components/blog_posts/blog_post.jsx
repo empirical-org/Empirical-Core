@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import {
-    BLOG_POST_TO_COLOR,
-    TEACHER_CENTER_SLUG,
+  BLOG_POST_TO_COLOR,
+  TEACHER_CENTER_SLUG,
 } from './blog_post_constants';
 import BlogPostContent from './blog_post_content';
 

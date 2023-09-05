@@ -28,8 +28,8 @@ class ConceptFeedbackApi {
 }
 
 export {
-    ConceptFeedbackApi,
-    conceptFeedbackApiBaseUrl,
-    CONNECT_TYPE
+  CONNECT_TYPE,
+  ConceptFeedbackApi,
+  conceptFeedbackApiBaseUrl
 };
 

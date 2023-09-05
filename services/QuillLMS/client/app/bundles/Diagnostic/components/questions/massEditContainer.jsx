@@ -6,8 +6,8 @@ import { requestPost, } from '../../../../modules/request/index';
 import { TextEditor } from '../../../Shared/index';
 import massEdit from '../../actions/massEdit';
 import {
-    submitMassEditConceptResults,
-    submitMassEditFeedback
+  submitMassEditConceptResults,
+  submitMassEditFeedback
 } from '../../actions/responses';
 import ConceptResultList from './conceptResultList.jsx';
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-    ClassroomLessonSession
+  ClassroomLessonSession
 } from '../interfaces';
 import { sortByLastName } from '../shared/studentSorts';
 

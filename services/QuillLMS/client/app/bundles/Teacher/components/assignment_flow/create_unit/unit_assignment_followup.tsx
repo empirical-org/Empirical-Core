@@ -6,12 +6,12 @@ import { Card, Snackbar, defaultSnackbarTimeout } from '../../../../Shared/index
 import AssignmentFlowNavigation from '../assignment_flow_navigation';
 
 import {
-    ACTIVITY_IDS_ARRAY,
-    CLASSROOMS,
-    UNIT_ID,
-    UNIT_NAME,
-    UNIT_TEMPLATE_ID,
-    UNIT_TEMPLATE_NAME,
+  ACTIVITY_IDS_ARRAY,
+  CLASSROOMS,
+  UNIT_ID,
+  UNIT_NAME,
+  UNIT_TEMPLATE_ID,
+  UNIT_TEMPLATE_NAME,
 } from '../assignmentFlowConstants';
 
 import { Input, } from '../../../../Shared/index';

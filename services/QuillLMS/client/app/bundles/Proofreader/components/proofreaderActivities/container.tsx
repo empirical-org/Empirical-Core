@@ -20,23 +20,23 @@ import WelcomePage from './welcomePage';
 
 import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
-    CLICK,
-    KEYDOWN,
-    KEYPRESS,
-    MOUSEDOWN,
-    MOUSEMOVE,
-    SCROLL,
-    VISIBILITYCHANGE,
-    roundValuesToSeconds,
+  CLICK,
+  KEYDOWN,
+  KEYPRESS,
+  MOUSEDOWN,
+  MOUSEMOVE,
+  SCROLL,
+  VISIBILITYCHANGE,
+  roundValuesToSeconds,
 } from '../../../Shared/index';
 import { startListeningToConcepts } from "../../actions/concepts";
 import { getActivity } from "../../actions/proofreaderActivities";
 import {
-    setPassage,
-    setSessionReducerToSavedSession,
-    updateConceptResultsOnFirebase,
-    updateSessionOnFirebase,
-    updateTimeTracking
+  setPassage,
+  setSessionReducerToSavedSession,
+  updateConceptResultsOnFirebase,
+  updateSessionOnFirebase,
+  updateTimeTracking
 } from "../../actions/session";
 import EditCaretPositioning from '../../helpers/EditCaretPositioning';
 import determineUnnecessaryEditType, { UNNECESSARY_SPACE, unnecessarySpaceSplitResponse, } from '../../helpers/determineUnnecessaryEditType';
