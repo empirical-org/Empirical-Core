@@ -29,7 +29,7 @@ module SegmentioHelper
   def format_analytics_properties(request, properties)
     common_properties = { path: request.fullpath,
                           referrer: request.referrer, }
-    custom_properties = properties.map{ |k,v| ["custom_#{k}", v] }.to_h
+    custom_properties = properties.to_h{ |k,v| ["custom_#{k}", v] }
     custom_properties.merge(common_properties)
   end
 end

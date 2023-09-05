@@ -1,6 +1,10 @@
 export const canvasProvider = 'Canvas'
 export const cleverProvider = 'Clever'
 export const googleProvider = 'Google'
+export const canvasClassroomProvider = 'Canvas'
+export const cleverClassroomProvider = 'Clever'
+export const googleClassroomProvider = 'Google Classroom'
+export const classroomProviders = [canvasClassroomProvider, cleverClassroomProvider, googleClassroomProvider]
 
 const importClassroomsEventName = (provider: string) => `${provider.toLowerCase()}-classroom-students-imported`
 const importClassroomsPath = (provider: string) => `/${provider.toLowerCase()}_integration/teachers/import_classrooms`
@@ -18,7 +22,7 @@ export const providerConfigLookup = {
     isCanvas: true,
     retrieveClassroomsEventName: retrieveClassroomsEventName(canvasProvider),
     retrieveClassroomsPath: retrieveClassroomsPath(canvasProvider),
-    title: 'Canvas',
+    title: canvasClassroomProvider,
   },
   [cleverProvider]: {
     importClassroomsEventName: importClassroomsEventName(cleverProvider),
@@ -28,7 +32,7 @@ export const providerConfigLookup = {
     isClever: true,
     retrieveClassroomsEventName: retrieveClassroomsEventName(cleverProvider),
     retrieveClassroomsPath: retrieveClassroomsPath(cleverProvider),
-    title: 'Clever',
+    title: cleverClassroomProvider,
   },
   [googleProvider]: {
     importClassroomsEventName: importClassroomsEventName(googleProvider),
@@ -38,7 +42,7 @@ export const providerConfigLookup = {
     isGoogle: true,
     retrieveClassroomsPath: retrieveClassroomsPath(googleProvider),
     retrieveClassroomsEventName: retrieveClassroomsEventName(googleProvider),
-    title: 'Google Classroom',
+    title: googleClassroomProvider,
   }
 }
 

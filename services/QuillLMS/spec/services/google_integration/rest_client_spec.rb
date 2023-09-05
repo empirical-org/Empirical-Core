@@ -64,7 +64,7 @@ module GoogleIntegration
       end
 
       context 'when user owns a course' do
-        let(:filtered_courses_data) { courses_data[1..-1] }
+        let(:filtered_courses_data) { courses_data[1..] }
 
         before { courses_data.first.owner_id = user.user_external_id }
 

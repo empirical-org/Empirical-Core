@@ -2,20 +2,46 @@
 
 require 'rails_helper'
 
-describe ResetLessonCacheWorker do
-  subject { described_class.new }
+RSpec.describe ResetLessonCacheWorker do
+  subject { described_class.new.perform(user_id) }
 
-  describe '#perform' do
-    let!(:user) { create(:user) }
+  let(:redis_key) { "user_id:#{user_id}_lessons_array" }
 
-    before do
-      $redis.set("user_id:#{user.id}_lessons_array", ["something"])
+  context 'when user_id is nil' do
+    let(:user_id) { nil }
+
+    it { expect { subject }.not_to raise_error }
+
+    it do
+      expect($redis).not_to receive(:del)
+      subject
+    end
+  end
+
+  context 'when user_id is not nil' do
+    let(:user_id) { 1 }
+
+    before { $redis.set(redis_key, ["something"]) }
+
+    context 'when user is not present' do
+      it do
+        expect(ErrorNotifier).to receive(:report).with(described_class::UserNotFoundError, user_id: user_id)
+        subject
+      end
     end
 
-    it 'should delete the redis cache and set lesson cache for user' do
-      expect_any_instance_of(User).to receive(:set_lessons_cache)
-      subject.perform(user.id)
-      expect($redis.get("user_id:#{user.id}_lessons_array")).to eq nil
+    context 'when user is present' do
+      let(:user) { create(:user) }
+      let(:user_id) { user.id }
+
+      before { allow(User).to receive(:find_by).with(id: user_id).and_return(user) }
+
+      it { expect { subject }.to change { $redis.get(redis_key) }.to('[]') }
+
+      it do
+        expect(user).to receive(:set_lessons_cache)
+        subject
+      end
     end
   end
 end

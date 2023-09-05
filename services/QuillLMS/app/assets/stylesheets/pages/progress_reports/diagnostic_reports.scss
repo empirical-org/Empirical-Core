@@ -770,17 +770,12 @@ $lightgray: #cecece;
 
 /* for progress report landing page*/
 .progress-reports-landing-page {
-  margin: auto;
-  max-width: 1025px;
   a {
     text-decoration: none;
   }
-  .generic-mini {
-    margin: 20px;
-  }
   .header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin: 0px 20px;
     align-items: center;
     text-align: left;
@@ -793,18 +788,26 @@ $lightgray: #cecece;
     }
   }
   .premium {
-    margin-top: 5px;
-    color: #eda41b;
+    border-radius: 4px;
+    border: 1px solid $quill-gold-dark-20;
+    background: $quill-gold-10;
+    width: min-content;
+    margin: auto;
+    white-space: nowrap;
+    color: $quill-gold-dark-50;
     font-size: 12px;
-    font-weight: 600;
+    font-style: normal;
+    font-weight: 700;
     text-transform: uppercase;
-    /* want shorter images if we have the premium row of type*/
-    & + div {
-      height: 120px;
+    padding: 2px 8px;
+    display: flex;
+    align-items: center;
+    margin-top: 7px;
+    img {
+      width: 14px;
+      height: 11px;
+      margin-left: 6px;
     }
-  }
-  h3 + div {
-    padding-top: 10px;
   }
 
   @media screen and (max-width: 768px) {
