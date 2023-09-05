@@ -11,6 +11,7 @@
     max-width: calc(100% - 317px);
     .header {
       padding-right: 64px;
+      max-width: 1215px;
     }
     .data-export-container {
       display: flex;
@@ -27,6 +28,7 @@
       .fields-section {
         margin-top: 32px;
         max-width: 1215px;
+        padding-right: 64px;
         .fields-container {
           display: flex;
           flex-wrap: wrap;

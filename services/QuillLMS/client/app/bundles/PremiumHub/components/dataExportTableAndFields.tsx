@@ -148,7 +148,6 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
         const data = results.length > 0 ? results : null
         const formattedData = formatData(data)
         setData(formattedData)
-        // setData(data)
         setLoading(false)
       }
     })
