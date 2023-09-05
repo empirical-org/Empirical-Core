@@ -29,7 +29,8 @@ module Units::AssignmentHelpers
 
     if units.present?
       unit = Units::AssignmentHelpers.find_unit_from_units(units)
-      unit.update(visible: true, open: true) if unit && !unit.visible
+      unit.update(visible: true) if unit && !unit.visible
+      unit.update(open: true) if unit && !unit.open
     end
 
     classroom_data = {
