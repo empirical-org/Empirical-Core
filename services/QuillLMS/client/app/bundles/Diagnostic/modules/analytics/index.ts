@@ -4,15 +4,14 @@ import Events from './events';
 import { isTrackableStudentEvent } from '../../../Shared';
 import { fetchUserIdsForSession } from '../../../Shared/utils/userAPIs';
 import { getParameterByName } from '../../libs/getParameterByName';
+
+
+
 class SegmentAnalytics {
   analytics: Object;
 
   constructor() {
-    this.analytics = window['analytics'] ? window['analytics'] : this.reportError(e)
-  }
-
-  attachAnalytics() {
-    this.analytics = window['analytics'] ? window['analytics'] : this.reportError(e)
+    this.analytics = window['analytics'] ? window['analytics'] : null
   }
 
   async track(event: Event, params?: object) {
