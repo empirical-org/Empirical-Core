@@ -11,7 +11,9 @@
   }
 
   .input-container {
-    width: 240px;
+    width: 300px;
+    min-height: 38px;
+    justify-content: flex-start;
 
     input {
       font-size: 14px !important;
@@ -22,7 +24,7 @@
     }
 
     .dropdown__control {
-      border: 1px #E0E0E0;
+      border: 1px $quill-grey-15;
       border-style: solid;
       padding: 4px 16px;
       border-radius: 4px !important;
@@ -31,6 +33,10 @@
 
     .dropdown__single-value {
       display: flex;
+    }
+
+    &.inactive.has-text label {
+      margin-bottom: 0px;
     }
 
     &.classroom-dropdown-input {
@@ -232,6 +238,16 @@
 	}
 }
 
+@media (max-width: 1050px) {
+  #scorebook .icons-wrapper.icon-legend .icons {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .activity-page-dropdown-wrapper.scorebook-filters {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
 // The following is the CSS for the AirBNB 'react-dates' component.
 // We are putting it here because we are going to customize it
 // significantly in order to make it do what we want it to do.
@@ -756,7 +772,7 @@ $chevroncolor: #027360;
   line-height: 25px;
   color: $quill-grey-35;
   margin: 0;
-  padding: 5px;
+  padding: 0px 5px;
   position: relative;
   display: inline-block;
   width: 110px;
@@ -897,10 +913,13 @@ $chevroncolor: #027360;
 
 .DateRangePickerInput {
   background-color: $quill-white;
-  border: 1px solid #cacccd;
+  border-radius: 4px;
+  border: 1px solid $quill-grey-15;
   display: inline-block;
- 	border-radius: 5px;
 	padding-right: 2px;
+  height: 38px;
+  display: flex;
+  align-items: center;
 }
 
 .DateRangePickerInput--disabled {
@@ -1081,35 +1100,9 @@ $chevroncolor: #027360;
     .scorebook-filter-group {
       flex-direction: column;
       justify-content: center;
+      gap: 20px;
       .dropdown__control {
         min-width: max-content;
-      }
-    }
-    .icons-wrapper.score-legend {
-      .icons {
-        .icon {
-          min-width: 150px;
-          align-items: flex-start !important;
-          .icons-description-wrapper {
-            p {
-              text-align: left;
-            }
-          }
-        }
-      }
-    }
-    .icons-wrapper.app-legend {
-      .icons {
-        .icon {
-          max-width: 150px;
-          align-items: flex-start !important;
-          .icons-description-wrapper {
-            p {
-              font-size: 12px;
-              text-align: left;
-            }
-          }
-        }
       }
     }
     .DateRangePicker {
