@@ -11,7 +11,7 @@
     max-width: calc(100% - 317px);
     .header {
       padding-right: 64px;
-      max-width: 1215px;
+      max-width: 1278px;
     }
     .data-export-container {
       display: flex;
@@ -22,12 +22,13 @@
       .fields-section, .preview-section {
         h3 {
           font-size: 20px;
+          font-weight: 600;
           color: $quill-grey-90;
         }
       }
       .fields-section {
         margin-top: 32px;
-        max-width: 1215px;
+        max-width: 1278px;
         padding-right: 64px;
         .fields-container {
           display: flex;

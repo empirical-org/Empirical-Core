@@ -40,6 +40,153 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
         <button
           aria-label="Checked checkbox"
           className="quill-checkbox selected"
+          id="Completed Date"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Checked checkbox"
+            src="undefined/images/shared/check-small-white.svg"
+          />
+        </button>
+        <label
+          htmlFor="Completed Date"
+        >
+          Completed Date
+        </label>
+      </div>
+      <div
+        className="checkbox-container"
+      >
+        <button
+          aria-label="Checked checkbox"
+          className="quill-checkbox selected"
+          id="Activity"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Checked checkbox"
+            src="undefined/images/shared/check-small-white.svg"
+          />
+        </button>
+        <label
+          htmlFor="Activity"
+        >
+          Activity
+        </label>
+      </div>
+      <div
+        className="checkbox-container"
+      >
+        <button
+          aria-label="Checked checkbox"
+          className="quill-checkbox selected"
+          id="Activity Pack"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Checked checkbox"
+            src="undefined/images/shared/check-small-white.svg"
+          />
+        </button>
+        <label
+          htmlFor="Activity Pack"
+        >
+          Activity Pack
+        </label>
+      </div>
+      <div
+        className="checkbox-container"
+      >
+        <button
+          aria-label="Checked checkbox"
+          className="quill-checkbox selected"
+          id="Score"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Checked checkbox"
+            src="undefined/images/shared/check-small-white.svg"
+          />
+        </button>
+        <label
+          htmlFor="Score"
+        >
+          Score
+        </label>
+      </div>
+      <div
+        className="checkbox-container"
+      >
+        <button
+          aria-label="Checked checkbox"
+          className="quill-checkbox selected"
+          id="Time Spent"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Checked checkbox"
+            src="undefined/images/shared/check-small-white.svg"
+          />
+        </button>
+        <label
+          htmlFor="Time Spent"
+        >
+          Time Spent
+        </label>
+      </div>
+      <div
+        className="checkbox-container"
+      >
+        <button
+          aria-label="Checked checkbox"
+          className="quill-checkbox selected"
+          id="Standard"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Checked checkbox"
+            src="undefined/images/shared/check-small-white.svg"
+          />
+        </button>
+        <label
+          htmlFor="Standard"
+        >
+          Standard
+        </label>
+      </div>
+      <div
+        className="checkbox-container"
+      >
+        <button
+          aria-label="Checked checkbox"
+          className="quill-checkbox selected"
+          id="Tool"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Checked checkbox"
+            src="undefined/images/shared/check-small-white.svg"
+          />
+        </button>
+        <label
+          htmlFor="Tool"
+        >
+          Tool
+        </label>
+      </div>
+      <div
+        className="checkbox-container"
+      >
+        <button
+          aria-label="Checked checkbox"
+          className="quill-checkbox selected"
           id="School"
           onClick={[Function]}
           type="button"
@@ -116,153 +263,6 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
           htmlFor="Class"
         >
           Class
-        </label>
-      </div>
-      <div
-        className="checkbox-container"
-      >
-        <button
-          aria-label="Checked checkbox"
-          className="quill-checkbox selected"
-          id="Completed Date"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Checked checkbox"
-            src="undefined/images/shared/check-small-white.svg"
-          />
-        </button>
-        <label
-          htmlFor="Completed Date"
-        >
-          Completed Date
-        </label>
-      </div>
-      <div
-        className="checkbox-container"
-      >
-        <button
-          aria-label="Checked checkbox"
-          className="quill-checkbox selected"
-          id="Activity Pack"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Checked checkbox"
-            src="undefined/images/shared/check-small-white.svg"
-          />
-        </button>
-        <label
-          htmlFor="Activity Pack"
-        >
-          Activity Pack
-        </label>
-      </div>
-      <div
-        className="checkbox-container"
-      >
-        <button
-          aria-label="Checked checkbox"
-          className="quill-checkbox selected"
-          id="Activity"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Checked checkbox"
-            src="undefined/images/shared/check-small-white.svg"
-          />
-        </button>
-        <label
-          htmlFor="Activity"
-        >
-          Activity
-        </label>
-      </div>
-      <div
-        className="checkbox-container"
-      >
-        <button
-          aria-label="Checked checkbox"
-          className="quill-checkbox selected"
-          id="Tool"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Checked checkbox"
-            src="undefined/images/shared/check-small-white.svg"
-          />
-        </button>
-        <label
-          htmlFor="Tool"
-        >
-          Tool
-        </label>
-      </div>
-      <div
-        className="checkbox-container"
-      >
-        <button
-          aria-label="Checked checkbox"
-          className="quill-checkbox selected"
-          id="Score"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Checked checkbox"
-            src="undefined/images/shared/check-small-white.svg"
-          />
-        </button>
-        <label
-          htmlFor="Score"
-        >
-          Score
-        </label>
-      </div>
-      <div
-        className="checkbox-container"
-      >
-        <button
-          aria-label="Checked checkbox"
-          className="quill-checkbox selected"
-          id="Standard"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Checked checkbox"
-            src="undefined/images/shared/check-small-white.svg"
-          />
-        </button>
-        <label
-          htmlFor="Standard"
-        >
-          Standard
-        </label>
-      </div>
-      <div
-        className="checkbox-container"
-      >
-        <button
-          aria-label="Checked checkbox"
-          className="quill-checkbox selected"
-          id="Time Spent (Mins)"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Checked checkbox"
-            src="undefined/images/shared/check-small-white.svg"
-          />
-        </button>
-        <label
-          htmlFor="Time Spent (Mins)"
-        >
-          Time Spent (Mins)
         </label>
       </div>
     </div>
