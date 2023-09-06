@@ -4,28 +4,26 @@ require 'rails_helper'
 
 describe QuillStaffAccountsChangedWorker, type: :worker do
   let(:worker) { described_class.new }
+  let(:staff_accounts_cache_key) { described_class::STAFF_ACCOUNTS_CACHE_KEY }
 
   describe "#perform" do
-    let(:staff) { create(:staff) }
-    let(:staff_json) { staff.as_json }
+    let(:staff) { create_list(:staff, 2) }
+    let(:serialized_staff) { staff.to_json(only: described_class::PARAMS_TO_TRACK) }
+    let(:expires_in) { described_class::EXPIRES_IN }
 
     it "should send notification if cached staff and current staff are different" do
-
-      expect(worker).to receive(:current_staff_account_data).and_return([staff_json])
       expect(worker).to receive(:cached_staff_account_data).and_return({})
       expect(worker).to receive(:notify_staff)
-      expect($redis).to receive(:set).with(QuillStaffAccountsChangedWorker::STAFF_ACCOUNTS_CACHE_KEY, [staff_json].to_json, ex: 25.hours.to_i)
+      expect($redis).to receive(:set).with(staff_accounts_cache_key, serialized_staff, ex: expires_in)
       worker.perform
     end
 
     it "should not send a notification if cached staff and current staff are the same" do
-      expect(worker).to receive(:current_staff_account_data).and_return([staff_json])
-      expect(worker).to receive(:cached_staff_account_data).and_return([staff_json])
+      expect($redis).to receive(:get).with(staff_accounts_cache_key).and_return(staff.to_json(only: described_class::PARAMS_TO_TRACK))
       expect(worker).not_to receive(:notify_staff)
-      expect($redis).to receive(:set).with(QuillStaffAccountsChangedWorker::STAFF_ACCOUNTS_CACHE_KEY, [staff_json].to_json, ex: 25.hours.to_i)
+      expect($redis).to receive(:set).with(staff_accounts_cache_key, serialized_staff, ex: expires_in)
       worker.perform
     end
-
   end
 
   describe "#current_staff_account_data" do
@@ -34,13 +32,13 @@ describe QuillStaffAccountsChangedWorker, type: :worker do
     it "returns a hash containing all staff accounts" do
       current_accounts = worker.current_staff_account_data
       expect(current_accounts.length).to eq(1)
-      expect(current_accounts[0]["id"]).to eq(staff_user.id.to_s)
+      expect(current_accounts[0]["id"]).to eq(staff_user.id)
     end
   end
 
   describe "#cached_staff_account_data" do
     it "retrieves cached data from Redis" do
-      expect($redis).to receive(:get).with(QuillStaffAccountsChangedWorker::STAFF_ACCOUNTS_CACHE_KEY)
+      expect($redis).to receive(:get).with(staff_accounts_cache_key)
       worker.cached_staff_account_data
     end
   end
