@@ -75,7 +75,7 @@
 
       li {
         float: left;
-        padding: 5px;
+        padding: 4px;
         &:first-of-type {
           padding-left: 0px;
         }
@@ -84,7 +84,7 @@
           color: $quill-white;
           font-size: 13px;
           height: 35px;
-          padding: 5px 16px;
+          padding: 5px 12px;
 
           &.active {
             background: $quill-white;
@@ -215,13 +215,18 @@
     align-items: center;
     li {
       padding: 0px 5px !important;
+      a {
+        height: 28px !important;
+      }
     }
   }
 
-  a:not(.default) {
+  a {
     display: flex;
     align-items: center;
     height: auto;
+  }
+  a:not(.default) {
     background-color: rgba(255, 255, 255, 0.35);
     color: white;
     &.active {

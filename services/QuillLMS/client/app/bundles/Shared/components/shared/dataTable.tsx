@@ -45,6 +45,7 @@ interface DataTableProps {
   className?: string;
   defaultSortAttribute?: string;
   defaultSortDirection?: string;
+  emptyStateMessage?: string;
   showCheckboxes?: boolean;
   showRemoveIcon?: boolean;
   showActions?: boolean;
@@ -384,12 +385,13 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   renderRows() {
-    const { isReorderable, reorderCallback, } = this.props
+    const { isReorderable, reorderCallback, emptyStateMessage } = this.props
     const rows = this.sortRows().map(row => this.renderRow(row))
+    const contentToDisplay = emptyStateMessage && !rows.length ? <p className="empty-state-message">{emptyStateMessage}</p> : rows
     if (isReorderable) {
       return <tbody className="data-table-body reorderable"><SortableList data={rows} helperClass="sortable-data-table-row" sortCallback={reorderCallback} useDragHandle={true} /></tbody>
     }
-    return <tbody className="data-table-body">{rows}</tbody>
+    return <tbody className="data-table-body">{contentToDisplay}</tbody>
   }
 
   render() {

@@ -49,116 +49,70 @@ const tabs = {
   },
 }
 
-export default class AdminSubnav extends React.Component<any, any> {
-  constructor(props) {
-    super(props)
+export const AdminSubnav = ({ path }) => {
 
-    this.state = this.getStateFromProps(props)
-  }
+  const [activeTab, setActiveTab] = React.useState<string>('');
+  const [dropdownOpen, setDropdownOpen] = React.useState<boolean>(false);
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    this.setState(this.getStateFromProps(nextProps))
-  }
-
-  getStateFromProps(props) {
-    const state = {
-      activeTab: '',
-      activityScores: '',
-      conceptReports: '',
-      dataExport: '',
-      integrations: '',
-      overview: '',
-      schoolSubscriptions: '',
-      standardsReports: '',
-      usageSnapshotReport: '',
+  React.useEffect(() => {
+    if (path.pathname) {
+      determineActiveTab()
     }
+  }, [path.pathname])
 
-    if (props.path.pathname.includes('/district_activity_scores')) {
-      state.activityScores = 'active'
-      state.activeTab = ACTIVITY_SCORES
-    } else if (props.path.pathname.includes('/district_concept_reports')) {
-      state.conceptReports = 'active'
-      state.activeTab = CONCEPT_REPORTS
-    } else if (props.path.pathname.includes('/district_standards_reports')) {
-      state.standardsReports = 'active'
-      state.activeTab = STANDARDS_REPORTS
-    } else if (props.path.pathname.includes('school_subscriptions')) {
-      state.schoolSubscriptions = 'active'
-      state.activeTab = SCHOOL_SUBSCRIPTIONS
-    } else if (props.path.pathname.includes('usage_snapshot_report')) {
-      state.usageSnapshotReport = 'active'
-      state.activeTab = USAGE_SNAPSHOT_REPORT
-    } else if (props.path.pathname.includes('data_export')) {
-      state.dataExport = 'active'
-      state.activeTab = DATA_EXPORT
-    } else if (props.path.pathname.includes('integrations')) {
-      state.integrations = 'active'
-      state.activeTab = INTEGRATIONS
-    } else if (props.path.pathname.includes('premium_hub')) {
-      state.overview = 'active'
-      state.activeTab = OVERVIEW
+  function determineActiveTab() {
+    const { pathname } = path;
+    if (pathname.includes('/district_activity_scores')) {
+      setActiveTab(ACTIVITY_SCORES)
+    } else if (pathname.includes('/district_concept_reports')) {
+      setActiveTab(CONCEPT_REPORTS)
+    } else if (pathname.includes('/district_standards_reports')) {
+      setActiveTab(STANDARDS_REPORTS)
+    } else if (pathname.includes('/school_subscriptions')) {
+      setActiveTab(SCHOOL_SUBSCRIPTIONS)
+    } else if (pathname.includes('/usage_snapshot_report')) {
+      setActiveTab(USAGE_SNAPSHOT_REPORT)
+    } else if (pathname.includes('/data_export')) {
+      setActiveTab(DATA_EXPORT)
+    } else if (pathname.includes('/integrations')) {
+      setActiveTab(INTEGRATIONS)
+    } else if (pathname.includes('/premium_hub')) {
+      setActiveTab(OVERVIEW)
     }
-    return state
   }
 
-  handleDropdownClick = () => {
-    const { dropdownOpen } = this.state;
-    this.setState({ dropdownOpen: !dropdownOpen });
+  function handleDropdownClick() {
+    setDropdownOpen(!dropdownOpen);
   }
 
-  handleLinkClick = () => {
-    this.setState({ dropdownOpen: false });
+  function handleLinkClick() {
+    setDropdownOpen(false);
   }
 
-  render() {
-    const {
-      activeTab,
-      activityScores,
-      conceptReports,
-      dataExport,
-      dropdownOpen,
-      integrations,
-      overview,
-      schoolSubscriptions,
-      standardsReports,
-      usageSnapshotReport,
-    } = this.state
+  const dropdownClass = dropdownOpen ? 'open' : '';
 
-    // Order here is coupled to subnav_tab layout
-    const activeStates = [
-      overview,
-      schoolSubscriptions,
-      activityScores,
-      conceptReports,
-      standardsReports,
-      dataExport,
-      integrations,
-      usageSnapshotReport,
-    ]
+  const tabsToShow = window.location.href.includes('usage_snapshot') || window.location.href.includes('data_export') ? tabs : tabsWithoutUsageSnapshotAndDataExportReport
 
-    const dropdownClass = dropdownOpen ? 'open' : '';
-
-    const tabsToShow = window.location.href.includes('usage_snapshot') || window.location.href.includes('data_export') ? tabs : tabsWithoutUsageSnapshotAndDataExportReport
-
-    return(
-      <React.Fragment>
-        <div className="tab-subnavigation-wrapper mobile class-subnav premium-hub-subnav red">
-          <div className="dropdown-container">
-            <div className={dropdownClass}>
-              <button className="interactive-wrapper" id="mobile-subnav-dropdown" onClick={this.handleDropdownClick} type='button'>
-                <p>{activeTab}</p>
-                <i className="fa fa-thin fa-angle-down" />
-              </button>
-              {renderNavList({ tabs: tabsToShow, activeStates, handleLinkClick: this.handleLinkClick, listClass: 'dropdown-menu' })}
-            </div>
-          </div>
-        </div >
-        <div className="tab-subnavigation-wrapper desktop class-subnav premium-hub-subnav">
-          <div className="container">
-            {renderNavList({ tabs: tabsToShow, activeStates, handleLinkClick: this.handleLinkClick })}
+  return(
+    <React.Fragment>
+      <div className="tab-subnavigation-wrapper mobile class-subnav premium-hub-subnav red">
+        <div className="dropdown-container">
+          <div className={dropdownClass}>
+            <button className="interactive-wrapper" id="mobile-subnav-dropdown" onClick={handleDropdownClick} type='button'>
+              <p>{activeTab}</p>
+              <i className="fa fa-thin fa-angle-down" />
+            </button>
+            {renderNavList({ tabs: tabsToShow, handleLinkClick: handleLinkClick, activeTab, listClass: 'dropdown-menu' })}
           </div>
         </div>
-      </React.Fragment>
-    );
-  }
+      </div >
+      <div className="tab-subnavigation-wrapper desktop class-subnav premium-hub-subnav">
+        <div className="container">
+          {renderNavList({ tabs: tabsToShow, handleLinkClick: handleLinkClick, activeTab })}
+        </div>
+      </div>
+    </React.Fragment>
+  );
 };
+
+export default AdminSubnav
