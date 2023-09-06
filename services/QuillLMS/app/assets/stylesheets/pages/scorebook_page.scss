@@ -147,12 +147,13 @@
   .overview-section {
     padding: 32px 0px;
     .flex-row {
-      gap: 16px;
+      column-gap: 15.24px;
+      row-gap: 16px;
     }
   }
 
 	.student-header {
-		align-items: center;
+		align-items: flex-start;
 		display: flex;
 		margin-bottom: 32px;
 
