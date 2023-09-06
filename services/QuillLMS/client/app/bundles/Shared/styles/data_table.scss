@@ -64,6 +64,13 @@ table.data-table {
     }
   }
 
+  .data-table-body {
+    .empty-state-message {
+      text-align: center;
+      margin: 18px 0px;
+    }
+  }
+
   .list-item:last-of-type {
     .data-table-row {
       border-bottom: none;

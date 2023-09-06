@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as Pusher from 'pusher-js';
+import * as moment from 'moment';
 
 import { requestPost, } from '../../../modules/request'
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
@@ -20,13 +21,12 @@ const SCORE = "Score";
 const STANDARD = "Standard";
 const TIME_SPENT = "Time Spent";
 
+const PUSHER_EVENT_KEY = "data-export-cached";
+
 interface DataExportTableAndFieldsProps {
-  adminId: number;
   customTimeframeEnd: string;
   customTimeframeStart: string;
-  downloadStarted: boolean;
-  handleToggleDownloadStarted: () => void;
-  handleSetReportData: (data) => void;
+  pusherChannel?: any;
   queryKey: string;
   selectedClassroomIds: number[];
   selectedGrades: string[];
@@ -35,7 +35,7 @@ interface DataExportTableAndFieldsProps {
   selectedTimeframe: string;
 }
 
-export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId }: DataExportTableAndFieldsProps) => {
+export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, pusherChannel }: DataExportTableAndFieldsProps) => {
   const [showStudentEmail, setShowStudentEmail] = React.useState<boolean>(true);
   const [showSchool, setShowSchool] = React.useState<boolean>(true);
   const [showGrade, setShowGrade] = React.useState<boolean>(true);
@@ -61,6 +61,41 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
       setterFunction: setShowStudentEmail,
       checked: showStudentEmail
     },
+    [COMPLETED_DATE]: {
+      dataTableField: { name: COMPLETED_DATE, attribute: "completed_at", width: STANDARD_WIDTH },
+      setterFunction: setShowCompletedDate,
+      checked: showCompletedDate
+    },
+    [ACTIVITY]: {
+      dataTableField: { name: ACTIVITY, attribute: "activity_name", width: STANDARD_WIDTH },
+      setterFunction: setShowActivity,
+      checked: showActivity
+    },
+    [ACTIVITY_PACK]: {
+      dataTableField: { name: ACTIVITY_PACK, attribute: "activity_pack", width: STANDARD_WIDTH },
+      setterFunction: setShowActivityPack,
+      checked: showActivityPack
+    },
+    [SCORE]: {
+      dataTableField: { name: SCORE, attribute: "score", width: STANDARD_WIDTH },
+      setterFunction: setShowScore,
+      checked: showScore
+    },
+    [TIME_SPENT]: {
+      dataTableField: { name: `${TIME_SPENT} (Mins)`, attribute: "timespent", width: STANDARD_WIDTH },
+      setterFunction: setShowTimeSpent,
+      checked: showTimeSpent
+    },
+    [STANDARD]: {
+      dataTableField: { name: STANDARD, attribute: "standard", width: STANDARD_WIDTH },
+      setterFunction: setShowStandard,
+      checked: showStandard
+    },
+    [TOOL]: {
+      dataTableField: { name: TOOL, attribute: "tool", width: STANDARD_WIDTH },
+      setterFunction: setShowTool,
+      checked: showTool
+    },
     [SCHOOL]: {
       dataTableField: { name: SCHOOL, attribute: "school_name", width: STANDARD_WIDTH },
       setterFunction: setShowSchool,
@@ -81,51 +116,20 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
       setterFunction: setShowClass,
       checked: showClass
     },
-    [COMPLETED_DATE]: {
-      dataTableField: { name: COMPLETED_DATE, attribute: "completed_date", width: STANDARD_WIDTH },
-      setterFunction: setShowCompletedDate,
-      checked: showCompletedDate
-    },
-    [ACTIVITY_PACK]: {
-      dataTableField: { name: ACTIVITY_PACK, attribute: "activity_pack", width: STANDARD_WIDTH },
-      setterFunction: setShowActivityPack,
-      checked: showActivityPack
-    },
-    [ACTIVITY]: {
-      dataTableField: { name: ACTIVITY, attribute: "activity_name", width: STANDARD_WIDTH },
-      setterFunction: setShowActivity,
-      checked: showActivity
-    },
-    [TOOL]: {
-      dataTableField: { name: TOOL, attribute: "tool", width: STANDARD_WIDTH },
-      setterFunction: setShowTool,
-      checked: showTool
-    },
-    [SCORE]: {
-      dataTableField: { name: SCORE, attribute: "score", width: STANDARD_WIDTH },
-      setterFunction: setShowScore,
-      checked: showScore
-    },
-    [STANDARD]: {
-      dataTableField: { name: STANDARD, attribute: "standard", width: STANDARD_WIDTH },
-      setterFunction: setShowStandard,
-      checked: showStandard
-    },
-    [TIME_SPENT]: {
-      dataTableField: { name: TIME_SPENT, attribute: "timespent", width: STANDARD_WIDTH },
-      setterFunction: setShowTimeSpent,
-      checked: showTimeSpent
-    },
   };
 
   React.useEffect(() => {
+    initializePusher()
+  }, [pusherChannel])
+
+  React.useEffect(() => {
     if (queryKey && selectedTimeframe && selectedSchoolIds) {
+      initializePusher()
       getData()
     }
   }, [queryKey, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd])
 
   function getData() {
-    initializePusher()
 
     const searchParams = {
       query: queryKey,
@@ -145,23 +149,22 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
         const { results, } = body
         // We consider `null` to be a lack of data, so if the result is `[]` we need to explicitly `setData(null)`
         const data = results.length > 0 ? results : null
-        setData(data)
+        const formattedData = formatData(data)
+        setData(formattedData)
         setLoading(false)
       }
     })
   }
 
   function initializePusher() {
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
-    const channel = pusher.subscribe(String(adminId));
-    channel.bind('data-export-cached', (body) => {
+    pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
       const { message, } = body
 
       const queryKeysAreEqual = message.query === queryKey
       const timeframesAreEqual = message.timeframe === selectedTimeframe
-      const schoolIdsAreEqual = unorderedArraysAreEqual(message.school_ids, selectedSchoolIds.map(id => String(id)))
-      const teacherIdsAreEqual = unorderedArraysAreEqual(message.teacher_ids, selectedTeacherIds.map(id => String(id)))
-      const classroomIdsAreEqual = unorderedArraysAreEqual(message.classroom_ids, selectedClassroomIds.map(id => String(id)))
+      const schoolIdsAreEqual = unorderedArraysAreEqual(message.school_ids, selectedSchoolIds)
+      const teacherIdsAreEqual = unorderedArraysAreEqual(message.teacher_ids, selectedTeacherIds)
+      const classroomIdsAreEqual = unorderedArraysAreEqual(message.classroom_ids, selectedClassroomIds)
       const gradesAreEqual = unorderedArraysAreEqual(message.grades, selectedGrades.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
 
       if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {
@@ -169,6 +172,34 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
       }
     });
   };
+
+  function getTimeSpentInMinutes(seconds: number) {
+    if (!seconds) {
+      return 'N/A';
+    }
+    if (seconds < 60) {
+      return `<1`;
+    }
+    if (seconds >= 60 && seconds < 120) {
+      return '1';
+    }
+    return `${Math.floor((seconds % 3600) / 60)}`;
+  }
+
+  function formatData(data) {
+    if(!data) { return null }
+
+    return data.map(entry => {
+      const formattedEntry = {...entry}
+      const score = Math.round(parseFloat(entry.score) * 100);
+      const percentage = isNaN(score) || score < 0 ? 'N/A' : score + '%';
+
+      formattedEntry.completed_at = moment(entry.completed_at).format("MM/DD/YYYY");
+      formattedEntry.timespent = getTimeSpentInMinutes(entry.timespent)
+      formattedEntry.score = percentage
+      return formattedEntry
+    })
+  }
 
   function toggleCheckbox(e) {
     e.preventDefault();
@@ -229,7 +260,9 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
       {loading && <Spinner />}
       {!loading && <DataTable
         className="data-export-table"
-        defaultSortAttribute="name"
+        defaultSortAttribute="completed_at"
+        defaultSortDirection="desc"
+        emptyStateMessage="There are no activities available for the filters selected. Try modifying or removing a filter to see results."
         headers={getHeaders()}
         rows={data || []}
       />}
