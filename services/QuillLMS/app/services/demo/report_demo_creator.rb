@@ -16,37 +16,29 @@ module Demo::ReportDemoCreator
   # Use report_demo:generate_new_data to generate new data
   ACTIVITY_PACKS_TEMPLATES = [
     {
-      name: 'Reading for Evidence Pack',
+      name: 'Starter Baseline Diagnostic (Pre)',
+      unit_template_id: 99,
       activity_sessions: [
         {
-          2371 => KEN_ID,
-          2317 => KEN_ID,
-          1676 => KEN_ID
+          STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => KEN_ID
         },
-        {}, # Tahereh Mafi
-        {}, # Jason Reynolds
-        {}, # Nic Stone
-        {}  # Angie Thomas
-      ]
-    },
-    {
-      name: 'Prepositional Phrases (Starter Baseline Recommendation)',
-      activity_sessions: [
-        {}, # Ken Liu
-        {}, # Tahereh Mafi
         {
-          846 => JASON_ID,
-          600 => JASON_ID,
-          712 => JASON_ID,
-          599 => JASON_ID,
-          765 => JASON_ID
+          STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => TAHEREH_ID
         },
-        {}, # Nic Stone
-        {}  # Angie Thomas
+        {
+          STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => JASON_ID
+        },
+        {
+          STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => NIC_ID
+        },
+        {
+          STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => ANGIE_ID
+        }
       ]
     },
     {
       name: 'Capitalization (Starter Baseline Recommendation)',
+      unit_template_id: 308,
       activity_sessions: [
         {}, # Ken Liu
         {
@@ -80,7 +72,43 @@ module Demo::ReportDemoCreator
       ]
     },
     {
+      name: 'Plural and Possessive Nouns (Starter Baseline Recommendation)',
+      unit_template_id: 310,
+      activity_sessions: [
+        {
+          1440 => KEN_ID,
+          283 => KEN_ID,
+          252 => KEN_ID,
+          808 => KEN_ID,
+          1308 => KEN_ID,
+          803 => KEN_ID
+        },
+        {}, # Tahereh Mafi
+        {}, # Jason Reynolds
+        {}, # Nic Stone
+        {}  # Angie Thomas
+      ]
+    },
+    {
+      name: 'Prepositional Phrases (Starter Baseline Recommendation)',
+      unit_template_id: 314,
+      activity_sessions: [
+        {}, # Ken Liu
+        {}, # Tahereh Mafi
+        {
+          846 => JASON_ID,
+          600 => JASON_ID,
+          712 => JASON_ID,
+          599 => JASON_ID,
+          765 => JASON_ID
+        },
+        {}, # Nic Stone
+        {}  # Angie Thomas
+      ]
+    },
+    {
       name: 'Starter Growth Diagnostic (Post)',
+      unit_template_id: 217,
       activity_sessions: [
         {
           1664 => KEN_ID
@@ -100,40 +128,17 @@ module Demo::ReportDemoCreator
       ]
     },
     {
-      name: 'Plural and Possessive Nouns (Starter Baseline Recommendation)',
+      name: 'Reading for Evidence Pack',
       activity_sessions: [
         {
-          1440 => KEN_ID,
-          283 => KEN_ID,
-          252 => KEN_ID,
-          808 => KEN_ID,
-          1308 => KEN_ID,
-          803 => KEN_ID
+          2371 => KEN_ID,
+          2317 => KEN_ID,
+          1676 => KEN_ID
         },
         {}, # Tahereh Mafi
         {}, # Jason Reynolds
         {}, # Nic Stone
         {}  # Angie Thomas
-      ]
-    },
-    {
-      name: 'Starter Baseline Diagnostic (Pre)',
-      activity_sessions: [
-        {
-          STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => KEN_ID
-        },
-        {
-          STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => TAHEREH_ID
-        },
-        {
-          STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => JASON_ID
-        },
-        {
-          STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => NIC_ID
-        },
-        {
-          STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => ANGIE_ID
-        }
       ]
     }
   ]
@@ -178,7 +183,9 @@ module Demo::ReportDemoCreator
     units = reset_units(teacher, student_names.nil?)
 
     classroom ||= create_classroom(teacher)
+
     student_templates = student_names ? student_names.map { |name| StudentTemplate.new(name: name, email_eligible: false) } : STUDENT_TEMPLATES
+
     students = create_students(classroom, teacher_demo, student_templates)
 
     classroom_units = create_classroom_units(classroom, units)
@@ -230,7 +237,7 @@ module Demo::ReportDemoCreator
   def self.demo_classroom_modified?(teacher)
     classroom = demo_classroom(teacher)
 
-    return true if classroom.nil?
+    return true if classroom.nil? || !classroom.visible
 
     classroom.name != CLASSROOM_NAME ||
       classroom.students.count != STUDENT_COUNT ||
@@ -266,6 +273,7 @@ module Demo::ReportDemoCreator
     }
 
     classroom = Classroom.create_with_join(values, teacher.id)
+
     classroom.save!
     classroom
   end
@@ -275,16 +283,16 @@ module Demo::ReportDemoCreator
   end
 
   def self.demo_classroom(teacher)
-    teacher.classrooms_i_teach.find {|c| c.code == classcode(teacher.id) }
+    teacher.unscoped_classrooms_i_teach.find {|c| c.code == classcode(teacher.id) }
   end
 
   def self.non_demo_classrooms(teacher)
-    teacher.classrooms_i_teach.reject {|c| c.code == classcode(teacher.id) }
+    teacher.unscoped_classrooms_i_teach.reject {|c| c.code == classcode(teacher.id) }
   end
 
   def self.create_units(teacher)
     ACTIVITY_PACKS_TEMPLATES.map do |ap|
-      unit = Unit.find_or_create_by(name: ap[:name], user: teacher)
+      unit = Unit.find_or_create_by(name: ap[:name], user: teacher, unit_template_id: ap[:unit_template_id])
       activity_ids = activity_ids_for_config(ap)
       activity_ids.each { |act_id| UnitActivity.find_or_create_by(activity_id: act_id, unit: unit) }
 
