@@ -53,7 +53,7 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
 
   const fields = {
     [STUDENT_NAME]: {
-      dataTableField: { name: STUDENT_NAME, attribute: "student_name", width: STANDARD_WIDTH, rowSectionClassName: 'student-name-section' },
+      dataTableField: { name: STUDENT_NAME, attribute: "student_name", width: STANDARD_WIDTH },
       checked: true
     },
     [STUDENT_EMAIL]: {
