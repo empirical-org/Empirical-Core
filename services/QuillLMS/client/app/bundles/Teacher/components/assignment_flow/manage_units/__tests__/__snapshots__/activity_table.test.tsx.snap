@@ -64,6 +64,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=438"
               tabIndex={-1}
             >
@@ -131,6 +132,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=441"
               tabIndex={-1}
             >
@@ -198,6 +200,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=775"
               tabIndex={-1}
             >
@@ -265,6 +268,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=844"
               tabIndex={-1}
             >
@@ -332,6 +336,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=846"
               tabIndex={-1}
             >
@@ -381,6 +386,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
       Array [
         Object {
           "attribute": "toolAndNameSection",
+          "headerClassName": "tool-and-name-section-header",
           "name": <span
             className="tool-and-name-header"
           >
@@ -503,6 +509,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=438"
               tabIndex={-1}
             >
@@ -570,6 +577,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=441"
               tabIndex={-1}
             >
@@ -637,6 +645,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=775"
               tabIndex={-1}
             >
@@ -704,6 +713,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=844"
               tabIndex={-1}
             >
@@ -771,6 +781,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=846"
               tabIndex={-1}
             >
@@ -796,7 +807,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
           Order
         </th>
         <th
-          className="data-table-header undefined"
+          className="data-table-header tool-and-name-section-header"
           scope="col"
           style={
             Object {
@@ -989,6 +1000,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         />
                       </span>
                       <a
+                        className="activity-name-link"
                         href="/activity_sessions/anonymous?activity_id=438"
                         tabIndex={-1}
                       >
@@ -1109,6 +1121,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         />
                       </span>
                       <a
+                        className="activity-name-link"
                         href="/activity_sessions/anonymous?activity_id=441"
                         tabIndex={-1}
                       >
@@ -1229,6 +1242,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         />
                       </span>
                       <a
+                        className="activity-name-link"
                         href="/activity_sessions/anonymous?activity_id=775"
                         tabIndex={-1}
                       >
@@ -1349,6 +1363,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         />
                       </span>
                       <a
+                        className="activity-name-link"
                         href="/activity_sessions/anonymous?activity_id=844"
                         tabIndex={-1}
                       >
@@ -1469,6 +1484,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         />
                       </span>
                       <a
+                        className="activity-name-link"
                         href="/activity_sessions/anonymous?activity_id=846"
                         tabIndex={-1}
                       >
@@ -1604,6 +1620,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           />
                         </span>
                         <a
+                          className="activity-name-link"
                           href="/activity_sessions/anonymous?activity_id=438"
                           tabIndex={-1}
                         >
@@ -1724,6 +1741,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           />
                         </span>
                         <a
+                          className="activity-name-link"
                           href="/activity_sessions/anonymous?activity_id=441"
                           tabIndex={-1}
                         >
@@ -1844,6 +1862,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           />
                         </span>
                         <a
+                          className="activity-name-link"
                           href="/activity_sessions/anonymous?activity_id=775"
                           tabIndex={-1}
                         >
@@ -1964,6 +1983,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           />
                         </span>
                         <a
+                          className="activity-name-link"
                           href="/activity_sessions/anonymous?activity_id=844"
                           tabIndex={-1}
                         >
@@ -2084,6 +2104,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           />
                         </span>
                         <a
+                          className="activity-name-link"
                           href="/activity_sessions/anonymous?activity_id=846"
                           tabIndex={-1}
                         >
@@ -2241,6 +2262,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             />
                           </span>
                           <a
+                            className="activity-name-link"
                             href="/activity_sessions/anonymous?activity_id=438"
                             tabIndex={-1}
                           >
@@ -2361,6 +2383,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             />
                           </span>
                           <a
+                            className="activity-name-link"
                             href="/activity_sessions/anonymous?activity_id=441"
                             tabIndex={-1}
                           >
@@ -2481,6 +2504,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             />
                           </span>
                           <a
+                            className="activity-name-link"
                             href="/activity_sessions/anonymous?activity_id=775"
                             tabIndex={-1}
                           >
@@ -2601,6 +2625,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             />
                           </span>
                           <a
+                            className="activity-name-link"
                             href="/activity_sessions/anonymous?activity_id=844"
                             tabIndex={-1}
                           >
@@ -2721,6 +2746,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             />
                           </span>
                           <a
+                            className="activity-name-link"
                             href="/activity_sessions/anonymous?activity_id=846"
                             tabIndex={-1}
                           >
@@ -2852,6 +2878,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               />
                             </span>
                             <a
+                              className="activity-name-link"
                               href="/activity_sessions/anonymous?activity_id=438"
                               tabIndex={-1}
                             >
@@ -2976,6 +3003,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                 />
                               </span>
                               <a
+                                className="activity-name-link"
                                 href="/activity_sessions/anonymous?activity_id=438"
                                 tabIndex={-1}
                               >
@@ -3116,6 +3144,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               />
                             </span>
                             <a
+                              className="activity-name-link"
                               href="/activity_sessions/anonymous?activity_id=438"
                               tabIndex={-1}
                             >
@@ -4633,6 +4662,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               />
                             </span>
                             <a
+                              className="activity-name-link"
                               href="/activity_sessions/anonymous?activity_id=441"
                               tabIndex={-1}
                             >
@@ -4757,6 +4787,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                 />
                               </span>
                               <a
+                                className="activity-name-link"
                                 href="/activity_sessions/anonymous?activity_id=441"
                                 tabIndex={-1}
                               >
@@ -4897,6 +4928,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               />
                             </span>
                             <a
+                              className="activity-name-link"
                               href="/activity_sessions/anonymous?activity_id=441"
                               tabIndex={-1}
                             >
@@ -6380,6 +6412,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               />
                             </span>
                             <a
+                              className="activity-name-link"
                               href="/activity_sessions/anonymous?activity_id=775"
                               tabIndex={-1}
                             >
@@ -6504,6 +6537,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                 />
                               </span>
                               <a
+                                className="activity-name-link"
                                 href="/activity_sessions/anonymous?activity_id=775"
                                 tabIndex={-1}
                               >
@@ -6644,6 +6678,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               />
                             </span>
                             <a
+                              className="activity-name-link"
                               href="/activity_sessions/anonymous?activity_id=775"
                               tabIndex={-1}
                             >
@@ -8127,6 +8162,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               />
                             </span>
                             <a
+                              className="activity-name-link"
                               href="/activity_sessions/anonymous?activity_id=844"
                               tabIndex={-1}
                             >
@@ -8251,6 +8287,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                 />
                               </span>
                               <a
+                                className="activity-name-link"
                                 href="/activity_sessions/anonymous?activity_id=844"
                                 tabIndex={-1}
                               >
@@ -8391,6 +8428,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               />
                             </span>
                             <a
+                              className="activity-name-link"
                               href="/activity_sessions/anonymous?activity_id=844"
                               tabIndex={-1}
                             >
@@ -9874,6 +9912,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               />
                             </span>
                             <a
+                              className="activity-name-link"
                               href="/activity_sessions/anonymous?activity_id=846"
                               tabIndex={-1}
                             >
@@ -9998,6 +10037,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                 />
                               </span>
                               <a
+                                className="activity-name-link"
                                 href="/activity_sessions/anonymous?activity_id=846"
                                 tabIndex={-1}
                               >
@@ -10138,6 +10178,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               />
                             </span>
                             <a
+                              className="activity-name-link"
                               href="/activity_sessions/anonymous?activity_id=846"
                               tabIndex={-1}
                             >
@@ -11638,6 +11679,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=41"
               tabIndex={-1}
             >
@@ -11686,6 +11728,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=215"
               tabIndex={-1}
             >
@@ -11734,6 +11777,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=289"
               tabIndex={-1}
             >
@@ -11782,6 +11826,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=295"
               tabIndex={-1}
             >
@@ -11830,6 +11875,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=386"
               tabIndex={-1}
             >
@@ -11878,6 +11924,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=418"
               tabIndex={-1}
             >
@@ -11926,6 +11973,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=434"
               tabIndex={-1}
             >
@@ -11974,6 +12022,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=437"
               tabIndex={-1}
             >
@@ -12022,6 +12071,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=849"
               tabIndex={-1}
             >
@@ -12061,6 +12111,7 @@ exports[`ActivityTable component renders if the current user did not create the 
       Array [
         Object {
           "attribute": "toolAndNameSection",
+          "headerClassName": "tool-and-name-section-header",
           "name": <span
             className="tool-and-name-header"
           >
@@ -12164,6 +12215,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=41"
               tabIndex={-1}
             >
@@ -12212,6 +12264,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=215"
               tabIndex={-1}
             >
@@ -12260,6 +12313,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=289"
               tabIndex={-1}
             >
@@ -12308,6 +12362,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=295"
               tabIndex={-1}
             >
@@ -12356,6 +12411,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=386"
               tabIndex={-1}
             >
@@ -12404,6 +12460,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=418"
               tabIndex={-1}
             >
@@ -12452,6 +12509,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=434"
               tabIndex={-1}
             >
@@ -12500,6 +12558,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=437"
               tabIndex={-1}
             >
@@ -12548,6 +12607,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               />
             </span>
             <a
+              className="activity-name-link"
               href="/activity_sessions/anonymous?activity_id=849"
               tabIndex={-1}
             >
@@ -12567,7 +12627,7 @@ exports[`ActivityTable component renders if the current user did not create the 
         className="data-table-headers"
       >
         <th
-          className="data-table-header undefined"
+          className="data-table-header tool-and-name-section-header"
           scope="col"
           style={
             Object {
@@ -12748,6 +12808,7 @@ exports[`ActivityTable component renders if the current user did not create the 
                 />
               </span>
               <a
+                className="activity-name-link"
                 href="/activity_sessions/anonymous?activity_id=41"
                 tabIndex={-1}
               >
@@ -12834,6 +12895,7 @@ exports[`ActivityTable component renders if the current user did not create the 
                 />
               </span>
               <a
+                className="activity-name-link"
                 href="/activity_sessions/anonymous?activity_id=215"
                 tabIndex={-1}
               >
@@ -12920,6 +12982,7 @@ exports[`ActivityTable component renders if the current user did not create the 
                 />
               </span>
               <a
+                className="activity-name-link"
                 href="/activity_sessions/anonymous?activity_id=289"
                 tabIndex={-1}
               >
@@ -13006,6 +13069,7 @@ exports[`ActivityTable component renders if the current user did not create the 
                 />
               </span>
               <a
+                className="activity-name-link"
                 href="/activity_sessions/anonymous?activity_id=295"
                 tabIndex={-1}
               >
@@ -13092,6 +13156,7 @@ exports[`ActivityTable component renders if the current user did not create the 
                 />
               </span>
               <a
+                className="activity-name-link"
                 href="/activity_sessions/anonymous?activity_id=386"
                 tabIndex={-1}
               >
@@ -13178,6 +13243,7 @@ exports[`ActivityTable component renders if the current user did not create the 
                 />
               </span>
               <a
+                className="activity-name-link"
                 href="/activity_sessions/anonymous?activity_id=418"
                 tabIndex={-1}
               >
@@ -13264,6 +13330,7 @@ exports[`ActivityTable component renders if the current user did not create the 
                 />
               </span>
               <a
+                className="activity-name-link"
                 href="/activity_sessions/anonymous?activity_id=434"
                 tabIndex={-1}
               >
@@ -13350,6 +13417,7 @@ exports[`ActivityTable component renders if the current user did not create the 
                 />
               </span>
               <a
+                className="activity-name-link"
                 href="/activity_sessions/anonymous?activity_id=437"
                 tabIndex={-1}
               >
@@ -13436,6 +13504,7 @@ exports[`ActivityTable component renders if the current user did not create the 
                 />
               </span>
               <a
+                className="activity-name-link"
                 href="/activity_sessions/anonymous?activity_id=849"
                 tabIndex={-1}
               >
