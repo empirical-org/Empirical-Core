@@ -129,6 +129,7 @@ module Demo::ReportDemoCreator
     },
     {
       name: 'Reading for Evidence Pack',
+      unit_template_id: nil,
       activity_sessions: [
         {
           2371 => KEN_ID,
