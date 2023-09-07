@@ -311,9 +311,10 @@ export default createReactClass({
 
     return (
       <React.Fragment>
-        <div className="page-content-wrapper gray-background-accommodate-footer">
+        <div className="page-content-wrapper white-background-accommodate-footer">
           <div className="tab-pane" id="scorebook">
             <div className="container">
+              <h1>Activity Summary</h1>
               <section className="section-content-wrapper">
                 <ScorebookFilters
                   beginDate={beginDate}
@@ -331,8 +332,8 @@ export default createReactClass({
                 <ScoreLegend />
                 <AppLegend />
               </section>
+              {content}
             </div>
-            {content}
           </div>
         </div>
         <ArticleSpotlight blogPostId={ACTIVITY_SUMMARY_FEATURED_BLOG_POST_ID} />

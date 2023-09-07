@@ -1,15 +1,73 @@
 #scorebook {
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    margin: 32px 0px 16px;
+  }
+
+  section {
+    padding: 0px;
+  }
+
+  .input-container {
+    width: 300px;
+    min-height: 38px;
+    justify-content: flex-start;
+
+    input {
+      font-size: 14px !important;
+    }
+
+    .dropdown {
+      margin-bottom: 0px;
+    }
+
+    .dropdown__control {
+      border: 1px $quill-grey-15;
+      border-style: solid;
+      padding: 4px 16px;
+      border-radius: 4px !important;
+      margin-bottom: 0px;
+    }
+
+    .dropdown__single-value {
+      display: flex;
+    }
+
+    &.inactive.has-text label {
+      margin-bottom: 0px;
+    }
+
+    &.classroom-dropdown-input {
+      .dropdown__single-value::before {
+        content: url('https://assets.quill.org/images/pages/activity_summary/students.svg');
+        position: relative;
+        margin-right: 8px;
+      }
+    }
+
+    &.activity-pack-dropdown-input {
+      .dropdown__single-value::before {
+        content: url('https://assets.quill.org/images/pages/activity_summary/book.svg');
+        position: relative;
+        margin-right: 8px;
+      }
+    }
+  }
+
 	.section-content-wrapper {
 		padding-bottom: 5px;
 	}
 
 	.icons-wrapper.score-legend {
-		padding-bottom: 30px;
-		border-bottom: 1px solid rgb(206,206,206);
+		border-bottom: 1px solid $quill-grey-15;
+    padding: 48px 0px;
 	}
 
 	.icons-wrapper.icon-legend {
 		.icons {
+      gap: 30px;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
@@ -19,8 +77,18 @@
 				align-items: center;
 				.icons-description-wrapper {
 					.title {
-						font-weight: 600;
+            color: $quill-grey-90;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 14px;
 					}
+          .explanation, .description {
+            color: $quill-grey-35;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 16px;
+            margin-top: 2px;
+          }
 				}
 				.icon-wrapper {
 					position: relative;
@@ -30,40 +98,18 @@
 	}
 
 	.app-legend {
-		padding-top: 25px;
+		margin: 48px 0px;
 		.icon {
-      background-color: #f7f5f5;
       text-align: left;
       min-width: min-content;
-      margin-right: 20px;
-      margin-bottom: 20px;
     }
     .icon:focus, .icon:hover {
       outline-offset: 6px;
       text-decoration: none;
     }
-		.title {
-			color: #717171;
-			margin-bottom: 6px;
-		}
-		.description {
-			color: #888888;
-		}
-		.icon-puzzle-embossed, .icon-flag-embossed, .icon-connect-embossed, .icon-lessons-embossed, .icon-diagnostic-embossed, .icon-evidence-lightgray {
-			background-position: top;
-		}
-    .icon-evidence-lightgray {
-      display: none;
+    .icons-description-wrapper {
+      margin-left: 10px;
     }
-		.icon-wrapper {
-			margin-bottom: 3px;
-      &.evidence-icon {
-        height: 30px;
-      }
-		}
-		.icons-description-wrapper {
-			margin-left: 5px;
-		}
 	}
 
 	.in-progress-symbol, .attempt-symbol, .scheduled-symbol, .locked-symbol {
@@ -73,9 +119,16 @@
 		right: -8px;
 	}
 
-  .scheduled-symbol, .locked-symbol {
+  .scheduled-symbol {
     height: 16px;
     background-color: #f7f5f5;
+  }
+
+  .locked-symbol {
+    height: 12;
+    background-color: #f7f5f5;
+    right: -2px;
+    top: -3px;
   }
 
 	.missed-indicator {
@@ -91,48 +144,73 @@
 		font-size: 11px;
 	}
 
-	.overview-section {
-		margin: 0 auto;
-		max-width: calc(#{$sitewidepagewidth} + 20px); // accounting for right padding on each activity icon
-    padding-left: 10px; // accounting for overflow
-	}
+  .overview-section {
+    padding: 32px 0px;
+    .flex-row {
+      column-gap: 15.24px;
+      row-gap: 16px;
+    }
+  }
 
 	.student-header {
-		align-items: center;
+		align-items: flex-start;
 		display: flex;
-		margin-bottom: 26px;
-    margin-right: 10px;  // accounting for right padding on each activity icon
+		margin-bottom: 32px;
 
-		.average-score {
-      margin-left: 16px;
-		}
+    .vertical-divider {
+      border-left: 1px solid $quill-grey-10;
+      display: block;
+      margin: 0px 16px;
+      height: 41px;
+    }
 
     .average-score, .time-spent {
-      color: $quill-grey-40;
+      display: flex;
+      flex-direction: column;
+      .data {
+        color: $quill-grey-90;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: normal;
+      }
+      .data-label {
+        color: $quill-grey-50;
+        font-size: 12px;
+        line-height: 20px;
+      }
     }
 
 		a.activity-scores-link {
-			border: solid 1px $orange;
-			border-radius: 15px;
-			color: $color_rusty_nail_approx;
-			margin-left: 10px;
-			padding: 4px 12px 4px 14px;
+      margin-left: 32px;
+      border-radius: 4px;
+      border: 1px solid $quill-gold-dark-20;
+      background: $quill-gold-1;
+      color: $quill-gold-dark-50;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 13px; /* 100% */
+      height: 32px;
+      display: flex;
+      align-items: center;
+      padding: 0px 16px;
+
+      img {
+        height: 11px;
+        width: 14px;
+        margin-left: 4px;
+      }
 
 			&:hover {
 				text-decoration: none;
-			}
-
-			.fas{
-				color: $orange;
-				font-size: 16px;
-				margin-left: 8px;
-				vertical-align: middle;
 			}
 		}
 	}
 
 	.student-name {
-		flex-grow: 1;
+    flex-grow: 1;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 26px;
 	}
 
 	.date-range-filter {
@@ -161,6 +239,16 @@
 	}
 }
 
+@media (max-width: 1050px) {
+  #scorebook .icons-wrapper.icon-legend .icons {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .activity-page-dropdown-wrapper.scorebook-filters {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
 // The following is the CSS for the AirBNB 'react-dates' component.
 // We are putting it here because we are going to customize it
 // significantly in order to make it do what we want it to do.
@@ -685,7 +773,7 @@ $chevroncolor: #027360;
   line-height: 25px;
   color: $quill-grey-35;
   margin: 0;
-  padding: 5px;
+  padding: 0px 5px;
   position: relative;
   display: inline-block;
   width: 110px;
@@ -826,10 +914,13 @@ $chevroncolor: #027360;
 
 .DateRangePickerInput {
   background-color: $quill-white;
-  border: 1px solid #cacccd;
+  border-radius: 4px;
+  border: 1px solid $quill-grey-15;
   display: inline-block;
- 	border-radius: 5px;
 	padding-right: 2px;
+  height: 38px;
+  display: flex;
+  align-items: center;
 }
 
 .DateRangePickerInput--disabled {
@@ -1010,41 +1101,9 @@ $chevroncolor: #027360;
     .scorebook-filter-group {
       flex-direction: column;
       justify-content: center;
+      gap: 20px;
       .dropdown__control {
         min-width: max-content;
-      }
-    }
-    .icons-wrapper.score-legend {
-      .icons {
-        .icon {
-          min-width: 150px;
-          align-items: flex-start !important;
-          .icons-description-wrapper {
-            p {
-              text-align: left;
-            }
-          }
-        }
-      }
-    }
-    .icons-wrapper.app-legend {
-      .icons {
-        .icon {
-          max-width: 150px;
-          align-items: flex-start !important;
-          .icon-evidence-lightgray {
-            display: inherit !important;
-          }
-          .evidence-icon {
-            display: none !important;
-          }
-          .icons-description-wrapper {
-            p {
-              font-size: 12px;
-              text-align: left;
-            }
-          }
-        }
       }
     }
     .DateRangePicker {

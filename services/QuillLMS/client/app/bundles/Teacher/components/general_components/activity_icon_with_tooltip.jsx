@@ -4,9 +4,55 @@ import React from 'react';
 import { nonRelevantActivityClassificationIds, } from '../../../../modules/activity_classifications';
 import { requestGet, } from '../../../../modules/request/index';
 import { closedLockIcon, scheduledIcon, } from '../../../Shared/index';
-import activityFromClassificationId from '../modules/activity_from_classification_id.js';
 import ScorebookTooltip from '../modules/componentGenerators/tooltip_title/scorebook_tooltip_title';
 import gradeColor from '../modules/grade_color.js';
+
+function skillDescription(grade) {
+  if (grade == null) {
+    return 'did not complete the activity';
+  } else if (grade < 0.32) {
+    return 'rarely demonstrated the activity\'s skill';
+  } else if (grade < 0.83) {
+    return 'sometimes demonstrated the activity\'s skill';
+  } else if (grade <= 1.0) {
+    return 'frequently demonstrated the activity\'s skill';
+  }
+  return 'did not complete the activity';
+};
+
+function activityFromClassificationId(classificationId) {
+  const intClassificationId = parseInt(classificationId);
+  if (intClassificationId === 1) {
+    return 'proofreader';
+  } else if (intClassificationId === 2) {
+    return 'grammar';
+  } else if (intClassificationId === 4) {
+    return 'diagnostic';
+  } else if (intClassificationId === 5) {
+    return 'connect';
+  } else if (intClassificationId === 6) {
+    return 'lessons';
+  } else if (intClassificationId === 9) {
+    return 'evidence';
+  }
+};
+
+function activityIconDescription(classificationId) {
+  const intClassificationId = parseInt(classificationId);
+  if (intClassificationId === 1) {
+    return 'Flag representing Quill Proofreader';
+  } else if (intClassificationId === 2) {
+    return 'Puzzle piece representing Quill Grammar';
+  } else if (intClassificationId === 4) {
+    return 'Magnifying glass representing Quill Diagnostic';
+  } else if (intClassificationId === 5) {
+    return 'Bullseye representing Quill Connect';
+  } else if (intClassificationId === 6) {
+    return 'Apple representing Quill Lessons ';
+  } else if (intClassificationId === 9) {
+    return 'Book to represent Quill Reading for Evidence';
+  }
+};
 
 export default class ActivityIconWithTooltip extends React.Component {
   constructor(props) {
@@ -45,7 +91,6 @@ export default class ActivityIconWithTooltip extends React.Component {
   };
 
 
-
   checkForStudentReport = () => {
     if (this.props.data.completed_attempts) {
       this.goToReport();
@@ -62,18 +107,38 @@ export default class ActivityIconWithTooltip extends React.Component {
     this.setState({ showToolTip: false, });
   };
 
-  iconClass() {
+  altText() {
+    const { data, context, } = this.props
+
+    if (data.completed_attempts > 0 || data.percentage) {
+      if (context === 'scorebook' && nonRelevantActivityClassificationIds.includes(Number(data.activity_classification_id))) {
+        return `${activityIconDescription(data.activity_classification_id)} in dark blue to indicate that the student completed the activity.`
+      } else {
+        return `${activityIconDescription(data.activity_classification_id)} in ${gradeColor(parseFloat(data.percentage))} to indicate that the student ${skillDescription(parseFloat(data.percentage))}`
+      }
+    } else {
+      if (data.started) {
+        return `${activityIconDescription(data.activity_classification_id)} in light blue to indicate that the student started the activity.`
+      } else {
+        return `${activityIconDescription(data.activity_classification_id)} in gray to indicate that the student has not yet started the activity.`
+      }
+    }
+
+    return `${activityIconDescription(data.activity_classification_id)} in ${gradeColor(parseFloat(data.percentage))} to indicate that the student`
+  }
+
+  imageName() {
     if (this.props.data.completed_attempts > 0 || this.props.data.percentage) {
       if (this.props.context === 'scorebook' && nonRelevantActivityClassificationIds.includes(Number(this.props.data.activity_classification_id))) {
-        return  `icon-blue icon-${activityFromClassificationId(this.getActClassId())}`
+        return  `${activityFromClassificationId(this.getActClassId())}-dark-blue`
       } else {
-        return `icon-${gradeColor(parseFloat(this.props.data.percentage))} icon-${activityFromClassificationId(this.getActClassId())}`
+        return `${activityFromClassificationId(this.getActClassId())}-${gradeColor(parseFloat(this.props.data.percentage))}`
       }
     } else {
       if (this.props.data.started) {
-        return `icon-progress icon-${activityFromClassificationId(this.getActClassId())}-lightgray`
+        return `${activityFromClassificationId(this.getActClassId())}-light-blue`
       } else {
-        return `icon-unstarted icon-${activityFromClassificationId(this.getActClassId())}-lightgray`
+        return `${activityFromClassificationId(this.getActClassId())}-grey`
       }
     }
   }
@@ -124,10 +189,8 @@ export default class ActivityIconWithTooltip extends React.Component {
   }
 
   tooltipClasses() {
-    return `activate-tooltip icon-link icon-wrapper ${this.iconClass()}`;
+    return `activate-tooltip icon-link icon-wrapper`;
   }
-
-
 
   render(){
     const cursorType = this.props.context === 'scorebook' ? 'pointer' : 'default';
@@ -143,6 +206,7 @@ export default class ActivityIconWithTooltip extends React.Component {
         onMouseLeave={this.props.context === 'scorebook' ? this.hideTooltip : null}
         style={{ cursor: cursorType, position: 'relative', }}
       >
+        <img alt={this.altText()} src={`${process.env.CDN_URL}/images/pages/activity_summary/${this.imageName()}.svg`} />
         {this.missedIndicator()}
         {this.statusIndicator()}
         {toolTip}
