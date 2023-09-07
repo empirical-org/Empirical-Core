@@ -91,7 +91,7 @@ exports[`ScoreLegend component should render 1`] = `
             <p
               className="explanation"
             >
-              <br />
+              No score provided
             </p>
           </div>
         </div>
