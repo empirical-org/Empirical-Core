@@ -292,7 +292,8 @@ module Demo::ReportDemoCreator
 
   def self.create_units(teacher)
     ACTIVITY_PACKS_TEMPLATES.map do |ap|
-      unit = Unit.find_or_create_by(name: ap[:name], user: teacher, unit_template_id: ap[:unit_template_id])
+      unit_template_id = UnitTemplate.find_by_id(ap[:unit_template_id])&.id # ensures the unit template actually exists in our database
+      unit = Unit.find_or_create_by(name: ap[:name], user: teacher, unit_template_id: unit_template_id)
       activity_ids = activity_ids_for_config(ap)
       activity_ids.each { |act_id| UnitActivity.find_or_create_by(activity_id: act_id, unit: unit) }
 
