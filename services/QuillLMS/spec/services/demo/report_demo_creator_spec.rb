@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Demo::ReportDemoCreator do
   context 'ACTIVITY_PACKS_TEMPLATES config' do
-    let(:expected_keys) {[:activity_sessions, :name]}
+    let(:expected_keys) {[:activity_sessions, :name, :unit_template_id]}
 
     subject { described_class::ACTIVITY_PACKS_TEMPLATES }
 
