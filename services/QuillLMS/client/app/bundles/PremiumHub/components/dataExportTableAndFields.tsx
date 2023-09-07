@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as Pusher from 'pusher-js';
 import * as moment from 'moment';
 
 import { requestPost, } from '../../../modules/request'
@@ -28,6 +27,7 @@ interface DataExportTableAndFieldsProps {
   customTimeframeStart: string;
   pusherChannel?: any;
   queryKey: string;
+  searchCount: number;
   selectedClassroomIds: number[];
   selectedGrades: string[];
   selectedSchoolIds: number[];
@@ -35,7 +35,7 @@ interface DataExportTableAndFieldsProps {
   selectedTimeframe: string;
 }
 
-export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, pusherChannel }: DataExportTableAndFieldsProps) => {
+export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, pusherChannel }: DataExportTableAndFieldsProps) => {
   const [showStudentEmail, setShowStudentEmail] = React.useState<boolean>(true);
   const [showSchool, setShowSchool] = React.useState<boolean>(true);
   const [showGrade, setShowGrade] = React.useState<boolean>(true);
@@ -53,7 +53,7 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
 
   const fields = {
     [STUDENT_NAME]: {
-      dataTableField: { name: STUDENT_NAME, attribute: "student_name", width: STANDARD_WIDTH },
+      dataTableField: { name: STUDENT_NAME, attribute: "student_name", width: STANDARD_WIDTH, rowSectionClassName: 'student-name-section' },
       checked: true
     },
     [STUDENT_EMAIL]: {
@@ -123,11 +123,9 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
   }, [pusherChannel])
 
   React.useEffect(() => {
-    if (queryKey && selectedTimeframe && selectedSchoolIds) {
-      initializePusher()
-      getData()
-    }
-  }, [queryKey, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd])
+    initializePusher()
+    getData()
+  }, [searchCount])
 
   function getData() {
 

@@ -108,6 +108,11 @@
                 }
               }
             }
+            td:first-of-type {
+              .quill-tooltip {
+                right: 0;
+              }
+            }
           }
         }
       }
