@@ -1,8 +1,6 @@
-const request = require('request-promise').defaults({ family: 4 });
 const _ = require('lodash');
 const u = require('underscore');
 const Sequelize = require('sequelize');
-
 const { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, checkDiagnosticSentenceFragment, checkGrammarQuestion, ConceptResult } = require('quill-marking-logic')
 const CMS_URL = 'https://cms.quill.org'
 const FIREBASE_NAME = 'quillconnect'
@@ -159,8 +157,8 @@ function updateResponse(response, content) {
 function determineDelta(response, newResponse) {
   const conceptResults = newResponse.response.conceptResults || newResponse.response.concept_results
   const parentIDChanged = (newResponse.response.parent_id? parseInt(newResponse.response.parent_id) : null) !== response.parent_id;
-  const authorChanged = newResponse.response.author != response.author;
-  const feedbackChanged = newResponse.response.feedback != response.feedback;
+  const authorChanged = newResponse.response.author !== response.author;
+  const feedbackChanged = newResponse.response.feedback !== response.feedback;
   const conceptResultsChanged = !_.isEqual(convertResponsesArrayToHash(conceptResults), response.concept_results);
   const changed = parentIDChanged || authorChanged || feedbackChanged || conceptResultsChanged;
 
