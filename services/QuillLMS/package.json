@@ -49,7 +49,7 @@
   "dependencies": {
     "foreman": "^3.0.1",
     "lazysizes": "^5.2.0-beta1",
-    "quill-marking-logic": "0.15.10",
+    "quill-marking-logic": "0.15.11",
     "react-csv": "^1.1.2"
   },
   "devDependencies": {
