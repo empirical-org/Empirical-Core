@@ -334,6 +334,7 @@ GEM
       gapic-common (>= 0.19.1, < 2.a)
       google-cloud-errors (~> 1.0)
     google-protobuf (3.24.2)
+    google-protobuf (3.24.2-x86_64-linux)
     googleapis-common-protos (1.4.0)
       google-protobuf (~> 3.14)
       googleapis-common-protos-types (~> 1.2)
@@ -352,6 +353,9 @@ GEM
       sprockets-rails
     graphql (1.11.7)
     grpc (1.57.0)
+      google-protobuf (~> 3.23)
+      googleapis-common-protos-types (~> 1.0)
+    grpc (1.57.0-x86_64-linux)
       google-protobuf (~> 3.23)
       googleapis-common-protos-types (~> 1.0)
     hashdiff (1.0.1)
@@ -404,6 +408,7 @@ GEM
     letter_opener (1.7.0)
       launchy (~> 2.2)
     libv8-node (15.14.0.1)
+    libv8-node (15.14.0.1-x86_64-linux)
     lms-api (1.24.0)
       activesupport (>= 3.0)
       httparty
@@ -454,6 +459,8 @@ GEM
     nio4r (2.5.9)
     nokogiri (1.15.3)
       mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
+    nokogiri (1.15.3-x86_64-linux)
       racc (~> 1.4)
     oauth2 (2.0.9)
       faraday (>= 0.17.3, < 3.0)
@@ -803,6 +810,7 @@ GEM
 
 PLATFORMS
   ruby
+  x86_64-linux
 
 DEPENDENCIES
   actionpack-action_caching
@@ -946,4 +954,4 @@ RUBY VERSION
    ruby 3.0.6p216
 
 BUNDLED WITH
-  2.3.17
+   2.3.17
