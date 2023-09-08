@@ -7,7 +7,7 @@
  * @version   v1.7.3
  */
 
- import jQuery from 'jquery';
+import jQuery from 'jquery';
 
 /* Sample html structure
   <div class='tabs'>
