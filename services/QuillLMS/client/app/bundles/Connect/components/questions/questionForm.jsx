@@ -95,7 +95,7 @@ export default class extends React.Component {
             currentConceptUID={this.state.concept}
             handleSelectorChange={this.handleSelectorChange}
           />
-           {showConceptNullError && <p className={labelClass}>Add a concept to save this question</p>}
+          {showConceptNullError && <p className={labelClass}>Add a concept to save this question</p>}
         </div>
       </div>
     )
