@@ -32,7 +32,7 @@ export const fetchModel = async ({ queryKey }) => {
 export const createModel = async (autoMLId: string, promptId: number, notes: string) => {
   const response = await apiFetch(`automl_models`, {
     method: 'POST',
-    body: JSON.stringify({ automl_model_id: autoMLId, prompt_id: promptId, notes })
+    body: JSON.stringify({ external_id: autoMLId, prompt_id: promptId, notes })
   });
   const newModel = await response.json();
   return { error: handleApiError('Failed to create model, please try again.', response), model: newModel };

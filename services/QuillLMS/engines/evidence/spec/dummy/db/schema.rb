@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_06_215624) do
-
+ActiveRecord::Schema[7.0].define(version: 2023_09_11_142601) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,8 +33,8 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
     t.string "changed_attribute"
     t.string "previous_value"
     t.string "new_value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["changed_record_id"], name: "index_change_logs_on_changed_record_id"
     t.index ["user_id"], name: "index_change_logs_on_user_id"
   end
@@ -45,8 +44,8 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
     t.integer "parent_activity_id"
     t.integer "target_level", limit: 2
     t.string "scored_level", limit: 100
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "notes"
     t.integer "version", limit: 2, default: 1, null: false
     t.index ["parent_activity_id"], name: "index_comprehension_activities_on_parent_activity_id"
@@ -58,8 +57,8 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
     t.string "labels", default: [], array: true
     t.integer "prompt_id"
     t.string "state", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "notes", default: ""
   end
 
@@ -68,8 +67,8 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
     t.string "text", null: false
     t.string "description"
     t.integer "order", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["rule_id", "order"], name: "index_comprehension_feedbacks_on_rule_id_and_order", unique: true
   end
 
@@ -78,22 +77,22 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
     t.string "text", null: false
     t.string "highlight_type", null: false
     t.integer "starting_index"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "comprehension_labels", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.integer "rule_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "comprehension_passages", id: :serial, force: :cascade do |t|
     t.integer "activity_id"
     t.text "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "image_link"
     t.string "image_alt_text", default: ""
     t.string "highlight_prompt"
@@ -106,8 +105,8 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
   create_table "comprehension_plagiarism_texts", id: :serial, force: :cascade do |t|
     t.integer "rule_id", null: false
     t.string "text", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["rule_id"], name: "index_comprehension_plagiarism_texts_on_rule_id"
   end
 
@@ -117,8 +116,8 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
     t.string "conjunction", limit: 20
     t.string "text"
     t.text "max_attempts_feedback"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "first_strong_example", default: ""
     t.string "second_strong_example", default: ""
     t.index ["activity_id"], name: "index_comprehension_prompts_on_activity_id"
@@ -127,8 +126,8 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
   create_table "comprehension_prompts_rules", id: :serial, force: :cascade do |t|
     t.integer "prompt_id", null: false
     t.integer "rule_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["prompt_id", "rule_id"], name: "index_comprehension_prompts_rules_on_prompt_id_and_rule_id", unique: true
     t.index ["rule_id"], name: "index_comprehension_prompts_rules_on_rule_id"
   end
@@ -136,8 +135,8 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
   create_table "comprehension_regex_rules", id: :serial, force: :cascade do |t|
     t.string "regex_text", limit: 200, null: false
     t.boolean "case_sensitive", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "rule_id"
     t.text "sequence_type", default: "incorrect", null: false
     t.boolean "conditional", default: false
@@ -153,8 +152,8 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
     t.boolean "optimal", null: false
     t.integer "suborder"
     t.string "concept_uid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "state", null: false
     t.bigint "hint_id"
     t.index ["hint_id"], name: "index_comprehension_rules_on_hint_id"
@@ -164,8 +163,8 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
   create_table "comprehension_turking_round_activity_sessions", id: :serial, force: :cascade do |t|
     t.integer "turking_round_id"
     t.string "activity_session_uid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["activity_session_uid"], name: "comprehension_turking_sessions_activity_uid", unique: true
     t.index ["turking_round_id"], name: "comprehension_turking_sessions_turking_id"
   end
@@ -173,9 +172,9 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
   create_table "comprehension_turking_rounds", id: :serial, force: :cascade do |t|
     t.integer "activity_id"
     t.uuid "uuid"
-    t.datetime "expires_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "expires_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["activity_id"], name: "index_comprehension_turking_rounds_on_activity_id"
     t.index ["uuid"], name: "index_comprehension_turking_rounds_on_uuid", unique: true
   end
@@ -192,8 +191,20 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
     t.integer "but_final_optimal"
     t.integer "so_final_optimal"
     t.integer "avg_completion_time"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "evidence_automl_models", force: :cascade do |t|
+    t.string "external_id", null: false
+    t.string "name", null: false
+    t.string "labels", default: [], array: true
+    t.bigint "prompt_id"
+    t.string "state", null: false
+    t.text "notes", default: ""
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["prompt_id"], name: "index_evidence_automl_models_on_prompt_id"
   end
 
   create_table "evidence_hints", force: :cascade do |t|
@@ -201,8 +212,8 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
     t.string "image_link", null: false
     t.string "image_alt_text", null: false
     t.bigint "rule_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "name"
     t.index ["rule_id"], name: "index_evidence_hints_on_rule_id"
   end
@@ -225,8 +236,8 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
     t.integer "percent_spelling"
     t.integer "avg_time_spent_per_prompt"
     t.bigint "evidence_activity_health_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["evidence_activity_health_id"], name: "index_evidence_prompt_healths_on_evidence_activity_health_id"
   end
 
@@ -234,8 +245,8 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
     t.string "type", null: false
     t.integer "prompt_id", null: false
     t.jsonb "config"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "evidence_prompt_texts", force: :cascade do |t|
@@ -244,24 +255,15 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
     t.string "text", null: false
     t.string "label"
     t.string "ml_type"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "evidence_rule_hints", force: :cascade do |t|
-    t.bigint "rule_id", null: false
-    t.bigint "hint_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["hint_id"], name: "index_evidence_rule_hints_on_hint_id"
-    t.index ["rule_id"], name: "index_evidence_rule_hints_on_rule_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "evidence_text_generations", force: :cascade do |t|
     t.string "type", null: false
     t.jsonb "config"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
@@ -273,7 +275,6 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
   add_foreign_key "comprehension_labels", "comprehension_rules", column: "rule_id", on_delete: :cascade
   add_foreign_key "comprehension_plagiarism_texts", "comprehension_rules", column: "rule_id", on_delete: :cascade
   add_foreign_key "comprehension_regex_rules", "comprehension_rules", column: "rule_id", on_delete: :cascade
+  add_foreign_key "evidence_automl_models", "comprehension_prompts", column: "prompt_id"
   add_foreign_key "evidence_prompt_healths", "evidence_activity_healths", on_delete: :cascade
-  add_foreign_key "evidence_rule_hints", "comprehension_rules", column: "rule_id", on_delete: :cascade
-  add_foreign_key "evidence_rule_hints", "evidence_hints", column: "hint_id", on_delete: :cascade
 end

@@ -17,53 +17,50 @@
 require 'rails_helper'
 
 module Evidence
-  RSpec.describe(AutomlModel, :type => :model) do
-
+  RSpec.describe AutomlModel, type: :model do
     context 'should validations' do
-
       context 'should shoulda matchers' do
         before { create(:evidence_automl_model) }
 
-        it { should validate_presence_of(:automl_model_id) }
-
-        it { should validate_uniqueness_of(:automl_model_id) }
-
+        it { should validate_presence_of(:external_id) }
+        it { should validate_uniqueness_of(:external_id) }
         it { should validate_presence_of(:name) }
       end
 
       context 'should validate labels' do
+        subject { build(:evidence_automl_model) }
 
-        it 'should not be valid if labels is not an array' do
-          automl_model = build(:evidence_automl_model)
-          automl_model.labels = "not an array"
-          expect((!automl_model.valid?)).to(be_truthy)
+        context 'labels is not an array' do
+          before { subject.labels = "not an array" }
+
+          it { should_not be_valid }
         end
 
-        it 'should be valid if labels is an array' do
-          automl_model = build(:evidence_automl_model)
-          automl_model.labels = ["is", "an", "array"]
-          expect(automl_model.valid?).to(eq(true))
+        context 'labels is an empty array' do
+          before { subject.labels = [] }
+
+          it { should_not be_valid }
         end
 
-        it 'should not be valid if labels is empty' do
-          automl_model = build(:evidence_automl_model)
-          automl_model.labels = []
-          expect((!automl_model.valid?)).to(be_truthy)
+        context 'labels is an array with at least one item' do
+          before { subject.labels = ["one item"] }
+
+          it { should be_valid }
         end
 
-        it 'should be valid if labels has at least one item in it' do
-          automl_model = build(:evidence_automl_model)
-          automl_model.labels = ["one item"]
-          expect(automl_model.valid?).to(eq(true))
+        context 'labels is an array with multiple items' do
+          before { subject.labels = ["is", "an", "array"] }
+
+          it { should be_valid }
         end
       end
 
       context '#before_validation' do
-        it 'should strip whitespace from "automl_model_id"' do
+        it 'should strip whitespace from "external_id"' do
           model_id = '   STRIP_ME   '
-          automl_model = build(:evidence_automl_model, automl_model_id: model_id)
+          automl_model = build(:evidence_automl_model, external_id: model_id)
           automl_model.valid?
-          expect(automl_model.automl_model_id).to eq(model_id.strip)
+          expect(automl_model.external_id).to eq(model_id.strip)
         end
       end
 
@@ -91,15 +88,15 @@ module Evidence
       end
 
 
-      context 'should #forbid_automl_model_id_change' do
+      context 'should #forbid_external_id_change' do
 
-        it 'should not allow automl_model_id to change after create' do
+        it 'should not allow external_id to change after create' do
           original_id = "automl_id"
-          automl_model = create(:evidence_automl_model, :automl_model_id => original_id)
-          automl_model.automl_model_id = "some new value"
+          automl_model = create(:evidence_automl_model, :external_id => original_id)
+          automl_model.external_id = "some new value"
           automl_model.save
           automl_model.reload
-          expect(original_id).to(eq(automl_model.automl_model_id))
+          expect(original_id).to(eq(automl_model.external_id))
         end
       end
 
@@ -156,7 +153,7 @@ module Evidence
         automl_model = create(:evidence_automl_model)
         expected = {
           :id => automl_model.id,
-          :automl_model_id => automl_model.automl_model_id,
+          :external_id => automl_model.external_id,
           :name => automl_model.name,
           :labels => automl_model.labels,
           :state => automl_model.state,
@@ -171,18 +168,18 @@ module Evidence
       end
     end
 
-    context 'should #populate_from_automl_model_id' do
+    context 'should #populate_from_external_id' do
 
       it 'should set name, labels, and state when called' do
-        automl_model_id = "Test-ID"
+        external_id = "Test-ID"
         name = "Test name"
         labels = ["Test label"]
         AutomlModel.stub_any_instance(:automl_name, name) do
           AutomlModel.stub_any_instance(:automl_labels, labels) do
-            model = AutomlModel.new(:automl_model_id => automl_model_id)
-            model.populate_from_automl_model_id
+            model = AutomlModel.new(:external_id => external_id)
+            model.populate_from_external_id
             expect(model.valid?).to(eq(true))
-            expect(automl_model_id).to(eq(model.automl_model_id))
+            expect(external_id).to(eq(model.external_id))
             expect(name).to(eq(model.name))
             expect(labels).to(eq(model.labels))
             expect(AutomlModel::STATE_INACTIVE).to(eq(model.state))
@@ -190,17 +187,17 @@ module Evidence
         end
       end
 
-      it 'should strip any whitespace that is on "automl_model_id" before looking records up via Google' do
+      it 'should strip any whitespace that is on "external_id" before looking records up via Google' do
         stub_const("AutomlModel::GOOGLE_PROJECT_ID", 'PROJECT_ID')
         stub_const("AutomlModel::GOOGLE_LOCATION", 'LOCATION')
 
-        automl_model_id = '   HAS_SPACES   '
-        stripped_automl_model_id = automl_model_id.strip
-        automl_model = build(:evidence_automl_model, automl_model_id: automl_model_id)
+        external_id = '   HAS_SPACES   '
+        stripped_external_id = external_id
+        automl_model = build(:evidence_automl_model, external_id: external_id)
 
         auto_ml_stub = double
         expect(Google::Cloud::AutoML).to receive(:auto_ml).and_return(auto_ml_stub)
-        expect(auto_ml_stub).to receive(:model_path).with(project: ENV['AUTOML_GOOGLE_PROJECT_ID'], location: ENV['AUTOML_GOOGLE_LOCATION'], model: stripped_automl_model_id)
+        expect(auto_ml_stub).to receive(:model_path).with(project: ENV['AUTOML_GOOGLE_PROJECT_ID'], location: ENV['AUTOML_GOOGLE_LOCATION'], model: stripped_external_id)
         automl_model.send(:automl_model_path)
       end
     end
