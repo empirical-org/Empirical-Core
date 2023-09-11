@@ -60,27 +60,23 @@ export class QuestionListByConcept extends React.Component<any, any> {
   }
 
   renderQuestionsWithoutValidKey = () => {
-    if(!this.props.displayNoConceptQuestions) {
-      return (<div />)
-    } else {
-      const concepts = hashToCollection(this.props.concepts.data['0']);
-      const questions = hashToCollection(this.props.questions.data);
-      const questionsToRender = _.reject(questions, (question) => {
-        return !!_.find(concepts, {uid: question.conceptID})
-      })
-      const label = (<p className="menu-label">
-      No valid concept
-      </p>)
-      return this.renderConceptWithQuestions(questionsToRender, label);
-    }
+    const concepts = hashToCollection(this.props.concepts.data['0']);
+    const questions = hashToCollection(this.props.questions);
+    const questionsToRender = _.reject(questions, (question) => {
+      return !!_.find(concepts, {uid: question.conceptID})
+    })
+    const label = (<p className="menu-label">
+    No valid concept
+    </p>)
+    return this.renderConceptWithQuestions(questionsToRender, label);
   }
 
   render() {
     return (
       <aside className="menu">
         <div className="admin-container">
-          {this.mapConceptsToList()}
           {this.renderQuestionsWithoutValidKey()}
+          {this.mapConceptsToList()}
         </div>
       </aside>
     );

@@ -16,9 +16,21 @@ export default class extends React.Component {
     cuesLabel: this.props.question.cuesLabel ? this.props.question.cuesLabel : '',
     optimalResponseText: '',
     showDefaultInstructions: false,
+    showConceptNullError: false,
   };
 
+  showConceptNullError() {
+    this.setState({showConceptNullError: true})
+  }
+
   submit = () => {
+    const { concept } = this.state
+
+    if (!concept) {
+      this.showConceptNullError()
+      return
+    }
+
     const questionObj = {
       conceptUID: this.props.question.conceptUID,
       cuesLabel: this.props.question.cuesLabel,
@@ -76,14 +88,18 @@ export default class extends React.Component {
   };
 
   renderConceptSelector = () => {
+    const { showConceptNullError } = this.state
+    const labelClass = showConceptNullError ? 'red-label' : ''
+
     return (
       <div>
-        <label className="label">Concept</label>
+        <label className={`label ${labelClass}`}>Concept</label>
         <div>
           <ConceptSelector
             currentConceptUID={this.state.concept}
             handleSelectorChange={this.handleSelectorChange}
           />
+           {showConceptNullError && <p className={labelClass}>Add a concept to save this question</p>}
         </div>
       </div>
     )

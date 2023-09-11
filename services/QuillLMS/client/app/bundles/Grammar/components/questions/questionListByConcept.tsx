@@ -10,7 +10,6 @@ interface QuestionListByConceptProps {
   concepts: ConceptReducerState;
   showOnlyArchived: boolean;
   basePath: string;
-  displayNoConceptQuestions: boolean;
   questions: QuestionsReducerState;
 }
 
@@ -79,9 +78,22 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
     })
   }
 
+  renderQuestionsWithoutValidKey = () => {
+    const concepts = hashToCollection(this.props.concepts.data['0']);
+    const questions = hashToCollection(this.props.questions);
+    const questionsToRender = _.reject(questions, (question) => {
+      return !!_.find(concepts, {uid: question.conceptID})
+    })
+    const label = (<p className="menu-label">
+    No valid concept
+    </p>)
+    return this.renderConceptWithQuestions(questionsToRender, label, 0);
+  }
+
   render() {
     return (
       <aside className="menu">
+        {this.renderQuestionsWithoutValidKey()}
         {this.mapConceptsToList()}
       </aside>
     );
