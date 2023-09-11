@@ -65,9 +65,7 @@ export class QuestionListByConcept extends React.Component<any, any> {
     const questionsToRender = _.reject(questions, (question) => {
       return !!_.find(concepts, {uid: question.conceptID})
     })
-    const label = (<p className="menu-label">
-    No valid concept
-    </p>)
+    const label = (<p className="menu-label">No valid concept</p>)
     return this.renderConceptWithQuestions(questionsToRender, label);
   }
 

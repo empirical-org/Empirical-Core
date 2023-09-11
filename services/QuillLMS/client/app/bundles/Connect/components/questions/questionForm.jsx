@@ -19,20 +19,16 @@ export default class extends React.Component {
     showConceptNullError: false,
   };
 
-  showConceptNullError() {
-    this.setState({showConceptNullError: true})
-  }
-
   submit = () => {
     const { concept } = this.state
 
     if (!concept) {
-      this.showConceptNullError()
+      this.setState({showConceptNullError: true})
       return
     }
 
     const questionObj = {
-      conceptUID: this.props.question.conceptUID,
+      conceptID: this.state.concept,
       cuesLabel: this.props.question.cuesLabel,
       focusPoints: this.props.question.focusPoints,
       incorrectSequences: this.props.question.incorrectSequences,
