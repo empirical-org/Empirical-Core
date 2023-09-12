@@ -46,6 +46,10 @@ module Teacher
     Classroom.find_by_sql(base_sql_for_teacher_classrooms)
   end
 
+  def unscoped_classrooms_i_teach
+    Classroom.find_by_sql(base_sql_for_teacher_classrooms(only_visible_classrooms: false))
+  end
+
   def classrooms_i_own
     Classroom.find_by_sql("#{base_sql_for_teacher_classrooms} AND ct.role = 'owner'")
   end

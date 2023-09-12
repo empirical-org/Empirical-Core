@@ -15,9 +15,8 @@ describe CanvasIntegration::RestClient do
     subject { rest_client.teacher_classrooms }
 
     let(:courses_path) { described_class::COURSES_PATH }
-    let(:courses_response) { double(HTTParty::Response, body: courses_data.to_json) }
 
-    before { allow(canvas_api).to receive(:api_get_request).with(courses_path).and_return(courses_response) }
+    before { allow(canvas_api).to receive(:api_get_all_request).with(courses_path).and_return(courses_data) }
 
     context 'no classrooms' do
       let(:courses_data) { [] }
@@ -32,10 +31,11 @@ describe CanvasIntegration::RestClient do
       let(:course_id) { course_data['id'] }
       let(:course_name) { course_data['name'] }
 
-      let(:section_data) { create(:canvas_section_payload, id: course_id, name: course_name) }
+      let(:section_data) { create(:canvas_section_payload, id: course_id, name: course_name, students: students) }
+      let(:num_students) { 2 }
+      let(:students) { create_list(:canvas_student_payload, num_students) }
       let(:sections_data) { [section_data] }
       let(:sections_path) { "#{courses_path}/#{course_id}/sections?include[]=students" }
-      let(:sections_response) { double(HTTParty::Response, body: sections_data.to_json) }
 
       let(:already_imported) { false }
       let(:classroom_external_id) { CanvasClassroom.build_classroom_external_id(canvas_instance.id, course_id) }
@@ -45,13 +45,13 @@ describe CanvasIntegration::RestClient do
           alreadyImported: already_imported,
           classroom_external_id: classroom_external_id,
           name: course_name,
-          studentCount: 0
+          studentCount: num_students
         }
       end
 
       let(:classrooms) { [classroom] }
 
-      before { allow(canvas_api).to receive(:api_get_request).with(sections_path).and_return(sections_response) }
+      before { allow(canvas_api).to receive(:api_get_all_request).with(sections_path).and_return(sections_data) }
 
       it { is_expected.to eq classrooms }
 

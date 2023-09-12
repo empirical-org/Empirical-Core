@@ -38,7 +38,7 @@ export default class  DateRangeFilter extends React.Component {
   render() {
     return (
       <DateRangePicker
-        customInputIcon={<i className="fas fa-icon fa-calendar" />}
+        customInputIcon={<img alt="" src={`${process.env.CDN_URL}/images/pages/activity_summary/calendar.svg`} />}
         daySize={30}
         endDate={this.props.endDate}
         focusedInput={this.state.focusedInput}

@@ -10,7 +10,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   around_action :force_writer_db_role, only: [:assign, :dashboard, :lesson_planner]
 
-  before_action :teacher_or_public_activity_packs, except: [:unset_preview_as_student, :unset_view_demo]
+  before_action :teacher_or_public_activity_packs, except: [:unset_preview_as_student, :unset_view_demo, :view_demo]
   # WARNING: these filter methods check against classroom_id, not id.
   before_action :authorize_owner!, except: [:scores, :scorebook, :lesson_planner, :preview_as_student, :unset_preview_as_student, :view_demo, :unset_view_demo, :activity_feed]
   before_action :authorize_teacher!, only: [:scores, :scorebook, :lesson_planner]
