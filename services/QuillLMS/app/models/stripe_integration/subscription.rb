@@ -53,7 +53,7 @@ module StripeIntegration
 
     private def stripe_payment_method
       Stripe::PaymentMethod.retrieve(stripe_payment_method_id)&.card
-    rescue Stripe::InvalidRequestError
+    rescue Stripe::InvalidRequestError, NoMethodError
       nil
     end
 
