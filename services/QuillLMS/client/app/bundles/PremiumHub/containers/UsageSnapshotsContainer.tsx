@@ -197,6 +197,8 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
     setSelectedTeachers(originalAllTeachers)
     setSelectedClassrooms(originalAllClassrooms)
     setSelectedTimeframe(defaultTimeframe(allTimeframes))
+    setCustomStartDate(null)
+    setCustomEndDate(null)
 
     // what follows is basically duplicating the logic in applyFilters, but avoids a race condition where the "lastSubmitted" values get set before the new selected values are set
     setSearchCount(searchCount + 1)
