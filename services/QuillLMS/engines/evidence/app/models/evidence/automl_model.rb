@@ -35,7 +35,7 @@ module Evidence
       options ||= {}
 
       super(options.reverse_merge(
-        only: [:id, :external_idotes, :name, :labels, :state, :prompt_id, :created_at, :updated_at],
+        only: [:id, :external_id, :name, :labels, :state, :prompt_id, :created_at, :updated_at],
         methods: [:older_models]
       ))
     end

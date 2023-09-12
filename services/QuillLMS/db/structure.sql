@@ -10,6 +10,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
+--
+
+-- *not* creating schema, since initdb creates it
+
+
+--
 -- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -2567,6 +2574,42 @@ CREATE SEQUENCE public.evidence_activity_healths_id_seq
 --
 
 ALTER SEQUENCE public.evidence_activity_healths_id_seq OWNED BY public.evidence_activity_healths.id;
+
+
+--
+-- Name: evidence_automl_models; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_automl_models (
+    id bigint NOT NULL,
+    external_id character varying NOT NULL,
+    name character varying NOT NULL,
+    labels character varying[] DEFAULT '{}'::character varying[],
+    prompt_id bigint,
+    state character varying NOT NULL,
+    notes text DEFAULT ''::text,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_automl_models_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_automl_models_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_automl_models_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_automl_models_id_seq OWNED BY public.evidence_automl_models.id;
 
 
 --
@@ -5785,6 +5828,13 @@ ALTER TABLE ONLY public.evidence_activity_healths ALTER COLUMN id SET DEFAULT ne
 
 
 --
+-- Name: evidence_automl_models id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_automl_models ALTER COLUMN id SET DEFAULT nextval('public.evidence_automl_models_id_seq'::regclass);
+
+
+--
 -- Name: evidence_hints id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6864,6 +6914,14 @@ ALTER TABLE ONLY public.districts
 
 ALTER TABLE ONLY public.evidence_activity_healths
     ADD CONSTRAINT evidence_activity_healths_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_automl_models evidence_automl_models_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_automl_models
+    ADD CONSTRAINT evidence_automl_models_pkey PRIMARY KEY (id);
 
 
 --
@@ -8255,6 +8313,13 @@ CREATE INDEX index_districts_users_on_user_id ON public.districts_users USING bt
 
 
 --
+-- Name: index_evidence_automl_models_on_prompt_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_evidence_automl_models_on_prompt_id ON public.evidence_automl_models USING btree (prompt_id);
+
+
+--
 -- Name: index_evidence_hints_on_rule_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9360,6 +9425,14 @@ ALTER TABLE ONLY public.district_subscriptions
 
 
 --
+-- Name: evidence_automl_models fk_rails_3c28762764; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_automl_models
+    ADD CONSTRAINT fk_rails_3c28762764 FOREIGN KEY (prompt_id) REFERENCES public.comprehension_prompts(id);
+
+
+--
 -- Name: classroom_units fk_rails_3e1ff09783; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10422,6 +10495,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230728183700'),
 ('20230731184420'),
 ('20230801140455'),
-('20230801140522');
+('20230801140522'),
+('20230912150456');
 
 
