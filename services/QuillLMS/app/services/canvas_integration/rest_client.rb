@@ -3,6 +3,7 @@
 module CanvasIntegration
   class RestClient
     COURSES_PATH = 'courses'
+    CREATED_AT_THRESHOLD = 2.years
     SECTIONS_PATH = 'sections'
 
     attr_reader :canvas_auth_credential
@@ -40,7 +41,8 @@ module CanvasIntegration
     end
 
     private def courses_data
-      @courses_data ||= get_collection(COURSES_PATH)
+      get_collection(COURSES_PATH)
+        .select { |course_data| course_data[:created_at].present? && course_data[:created_at] > CREATED_AT_THRESHOLD.ago }
     end
 
     private def get_data(path)
@@ -52,7 +54,7 @@ module CanvasIntegration
     end
 
     private def get_collection(path)
-      get_data(path).map(&:deep_symbolize_keys)
+      api.api_get_all_request(path)&.map(&:deep_symbolize_keys) || []
     end
 
     private def section_data(section_id)
@@ -60,7 +62,10 @@ module CanvasIntegration
     end
 
     private def sections_data(course_id)
-      get_collection("#{COURSES_PATH}/#{course_id}/sections?include[]=students") || []
+      get_collection("courses/#{course_id}/sections?include[]=students")
+        .select { |section_data| section_data[:students].present? }
+    rescue LMS::Canvas::InvalidAPIRequestException => e
+      []
     end
 
     private def students_data(section_id)
