@@ -28,7 +28,7 @@ export default class extends React.Component {
     }
 
     const questionObj = {
-      conceptID: this.state.concept,
+      conceptID: concept,
       cuesLabel: this.props.question.cuesLabel,
       focusPoints: this.props.question.focusPoints,
       incorrectSequences: this.props.question.incorrectSequences,
