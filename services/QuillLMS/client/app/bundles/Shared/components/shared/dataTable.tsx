@@ -318,7 +318,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     return <tr className="data-table-headers">{this.renderHeaderCheckbox()}{this.renderHeaderForOrder()}{headerItems}{this.renderHeaderForRemoval()}</tr>
   }
 
-  renderRowSection(row, header) {
+  renderRowSection({row, header, isAggregateRow, i }) {
     if (header.isActions) { return this.renderActions(row) }
     const { averageFontWidth, } = this.props
     let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
@@ -335,10 +335,20 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     }
 
     const rowDisplayText = linkDisplayText || sectionText
+    const shouldDisplayButton = row.aggregate_rows && row.aggregate_rows.length && i === 0
+    let rowAggregateButton = <span/>
+    if(isAggregateRow) {
+      rowAggregateButton = <button className="interactive-wrapper">*</button>
+    } else if(row.showAggregateRows && shouldDisplayButton) {
+      rowAggregateButton = <button className="interactive-wrapper">V</button>
+    } else if (shouldDisplayButton) {
+      rowAggregateButton = <button className="interactive-wrapper">X</button>
+    }
 
     if (!header.noTooltip && (String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
       return (
         <td>
+          {rowAggregateButton}
           <Tooltip
             key={key}
             tooltipText={rowDisplayText}
@@ -356,6 +366,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
           key={key}
           style={style as any}
         >
+          {rowAggregateButton}
           {sectionText}
         </td>
       )
@@ -371,17 +382,28 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     return <span className='reorder-section data-table-row-section'><DragHandle /></span>
   }
 
-  renderRow(row) {
+  renderRow(row, isAggregateRow) {
     const { headers, } = this.props
     const rowClassName = `data-table-row ${row.checked ? 'checked' : ''} ${row.className || ''}`
-    const rowSections = headers.map(header => this.renderRowSection(row, header))
+    const rowSections = headers.map((header, i) => this.renderRowSection({ row, header, isAggregateRow, i }))
     const rowContent = <React.Fragment>{this.renderRowCheckbox(row)}{this.renderRowDragHandle(row)}{rowSections}{this.renderRowRemoveIcon(row)}</React.Fragment>
-
+    let rowElement = <tr className={rowClassName} key={String(row.id)}>{rowContent}</tr>
     if (row.link) {
-      return <tr><a className={rowClassName} href={row.link} key={String(row.id)}>{rowContent}</a></tr>
+      rowElement = <tr><a className={rowClassName} href={row.link} key={String(row.id)}>{rowContent}</a></tr>
     }
 
-    return <tr className={rowClassName} key={String(row.id)}>{rowContent}</tr>
+    if (row.showAggregateRows && row.aggregate_rows && row.aggregate_rows.length) {
+      return(
+        <React.Fragment>
+          {rowElement}
+          {row.aggregate_rows.map(row => {
+            return this.renderRow(row, true)
+          })}
+        </React.Fragment>
+      )
+    }
+
+    return rowElement
   }
 
   renderRows() {

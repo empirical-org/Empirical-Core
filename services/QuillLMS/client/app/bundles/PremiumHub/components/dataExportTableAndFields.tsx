@@ -50,6 +50,7 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   const [showTimeSpent, setShowTimeSpent] = React.useState<boolean>(true);
   const [loading, setLoading] = React.useState<boolean>(true);
   const [data, setData] = React.useState<any>(null);
+  console.log("🚀 ~ file: dataExportTableAndFields.tsx:53 ~ DataExportTableAndFields ~ data:", data)
 
   const fields = {
     [STUDENT_NAME]: {
@@ -240,6 +241,184 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
     })
   }
 
+  // const testData = {
+  //   group_by: "grade",
+    const testData = [
+      {
+        name: "Starter Diagnostic",
+        pre_students_completed: 88, // can by 0
+        pre_students_assigned: 89,
+        pre_first_completion: "2023-09-09", // can be null
+        pre_last_completion: "2023-09-21", // can be null, ALSO may be the same as "pre_first_completion"
+        /* possible addition
+        "students_completed_practice": 50,
+        */
+        average_practice_activities_count: 33, // can be null
+        average_time_spent_seconds: 165, // can be null
+        post_students_completed: 25, // can be 0
+        post_students_assigned: 35, // can be 0
+        post_first_completion: "2023-11-29",  // can be null
+        post_last_completion: "2023-12-24", // can be null,, ALSO may be the same as "post_first_completion"
+        overall_skill_growth: 25, // can be null
+        showAggregateRows: true,
+        /* Not for initial release
+        "quill_average_growth": 20,
+        */
+        aggregate_rows: [
+          {
+            name: "Grade 6",
+            pre_students_completed: 45,
+            pre_students_assigned: 46,
+            pre_first_completion: "2023-09-09",
+            pre_last_completion: "2023-09-21",
+            average_practice_activities_count: 33,
+            average_time_spent_seconds: 165,
+            post_students_completed: 41,
+            post_students_assigned: 45,
+            post_first_completion: "2023-11-29",
+            post_last_completion: "2023-12-24",
+            overall_skill_growth: 25
+          },
+          {
+            name: "No grade selected",
+            pre_students_completed: 35,
+            pre_students_assigned: 35,
+            pre_first_completion: "2023-09-09",
+            pre_last_completion: "2023-09-21",
+            average_practice_activities_count: 33,
+            average_time_spent_seconds: 165,
+            post_students_completed: 41,
+            post_students_assigned: 45,
+            post_first_completion: "2023-11-29",
+            post_last_completion: "2023-12-24",
+            overall_skill_growth: 25
+          }
+        ]
+      }, {
+        name: "Advanced Diagnostic",
+        pre_students_completed: 42,
+        pre_students_assigned: 45,
+        pre_first_completion: "2023-09-09",
+        pre_last_completion: "2023-09-21",
+        average_practice_activities_count: 33,
+        average_time_spent_seconds: 165,
+        post_students_completed: 39,
+        post_students_assigned: 42,
+        post_first_completion: "2023-11-29",
+        post_last_completion: "2023-12-24",
+        overall_skill_growth: 25,
+        aggregate_rows: [
+          {
+            name: "Grade 6",
+            pre_students_completed: 45,
+            pre_students_assigned: 46,
+            pre_first_completion: "2023-09-09",
+            pre_last_completion: "2023-09-21",
+            average_practice_activities_count: 33,
+            average_time_spent_seconds: 165,
+            post_students_completed: 41,
+            post_students_assigned: 45,
+            post_first_completion: "2023-11-29",
+            post_last_completion: "2023-12-24",
+            overall_skill_growth: 25
+          },
+          {
+            name: "No grade selected",
+            pre_students_completed: 35,
+            pre_students_assigned: 35,
+            pre_first_completion: "2023-09-09",
+            pre_last_completion: "2023-09-21",
+            average_practice_activities_count: 33,
+            average_time_spent_seconds: 165,
+            post_students_completed: 41,
+            post_students_assigned: 45,
+            post_first_completion: "2023-11-29",
+            post_last_completion: "2023-12-24",
+            overall_skill_growth: 25
+          }
+        ]
+      },
+      {
+        name: "ELL Starter Diagnostic",
+        pre_students_completed: 42,
+        pre_students_assigned: 45,
+        pre_first_completion: "2023-09-09",
+        pre_last_completion: "2023-09-21",
+        average_practice_activities_count: 33,
+        average_time_spent_seconds: 165,
+        post_students_completed: 39,
+        post_students_assigned: 42,
+        post_first_completion: "2023-11-29",
+        post_last_completion: "2023-12-24",
+        overall_skill_growth: 25,
+        aggregate_rows: []
+      }
+    ]
+  // }
+
+  const testTableHeaders = [
+    {
+      name: 'Name',
+      attribute: 'name',
+      width: '100px'
+    },
+    {
+      name: 'Pre Students Completed',
+      attribute: 'pre_students_completed',
+      width: '100px'
+    },
+    {
+      name: 'Pre Students Assigned',
+      attribute: 'pre_students_assigned',
+      width: '100px'
+    },
+    {
+      name: 'Pre First Completion',
+      attribute: 'pre_first_completion',
+      width: '100px'
+    },
+    {
+      name: 'Pre Last Completion',
+      attribute: 'pre_last_completion',
+      width: '100px'
+    },
+    {
+      name: 'Average Practice Activities Count',
+      attribute: 'average_practice_activities_count',
+      width: '100px'
+    },
+    {
+      name: 'Average Time Spent',
+      attribute: 'average_time_spent_seconds',
+      width: '100px'
+    },
+    {
+      name: 'Post Students Completed',
+      attribute: 'post_students_completed',
+      width: '100px'
+    },
+    {
+      name: 'Post Students Assigned',
+      attribute: 'post_students_assigned',
+      width: '100px'
+    },
+    {
+      name: 'Post First Completion',
+      attribute: 'post_first_completion',
+      width: '100px'
+    },
+    {
+      name: 'Post Last Completion',
+      attribute: 'post_last_completion',
+      width: '100px'
+    },
+    {
+      name: 'Overall Skill Growth',
+      attribute: 'overall_skill_growth',
+      width: '100px'
+    },
+  ]
+
   return(
     <div className="data-export-container">
       <section className="fields-section">
@@ -264,6 +443,14 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
         headers={getHeaders()}
         rows={data || []}
       />}
+      <DataTable
+        className="data-export-table"
+        // defaultSortAttribute="completed_at"
+        // defaultSortDirection="desc"
+        // emptyStateMessage="There are no activities available for the filters selected. Try modifying or removing a filter to see results."
+        headers={testTableHeaders}
+        rows={testData}
+      />
     </div>
   )
 }
