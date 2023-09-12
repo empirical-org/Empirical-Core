@@ -277,6 +277,7 @@ const DataExportContainer = ({ adminInfo, accessType, }) => {
           customTimeframeStart={customStartDate?.toDate()}
           pusherChannel={pusherChannel}
           queryKey="data-export"
+          searchCount={searchCount}
           selectedClassroomIds={selectedClassrooms.map(classroom => classroom.id)}
           selectedGrades={selectedGrades.map(grade => grade.value)}
           selectedSchoolIds={selectedSchools.map(school => school.id)}

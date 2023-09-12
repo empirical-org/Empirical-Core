@@ -108,6 +108,19 @@
                 }
               }
             }
+            td:first-of-type {
+              .quill-tooltip {
+                right: 0;
+              }
+            }
+            td:last-of-type {
+              .quill-tooltip-wrapper {
+                left: auto !important;
+                .quill-tooltip {
+                  right: 0;
+                }
+              }
+            }
           }
         }
       }
