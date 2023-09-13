@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-import { DataTable } from '../../Shared/index';
+import { DataTable } from '../../../Shared/index';
 
-const CanvasInstanceSchoolsSelector = ({ schools, setSelectedSchoolIds, selectedSchoolIds }) => {
+const SchoolSelector = ({ schools, setSelectedSchoolIds, selectedSchoolIds }) => {
   const checkRow = (id) => {
     if (selectedSchoolIds.includes(id)) { return }
 
@@ -28,7 +28,7 @@ const CanvasInstanceSchoolsSelector = ({ schools, setSelectedSchoolIds, selected
     return school
   });
 
-  const headers = [{ "name": "Schools", "attribute": "name", "width": "356px" }]
+  const headers = [{ name: "Schools", attribute: "name", width: "356px", rowSectionClassName: 'name', headerClassName: 'name' }]
 
   return (
     <DataTable
@@ -43,4 +43,4 @@ const CanvasInstanceSchoolsSelector = ({ schools, setSelectedSchoolIds, selected
   );
 };
 
-export default CanvasInstanceSchoolsSelector
+export default SchoolSelector

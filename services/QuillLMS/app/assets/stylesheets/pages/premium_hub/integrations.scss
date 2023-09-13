@@ -1,0 +1,57 @@
+.integrations-container {
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    margin: 32px 0px 16px;
+  }
+  .canvas-container {
+    padding-top: 48px;
+  }
+  .canvas-integration-form {
+    border-radius: 8px;
+    border: 1px solid $quill-grey-15;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.10);
+    padding: 32px;
+    h2 {
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 32px;
+      margin-bottom: 32px;
+    }
+    .button-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      .quill-button {
+        margin-left: 16px;
+      }
+    }
+    .data-table {
+      border-radius: 8px;
+      border: 1px solid $quill-grey-15;
+      overflow: visible;
+      margin-bottom: 32px;
+      .data-table-headers {
+        border-radius: 8px 8px 0px 0px;
+        background-color: $quill-grey-1;
+        .data-table-header {
+          color: $quill-grey-90;
+          font-weight: 700;
+        }
+      }
+    }
+    .input-container input {
+      margin-bottom: 32px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .data-table {
+      .name {
+        max-width: calc(100vw - 200px);
+        min-width: calc(100vw - 200px) !important;
+      }
+    }
+  }
+}
