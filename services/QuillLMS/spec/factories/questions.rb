@@ -1,5 +1,21 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: questions
+#
+#  id            :integer          not null, primary key
+#  data          :jsonb            not null
+#  question_type :string           not null
+#  uid           :string           not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+# Indexes
+#
+#  index_questions_on_question_type  (question_type)
+#  index_questions_on_uid            (uid) UNIQUE
+#
 FactoryBot.define do
   data = {
     'conceptID' => 'Jl4ByYtUfo4VhIKpMt23yA',

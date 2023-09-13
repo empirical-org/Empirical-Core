@@ -9,7 +9,7 @@
 #  enabled_for_staff   :boolean          default(FALSE), not null
 #  name                :string           not null
 #  percent_active      :integer          default(0), not null
-#  user_ids_allow_list :string           default([]), not null, is an Array
+#  user_ids_allow_list :integer          default([]), not null, is an Array
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #
