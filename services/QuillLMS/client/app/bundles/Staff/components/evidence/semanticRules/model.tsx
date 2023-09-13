@@ -24,13 +24,13 @@ const Model = ({ match }) => {
   const initialNoteValue = modelData ? modelData.model.notes : '';
   const [modelNotes, setModelNotes] = React.useState<string>(initialNoteValue);
 
-  function handleSetModelNotes(text: string){ setModelNotes(text) };
+  function handleSetModelNotes(text: string) { setModelNotes(text) };
 
   function onHandleUpdateModel() {
     updateModel(modelId, modelNotes).then((response) => {
       const { error } = response;
 
-      if(error) {
+      if (error) {
         const updatedErrors = {};
         updatedErrors['Model Submission Error'] = error;
         setErrors(updatedErrors);
@@ -41,12 +41,12 @@ const Model = ({ match }) => {
     });
   }
 
-  function upperSectionRows ({ model }) {
-    if(!model) {
+  function upperSectionRows({ model }) {
+    if (!model) {
       return [];
     }
     // format for DataTable to display labels on left side and values on right
-    const { automl_model_id, name, older_models } = model;
+    const { external_id, name, older_models } = model;
 
     const fields = [
       {
@@ -55,7 +55,7 @@ const Model = ({ match }) => {
       },
       {
         label: 'Model ID',
-        value: automl_model_id
+        value: external_id
       },
       {
         label: 'Model Version',
@@ -73,7 +73,7 @@ const Model = ({ match }) => {
   }
 
   function lowerSectionRows({ model }) {
-    if(!model) {
+    if (!model) {
       return [];
     }
     const { labels } = model;
@@ -94,25 +94,25 @@ const Model = ({ match }) => {
   }
 
   const upperDataTableFields = [
-    { name: "", attribute:"field", width: "200px" },
-    { name: "", attribute:"value", width: "400px" }
+    { name: "", attribute: "field", width: "200px" },
+    { name: "", attribute: "value", width: "400px" }
   ];
   const lowerDataTableFields = [
-    { name: "Descriptive Label", attribute:"field", width: "200px" },
-    { name: "AutoML Label", attribute:"value", width: "400px" }
+    { name: "Descriptive Label", attribute: "field", width: "200px" },
+    { name: "AutoML Label", attribute: "value", width: "400px" }
   ];
   const modelNotesStyle = modelNotes && modelNotes.length && modelNotes !== '<br/>' ? 'has-text' : '';
   const errorsPresent = !!Object.keys(errors).length;
 
-  if(!modelData) {
-    return(
+  if (!modelData) {
+    return (
       <div className="loading-spinner-container">
         <Spinner />
       </div>
     );
   }
 
-  return(
+  return (
     <div className="model-container">
       <Link className="return-link" to={{ pathname: `/activities/${activityId}/semantic-labels`, state: 'returned-to-index' }}>← Return to Semantic Rules Index</Link>
       <section className="model-form">
