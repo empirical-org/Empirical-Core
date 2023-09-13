@@ -60,7 +60,7 @@
 .tab-subnavigation-wrapper {
   &.desktop {
     background: $quill-green;
-    min-height: 48px;
+    min-height: 44px;
     padding: 8px 0;
 
     &.about-subtabs {
@@ -75,7 +75,8 @@
 
       li {
         float: left;
-        padding: 4px;
+        padding-left: 4px;
+        padding-right: 4px;
         &:first-of-type {
           padding-left: 0px;
         }
@@ -83,7 +84,9 @@
           border-radius: 6px;
           color: $quill-white;
           font-size: 13px;
-          height: 35px;
+          display: flex;
+          align-items: center;
+          height: 28px;
           padding: 5px 12px;
 
           &.active {
@@ -213,12 +216,6 @@
   ul {
     display: flex;
     align-items: center;
-    li {
-      padding: 0px 5px !important;
-      a {
-        height: 28px !important;
-      }
-    }
   }
 
   a {

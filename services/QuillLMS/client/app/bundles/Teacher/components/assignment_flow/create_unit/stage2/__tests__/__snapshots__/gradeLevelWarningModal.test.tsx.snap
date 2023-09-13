@@ -319,36 +319,40 @@ exports[`GradeLevelWarningModal component should render 1`] = `
           <table
             className="data-table undefined"
           >
-            <tr
-              className="data-table-headers"
-            >
-              <th
-                className="data-table-header undefined"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "521px",
-                    "textAlign": "left",
-                    "width": "521px",
-                  }
-                }
+            <thead>
+              <tr
+                className="data-table-headers"
               >
-                Activity name
-              </th>
-              <th
-                className="data-table-header undefined"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "117px",
-                    "textAlign": "left",
-                    "width": "117px",
+                <th
+                  className="data-table-header undefined"
+                  key="0"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "521px",
+                      "textAlign": "left",
+                      "width": "521px",
+                    }
                   }
-                }
-              >
-                Suggested grades
-              </th>
-            </tr>
+                >
+                  Activity name
+                </th>
+                <th
+                  className="data-table-header undefined"
+                  key="1"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "117px",
+                      "textAlign": "left",
+                      "width": "117px",
+                    }
+                  }
+                >
+                  Suggested grades
+                </th>
+              </tr>
+            </thead>
             <tbody
               className="data-table-body"
             >
@@ -514,36 +518,40 @@ exports[`GradeLevelWarningModal component should render 1`] = `
           <table
             className="data-table undefined"
           >
-            <tr
-              className="data-table-headers"
-            >
-              <th
-                className="data-table-header undefined"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "521px",
-                    "textAlign": "left",
-                    "width": "521px",
-                  }
-                }
+            <thead>
+              <tr
+                className="data-table-headers"
               >
-                Class name
-              </th>
-              <th
-                className="data-table-header undefined"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "117px",
-                    "textAlign": "left",
-                    "width": "117px",
+                <th
+                  className="data-table-header undefined"
+                  key="0"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "521px",
+                      "textAlign": "left",
+                      "width": "521px",
+                    }
                   }
-                }
-              >
-                Assigned grade
-              </th>
-            </tr>
+                >
+                  Class name
+                </th>
+                <th
+                  className="data-table-header undefined"
+                  key="1"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "117px",
+                      "textAlign": "left",
+                      "width": "117px",
+                    }
+                  }
+                >
+                  Assigned grade
+                </th>
+              </tr>
+            </thead>
             <tbody
               className="data-table-body"
             >

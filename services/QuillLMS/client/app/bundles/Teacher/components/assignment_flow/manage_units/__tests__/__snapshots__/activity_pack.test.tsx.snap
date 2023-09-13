@@ -50,10 +50,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               src="undefined/images/icons/icons-share.svg"
             />
           </button>,
-          "toolAndNameSection": <a
-            className="interactive-wrapper focus-on-light"
-            href="/activity_sessions/anonymous?activity_id=438"
-            id="tool-and-name-section-7543552"
+          "toolAndNameSection": <div
+            className="tool-icon-and-name"
           >
             <span
               className="tool-icon-wrapper"
@@ -64,13 +62,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               />
             </span>
             <a
-              className="activity-name-link"
+              className="interactive-wrapper focus-on-light"
               href="/activity_sessions/anonymous?activity_id=438"
-              tabIndex={-1}
+              id="tool-and-name-section-7543552"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               Adverbs of Manner 1 (Starter)
             </a>
-          </a>,
+          </div>,
           "uaId": 7543552,
         },
         "441" => Object {
@@ -118,10 +118,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               src="undefined/images/icons/icons-share.svg"
             />
           </button>,
-          "toolAndNameSection": <a
-            className="interactive-wrapper focus-on-light"
-            href="/activity_sessions/anonymous?activity_id=441"
-            id="tool-and-name-section-7543553"
+          "toolAndNameSection": <div
+            className="tool-icon-and-name"
           >
             <span
               className="tool-icon-wrapper"
@@ -132,13 +130,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               />
             </span>
             <a
-              className="activity-name-link"
+              className="interactive-wrapper focus-on-light"
               href="/activity_sessions/anonymous?activity_id=441"
-              tabIndex={-1}
+              id="tool-and-name-section-7543553"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               Adverbs of Manner (Intermediate)
             </a>
-          </a>,
+          </div>,
           "uaId": 7543553,
         },
         "775" => Object {
@@ -186,10 +186,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               src="undefined/images/icons/icons-share.svg"
             />
           </button>,
-          "toolAndNameSection": <a
-            className="interactive-wrapper focus-on-light"
-            href="/activity_sessions/anonymous?activity_id=775"
-            id="tool-and-name-section-7543554"
+          "toolAndNameSection": <div
+            className="tool-icon-and-name"
           >
             <span
               className="tool-icon-wrapper"
@@ -200,13 +198,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               />
             </span>
             <a
-              className="activity-name-link"
+              className="interactive-wrapper focus-on-light"
               href="/activity_sessions/anonymous?activity_id=775"
-              tabIndex={-1}
+              id="tool-and-name-section-7543554"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               Adjectives and Adverbs (Starter)
             </a>
-          </a>,
+          </div>,
           "uaId": 7543554,
         },
         "844" => Object {
@@ -254,10 +254,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               src="undefined/images/icons/icons-share.svg"
             />
           </button>,
-          "toolAndNameSection": <a
-            className="interactive-wrapper focus-on-light"
-            href="/activity_sessions/anonymous?activity_id=844"
-            id="tool-and-name-section-7543555"
+          "toolAndNameSection": <div
+            className="tool-icon-and-name"
           >
             <span
               className="tool-icon-wrapper"
@@ -268,13 +266,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               />
             </span>
             <a
-              className="activity-name-link"
+              className="interactive-wrapper focus-on-light"
               href="/activity_sessions/anonymous?activity_id=844"
-              tabIndex={-1}
+              id="tool-and-name-section-7543555"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               Adjectives vs. Adverbs
             </a>
-          </a>,
+          </div>,
           "uaId": 7543555,
         },
         "846" => Object {
@@ -322,10 +322,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               src="undefined/images/icons/icons-share.svg"
             />
           </button>,
-          "toolAndNameSection": <a
-            className="interactive-wrapper focus-on-light"
-            href="/activity_sessions/anonymous?activity_id=846"
-            id="tool-and-name-section-7543556"
+          "toolAndNameSection": <div
+            className="tool-icon-and-name"
           >
             <span
               className="tool-icon-wrapper"
@@ -336,13 +334,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               />
             </span>
             <a
-              className="activity-name-link"
+              className="interactive-wrapper focus-on-light"
               href="/activity_sessions/anonymous?activity_id=846"
-              tabIndex={-1}
+              id="tool-and-name-section-7543556"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               Adjectives, Adverbs, and Prepositional Phrases 1
             </a>
-          </a>,
+          </div>,
           "uaId": 7543556,
         },
       },
@@ -613,10 +613,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=438"
-                id="tool-and-name-section-7543552"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -627,13 +625,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=438"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543552"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Adverbs of Manner 1 (Starter)
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543552,
             },
             "441" => Object {
@@ -681,10 +681,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=441"
-                id="tool-and-name-section-7543553"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -695,13 +693,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=441"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543553"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Adverbs of Manner (Intermediate)
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543553,
             },
             "775" => Object {
@@ -749,10 +749,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=775"
-                id="tool-and-name-section-7543554"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -763,13 +761,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=775"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543554"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Adjectives and Adverbs (Starter)
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543554,
             },
             "844" => Object {
@@ -817,10 +817,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=844"
-                id="tool-and-name-section-7543555"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -831,13 +829,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=844"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543555"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Adjectives vs. Adverbs
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543555,
             },
             "846" => Object {
@@ -885,10 +885,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=846"
-                id="tool-and-name-section-7543556"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -899,13 +897,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=846"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543556"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Adjectives, Adverbs, and Prepositional Phrases 1
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543556,
             },
           },
@@ -1060,10 +1060,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=438"
-                id="tool-and-name-section-7543552"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -1074,13 +1072,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=438"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543552"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Adverbs of Manner 1 (Starter)
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543552,
             },
             Object {
@@ -1128,10 +1128,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=441"
-                id="tool-and-name-section-7543553"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -1142,13 +1140,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=441"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543553"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Adverbs of Manner (Intermediate)
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543553,
             },
             Object {
@@ -1196,10 +1196,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=775"
-                id="tool-and-name-section-7543554"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -1210,13 +1208,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=775"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543554"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Adjectives and Adverbs (Starter)
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543554,
             },
             Object {
@@ -1264,10 +1264,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=844"
-                id="tool-and-name-section-7543555"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -1278,13 +1276,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=844"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543555"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Adjectives vs. Adverbs
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543555,
             },
             Object {
@@ -1332,10 +1332,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=846"
-                id="tool-and-name-section-7543556"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -1346,13 +1344,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=846"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543556"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Adjectives, Adverbs, and Prepositional Phrases 1
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543556,
             },
           ]
@@ -1362,133 +1362,111 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
         <table
           className="data-table is-owner"
         >
-          <tr
-            className="data-table-headers"
-          >
-            <th
-              className="data-table-header reorder-header"
-              scope="col"
+          <thead>
+            <tr
+              className="data-table-headers"
             >
-              Order
-            </th>
-            <th
-              className="data-table-header tool-and-name-section-header"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "624px",
-                  "textAlign": "left",
-                  "width": "624px",
-                }
-              }
-            >
-              <span
-                className="tool-and-name-header"
+              <th
+                className="data-table-header reorder-header"
+                scope="col"
               >
-                <span>
-                  Tool
-                </span>
-                <span>
-                  Activity
-                </span>
-              </span>
-            </th>
-            <th
-              className="data-table-header publish-date-header-container"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "140px",
-                  "textAlign": "left",
-                  "width": "140px",
-                }
-              }
-            >
-              <Tooltip
-                isTabbable={true}
-                tooltipText="When you schedule an activity, it is displayed in your dashboard, but it is hidden from a student until the publish date."
-                tooltipTriggerText={
-                  <span
-                    className="publish-date-header"
-                  >
-                    Publish date
-                  </span>
+                Order
+              </th>
+              <th
+                className="data-table-header tool-and-name-section-header"
+                key="0"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "624px",
+                    "textAlign": "left",
+                    "width": "624px",
+                  }
                 }
               >
                 <span
-                  aria-hidden={false}
-                  className="quill-tooltip-trigger "
-                  role="tooltip"
+                  className="tool-and-name-header"
                 >
-                  <span
-                    className="undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    tabIndex={0}
-                  >
+                  <span>
+                    Tool
+                  </span>
+                  <span>
+                    Activity
+                  </span>
+                </span>
+              </th>
+              <th
+                className="data-table-header publish-date-header-container"
+                key="1"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "140px",
+                    "textAlign": "left",
+                    "width": "140px",
+                  }
+                }
+              >
+                <Tooltip
+                  isTabbable={true}
+                  tooltipText="When you schedule an activity, it is displayed in your dashboard, but it is hidden from a student until the publish date."
+                  tooltipTriggerText={
                     <span
                       className="publish-date-header"
                     >
                       Publish date
                     </span>
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      className="quill-tooltip"
-                    />
-                  </span>
-                </span>
-              </Tooltip>
-            </th>
-            <th
-              className="data-table-header due-date-header-container"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "135px",
-                  "textAlign": "left",
-                  "width": "135px",
-                }
-              }
-            >
-              <Tooltip
-                isTabbable={true}
-                tooltipText="Display a due date to students for this activity. Students can still access an activity after the due date."
-                tooltipTriggerText={
-                  <span
-                    className="due-date-header"
-                  >
-                    Due date 
-                    <span>
-                      (optional)
-                    </span>
-                  </span>
-                }
-              >
-                <span
-                  aria-hidden={false}
-                  className="quill-tooltip-trigger "
-                  role="tooltip"
+                  }
                 >
                   <span
-                    className="undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    tabIndex={0}
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
                   >
+                    <span
+                      className="undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      tabIndex={0}
+                    >
+                      <span
+                        className="publish-date-header"
+                      >
+                        Publish date
+                      </span>
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
+                  </span>
+                </Tooltip>
+              </th>
+              <th
+                className="data-table-header due-date-header-container"
+                key="2"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "135px",
+                    "textAlign": "left",
+                    "width": "135px",
+                  }
+                }
+              >
+                <Tooltip
+                  isTabbable={true}
+                  tooltipText="Display a due date to students for this activity. Students can still access an activity after the due date."
+                  tooltipTriggerText={
                     <span
                       className="due-date-header"
                     >
@@ -1497,35 +1475,63 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         (optional)
                       </span>
                     </span>
-                  </span>
+                  }
+                >
                   <span
-                    className="quill-tooltip-wrapper"
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
                   >
                     <span
-                      aria-live="polite"
-                      className="quill-tooltip"
-                    />
+                      className="undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      tabIndex={0}
+                    >
+                      <span
+                        className="due-date-header"
+                      >
+                        Due date 
+                        <span>
+                          (optional)
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
                   </span>
-                </span>
-              </Tooltip>
-            </th>
-            <th
-              className="data-table-header undefined"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "30px",
-                  "textAlign": "left",
-                  "width": "30px",
+                </Tooltip>
+              </th>
+              <th
+                className="data-table-header undefined"
+                key="3"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "30px",
+                    "textAlign": "left",
+                    "width": "30px",
+                  }
                 }
-              }
-            />
-            <th
-              aria-label="Header for remove column"
-              className="data-table-header"
-              scope="col"
-            />
-          </tr>
+              />
+              <th
+                aria-label="Header for remove column"
+                className="data-table-header"
+                scope="col"
+              />
+            </tr>
+          </thead>
           <tbody
             className="data-table-body reorderable"
           >
@@ -1536,11 +1542,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                     className="data-table-row   show-copy-to-all"
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section tool-and-name-section"
                         style={
@@ -1551,10 +1557,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           }
                         }
                       >
-                        <a
-                          className="interactive-wrapper focus-on-light"
-                          href="/activity_sessions/anonymous?activity_id=438"
-                          id="tool-and-name-section-7543552"
+                        <div
+                          className="tool-icon-and-name"
                         >
                           <span
                             className="tool-icon-wrapper"
@@ -1565,13 +1569,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             />
                           </span>
                           <a
-                            className="activity-name-link"
+                            className="interactive-wrapper focus-on-light"
                             href="/activity_sessions/anonymous?activity_id=438"
-                            tabIndex={-1}
+                            id="tool-and-name-section-7543552"
+                            rel="noopener noreferrer"
+                            target="_blank"
                           >
                             Adverbs of Manner 1 (Starter)
                           </a>
-                        </a>
+                        </div>
                       </td>
                       <td
                         className="data-table-row-section datetime-picker"
@@ -1657,11 +1663,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                     className="data-table-row  "
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section tool-and-name-section"
                         style={
@@ -1672,10 +1678,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           }
                         }
                       >
-                        <a
-                          className="interactive-wrapper focus-on-light"
-                          href="/activity_sessions/anonymous?activity_id=441"
-                          id="tool-and-name-section-7543553"
+                        <div
+                          className="tool-icon-and-name"
                         >
                           <span
                             className="tool-icon-wrapper"
@@ -1686,13 +1690,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             />
                           </span>
                           <a
-                            className="activity-name-link"
+                            className="interactive-wrapper focus-on-light"
                             href="/activity_sessions/anonymous?activity_id=441"
-                            tabIndex={-1}
+                            id="tool-and-name-section-7543553"
+                            rel="noopener noreferrer"
+                            target="_blank"
                           >
                             Adverbs of Manner (Intermediate)
                           </a>
-                        </a>
+                        </div>
                       </td>
                       <td
                         className="data-table-row-section datetime-picker"
@@ -1778,11 +1784,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                     className="data-table-row  "
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section tool-and-name-section"
                         style={
@@ -1793,10 +1799,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           }
                         }
                       >
-                        <a
-                          className="interactive-wrapper focus-on-light"
-                          href="/activity_sessions/anonymous?activity_id=775"
-                          id="tool-and-name-section-7543554"
+                        <div
+                          className="tool-icon-and-name"
                         >
                           <span
                             className="tool-icon-wrapper"
@@ -1807,13 +1811,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             />
                           </span>
                           <a
-                            className="activity-name-link"
+                            className="interactive-wrapper focus-on-light"
                             href="/activity_sessions/anonymous?activity_id=775"
-                            tabIndex={-1}
+                            id="tool-and-name-section-7543554"
+                            rel="noopener noreferrer"
+                            target="_blank"
                           >
                             Adjectives and Adverbs (Starter)
                           </a>
-                        </a>
+                        </div>
                       </td>
                       <td
                         className="data-table-row-section datetime-picker"
@@ -1899,11 +1905,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                     className="data-table-row  "
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section tool-and-name-section"
                         style={
@@ -1914,10 +1920,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           }
                         }
                       >
-                        <a
-                          className="interactive-wrapper focus-on-light"
-                          href="/activity_sessions/anonymous?activity_id=844"
-                          id="tool-and-name-section-7543555"
+                        <div
+                          className="tool-icon-and-name"
                         >
                           <span
                             className="tool-icon-wrapper"
@@ -1928,13 +1932,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             />
                           </span>
                           <a
-                            className="activity-name-link"
+                            className="interactive-wrapper focus-on-light"
                             href="/activity_sessions/anonymous?activity_id=844"
-                            tabIndex={-1}
+                            id="tool-and-name-section-7543555"
+                            rel="noopener noreferrer"
+                            target="_blank"
                           >
                             Adjectives vs. Adverbs
                           </a>
-                        </a>
+                        </div>
                       </td>
                       <td
                         className="data-table-row-section datetime-picker"
@@ -2020,11 +2026,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                     className="data-table-row  "
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section tool-and-name-section"
                         style={
@@ -2035,10 +2041,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           }
                         }
                       >
-                        <a
-                          className="interactive-wrapper focus-on-light"
-                          href="/activity_sessions/anonymous?activity_id=846"
-                          id="tool-and-name-section-7543556"
+                        <div
+                          className="tool-icon-and-name"
                         >
                           <span
                             className="tool-icon-wrapper"
@@ -2049,13 +2053,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             />
                           </span>
                           <a
-                            className="activity-name-link"
+                            className="interactive-wrapper focus-on-light"
                             href="/activity_sessions/anonymous?activity_id=846"
-                            tabIndex={-1}
+                            id="tool-and-name-section-7543556"
+                            rel="noopener noreferrer"
+                            target="_blank"
                           >
                             Adjectives, Adverbs, and Prepositional Phrases 1
                           </a>
-                        </a>
+                        </div>
                       </td>
                       <td
                         className="data-table-row-section datetime-picker"
@@ -2156,11 +2162,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       className="data-table-row   show-copy-to-all"
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section tool-and-name-section"
                           style={
@@ -2171,10 +2177,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             }
                           }
                         >
-                          <a
-                            className="interactive-wrapper focus-on-light"
-                            href="/activity_sessions/anonymous?activity_id=438"
-                            id="tool-and-name-section-7543552"
+                          <div
+                            className="tool-icon-and-name"
                           >
                             <span
                               className="tool-icon-wrapper"
@@ -2185,13 +2189,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               />
                             </span>
                             <a
-                              className="activity-name-link"
+                              className="interactive-wrapper focus-on-light"
                               href="/activity_sessions/anonymous?activity_id=438"
-                              tabIndex={-1}
+                              id="tool-and-name-section-7543552"
+                              rel="noopener noreferrer"
+                              target="_blank"
                             >
                               Adverbs of Manner 1 (Starter)
                             </a>
-                          </a>
+                          </div>
                         </td>
                         <td
                           className="data-table-row-section datetime-picker"
@@ -2277,11 +2283,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       className="data-table-row  "
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section tool-and-name-section"
                           style={
@@ -2292,10 +2298,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             }
                           }
                         >
-                          <a
-                            className="interactive-wrapper focus-on-light"
-                            href="/activity_sessions/anonymous?activity_id=441"
-                            id="tool-and-name-section-7543553"
+                          <div
+                            className="tool-icon-and-name"
                           >
                             <span
                               className="tool-icon-wrapper"
@@ -2306,13 +2310,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               />
                             </span>
                             <a
-                              className="activity-name-link"
+                              className="interactive-wrapper focus-on-light"
                               href="/activity_sessions/anonymous?activity_id=441"
-                              tabIndex={-1}
+                              id="tool-and-name-section-7543553"
+                              rel="noopener noreferrer"
+                              target="_blank"
                             >
                               Adverbs of Manner (Intermediate)
                             </a>
-                          </a>
+                          </div>
                         </td>
                         <td
                           className="data-table-row-section datetime-picker"
@@ -2398,11 +2404,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       className="data-table-row  "
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section tool-and-name-section"
                           style={
@@ -2413,10 +2419,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             }
                           }
                         >
-                          <a
-                            className="interactive-wrapper focus-on-light"
-                            href="/activity_sessions/anonymous?activity_id=775"
-                            id="tool-and-name-section-7543554"
+                          <div
+                            className="tool-icon-and-name"
                           >
                             <span
                               className="tool-icon-wrapper"
@@ -2427,13 +2431,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               />
                             </span>
                             <a
-                              className="activity-name-link"
+                              className="interactive-wrapper focus-on-light"
                               href="/activity_sessions/anonymous?activity_id=775"
-                              tabIndex={-1}
+                              id="tool-and-name-section-7543554"
+                              rel="noopener noreferrer"
+                              target="_blank"
                             >
                               Adjectives and Adverbs (Starter)
                             </a>
-                          </a>
+                          </div>
                         </td>
                         <td
                           className="data-table-row-section datetime-picker"
@@ -2519,11 +2525,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       className="data-table-row  "
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section tool-and-name-section"
                           style={
@@ -2534,10 +2540,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             }
                           }
                         >
-                          <a
-                            className="interactive-wrapper focus-on-light"
-                            href="/activity_sessions/anonymous?activity_id=844"
-                            id="tool-and-name-section-7543555"
+                          <div
+                            className="tool-icon-and-name"
                           >
                             <span
                               className="tool-icon-wrapper"
@@ -2548,13 +2552,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               />
                             </span>
                             <a
-                              className="activity-name-link"
+                              className="interactive-wrapper focus-on-light"
                               href="/activity_sessions/anonymous?activity_id=844"
-                              tabIndex={-1}
+                              id="tool-and-name-section-7543555"
+                              rel="noopener noreferrer"
+                              target="_blank"
                             >
                               Adjectives vs. Adverbs
                             </a>
-                          </a>
+                          </div>
                         </td>
                         <td
                           className="data-table-row-section datetime-picker"
@@ -2640,11 +2646,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       className="data-table-row  "
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section tool-and-name-section"
                           style={
@@ -2655,10 +2661,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             }
                           }
                         >
-                          <a
-                            className="interactive-wrapper focus-on-light"
-                            href="/activity_sessions/anonymous?activity_id=846"
-                            id="tool-and-name-section-7543556"
+                          <div
+                            className="tool-icon-and-name"
                           >
                             <span
                               className="tool-icon-wrapper"
@@ -2669,13 +2673,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               />
                             </span>
                             <a
-                              className="activity-name-link"
+                              className="interactive-wrapper focus-on-light"
                               href="/activity_sessions/anonymous?activity_id=846"
-                              tabIndex={-1}
+                              id="tool-and-name-section-7543556"
+                              rel="noopener noreferrer"
+                              target="_blank"
                             >
                               Adjectives, Adverbs, and Prepositional Phrases 1
                             </a>
-                          </a>
+                          </div>
                         </td>
                         <td
                           className="data-table-row-section datetime-picker"
@@ -2798,11 +2804,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         className="data-table-row   show-copy-to-all"
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section tool-and-name-section"
                             style={
@@ -2813,10 +2819,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               }
                             }
                           >
-                            <a
-                              className="interactive-wrapper focus-on-light"
-                              href="/activity_sessions/anonymous?activity_id=438"
-                              id="tool-and-name-section-7543552"
+                            <div
+                              className="tool-icon-and-name"
                             >
                               <span
                                 className="tool-icon-wrapper"
@@ -2827,13 +2831,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 />
                               </span>
                               <a
-                                className="activity-name-link"
+                                className="interactive-wrapper focus-on-light"
                                 href="/activity_sessions/anonymous?activity_id=438"
-                                tabIndex={-1}
+                                id="tool-and-name-section-7543552"
+                                rel="noopener noreferrer"
+                                target="_blank"
                               >
                                 Adverbs of Manner 1 (Starter)
                               </a>
-                            </a>
+                            </div>
                           </td>
                           <td
                             className="data-table-row-section datetime-picker"
@@ -2919,11 +2925,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         className="data-table-row  "
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section tool-and-name-section"
                             style={
@@ -2934,10 +2940,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               }
                             }
                           >
-                            <a
-                              className="interactive-wrapper focus-on-light"
-                              href="/activity_sessions/anonymous?activity_id=441"
-                              id="tool-and-name-section-7543553"
+                            <div
+                              className="tool-icon-and-name"
                             >
                               <span
                                 className="tool-icon-wrapper"
@@ -2948,13 +2952,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 />
                               </span>
                               <a
-                                className="activity-name-link"
+                                className="interactive-wrapper focus-on-light"
                                 href="/activity_sessions/anonymous?activity_id=441"
-                                tabIndex={-1}
+                                id="tool-and-name-section-7543553"
+                                rel="noopener noreferrer"
+                                target="_blank"
                               >
                                 Adverbs of Manner (Intermediate)
                               </a>
-                            </a>
+                            </div>
                           </td>
                           <td
                             className="data-table-row-section datetime-picker"
@@ -3040,11 +3046,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         className="data-table-row  "
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section tool-and-name-section"
                             style={
@@ -3055,10 +3061,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               }
                             }
                           >
-                            <a
-                              className="interactive-wrapper focus-on-light"
-                              href="/activity_sessions/anonymous?activity_id=775"
-                              id="tool-and-name-section-7543554"
+                            <div
+                              className="tool-icon-and-name"
                             >
                               <span
                                 className="tool-icon-wrapper"
@@ -3069,13 +3073,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 />
                               </span>
                               <a
-                                className="activity-name-link"
+                                className="interactive-wrapper focus-on-light"
                                 href="/activity_sessions/anonymous?activity_id=775"
-                                tabIndex={-1}
+                                id="tool-and-name-section-7543554"
+                                rel="noopener noreferrer"
+                                target="_blank"
                               >
                                 Adjectives and Adverbs (Starter)
                               </a>
-                            </a>
+                            </div>
                           </td>
                           <td
                             className="data-table-row-section datetime-picker"
@@ -3161,11 +3167,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         className="data-table-row  "
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section tool-and-name-section"
                             style={
@@ -3176,10 +3182,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               }
                             }
                           >
-                            <a
-                              className="interactive-wrapper focus-on-light"
-                              href="/activity_sessions/anonymous?activity_id=844"
-                              id="tool-and-name-section-7543555"
+                            <div
+                              className="tool-icon-and-name"
                             >
                               <span
                                 className="tool-icon-wrapper"
@@ -3190,13 +3194,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 />
                               </span>
                               <a
-                                className="activity-name-link"
+                                className="interactive-wrapper focus-on-light"
                                 href="/activity_sessions/anonymous?activity_id=844"
-                                tabIndex={-1}
+                                id="tool-and-name-section-7543555"
+                                rel="noopener noreferrer"
+                                target="_blank"
                               >
                                 Adjectives vs. Adverbs
                               </a>
-                            </a>
+                            </div>
                           </td>
                           <td
                             className="data-table-row-section datetime-picker"
@@ -3282,11 +3288,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         className="data-table-row  "
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section tool-and-name-section"
                             style={
@@ -3297,10 +3303,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               }
                             }
                           >
-                            <a
-                              className="interactive-wrapper focus-on-light"
-                              href="/activity_sessions/anonymous?activity_id=846"
-                              id="tool-and-name-section-7543556"
+                            <div
+                              className="tool-icon-and-name"
                             >
                               <span
                                 className="tool-icon-wrapper"
@@ -3311,13 +3315,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 />
                               </span>
                               <a
-                                className="activity-name-link"
+                                className="interactive-wrapper focus-on-light"
                                 href="/activity_sessions/anonymous?activity_id=846"
-                                tabIndex={-1}
+                                id="tool-and-name-section-7543556"
+                                rel="noopener noreferrer"
+                                target="_blank"
                               >
                                 Adjectives, Adverbs, and Prepositional Phrases 1
                               </a>
-                            </a>
+                            </div>
                           </td>
                           <td
                             className="data-table-row-section datetime-picker"
@@ -3414,11 +3420,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           className="data-table-row   show-copy-to-all"
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
                               style={
@@ -3429,10 +3435,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 }
                               }
                             >
-                              <a
-                                className="interactive-wrapper focus-on-light"
-                                href="/activity_sessions/anonymous?activity_id=438"
-                                id="tool-and-name-section-7543552"
+                              <div
+                                className="tool-icon-and-name"
                               >
                                 <span
                                   className="tool-icon-wrapper"
@@ -3443,13 +3447,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   />
                                 </span>
                                 <a
-                                  className="activity-name-link"
+                                  className="interactive-wrapper focus-on-light"
                                   href="/activity_sessions/anonymous?activity_id=438"
-                                  tabIndex={-1}
+                                  id="tool-and-name-section-7543552"
+                                  rel="noopener noreferrer"
+                                  target="_blank"
                                 >
                                   Adverbs of Manner 1 (Starter)
                                 </a>
-                              </a>
+                              </div>
                             </td>
                             <td
                               className="data-table-row-section datetime-picker"
@@ -3539,11 +3545,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             className="data-table-row   show-copy-to-all"
                           >
                             <React.Fragment>
-                              <span
+                              <td
                                 className="reorder-section data-table-row-section"
                               >
                                 <sortableHandle />
-                              </span>
+                              </td>
                               <td
                                 className="data-table-row-section tool-and-name-section"
                                 style={
@@ -3554,10 +3560,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   }
                                 }
                               >
-                                <a
-                                  className="interactive-wrapper focus-on-light"
-                                  href="/activity_sessions/anonymous?activity_id=438"
-                                  id="tool-and-name-section-7543552"
+                                <div
+                                  className="tool-icon-and-name"
                                 >
                                   <span
                                     className="tool-icon-wrapper"
@@ -3568,13 +3572,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                     />
                                   </span>
                                   <a
-                                    className="activity-name-link"
+                                    className="interactive-wrapper focus-on-light"
                                     href="/activity_sessions/anonymous?activity_id=438"
-                                    tabIndex={-1}
+                                    id="tool-and-name-section-7543552"
+                                    rel="noopener noreferrer"
+                                    target="_blank"
                                   >
                                     Adverbs of Manner 1 (Starter)
                                   </a>
-                                </a>
+                                </div>
                               </td>
                               <td
                                 className="data-table-row-section datetime-picker"
@@ -3665,7 +3671,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             className="data-table-row   show-copy-to-all"
                             key="7543552"
                           >
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle>
@@ -3683,7 +3689,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   </div>
                                 </Component>
                               </sortableHandle>
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
                               key="toolAndNameSection-7543552"
@@ -3695,10 +3701,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 }
                               }
                             >
-                              <a
-                                className="interactive-wrapper focus-on-light"
-                                href="/activity_sessions/anonymous?activity_id=438"
-                                id="tool-and-name-section-7543552"
+                              <div
+                                className="tool-icon-and-name"
                               >
                                 <span
                                   className="tool-icon-wrapper"
@@ -3709,13 +3713,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   />
                                 </span>
                                 <a
-                                  className="activity-name-link"
+                                  className="interactive-wrapper focus-on-light"
                                   href="/activity_sessions/anonymous?activity_id=438"
-                                  tabIndex={-1}
+                                  id="tool-and-name-section-7543552"
+                                  rel="noopener noreferrer"
+                                  target="_blank"
                                 >
                                   Adverbs of Manner 1 (Starter)
                                 </a>
-                              </a>
+                              </div>
                             </td>
                             <td
                               className="data-table-row-section datetime-picker"
@@ -5172,7 +5178,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 />
                               </button>
                             </td>
-                            <td>
+                            <td
+                              key="7543552"
+                            >
                               <button
                                 className="removable data-table-row-section focus-on-light"
                                 id="remove-button-7543552"
@@ -5198,11 +5206,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           className="data-table-row  "
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
                               style={
@@ -5213,10 +5221,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 }
                               }
                             >
-                              <a
-                                className="interactive-wrapper focus-on-light"
-                                href="/activity_sessions/anonymous?activity_id=441"
-                                id="tool-and-name-section-7543553"
+                              <div
+                                className="tool-icon-and-name"
                               >
                                 <span
                                   className="tool-icon-wrapper"
@@ -5227,13 +5233,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   />
                                 </span>
                                 <a
-                                  className="activity-name-link"
+                                  className="interactive-wrapper focus-on-light"
                                   href="/activity_sessions/anonymous?activity_id=441"
-                                  tabIndex={-1}
+                                  id="tool-and-name-section-7543553"
+                                  rel="noopener noreferrer"
+                                  target="_blank"
                                 >
                                   Adverbs of Manner (Intermediate)
                                 </a>
-                              </a>
+                              </div>
                             </td>
                             <td
                               className="data-table-row-section datetime-picker"
@@ -5323,11 +5331,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             className="data-table-row  "
                           >
                             <React.Fragment>
-                              <span
+                              <td
                                 className="reorder-section data-table-row-section"
                               >
                                 <sortableHandle />
-                              </span>
+                              </td>
                               <td
                                 className="data-table-row-section tool-and-name-section"
                                 style={
@@ -5338,10 +5346,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   }
                                 }
                               >
-                                <a
-                                  className="interactive-wrapper focus-on-light"
-                                  href="/activity_sessions/anonymous?activity_id=441"
-                                  id="tool-and-name-section-7543553"
+                                <div
+                                  className="tool-icon-and-name"
                                 >
                                   <span
                                     className="tool-icon-wrapper"
@@ -5352,13 +5358,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                     />
                                   </span>
                                   <a
-                                    className="activity-name-link"
+                                    className="interactive-wrapper focus-on-light"
                                     href="/activity_sessions/anonymous?activity_id=441"
-                                    tabIndex={-1}
+                                    id="tool-and-name-section-7543553"
+                                    rel="noopener noreferrer"
+                                    target="_blank"
                                   >
                                     Adverbs of Manner (Intermediate)
                                   </a>
-                                </a>
+                                </div>
                               </td>
                               <td
                                 className="data-table-row-section datetime-picker"
@@ -5449,7 +5457,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             className="data-table-row  "
                             key="7543553"
                           >
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle>
@@ -5467,7 +5475,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   </div>
                                 </Component>
                               </sortableHandle>
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
                               key="toolAndNameSection-7543553"
@@ -5479,10 +5487,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 }
                               }
                             >
-                              <a
-                                className="interactive-wrapper focus-on-light"
-                                href="/activity_sessions/anonymous?activity_id=441"
-                                id="tool-and-name-section-7543553"
+                              <div
+                                className="tool-icon-and-name"
                               >
                                 <span
                                   className="tool-icon-wrapper"
@@ -5493,13 +5499,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   />
                                 </span>
                                 <a
-                                  className="activity-name-link"
+                                  className="interactive-wrapper focus-on-light"
                                   href="/activity_sessions/anonymous?activity_id=441"
-                                  tabIndex={-1}
+                                  id="tool-and-name-section-7543553"
+                                  rel="noopener noreferrer"
+                                  target="_blank"
                                 >
                                   Adverbs of Manner (Intermediate)
                                 </a>
-                              </a>
+                              </div>
                             </td>
                             <td
                               className="data-table-row-section datetime-picker"
@@ -6922,7 +6930,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 />
                               </button>
                             </td>
-                            <td>
+                            <td
+                              key="7543553"
+                            >
                               <button
                                 className="removable data-table-row-section focus-on-light"
                                 id="remove-button-7543553"
@@ -6948,11 +6958,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           className="data-table-row  "
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
                               style={
@@ -6963,10 +6973,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 }
                               }
                             >
-                              <a
-                                className="interactive-wrapper focus-on-light"
-                                href="/activity_sessions/anonymous?activity_id=775"
-                                id="tool-and-name-section-7543554"
+                              <div
+                                className="tool-icon-and-name"
                               >
                                 <span
                                   className="tool-icon-wrapper"
@@ -6977,13 +6985,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   />
                                 </span>
                                 <a
-                                  className="activity-name-link"
+                                  className="interactive-wrapper focus-on-light"
                                   href="/activity_sessions/anonymous?activity_id=775"
-                                  tabIndex={-1}
+                                  id="tool-and-name-section-7543554"
+                                  rel="noopener noreferrer"
+                                  target="_blank"
                                 >
                                   Adjectives and Adverbs (Starter)
                                 </a>
-                              </a>
+                              </div>
                             </td>
                             <td
                               className="data-table-row-section datetime-picker"
@@ -7073,11 +7083,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             className="data-table-row  "
                           >
                             <React.Fragment>
-                              <span
+                              <td
                                 className="reorder-section data-table-row-section"
                               >
                                 <sortableHandle />
-                              </span>
+                              </td>
                               <td
                                 className="data-table-row-section tool-and-name-section"
                                 style={
@@ -7088,10 +7098,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   }
                                 }
                               >
-                                <a
-                                  className="interactive-wrapper focus-on-light"
-                                  href="/activity_sessions/anonymous?activity_id=775"
-                                  id="tool-and-name-section-7543554"
+                                <div
+                                  className="tool-icon-and-name"
                                 >
                                   <span
                                     className="tool-icon-wrapper"
@@ -7102,13 +7110,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                     />
                                   </span>
                                   <a
-                                    className="activity-name-link"
+                                    className="interactive-wrapper focus-on-light"
                                     href="/activity_sessions/anonymous?activity_id=775"
-                                    tabIndex={-1}
+                                    id="tool-and-name-section-7543554"
+                                    rel="noopener noreferrer"
+                                    target="_blank"
                                   >
                                     Adjectives and Adverbs (Starter)
                                   </a>
-                                </a>
+                                </div>
                               </td>
                               <td
                                 className="data-table-row-section datetime-picker"
@@ -7199,7 +7209,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             className="data-table-row  "
                             key="7543554"
                           >
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle>
@@ -7217,7 +7227,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   </div>
                                 </Component>
                               </sortableHandle>
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
                               key="toolAndNameSection-7543554"
@@ -7229,10 +7239,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 }
                               }
                             >
-                              <a
-                                className="interactive-wrapper focus-on-light"
-                                href="/activity_sessions/anonymous?activity_id=775"
-                                id="tool-and-name-section-7543554"
+                              <div
+                                className="tool-icon-and-name"
                               >
                                 <span
                                   className="tool-icon-wrapper"
@@ -7243,13 +7251,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   />
                                 </span>
                                 <a
-                                  className="activity-name-link"
+                                  className="interactive-wrapper focus-on-light"
                                   href="/activity_sessions/anonymous?activity_id=775"
-                                  tabIndex={-1}
+                                  id="tool-and-name-section-7543554"
+                                  rel="noopener noreferrer"
+                                  target="_blank"
                                 >
                                   Adjectives and Adverbs (Starter)
                                 </a>
-                              </a>
+                              </div>
                             </td>
                             <td
                               className="data-table-row-section datetime-picker"
@@ -8672,7 +8682,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 />
                               </button>
                             </td>
-                            <td>
+                            <td
+                              key="7543554"
+                            >
                               <button
                                 className="removable data-table-row-section focus-on-light"
                                 id="remove-button-7543554"
@@ -8698,11 +8710,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           className="data-table-row  "
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
                               style={
@@ -8713,10 +8725,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 }
                               }
                             >
-                              <a
-                                className="interactive-wrapper focus-on-light"
-                                href="/activity_sessions/anonymous?activity_id=844"
-                                id="tool-and-name-section-7543555"
+                              <div
+                                className="tool-icon-and-name"
                               >
                                 <span
                                   className="tool-icon-wrapper"
@@ -8727,13 +8737,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   />
                                 </span>
                                 <a
-                                  className="activity-name-link"
+                                  className="interactive-wrapper focus-on-light"
                                   href="/activity_sessions/anonymous?activity_id=844"
-                                  tabIndex={-1}
+                                  id="tool-and-name-section-7543555"
+                                  rel="noopener noreferrer"
+                                  target="_blank"
                                 >
                                   Adjectives vs. Adverbs
                                 </a>
-                              </a>
+                              </div>
                             </td>
                             <td
                               className="data-table-row-section datetime-picker"
@@ -8823,11 +8835,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             className="data-table-row  "
                           >
                             <React.Fragment>
-                              <span
+                              <td
                                 className="reorder-section data-table-row-section"
                               >
                                 <sortableHandle />
-                              </span>
+                              </td>
                               <td
                                 className="data-table-row-section tool-and-name-section"
                                 style={
@@ -8838,10 +8850,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   }
                                 }
                               >
-                                <a
-                                  className="interactive-wrapper focus-on-light"
-                                  href="/activity_sessions/anonymous?activity_id=844"
-                                  id="tool-and-name-section-7543555"
+                                <div
+                                  className="tool-icon-and-name"
                                 >
                                   <span
                                     className="tool-icon-wrapper"
@@ -8852,13 +8862,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                     />
                                   </span>
                                   <a
-                                    className="activity-name-link"
+                                    className="interactive-wrapper focus-on-light"
                                     href="/activity_sessions/anonymous?activity_id=844"
-                                    tabIndex={-1}
+                                    id="tool-and-name-section-7543555"
+                                    rel="noopener noreferrer"
+                                    target="_blank"
                                   >
                                     Adjectives vs. Adverbs
                                   </a>
-                                </a>
+                                </div>
                               </td>
                               <td
                                 className="data-table-row-section datetime-picker"
@@ -8949,7 +8961,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             className="data-table-row  "
                             key="7543555"
                           >
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle>
@@ -8967,7 +8979,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   </div>
                                 </Component>
                               </sortableHandle>
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
                               key="toolAndNameSection-7543555"
@@ -8979,10 +8991,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 }
                               }
                             >
-                              <a
-                                className="interactive-wrapper focus-on-light"
-                                href="/activity_sessions/anonymous?activity_id=844"
-                                id="tool-and-name-section-7543555"
+                              <div
+                                className="tool-icon-and-name"
                               >
                                 <span
                                   className="tool-icon-wrapper"
@@ -8993,13 +9003,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   />
                                 </span>
                                 <a
-                                  className="activity-name-link"
+                                  className="interactive-wrapper focus-on-light"
                                   href="/activity_sessions/anonymous?activity_id=844"
-                                  tabIndex={-1}
+                                  id="tool-and-name-section-7543555"
+                                  rel="noopener noreferrer"
+                                  target="_blank"
                                 >
                                   Adjectives vs. Adverbs
                                 </a>
-                              </a>
+                              </div>
                             </td>
                             <td
                               className="data-table-row-section datetime-picker"
@@ -10422,7 +10434,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 />
                               </button>
                             </td>
-                            <td>
+                            <td
+                              key="7543555"
+                            >
                               <button
                                 className="removable data-table-row-section focus-on-light"
                                 id="remove-button-7543555"
@@ -10448,11 +10462,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           className="data-table-row  "
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
                               style={
@@ -10463,10 +10477,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 }
                               }
                             >
-                              <a
-                                className="interactive-wrapper focus-on-light"
-                                href="/activity_sessions/anonymous?activity_id=846"
-                                id="tool-and-name-section-7543556"
+                              <div
+                                className="tool-icon-and-name"
                               >
                                 <span
                                   className="tool-icon-wrapper"
@@ -10477,13 +10489,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   />
                                 </span>
                                 <a
-                                  className="activity-name-link"
+                                  className="interactive-wrapper focus-on-light"
                                   href="/activity_sessions/anonymous?activity_id=846"
-                                  tabIndex={-1}
+                                  id="tool-and-name-section-7543556"
+                                  rel="noopener noreferrer"
+                                  target="_blank"
                                 >
                                   Adjectives, Adverbs, and Prepositional Phrases 1
                                 </a>
-                              </a>
+                              </div>
                             </td>
                             <td
                               className="data-table-row-section datetime-picker"
@@ -10573,11 +10587,11 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             className="data-table-row  "
                           >
                             <React.Fragment>
-                              <span
+                              <td
                                 className="reorder-section data-table-row-section"
                               >
                                 <sortableHandle />
-                              </span>
+                              </td>
                               <td
                                 className="data-table-row-section tool-and-name-section"
                                 style={
@@ -10588,10 +10602,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   }
                                 }
                               >
-                                <a
-                                  className="interactive-wrapper focus-on-light"
-                                  href="/activity_sessions/anonymous?activity_id=846"
-                                  id="tool-and-name-section-7543556"
+                                <div
+                                  className="tool-icon-and-name"
                                 >
                                   <span
                                     className="tool-icon-wrapper"
@@ -10602,13 +10614,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                     />
                                   </span>
                                   <a
-                                    className="activity-name-link"
+                                    className="interactive-wrapper focus-on-light"
                                     href="/activity_sessions/anonymous?activity_id=846"
-                                    tabIndex={-1}
+                                    id="tool-and-name-section-7543556"
+                                    rel="noopener noreferrer"
+                                    target="_blank"
                                   >
                                     Adjectives, Adverbs, and Prepositional Phrases 1
                                   </a>
-                                </a>
+                                </div>
                               </td>
                               <td
                                 className="data-table-row-section datetime-picker"
@@ -10699,7 +10713,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             className="data-table-row  "
                             key="7543556"
                           >
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle>
@@ -10717,7 +10731,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   </div>
                                 </Component>
                               </sortableHandle>
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
                               key="toolAndNameSection-7543556"
@@ -10729,10 +10743,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 }
                               }
                             >
-                              <a
-                                className="interactive-wrapper focus-on-light"
-                                href="/activity_sessions/anonymous?activity_id=846"
-                                id="tool-and-name-section-7543556"
+                              <div
+                                className="tool-icon-and-name"
                               >
                                 <span
                                   className="tool-icon-wrapper"
@@ -10743,13 +10755,15 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   />
                                 </span>
                                 <a
-                                  className="activity-name-link"
+                                  className="interactive-wrapper focus-on-light"
                                   href="/activity_sessions/anonymous?activity_id=846"
-                                  tabIndex={-1}
+                                  id="tool-and-name-section-7543556"
+                                  rel="noopener noreferrer"
+                                  target="_blank"
                                 >
                                   Adjectives, Adverbs, and Prepositional Phrases 1
                                 </a>
-                              </a>
+                              </div>
                             </td>
                             <td
                               className="data-table-row-section datetime-picker"
@@ -12172,7 +12186,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 />
                               </button>
                             </td>
-                            <td>
+                            <td
+                              key="7543556"
+                            >
                               <button
                                 className="removable data-table-row-section focus-on-light"
                                 id="remove-button-7543556"
@@ -12238,10 +12254,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               src="undefined/images/icons/icons-share.svg"
             />
           </button>,
-          "toolAndNameSection": <a
-            className="interactive-wrapper focus-on-light"
-            href="/activity_sessions/anonymous?activity_id=41"
-            id="tool-and-name-section-7543506"
+          "toolAndNameSection": <div
+            className="tool-icon-and-name"
           >
             <span
               className="tool-icon-wrapper"
@@ -12252,13 +12266,15 @@ exports[`ActivityPack component renders if the current user did not create the u
               />
             </span>
             <a
-              className="activity-name-link"
+              className="interactive-wrapper focus-on-light"
               href="/activity_sessions/anonymous?activity_id=41"
-              tabIndex={-1}
+              id="tool-and-name-section-7543506"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               Oedipus and the Sphinx
             </a>
-          </a>,
+          </div>,
           "uaId": 7543506,
         },
         "215" => Object {
@@ -12287,10 +12303,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               src="undefined/images/icons/icons-share.svg"
             />
           </button>,
-          "toolAndNameSection": <a
-            className="interactive-wrapper focus-on-light"
-            href="/activity_sessions/anonymous?activity_id=215"
-            id="tool-and-name-section-7543505"
+          "toolAndNameSection": <div
+            className="tool-icon-and-name"
           >
             <span
               className="tool-icon-wrapper"
@@ -12301,13 +12315,15 @@ exports[`ActivityPack component renders if the current user did not create the u
               />
             </span>
             <a
-              className="activity-name-link"
+              className="interactive-wrapper focus-on-light"
               href="/activity_sessions/anonymous?activity_id=215"
-              tabIndex={-1}
+              id="tool-and-name-section-7543505"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               Why Sun and Moon Live in the Sky!
             </a>
-          </a>,
+          </div>,
           "uaId": 7543505,
         },
         "289" => Object {
@@ -12336,10 +12352,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               src="undefined/images/icons/icons-share.svg"
             />
           </button>,
-          "toolAndNameSection": <a
-            className="interactive-wrapper focus-on-light"
-            href="/activity_sessions/anonymous?activity_id=289"
-            id="tool-and-name-section-7543508"
+          "toolAndNameSection": <div
+            className="tool-icon-and-name"
           >
             <span
               className="tool-icon-wrapper"
@@ -12350,13 +12364,15 @@ exports[`ActivityPack component renders if the current user did not create the u
               />
             </span>
             <a
-              className="activity-name-link"
+              className="interactive-wrapper focus-on-light"
               href="/activity_sessions/anonymous?activity_id=289"
-              tabIndex={-1}
+              id="tool-and-name-section-7543508"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               After, Although, Since
             </a>
-          </a>,
+          </div>,
           "uaId": 7543508,
         },
         "295" => Object {
@@ -12385,10 +12401,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               src="undefined/images/icons/icons-share.svg"
             />
           </button>,
-          "toolAndNameSection": <a
-            className="interactive-wrapper focus-on-light"
-            href="/activity_sessions/anonymous?activity_id=295"
-            id="tool-and-name-section-7543509"
+          "toolAndNameSection": <div
+            className="tool-icon-and-name"
           >
             <span
               className="tool-icon-wrapper"
@@ -12399,13 +12413,15 @@ exports[`ActivityPack component renders if the current user did not create the u
               />
             </span>
             <a
-              className="activity-name-link"
+              className="interactive-wrapper focus-on-light"
               href="/activity_sessions/anonymous?activity_id=295"
-              tabIndex={-1}
+              id="tool-and-name-section-7543509"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               Once, Since, So That
             </a>
-          </a>,
+          </div>,
           "uaId": 7543509,
         },
         "386" => Object {
@@ -12434,10 +12450,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               src="undefined/images/icons/icons-share.svg"
             />
           </button>,
-          "toolAndNameSection": <a
-            className="interactive-wrapper focus-on-light"
-            href="/activity_sessions/anonymous?activity_id=386"
-            id="tool-and-name-section-7543507"
+          "toolAndNameSection": <div
+            className="tool-icon-and-name"
           >
             <span
               className="tool-icon-wrapper"
@@ -12448,13 +12462,15 @@ exports[`ActivityPack component renders if the current user did not create the u
               />
             </span>
             <a
-              className="activity-name-link"
+              className="interactive-wrapper focus-on-light"
               href="/activity_sessions/anonymous?activity_id=386"
-              tabIndex={-1}
+              id="tool-and-name-section-7543507"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               New York City Ballet
             </a>
-          </a>,
+          </div>,
           "uaId": 7543507,
         },
         "418" => Object {
@@ -12483,10 +12499,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               src="undefined/images/icons/icons-share.svg"
             />
           </button>,
-          "toolAndNameSection": <a
-            className="interactive-wrapper focus-on-light"
-            href="/activity_sessions/anonymous?activity_id=418"
-            id="tool-and-name-section-7543510"
+          "toolAndNameSection": <div
+            className="tool-icon-and-name"
           >
             <span
               className="tool-icon-wrapper"
@@ -12497,13 +12511,15 @@ exports[`ActivityPack component renders if the current user did not create the u
               />
             </span>
             <a
-              className="activity-name-link"
+              className="interactive-wrapper focus-on-light"
               href="/activity_sessions/anonymous?activity_id=418"
-              tabIndex={-1}
+              id="tool-and-name-section-7543510"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               Since, Because 1 (Starter)
             </a>
-          </a>,
+          </div>,
           "uaId": 7543510,
         },
         "434" => Object {
@@ -12532,10 +12548,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               src="undefined/images/icons/icons-share.svg"
             />
           </button>,
-          "toolAndNameSection": <a
-            className="interactive-wrapper focus-on-light"
-            href="/activity_sessions/anonymous?activity_id=434"
-            id="tool-and-name-section-7543504"
+          "toolAndNameSection": <div
+            className="tool-icon-and-name"
           >
             <span
               className="tool-icon-wrapper"
@@ -12546,13 +12560,15 @@ exports[`ActivityPack component renders if the current user did not create the u
               />
             </span>
             <a
-              className="activity-name-link"
+              className="interactive-wrapper focus-on-light"
               href="/activity_sessions/anonymous?activity_id=434"
-              tabIndex={-1}
+              id="tool-and-name-section-7543504"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               Compound Subjects 1
             </a>
-          </a>,
+          </div>,
           "uaId": 7543504,
         },
         "437" => Object {
@@ -12581,10 +12597,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               src="undefined/images/icons/icons-share.svg"
             />
           </button>,
-          "toolAndNameSection": <a
-            className="interactive-wrapper focus-on-light"
-            href="/activity_sessions/anonymous?activity_id=437"
-            id="tool-and-name-section-7543503"
+          "toolAndNameSection": <div
+            className="tool-icon-and-name"
           >
             <span
               className="tool-icon-wrapper"
@@ -12595,13 +12609,15 @@ exports[`ActivityPack component renders if the current user did not create the u
               />
             </span>
             <a
-              className="activity-name-link"
+              className="interactive-wrapper focus-on-light"
               href="/activity_sessions/anonymous?activity_id=437"
-              tabIndex={-1}
+              id="tool-and-name-section-7543503"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               Compound Subjects, Objects, and Predicates 1
             </a>
-          </a>,
+          </div>,
           "uaId": 7543503,
         },
         "849" => Object {
@@ -12630,10 +12646,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               src="undefined/images/icons/icons-share.svg"
             />
           </button>,
-          "toolAndNameSection": <a
-            className="interactive-wrapper focus-on-light"
-            href="/activity_sessions/anonymous?activity_id=849"
-            id="tool-and-name-section-7543502"
+          "toolAndNameSection": <div
+            className="tool-icon-and-name"
           >
             <span
               className="tool-icon-wrapper"
@@ -12644,13 +12658,15 @@ exports[`ActivityPack component renders if the current user did not create the u
               />
             </span>
             <a
-              className="activity-name-link"
+              className="interactive-wrapper focus-on-light"
               href="/activity_sessions/anonymous?activity_id=849"
-              tabIndex={-1}
+              id="tool-and-name-section-7543502"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               Starter Diagnostic
             </a>
-          </a>,
+          </div>,
           "uaId": 7543502,
         },
       },
@@ -12760,10 +12776,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=41"
-                id="tool-and-name-section-7543506"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -12774,13 +12788,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=41"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543506"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Oedipus and the Sphinx
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543506,
             },
             "215" => Object {
@@ -12809,10 +12825,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=215"
-                id="tool-and-name-section-7543505"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -12823,13 +12837,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=215"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543505"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Why Sun and Moon Live in the Sky!
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543505,
             },
             "289" => Object {
@@ -12858,10 +12874,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=289"
-                id="tool-and-name-section-7543508"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -12872,13 +12886,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=289"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543508"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   After, Although, Since
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543508,
             },
             "295" => Object {
@@ -12907,10 +12923,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=295"
-                id="tool-and-name-section-7543509"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -12921,13 +12935,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=295"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543509"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Once, Since, So That
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543509,
             },
             "386" => Object {
@@ -12956,10 +12972,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=386"
-                id="tool-and-name-section-7543507"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -12970,13 +12984,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=386"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543507"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   New York City Ballet
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543507,
             },
             "418" => Object {
@@ -13005,10 +13021,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=418"
-                id="tool-and-name-section-7543510"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -13019,13 +13033,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=418"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543510"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Since, Because 1 (Starter)
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543510,
             },
             "434" => Object {
@@ -13054,10 +13070,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=434"
-                id="tool-and-name-section-7543504"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -13068,13 +13082,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=434"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543504"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Compound Subjects 1
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543504,
             },
             "437" => Object {
@@ -13103,10 +13119,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=437"
-                id="tool-and-name-section-7543503"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -13117,13 +13131,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=437"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543503"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Compound Subjects, Objects, and Predicates 1
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543503,
             },
             "849" => Object {
@@ -13152,10 +13168,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=849"
-                id="tool-and-name-section-7543502"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -13166,13 +13180,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=849"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543502"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Starter Diagnostic
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543502,
             },
           },
@@ -13298,10 +13314,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=41"
-                id="tool-and-name-section-7543506"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -13312,13 +13326,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=41"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543506"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Oedipus and the Sphinx
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543506,
             },
             Object {
@@ -13347,10 +13363,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=215"
-                id="tool-and-name-section-7543505"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -13361,13 +13375,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=215"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543505"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Why Sun and Moon Live in the Sky!
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543505,
             },
             Object {
@@ -13396,10 +13412,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=289"
-                id="tool-and-name-section-7543508"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -13410,13 +13424,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=289"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543508"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   After, Although, Since
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543508,
             },
             Object {
@@ -13445,10 +13461,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=295"
-                id="tool-and-name-section-7543509"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -13459,13 +13473,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=295"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543509"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Once, Since, So That
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543509,
             },
             Object {
@@ -13494,10 +13510,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=386"
-                id="tool-and-name-section-7543507"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -13508,13 +13522,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=386"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543507"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   New York City Ballet
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543507,
             },
             Object {
@@ -13543,10 +13559,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=418"
-                id="tool-and-name-section-7543510"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -13557,13 +13571,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=418"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543510"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Since, Because 1 (Starter)
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543510,
             },
             Object {
@@ -13592,10 +13608,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=434"
-                id="tool-and-name-section-7543504"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -13606,13 +13620,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=434"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543504"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Compound Subjects 1
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543504,
             },
             Object {
@@ -13641,10 +13657,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=437"
-                id="tool-and-name-section-7543503"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -13655,13 +13669,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=437"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543503"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Compound Subjects, Objects, and Predicates 1
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543503,
             },
             Object {
@@ -13690,10 +13706,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   src="undefined/images/icons/icons-share.svg"
                 />
               </button>,
-              "toolAndNameSection": <a
-                className="interactive-wrapper focus-on-light"
-                href="/activity_sessions/anonymous?activity_id=849"
-                id="tool-and-name-section-7543502"
+              "toolAndNameSection": <div
+                className="tool-icon-and-name"
               >
                 <span
                   className="tool-icon-wrapper"
@@ -13704,13 +13718,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </span>
                 <a
-                  className="activity-name-link"
+                  className="interactive-wrapper focus-on-light"
                   href="/activity_sessions/anonymous?activity_id=849"
-                  tabIndex={-1}
+                  id="tool-and-name-section-7543502"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   Starter Diagnostic
                 </a>
-              </a>,
+              </div>,
               "uaId": 7543502,
             },
           ]
@@ -13720,127 +13736,105 @@ exports[`ActivityPack component renders if the current user did not create the u
         <table
           className="data-table "
         >
-          <tr
-            className="data-table-headers"
-          >
-            <th
-              className="data-table-header tool-and-name-section-header"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "764px",
-                  "textAlign": "left",
-                  "width": "764px",
-                }
-              }
+          <thead>
+            <tr
+              className="data-table-headers"
             >
-              <span
-                className="tool-and-name-header"
-              >
-                <span>
-                  Tool
-                </span>
-                <span>
-                  Activity
-                </span>
-              </span>
-            </th>
-            <th
-              className="data-table-header publish-date-header-container"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "110px",
-                  "textAlign": "left",
-                  "width": "110px",
-                }
-              }
-            >
-              <Tooltip
-                isTabbable={true}
-                tooltipText="When you schedule an activity, it is displayed in your dashboard, but it is hidden from a student until the publish date."
-                tooltipTriggerText={
-                  <span
-                    className="publish-date-header"
-                  >
-                    Publish date
-                  </span>
+              <th
+                className="data-table-header tool-and-name-section-header"
+                key="0"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "764px",
+                    "textAlign": "left",
+                    "width": "764px",
+                  }
                 }
               >
                 <span
-                  aria-hidden={false}
-                  className="quill-tooltip-trigger "
-                  role="tooltip"
+                  className="tool-and-name-header"
                 >
-                  <span
-                    className="undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    tabIndex={0}
-                  >
+                  <span>
+                    Tool
+                  </span>
+                  <span>
+                    Activity
+                  </span>
+                </span>
+              </th>
+              <th
+                className="data-table-header publish-date-header-container"
+                key="1"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "110px",
+                    "textAlign": "left",
+                    "width": "110px",
+                  }
+                }
+              >
+                <Tooltip
+                  isTabbable={true}
+                  tooltipText="When you schedule an activity, it is displayed in your dashboard, but it is hidden from a student until the publish date."
+                  tooltipTriggerText={
                     <span
                       className="publish-date-header"
                     >
                       Publish date
                     </span>
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      className="quill-tooltip"
-                    />
-                  </span>
-                </span>
-              </Tooltip>
-            </th>
-            <th
-              className="data-table-header due-date-header-container no-right-margin"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "110px",
-                  "textAlign": "left",
-                  "width": "110px",
-                }
-              }
-            >
-              <Tooltip
-                isTabbable={true}
-                tooltipText="Display a due date to students for this activity. Students can still access an activity after the due date."
-                tooltipTriggerText={
-                  <span
-                    className="due-date-header"
-                  >
-                    Due date 
-                    <span>
-                      (optional)
-                    </span>
-                  </span>
-                }
-              >
-                <span
-                  aria-hidden={false}
-                  className="quill-tooltip-trigger "
-                  role="tooltip"
+                  }
                 >
                   <span
-                    className="undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    tabIndex={0}
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
                   >
+                    <span
+                      className="undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      tabIndex={0}
+                    >
+                      <span
+                        className="publish-date-header"
+                      >
+                        Publish date
+                      </span>
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
+                  </span>
+                </Tooltip>
+              </th>
+              <th
+                className="data-table-header due-date-header-container no-right-margin"
+                key="2"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "110px",
+                    "textAlign": "left",
+                    "width": "110px",
+                  }
+                }
+              >
+                <Tooltip
+                  isTabbable={true}
+                  tooltipText="Display a due date to students for this activity. Students can still access an activity after the due date."
+                  tooltipTriggerText={
                     <span
                       className="due-date-header"
                     >
@@ -13849,30 +13843,58 @@ exports[`ActivityPack component renders if the current user did not create the u
                         (optional)
                       </span>
                     </span>
-                  </span>
+                  }
+                >
                   <span
-                    className="quill-tooltip-wrapper"
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
                   >
                     <span
-                      aria-live="polite"
-                      className="quill-tooltip"
-                    />
+                      className="undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      tabIndex={0}
+                    >
+                      <span
+                        className="due-date-header"
+                      >
+                        Due date 
+                        <span>
+                          (optional)
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
                   </span>
-                </span>
-              </Tooltip>
-            </th>
-            <th
-              className="data-table-header undefined"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "30px",
-                  "textAlign": "left",
-                  "width": "30px",
+                </Tooltip>
+              </th>
+              <th
+                className="data-table-header undefined"
+                key="3"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "30px",
+                    "textAlign": "left",
+                    "width": "30px",
+                  }
                 }
-              }
-            />
-          </tr>
+              />
+            </tr>
+          </thead>
           <tbody
             className="data-table-body"
           >
@@ -13891,10 +13913,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   }
                 }
               >
-                <a
-                  className="interactive-wrapper focus-on-light"
-                  href="/activity_sessions/anonymous?activity_id=41"
-                  id="tool-and-name-section-7543506"
+                <div
+                  className="tool-icon-and-name"
                 >
                   <span
                     className="tool-icon-wrapper"
@@ -13905,13 +13925,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                     />
                   </span>
                   <a
-                    className="activity-name-link"
+                    className="interactive-wrapper focus-on-light"
                     href="/activity_sessions/anonymous?activity_id=41"
-                    tabIndex={-1}
+                    id="tool-and-name-section-7543506"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     Oedipus and the Sphinx
                   </a>
-                </a>
+                </div>
               </td>
               <td
                 className="data-table-row-section datetime-picker"
@@ -13978,10 +14000,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   }
                 }
               >
-                <a
-                  className="interactive-wrapper focus-on-light"
-                  href="/activity_sessions/anonymous?activity_id=215"
-                  id="tool-and-name-section-7543505"
+                <div
+                  className="tool-icon-and-name"
                 >
                   <span
                     className="tool-icon-wrapper"
@@ -13992,13 +14012,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                     />
                   </span>
                   <a
-                    className="activity-name-link"
+                    className="interactive-wrapper focus-on-light"
                     href="/activity_sessions/anonymous?activity_id=215"
-                    tabIndex={-1}
+                    id="tool-and-name-section-7543505"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     Why Sun and Moon Live in the Sky!
                   </a>
-                </a>
+                </div>
               </td>
               <td
                 className="data-table-row-section datetime-picker"
@@ -14065,10 +14087,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   }
                 }
               >
-                <a
-                  className="interactive-wrapper focus-on-light"
-                  href="/activity_sessions/anonymous?activity_id=289"
-                  id="tool-and-name-section-7543508"
+                <div
+                  className="tool-icon-and-name"
                 >
                   <span
                     className="tool-icon-wrapper"
@@ -14079,13 +14099,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                     />
                   </span>
                   <a
-                    className="activity-name-link"
+                    className="interactive-wrapper focus-on-light"
                     href="/activity_sessions/anonymous?activity_id=289"
-                    tabIndex={-1}
+                    id="tool-and-name-section-7543508"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     After, Although, Since
                   </a>
-                </a>
+                </div>
               </td>
               <td
                 className="data-table-row-section datetime-picker"
@@ -14152,10 +14174,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   }
                 }
               >
-                <a
-                  className="interactive-wrapper focus-on-light"
-                  href="/activity_sessions/anonymous?activity_id=295"
-                  id="tool-and-name-section-7543509"
+                <div
+                  className="tool-icon-and-name"
                 >
                   <span
                     className="tool-icon-wrapper"
@@ -14166,13 +14186,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                     />
                   </span>
                   <a
-                    className="activity-name-link"
+                    className="interactive-wrapper focus-on-light"
                     href="/activity_sessions/anonymous?activity_id=295"
-                    tabIndex={-1}
+                    id="tool-and-name-section-7543509"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     Once, Since, So That
                   </a>
-                </a>
+                </div>
               </td>
               <td
                 className="data-table-row-section datetime-picker"
@@ -14239,10 +14261,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   }
                 }
               >
-                <a
-                  className="interactive-wrapper focus-on-light"
-                  href="/activity_sessions/anonymous?activity_id=386"
-                  id="tool-and-name-section-7543507"
+                <div
+                  className="tool-icon-and-name"
                 >
                   <span
                     className="tool-icon-wrapper"
@@ -14253,13 +14273,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                     />
                   </span>
                   <a
-                    className="activity-name-link"
+                    className="interactive-wrapper focus-on-light"
                     href="/activity_sessions/anonymous?activity_id=386"
-                    tabIndex={-1}
+                    id="tool-and-name-section-7543507"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     New York City Ballet
                   </a>
-                </a>
+                </div>
               </td>
               <td
                 className="data-table-row-section datetime-picker"
@@ -14326,10 +14348,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   }
                 }
               >
-                <a
-                  className="interactive-wrapper focus-on-light"
-                  href="/activity_sessions/anonymous?activity_id=418"
-                  id="tool-and-name-section-7543510"
+                <div
+                  className="tool-icon-and-name"
                 >
                   <span
                     className="tool-icon-wrapper"
@@ -14340,13 +14360,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                     />
                   </span>
                   <a
-                    className="activity-name-link"
+                    className="interactive-wrapper focus-on-light"
                     href="/activity_sessions/anonymous?activity_id=418"
-                    tabIndex={-1}
+                    id="tool-and-name-section-7543510"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     Since, Because 1 (Starter)
                   </a>
-                </a>
+                </div>
               </td>
               <td
                 className="data-table-row-section datetime-picker"
@@ -14413,10 +14435,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   }
                 }
               >
-                <a
-                  className="interactive-wrapper focus-on-light"
-                  href="/activity_sessions/anonymous?activity_id=434"
-                  id="tool-and-name-section-7543504"
+                <div
+                  className="tool-icon-and-name"
                 >
                   <span
                     className="tool-icon-wrapper"
@@ -14427,13 +14447,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                     />
                   </span>
                   <a
-                    className="activity-name-link"
+                    className="interactive-wrapper focus-on-light"
                     href="/activity_sessions/anonymous?activity_id=434"
-                    tabIndex={-1}
+                    id="tool-and-name-section-7543504"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     Compound Subjects 1
                   </a>
-                </a>
+                </div>
               </td>
               <td
                 className="data-table-row-section datetime-picker"
@@ -14500,10 +14522,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   }
                 }
               >
-                <a
-                  className="interactive-wrapper focus-on-light"
-                  href="/activity_sessions/anonymous?activity_id=437"
-                  id="tool-and-name-section-7543503"
+                <div
+                  className="tool-icon-and-name"
                 >
                   <span
                     className="tool-icon-wrapper"
@@ -14514,13 +14534,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                     />
                   </span>
                   <a
-                    className="activity-name-link"
+                    className="interactive-wrapper focus-on-light"
                     href="/activity_sessions/anonymous?activity_id=437"
-                    tabIndex={-1}
+                    id="tool-and-name-section-7543503"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     Compound Subjects, Objects, and Predicates 1
                   </a>
-                </a>
+                </div>
               </td>
               <td
                 className="data-table-row-section datetime-picker"
@@ -14587,10 +14609,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   }
                 }
               >
-                <a
-                  className="interactive-wrapper focus-on-light"
-                  href="/activity_sessions/anonymous?activity_id=849"
-                  id="tool-and-name-section-7543502"
+                <div
+                  className="tool-icon-and-name"
                 >
                   <span
                     className="tool-icon-wrapper"
@@ -14601,13 +14621,15 @@ exports[`ActivityPack component renders if the current user did not create the u
                     />
                   </span>
                   <a
-                    className="activity-name-link"
+                    className="interactive-wrapper focus-on-light"
                     href="/activity_sessions/anonymous?activity_id=849"
-                    tabIndex={-1}
+                    id="tool-and-name-section-7543502"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     Starter Diagnostic
                   </a>
-                </a>
+                </div>
               </td>
               <td
                 className="data-table-row-section datetime-picker"

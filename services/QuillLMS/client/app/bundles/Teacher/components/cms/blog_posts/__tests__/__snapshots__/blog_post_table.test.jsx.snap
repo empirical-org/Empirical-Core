@@ -1044,107 +1044,116 @@ exports[`BlogPostTable component renders 1`] = `
       <table
         className="data-table undefined"
       >
-        <tr
-          className="data-table-headers"
-        >
-          <th
-            className="data-table-header reorder-header"
-            scope="col"
+        <thead>
+          <tr
+            className="data-table-headers"
           >
-            Order
-          </th>
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "50px",
-                "textAlign": "left",
-                "width": "50px",
+            <th
+              className="data-table-header reorder-header"
+              scope="col"
+            >
+              Order
+            </th>
+            <th
+              className="data-table-header undefined"
+              key="0"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "50px",
+                  "textAlign": "left",
+                  "width": "50px",
+                }
               }
-            }
-          >
-            Featured
-          </th>
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "400px",
-                "textAlign": "left",
-                "width": "400px",
+            >
+              Featured
+            </th>
+            <th
+              className="data-table-header undefined"
+              key="1"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "400px",
+                  "textAlign": "left",
+                  "width": "400px",
+                }
               }
-            }
-          >
-            Title
-          </th>
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "60px",
-                "textAlign": "left",
-                "width": "60px",
+            >
+              Title
+            </th>
+            <th
+              className="data-table-header undefined"
+              key="2"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "60px",
+                  "textAlign": "left",
+                  "width": "60px",
+                }
               }
-            }
-          >
-            Created
-          </th>
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "60px",
-                "textAlign": "left",
-                "width": "60px",
+            >
+              Created
+            </th>
+            <th
+              className="data-table-header undefined"
+              key="3"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "60px",
+                  "textAlign": "left",
+                  "width": "60px",
+                }
               }
-            }
-          >
-            Updated
-          </th>
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "50px",
-                "textAlign": "right",
-                "width": "50px",
+            >
+              Updated
+            </th>
+            <th
+              className="data-table-header undefined"
+              key="4"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "50px",
+                  "textAlign": "right",
+                  "width": "50px",
+                }
               }
-            }
-          >
-            Rating
-          </th>
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "50px",
-                "textAlign": "right",
-                "width": "50px",
+            >
+              Rating
+            </th>
+            <th
+              className="data-table-header undefined"
+              key="5"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "50px",
+                  "textAlign": "right",
+                  "width": "50px",
+                }
               }
-            }
-          >
-            Views
-          </th>
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "296px",
-                "textAlign": "left",
-                "width": "296px",
+            >
+              Views
+            </th>
+            <th
+              className="data-table-header undefined"
+              key="6"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "296px",
+                  "textAlign": "left",
+                  "width": "296px",
+                }
               }
-            }
-          >
-            Actions
-          </th>
-        </tr>
+            >
+              Actions
+            </th>
+          </tr>
+        </thead>
         <tbody
           className="data-table-body reorderable"
         >
@@ -1155,11 +1164,11 @@ exports[`BlogPostTable component renders 1`] = `
                   className="data-table-row  "
                 >
                   <React.Fragment>
-                    <span
+                    <td
                       className="reorder-section data-table-row-section"
                     >
                       <sortableHandle />
-                    </span>
+                    </td>
                     <td
                       className="data-table-row-section featured-section"
                       style={
@@ -1285,11 +1294,11 @@ exports[`BlogPostTable component renders 1`] = `
                   className="data-table-row  "
                 >
                   <React.Fragment>
-                    <span
+                    <td
                       className="reorder-section data-table-row-section"
                     >
                       <sortableHandle />
-                    </span>
+                    </td>
                     <td
                       className="data-table-row-section featured-section"
                       style={
@@ -1415,11 +1424,11 @@ exports[`BlogPostTable component renders 1`] = `
                   className="data-table-row  "
                 >
                   <React.Fragment>
-                    <span
+                    <td
                       className="reorder-section data-table-row-section"
                     >
                       <sortableHandle />
-                    </span>
+                    </td>
                     <td
                       className="data-table-row-section featured-section"
                       style={
@@ -1555,11 +1564,11 @@ exports[`BlogPostTable component renders 1`] = `
                   className="data-table-row  "
                 >
                   <React.Fragment>
-                    <span
+                    <td
                       className="reorder-section data-table-row-section"
                     >
                       <sortableHandle />
-                    </span>
+                    </td>
                     <td
                       className="data-table-row-section featured-section"
                       style={
@@ -1685,11 +1694,11 @@ exports[`BlogPostTable component renders 1`] = `
                   className="data-table-row  "
                 >
                   <React.Fragment>
-                    <span
+                    <td
                       className="reorder-section data-table-row-section"
                     >
                       <sortableHandle />
-                    </span>
+                    </td>
                     <td
                       className="data-table-row-section featured-section"
                       style={
@@ -1825,11 +1834,11 @@ exports[`BlogPostTable component renders 1`] = `
                   className="data-table-row  "
                 >
                   <React.Fragment>
-                    <span
+                    <td
                       className="reorder-section data-table-row-section"
                     >
                       <sortableHandle />
-                    </span>
+                    </td>
                     <td
                       className="data-table-row-section featured-section"
                       style={
@@ -1965,11 +1974,11 @@ exports[`BlogPostTable component renders 1`] = `
                   className="data-table-row  "
                 >
                   <React.Fragment>
-                    <span
+                    <td
                       className="reorder-section data-table-row-section"
                     >
                       <sortableHandle />
-                    </span>
+                    </td>
                     <td
                       className="data-table-row-section featured-section"
                       style={
@@ -2095,11 +2104,11 @@ exports[`BlogPostTable component renders 1`] = `
                   className="data-table-row  "
                 >
                   <React.Fragment>
-                    <span
+                    <td
                       className="reorder-section data-table-row-section"
                     >
                       <sortableHandle />
-                    </span>
+                    </td>
                     <td
                       className="data-table-row-section featured-section"
                       style={
@@ -2225,11 +2234,11 @@ exports[`BlogPostTable component renders 1`] = `
                   className="data-table-row  "
                 >
                   <React.Fragment>
-                    <span
+                    <td
                       className="reorder-section data-table-row-section"
                     >
                       <sortableHandle />
-                    </span>
+                    </td>
                     <td
                       className="data-table-row-section featured-section"
                       style={
@@ -2355,11 +2364,11 @@ exports[`BlogPostTable component renders 1`] = `
                   className="data-table-row  "
                 >
                   <React.Fragment>
-                    <span
+                    <td
                       className="reorder-section data-table-row-section"
                     >
                       <sortableHandle />
-                    </span>
+                    </td>
                     <td
                       className="data-table-row-section featured-section"
                       style={
@@ -2495,11 +2504,11 @@ exports[`BlogPostTable component renders 1`] = `
                   className="data-table-row  "
                 >
                   <React.Fragment>
-                    <span
+                    <td
                       className="reorder-section data-table-row-section"
                     >
                       <sortableHandle />
-                    </span>
+                    </td>
                     <td
                       className="data-table-row-section featured-section"
                       style={
@@ -2625,11 +2634,11 @@ exports[`BlogPostTable component renders 1`] = `
                   className="data-table-row  "
                 >
                   <React.Fragment>
-                    <span
+                    <td
                       className="reorder-section data-table-row-section"
                     >
                       <sortableHandle />
-                    </span>
+                    </td>
                     <td
                       className="data-table-row-section featured-section"
                       style={
@@ -2755,11 +2764,11 @@ exports[`BlogPostTable component renders 1`] = `
                   className="data-table-row  "
                 >
                   <React.Fragment>
-                    <span
+                    <td
                       className="reorder-section data-table-row-section"
                     >
                       <sortableHandle />
-                    </span>
+                    </td>
                     <td
                       className="data-table-row-section featured-section"
                       style={
@@ -2895,11 +2904,11 @@ exports[`BlogPostTable component renders 1`] = `
                   className="data-table-row  "
                 >
                   <React.Fragment>
-                    <span
+                    <td
                       className="reorder-section data-table-row-section"
                     >
                       <sortableHandle />
-                    </span>
+                    </td>
                     <td
                       className="data-table-row-section featured-section"
                       style={
@@ -3025,11 +3034,11 @@ exports[`BlogPostTable component renders 1`] = `
                   className="data-table-row  "
                 >
                   <React.Fragment>
-                    <span
+                    <td
                       className="reorder-section data-table-row-section"
                     >
                       <sortableHandle />
-                    </span>
+                    </td>
                     <td
                       className="data-table-row-section featured-section"
                       style={
@@ -3155,11 +3164,11 @@ exports[`BlogPostTable component renders 1`] = `
                   className="data-table-row  "
                 >
                   <React.Fragment>
-                    <span
+                    <td
                       className="reorder-section data-table-row-section"
                     >
                       <sortableHandle />
-                    </span>
+                    </td>
                     <td
                       className="data-table-row-section featured-section"
                       style={
@@ -3300,11 +3309,11 @@ exports[`BlogPostTable component renders 1`] = `
                     className="data-table-row  "
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section featured-section"
                         style={
@@ -3430,11 +3439,11 @@ exports[`BlogPostTable component renders 1`] = `
                     className="data-table-row  "
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section featured-section"
                         style={
@@ -3560,11 +3569,11 @@ exports[`BlogPostTable component renders 1`] = `
                     className="data-table-row  "
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section featured-section"
                         style={
@@ -3700,11 +3709,11 @@ exports[`BlogPostTable component renders 1`] = `
                     className="data-table-row  "
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section featured-section"
                         style={
@@ -3830,11 +3839,11 @@ exports[`BlogPostTable component renders 1`] = `
                     className="data-table-row  "
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section featured-section"
                         style={
@@ -3970,11 +3979,11 @@ exports[`BlogPostTable component renders 1`] = `
                     className="data-table-row  "
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section featured-section"
                         style={
@@ -4110,11 +4119,11 @@ exports[`BlogPostTable component renders 1`] = `
                     className="data-table-row  "
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section featured-section"
                         style={
@@ -4240,11 +4249,11 @@ exports[`BlogPostTable component renders 1`] = `
                     className="data-table-row  "
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section featured-section"
                         style={
@@ -4370,11 +4379,11 @@ exports[`BlogPostTable component renders 1`] = `
                     className="data-table-row  "
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section featured-section"
                         style={
@@ -4500,11 +4509,11 @@ exports[`BlogPostTable component renders 1`] = `
                     className="data-table-row  "
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section featured-section"
                         style={
@@ -4640,11 +4649,11 @@ exports[`BlogPostTable component renders 1`] = `
                     className="data-table-row  "
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section featured-section"
                         style={
@@ -4770,11 +4779,11 @@ exports[`BlogPostTable component renders 1`] = `
                     className="data-table-row  "
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section featured-section"
                         style={
@@ -4900,11 +4909,11 @@ exports[`BlogPostTable component renders 1`] = `
                     className="data-table-row  "
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section featured-section"
                         style={
@@ -5040,11 +5049,11 @@ exports[`BlogPostTable component renders 1`] = `
                     className="data-table-row  "
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section featured-section"
                         style={
@@ -5170,11 +5179,11 @@ exports[`BlogPostTable component renders 1`] = `
                     className="data-table-row  "
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section featured-section"
                         style={
@@ -5300,11 +5309,11 @@ exports[`BlogPostTable component renders 1`] = `
                     className="data-table-row  "
                   >
                     <React.Fragment>
-                      <span
+                      <td
                         className="reorder-section data-table-row-section"
                       >
                         <sortableHandle />
-                      </span>
+                      </td>
                       <td
                         className="data-table-row-section featured-section"
                         style={
@@ -5467,11 +5476,11 @@ exports[`BlogPostTable component renders 1`] = `
                       className="data-table-row  "
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section featured-section"
                           style={
@@ -5597,11 +5606,11 @@ exports[`BlogPostTable component renders 1`] = `
                       className="data-table-row  "
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section featured-section"
                           style={
@@ -5727,11 +5736,11 @@ exports[`BlogPostTable component renders 1`] = `
                       className="data-table-row  "
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section featured-section"
                           style={
@@ -5867,11 +5876,11 @@ exports[`BlogPostTable component renders 1`] = `
                       className="data-table-row  "
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section featured-section"
                           style={
@@ -5997,11 +6006,11 @@ exports[`BlogPostTable component renders 1`] = `
                       className="data-table-row  "
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section featured-section"
                           style={
@@ -6137,11 +6146,11 @@ exports[`BlogPostTable component renders 1`] = `
                       className="data-table-row  "
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section featured-section"
                           style={
@@ -6277,11 +6286,11 @@ exports[`BlogPostTable component renders 1`] = `
                       className="data-table-row  "
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section featured-section"
                           style={
@@ -6407,11 +6416,11 @@ exports[`BlogPostTable component renders 1`] = `
                       className="data-table-row  "
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section featured-section"
                           style={
@@ -6537,11 +6546,11 @@ exports[`BlogPostTable component renders 1`] = `
                       className="data-table-row  "
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section featured-section"
                           style={
@@ -6667,11 +6676,11 @@ exports[`BlogPostTable component renders 1`] = `
                       className="data-table-row  "
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section featured-section"
                           style={
@@ -6807,11 +6816,11 @@ exports[`BlogPostTable component renders 1`] = `
                       className="data-table-row  "
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section featured-section"
                           style={
@@ -6937,11 +6946,11 @@ exports[`BlogPostTable component renders 1`] = `
                       className="data-table-row  "
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section featured-section"
                           style={
@@ -7067,11 +7076,11 @@ exports[`BlogPostTable component renders 1`] = `
                       className="data-table-row  "
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section featured-section"
                           style={
@@ -7207,11 +7216,11 @@ exports[`BlogPostTable component renders 1`] = `
                       className="data-table-row  "
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section featured-section"
                           style={
@@ -7337,11 +7346,11 @@ exports[`BlogPostTable component renders 1`] = `
                       className="data-table-row  "
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section featured-section"
                           style={
@@ -7467,11 +7476,11 @@ exports[`BlogPostTable component renders 1`] = `
                       className="data-table-row  "
                     >
                       <React.Fragment>
-                        <span
+                        <td
                           className="reorder-section data-table-row-section"
                         >
                           <sortableHandle />
-                        </span>
+                        </td>
                         <td
                           className="data-table-row-section featured-section"
                           style={
@@ -7608,11 +7617,11 @@ exports[`BlogPostTable component renders 1`] = `
                         className="data-table-row  "
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             style={
@@ -7742,11 +7751,11 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section featured-section"
                               style={
@@ -7877,7 +7886,7 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                           key="480"
                         >
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle>
@@ -7895,7 +7904,7 @@ exports[`BlogPostTable component renders 1`] = `
                                 </div>
                               </Component>
                             </sortableHandle>
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             key="featured-480"
@@ -7956,7 +7965,9 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             11/01/22
                           </td>
-                          <td>
+                          <td
+                            key="rating-480"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="rating-480"
@@ -8073,11 +8084,11 @@ exports[`BlogPostTable component renders 1`] = `
                         className="data-table-row  "
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             style={
@@ -8207,11 +8218,11 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section featured-section"
                               style={
@@ -8342,7 +8353,7 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                           key="835"
                         >
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle>
@@ -8360,7 +8371,7 @@ exports[`BlogPostTable component renders 1`] = `
                                 </div>
                               </Component>
                             </sortableHandle>
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             key="featured-835"
@@ -8421,7 +8432,9 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             12/30/22
                           </td>
-                          <td>
+                          <td
+                            key="rating-835"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="rating-835"
@@ -8538,11 +8551,11 @@ exports[`BlogPostTable component renders 1`] = `
                         className="data-table-row  "
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             style={
@@ -8682,11 +8695,11 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section featured-section"
                               style={
@@ -8827,7 +8840,7 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                           key="62"
                         >
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle>
@@ -8845,7 +8858,7 @@ exports[`BlogPostTable component renders 1`] = `
                                 </div>
                               </Component>
                             </sortableHandle>
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             key="featured-62"
@@ -8867,7 +8880,9 @@ exports[`BlogPostTable component renders 1`] = `
                               />
                             </button>
                           </td>
-                          <td>
+                          <td
+                            key="title-62"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="title-62"
@@ -8958,7 +8973,9 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             12/30/22
                           </td>
-                          <td>
+                          <td
+                            key="rating-62"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="rating-62"
@@ -9075,11 +9092,11 @@ exports[`BlogPostTable component renders 1`] = `
                         className="data-table-row  "
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             style={
@@ -9209,11 +9226,11 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section featured-section"
                               style={
@@ -9344,7 +9361,7 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                           key="115"
                         >
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle>
@@ -9362,7 +9379,7 @@ exports[`BlogPostTable component renders 1`] = `
                                 </div>
                               </Component>
                             </sortableHandle>
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             key="featured-115"
@@ -9423,7 +9440,9 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             08/15/22
                           </td>
-                          <td>
+                          <td
+                            key="rating-115"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="rating-115"
@@ -9540,11 +9559,11 @@ exports[`BlogPostTable component renders 1`] = `
                         className="data-table-row  "
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             style={
@@ -9684,11 +9703,11 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section featured-section"
                               style={
@@ -9829,7 +9848,7 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                           key="633"
                         >
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle>
@@ -9847,7 +9866,7 @@ exports[`BlogPostTable component renders 1`] = `
                                 </div>
                               </Component>
                             </sortableHandle>
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             key="featured-633"
@@ -9869,7 +9888,9 @@ exports[`BlogPostTable component renders 1`] = `
                               />
                             </button>
                           </td>
-                          <td>
+                          <td
+                            key="title-633"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="title-633"
@@ -9960,7 +9981,9 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             11/07/22
                           </td>
-                          <td>
+                          <td
+                            key="rating-633"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="rating-633"
@@ -10077,11 +10100,11 @@ exports[`BlogPostTable component renders 1`] = `
                         className="data-table-row  "
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             style={
@@ -10221,11 +10244,11 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section featured-section"
                               style={
@@ -10366,7 +10389,7 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                           key="399"
                         >
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle>
@@ -10384,7 +10407,7 @@ exports[`BlogPostTable component renders 1`] = `
                                 </div>
                               </Component>
                             </sortableHandle>
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             key="featured-399"
@@ -10406,7 +10429,9 @@ exports[`BlogPostTable component renders 1`] = `
                               />
                             </button>
                           </td>
-                          <td>
+                          <td
+                            key="title-399"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="title-399"
@@ -10497,7 +10522,9 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             08/15/22
                           </td>
-                          <td>
+                          <td
+                            key="rating-399"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="rating-399"
@@ -10614,11 +10641,11 @@ exports[`BlogPostTable component renders 1`] = `
                         className="data-table-row  "
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             style={
@@ -10748,11 +10775,11 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section featured-section"
                               style={
@@ -10883,7 +10910,7 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                           key="133"
                         >
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle>
@@ -10901,7 +10928,7 @@ exports[`BlogPostTable component renders 1`] = `
                                 </div>
                               </Component>
                             </sortableHandle>
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             key="featured-133"
@@ -10962,7 +10989,9 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             01/11/23
                           </td>
-                          <td>
+                          <td
+                            key="rating-133"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="rating-133"
@@ -11079,11 +11108,11 @@ exports[`BlogPostTable component renders 1`] = `
                         className="data-table-row  "
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             style={
@@ -11213,11 +11242,11 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section featured-section"
                               style={
@@ -11348,7 +11377,7 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                           key="462"
                         >
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle>
@@ -11366,7 +11395,7 @@ exports[`BlogPostTable component renders 1`] = `
                                 </div>
                               </Component>
                             </sortableHandle>
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             key="featured-462"
@@ -11427,7 +11456,9 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             10/17/22
                           </td>
-                          <td>
+                          <td
+                            key="rating-462"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="rating-462"
@@ -11544,11 +11575,11 @@ exports[`BlogPostTable component renders 1`] = `
                         className="data-table-row  "
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             style={
@@ -11678,11 +11709,11 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section featured-section"
                               style={
@@ -11813,7 +11844,7 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                           key="720"
                         >
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle>
@@ -11831,7 +11862,7 @@ exports[`BlogPostTable component renders 1`] = `
                                 </div>
                               </Component>
                             </sortableHandle>
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             key="featured-720"
@@ -11892,7 +11923,9 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             01/24/23
                           </td>
-                          <td>
+                          <td
+                            key="rating-720"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="rating-720"
@@ -12009,11 +12042,11 @@ exports[`BlogPostTable component renders 1`] = `
                         className="data-table-row  "
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             style={
@@ -12153,11 +12186,11 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section featured-section"
                               style={
@@ -12298,7 +12331,7 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                           key="450"
                         >
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle>
@@ -12316,7 +12349,7 @@ exports[`BlogPostTable component renders 1`] = `
                                 </div>
                               </Component>
                             </sortableHandle>
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             key="featured-450"
@@ -12338,7 +12371,9 @@ exports[`BlogPostTable component renders 1`] = `
                               />
                             </button>
                           </td>
-                          <td>
+                          <td
+                            key="title-450"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="title-450"
@@ -12429,7 +12464,9 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             01/21/23
                           </td>
-                          <td>
+                          <td
+                            key="rating-450"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="rating-450"
@@ -12546,11 +12583,11 @@ exports[`BlogPostTable component renders 1`] = `
                         className="data-table-row  "
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             style={
@@ -12680,11 +12717,11 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section featured-section"
                               style={
@@ -12815,7 +12852,7 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                           key="100"
                         >
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle>
@@ -12833,7 +12870,7 @@ exports[`BlogPostTable component renders 1`] = `
                                 </div>
                               </Component>
                             </sortableHandle>
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             key="featured-100"
@@ -12894,7 +12931,9 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             12/30/22
                           </td>
-                          <td>
+                          <td
+                            key="rating-100"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="rating-100"
@@ -13011,11 +13050,11 @@ exports[`BlogPostTable component renders 1`] = `
                         className="data-table-row  "
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             style={
@@ -13145,11 +13184,11 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section featured-section"
                               style={
@@ -13280,7 +13319,7 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                           key="727"
                         >
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle>
@@ -13298,7 +13337,7 @@ exports[`BlogPostTable component renders 1`] = `
                                 </div>
                               </Component>
                             </sortableHandle>
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             key="featured-727"
@@ -13359,7 +13398,9 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             11/02/22
                           </td>
-                          <td>
+                          <td
+                            key="rating-727"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="rating-727"
@@ -13476,11 +13517,11 @@ exports[`BlogPostTable component renders 1`] = `
                         className="data-table-row  "
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             style={
@@ -13620,11 +13661,11 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section featured-section"
                               style={
@@ -13765,7 +13806,7 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                           key="475"
                         >
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle>
@@ -13783,7 +13824,7 @@ exports[`BlogPostTable component renders 1`] = `
                                 </div>
                               </Component>
                             </sortableHandle>
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             key="featured-475"
@@ -13805,7 +13846,9 @@ exports[`BlogPostTable component renders 1`] = `
                               />
                             </button>
                           </td>
-                          <td>
+                          <td
+                            key="title-475"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="title-475"
@@ -13896,7 +13939,9 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             11/01/22
                           </td>
-                          <td>
+                          <td
+                            key="rating-475"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="rating-475"
@@ -14013,11 +14058,11 @@ exports[`BlogPostTable component renders 1`] = `
                         className="data-table-row  "
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             style={
@@ -14147,11 +14192,11 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section featured-section"
                               style={
@@ -14282,7 +14327,7 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                           key="353"
                         >
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle>
@@ -14300,7 +14345,7 @@ exports[`BlogPostTable component renders 1`] = `
                                 </div>
                               </Component>
                             </sortableHandle>
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             key="featured-353"
@@ -14361,7 +14406,9 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             01/19/23
                           </td>
-                          <td>
+                          <td
+                            key="rating-353"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="rating-353"
@@ -14478,11 +14525,11 @@ exports[`BlogPostTable component renders 1`] = `
                         className="data-table-row  "
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             style={
@@ -14612,11 +14659,11 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section featured-section"
                               style={
@@ -14747,7 +14794,7 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                           key="768"
                         >
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle>
@@ -14765,7 +14812,7 @@ exports[`BlogPostTable component renders 1`] = `
                                 </div>
                               </Component>
                             </sortableHandle>
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             key="featured-768"
@@ -14826,7 +14873,9 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             08/15/22
                           </td>
-                          <td>
+                          <td
+                            key="rating-768"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="rating-768"
@@ -14943,11 +14992,11 @@ exports[`BlogPostTable component renders 1`] = `
                         className="data-table-row  "
                       >
                         <React.Fragment>
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle />
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             style={
@@ -15077,11 +15126,11 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                         >
                           <React.Fragment>
-                            <span
+                            <td
                               className="reorder-section data-table-row-section"
                             >
                               <sortableHandle />
-                            </span>
+                            </td>
                             <td
                               className="data-table-row-section featured-section"
                               style={
@@ -15212,7 +15261,7 @@ exports[`BlogPostTable component renders 1`] = `
                           className="data-table-row  "
                           key="726"
                         >
-                          <span
+                          <td
                             className="reorder-section data-table-row-section"
                           >
                             <sortableHandle>
@@ -15230,7 +15279,7 @@ exports[`BlogPostTable component renders 1`] = `
                                 </div>
                               </Component>
                             </sortableHandle>
-                          </span>
+                          </td>
                           <td
                             className="data-table-row-section featured-section"
                             key="featured-726"
@@ -15291,7 +15340,9 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             08/24/22
                           </td>
-                          <td>
+                          <td
+                            key="rating-726"
+                          >
                             <Tooltip
                               isTabbable={true}
                               key="rating-726"
