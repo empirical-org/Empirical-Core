@@ -1,20 +1,20 @@
 import * as React from 'react';
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
-import ClassroomCard from './classroom_card'
-import CreateAClassInlineForm from './create_a_class_inline_form'
+import ClassroomCard from './classroom_card';
+import CreateAClassInlineForm from './create_a_class_inline_form';
 
-import { canvasProvider, cleverProvider, googleProvider, providerConfigLookup } from '../../../classrooms/providerHelpers'
-import { requestGet } from '../../../../../../modules/request/index'
-import { Snackbar, defaultSnackbarTimeout } from '../../../../../Shared/index'
-import useSnackbarMonitor from '../../../../../Shared/hooks/useSnackbarMonitor'
-import pusherInitializer from '../../../../../../modules/pusherInitializer'
-import ImportProviderClassroomsModal from '../../../classrooms/import_provider_classrooms_modal'
-import LinkProviderAccountModal from '../../../classrooms/link_provider_account_modal'
-import NoClassroomsToImportModal from '../../../classrooms/no_classrooms_to_import_modal'
-import ReauthorizeProviderModal from '../../../classrooms/reauthorize_provider_modal'
-import ButtonLoadingIndicator from '../../../shared/button_loading_indicator'
+import pusherInitializer from '../../../../../../modules/pusherInitializer';
+import { requestGet } from '../../../../../../modules/request/index';
+import useSnackbarMonitor from '../../../../../Shared/hooks/useSnackbarMonitor';
+import { Snackbar, defaultSnackbarTimeout } from '../../../../../Shared/index';
+import ImportProviderClassroomsModal from '../../../classrooms/import_provider_classrooms_modal';
+import LinkProviderAccountModal from '../../../classrooms/link_provider_account_modal';
+import NoClassroomsToImportModal from '../../../classrooms/no_classrooms_to_import_modal';
+import { canvasProvider, cleverProvider, googleProvider, providerConfigLookup } from '../../../classrooms/providerHelpers';
+import ReauthorizeProviderModal from '../../../classrooms/reauthorize_provider_modal';
+import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 
 const canvasIconSrc = `${process.env.CDN_URL}/images/icons/canvas.svg`
 const cleverIconSrc = `${process.env.CDN_URL}/images/icons/clever.svg`
@@ -223,7 +223,6 @@ const AssignStudents = ({
             <span className="assignment-section-name">Choose classes or students</span>
           </div>
           <div className="import-or-create-classroom-buttons">
-            {renderImportFromProviderButton(canvasProvider)}
             {renderImportFromProviderButton(cleverProvider)}
             {renderImportFromProviderButton(googleProvider)}
             <button
