@@ -162,142 +162,150 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
     <table
       className="data-table unit-templates-table"
     >
-      <tr
-        className="data-table-headers"
-      >
-        <th
-          className="data-table-header undefined sortable"
-          scope="col"
-          style={
-            Object {
-              "minWidth": "160px",
-              "textAlign": "left",
-              "width": "160px",
-            }
-          }
+      <thead>
+        <tr
+          className="data-table-headers"
         >
-          <button
-            className="interactive-wrapper focus-on-light"
-            onClick={[Function]}
-            type="button"
-          >
-            Pack type
-            <div
-              className="sort-tooltip-container"
-            />
-          </button>
-        </th>
-        <th
-          className="data-table-header undefined sortable"
-          scope="col"
-          style={
-            Object {
-              "minWidth": "204px",
-              "textAlign": "left",
-              "width": "204px",
+          <th
+            className="data-table-header undefined sortable"
+            key="0"
+            scope="col"
+            style={
+              Object {
+                "minWidth": "160px",
+                "textAlign": "left",
+                "width": "160px",
+              }
             }
-          }
-        >
-          <button
-            className="interactive-wrapper focus-on-light"
-            onClick={[Function]}
-            type="button"
           >
-            Pack name
-            <div
-              className="sort-tooltip-container"
-            />
-          </button>
-        </th>
-        <th
-          className="data-table-header undefined sortable"
-          scope="col"
-          style={
-            Object {
-              "minWidth": "140px",
-              "textAlign": "left",
-              "width": "140px",
+            <button
+              className="interactive-wrapper focus-on-light"
+              onClick={[Function]}
+              type="button"
+            >
+              Pack type
+              <div
+                className="sort-tooltip-container"
+              />
+            </button>
+          </th>
+          <th
+            className="data-table-header undefined sortable"
+            key="1"
+            scope="col"
+            style={
+              Object {
+                "minWidth": "204px",
+                "textAlign": "left",
+                "width": "204px",
+              }
             }
-          }
-        >
-          <button
-            className="interactive-wrapper focus-on-light"
-            onClick={[Function]}
-            type="button"
           >
-            Tools
-            <div
-              className="sort-tooltip-container"
-            />
-          </button>
-        </th>
-        <th
-          className="data-table-header undefined sortable"
-          scope="col"
-          style={
-            Object {
-              "minWidth": "70px",
-              "textAlign": "right",
-              "width": "70px",
+            <button
+              className="interactive-wrapper focus-on-light"
+              onClick={[Function]}
+              type="button"
+            >
+              Pack name
+              <div
+                className="sort-tooltip-container"
+              />
+            </button>
+          </th>
+          <th
+            className="data-table-header undefined sortable"
+            key="2"
+            scope="col"
+            style={
+              Object {
+                "minWidth": "140px",
+                "textAlign": "left",
+                "width": "140px",
+              }
             }
-          }
-        >
-          <button
-            className="interactive-wrapper focus-on-light"
-            onClick={[Function]}
-            type="button"
           >
-            Grade Level
-            <div
-              className="sort-tooltip-container"
-            />
-          </button>
-        </th>
-        <th
-          className="data-table-header undefined sortable"
-          scope="col"
-          style={
-            Object {
-              "minWidth": "50px",
-              "textAlign": "right",
-              "width": "50px",
+            <button
+              className="interactive-wrapper focus-on-light"
+              onClick={[Function]}
+              type="button"
+            >
+              Tools
+              <div
+                className="sort-tooltip-container"
+              />
+            </button>
+          </th>
+          <th
+            className="data-table-header undefined sortable"
+            key="3"
+            scope="col"
+            style={
+              Object {
+                "minWidth": "70px",
+                "textAlign": "right",
+                "width": "70px",
+              }
             }
-          }
-        >
-          <button
-            className="interactive-wrapper focus-on-light"
-            onClick={[Function]}
-            type="button"
           >
-            Activities
-            <div
-              className="sort-tooltip-container"
-            />
-          </button>
-        </th>
-        <th
-          className="data-table-header undefined sortable"
-          scope="col"
-          style={
-            Object {
-              "minWidth": "150px",
-              "textAlign": "left",
-              "width": "150px",
+            <button
+              className="interactive-wrapper focus-on-light"
+              onClick={[Function]}
+              type="button"
+            >
+              Grade Level
+              <div
+                className="sort-tooltip-container"
+              />
+            </button>
+          </th>
+          <th
+            className="data-table-header undefined sortable"
+            key="4"
+            scope="col"
+            style={
+              Object {
+                "minWidth": "50px",
+                "textAlign": "right",
+                "width": "50px",
+              }
             }
-          }
-        >
-          <button
-            className="interactive-wrapper focus-on-light"
-            onClick={[Function]}
-            type="button"
           >
-            Duration
-            <div
-              className="sort-tooltip-container"
-            />
-          </button>
-        </th>
-      </tr>
+            <button
+              className="interactive-wrapper focus-on-light"
+              onClick={[Function]}
+              type="button"
+            >
+              Activities
+              <div
+                className="sort-tooltip-container"
+              />
+            </button>
+          </th>
+          <th
+            className="data-table-header undefined sortable"
+            key="5"
+            scope="col"
+            style={
+              Object {
+                "minWidth": "150px",
+                "textAlign": "left",
+                "width": "150px",
+              }
+            }
+          >
+            <button
+              className="interactive-wrapper focus-on-light"
+              onClick={[Function]}
+              type="button"
+            >
+              Duration
+              <div
+                className="sort-tooltip-container"
+              />
+            </button>
+          </th>
+        </tr>
+      </thead>
       <tbody
         className="data-table-body"
       >

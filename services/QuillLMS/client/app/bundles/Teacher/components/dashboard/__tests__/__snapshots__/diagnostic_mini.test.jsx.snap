@@ -322,62 +322,68 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
       <table
         className="data-table undefined"
       >
-        <tr
-          className="data-table-headers"
-        >
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "290px",
-                "textAlign": "left",
-                "width": "290px",
-              }
-            }
+        <thead>
+          <tr
+            className="data-table-headers"
           >
-            Diagnostic
-          </th>
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "290px",
-                "textAlign": "left",
-                "width": "290px",
+            <th
+              className="data-table-header undefined"
+              key="0"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "290px",
+                  "textAlign": "left",
+                  "width": "290px",
+                }
               }
-            }
-          >
-            Class
-          </th>
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "62px",
-                "textAlign": "left",
-                "width": "62px",
+            >
+              Diagnostic
+            </th>
+            <th
+              className="data-table-header undefined"
+              key="1"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "290px",
+                  "textAlign": "left",
+                  "width": "290px",
+                }
               }
-            }
-          >
-            Completed
-          </th>
-          <th
-            className="data-table-header last-header"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "62px",
-                "textAlign": "left",
-                "width": "62px",
+            >
+              Class
+            </th>
+            <th
+              className="data-table-header undefined"
+              key="2"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "62px",
+                  "textAlign": "left",
+                  "width": "62px",
+                }
               }
-            }
-          >
-            Results
-          </th>
-        </tr>
+            >
+              Completed
+            </th>
+            <th
+              className="data-table-header last-header"
+              key="3"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "62px",
+                  "textAlign": "left",
+                  "width": "62px",
+                }
+              }
+            >
+              Results
+            </th>
+          </tr>
+        </thead>
         <tbody
           className="data-table-body"
         >
@@ -398,7 +404,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             >
               ELL Diagnostic
             </td>
-            <td>
+            <td
+              key="classroom-447-484134-826269"
+            >
               <Tooltip
                 isTabbable={true}
                 key="classroom-447-484134-826269"
@@ -586,7 +594,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             >
               Starter Diagnostic
             </td>
-            <td>
+            <td
+              key="classroom-849-484134-826268"
+            >
               <Tooltip
                 isTabbable={true}
                 key="classroom-849-484134-826268"
@@ -706,7 +716,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             >
               Starter Diagnostic
             </td>
-            <td>
+            <td
+              key="classroom-849-484134-826269"
+            >
               <Tooltip
                 isTabbable={true}
                 key="classroom-849-484134-826269"
