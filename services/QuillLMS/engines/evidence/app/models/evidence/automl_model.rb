@@ -17,6 +17,9 @@ module Evidence
     PREDICT_API_TIMEOUT = 5.0
     GOOGLE_PROJECT_ID = ENV['AUTOML_GOOGLE_PROJECT_ID']
     GOOGLE_LOCATION = ENV['AUTOML_GOOGLE_LOCATION']
+    CONFUSION_MATRIX = 'confusionMatrix'
+    ANNOTATION_SPECS = 'annotationSpecs'
+    DISPLAY_NAME = 'displayName'
 
     attr_readonly :external_id, :name, :labels
 
@@ -121,17 +124,17 @@ module Evidence
     end
 
     private def automl_client
-      @automl_client ||= Google::Cloud::AIPlatform::V1::ModelService::Client.new
+      automl_client = ::Google::Cloud::AIPlatform::V1::ModelService::Client.new
     end
 
     private def automl_prediction_client
-      @automl_prediction_client ||= Google::Cloud::AIPlatform::V1::PredictionService::Client.new do |config|
+      @automl_prediction_client ||= ::Google::Cloud::AIPlatform::V1::PredictionService::Client.new do |config|
         config.timeout = PREDICT_API_TIMEOUT
       end
     end
 
     private def automl_model_path
-      @automl_model_path ||= automl_client.model_path(**model_path_args)
+      automl_model_path = automl_client.model_path(**model_path_args)
     end
 
     private def automl_prediction_model_path
@@ -145,8 +148,13 @@ module Evidence
     private def automl_labels
       automl_client
         .list_model_evaluations(parent: automl_model_path)
-        .map(&:display_name)
+        .first
+        .to_h
+        .dig(:metrics, :struct_value, :fields, CONFUSION_MATRIX, :struct_value, :fields, ANNOTATION_SPECS, :list_value, :values)
+        .map { |v| v.dig(:struct_value, :fields, DISPLAY_NAME, :string_value) }
+        .flatten
         .reject(&:empty?)
+        .uniq
     end
 
     private def automl_name
