@@ -21,7 +21,7 @@ module Evidence
 
     # POST /automl_models.json
     def create
-      @automl_model.populate_from_automl_model_id
+      @automl_model.populate_from_external_id
 
       if @automl_model.save
         render json: @automl_model, status: :created
@@ -68,7 +68,7 @@ module Evidence
     end
 
     private def automl_model_params
-      params.require(:automl_model).permit(:automl_model_id, :prompt_id, :notes)
+      params.require(:automl_model).permit(:external_id, :prompt_id, :notes)
     end
   end
 end

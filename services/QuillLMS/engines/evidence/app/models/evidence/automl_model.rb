@@ -1,42 +1,30 @@
 # frozen_string_literal: true
 
-# == Schema Information
-#
-# Table name: comprehension_automl_models
-#
-#  id              :integer          not null, primary key
-#  automl_model_id :string           not null
-#  name            :string           not null
-#  labels          :string           default([]), is an Array
-#  prompt_id       :integer
-#  state           :string           not null
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  notes           :text             default("")
-#
 require 'google/cloud/automl'
 
 module Evidence
   class AutomlModel < ApplicationRecord
-    self.table_name = 'comprehension_automl_models'
+    self.table_name = 'evidence_automl_models'
 
     include Evidence::ChangeLog
+
     MIN_LABELS_LENGTH = 1
     STATES = [
       STATE_ACTIVE = 'active',
       STATE_INACTIVE = 'inactive'
-    ]
+    ].freeze
+
     PREDICT_API_TIMEOUT = 5.0
     GOOGLE_PROJECT_ID = ENV['AUTOML_GOOGLE_PROJECT_ID']
     GOOGLE_LOCATION = ENV['AUTOML_GOOGLE_LOCATION']
 
-    attr_readonly :automl_model_id, :name, :labels
+    attr_readonly :external_id, :name, :labels
 
     belongs_to :prompt, inverse_of: :automl_models
 
     validate :validate_label_associations, if: :active?
 
-    validates :automl_model_id, presence: true, uniqueness: true
+    validates :external_id, presence: true, uniqueness: true
     validates :labels, presence: true, length: {minimum: MIN_LABELS_LENGTH}
     validates :name, presence: true
     validates :state, inclusion: {in: ['active', 'inactive']}
@@ -47,12 +35,12 @@ module Evidence
       options ||= {}
 
       super(options.reverse_merge(
-        only: [:id, :automl_model_id, :notes, :name, :labels, :state, :prompt_id, :created_at, :updated_at],
+        only: [:id, :external_id, :notes, :name, :labels, :state, :prompt_id, :created_at, :updated_at],
         methods: [:older_models]
       ))
     end
 
-    def populate_from_automl_model_id
+    def populate_from_external_id
       self.name = automl_name
       self.labels = automl_labels
       self.state = STATE_INACTIVE
@@ -110,7 +98,7 @@ module Evidence
     end
 
     private def strip_whitespace
-      self.automl_model_id = automl_model_id.strip unless automl_model_id.nil?
+      self.external_id = external_id.strip unless external_id.nil?
     end
 
     private def prompt_automl_rules
@@ -156,7 +144,7 @@ module Evidence
     end
 
     private def model_path_args
-      {project: GOOGLE_PROJECT_ID, location: GOOGLE_LOCATION, model: automl_model_id.strip}
+      {project: GOOGLE_PROJECT_ID, location: GOOGLE_LOCATION, model: external_id.strip}
     end
 
     private def automl_labels
