@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'google/cloud/automl'
+require 'google/cloud/ai_platform/v1'
 
 module Evidence
   class AutomlModel < ApplicationRecord
@@ -69,13 +69,8 @@ module Evidence
     end
     # rubocop:enable Metrics/CyclomaticComplexity
 
-
     def fetch_automl_label(text)
-      automl_payload = {
-        text_snippet: {
-          content: text
-        }
-      }
+      automl_payload = { text_snippet: { content: text } }
       results = automl_prediction_client.predict(name: automl_prediction_model_path, payload: automl_payload)
       sorted_results = results.payload.sort_by { |i| i.classification.score }.reverse
       [sorted_results[0].display_name, sorted_results[0].classification.score]
@@ -126,11 +121,11 @@ module Evidence
     end
 
     private def automl_client
-      @automl_client ||= Google::Cloud::AutoML.auto_ml
+      @automl_client ||= Google::Cloud::AIPlatform::V1::ModelService::Client.new
     end
 
     private def automl_prediction_client
-      @automl_prediction_client ||= Google::Cloud::AutoML.prediction_service do |config|
+      @automl_prediction_client ||= Google::Cloud::AIPlatform::V1::PredictionService::Client.new do |config|
         config.timeout = PREDICT_API_TIMEOUT
       end
     end
@@ -148,13 +143,16 @@ module Evidence
     end
 
     private def automl_labels
-      evaluations = automl_client.list_model_evaluations(parent: automl_model_path)
-      evaluations.map { |e| e.display_name }.reject { |l| l.empty? }
+      automl_client
+        .list_model_evaluations(parent: automl_model_path)
+        .map(&:display_name)
+        .reject(&:empty?)
     end
 
     private def automl_name
-      model = automl_client.get_model(name: automl_model_path)
-      model.display_name
+      automl_client
+        .get_model(name: automl_model_path)
+        .display_name
     end
 
     private def log_activation
