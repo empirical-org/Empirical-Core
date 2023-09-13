@@ -71,7 +71,7 @@ class StudentsController < ApplicationController
         classcode = params[:classcode].downcase
         begin
           classroom = Classroom.find_by!(code: classcode)
-          Associators::StudentsToClassrooms.run(current_user, classroom)
+          StudentClassroomAssociator.run(current_user, classroom)
         rescue ActiveRecord::RecordNotFound => e
           if Classroom.unscoped.find_by(code: classcode).nil?
             flash[:error] = "Oops! There is no class with the code #{classcode}. Ask your teacher for help."
@@ -107,8 +107,7 @@ class StudentsController < ApplicationController
     return redirect_to profile_path unless current_user&.student?
 
     if classroom_id && unit_id
-      flash_closed_unit_error
-      flash_missing_unit_error
+      flash_errors
     elsif classroom_id && (Classroom.find_by(id: classroom_id).nil? || StudentsClassrooms.find_by(student_id: @current_user.id, classroom_id: classroom_id).nil?)
       flash[:error] = 'Oops! You do not belong to that classroom. Your teacher may have archived the class or removed you.'
       flash.keep(:error)
@@ -117,27 +116,24 @@ class StudentsController < ApplicationController
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  private def flash_closed_unit_error
+  private def flash_errors
     unit = Unit.find(params["unit_id"])
-
-    return if unit.open
-
-    flash[:error] = t('activity_link.errors.activity_pack_closed')
-    flash.keep(:error)
-    redirect_to classes_path
-  end
-
-  private def flash_missing_unit_error
     classroom_id = params["classroom"]
-    unit_id = params["unit_id"]
 
-    classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
+    if !unit.open
+      flash[:error] = t('activity_link.errors.activity_pack_closed')
+      flash.keep(:error)
+      redirect_to(classes_path) and return
+    end
 
-    return if classroom_unit && classroom_unit.assigned_student_ids.include?(current_user.id)
+    classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit.id)
+    if classroom_unit && classroom_unit.assigned_student_ids.include?(current_user.id)
+      return
+    end
 
     flash[:error] = t('activity_link.errors.activity_pack_not_assigned')
     flash.keep(:error)
-    redirect_to classes_path
+    redirect_to(classes_path)
   end
 
   private def student_params

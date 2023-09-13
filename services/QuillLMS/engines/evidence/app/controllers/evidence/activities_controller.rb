@@ -121,7 +121,7 @@ module Evidence
 
     # params [:id]
     def topic_optimal_info
-      prompt_concept_uids = @activity.prompts.map do |prompt|
+      prompt_concept_uids = @activity.prompts.to_h do |prompt|
         automl_rules = prompt.rules.filter { |rule| rule.rule_type == Evidence::Rule::TYPE_AUTOML && rule.optimal }
         # Our expectation is that all AutoML rules for a given prompt have
         # the same concept_uid, so this should always extract the correct
@@ -129,7 +129,7 @@ module Evidence
         automl_concept_uid = automl_rules.map(&:concept_uid).uniq.first
 
         [prompt.id, automl_concept_uid]
-      end.to_h
+      end
 
       # This is hard-coded because I couldn't figure out a clean way to
       # generate it dynamically.  This is basically the items in

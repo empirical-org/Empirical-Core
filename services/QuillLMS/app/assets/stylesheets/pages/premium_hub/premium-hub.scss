@@ -462,11 +462,17 @@
 }
 
 .premium-hub-subnav {
+  min-height: 44px !important;
   background-color: $quill-maroon !important;
 
   ul {
     li {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
       a {
+        display: flex;
+        align-items: center;
+        height: 28px !important;
         &.active {
           color: $quill-maroon !important;
         }

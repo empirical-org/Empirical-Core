@@ -25,8 +25,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
-            - bundle-cache-lms-v2
+            - bundle-cache-lms-v3-{{ checksum "services/QuillLMS/Gemfile.lock" }}
+            - bundle-cache-lms-v3
       - run:
           name: Bundle Install if cache isn't present.
           command: |
@@ -36,7 +36,7 @@ jobs:
             bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
             bundle check || bundle install --path vendor/bundle
       - save_cache:
-          key: bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
+          key: bundle-cache-lms-v3-{{ checksum "services/QuillLMS/Gemfile.lock" }}
           paths:
             - services/QuillLMS/vendor/bundle
       - run:
@@ -104,8 +104,8 @@ jobs:
             - services/QuillLMS/client/node_modules
       - restore_cache:
           keys:
-            - bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
-            - bundle-cache-lms-v2
+            - bundle-cache-lms-v3-{{ checksum "services/QuillLMS/Gemfile.lock" }}
+            - bundle-cache-lms-v3
       - run:
           name: Bundle Install if cache isn't present.
           command: |
@@ -114,7 +114,7 @@ jobs:
             bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
             bundle check || bundle install --path vendor/bundle
       - save_cache:
-          key: bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
+          key: bundle-cache-lms-v3-{{ checksum "services/QuillLMS/Gemfile.lock" }}
           paths:
             - services/QuillLMS/vendor/bundle
       - run:
@@ -170,8 +170,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
-            - bundle-cache-lms-v2
+            - bundle-cache-lms-v3-{{ checksum "services/QuillLMS/Gemfile.lock" }}
+            - bundle-cache-lms-v3
       - run:
           name: Bundle Install if cache isn't present.
           command: |
@@ -181,7 +181,7 @@ jobs:
             bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
             bundle check || bundle install --path vendor/bundle
       - save_cache:
-          key: bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
+          key: bundle-cache-lms-v3-{{ checksum "services/QuillLMS/Gemfile.lock" }}
           paths:
             - services/QuillLMS/vendor/bundle
       - run:
@@ -246,7 +246,7 @@ jobs:
   cms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
-      - image: ruby:2.7.6
+      - image: ruby:3.0.2
         environment:
           PG_DB: quill_cms_test_db
           PG_USER: ubuntu
@@ -257,9 +257,9 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: quill_cms_test_db
           POSTGRES_PASSWORD: password
-      - image: docker.elastic.co/elasticsearch/elasticsearch:5.6.2
+      - image: docker.elastic.co/elasticsearch/elasticsearch:6.8.0
         environment:
-          - xpack.security.enabled: false
+          xpack.security.enabled: false
     steps:
       - checkout
       - restore_cache:
@@ -329,8 +329,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - bundle-cache-evidence-v2-{{ checksum "services/QuillLMS/engines/evidence/Gemfile.lock" }}
-            - bundle-cache-evidence-v2
+            - bundle-cache-evidence-v3-{{ checksum "services/QuillLMS/engines/evidence/Gemfile.lock" }}
+            - bundle-cache-evidence-v3
       - run:
           name: Bundle Install if cache isn't present.
           command: |
@@ -339,7 +339,7 @@ jobs:
             bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
             bundle check || bundle install --path vendor/bundle
       - save_cache:
-          key: bundle-cache-evidence-v2-{{ checksum "services/QuillLMS/engines/evidence/Gemfile.lock" }}
+          key: bundle-cache-evidence-v3-{{ checksum "services/QuillLMS/engines/evidence/Gemfile.lock" }}
           paths:
             - services/QuillLMS/engines/evidence/vendor/bundle
       - run:

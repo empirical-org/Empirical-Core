@@ -34,6 +34,7 @@ const tableHeaders = (isOwner) => ([
     name: <span className="tool-and-name-header"><span>Tool</span><span>Activity</span></span>,
     attribute: 'toolAndNameSection',
     width: isOwner ? '624px' : '764px',
+    headerClassName: 'tool-and-name-section-header',
     rowSectionClassName: 'tool-and-name-section'
   },
   {

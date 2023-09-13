@@ -25,7 +25,7 @@
 class CanvasClassroom < ProviderClassroom
   class InvalidClassroomExternalIdFormatError < StandardError; end
 
-  VALID_CLASSROOM_EXTERNAL_ID_FORMAT = /\A\d+:\d+\z/.freeze
+  VALID_CLASSROOM_EXTERNAL_ID_FORMAT = /\A\d+:\d+\z/
 
   belongs_to :canvas_instance
   belongs_to :classroom

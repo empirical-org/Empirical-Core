@@ -14,7 +14,7 @@ class Teachers::StudentsController < ApplicationController
       @student = Creators::StudentCreator.create_student(user_params, @classroom.id)
       classroom_units = ClassroomUnit.where(classroom_id: @classroom.id)
       classroom_units.each { |cu| cu.validate_assigned_student(@student.id) }
-      Associators::StudentsToClassrooms.run(@student, @classroom)
+      StudentClassroomAssociator.run(@student, @classroom)
       render json: @student
     end
   end

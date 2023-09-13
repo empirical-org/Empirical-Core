@@ -4,6 +4,7 @@ import * as _ from 'lodash'
 import * as Pusher from 'pusher-js';
 
 import { FULL, restrictedPage, } from '../shared';
+import { selectionsEqual, } from '../components/usage_snapshots/shared'
 import CustomDateModal from '../components/usage_snapshots/customDateModal'
 import SnapshotSection from '../components/usage_snapshots/snapshotSection'
 import Filters from '../components/usage_snapshots/filters'
@@ -196,6 +197,8 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
     setSelectedTeachers(originalAllTeachers)
     setSelectedClassrooms(originalAllClassrooms)
     setSelectedTimeframe(defaultTimeframe(allTimeframes))
+    setCustomStartDate(null)
+    setCustomEndDate(null)
 
     // what follows is basically duplicating the logic in applyFilters, but avoids a race condition where the "lastSubmitted" values get set before the new selected values are set
     setSearchCount(searchCount + 1)
@@ -239,7 +242,12 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   function handleClickDownloadReport() { window.print() }
 
   function mapItemsIfNotAll(selectedItems, allItems, mapKey = 'id') {
-    if (unorderedArraysAreEqual(selectedItems, allItems)) return null
+    // selectedItems may, by design, be a superset of allItems, but if everything in allItems is in selectedItems, we want to treat it as "everything" being selected
+    const allItemsSelected = allItems.every((item) => {
+      return _.some(selectedItems, item)
+    })
+
+    if (allItemsSelected || selectionsEqual(selectedItems, allItems)) return null
 
     return selectedItems.map(i => i[mapKey])
   }

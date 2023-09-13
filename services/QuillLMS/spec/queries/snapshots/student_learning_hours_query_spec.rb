@@ -10,6 +10,16 @@ module Snapshots
       let(:total_timespent) { activity_sessions.sum(&:timespent) / 3600.0 }
 
       it { expect(results).to eq(count: total_timespent) }
+
+      context 'null total timespent' do
+        let(:activity_sessions) do
+          classroom_units.map do |classroom_unit|
+            create(:activity_session, classroom_unit: classroom_unit, timespent: nil)
+          end
+        end
+
+        it { expect(results).to eq(count: 0) }
+      end
     end
   end
 end

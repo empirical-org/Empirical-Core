@@ -610,6 +610,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get '/clever/auth_url_details', to: 'clever#auth_url_details'
   get '/clever/no_classroom', to: 'clever#no_classroom'
+  get '/clever/district_success', to: 'clever#district_success'
   get '/auth/failure', to: 'sessions#failure'
 
   put '/select_school', to: 'schools#select_school'
@@ -739,6 +740,7 @@ EmpiricalGrammar::Application.routes.draw do
     beta
     board
     press
+    contact
     mission
     about
     faq

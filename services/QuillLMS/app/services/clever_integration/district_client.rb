@@ -10,18 +10,29 @@ module CleverIntegration
       @district_token = district_token
     end
 
-    def teacher_classrooms(teacher_clever_id)
+    def district_name(district_clever_id)
       data_api
-        .get_sections_for_teacher(teacher_clever_id)
+        .get_district(district_clever_id)
         .data
-        .map { |classroom_data| DistrictClassroomDataAdapter.run(classroom_data) }
+        .name
+    end
+
+    def teacher_classrooms(teacher_clever_id)
+      handle_client_errors do
+        data_api
+          .get_sections_for_teacher(teacher_clever_id)
+          .data
+          .map { |classroom_data| DistrictClassroomDataAdapter.run(classroom_data) }
+      end
     end
 
     def classroom_students(classroom_clever_id)
-      data_api
-        .get_students_for_section(classroom_clever_id)
-        .data
-        .map { |student_data| DistrictStudentDataAdapter.run(student_data) }
+      handle_client_errors do
+        data_api
+          .get_students_for_section(classroom_clever_id)
+          .data
+          .map { |student_data| DistrictStudentDataAdapter.run(student_data) }
+      end
     end
 
     private def data_api
@@ -32,6 +43,12 @@ module CleverIntegration
         api_instance.api_client.config = config
         api_instance
       end
+    end
+
+    private def handle_client_errors
+      yield
+    rescue ::Clever::ApiError => e
+      e.code == 404 ? [] : ErrorNotifier.report(e)
     end
   end
 end

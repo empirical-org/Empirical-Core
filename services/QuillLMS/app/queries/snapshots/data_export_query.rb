@@ -54,6 +54,10 @@ module Snapshots
       "activity_sessions.completed_at"
     end
 
+    def order_by_clause
+      "ORDER BY completed_at DESC"
+    end
+
     def limit_clause
       "LIMIT 10"
     end

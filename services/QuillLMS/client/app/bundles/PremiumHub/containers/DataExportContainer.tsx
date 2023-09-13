@@ -1,6 +1,7 @@
 import React from 'react'
 import queryString from 'query-string';
 import * as _ from 'lodash'
+import * as Pusher from 'pusher-js';
 
 import { FULL, restrictedPage, } from '../shared';
 import CustomDateModal from '../components/usage_snapshots/customDateModal'
@@ -50,7 +51,13 @@ const DataExportContainer = ({ adminInfo, accessType, }) => {
   const [lastUsedTimeframe, setLastUsedTimeframe] = React.useState(null)
   const [showMobileFilterMenu, setShowMobileFilterMenu] = React.useState(false)
 
+  const [pusherChannel, setPusherChannel] = React.useState(null)
+
   React.useEffect(() => {
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const channel = pusher.subscribe(String(adminInfo.id));
+    setPusherChannel(channel)
+
     getFilters()
   }, [])
 
@@ -86,7 +93,7 @@ const DataExportContainer = ({ adminInfo, accessType, }) => {
 
     setHasAdjustedFiltersSinceLastSubmission(newValueForHasAdjustedFiltersSinceLastSubmission)
 
-  }, [selectedSchools, selectedGrades, selectedTeachers, selectedClassrooms, selectedTimeframe, customStartDate, customEndDate])
+  }, [selectedSchools, selectedGrades, selectedTeachers, selectedClassrooms, selectedTimeframe])
 
   React.useEffect(() => {
     if (showCustomDateModal || (customStartDate && customEndDate) || !lastUsedTimeframe) { return }
@@ -173,6 +180,8 @@ const DataExportContainer = ({ adminInfo, accessType, }) => {
     setSelectedTeachers(originalAllTeachers)
     setSelectedClassrooms(originalAllClassrooms)
     setSelectedTimeframe(defaultTimeframe(allTimeframes))
+    setCustomStartDate(null)
+    setCustomEndDate(null)
 
     // what follows is basically duplicating the logic in applyFilters, but avoids a race condition where the "lastSubmitted" values get set before the new selected values are set
     setSearchCount(searchCount + 1)
@@ -254,7 +263,7 @@ const DataExportContainer = ({ adminInfo, accessType, }) => {
       <Filters
         {...filterProps}
       />
-      <main>
+      <main className="data-export-main">
         <div className="header">
           <h1>Data Export</h1>
           <button className="quill-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">Download Report</button>
@@ -266,10 +275,11 @@ const DataExportContainer = ({ adminInfo, accessType, }) => {
           </button>
         </div>
         <DataExportTableAndFields
-          adminId={adminInfo.id}
           customTimeframeEnd={customEndDate?.toDate()}
           customTimeframeStart={customStartDate?.toDate()}
+          pusherChannel={pusherChannel}
           queryKey="data-export"
+          searchCount={searchCount}
           selectedClassroomIds={selectedClassrooms.map(classroom => classroom.id)}
           selectedGrades={selectedGrades.map(grade => grade.value)}
           selectedSchoolIds={selectedSchools.map(school => school.id)}

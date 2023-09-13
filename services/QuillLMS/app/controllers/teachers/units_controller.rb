@@ -35,20 +35,18 @@ class Teachers::UnitsController < ApplicationController
     render json: response.to_json
   end
 
-  # rubocop:disable Lint/DuplicateBranch
   def update
     unit_template_names = UnitTemplate.pluck(:name).map(&:downcase)
     if unit_params[:name] && unit_params[:name] === ''
       render json: {errors: { name: 'Unit must have a name'} }, status: 422
     elsif unit_template_names.include?(unit_params[:name].downcase)
-      render json: {errors: { name: "Each activity pack needs a unique name. You're already using that name for another activity pack. Please choose a different name."} }, status: 422
+      render json: {errors: { name: "Existing activity packs cannot be updated to share a name with featured activity packs. Please choose a different name."} }, status: 422
     elsif Unit.find(params[:id])&.update(unit_params)
       render json: {}
     else
       render json: {errors: { name: "Each activity pack needs a unique name. You're already using that name for another activity pack. Please choose a different name."} }, status: 422
     end
   end
-  # rubocop:enable Lint/DuplicateBranch
 
   def update_classroom_unit_assigned_students
     activities_data = UnitActivity.where(unit_id: params[:id]).order(:order_number).pluck(:activity_id).map { |id| { id: id } }
@@ -380,7 +378,7 @@ class Teachers::UnitsController < ApplicationController
 
   private def fetch_diagnostic_units_cache
     current_user.all_classrooms_cache(key: 'teachers.classrooms.diagnostic_units') do
-      DiagnosticsOrganizedByClassroomFetcher.run(current_user, session[:demo_id].present?)
+      DiagnosticsOrganizedByClassroomFetcher.run(current_user)
     end
   end
 end

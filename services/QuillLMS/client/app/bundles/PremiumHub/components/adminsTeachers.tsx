@@ -268,7 +268,7 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
         access a teacher account will impact the teacher and student facing
         dashboards. This list provides you with the ability to sign in to all of the
         teacher accounts for the schools you have admin access.
-        <strong>The data below represents usage from this school year, beginning July 1st.</strong>
+        <strong>The data above represents usage from this school year, beginning July 1st.</strong>
       </p>
     </React.Fragment>
   )

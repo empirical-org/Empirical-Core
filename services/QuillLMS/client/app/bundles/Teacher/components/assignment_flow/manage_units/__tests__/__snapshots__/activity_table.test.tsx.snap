@@ -386,6 +386,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
       Array [
         Object {
           "attribute": "toolAndNameSection",
+          "headerClassName": "tool-and-name-section-header",
           "name": <span
             className="tool-and-name-header"
           >
@@ -807,7 +808,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
             Order
           </th>
           <th
-            className="data-table-header undefined"
+            className="data-table-header tool-and-name-section-header"
             key="0"
             scope="col"
             style={
@@ -12126,6 +12127,7 @@ exports[`ActivityTable component renders if the current user did not create the 
       Array [
         Object {
           "attribute": "toolAndNameSection",
+          "headerClassName": "tool-and-name-section-header",
           "name": <span
             className="tool-and-name-header"
           >
@@ -12642,7 +12644,7 @@ exports[`ActivityTable component renders if the current user did not create the 
           className="data-table-headers"
         >
           <th
-            className="data-table-header undefined"
+            className="data-table-header tool-and-name-section-header"
             key="0"
             scope="col"
             style={

@@ -341,6 +341,21 @@ describe SnapshotsController, type: :controller do
       expect(json_response['teachers']).to eq([{"id" => teacher.id, "name" => teacher.name}])
     end
 
+    context 'teachers with no classrooms' do
+      subject { get :options }
+
+      let(:json_response) { JSON.parse(response.body) }
+
+      before do
+        classrooms_teacher.destroy
+      end
+
+      it do
+        subject
+        expect(json_response['teachers']).to eq([{"id" => teacher.id, "name" => teacher.name}])
+      end
+    end
+
     it 'should return a list of all classrooms and their ids tied to the current_user' do
       get :options
 

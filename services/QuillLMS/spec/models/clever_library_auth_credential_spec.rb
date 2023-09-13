@@ -34,5 +34,16 @@ describe CleverLibraryAuthCredential, type: :model do
 
   it { is_expected.not_to be_canvas_authorized }
   it { is_expected.not_to be_google_authorized }
-end
 
+  context 'expires_at is nil' do
+    subject { create(:clever_library_auth_credential, expires_at: nil) }
+
+    it { is_expected.not_to be_clever_authorized }
+  end
+
+  context 'expires_at is in the past' do
+    subject { create(:clever_library_auth_credential, expires_at: 1.day.ago) }
+
+    it { is_expected.not_to be_clever_authorized }
+  end
+end

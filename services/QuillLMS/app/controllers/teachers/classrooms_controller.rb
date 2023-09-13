@@ -63,7 +63,7 @@ class Teachers::ClassroomsController < ApplicationController
     create_students_params[:students].each do |s|
       s[:account_type] = 'Teacher Created Account'
       student = Creators::StudentCreator.create_student(s, classroom.id)
-      Associators::StudentsToClassrooms.run(student, classroom)
+      StudentClassroomAssociator.run(student, classroom)
     end
     render json: { students: classroom.students }
   end
@@ -220,7 +220,10 @@ class Teachers::ClassroomsController < ApplicationController
       classroom_unit_ids = ClassroomUnit.where(classroom: classroom).ids
 
       students = students.map do |student|
-        student.merge(number_of_completed_activities: ActivitySession.where(state: ActivitySession::STATE_FINISHED, user_id: student['id'], classroom_unit_id: classroom_unit_ids).count || 0)
+        student.merge(
+          number_of_completed_activities: ActivitySession.where(state: ActivitySession::STATE_FINISHED, user_id: student['id'], classroom_unit_id: classroom_unit_ids).count || 0,
+          provider: User.find(student['id']).provider
+        )
       end
     end
 
@@ -228,10 +231,7 @@ class Teachers::ClassroomsController < ApplicationController
 
     provider_classroom_delegator = ProviderClassroomDelegator.new(classroom)
 
-    students
-      .map { |student| student.merge(synced: provider_classroom_delegator.synced_status(student)) }
-      .map { |student| student.merge(provider: User.find(student['id']).provider) }
-
+    students.map { |student| student.merge(synced: provider_classroom_delegator.synced_status(student)) }
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 

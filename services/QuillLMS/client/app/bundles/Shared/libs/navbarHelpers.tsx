@@ -19,31 +19,34 @@ interface renderNavListProps {
       url: string
     }
   },
-  activeStates: string[],
+  activeTab: string,
   handleLinkClick: () => void,
   listClass?: string
 }
 
-function getIcon(activeTab: string, tabLabel: string) {
+function getIcon(isActive: boolean, tabLabel: string) {
   const isReportingTab = premiumHubReportingTabs.includes(tabLabel)
-  if (activeTab && isReportingTab) {
+
+  if (isActive && isReportingTab) {
     return <img alt={redDiamondIcon.alt} src={redDiamondIcon.src} />
   } else if (isReportingTab) {
     return <img alt={whiteDiamondIcon.alt} src={whiteDiamondIcon.src} />
   }
 }
 
-function renderListItem({ tabs, activeStates, handleLinkClick, tabLabel, i }) {
+function renderListItem({ tabs, handleLinkClick, tabLabel, activeTab, i }) {
   const onMobile = window.innerWidth <= MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR;
   const premiumClass = premiumHubReportingTabs.includes(tabLabel) ? 'premium' : ''
-  const linkClass = `${activeStates[i]} ${premiumClass}`
+  const activeClass = activeTab === tabLabel ? 'active' : ''
+  const linkClass = `${activeClass} ${premiumClass}`
+
   if (onMobile) {
     return (
       <li key={i}>
-        <Link className={`${activeStates[i]} ${premiumClass}`} onClick={handleLinkClick} to={tabs[tabLabel].url}>
+        <Link className={`${linkClass}`} onClick={handleLinkClick} to={tabs[tabLabel].url}>
           {tabLabel}
         </Link>
-        <div className={`checkmark-icon ${activeStates[i]}`} />
+        <div className={`checkmark-icon ${activeClass}`} />
       </li>
     )
   }
@@ -51,17 +54,17 @@ function renderListItem({ tabs, activeStates, handleLinkClick, tabLabel, i }) {
     <li key={i}>
       <Link className={linkClass} onClick={handleLinkClick} to={tabs[tabLabel].url}>
         {tabLabel}
-        {getIcon(activeStates[i], tabLabel)}
+        {getIcon(!!activeClass, tabLabel)}
       </Link>
     </li>
   )
 }
 
-export function renderNavList({ tabs, activeStates, handleLinkClick, listClass }: renderNavListProps) {
+export function renderNavList({ tabs, handleLinkClick, listClass, activeTab }: renderNavListProps) {
   return (
     <ul className={listClass}>
       {Object.keys(tabs).map((tabLabel, i) => {
-        return renderListItem({ tabs, activeStates, handleLinkClick, tabLabel, i })
+        return renderListItem({ tabs, handleLinkClick, tabLabel, activeTab, i })
       })}
     </ul>
   )

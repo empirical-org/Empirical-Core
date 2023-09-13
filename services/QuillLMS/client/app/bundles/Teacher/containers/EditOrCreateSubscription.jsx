@@ -2,7 +2,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
 import { SingleDatePicker } from 'react-dates';
-import { DataTable } from '../../Shared/index';
+import { DataTable, ButtonLoadingSpinner, } from '../../Shared/index';
 import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx';
 
 import { requestPost, requestPut, } from '../../../modules/request/index';
@@ -23,6 +23,7 @@ export default class EditOrCreateSubscription extends React.Component {
       subscription: defaultSubscription,
       firstFocused: false,
       secondFocused: false,
+      submitting: false,
       schools
     }
   }
@@ -176,23 +177,30 @@ export default class EditOrCreateSubscription extends React.Component {
 
   handleSubmit = () => {
     const { view, } = this.props
+    const { submitting, } = this.state
+
+    if (submitting) { return }
+
     const submitVars = this.submitVars()
     const that = this
 
-    submitVars.requestMethod(
-      submitVars.urlString,
-      submitVars.data,
-      (body) => {
-        alert('Subscription was saved');
-        if (view === 'new') {
-          // redirect back to the school or district details page
-          window.location = window.location.href.replace('new_subscription', '')
+    this.setState({ submitting: true, }, () => {
+      submitVars.requestMethod(
+        submitVars.urlString,
+        submitVars.data,
+        (body) => {
+          alert('Subscription was saved');
+          if (view === 'new') {
+            // redirect back to the school or district details page
+            window.location = window.location.href.replace('new_subscription', '')
+          }
+        },
+        (body) => {
+          this.setState({ submitting: false, })
+          alert('There was an error. Please try again and contact a dev if you continue to get this warning.')
         }
-      },
-      (body) => {
-        alert('There was an error. Please try again and contact a dev if you continue to get this warning.')
-      }
-    )
+      )
+    })
   }
 
   isInvoice = () => {
@@ -380,8 +388,20 @@ export default class EditOrCreateSubscription extends React.Component {
   }
 
   submitButton = () => {
+    const { submitting, } = this.state
     const { subscriberType, view } = this.props
     const submitAction = subscriberType === 'User' ? this.handleSubmit : this.submitConfirmation
+
+    if (submitting) {
+      return (
+        <div>
+          <button className="q-button cta-button bg-quillgreen text-white" disabled={true} type="submit">
+            <span>{view === 'new' ? 'New' : 'Update'} Subscription</span>
+            <ButtonLoadingSpinner />
+          </button>
+        </div>
+      )
+    }
 
     return (
       <div>

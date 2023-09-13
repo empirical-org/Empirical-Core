@@ -55,7 +55,7 @@ describe StudentsClassrooms, type: :model, redis: true do
       let(:students_classrooms) { build(:students_classrooms, visible: true) }
 
       it 'should run the students to classrooms associator' do
-        expect(Associators::StudentsToClassrooms).to receive(:run).with(students_classrooms.student, students_classrooms.classroom)
+        expect(StudentClassroomAssociator).to receive(:run).with(students_classrooms.student, students_classrooms.classroom)
         students_classrooms.save
       end
     end

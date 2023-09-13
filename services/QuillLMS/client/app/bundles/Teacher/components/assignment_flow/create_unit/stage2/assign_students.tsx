@@ -252,7 +252,7 @@ const AssignStudents = ({
 
   const renderImportFromProviderButton = (theProvider: string) => {
     if (provider && provider != theProvider) { return null }
-    if (!provider && theProvider !== canvasProvider) { return null }
+    if (!provider && theProvider === canvasProvider) { return null }
 
     const theProviderTitle = providerConfigLookup[theProvider].title
 

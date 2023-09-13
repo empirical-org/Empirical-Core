@@ -194,45 +194,60 @@ describe ClassroomUnit, type: :model, redis: true do
   end
 
   describe 'manage_user_pack_sequence_items' do
-    context 'after_save' do
-      context 'assigned_student_ids has changed' do
-        subject { classroom_unit.reload.update(assigned_student_ids: new_assigned_student_ids, assign_on_join: false) }
+    subject { classroom_unit.reload.update(assigned_student_ids: new_assigned_student_ids, assign_on_join: false) }
 
-        let(:another_student) { create(:student) }
+    let(:another_student) { create(:student) }
 
-        context 'no user_pack_sequence_items exist' do
-          context 'student was removed' do
-            let(:new_assigned_student_ids) { [] }
+    context 'no user_pack_sequence_items exist' do
+      context 'student was removed' do
+        let(:new_assigned_student_ids) { [] }
 
-            it { expect { subject }.not_to change(UserPackSequenceItem, :count) }
-          end
+        it { expect { subject }.not_to change(UserPackSequenceItem, :count) }
+      end
 
-          context 'new student was added' do
-            let(:new_assigned_student_ids) { [student.id, another_student.id]}
+      context 'new student was added' do
+        let(:new_assigned_student_ids) { [student.id, another_student.id]}
 
-            it { expect { subject }.not_to change(UserPackSequenceItem, :count) }
-          end
+        it { expect { subject }.not_to change(UserPackSequenceItem, :count) }
+      end
+    end
+
+    context 'user_pack_sequence_items exist' do
+      let!(:pack_sequence_item) { create(:pack_sequence_item, classroom_unit: classroom_unit) }
+
+      before { create(:user_pack_sequence_item, user: student, pack_sequence_item: pack_sequence_item) }
+
+      context 'student was removed' do
+        let(:new_assigned_student_ids) { [] }
+
+        it { expect { subject }.to change(UserPackSequenceItem, :count).from(1).to(0) }
+      end
+
+      context 'new student was added' do
+        let(:new_assigned_student_ids) { [student.id, another_student.id]}
+
+        it { expect { subject }.to change(UserPackSequenceItem, :count).from(1).to(2) }
+
+        context 'but already has a user_pack_sequence_item' do
+          before { create(:user_pack_sequence_item, user: another_student, pack_sequence_item: pack_sequence_item) }
+
+          it { expect { subject }.not_to change(UserPackSequenceItem, :count)}
+        end
+      end
+
+      context 'race condition exists with user_pack_sequence_item creation' do
+        let(:new_assigned_student_ids) { [student.id, another_student.id]}
+
+        before do
+          allow(UserPackSequenceItem)
+            .to receive(:find_or_create_by!)
+            .with(pack_sequence_item_id: pack_sequence_item.id, user_id: another_student.id)
+            .and_raise(ActiveRecord::RecordNotUnique)
+            .once
         end
 
-        context 'user_pack_sequence_items exist' do
-          let!(:pack_sequence_item) { create(:pack_sequence_item, classroom_unit: classroom_unit) }
-
-          before { create(:user_pack_sequence_item, user: student, pack_sequence_item: pack_sequence_item) }
-
-          context 'student was removed' do
-            let(:new_assigned_student_ids) { [] }
-
-            it { expect { subject }.to change(UserPackSequenceItem, :count).from(1).to(0) }
-          end
-
-          context 'new student was added' do
-            let(:new_assigned_student_ids) { [student.id, another_student.id]}
-
-            it { expect { subject }.to change(UserPackSequenceItem, :count).from(1).to(2) }
-          end
-        end
+        it { expect { subject }.not_to change(UserPackSequenceItem, :count) }
       end
     end
   end
-
 end

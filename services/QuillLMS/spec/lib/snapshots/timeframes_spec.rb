@@ -63,10 +63,10 @@ module Snapshots
 
         it do
           expect(described_class.calculate_timeframes('custom', custom_start: custom_start.to_s, custom_end: custom_end.to_s)).to eq([
-            custom_start - (custom_end - custom_start),
-            custom_start,
-            custom_start,
-            custom_end
+            (custom_start - (custom_end - custom_start)).beginning_of_day,
+            custom_start.end_of_day,
+            custom_start.beginning_of_day,
+            custom_end.end_of_day
           ])
         end
       end
