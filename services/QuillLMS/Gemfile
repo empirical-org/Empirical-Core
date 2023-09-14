@@ -202,7 +202,6 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-screenshot'
-  gem 'mini_racer', '= 0.4.0'
   gem 'fakeredis', '~> 0.7.0'
   gem 'rails-controller-testing'
   gem 'selenium-webdriver', '~> 4.11.0'
