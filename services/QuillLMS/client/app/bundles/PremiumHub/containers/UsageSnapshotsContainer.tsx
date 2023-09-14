@@ -341,7 +341,7 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
         <div className="header">
           <h1>
             <span>Usage Snapshot Report</span>
-            <a href="https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-premium-hub" rel="noopener noreferrer" target="_blank">
+            <a href="https://support.quill.org/en/articles/8358350-how-do-i-use-the-usage-snapshot-report" rel="noopener noreferrer" target="_blank">
               <img alt="" src={`${process.env.CDN_URL}/images/icons/file-document.svg`} />
               <span>Guide</span>
             </a>
