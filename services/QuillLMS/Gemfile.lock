@@ -753,7 +753,7 @@ GEM
       climate_control (>= 0.0.3, < 1.0)
     thor (1.2.2)
     tilt (2.0.10)
-    timecop (0.9.1)
+    timecop (0.9.8)
     timeout (0.4.0)
     trailblazer-option (0.1.2)
     ttfunk (1.7.0)
@@ -857,7 +857,6 @@ DEPENDENCIES
   lograge
   maxminddb
   memory_profiler
-  mini_racer (= 0.4.0)
   newrelic_rpm (~> 9.3.1)
   nokogiri (>= 1.13.2)
   omniauth
@@ -925,7 +924,7 @@ DEPENDENCIES
   sprockets-rails (~> 3.2.2)
   stripe (~> 5.30)
   super_diff
-  timecop
+  timecop (~> 0.9.8)
   ttfunk
   turbolinks
   tzinfo

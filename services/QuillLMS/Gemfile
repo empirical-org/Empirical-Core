@@ -187,7 +187,7 @@ group :test, :development do
   gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'factory_bot_rails', require: false
-  gem 'timecop'
+  gem 'timecop', '~> 0.9.8'
   gem 'byebug'
   gem 'rspec-retry'
   gem 'rspec-redis_helper'
