@@ -91,7 +91,7 @@ export const AdminSubnav = ({ path }) => {
 
   const dropdownClass = dropdownOpen ? 'open' : '';
 
-  const tabsToShow = window.location.href.includes('usage_snapshot') || window.location.href.includes('data_export') ? tabs : tabsWithoutDataExportReport
+  const tabsToShow = window.location.href.includes('data_export') ? tabs : tabsWithoutDataExportReport
 
   return(
     <React.Fragment>
