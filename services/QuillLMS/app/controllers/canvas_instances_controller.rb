@@ -13,6 +13,19 @@ class CanvasInstancesController < ApplicationController
     render json: { errors: e }, status: :unprocessable_entity
   end
 
+  def update
+    render json: updated_canvas_objects, status: :ok
+  rescue ActiveRecord::NotNullViolation, ActiveRecord::RecordInvalid => e
+    render json: { errors: e }, status: :unprocessable_entity
+  end
+
+  def destroy
+    existing_canvas_instance.destroy
+    render json: {}, status: :ok
+  rescue ActiveRecord::NotNullViolation, ActiveRecord::RecordInvalid => e
+    render json: { errors: e }, status: :unprocessable_entity
+  end
+
   # No find_or_create_by since find requires searching of encrypted values
   private def canvas_config
     canvas_instance.create_canvas_config!(canvas_config_params)
@@ -26,6 +39,10 @@ class CanvasInstancesController < ApplicationController
 
   private def canvas_instance
     @canvas_instance ||= CanvasInstance.find_or_create_by!(url: canvas_instance_params[:url].chomp('/'))
+  end
+
+  private def existing_canvas_instance
+    @canvas_instance ||= CanvasInstance.find_by!(id: params[:id])
   end
 
   private def canvas_instance_params
@@ -49,7 +66,21 @@ class CanvasInstancesController < ApplicationController
   private def canvas_integrations
     current_user
       .administered_school_canvas_instances_with_canvas_configs
-      .map { |canvas_instance| { schoolNames: canvas_instance.schools.pluck(:name), url: canvas_instance.url } }
+      .map { |canvas_instance| { school_names: canvas_instance.schools.pluck(:name), id: canvas_instance.id, url: canvas_instance.url, client_id: canvas_instance.client_id, client_secret: canvas_instance.client_secret } }
+  end
+
+  private def updated_canvas_objects
+    ActiveRecord::Base.transaction do
+      existing_canvas_instance.update!(canvas_instance_params)
+      existing_canvas_instance.canvas_config.destroy
+      existing_canvas_instance.canvas_instance_schools.destroy_all
+
+      {
+        canvas_instance: existing_canvas_instance,
+        canvas_config: canvas_config,
+        canvas_instance_schools: canvas_instance_schools
+      }
+    end
   end
 
   private def canvas_objects
@@ -63,4 +94,5 @@ class CanvasInstancesController < ApplicationController
       }
     end
   end
+
 end
