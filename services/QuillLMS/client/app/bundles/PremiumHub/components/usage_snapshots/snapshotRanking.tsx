@@ -1,9 +1,8 @@
 import * as React from 'react'
 
-import { selectionsEqual, } from './shared'
-
 import { requestPost, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'
+import { selectionsEqual } from '../../shared'
 
 const expandImg = <img alt="" src={`${process.env.CDN_URL}/images/pages/administrator/expand.svg`} />
 
