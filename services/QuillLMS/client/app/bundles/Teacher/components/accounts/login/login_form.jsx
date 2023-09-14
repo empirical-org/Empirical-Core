@@ -185,6 +185,7 @@ class LoginFormApp extends React.Component {
                   <input
                     aria-label="Log in"
                     className={this.submitClass()}
+                    disabled={!(email.length && password.length)}
                     id="log-in"
                     name="commit"
                     type="submit"
