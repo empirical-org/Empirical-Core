@@ -91,10 +91,11 @@ class Cms::SchoolsController < Cms::CmsController
 
   def create
     new_school = School.new(edit_or_add_school_params)
-    if new_school.save
+
+    if new_school.safer_save
       redirect_to cms_school_path(new_school.id)
     else
-      redirect_to new_cms_school_path, flash: { error: new_school.errors }
+      redirect_to new_cms_school_path, flash: { error: new_school.errors.full_messages }
     end
   end
 
