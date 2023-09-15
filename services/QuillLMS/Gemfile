@@ -213,3 +213,5 @@ group :test do
   gem 'vcr'
   gem 'webmock'
 end
+
+gem "matrix", "~> 0.4.2"

@@ -853,6 +853,7 @@ DEPENDENCIES
   letter_opener
   lms-api
   lograge
+  matrix (~> 0.4.2)
   maxminddb
   memory_profiler
   newrelic_rpm (~> 9.3.1)
