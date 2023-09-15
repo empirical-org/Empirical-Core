@@ -79,7 +79,7 @@ module Evidence
 
       results =
         automl_prediction_client
-          .predict(endpoint: automl_prediction_endpoint, instances: instances)
+          .predict(endpoint: automl_prediction_endpoint, instances: { content: text })
           .predictions
           .first
           .struct_value
@@ -137,7 +137,7 @@ module Evidence
     end
 
     private def automl_client
-      automl_client = ::Google::Cloud::AIPlatform::V1::ModelService::Client.new
+      @automl_client ||= ::Google::Cloud::AIPlatform::V1::ModelService::Client.new
     end
 
     private def automl_prediction_client
