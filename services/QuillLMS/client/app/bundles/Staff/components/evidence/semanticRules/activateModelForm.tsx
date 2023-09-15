@@ -103,7 +103,7 @@ const ActivateModelForm = ({ match }) => {
       return [];
     }
     // format for DataTable to display labels on left side and values on right
-    const { external_id, name, older_models } = model;
+    const { model_external_id, name, older_models } = model;
 
     const fields = [
       {
@@ -112,7 +112,7 @@ const ActivateModelForm = ({ match }) => {
       },
       {
         label: 'Model ID',
-        value: external_id
+        value: model_external_id
       },
       {
         label: 'Model Version',

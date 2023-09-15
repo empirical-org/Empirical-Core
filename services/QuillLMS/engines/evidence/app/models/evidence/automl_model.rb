@@ -16,18 +16,20 @@ module Evidence
 
     PREDICT_API_TIMEOUT = 5.0
     GOOGLE_PROJECT_ID = ENV['AUTOML_GOOGLE_PROJECT_ID']
+    GOOGLE_PREDICTION_ENDPOINT_ID = ENV['AUTOML_GOOGLE_PREDICTION_ENDPOINT_ID']
     GOOGLE_LOCATION = ENV['AUTOML_GOOGLE_LOCATION']
     CONFUSION_MATRIX = 'confusionMatrix'
     ANNOTATION_SPECS = 'annotationSpecs'
     DISPLAY_NAME = 'displayName'
 
-    attr_readonly :external_id, :name, :labels
+    attr_readonly :model_external_id, :endpoint_external_id, :name, :labels
 
     belongs_to :prompt, inverse_of: :automl_models
 
     validate :validate_label_associations, if: :active?
 
-    validates :external_id, presence: true, uniqueness: true
+    validates :model_external_id, presence: true, uniqueness: true
+    validates :endpoint_external_id, presence: true, uniqueness: true
     validates :labels, presence: true, length: {minimum: MIN_LABELS_LENGTH}
     validates :name, presence: true
     validates :state, inclusion: {in: ['active', 'inactive']}
@@ -38,12 +40,12 @@ module Evidence
       options ||= {}
 
       super(options.reverse_merge(
-        only: [:id, :external_id, :notes, :name, :labels, :state, :prompt_id, :created_at, :updated_at],
+        only: [:id, :model_external_id, :endpoint_external_id, :notes, :name, :labels, :state, :prompt_id, :created_at, :updated_at],
         methods: [:older_models]
       ))
     end
 
-    def populate_from_external_id
+    def populate_from_model_external_id
       self.name = automl_name
       self.labels = automl_labels
       self.state = STATE_INACTIVE
@@ -73,10 +75,20 @@ module Evidence
     # rubocop:enable Metrics/CyclomaticComplexity
 
     def fetch_automl_label(text)
-      automl_payload = { text_snippet: { content: text } }
-      results = automl_prediction_client.predict(name: automl_prediction_model_path, payload: automl_payload)
-      sorted_results = results.payload.sort_by { |i| i.classification.score }.reverse
-      [sorted_results[0].display_name, sorted_results[0].classification.score]
+      instances = [Google::Protobuf::Value.new(struct_value: { fields: { content: { string_value: text } } })]
+
+      results =
+        automl_prediction_client
+          .predict(endpoint: automl_prediction_endpoint, instances: instances)
+          .predictions
+          .first
+          .struct_value
+          .fields
+
+      confidences = results['confidences'].list_value.values.map(&:number_value)
+      score, score_index = confidences.each_with_index.max_by { |score, i| [score, i] }
+      display_name = results['displayNames'].list_value.values[score_index].string_value
+      [display_name, score]
     end
 
     def older_models
@@ -96,7 +108,8 @@ module Evidence
     end
 
     private def strip_whitespace
-      self.external_id = external_id.strip unless external_id.nil?
+      self.model_external_id = model_external_id.strip unless model_external_id.nil?
+      self.endpoint_external_id = endpoint_external_id.strip unless endpoint_external_id.nil?
     end
 
     private def prompt_automl_rules
@@ -134,15 +147,15 @@ module Evidence
     end
 
     private def automl_model_path
-      automl_model_path = automl_client.model_path(**model_path_args)
-    end
-
-    private def automl_prediction_model_path
-      @automl_prediction_model_path ||= automl_prediction_client.model_path(**model_path_args)
+      @automl_model_path ||= automl_client.model_path(**model_path_args)
     end
 
     private def model_path_args
-      {project: GOOGLE_PROJECT_ID, location: GOOGLE_LOCATION, model: external_id.strip}
+      {project: GOOGLE_PROJECT_ID, location: GOOGLE_LOCATION, model: model_external_id.strip}
+    end
+
+    private def automl_prediction_endpoint
+      "projects/#{GOOGLE_PROJECT_ID}/locations/#{GOOGLE_LOCATION}/endpoints/#{endpoint_external_id}"
     end
 
     private def automl_labels
