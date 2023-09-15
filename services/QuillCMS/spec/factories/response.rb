@@ -1,19 +1,19 @@
 FactoryBot.define do
   factory :response, class: 'Response' do
-    feedback 'Sample feedback'
-    question_uid SecureRandom.uuid
+    feedback { 'Sample feedback' }
+    question_uid { SecureRandom.uuid }
     sequence(:text) { |n| "I am text #{n}" }
 
     factory :optimal_response do
-      optimal true
+      optimal { true }
     end
 
     factory :ungraded_response do
-      optimal nil
+      optimal { nil }
     end
 
     factory :graded_nonoptimal_response do
-      optimal false
+      optimal { false }
     end
   end
 end
