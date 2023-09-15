@@ -18,12 +18,20 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe AutomlModel, type: :model do
+    it { should belong_to(:prompt) }
+    it { should have_readonly_attribute(:model_external_id) }
+    it { should have_readonly_attribute(:endpoint_external_id) }
+    it { should have_readonly_attribute(:name) }
+    it { should have_readonly_attribute(:labels) }
+
     context 'validations' do
       context 'should shoulda matchers' do
         before { create(:evidence_automl_model) }
 
-        it { should validate_presence_of(:external_id) }
-        it { should validate_uniqueness_of(:external_id) }
+        it { should validate_presence_of(:model_external_id) }
+        it { should validate_uniqueness_of(:model_external_id) }
+        it { should validate_presence_of(:endpoint_external_id) }
+        it { should validate_uniqueness_of(:endpoint_external_id) }
         it { should validate_presence_of(:name) }
       end
 
@@ -56,14 +64,20 @@ module Evidence
       end
 
       context '#before_validation' do
-        it 'should strip whitespace from "external_id"' do
-          model_id = '   STRIP_ME   '
-          automl_model = build(:evidence_automl_model, external_id: model_id)
+        it 'should strip whitespace from "model_external_id"' do
+          model_external_id = '   STRIP_ME   '
+          automl_model = build(:evidence_automl_model, model_external_id: model_external_id)
           automl_model.valid?
-          expect(automl_model.external_id).to eq(model_id.strip)
+          expect(automl_model.model_external_id).to eq(model_external_id.strip)
+        end
+
+        it 'should strip whitespace from "endpoint_external_id"' do
+          endpoint_external_id = '   STRIP_ME   '
+          automl_model = build(:evidence_automl_model, endpoint_external_id: endpoint_external_id)
+          automl_model.valid?
+          expect(automl_model.endpoint_external_id).to eq(endpoint_external_id.strip)
         end
       end
-
 
       context '#state_can_be_active' do
         let!(:automl_model) { create(:evidence_automl_model) }
@@ -86,43 +100,6 @@ module Evidence
           expect(automl_model.valid?).to be true
         end
       end
-
-
-      context 'should #forbid_external_id_change' do
-
-        it 'should not allow external_id to change after create' do
-          original_id = "automl_id"
-          automl_model = create(:evidence_automl_model, :external_id => original_id)
-          automl_model.external_id = "some new value"
-          automl_model.save
-          automl_model.reload
-          expect(original_id).to(eq(automl_model.external_id))
-        end
-      end
-
-      context 'should #forbid_name_change' do
-
-        it 'should not allow name to change after create' do
-          original_name = "name"
-          automl_model = create(:evidence_automl_model, :name => original_name)
-          automl_model.name = "some new value"
-          automl_model.save
-          automl_model.reload
-          expect(original_name).to(eq(automl_model.name))
-        end
-      end
-
-      context 'should #forbid_labels_change' do
-
-        it 'should not allow labels to change after create' do
-          original_labels = ["label1"]
-          automl_model = create(:evidence_automl_model, :labels => original_labels)
-          automl_model.labels = ["some new value"]
-          automl_model.save
-          automl_model.reload
-          expect(original_labels).to(eq(automl_model.labels))
-        end
-      end
     end
 
     context '#labels_have_associated_rules?' do
@@ -141,10 +118,6 @@ module Evidence
         automl_model.state = AutomlModel::STATE_ACTIVE
         expect((!automl_model.valid?)).to(be_truthy)
       end
-    end
-
-    context 'relationships' do
-      it { should belong_to(:prompt) }
     end
 
     context '#serializable_hash' do

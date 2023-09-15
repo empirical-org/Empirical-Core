@@ -14,6 +14,7 @@ const ModelForm = ({ location, history, match }) => {
 
   const [errors, setErrors] = React.useState<object>({});
   const [modelId, setModelId] = React.useState<string>('');
+  const [endpointId, setEndpointId] = React.useState<string>('');
   const [modelNotes, setModelNotes] = React.useState<string>('');
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
@@ -25,20 +26,27 @@ const ModelForm = ({ location, history, match }) => {
   function handleSetModelId(e: InputEvent) {
     setModelId(e.target.value);
   }
+  function handleSetEndpointId(e: InputEvent) {
+    setEndpointId(e.target.value);
+  }
   function handleSetModelNotes(e: InputEvent) {
     setModelNotes(e.target.value);
   }
 
   function submitModel() {
-    if(!modelId) {
-      const updatedErrors = {...errors};
+    if (!modelId) {
+      const updatedErrors = { ...errors };
       updatedErrors['Model ID'] = 'Model ID cannot be blank.';
+      setErrors(updatedErrors);
+    } else if (!endpointId) {
+      const updatedErrors = { ...errors };
+      updatedErrors['Endpoint ID'] = 'Endpoint ID cannot be blank.';
       setErrors(updatedErrors);
     } else {
       setIsLoading(true);
-      createModel(modelId, promptId, modelNotes).then((response) => {
+      createModel(modelId, endpointId, promptId, modelNotes).then((response) => {
         const { error, model } = response;
-        if(error) {
+        if (error) {
           const updatedErrors = {};
           updatedErrors['Model Submission Error'] = error;
           setErrors(updatedErrors);
@@ -50,8 +58,8 @@ const ModelForm = ({ location, history, match }) => {
     }
   }
 
-  if(isLoading) {
-    return(
+  if (isLoading) {
+    return (
       <div className="loading-spinner-container">
         <Spinner />
       </div>
@@ -61,7 +69,7 @@ const ModelForm = ({ location, history, match }) => {
   const conjunction = location && location.state && location.state.conjunction || '';
   const header = `Semantic Labels - Add Model (${conjunction})`
 
-  return(
+  return (
     <div className="model-form-container">
       {renderHeader(activityData, header)}
       <Link className="return-link" to={{ pathname: `/activities/${activityId}/semantic-labels`, state: 'returned-to-index' }}>← Return to Semantic Rules Index</Link>
@@ -71,6 +79,13 @@ const ModelForm = ({ location, history, match }) => {
         handleChange={handleSetModelId}
         label="Model ID"
         value={modelId}
+      />
+      <Input
+        className="endpoint-id"
+        error={errors['Endpoint ID']}
+        handleChange={handleSetEndpointId}
+        label="Endpoint ID"
+        value={endpointId}
       />
       <TextArea
         characterLimit={1000}
