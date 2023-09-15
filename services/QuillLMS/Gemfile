@@ -162,6 +162,8 @@ gem 'capitalize-names', require: 'capitalize_names'
 
 gem 'rexml'
 
+gem 'psych', '< 4'
+
 group :production, :staging do
   gem 'rails-autoscale-web'
   gem 'rails-autoscale-sidekiq'
