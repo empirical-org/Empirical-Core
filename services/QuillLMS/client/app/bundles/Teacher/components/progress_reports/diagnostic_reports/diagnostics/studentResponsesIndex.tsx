@@ -238,9 +238,9 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
   function renderPreToPostImprovedSkillsElement({total_correct_questions_count, total_acquired_skill_groups_count}) {
     if (total_correct_questions_count === undefined) { return diagnosticNotCompletedElement }
 
-    if (!total_acquired_skill_groups_count) { return NOT_AVAILABLE }
-
     if (total_acquired_skill_groups_count === 0) { return '0 Improved Skills' }
+
+    if (!total_acquired_skill_groups_count) { return NOT_AVAILABLE }
 
     return total_acquired_skill_groups_count === 1 ? '+1 Improved Skill' : `+${total_acquired_skill_groups_count} Improved Skills`
   }
