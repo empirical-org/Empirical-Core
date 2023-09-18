@@ -2582,7 +2582,8 @@ ALTER SEQUENCE public.evidence_activity_healths_id_seq OWNED BY public.evidence_
 
 CREATE TABLE public.evidence_automl_models (
     id bigint NOT NULL,
-    external_id character varying NOT NULL,
+    model_external_id character varying NOT NULL,
+    endpoint_external_id character varying NOT NULL,
     name character varying NOT NULL,
     labels character varying[] DEFAULT '{}'::character varying[],
     prompt_id bigint,
