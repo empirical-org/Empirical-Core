@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_06_215624) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_11_142601) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -195,6 +195,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_215624) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "evidence_automl_models", force: :cascade do |t|
+    t.string "model_external_id", null: false
+    t.string "endpoint_external_id", null: false
+    t.string "name", null: false
+    t.string "labels", default: [], array: true
+    t.bigint "prompt_id"
+    t.string "state", null: false
+    t.text "notes", default: ""
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["prompt_id"], name: "index_evidence_automl_models_on_prompt_id"
+  end
+
   create_table "evidence_hints", force: :cascade do |t|
     t.string "explanation", null: false
     t.string "image_link", null: false
@@ -263,5 +276,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_215624) do
   add_foreign_key "comprehension_labels", "comprehension_rules", column: "rule_id", on_delete: :cascade
   add_foreign_key "comprehension_plagiarism_texts", "comprehension_rules", column: "rule_id", on_delete: :cascade
   add_foreign_key "comprehension_regex_rules", "comprehension_rules", column: "rule_id", on_delete: :cascade
+  add_foreign_key "evidence_automl_models", "comprehension_prompts", column: "prompt_id"
   add_foreign_key "evidence_prompt_healths", "evidence_activity_healths", on_delete: :cascade
 end
