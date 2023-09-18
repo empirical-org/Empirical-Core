@@ -66,7 +66,16 @@ class CanvasInstancesController < ApplicationController
   private def canvas_integrations
     current_user
       .administered_school_canvas_instances_with_canvas_configs
-      .map { |canvas_instance| { school_names: canvas_instance.schools.pluck(:name), id: canvas_instance.id, url: canvas_instance.url, client_id: canvas_instance.client_id, client_secret: canvas_instance.client_secret } }
+      .map do |canvas_instance|
+        {
+          school_names: canvas_instance.schools.pluck(:name),
+          school_ids: canvas_instance.schools.pluck(:id),
+          id: canvas_instance.id,
+          url: canvas_instance.url,
+          client_id: canvas_instance.client_id,
+          client_secret: canvas_instance.client_secret
+        }
+      end
   end
 
   private def updated_canvas_objects
