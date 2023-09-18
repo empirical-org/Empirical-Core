@@ -2,7 +2,6 @@ import React from 'react'
 import queryString from 'query-string';
 import * as _ from 'lodash'
 import * as Pusher from 'pusher-js';
-import { Route, Switch } from 'react-router-dom';
 
 import DataExportContainer from './DataExportContainer';
 import UsageSnapshotsContainer from './UsageSnapshotsContainer';
@@ -15,7 +14,7 @@ import { Spinner } from '../../Shared/index'
 import { requestGet, } from '../../../modules/request'
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
 
-const PremiumFilterableReportsContainer = ({ adminInfo, accessType, }) => {
+const PremiumFilterableReportsContainer = ({ adminInfo, accessType, location }) => {
   const [loadingFilters, setLoadingFilters] = React.useState(true)
 
   const [allTimeframes, setAllTimeframes] = React.useState(null)
@@ -267,6 +266,9 @@ const PremiumFilterableReportsContainer = ({ adminInfo, accessType, }) => {
     openMobileFilterMenu
   }
 
+  const shouldRenderDataExportContainer = location && location.pathname === '/teachers/premium_hub/data_export'
+  const shouldRenderUsageSnapshotsContainer = location && location.pathname === '/teachers/premium_hub/usage_snapshot_report'
+
   if (accessType !== FULL) {
     return restrictedPage
   }
@@ -284,10 +286,8 @@ const PremiumFilterableReportsContainer = ({ adminInfo, accessType, }) => {
       <Filters
         {...filterProps}
       />
-      <Switch>
-        <Route component={routerProps => <DataExportContainer {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/data_export" />
-        <Route component={routerProps => <UsageSnapshotsContainer {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/usage_snapshot_report" />
-      </Switch>
+      {shouldRenderDataExportContainer && <DataExportContainer {...sharedProps} />}
+      {shouldRenderUsageSnapshotsContainer && <UsageSnapshotsContainer {...sharedProps} />}
     </div>
   )
 }

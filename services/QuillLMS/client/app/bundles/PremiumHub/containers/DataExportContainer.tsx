@@ -24,7 +24,6 @@ const DataExportContainer = ({
   handleClickDownloadReport,
   openMobileFilterMenu
 }) => {
-  console.log("🚀 ~ file: DataExportContainer.tsx:27 ~ searchCount:", searchCount)
 
   if (loadingFilters) {
     return <Spinner />
@@ -49,6 +48,7 @@ const DataExportContainer = ({
       <DataExportTableAndFields
         customTimeframeEnd={customEndDate?.toDate()}
         customTimeframeStart={customStartDate?.toDate()}
+        key="data-export-table-and-fields"
         pusherChannel={pusherChannel}
         queryKey="data-export"
         searchCount={searchCount}
@@ -62,4 +62,4 @@ const DataExportContainer = ({
   )
 }
 
-export default DataExportContainer
+export default DataExportContainer;
