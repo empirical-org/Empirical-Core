@@ -7,6 +7,7 @@ module Evidence
     before { @routes = Engine.routes }
 
     let(:parsed_response) { JSON.parse(response.body) }
+    let(:user) { Evidence.user_class.create(name: 'test') }
 
     describe '#index' do
       subject { get :index }
@@ -39,14 +40,13 @@ module Evidence
     describe '#create' do
       subject { post :create, params: { automl_model: automl_model_params } }
 
-      let(:user_id) { create(:user).id }
       let(:prompt) { create(:evidence_prompt) }
       let(:automl_model) { build(:evidence_automl_model, **automl_model_params) }
       let(:name) { 'name' }
       let(:labels) { ['label1'] }
 
       before do
-        session[:user_id] = user_id
+        session[:user_id] = user.id
         allow(Evidence::AutomlModel).to receive(:new).and_return(automl_model)
         allow(automl_model).to receive(:pull_name).and_return(name)
         allow(automl_model).to receive(:pull_labels).and_return(labels)
@@ -81,7 +81,7 @@ module Evidence
         it 'make a change log record after creating the AutoML record' do
           change_log = Evidence.change_log_class.last
           expect(change_log.serializable_hash['full_action']).to eq 'AutoML Model - created'
-          expect(change_log.user_id).to eq user_id
+          expect(change_log.user_id).to eq user.id
           expect(change_log.changed_record).to eq AutomlModel.last
           expect(change_log.new_value).to be_nil
         end
@@ -176,7 +176,7 @@ module Evidence
       subject { patch :activate, params: { id: automl_model.id } }
 
       let(:automl_model) { create(:evidence_automl_model) }
-      let(:lms_user_id) { create(:user).id}
+      let(:lms_user_id) { user.id }
 
       before { session[:user_id] = lms_user_id }
 
