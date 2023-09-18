@@ -8,19 +8,22 @@ module Evidence
 
     include Evidence::ChangeLog
 
+    ANNOTATION_SPECS = 'annotationSpecs'
+    CONFIDENCES = 'confidences'
+    CONFUSION_MATRIX = 'confusionMatrix'
+    DISPLAY_NAME = 'displayName'
+    DISPLAY_NAMES = 'displayNames'
+    GOOGLE_PREDICTION_ENDPOINT_ID = ENV['AUTOML_GOOGLE_PREDICTION_ENDPOINT_ID']
+    GOOGLE_PROJECT_ID = ENV['AUTOML_GOOGLE_PROJECT_ID']
+    GOOGLE_LOCATION = ENV['AUTOML_GOOGLE_LOCATION']
     MIN_LABELS_LENGTH = 1
+    PREDICT_API_TIMEOUT = 5.0
+
     STATES = [
       STATE_ACTIVE = 'active',
       STATE_INACTIVE = 'inactive'
     ].freeze
 
-    PREDICT_API_TIMEOUT = 5.0
-    GOOGLE_PROJECT_ID = ENV['AUTOML_GOOGLE_PROJECT_ID']
-    GOOGLE_PREDICTION_ENDPOINT_ID = ENV['AUTOML_GOOGLE_PREDICTION_ENDPOINT_ID']
-    GOOGLE_LOCATION = ENV['AUTOML_GOOGLE_LOCATION']
-    CONFUSION_MATRIX = 'confusionMatrix'
-    ANNOTATION_SPECS = 'annotationSpecs'
-    DISPLAY_NAME = 'displayName'
 
     attr_readonly :model_external_id, :endpoint_external_id, :name, :labels
 
@@ -46,8 +49,8 @@ module Evidence
     end
 
     def populate_from_model_external_id
-      self.name = automl_name
-      self.labels = automl_labels
+      self.name = pull_name
+      self.labels = pull_labels
       self.state = STATE_INACTIVE
     end
 
@@ -55,7 +58,6 @@ module Evidence
       state == STATE_ACTIVE
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity
     def activate
       AutomlModel.transaction do
         prompt.automl_models.update_all(state: STATE_INACTIVE)
@@ -67,27 +69,15 @@ module Evidence
       end
       log_activation
       self
-    rescue => e
-      raise e unless e.is_a?(ActiveRecord::RecordInvalid)
-
-      return false
+    rescue ActiveRecord::RecordInvalid => e
+      false
     end
-    # rubocop:enable Metrics/CyclomaticComplexity
 
     def fetch_automl_label(text)
-      instances = [Google::Protobuf::Value.new(struct_value: { fields: { content: { string_value: text } } })]
-
-      results =
-        automl_prediction_client
-          .predict(endpoint: automl_prediction_endpoint, instances: { content: text })
-          .predictions
-          .first
-          .struct_value
-          .fields
-
-      confidences = results['confidences'].list_value.values.map(&:number_value)
+      results = fetch_prediction_results(text)
+      confidences = results[CONFIDENCES].list_value.values.map(&:number_value)
       score, score_index = confidences.each_with_index.max_by { |score, i| [score, i] }
-      display_name = results['displayNames'].list_value.values[score_index].string_value
+      display_name = results[DISPLAY_NAMES].list_value.values[score_index].string_value
       [display_name, score]
     end
 
@@ -112,55 +102,65 @@ module Evidence
       self.endpoint_external_id = endpoint_external_id.strip unless endpoint_external_id.nil?
     end
 
+    private def fetch_prediction_results(text)
+      instances = [::Google::Protobuf::Value.new(struct_value: { fields: { content: { string_value: text } } })]
+
+      prediction_client
+        .predict(endpoint: prediction_endpoint, instances: { content: text })
+        .predictions
+        .first
+        .struct_value
+        .fields
+    end
+
     private def prompt_automl_rules
       prompt.rules.where(rule_type: Rule::TYPE_AUTOML)
     end
 
     private def prompt_labels
-      prompt_automl_rules.all.map { |r| r.label }
+      prompt_automl_rules.all.map(&:label)
     end
 
     private def prompt_label_names
-      prompt_labels.map { |l| l.name }
+      prompt_labels.map(&:name)
     end
 
-    private def labels_have_associated_rules
-      missing_labels = labels - prompt_label_names
-      missing_labels == []
+    private def labels_have_associated_rules?
+      (labels - prompt_label_names).empty?
     end
 
     private def validate_label_associations
       return unless active?
-      return if labels_have_associated_rules
+      return if labels_have_associated_rules?
 
       errors.add(:state, "can't be set to 'active' until all labels have a corresponding rule")
     end
 
-    private def automl_client
-      @automl_client ||= ::Google::Cloud::AIPlatform::V1::ModelService::Client.new
+    private def model_client
+      @model_client ||= ::Google::Cloud::AIPlatform::V1::ModelService::Client.new
     end
 
-    private def automl_prediction_client
-      @automl_prediction_client ||= ::Google::Cloud::AIPlatform::V1::PredictionService::Client.new do |config|
+    private def prediction_client
+      @prediction_client ||= ::Google::Cloud::AIPlatform::V1::PredictionService::Client.new do |config|
         config.timeout = PREDICT_API_TIMEOUT
       end
     end
 
-    private def automl_model_path
-      @automl_model_path ||= automl_client.model_path(**model_path_args)
+    private def model_endpoint
+      @model_endpoint ||= model_client.model_path(**model_endpoint_args)
     end
 
-    private def model_path_args
+    private def model_endpoint_args
       {project: GOOGLE_PROJECT_ID, location: GOOGLE_LOCATION, model: model_external_id.strip}
     end
 
-    private def automl_prediction_endpoint
+    private def prediction_endpoint
       "projects/#{GOOGLE_PROJECT_ID}/locations/#{GOOGLE_LOCATION}/endpoints/#{endpoint_external_id}"
     end
 
-    private def automl_labels
-      automl_client
-        .list_model_evaluations(parent: automl_model_path)
+    private def pull_labels
+      model_client
+        .list_model_evaluations(parent: model_endpoint)
         .first
         .to_h
         .dig(:metrics, :struct_value, :fields, CONFUSION_MATRIX, :struct_value, :fields, ANNOTATION_SPECS, :list_value, :values)
@@ -170,9 +170,9 @@ module Evidence
         .uniq
     end
 
-    private def automl_name
-      automl_client
-        .get_model(name: automl_model_path)
+    private def pull_name
+      model_client
+        .get_model(name: model_endpoint)
         .display_name
     end
 
