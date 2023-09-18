@@ -25,17 +25,17 @@ FactoryBot.define do
     trait(:deleted) { deleted_at { Time.current } }
     trait(:unsynced) { deleted }
 
-    factory :canvas_classroom_user, parent: :provider_classroom_user, class: CanvasClassroomUser do
+    factory :canvas_classroom_user, parent: :provider_classroom_user, class: 'CanvasClassroomUser' do
       classroom_external_id { [Faker::Number.number, Faker::Number.number].join(':') }
       user_external_id { [Faker::Number.number, Faker::Number.number].join(':') }
     end
 
-    factory :clever_classroom_user, parent: :provider_classroom_user, class: CleverClassroomUser do
+    factory :clever_classroom_user, parent: :provider_classroom_user, class: 'CleverClassroomUser' do
       classroom_external_id { SecureRandom.hex(12) }
       user_external_id { SecureRandom.hex(12) }
     end
 
-    factory :google_classroom_user, parent: :provider_classroom_user, class: GoogleClassroomUser do
+    factory :google_classroom_user, parent: :provider_classroom_user, class: 'GoogleClassroomUser' do
       classroom_external_id { Faker::Number.number }
       user_external_id { Faker::Number.number }
     end
