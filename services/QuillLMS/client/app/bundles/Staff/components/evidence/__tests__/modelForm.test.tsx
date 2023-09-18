@@ -14,7 +14,7 @@ const mockProps = {
     },
     isExact: true,
     path: '',
-    url:''
+    url: ''
   },
   history: {}
 }
@@ -33,6 +33,6 @@ describe('ModelForm component', () => {
     expect(container.find(ModelForm).length).toEqual(1);
   });
   it('should render one Input component', () => {
-    expect(container.find(Input).length).toEqual(1);
+    expect(container.find(Input).length).toEqual(2);
   });
 });

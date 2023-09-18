@@ -9,5 +9,8 @@ FactoryBot.define do
     state { Evidence::AutomlModel::STATE_INACTIVE }
     labels { ["label1"] }
     notes { '' }
+
+    trait(:active) { state { Evidence::AutomlModel::STATE_ACTIVE } }
+    trait(:inactive) { state { Evidence::AutomlModel::STATE_INACTIVE } }
   end
 end

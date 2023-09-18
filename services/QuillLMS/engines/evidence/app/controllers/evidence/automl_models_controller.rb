@@ -30,7 +30,6 @@ module Evidence
       end
     end
 
-
     # PATCH/PUT /automl_models/1.json
     def update
       if @automl_model.update(automl_model_params)
