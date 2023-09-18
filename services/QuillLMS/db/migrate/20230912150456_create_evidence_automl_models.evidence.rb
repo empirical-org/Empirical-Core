@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This migration comes from comprehension (originally 20230913142601_create_evidence_automl_models)
+# This migration comes from comprehension (originally 20230911142601_create_evidence_automl_models)
 class CreateEvidenceAutomlModels < ActiveRecord::Migration[7.0]
   def change
     create_table :evidence_automl_models do |t|
