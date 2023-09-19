@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 import { FULL, restrictedPage, mapItemsIfNotAll } from '../shared';
 import SnapshotSection from '../components/usage_snapshots/snapshotSection'
@@ -21,7 +21,7 @@ const Tab = ({ section, setSelectedTab, selectedTab }) => {
   return <button className={className} onClick={handleSetSelectedTab} type="button"><img alt="" src={SECTION_NAME_TO_ICON_URL[section]} /><span>{section}</span></button>
 }
 
-const UsageSnapshotsContainer = ({
+export const UsageSnapshotsContainer = ({
   accessType,
   loadingFilters,
   customStartDate,

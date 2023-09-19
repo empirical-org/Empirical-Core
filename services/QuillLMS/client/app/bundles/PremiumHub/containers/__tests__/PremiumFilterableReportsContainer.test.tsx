@@ -1,8 +1,7 @@
 import * as React from "react";
-import { render, screen, } from "@testing-library/react";
-import userEvent from '@testing-library/user-event'
+import { render } from "@testing-library/react";
 
-import { FULL, LIMITED, RESTRICTED } from "../../shared";
+import { FULL } from "../../shared";
 import PremiumFilterableReportsContainer from "../PremiumFilterableReportsContainer";
 
 const props = {
@@ -17,18 +16,15 @@ const props = {
     name: "Test User",
     role: "admin"
   },
-  accessType: RESTRICTED,
+  accessType: FULL,
   location: {
     pathname: "/teachers/premium_hub/usage_snapshot_report"
   }
 }
 
 describe('PremiumFilterableReportsContainer', () => {
-  describe('restricted access', () => {
-    test('it should render the RestrictedPage', () => {
-      render(<PremiumFilterableReportsContainer {...props} />)
-      const lockImg = screen.getByRole('img', { name: /gray lock/i })
-      console.log('lockImg', lockImg)
-    })
+  test('it should render', () => {
+    const { asFragment } = render(<PremiumFilterableReportsContainer {...props} />);
+    expect(asFragment()).toMatchSnapshot();
   })
 })

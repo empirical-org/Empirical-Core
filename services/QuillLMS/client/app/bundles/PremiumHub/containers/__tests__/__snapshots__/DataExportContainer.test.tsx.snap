@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataExportContainer limited state it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="restricted-page"
+  >
+    <img
+      alt="Gray lock"
+      src="undefined/images/pages/administrator/premium_lock.svg"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`DataExportContainer loading state 1`] = `
+<DocumentFragment>
+  <div
+    class="loading-spinner"
+  >
+    <div
+      class="spinner-container"
+    >
+      <img
+        alt=""
+        class="spinner"
+        src="https://assets.quill.org/images/icons/loader_still.svg"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`DataExportContainer loading state it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="loading-spinner"
+  >
+    <div
+      class="spinner-container"
+    >
+      <img
+        alt=""
+        class="spinner"
+        src="https://assets.quill.org/images/icons/loader_still.svg"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`DataExportContainer restricted state 1`] = `
+<DocumentFragment>
+  <div
+    class="restricted-page"
+  >
+    <img
+      alt="Gray lock"
+      src="undefined/images/pages/administrator/premium_lock.svg"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`DataExportContainer restricted state it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="restricted-page"
+  >
+    <img
+      alt="Gray lock"
+      src="undefined/images/pages/administrator/premium_lock.svg"
+    />
+  </div>
+</DocumentFragment>
+`;

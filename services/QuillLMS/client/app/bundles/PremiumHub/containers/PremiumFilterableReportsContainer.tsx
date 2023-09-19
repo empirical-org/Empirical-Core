@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import queryString from 'query-string';
 import * as _ from 'lodash'
 import * as Pusher from 'pusher-js';
@@ -54,7 +54,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
   const [pusherChannel, setPusherChannel] = React.useState(null)
 
   React.useEffect(() => {
-    const pusher = new Pusher.default(process.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channel = pusher.subscribe(String(adminInfo.id));
     setPusherChannel(channel)
 
@@ -269,9 +269,9 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
   const shouldRenderDataExportContainer = location && location.pathname === '/teachers/premium_hub/data_export'
   const shouldRenderUsageSnapshotsContainer = location && location.pathname === '/teachers/premium_hub/usage_snapshot_report'
 
-  // if (accessType !== FULL) {
+  if (accessType !== FULL) {
     return restrictedPage
-  // }
+  }
 
   return (
     <div className="filterable-reports-container white-background">

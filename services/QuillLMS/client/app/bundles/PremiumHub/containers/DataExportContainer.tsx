@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 import { FULL, restrictedPage, mapItemsIfNotAll } from '../shared';
 import { Spinner } from '../../Shared/index'
@@ -6,7 +6,7 @@ import DataExportTableAndFields from '../components/dataExportTableAndFields';
 
 const filterIconSrc = `${process.env.CDN_URL}/images/icons/icons-filter.svg`
 
-const DataExportContainer = ({
+export const DataExportContainer = ({
   accessType,
   loadingFilters,
   customStartDate,
