@@ -5,11 +5,16 @@
 # Table name: comprehension_turking_rounds
 #
 #  id          :integer          not null, primary key
-#  activity_id :integer
-#  uuid        :uuid
 #  expires_at  :datetime
+#  uuid        :uuid
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  activity_id :integer
+#
+# Indexes
+#
+#  index_comprehension_turking_rounds_on_activity_id  (activity_id)
+#  index_comprehension_turking_rounds_on_uuid         (uuid) UNIQUE
 #
 module Evidence
   class TurkingRound < ApplicationRecord

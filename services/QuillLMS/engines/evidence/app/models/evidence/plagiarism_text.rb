@@ -5,10 +5,18 @@
 # Table name: comprehension_plagiarism_texts
 #
 #  id         :integer          not null, primary key
-#  rule_id    :integer          not null
 #  text       :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  rule_id    :integer          not null
+#
+# Indexes
+#
+#  index_comprehension_plagiarism_texts_on_rule_id  (rule_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (rule_id => comprehension_rules.id) ON DELETE => cascade
 #
 module Evidence
   class PlagiarismText < ApplicationRecord

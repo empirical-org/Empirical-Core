@@ -1,5 +1,28 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: evidence_automl_models
+#
+#  id                   :bigint           not null, primary key
+#  labels               :string           default([]), is an Array
+#  name                 :string           not null
+#  notes                :text             default("")
+#  state                :string           not null
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  endpoint_external_id :string           not null
+#  model_external_id    :string           not null
+#  prompt_id            :bigint
+#
+# Indexes
+#
+#  index_evidence_automl_models_on_prompt_id  (prompt_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (prompt_id => comprehension_prompts.id)
+#
 require 'google/cloud/ai_platform/v1'
 
 module Evidence
@@ -9,15 +32,11 @@ module Evidence
     include Evidence::ChangeLog
 
     ANNOTATION_SPECS = 'annotationSpecs'
-    CONFIDENCES = 'confidences'
-    CONFUSION_MATRIX = 'confusionMatrix'
     DISPLAY_NAME = 'displayName'
-    DISPLAY_NAMES = 'displayNames'
-    GOOGLE_PREDICTION_ENDPOINT_ID = ENV['AUTOML_GOOGLE_PREDICTION_ENDPOINT_ID']
+    CONFUSION_MATRIX = 'confusionMatrix'
     GOOGLE_PROJECT_ID = ENV['AUTOML_GOOGLE_PROJECT_ID']
     GOOGLE_LOCATION = ENV['AUTOML_GOOGLE_LOCATION']
     MIN_LABELS_LENGTH = 1
-    PREDICT_API_TIMEOUT = 5.0
 
     STATES = [
       STATE_ACTIVE = 'active',
@@ -37,8 +56,6 @@ module Evidence
     validates :name, presence: true
     validates :state, inclusion: {in: ['active', 'inactive']}
 
-    before_validation :strip_whitespace
-
     def serializable_hash(options = nil)
       options ||= {}
 
@@ -48,9 +65,11 @@ module Evidence
       ))
     end
 
-    def populate_from_model_external_id
+    def populate_from_model_name
       self.name = pull_name
       self.labels = pull_labels
+      self.model_external_id = model_external_id
+      self.endpoint_external_id = endpoint_external_id
       self.state = STATE_INACTIVE
     end
 
@@ -74,11 +93,7 @@ module Evidence
     end
 
     def fetch_automl_label(text)
-      results = fetch_prediction_results(text)
-      confidences = results[CONFIDENCES].list_value.values.map(&:number_value)
-      score, score_index = confidences.each_with_index.max_by { |score, i| [score, i] }
-      display_name = results[DISPLAY_NAMES].list_value.values[score_index].string_value
-      [display_name, score]
+      prediction_client.fetch_top_label(text)
     end
 
     def older_models
@@ -95,22 +110,6 @@ module Evidence
 
     def evidence_name
       name
-    end
-
-    private def strip_whitespace
-      self.model_external_id = model_external_id.strip unless model_external_id.nil?
-      self.endpoint_external_id = endpoint_external_id.strip unless endpoint_external_id.nil?
-    end
-
-    private def fetch_prediction_results(text)
-      instances = [::Google::Protobuf::Value.new(struct_value: { fields: { content: { string_value: text } } })]
-
-      prediction_client
-        .predict(endpoint: prediction_endpoint, instances: { content: text })
-        .predictions
-        .first
-        .struct_value
-        .fields
     end
 
     private def prompt_automl_rules
@@ -134,46 +133,6 @@ module Evidence
       return if labels_have_associated_rules?
 
       errors.add(:state, "can't be set to 'active' until all labels have a corresponding rule")
-    end
-
-    private def model_client
-      @model_client ||= ::Google::Cloud::AIPlatform::V1::ModelService::Client.new
-    end
-
-    private def prediction_client
-      @prediction_client ||= ::Google::Cloud::AIPlatform::V1::PredictionService::Client.new do |config|
-        config.timeout = PREDICT_API_TIMEOUT
-      end
-    end
-
-    private def model_endpoint
-      @model_endpoint ||= model_client.model_path(**model_endpoint_args)
-    end
-
-    private def model_endpoint_args
-      {project: GOOGLE_PROJECT_ID, location: GOOGLE_LOCATION, model: model_external_id.strip}
-    end
-
-    private def prediction_endpoint
-      "projects/#{GOOGLE_PROJECT_ID}/locations/#{GOOGLE_LOCATION}/endpoints/#{endpoint_external_id}"
-    end
-
-    private def pull_labels
-      model_client
-        .list_model_evaluations(parent: model_endpoint)
-        .first
-        .to_h
-        .dig(:metrics, :struct_value, :fields, CONFUSION_MATRIX, :struct_value, :fields, ANNOTATION_SPECS, :list_value, :values)
-        .map { |v| v.dig(:struct_value, :fields, DISPLAY_NAME, :string_value) }
-        .flatten
-        .reject(&:empty?)
-        .uniq
-    end
-
-    private def pull_name
-      model_client
-        .get_model(name: model_endpoint)
-        .display_name
     end
 
     private def log_activation

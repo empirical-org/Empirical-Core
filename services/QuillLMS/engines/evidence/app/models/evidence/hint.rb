@@ -6,12 +6,16 @@
 #
 #  id             :bigint           not null, primary key
 #  explanation    :string           not null
-#  image_link     :string           not null
 #  image_alt_text :string           not null
-#  rule_id        :bigint
+#  image_link     :string           not null
+#  name           :text
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
-#  name           :text
+#  rule_id        :bigint
+#
+# Indexes
+#
+#  index_evidence_hints_on_rule_id  (rule_id)
 #
 module Evidence
   class Hint < ApplicationRecord
