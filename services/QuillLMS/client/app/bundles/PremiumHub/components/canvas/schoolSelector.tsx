@@ -1,8 +1,16 @@
 import * as React from 'react'
 
+import { School, } from './shared'
+
 import { DataTable } from '../../../Shared/index';
 
-const SchoolSelector = ({ schools, setSelectedSchoolIds, selectedSchoolIds }) => {
+interface SchoolSelectorProps {
+  schools: School[];
+  setSelectedSchoolIds: (schoolIds) => void;
+  selectedSchoolIds: number[];
+}
+
+const SchoolSelector = ({ schools, setSelectedSchoolIds, selectedSchoolIds }: SchoolSelectorProps) => {
   const checkRow = (id) => {
     if (selectedSchoolIds.includes(id)) { return }
 

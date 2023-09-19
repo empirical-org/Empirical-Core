@@ -1,0 +1,324 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CanvasIntegrationModal it should render when there is an existing integration 1`] = `
+<DocumentFragment>
+  <div
+    class="modal-container custom-date-modal-container"
+  >
+    <div
+      class="modal-background"
+    />
+    <div
+      class="canvas-integration-modal quill-modal modal-body"
+    >
+      <form
+        aria-label="Edit Canvas Integration"
+        class="canvas-integration-form"
+        name="Edit Canvas Integration"
+      >
+        <h2>
+          Edit Canvas Integration
+        </h2>
+        <div
+          class="input-container  inactive has-text undefined "
+          role="button"
+          tabindex="-1"
+        >
+          <label>
+            Canvas Instance URL
+          </label>
+          <input
+            autocomplete="on"
+            maxlength="10000"
+            type="url"
+            value="https://quill.instructure.com"
+          />
+        </div>
+        <div
+          class="input-container  inactive has-text undefined "
+          role="button"
+          tabindex="-1"
+        >
+          <label>
+            Client ID
+          </label>
+          <input
+            autocomplete="on"
+            maxlength="10000"
+            value="1"
+          />
+        </div>
+        <div
+          class="input-container  inactive has-text undefined "
+          role="button"
+          tabindex="-1"
+        >
+          <label>
+            Client Secret
+          </label>
+          <input
+            autocomplete="on"
+            maxlength="10000"
+            value="secret"
+          />
+        </div>
+        <table
+          class="data-table undefined"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header"
+                scope="col"
+              >
+                <button
+                  class="quill-checkbox selected"
+                  type="button"
+                >
+                  <img
+                    alt="Checked checkbox"
+                    src="https://assets.quill.org/images/shared/check-small-white.svg"
+                  />
+                </button>
+              </th>
+              <th
+                class="data-table-header name"
+                scope="col"
+                style="width: 356px; min-width: 356px; text-align: left;"
+              >
+                Schools
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row checked "
+            >
+              <td>
+                <button
+                  class="quill-checkbox selected data-table-row-section"
+                  type="button"
+                >
+                  <img
+                    alt="check"
+                    src="https://assets.quill.org/images/shared/check-small-white.svg"
+                  />
+                </button>
+              </td>
+              <td
+                class="data-table-row-section name"
+                style="width: 356px; min-width: 356px; text-align: left;"
+              >
+                MLK Middle School
+              </td>
+            </tr>
+            <tr
+              class="data-table-row checked "
+            >
+              <td>
+                <button
+                  class="quill-checkbox selected data-table-row-section"
+                  type="button"
+                >
+                  <img
+                    alt="check"
+                    src="https://assets.quill.org/images/shared/check-small-white.svg"
+                  />
+                </button>
+              </td>
+              <td
+                class="data-table-row-section name"
+                style="width: 356px; min-width: 356px; text-align: left;"
+              >
+                Toni Morrison High School
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          class="button-wrapper"
+        >
+          <button
+            class="quill-button contained primary medium focus-on-light red"
+            type="button"
+          >
+            Delete
+          </button>
+          <div>
+            <button
+              class="quill-button medium outlined secondary focus-on-light"
+              type="button"
+            >
+              Cancel
+            </button>
+            <button
+              class="quill-button medium primary contained focus-on-light disabled"
+              disabled=""
+              type="submit"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`CanvasIntegrationModal it should render when there is not an existing integration 1`] = `
+<DocumentFragment>
+  <div
+    class="modal-container custom-date-modal-container"
+  >
+    <div
+      class="modal-background"
+    />
+    <div
+      class="canvas-integration-modal quill-modal modal-body"
+    >
+      <form
+        aria-label="New Canvas Integration"
+        class="canvas-integration-form"
+        name="New Canvas Integration"
+      >
+        <h2>
+          New Canvas Integration
+        </h2>
+        <div
+          class="input-container  inactive  undefined "
+          role="button"
+          tabindex="-1"
+        >
+          <label>
+            Canvas Instance URL
+          </label>
+          <input
+            autocomplete="on"
+            maxlength="10000"
+            type="url"
+            value=""
+          />
+        </div>
+        <div
+          class="input-container  inactive  undefined "
+          role="button"
+          tabindex="-1"
+        >
+          <label>
+            Client ID
+          </label>
+          <input
+            autocomplete="on"
+            maxlength="10000"
+            value=""
+          />
+        </div>
+        <div
+          class="input-container  inactive  undefined "
+          role="button"
+          tabindex="-1"
+        >
+          <label>
+            Client Secret
+          </label>
+          <input
+            autocomplete="on"
+            maxlength="10000"
+            value=""
+          />
+        </div>
+        <table
+          class="data-table undefined"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header"
+                scope="col"
+              >
+                <button
+                  aria-label="Unchecked checkbox"
+                  class="quill-checkbox unselected"
+                  type="button"
+                />
+              </th>
+              <th
+                class="data-table-header name"
+                scope="col"
+                style="width: 356px; min-width: 356px; text-align: left;"
+              >
+                Schools
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td>
+                <button
+                  aria-label="Unchecked checkbox"
+                  class="quill-checkbox unselected data-table-row-section"
+                  type="button"
+                />
+              </td>
+              <td
+                class="data-table-row-section name"
+                style="width: 356px; min-width: 356px; text-align: left;"
+              >
+                MLK Middle School
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td>
+                <button
+                  aria-label="Unchecked checkbox"
+                  class="quill-checkbox unselected data-table-row-section"
+                  type="button"
+                />
+              </td>
+              <td
+                class="data-table-row-section name"
+                style="width: 356px; min-width: 356px; text-align: left;"
+              >
+                Toni Morrison High School
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          class="button-wrapper"
+        >
+          <span />
+          <div>
+            <button
+              class="quill-button medium outlined secondary focus-on-light"
+              type="button"
+            >
+              Cancel
+            </button>
+            <button
+              class="quill-button medium primary contained focus-on-light disabled"
+              disabled=""
+              type="submit"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;
