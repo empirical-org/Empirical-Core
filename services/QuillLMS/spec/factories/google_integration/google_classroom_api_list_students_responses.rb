@@ -2,7 +2,7 @@
 
 module GoogleIntegration
   FactoryBot.define do
-    factory :google_classroom_api_list_students_response, class: Google::Apis::ClassroomV1::ListStudentsResponse  do
+    factory :google_classroom_api_list_students_response, class: 'Google::Apis::ClassroomV1::ListStudentsResponse' do
       skip_create
 
       initialize_with { new(students: students, next_page_token: next_page_token) }

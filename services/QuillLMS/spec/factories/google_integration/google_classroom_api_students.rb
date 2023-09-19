@@ -2,7 +2,7 @@
 
 module GoogleIntegration
   FactoryBot.define do
-    factory :google_classroom_api_student, class: Google::Apis::ClassroomV1::Student do
+    factory :google_classroom_api_student, class: 'Google::Apis::ClassroomV1::Student' do
       skip_create
 
       initialize_with do

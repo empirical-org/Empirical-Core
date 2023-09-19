@@ -37,7 +37,7 @@
 #  index_activity_sessions_on_user_id                (user_id)
 #
 FactoryBot.define do
-  factory :simple_activity_session, class: ActivitySession
+  factory :simple_activity_session, class: 'ActivitySession'
 
   # TODO: don't make all activity_sessions finished, used :finished trait
   factory :activity_session do

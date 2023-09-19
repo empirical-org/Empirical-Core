@@ -25,7 +25,7 @@
 #  index_classrooms_on_grade_level          (grade_level)
 #
 FactoryBot.define do
-  factory :simple_classroom, class: Classroom do
+  factory :simple_classroom, class: 'Classroom' do
     name { 'a' }
   end
 
