@@ -20,8 +20,10 @@ const CanvasIntegrationContainer = ({ passedSchools, passedCanvasIntegrations })
   function closeModal() { setShowNewModal(false) }
 
   React.useEffect(() => {
-    getSchoolsWithSubscriptions()
-    getCanvasIntegrations()
+    if (loading) {
+      getSchoolsWithSubscriptions()
+      getCanvasIntegrations()
+    }
   }, [])
 
   React.useEffect(() => {

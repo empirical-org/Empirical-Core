@@ -24,11 +24,14 @@ exports[`CanvasIntegrationModal it should render when there is an existing integ
           role="button"
           tabindex="-1"
         >
-          <label>
+          <label
+            for="canvas-instance-url"
+          >
             Canvas Instance URL
           </label>
           <input
             autocomplete="on"
+            id="canvas-instance-url"
             maxlength="10000"
             type="url"
             value="https://quill.instructure.com"
@@ -39,11 +42,14 @@ exports[`CanvasIntegrationModal it should render when there is an existing integ
           role="button"
           tabindex="-1"
         >
-          <label>
+          <label
+            for="client-id"
+          >
             Client ID
           </label>
           <input
             autocomplete="on"
+            id="client-id"
             maxlength="10000"
             value="1"
           />
@@ -53,11 +59,14 @@ exports[`CanvasIntegrationModal it should render when there is an existing integ
           role="button"
           tabindex="-1"
         >
-          <label>
+          <label
+            for="client-secret"
+          >
             Client Secret
           </label>
           <input
             autocomplete="on"
+            id="client-secret"
             maxlength="10000"
             value="secret"
           />
@@ -156,8 +165,7 @@ exports[`CanvasIntegrationModal it should render when there is an existing integ
               Cancel
             </button>
             <button
-              class="quill-button medium primary contained focus-on-light disabled"
-              disabled=""
+              class="quill-button medium primary contained focus-on-light "
               type="submit"
             >
               Submit
@@ -194,11 +202,14 @@ exports[`CanvasIntegrationModal it should render when there is not an existing i
           role="button"
           tabindex="-1"
         >
-          <label>
+          <label
+            for="canvas-instance-url"
+          >
             Canvas Instance URL
           </label>
           <input
             autocomplete="on"
+            id="canvas-instance-url"
             maxlength="10000"
             type="url"
             value=""
@@ -209,11 +220,14 @@ exports[`CanvasIntegrationModal it should render when there is not an existing i
           role="button"
           tabindex="-1"
         >
-          <label>
+          <label
+            for="client-id"
+          >
             Client ID
           </label>
           <input
             autocomplete="on"
+            id="client-id"
             maxlength="10000"
             value=""
           />
@@ -223,11 +237,14 @@ exports[`CanvasIntegrationModal it should render when there is not an existing i
           role="button"
           tabindex="-1"
         >
-          <label>
+          <label
+            for="client-secret"
+          >
             Client Secret
           </label>
           <input
             autocomplete="on"
+            id="client-secret"
             maxlength="10000"
             value=""
           />

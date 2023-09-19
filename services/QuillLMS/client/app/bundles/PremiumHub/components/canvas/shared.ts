@@ -1,5 +1,5 @@
 export interface CanvasInstance {
-  client_id: number;
+  client_id: string;
   id: number;
   client_secret: string;
   school_ids: number[];
