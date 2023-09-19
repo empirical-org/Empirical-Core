@@ -175,9 +175,9 @@ RSpec.describe CanvasInstancesController do
 
         it { should_return_ok }
 
-        it { expect { subject }.to change { CanvasInstance.count }.to 0 }
-        it { expect { subject }.to change { CanvasConfig.count }.to 0 }
-        it { expect { subject }.to change { CanvasInstanceSchool.count }.to 0 }
+        it { expect { subject }.to change(CanvasInstance, :count).to 0 }
+        it { expect { subject }.to change(CanvasConfig, :count).to 0 }
+        it { expect { subject }.to change(CanvasInstanceSchool, :count).to 0 }
       end
     end
   end
