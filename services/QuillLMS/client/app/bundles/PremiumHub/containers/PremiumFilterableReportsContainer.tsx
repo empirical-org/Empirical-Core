@@ -14,7 +14,7 @@ import { Spinner } from '../../Shared/index'
 import { requestGet, } from '../../../modules/request'
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
 
-const PremiumFilterableReportsContainer = ({ adminInfo, accessType, location }) => {
+export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, location }) => {
   const [loadingFilters, setLoadingFilters] = React.useState(true)
 
   const [allTimeframes, setAllTimeframes] = React.useState(null)
@@ -269,9 +269,9 @@ const PremiumFilterableReportsContainer = ({ adminInfo, accessType, location }) 
   const shouldRenderDataExportContainer = location && location.pathname === '/teachers/premium_hub/data_export'
   const shouldRenderUsageSnapshotsContainer = location && location.pathname === '/teachers/premium_hub/usage_snapshot_report'
 
-  if (accessType !== FULL) {
+  // if (accessType !== FULL) {
     return restrictedPage
-  }
+  // }
 
   return (
     <div className="filterable-reports-container white-background">
