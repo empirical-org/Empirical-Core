@@ -123,7 +123,6 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   }, [pusherChannel])
 
   React.useEffect(() => {
-    console.log('in useEffect')
     initializePusher()
     getData()
   }, [searchCount])
