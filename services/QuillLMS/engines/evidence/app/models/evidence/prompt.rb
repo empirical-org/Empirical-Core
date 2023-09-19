@@ -5,15 +5,19 @@
 # Table name: comprehension_prompts
 #
 #  id                    :integer          not null, primary key
-#  activity_id           :integer
-#  max_attempts          :integer
 #  conjunction           :string(20)
-#  text                  :string
+#  first_strong_example  :string           default("")
+#  max_attempts          :integer
 #  max_attempts_feedback :text
+#  second_strong_example :string           default("")
+#  text                  :string
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
-#  first_strong_example  :string           default("")
-#  second_strong_example :string           default("")
+#  activity_id           :integer
+#
+# Indexes
+#
+#  index_comprehension_prompts_on_activity_id  (activity_id)
 #
 module Evidence
   class Prompt < ApplicationRecord
