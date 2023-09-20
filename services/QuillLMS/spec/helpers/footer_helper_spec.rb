@@ -103,8 +103,8 @@ describe FooterHelper do
   end
 
   describe '#show_footer?' do
-    let(:valid_path_1) { '/test/path/1'}
-    let(:valid_path_2) { '/test/path/2'}
+    let(:valid_path1) { '/test/path/1'}
+    let(:valid_path2) { '/test/path/2'}
 
     it 'should return false for paths in EXCLUDED_FOOTER_PATHS array' do
       expect(helper.show_footer?(FooterHelper::EXCLUDED_FOOTER_PATHS[0])).to eq false
@@ -112,8 +112,8 @@ describe FooterHelper do
     end
 
     it 'should return true for all other paths' do
-      expect(helper.show_footer?(valid_path_1)).to eq true
-      expect(helper.show_footer?(valid_path_2)).to eq true
+      expect(helper.show_footer?(valid_path1)).to eq true
+      expect(helper.show_footer?(valid_path2)).to eq true
     end
   end
 end
