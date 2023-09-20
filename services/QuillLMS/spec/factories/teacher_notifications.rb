@@ -24,17 +24,17 @@ FactoryBot.define do
   factory :teacher_notification do
     user
 
-    factory :teacher_notification_student_completed_all_assigned_activities, class: TeacherNotifications::StudentCompletedAllAssignedActivities do
+    factory :teacher_notification_student_completed_all_assigned_activities, class: 'TeacherNotifications::StudentCompletedAllAssignedActivities' do
       student_name { 'Student Name' }
       classroom_name { 'Classroom Name' }
     end
 
-    factory :teacher_notification_student_completed_all_diagnostic_recommendations, class: TeacherNotifications::StudentCompletedAllDiagnosticRecommendations do
+    factory :teacher_notification_student_completed_all_diagnostic_recommendations, class: 'TeacherNotifications::StudentCompletedAllDiagnosticRecommendations' do
       student_name { 'Student Name' }
       classroom_name { 'Classroom Name' }
     end
 
-    factory :teacher_notification_student_completed_diagnostic, class: TeacherNotifications::StudentCompletedDiagnostic do
+    factory :teacher_notification_student_completed_diagnostic, class: 'TeacherNotifications::StudentCompletedDiagnostic' do
       student_name { 'Student Name' }
       classroom_name { 'Classroom Name' }
       diagnostic_name { 'Diagnostic Name' }

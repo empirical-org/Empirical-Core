@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :omniauth_auth_hash, class: OmniAuth::AuthHash do
+  factory :omniauth_auth_hash, class: 'OmniAuth::AuthHash' do
     skip_create
 
     factory :canvas_auth_hash do
