@@ -6,7 +6,7 @@ import UnitTemplateRow from './unitTemplateRow'
 import { flagOptions } from '../../../../constants/flagOptions'
 import { requestGet, } from '../../../../modules/request/index'
 import LoadingSpinner from '../../../Connect/components/shared/loading_indicator.jsx'
-import { SortableList, Tooltip } from '../../../Shared/index'
+import { SortableList, Tooltip, PRODUCTION_FLAG, } from '../../../Shared/index'
 import getAuthToken from '../../components/modules/get_auth_token'
 import { ALL_DIAGNOSTICS, ALL_FLAGS, NOT_ARCHIVED_FLAG, orderedUnitTemplates, sortUnitTemplates } from '../../helpers/unitTemplates'
 
