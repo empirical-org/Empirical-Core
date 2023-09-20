@@ -2,6 +2,11 @@
 
 module FooterHelper
 
+  EXCLUDED_FOOTER_PATHS = [
+    '/teachers/premium_hub/usage_snapshot_report',
+    '/teachers/premium_hub/data_export'
+  ].freeze
+
   def teacher_dashboard_links
     [
       { href: '/assign', label: 'Assign Activities' },
@@ -65,10 +70,7 @@ module FooterHelper
     ]
   end
 
-  def show_footer(path)
-    excluded_paths = ['/teachers/premium_hub/usage_snapshot_report', '/teachers/premium_hub/data_export']
-    return false if excluded_paths.include?(path)
-
-    true
+  def show_footer?(path)
+    !path.in?(EXCLUDED_FOOTER_PATHS)
   end
 end
