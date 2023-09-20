@@ -13,6 +13,7 @@ Rails.autoloaders.each do |autoloader|
     'pusher_csv_export_completed' => 'PusherCSVExportCompleted',
     'report_demo_ap_creator' => 'ReportDemoAPCreator',
     'sso_request' => 'SSORequest',
-    'staff_csv_uploader' => 'StaffCSVUploader'
+    'staff_csv_uploader' => 'StaffCSVUploader',
+    'vertex_ai' => 'VertexAI'
   )
 end

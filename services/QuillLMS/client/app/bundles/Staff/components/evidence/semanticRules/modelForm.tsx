@@ -2,7 +2,7 @@ import * as React from "react";
 import { useQuery } from 'react-query';
 import { Link, withRouter } from 'react-router-dom';
 
-import { Input, Spinner, TextArea } from '../../../../Shared/index';
+import { DropdownInput, Input, Spinner, TextArea } from '../../../../Shared/index';
 import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { InputEvent } from '../../../interfaces/evidenceInterfaces';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
@@ -13,8 +13,7 @@ const ModelForm = ({ location, history, match }) => {
   const { activityId, promptId } = params;
 
   const [errors, setErrors] = React.useState<object>({});
-  const [modelId, setModelId] = React.useState<string>('');
-  const [endpointId, setEndpointId] = React.useState<string>('');
+  const [modelName, setModelName] = React.useState<string>('');
   const [modelNotes, setModelNotes] = React.useState<string>('');
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
@@ -23,28 +22,22 @@ const ModelForm = ({ location, history, match }) => {
     queryFn: fetchActivity
   });
 
-  function handleSetModelId(e: InputEvent) {
-    setModelId(e.target.value);
+  function handleSetModelName(e) {
+    setModelName(e.value);
   }
-  function handleSetEndpointId(e: InputEvent) {
-    setEndpointId(e.target.value);
-  }
+
   function handleSetModelNotes(e: InputEvent) {
     setModelNotes(e.target.value);
   }
 
   function submitModel() {
-    if (!modelId) {
+    if (!modelName) {
       const updatedErrors = { ...errors };
-      updatedErrors['Model ID'] = 'Model ID cannot be blank.';
-      setErrors(updatedErrors);
-    } else if (!endpointId) {
-      const updatedErrors = { ...errors };
-      updatedErrors['Endpoint ID'] = 'Endpoint ID cannot be blank.';
+      updatedErrors['endpointName'] = 'Please select an endpoint name';
       setErrors(updatedErrors);
     } else {
       setIsLoading(true);
-      createModel(modelId, endpointId, promptId, modelNotes).then((response) => {
+      createModel(modelName, promptId, modelNotes).then((response) => {
         const { error, model } = response;
         if (error) {
           const updatedErrors = {};
@@ -68,24 +61,19 @@ const ModelForm = ({ location, history, match }) => {
 
   const conjunction = location && location.state && location.state.conjunction || '';
   const header = `Semantic Labels - Add Model (${conjunction})`
+  const endpointNameOptions = [{ value: 'endpointName', label: 'endpointName' }]
 
   return (
     <div className="model-form-container">
       {renderHeader(activityData, header)}
       <Link className="return-link" to={{ pathname: `/activities/${activityId}/semantic-labels`, state: 'returned-to-index' }}>← Return to Semantic Rules Index</Link>
-      <Input
-        className="model-id"
-        error={errors['Model ID']}
-        handleChange={handleSetModelId}
-        label="Model ID"
-        value={modelId}
-      />
-      <Input
-        className="endpoint-id"
-        error={errors['Endpoint ID']}
-        handleChange={handleSetEndpointId}
-        label="Endpoint ID"
-        value={endpointId}
+      <DropdownInput
+        disabled={false}
+        handleChange={handleSetEndpointName}
+        isSearchable={true}
+        label="Endpoint Name"
+        options={endpointNameOptions}
+        value={endpointName}
       />
       <TextArea
         characterLimit={1000}

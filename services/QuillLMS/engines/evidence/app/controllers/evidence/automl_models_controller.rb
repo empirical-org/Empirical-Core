@@ -21,7 +21,7 @@ module Evidence
 
     # POST /automl_models.json
     def create
-      @automl_model.populate_from_model_external_id
+      @automl_model.populate_from_model_name
 
       if @automl_model.save
         render json: @automl_model, status: :created
@@ -54,6 +54,11 @@ module Evidence
       head :no_content
     end
 
+    def blah
+      @blahs = BlahFetcher.run
+      render json: @blahs
+    end
+
     private def set_lms_user_id
       @automl_model.lms_user_id = lms_user_id
     end
@@ -67,7 +72,9 @@ module Evidence
     end
 
     private def automl_model_params
-      params.require(:automl_model).permit(:model_external_id, :endpoint_external_id, :prompt_id, :notes)
+      params
+        .require(:automl_model)
+        .permit(:model_external_id, :endpoint_external_id, :prompt_id, :notes)
     end
   end
 end

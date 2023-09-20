@@ -23,7 +23,6 @@
 #
 #  fk_rails_...  (prompt_id => comprehension_prompts.id)
 #
-require 'google/cloud/ai_platform/v1'
 
 module Evidence
   class AutomlModel < ApplicationRecord
@@ -31,18 +30,12 @@ module Evidence
 
     include Evidence::ChangeLog
 
-    ANNOTATION_SPECS = 'annotationSpecs'
-    DISPLAY_NAME = 'displayName'
-    CONFUSION_MATRIX = 'confusionMatrix'
-    GOOGLE_PROJECT_ID = ENV['AUTOML_GOOGLE_PROJECT_ID']
-    GOOGLE_LOCATION = ENV['AUTOML_GOOGLE_LOCATION']
     MIN_LABELS_LENGTH = 1
 
     STATES = [
       STATE_ACTIVE = 'active',
       STATE_INACTIVE = 'inactive'
     ].freeze
-
 
     attr_readonly :model_external_id, :endpoint_external_id, :name, :labels
 
@@ -54,7 +47,7 @@ module Evidence
     validates :endpoint_external_id, presence: true, uniqueness: true
     validates :labels, presence: true, length: {minimum: MIN_LABELS_LENGTH}
     validates :name, presence: true
-    validates :state, inclusion: {in: ['active', 'inactive']}
+    validates :state, inclusion: {in: STATES}
 
     def serializable_hash(options = nil)
       options ||= {}
@@ -92,8 +85,8 @@ module Evidence
       false
     end
 
-    def fetch_automl_label(text)
-      prediction_client.fetch_top_label(text)
+    def fetch_automl_label_and_score(text)
+      AutomlLabelAndScoreFetcher.run(endpoint_external_id, text)
     end
 
     def older_models

@@ -158,52 +158,23 @@ module Evidence
       it { expect(automl_model.endpoint_external_id).to eq endpoint_external_id }
     end
 
-    context '#fetch_automl_label' do
-      subject { automl_model.fetch_automl_label(text) }
+    context '#fetch_automl_label_and_score' do
+      subject { automl_model.fetch_automl_label_and_score(text) }
 
       let(:automl_model) { create(:evidence_automl_model) }
-      let(:prediction_client_class) { ::Google::Cloud::AIPlatform::V1::PredictionService::Client }
-      let(:prediction_client) { instance_double(prediction_client_class) }
-      let(:text) { 'some text' }
+      let(:endpoint_external_id) { automl_model.endpoint_external_id }
+      let(:text) { 'the text' }
+      let(:label) { "the label" }
+      let(:score) { rand }
 
-      before { allow(prediction_client_class).to receive(:new).and_return(prediction_client) }
-
-      context 'successful prediction' do
-        let(:labels) { ['Label1', 'Label2', 'Label3'] }
-        let(:display_name_values) { labels.map { |label| Google::Protobuf::Value.new(string_value: label) } }
-        let(:display_name_list_value) { Google::Protobuf::ListValue.new(values: display_name_values) }
-
-
-        let(:scores) { [0.4, 0.9, 0.8] }
-        let(:confidence_values) { scores.map { |score| Google::Protobuf::Value.new(number_value: score) } }
-        let(:confidence_list_value) { Google::Protobuf::ListValue.new(values: confidence_values) }
-
-        let(:top_score_index) { scores.each_with_index.max[1] }
-
-        let(:results) do
-          {
-            'confidences' => Google::Protobuf::Value.new(list_value: confidence_list_value),
-            'displayNames' => Google::Protobuf::Value.new(list_value: display_name_list_value)
-          }
-        end
-
-        before { allow(automl_model).to receive(:fetch_prediction_results).and_return(results) }
-
-        it 'returns the correct display_name and score' do
-          display_name, score = subject
-
-          expect(display_name).to eq labels[top_score_index]
-          expect(score).to eq scores[top_score_index]
-        end
+      before do
+        allow(AutomlLabelAndScoreFetcher)
+         .to receive(:run)
+         .with(automl_model.endpoint_external_id, text)
+         .and_return([label, score])
       end
 
-      context 'error handling' do
-        let(:error) { ::Google::Cloud::Error.new }
-
-        before { allow(prediction_client).to receive(:predict).and_raise(error) }
-
-        it { expect { subject }.to raise_error(error) }
-      end
+      it { is_expected.to eq [label, score] }
     end
 
     context '#model_endpoint' do
