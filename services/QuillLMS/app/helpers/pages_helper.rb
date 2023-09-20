@@ -78,11 +78,6 @@ module PagesHelper
             img: 'team-peter-gault.webp'
           },
           {
-            name: 'Lila Jane Mabe',
-            title: 'Managing Director of Strategy & Impact',
-            img: 'team-lila-jane-mabe.webp'
-          },
-          {
             name: 'Hannah Monk',
             title: 'VP of Curriculum',
             img: 'team-hannah-monk.webp'
