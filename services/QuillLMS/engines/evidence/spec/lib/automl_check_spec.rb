@@ -25,7 +25,7 @@ module Evidence
     context 'should #feedback_object' do
 
       it 'should return nil if there is no matched rule' do
-        AutomlModel.stub_any_instance(:fetch_automl_label, ["NOT#{label.name}", automl_confidence]) do
+        AutomlModel.stub_any_instance(:fetch_automl_label_and_score, ["NOT#{label.name}", automl_confidence]) do
           automl_check = Evidence::AutomlCheck.new("entry", prompt)
           expect(automl_check.feedback_object).to(eq(nil))
         end
@@ -38,7 +38,7 @@ module Evidence
       end
 
       it 'should return the feedback payload when there is a label match' do
-        AutomlModel.stub_any_instance(:fetch_automl_label, [label.name, automl_confidence]) do
+        AutomlModel.stub_any_instance(:fetch_automl_label_and_score, [label.name, automl_confidence]) do
           entry = "entry"
           automl_check = Evidence::AutomlCheck.new(entry, prompt)
           expect(:feedback => feedback.text, :feedback_type => "autoML", :optimal => rule.optimal,  :entry => entry, :concept_uid => ((rule&.concept_uid or "")), :rule_uid => (rule&.uid), :highlight => ([]), :hint => nil, :api => {:confidence => automl_confidence}).to(eq(automl_check.feedback_object))
@@ -46,7 +46,7 @@ module Evidence
       end
 
       it 'should return the low confidence feedback payload when there is a label match but the confidence is below the threshold' do
-        AutomlModel.stub_any_instance(:fetch_automl_label, [label.name, 0.5]) do
+        AutomlModel.stub_any_instance(:fetch_automl_label_and_score, [label.name, 0.5]) do
           entry = "entry"
           automl_check = Evidence::AutomlCheck.new(entry, prompt)
           expected_payload = {
@@ -68,7 +68,7 @@ module Evidence
       end
 
       it 'should include highlight data when the feedback object has highlights' do
-        AutomlModel.stub_any_instance(:fetch_automl_label, [label.name, automl_confidence]) do
+        AutomlModel.stub_any_instance(:fetch_automl_label_and_score, [label.name, automl_confidence]) do
           highlight = create(:evidence_highlight, :feedback => (feedback))
           automl_check = Evidence::AutomlCheck.new("whatever", prompt)
           expect([{ :type => highlight.highlight_type, :text => highlight.text, :category => "" }]).to(eq(automl_check.feedback_object[:highlight]))
@@ -76,7 +76,7 @@ module Evidence
       end
 
       it 'should include hint data when there is an associated hint' do
-        AutomlModel.stub_any_instance(:fetch_automl_label, [label.name, automl_confidence]) do
+        AutomlModel.stub_any_instance(:fetch_automl_label_and_score, [label.name, automl_confidence]) do
           hint = create(:evidence_hint)
           rule.update(hint: hint)
           automl_check = Evidence::AutomlCheck.new("whatever", prompt)
