@@ -151,6 +151,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
           },
           Object {
             "attribute": "scoreTag",
+            "containsOwnTooltip": true,
             "name": "Score",
             "width": "210px",
           },
@@ -172,11 +173,29 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "completed": "Mar 5th",
             "id": 33,
             "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/76/user/7/activity/810",
-            "scoreTag": <span
-              className="score-tag not-yet-proficient"
-            >
-              Not yet proficient
-            </span>,
+            "scoreTag": <Tooltip
+              isTabbable={true}
+              tooltipTriggerStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+              tooltipTriggerText={
+                <span
+                  className="score-tag not-yet-proficient"
+                >
+                  Not yet proficient
+                </span>
+              }
+              tooltipTriggerTextClass="data-table-row-section"
+              tooltipTriggerTextStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            />,
             "studentName": "Angie Thomas",
           },
           Object {
@@ -185,11 +204,29 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "completed": "Mar 5th",
             "id": 32,
             "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/885",
-            "scoreTag": <span
-              className="score-tag proficient"
-            >
-              Proficient
-            </span>,
+            "scoreTag": <Tooltip
+              isTabbable={true}
+              tooltipTriggerStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+              tooltipTriggerText={
+                <span
+                  className="score-tag proficient"
+                >
+                  Proficient
+                </span>
+              }
+              tooltipTriggerTextClass="data-table-row-section"
+              tooltipTriggerTextStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            />,
             "studentName": "Angie Thomas",
           },
           Object {
@@ -198,11 +235,29 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "completed": "Mar 5th",
             "id": 29,
             "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/804",
-            "scoreTag": <span
-              className="score-tag proficient"
-            >
-              Proficient
-            </span>,
+            "scoreTag": <Tooltip
+              isTabbable={true}
+              tooltipTriggerStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+              tooltipTriggerText={
+                <span
+                  className="score-tag proficient"
+                >
+                  Proficient
+                </span>
+              }
+              tooltipTriggerTextClass="data-table-row-section"
+              tooltipTriggerTextStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            />,
             "studentName": "Angie Thomas",
           },
           Object {
@@ -211,11 +266,29 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "completed": "Mar 5th",
             "id": 28,
             "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/802",
-            "scoreTag": <span
-              className="score-tag nearly-proficient"
-            >
-              Nearly proficient
-            </span>,
+            "scoreTag": <Tooltip
+              isTabbable={true}
+              tooltipTriggerStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+              tooltipTriggerText={
+                <span
+                  className="score-tag nearly-proficient"
+                >
+                  Nearly proficient
+                </span>
+              }
+              tooltipTriggerTextClass="data-table-row-section"
+              tooltipTriggerTextStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            />,
             "studentName": "Angie Thomas",
           },
           Object {
@@ -224,11 +297,29 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "completed": "Mar 5th",
             "id": 27,
             "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/75/user/7/activity/808",
-            "scoreTag": <span
-              className="score-tag proficient"
-            >
-              Proficient
-            </span>,
+            "scoreTag": <Tooltip
+              isTabbable={true}
+              tooltipTriggerStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+              tooltipTriggerText={
+                <span
+                  className="score-tag proficient"
+                >
+                  Proficient
+                </span>
+              }
+              tooltipTriggerTextClass="data-table-row-section"
+              tooltipTriggerTextStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            />,
             "studentName": "Angie Thomas",
           },
           Object {
@@ -237,11 +328,29 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "completed": "Mar 5th",
             "id": 26,
             "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/801",
-            "scoreTag": <span
-              className="score-tag nearly-proficient"
-            >
-              Nearly proficient
-            </span>,
+            "scoreTag": <Tooltip
+              isTabbable={true}
+              tooltipTriggerStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+              tooltipTriggerText={
+                <span
+                  className="score-tag nearly-proficient"
+                >
+                  Nearly proficient
+                </span>
+              }
+              tooltipTriggerTextClass="data-table-row-section"
+              tooltipTriggerTextStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            />,
             "studentName": "Angie Thomas",
           },
           Object {
@@ -250,11 +359,29 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "completed": "Mar 5th",
             "id": 25,
             "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/181",
-            "scoreTag": <span
-              className="score-tag proficient"
-            >
-              Proficient
-            </span>,
+            "scoreTag": <Tooltip
+              isTabbable={true}
+              tooltipTriggerStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+              tooltipTriggerText={
+                <span
+                  className="score-tag proficient"
+                >
+                  Proficient
+                </span>
+              }
+              tooltipTriggerTextClass="data-table-row-section"
+              tooltipTriggerTextStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            />,
             "studentName": "Angie Thomas",
           },
           Object {
@@ -263,11 +390,30 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "completed": "Mar 4th",
             "id": 24,
             "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/6/unit/85/user/7/activity/849",
-            "scoreTag": <span
-              className="score-tag completed"
-            >
-              Completed
-            </span>,
+            "scoreTag": <Tooltip
+              isTabbable={true}
+              tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+              tooltipTriggerStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+              tooltipTriggerText={
+                <span
+                  className="score-tag completed"
+                >
+                  Completed
+                </span>
+              }
+              tooltipTriggerTextClass="data-table-row-section"
+              tooltipTriggerTextStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            />,
             "studentName": "Angie Thomas",
           },
           Object {
@@ -276,11 +422,30 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "completed": "Mar 3rd",
             "id": 23,
             "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/85/user/7/activity/849",
-            "scoreTag": <span
-              className="score-tag completed"
-            >
-              Completed
-            </span>,
+            "scoreTag": <Tooltip
+              isTabbable={true}
+              tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+              tooltipTriggerStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+              tooltipTriggerText={
+                <span
+                  className="score-tag completed"
+                >
+                  Completed
+                </span>
+              }
+              tooltipTriggerTextClass="data-table-row-section"
+              tooltipTriggerTextStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            />,
             "studentName": "Angie Thomas",
           },
           Object {
@@ -289,11 +454,30 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "completed": "Dec 1st, 2020",
             "id": 3,
             "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/6/activity/849",
-            "scoreTag": <span
-              className="score-tag completed"
-            >
-              Completed
-            </span>,
+            "scoreTag": <Tooltip
+              isTabbable={true}
+              tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+              tooltipTriggerStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+              tooltipTriggerText={
+                <span
+                  className="score-tag completed"
+                >
+                  Completed
+                </span>
+              }
+              tooltipTriggerTextClass="data-table-row-section"
+              tooltipTriggerTextStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            />,
             "studentName": "Tahereh Mafi",
           },
           Object {
@@ -302,11 +486,30 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "completed": "Dec 1st, 2020",
             "id": 2,
             "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/7/activity/849",
-            "scoreTag": <span
-              className="score-tag completed"
-            >
-              Completed
-            </span>,
+            "scoreTag": <Tooltip
+              isTabbable={true}
+              tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+              tooltipTriggerStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+              tooltipTriggerText={
+                <span
+                  className="score-tag completed"
+                >
+                  Completed
+                </span>
+              }
+              tooltipTriggerTextClass="data-table-row-section"
+              tooltipTriggerTextStyle={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            />,
             "studentName": "Angie Thomas",
           },
         ]
@@ -413,21 +616,75 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 Subject and Object Pronoun Agreement 1
               </td>
               <td
-                className="data-table-row-section undefined"
                 key="scoreTag-33"
-                style={
-                  Object {
-                    "minWidth": "210px",
-                    "textAlign": "left",
-                    "width": "210px",
-                  }
-                }
               >
-                <span
-                  className="score-tag not-yet-proficient"
+                <Tooltip
+                  isTabbable={true}
+                  tooltipTriggerStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
+                  tooltipTriggerText={
+                    <span
+                      className="score-tag not-yet-proficient"
+                    >
+                      Not yet proficient
+                    </span>
+                  }
+                  tooltipTriggerTextClass="data-table-row-section"
+                  tooltipTriggerTextStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
                 >
-                  Not yet proficient
-                </span>
+                  <span
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
+                    style={
+                      Object {
+                        "minWidth": "210px",
+                        "width": "210px",
+                      }
+                    }
+                  >
+                    <span
+                      className="data-table-row-section"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "minWidth": "210px",
+                          "width": "210px",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      <span
+                        className="score-tag not-yet-proficient"
+                      >
+                        Not yet proficient
+                      </span>
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
+                  </span>
+                </Tooltip>
               </td>
               <td
                 className="data-table-row-section completed-section"
@@ -531,21 +788,75 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 </Tooltip>
               </td>
               <td
-                className="data-table-row-section undefined"
                 key="scoreTag-32"
-                style={
-                  Object {
-                    "minWidth": "210px",
-                    "textAlign": "left",
-                    "width": "210px",
-                  }
-                }
               >
-                <span
-                  className="score-tag proficient"
+                <Tooltip
+                  isTabbable={true}
+                  tooltipTriggerStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
+                  tooltipTriggerText={
+                    <span
+                      className="score-tag proficient"
+                    >
+                      Proficient
+                    </span>
+                  }
+                  tooltipTriggerTextClass="data-table-row-section"
+                  tooltipTriggerTextStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
                 >
-                  Proficient
-                </span>
+                  <span
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
+                    style={
+                      Object {
+                        "minWidth": "210px",
+                        "width": "210px",
+                      }
+                    }
+                  >
+                    <span
+                      className="data-table-row-section"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "minWidth": "210px",
+                          "width": "210px",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      <span
+                        className="score-tag proficient"
+                      >
+                        Proficient
+                      </span>
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
+                  </span>
+                </Tooltip>
               </td>
               <td
                 className="data-table-row-section completed-section"
@@ -595,21 +906,75 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 Capitalize Names of People 1
               </td>
               <td
-                className="data-table-row-section undefined"
                 key="scoreTag-29"
-                style={
-                  Object {
-                    "minWidth": "210px",
-                    "textAlign": "left",
-                    "width": "210px",
-                  }
-                }
               >
-                <span
-                  className="score-tag proficient"
+                <Tooltip
+                  isTabbable={true}
+                  tooltipTriggerStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
+                  tooltipTriggerText={
+                    <span
+                      className="score-tag proficient"
+                    >
+                      Proficient
+                    </span>
+                  }
+                  tooltipTriggerTextClass="data-table-row-section"
+                  tooltipTriggerTextStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
                 >
-                  Proficient
-                </span>
+                  <span
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
+                    style={
+                      Object {
+                        "minWidth": "210px",
+                        "width": "210px",
+                      }
+                    }
+                  >
+                    <span
+                      className="data-table-row-section"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "minWidth": "210px",
+                          "width": "210px",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      <span
+                        className="score-tag proficient"
+                      >
+                        Proficient
+                      </span>
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
+                  </span>
+                </Tooltip>
               </td>
               <td
                 className="data-table-row-section completed-section"
@@ -659,21 +1024,75 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 Capitalize Geographic Names 1
               </td>
               <td
-                className="data-table-row-section undefined"
                 key="scoreTag-28"
-                style={
-                  Object {
-                    "minWidth": "210px",
-                    "textAlign": "left",
-                    "width": "210px",
-                  }
-                }
               >
-                <span
-                  className="score-tag nearly-proficient"
+                <Tooltip
+                  isTabbable={true}
+                  tooltipTriggerStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
+                  tooltipTriggerText={
+                    <span
+                      className="score-tag nearly-proficient"
+                    >
+                      Nearly proficient
+                    </span>
+                  }
+                  tooltipTriggerTextClass="data-table-row-section"
+                  tooltipTriggerTextStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
                 >
-                  Nearly proficient
-                </span>
+                  <span
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
+                    style={
+                      Object {
+                        "minWidth": "210px",
+                        "width": "210px",
+                      }
+                    }
+                  >
+                    <span
+                      className="data-table-row-section"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "minWidth": "210px",
+                          "width": "210px",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      <span
+                        className="score-tag nearly-proficient"
+                      >
+                        Nearly proficient
+                      </span>
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
+                  </span>
+                </Tooltip>
               </td>
               <td
                 className="data-table-row-section completed-section"
@@ -723,21 +1142,75 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 Plural vs. Possessive Nouns 1
               </td>
               <td
-                className="data-table-row-section undefined"
                 key="scoreTag-27"
-                style={
-                  Object {
-                    "minWidth": "210px",
-                    "textAlign": "left",
-                    "width": "210px",
-                  }
-                }
               >
-                <span
-                  className="score-tag proficient"
+                <Tooltip
+                  isTabbable={true}
+                  tooltipTriggerStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
+                  tooltipTriggerText={
+                    <span
+                      className="score-tag proficient"
+                    >
+                      Proficient
+                    </span>
+                  }
+                  tooltipTriggerTextClass="data-table-row-section"
+                  tooltipTriggerTextStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
                 >
-                  Proficient
-                </span>
+                  <span
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
+                    style={
+                      Object {
+                        "minWidth": "210px",
+                        "width": "210px",
+                      }
+                    }
+                  >
+                    <span
+                      className="data-table-row-section"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "minWidth": "210px",
+                          "width": "210px",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      <span
+                        className="score-tag proficient"
+                      >
+                        Proficient
+                      </span>
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
+                  </span>
+                </Tooltip>
               </td>
               <td
                 className="data-table-row-section completed-section"
@@ -787,21 +1260,75 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 Capitalize Holidays and Dates 1
               </td>
               <td
-                className="data-table-row-section undefined"
                 key="scoreTag-26"
-                style={
-                  Object {
-                    "minWidth": "210px",
-                    "textAlign": "left",
-                    "width": "210px",
-                  }
-                }
               >
-                <span
-                  className="score-tag nearly-proficient"
+                <Tooltip
+                  isTabbable={true}
+                  tooltipTriggerStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
+                  tooltipTriggerText={
+                    <span
+                      className="score-tag nearly-proficient"
+                    >
+                      Nearly proficient
+                    </span>
+                  }
+                  tooltipTriggerTextClass="data-table-row-section"
+                  tooltipTriggerTextStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
                 >
-                  Nearly proficient
-                </span>
+                  <span
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
+                    style={
+                      Object {
+                        "minWidth": "210px",
+                        "width": "210px",
+                      }
+                    }
+                  >
+                    <span
+                      className="data-table-row-section"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "minWidth": "210px",
+                          "width": "210px",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      <span
+                        className="score-tag nearly-proficient"
+                      >
+                        Nearly proficient
+                      </span>
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
+                  </span>
+                </Tooltip>
               </td>
               <td
                 className="data-table-row-section completed-section"
@@ -851,21 +1378,75 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 Capitalize Holidays and Geographic Names
               </td>
               <td
-                className="data-table-row-section undefined"
                 key="scoreTag-25"
-                style={
-                  Object {
-                    "minWidth": "210px",
-                    "textAlign": "left",
-                    "width": "210px",
-                  }
-                }
               >
-                <span
-                  className="score-tag proficient"
+                <Tooltip
+                  isTabbable={true}
+                  tooltipTriggerStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
+                  tooltipTriggerText={
+                    <span
+                      className="score-tag proficient"
+                    >
+                      Proficient
+                    </span>
+                  }
+                  tooltipTriggerTextClass="data-table-row-section"
+                  tooltipTriggerTextStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
                 >
-                  Proficient
-                </span>
+                  <span
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
+                    style={
+                      Object {
+                        "minWidth": "210px",
+                        "width": "210px",
+                      }
+                    }
+                  >
+                    <span
+                      className="data-table-row-section"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "minWidth": "210px",
+                          "width": "210px",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      <span
+                        className="score-tag proficient"
+                      >
+                        Proficient
+                      </span>
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
+                  </span>
+                </Tooltip>
               </td>
               <td
                 className="data-table-row-section completed-section"
@@ -915,21 +1496,76 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 Starter Diagnostic
               </td>
               <td
-                className="data-table-row-section undefined"
                 key="scoreTag-24"
-                style={
-                  Object {
-                    "minWidth": "210px",
-                    "textAlign": "left",
-                    "width": "210px",
-                  }
-                }
               >
-                <span
-                  className="score-tag completed"
+                <Tooltip
+                  isTabbable={true}
+                  tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+                  tooltipTriggerStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
+                  tooltipTriggerText={
+                    <span
+                      className="score-tag completed"
+                    >
+                      Completed
+                    </span>
+                  }
+                  tooltipTriggerTextClass="data-table-row-section"
+                  tooltipTriggerTextStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
                 >
-                  Completed
-                </span>
+                  <span
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
+                    style={
+                      Object {
+                        "minWidth": "210px",
+                        "width": "210px",
+                      }
+                    }
+                  >
+                    <span
+                      className="data-table-row-section"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "minWidth": "210px",
+                          "width": "210px",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      <span
+                        className="score-tag completed"
+                      >
+                        Completed
+                      </span>
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
+                  </span>
+                </Tooltip>
               </td>
               <td
                 className="data-table-row-section completed-section"
@@ -979,21 +1615,76 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 Starter Diagnostic
               </td>
               <td
-                className="data-table-row-section undefined"
                 key="scoreTag-23"
-                style={
-                  Object {
-                    "minWidth": "210px",
-                    "textAlign": "left",
-                    "width": "210px",
-                  }
-                }
               >
-                <span
-                  className="score-tag completed"
+                <Tooltip
+                  isTabbable={true}
+                  tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+                  tooltipTriggerStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
+                  tooltipTriggerText={
+                    <span
+                      className="score-tag completed"
+                    >
+                      Completed
+                    </span>
+                  }
+                  tooltipTriggerTextClass="data-table-row-section"
+                  tooltipTriggerTextStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
                 >
-                  Completed
-                </span>
+                  <span
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
+                    style={
+                      Object {
+                        "minWidth": "210px",
+                        "width": "210px",
+                      }
+                    }
+                  >
+                    <span
+                      className="data-table-row-section"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "minWidth": "210px",
+                          "width": "210px",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      <span
+                        className="score-tag completed"
+                      >
+                        Completed
+                      </span>
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
+                  </span>
+                </Tooltip>
               </td>
               <td
                 className="data-table-row-section completed-section"
@@ -1043,21 +1734,76 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 Starter Diagnostic
               </td>
               <td
-                className="data-table-row-section undefined"
                 key="scoreTag-3"
-                style={
-                  Object {
-                    "minWidth": "210px",
-                    "textAlign": "left",
-                    "width": "210px",
-                  }
-                }
               >
-                <span
-                  className="score-tag completed"
+                <Tooltip
+                  isTabbable={true}
+                  tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+                  tooltipTriggerStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
+                  tooltipTriggerText={
+                    <span
+                      className="score-tag completed"
+                    >
+                      Completed
+                    </span>
+                  }
+                  tooltipTriggerTextClass="data-table-row-section"
+                  tooltipTriggerTextStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
                 >
-                  Completed
-                </span>
+                  <span
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
+                    style={
+                      Object {
+                        "minWidth": "210px",
+                        "width": "210px",
+                      }
+                    }
+                  >
+                    <span
+                      className="data-table-row-section"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "minWidth": "210px",
+                          "width": "210px",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      <span
+                        className="score-tag completed"
+                      >
+                        Completed
+                      </span>
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
+                  </span>
+                </Tooltip>
               </td>
               <td
                 className="data-table-row-section completed-section"
@@ -1107,21 +1853,76 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 Starter Diagnostic
               </td>
               <td
-                className="data-table-row-section undefined"
                 key="scoreTag-2"
-                style={
-                  Object {
-                    "minWidth": "210px",
-                    "textAlign": "left",
-                    "width": "210px",
-                  }
-                }
               >
-                <span
-                  className="score-tag completed"
+                <Tooltip
+                  isTabbable={true}
+                  tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+                  tooltipTriggerStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
+                  tooltipTriggerText={
+                    <span
+                      className="score-tag completed"
+                    >
+                      Completed
+                    </span>
+                  }
+                  tooltipTriggerTextClass="data-table-row-section"
+                  tooltipTriggerTextStyle={
+                    Object {
+                      "minWidth": "210px",
+                      "width": "210px",
+                    }
+                  }
                 >
-                  Completed
-                </span>
+                  <span
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
+                    style={
+                      Object {
+                        "minWidth": "210px",
+                        "width": "210px",
+                      }
+                    }
+                  >
+                    <span
+                      className="data-table-row-section"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "minWidth": "210px",
+                          "width": "210px",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      <span
+                        className="score-tag completed"
+                      >
+                        Completed
+                      </span>
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
+                  </span>
+                </Tooltip>
               </td>
               <td
                 className="data-table-row-section completed-section"
@@ -1311,11 +2112,29 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "completed": "Mar 5th",
           "id": 33,
           "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/76/user/7/activity/810",
-          "scoreTag": <span
-            className="score-tag not-yet-proficient"
-          >
-            Not yet proficient
-          </span>,
+          "scoreTag": <Tooltip
+            isTabbable={true}
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag not-yet-proficient"
+              >
+                Not yet proficient
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+          />,
           "studentName": "Angie Thomas",
         }
       }
@@ -1338,11 +2157,73 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           Subject and Object Pronoun Agreement 1
         </div>
         <div>
-          <span
-            className="score-tag not-yet-proficient"
+          <Tooltip
+            isTabbable={true}
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag not-yet-proficient"
+              >
+                Not yet proficient
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
           >
-            Not yet proficient
-          </span>
+            <span
+              aria-hidden={false}
+              className="quill-tooltip-trigger "
+              role="tooltip"
+              style={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            >
+              <span
+                className="data-table-row-section"
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="button"
+                style={
+                  Object {
+                    "minWidth": "210px",
+                    "width": "210px",
+                  }
+                }
+                tabIndex={0}
+              >
+                <span
+                  className="score-tag not-yet-proficient"
+                >
+                  Not yet proficient
+                </span>
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  aria-live="polite"
+                  className="quill-tooltip"
+                />
+              </span>
+            </span>
+          </Tooltip>
         </div>
       </a>
     </MobileActivityRow>
@@ -1355,11 +2236,29 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "completed": "Mar 5th",
           "id": 32,
           "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/885",
-          "scoreTag": <span
-            className="score-tag proficient"
-          >
-            Proficient
-          </span>,
+          "scoreTag": <Tooltip
+            isTabbable={true}
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag proficient"
+              >
+                Proficient
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+          />,
           "studentName": "Angie Thomas",
         }
       }
@@ -1382,11 +2281,73 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           Capitalize Names of People and the Pronoun "I"
         </div>
         <div>
-          <span
-            className="score-tag proficient"
+          <Tooltip
+            isTabbable={true}
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag proficient"
+              >
+                Proficient
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
           >
-            Proficient
-          </span>
+            <span
+              aria-hidden={false}
+              className="quill-tooltip-trigger "
+              role="tooltip"
+              style={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            >
+              <span
+                className="data-table-row-section"
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="button"
+                style={
+                  Object {
+                    "minWidth": "210px",
+                    "width": "210px",
+                  }
+                }
+                tabIndex={0}
+              >
+                <span
+                  className="score-tag proficient"
+                >
+                  Proficient
+                </span>
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  aria-live="polite"
+                  className="quill-tooltip"
+                />
+              </span>
+            </span>
+          </Tooltip>
         </div>
       </a>
     </MobileActivityRow>
@@ -1399,11 +2360,29 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "completed": "Mar 5th",
           "id": 29,
           "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/804",
-          "scoreTag": <span
-            className="score-tag proficient"
-          >
-            Proficient
-          </span>,
+          "scoreTag": <Tooltip
+            isTabbable={true}
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag proficient"
+              >
+                Proficient
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+          />,
           "studentName": "Angie Thomas",
         }
       }
@@ -1426,11 +2405,73 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           Capitalize Names of People 1
         </div>
         <div>
-          <span
-            className="score-tag proficient"
+          <Tooltip
+            isTabbable={true}
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag proficient"
+              >
+                Proficient
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
           >
-            Proficient
-          </span>
+            <span
+              aria-hidden={false}
+              className="quill-tooltip-trigger "
+              role="tooltip"
+              style={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            >
+              <span
+                className="data-table-row-section"
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="button"
+                style={
+                  Object {
+                    "minWidth": "210px",
+                    "width": "210px",
+                  }
+                }
+                tabIndex={0}
+              >
+                <span
+                  className="score-tag proficient"
+                >
+                  Proficient
+                </span>
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  aria-live="polite"
+                  className="quill-tooltip"
+                />
+              </span>
+            </span>
+          </Tooltip>
         </div>
       </a>
     </MobileActivityRow>
@@ -1443,11 +2484,29 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "completed": "Mar 5th",
           "id": 28,
           "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/802",
-          "scoreTag": <span
-            className="score-tag nearly-proficient"
-          >
-            Nearly proficient
-          </span>,
+          "scoreTag": <Tooltip
+            isTabbable={true}
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag nearly-proficient"
+              >
+                Nearly proficient
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+          />,
           "studentName": "Angie Thomas",
         }
       }
@@ -1470,11 +2529,73 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           Capitalize Geographic Names 1
         </div>
         <div>
-          <span
-            className="score-tag nearly-proficient"
+          <Tooltip
+            isTabbable={true}
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag nearly-proficient"
+              >
+                Nearly proficient
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
           >
-            Nearly proficient
-          </span>
+            <span
+              aria-hidden={false}
+              className="quill-tooltip-trigger "
+              role="tooltip"
+              style={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            >
+              <span
+                className="data-table-row-section"
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="button"
+                style={
+                  Object {
+                    "minWidth": "210px",
+                    "width": "210px",
+                  }
+                }
+                tabIndex={0}
+              >
+                <span
+                  className="score-tag nearly-proficient"
+                >
+                  Nearly proficient
+                </span>
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  aria-live="polite"
+                  className="quill-tooltip"
+                />
+              </span>
+            </span>
+          </Tooltip>
         </div>
       </a>
     </MobileActivityRow>
@@ -1487,11 +2608,29 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "completed": "Mar 5th",
           "id": 27,
           "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/75/user/7/activity/808",
-          "scoreTag": <span
-            className="score-tag proficient"
-          >
-            Proficient
-          </span>,
+          "scoreTag": <Tooltip
+            isTabbable={true}
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag proficient"
+              >
+                Proficient
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+          />,
           "studentName": "Angie Thomas",
         }
       }
@@ -1514,11 +2653,73 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           Plural vs. Possessive Nouns 1
         </div>
         <div>
-          <span
-            className="score-tag proficient"
+          <Tooltip
+            isTabbable={true}
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag proficient"
+              >
+                Proficient
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
           >
-            Proficient
-          </span>
+            <span
+              aria-hidden={false}
+              className="quill-tooltip-trigger "
+              role="tooltip"
+              style={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            >
+              <span
+                className="data-table-row-section"
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="button"
+                style={
+                  Object {
+                    "minWidth": "210px",
+                    "width": "210px",
+                  }
+                }
+                tabIndex={0}
+              >
+                <span
+                  className="score-tag proficient"
+                >
+                  Proficient
+                </span>
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  aria-live="polite"
+                  className="quill-tooltip"
+                />
+              </span>
+            </span>
+          </Tooltip>
         </div>
       </a>
     </MobileActivityRow>
@@ -1531,11 +2732,29 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "completed": "Mar 5th",
           "id": 26,
           "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/801",
-          "scoreTag": <span
-            className="score-tag nearly-proficient"
-          >
-            Nearly proficient
-          </span>,
+          "scoreTag": <Tooltip
+            isTabbable={true}
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag nearly-proficient"
+              >
+                Nearly proficient
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+          />,
           "studentName": "Angie Thomas",
         }
       }
@@ -1558,11 +2777,73 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           Capitalize Holidays and Dates 1
         </div>
         <div>
-          <span
-            className="score-tag nearly-proficient"
+          <Tooltip
+            isTabbable={true}
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag nearly-proficient"
+              >
+                Nearly proficient
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
           >
-            Nearly proficient
-          </span>
+            <span
+              aria-hidden={false}
+              className="quill-tooltip-trigger "
+              role="tooltip"
+              style={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            >
+              <span
+                className="data-table-row-section"
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="button"
+                style={
+                  Object {
+                    "minWidth": "210px",
+                    "width": "210px",
+                  }
+                }
+                tabIndex={0}
+              >
+                <span
+                  className="score-tag nearly-proficient"
+                >
+                  Nearly proficient
+                </span>
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  aria-live="polite"
+                  className="quill-tooltip"
+                />
+              </span>
+            </span>
+          </Tooltip>
         </div>
       </a>
     </MobileActivityRow>
@@ -1575,11 +2856,29 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "completed": "Mar 5th",
           "id": 25,
           "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/181",
-          "scoreTag": <span
-            className="score-tag proficient"
-          >
-            Proficient
-          </span>,
+          "scoreTag": <Tooltip
+            isTabbable={true}
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag proficient"
+              >
+                Proficient
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+          />,
           "studentName": "Angie Thomas",
         }
       }
@@ -1602,11 +2901,73 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           Capitalize Holidays and Geographic Names
         </div>
         <div>
-          <span
-            className="score-tag proficient"
+          <Tooltip
+            isTabbable={true}
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag proficient"
+              >
+                Proficient
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
           >
-            Proficient
-          </span>
+            <span
+              aria-hidden={false}
+              className="quill-tooltip-trigger "
+              role="tooltip"
+              style={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            >
+              <span
+                className="data-table-row-section"
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="button"
+                style={
+                  Object {
+                    "minWidth": "210px",
+                    "width": "210px",
+                  }
+                }
+                tabIndex={0}
+              >
+                <span
+                  className="score-tag proficient"
+                >
+                  Proficient
+                </span>
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  aria-live="polite"
+                  className="quill-tooltip"
+                />
+              </span>
+            </span>
+          </Tooltip>
         </div>
       </a>
     </MobileActivityRow>
@@ -1619,11 +2980,30 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "completed": "Mar 4th",
           "id": 24,
           "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/6/unit/85/user/7/activity/849",
-          "scoreTag": <span
-            className="score-tag completed"
-          >
-            Completed
-          </span>,
+          "scoreTag": <Tooltip
+            isTabbable={true}
+            tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag completed"
+              >
+                Completed
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+          />,
           "studentName": "Angie Thomas",
         }
       }
@@ -1646,11 +3026,74 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           Starter Diagnostic
         </div>
         <div>
-          <span
-            className="score-tag completed"
+          <Tooltip
+            isTabbable={true}
+            tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag completed"
+              >
+                Completed
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
           >
-            Completed
-          </span>
+            <span
+              aria-hidden={false}
+              className="quill-tooltip-trigger "
+              role="tooltip"
+              style={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            >
+              <span
+                className="data-table-row-section"
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="button"
+                style={
+                  Object {
+                    "minWidth": "210px",
+                    "width": "210px",
+                  }
+                }
+                tabIndex={0}
+              >
+                <span
+                  className="score-tag completed"
+                >
+                  Completed
+                </span>
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  aria-live="polite"
+                  className="quill-tooltip"
+                />
+              </span>
+            </span>
+          </Tooltip>
         </div>
       </a>
     </MobileActivityRow>
@@ -1663,11 +3106,30 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "completed": "Mar 3rd",
           "id": 23,
           "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/85/user/7/activity/849",
-          "scoreTag": <span
-            className="score-tag completed"
-          >
-            Completed
-          </span>,
+          "scoreTag": <Tooltip
+            isTabbable={true}
+            tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag completed"
+              >
+                Completed
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+          />,
           "studentName": "Angie Thomas",
         }
       }
@@ -1690,11 +3152,74 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           Starter Diagnostic
         </div>
         <div>
-          <span
-            className="score-tag completed"
+          <Tooltip
+            isTabbable={true}
+            tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag completed"
+              >
+                Completed
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
           >
-            Completed
-          </span>
+            <span
+              aria-hidden={false}
+              className="quill-tooltip-trigger "
+              role="tooltip"
+              style={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            >
+              <span
+                className="data-table-row-section"
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="button"
+                style={
+                  Object {
+                    "minWidth": "210px",
+                    "width": "210px",
+                  }
+                }
+                tabIndex={0}
+              >
+                <span
+                  className="score-tag completed"
+                >
+                  Completed
+                </span>
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  aria-live="polite"
+                  className="quill-tooltip"
+                />
+              </span>
+            </span>
+          </Tooltip>
         </div>
       </a>
     </MobileActivityRow>
@@ -1707,11 +3232,30 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "completed": "Dec 1st, 2020",
           "id": 3,
           "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/6/activity/849",
-          "scoreTag": <span
-            className="score-tag completed"
-          >
-            Completed
-          </span>,
+          "scoreTag": <Tooltip
+            isTabbable={true}
+            tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag completed"
+              >
+                Completed
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+          />,
           "studentName": "Tahereh Mafi",
         }
       }
@@ -1734,11 +3278,74 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           Starter Diagnostic
         </div>
         <div>
-          <span
-            className="score-tag completed"
+          <Tooltip
+            isTabbable={true}
+            tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag completed"
+              >
+                Completed
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
           >
-            Completed
-          </span>
+            <span
+              aria-hidden={false}
+              className="quill-tooltip-trigger "
+              role="tooltip"
+              style={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            >
+              <span
+                className="data-table-row-section"
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="button"
+                style={
+                  Object {
+                    "minWidth": "210px",
+                    "width": "210px",
+                  }
+                }
+                tabIndex={0}
+              >
+                <span
+                  className="score-tag completed"
+                >
+                  Completed
+                </span>
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  aria-live="polite"
+                  className="quill-tooltip"
+                />
+              </span>
+            </span>
+          </Tooltip>
         </div>
       </a>
     </MobileActivityRow>
@@ -1751,11 +3358,30 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "completed": "Dec 1st, 2020",
           "id": 2,
           "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/7/activity/849",
-          "scoreTag": <span
-            className="score-tag completed"
-          >
-            Completed
-          </span>,
+          "scoreTag": <Tooltip
+            isTabbable={true}
+            tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag completed"
+              >
+                Completed
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+          />,
           "studentName": "Angie Thomas",
         }
       }
@@ -1778,11 +3404,74 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           Starter Diagnostic
         </div>
         <div>
-          <span
-            className="score-tag completed"
+          <Tooltip
+            isTabbable={true}
+            tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+            tooltipTriggerStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
+            tooltipTriggerText={
+              <span
+                className="score-tag completed"
+              >
+                Completed
+              </span>
+            }
+            tooltipTriggerTextClass="data-table-row-section"
+            tooltipTriggerTextStyle={
+              Object {
+                "minWidth": "210px",
+                "width": "210px",
+              }
+            }
           >
-            Completed
-          </span>
+            <span
+              aria-hidden={false}
+              className="quill-tooltip-trigger "
+              role="tooltip"
+              style={
+                Object {
+                  "minWidth": "210px",
+                  "width": "210px",
+                }
+              }
+            >
+              <span
+                className="data-table-row-section"
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="button"
+                style={
+                  Object {
+                    "minWidth": "210px",
+                    "width": "210px",
+                  }
+                }
+                tabIndex={0}
+              >
+                <span
+                  className="score-tag completed"
+                >
+                  Completed
+                </span>
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  aria-live="polite"
+                  className="quill-tooltip"
+                />
+              </span>
+            </span>
+          </Tooltip>
         </div>
       </a>
     </MobileActivityRow>
