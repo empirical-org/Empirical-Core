@@ -47,9 +47,11 @@ describe('LoginForm', () => {
     const { user, } = setup()
 
     expect(screen.getByLabelText(/^password/i).type).toBe('password')
+    expect(screen.queryByRole('button', { name: /hide password/i })).not.toBeInTheDocument()
     expect(screen.getByRole('button', { name: /show password/i })).toBeTruthy()
     await user.click(screen.getByRole('button', { name: /show password/i }))
     expect(screen.getByLabelText(/^password/i).type).toBe('text')
+    expect(screen.queryByRole('button', { name: /show password/i })).not.toBeInTheDocument()
     expect(screen.getByRole('button', { name: /hide password/i })).toBeTruthy()
   })
 
