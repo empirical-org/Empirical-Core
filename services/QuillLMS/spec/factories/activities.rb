@@ -35,7 +35,7 @@
 #  fk_rails_...  (standard_id => standards.id)
 #
 FactoryBot.define do
-  factory :simple_activity, class: Activity
+  factory :simple_activity, class: 'Activity'
 
   factory :activity do
     sequence(:name) do |n|

@@ -5,10 +5,9 @@ import PremiumHub from './PremiumHub';
 import DistrictActivityScoresProgressReport from './DistrictActivityScores';
 import DistrictConceptReportsProgressReport from './DistrictConceptReports';
 import DistrictStandardsReportsProgressReport from './DistrictStandardsReports';
-import DataExport from './DataExportContainer';
 import SchoolSubscriptionsContainer from './SchoolSubscriptionsContainer';
 import IntegrationsContainer from './IntegrationsContainer';
-import UsageSnapshotsContainer from './UsageSnapshotsContainer';
+import PremiumFilterableReportsContainer from './PremiumFilterableReportsContainer';
 
 import { requestGet, } from '../../../modules/request/index';
 import { NOT_LISTED, NO_SCHOOL_SELECTED, Spinner } from '../../Shared/index';
@@ -137,13 +136,13 @@ const PremiumHubContainer = ({ id, location, children, }) => {
           {renderBanner()}
           <Switch>
             <Route component={routerProps => <ActivityScoresStudentOverview {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_activity_scores/student_overview" />
-            <Route component={routerProps => <DataExport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/data_export" />
             <Route component={routerProps => <DistrictActivityScoresProgressReport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_activity_scores" />
             <Route component={routerProps => <DistrictConceptReportsProgressReport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_concept_reports" />
             <Route component={routerProps => <DistrictStandardsReportsProgressReport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_standards_reports" />
             <Route component={routerProps => <SchoolSubscriptionsContainer {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/school_subscriptions" />
             <Route component={routerProps => <IntegrationsContainer {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/integrations" />
-            <Route component={routerProps => <UsageSnapshotsContainer {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/usage_snapshot_report" />
+            <Route component={routerProps => <PremiumFilterableReportsContainer adminId={id} {...sharedProps} {...routerProps} />} exact path="/teachers/premium_hub/usage_snapshot_report" />
+            <Route component={routerProps => <PremiumFilterableReportsContainer adminId={id} {...sharedProps} {...routerProps} />} exact path="/teachers/premium_hub/data_export" />
             <Route component={routerProps => <PremiumHub adminId={id} {...sharedProps} {...routerProps} />} exact path="/teachers/premium_hub/" />
           </Switch>
         </div>

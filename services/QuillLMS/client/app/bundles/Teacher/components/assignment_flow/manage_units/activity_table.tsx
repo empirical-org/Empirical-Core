@@ -171,11 +171,13 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
     const activity = classroomActivityArray.find(act => act.activityId === activityId)
     if (!activity){ return }
     const toolIcon = getIconForActivityClassification(activity.activityClassificationId)
-    const previewLink = <a className="activity-name-link" href={`/activity_sessions/anonymous?activity_id=${activity.activityId}`} tabIndex={-1}>{activity.name}</a>
-    activity.toolAndNameSection = (<a className="interactive-wrapper focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activity.activityId}`} id={`tool-and-name-section-${activity.uaId}`}>
-      <span className="tool-icon-wrapper">{toolIcon}</span>
-      {previewLink}
-    </a>)
+    const previewLink = <a className="interactive-wrapper focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activity.activityId}`} id={`tool-and-name-section-${activity.uaId}`} rel="noopener noreferrer" target="_blank">{activity.name}</a>
+    activity.toolAndNameSection = (
+      <div className="tool-icon-and-name">
+        <span className="tool-icon-wrapper">{toolIcon}</span>
+        {previewLink}
+      </div>
+    )
 
     const dueDateInMoment = activity.dueDate ? moment.utc(activity.dueDate) : null
     const publishDateInMoment = activity.publishDate ? moment.utc(activity.publishDate) : null

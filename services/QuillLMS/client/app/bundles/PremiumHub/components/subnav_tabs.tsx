@@ -10,7 +10,7 @@ const STANDARDS_REPORTS = 'Standards Reports';
 const USAGE_SNAPSHOT_REPORT = 'Usage Snapshot Report'
 const DATA_EXPORT = 'Data Export'
 
-const tabsWithoutUsageSnapshotAndDataExportReport = {
+const tabsWithoutDataExportReport = {
   [OVERVIEW]: {
     label: OVERVIEW,
     url: '/teachers/premium_hub'
@@ -35,17 +35,17 @@ const tabsWithoutUsageSnapshotAndDataExportReport = {
     label: INTEGRATIONS,
     url: '/teachers/premium_hub/integrations'
   },
-}
-
-const tabs = {
-  ...tabsWithoutUsageSnapshotAndDataExportReport,
-  [DATA_EXPORT]: {
-    label: DATA_EXPORT,
-    url: '/teachers/premium_hub/data_export'
-  },
   [USAGE_SNAPSHOT_REPORT]: {
     label: USAGE_SNAPSHOT_REPORT,
     url: '/teachers/premium_hub/usage_snapshot_report'
+  }
+}
+
+const tabs = {
+  ...tabsWithoutDataExportReport,
+  [DATA_EXPORT]: {
+    label: DATA_EXPORT,
+    url: '/teachers/premium_hub/data_export'
   },
 }
 
@@ -91,7 +91,7 @@ export const AdminSubnav = ({ path }) => {
 
   const dropdownClass = dropdownOpen ? 'open' : '';
 
-  const tabsToShow = window.location.href.includes('usage_snapshot') || window.location.href.includes('data_export') ? tabs : tabsWithoutUsageSnapshotAndDataExportReport
+  const tabsToShow = window.location.href.includes('data_export') ? tabs : tabsWithoutDataExportReport
 
   return(
     <React.Fragment>

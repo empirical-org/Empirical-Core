@@ -50,7 +50,7 @@
 #  unique_index_schools_on_ppin     (ppin) UNIQUE WHERE ((ppin)::text <> ''::text)
 #
 FactoryBot.define do
-  factory :simple_school, class: School
+  factory :simple_school, class: 'School'
 
   factory :school do
     sequence(:nces_id, 100000000000)

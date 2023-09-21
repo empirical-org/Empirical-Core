@@ -35,12 +35,25 @@ exports[`Assign students component should render 1`] = `
           type="button"
         >
           <img
-            alt="Canvas Icon"
+            alt="Clever Icon"
             className="import-from-provider-button-icon"
-            src="undefined/images/icons/canvas.svg"
+            src="undefined/images/icons/clever.svg"
           />
           Import from 
-          Canvas
+          Clever
+        </button>
+        <button
+          className="interactive-wrapper import-from-provider-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Google Classroom Icon"
+            className="import-from-provider-button-icon"
+            src="undefined/images/icons/google-classroom.svg"
+          />
+          Import from 
+          Google Classroom
         </button>
         <button
           className="quill-button medium secondary outlined create-a-class-button"

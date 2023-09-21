@@ -24,6 +24,7 @@
 #
 class ProviderClassroom < ApplicationRecord
   belongs_to :classroom
+  belongs_to :canvas_instance
 
   TYPES = %w[CanvasClassroom].freeze
 

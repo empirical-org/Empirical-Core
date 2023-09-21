@@ -24,6 +24,8 @@ class CanvasInstance < ApplicationRecord
 
   has_many :canvas_instance_auth_credentials, dependent: :destroy
 
+  has_many :provider_classrooms, dependent: :destroy
+
   before_validation :downcase_url, :remove_trailing_slash
 
   validates :url,

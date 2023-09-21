@@ -42,7 +42,7 @@ function renderListItem({ tabs, handleLinkClick, tabLabel, activeTab, i }) {
 
   if (onMobile) {
     return (
-      <li>
+      <li key={i}>
         <Link className={`${linkClass}`} onClick={handleLinkClick} to={tabs[tabLabel].url}>
           {tabLabel}
         </Link>
@@ -51,7 +51,7 @@ function renderListItem({ tabs, handleLinkClick, tabLabel, activeTab, i }) {
     )
   }
   return (
-    <li>
+    <li key={i}>
       <Link className={linkClass} onClick={handleLinkClick} to={tabs[tabLabel].url}>
         {tabLabel}
         {getIcon(!!activeClass, tabLabel)}

@@ -79,7 +79,7 @@ function renderStudentHeaderSkillsData({ isPreTest, totalAcquiredSkillGroupsCoun
     const maintainedText = total_maintained_skill_group_proficiency_count === 1 ? '(1 Maintained)' : `(${total_maintained_skill_group_proficiency_count} Maintained)`
     skillGroupsSubHeader = (
       <div className="name-section-subheader">
-        <div className="skills-delta">{brightGreenTriangleUpIcon}</div>
+        {!!total_acquired_skill_groups_count && <div className="skills-delta">{brightGreenTriangleUpIcon}</div>}
         {!!total_acquired_skill_groups_count && <span className="correct-skill-text acquired">{acquiredText}</span>}
         {!!total_maintained_skill_group_proficiency_count && <span className="correct-skill-text maintained">{maintainedText}</span>}
       </div>
