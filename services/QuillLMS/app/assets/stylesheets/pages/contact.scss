@@ -50,8 +50,15 @@
   align-items: flex-start;
   .vertical-divider {
     width: 1px;
-    align-self: stretch;
     background: var(--color-grey-grey-5, #E0E0E0);
+    align-self: stretch;
+  }
+  .horizontal-divider {
+    display: none;
+    height: 1px;
+    background: var(--color-grey-grey-5, #E0E0E0);
+    align-self: stretch;
+    margin: 0px 64px;
   }
   p {
     text-align: center;
@@ -62,5 +69,12 @@
 @media (max-width: 800px) {
   .contact-page {
     flex-direction: column;
+    .vertical-divider {
+      display: none;
+    }
+    .horizontal-divider {
+      display: block;
+    }
+
   }
 }
