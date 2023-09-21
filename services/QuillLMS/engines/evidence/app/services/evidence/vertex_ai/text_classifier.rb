@@ -32,7 +32,7 @@ module Evidence
       end
 
       private def endpoint
-        "projects/#{AI_PLATFORM_PROJECT_ID}/locations/#{AI_PLATFORM_LOCATION}/endpoints/#{endpoint_external_id}"
+        "projects/#{VERTEX_AI_PROJECT_ID}/locations/#{VERTEX_AI_LOCATION}/endpoints/#{endpoint_external_id}"
       end
 
       private def instances
