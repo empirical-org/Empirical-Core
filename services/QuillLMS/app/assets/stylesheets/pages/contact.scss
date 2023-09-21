@@ -14,14 +14,14 @@
   h1 {
     font-weight: 700;
     font-size: 30px;
-    margin-top: 32px;
+    margin-top: 0px;
   }
   p {
     font-size: 16px;
     line-height: 24px;
   }
   .content-section {
-    margin-top: 24px;
+    margin-top: 0px;
   }
   span {
     font-weight: 700;
@@ -40,9 +40,6 @@
     font-weight: bold;
     margin-top: 20px;
   }
-  .second-paragraph {
-    margin-top: 24px;
-  }
 }
 
 .contact-page {
@@ -58,6 +55,7 @@
   }
   p {
     text-align: center;
+    margin: 13px 0px 15px 0px;
   }
 }
 
