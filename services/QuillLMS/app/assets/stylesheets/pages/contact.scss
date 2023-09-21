@@ -50,13 +50,13 @@
   align-items: flex-start;
   .vertical-divider {
     width: 1px;
-    background: var(--color-grey-grey-5, #E0E0E0);
+    background: $quill-grey-5;
     align-self: stretch;
   }
   .horizontal-divider {
     display: none;
     height: 1px;
-    background: var(--color-grey-grey-5, #E0E0E0);
+    background: $quill-grey-5;
     align-self: stretch;
     margin: 0px 64px;
   }
