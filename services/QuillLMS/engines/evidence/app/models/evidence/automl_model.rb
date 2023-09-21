@@ -58,12 +58,8 @@ module Evidence
       ))
     end
 
-    def populate_from_model_name
-      self.name = pull_name
-      self.labels = pull_labels
-      self.model_external_id = model_external_id
-      self.endpoint_external_id = endpoint_external_id
-      self.state = STATE_INACTIVE
+    def assign_custom_attributes
+      assign_attributes(VertexAI::ParamsBuilder.run(name).merge(state: STATE_INACTIVE))
     end
 
     def active?
@@ -86,7 +82,7 @@ module Evidence
     end
 
     def fetch_automl_label_and_score(text)
-      AutomlLabelAndScoreFetcher.run(endpoint_external_id, text)
+      VertexAI::TextClassifier.run(endpoint_external_id, text)
     end
 
     def older_models

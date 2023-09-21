@@ -42,32 +42,34 @@ module Evidence
 
       let(:prompt) { create(:evidence_prompt) }
       let(:automl_model) { build(:evidence_automl_model, **automl_model_params) }
-      let(:name) { 'name' }
       let(:labels) { ['label1'] }
 
-      before do
-        session[:user_id] = user.id
-        allow(Evidence::AutomlModel).to receive(:new).and_return(automl_model)
-        allow(automl_model).to receive(:pull_name).and_return(name)
-        allow(automl_model).to receive(:pull_labels).and_return(labels)
+      let(:vertex_ai_params) do
+        {
+          endpoint_external_id: endpoint_external_id,
+          labels: labels,
+          model_external_id: model_external_id
+        }
       end
 
-      context 'valid params' do
-        let(:automl_model_params) do
-          {
-            endpoint_external_id: endpoint_external_id,
-            model_external_id: model_external_id,
-            prompt_id: prompt.id,
-          }
-        end
+      before { session[:user_id] = user.id }
 
+      context 'valid params' do
+        let(:name) { 'name' }
+        let(:automl_model_params) { { name: name, prompt_id: prompt.id } }
         let(:endpoint_external_id) { 'endpoint_external_id' }
         let(:model_external_id) { 'model_external_id' }
         let(:state) { AutomlModel::STATE_INACTIVE }
 
-        before { subject }
+        before do
+          allow(Evidence::VertexAI::ParamsBuilder)
+            .to receive(:run)
+            .with(name)
+            .and_return(vertex_ai_params)
+        end
 
         it 'creates a valid record and return it as json' do
+          subject
           expect(response.code.to_i).to eq 201
           expect(parsed_response['model_external_id']).to eq model_external_id
           expect(parsed_response['endpoint_external_id']).to eq endpoint_external_id
@@ -79,6 +81,7 @@ module Evidence
         end
 
         it 'make a change log record after creating the AutoML record' do
+          subject
           change_log = Evidence.change_log_class.last
           expect(change_log.serializable_hash['full_action']).to eq 'AutoML Model - created'
           expect(change_log.user_id).to eq user.id
@@ -90,6 +93,7 @@ module Evidence
           let(:automl_model_params) { super().merge(state: AutomlModel::STATE_ACTIVE) }
 
           it 'creates new records with state = inactive' do
+            subject
             expect(response.code.to_i).to eq 201
             expect(parsed_response['state']).to eq AutomlModel::STATE_INACTIVE
             expect(AutomlModel.count).to eq 1
@@ -100,6 +104,7 @@ module Evidence
           let(:automl_model_params) { super().merge(state: nil) }
 
           it 'creates new records with state = inactive' do
+            subject
             expect(response.code.to_i).to eq 201
             expect(parsed_response['state']).to eq AutomlModel::STATE_INACTIVE
             expect(AutomlModel.count).to eq 1
@@ -108,14 +113,16 @@ module Evidence
       end
 
       context 'invalid params' do
-        let(:automl_model_params) { { endpoint_external_id: '', model_external_id: '', prompt_id: prompt.id } }
-
-        before { subject }
+        let(:name) { '' }
+        let(:automl_model_params) { { name: name, prompt_id: prompt.id } }
 
         it 'does not create record and return errors as json' do
+          subject
           expect(response.code.to_i).to eq 422
-          expect(parsed_response['model_external_id'].include?("can't be blank")).to eq true
-          expect(parsed_response['endpoint_external_id'].include?("can't be blank")).to eq true
+          expect(parsed_response['name']).to include("can't be blank")
+          expect(parsed_response['model_external_id']).to include("can't be blank")
+          expect(parsed_response['endpoint_external_id']).to include("can't be blank")
+          expect(parsed_response['labels']).to include("can't be blank")
           expect(AutomlModel.count).to eq 0
         end
       end

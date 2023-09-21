@@ -46,16 +46,20 @@ const Model = ({ match }) => {
       return [];
     }
     // format for DataTable to display labels on left side and values on right
-    const { model_external_id, name, older_models } = model;
+    const { endpoint_external_id, model_external_id, name, older_models } = model;
 
     const fields = [
       {
         label: 'Model Name',
-        value: name
+        value: namej
       },
       {
         label: 'Model ID',
         value: model_external_id
+      },
+      {
+        label: 'Endpoint ID',
+        value: endpoint_external_id
       },
       {
         label: 'Model Version',

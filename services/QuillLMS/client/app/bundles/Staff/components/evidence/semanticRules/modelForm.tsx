@@ -6,15 +6,17 @@ import { DropdownInput, Input, Spinner, TextArea } from '../../../../Shared/inde
 import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { InputEvent } from '../../../interfaces/evidenceInterfaces';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
-import { createModel } from '../../../utils/evidence/modelAPIs';
+import { createModel, fetchDeployedModelNames } from '../../../utils/evidence/modelAPIs';
 
 const ModelForm = ({ location, history, match }) => {
   const { params } = match;
+
   const { activityId, promptId } = params;
 
   const [errors, setErrors] = React.useState<object>({});
-  const [modelName, setModelName] = React.useState<string>('');
-  const [modelNotes, setModelNotes] = React.useState<string>('');
+  const [name, setName] = React.useState<string>('');
+  const [notes, setNotes] = React.useState<string>('');
+  const [nameOptions, setNameOptions] = React.useState<any[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const { data: activityData } = useQuery({
@@ -22,22 +24,40 @@ const ModelForm = ({ location, history, match }) => {
     queryFn: fetchActivity
   });
 
-  function handleSetModelName(e) {
-    setModelName(e.value);
+  const { data: deployedModelNamesData, isError: isNamesError } = useQuery({
+    queryKey: ['deployedModelNames'],
+    queryFn: fetchDeployedModelNames,
+  });
+
+  React.useEffect(() => {
+    if (deployedModelNamesData && deployedModelNamesData.names) {
+      const newOptions = deployedModelNamesData.names.map((name) => ({
+        value: name,
+        label: name,
+      }));
+      setNameOptions(newOptions);
+    }
+  }, [deployedModelNamesData]);
+
+  React.useEffect(() => {
+  }, [name]);
+
+  function handleSetName(option: { value: string }) {
+    setName(option.value);
   }
 
-  function handleSetModelNotes(e: InputEvent) {
-    setModelNotes(e.target.value);
+  function handleSetNotes(e: InputEvent) {
+    setNotes(e.target.value);
   }
 
   function submitModel() {
-    if (!modelName) {
+    if (!name) {
       const updatedErrors = { ...errors };
-      updatedErrors['endpointName'] = 'Please select an endpoint name';
+      updatedErrors['name'] = 'Please select an name';
       setErrors(updatedErrors);
     } else {
       setIsLoading(true);
-      createModel(modelName, promptId, modelNotes).then((response) => {
+      createModel(name, notes, promptId).then((response) => {
         const { error, model } = response;
         if (error) {
           const updatedErrors = {};
@@ -61,26 +81,24 @@ const ModelForm = ({ location, history, match }) => {
 
   const conjunction = location && location.state && location.state.conjunction || '';
   const header = `Semantic Labels - Add Model (${conjunction})`
-  const endpointNameOptions = [{ value: 'endpointName', label: 'endpointName' }]
 
   return (
     <div className="model-form-container">
       {renderHeader(activityData, header)}
       <Link className="return-link" to={{ pathname: `/activities/${activityId}/semantic-labels`, state: 'returned-to-index' }}>← Return to Semantic Rules Index</Link>
       <DropdownInput
-        disabled={false}
-        handleChange={handleSetEndpointName}
+        handleChange={handleSetName}
         isSearchable={true}
-        label="Endpoint Name"
-        options={endpointNameOptions}
-        value={endpointName}
+        label="Name"
+        options={nameOptions}
+        value={nameOptions.find(opt => opt.value === name)}
       />
       <TextArea
         characterLimit={1000}
-        handleChange={handleSetModelNotes}
+        handleChange={handleSetNotes}
         label='Please write out any notes about the new model you are adding here. Did you add any labels or remove any labels? What changes did you make?'
         timesSubmitted={0}
-        value={modelNotes}
+        value={notes}
       />
       <button className="quill-button fun primary contained" id="add-model-button" onClick={submitModel} type="submit">Submit</button>
       {errors['Model Submission Error'] && <p className="error-message">{errors['Model Submission Error']}</p>}
