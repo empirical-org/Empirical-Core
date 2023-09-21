@@ -1,8 +1,16 @@
 import * as React from 'react'
 
-import { DataTable } from '../../Shared/index';
+import { School, } from './shared'
 
-const CanvasInstanceSchoolsSelector = ({ schools, setSelectedSchoolIds, selectedSchoolIds }) => {
+import { DataTable } from '../../../Shared/index';
+
+interface SchoolSelectorProps {
+  schools: School[];
+  setSelectedSchoolIds: (schoolIds) => void;
+  selectedSchoolIds: number[];
+}
+
+const SchoolSelector = ({ schools, setSelectedSchoolIds, selectedSchoolIds }: SchoolSelectorProps) => {
   const checkRow = (id) => {
     if (selectedSchoolIds.includes(id)) { return }
 
@@ -28,7 +36,7 @@ const CanvasInstanceSchoolsSelector = ({ schools, setSelectedSchoolIds, selected
     return school
   });
 
-  const headers = [{ "name": "Schools", "attribute": "name", "width": "356px" }]
+  const headers = [{ name: "Schools", attribute: "name", width: "356px", rowSectionClassName: 'name', headerClassName: 'name' }]
 
   return (
     <DataTable
@@ -43,4 +51,4 @@ const CanvasInstanceSchoolsSelector = ({ schools, setSelectedSchoolIds, selected
   );
 };
 
-export default CanvasInstanceSchoolsSelector
+export default SchoolSelector
