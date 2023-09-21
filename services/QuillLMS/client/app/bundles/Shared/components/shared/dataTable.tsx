@@ -20,6 +20,9 @@ const moreHorizontalSrc = 'https://assets.quill.org/images/icons/more-horizontal
 const smallWhiteCheckSrc = 'https://assets.quill.org/images/shared/check-small-white.svg'
 const arrowSrc = 'https://assets.quill.org/images/icons/icons-arrow.svg'
 const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
+const toggleArrowExpandedSrc = `${process.env.CDN_URL}/images/icons/data_table/toggle-arrow-expanded.svg`
+const toggleArrowClosedSrc = `${process.env.CDN_URL}/images/icons/data_table/toggle-arrow-closed.svg`
+const aggregateRowArrowSrc = `${process.env.CDN_URL}/images/icons/data_table/aggregate-row-arrow.svg`
 
 interface DataTableRow {
   id: number|string;
@@ -340,14 +343,15 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     }
 
     const rowDisplayText = linkDisplayText || sectionText
-    const shouldDisplayButton = row.aggregate_rows && row.aggregate_rows.length && i === 0
+    const shouldDisplayAggregateIcon = isAggregateRow && i === 0
+    const shouldDisplayToggleButton = row.aggregate_rows && row.aggregate_rows.length && i === 0
     let rowAggregateButton = <span/>
-    if(isAggregateRow) {
-      rowAggregateButton = <button className="interactive-wrapper">*</button>
-    } else if(row.showAggregateRows && shouldDisplayButton) {
-      rowAggregateButton = <button className="interactive-wrapper">V</button>
-    } else if (shouldDisplayButton) {
-      rowAggregateButton = <button className="interactive-wrapper">X</button>
+    if (shouldDisplayAggregateIcon) {
+      rowAggregateButton = <img alt="" className="aggregate-row-icon" src={aggregateRowArrowSrc} />
+    } else if(row.showAggregateRows && shouldDisplayToggleButton) {
+      rowAggregateButton = <button className="interactive-wrapper"><img alt="" className="aggregate-row-icon" src={toggleArrowExpandedSrc} /></button>
+    } else if (shouldDisplayToggleButton) {
+      rowAggregateButton = <button className="interactive-wrapper"><img alt="" className="aggregate-row-icon" src={toggleArrowClosedSrc} /></button>
     }
 
     if (!header.noTooltip && (String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
