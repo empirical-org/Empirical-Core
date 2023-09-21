@@ -1,10 +1,10 @@
 import * as React from 'react'
 
-import { SMALL, POSITIVE, NEGATIVE, NONE, selectionsEqual, } from './shared'
+import { SMALL, POSITIVE, NEGATIVE, NONE } from './shared'
 
 import { requestPost, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'
-import { unorderedArraysAreEqual, } from '../../../../modules/unorderedArraysAreEqual'
+import { selectionsEqual } from '../../shared'
 
 const smallArrowUpIcon = <img alt="Arrow pointing up" className="small" src={`${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/arrow_up_icon.svg`} />
 const smallArrowDownIcon = <img alt="Arrow pointing down" className="small" src={`${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/arrow_down_icon.svg`} />
