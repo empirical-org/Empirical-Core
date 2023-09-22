@@ -63,22 +63,6 @@ module Evidence
         end
       end
 
-      context '#before_validation' do
-        it 'strips whitespace from model_external_id' do
-          model_external_id = '   STRIP_ME   '
-          automl_model = build(:evidence_automl_model, model_external_id: model_external_id)
-          expect(automl_model).to be_valid
-          expect(automl_model.model_external_id).to eq model_external_id.strip
-        end
-
-        it 'strips whitespace from endpoint_external_id' do
-          endpoint_external_id = '   STRIP_ME   '
-          automl_model = build(:evidence_automl_model, endpoint_external_id: endpoint_external_id)
-          expect(automl_model).to be_valid
-          expect(automl_model.endpoint_external_id).to eq endpoint_external_id.strip
-        end
-      end
-
       context 'state is active' do
         let(:automl_model) { create(:evidence_automl_model) }
 
@@ -169,8 +153,8 @@ module Evidence
       it { expect(automl_model.endpoint_external_id).to eq endpoint_external_id }
     end
 
-    context '#fetch_automl_label_and_score' do
-      subject { automl_model.fetch_automl_label_and_score(text) }
+    context '#classify_text' do
+      subject { automl_model.classify_text(text) }
 
       let(:automl_model) { create(:evidence_automl_model) }
       let(:endpoint_external_id) { automl_model.endpoint_external_id }
@@ -179,37 +163,13 @@ module Evidence
       let(:score) { rand }
 
       before do
-        allow(AutomlLabelAndScoreFetcher)
+        allow(VertexAI::TextClassifier)
          .to receive(:run)
          .with(automl_model.endpoint_external_id, text)
          .and_return([label, score])
       end
 
       it { is_expected.to eq [label, score] }
-    end
-
-    context '#model_endpoint' do
-      let(:automl_model) { build(:evidence_automl_model, model_external_id: model_external_id) }
-      let(:model_client_class) { ::Google::Cloud::AIPlatform::V1::ModelService::Client }
-      let(:model_client) { instance_double(model_client_class) }
-      let(:model_external_id) { 'MODEL_EXTERNAL_ID' }
-      let(:project_id) { 'PROJECT_ID' }
-      let(:location) { 'LOCATION' }
-
-      before do
-        stub_const('Evidence::AutomlModel::GOOGLE_PROJECT_ID', project_id)
-        stub_const('Evidence::AutomlModel::GOOGLE_LOCATION', location)
-      end
-
-      it 'calls model_path on the model_client with specified values' do
-        expect(model_client_class).to receive(:new).and_return(model_client)
-
-        expect(model_client)
-          .to receive(:model_path)
-          .with(location: location, model: model_external_id, project: project_id)
-
-        automl_model.send(:model_endpoint)
-      end
     end
 
     context '#activate' do

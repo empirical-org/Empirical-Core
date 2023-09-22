@@ -3,7 +3,7 @@ import * as React from 'react';
 import { QueryClientProvider } from 'react-query';
 import { MemoryRouter } from 'react-router-dom';
 
-import { DefaultReactQueryClient, Input } from '../../../../Shared/index';
+import { DefaultReactQueryClient, DropdownInput } from '../../../../Shared/index';
 import ModelForm from '../semanticRules/modelForm';
 
 const mockProps = {
@@ -32,7 +32,7 @@ describe('ModelForm component', () => {
   it('should render ModelForm', () => {
     expect(container.find(ModelForm).length).toEqual(1);
   });
-  it('should render one Input component', () => {
-    expect(container.find(Input).length).toEqual(2);
+  it('should render one DropdownInput component', () => {
+    expect(container.find(DropdownInput).length).toEqual(1);
   });
 });

@@ -81,7 +81,7 @@ module Evidence
       false
     end
 
-    def fetch_automl_label_and_score(text)
+    def classify_text(text)
       VertexAI::TextClassifier.run(endpoint_external_id, text)
     end
 
