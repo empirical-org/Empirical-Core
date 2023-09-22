@@ -104,6 +104,7 @@ exports[`ScoreLegend component should render 1`] = `
           Assigned
         </span>
       }
+      tooltipText="This assigned activity has not yet been started. If the activity has a lock icon, it is not yet available for the student."
     />
   </div>
 </div>
