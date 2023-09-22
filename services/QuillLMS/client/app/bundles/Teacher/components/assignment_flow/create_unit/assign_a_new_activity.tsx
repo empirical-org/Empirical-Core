@@ -1,9 +1,10 @@
 import * as React from 'react'
+import { renderToString } from 'react-dom/server';
 
 import AssignmentCard from './assignment_card'
 
 import { requestGet, requestPost, } from '../../../../../modules/request'
-import { evidenceToolIcon } from "../../../../Shared"
+import { evidenceToolIcon, Tooltip, } from "../../../../Shared"
 import { ASSIGN_ACTIVITIES_FEATURED_BLOG_ID } from '../../../constants/featuredBlogPost'
 import ArticleSpotlight from '../../shared/articleSpotlight'
 import { CLICKED_ACTIVITY_PACK_ID } from '../assignmentFlowConstants'
@@ -24,6 +25,7 @@ const activityPacksSrc = `${process.env.CDN_URL}/images/icons/icons-activity-pac
 const allDiagnosticsSrc = `${process.env.CDN_URL}/images/icons/icons-diagnostics-all.svg`
 const graduationCapSrc = `${process.env.CDN_URL}/images/icons/icons-graduation-cap.svg`
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
+const globeIconSrc = `${process.env.CDN_URL}/images/icons/icons-description-topic.svg`
 
 const minis = (diagnosticBannerShowing) => [
   (<AssignmentCard
@@ -77,6 +79,7 @@ const minis = (diagnosticBannerShowing) => [
 const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }) => {
   const [diagnosticBannerShowing, setDiagnosticBannerShowing] = React.useState(showDiagnosticBanner)
   const [activitiesToSuggest, setActivitiesToSuggest] = React.useState([])
+  const [showAllSuggestedActivities, setShowAllSuggestedActivities] = React.useState(false)
 
   const getData = () => {
     requestGet(
@@ -111,11 +114,47 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
         <h2>We see you&#39;re new here! Try starting with a diagnostic.</h2>
         <p>We recommend that when teachers start using Quill, they first assign a diagnostic to assess their students&#39; needs. Then, we&#39;ll provide each student a personalized learning plan of recommended activities based on their performance.</p>
       </div>
-      <button className="interactive-wrapper" onClick={closeDiagnosticBanner}>
+      <button className="interactive-wrapper" onClick={closeDiagnosticBanner} type="button">
         <img alt="X" src={closeIconSrc} />
       </button>
     </section>)
   }
+
+  const activitiesToShow = showAll ? activitiesToSuggest : activitiesToSuggest.slice(0, 5)
+
+  const rows = activitiesToShow.map(activity => {
+    const topicsTooltipHTMLRows = activity.topics.map(topic => {
+      return (
+        <p key={topic[2]}>
+          <img alt="" src={globeIconSrc} />
+          <span>{topic[0]}</span>
+          <span className="slash">/</span>
+          <span>{topic[1]}</span>
+          <span className="slash">/</span>
+          <span>{topic[2]}</span>
+        </p>
+      )
+    })
+
+    const displayedTopics = activity.topics.map((topic, i) => {
+      // if (i > 0) {
+      //
+      // }
+    })
+
+    const topicsTooltipString = renderToString(<div className="topics">{topicsTooltipHTMLRows}</div>)
+
+    return {
+      tool: <img alt={evidenceToolIcon.alt} src={evidenceToolIcon.src} />,
+      name: <a href={`/assign/activity-library?activityClassificationFilters[]=evidence&search=${encodeURI(activity.name)}`}>{activity.name}</a>,
+      topics: (
+        <Tooltip
+          tooltipText={topicsTooltipString}
+          tooltipTriggerText={displayedTopics}
+        />
+      )
+    }
+  })
 
   const suggestedActivitiesList = activitiesToSuggest.length > 0 &&
   (
@@ -164,7 +203,7 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
             <p className="previously-assigned-activities">
               You have {numberOfActivitiesAssigned} {numberOfActivitiesAssigned === 1 ? 'activity' : 'activities'} assigned.&nbsp;
             </p>
-            <div className="view-assigned-activities"><a href="/teachers/classrooms/activity_planner">View assigned activities</a></div>
+            <a className="quill-button view-assigned-activities secondary outlined small focus-on-light" href="/teachers/classrooms/activity_planner">View assigned activities</a>
           </div>
           {diagnosticBanner}
           <div className="minis">{minis(diagnosticBannerShowing)}</div>

@@ -7,7 +7,9 @@
   flex-direction: column;
   align-items: inherit;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
+  border-radius: 16px;
+  border: 1px solid $quill-grey-15;
+
   &:hover {
     text-decoration: none;
   }
@@ -114,42 +116,26 @@
 
   .minis {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
+    gap: 32px;
     max-width: $sitewidepagewidth;
     .assignment-card {
       width: 100%;
-      max-width: 588px;
-      margin: 0px 0px 24px;
+      max-width: 584px;
     }
   }
 
   .previously-assigned-container {
     display: flex;
+    align-items: center;
+    margin-bottom: 64px;
     .previously-assigned-activities {
       text-align: center;
       font-size: 14px;
       color: #646464;
-      margin-bottom: 71px;
     }
     .view-assigned-activities {
-      width: 172px;
-      height: 33px;
-      background: $quill-white;
-      border: 1px solid #BDBDBD;
-      border-radius: 4px;
-      margin-left: 5px;
-      margin-top: -6px;
-      padding-top: 8px;
-      padding-left: 15px;
-      a {
-        color: $quill-grey-90;
-        font-weight: 400;
-        font-size: 13px;
-        line-height: 13px;
-        width: 140px;
-        height: 13px;
-      }
+      margin-left: 16px;
     }
 
     @media (max-width: 1100px) {
@@ -179,11 +165,14 @@
   }
 }
 
-.suggested-activities-table {
-  border: 1px solid $quill-grey-5;
-  border-radius: 6px;
+.suggested-activities-table.data-table {
+  border: 1px solid $quill-grey-15;
+  border-radius: 8px;
   margin-bottom: 145px;
   overflow: auto !important;
+  .data-table-headers {
+    background-color: $quill-grey-1;
+  }
   tr {
     background-color: white;
     padding-top: 12px;
