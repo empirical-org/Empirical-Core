@@ -2,7 +2,7 @@
 
 module Evidence
   module VertexAI
-    class TextClassifier < ::ApplicationService
+    class TextClassifier < ApplicationService
       CONFIDENCES = 'confidences'
       DISPLAY_NAMES = 'displayNames'
       PREDICT_API_TIMEOUT = 5.0

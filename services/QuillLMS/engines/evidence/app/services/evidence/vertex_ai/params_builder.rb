@@ -2,7 +2,7 @@
 
 module Evidence
   module VertexAI
-    class ParamsBuilder < ::ApplicationService
+    class ParamsBuilder < ApplicationService
       ANNOTATION_SPECS = 'annotationSpecs'
       DISPLAY_NAME = 'displayName'
       CONFUSION_MATRIX = 'confusionMatrix'

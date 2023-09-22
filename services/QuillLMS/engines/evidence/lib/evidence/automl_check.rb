@@ -69,7 +69,7 @@ module Evidence
     private def fetch_matched_automl_rule
       return unless @automl_model
 
-      google_automl_label, @confidence_score = @automl_model.fetch_automl_label_and_score(@entry)
+      google_automl_label, @confidence_score = @automl_model.classify_text(@entry)
       @prompt.rules.joins(:label).find_by(comprehension_labels: {name: google_automl_label})
     end
   end

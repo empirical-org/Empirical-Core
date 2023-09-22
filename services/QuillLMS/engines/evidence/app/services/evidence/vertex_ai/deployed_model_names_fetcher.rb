@@ -2,7 +2,7 @@
 
 module Evidence
   module VertexAI
-    class DeployedModelNamesFetcher < ::ApplicationService
+    class DeployedModelNamesFetcher < ApplicationService
       def run
         endpoints
           .select { |endpoint| matching_deployed_model?(endpoint) }
