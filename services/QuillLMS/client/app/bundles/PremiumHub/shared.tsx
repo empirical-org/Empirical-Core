@@ -1,4 +1,7 @@
 import * as React from 'react'
+import * as _ from 'lodash'
+
+import { unorderedArraysAreEqual, } from '../../modules/unorderedArraysAreEqual'
 
 export const RESTRICTED = 'restricted'
 export const LIMITED = 'limited'
@@ -23,3 +26,21 @@ export const restrictedPage = (
     {premiumLockImage}
   </div>
 )
+
+export function selectionsEqual(firstSelection, secondSelection) {
+  return (
+    firstSelection == secondSelection || // less strict comparison so that undefined and null are treated as equal
+    unorderedArraysAreEqual(firstSelection, secondSelection)
+  )
+}
+
+export function mapItemsIfNotAll(selectedItems, allItems, mapKey = 'id') {
+  // selectedItems may, by design, be a superset of allItems, but if everything in allItems is in selectedItems, we want to treat it as "everything" being selected
+  const allItemsSelected = allItems.every((item) => {
+    return _.some(selectedItems, item)
+  })
+
+  if (allItemsSelected || selectionsEqual(selectedItems, allItems)) return null
+
+  return selectedItems.map(i => i[mapKey])
+}

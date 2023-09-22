@@ -187,11 +187,12 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   function formatData(data) {
     if(!data) { return null }
 
-    return data.map(entry => {
+    return data.map((entry, index) => {
       const formattedEntry = {...entry}
       const score = Math.round(parseFloat(entry.score) * 100);
       const percentage = isNaN(score) || score < 0 ? 'N/A' : score + '%';
 
+      formattedEntry.id = index
       formattedEntry.completed_at = moment(entry.completed_at).format("MM/DD/YYYY");
       formattedEntry.timespent = getTimeSpentInMinutes(entry.timespent)
       formattedEntry.score = percentage
