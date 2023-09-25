@@ -397,6 +397,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Angie Thomas
               </td>
               <td
@@ -410,6 +411,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Subject and Object Pronoun Agreement 1
               </td>
               <td
@@ -423,6 +425,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 <span
                   className="score-tag not-yet-proficient"
                 >
@@ -440,6 +443,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Mar 5th
               </td>
             </a>
@@ -461,11 +465,13 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Angie Thomas
               </td>
               <td
                 key="activityName-32"
               >
+                <span />
                 <Tooltip
                   isTabbable={true}
                   key="activityName-32"
@@ -541,6 +547,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 <span
                   className="score-tag proficient"
                 >
@@ -558,6 +565,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Mar 5th
               </td>
             </a>
@@ -579,6 +587,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Angie Thomas
               </td>
               <td
@@ -592,6 +601,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Capitalize Names of People 1
               </td>
               <td
@@ -605,6 +615,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 <span
                   className="score-tag proficient"
                 >
@@ -622,6 +633,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Mar 5th
               </td>
             </a>
@@ -643,6 +655,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Angie Thomas
               </td>
               <td
@@ -656,6 +669,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Capitalize Geographic Names 1
               </td>
               <td
@@ -669,6 +683,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 <span
                   className="score-tag nearly-proficient"
                 >
@@ -686,6 +701,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Mar 5th
               </td>
             </a>
@@ -707,6 +723,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Angie Thomas
               </td>
               <td
@@ -720,6 +737,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Plural vs. Possessive Nouns 1
               </td>
               <td
@@ -733,6 +751,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 <span
                   className="score-tag proficient"
                 >
@@ -750,6 +769,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Mar 5th
               </td>
             </a>
@@ -771,6 +791,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Angie Thomas
               </td>
               <td
@@ -784,6 +805,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Capitalize Holidays and Dates 1
               </td>
               <td
@@ -797,6 +819,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 <span
                   className="score-tag nearly-proficient"
                 >
@@ -814,6 +837,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Mar 5th
               </td>
             </a>
@@ -835,6 +859,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Angie Thomas
               </td>
               <td
@@ -848,6 +873,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Capitalize Holidays and Geographic Names
               </td>
               <td
@@ -861,6 +887,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 <span
                   className="score-tag proficient"
                 >
@@ -878,6 +905,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Mar 5th
               </td>
             </a>
@@ -899,6 +927,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Angie Thomas
               </td>
               <td
@@ -912,6 +941,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Starter Diagnostic
               </td>
               <td
@@ -925,6 +955,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 <span
                   className="score-tag completed"
                 >
@@ -942,6 +973,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Mar 4th
               </td>
             </a>
@@ -963,6 +995,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Angie Thomas
               </td>
               <td
@@ -976,6 +1009,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Starter Diagnostic
               </td>
               <td
@@ -989,6 +1023,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 <span
                   className="score-tag completed"
                 >
@@ -1006,6 +1041,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Mar 3rd
               </td>
             </a>
@@ -1027,6 +1063,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Tahereh Mafi
               </td>
               <td
@@ -1040,6 +1077,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Starter Diagnostic
               </td>
               <td
@@ -1053,6 +1091,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 <span
                   className="score-tag completed"
                 >
@@ -1070,6 +1109,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Dec 1st, 2020
               </td>
             </a>
@@ -1091,6 +1131,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Angie Thomas
               </td>
               <td
@@ -1104,6 +1145,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Starter Diagnostic
               </td>
               <td
@@ -1117,6 +1159,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 <span
                   className="score-tag completed"
                 >
@@ -1134,6 +1177,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                <span />
                 Dec 1st, 2020
               </td>
             </a>

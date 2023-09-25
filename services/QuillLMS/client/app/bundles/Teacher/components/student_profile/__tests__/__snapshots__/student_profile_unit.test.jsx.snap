@@ -478,6 +478,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 The Travels of Marco Polo
               </td>
               <td
@@ -490,7 +491,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "24px",
                   }
                 }
-              />
+              >
+                <span />
+              </td>
               <td
                 className="data-table-row-section due-date-section"
                 key="dueDate-1"
@@ -502,6 +505,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 Feb 29, 5am
               </td>
               <td
@@ -515,6 +519,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 <a
                   aria-label="Start The Travels of Marco Polo"
                   className="quill-button medium focus-on-light secondary outlined"
@@ -539,6 +544,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 Christopher Columbus
               </td>
               <td
@@ -551,7 +557,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "24px",
                   }
                 }
-              />
+              >
+                <span />
+              </td>
               <td
                 className="data-table-row-section due-date-section"
                 key="dueDate-2"
@@ -563,6 +571,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 Feb 29, 5am
               </td>
               <td
@@ -576,6 +585,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 <a
                   aria-label="Start Christopher Columbus"
                   className="quill-button medium focus-on-light secondary outlined"
@@ -600,6 +610,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 A, An, The
               </td>
               <td
@@ -612,7 +623,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "24px",
                   }
                 }
-              />
+              >
+                <span />
+              </td>
               <td
                 className="data-table-row-section due-date-section"
                 key="dueDate-10"
@@ -624,6 +637,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 Feb 29, 5am
               </td>
               <td
@@ -637,6 +651,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 <a
                   aria-label="Start A, An, The"
                   className="quill-button medium focus-on-light secondary outlined"
@@ -661,6 +676,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 Magellan
               </td>
               <td
@@ -673,7 +689,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "24px",
                   }
                 }
-              />
+              >
+                <span />
+              </td>
               <td
                 className="data-table-row-section due-date-section"
                 key="dueDate-3"
@@ -685,6 +703,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 Feb 29, 5am
               </td>
               <td
@@ -698,6 +717,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 <a
                   aria-label="Start Magellan"
                   className="quill-button medium focus-on-light secondary outlined"
@@ -722,6 +742,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 Jamestown
               </td>
               <td
@@ -734,7 +755,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "24px",
                   }
                 }
-              />
+              >
+                <span />
+              </td>
               <td
                 className="data-table-row-section due-date-section"
                 key="dueDate-4"
@@ -746,6 +769,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 Feb 29, 5am
               </td>
               <td
@@ -759,6 +783,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 <a
                   aria-label="Start Jamestown"
                   className="quill-button medium focus-on-light secondary outlined"
@@ -783,6 +808,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 Age of Exploration: Sailing with the Stars
               </td>
               <td
@@ -795,7 +821,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "24px",
                   }
                 }
-              />
+              >
+                <span />
+              </td>
               <td
                 className="data-table-row-section due-date-section"
                 key="dueDate-6"
@@ -807,6 +835,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 Feb 29, 5am
               </td>
               <td
@@ -820,6 +849,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 <a
                   aria-label="Start Age of Exploration: Sailing with the Stars"
                   className="quill-button medium focus-on-light secondary outlined"
@@ -844,6 +874,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 Age of Exploration: The Cape of Good Hope
               </td>
               <td
@@ -856,7 +887,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "24px",
                   }
                 }
-              />
+              >
+                <span />
+              </td>
               <td
                 className="data-table-row-section due-date-section"
                 key="dueDate-7"
@@ -868,6 +901,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 Feb 29, 5am
               </td>
               <td
@@ -881,6 +915,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 <a
                   aria-label="Start Age of Exploration: The Cape of Good Hope"
                   className="quill-button medium focus-on-light secondary outlined"
@@ -905,6 +940,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 Age of Exploration: Roanoke
               </td>
               <td
@@ -917,7 +953,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "24px",
                   }
                 }
-              />
+              >
+                <span />
+              </td>
               <td
                 className="data-table-row-section due-date-section"
                 key="dueDate-8"
@@ -929,6 +967,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 Feb 29, 5am
               </td>
               <td
@@ -942,6 +981,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 <a
                   aria-label="Start Age of Exploration: Roanoke"
                   className="quill-button medium focus-on-light secondary outlined"
@@ -1173,6 +1213,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 A, An
               </td>
               <td
@@ -1186,6 +1227,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 <div
                   className="score"
                 >
@@ -1207,7 +1249,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "24px",
                   }
                 }
-              />
+              >
+                <span />
+              </td>
               <td
                 className="data-table-row-section completed-due-date-section"
                 key="dueDate-9"
@@ -1219,6 +1263,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 Feb 29, 5am
               </td>
               <td
@@ -1231,7 +1276,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "110px",
                   }
                 }
-              />
+              >
+                <span />
+              </td>
               <td
                 className="data-table-row-section action-button-section tooltip-section"
                 key="actionButton-9"
@@ -1243,6 +1290,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 <a
                   aria-label="Replay A, An"
                   className="quill-button medium focus-on-light secondary outlined"
@@ -1267,6 +1315,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 Age of Exploration: Spices
               </td>
               <td
@@ -1280,6 +1329,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 <div
                   className="score"
                 >
@@ -1301,7 +1351,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "24px",
                   }
                 }
-              />
+              >
+                <span />
+              </td>
               <td
                 className="data-table-row-section completed-due-date-section"
                 key="dueDate-5"
@@ -1313,6 +1365,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 Feb 29, 5am
               </td>
               <td
@@ -1325,7 +1378,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "110px",
                   }
                 }
-              />
+              >
+                <span />
+              </td>
               <td
                 className="data-table-row-section action-button-section tooltip-section"
                 key="actionButton-5"
@@ -1337,6 +1392,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
+                <span />
                 <a
                   aria-label="Replay Age of Exploration: Spices"
                   className="quill-button medium focus-on-light secondary outlined"

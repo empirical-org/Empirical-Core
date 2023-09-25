@@ -110,8 +110,12 @@ table.data-table {
       }
     }
     td {
-      .aggregate-row-icon {
-        margin-right: 4px;
+      .aggregate-row-icon, .aggregate-row-toggle {
+        margin-left: 4px;
+        margin-right: 6px;
+      }
+      .aggregate-row-toggle:focus {
+        outline-offset: 2px;
       }
     }
     &:hover {

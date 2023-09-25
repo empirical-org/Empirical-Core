@@ -371,6 +371,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
+                  <span />
                   <a
                     href="/activity_sessions/anonymous?activity_id=1432"
                     rel="noopener noreferrer"
@@ -389,7 +390,9 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                       "width": "117px",
                     }
                   }
-                />
+                >
+                  <span />
+                </td>
               </tr>
               <tr
                 className="data-table-row  "
@@ -406,6 +409,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
+                  <span />
                   <a
                     href="/activity_sessions/anonymous?activity_id=897"
                     rel="noopener noreferrer"
@@ -425,6 +429,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
+                  <span />
                   8, 9, 10, 11, 12
                 </td>
               </tr>
@@ -443,6 +448,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
+                  <span />
                   <a
                     href="/activity_sessions/anonymous?activity_id=1001"
                     rel="noopener noreferrer"
@@ -462,6 +468,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
+                  <span />
                   10, 11, 12
                 </td>
               </tr>
@@ -570,6 +577,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
+                  <span />
                   University
                 </td>
                 <td
@@ -583,6 +591,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
+                  <span />
                   University
                 </td>
               </tr>
@@ -601,6 +610,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
+                  <span />
                   Fourth Grade
                 </td>
                 <td
@@ -614,6 +624,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
+                  <span />
                   <span
                     className="warning"
                   >
@@ -643,6 +654,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
+                  <span />
                   Test Class
                 </td>
                 <td
@@ -656,6 +668,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
+                  <span />
                   Grade 12
                 </td>
               </tr>

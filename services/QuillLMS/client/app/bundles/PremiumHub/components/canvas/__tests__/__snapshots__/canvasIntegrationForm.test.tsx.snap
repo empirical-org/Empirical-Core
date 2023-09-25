@@ -113,6 +113,7 @@ exports[`CanvasIntegrationForm when there is an existing integration it should r
             class="data-table-row-section name"
             style="width: 356px; min-width: 356px; text-align: left;"
           >
+            <span />
             MLK Middle School
           </td>
         </tr>
@@ -134,6 +135,7 @@ exports[`CanvasIntegrationForm when there is an existing integration it should r
             class="data-table-row-section name"
             style="width: 356px; min-width: 356px; text-align: left;"
           >
+            <span />
             Toni Morrison High School
           </td>
         </tr>
@@ -272,6 +274,7 @@ exports[`CanvasIntegrationForm when there is not an existing integration it shou
             class="data-table-row-section name"
             style="width: 356px; min-width: 356px; text-align: left;"
           >
+            <span />
             MLK Middle School
           </td>
         </tr>
@@ -289,6 +292,7 @@ exports[`CanvasIntegrationForm when there is not an existing integration it shou
             class="data-table-row-section name"
             style="width: 356px; min-width: 356px; text-align: left;"
           >
+            <span />
             Toni Morrison High School
           </td>
         </tr>

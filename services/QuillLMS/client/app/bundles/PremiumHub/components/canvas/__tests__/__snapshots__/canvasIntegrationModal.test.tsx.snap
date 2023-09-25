@@ -122,6 +122,7 @@ exports[`CanvasIntegrationModal it should render when there is an existing integ
                 class="data-table-row-section name"
                 style="width: 356px; min-width: 356px; text-align: left;"
               >
+                <span />
                 MLK Middle School
               </td>
             </tr>
@@ -143,6 +144,7 @@ exports[`CanvasIntegrationModal it should render when there is an existing integ
                 class="data-table-row-section name"
                 style="width: 356px; min-width: 356px; text-align: left;"
               >
+                <span />
                 Toni Morrison High School
               </td>
             </tr>
@@ -292,6 +294,7 @@ exports[`CanvasIntegrationModal it should render when there is not an existing i
                 class="data-table-row-section name"
                 style="width: 356px; min-width: 356px; text-align: left;"
               >
+                <span />
                 MLK Middle School
               </td>
             </tr>
@@ -309,6 +312,7 @@ exports[`CanvasIntegrationModal it should render when there is not an existing i
                 class="data-table-row-section name"
                 style="width: 356px; min-width: 356px; text-align: left;"
               >
+                <span />
                 Toni Morrison High School
               </td>
             </tr>

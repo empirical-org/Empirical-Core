@@ -4893,6 +4893,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
+              <span />
               Maya Angelou
             </td>
             <td
@@ -4906,6 +4907,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
+              <span />
               maya_angelou_demo@quill.org
             </td>
             <td
@@ -4919,6 +4921,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
+              <span />
               Username
             </td>
             <td
@@ -4932,6 +4935,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
+              <span />
               Invalid date
             </td>
             <td
@@ -4944,7 +4948,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                   "width": "70px",
                 }
               }
-            />
+            >
+              <span />
+            </td>
             <td
               className="data-table-row-section actions-section"
               key="2851870"
@@ -4986,6 +4992,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
+              <span />
               William Shakespeare
             </td>
             <td
@@ -4999,6 +5006,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
+              <span />
               william.shakespeare.285383@demo-teacher
             </td>
             <td
@@ -5012,6 +5020,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
+              <span />
               Username
             </td>
             <td
@@ -5024,7 +5033,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                   "width": "110px",
                 }
               }
-            />
+            >
+              <span />
+            </td>
             <td
               className="data-table-row-section left-align"
               key="activities-2851866"
@@ -5035,7 +5046,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                   "width": "70px",
                 }
               }
-            />
+            >
+              <span />
+            </td>
             <td
               className="data-table-row-section actions-section"
               key="2851866"

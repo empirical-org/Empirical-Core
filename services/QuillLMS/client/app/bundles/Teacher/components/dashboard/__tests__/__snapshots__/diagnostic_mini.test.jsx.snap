@@ -402,11 +402,13 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
+              <span />
               ELL Diagnostic
             </td>
             <td
               key="classroom-447-484134-826269"
             >
+              <span />
               <Tooltip
                 isTabbable={true}
                 key="classroom-447-484134-826269"
@@ -482,6 +484,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
+              <span />
               0 of 5
             </td>
             <td
@@ -495,6 +498,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
+              <span />
               <a
                 className="focus-on-light"
                 href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/summary?unit=826269"
@@ -524,6 +528,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
+              <span />
               ELL Diagnostic
             </td>
             <td
@@ -537,6 +542,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
+              <span />
               A New Class
             </td>
             <td
@@ -550,6 +556,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
+              <span />
               0 of 0
             </td>
             <td
@@ -563,6 +570,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
+              <span />
               <a
                 className="focus-on-light"
                 href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/summary?unit=826269"
@@ -592,11 +600,13 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
+              <span />
               Starter Diagnostic
             </td>
             <td
               key="classroom-849-484134-826268"
             >
+              <span />
               <Tooltip
                 isTabbable={true}
                 key="classroom-849-484134-826268"
@@ -672,6 +682,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
+              <span />
               5 of 5
             </td>
             <td
@@ -685,6 +696,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
+              <span />
               <a
                 className="focus-on-light"
                 href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826268"
@@ -714,11 +726,13 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
+              <span />
               Starter Diagnostic
             </td>
             <td
               key="classroom-849-484134-826269"
             >
+              <span />
               <Tooltip
                 isTabbable={true}
                 key="classroom-849-484134-826269"
@@ -794,6 +808,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
+              <span />
               0 of 5
             </td>
             <td
@@ -807,6 +822,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
+              <span />
               <a
                 className="focus-on-light"
                 href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826269"
@@ -836,6 +852,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
+              <span />
               Starter Diagnostic
             </td>
             <td
@@ -849,6 +866,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
+              <span />
               A New Class
             </td>
             <td
@@ -862,6 +880,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
+              <span />
               0 of 0
             </td>
             <td
@@ -875,6 +894,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
+              <span />
               <a
                 className="focus-on-light"
                 href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/summary?unit=826269"
