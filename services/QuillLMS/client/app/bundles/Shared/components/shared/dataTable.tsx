@@ -65,6 +65,7 @@ interface DataTableState {
   sortAttribute?: string;
   sortAscending?: boolean;
   rowWithActionsOpen?: number|string;
+  expandedAggregateRowIdentifier?: string;
 }
 
 export class DataTable extends React.Component<DataTableProps, DataTableState> {
@@ -76,12 +77,19 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
     this.state = {
       sortAttribute: props.defaultSortAttribute || null,
-      sortAscending: props.defaultSortDirection !== descending
+      sortAscending: props.defaultSortDirection !== descending,
+      expandedAggregateRowIdentifier: ''
     }
   }
 
   componentDidMount() {
+    const { rows, headers } = this.props
     document.addEventListener('mousedown', this.handleClick, false)
+    if (rows && headers && rows[0].aggregate_rows && rows[0].aggregate_rows.length) {
+      // if there is aggregate row data, we want to automatically expand the first row
+      const aggregateRowIdentifier = `${rows[0][headers[0].attribute]}-${rows[0].id}`
+      this.setState({ expandedAggregateRowIdentifier: aggregateRowIdentifier })
+    }
   }
 
   componentWillUnmount() {
@@ -92,6 +100,17 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     if (this.selectedActions && !this.selectedActions.contains(e.target)) {
       this.setState({ rowWithActionsOpen: null })
     }
+  }
+
+  handleHideAggregateRows = (e) => {
+    e.preventDefault()
+    // we only want to show aggregate data for one row at a time so we don't need to worry about keeping track of previously expanded rows
+    this.setState({ expandedAggregateRowIdentifier: '' })
+  }
+
+  handleShowAggregateRows = (e, sectionText) => {
+    e.preventDefault()
+    this.setState({ expandedAggregateRowIdentifier: sectionText })
   }
 
   attributeAlignment(attributeName): CSS.TextAlignProperty {
@@ -327,6 +346,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   renderRowSection({row, header, isAggregateRow, i }) {
+    const { expandedAggregateRowIdentifier } = this.state
     if (header.isActions) { return this.renderActions(row) }
     const { averageFontWidth, } = this.props
     let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
@@ -343,21 +363,24 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     }
 
     const rowDisplayText = linkDisplayText || sectionText
+    const aggregateRowIdentifier = `${sectionText}-${row.id}`
     const shouldDisplayAggregateIcon = isAggregateRow && i === 0
     const shouldDisplayToggleButton = row.aggregate_rows && row.aggregate_rows.length && i === 0
-    let rowAggregateButton = <span/>
+    const aggregateRowsDisplayed = expandedAggregateRowIdentifier && expandedAggregateRowIdentifier === aggregateRowIdentifier
+    let aggregateRowButtonOrIcon = <span/>
+
     if (shouldDisplayAggregateIcon) {
-      rowAggregateButton = <img alt="" className="aggregate-row-icon" src={aggregateRowArrowSrc} />
-    } else if(row.showAggregateRows && shouldDisplayToggleButton) {
-      rowAggregateButton = <button className="interactive-wrapper"><img alt="" className="aggregate-row-icon" src={toggleArrowExpandedSrc} /></button>
+      aggregateRowButtonOrIcon = <img alt="" className="aggregate-row-icon" src={aggregateRowArrowSrc} />
+    } else if (shouldDisplayToggleButton && aggregateRowsDisplayed) {
+      aggregateRowButtonOrIcon = <button className="interactive-wrapper focus-on-light" onClick={this.handleHideAggregateRows}><img alt="" className="aggregate-row-icon" src={toggleArrowExpandedSrc} /></button>
     } else if (shouldDisplayToggleButton) {
-      rowAggregateButton = <button className="interactive-wrapper"><img alt="" className="aggregate-row-icon" src={toggleArrowClosedSrc} /></button>
+      aggregateRowButtonOrIcon = <button className="interactive-wrapper focus-on-light" onClick={(e) => this.handleShowAggregateRows(e, aggregateRowIdentifier)}><img alt="" className="aggregate-row-icon" src={toggleArrowClosedSrc} /></button>
     }
 
     if (!header.noTooltip && (String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
       return (
         <td key={key}>
-          {rowAggregateButton}
+          {aggregateRowButtonOrIcon}
           <Tooltip
             key={key}
             tooltipText={rowDisplayText}
@@ -375,7 +398,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
           key={key}
           style={style as any}
         >
-          {rowAggregateButton}
+          {aggregateRowButtonOrIcon}
           {sectionText}
         </td>
       )
@@ -391,17 +414,20 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     return <td className='reorder-section data-table-row-section'><DragHandle /></td>
   }
 
-  renderRow(row, isAggregateRow) {
+  renderRow(row, isAggregateRow=false) {
+    const { expandedAggregateRowIdentifier } = this.state
     const { headers, } = this.props
     const rowClassName = `data-table-row ${row.checked ? 'checked' : ''} ${row.className || ''}`
     const rowSections = headers.map((header, i) => this.renderRowSection({ row, header, isAggregateRow, i }))
     const rowContent = <React.Fragment>{this.renderRowCheckbox(row)}{this.renderRowDragHandle(row)}{rowSections}{this.renderRowRemoveIcon(row)}</React.Fragment>
     let rowElement = <tr className={rowClassName} key={String(row.id)}>{rowContent}</tr>
+    const aggregateRowIdentifier = `${row[headers[0].attribute]}-${row.id}`
+    const showAggregateRows = row.aggregate_rows && row.aggregate_rows.length && expandedAggregateRowIdentifier && expandedAggregateRowIdentifier === aggregateRowIdentifier
     if (row.link) {
       rowElement = <tr><a className={rowClassName} href={row.link} key={String(row.id)}>{rowContent}</a></tr>
     }
 
-    if (row.showAggregateRows && row.aggregate_rows && row.aggregate_rows.length) {
+    if (showAggregateRows) {
       return(
         <React.Fragment>
           {rowElement}
