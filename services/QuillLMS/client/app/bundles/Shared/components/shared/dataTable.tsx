@@ -440,3 +440,5 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 DataTable.defaultProps = {
   averageFontWidth: 7
 }
+
+export default DataTable
