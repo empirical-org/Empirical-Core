@@ -69,7 +69,6 @@ const ActivateModelForm = ({ match }) => {
   }
 
   if (!activeLabels && activeModel) {
-    ;
     updateActiveLabels(activeModel);
   }
 
