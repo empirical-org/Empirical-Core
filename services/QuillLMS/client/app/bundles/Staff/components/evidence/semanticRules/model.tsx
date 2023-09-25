@@ -51,7 +51,7 @@ const Model = ({ match }) => {
     const fields = [
       {
         label: 'Model Name',
-        value: namej
+        value: name
       },
       {
         label: 'Model ID',
