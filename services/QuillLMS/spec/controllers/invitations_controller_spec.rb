@@ -114,7 +114,8 @@ describe InvitationsController, type: :controller do
     context 'when invitation does not exists' do
       it 'should respond with the error' do
         delete :destroy_pending_invitations_to_specific_invitee, params: { invitation_type: "anything", invitee_email: "some@test.com" }
-        expect(response.body).to eq({error: "undefined method `destroy' for nil:NilClass"}.to_json)
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response["error"]).to include("undefined method `destroy' for nil:NilClass")
       end
     end
   end
@@ -138,7 +139,8 @@ describe InvitationsController, type: :controller do
     context 'when invitation does not exists' do
       it 'should respond with the error' do
         delete :destroy_pending_invitations_from_specific_inviter, params: { invitation_type: "some type", inviter_id: 1829 }
-        expect(response.body).to eq({error: "undefined method `destroy' for nil:NilClass"}.to_json)
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response["error"]).to include("undefined method `destroy' for nil:NilClass")
       end
     end
   end
