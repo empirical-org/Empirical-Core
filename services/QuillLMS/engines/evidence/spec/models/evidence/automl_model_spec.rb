@@ -121,38 +121,6 @@ module Evidence
       it { expect(automl_model.serializable_hash).to include(expected_results) }
     end
 
-    context '#assign_custom_attributes' do
-      let(:model_external_id) { 'Test-Model-ID' }
-      let(:endpoint_external_id) { 'Test-Endpoint-ID' }
-      let(:name) { 'Test name' }
-      let(:labels) { ['Test label'] }
-      let(:automl_model) { AutomlModel.new(name: name) }
-
-      let(:vertex_ai_params) do
-        {
-          endpoint_external_id: endpoint_external_id,
-          labels: labels,
-          model_external_id: model_external_id
-        }
-      end
-
-      before do
-        allow(Evidence::VertexAI::ParamsBuilder)
-          .to receive(:run)
-          .with(name)
-          .and_return(vertex_ai_params)
-
-        automl_model.assign_custom_attributes
-      end
-
-      it { expect(automl_model).to be_valid }
-      it { expect(automl_model.name).to eq name }
-      it { expect(automl_model.labels).to eq labels }
-      it { expect(automl_model.state).to eq AutomlModel::STATE_INACTIVE }
-      it { expect(automl_model.model_external_id).to eq model_external_id }
-      it { expect(automl_model.endpoint_external_id).to eq endpoint_external_id }
-    end
-
     context '#classify_text' do
       subject { automl_model.classify_text(text) }
 

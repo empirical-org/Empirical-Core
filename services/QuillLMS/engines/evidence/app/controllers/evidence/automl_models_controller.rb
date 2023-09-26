@@ -18,7 +18,7 @@ module Evidence
     end
 
     def create
-      @automl_model.assign_custom_attributes
+      @automl_model.assign_attributes(custom_create_attrs)
 
       if @automl_model.save
         render json: @automl_model, status: :created
@@ -51,6 +51,12 @@ module Evidence
     def deployed_model_names
       @names = VertexAI::DeployedModelNamesFetcher.run
       render json: @names
+    end
+
+    private def custom_create_attrs
+      VertexAI::ParamsBuilder
+        .run(@automl_model.name)
+        .merge(state: AutomlModel::STATE_INACTIVE)
     end
 
     private def set_lms_user_id
