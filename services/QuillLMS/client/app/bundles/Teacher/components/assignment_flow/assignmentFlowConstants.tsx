@@ -46,7 +46,7 @@ export const starterPostTest = {
   unitTemplateId: STARTER_DIAGNOSTIC_POST_UNIT_TEMPLATE_ID,
   what: 'The Starter Growth Diagnostic has different questions but covers the same skills as the Starter Baseline Diagnostic.',
   when: "Your students have completed the Starter Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
-  lockedText: "This is locked because you haven't assigned the Starter Baseline Diagnostic yet. Assign it to unlock the Starter Growth Diagnostic."
+  lockedText: "This is locked because you haven't assigned the Starter Baseline Diagnostic yet. Assign it to unlock the Starter Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
 }
 
 export const intermediatePreTest = {
@@ -63,7 +63,7 @@ export const intermediatePostTest = {
   unitTemplateId: INTERMEDIATE_DIAGNOSTIC_POST_UNIT_TEMPLATE_ID,
   what: 'The Intermediate Growth Diagnostic has different questions but covers the same skills as the Intermediate Baseline Diagnostic.',
   when: "Your students have completed the Intermediate Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
-  lockedText: "This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic."
+  lockedText: "This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
 }
 
 export const advancedPreTest = {
@@ -80,7 +80,7 @@ export const advancedPostTest = {
   unitTemplateId: ADVANCED_DIAGNOSTIC_POST_UNIT_TEMPLATE_ID,
   what: 'The Advanced Growth Diagnostic has different questions but covers the same skills as the Advanced Baseline Diagnostic.',
   when: "Your students have completed the Advanced Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
-  lockedText: "This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic."
+  lockedText: "This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
 }
 
 export const ellStarterPreTest = {
@@ -97,7 +97,7 @@ export const ellStarterPostTest = {
   unitTemplateId: ELL_STARTER_DIAGNOSTIC_POST_UNIT_TEMPLATE_ID,
   what: 'The ELL Starter Growth Diagnostic has different questions but covers the same skills as the ELL Starter Baseline Diagnostic.',
   when: "Your students have completed the ELL Starter Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
-  lockedText: "This is locked because you haven't assigned the ELL Starter Baseline Diagnostic yet. Assign it to unlock the ELL Starter Growth Diagnostic."
+  lockedText: "This is locked because you haven't assigned the ELL Starter Baseline Diagnostic yet. Assign it to unlock the ELL Starter Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
 }
 
 export const ellIntermediatePreTest = {
@@ -114,7 +114,7 @@ export const ellIntermediatePostTest = {
   unitTemplateId: ELL_INTERMEDIATE_DIAGNOSTIC_POST_UNIT_TEMPLATE_ID,
   what: 'The ELL Intermediate Growth Diagnostic has different questions but covers the same skills as the ELL Intermediate Baseline Diagnostic.',
   when: "Your students have completed the ELL Intermediate Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
-  lockedText: "This is locked because you haven't assigned the ELL Intermediate Baseline Diagnostic yet. Assign it to unlock the ELL Intermediate Growth Diagnostic."
+  lockedText: "This is locked because you haven't assigned the ELL Intermediate Baseline Diagnostic yet. Assign it to unlock the ELL Intermediate Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
 }
 
 export const ellAdvancedPreTest = {
@@ -131,7 +131,7 @@ export const ellAdvancedPostTest = {
   unitTemplateId: ELL_ADVANCED_DIAGNOSTIC_POST_UNIT_TEMPLATE_ID,
   what: 'The ELL Advanced Growth Diagnostic has different questions but covers the same skills as the ELL Advanced Baseline Diagnostic.',
   when: "Your students have completed the ELL Advanced Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
-  lockedText: "This is locked because you haven't assigned the ELL Advanced Baseline Diagnostic yet. Assign it to unlock the ELL Advanced Growth Diagnostic."
+  lockedText: "This is locked because you haven't assigned the ELL Advanced Baseline Diagnostic yet. Assign it to unlock the ELL Advanced Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
 }
 
 export const apWritingSkills = {
@@ -168,12 +168,12 @@ export const springboardWritingSkills = {
 
 
 export const postTestClassAssignmentLockedMessages = {
-  1664: "You can't assign the Starter Growth Diagnostic to this class until you've assigned them the Starter Baseline Diagnostic.",
-  1669: "You can't assign the Intermediate Growth Diagnostic to this class until you've assigned them the Intermediate Baseline Diagnostic.",
-  1680: "You can't assign the Advanced Growth Diagnostic to this class until you've assigned them the Advanced Baseline Diagnostic.",
-  1774: "You can't assign the ELL Starter Growth Diagnostic to this class until you've assigned them the ELL Starter Baseline Diagnostic.",
-  1814: "You can't assign the ELL Intermediate Growth Diagnostic to this class until you've assigned them the ELL Intermediate Baseline Diagnostic.",
-  1818: "You can't assign the ELL Advanced Growth Diagnostic to this class until you've assigned them the ELL Advanced Baseline Diagnostic."
+  1664: "You can't assign the Starter Growth Diagnostic to this class until you've assigned them the Starter Baseline Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
+  1669: "You can't assign the Intermediate Growth Diagnostic to this class until you've assigned them the Intermediate Baseline Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
+  1680: "You can't assign the Advanced Growth Diagnostic to this class until you've assigned them the Advanced Baseline Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
+  1774: "You can't assign the ELL Starter Growth Diagnostic to this class until you've assigned them the ELL Starter Baseline Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
+  1814: "You can't assign the ELL Intermediate Growth Diagnostic to this class until you've assigned them the ELL Intermediate Baseline Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
+  1818: "You can't assign the ELL Advanced Growth Diagnostic to this class until you've assigned them the ELL Advanced Baseline Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
 }
 
 export const postTestWarningModalPreNameCorrespondence = {
