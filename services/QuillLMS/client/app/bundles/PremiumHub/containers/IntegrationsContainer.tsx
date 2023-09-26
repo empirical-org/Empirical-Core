@@ -1,23 +1,26 @@
 import React from 'react';
 
-import CanvasIntegrationForm from '../components/CanvasIntegrationForm'
-
-import { FULL } from '../shared';
+import CanvasIntegrationContainer from '../components/canvas/container'
+import { FULL, restrictedPage } from '../shared';
 
 const IntegrationsContainer = (sharedProps) => {
   const { accessType } = sharedProps
 
-  const renderCanvasIntegrationForm = () => (
-    accessType === FULL ? <CanvasIntegrationForm /> : <h1>Canvas Integration</h1>
+  const renderContent = () => (
+    accessType === FULL ? <CanvasIntegrationContainer /> : restrictedPage
   )
 
   return (
-    <div className='standards-reports-by-classroom progress-reports-2018'>
-      <div className='meta-overview flex-row space-between'>
-        <div className='header-and-info'>
-          {renderCanvasIntegrationForm()}
+    <div className='integrations-container white-background-accommodate-footer'>
+      <header className="reports-header">
+        <div className="container">
+          <h1>Integrations</h1>
+          <nav>
+            <button className="active" type="button">Canvas</button>
+          </nav>
         </div>
-      </div>
+      </header>
+      {renderContent()}
     </div>
   )
 }

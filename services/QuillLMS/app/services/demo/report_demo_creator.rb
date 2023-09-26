@@ -2,6 +2,7 @@
 
 module Demo::ReportDemoCreator
   EMAIL = 'hello+demoteacher@quill.org'
+  STAFF_DEMO_EMAIL = "hello+demoteacher+staff@quill.org"
   REPLAYED_ACTIVITY_ID = 434
   REPLAYED_SAMPLE_USER_ID = 312664
 
@@ -293,7 +294,9 @@ module Demo::ReportDemoCreator
 
   def self.create_units(teacher)
     ACTIVITY_PACKS_TEMPLATES.map do |ap|
-      unit_template_id = UnitTemplate.find_by_id(ap[:unit_template_id])&.id # ensures the unit template actually exists in our database
+      # the following line sets the unit template id to nil for the quill_staff_demo account by request of the partnerships team, because they want to be able to assign the starter baseline recommendations
+      # and it ensures the unit template actually exists in our database
+      unit_template_id = teacher.email == STAFF_DEMO_EMAIL ? nil : UnitTemplate.find_by_id(ap[:unit_template_id])&.id
       unit = Unit.find_or_create_by(name: ap[:name], user: teacher, unit_template_id: unit_template_id)
       activity_ids = activity_ids_for_config(ap)
       activity_ids.each { |act_id| UnitActivity.find_or_create_by(activity_id: act_id, unit: unit) }
