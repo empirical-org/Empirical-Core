@@ -58,9 +58,7 @@ module Evidence
       ))
     end
 
-    def assign_custom_attributes
-      assign_attributes(VertexAI::ParamsBuilder.run(name).merge(state: STATE_INACTIVE))
-    end
+    def assign_custom_attributes; end
 
     def active?
       state == STATE_ACTIVE
