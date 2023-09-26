@@ -2,7 +2,6 @@
 
 Rails.application.config.eager_load do
   RailsAdmin.config do |config|
-    config.asset_source = :webpacker
     config.asset_source = :sprockets
 
     config.authorize_with do |controller|

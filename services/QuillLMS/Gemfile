@@ -144,7 +144,6 @@ gem 'sentry-ruby'
 gem 'sentry-rails'
 gem 'sentry-sidekiq'
 gem 'rack-heartbeat'
-gem "matrix", '~> 0.4.2'
 
 # INTEGRATIONS
 gem 'commonlit-clever-ruby'
@@ -169,6 +168,7 @@ group :production, :staging do
   gem 'rails-autoscale-web'
   gem 'rails-autoscale-sidekiq'
   gem 'lograge'
+  gem "matrix", '~> 0.4.2'
 end
 
 group :development do
