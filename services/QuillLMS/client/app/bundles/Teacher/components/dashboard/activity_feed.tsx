@@ -1,8 +1,11 @@
 import * as React from 'react';
 
-import { DataTable, expandIcon, } from '../../../Shared/index';
+import { DataTable, expandIcon, Tooltip, } from '../../../Shared/index';
+import tooltipCopyForScoreDescriptions from '../modules/tooltipCopyForScoreDescriptions'
 
 const listIllustrationSrc = `${process.env.CDN_URL}/images/pages/dashboard/illustrations-list.svg`
+
+const SCORE_WIDTH = '210px'
 
 const headers = [
   {
@@ -14,9 +17,10 @@ const headers = [
     name: 'Activity',
     attribute: 'activityName',
   }, {
-    width: '210px',
+    width: SCORE_WIDTH,
     name: 'Score',
     attribute: 'scoreTag',
+    containsOwnTooltip: true
   }, {
     width: '84px',
     name: 'Completed',
@@ -57,11 +61,25 @@ const ActivityFeed = ({ onMobile, activityFeed, }) => {
 
   const rows = activityFeed.slice(0, showAll ? ABSOLUTE_MAX : INITIAL_MAX).map(act => {
     const { student_name, activity_name, score, completed, id, unit_id, classroom_id, user_id, activity_id, } = act
+
+    const scoreTagStyle = {
+      minWidth: SCORE_WIDTH,
+      width: SCORE_WIDTH
+    }
+
     return {
       className: "focus-on-light",
       studentName: student_name,
       activityName: activity_name,
-      scoreTag: <span className={`score-tag ${score.toLowerCase().split(' ').join('-')}`}>{score}</span>,
+      scoreTag: (
+        <Tooltip
+          tooltipText={tooltipCopyForScoreDescriptions[score.toLowerCase()]}
+          tooltipTriggerStyle={scoreTagStyle}
+          tooltipTriggerText={<span className={`score-tag ${score.toLowerCase().split(' ').join('-')}`}>{score}</span>}
+          tooltipTriggerTextClass='data-table-row-section'
+          tooltipTriggerTextStyle={scoreTagStyle}
+        />
+      ),
       link: `/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/${classroom_id}/unit/${unit_id}/user/${user_id}/activity/${activity_id}`,
       completed,
       id,

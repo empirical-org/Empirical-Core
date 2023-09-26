@@ -354,6 +354,12 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
           />
         </td>
       )
+    } else if (header.containsOwnTooltip) {
+      return (
+        <td key={key}>
+          {sectionText}
+        </td>
+      )
     } else {
       return (
         <td
