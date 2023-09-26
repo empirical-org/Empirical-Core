@@ -25,15 +25,12 @@ exports[`AssignANewActivity component default should render 1`] = `
           activities
            assigned. 
         </p>
-        <div
-          className="view-assigned-activities"
+        <a
+          className="quill-button view-assigned-activities secondary outlined small focus-on-light"
+          href="/teachers/classrooms/activity_planner"
         >
-          <a
-            href="/teachers/classrooms/activity_planner"
-          >
-            View assigned activities
-          </a>
-        </div>
+          View assigned activities
+        </a>
       </div>
       <div
         className="minis"
@@ -353,6 +350,155 @@ exports[`AssignANewActivity component default should render 1`] = `
           </div>
         </AssignmentCard>
       </div>
+      <h1
+        className="evidence-header"
+      >
+        Browse the newest Reading for Evidence activities
+      </h1>
+      <DataTable
+        averageFontWidth={7}
+        headers={
+          Array [
+            Object {
+              "attribute": "tool",
+              "name": "Tool",
+              "width": "24px",
+            },
+            Object {
+              "attribute": "name",
+              "name": "Name",
+              "width": "394px",
+            },
+            Object {
+              "attribute": "topics",
+              "containsOwnTooltip": true,
+              "name": "Topics",
+              "width": "319px",
+            },
+            Object {
+              "attribute": "dateReleased",
+              "name": "Date released",
+              "width": "180px",
+            },
+            Object {
+              "attribute": "previewLink",
+              "name": "",
+              "noTooltip": true,
+              "width": "60px",
+            },
+            Object {
+              "attribute": "select",
+              "name": "",
+              "noTooltip": true,
+              "width": "70px",
+            },
+          ]
+        }
+        rows={Array []}
+      >
+        <table
+          className="data-table undefined"
+        >
+          <thead>
+            <tr
+              className="data-table-headers"
+            >
+              <th
+                className="data-table-header undefined"
+                key="0"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "24px",
+                    "textAlign": "right",
+                    "width": "24px",
+                  }
+                }
+              >
+                Tool
+              </th>
+              <th
+                className="data-table-header undefined"
+                key="1"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "394px",
+                    "textAlign": "right",
+                    "width": "394px",
+                  }
+                }
+              >
+                Name
+              </th>
+              <th
+                className="data-table-header undefined"
+                key="2"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "319px",
+                    "textAlign": "right",
+                    "width": "319px",
+                  }
+                }
+              >
+                Topics
+              </th>
+              <th
+                className="data-table-header undefined"
+                key="3"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "180px",
+                    "textAlign": "right",
+                    "width": "180px",
+                  }
+                }
+              >
+                Date released
+              </th>
+              <th
+                className="data-table-header undefined"
+                key="4"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "60px",
+                    "textAlign": "right",
+                    "width": "60px",
+                  }
+                }
+              />
+              <th
+                className="data-table-header undefined"
+                key="5"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "70px",
+                    "textAlign": "right",
+                    "width": "70px",
+                  }
+                }
+              />
+            </tr>
+          </thead>
+          <tbody
+            className="data-table-body"
+          />
+        </table>
+      </DataTable>
+      <button
+        className="quill-button outlined small secondary focus-on-light show-all-button"
+        onClick={[Function]}
+        type="button"
+      >
+        Show all 
+        0
+         Reading for Evidence activities
+      </button>
     </div>
   </div>
   <ArticleSpotlight

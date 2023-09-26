@@ -8,7 +8,8 @@
   align-items: inherit;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 16px;
-  border: 1px solid $quill-grey-15;
+  border: 1px solid $quill-grey-5;
+  color: $quill-grey-90;
 
   &:hover {
     text-decoration: none;
@@ -29,7 +30,7 @@
     }
     h2 {
       font-style: normal;
-      font-weight: 700;
+      font-weight: 600;
       font-size: 20px;
       line-height: 25px;
     }
@@ -48,7 +49,6 @@
       display: flex;
       font-size: 14px;
       line-height: 1.5;
-      color: #646464;
       margin-bottom: 16px;
       .key {
         max-width: 88px;
@@ -56,7 +56,6 @@
         font-weight: 700;
         font-size: 14px;
         line-height: 21px;
-        color: $quill-grey-90;
       }
     }
   }
@@ -235,6 +234,10 @@
         margin-bottom: 16px;
       }
     }
+
+    @media (max-width: 1333px) {
+      overflow: scroll;
+    }
   }
 
 }
@@ -250,9 +253,6 @@
 .evidence-header {
   margin-top: 40px;
   margin-bottom: 32px;
-  @media (max-width: 850px) {
-    display: none;
-  }
 }
 
 @media (max-width: 850px) {
