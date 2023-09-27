@@ -145,7 +145,10 @@
   }
 
 	.missed-indicator {
-		height: 38px;
+    height: 38px;
+    position: absolute;
+    left: 0px;
+    top: 1px;
 	}
 
 	.attempt-count {
