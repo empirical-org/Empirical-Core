@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 namespace :vertex_ai  do
-  desc 'Populate prompt endpoint and model IDs'
+  desc 'Populate prompt endpoint and model IDs (note these need to be run locally as files are not available on the server))'
   task populate_prompt_endpoint_and_model_ids: :environment do
     pipe_data = $stdin.read unless $stdin.tty?
 
@@ -38,11 +38,12 @@ namespace :vertex_ai  do
     end
   end
 
+  desc 'Backfill evidence_automl_models (note these need to be run locally as files are not available on the server))'
   task backfill_evidence_automl_models: :environment do
     pipe_data = $stdin.read unless $stdin.tty?
 
     CSV.parse(pipe_data, headers: true) do |row|
-      next if row['Model ID'].blank? || row['Endpoint ID'].blank? || row['Prompt ID'].blank? || row['Model ID'].blank? || row['Name'].blank? || row['Labels'].blank?
+      next if row['Model ID'].blank? || row['Endpoint ID'].blank? || row['Prompt ID'].blank? || row['Name'].blank? || row['Labels'].blank?
 
       model_id = ActiveRecord::Base.connection.quote(row['Model ID'])
       endpoint_id = ActiveRecord::Base.connection.quote(row['Endpoint ID'])
