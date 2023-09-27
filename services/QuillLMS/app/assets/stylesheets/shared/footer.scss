@@ -37,13 +37,13 @@
       a {
         color: #e1e1e1;
         line-height: 1.93;
-        font-size: 15px;
+        font-size: 12px;
       }
       &:first-child {
         margin-bottom: 8px;
         font-weight: bold;
         a, p {
-          font-size: 14px;
+          font-size: 12px;
           line-height: 1.5;
           color: $white;
           margin: 0px 0px 12px;
@@ -55,7 +55,7 @@
     margin: 0 auto;
     max-width: $sitewidepagewidth;
     color: #e1e1e1;
-    padding-top: 26px;
+    padding-top: 19px;
     form {
       max-width: 322px;
       width: 100%;
@@ -102,7 +102,7 @@
         }
       }
       &.pas-left {
-        font-size: 15px;
+        font-size: 12px;
         a {
           color: #e1e1e1;
         }
@@ -115,12 +115,12 @@
 
         a {
           color: #e1e1e1;
+          img {
+            width: 17px;
+            height: 14px;
+          }
         }
       }
-    }
-    .cb-disclaimer {
-      margin-top: 33px;
-      font-size: 15px;
     }
     @media (max-width: 1000px) {
       flex-direction: column;
@@ -130,11 +130,20 @@
       }
     }
   }
+  .disclaimer-container {
+    margin: 0 auto;
+    max-width: 1200px;
+    color: #5C5C5C;
+    p.cb-disclaimer {
+      margin-top: 33px;
+      font-size: 12px;
+    }
+  }
   .partners-footer {
     padding-top: 27px;
     padding-bottom: 35px;
     color: #e1e1e1;
-    font-size: 15px;
+    font-size: 12px;
     line-height: 1.93;
     max-width: $sitewidepagewidth;
     margin: 0 auto;
@@ -144,10 +153,11 @@
       margin: 0 0 8px;
     }
     .partner-links {
+      width: 860px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 16px;
+      margin-top: 13px;
       >img {
         flex: 1 1 auto;
         overflow-y: auto;
