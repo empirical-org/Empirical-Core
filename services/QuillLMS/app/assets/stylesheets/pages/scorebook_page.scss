@@ -63,11 +63,13 @@
 	.icons-wrapper.score-legend {
 		border-bottom: 1px solid $quill-grey-15;
     padding: 48px 0px;
+    .icons {
+      gap: 24px;
+    }
 	}
 
 	.icons-wrapper.icon-legend {
 		.icons {
-      gap: 30px;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
@@ -76,11 +78,16 @@
 				display: flex;
 				align-items: center;
 				.icons-description-wrapper {
+          max-width: 175px;
 					.title {
             color: $quill-grey-90;
             font-size: 12px;
             font-weight: 700;
             line-height: 14px;
+            &.align-center {
+              display: flex;
+              align-items: center;
+            }
 					}
           .explanation, .description {
             color: $quill-grey-35;
@@ -88,6 +95,9 @@
             font-weight: 400;
             line-height: 16px;
             margin-top: 2px;
+          }
+          img {
+            margin-left: 4px;
           }
 				}
 				.icon-wrapper {
@@ -99,6 +109,9 @@
 
 	.app-legend {
 		margin: 48px 0px;
+    .icons {
+      gap: 30px;
+    }
 		.icon {
       text-align: left;
       min-width: min-content;

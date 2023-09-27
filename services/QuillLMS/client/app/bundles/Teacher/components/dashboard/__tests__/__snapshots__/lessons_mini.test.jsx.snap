@@ -697,7 +697,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               key="lesson-649-1-undefined"
             >
-              <span />
               <Tooltip
                 isTabbable={true}
                 key="lesson-649-1-undefined"
@@ -773,7 +772,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              <span />
               Quill Classroom
             </td>
             <td
@@ -802,7 +800,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              <span />
               <a
                 className="focus-on-light"
                 href="/teachers/classroom_units/92/launch_lesson/649"
@@ -832,7 +829,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              <span />
               Lesson 1: And, Or, But, So
             </td>
             <td
@@ -846,7 +842,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              <span />
               New Class
             </td>
             <td
@@ -875,7 +870,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              <span />
               <a
                 className="focus-on-light"
                 href="/teachers/classroom_units/91/launch_lesson/563"
@@ -905,7 +899,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              <span />
               Complex Sentences Overview
             </td>
             <td
@@ -919,7 +912,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              <span />
               New Class
             </td>
             <td
@@ -948,7 +940,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              <span />
               <a
                 className="focus-on-light"
                 href="/teachers/classroom_units/91/launch_lesson/829"
@@ -970,7 +961,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               key="lesson-566-6-undefined"
             >
-              <span />
               <Tooltip
                 isTabbable={true}
                 key="lesson-566-6-undefined"
@@ -1046,7 +1036,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              <span />
               New Class
             </td>
             <td
@@ -1075,7 +1064,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              <span />
               <a
                 className="focus-on-light"
                 href="/teachers/classroom_units/91/launch_lesson/566"
@@ -1105,7 +1093,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              <span />
               Lesson 1: Compound Objects and Predicates
             </td>
             <td
@@ -1119,7 +1106,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              <span />
               New Class
             </td>
             <td
@@ -1148,7 +1134,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              <span />
               <a
                 className="focus-on-light"
                 href="/teachers/classroom_units/91/launch_lesson/568"

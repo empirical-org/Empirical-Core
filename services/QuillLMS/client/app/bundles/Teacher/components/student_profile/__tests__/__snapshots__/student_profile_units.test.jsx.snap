@@ -569,7 +569,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Lesson 2: Dependent Clause Fragments
                   </td>
                   <td
@@ -582,9 +581,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
@@ -595,9 +592,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "100px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-41"
@@ -609,7 +604,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <Tooltip
                       isTabbable={true}
                       tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
@@ -670,7 +664,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Lesson 3: -ing Fragments
                   </td>
                   <td
@@ -683,9 +676,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
@@ -696,9 +687,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "100px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-42"
@@ -710,7 +699,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <Tooltip
                       isTabbable={true}
                       tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
@@ -771,7 +759,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Lesson 4: Fragments Review
                   </td>
                   <td
@@ -784,9 +771,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
@@ -797,9 +782,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "100px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-43"
@@ -811,7 +794,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <Tooltip
                       isTabbable={true}
                       tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
@@ -1297,7 +1279,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     The Travels of Marco Polo
                   </td>
                   <td
@@ -1310,9 +1291,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-1"
@@ -1324,7 +1303,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -1338,7 +1316,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start The Travels of Marco Polo"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -1363,7 +1340,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Christopher Columbus
                   </td>
                   <td
@@ -1376,9 +1352,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-2"
@@ -1390,7 +1364,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -1404,7 +1377,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Christopher Columbus"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -1429,7 +1401,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     A, An, The
                   </td>
                   <td
@@ -1442,9 +1413,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-10"
@@ -1456,7 +1425,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -1470,7 +1438,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start A, An, The"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -1495,7 +1462,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Magellan
                   </td>
                   <td
@@ -1508,9 +1474,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-3"
@@ -1522,7 +1486,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -1536,7 +1499,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Magellan"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -1561,7 +1523,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Jamestown
                   </td>
                   <td
@@ -1574,9 +1535,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-4"
@@ -1588,7 +1547,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -1602,7 +1560,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Jamestown"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -1627,7 +1584,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Age of Exploration: Sailing with the Stars
                   </td>
                   <td
@@ -1640,9 +1596,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-6"
@@ -1654,7 +1608,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -1668,7 +1621,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Age of Exploration: Sailing with the Stars"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -1693,7 +1645,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Age of Exploration: The Cape of Good Hope
                   </td>
                   <td
@@ -1706,9 +1657,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-7"
@@ -1720,7 +1669,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -1734,7 +1682,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Age of Exploration: The Cape of Good Hope"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -1759,7 +1706,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Age of Exploration: Roanoke
                   </td>
                   <td
@@ -1772,9 +1718,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-8"
@@ -1786,7 +1730,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -1800,7 +1743,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Age of Exploration: Roanoke"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -2389,7 +2331,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Lesson 2: Dependent Clause Fragments
                   </td>
                   <td
@@ -2402,9 +2343,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
@@ -2415,9 +2354,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "100px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-41"
@@ -2429,7 +2366,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <Tooltip
                       isTabbable={true}
                       tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
@@ -2490,7 +2426,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Lesson 3: -ing Fragments
                   </td>
                   <td
@@ -2503,9 +2438,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
@@ -2516,9 +2449,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "100px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-42"
@@ -2530,7 +2461,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <Tooltip
                       isTabbable={true}
                       tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
@@ -2591,7 +2521,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Lesson 4: Fragments Review
                   </td>
                   <td
@@ -2604,9 +2533,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
@@ -2617,9 +2544,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "100px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-43"
@@ -2631,7 +2556,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <Tooltip
                       isTabbable={true}
                       tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
@@ -3117,7 +3041,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     The Travels of Marco Polo
                   </td>
                   <td
@@ -3130,9 +3053,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-1"
@@ -3144,7 +3065,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -3158,7 +3078,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start The Travels of Marco Polo"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -3183,7 +3102,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Christopher Columbus
                   </td>
                   <td
@@ -3196,9 +3114,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-2"
@@ -3210,7 +3126,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -3224,7 +3139,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Christopher Columbus"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -3249,7 +3163,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     A, An, The
                   </td>
                   <td
@@ -3262,9 +3175,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-10"
@@ -3276,7 +3187,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -3290,7 +3200,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start A, An, The"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -3315,7 +3224,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Magellan
                   </td>
                   <td
@@ -3328,9 +3236,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-3"
@@ -3342,7 +3248,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -3356,7 +3261,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Magellan"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -3381,7 +3285,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Jamestown
                   </td>
                   <td
@@ -3394,9 +3297,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-4"
@@ -3408,7 +3309,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -3422,7 +3322,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Jamestown"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -3447,7 +3346,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Age of Exploration: Sailing with the Stars
                   </td>
                   <td
@@ -3460,9 +3358,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-6"
@@ -3474,7 +3370,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -3488,7 +3383,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Age of Exploration: Sailing with the Stars"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -3513,7 +3407,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Age of Exploration: The Cape of Good Hope
                   </td>
                   <td
@@ -3526,9 +3419,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-7"
@@ -3540,7 +3431,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -3554,7 +3444,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Age of Exploration: The Cape of Good Hope"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -3579,7 +3468,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Age of Exploration: Roanoke
                   </td>
                   <td
@@ -3592,9 +3480,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-8"
@@ -3606,7 +3492,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -3620,7 +3505,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Age of Exploration: Roanoke"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -4323,7 +4207,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    <span />
                     A, An
                   </td>
                   <td
@@ -4337,7 +4220,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    <span />
                     <div
                       className="score"
                     >
@@ -4359,9 +4241,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section completed-due-date-section"
                     key="dueDate-9"
@@ -4373,7 +4253,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -4386,9 +4265,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                         "width": "110px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section action-button-section tooltip-section"
                     key="actionButton-9"
@@ -4400,7 +4277,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Replay A, An"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -4425,7 +4301,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    <span />
                     Age of Exploration: Spices
                   </td>
                   <td
@@ -4439,7 +4314,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    <span />
                     <div
                       className="score"
                     >
@@ -4461,9 +4335,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section completed-due-date-section"
                     key="dueDate-5"
@@ -4475,7 +4347,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -4488,9 +4359,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                         "width": "110px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section action-button-section tooltip-section"
                     key="actionButton-5"
@@ -4502,7 +4371,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Replay Age of Exploration: Spices"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -5222,7 +5090,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     Lesson 1: Missing Subject or Verb Fragments
                   </td>
                   <td
@@ -5235,9 +5102,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-40"
@@ -5248,9 +5113,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "100px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-40"
@@ -5262,7 +5125,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Resume Lesson 1: Missing Subject or Verb Fragments"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -5287,7 +5149,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     Lesson 2: Dependent Clause Fragments
                   </td>
                   <td
@@ -5300,9 +5161,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
@@ -5313,9 +5172,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "100px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-41"
@@ -5327,7 +5184,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     <Tooltip
                       isTabbable={true}
                       tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
@@ -5388,7 +5244,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     Lesson 3: -ing Fragments
                   </td>
                   <td
@@ -5401,9 +5256,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
@@ -5414,9 +5267,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "100px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-42"
@@ -5428,7 +5279,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     <Tooltip
                       isTabbable={true}
                       tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
@@ -5489,7 +5339,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     Lesson 4: Fragments Review
                   </td>
                   <td
@@ -5502,9 +5351,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
@@ -5515,9 +5362,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "100px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-43"
@@ -5529,7 +5374,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     <Tooltip
                       isTabbable={true}
                       tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
@@ -6015,7 +5859,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     The Travels of Marco Polo
                   </td>
                   <td
@@ -6028,9 +5871,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-1"
@@ -6042,7 +5883,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -6056,7 +5896,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start The Travels of Marco Polo"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -6081,7 +5920,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     Christopher Columbus
                   </td>
                   <td
@@ -6094,9 +5932,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-2"
@@ -6108,7 +5944,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -6122,7 +5957,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Christopher Columbus"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -6147,7 +5981,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     A, An, The
                   </td>
                   <td
@@ -6160,9 +5993,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-10"
@@ -6174,7 +6005,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -6188,7 +6018,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start A, An, The"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -6213,7 +6042,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     Magellan
                   </td>
                   <td
@@ -6226,9 +6054,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-3"
@@ -6240,7 +6066,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -6254,7 +6079,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Magellan"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -6279,7 +6103,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     Jamestown
                   </td>
                   <td
@@ -6292,9 +6115,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-4"
@@ -6306,7 +6127,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -6320,7 +6140,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Jamestown"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -6345,7 +6164,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     Age of Exploration: Sailing with the Stars
                   </td>
                   <td
@@ -6358,9 +6176,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-6"
@@ -6372,7 +6188,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -6386,7 +6201,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Age of Exploration: Sailing with the Stars"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -6411,7 +6225,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     Age of Exploration: The Cape of Good Hope
                   </td>
                   <td
@@ -6424,9 +6237,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-7"
@@ -6438,7 +6249,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -6452,7 +6262,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Age of Exploration: The Cape of Good Hope"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -6477,7 +6286,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     Age of Exploration: Roanoke
                   </td>
                   <td
@@ -6490,9 +6298,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-8"
@@ -6504,7 +6310,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -6518,7 +6323,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Age of Exploration: Roanoke"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -7238,7 +7042,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     Lesson 1: Missing Subject or Verb Fragments
                   </td>
                   <td
@@ -7251,9 +7054,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-40"
@@ -7264,9 +7065,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "100px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-40"
@@ -7278,7 +7077,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Resume Lesson 1: Missing Subject or Verb Fragments"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -7303,7 +7101,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     Lesson 2: Dependent Clause Fragments
                   </td>
                   <td
@@ -7316,9 +7113,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
@@ -7329,9 +7124,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "100px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-41"
@@ -7343,7 +7136,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     <Tooltip
                       isTabbable={true}
                       tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
@@ -7404,7 +7196,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     Lesson 3: -ing Fragments
                   </td>
                   <td
@@ -7417,9 +7208,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
@@ -7430,9 +7219,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "100px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-42"
@@ -7444,7 +7231,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     <Tooltip
                       isTabbable={true}
                       tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
@@ -7505,7 +7291,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     Lesson 4: Fragments Review
                   </td>
                   <td
@@ -7518,9 +7303,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
@@ -7531,9 +7314,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "100px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-43"
@@ -7545,7 +7326,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     <Tooltip
                       isTabbable={true}
                       tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
@@ -8031,7 +7811,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     The Travels of Marco Polo
                   </td>
                   <td
@@ -8044,9 +7823,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-1"
@@ -8058,7 +7835,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -8072,7 +7848,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start The Travels of Marco Polo"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -8097,7 +7872,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     Christopher Columbus
                   </td>
                   <td
@@ -8110,9 +7884,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-2"
@@ -8124,7 +7896,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -8138,7 +7909,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Christopher Columbus"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -8163,7 +7933,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     A, An, The
                   </td>
                   <td
@@ -8176,9 +7945,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-10"
@@ -8190,7 +7957,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -8204,7 +7970,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start A, An, The"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -8229,7 +7994,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     Magellan
                   </td>
                   <td
@@ -8242,9 +8006,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-3"
@@ -8256,7 +8018,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -8270,7 +8031,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Magellan"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -8295,7 +8055,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     Jamestown
                   </td>
                   <td
@@ -8308,9 +8067,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-4"
@@ -8322,7 +8079,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -8336,7 +8092,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Jamestown"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -8361,7 +8116,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     Age of Exploration: Sailing with the Stars
                   </td>
                   <td
@@ -8374,9 +8128,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-6"
@@ -8388,7 +8140,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -8402,7 +8153,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Age of Exploration: Sailing with the Stars"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -8427,7 +8177,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     Age of Exploration: The Cape of Good Hope
                   </td>
                   <td
@@ -8440,9 +8189,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-7"
@@ -8454,7 +8201,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -8468,7 +8214,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Age of Exploration: The Cape of Good Hope"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -8493,7 +8238,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     Age of Exploration: Roanoke
                   </td>
                   <td
@@ -8506,9 +8250,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-8"
@@ -8520,7 +8262,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -8534,7 +8275,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Age of Exploration: Roanoke"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -9254,7 +8994,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     Lesson 1: Missing Subject or Verb Fragments
                   </td>
                   <td
@@ -9267,9 +9006,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-40"
@@ -9280,9 +9017,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "100px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-40"
@@ -9294,7 +9029,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Resume Lesson 1: Missing Subject or Verb Fragments"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -9319,7 +9053,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     Lesson 2: Dependent Clause Fragments
                   </td>
                   <td
@@ -9332,9 +9065,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
@@ -9345,9 +9076,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "100px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-41"
@@ -9359,7 +9088,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     <Tooltip
                       isTabbable={true}
                       tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
@@ -9420,7 +9148,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     Lesson 3: -ing Fragments
                   </td>
                   <td
@@ -9433,9 +9160,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
@@ -9446,9 +9171,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "100px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-42"
@@ -9460,7 +9183,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     <Tooltip
                       isTabbable={true}
                       tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
@@ -9521,7 +9243,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     Lesson 4: Fragments Review
                   </td>
                   <td
@@ -9534,9 +9255,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
@@ -9547,9 +9266,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "100px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-43"
@@ -9561,7 +9278,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     <Tooltip
                       isTabbable={true}
                       tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
@@ -10047,7 +9763,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     The Travels of Marco Polo
                   </td>
                   <td
@@ -10060,9 +9775,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-1"
@@ -10074,7 +9787,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -10088,7 +9800,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start The Travels of Marco Polo"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -10113,7 +9824,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     Christopher Columbus
                   </td>
                   <td
@@ -10126,9 +9836,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-2"
@@ -10140,7 +9848,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -10154,7 +9861,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Christopher Columbus"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -10179,7 +9885,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     A, An, The
                   </td>
                   <td
@@ -10192,9 +9897,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-10"
@@ -10206,7 +9909,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -10220,7 +9922,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start A, An, The"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -10245,7 +9946,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     Magellan
                   </td>
                   <td
@@ -10258,9 +9958,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-3"
@@ -10272,7 +9970,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -10286,7 +9983,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Magellan"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -10311,7 +10007,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     Jamestown
                   </td>
                   <td
@@ -10324,9 +10019,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-4"
@@ -10338,7 +10031,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -10352,7 +10044,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Jamestown"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -10377,7 +10068,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     Age of Exploration: Sailing with the Stars
                   </td>
                   <td
@@ -10390,9 +10080,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-6"
@@ -10404,7 +10092,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -10418,7 +10105,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Age of Exploration: Sailing with the Stars"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -10443,7 +10129,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     Age of Exploration: The Cape of Good Hope
                   </td>
                   <td
@@ -10456,9 +10141,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-7"
@@ -10470,7 +10153,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -10484,7 +10166,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Age of Exploration: The Cape of Good Hope"
                       className="quill-button medium focus-on-light secondary outlined"
@@ -10509,7 +10190,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     Age of Exploration: Roanoke
                   </td>
                   <td
@@ -10522,9 +10202,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  >
-                    <span />
-                  </td>
+                  />
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-8"
@@ -10536,7 +10214,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     Feb 29, 5am
                   </td>
                   <td
@@ -10550,7 +10227,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span />
                     <a
                       aria-label="Start Age of Exploration: Roanoke"
                       className="quill-button medium focus-on-light secondary outlined"

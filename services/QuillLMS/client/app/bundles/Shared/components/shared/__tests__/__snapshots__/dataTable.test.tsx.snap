@@ -42,21 +42,18 @@ exports[`DataTable it should render 1`] = `
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: left;"
         >
-          <span />
           A
         </td>
         <td
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: right;"
         >
-          <span />
           1
         </td>
         <td
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: left;"
         >
-          <span />
           red
         </td>
       </tr>
@@ -67,21 +64,18 @@ exports[`DataTable it should render 1`] = `
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: left;"
         >
-          <span />
           B
         </td>
         <td
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: right;"
         >
-          <span />
           2
         </td>
         <td
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: left;"
         >
-          <span />
           orange
         </td>
       </tr>
@@ -92,21 +86,18 @@ exports[`DataTable it should render 1`] = `
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: left;"
         >
-          <span />
           C
         </td>
         <td
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: right;"
         >
-          <span />
           3
         </td>
         <td
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: left;"
         >
-          <span />
           yellow
         </td>
       </tr>
@@ -117,21 +108,18 @@ exports[`DataTable it should render 1`] = `
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: left;"
         >
-          <span />
           D
         </td>
         <td
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: right;"
         >
-          <span />
           4
         </td>
         <td
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: left;"
         >
-          <span />
           green
         </td>
       </tr>
@@ -142,21 +130,18 @@ exports[`DataTable it should render 1`] = `
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: left;"
         >
-          <span />
           E
         </td>
         <td
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: right;"
         >
-          <span />
           5
         </td>
         <td
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: left;"
         >
-          <span />
           blue
         </td>
       </tr>
@@ -167,21 +152,18 @@ exports[`DataTable it should render 1`] = `
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: left;"
         >
-          <span />
           F
         </td>
         <td
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: right;"
         >
-          <span />
           6
         </td>
         <td
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: left;"
         >
-          <span />
           indigo
         </td>
       </tr>
@@ -192,21 +174,18 @@ exports[`DataTable it should render 1`] = `
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: left;"
         >
-          <span />
           G
         </td>
         <td
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: right;"
         >
-          <span />
           7
         </td>
         <td
           class="data-table-row-section undefined"
           style="width: 200px; min-width: 200px; text-align: left;"
         >
-          <span />
           violet
         </td>
       </tr>

@@ -6638,7 +6638,6 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                           }
                                         }
                                       >
-                                        <span />
                                         Demo Teacher
                                       </td>
                                       <td
@@ -6652,7 +6651,6 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                           }
                                         }
                                       >
-                                        <span />
                                         Owner
                                       </td>
                                       <td
@@ -6666,7 +6664,6 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                           }
                                         }
                                       >
-                                        <span />
                                         hello+demoteacher@quill.org
                                       </td>
                                       <td
@@ -6680,7 +6677,6 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                           }
                                         }
                                       >
-                                        <span />
                                         Joined
                                       </td>
                                     </tr>

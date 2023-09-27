@@ -5130,7 +5130,6 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  <span />
                   Bleep Bloop
                 </td>
                 <td
@@ -5143,9 +5142,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                       "width": "361px",
                     }
                   }
-                >
-                  <span />
-                </td>
+                />
                 <td
                   className="data-table-row-section view-button-section"
                   key="viewButton-5204398"
@@ -5157,7 +5154,6 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  <span />
                   <button
                     className="quill-button outlined fun secondary"
                     onClick={[Function]}
@@ -10521,7 +10517,6 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  <span />
                   Maya Angelou
                 </td>
                 <td
@@ -10534,9 +10529,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                       "width": "361px",
                     }
                   }
-                >
-                  <span />
-                </td>
+                />
                 <td
                   className="data-table-row-section view-button-section"
                   key="viewButton-5204397"
@@ -10548,7 +10541,6 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  <span />
                   <button
                     className="quill-button outlined fun secondary"
                     onClick={[Function]}
@@ -10573,7 +10565,6 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  <span />
                   James Joyce
                 </td>
                 <td
@@ -10586,9 +10577,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                       "width": "361px",
                     }
                   }
-                >
-                  <span />
-                </td>
+                />
                 <td
                   className="data-table-row-section view-button-section"
                   key="viewButton-5204396"
@@ -10600,7 +10589,6 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  <span />
                   <button
                     className="quill-button outlined fun secondary"
                     onClick={[Function]}
@@ -10625,7 +10613,6 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  <span />
                   Harper Lee
                 </td>
                 <td
@@ -10638,9 +10625,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                       "width": "361px",
                     }
                   }
-                >
-                  <span />
-                </td>
+                />
                 <td
                   className="data-table-row-section view-button-section"
                   key="viewButton-5204394"
@@ -10652,7 +10637,6 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  <span />
                   <button
                     className="quill-button outlined fun secondary"
                     onClick={[Function]}
@@ -10677,7 +10661,6 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  <span />
                   William Shakespeare
                 </td>
                 <td
@@ -10690,9 +10673,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                       "width": "361px",
                     }
                   }
-                >
-                  <span />
-                </td>
+                />
                 <td
                   className="data-table-row-section view-button-section"
                   key="viewButton-5204393"
@@ -10704,7 +10685,6 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  <span />
                   <button
                     className="quill-button outlined fun secondary"
                     onClick={[Function]}

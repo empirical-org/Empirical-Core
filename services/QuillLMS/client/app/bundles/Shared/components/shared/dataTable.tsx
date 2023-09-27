@@ -371,14 +371,14 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const shouldDisplayAggregateIcon = isAggregateRow && i === 0
     const shouldDisplayToggleButton = row.aggregate_rows && row.aggregate_rows.length && i === 0
     const aggregateRowsDisplayed = expandedParentRowIdentifier && expandedParentRowIdentifier === aggregateRowIdentifier
-    let aggregateRowButtonOrIcon = <span />
+    let aggregateRowButtonOrIcon
 
     if (shouldDisplayAggregateIcon) {
       aggregateRowButtonOrIcon = <img alt="" className="aggregate-row-icon" src={aggregateRowArrowSrc} />
     } else if (shouldDisplayToggleButton && aggregateRowsDisplayed) {
-      aggregateRowButtonOrIcon = <button className="aggregate-row-toggle interactive-wrapper focus-on-light" onClick={this.handleHideAggregateRows}><img alt="" className="aggregate-row-toggle-icon" src={toggleArrowExpandedSrc} /></button>
+      aggregateRowButtonOrIcon = <button aria-label={`hide aggregate row data for ${sectionText}`} className="aggregate-row-toggle interactive-wrapper focus-on-light" onClick={this.handleHideAggregateRows}><img alt="" className="aggregate-row-toggle-icon" src={toggleArrowExpandedSrc} /></button>
     } else if (shouldDisplayToggleButton) {
-      aggregateRowButtonOrIcon = <button className="aggregate-row-toggle interactive-wrapper focus-on-light" onClick={(e) => this.handleShowAggregateRows(e, aggregateRowIdentifier)}><img alt="" className="aggregate-row-toggle-icon" src={toggleArrowClosedSrc} /></button>
+      aggregateRowButtonOrIcon = <button aria-label={`show aggregate row data for ${sectionText}`} className="aggregate-row-toggle interactive-wrapper focus-on-light" onClick={(e) => this.handleShowAggregateRows(e, aggregateRowIdentifier)}><img alt="" className="aggregate-row-toggle-icon" src={toggleArrowClosedSrc} /></button>
     }
 
     if (!header.noTooltip && (String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
@@ -393,6 +393,12 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
             tooltipTriggerTextClass={dataTableRowSectionClassName}
             tooltipTriggerTextStyle={style}
           />
+        </td>
+      )
+    } else if (header.containsOwnTooltip) {
+      return (
+        <td key={key}>
+          {sectionText}
         </td>
       )
     } else {
@@ -426,7 +432,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const rowContent = <React.Fragment>{this.renderRowCheckbox(row)}{this.renderRowDragHandle(row)}{rowSections}{this.renderRowRemoveIcon(row)}</React.Fragment>
     let rowElement = <tr className={rowClassName} key={String(row.id)}>{rowContent}</tr>
     const aggregateRowIdentifier = `${row[headers[0].attribute]}-${row.id}`
-    const showAggregateRows = row.aggregate_rows && row.aggregate_rows.length && expandedParentRowIdentifier && expandedParentRowIdentifier === aggregateRowIdentifier
+    const showAggregateRows = row.aggregate_rows?.length && expandedParentRowIdentifier === aggregateRowIdentifier
     if (row.link) {
       rowElement = <tr><a className={rowClassName} href={row.link} key={String(row.id)}>{rowContent}</a></tr>
     }

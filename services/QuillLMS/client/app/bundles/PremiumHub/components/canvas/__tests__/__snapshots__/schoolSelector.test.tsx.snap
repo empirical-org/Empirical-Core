@@ -53,7 +53,6 @@ exports[`SchoolSelector it should render when all school ids are selected 1`] = 
           class="data-table-row-section name"
           style="width: 356px; min-width: 356px; text-align: left;"
         >
-          <span />
           MLK Middle School
         </td>
       </tr>
@@ -75,7 +74,6 @@ exports[`SchoolSelector it should render when all school ids are selected 1`] = 
           class="data-table-row-section name"
           style="width: 356px; min-width: 356px; text-align: left;"
         >
-          <span />
           Toni Morrison High School
         </td>
       </tr>
@@ -129,7 +127,6 @@ exports[`SchoolSelector it should render when there are no selected school ids 1
           class="data-table-row-section name"
           style="width: 356px; min-width: 356px; text-align: left;"
         >
-          <span />
           MLK Middle School
         </td>
       </tr>
@@ -147,7 +144,6 @@ exports[`SchoolSelector it should render when there are no selected school ids 1
           class="data-table-row-section name"
           style="width: 356px; min-width: 356px; text-align: left;"
         >
-          <span />
           Toni Morrison High School
         </td>
       </tr>
@@ -209,7 +205,6 @@ exports[`SchoolSelector it should render when there is one selected school id 1`
           class="data-table-row-section name"
           style="width: 356px; min-width: 356px; text-align: left;"
         >
-          <span />
           MLK Middle School
         </td>
       </tr>
@@ -227,7 +222,6 @@ exports[`SchoolSelector it should render when there is one selected school id 1`
           class="data-table-row-section name"
           style="width: 356px; min-width: 356px; text-align: left;"
         >
-          <span />
           Toni Morrison High School
         </td>
       </tr>

@@ -326,7 +326,6 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
                 }
               }
             >
-              <span />
               <p
                 style={
                   Object {
@@ -346,7 +345,6 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
                 }
               }
             >
-              <span />
               <Tooltip
                 isTabbable={true}
                 tooltipText="<table class=\\"activity-tooltip-table\\"><tbody><tr><th>Activity</th><th>Tool</th><th>Grade Level Range</th></tr><tr><td>Their, They&#x27;re, There</td><td>Quill Grammar</td><td>4th-5th</td></tr></tbody></table>"
@@ -393,7 +391,6 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
                 }
               }
             >
-              <span />
               <section
                 className="tools-section"
               >
@@ -418,9 +415,7 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
                   "width": "70px",
                 }
               }
-            >
-              <span />
-            </td>
+            />
             <td
               className="data-table-row-section activities-section"
               key="activities-3"
@@ -432,7 +427,6 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
                 }
               }
             >
-              <span />
               1
             </td>
             <td
@@ -446,7 +440,6 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
                 }
               }
             >
-              <span />
               60 mins
             </td>
           </a>

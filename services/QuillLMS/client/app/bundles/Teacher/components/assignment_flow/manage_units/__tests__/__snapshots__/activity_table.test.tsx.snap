@@ -992,7 +992,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       }
                     }
                   >
-                    <span />
                     <div
                       className="tool-icon-and-name"
                     >
@@ -1025,7 +1024,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       }
                     }
                   >
-                    <span />
                     <DatePickerContainer
                       closeFunction={[Function]}
                       defaultText="Right away"
@@ -1051,7 +1049,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       }
                     }
                   >
-                    <span />
                     <DatePickerContainer
                       closeFunction={[Function]}
                       defaultText="No due date"
@@ -1070,7 +1067,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       }
                     }
                   >
-                    <span />
                     <button
                       className="share-activity-button focus-on-light"
                       onClick={[Function]}
@@ -1117,7 +1113,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       }
                     }
                   >
-                    <span />
                     <div
                       className="tool-icon-and-name"
                     >
@@ -1150,7 +1145,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       }
                     }
                   >
-                    <span />
                     <DatePickerContainer
                       closeFunction={[Function]}
                       defaultText="Right away"
@@ -1176,7 +1170,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       }
                     }
                   >
-                    <span />
                     <DatePickerContainer
                       closeFunction={[Function]}
                       defaultText="No due date"
@@ -1195,7 +1188,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       }
                     }
                   >
-                    <span />
                     <button
                       className="share-activity-button focus-on-light"
                       onClick={[Function]}
@@ -1242,7 +1234,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       }
                     }
                   >
-                    <span />
                     <div
                       className="tool-icon-and-name"
                     >
@@ -1275,7 +1266,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       }
                     }
                   >
-                    <span />
                     <DatePickerContainer
                       closeFunction={[Function]}
                       defaultText="Right away"
@@ -1301,7 +1291,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       }
                     }
                   >
-                    <span />
                     <DatePickerContainer
                       closeFunction={[Function]}
                       defaultText="No due date"
@@ -1320,7 +1309,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       }
                     }
                   >
-                    <span />
                     <button
                       className="share-activity-button focus-on-light"
                       onClick={[Function]}
@@ -1367,7 +1355,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       }
                     }
                   >
-                    <span />
                     <div
                       className="tool-icon-and-name"
                     >
@@ -1400,7 +1387,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       }
                     }
                   >
-                    <span />
                     <DatePickerContainer
                       closeFunction={[Function]}
                       defaultText="Right away"
@@ -1426,7 +1412,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       }
                     }
                   >
-                    <span />
                     <DatePickerContainer
                       closeFunction={[Function]}
                       defaultText="No due date"
@@ -1445,7 +1430,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       }
                     }
                   >
-                    <span />
                     <button
                       className="share-activity-button focus-on-light"
                       onClick={[Function]}
@@ -1492,7 +1476,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       }
                     }
                   >
-                    <span />
                     <div
                       className="tool-icon-and-name"
                     >
@@ -1525,7 +1508,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       }
                     }
                   >
-                    <span />
                     <DatePickerContainer
                       closeFunction={[Function]}
                       defaultText="Right away"
@@ -1551,7 +1533,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       }
                     }
                   >
-                    <span />
                     <DatePickerContainer
                       closeFunction={[Function]}
                       defaultText="No due date"
@@ -1570,7 +1551,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       }
                     }
                   >
-                    <span />
                     <button
                       className="share-activity-button focus-on-light"
                       onClick={[Function]}
@@ -1632,7 +1612,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         }
                       }
                     >
-                      <span />
                       <div
                         className="tool-icon-and-name"
                       >
@@ -1665,7 +1644,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         }
                       }
                     >
-                      <span />
                       <DatePickerContainer
                         closeFunction={[Function]}
                         defaultText="Right away"
@@ -1691,7 +1669,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         }
                       }
                     >
-                      <span />
                       <DatePickerContainer
                         closeFunction={[Function]}
                         defaultText="No due date"
@@ -1710,7 +1687,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         }
                       }
                     >
-                      <span />
                       <button
                         className="share-activity-button focus-on-light"
                         onClick={[Function]}
@@ -1757,7 +1733,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         }
                       }
                     >
-                      <span />
                       <div
                         className="tool-icon-and-name"
                       >
@@ -1790,7 +1765,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         }
                       }
                     >
-                      <span />
                       <DatePickerContainer
                         closeFunction={[Function]}
                         defaultText="Right away"
@@ -1816,7 +1790,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         }
                       }
                     >
-                      <span />
                       <DatePickerContainer
                         closeFunction={[Function]}
                         defaultText="No due date"
@@ -1835,7 +1808,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         }
                       }
                     >
-                      <span />
                       <button
                         className="share-activity-button focus-on-light"
                         onClick={[Function]}
@@ -1882,7 +1854,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         }
                       }
                     >
-                      <span />
                       <div
                         className="tool-icon-and-name"
                       >
@@ -1915,7 +1886,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         }
                       }
                     >
-                      <span />
                       <DatePickerContainer
                         closeFunction={[Function]}
                         defaultText="Right away"
@@ -1941,7 +1911,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         }
                       }
                     >
-                      <span />
                       <DatePickerContainer
                         closeFunction={[Function]}
                         defaultText="No due date"
@@ -1960,7 +1929,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         }
                       }
                     >
-                      <span />
                       <button
                         className="share-activity-button focus-on-light"
                         onClick={[Function]}
@@ -2007,7 +1975,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         }
                       }
                     >
-                      <span />
                       <div
                         className="tool-icon-and-name"
                       >
@@ -2040,7 +2007,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         }
                       }
                     >
-                      <span />
                       <DatePickerContainer
                         closeFunction={[Function]}
                         defaultText="Right away"
@@ -2066,7 +2032,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         }
                       }
                     >
-                      <span />
                       <DatePickerContainer
                         closeFunction={[Function]}
                         defaultText="No due date"
@@ -2085,7 +2050,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         }
                       }
                     >
-                      <span />
                       <button
                         className="share-activity-button focus-on-light"
                         onClick={[Function]}
@@ -2132,7 +2096,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         }
                       }
                     >
-                      <span />
                       <div
                         className="tool-icon-and-name"
                       >
@@ -2165,7 +2128,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         }
                       }
                     >
-                      <span />
                       <DatePickerContainer
                         closeFunction={[Function]}
                         defaultText="Right away"
@@ -2191,7 +2153,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         }
                       }
                     >
-                      <span />
                       <DatePickerContainer
                         closeFunction={[Function]}
                         defaultText="No due date"
@@ -2210,7 +2171,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         }
                       }
                     >
-                      <span />
                       <button
                         className="share-activity-button focus-on-light"
                         onClick={[Function]}
@@ -2294,7 +2254,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           }
                         }
                       >
-                        <span />
                         <div
                           className="tool-icon-and-name"
                         >
@@ -2327,7 +2286,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           }
                         }
                       >
-                        <span />
                         <DatePickerContainer
                           closeFunction={[Function]}
                           defaultText="Right away"
@@ -2353,7 +2311,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           }
                         }
                       >
-                        <span />
                         <DatePickerContainer
                           closeFunction={[Function]}
                           defaultText="No due date"
@@ -2372,7 +2329,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           }
                         }
                       >
-                        <span />
                         <button
                           className="share-activity-button focus-on-light"
                           onClick={[Function]}
@@ -2419,7 +2375,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           }
                         }
                       >
-                        <span />
                         <div
                           className="tool-icon-and-name"
                         >
@@ -2452,7 +2407,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           }
                         }
                       >
-                        <span />
                         <DatePickerContainer
                           closeFunction={[Function]}
                           defaultText="Right away"
@@ -2478,7 +2432,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           }
                         }
                       >
-                        <span />
                         <DatePickerContainer
                           closeFunction={[Function]}
                           defaultText="No due date"
@@ -2497,7 +2450,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           }
                         }
                       >
-                        <span />
                         <button
                           className="share-activity-button focus-on-light"
                           onClick={[Function]}
@@ -2544,7 +2496,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           }
                         }
                       >
-                        <span />
                         <div
                           className="tool-icon-and-name"
                         >
@@ -2577,7 +2528,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           }
                         }
                       >
-                        <span />
                         <DatePickerContainer
                           closeFunction={[Function]}
                           defaultText="Right away"
@@ -2603,7 +2553,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           }
                         }
                       >
-                        <span />
                         <DatePickerContainer
                           closeFunction={[Function]}
                           defaultText="No due date"
@@ -2622,7 +2571,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           }
                         }
                       >
-                        <span />
                         <button
                           className="share-activity-button focus-on-light"
                           onClick={[Function]}
@@ -2669,7 +2617,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           }
                         }
                       >
-                        <span />
                         <div
                           className="tool-icon-and-name"
                         >
@@ -2702,7 +2649,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           }
                         }
                       >
-                        <span />
                         <DatePickerContainer
                           closeFunction={[Function]}
                           defaultText="Right away"
@@ -2728,7 +2674,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           }
                         }
                       >
-                        <span />
                         <DatePickerContainer
                           closeFunction={[Function]}
                           defaultText="No due date"
@@ -2747,7 +2692,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           }
                         }
                       >
-                        <span />
                         <button
                           className="share-activity-button focus-on-light"
                           onClick={[Function]}
@@ -2794,7 +2738,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           }
                         }
                       >
-                        <span />
                         <div
                           className="tool-icon-and-name"
                         >
@@ -2827,7 +2770,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           }
                         }
                       >
-                        <span />
                         <DatePickerContainer
                           closeFunction={[Function]}
                           defaultText="Right away"
@@ -2853,7 +2795,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           }
                         }
                       >
-                        <span />
                         <DatePickerContainer
                           closeFunction={[Function]}
                           defaultText="No due date"
@@ -2872,7 +2813,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           }
                         }
                       >
-                        <span />
                         <button
                           className="share-activity-button focus-on-light"
                           onClick={[Function]}
@@ -2930,7 +2870,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <div
                             className="tool-icon-and-name"
                           >
@@ -2963,7 +2902,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="Right away"
@@ -2989,7 +2927,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="No due date"
@@ -3008,7 +2945,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <button
                             className="share-activity-button focus-on-light"
                             onClick={[Function]}
@@ -3059,7 +2995,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               }
                             }
                           >
-                            <span />
                             <div
                               className="tool-icon-and-name"
                             >
@@ -3092,7 +3027,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               }
                             }
                           >
-                            <span />
                             <DatePickerContainer
                               closeFunction={[Function]}
                               defaultText="Right away"
@@ -3118,7 +3052,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               }
                             }
                           >
-                            <span />
                             <DatePickerContainer
                               closeFunction={[Function]}
                               defaultText="No due date"
@@ -3137,7 +3070,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               }
                             }
                           >
-                            <span />
                             <button
                               className="share-activity-button focus-on-light"
                               onClick={[Function]}
@@ -3204,7 +3136,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <div
                             className="tool-icon-and-name"
                           >
@@ -3238,7 +3169,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="Right away"
@@ -3961,7 +3891,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="No due date"
@@ -4672,7 +4601,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <button
                             className="share-activity-button focus-on-light"
                             onClick={[Function]}
@@ -4728,7 +4656,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <div
                             className="tool-icon-and-name"
                           >
@@ -4761,7 +4688,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="Right away"
@@ -4787,7 +4713,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="No due date"
@@ -4806,7 +4731,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <button
                             className="share-activity-button focus-on-light"
                             onClick={[Function]}
@@ -4857,7 +4781,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               }
                             }
                           >
-                            <span />
                             <div
                               className="tool-icon-and-name"
                             >
@@ -4890,7 +4813,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               }
                             }
                           >
-                            <span />
                             <DatePickerContainer
                               closeFunction={[Function]}
                               defaultText="Right away"
@@ -4916,7 +4838,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               }
                             }
                           >
-                            <span />
                             <DatePickerContainer
                               closeFunction={[Function]}
                               defaultText="No due date"
@@ -4935,7 +4856,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               }
                             }
                           >
-                            <span />
                             <button
                               className="share-activity-button focus-on-light"
                               onClick={[Function]}
@@ -5002,7 +4922,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <div
                             className="tool-icon-and-name"
                           >
@@ -5036,7 +4955,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="Right away"
@@ -5742,7 +5660,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="No due date"
@@ -6436,7 +6353,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <button
                             className="share-activity-button focus-on-light"
                             onClick={[Function]}
@@ -6492,7 +6408,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <div
                             className="tool-icon-and-name"
                           >
@@ -6525,7 +6440,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="Right away"
@@ -6551,7 +6465,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="No due date"
@@ -6570,7 +6483,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <button
                             className="share-activity-button focus-on-light"
                             onClick={[Function]}
@@ -6621,7 +6533,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               }
                             }
                           >
-                            <span />
                             <div
                               className="tool-icon-and-name"
                             >
@@ -6654,7 +6565,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               }
                             }
                           >
-                            <span />
                             <DatePickerContainer
                               closeFunction={[Function]}
                               defaultText="Right away"
@@ -6680,7 +6590,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               }
                             }
                           >
-                            <span />
                             <DatePickerContainer
                               closeFunction={[Function]}
                               defaultText="No due date"
@@ -6699,7 +6608,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               }
                             }
                           >
-                            <span />
                             <button
                               className="share-activity-button focus-on-light"
                               onClick={[Function]}
@@ -6766,7 +6674,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <div
                             className="tool-icon-and-name"
                           >
@@ -6800,7 +6707,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="Right away"
@@ -7506,7 +7412,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="No due date"
@@ -8200,7 +8105,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <button
                             className="share-activity-button focus-on-light"
                             onClick={[Function]}
@@ -8256,7 +8160,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <div
                             className="tool-icon-and-name"
                           >
@@ -8289,7 +8192,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="Right away"
@@ -8315,7 +8217,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="No due date"
@@ -8334,7 +8235,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <button
                             className="share-activity-button focus-on-light"
                             onClick={[Function]}
@@ -8385,7 +8285,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               }
                             }
                           >
-                            <span />
                             <div
                               className="tool-icon-and-name"
                             >
@@ -8418,7 +8317,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               }
                             }
                           >
-                            <span />
                             <DatePickerContainer
                               closeFunction={[Function]}
                               defaultText="Right away"
@@ -8444,7 +8342,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               }
                             }
                           >
-                            <span />
                             <DatePickerContainer
                               closeFunction={[Function]}
                               defaultText="No due date"
@@ -8463,7 +8360,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               }
                             }
                           >
-                            <span />
                             <button
                               className="share-activity-button focus-on-light"
                               onClick={[Function]}
@@ -8530,7 +8426,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <div
                             className="tool-icon-and-name"
                           >
@@ -8564,7 +8459,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="Right away"
@@ -9270,7 +9164,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="No due date"
@@ -9964,7 +9857,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <button
                             className="share-activity-button focus-on-light"
                             onClick={[Function]}
@@ -10020,7 +9912,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <div
                             className="tool-icon-and-name"
                           >
@@ -10053,7 +9944,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="Right away"
@@ -10079,7 +9969,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="No due date"
@@ -10098,7 +9987,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <button
                             className="share-activity-button focus-on-light"
                             onClick={[Function]}
@@ -10149,7 +10037,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               }
                             }
                           >
-                            <span />
                             <div
                               className="tool-icon-and-name"
                             >
@@ -10182,7 +10069,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               }
                             }
                           >
-                            <span />
                             <DatePickerContainer
                               closeFunction={[Function]}
                               defaultText="Right away"
@@ -10208,7 +10094,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               }
                             }
                           >
-                            <span />
                             <DatePickerContainer
                               closeFunction={[Function]}
                               defaultText="No due date"
@@ -10227,7 +10112,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               }
                             }
                           >
-                            <span />
                             <button
                               className="share-activity-button focus-on-light"
                               onClick={[Function]}
@@ -10294,7 +10178,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <div
                             className="tool-icon-and-name"
                           >
@@ -10328,7 +10211,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="Right away"
@@ -11034,7 +10916,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="No due date"
@@ -11728,7 +11609,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                           }
                         >
-                          <span />
                           <button
                             className="share-activity-button focus-on-light"
                             onClick={[Function]}
@@ -12936,7 +12816,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             <div
               className="tool-icon-and-name"
             >
@@ -12970,7 +12849,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             Right away
           </td>
           <td
@@ -12984,7 +12862,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             No due date
           </td>
           <td
@@ -12998,7 +12875,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             <button
               className="share-activity-button focus-on-light"
               onClick={[Function]}
@@ -13027,7 +12903,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             <div
               className="tool-icon-and-name"
             >
@@ -13061,7 +12936,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             Right away
           </td>
           <td
@@ -13075,7 +12949,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             No due date
           </td>
           <td
@@ -13089,7 +12962,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             <button
               className="share-activity-button focus-on-light"
               onClick={[Function]}
@@ -13118,7 +12990,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             <div
               className="tool-icon-and-name"
             >
@@ -13152,7 +13023,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             Right away
           </td>
           <td
@@ -13166,7 +13036,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             No due date
           </td>
           <td
@@ -13180,7 +13049,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             <button
               className="share-activity-button focus-on-light"
               onClick={[Function]}
@@ -13209,7 +13077,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             <div
               className="tool-icon-and-name"
             >
@@ -13243,7 +13110,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             Right away
           </td>
           <td
@@ -13257,7 +13123,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             No due date
           </td>
           <td
@@ -13271,7 +13136,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             <button
               className="share-activity-button focus-on-light"
               onClick={[Function]}
@@ -13300,7 +13164,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             <div
               className="tool-icon-and-name"
             >
@@ -13334,7 +13197,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             Right away
           </td>
           <td
@@ -13348,7 +13210,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             No due date
           </td>
           <td
@@ -13362,7 +13223,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             <button
               className="share-activity-button focus-on-light"
               onClick={[Function]}
@@ -13391,7 +13251,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             <div
               className="tool-icon-and-name"
             >
@@ -13425,7 +13284,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             Right away
           </td>
           <td
@@ -13439,7 +13297,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             No due date
           </td>
           <td
@@ -13453,7 +13310,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             <button
               className="share-activity-button focus-on-light"
               onClick={[Function]}
@@ -13482,7 +13338,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             <div
               className="tool-icon-and-name"
             >
@@ -13516,7 +13371,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             Right away
           </td>
           <td
@@ -13530,7 +13384,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             No due date
           </td>
           <td
@@ -13544,7 +13397,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             <button
               className="share-activity-button focus-on-light"
               onClick={[Function]}
@@ -13573,7 +13425,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             <div
               className="tool-icon-and-name"
             >
@@ -13607,7 +13458,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             Right away
           </td>
           <td
@@ -13621,7 +13471,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             No due date
           </td>
           <td
@@ -13635,7 +13484,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             <button
               className="share-activity-button focus-on-light"
               onClick={[Function]}
@@ -13664,7 +13512,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             <div
               className="tool-icon-and-name"
             >
@@ -13698,7 +13545,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             Right away
           </td>
           <td
@@ -13712,7 +13558,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             Invalid date
           </td>
           <td
@@ -13726,7 +13571,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span />
             <button
               className="share-activity-button focus-on-light"
               onClick={[Function]}
