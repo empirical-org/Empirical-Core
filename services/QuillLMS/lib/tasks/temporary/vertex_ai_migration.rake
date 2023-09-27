@@ -9,12 +9,8 @@ namespace :vertex_ai  do
 
     endpoint_client = ::Google::Cloud::AIPlatform::V1::EndpointService::Client.new
     parent = "projects/#{ENV.fetch('VERTEX_AI_PROJECT_ID')}/locations/#{ENV.fetch('VERTEX_AI_LOCATION')}"
-    i = 0
 
     CSV.parse(pipe_data, headers: true) do |row|
-      puts i if i % 10 == 0
-      i += 1
-
       row_data = row.to_h
       conjunction = row_data['Conjunction'].downcase
       evidence_activity_id = row_data['Activity ID']
@@ -33,7 +29,7 @@ namespace :vertex_ai  do
       rows_data << row_data
     end
 
-    CSV.open("vertex_output.csv", "wb") do |csv|
+    CSV.open("vertex_backfill.csv", "wb") do |csv|
       csv << rows_data.first.keys
 
       rows_data.each do |row|
@@ -48,14 +44,36 @@ namespace :vertex_ai  do
     CSV.parse(pipe_data, headers: true) do |row|
       next if row['Model ID'].blank? || row['Endpoint ID'].blank? || row['Prompt ID'].blank? || row['Model ID'].blank? || row['Name'].blank? || row['Labels'].blank?
 
-      Evidence::AutomlModel.create!(
-        endpoint_external_id: 'Endpoint ID',
-        labels: ['Labels'],
-        model_external_id: 'Model ID',
-        name: 'Name',
-        notes: 'Initial Vertex Model',
-        prompt_id: 'Prompt ID',
-        state: 'inactive'
+      model_id = ActiveRecord::Base.connection.quote(row['Model ID'])
+      endpoint_id = ActiveRecord::Base.connection.quote(row['Endpoint ID'])
+      name = ActiveRecord::Base.connection.quote(row['Name'])
+      labels = ActiveRecord::Base.connection.quote("{#{row['Labels']}}")
+      prompt_id = ActiveRecord::Base.connection.quote(row['Prompt ID'])
+
+      ActiveRecord::Base.connection.execute(
+        <<~SQL
+          INSERT INTO "evidence_automl_models" (
+            "model_external_id",
+            "endpoint_external_id",
+            "name",
+            "labels",
+            "prompt_id",
+            "state",
+            "notes",
+            "created_at",
+            "updated_at"
+          ) VALUES (
+            #{model_id},
+            #{endpoint_id},
+            #{name},
+            #{labels},
+            #{prompt_id},
+            'inactive',
+            'Initial Vertex Model',
+            NOW(),
+            NOW()
+          )
+        SQL
       )
     end
   end
