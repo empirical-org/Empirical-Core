@@ -9,8 +9,12 @@ namespace :vertex_ai  do
 
     endpoint_client = ::Google::Cloud::AIPlatform::V1::EndpointService::Client.new
     parent = "projects/#{ENV.fetch('VERTEX_AI_PROJECT_ID')}/locations/#{ENV.fetch('VERTEX_AI_LOCATION')}"
+    i = 0
 
     CSV.parse(pipe_data, headers: true) do |row|
+      puts i if i % 10 == 0
+      i += 1
+
       row_data = row.to_h
       conjunction = row_data['Conjunction'].downcase
       evidence_activity_id = row_data['Activity ID']
@@ -25,7 +29,7 @@ namespace :vertex_ai  do
       model = endpoint&.deployed_models&.find { |m| endpoint.display_name == m.display_name && m.display_name.start_with?(name) }
       row_data['Model ID'] = model&.model&.split('/')&.last
       row_data['Name'] = endpoint&.display_name
-
+      row_data['Labels'] = Evidence::VertexAI::ParamsBuilder.run(row_data['Name'])[:labels]&.join(',')
       rows_data << row_data
     end
 
@@ -42,14 +46,15 @@ namespace :vertex_ai  do
     pipe_data = $stdin.read unless $stdin.tty?
 
     CSV.parse(pipe_data, headers: true) do |row|
-      next if row['Model ID'].blank? || row['Endpoint ID'].blank? || row['Prompt ID'].blank? || row['Model ID'].blank? || row['Name'].blank?
+      next if row['Model ID'].blank? || row['Endpoint ID'].blank? || row['Prompt ID'].blank? || row['Model ID'].blank? || row['Name'].blank? || row['Labels'].blank?
 
       Evidence::AutomlModel.create!(
-        endpoint_external_id: row['Endpoint ID'],
-        model_external_id: row['Model ID'],
-        name: row['Name'],
+        endpoint_external_id: 'Endpoint ID',
+        labels: ['Labels'],
+        model_external_id: 'Model ID',
+        name: 'Name',
         notes: 'Initial Vertex Model',
-        prompt_id: row['Prompt ID'],
+        prompt_id: 'Prompt ID',
         state: 'inactive'
       )
     end
