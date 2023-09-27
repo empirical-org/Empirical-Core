@@ -74,6 +74,7 @@ const headers = [
     width: '24px',
     name: 'Tool',
     attribute: 'tool',
+    noTooltip: true
   }, {
     width: '394px',
     name: 'Name',
@@ -100,9 +101,9 @@ const headers = [
   }
 ]
 
-const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }) => {
+const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner, passedSuggestedActivities }) => {
   const [diagnosticBannerShowing, setDiagnosticBannerShowing] = React.useState(showDiagnosticBanner)
-  const [activitiesToSuggest, setActivitiesToSuggest] = React.useState([])
+  const [activitiesToSuggest, setActivitiesToSuggest] = React.useState(passedSuggestedActivities || [])
   const [showAllSuggestedActivities, setShowAllSuggestedActivities] = React.useState(false)
 
   React.useEffect(() => {
@@ -200,6 +201,17 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
     }
   })
 
+  const evidenceSection = activitiesToSuggest.length ? (
+    <React.Fragment>
+      <h1 className="evidence-header">Browse the newest Reading for Evidence activities</h1>
+      <DataTable
+        headers={headers}
+        rows={rows}
+      />
+      {showAllSuggestedActivities ? null : <button className="quill-button outlined small secondary focus-on-light show-all-button" onClick={handleClickShowAll} type="button">Show all {activitiesToSuggest.length} Reading for Evidence activities</button>}
+    </React.Fragment>
+  ) : null
+
   return (
     <React.Fragment>
       <div className="navbar-divider-bar green" />
@@ -214,12 +226,7 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
           </div>
           {diagnosticBanner}
           <div className="minis">{minis(diagnosticBannerShowing)}</div>
-          <h1 className="evidence-header">Browse the newest Reading for Evidence activities</h1>
-          <DataTable
-            headers={headers}
-            rows={rows}
-          />
-          {showAllSuggestedActivities ? null : <button className="quill-button outlined small secondary focus-on-light show-all-button" onClick={handleClickShowAll} type="button">Show all {activitiesToSuggest.length} Reading for Evidence activities</button>}
+          {evidenceSection}
         </div>
       </div>
       <ArticleSpotlight blogPostId={ASSIGN_ACTIVITIES_FEATURED_BLOG_ID} />

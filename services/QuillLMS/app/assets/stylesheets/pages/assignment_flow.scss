@@ -85,21 +85,21 @@
     }
     .grouped-minis {
       box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.10);
-      border-radius: 8px;
+      border-radius: 16px;
       .assignment-card {
         box-shadow: none;
         &:first-of-type {
           margin-bottom: 0px;
-          border-radius: 8px 8px 0px 0px;
+          border-radius: 16px 16px 0px 0px;
           border-bottom: none;
         }
         &:last-of-type {
-          border-radius: 0px 0px 8px 8px;
+          border-radius: 0px 0px 16px 16px;
         }
       }
     }
     .assignment-card {
-      margin-bottom: 24px;
+      margin-bottom: 32px;
       .button-container {
         align-items: center;
         .interactive-wrapper {
