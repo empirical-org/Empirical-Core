@@ -23,7 +23,7 @@ describe Auth::GoogleController, type: :controller do
       user.update(role: User::SALES_CONTACT)
 
       get 'online_access_callback', params: { email: user.email, role: nil }
-      expect(flash[:error]).to include("We could not find your account. Is this your first time logging in?")
+      expect(flash[:error]).to include('We could not find an account connected to your Google email')
       expect(response).to redirect_to "/session/new"
     end
 
