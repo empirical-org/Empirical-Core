@@ -58,8 +58,6 @@ module Evidence
       ))
     end
 
-    def assign_custom_attributes; end
-
     def active?
       state == STATE_ACTIVE
     end
