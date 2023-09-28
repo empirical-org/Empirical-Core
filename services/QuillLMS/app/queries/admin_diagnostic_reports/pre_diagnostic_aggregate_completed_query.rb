@@ -2,18 +2,24 @@
 
 module AdminDiagnosticReports
   class PreDiagnosticAggregateCompletedQuery < DiagnosticAggregateQuery
-    def specific_select_clause
+    def query
       <<-SQL
-          COUNT(DISTINCT activity_sessions.id) AS pre_students_completed
-          AVG(activity_sessions.percentage) AS pre_average_percentage
+        SELECT
+            name,
+            COUNT(DISTINCT activity_session_id) AS pre_students_completed,
+            SAFE_DIVIDE(SUM(CAST(optimal AS INT64)), CAST(COUNT(DISTINCT concept_result_id) AS FLOAT64)) AS average_score
+          FROM (#{super})
+          GROUP BY name #{additional_aggregation_group_by_clause}
       SQL
     end
 
-    def scores_subquery
+    def select_clause
       <<-SQL
         SELECT
-            activity_sessions.id,
-            SAFE_DIVIDE(MAX(concept_results.question_number), COUNT(concept_results.correct = true)) * 100 AS score
+          activities.name,
+          activity_sessions.id AS activity_session_id,
+          MAX(concept_results.correct) AS optimal,
+          MAX(concept_results.id) AS concept_result_id
       SQL
     end
 
@@ -33,6 +39,10 @@ module AdminDiagnosticReports
           #{activity_classification_where_clause}
           #{pre_diagnostics_where_clause}
       SQL
+    end
+
+    def group_by_clause
+      super + ", activity_sessions.id, concept_results.question_number"
     end
 
     def activity_classification_where_clause
