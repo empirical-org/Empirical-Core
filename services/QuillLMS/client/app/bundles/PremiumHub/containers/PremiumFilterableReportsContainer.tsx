@@ -5,6 +5,7 @@ import * as Pusher from 'pusher-js';
 
 import DataExportContainer from './DataExportContainer';
 import UsageSnapshotsContainer from './UsageSnapshotsContainer';
+import OverviewContainer from './diagnosticReports/OverviewContainer';
 
 import { FULL, restrictedPage, } from '../shared';
 import CustomDateModal from '../components/usage_snapshots/customDateModal'
@@ -15,6 +16,7 @@ import { requestGet, } from '../../../modules/request'
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
 
 export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, location }) => {
+  console.log("🚀 ~ file: PremiumFilterableReportsContainer.tsx:19 ~ PremiumFilterableReportsContainer ~ location:", location)
   const [loadingFilters, setLoadingFilters] = React.useState(true)
 
   const [allTimeframes, setAllTimeframes] = React.useState(null)
@@ -268,6 +270,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
 
   const shouldRenderDataExportContainer = location && location.pathname === '/teachers/premium_hub/data_export'
   const shouldRenderUsageSnapshotsContainer = location && location.pathname === '/teachers/premium_hub/usage_snapshot_report'
+  const shouldRenderDiagnosticReportOverviewContainerContainer = location && location.pathname === '/teachers/premium_hub/diagnostic_reports_overview'
 
   if (accessType !== FULL) {
     return restrictedPage
@@ -288,6 +291,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
       />
       {shouldRenderDataExportContainer && <DataExportContainer {...sharedProps} />}
       {shouldRenderUsageSnapshotsContainer && <UsageSnapshotsContainer {...sharedProps} />}
+      {shouldRenderDiagnosticReportOverviewContainerContainer && <OverviewContainer {...sharedProps} />}
     </div>
   )
 }
