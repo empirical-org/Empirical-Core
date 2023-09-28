@@ -19,8 +19,8 @@ describe Evidence::Synthetic::LabeledDataGenerator do
     }
   end
 
-  let (:paraphrase1) { 'word string' }
-  let (:paraphrase2) { 'noun string' }
+  let(:paraphrase1) { 'word string' }
+  let(:paraphrase2) { 'noun string' }
 
   let(:paraphrase_generation) { create(:evidence_text_generation, type: 'Paraphrase', temperature: 1, source_text: text1) }
   let(:paraphrase_generator) { Evidence::Synthetic::GeneratorResults.new(generator: paraphrase_generation, results: [paraphrase1, paraphrase2])}
