@@ -94,7 +94,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   // if there is aggregate row data, we want to automatically expand the first row
   checkForAggregateRowData() {
     const { rows, headers } = this.props
-    if (rows && headers && rows[0].aggregate_rows && rows[0].aggregate_rows.length) {
+    if (rows?.length && headers?.length && rows[0].aggregate_rows?.length) {
       const aggregateRowIdentifier = `${rows[0][headers[0].attribute]}-${rows[0].id}`
       this.setState({ expandedParentRowIdentifier: aggregateRowIdentifier })
     }
