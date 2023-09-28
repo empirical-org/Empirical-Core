@@ -5,6 +5,8 @@ import useWindowSize from '../../../Shared/hooks/useWindowSize';
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
 
+const MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS = 1500
+
 const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassrooms, applyFilters, clearFilters, selectedGrades, setSelectedGrades, hasAdjustedFiltersFromDefault, handleSetSelectedTimeframe, selectedTimeframe, selectedSchools, setSelectedSchools, selectedTeachers, setSelectedTeachers, selectedClassrooms, setSelectedClassrooms, closeMobileFilterMenu, showMobileFilterMenu, hasAdjustedFiltersSinceLastSubmission, customStartDate, customEndDate, }) => {
   const size = useWindowSize();
 
@@ -36,6 +38,43 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
   }
 
   const timeframeHelperText = customStartDate && customEndDate ? `${customStartDate.format('MM/DD/YYYY')} - ${customEndDate.format('MM/DD/YYYY')}` : null
+
+  let classroomsFilter = (
+    <div className="disabled-classroom-filter">
+      <label className="filter-label" htmlFor="classroom-filter">
+        <span>Classroom</span>
+        <Tooltip
+          tooltipText="To filter by classroom, first apply broader filters above."
+          tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
+        />
+      </label>
+      <DropdownInput
+        disabled={true}
+        id="classroom-filter"
+        isMulti={true}
+        isSearchable={true}
+        label=""
+        options={[allClassrooms[0]]}
+        optionType="classroom"
+        value={[selectedClassrooms[0]]}
+      />
+    </div>
+  )
+
+  if (allClassrooms.length < MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS) {
+    classroomsFilter = (
+      <DropdownInputWithSearchTokens
+        id="classroom-filter"
+        identifier="id"
+        label="Classroom"
+        onChange={setSelectedClassrooms}
+        options={allClassrooms}
+        optionType="classroom"
+        value={selectedClassrooms}
+        valueToDisplay={effectiveSelectedClassrooms()}
+      />
+    )
+  }
 
   return (
     <section className={`filter-container ${showMobileFilterMenu ? 'mobile-open' : 'mobile-hidden'} ${hasAdjustedFiltersFromDefault ? 'space-for-buttons' : ''}`}>
@@ -92,16 +131,7 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
           value={selectedTeachers}
           valueToDisplay={effectiveSelectedTeachers()}
         />
-        {allClassrooms.length ? <DropdownInputWithSearchTokens
-          id="classroom-filter"
-          identifier="id"
-          label="Classroom"
-          onChange={setSelectedClassrooms}
-          options={allClassrooms}
-          optionType="classroom"
-          value={selectedClassrooms}
-          valueToDisplay={effectiveSelectedClassrooms()}
-        /> : null}
+        {classroomsFilter}
       </div>
       {renderFilterButtons()}
     </section>
