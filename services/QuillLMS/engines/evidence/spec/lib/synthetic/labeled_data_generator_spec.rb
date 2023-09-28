@@ -38,7 +38,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
   describe '#new' do
     subject { described_class.new(labeled_data, prompt: prompt)}
 
-    it 'should setup properly with empty translations' do
+    it 'should setup properly' do
       expect(subject.results.count).to eq 2
       expect(subject.manual_types).to be false
 
