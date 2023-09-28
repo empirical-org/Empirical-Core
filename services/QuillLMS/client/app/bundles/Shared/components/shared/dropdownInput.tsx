@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Select from 'react-select';
+import Select, { createFilter, } from 'react-select';
 
 import { CheckableDropdownOption } from './checkableDropdownOption';
 import { CheckableDropdownValueContainer } from './checkableDropdownValueContainer';
@@ -311,6 +311,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     const searchable = isSearchable ? 'searchable' : ''
     const checkboxDropdown = isMulti ? 'checkbox-dropdown' : ''
     const sharedClasses = `dropdown-container input-container ${inactiveOrActive} ${hasText} ${notEditable} ${className} ${searchable} ${checkboxDropdown}`
+
     const sharedProps = {
       id,
       cursor,
@@ -329,7 +330,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       onInputChange: this.handleInputChange,
       tabIndex: isSearchable ? 0 : -1,
       inputValue,
-      filterOption: filterOptions ? this.handleFilterOptions : null
+      filterOption: filterOptions ? this.handleFilterOptions : createFilter({ ignoreAccents: false })
     }
     if (error) {
       if (errorAcknowledged) {
