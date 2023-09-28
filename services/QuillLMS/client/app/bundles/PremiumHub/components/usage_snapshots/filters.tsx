@@ -92,7 +92,7 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
           value={selectedTeachers}
           valueToDisplay={effectiveSelectedTeachers()}
         />
-        <DropdownInputWithSearchTokens
+        {allClassrooms.length ? <DropdownInputWithSearchTokens
           id="classroom-filter"
           identifier="id"
           label="Classroom"
@@ -101,7 +101,7 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
           optionType="classroom"
           value={selectedClassrooms}
           valueToDisplay={effectiveSelectedClassrooms()}
-        />
+        /> : null}
       </div>
       {renderFilterButtons()}
     </section>
