@@ -26,8 +26,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '7.0.6'
   s.add_dependency 'sprockets-rails', '3.2.2'
 
-  s.add_dependency 'google-cloud-translate', '~> 3.4.1'
-
   # Gems needed for the test environment
   s.add_development_dependency 'factory_bot_rails'
   s.add_development_dependency 'pg', '1.4.2'
