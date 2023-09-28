@@ -73,7 +73,7 @@ const LabeledDataUploadForm = ({ history, match }) => {
         setErrorOrSuccessMessage(errors.first.message);
       } else {
         setErrors([]);
-        setFilenames([]);
+        setPromptFiles({...blankPromptFiles});
         setErrorOrSuccessMessage('Synthetic Data started! You will receive an email with the csv files');
       }
       toggleSubmissionModal();
