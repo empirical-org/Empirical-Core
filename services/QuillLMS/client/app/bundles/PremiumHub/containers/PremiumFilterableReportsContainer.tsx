@@ -14,8 +14,6 @@ import { Spinner } from '../../Shared/index'
 import { requestPost, } from '../../../modules/request'
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
 
-const MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS = 2000
-
 export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, location }) => {
   const [loadingFilters, setLoadingFilters] = React.useState(true)
 
@@ -223,15 +221,12 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
     return <Spinner />
   }
 
-  const selectedClassroomsToPass = selectedClassrooms.length > MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS ? [] : selectedClassrooms
-  const allClassroomsToPass = allClassrooms.length > MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS ? [] : allClassrooms
-
   const filterProps = {
     allTimeframes,
     allSchools,
     allGrades,
     allTeachers,
-    allClassrooms: allClassroomsToPass,
+    allClassrooms,
     applyFilters,
     clearFilters,
     selectedGrades,
@@ -241,7 +236,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
     selectedTimeframe,
     selectedSchools,
     setSelectedSchools,
-    selectedClassrooms: selectedClassroomsToPass,
+    selectedClassrooms,
     setSelectedClassrooms,
     selectedTeachers,
     setSelectedTeachers,
@@ -259,8 +254,8 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
     customEndDate,
     pusherChannel,
     searchCount,
-    selectedClassrooms: selectedClassroomsToPass,
-    allClassrooms: allClassroomsToPass,
+    selectedClassrooms,
+    allClassrooms,
     selectedGrades,
     allGrades,
     selectedSchools,
