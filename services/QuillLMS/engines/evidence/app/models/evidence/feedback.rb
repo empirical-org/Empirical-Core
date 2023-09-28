@@ -5,12 +5,16 @@
 # Table name: comprehension_feedbacks
 #
 #  id          :integer          not null, primary key
-#  rule_id     :integer          not null
-#  text        :string           not null
 #  description :string
 #  order       :integer          not null
+#  text        :string           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  rule_id     :integer          not null
+#
+# Indexes
+#
+#  index_comprehension_feedbacks_on_rule_id_and_order  (rule_id,order) UNIQUE
 #
 module Evidence
   class Feedback < ApplicationRecord

@@ -15,10 +15,10 @@ Evidence::Engine.routes.draw do
   end
 
   resources :automl_models, only: [:index, :show, :create, :update, :destroy] do
-    member do
-      put :activate
-    end
+    member { put :activate }
+    collection { get :deployed_model_names }
   end
+
   resource :feedback, only: [:create], controller: :feedback
 
   resources :hints, only: [:index, :show, :create, :update, :destroy]

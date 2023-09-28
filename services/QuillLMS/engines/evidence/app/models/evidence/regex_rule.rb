@@ -5,13 +5,21 @@
 # Table name: comprehension_regex_rules
 #
 #  id             :integer          not null, primary key
-#  regex_text     :string(200)      not null
 #  case_sensitive :boolean          not null
+#  conditional    :boolean          default(FALSE)
+#  regex_text     :string(200)      not null
+#  sequence_type  :text             default("incorrect"), not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  rule_id        :integer
-#  sequence_type  :text             default("incorrect"), not null
-#  conditional    :boolean          default(FALSE)
+#
+# Indexes
+#
+#  index_comprehension_regex_rules_on_rule_id  (rule_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (rule_id => comprehension_rules.id) ON DELETE => cascade
 #
 module Evidence
   class RegexRule < ApplicationRecord
