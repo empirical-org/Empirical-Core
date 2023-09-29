@@ -5,7 +5,6 @@ module Evidence
     before_action :set_automl_model, only: [:create, :show, :update, :activate, :destroy]
     append_before_action :set_lms_user_id, only: [:create, :activate]
 
-    # GET /automl_models.json
     def index
       @automl_models = Evidence::AutomlModel.all
       @automl_models = @automl_models.where(prompt_id: params[:prompt_id]) if params[:prompt_id]
@@ -14,14 +13,12 @@ module Evidence
       render json: @automl_models
     end
 
-    # GET /automl_models/1.json
     def show
       render json: @automl_model
     end
 
-    # POST /automl_models.json
     def create
-      @automl_model.populate_from_automl_model_id
+      @automl_model.assign_attributes(custom_create_attrs)
 
       if @automl_model.save
         render json: @automl_model, status: :created
@@ -30,8 +27,6 @@ module Evidence
       end
     end
 
-
-    # PATCH/PUT /automl_models/1.json
     def update
       if @automl_model.update(automl_model_params)
         render json: @automl_model, status: :ok
@@ -40,7 +35,6 @@ module Evidence
       end
     end
 
-    # PATCH/PUT /automl_models/1.json
     def activate
       if @automl_model.activate
         head :no_content
@@ -49,10 +43,20 @@ module Evidence
       end
     end
 
-    # DELETE /automl_models/1.json
     def destroy
       @automl_model.destroy
       head :no_content
+    end
+
+    def deployed_model_names
+      @names = VertexAI::DeployedModelNamesFetcher.run
+      render json: @names
+    end
+
+    private def custom_create_attrs
+      VertexAI::ParamsBuilder
+        .run(@automl_model.name)
+        .merge(state: AutomlModel::STATE_INACTIVE)
     end
 
     private def set_lms_user_id
@@ -68,7 +72,9 @@ module Evidence
     end
 
     private def automl_model_params
-      params.require(:automl_model).permit(:automl_model_id, :prompt_id, :notes)
+      params
+        .require(:automl_model)
+        .permit(:name, :notes, :prompt_id)
     end
   end
 end
