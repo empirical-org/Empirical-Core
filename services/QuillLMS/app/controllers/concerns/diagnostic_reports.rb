@@ -66,7 +66,7 @@ module DiagnosticReports
         .where(classroom_unit: classroom_unit, is_final_score: true, user_id: classroom_unit.assigned_student_ids, activity_id: activity_id)
     else
       classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: {unit_activities: {activity_id: activity_id}})
-      assigned_student_ids = assigned_student_ids_filtered_by_classroom_roster(classroom_id, classroom_units)
+      assigned_student_ids = assigned_student_ids_filtered_by_classroom_roster(classroom_units)
       @assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
       @activity_sessions = ActivitySession
         .includes(:concept_results, activity: {diagnostic_question_skills: :question})
@@ -80,7 +80,9 @@ module DiagnosticReports
     @activity_sessions = @activity_sessions.to_h { |session| [session.user_id, session] }
   end
 
-  private def assigned_student_ids_filtered_by_classroom_roster(classroom_id, classroom_units)
+  private def assigned_student_ids_filtered_by_classroom_roster(classroom_units)
+    classroom_id = classroom_units.first&.classroom_id
+    return [] unless classroom_id
     assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
     rostered_student_ids = Classroom.find(classroom_id).students.pluck(:id)
     assigned_student_ids.intersection(rostered_student_ids)
