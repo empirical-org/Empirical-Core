@@ -257,6 +257,7 @@ class TeacherFixController < ApplicationController
     return render json: { error: 'Teacher not found' }, status: 404 if teacher.nil?
 
     teacher.classrooms_i_teach.each(&:save_user_pack_sequence_items)
+    log_recalculate_staggered_release_locks
 
     render json: {}, status: 200
   end
@@ -290,5 +291,17 @@ class TeacherFixController < ApplicationController
 
   private def teacher
     @teacher ||= User.find_by_username_or_email(params['teacher_identifier'])
+  end
+
+  private def log_recalculate_staggered_release_locks
+    ChangeLog.create!(
+      action: ChangeLog::USER_ACTIONS[:recalculate_staggered_release_locks],
+      changed_attribute: nil,
+      changed_record: teacher,
+      explanation: caller_locations[0].to_s,
+      new_value: nil,
+      previous_value: nil,
+      user_id: current_user.id
+    )
   end
 end
