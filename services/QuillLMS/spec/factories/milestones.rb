@@ -1,5 +1,18 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: milestones
+#
+#  id         :integer          not null, primary key
+#  name       :string           not null
+#  created_at :datetime
+#  updated_at :datetime
+#
+# Indexes
+#
+#  index_milestones_on_name  (name)
+#
 FactoryBot.define do
   factory :milestone do
     sequence(:name) { |n| "Example Milestone #{n}" }

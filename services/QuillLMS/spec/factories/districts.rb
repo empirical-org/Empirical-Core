@@ -7,7 +7,7 @@
 #  id             :integer          not null, primary key
 #  city           :string
 #  grade_range    :string
-#  name           :string
+#  name           :string           not null
 #  phone          :string
 #  state          :string
 #  token          :string
@@ -17,7 +17,12 @@
 #  created_at     :datetime
 #  updated_at     :datetime
 #  clever_id      :string
-#  nces_id        :integer
+#  nces_id        :bigint
+#
+# Indexes
+#
+#  index_districts_on_nces_id  (nces_id) UNIQUE
+#
 
 FactoryBot.define do
   factory :district do
