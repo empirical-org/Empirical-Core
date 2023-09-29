@@ -1,5 +1,21 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: concept_feedbacks
+#
+#  id            :integer          not null, primary key
+#  activity_type :string           not null
+#  data          :jsonb
+#  uid           :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+# Indexes
+#
+#  index_concept_feedbacks_on_activity_type          (activity_type)
+#  index_concept_feedbacks_on_uid_and_activity_type  (uid,activity_type) UNIQUE
+#
 FactoryBot.define do
   data = {
     description: "<p>Put a describing phrase in the middle, right after the word it describes. Put a comma before and after the phrase.&nbsp;</p>",
