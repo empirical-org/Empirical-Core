@@ -10,8 +10,8 @@ import { StandardDropdownOption } from './standardDropdownOption';
 
 export interface Option {
   label: string,
-  value: string|number,
-  [key:string]: any
+  value: string | number,
+  [key: string]: any
 }
 
 interface DropdownInputProps {
@@ -20,9 +20,9 @@ interface DropdownInputProps {
   disabled?: boolean;
   error?: string;
   handleCancel?: (event: any) => void;
-  handleChange?: (selection: any|any[]) => void;
+  handleChange?: (selection: any | any[]) => void;
   helperText?: string;
-  label?: string|JSX.Element;
+  label?: string | JSX.Element;
   id?: string;
   isMulti?: boolean;
   isSearchable?: boolean;
@@ -47,7 +47,7 @@ interface DropdownInputState {
   errorAcknowledged: boolean;
   menuIsOpen: boolean;
   options: Array<any>;
-  cursor: number|null;
+  cursor: number | null;
   inputValue: string;
 }
 

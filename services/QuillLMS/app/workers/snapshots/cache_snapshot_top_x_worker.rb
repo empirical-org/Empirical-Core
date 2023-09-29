@@ -4,6 +4,8 @@ module Snapshots
   class CacheSnapshotTopXWorker
     include Sidekiq::Worker
 
+    sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
+
     PUSHER_EVENT = 'admin-snapshot-top-x-cached'
 
     QUERIES = {
