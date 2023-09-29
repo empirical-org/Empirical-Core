@@ -1,4 +1,5 @@
 import { mount } from 'enzyme';
+import { render, screen, }  from "@testing-library/react";
 import * as React from 'react';
 
 import { timeframes, grades, schools, teachers, classrooms,} from './data'
@@ -43,6 +44,14 @@ describe('Filters component', () => {
 
       expect(component).toMatchSnapshot();
     });
+  })
+
+  describe('when allClassrooms is empty', () => {
+    test('a disabled classrooms dropdown should be rendered', () => {
+      const { asFragment } = render(<Filters {...mockProps} allClassrooms={[]} />);
+      expect(asFragment()).toMatchSnapshot();
+      expect(screen.getByRole('button', { name: /all classrooms selected/i })).toHaveAttribute('disabled')
+    })
   })
 
 });
