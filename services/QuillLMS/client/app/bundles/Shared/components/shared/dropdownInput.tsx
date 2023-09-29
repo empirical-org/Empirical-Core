@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Select, { createFilter, } from 'react-select';
+import Select from 'react-select';
 
 import { CheckableDropdownOption } from './checkableDropdownOption';
 import { CheckableDropdownValueContainer } from './checkableDropdownValueContainer';
@@ -330,7 +330,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       onInputChange: this.handleInputChange,
       tabIndex: isSearchable ? 0 : -1,
       inputValue,
-      filterOption: filterOptions ? this.handleFilterOptions : createFilter({ ignoreAccents: false })
+      filterOption: filterOptions ? this.handleFilterOptions : null
     }
     if (error) {
       if (errorAcknowledged) {
