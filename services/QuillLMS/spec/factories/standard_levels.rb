@@ -1,5 +1,17 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: standard_levels
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  position   :integer
+#  uid        :string
+#  visible    :boolean          default(TRUE)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 FactoryBot.define do
   factory :standard_level do
     uid                 { SecureRandom.urlsafe_base64 } # mock a uid
