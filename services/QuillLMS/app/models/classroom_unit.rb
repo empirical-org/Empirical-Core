@@ -4,15 +4,14 @@
 #
 # Table name: classroom_units
 #
-#  id                       :integer          not null, primary key
-#  assign_on_join           :boolean          default(FALSE)
-#  assigned_student_ids     :integer          default([]), is an Array
-#  visible                  :boolean          default(TRUE)
-#  created_at               :datetime
-#  updated_at               :datetime
-#  classroom_id             :integer          not null
-#  source_classroom_unit_id :integer
-#  unit_id                  :integer          not null
+#  id                   :integer          not null, primary key
+#  assign_on_join       :boolean          default(FALSE)
+#  assigned_student_ids :integer          default([]), is an Array
+#  visible              :boolean          default(TRUE)
+#  created_at           :datetime
+#  updated_at           :datetime
+#  classroom_id         :integer          not null
+#  unit_id              :integer          not null
 #
 # Indexes
 #
