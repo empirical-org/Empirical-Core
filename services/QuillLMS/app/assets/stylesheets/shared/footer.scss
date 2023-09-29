@@ -40,13 +40,12 @@
         font-size: 12px;
       }
       &:first-child {
-        margin-bottom: 8px;
         font-weight: bold;
         a, p {
           font-size: 12px;
           line-height: 1.5;
           color: $white;
-          margin: 0px 0px 12px;
+          margin: 0px 0px 5px;
         }
       }
     }
