@@ -5,8 +5,6 @@ import useWindowSize from '../../../Shared/hooks/useWindowSize';
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
 
-const MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS = 1500
-
 const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassrooms, applyFilters, clearFilters, selectedGrades, setSelectedGrades, hasAdjustedFiltersFromDefault, handleSetSelectedTimeframe, selectedTimeframe, selectedSchools, setSelectedSchools, selectedTeachers, setSelectedTeachers, selectedClassrooms, setSelectedClassrooms, closeMobileFilterMenu, showMobileFilterMenu, hasAdjustedFiltersSinceLastSubmission, customStartDate, customEndDate, }) => {
   const size = useWindowSize();
 
@@ -61,7 +59,7 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
     </div>
   )
 
-  if (allClassrooms.length < MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS) {
+  if (allClassrooms.length) {
     classroomsFilter = (
       <DropdownInputWithSearchTokens
         id="classroom-filter"
