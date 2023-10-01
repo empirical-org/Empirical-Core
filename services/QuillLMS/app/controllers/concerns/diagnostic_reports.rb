@@ -83,6 +83,7 @@ module DiagnosticReports
   private def assigned_student_ids_filtered_by_classroom_roster(classroom_units)
     classroom_id = classroom_units.first&.classroom_id
     return [] unless classroom_id
+
     assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
     rostered_student_ids = Classroom.find(classroom_id).students.pluck(:id)
     assigned_student_ids.intersection(rostered_student_ids)
