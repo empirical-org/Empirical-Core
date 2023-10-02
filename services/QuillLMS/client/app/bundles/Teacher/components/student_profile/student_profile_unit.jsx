@@ -191,14 +191,14 @@ export default class StudentProfileUnit extends React.Component {
     }
 
     if (maxPercentage >= FREQUENTLY_DEMONSTRATED_SKILL_CUTOFF) {
-      return (<div className="score"><div className="proficient" /><span>Frequently demonstrated skill</span></div>)
+      return (<div className="score"><div className="frequently-demonstrated-skill" /><span>Frequently demonstrated skill</span></div>)
     }
 
     if (maxPercentage >= SOMETIMES_DEMONSTRATED_SKILL_CUTOFF) {
-      return (<div className="score"><div className="nearly-proficient" /><span>Sometimes demonstrated skill</span></div>)
+      return (<div className="score"><div className="sometimes-demonstrated-skill" /><span>Sometimes demonstrated skill</span></div>)
     }
 
-    return (<div className="score"><div className="not-yet-proficient" /><span>Rarely demonstrated skill</span></div>)
+    return (<div className="score"><div className="rarely-demonstrated-skill" /><span>Rarely demonstrated skill</span></div>)
   }
 
   toolIcon = (key) => {
