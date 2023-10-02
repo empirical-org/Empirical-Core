@@ -55,10 +55,6 @@ class ActivitySession < ApplicationRecord
 
   MAX_4_BYTE_INTEGER_SIZE = 2147483647
 
-  NEARLY_PROFICIENT = 'Nearly proficient'
-  NOT_YET_PROFICIENT = 'Not yet proficient'
-  PROFICIENT = 'Proficient'
-
   SOMETIMES_DEMONSTRATED_SKILL = 'Sometimes demonstrated skill'
   RARELY_DEMONSTRATED_SKILL = 'Rarely demonstrated skill'
   FREQUENTLY_DEMONSTRATED_SKILL = 'Frequently demonstrated skill'
