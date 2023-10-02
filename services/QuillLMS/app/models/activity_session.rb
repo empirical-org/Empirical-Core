@@ -335,9 +335,9 @@ class ActivitySession < ApplicationRecord
     concept_results_by_concept = concept_results.group_by { |c| c.concept_id }
 
     results = {
-      PROFICIENT => [],
-      NEARLY_PROFICIENT => [],
-      NOT_YET_PROFICIENT => []
+      FREQUENTLY_DEMONSTRATED_SKILL => [],
+      SOMETIMES_DEMONSTRATED_SKILL => [],
+      RARELY_DEMONSTRATED_SKILL => []
     }
 
     concept_results_by_concept.each do |concept_id, arr|
@@ -350,11 +350,11 @@ class ActivitySession < ApplicationRecord
       average_correct = number_correct.to_f / arr.length
 
       if average_correct >= ProficiencyEvaluator.proficiency_cutoff
-        results[PROFICIENT].push(concept.name)
+        results[FREQUENTLY_DEMONSTRATED_SKILL].push(concept.name)
       elsif average_correct >= ProficiencyEvaluator.nearly_proficient_cutoff
-        results[NEARLY_PROFICIENT].push(concept.name)
+        results[SOMETIMES_DEMONSTRATED_SKILL].push(concept.name)
       else
-        results[NOT_YET_PROFICIENT].push(concept.name)
+        results[RARELY_DEMONSTRATED_SKILL].push(concept.name)
       end
     end
 

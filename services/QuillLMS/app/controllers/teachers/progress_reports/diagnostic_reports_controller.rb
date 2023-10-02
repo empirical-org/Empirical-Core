@@ -44,24 +44,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     render json: response
   end
 
-  def diagnostic_student_responses_index
-    activity_id = results_summary_params[:activity_id]
-    classroom_id = results_summary_params[:classroom_id]
-    unit_id = results_summary_params[:unit_id]
-
-    students_json = current_user.classroom_unit_by_ids_cache(
-      classroom_id: classroom_id,
-      unit_id: unit_id,
-      activity_id: activity_id,
-      key: 'diagnostic_reports.diagnostic_student_responses_index'
-    ) do
-      set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id, hashify_activity_sessions: true)
-      diagnostic_student_responses
-    end
-
-    render json: { students: students_json }
-  end
-
   def individual_student_diagnostic_responses
     data = fetch_individual_student_diagnostic_responses_cache
 
@@ -332,32 +314,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     else
       classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: {unit_activities: {activity_id: activity_id}})
       activity_session = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished', user_id: student_id).order(completed_at: :desc).first
-    end
-  end
-
-  private def diagnostic_student_responses
-    @assigned_students.map do |student|
-      activity_session = @activity_sessions[student.id]
-
-      if activity_session
-        formatted_concept_results = format_concept_results(activity_session, activity_session.concept_results)
-        score = get_average_score(formatted_concept_results)
-        if score >= (ProficiencyEvaluator.proficiency_cutoff * 100)
-          proficiency = ActivitySession::PROFICIENT
-        elsif score >= (ProficiencyEvaluator.nearly_proficient_cutoff * 100)
-          proficiency = ActivitySession::NEARLY_PROFICIENT
-        else
-          proficiency = ActivitySession::NOT_YET_PROFICIENT
-        end
-        {
-          name: student.name,
-          id: student.id,
-          score: score,
-          proficiency: proficiency
-        }
-      else
-        { name: student.name }
-      end
     end
   end
 
