@@ -11,6 +11,7 @@ module Evidence
       MIN_AUTOML_TEST_PERCENT = 0.05
       MIN_TEST_PER_LABEL = 10
       MIN_TRAIN_PER_LABEL = 10
+      EXTRA_TRAIN_COUNT = Evidence::Synthetic::Generators::Paraphrase::COUNT
 
       TYPE_TRAIN = 'TRAIN'
       TYPE_VALIDATION = 'VALIDATION'
@@ -102,7 +103,7 @@ module Evidence
 
       # We need the test and validation sets to be above 5% for AutoML
       def validate_estimated_test_percent_for_automl
-        expanded_train_size = train_size * (1 + languages.count)
+        expanded_train_size = train_size * (1 + EXTRA_TRAIN_COUNT)
         expanded_total_size = (expanded_train_size + test_size + validation_size)
 
         test_percent = (test_size.to_f / expanded_total_size).round(4)
