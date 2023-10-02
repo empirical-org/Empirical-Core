@@ -25,15 +25,12 @@ exports[`AssignANewActivity component default should render 1`] = `
           activities
            assigned. 
         </p>
-        <div
-          className="view-assigned-activities"
+        <a
+          className="quill-button view-assigned-activities secondary outlined small focus-on-light"
+          href="/teachers/classrooms/activity_planner"
         >
-          <a
-            href="/teachers/classrooms/activity_planner"
-          >
-            View assigned activities
-          </a>
-        </div>
+          View assigned activities
+        </a>
       </div>
       <div
         className="minis"
@@ -361,4 +358,867 @@ exports[`AssignANewActivity component default should render 1`] = `
     <span />
   </ArticleSpotlight>
 </AssignANewActivity>
+`;
+
+exports[`AssignANewActivity component with suggested activities should render 1`] = `
+<DocumentFragment>
+  <div
+    class="navbar-divider-bar green"
+  />
+  <div
+    class="gray-background-accommodate-footer"
+  >
+    <div
+      class="assign-a-new-activity container"
+    >
+      <h1>
+        Find the perfect writing activities for your students.
+      </h1>
+      <div
+        class="previously-assigned-container"
+      >
+        <p
+          class="previously-assigned-activities"
+        >
+          You have  activities assigned. 
+        </p>
+        <a
+          class="quill-button view-assigned-activities secondary outlined small focus-on-light"
+          href="/teachers/classrooms/activity_planner"
+        >
+          View assigned activities
+        </a>
+      </div>
+      <div
+        class="minis"
+      >
+        <div
+          class=" assignment-card quill-card"
+        >
+          <div
+            class="top-row"
+          >
+            <div
+              class="left"
+            >
+              <img
+                alt="page with writing and a magnifying glass over it"
+                src="undefined/images/icons/icons-diagnostics-all.svg"
+              />
+              <div
+                class="header-wrapper"
+              >
+                <h2>
+                  Assess student writing with a diagnostic
+                </h2>
+              </div>
+            </div>
+          </div>
+          <div
+            class="body"
+          >
+            <div
+              class="body-element"
+            >
+              <p
+                class="key"
+              >
+                What
+              </p>
+              <p
+                class="text"
+              >
+                Have students complete a short writing assessment, and we'll generate a set of practice activities for each student based on the results.
+              </p>
+            </div>
+            <div
+              class="body-element"
+            >
+              <p
+                class="key"
+              >
+                When
+              </p>
+              <p
+                class="text"
+              >
+                You want data on what each student needs to practice, or you'd like Quill to recommend activities for your students.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class=" assignment-card quill-card"
+        >
+          <div
+            class="top-row"
+          >
+            <div
+              class="left"
+            >
+              <img
+                alt="web page with the layout of the Quill Activity Library"
+                src="undefined/images/icons/icons-activity-library.svg"
+              />
+              <div
+                class="header-wrapper"
+              >
+                <h2>
+                  Explore all activities in our activity library
+                </h2>
+              </div>
+            </div>
+          </div>
+          <div
+            class="body"
+          >
+            <div
+              class="body-element"
+            >
+              <p
+                class="key"
+              >
+                What
+              </p>
+              <p
+                class="text"
+              >
+                Search our entire library of activities to find exactly what your students need and build your own custom activity packs.
+              </p>
+            </div>
+            <div
+              class="body-element"
+            >
+              <p
+                class="key"
+              >
+                When
+              </p>
+              <p
+                class="text"
+              >
+                You know which skills you want your students to practice, or you'd like to browse all our activities before assigning a diagnostic.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class=" assignment-card quill-card"
+        >
+          <div
+            class="top-row"
+          >
+            <div
+              class="left"
+            >
+              <img
+                alt="four sheets of paper on top of each other"
+                src="undefined/images/icons/icons-activity-packs.svg"
+              />
+              <div
+                class="header-wrapper"
+              >
+                <h2>
+                  Browse featured activity packs
+                </h2>
+              </div>
+            </div>
+          </div>
+          <div
+            class="body"
+          >
+            <div
+              class="body-element"
+            >
+              <p
+                class="key"
+              >
+                What
+              </p>
+              <p
+                class="text"
+              >
+                Explore pre-created activity packs where activities are grouped together by skill and practice is scaffolded within each pack.
+              </p>
+            </div>
+            <div
+              class="body-element"
+            >
+              <p
+                class="key"
+              >
+                When
+              </p>
+              <p
+                class="text"
+              >
+                You want to quickly assign key practice, or you want to see how our teacher-led lessons pair with related independent practice.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class=" assignment-card quill-card"
+        >
+          <div
+            class="top-row"
+          >
+            <div
+              class="left"
+            >
+              <img
+                alt="graduation cap"
+                class="graduation-cap"
+                src="undefined/images/icons/icons-graduation-cap.svg"
+              />
+              <div
+                class="header-wrapper"
+              >
+                <h2>
+                  View SpringBoard, Pre-AP, and AP activities
+                </h2>
+              </div>
+            </div>
+          </div>
+          <div
+            class="body"
+          >
+            <div
+              class="body-element"
+            >
+              <p
+                class="key"
+              >
+                What
+              </p>
+              <p
+                class="text"
+              >
+                Find activities focused on key SpringBoard, Pre-AP, and AP writing skills, as well as in-content activities based on Pre-AP texts.
+              </p>
+            </div>
+            <div
+              class="body-element"
+            >
+              <p
+                class="key"
+              >
+                When
+              </p>
+              <p
+                class="text"
+              >
+                You're a SpringBoard, Pre-AP, or AP teacher, or you're interested in using Pre-AP or AP materials with your high school students.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h1
+        class="evidence-header"
+      >
+        Browse the newest Reading for Evidence activities
+      </h1>
+      <table
+        class="data-table undefined"
+      >
+        <thead>
+          <tr
+            class="data-table-headers"
+          >
+            <th
+              class="data-table-header undefined"
+              scope="col"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              Tool
+            </th>
+            <th
+              class="data-table-header undefined"
+              scope="col"
+              style="width: 394px; min-width: 394px; text-align: left;"
+            >
+              Name
+            </th>
+            <th
+              class="data-table-header undefined"
+              scope="col"
+              style="width: 319px; min-width: 319px; text-align: left;"
+            >
+              Topics
+            </th>
+            <th
+              class="data-table-header undefined"
+              scope="col"
+              style="width: 180px; min-width: 180px; text-align: left;"
+            >
+              Date released
+            </th>
+            <th
+              class="data-table-header undefined"
+              scope="col"
+              style="width: 60px; min-width: 60px; text-align: left;"
+            />
+            <th
+              class="data-table-header undefined"
+              scope="col"
+              style="width: 70px; min-width: 70px; text-align: left;"
+            />
+          </tr>
+        </thead>
+        <tbody
+          class="data-table-body"
+        >
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section undefined"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <img
+                alt="Book representing Quill Reading for Evidence"
+                src="undefined/images/icons/tool-evidence.svg"
+              />
+            </td>
+            <td
+              class="data-table-row-section undefined"
+              style="width: 394px; min-width: 394px; text-align: left;"
+            >
+              <a
+                href="/assign/activity-library?activityClassificationFilters[]=evidence&search=Who%20Owns%20the%20Parthenon%20Sculptures?%20%5BBeta%5D"
+              >
+                Who Owns the Parthenon Sculptures? [Beta]
+              </a>
+            </td>
+            <td>
+              <span
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+                style="min-width: 319px; width: 319px;"
+              >
+                <span
+                  class="data-table-row-section topic-section"
+                  role="button"
+                  style="min-width: 319px; width: 319px;"
+                  tabindex="0"
+                >
+                  <div
+                    class="topic"
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-description-topic.svg"
+                    />
+                    <span>
+                      European Countries & Cultures
+                    </span>
+                    <span
+                      class="vertical-divider"
+                    />
+                  </div>
+                  <div
+                    class="topic"
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-description-topic.svg"
+                    />
+                    <span>
+                      Ancient Civilizations
+                    </span>
+                    <span
+                      class="vertical-divider"
+                    />
+                  </div>
+                  <div
+                    class="topic"
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-description-topic.svg"
+                    />
+                    <span>
+                      Architecture & Artifacts
+                    </span>
+                  </div>
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </td>
+            <td
+              class="data-table-row-section undefined"
+              style="width: 180px; min-width: 180px; text-align: left;"
+            >
+              <div
+                class="date-released"
+              >
+                <span>
+                  October 24, 2022
+                </span>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section undefined"
+              style="width: 60px; min-width: 60px; text-align: left;"
+            >
+              <a
+                class="preview-link"
+                href="/activity_sessions/anonymous?activity_id=2370"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Preview
+              </a>
+            </td>
+            <td
+              class="data-table-row-section undefined"
+              style="width: 70px; min-width: 70px; text-align: left;"
+            >
+              <a
+                class="quill-button secondary fun focus-on-light outlined select-suggested"
+                href="/assign/activity-library?activityClassificationFilters[]=evidence&search=Who%20Owns%20the%20Parthenon%20Sculptures?%20%5BBeta%5D"
+              >
+                Select
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section undefined"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <img
+                alt="Book representing Quill Reading for Evidence"
+                src="undefined/images/icons/tool-evidence.svg"
+              />
+            </td>
+            <td
+              class="data-table-row-section undefined"
+              style="width: 394px; min-width: 394px; text-align: left;"
+            >
+              <a
+                href="/assign/activity-library?activityClassificationFilters[]=evidence&search=Will%20Ancient%20Pompeii%20Survive%20for%20Another%202,000%20Years?%20%5BBeta%5D"
+              >
+                Will Ancient Pompeii Survive for Another 2,000 Years? [Beta]
+              </a>
+            </td>
+            <td>
+              <span
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+                style="min-width: 319px; width: 319px;"
+              >
+                <span
+                  class="data-table-row-section topic-section"
+                  role="button"
+                  style="min-width: 319px; width: 319px;"
+                  tabindex="0"
+                >
+                  <div
+                    class="topic"
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-description-topic.svg"
+                    />
+                    <span>
+                      European Countries & Cultures
+                    </span>
+                    <span
+                      class="vertical-divider"
+                    />
+                  </div>
+                  <div
+                    class="topic"
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-description-topic.svg"
+                    />
+                    <span>
+                      Ancient Civilizations
+                    </span>
+                    <span
+                      class="vertical-divider"
+                    />
+                  </div>
+                  <div
+                    class="topic"
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-description-topic.svg"
+                    />
+                    <span>
+                      Architecture & Artifacts
+                    </span>
+                  </div>
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </td>
+            <td
+              class="data-table-row-section undefined"
+              style="width: 180px; min-width: 180px; text-align: left;"
+            >
+              <div
+                class="date-released"
+              >
+                <span>
+                  October 24, 2022
+                </span>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section undefined"
+              style="width: 60px; min-width: 60px; text-align: left;"
+            >
+              <a
+                class="preview-link"
+                href="/activity_sessions/anonymous?activity_id=2369"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Preview
+              </a>
+            </td>
+            <td
+              class="data-table-row-section undefined"
+              style="width: 70px; min-width: 70px; text-align: left;"
+            >
+              <a
+                class="quill-button secondary fun focus-on-light outlined select-suggested"
+                href="/assign/activity-library?activityClassificationFilters[]=evidence&search=Will%20Ancient%20Pompeii%20Survive%20for%20Another%202,000%20Years?%20%5BBeta%5D"
+              >
+                Select
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section undefined"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <img
+                alt="Book representing Quill Reading for Evidence"
+                src="undefined/images/icons/tool-evidence.svg"
+              />
+            </td>
+            <td
+              class="data-table-row-section undefined"
+              style="width: 394px; min-width: 394px; text-align: left;"
+            >
+              <a
+                href="/assign/activity-library?activityClassificationFilters[]=evidence&search=Should%20Public%20College%20Be%20Free?%20%5BBeta%5D"
+              >
+                Should Public College Be Free? [Beta]
+              </a>
+            </td>
+            <td>
+              <span
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+                style="min-width: 319px; width: 319px;"
+              >
+                <span
+                  class="data-table-row-section topic-section"
+                  role="button"
+                  style="min-width: 319px; width: 319px;"
+                  tabindex="0"
+                >
+                  <div
+                    class="topic"
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-description-topic.svg"
+                    />
+                    <span>
+                      School Policy
+                    </span>
+                  </div>
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </td>
+            <td
+              class="data-table-row-section undefined"
+              style="width: 180px; min-width: 180px; text-align: left;"
+            >
+              <div
+                class="date-released"
+              >
+                <span>
+                  October 20, 2022
+                </span>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section undefined"
+              style="width: 60px; min-width: 60px; text-align: left;"
+            >
+              <a
+                class="preview-link"
+                href="/activity_sessions/anonymous?activity_id=2336"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Preview
+              </a>
+            </td>
+            <td
+              class="data-table-row-section undefined"
+              style="width: 70px; min-width: 70px; text-align: left;"
+            >
+              <a
+                class="quill-button secondary fun focus-on-light outlined select-suggested"
+                href="/assign/activity-library?activityClassificationFilters[]=evidence&search=Should%20Public%20College%20Be%20Free?%20%5BBeta%5D"
+              >
+                Select
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section undefined"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <img
+                alt="Book representing Quill Reading for Evidence"
+                src="undefined/images/icons/tool-evidence.svg"
+              />
+            </td>
+            <td
+              class="data-table-row-section undefined"
+              style="width: 394px; min-width: 394px; text-align: left;"
+            >
+              <a
+                href="/assign/activity-library?activityClassificationFilters[]=evidence&search=Is%20Romeo%20and%20Juliet%20a%20Love%20Story%20or%20a%20Tragedy?%20"
+              >
+                Is Romeo and Juliet a Love Story or a Tragedy? 
+              </a>
+            </td>
+            <td>
+              <span
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+                style="min-width: 319px; width: 319px;"
+              >
+                <span
+                  class="data-table-row-section topic-section"
+                  role="button"
+                  style="min-width: 319px; width: 319px;"
+                  tabindex="0"
+                >
+                  <div
+                    class="topic"
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-description-topic.svg"
+                    />
+                    <span>
+                      Authors
+                    </span>
+                    <span
+                      class="vertical-divider"
+                    />
+                  </div>
+                  <div
+                    class="topic"
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-description-topic.svg"
+                    />
+                    <span>
+                      Narratives
+                    </span>
+                  </div>
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </td>
+            <td
+              class="data-table-row-section undefined"
+              style="width: 180px; min-width: 180px; text-align: left;"
+            >
+              <div
+                class="date-released"
+              >
+                <span>
+                  October 07, 2022
+                </span>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section undefined"
+              style="width: 60px; min-width: 60px; text-align: left;"
+            >
+              <a
+                class="preview-link"
+                href="/activity_sessions/anonymous?activity_id=2329"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Preview
+              </a>
+            </td>
+            <td
+              class="data-table-row-section undefined"
+              style="width: 70px; min-width: 70px; text-align: left;"
+            >
+              <a
+                class="quill-button secondary fun focus-on-light outlined select-suggested"
+                href="/assign/activity-library?activityClassificationFilters[]=evidence&search=Is%20Romeo%20and%20Juliet%20a%20Love%20Story%20or%20a%20Tragedy?%20"
+              >
+                Select
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section undefined"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <img
+                alt="Book representing Quill Reading for Evidence"
+                src="undefined/images/icons/tool-evidence.svg"
+              />
+            </td>
+            <td
+              class="data-table-row-section undefined"
+              style="width: 394px; min-width: 394px; text-align: left;"
+            >
+              <a
+                href="/assign/activity-library?activityClassificationFilters[]=evidence&search=Should%20College%20Applications%20Require%20Personal%20Essays?%20%5BBeta%5D"
+              >
+                Should College Applications Require Personal Essays? [Beta]
+              </a>
+            </td>
+            <td>
+              <span
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+                style="min-width: 319px; width: 319px;"
+              >
+                <span
+                  class="data-table-row-section topic-section"
+                  role="button"
+                  style="min-width: 319px; width: 319px;"
+                  tabindex="0"
+                >
+                  <div
+                    class="topic"
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-description-topic.svg"
+                    />
+                    <span>
+                      School Policy
+                    </span>
+                  </div>
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </td>
+            <td
+              class="data-table-row-section undefined"
+              style="width: 180px; min-width: 180px; text-align: left;"
+            >
+              <div
+                class="date-released"
+              >
+                <span>
+                  September 14, 2022
+                </span>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section undefined"
+              style="width: 60px; min-width: 60px; text-align: left;"
+            >
+              <a
+                class="preview-link"
+                href="/activity_sessions/anonymous?activity_id=2327"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Preview
+              </a>
+            </td>
+            <td
+              class="data-table-row-section undefined"
+              style="width: 70px; min-width: 70px; text-align: left;"
+            >
+              <a
+                class="quill-button secondary fun focus-on-light outlined select-suggested"
+                href="/assign/activity-library?activityClassificationFilters[]=evidence&search=Should%20College%20Applications%20Require%20Personal%20Essays?%20%5BBeta%5D"
+              >
+                Select
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button
+        class="quill-button outlined small secondary focus-on-light show-all-button"
+        type="button"
+      >
+        Show all 10 Reading for Evidence activities
+      </button>
+    </div>
+  </div>
+  <span />
+</DocumentFragment>
 `;
