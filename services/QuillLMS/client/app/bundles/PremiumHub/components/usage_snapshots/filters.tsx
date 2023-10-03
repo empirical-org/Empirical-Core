@@ -37,6 +37,43 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
 
   const timeframeHelperText = customStartDate && customEndDate ? `${customStartDate.format('MM/DD/YYYY')} - ${customEndDate.format('MM/DD/YYYY')}` : null
 
+  let classroomsFilter = (
+    <div className="disabled-classroom-filter">
+      <label className="filter-label" htmlFor="classroom-filter">
+        <span>Classroom</span>
+        <Tooltip
+          tooltipText="To filter by classroom, first apply broader filters above."
+          tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
+        />
+      </label>
+      <DropdownInput
+        disabled={true}
+        id="classroom-filter"
+        isMulti={true}
+        isSearchable={true}
+        label=""
+        options={[allClassrooms[0]]}
+        optionType="classroom"
+        value={[selectedClassrooms[0]]}
+      />
+    </div>
+  )
+
+  if (allClassrooms.length) {
+    classroomsFilter = (
+      <DropdownInputWithSearchTokens
+        id="classroom-filter"
+        identifier="id"
+        label="Classroom"
+        onChange={setSelectedClassrooms}
+        options={allClassrooms}
+        optionType="classroom"
+        value={selectedClassrooms}
+        valueToDisplay={effectiveSelectedClassrooms()}
+      />
+    )
+  }
+
   return (
     <section className={`filter-container ${showMobileFilterMenu ? 'mobile-open' : 'mobile-hidden'} ${hasAdjustedFiltersFromDefault ? 'space-for-buttons' : ''}`}>
       <div className="top-section">
@@ -92,16 +129,7 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
           value={selectedTeachers}
           valueToDisplay={effectiveSelectedTeachers()}
         />
-        <DropdownInputWithSearchTokens
-          id="classroom-filter"
-          identifier="id"
-          label="Classroom"
-          onChange={setSelectedClassrooms}
-          options={allClassrooms}
-          optionType="classroom"
-          value={selectedClassrooms}
-          valueToDisplay={effectiveSelectedClassrooms()}
-        />
+        {classroomsFilter}
       </div>
       {renderFilterButtons()}
     </section>

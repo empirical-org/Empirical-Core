@@ -28,6 +28,10 @@ export const CheckableDropdownOption = props => {
   const passedProps = {...props}
   passedProps.innerProps.id = data.value
 
+  // improves performance with very large lists, see https://github.com/JedWatson/react-select/issues/3128 for discussion
+  delete passedProps.innerProps.onMouseMove
+  delete passedProps.innerProps.onMouseOver
+
   return (
     <div className="checkable-dropdown-option">
       <components.Option {...passedProps}>
