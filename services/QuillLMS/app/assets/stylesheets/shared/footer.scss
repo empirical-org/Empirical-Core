@@ -152,7 +152,8 @@
       margin: 0 0 8px;
     }
     .partner-links {
-      width: 860px;
+      max-width: 860px;
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
