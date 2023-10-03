@@ -58,8 +58,5 @@ module Snapshots
       "ORDER BY completed_at DESC"
     end
 
-    def limit_clause
-      "LIMIT 10"
-    end
   end
 end

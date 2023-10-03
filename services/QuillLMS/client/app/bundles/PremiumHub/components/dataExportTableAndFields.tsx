@@ -1,9 +1,11 @@
-import * as React from 'react';
 import * as moment from 'moment';
+import * as React from 'react';
+import { CSVLink } from 'react-csv';
 
-import { requestPost, } from '../../../modules/request'
-import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
+import { requestPost, } from '../../../modules/request';
+import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual';
 import { DataTable, Spinner, informationIcon, smallWhiteCheckIcon } from '../../Shared';
+import { filterObjectArrayByAttributes } from '../../Shared/libs/filterFunctions';
 
 const STANDARD_WIDTH = "152px";
 const STUDENT_NAME = "Student Name";
@@ -33,9 +35,10 @@ interface DataExportTableAndFieldsProps {
   selectedSchoolIds: number[];
   selectedTeacherIds: number[];
   selectedTimeframe: string;
+  openMobileFilterMenu: Function;
 }
 
-export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, pusherChannel }: DataExportTableAndFieldsProps) => {
+export const DataExportTableAndFields = ({ openMobileFilterMenu, queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, pusherChannel }: DataExportTableAndFieldsProps) => {
   const [showStudentEmail, setShowStudentEmail] = React.useState<boolean>(true);
   const [showSchool, setShowSchool] = React.useState<boolean>(true);
   const [showGrade, setShowGrade] = React.useState<boolean>(true);
@@ -50,6 +53,8 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   const [showTimeSpent, setShowTimeSpent] = React.useState<boolean>(true);
   const [loading, setLoading] = React.useState<boolean>(true);
   const [data, setData] = React.useState<any>(null);
+
+  const filterIconSrc = `${process.env.CDN_URL}/images/icons/icons-filter.svg`
 
   const fields = {
     [STUDENT_NAME]: {
@@ -127,19 +132,18 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
     getData()
   }, [searchCount])
 
+  const searchParams = {
+    query: queryKey,
+    timeframe: selectedTimeframe,
+    timeframe_custom_start: customTimeframeStart,
+    timeframe_custom_end: customTimeframeEnd,
+    school_ids: selectedSchoolIds,
+    teacher_ids: selectedTeacherIds,
+    classroom_ids: selectedClassroomIds,
+    grades: selectedGrades
+  }
+
   function getData() {
-
-    const searchParams = {
-      query: queryKey,
-      timeframe: selectedTimeframe,
-      timeframe_custom_start: customTimeframeStart,
-      timeframe_custom_end: customTimeframeEnd,
-      school_ids: selectedSchoolIds,
-      teacher_ids: selectedTeacherIds,
-      classroom_ids: selectedClassroomIds,
-      grades: selectedGrades
-    }
-
     requestPost('/snapshots/data_export', searchParams, (body) => {
       if (!body.hasOwnProperty('results')) {
         setLoading(true)
@@ -233,6 +237,11 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
     })
   }
 
+  function filterByHeaders() {
+    const headers = getHeaders();
+    return filterObjectArrayByAttributes(data, headers);
+  }
+
   function getHeaders() {
     return Object.keys(fields).flatMap(fieldLabel => {
       const headerSelected = fields[fieldLabel].checked
@@ -241,31 +250,68 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
     })
   }
 
+  function paramsToQueryString(){
+    // {"query":"data-export","timeframe":"this-school-year","school_ids":[88016],
+    // "teacher_ids":null,"classroom_ids":null,"grades":null}
+
+    return ''
+  }
+
+  function handleClickDownloadReport() {
+    if(true) { // TODO FIX
+      return window.open(`/snapshots/data_export.csv${paramsToQueryString()}`);
+    }
+    alert('Downloadable reports are a Premium feature. You can visit Quill.org/premium to upgrade now!');
+  }
+
   return(
-    <div className="data-export-container">
-      <section className="fields-section">
-        <h3>Fields</h3>
-        <div className="fields-container">
-          {renderCheckboxes()}
-        </div>
-      </section>
-      <section className="preview-section">
-        <h3>Preview</h3>
-        <div className="preview-disclaimer-container">
-          <img alt={informationIcon.alt} src={informationIcon.src} />
-          <p>This preview is limited to the first 10 results. Your download will include all activities.</p>
-        </div>
-      </section>
-      {loading && <Spinner />}
-      {!loading && <DataTable
-        className="data-export-table"
-        defaultSortAttribute="completed_at"
-        defaultSortDirection="desc"
-        emptyStateMessage="There are no activities available for the filters selected. Try modifying or removing a filter to see results."
-        headers={getHeaders()}
-        rows={data || []}
-      />}
-    </div>
+    <React.Fragment>
+      <div className="header">
+        <h1>Data Export</h1>
+        <button className="quill-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">Download Report old</button>
+        {data && <CSVLink
+          data={filterByHeaders()}
+          filename="data_export.csv"
+          target="_blank"
+        >
+          <button className="quill-button contained primary medium focus-on-light" type="button">Download Report</button>
+        </CSVLink> }
+      </div>
+
+      <div className="filter-button-container">
+        <button className="interactive-wrapper focus-on-light" onClick={openMobileFilterMenu} type="button">
+          <img alt="Filter icon" src={filterIconSrc} />
+          Filters
+        </button>
+      </div>
+
+      <div className="data-export-container">
+
+
+        <section className="fields-section">
+          <h3>Fields</h3>
+          <div className="fields-container">
+            {renderCheckboxes()}
+          </div>
+        </section>
+        <section className="preview-section">
+          <h3>Preview</h3>
+          <div className="preview-disclaimer-container">
+            <img alt={informationIcon.alt} src={informationIcon.src} />
+            <p>This preview is limited to the first 10 results. Your download will include all activities.</p>
+          </div>
+        </section>
+        {loading && <Spinner />}
+        {!loading && <DataTable
+          className="data-export-table"
+          defaultSortAttribute="completed_at"
+          defaultSortDirection="desc"
+          emptyStateMessage="There are no activities available for the filters selected. Try modifying or removing a filter to see results."
+          headers={getHeaders()}
+          rows={data || []}
+        />}
+      </div>
+    </React.Fragment>
   )
 }
 

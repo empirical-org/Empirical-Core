@@ -39,7 +39,17 @@ class SnapshotsController < ApplicationController
   end
 
   def data_export
-    render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
+    respond_to do |format|
+      format.json { render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name]) }
+      format.csv do
+        # maybe result retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
+        CSV.generate do |csv|
+          csv << ['foo', 'bar']
+          csv << [1,2]
+        end
+      end
+
+    end
   end
 
   def options

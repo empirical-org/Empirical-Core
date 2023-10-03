@@ -21,3 +21,16 @@ export function filterNumbers(rows, idArray, filterValue) {
     return true
   })
 }
+export function filterObjectArrayByAttributes(objectArray, allowed) {
+  if (!Array.isArray(objectArray)) return []
+  return objectArray.map(obj => filterObjectByAttributes(obj, allowed))
+}
+
+export function filterObjectByAttributes(object, allowed) {
+  const filteredObject = {};
+
+  for (const key of allowed) {
+    filteredObject[key] = object[key] || null
+  }
+  return filteredObject;
+}
