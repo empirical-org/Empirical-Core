@@ -27,7 +27,7 @@ import {
   Tooltip,
 } from '../../../../../Shared/index'
 
-const POST_TEST_DESCRIPTION = '\nThe number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \"improved\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \"maintained\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic. \n\n\nThe up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.'
+const POST_TEST_DESCRIPTION = '<br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \"improved\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \"maintained\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.'
 
 interface StudentResultsTableProps {
   skillGroupSummaries: SkillGroupSummary[];
