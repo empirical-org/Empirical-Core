@@ -29,5 +29,9 @@ FactoryBot.define do
     state { Evidence::Rule::STATE_INACTIVE }
     suborder { 1 }
     concept_uid { "ConceptUID" }
+
+    trait(:active) { state { Evidence::Rule::STATE_ACTIVE } }
+    trait(:inactive) { state { Evidence::Rule::STATE_INACTIVE } }
+    trait(:type_automl) { rule_type { Evidence::Rule::TYPE_AUTOML } }
   end
 end

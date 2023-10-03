@@ -9,12 +9,13 @@ module Evidence
       ENDPOINT = '/completions'
 
       MAX_TOKENS = 24
-      # A-D, (A)Least -> (D)Most Complex/Expensive
+
       MODELS = {
         ada: 'text-ada-001',
         babbage: 'text-babbage-001',
         curie: 'text-curie-001',
-        davinci: 'text-davinci-002'
+        davinci: 'text-davinci-002',
+        turbo35_instruct: 'gpt-3.5-turbo-instruct'
       }
 
       STOP_TOKENS = [". ", "; ", "? ", "! "] # max of 4 stop tokens
@@ -22,7 +23,7 @@ module Evidence
 
       attr_accessor :prompt, :temperature, :count, :model_key, :options
 
-      def initialize(prompt:, temperature: 0.5, count: 1, model_key: :curie, options: {})
+      def initialize(prompt:, temperature: 0.5, count: 1, model_key: :turbo35_instruct, options: {})
         @prompt = prompt
         @temperature = temperature
         @count = count

@@ -5,10 +5,15 @@
 # Table name: comprehension_turking_round_activity_sessions
 #
 #  id                   :integer          not null, primary key
-#  turking_round_id     :integer
 #  activity_session_uid :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  turking_round_id     :integer
+#
+# Indexes
+#
+#  comprehension_turking_sessions_activity_uid  (activity_session_uid) UNIQUE
+#  comprehension_turking_sessions_turking_id    (turking_round_id)
 #
 module Evidence
   class TurkingRoundActivitySession < ApplicationRecord
