@@ -730,7 +730,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :snapshots, only: [] do
     collection do
       post :count
-      get :options
+      post :options
       post :top_x
       post :data_export
     end
