@@ -147,6 +147,13 @@ describe DiagnosticReports do
         expect(@activity_sessions).to include(activity_session3)
       end
 
+      it 'should not include an activity session that is not associated with the current classroom' do
+        [students_classroom1, students_classroom3].each(&:delete)
+        set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(unit_activity1.activity_id, classroom.id, nil)
+        expect(@assigned_students).to eq [student2]
+        expect(@activity_sessions.map(&:user_id).uniq).to eq [student2.id]
+      end
+
     end
   end
 
