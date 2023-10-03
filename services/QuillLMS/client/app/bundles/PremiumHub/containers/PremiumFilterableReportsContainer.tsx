@@ -11,8 +11,10 @@ import CustomDateModal from '../components/usage_snapshots/customDateModal'
 import Filters from '../components/usage_snapshots/filters'
 import { CUSTOM } from '../components/usage_snapshots/shared'
 import { Spinner } from '../../Shared/index'
-import { requestGet, } from '../../../modules/request'
+import { requestPost, } from '../../../modules/request'
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
+
+const MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS = 1500
 
 export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, location }) => {
   const [loadingFilters, setLoadingFilters] = React.useState(true)
@@ -130,9 +132,9 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
       grades: selectedGrades?.map(g => g.value)
     }
 
-    const requestUrl = queryString.stringifyUrl({ url: '/snapshots/options', query: searchParams }, { arrayFormat: 'bracket' })
+    const requestUrl = queryString.stringifyUrl({ url: '/snapshots/options', query: searchParams }, { arrayFormat: 'comma' })
 
-    requestGet(requestUrl, (filterData) => {
+    requestPost('/snapshots/options', searchParams, (filterData) => {
       const timeframeOptions = filterData.timeframes.map(tf => ({ ...tf, label: tf.name }))
       const gradeOptions = filterData.grades.map(grade => ({ ...grade, label: grade.name }))
       const schoolOptions = filterData.schools.map(school => ({ ...school, label: school.name, value: school.id }))
@@ -221,12 +223,14 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
     return <Spinner />
   }
 
+  const allClassroomsToPass = allClassrooms.length > MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS ? [] : allClassrooms
+
   const filterProps = {
     allTimeframes,
     allSchools,
     allGrades,
     allTeachers,
-    allClassrooms,
+    allClassrooms: allClassroomsToPass,
     applyFilters,
     clearFilters,
     selectedGrades,
@@ -255,7 +259,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
     pusherChannel,
     searchCount,
     selectedClassrooms,
-    allClassrooms,
+    allClassrooms: allClassroomsToPass,
     selectedGrades,
     allGrades,
     selectedSchools,

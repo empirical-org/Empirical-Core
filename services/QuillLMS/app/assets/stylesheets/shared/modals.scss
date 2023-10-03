@@ -1088,6 +1088,7 @@
   text-align: left;
   overflow: hidden;
   max-height: 100vh;
+  height: auto !important;
   .create-a-class-modal-content {
     max-height: 100vh;
     height: 100%;
@@ -1132,7 +1133,8 @@
     }
 
     .create-a-class-form {
-      width: 512px;
+      max-width: 512px;
+      width: 100%;
       .input-container {
         margin-bottom: 12px;
         &.grade {
