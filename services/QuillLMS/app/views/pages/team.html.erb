@@ -19,7 +19,10 @@
         <div class='team-members'>
           <% team_type[:members].each do |person| %>
             <div class='team-member'>
-              <img class="square-small-img" src=<%= "#{base_image_url}#{person[:img]}" %> alt=<%= "#{person[:name]}"%> />
+              <img class="square-small-img"
+                   src="<%= "#{base_image_url}#{person[:img]}" %>"
+                   srcset="<%= person[:srcset]&.map { |size, src| "#{base_image_url}#{src} #{size}" }&.join(", ") %>"
+                   alt="<%= "#{person[:name]}"%>" />
               <h4> <%= person[:name] %> </h4>
               <h5 class="square-small-img-width"> <%= person[:title] %> </h5>
             </div>
