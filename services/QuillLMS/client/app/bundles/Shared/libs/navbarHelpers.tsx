@@ -27,10 +27,8 @@ interface renderNavListProps {
 function getIcon(isActive: boolean, tabLabel: string) {
   const isReportingTab = premiumHubReportingTabs.includes(tabLabel)
 
-  if (isActive && isReportingTab) {
-    return <img alt={redDiamondIcon.alt} src={redDiamondIcon.src} />
-  } else if (isReportingTab) {
-    return <img alt={whiteDiamondIcon.alt} src={whiteDiamondIcon.src} />
+  if ((isActive && isReportingTab) || isReportingTab) {
+    return <div className="small-diamond-icon red"></div>
   }
 }
 

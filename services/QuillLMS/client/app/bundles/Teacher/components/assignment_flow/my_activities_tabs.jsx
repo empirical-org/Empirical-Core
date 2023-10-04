@@ -51,13 +51,13 @@ const MyActivitiesTabs = () => {
               <p>{activeTab}</p>
               <i className="fa fa-thin fa-angle-down" />
             </button>
-            {renderNavList({ tabs, activeStates, handleLinkClick: handleDropdownClick, listClass: 'dropdown-menu' })}
+            {renderNavList({ tabs, handleLinkClick: handleDropdownClick, activeTab, listClass: 'dropdown-menu' })}
           </div>
         </div >
       </div >
       <div className='unit-tabs tab-subnavigation-wrapper desktop'>
         <div className="container">
-          {renderNavList({ tabs, activeStates, handleLinkClick: handleDropdownClick })}
+          {renderNavList({ tabs, handleLinkClick: handleDropdownClick, activeTab })}
         </div>
       </div>
     </React.Fragment>
