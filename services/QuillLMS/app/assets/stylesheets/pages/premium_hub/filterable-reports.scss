@@ -90,12 +90,18 @@
   }
   main {
     padding: 32px 64px;
-    width: 100%;
-    max-width: 1343px;
     border-left: 1px solid $quill-grey-5;
+    max-width: 1329px;
+    width: 100%;
     .header {
       display: flex;
       justify-content: space-between;
+      max-width: 1200px;
+      width: 100%;
+    }
+    .sections {
+      max-width: 1200px;
+      width: 100%;
     }
     h1 {
       font-weight: 700;
