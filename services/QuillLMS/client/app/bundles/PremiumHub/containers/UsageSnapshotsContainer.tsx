@@ -3,12 +3,10 @@ import * as React from 'react'
 import { FULL, restrictedPage, mapItemsIfNotAll } from '../shared';
 import SnapshotSection from '../components/usage_snapshots/snapshotSection'
 import { snapshotSections, TAB_NAMES, ALL, SECTION_NAME_TO_ICON_URL, } from '../components/usage_snapshots/shared'
-import { Spinner, DropdownInput, } from '../../Shared/index'
+import { Spinner, DropdownInput, filterIcon, whiteArrowPointingDownIcon } from '../../Shared/index'
 import useWindowSize from '../../Shared/hooks/useWindowSize';
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 950
-
-const filterIconSrc = `${process.env.CDN_URL}/images/icons/icons-filter.svg`
 
 const Tab = ({ section, setSelectedTab, selectedTab }) => {
   function handleSetSelectedTab() { setSelectedTab(section) }
@@ -106,14 +104,17 @@ export const UsageSnapshotsContainer = ({
             <span>Guide</span>
           </a>
         </h1>
-        <button className="quill-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">Download Report</button>
+        <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">
+          <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />
+          <span>Download</span>
+        </button>
       </div>
       <div aria-hidden={true} className="tabs">
         {size.width >= MAX_VIEW_WIDTH_FOR_MOBILE ? tabs : tabDropdown}
       </div>
       <div className="filter-button-container">
         <button className="interactive-wrapper focus-on-light" onClick={openMobileFilterMenu} type="button">
-          <img alt="Filter icon" src={filterIconSrc} />
+          <img alt={filterIcon.alt} src={filterIcon.src} />
           Filters
         </button>
       </div>

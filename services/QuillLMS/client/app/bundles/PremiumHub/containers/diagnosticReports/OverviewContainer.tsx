@@ -1,9 +1,9 @@
 import * as React from 'react'
 
 import { FULL, restrictedPage, mapItemsIfNotAll } from '../../shared';
-import { Spinner } from '../../../Shared/index'
+import { Spinner, whiteArrowPointingDownIcon, filterIcon } from '../../../Shared/index'
 
-const filterIconSrc = `${process.env.CDN_URL}/images/icons/icons-filter.svg`
+const whiteEmailIconSrc = `${process.env.CDN_URL}/images/icons/email-icon-white.svg`
 
 export const OverviewContainer = ({
   accessType,
@@ -43,13 +43,19 @@ export const OverviewContainer = ({
           </a>
         </h1>
         <div className="buttons-container">
-          <button className="quill-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">Manage Subscription</button>
-          <button className="quill-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">Download Report</button>
+          <button className="quill-button manage-subscription-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">
+            <img src={whiteEmailIconSrc} />
+            <span>Manage subscription</span>
+          </button>
+          <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">
+            <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />
+            <span>Download</span>
+          </button>
         </div>
       </div>
       <div className="filter-button-container">
         <button className="interactive-wrapper focus-on-light" onClick={openMobileFilterMenu} type="button">
-          <img alt="Filter icon" src={filterIconSrc} />
+          <img alt={filterIcon.alt} src={filterIcon.src} />
           Filters
         </button>
       </div>

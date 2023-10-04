@@ -97,6 +97,11 @@
       display: flex;
       justify-content: space-between;
     }
+    .download-report-button, .manage-subscription-button {
+      img {
+        margin-right: 4px;
+      }
+    }
     h1 {
       font-weight: 700;
       font-size: 24px;

@@ -161,7 +161,9 @@ export {
   networkIcon,
   whiteDiamondIcon,
   redDiamondIcon,
-  evidenceHandbookIcon
+  evidenceHandbookIcon,
+  whiteArrowPointingDownIcon,
+  filterIcon
 } from './images/index'
 
 export {
