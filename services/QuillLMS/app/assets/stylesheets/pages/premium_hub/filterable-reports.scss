@@ -91,16 +91,16 @@
   main {
     padding: 32px 64px;
     border-left: 1px solid $quill-grey-5;
-    max-width: 1329px;
+    max-width: calc($sitewidepagewidth + 129px); // $sitewidepagewidth + 64px padding on both sides + 1 for border
     width: 100%;
     .header {
       display: flex;
       justify-content: space-between;
-      max-width: 1200px;
+      max-width: $sitewidepagewidth;
       width: 100%;
     }
     .sections {
-      max-width: 1200px;
+      max-width: $sitewidepagewidth;
       width: 100%;
     }
     h1 {
