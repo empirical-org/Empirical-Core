@@ -20,7 +20,7 @@ const tabs = {
   }
 }
 
-const MyActivitiesTabs = () => {
+export const MyActivitiesTabs = () => {
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
 
   let openActivityPacksClassName, closedActivityPacksClassName, lessonsClassName, activeTab
