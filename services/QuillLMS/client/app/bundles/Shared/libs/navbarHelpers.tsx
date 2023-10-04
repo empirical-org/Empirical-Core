@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR } from '../utils/constants';
-import { redDiamondIcon, whiteDiamondIcon } from '../images';
 
 const premiumHubReportingTabs = [
   'Activity Scores',
@@ -24,11 +23,11 @@ interface renderNavListProps {
   listClass?: string
 }
 
-function getIcon(isActive: boolean, tabLabel: string) {
+function getIcon(tabLabel: string) {
   const isReportingTab = premiumHubReportingTabs.includes(tabLabel)
 
-  if ((isActive && isReportingTab) || isReportingTab) {
-    return <div className="small-diamond-icon red"></div>
+  if (isReportingTab) {
+    return <div className="small-diamond-icon"></div>
   }
 }
 
@@ -52,7 +51,7 @@ function renderListItem({ tabs, handleLinkClick, tabLabel, activeTab, i }) {
     <li key={i}>
       <Link className={linkClass} onClick={handleLinkClick} to={tabs[tabLabel].url}>
         {tabLabel}
-        {getIcon(!!activeClass, tabLabel)}
+        {getIcon(tabLabel)}
       </Link>
     </li>
   )

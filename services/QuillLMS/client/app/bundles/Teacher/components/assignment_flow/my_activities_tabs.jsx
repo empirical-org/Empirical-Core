@@ -40,8 +40,6 @@ const MyActivitiesTabs = () => {
     setDropdownOpen(!dropdownOpen)
   }
 
-  const activeStates = [openActivityPacksClassName, closedActivityPacksClassName, lessonsClassName];
-
   return(
     <React.Fragment>
       <div className="unit-tabs tab-subnavigation-wrapper mobile">
