@@ -1,5 +1,4 @@
 .data-export-main {
-  padding: 32px 0px 32px 64px !important;
   max-width: calc(100% - 317px) !important;
 
   .data-export-container {
@@ -51,7 +50,6 @@
     }
 
     .preview-section {
-      padding-right: 64px;
 
       .preview-disclaimer-container {
         display: flex;
@@ -72,7 +70,7 @@
       border-radius: 8px;
       overflow-y: clip;
       overflow-x: auto;
-      width: calc(100% - 64px);
+      width: 100%;
 
       .data-table-headers {
         background-color: $quill-grey-1;
