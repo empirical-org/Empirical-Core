@@ -190,6 +190,14 @@ module PagesHelper
             img: 'team-thomas-robertson.webp'
           },
           {
+            name: 'Maheen Sahoo',
+            title: 'Senior Manager of Strategic Partnerships, AI for Education',
+            img: 'team-maheen-sahoo.webp',
+            srcset: {
+              '2x' => 'team-maheen-sahoo.webp'
+            }
+          },
+          {
             name: 'Peter Sharkey',
             title: 'Principal Product Manager',
             img: 'team-peter-sharkey.webp'
