@@ -27,7 +27,7 @@ function getIcon(tabLabel: string) {
   const isReportingTab = premiumHubReportingTabs.includes(tabLabel)
 
   if (isReportingTab) {
-    return <div className="small-diamond-icon"></div>
+    return <div className="small-diamond-icon" />
   }
 }
 
