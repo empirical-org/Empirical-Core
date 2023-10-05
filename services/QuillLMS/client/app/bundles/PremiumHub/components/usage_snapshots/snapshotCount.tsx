@@ -37,6 +37,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
   const [change, setChange] = React.useState(passedChange || 0)
   const [changeDirection, setChangeDirection] = React.useState(passedChangeDirection || null)
   const [loading, setLoading] = React.useState(false)
+  const [retryTimeout, setRetryTimeout] = React.useState(null)
 
   React.useEffect(() => {
     initializePusher()
@@ -48,6 +49,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     resetToDefault()
 
     getData()
+    setRetryTimeout(setTimeout(getData, 1000))
   }, [searchCount])
 
   function resetToDefault() {
@@ -94,6 +96,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
         } else {
           setChangeDirection(NONE)
         }
+        if (retryTimeout) clearTimeout(retryTimeout)
         setLoading(false)
       }
     })
