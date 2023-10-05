@@ -49,7 +49,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     resetToDefault()
 
     setRetryTimeout(setTimeout(getData, 20000))
-    getData()
+    getData(retryTimeout)
   }, [searchCount])
 
   React.useEffect(() => {
@@ -62,7 +62,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     setChange(passedChange || 0)
   }
 
-  function getData() {
+  function getData(retryTimeout) {
     const searchParams = {
       query: queryKey,
       timeframe: selectedTimeframe,
