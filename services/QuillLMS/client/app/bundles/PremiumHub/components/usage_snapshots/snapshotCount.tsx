@@ -49,10 +49,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     resetToDefault()
 
     getData()
-    setRetryTimeout(setTimeout(() => {
-      console.log('timeout-based retry')
-      getData
-    }, 1000))
+    setRetryTimeout(setTimeout(getData, 500))
   }, [searchCount])
 
   function resetToDefault() {
