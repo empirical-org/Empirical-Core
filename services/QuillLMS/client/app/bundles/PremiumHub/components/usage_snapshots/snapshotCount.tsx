@@ -52,6 +52,10 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     getData()
   }, [searchCount])
 
+  React.useEffect(() => {
+    console.log(`retryTimeout set to ${retryTimeout}`)
+  }, [retryTimeout])
+
   function resetToDefault() {
     setCount(passedCount || null)
     setChangeDirection(passedChangeDirection || null)
