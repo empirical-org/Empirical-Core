@@ -49,11 +49,10 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     resetToDefault()
 
     setRetryTimeout(setTimeout(getData, 20000))
-    getData(retryTimeout)
   }, [searchCount])
 
   React.useEffect(() => {
-    console.log(`retryTimeout set to ${retryTimeout}`)
+    if (retryTimeout) getData()
   }, [retryTimeout])
 
   function resetToDefault() {
@@ -62,7 +61,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     setChange(passedChange || 0)
   }
 
-  function getData(retryTimeout) {
+  function getData() {
     const searchParams = {
       query: queryKey,
       timeframe: selectedTimeframe,
@@ -74,7 +73,6 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
       grades: selectedGrades
     }
 
-    console.log(retryTimeout)
     requestPost(`/snapshots/count`, searchParams, (body) => {
       console.log(retryTimeout)
       if (!body.hasOwnProperty('results')) {
