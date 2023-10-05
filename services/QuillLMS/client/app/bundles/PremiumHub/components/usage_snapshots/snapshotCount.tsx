@@ -96,6 +96,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
         } else {
           setChangeDirection(NONE)
         }
+        console.log(retryTimeout)
         if (retryTimeout) {
           console.log(`clearing retryTimeout for ${queryKey}`)
           clearTimeout(retryTimeout)
