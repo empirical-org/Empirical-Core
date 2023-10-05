@@ -73,9 +73,9 @@ const mobileHeaders = (isSortable) => ([
 ])
 
 const scoreToClassName = (score) => {
-  if (score >= 80) { return 'proficient' }
-  if (score >= 60) { return 'nearly-proficient' }
-  return 'not-yet-proficient'
+  if (score >= 83) { return 'frequently-demonstrated-skill' }
+  if (score >= 32) { return 'sometimes-demonstrated-skill' }
+  return 'rarely-demonstrated-skill'
 }
 
 const DirectionsAndPrompt = ({ directions, prompt, onMobile, }) => {

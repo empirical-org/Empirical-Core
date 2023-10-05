@@ -8,23 +8,23 @@ exports[`ResultsPage container anonymous should render 1`] = `
   percentage={0.76}
   resultCategoryNames={
     Object {
-      "NEARLY_PROFICIENT": "Nearly proficient",
-      "NOT_YET_PROFICIENT": "Not yet proficient",
-      "PROFICIENT": "Proficient",
+      "FREQUENTLY_DEMONSTRATED_SKILL": "Frequently demonstrated skill",
+      "RARELY_DEMONSTRATED_SKILL": "Rarely demonstrated skill",
+      "SOMETIMES_DEMONSTRATED_SKILL": "Sometimes demonstrated skill",
     }
   }
   results={
     Object {
-      "Nearly proficient": Array [
-        "Parallel Structure",
-      ],
-      "Not yet proficient": Array [
-        "Punctuation",
-      ],
-      "Proficient": Array [
+      "Frequently demonstrated skill": Array [
         "Regular Past Participles",
         "Commas in Lists",
         "Capitalize Geographic Names",
+      ],
+      "Rarely demonstrated skill": Array [
+        "Punctuation",
+      ],
+      "Sometimes demonstrated skill": Array [
+        "Parallel Structure",
       ],
     }
   }
@@ -83,7 +83,7 @@ exports[`ResultsPage container anonymous should render 1`] = `
       >
         <div
           className="result-section"
-          key="Nearly proficient"
+          key="Sometimes demonstrated skill"
         >
           <h2>
             Concepts you have almost mastered. Keep practicing!
@@ -98,7 +98,7 @@ exports[`ResultsPage container anonymous should render 1`] = `
         </div>
         <div
           className="result-section"
-          key="Not yet proficient"
+          key="Rarely demonstrated skill"
         >
           <h2>
             Concepts you have not mastered yet. Try again!
@@ -113,7 +113,7 @@ exports[`ResultsPage container anonymous should render 1`] = `
         </div>
         <div
           className="result-section"
-          key="Proficient"
+          key="Frequently demonstrated skill"
         >
           <h2>
             Concepts you have mastered. Good work!
@@ -151,23 +151,23 @@ exports[`ResultsPage container integration should render 1`] = `
   percentage={0.76}
   resultCategoryNames={
     Object {
-      "NEARLY_PROFICIENT": "Nearly proficient",
-      "NOT_YET_PROFICIENT": "Not yet proficient",
-      "PROFICIENT": "Proficient",
+      "FREQUENTLY_DEMONSTRATED_SKILL": "Frequently demonstrated skill",
+      "RARELY_DEMONSTRATED_SKILL": "Rarely demonstrated skill",
+      "SOMETIMES_DEMONSTRATED_SKILL": "Sometimes demonstrated skill",
     }
   }
   results={
     Object {
-      "Nearly proficient": Array [
-        "Parallel Structure",
-      ],
-      "Not yet proficient": Array [
-        "Punctuation",
-      ],
-      "Proficient": Array [
+      "Frequently demonstrated skill": Array [
         "Regular Past Participles",
         "Commas in Lists",
         "Capitalize Geographic Names",
+      ],
+      "Rarely demonstrated skill": Array [
+        "Punctuation",
+      ],
+      "Sometimes demonstrated skill": Array [
+        "Parallel Structure",
       ],
     }
   }
@@ -226,7 +226,7 @@ exports[`ResultsPage container integration should render 1`] = `
       >
         <div
           className="result-section"
-          key="Nearly proficient"
+          key="Sometimes demonstrated skill"
         >
           <h2>
             Concepts you have almost mastered. Keep practicing!
@@ -241,7 +241,7 @@ exports[`ResultsPage container integration should render 1`] = `
         </div>
         <div
           className="result-section"
-          key="Not yet proficient"
+          key="Rarely demonstrated skill"
         >
           <h2>
             Concepts you have not mastered yet. Try again!
@@ -256,7 +256,7 @@ exports[`ResultsPage container integration should render 1`] = `
         </div>
         <div
           className="result-section"
-          key="Proficient"
+          key="Frequently demonstrated skill"
         >
           <h2>
             Concepts you have mastered. Good work!
@@ -292,23 +292,23 @@ exports[`ResultsPage container not anonymous should render 1`] = `
   percentage={0.76}
   resultCategoryNames={
     Object {
-      "NEARLY_PROFICIENT": "Nearly proficient",
-      "NOT_YET_PROFICIENT": "Not yet proficient",
-      "PROFICIENT": "Proficient",
+      "FREQUENTLY_DEMONSTRATED_SKILL": "Frequently demonstrated skill",
+      "RARELY_DEMONSTRATED_SKILL": "Rarely demonstrated skill",
+      "SOMETIMES_DEMONSTRATED_SKILL": "Sometimes demonstrated skill",
     }
   }
   results={
     Object {
-      "Nearly proficient": Array [
-        "Parallel Structure",
-      ],
-      "Not yet proficient": Array [
-        "Punctuation",
-      ],
-      "Proficient": Array [
+      "Frequently demonstrated skill": Array [
         "Regular Past Participles",
         "Commas in Lists",
         "Capitalize Geographic Names",
+      ],
+      "Rarely demonstrated skill": Array [
+        "Punctuation",
+      ],
+      "Sometimes demonstrated skill": Array [
+        "Parallel Structure",
       ],
     }
   }
@@ -367,7 +367,7 @@ exports[`ResultsPage container not anonymous should render 1`] = `
       >
         <div
           className="result-section"
-          key="Nearly proficient"
+          key="Sometimes demonstrated skill"
         >
           <h2>
             Concepts you have almost mastered. Keep practicing!
@@ -382,7 +382,7 @@ exports[`ResultsPage container not anonymous should render 1`] = `
         </div>
         <div
           className="result-section"
-          key="Not yet proficient"
+          key="Rarely demonstrated skill"
         >
           <h2>
             Concepts you have not mastered yet. Try again!
@@ -397,7 +397,7 @@ exports[`ResultsPage container not anonymous should render 1`] = `
         </div>
         <div
           className="result-section"
-          key="Proficient"
+          key="Frequently demonstrated skill"
         >
           <h2>
             Concepts you have mastered. Good work!
