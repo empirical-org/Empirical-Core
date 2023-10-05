@@ -100,6 +100,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
           setChangeDirection(NONE)
         }
         if (retryTimeout) {
+          console.log(`clearing timeout for ${queryKey}`)
           clearTimeout(retryTimeout)
         }
         setLoading(false)
