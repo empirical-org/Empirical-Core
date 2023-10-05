@@ -96,7 +96,11 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
         } else {
           setChangeDirection(NONE)
         }
-        if (retryTimeout) clearTimeout(retryTimeout)
+        if (retryTimeout) {
+          console.log(retryTimeout)
+          console.log('clearing retryTimeout')
+          clearTimeout(retryTimeout)
+        }
         setLoading(false)
       }
     })
