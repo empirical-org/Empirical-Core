@@ -50,13 +50,13 @@
         padding: 8px 6px 12px 0px;
         width: 100%;
         text-align: right;
-        &.proficient {
+        &.frequently-demonstrated-skill {
           background-color: #f1f8eb;
         }
-        &.nearly-proficient {
+        &.sometimes-demonstrated-skill {
           background-color: #FFF5E5;
         }
-        &.not-yet-proficient {
+        &.rarely-demonstrated-skill {
           background-color: #FFF0F2;
         }
       }

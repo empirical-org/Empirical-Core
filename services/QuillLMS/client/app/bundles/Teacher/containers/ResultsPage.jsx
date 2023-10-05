@@ -44,9 +44,9 @@ export default class ResultsPage extends React.Component {
   resultSectionDescription = category => {
     const { resultCategoryNames, } = this.props
     switch(category) {
-      case resultCategoryNames.PROFICIENT:
+      case resultCategoryNames.FREQUENTLY_DEMONSTRATED_SKILL:
         return 'Concepts you have mastered. Good work!'
-      case resultCategoryNames.NEARLY_PROFICIENT:
+      case resultCategoryNames.SOMETIMES_DEMONSTRATED_SKILL:
         return 'Concepts you have almost mastered. Keep practicing!'
       default:
         return 'Concepts you have not mastered yet. Try again!'

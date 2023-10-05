@@ -92,6 +92,13 @@
           &.active {
             background: $quill-white;
             color: $quill-green;
+            text-decoration: none;
+          }
+
+          &:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            color: $quill-white;
           }
 
           .fa-external-link {
@@ -234,6 +241,7 @@
       }
       &:hover {
         color: $quill-white;
+        background-color: rgba(255, 255, 255, 0.5);
         .small-diamond-icon {
           background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
         }
@@ -242,13 +250,7 @@
     .small-diamond-icon {
       background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
     }
-
   }
-  a:hover {
-    text-decoration: none;
-    background-color: rgba(255, 255, 255, 0.5);
-  }
-
   li a img {
     margin-top: -3px;
   }

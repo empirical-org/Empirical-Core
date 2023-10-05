@@ -25,8 +25,8 @@ const LESSONS_ACTIVITY_CLASSIFICATION_KEY = "lessons"
 const DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY = "diagnostic"
 const EVIDENCE_ACTIVITY_CLASSIFICATION_KEY = "evidence"
 const UNGRADED_ACTIVITY_CLASSIFICATIONS = [LESSONS_ACTIVITY_CLASSIFICATION_KEY, DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY, EVIDENCE_ACTIVITY_CLASSIFICATION_KEY]
-const PROFICIENT_CUTOFF = 0.83
-const NEARLY_PROFICIENT_CUTOFF = 0.32
+const FREQUENTLY_DEMONSTRATED_SKILL_CUTOFF = 0.83
+const SOMETIMES_DEMONSTRATED_SKILL_CUTOFF = 0.32
 export const LOCKED = 'locked'
 export const UNLOCKED = 'unlocked'
 
@@ -190,15 +190,15 @@ export default class StudentProfileUnit extends React.Component {
       )
     }
 
-    if (maxPercentage >= PROFICIENT_CUTOFF) {
-      return (<div className="score"><div className="proficient" /><span>Frequently demonstrated skill</span></div>)
+    if (maxPercentage >= FREQUENTLY_DEMONSTRATED_SKILL_CUTOFF) {
+      return (<div className="score"><div className="frequently-demonstrated-skill" /><span>Frequently demonstrated skill</span></div>)
     }
 
-    if (maxPercentage >= NEARLY_PROFICIENT_CUTOFF) {
-      return (<div className="score"><div className="nearly-proficient" /><span>Sometimes demonstrated skill</span></div>)
+    if (maxPercentage >= SOMETIMES_DEMONSTRATED_SKILL_CUTOFF) {
+      return (<div className="score"><div className="sometimes-demonstrated-skill" /><span>Sometimes demonstrated skill</span></div>)
     }
 
-    return (<div className="score"><div className="not-yet-proficient" /><span>Rarely demonstrated skill</span></div>)
+    return (<div className="score"><div className="rarely-demonstrated-skill" /><span>Rarely demonstrated skill</span></div>)
   }
 
   toolIcon = (key) => {
