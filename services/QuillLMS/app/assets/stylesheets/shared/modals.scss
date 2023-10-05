@@ -1294,7 +1294,8 @@
       }
     }
     .data-table {
-      height: calc(100% - 58px);
+      /* 90vh is the max-height of the modal, and 282px is the sum of the content in the non-'middle-section' parts of the modal */
+      height: calc(90vh - 282px);
     }
     .data-table-row:last-of-type {
       border-bottom: 1px solid $quill-grey-5 !important;
