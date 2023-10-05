@@ -48,8 +48,8 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
 
     resetToDefault()
 
-    getData()
     setRetryTimeout(setTimeout(getData, 20000))
+    getData()
   }, [searchCount])
 
   function resetToDefault() {
@@ -97,11 +97,11 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
           setChangeDirection(NONE)
         }
         if (retryTimeout) {
-          console.log(retryTimeout)
-          console.log('clearing retryTimeout')
+          console.log(`clearing retryTimeout for ${queryKey}`)
           clearTimeout(retryTimeout)
         }
         setLoading(false)
+        console.log(`loaded data for ${queryKey}`)
       }
     })
   }
