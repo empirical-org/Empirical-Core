@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Spinner, DataTable, NO_RESULTS_MESSAGE } from '../../../Shared/index'
+import { Spinner, DataTable, noResultsMessage } from '../../../Shared/index'
 
 const DEFAULT_CELL_WIDTH = '182px'
 
@@ -32,18 +32,22 @@ const headers = [
     isSortable: false
   },
   {
-    name: 'Average Activities & Time Spent',
+    name: '',
     attribute: 'averageActivitiesAndTimeSpent',
     width: DEFAULT_CELL_WIDTH,
+    primaryTitle: 'Average Activities &',
+    secondaryTitle: 'Time Spent',
     tooltipName: '',
     tooltipDescription: '',
     noTooltip: true,
     isSortable: false
   },
   {
-    name: 'Post Diagnostic Completed',
+    name: '',
     attribute: 'postDiagnosticCompleted',
     width: DEFAULT_CELL_WIDTH,
+    primaryTitle: 'Post Diagnostic',
+    secondaryTitle: 'Completed',
     tooltipName: '',
     tooltipDescription: '',
     noTooltip: true,
@@ -87,7 +91,7 @@ export const OverviewTable = ({
   return (
     <DataTable
       className="growth-diagnostic-reports-overview-table reporting-format"
-      emptyStateMessage={NO_RESULTS_MESSAGE}
+      emptyStateMessage={noResultsMessage('diagnostic')}
       headers={headers}
       rows={[]}
     />

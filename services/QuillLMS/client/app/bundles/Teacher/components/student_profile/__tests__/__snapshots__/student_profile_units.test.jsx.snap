@@ -4063,7 +4063,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                     className="score"
                   >
                     <div
-                      className="proficient"
+                      className="frequently-demonstrated-skill"
                     />
                     <span>
                       Frequently demonstrated skill
@@ -4087,7 +4087,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                     className="score"
                   >
                     <div
-                      className="nearly-proficient"
+                      className="sometimes-demonstrated-skill"
                     />
                     <span>
                       Sometimes demonstrated skill
@@ -4224,7 +4224,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                       className="score"
                     >
                       <div
-                        className="proficient"
+                        className="frequently-demonstrated-skill"
                       />
                       <span>
                         Frequently demonstrated skill
@@ -4318,7 +4318,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                       className="score"
                     >
                       <div
-                        className="nearly-proficient"
+                        className="sometimes-demonstrated-skill"
                       />
                       <span>
                         Sometimes demonstrated skill

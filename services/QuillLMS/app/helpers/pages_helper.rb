@@ -111,7 +111,10 @@ module PagesHelper
           {
             name: 'CJ Colicchio',
             title: 'Social Studies Curriculum Developer',
-            img: 'team-cj-colicchio.webp'
+            img: 'team-cj-colicchio.webp',
+            srcset: {
+              '2x' => 'team-cj-colicchio.webp'
+            }
           },
           {
             name: 'Nattalie Dai',
@@ -156,7 +159,10 @@ module PagesHelper
           {
             name: 'Jamie Monville',
             title: 'Associate Curriculum Product Manager',
-            img: 'team-jamie-monville.webp'
+            img: 'team-jamie-monville.webp',
+            srcset: {
+              '2x' => 'team-jamie-monville.webp'
+            }
           },
           {
             name: 'Katie Moylan',
@@ -182,6 +188,14 @@ module PagesHelper
             name: 'Thomas Robertson',
             title: 'Senior Software Engineer II',
             img: 'team-thomas-robertson.webp'
+          },
+          {
+            name: 'Maheen Sahoo',
+            title: 'Senior Manager of Strategic Partnerships, AI for Education',
+            img: 'team-maheen-sahoo.webp',
+            srcset: {
+              '2x' => 'team-maheen-sahoo.webp'
+            }
           },
           {
             name: 'Peter Sharkey',

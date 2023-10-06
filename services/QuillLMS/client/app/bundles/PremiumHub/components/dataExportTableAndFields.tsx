@@ -3,7 +3,7 @@ import * as moment from 'moment';
 
 import { requestPost, } from '../../../modules/request'
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
-import { DataTable, Spinner, informationIcon, smallWhiteCheckIcon, NO_RESULTS_MESSAGE } from '../../Shared';
+import { DataTable, Spinner, informationIcon, smallWhiteCheckIcon, noResultsMessage } from '../../Shared';
 
 const STANDARD_WIDTH = "152px";
 const STUDENT_NAME = "Student Name";
@@ -261,7 +261,7 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
         className="data-export-table reporting-format"
         defaultSortAttribute="completed_at"
         defaultSortDirection="desc"
-        emptyStateMessage={NO_RESULTS_MESSAGE}
+        emptyStateMessage={noResultsMessage('activity')}
         headers={getHeaders()}
         rows={data || []}
       />}

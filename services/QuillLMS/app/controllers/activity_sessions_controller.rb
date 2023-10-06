@@ -38,9 +38,9 @@ class ActivitySessionsController < ApplicationController
     @results  = @activity_session.parse_for_results
     @classroom_id = @activity_session&.classroom_unit&.classroom_id
     @result_category_names = {
-      PROFICIENT: ActivitySession::PROFICIENT,
-      NEARLY_PROFICIENT: ActivitySession::NEARLY_PROFICIENT,
-      NOT_YET_PROFICIENT: ActivitySession::NOT_YET_PROFICIENT
+      FREQUENTLY_DEMONSTRATED_SKILL: ActivitySession::FREQUENTLY_DEMONSTRATED_SKILL,
+      SOMETIMES_DEMONSTRATED_SKILL: ActivitySession::SOMETIMES_DEMONSTRATED_SKILL,
+      RARELY_DEMONSTRATED_SKILL: ActivitySession::RARELY_DEMONSTRATED_SKILL
     }
     @title = 'Classwork'
   end

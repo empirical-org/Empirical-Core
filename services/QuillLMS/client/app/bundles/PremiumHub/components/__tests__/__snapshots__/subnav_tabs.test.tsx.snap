@@ -1,0 +1,196 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdminSubnav it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="tab-subnavigation-wrapper mobile class-subnav premium-hub-subnav red"
+  >
+    <div
+      class="dropdown-container"
+    >
+      <div
+        class=""
+      >
+        <button
+          class="interactive-wrapper"
+          id="mobile-subnav-dropdown"
+          type="button"
+        >
+          <p />
+          <i
+            class="fa fa-thin fa-angle-down"
+          />
+        </button>
+        <ul
+          class="dropdown-menu"
+        >
+          <li>
+            <a
+              class=" "
+              href="/teachers/premium_hub"
+            >
+              Overview
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
+          <li>
+            <a
+              class=" "
+              href="/teachers/premium_hub/school_subscriptions"
+            >
+              School Subscriptions
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
+          <li>
+            <a
+              class=" premium"
+              href="/teachers/premium_hub/district_activity_scores"
+            >
+              Activity Scores
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
+          <li>
+            <a
+              class=" premium"
+              href="/teachers/premium_hub/district_concept_reports"
+            >
+              Concept Reports
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
+          <li>
+            <a
+              class=" premium"
+              href="/teachers/premium_hub/district_standards_reports"
+            >
+              Standards Reports
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
+          <li>
+            <a
+              class=" premium"
+              href="/teachers/premium_hub/integrations"
+            >
+              Integrations
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
+          <li>
+            <a
+              class=" premium"
+              href="/teachers/premium_hub/usage_snapshot_report"
+            >
+              Usage Snapshot Report
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div
+    class="tab-subnavigation-wrapper desktop class-subnav premium-hub-subnav"
+  >
+    <div
+      class="container"
+    >
+      <ul>
+        <li>
+          <a
+            class=" "
+            href="/teachers/premium_hub"
+          >
+            Overview
+          </a>
+          <div
+            class="checkmark-icon "
+          />
+        </li>
+        <li>
+          <a
+            class=" "
+            href="/teachers/premium_hub/school_subscriptions"
+          >
+            School Subscriptions
+          </a>
+          <div
+            class="checkmark-icon "
+          />
+        </li>
+        <li>
+          <a
+            class=" premium"
+            href="/teachers/premium_hub/district_activity_scores"
+          >
+            Activity Scores
+          </a>
+          <div
+            class="checkmark-icon "
+          />
+        </li>
+        <li>
+          <a
+            class=" premium"
+            href="/teachers/premium_hub/district_concept_reports"
+          >
+            Concept Reports
+          </a>
+          <div
+            class="checkmark-icon "
+          />
+        </li>
+        <li>
+          <a
+            class=" premium"
+            href="/teachers/premium_hub/district_standards_reports"
+          >
+            Standards Reports
+          </a>
+          <div
+            class="checkmark-icon "
+          />
+        </li>
+        <li>
+          <a
+            class=" premium"
+            href="/teachers/premium_hub/integrations"
+          >
+            Integrations
+          </a>
+          <div
+            class="checkmark-icon "
+          />
+        </li>
+        <li>
+          <a
+            class=" premium"
+            href="/teachers/premium_hub/usage_snapshot_report"
+          >
+            Usage Snapshot Report
+          </a>
+          <div
+            class="checkmark-icon "
+          />
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;

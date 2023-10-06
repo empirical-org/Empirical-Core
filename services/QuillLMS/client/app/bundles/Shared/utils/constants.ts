@@ -47,5 +47,3 @@ export const MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR = 1150
 export const INTRODUCTION = 'introduction'
 export const CHECKLIST = 'checklist'
 export const READ_AND_HIGHLIGHT = 'read-and-highlight'
-
-export const NO_RESULTS_MESSAGE = 'There are no results available for the filters selected. Try modifying or removing a filter to see results.'
