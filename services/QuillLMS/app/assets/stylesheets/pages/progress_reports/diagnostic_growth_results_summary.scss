@@ -34,12 +34,19 @@
       }
     }
     .card-footer {
-      display: flex;
+      display: block;
+      text-align: center;
+      margin: 0 auto;
       justify-content: space-between;
       align-items: center;
     }
+    .growth-tooltip {
+      margin: 0 auto;
+    }
   }
   .growth-element {
+    margin: 0 auto;
+    margin-top: 10px;
     padding: 8px;
     border-radius: 8px;
     font-size: 12px;
@@ -51,10 +58,12 @@
     &.no-growth {
       color: $quill-grey-50;
       background-color: $quill-grey-3;
+      width: 80px;
     }
     &:not(.no-growth) {
       color: $quill-green-vibrant;
       background-color: #b8db99;
+      width: 100px;
     }
   }
 

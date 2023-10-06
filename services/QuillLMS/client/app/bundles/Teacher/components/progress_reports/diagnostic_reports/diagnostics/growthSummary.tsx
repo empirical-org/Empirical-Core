@@ -26,7 +26,7 @@ import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_GROWTH_SUMMARY, } from '
 import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
 function renderGrowthElement(delta: number, text: string) {
-  return delta > 0 ? <span className="growth-element">{triangleUpIcon}<span>{Math.round(delta)}{`% ${text}`}</span></span> : <span className="growth-element no-growth">No growth</span>
+  return delta > 0 ? <div className="growth-element">{triangleUpIcon}<span>{Math.round(delta)}{`% ${text}`}</span></div> : <div className="growth-element no-growth">No growth</div>
 }
 
 const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { skillGroupSummary: SkillGroupSummary, completedStudentCount: number }) => {

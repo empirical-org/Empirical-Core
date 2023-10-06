@@ -93,10 +93,10 @@ class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean
     const { tooltipVisible, } = this.state
     const tabIndex = isTabbable ? 0 : null;
 
-    const triggerClass = `quill-tooltip-trigger ${tooltipVisible ? 'active' : ''}`
+    const triggerClass = `quill-tooltip-trigger growth-tooltip ${tooltipVisible ? 'active' : ''}`
 
     return (
-      <span
+      <div
         aria-hidden={!isTabbable}
         className={triggerClass}
         ref={node => this.tooltipTrigger = node}
@@ -124,7 +124,7 @@ class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean
             ref={node => this.tooltip = node}
           />
         </span>
-      </span>
+      </div>
     )
   }
 }
