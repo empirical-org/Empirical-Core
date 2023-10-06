@@ -5,7 +5,7 @@ class SendPusherMessageWorker
   sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
 
   def perform(user_id, pusher_event, payload = nil)
-    return unless user_id and pusher_event
+    return unless user_id && pusher_event
 
     PusherTrigger.run(user_id, pusher_event, payload)
   end
