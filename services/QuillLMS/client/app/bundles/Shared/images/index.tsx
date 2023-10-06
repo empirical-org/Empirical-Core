@@ -245,3 +245,8 @@ export const filterIcon = {
   alt: 'Filter icon with three vertical dots and 3 horizontal lines',
   src: `${process.env.CDN_URL}/images/icons/icons-filter.svg`
 }
+
+export const documentFileIcon = {
+  alt: 'Document file with folded corner and two horizontal lines',
+  src: `${process.env.CDN_URL}/images/icons/file-document.svg`
+}

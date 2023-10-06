@@ -2,10 +2,11 @@ import * as React from 'react'
 import queryString from 'query-string';
 import * as _ from 'lodash'
 import * as Pusher from 'pusher-js';
+import { Route, Switch } from 'react-router-dom';
 
 import DataExportContainer from './DataExportContainer';
 import UsageSnapshotsContainer from './UsageSnapshotsContainer';
-import OverviewContainer from './diagnosticReports/OverviewContainer';
+import DiagnosticGrowthReportsContainer from './diagnosticGrowthReports';
 
 import { FULL, restrictedPage, } from '../shared';
 import CustomDateModal from '../components/usage_snapshots/customDateModal'
@@ -272,10 +273,6 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
     openMobileFilterMenu
   }
 
-  const shouldRenderDataExportContainer = location && location.pathname === '/teachers/premium_hub/data_export'
-  const shouldRenderUsageSnapshotsContainer = location && location.pathname === '/teachers/premium_hub/usage_snapshot_report'
-  const shouldRenderDiagnosticReportOverviewContainerContainer = location && location.pathname === '/teachers/premium_hub/diagnostic_reports_overview'
-
   if (accessType !== FULL) {
     return restrictedPage
   }
@@ -293,9 +290,11 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
       <Filters
         {...filterProps}
       />
-      {shouldRenderDataExportContainer && <DataExportContainer {...sharedProps} />}
-      {shouldRenderUsageSnapshotsContainer && <UsageSnapshotsContainer {...sharedProps} />}
-      {shouldRenderDiagnosticReportOverviewContainerContainer && <OverviewContainer {...sharedProps} />}
+      <Switch>
+        <Route path='/teachers/premium_hub/diagnostic_growth_report' render={() => <DiagnosticGrowthReportsContainer {...sharedProps} />} />
+        <Route path='/teachers/premium_hub/data_export' render={() => <DataExportContainer {...sharedProps} />} />
+        <Route path='/usage_snapshot_report' render={() => <UsageSnapshotsContainer {...sharedProps} />} />
+      </Switch>
     </div>
   )
 }

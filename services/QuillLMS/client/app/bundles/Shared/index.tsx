@@ -163,7 +163,8 @@ export {
   redDiamondIcon,
   evidenceHandbookIcon,
   whiteArrowPointingDownIcon,
-  filterIcon
+  filterIcon,
+  documentFileIcon
 } from './images/index'
 
 export {
@@ -214,7 +215,8 @@ export {
   MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR,
   INTRODUCTION,
   CHECKLIST,
-  READ_AND_HIGHLIGHT
+  READ_AND_HIGHLIGHT,
+  NO_RESULTS_MESSAGE
 } from './utils/constants'
 
 export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'

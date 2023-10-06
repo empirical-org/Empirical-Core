@@ -3,7 +3,7 @@ import * as React from 'react'
 import { FULL, restrictedPage, mapItemsIfNotAll } from '../shared';
 import SnapshotSection from '../components/usage_snapshots/snapshotSection'
 import { snapshotSections, TAB_NAMES, ALL, SECTION_NAME_TO_ICON_URL, } from '../components/usage_snapshots/shared'
-import { Spinner, DropdownInput, filterIcon, whiteArrowPointingDownIcon } from '../../Shared/index'
+import { Spinner, DropdownInput, filterIcon, whiteArrowPointingDownIcon, documentFileIcon } from '../../Shared/index'
 import useWindowSize from '../../Shared/hooks/useWindowSize';
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 950
@@ -100,7 +100,7 @@ export const UsageSnapshotsContainer = ({
         <h1>
           <span>Usage Snapshot Report</span>
           <a href="https://support.quill.org/en/articles/8358350-how-do-i-use-the-usage-snapshot-report" rel="noopener noreferrer" target="_blank">
-            <img alt="" src={`${process.env.CDN_URL}/images/icons/file-document.svg`} />
+            <img alt={documentFileIcon.alt} src={documentFileIcon.src} />
             <span>Guide</span>
           </a>
         </h1>

@@ -1,0 +1,55 @@
+.diagnostic-reports-main {
+  .header {
+    .buttons-container {
+      display: flex;
+      button:first-of-type {
+        margin-right: 8px;
+      }
+    }
+  }
+  .tabs-for-pages-container {
+    display: flex;
+    margin-top: 32px;
+
+    .performance-type-button {
+      display: flex;
+      align-items: center;
+      padding: 13px 32px;
+      background-color: $quill-grey-1;
+      color: $quill-grey-90;
+      border: 1px solid $quill-grey-10;
+
+      span {
+        font-weight: 500;
+      }
+
+      img {
+        margin-right: 4px;
+      }
+
+      &.overview {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+      }
+
+      &.student {
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+      }
+
+      &.active {
+        background-color: $quill-green;
+        color: $quill-white;
+        border: 1px solid $quill-green;
+      }
+    }
+  }
+  .group-by-dropdown {
+    margin-top: 32px;
+    max-width: 300px;
+  }
+  .growth-diagnostic-reports-overview-table {
+    margin-top: 48px;
+  }
+}
+
