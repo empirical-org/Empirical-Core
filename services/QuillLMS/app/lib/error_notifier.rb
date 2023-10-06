@@ -19,6 +19,6 @@ module ErrorNotifier
 
   # Used to avoid mocking Time.now directly in specs
   def self.current_time
-    Time.now
+    Time.current
   end
 end

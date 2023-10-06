@@ -34,12 +34,12 @@ describe ErrorNotifier do
     end
 
     before do
-      allow(Time).to receive(:now).and_return(start, finish)
+      allow(described_class).to receive(:current_time).and_return(start, finish)
     end
 
     it do
       expect(ErrorNotifier).to receive(:report).with(error, expected_options)
-      ErrorNotifier.report_long_running(error, threshold) { }
+      ErrorNotifier.report_long_running(error, threshold) { nil }
     end
 
     context "attach time_to_execute to provided options" do
@@ -48,7 +48,7 @@ describe ErrorNotifier do
 
       it do
         expect(ErrorNotifier).to receive(:report).with(error, expected_options)
-        ErrorNotifier.report_long_running(error, threshold, key_values) { }
+        ErrorNotifier.report_long_running(error, threshold, key_values) { nil }
       end
     end
 
@@ -57,7 +57,7 @@ describe ErrorNotifier do
 
       it do
         expect(ErrorNotifier).not_to receive(:report)
-        ErrorNotifier.report_long_running(error, threshold) { }
+        ErrorNotifier.report_long_running(error, threshold) { nil }
       end
     end
   end
