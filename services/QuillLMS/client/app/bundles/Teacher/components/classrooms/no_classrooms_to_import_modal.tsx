@@ -11,6 +11,8 @@ interface NoClassroomsToImportModalProps {
   provider: 'Canvas' | 'Clever' | 'Google';
 }
 
+const AVERAGE_TOOLTIP_ITEM_HEIGHT = 40 // update when CSS changes -- currently 22px line height + 16px <br />, plus a little more so the tooltip doesn't actually touch the bottom of the screen
+
 const NoClassroomsToImportModal = ({ close, provider, allProviderClassrooms }: NoClassroomsToImportModalProps) => {
   const providerTitle = providerConfigLookup[provider].title
 
@@ -24,8 +26,9 @@ const NoClassroomsToImportModal = ({ close, provider, allProviderClassrooms }: N
       <p>
         There {importedAndArchivedClassrooms.length > 1 ? 'are' : 'is'}&nbsp;<b>{importedAndArchivedClassrooms.length} Google Classroom{importedAndArchivedClassrooms.length > 1 ? 's' : ''}</b>&nbsp;you have access to, but don't own
         <Tooltip
+          averageItemHeight={AVERAGE_TOOLTIP_ITEM_HEIGHT}
+          tooltipText={importedAndArchivedClassrooms.map(c => c.name)}
           tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
-          tooltipText={importedAndArchivedClassrooms.map(c => c.name).join('<br />')}
         />
       </p>
     ) : null
@@ -34,8 +37,9 @@ const NoClassroomsToImportModal = ({ close, provider, allProviderClassrooms }: N
       <p>
         You have&nbsp;<b>{unownedClassrooms.length} synced Google Classroom{unownedClassrooms.length > 1 ? 's' : ''} <a href="/teachers/classrooms/archived">archived in Quill</a></b>
         <Tooltip
+          averageItemHeight={AVERAGE_TOOLTIP_ITEM_HEIGHT}
+          tooltipText={unownedClassrooms.map(c => c.name)}
           tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
-          tooltipText={unownedClassrooms.map(c => c.name).join('<br />')}
         />
       </p>
     ) : null

@@ -5,11 +5,12 @@ import { onMobile } from '../..'
 interface TooltipProps {
   isTabbable?: boolean,
   handleClick?: (e: any) => void,
-  tooltipText: string,
+  tooltipText: string|Array<string>,
   tooltipTriggerText: string|JSX.Element,
   tooltipTriggerTextClass?: string,
   tooltipTriggerTextStyle?: { [key:string]: any }
   tooltipTriggerStyle?: { [key:string]: any }
+  averageItemHeight?: number;
 }
 
 const VISIBLE = 'visible'
@@ -25,7 +26,7 @@ class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean
 
     document.addEventListener('click', this.handlePageClick.bind(this));
 
-    this.state = { clickedFromMobile: false, tooltipVisible: false }
+    this.state = { clickedFromMobile: false, tooltipVisible: false };
 
     this.showTooltip = this.showTooltip.bind(this)
     this.hideTooltip = this.hideTooltip.bind(this)
@@ -36,13 +37,30 @@ class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean
   }
 
   showTooltip() {
-    const { tooltipText } = this.props
-    const activeTooltips = document.getElementsByClassName('visible quill-tooltip')
-    Array.from(activeTooltips).forEach(tooltip => tooltip.classList.remove('visible'))
-    this.tooltip.innerHTML = tooltipText
-    this.tooltip.classList.add(VISIBLE)
+    const { tooltipText, averageItemHeight } = this.props;
+    const activeTooltips = document.getElementsByClassName('visible quill-tooltip');
+    Array.from(activeTooltips).forEach(tooltip => tooltip.classList.remove('visible'));
+
+    let textToShow = tooltipText
+
+    // Check if tooltipText is an array and truncate if needed
+    if (Array.isArray(tooltipText)) {
+      const availableSpace = window.innerHeight - this.tooltip.getBoundingClientRect().top;
+
+      if (tooltipText.length * averageItemHeight >= availableSpace) {
+        const itemsToFit = Math.floor(availableSpace / averageItemHeight) - 1;
+        const remainingItems = tooltipText.length - itemsToFit;
+        textToShow = `${tooltipText.slice(0, itemsToFit).map(t => `<span>${t}</span>`).join('<br/><br/>')}<br/><br/><b>...and ${remainingItems} more</b>`
+      } else {
+        textToShow = tooltipText.join('<br/>')
+      }
+    }
+
+    this.tooltip.innerHTML = textToShow ;
+    this.tooltip.classList.add(VISIBLE);
+
     if (this.tooltip.getBoundingClientRect().right >= window.innerWidth) {
-      this.tooltipWrapper.classList.add(RIGHT_JUSTIFY)
+      this.tooltipWrapper.classList.add(RIGHT_JUSTIFY);
     }
   }
 
