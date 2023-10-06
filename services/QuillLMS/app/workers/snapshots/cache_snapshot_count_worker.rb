@@ -62,7 +62,7 @@ module Snapshots
       timeframe_end = parse_datetime_string(timeframe['current_end'])
       filters_symbolized = filters.symbolize_keys
 
-      result = ErrorNotifier.report_long_running(SnapshotCountTooSlow.new("Snapshot Count query took more than #{TOO_SLOW_THRESHOLD}"), TOO_SLOW_THRESHOLD, {
+      ErrorNotifier.report_long_running(SnapshotCountTooSlow.new("Snapshot Count query took more than #{TOO_SLOW_THRESHOLD}"), TOO_SLOW_THRESHOLD, {
         query: query,
         timeframe_start: current_timeframe_start,
         timeframe_end: timeframe_end,
