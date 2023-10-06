@@ -1088,6 +1088,7 @@
   text-align: left;
   overflow: hidden;
   max-height: 100vh;
+  height: auto !important;
   .create-a-class-modal-content {
     max-height: 100vh;
     height: 100%;
@@ -1132,7 +1133,8 @@
     }
 
     .create-a-class-form {
-      width: 512px;
+      max-width: 512px;
+      width: 100%;
       .input-container {
         margin-bottom: 12px;
         &.grade {
@@ -1292,7 +1294,8 @@
       }
     }
     .data-table {
-      height: calc(100% - 58px);
+      /* 90vh is the max-height of the modal, and 282px is the sum of the content in the non-'middle-section' parts of the modal */
+      height: calc(90vh - 282px);
     }
     .data-table-row:last-of-type {
       border-bottom: 1px solid $quill-grey-5 !important;

@@ -137,10 +137,6 @@ export const proficiencyTextToGrayIcon = {
   [NO_PROFICIENCY]: grayNoProficiencyIcon
 }
 
-export const PROFICIENT = 'Proficient'
-export const NEARLY_PROFICIENT = 'Nearly proficient'
-export const NOT_YET_PROFICIENT = 'Not yet proficient'
-
 // shared consts for handling table scroll at wide view
 export const LEFT_OFFSET = 260 // width of the left-hand navigation
 export const DEFAULT_LEFT_PADDING = 32

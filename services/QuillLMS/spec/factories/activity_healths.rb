@@ -1,5 +1,24 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: activity_healths
+#
+#  id                      :integer          not null, primary key
+#  activity_categories     :string           is an Array
+#  activity_packs          :jsonb
+#  avg_common_unmatched    :float
+#  avg_difficulty          :float
+#  avg_mins_to_complete    :float
+#  content_partners        :string           is an Array
+#  diagnostics             :string           is an Array
+#  flag                    :string
+#  name                    :string
+#  recent_plays            :integer
+#  standard_dev_difficulty :float
+#  tool                    :string
+#  url                     :string
+#
 FactoryBot.define do
   factory :activity_health do
     name { 'Test Activity' }

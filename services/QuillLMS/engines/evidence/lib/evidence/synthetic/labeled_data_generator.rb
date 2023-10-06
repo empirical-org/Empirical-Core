@@ -16,26 +16,20 @@ module Evidence
       # 3) Add type and class to this mapping
       GENERATORS = {
         paraphrase: Synthetic::Generators::Paraphrase,
-        translation: Synthetic::Generators::Translation,
         spelling: Synthetic::Generators::Spelling,
         spelling_passage_specific: Synthetic::Generators::SpellingPassageSpecific
       }
 
-      DEFAULT_GENERATORS = GENERATORS.slice(:translation, :spelling, :spelling_passage_specific)
-
+      DEFAULT_GENERATORS = GENERATORS.slice(:paraphrase, :spelling, :spelling_passage_specific)
       TEST_GENERATOR_KEYS = [:spelling_passage_specific]
+      FREE_GENERATORS = GENERATORS.except(:paraphrase)
 
-      FREE_GENERATORS = GENERATORS.except(:translations, :paraphrase)
-      DEFAULT_LANGUAGES = Evidence::Synthetic::Generators::Translation::TRAIN_LANGUAGES.keys
-
-      attr_reader :results, :languages, :labels, :generators, :passage, :batch, :prompt
+      attr_reader :results, :labels, :generators, :passage, :batch, :prompt
 
       # params:
       # texts_and_labels: [['text', 'label_5'],['text', 'label_1'],...]
-      # languages: [:es, :ja, ...]
       # manual_types: bool, whether to assign TEXT,VALIDATION,TRAIN to each row
-      def initialize(texts_and_labels, prompt:, languages: DEFAULT_LANGUAGES, generators: DEFAULT_GENERATORS.keys, manual_types: false)
-        @languages = languages
+      def initialize(texts_and_labels, prompt:, generators: DEFAULT_GENERATORS.keys, manual_types: false)
         @manual_types = manual_types
         @generators = GENERATORS.slice(*generators)
 
@@ -43,7 +37,6 @@ module Evidence
         @batch = Evidence::PromptTextBatch.create(
           type: Evidence::PromptTextBatch::TYPE_LABELED,
           prompt: prompt,
-          languages: languages,
           manual_types: manual_types,
           generators: generators
         )
@@ -108,7 +101,7 @@ module Evidence
       # {'their originial response' => [Generated(spelling)]}
       def run_generators(generator_hash, results_set)
         generator_hash.each do |type, generator|
-          results_hash = generator.run(results_set.map(&:text), languages: languages, passage: passage)
+          results_hash = generator.run(results_set.map(&:text), passage: passage)
 
           results_set.each do |result|
             array_for_result = results_hash[result.text] || []

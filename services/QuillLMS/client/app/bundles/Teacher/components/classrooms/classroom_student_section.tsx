@@ -585,7 +585,7 @@ const ClassroomStudentSection = ({
     const { classroomProvider } = classroom
 
     if (classroomProvider) {
-      const isDisabled = providerConfigLookup[user.provider].title !== classroomProvider
+      const isDisabled = providerConfigLookup[user.provider]?.title !== classroomProvider
       const lastUpdatedDate = moment(classroom.updated_at).format('MMM D, YYYY')
       return (
         <div className="invite-provider-classroom-students">

@@ -20,7 +20,7 @@ export const UpperFormSection = ({
   requestErrors,
   showErrorsContainer
 }) => {
-  return(
+  return (
     <React.Fragment>
       <Input
         className="title-input"

@@ -10,8 +10,8 @@ import { StandardDropdownOption } from './standardDropdownOption';
 
 export interface Option {
   label: string,
-  value: string|number,
-  [key:string]: any
+  value: string | number,
+  [key: string]: any
 }
 
 interface DropdownInputProps {
@@ -20,9 +20,9 @@ interface DropdownInputProps {
   disabled?: boolean;
   error?: string;
   handleCancel?: (event: any) => void;
-  handleChange?: (selection: any|any[]) => void;
+  handleChange?: (selection: any | any[]) => void;
   helperText?: string;
-  label?: string|JSX.Element;
+  label?: string | JSX.Element;
   id?: string;
   isMulti?: boolean;
   isSearchable?: boolean;
@@ -47,7 +47,7 @@ interface DropdownInputState {
   errorAcknowledged: boolean;
   menuIsOpen: boolean;
   options: Array<any>;
-  cursor: number|null;
+  cursor: number | null;
   inputValue: string;
 }
 
@@ -303,7 +303,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
 
   renderInput() {
     const { active, errorAcknowledged, menuIsOpen, cursor, inputValue, } = this.state
-    const { className, label, value, placeholder, error, type, id, isSearchable, isMulti, optionType, optionTypeDescriptor, usesCustomOption, filterOptions } = this.props
+    const { className, label, value, placeholder, error, type, id, isSearchable, isMulti, optionType, optionTypeDescriptor, usesCustomOption, filterOptions, disabled, } = this.props
     const passedValue = value || ''
     const hasText = value || isMulti ? 'has-text' : ''
     const inactiveOrActive = active ? 'active' : 'inactive'
@@ -311,6 +311,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     const searchable = isSearchable ? 'searchable' : ''
     const checkboxDropdown = isMulti ? 'checkbox-dropdown' : ''
     const sharedClasses = `dropdown-container input-container ${inactiveOrActive} ${hasText} ${notEditable} ${className} ${searchable} ${checkboxDropdown}`
+
     const sharedProps = {
       id,
       cursor,
@@ -329,7 +330,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       onInputChange: this.handleInputChange,
       tabIndex: isSearchable ? 0 : -1,
       inputValue,
-      filterOption: filterOptions ? this.handleFilterOptions : null
+      filterOption: filterOptions ? this.handleFilterOptions : null,
     }
     if (error) {
       if (errorAcknowledged) {
@@ -376,6 +377,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
         return (
           <div
             className={sharedClasses}
+            disabled={disabled}
             onClick={this.handleInputInteraction}
             onKeyDown={this.handleKeyDownOnInputContainer}
             onTouchStart={this.handleInputInteraction}

@@ -4,6 +4,8 @@ module Snapshots
   class CacheSnapshotCountWorker
     include Sidekiq::Worker
 
+    sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
+
     PUSHER_EVENT = 'admin-snapshot-count-cached'
 
     QUERIES = {

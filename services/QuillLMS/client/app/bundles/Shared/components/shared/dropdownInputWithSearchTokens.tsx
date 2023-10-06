@@ -28,7 +28,7 @@ const SearchToken = ({ searchItem, onRemoveSearchItem, }: SearchTokenProps) => {
   return (
     <div className="search-token">
       <span>{searchItem.label}</span>
-      <button aria-label={`Remove ${searchItem.label} from filtered list`} className="interactive-wrapper focus-on-light" onClick={handleRemoveSearchItem} type="button"><img alt="" src={removeSearchTokenSrc} /></button>
+      <button aria-label={`Remove ${searchItem.label} from filtered list`} className="interactive-wrapper focus-on-dark" onClick={handleRemoveSearchItem} type="button"><img alt="" src={removeSearchTokenSrc} /></button>
     </div>
   )
 }
