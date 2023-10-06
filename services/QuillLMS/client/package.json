@@ -69,7 +69,6 @@
     "lodash": "^4.17.21",
     "marked": "^4.1.0",
     "match-sorter": "^6.3.0",
-    "md5": "^2.3.0",
     "mini-css-extract-plugin": "^2.3.0",
     "mockdate": "^2.0.1",
     "moment": "^2.29.4",
