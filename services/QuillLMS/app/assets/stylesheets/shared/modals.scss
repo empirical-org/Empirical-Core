@@ -924,13 +924,55 @@
 }
 
 .provider-classrooms-empty-modal {
-  height: 449px;
+  height: min-content;
   text-align: center;
-  .title, p {
-    margin-bottom: 48px;
+  max-width: 698px;
+  width: 100%;
+
+  .title {
+    margin-bottom: 32px;
   }
   p {
-    margin-top: 24px;
+    margin: 0px;
+    color: $quill-grey-40;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .explanation {
+    img {
+      margin: 0px auto 32px;
+    }
+    p {
+      max-width: 400px;
+      margin: auto;
+      line-height: 22px;
+    }
+  }
+  .not-seeing-classes-section {
+    margin-top: 32px;
+    border-top: 1px solid $quill-grey-5;
+    padding: 32px 0px;
+    h4 {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 32px;
+      margin-bottom: 16px;
+    }
+    p {
+      margin-top: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    b {
+      color: $quill-grey-90;
+    }
+    a {
+      color: $quill-green;
+    }
+    img {
+      margin-left: 8px;
+    }
   }
 }
 

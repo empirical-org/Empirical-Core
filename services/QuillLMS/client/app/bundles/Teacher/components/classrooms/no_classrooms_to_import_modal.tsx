@@ -1,15 +1,54 @@
 import * as React from 'react';
 const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`
 
+import { Tooltip, helpIcon, } from '../../../Shared/index'
+
 import { providerConfigLookup } from './providerHelpers'
 
 interface NoClassroomsToImportModalProps {
+  allProviderClassrooms: Array<any>;
   close: () => void;
   provider: 'Canvas' | 'Clever' | 'Google';
 }
 
-const NoClassroomsToImportModal = ({ close, provider }: NoClassroomsToImportModalProps) => {
+const NoClassroomsToImportModal = ({ close, provider, allProviderClassrooms }: NoClassroomsToImportModalProps) => {
   const providerTitle = providerConfigLookup[provider].title
+
+  const unownedClassrooms = allProviderClassrooms.filter(classroom => !classroom.is_owner)
+  const importedAndArchivedClassrooms = allProviderClassrooms.filter(classroom => classroom.archived && classroom.alreadyImported)
+
+  let notSeeingClassesSection
+
+  if (unownedClassrooms.length || importedAndArchivedClassrooms.length) {
+    const importedAndArchivedClassroomsSection = importedAndArchivedClassrooms.length ? (
+      <p>
+        There {importedAndArchivedClassrooms.length > 1 ? 'are' : 'is'}&nbsp;<b>{importedAndArchivedClassrooms.length} Google Classroom{importedAndArchivedClassrooms.length > 1 ? 's' : ''}</b>&nbsp;you have access to, but don't own
+        <Tooltip
+          tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
+          tooltipText={importedAndArchivedClassrooms.map(c => c.name).join('<br />')}
+        />
+      </p>
+    ) : null
+
+    const unownedClassroomsSection = unownedClassrooms.length ? (
+      <p>
+        You have&nbsp;<b>{unownedClassrooms.length} synced Google Classroom{unownedClassrooms.length > 1 ? 's' : ''} <a href="/teachers/classrooms/archived">archived in Quill</a></b>
+        <Tooltip
+          tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
+          tooltipText={unownedClassrooms.map(c => c.name).join('<br />')}
+        />
+      </p>
+    ) : null
+
+    notSeeingClassesSection = (
+      <div className="not-seeing-classes-section">
+        <h4>Not seeing classes?</h4>
+        {unownedClassroomsSection}
+        {importedAndArchivedClassroomsSection}
+      </div>
+    )
+
+  }
 
   return (
     <div className='modal-container provider-classrooms-empty-modal-container'>
@@ -18,10 +57,11 @@ const NoClassroomsToImportModal = ({ close, provider }: NoClassroomsToImportModa
         <div>
           <h3 className="title">Create classrooms in {providerTitle}</h3>
         </div>
-        <div className="no-active-classes">
+        <div className="explanation">
           <img alt="empty class" src={emptyClassSrc} />
           <p>No classes are available to import yet. Go to {providerTitle} and create classes to import them into Quill.</p>
         </div>
+        {notSeeingClassesSection}
         <div className="form-buttons">
           <button className="quill-button contained primary medium" onClick={close} type="button">Close</button>
         </div>
