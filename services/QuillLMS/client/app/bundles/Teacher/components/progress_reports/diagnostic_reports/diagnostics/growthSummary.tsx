@@ -26,7 +26,7 @@ import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_GROWTH_SUMMARY, } from '
 import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
 function renderGrowthElement(delta: number, text: string) {
-  return delta > 0 ? <div className="growth-element">{triangleUpIcon}<span>{Math.round(delta)}{`% ${text}`}</span></div> : <div className="growth-element no-growth">No growth</div>
+  return delta > 0 ? <div className="growth-element in-card">{triangleUpIcon}<span>{Math.round(delta)}{`% ${text}`}</span></div> : <div className="growth-element in-card no-growth">No growth</div>
 }
 
 const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { skillGroupSummary: SkillGroupSummary, completedStudentCount: number }) => {
@@ -87,7 +87,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { s
   }
 
   return (
-    <section className="skill-group-summary-card">
+    <section className="skill-group-summary-card post-diagnostic-summary-card">
       <div className="card-header">
         <span className="skill-group-name">{name}</span>
         <SkillGroupTooltip description={description} name={name} />

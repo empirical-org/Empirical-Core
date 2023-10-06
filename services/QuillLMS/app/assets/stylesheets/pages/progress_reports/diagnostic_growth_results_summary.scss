@@ -45,8 +45,6 @@
     }
   }
   .growth-element {
-    margin: 0 auto;
-    margin-top: 10px;
     padding: 8px;
     border-radius: 8px;
     font-size: 12px;
@@ -55,15 +53,23 @@
     img {
       margin-right: 4px;
     }
+    &.in-card.no-growth {
+      margin: 0 auto;
+      margin-top: 10px;
+      width: 80px;
+    }
+    &.in-card:not(.no-growth) {
+      margin: 0 auto;
+      margin-top: 10px;
+      width: 100px;
+    }
     &.no-growth {
       color: $quill-grey-50;
       background-color: $quill-grey-3;
-      width: 80px;
     }
     &:not(.no-growth) {
       color: $quill-green-vibrant;
       background-color: #b8db99;
-      width: 100px;
     }
   }
 
