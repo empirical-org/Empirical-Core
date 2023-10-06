@@ -4,9 +4,12 @@ module Snapshots
   class CacheSnapshotCountWorker
     include Sidekiq::Worker
 
+    class SnapshotCountTooSlow < StandardError; end
+
     sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
 
     PUSHER_EVENT = 'admin-snapshot-count-cached'
+    TOO_SLOW_THRESHOLD = 20
 
     QUERIES = {
       'active-classrooms' => Snapshots::ActiveClassroomsQuery,
@@ -59,23 +62,29 @@ module Snapshots
       timeframe_end = parse_datetime_string(timeframe['current_end'])
       filters_symbolized = filters.symbolize_keys
 
-      current_snapshot = QUERIES[query].run(**{
+      result = ErrorNotifier.report_long_running(SnapshotCountTooSlow.new("Snapshot Count query took more than #{TOO_SLOW_THRESHOLD}"), TOO_SLOW_THRESHOLD, {
+        query: query,
         timeframe_start: current_timeframe_start,
         timeframe_end: timeframe_end,
         school_ids: school_ids
-      }.merge(filters_symbolized))
-
-      if previous_timeframe_start
-        previous_snapshot = QUERIES[query].run(**{
-          timeframe_start: previous_timeframe_start,
-          timeframe_end: previous_timeframe_end,
+      }.merge(filters_symbolized)) do
+        current_snapshot = QUERIES[query].run(**{
+          timeframe_start: current_timeframe_start,
+          timeframe_end: timeframe_end,
           school_ids: school_ids
         }.merge(filters_symbolized))
-      else
-        previous_snapshot = nil
-      end
 
-      { current: current_snapshot&.fetch(:count, nil), previous: previous_snapshot&.fetch(:count, nil) }
+        if previous_timeframe_start
+          previous_snapshot = QUERIES[query].run(**{
+            timeframe_start: previous_timeframe_start,
+            timeframe_end: previous_timeframe_end,
+            school_ids: school_ids
+          }.merge(filters_symbolized))
+        else
+          previous_snapshot = nil
+        end
+        { current: current_snapshot&.fetch(:count, nil), previous: previous_snapshot&.fetch(:count, nil) }
+      end
     end
 
     private def parse_datetime_string(value)
