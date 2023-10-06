@@ -74,7 +74,6 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     }
 
     requestPost(`/snapshots/count`, searchParams, (body) => {
-      console.log(`making API call for ${queryKey}`)
       if (!body.hasOwnProperty('results')) {
         setLoading(true)
       } else {
@@ -101,7 +100,6 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
           setChangeDirection(NONE)
         }
         if (retryTimeout) {
-          console.log(`clearing timeout for ${queryKey}`)
           clearTimeout(retryTimeout)
         }
         setLoading(false)
