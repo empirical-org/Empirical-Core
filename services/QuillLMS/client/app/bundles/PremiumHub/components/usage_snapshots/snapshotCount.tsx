@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import md5 from 'md5'
+
 import { SMALL, POSITIVE, NEGATIVE, NONE } from './shared'
 
 import { requestPost, } from './../../../../modules/request'
@@ -103,16 +105,28 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
       const { message, } = body
 
-      const queryKeysAreEqual = message.query === queryKey
-      const timeframesAreEqual = message.timeframe === selectedTimeframe
-      const schoolIdsAreEqual = selectionsEqual(message.school_ids, selectedSchoolIds)
-      const teacherIdsAreEqual = selectionsEqual(message.teacher_ids, selectedTeacherIds)
-      const classroomIdsAreEqual = selectionsEqual(message.classroom_ids, selectedClassroomIds)
-      const gradesAreEqual =  selectionsEqual(message.grades, selectedGrades?.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
+      const filterHash = md5([
+        queryKey,
+        selectedTimeframe,
+        selectedSchoolIds.join('-'),
+        selectedGrades.join('-'),
+        selectedTeacherIds.join('-'),
+        selectedClassroomIds.join('-')
+      ])
 
-      if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {
-        getData()
-      }
+      console.log(`${message} == ${filterHash} ? ${message == filterHash}`)
+
+      if (message == filterHash) getData()
+//      const queryKeysAreEqual = message.query === queryKey
+//      const timeframesAreEqual = message.timeframe === selectedTimeframe
+//      const schoolIdsAreEqual = selectionsEqual(message.school_ids, selectedSchoolIds)
+//      const teacherIdsAreEqual = selectionsEqual(message.teacher_ids, selectedTeacherIds)
+//      const classroomIdsAreEqual = selectionsEqual(message.classroom_ids, selectedClassroomIds)
+//      const gradesAreEqual =  selectionsEqual(message.grades, selectedGrades?.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
+//
+//      if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {
+//        getData()
+//      }
     });
   };
 
