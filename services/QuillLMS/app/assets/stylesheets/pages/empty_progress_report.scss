@@ -1,26 +1,27 @@
 .empty-progress-report {
-  max-width: 500px;
+  max-width: 700px;
   width: 100%;
-  margin: 55px auto 30px;
+  margin: 128px auto 30px;
   text-align: center;
-  h1 {
-    margin: 35px 0px 20px;
-    font-size: 30px;
-    font-weight: 600;
-    color: $quill-black;
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 26.08px;
+    margin-bottom: 8px;
   }
   p {
-    font-size: 20px;
+    font-weight: 400;
+    font-size: 14px;
     line-height: 1.3;
-    color: $quill-black;
+    color: $quill-grey-50;
   }
   button {
     display: block;
-    margin: 30px auto 25px;
+    margin: 30px auto 18px;
   }
   a {
-    font-size: 16px;
-    color: #00c2a2;
-    border-bottom: 2px solid #00c2a2;
+    font-size: 14px;
+    font-weight: 500;
+    color: $quill-green;
   }
 }
