@@ -19,7 +19,6 @@ import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqu
 const MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS = 1500
 
 export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, location }) => {
-  console.log("🚀 ~ file: PremiumFilterableReportsContainer.tsx:19 ~ PremiumFilterableReportsContainer ~ location:", location)
   const [loadingFilters, setLoadingFilters] = React.useState(true)
 
   const [allTimeframes, setAllTimeframes] = React.useState(null)

@@ -85,7 +85,7 @@ export const DiagnosticGrowthReportsContainer = ({
         </h1>
         <div className="buttons-container">
           <button className="quill-button manage-subscription-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">
-            <img src={emailWhiteIconSrc} />
+            <img alt="" src={emailWhiteIconSrc} />
             <span>Manage subscription</span>
           </button>
           <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">
