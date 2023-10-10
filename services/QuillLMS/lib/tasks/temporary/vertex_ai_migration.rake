@@ -102,6 +102,8 @@ namespace :vertex_ai  do
       Evidence::AutomlModel
         .where(id: new_model.id)
         .update_all(labels: old_labels)
+
+      new_model.activate
     end
   end
 end
