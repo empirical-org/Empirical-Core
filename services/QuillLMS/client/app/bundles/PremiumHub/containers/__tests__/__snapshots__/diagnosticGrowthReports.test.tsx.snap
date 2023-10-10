@@ -34,6 +34,7 @@ exports[`DiagnosticGrowthReports full state it should render the expected header
           type="button"
         >
           <img
+            alt=""
             src="undefined/images/icons/email-icon-white.svg"
           />
           <span>
@@ -305,6 +306,7 @@ exports[`DiagnosticGrowthReports full state it should render the overview table 
           type="button"
         >
           <img
+            alt=""
             src="undefined/images/icons/email-icon-white.svg"
           />
           <span>
