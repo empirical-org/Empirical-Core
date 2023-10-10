@@ -66,7 +66,7 @@ module GoogleIntegration
       it { is_expected.to eq expected_results }
     end
 
-    context 'classroom  not owned' do
+    context 'classroom not owned' do
       let(:is_owner) { false }
       let(:user_external_id) { Faker::Number.number }
 
