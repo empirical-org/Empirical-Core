@@ -1,5 +1,5 @@
 import * as React from 'react';
-const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`
+const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty_class.svg`
 
 import { providerConfigLookup } from './providerHelpers'
 

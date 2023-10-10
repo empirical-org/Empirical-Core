@@ -430,7 +430,7 @@
 }
 
 .quill-modal {
-  border-radius: 6px;
+  border-radius: 16px;
   background-color: $quill-white;
   z-index: 3;
   position: fixed !important;
@@ -976,6 +976,7 @@
     .quill-tooltip-wrapper {
       text-align: left;
       line-height: 22px;
+      width: 400px;
       br {
         line-height: 16px;
       }
@@ -1437,7 +1438,7 @@
   display: flex;
   height: min-content;
   position: absolute;
-  border-radius: 6px;
+  border-radius: 16px;
   z-index: 3;
   top: 150px;
   left: 50%;
