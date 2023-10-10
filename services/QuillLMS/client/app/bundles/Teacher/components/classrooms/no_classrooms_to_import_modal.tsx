@@ -1,9 +1,9 @@
 import * as React from 'react';
 const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`
 
-import { Tooltip, helpIcon, } from '../../../Shared/index'
-
 import { providerConfigLookup } from './providerHelpers'
+
+import { Tooltip, helpIcon, } from '../../../Shared/index'
 
 interface NoClassroomsToImportModalProps {
   allProviderClassrooms: Array<any>;
@@ -24,7 +24,7 @@ const NoClassroomsToImportModal = ({ close, provider, allProviderClassrooms }: N
   if (unownedClassrooms.length || importedAndArchivedClassrooms.length) {
     const importedAndArchivedClassroomsSection = importedAndArchivedClassrooms.length ? (
       <p>
-        There {importedAndArchivedClassrooms.length > 1 ? 'are' : 'is'}&nbsp;<b>{importedAndArchivedClassrooms.length} Google Classroom{importedAndArchivedClassrooms.length > 1 ? 's' : ''}</b>&nbsp;you have access to, but don't own
+        You have&nbsp;<b>{importedAndArchivedClassrooms.length} synced Google Classroom{importedAndArchivedClassrooms.length > 1 ? 's' : ''} <a href="/teachers/classrooms/archived">archived in Quill</a></b>
         <Tooltip
           averageItemHeight={AVERAGE_TOOLTIP_ITEM_HEIGHT}
           tooltipText={importedAndArchivedClassrooms.map(c => c.name)}
@@ -35,7 +35,7 @@ const NoClassroomsToImportModal = ({ close, provider, allProviderClassrooms }: N
 
     const unownedClassroomsSection = unownedClassrooms.length ? (
       <p>
-        You have&nbsp;<b>{unownedClassrooms.length} synced Google Classroom{unownedClassrooms.length > 1 ? 's' : ''} <a href="/teachers/classrooms/archived">archived in Quill</a></b>
+        There {unownedClassrooms.length > 1 ? 'are' : 'is'}&nbsp;<b>{unownedClassrooms.length} Google Classroom{unownedClassrooms.length > 1 ? 's' : ''}</b>&nbsp;you have access to, but don&#39;t own
         <Tooltip
           averageItemHeight={AVERAGE_TOOLTIP_ITEM_HEIGHT}
           tooltipText={unownedClassrooms.map(c => c.name)}
@@ -47,8 +47,8 @@ const NoClassroomsToImportModal = ({ close, provider, allProviderClassrooms }: N
     notSeeingClassesSection = (
       <div className="not-seeing-classes-section">
         <h4>Not seeing classes?</h4>
-        {unownedClassroomsSection}
         {importedAndArchivedClassroomsSection}
+        {unownedClassroomsSection}
       </div>
     )
 
