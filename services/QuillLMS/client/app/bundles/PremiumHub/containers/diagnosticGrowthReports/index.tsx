@@ -13,7 +13,7 @@ const greyPencilIconSrc = `${process.env.CDN_URL}/images/pages/administrator/usa
 const OVERVIEW = 'overview'
 const SKILL = 'skill'
 const STUDENT = 'student'
-const dropdownOptions = [{ label: 'Grade', value: 'grade' }]
+const dropdownOptions = [{ label: 'Grade', value: 'grade' }, { label: 'Teacher', value: 'teacher'}, { label: 'Classroom', value: 'classroom' }]
 
 export const DiagnosticGrowthReportsContainer = ({
   accessType,

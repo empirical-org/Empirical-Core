@@ -19,9 +19,9 @@
       background-color: $quill-grey-1;
       color: $quill-grey-90;
       border: 1px solid $quill-grey-10;
-
+      height: 36px;
       span {
-        font-weight: 500;
+        font-weight: 600;
       }
 
       img {
@@ -51,6 +51,12 @@
   }
   .growth-diagnostic-reports-overview-table {
     margin-top: 48px;
+    .data-table-headers {
+      padding-right: 0px;
+      th:last-of-type {
+        margin-right: 0px;
+      }
+    }
   }
 }
 
