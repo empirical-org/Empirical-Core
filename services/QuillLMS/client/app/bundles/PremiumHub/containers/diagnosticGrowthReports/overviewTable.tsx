@@ -66,7 +66,6 @@ const headers = [
 
 
 export const OverviewTable = ({
-  accessType,
   loadingFilters,
   customStartDate,
   customEndDate,

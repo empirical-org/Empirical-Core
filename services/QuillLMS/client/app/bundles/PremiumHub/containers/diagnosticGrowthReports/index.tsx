@@ -56,7 +56,6 @@ export const DiagnosticGrowthReportsContainer = ({
   }
 
   const sharedProps = {
-    accessType,
     loadingFilters,
     customStartDate,
     customEndDate,
