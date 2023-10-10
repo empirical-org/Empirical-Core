@@ -47,7 +47,7 @@ class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean
     if (Array.isArray(tooltipText)) {
       const availableSpace = window.innerHeight - this.tooltip.getBoundingClientRect().top;
 
-      if (tooltipText.length * averageItemHeight >= availableSpace) {
+      if (averageItemHeight && (tooltipText.length * averageItemHeight >= availableSpace)) {
         const itemsToFit = Math.floor(availableSpace / averageItemHeight) - 1;
         const remainingItems = tooltipText.length - itemsToFit;
         textToShow = `${tooltipText.slice(0, itemsToFit).map(t => `<span>${t}</span>`).join('<br/><br/>')}<br/><br/><b>...and ${remainingItems} more</b>`
