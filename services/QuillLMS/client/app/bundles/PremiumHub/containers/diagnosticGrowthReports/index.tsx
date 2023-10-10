@@ -5,10 +5,13 @@ import { Spinner, whiteArrowPointingDownIcon, filterIcon, documentFileIcon, Drop
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
 import OverviewTable from './overviewTable'
 
-const whiteEmailIconSrc = `${process.env.CDN_URL}/images/icons/email-icon-white.svg`
-const whiteBarChartIconSrc = `${process.env.CDN_URL}/images/icons/white-bar-chart-icon.svg`
-const greyGroupOfStudentsIconSrc = `${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/students.svg`
-const greyPencilIconSrc = `${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/pencil.svg`
+const emailWhiteIconSrc = `${process.env.CDN_URL}/images/icons/email-icon-white.svg`
+const barChartGreySrc = `${process.env.CDN_URL}/images/pages/diagnostic_reports/icons-bar-chart.svg`
+const barChartWhiteIconSrc = `${process.env.CDN_URL}/images/icons/white-bar-chart-icon.svg`
+const groupOfStudentsGreyIconSrc = `${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/students.svg`
+const groupOfStudentsWhiteIconSrc = `${process.env.CDN_URL}/images/icons/students-white.svg`
+const pencilGreyIconSrc = `${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/pencil.svg`
+const pencilWhiteIconSrc = `${process.env.CDN_URL}/images/icons/white-pencil-icon.svg`
 
 const OVERVIEW = 'overview'
 const SKILL = 'skill'
@@ -83,7 +86,7 @@ export const DiagnosticGrowthReportsContainer = ({
         </h1>
         <div className="buttons-container">
           <button className="quill-button manage-subscription-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">
-            <img src={whiteEmailIconSrc} />
+            <img src={emailWhiteIconSrc} />
             <span>Manage subscription</span>
           </button>
           <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">
@@ -93,16 +96,16 @@ export const DiagnosticGrowthReportsContainer = ({
         </div>
       </div>
       <div className="tabs-for-pages-container">
-        <button className="interactive-wrapper performance-type-button overview active" onClick={handleTabChange} value={OVERVIEW}>
-          <img alt="Bar chart with three bars" src={whiteBarChartIconSrc} />
+        <button className={`interactive-wrapper performance-type-button overview ${activeTab === OVERVIEW ? 'active' : ''}`} onClick={handleTabChange} value={OVERVIEW}>
+          <img alt="" src={activeTab === OVERVIEW ? barChartWhiteIconSrc : barChartGreySrc} />
           <span>Performance Overview</span>
         </button>
-        <button className="interactive-wrapper performance-type-button skill" onClick={handleTabChange} value={SKILL}>
-          <img alt="Pencil" src={greyPencilIconSrc} />
+        <button className={`interactive-wrapper performance-type-button skill ${activeTab === SKILL ? 'active' : ''}`} onClick={handleTabChange} value={SKILL}>
+          <img alt="" src={activeTab === SKILL ? pencilWhiteIconSrc : pencilGreyIconSrc} />
           <span>Performance by Skill</span>
         </button>
-        <button className="interactive-wrapper performance-type-button student" onClick={handleTabChange} value={STUDENT}>
-          <img alt="Group of three silhouettes" src={greyGroupOfStudentsIconSrc} />
+        <button className={`interactive-wrapper performance-type-button student ${activeTab === STUDENT ? 'active' : ''}`} onClick={handleTabChange} value={STUDENT}>
+          <img alt="" src={activeTab === STUDENT ? groupOfStudentsWhiteIconSrc : groupOfStudentsGreyIconSrc} />
           <span>Performance by Student</span>
         </button>
       </div>

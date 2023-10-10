@@ -25,12 +25,17 @@
 
       img {
         margin-right: 4px;
+        height: 16px;
+        width: 16px;
       }
 
       &.overview {
         border-top-left-radius: 8px;
         border-bottom-left-radius: 8px;
         border: 1px solid $quill-grey-10;
+        &.active {
+          border-left: 1px solid $quill-green;
+        }
       }
       &.skill {
         border-top: 1px solid $quill-grey-10;
@@ -40,11 +45,15 @@
         border-top-right-radius: 8px;
         border-bottom-right-radius: 8px;
         border: 1px solid $quill-grey-10;
+        &.active {
+          border-right: 1px solid $quill-green;
+        }
       }
       &.active {
         background-color: $quill-green;
         color: $quill-white;
-        border: 1px solid $quill-green;
+        border-top: 1px solid $quill-green;
+        border-bottom: 1px solid $quill-green;
       }
     }
   }
