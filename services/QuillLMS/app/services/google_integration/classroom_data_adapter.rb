@@ -23,7 +23,7 @@ module GoogleIntegration
     end
 
     private def already_imported?
-      already_imported_classroom&.present? || false
+      already_imported_classroom&.present?
     end
 
     private def already_imported_classroom
