@@ -18,7 +18,6 @@
       padding: 13px 32px;
       background-color: $quill-grey-1;
       color: $quill-grey-90;
-      border: 1px solid $quill-grey-10;
       height: 36px;
       span {
         font-weight: 600;
@@ -31,13 +30,17 @@
       &.overview {
         border-top-left-radius: 8px;
         border-bottom-left-radius: 8px;
+        border: 1px solid $quill-grey-10;
       }
-
+      &.skill {
+        border-top: 1px solid $quill-grey-10;
+        border-bottom: 1px solid $quill-grey-10;
+      }
       &.student {
         border-top-right-radius: 8px;
         border-bottom-right-radius: 8px;
+        border: 1px solid $quill-grey-10;
       }
-
       &.active {
         background-color: $quill-green;
         color: $quill-white;
