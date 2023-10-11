@@ -21,13 +21,7 @@ module Snapshots
         classroom_ids: classroom_ids
       }
     end
-    let(:filters_with_string_keys) do
-      {
-        "grades" => grades,
-        "teacher_ids" => teacher_ids,
-        "classroom_ids" => classroom_ids
-      }
-    end
+    let(:filters_with_string_keys) { filters.stringify_keys }
     let(:query_double) { double(run: {}) }
 
     it { expect { described_class::QUERIES.values }.not_to raise_error }
