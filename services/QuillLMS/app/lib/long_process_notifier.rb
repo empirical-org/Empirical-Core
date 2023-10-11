@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LongProcessNotifier < ApplicationService
   attr_reader :error, :threshold, :options
 
@@ -6,7 +8,7 @@ class LongProcessNotifier < ApplicationService
     @threshold = threshold
     @options = options
   end
-    
+
   def run
     start = self.class.current_time
     result = yield
