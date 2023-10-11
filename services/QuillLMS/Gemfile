@@ -162,7 +162,7 @@ gem 'capitalize-names', require: 'capitalize_names'
 
 gem 'rexml'
 
-gem 'psych', '< 4'
+gem 'psych', '~> 2.0', '>= 2.0.17'
 
 group :production, :staging do
   gem 'rails-autoscale-web'
