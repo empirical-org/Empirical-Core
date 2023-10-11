@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/Empirical-Core
     parallelism: 6
     docker:
-      - image: cimg/ruby:3.1.4
+      - image: cimg/ruby:3.2.0
         environment:
           PG_DB: quill_test_db
           PG_USER: ubuntu
@@ -71,7 +71,7 @@ jobs:
     working_directory: ~/Empirical-Core
     parallelism: 1
     docker:
-      - image: cimg/ruby:3.1.4-node
+      - image: cimg/ruby:3.2.0-node
         environment:
           PG_DB: quill_test_db
           PG_USER: ubuntu
@@ -149,7 +149,7 @@ jobs:
     working_directory: ~/Empirical-Core
     parallelism: 1
     docker:
-      - image: cimg/ruby:3.1.4
+      - image: cimg/ruby:3.2.0
         environment:
           PG_DB: quill_test_db
           PG_USER: ubuntu
@@ -313,7 +313,7 @@ jobs:
     working_directory: ~/Empirical-Core
     parallelism: 1
     docker:
-      - image: cimg/ruby:3.1.4
+      - image: cimg/ruby:3.2.0
         environment:
           PG_DB: quill_evidence_test_db
           PG_USER: ubuntu
@@ -383,7 +383,7 @@ jobs:
   rubocop_lint:
     working_directory: ~/Empirical-Core
     docker:
-      - image: cimg/ruby:3.1.4-node
+      - image: cimg/ruby:3.2.0-node
     steps:
       - checkout
       - run:
