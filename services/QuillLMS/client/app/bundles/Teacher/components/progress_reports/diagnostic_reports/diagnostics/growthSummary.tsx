@@ -25,8 +25,9 @@ import {
 import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_GROWTH_SUMMARY, } from '../../../shared/demo_onboarding_tour';
 import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
-function renderGrowthElement(delta: number, text: string) {
-  return delta > 0 ? <span className="growth-element">{triangleUpIcon}<span>{Math.round(delta)}{`% ${text}`}</span></span> : <span className="growth-element no-growth">No growth</span>
+function renderGrowthElement(delta: number, text: string, inCard?: boolean) {
+  const cardClass = inCard ? 'in-card' : ''
+  return delta > 0 ? <div className={`growth-element ${cardClass}`}>{triangleUpIcon}<span>{Math.round(delta)}{`% ${text}`}</span></div> : <div className="growth-element in-card no-growth">No growth</div>
 }
 
 const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { skillGroupSummary: SkillGroupSummary, completedStudentCount: number }) => {
@@ -42,11 +43,11 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { s
     const delta = postProficiencyClassPercentage - preProficiencyClassPercentage
 
     let needPracticeElement = <span className="need-practice-element no-practice-needed">No practice needed</span>
-    const growthElement = renderGrowthElement(delta, 'growth')
+    const growthElement = renderGrowthElement(delta, 'growth', true)
 
     if (numberOfStudentsNeedingPracticeInPost) {
       const tooltipText = `<p>${not_yet_proficient_in_post_test_student_names.join('<br>')}</p>`
-      const tooltipTriggerText = numberOfStudentsNeedingPracticeInPost === 1 ? "1 student needs practice" : `${numberOfStudentsNeedingPracticeInPost} students need practice`
+      const tooltipTriggerText = numberOfStudentsNeedingPracticeInPost === 1 ? "1 student recommended practice" : `${numberOfStudentsNeedingPracticeInPost} students recommended practice`
       needPracticeElement = (<Tooltip
         tooltipText={tooltipText}
         tooltipTriggerText={tooltipTriggerText}
@@ -87,7 +88,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { s
   }
 
   return (
-    <section className="skill-group-summary-card">
+    <section className="skill-group-summary-card post-diagnostic-summary-card">
       <div className="card-header">
         <span className="skill-group-name">{name}</span>
         <SkillGroupTooltip description={description} name={name} />
@@ -140,7 +141,7 @@ export const GrowthResults = ({ activityName, passedStudentResults, passedSkillG
     return(
       <section className="lower-header-section">
         <span className="activity-name">{`${activityDisplayedName}:`}</span>
-        {renderGrowthElement(classwideGrowthDisplayedAverage, 'Class-wide skill growth')}
+        {renderGrowthElement(classwideGrowthDisplayedAverage, 'Class-wide skill growth', false)}
       </section>
     )
   }

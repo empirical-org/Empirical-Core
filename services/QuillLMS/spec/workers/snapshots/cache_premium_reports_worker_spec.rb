@@ -64,14 +64,14 @@ module Snapshots
       it 'should execute a query for the timeframe' do
         expect(query_double).to receive(:run).with(expected_query_args)
         expect(Rails.cache).to receive(:write)
-        expect(PusherTrigger).to receive(:run)
+        expect(SendPusherMessageWorker).to receive(:perform_async)
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, filters)
       end
 
       context 'serialization/deserialization' do
         it 'should deserialize timeframes back into DateTimes' do
-          allow(PusherTrigger).to receive(:run)
+          allow(SendPusherMessageWorker).to receive(:perform_async)
           Sidekiq::Testing.inline! do
             expect(query_double).to receive(:run).with(expected_query_args)
 
@@ -84,7 +84,7 @@ module Snapshots
         it 'should execute a query for the timeframe' do
           expect(query_double).to receive(:run).with(expected_query_args)
           expect(Rails.cache).to receive(:write)
-          expect(PusherTrigger).to receive(:run)
+          expect(SendPusherMessageWorker).to receive(:perform_async)
 
           subject.perform(cache_key, query, user_id, timeframe, school_ids, filters_with_string_keys)
         end
@@ -98,14 +98,14 @@ module Snapshots
 
         expect(query_double).to receive(:run).and_return(payload)
         expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: cache_ttl)
-        expect(PusherTrigger).to receive(:run)
+        expect(SendPusherMessageWorker).to receive(:perform_async)
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, filters)
       end
 
       it 'should send a Pusher notification' do
         expect(Rails.cache).to receive(:write)
-        expect(PusherTrigger).to receive(:run).with(user_id, described_class::PUSHER_EVENT, {
+        expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, described_class::PUSHER_EVENT, {
           query: query,
           timeframe: timeframe_name,
           school_ids: school_ids

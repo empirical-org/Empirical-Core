@@ -44,7 +44,7 @@ module Snapshots
         filters['classroom_ids']&.join('-')
       ].join('-'))
 
-      PusherTrigger.run(user_id, PUSHER_EVENT, filter_hash)
+      SendPusherMessageWorker.perform_async(user_id, PUSHER_EVENT, filter_hash)
     end
 
     private def cache_expiry

@@ -73,6 +73,7 @@ const DataTable = ({ headers, data, numberOfRows, }) => {
 const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, passedData, pusherChannel, }: SnapshotRankingProps) => {
   const [data, setData] = React.useState(null)
   const [loading, setLoading] = React.useState(false)
+  const [retryTimeout, setRetryTimeout] = React.useState(null)
   const [showModal, setShowModal] = React.useState(false)
 
   React.useEffect(() => {
@@ -82,8 +83,12 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
   React.useEffect(() => {
     resetToDefault()
 
-    getData()
+    setRetryTimeout(setTimeout(getData, 20000))
   }, [searchCount])
+
+  React.useEffect(() => {
+    if (retryTimeout) getData()
+  }, [retryTimeout])
 
   function resetToDefault() {
     setData(passedData || null)
@@ -109,6 +114,9 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
         // We consider `null` to be a lack of data, so if the result is `[]` we need to explicitly `setData(null)`
         const data = results.length > 0 ? results : null
         setData(data)
+        if (retryTimeout) {
+          clearTimeout(retryTimeout)
+        }
         setLoading(false)
       }
     })
