@@ -105,16 +105,18 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
       const { message, } = body
 
-      const filterHash = md5([
+      const filterTarget = [
         queryKey,
         selectedTimeframe,
         selectedSchoolIds.join('-'),
         selectedGrades?.join('-'),
         selectedTeacherIds?.join('-'),
         selectedClassroomIds?.join('-')
-      ].join('-'))
+      ].join('-')
 
-      console.log(`${message} == ${filterHash} ? ${message == filterHash}`)
+      const filterHash = md5(filterTarget)
+
+      console.log(`${message} == ${filterHash} ? ${message == filterHash} (based on ${filterTarget}`)
 
       if (message == filterHash) getData()
 //      const queryKeysAreEqual = message.query === queryKey
