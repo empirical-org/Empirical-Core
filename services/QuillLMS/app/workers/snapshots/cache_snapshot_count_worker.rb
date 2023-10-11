@@ -4,12 +4,16 @@ module Snapshots
   class CacheSnapshotCountWorker
     include Sidekiq::Worker
 
-    class SnapshotCountTooSlow < StandardError; end
-
     sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
 
     PUSHER_EVENT = 'admin-snapshot-count-cached'
     TOO_SLOW_THRESHOLD = 20
+
+    class SlowQueryError < StandardError
+      def message
+        "Snapshot Count query took more than #{TOO_SLOW_THRESHOLD}"
+      end
+    end
 
     QUERIES = {
       'active-classrooms' => Snapshots::ActiveClassroomsQuery,
@@ -62,12 +66,18 @@ module Snapshots
       timeframe_end = parse_datetime_string(timeframe['current_end'])
       filters_symbolized = filters.symbolize_keys
 
-      ErrorNotifier.report_long_running(SnapshotCountTooSlow.new("Snapshot Count query took more than #{TOO_SLOW_THRESHOLD}"), TOO_SLOW_THRESHOLD, {
-        query: query,
-        timeframe_start: current_timeframe_start,
-        timeframe_end: timeframe_end,
-        school_ids: school_ids
-      }.merge(filters_symbolized)) do
+      long_process_notifier = LongProcessNotifier.new(
+        SlowQueryError.new,
+        TOO_SLOW_THRESHOLD,
+        {
+          query: query,
+          timeframe_start: current_timeframe_start,
+          timeframe_end: timeframe_end,
+          school_ids: school_ids
+        }.merge(filters_symbolized)
+      )
+
+      long_process_notifier.run do
         current_snapshot = QUERIES[query].run(**{
           timeframe_start: current_timeframe_start,
           timeframe_end: timeframe_end,

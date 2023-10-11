@@ -1,0 +1,24 @@
+class LongProcessNotifier < ApplicationService
+  attr_reader :error, :threshold, :options
+
+  def initialize(error, threshold, options = {})
+    @error = error
+    @threshold = threshold
+    @options = options
+  end
+    
+  def run
+    start = self.class.current_time
+    result = yield
+    runtime = self.class.current_time - start
+    return result if runtime < @threshold.to_i
+
+    ErrorNotifier.report(@error, @options.merge({time_to_execute: runtime}))
+    result
+  end
+
+  # Used to avoid mocking Time.now directly in specs
+  def self.current_time
+    Time.current
+  end
+end

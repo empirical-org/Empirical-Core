@@ -153,7 +153,7 @@ module Snapshots
         let(:start) { 0 }
         let(:finish) { described_class::TOO_SLOW_THRESHOLD }
 
-        before { allow(ErrorNotifier).to receive(:current_time).and_return(start, finish) }
+        before { allow(LongProcessNotifier).to receive(:current_time).and_return(start, finish) }
 
         it do
           allow(PusherTrigger).to receive(:run)

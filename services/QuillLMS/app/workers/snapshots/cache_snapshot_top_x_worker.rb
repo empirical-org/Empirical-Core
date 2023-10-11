@@ -4,12 +4,16 @@ module Snapshots
   class CacheSnapshotTopXWorker
     include Sidekiq::Worker
 
-    class SnapshotTopXTooSlow < StandardError; end
-
     sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
 
     PUSHER_EVENT = 'admin-snapshot-top-x-cached'
     TOO_SLOW_THRESHOLD = 20
+
+    class SlowQueryError < StandardError
+      def message
+        "Snapshot Count query took more than #{TOO_SLOW_THRESHOLD}"
+      end
+    end
 
     QUERIES = {
       'top-concepts-assigned' => Snapshots::TopConceptsAssignedQuery,
@@ -48,12 +52,18 @@ module Snapshots
       timeframe_end = DateTime.parse(timeframe['current_end'])
       filters_symbolized = filters.symbolize_keys
 
-      ErrorNotifier.report_long_running(SnapshotTopXTooSlow.new("Snapshot TopX query took more than #{TOO_SLOW_THRESHOLD}"), TOO_SLOW_THRESHOLD, {
-        query: query,
-        timeframe_start: timeframe_start,
-        timeframe_end: timeframe_end,
-        school_ids: school_ids
-      }.merge(filters_symbolized)) do
+      long_process_notifier = LongProcessNotifier.new(
+        SlowQueryError.new,
+        TOO_SLOW_THRESHOLD,
+        {
+          query: query,
+          timeframe_start: timeframe_start,
+          timeframe_end: timeframe_end,
+          school_ids: school_ids
+        }.merge(filters_symbolized)
+      )
+
+      long_process_notifier.run do
         QUERIES[query].run(**{
           timeframe_start: timeframe_start,
           timeframe_end: timeframe_end,
