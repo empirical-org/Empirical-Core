@@ -39,9 +39,9 @@ module Snapshots
         query,
         timeframe['name'],
         school_ids.join('-'),
-        filters[:grades].join('-'),
-        filters[:teacher_ids].join('-'),
-        filters[:classroom_ids].join('-')
+        filters[:grades]&.join('-'),
+        filters[:teacher_ids]&.join('-'),
+        filters[:classroom_ids]&.join('-')
       ].join)
       PusherTrigger.run(user_id, PUSHER_EVENT, filter_hash)
     end
