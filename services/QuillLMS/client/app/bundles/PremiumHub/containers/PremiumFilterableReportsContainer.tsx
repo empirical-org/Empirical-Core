@@ -55,6 +55,8 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
 
   const [pusherChannel, setPusherChannel] = React.useState(null)
 
+  const [showFilters, setShowFilters] = React.useState(true)
+
   React.useEffect(() => {
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channel = pusher.subscribe(String(adminInfo.id));
@@ -106,6 +108,8 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
   function openMobileFilterMenu() { setShowMobileFilterMenu(true) }
 
   function closeMobileFilterMenu() { setShowMobileFilterMenu(false) }
+
+  function toggleFilterMenu() { setShowFilters(!showFilters) }
 
   function handleSetSelectedTimeframe(timeframe) {
     setLastUsedTimeframe(selectedTimeframe)
@@ -219,6 +223,25 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
 
   function handleClickDownloadReport() { window.print() }
 
+  function renderShowFilterMenuButton() {
+    const ariaLabel = showFilters ? 'Close filter menu' : 'Open filter menu'
+    const imgSrcStem = `${process.env.CDN_URL}/images/pages/administrator/sidebar`
+
+    let imgSrc = showFilters ? `${imgSrcStem}/open_` : `${imgSrcStem}/closed_`
+    imgSrc += hasAdjustedFiltersFromDefault ? 'sidebar_green.svg' : 'sidebar_gray.svg'
+
+    return (
+      <button
+        aria-label={ariaLabel}
+        className={`interactive-wrapper focus-on-light show-filter-menu-button ${hasAdjustedFiltersFromDefault ? 'filters-adjusted' : ''}`}
+        onClick={toggleFilterMenu}
+        type="button"
+      >
+        <img alt="" src={imgSrc} />
+      </button>
+    )
+  }
+
   if (loadingFilters) {
     return <Spinner />
   }
@@ -249,6 +272,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
     hasAdjustedFiltersSinceLastSubmission,
     customStartDate,
     customEndDate,
+    showFilterMenuButton: renderShowFilterMenuButton()
   }
 
   const sharedProps = {
@@ -267,7 +291,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
     allTeachers,
     selectedTimeframe,
     handleClickDownloadReport,
-    openMobileFilterMenu
+    openMobileFilterMenu,
   }
 
   const shouldRenderDataExportContainer = location && location.pathname === '/teachers/premium_hub/data_export'
@@ -277,21 +301,34 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
     return restrictedPage
   }
 
+  let filterMenu
+
+  if (showFilters) {
+    filterMenu = (
+      <React.Fragment>
+        {showCustomDateModal && (
+          <CustomDateModal
+            close={closeCustomDateModal}
+            passedEndDate={customEndDate}
+            passedStartDate={customStartDate}
+            setCustomDates={setCustomDates}
+          />
+        )}
+        <Filters
+          {...filterProps}
+        />
+      </React.Fragment>
+    )
+  }
+
   return (
     <div className="filterable-reports-container white-background">
-      {showCustomDateModal && (
-        <CustomDateModal
-          close={closeCustomDateModal}
-          passedEndDate={customEndDate}
-          passedStartDate={customStartDate}
-          setCustomDates={setCustomDates}
-        />
-      )}
-      <Filters
-        {...filterProps}
-      />
-      {shouldRenderDataExportContainer && <DataExportContainer {...sharedProps} />}
-      {shouldRenderUsageSnapshotsContainer && <UsageSnapshotsContainer {...sharedProps} />}
+      {filterMenu}
+      <div className={showFilters ? '' : 'filter-menu-closed'}>
+        {showFilters ? null : renderShowFilterMenuButton()}
+        {shouldRenderDataExportContainer && <DataExportContainer {...sharedProps} />}
+        {shouldRenderUsageSnapshotsContainer && <UsageSnapshotsContainer {...sharedProps} />}
+      </div>
     </div>
   )
 }
