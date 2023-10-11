@@ -112,7 +112,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
         selectedGrades?.join('-'),
         selectedTeacherIds?.join('-'),
         selectedClassroomIds?.join('-')
-      ])
+      ].join('-'))
 
       console.log(`${message} == ${filterHash} ? ${message == filterHash}`)
 

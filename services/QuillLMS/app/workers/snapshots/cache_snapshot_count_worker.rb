@@ -42,7 +42,7 @@ module Snapshots
         filters[:grades]&.join('-'),
         filters[:teacher_ids]&.join('-'),
         filters[:classroom_ids]&.join('-')
-      ].join)
+      ].join('-'))
       PusherTrigger.run(user_id, PUSHER_EVENT, filter_hash)
     end
 
