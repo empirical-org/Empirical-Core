@@ -93,17 +93,30 @@ namespace :vertex_ai  do
       SQL
     ).to_a
 
+    ids = []
+
     old_models.each do |old_model|
       old_labels = old_model['labels'].tr('{}', '').split(',')
       new_model = Evidence::AutomlModel.find_by(state: 'active', prompt_id: old_model['prompt_id'])
       next if new_model.nil?
 
+      p [new_model.id, new_model.labels.count, new_model.state]
       # bypass attr_readonly on labels
       Evidence::AutomlModel
         .where(id: new_model.id)
         .update_all(labels: old_labels)
 
-      new_model.activate
+      ids << new_model.id
+
+      p [new_model.id, new_model.labels.count, new_model.state]
+    end
+
+    ids.each do |id|
+      automl_model = Evidence::AutomlModel.find(id)
+      p [automl_model.id, automl_model.state]
+      automl_model.activate
+      automl_model.reload
+      p [automl_model.id, automl_model.state]
     end
   end
 end
