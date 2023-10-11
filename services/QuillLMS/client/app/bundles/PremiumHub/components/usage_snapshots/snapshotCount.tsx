@@ -116,7 +116,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
 
       const filterHash = md5(filterTarget)
 
-      console.log(`${message} == ${filterHash} ? ${message == filterHash} (based on ${filterTarget}`)
+      console.log(`${message.hash} == ${filterHash} ? ${message.hash == filterHash} (based on ${message.target} AND ${filterTarget}`)
 
       if (message == filterHash) getData()
 //      const queryKeysAreEqual = message.query === queryKey
