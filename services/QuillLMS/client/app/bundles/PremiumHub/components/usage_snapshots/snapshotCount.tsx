@@ -116,19 +116,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
 
       const filterHash = md5(filterTarget)
 
-      console.log(`${message.hash} == ${filterHash} ? ${message.hash == filterHash} (based on ${message.target} AND ${filterTarget}`)
-
       if (message == filterHash) getData()
-//      const queryKeysAreEqual = message.query === queryKey
-//      const timeframesAreEqual = message.timeframe === selectedTimeframe
-//      const schoolIdsAreEqual = selectionsEqual(message.school_ids, selectedSchoolIds)
-//      const teacherIdsAreEqual = selectionsEqual(message.teacher_ids, selectedTeacherIds)
-//      const classroomIdsAreEqual = selectionsEqual(message.classroom_ids, selectedClassroomIds)
-//      const gradesAreEqual =  selectionsEqual(message.grades, selectedGrades?.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
-//
-//      if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {
-//        getData()
-//      }
     });
   };
 

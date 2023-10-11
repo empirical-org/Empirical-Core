@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import md5 from 'md5'
+
 import { requestPost, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'
 import { selectionsEqual } from '../../shared'
@@ -116,17 +118,18 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
     pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
       const { message, } = body
 
-      const queryKeysAreEqual = message.query === queryKey
+      const filterTarget = [
+        queryKey,
+        selectedTimeframe,
+        selectedSchoolIds.join('-'),
+        selectedGrades?.join('-'),
+        selectedTeacherIds?.join('-'),
+        selectedClassroomIds?.join('-')
+      ].join('-')
 
-      const timeframesAreEqual = message.timeframe === selectedTimeframe
-      const schoolIdsAreEqual = selectionsEqual(message.school_ids, selectedSchoolIds)
-      const teacherIdsAreEqual = selectionsEqual(message.teacher_ids, selectedTeacherIds)
-      const classroomIdsAreEqual = selectionsEqual(message.classroom_ids, selectedClassroomIds)
-      const gradesAreEqual =  selectionsEqual(message.grades, selectedGrades?.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
+      const filterHash = md5(filterTarget)
 
-      if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {
-        getData()
-      }
+      if (message == filterHash) getData()
     });
   };
 

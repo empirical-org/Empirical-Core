@@ -23,13 +23,16 @@ module Snapshots
 
       Rails.cache.write(cache_key, payload.to_a, expires_in: cache_expiry)
 
-      PusherTrigger.run(user_id, PUSHER_EVENT,
-        {
-          query: query,
-          timeframe: timeframe['name'],
-          school_ids: school_ids
-        }.merge(filters)
-      )
+      filter_hash = Digest::MD5.hexdigest([
+        query,
+        timeframe['name'],
+        school_ids.join('-'),
+        filters['grades']&.join('-'),
+        filters['teacher_ids']&.join('-'),
+        filters['classroom_ids']&.join('-')
+      ].join('-'))
+
+      PusherTrigger.run(user_id, PUSHER_EVENT, filter_hash)
     end
 
     private def cache_expiry
