@@ -8,7 +8,7 @@ module Evidence
       PREDICT_API_TIMEOUT = 5.0
 
       PREDICTION_EXCEPTION_CLASSES = [Google::Cloud::InternalError, Google::Cloud::UnknownError]
-      PREDICTION_NUM_RETRIES = 2
+      PREDICTION_NUM_RETRIES = 1
 
       attr_reader :endpoint_external_id, :text
 
@@ -80,7 +80,9 @@ module Evidence
           yield
         rescue *exception_classes => e
           num_retries += 1
-          num_retries <= max_num_retries ? retry : raise(e)
+          retry if num_retries <= max_num_retries
+
+          raise e
         end
       end
     end
