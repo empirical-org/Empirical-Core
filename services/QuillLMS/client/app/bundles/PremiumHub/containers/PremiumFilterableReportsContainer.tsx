@@ -288,9 +288,9 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo }) => 
         {...filterProps}
       />
       <Routes>
-        <Route path='/teachers/premium_hub/diagnostic_growth_report' element={<DiagnosticGrowthReportsContainer {...sharedProps} />} />
-        <Route path='/teachers/premium_hub/data_export' element={<DataExportContainer {...sharedProps} />} />
-        <Route path='/teachers/premium_hub/usage_snapshot_report' element={<UsageSnapshotsContainer {...sharedProps} />} />
+        <Route element={<DiagnosticGrowthReportsContainer {...sharedProps} />} path='/teachers/premium_hub/diagnostic_growth_report' />
+        <Route element={<DataExportContainer {...sharedProps} />} path='/teachers/premium_hub/data_export' />
+        <Route element={<UsageSnapshotsContainer {...sharedProps} />} path='/teachers/premium_hub/usage_snapshot_report' />
       </Routes>
     </div>
   )
