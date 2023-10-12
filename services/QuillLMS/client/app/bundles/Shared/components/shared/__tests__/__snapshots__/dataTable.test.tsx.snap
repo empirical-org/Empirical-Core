@@ -1,0 +1,195 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataTable it should render 1`] = `
+<DocumentFragment>
+  <table
+    class="data-table undefined"
+  >
+    <thead>
+      <tr
+        class="data-table-headers"
+      >
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 200px; min-width: 200px; text-align: left;"
+        >
+          Attribute One
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 200px; min-width: 200px; text-align: right;"
+        >
+          Attribute Two
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 200px; min-width: 200px; text-align: left;"
+        >
+          Attribute Three
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="data-table-body"
+    >
+      <tr
+        class="data-table-row  "
+      >
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: left;"
+        >
+          A
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: right;"
+        >
+          1
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: left;"
+        >
+          red
+        </td>
+      </tr>
+      <tr
+        class="data-table-row  "
+      >
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: left;"
+        >
+          B
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: right;"
+        >
+          2
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: left;"
+        >
+          orange
+        </td>
+      </tr>
+      <tr
+        class="data-table-row  "
+      >
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: left;"
+        >
+          C
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: right;"
+        >
+          3
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: left;"
+        >
+          yellow
+        </td>
+      </tr>
+      <tr
+        class="data-table-row  "
+      >
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: left;"
+        >
+          D
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: right;"
+        >
+          4
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: left;"
+        >
+          green
+        </td>
+      </tr>
+      <tr
+        class="data-table-row  "
+      >
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: left;"
+        >
+          E
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: right;"
+        >
+          5
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: left;"
+        >
+          blue
+        </td>
+      </tr>
+      <tr
+        class="data-table-row  "
+      >
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: left;"
+        >
+          F
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: right;"
+        >
+          6
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: left;"
+        >
+          indigo
+        </td>
+      </tr>
+      <tr
+        class="data-table-row  "
+      >
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: left;"
+        >
+          G
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: right;"
+        >
+          7
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 200px; min-width: 200px; text-align: left;"
+        >
+          violet
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
