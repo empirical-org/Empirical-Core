@@ -1,10 +1,8 @@
 import * as React from 'react'
 
-import md5 from 'md5'
-
 import { requestPost, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'
-import { selectionsEqual } from '../../shared'
+import { hashPayload, selectionsEqual } from '../../shared'
 
 const expandImg = <img alt="" src={`${process.env.CDN_URL}/images/pages/administrator/expand.svg`} />
 
@@ -126,16 +124,16 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
     pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
       const { message, } = body
 
-      const filterTarget = [
+      const filterTarget = [].concat(
         queryKey,
         selectedTimeframe,
-        selectedSchoolIds.join('-'),
-        selectedGrades?.join('-'),
-        selectedTeacherIds?.join('-'),
-        selectedClassroomIds?.join('-')
-      ].join('-')
+        selectedSchoolIds,
+        selectedGrades,
+        selectedTeacherIds,
+        selectedClassroomIds
+      ).join('-')
 
-      const filterHash = md5(filterTarget)
+      const filterHash = hashPayload(filterTarget)
 
       if (message == filterHash) getData()
     });

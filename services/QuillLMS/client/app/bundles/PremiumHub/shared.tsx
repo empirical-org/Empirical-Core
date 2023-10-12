@@ -1,6 +1,8 @@
 import * as React from 'react'
 import * as _ from 'lodash'
 
+import { createHash, } from 'crypto'
+
 import { unorderedArraysAreEqual, } from '../../modules/unorderedArraysAreEqual'
 
 export const RESTRICTED = 'restricted'
@@ -44,3 +46,8 @@ export function mapItemsIfNotAll(selectedItems, allItems, mapKey = 'id') {
 
   return selectedItems.map(i => i[mapKey])
 }
+
+export function hashPayload(payload) {
+  const joinedPayload = payload.join('-')
+  return createHash('sha256').update(joinedPayload).digest('hex')
+}    

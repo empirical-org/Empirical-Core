@@ -1,12 +1,10 @@
 import * as React from 'react'
 
-import md5 from 'md5'
-
 import { SMALL, POSITIVE, NEGATIVE, NONE } from './shared'
 
 import { requestPost, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'
-import { selectionsEqual } from '../../shared'
+import { hashPayload, selectionsEqual } from '../../shared'
 
 const smallArrowUpIcon = <img alt="Arrow pointing up" className="small" src={`${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/arrow_up_icon.svg`} />
 const smallArrowDownIcon = <img alt="Arrow pointing down" className="small" src={`${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/arrow_down_icon.svg`} />
@@ -113,16 +111,16 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
       const { message, } = body
 
-      const filterTarget = [
+      const filterTarget = [].concat(
         queryKey,
         selectedTimeframe,
-        selectedSchoolIds.join('-'),
-        selectedGrades?.join('-'),
-        selectedTeacherIds?.join('-'),
-        selectedClassroomIds?.join('-')
-      ].join('-')
+        selectedSchoolIds,
+        selectedGrades,
+        selectedTeacherIds,
+        selectedClassroomIds
+      ).join('-')
 
-      const filterHash = md5(filterTarget)
+      const filterHash = hashPayload(filterTarget)
 
       if (message == filterHash) getData()
     });
