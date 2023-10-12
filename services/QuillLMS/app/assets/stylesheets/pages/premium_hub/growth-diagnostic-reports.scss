@@ -1,4 +1,5 @@
 .diagnostic-reports-main {
+  // this 317px comes from the filter sidebar element width
   max-width: calc(100% - 317px) !important;
   .header {
     .buttons-container {
