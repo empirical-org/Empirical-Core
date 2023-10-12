@@ -129,17 +129,17 @@ module Snapshots
       end
 
       it 'should send a Pusher notification' do
-        hash_options = [
+        hashed_payload = PayloadHasher.run([
           query,
           timeframe_name,
-          school_ids.join('-'),
-          grades&.join('-'),
-          teacher_ids&.join('-'),
-          classroom_ids&.join('-')
-        ].join('-')
+          school_ids,
+          grades,
+          teacher_ids,
+          classroom_ids
+        ].flatten)
 
         expect(Rails.cache).to receive(:write)
-        expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, described_class::PUSHER_EVENT, Digest::MD5.hexdigest(hash_options))
+        expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, described_class::PUSHER_EVENT, hashed_payload)
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, filters_with_string_keys)
       end

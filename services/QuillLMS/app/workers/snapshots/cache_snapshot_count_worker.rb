@@ -35,14 +35,14 @@ module Snapshots
 
       Rails.cache.write(cache_key, payload, expires_in: cache_expiry)
 
-      filter_hash = Digest::MD5.hexdigest([
+      filter_hash = PayloadHasher.run([
         query,
         timeframe['name'],
-        school_ids.join('-'),
-        filters['grades']&.join('-'),
-        filters['teacher_ids']&.join('-'),
-        filters['classroom_ids']&.join('-')
-      ].join('-'))
+        school_ids,
+        filters['grades'],
+        filters['teacher_ids'],
+        filters['classroom_ids']
+      ].flatten)
 
       SendPusherMessageWorker.perform_async(user_id, PUSHER_EVENT, filter_hash)
     end
