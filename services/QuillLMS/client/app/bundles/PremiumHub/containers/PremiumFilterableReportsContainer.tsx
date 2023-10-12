@@ -2,9 +2,11 @@ import * as React from 'react'
 import queryString from 'query-string';
 import * as _ from 'lodash'
 import * as Pusher from 'pusher-js';
+import { Routes, Route } from "react-router-dom-v5-compat";
 
 import DataExportContainer from './DataExportContainer';
 import UsageSnapshotsContainer from './UsageSnapshotsContainer';
+import DiagnosticGrowthReportsContainer from './diagnosticGrowthReports';
 
 import { FULL, restrictedPage, } from '../shared';
 import CustomDateModal from '../components/usage_snapshots/customDateModal'
@@ -16,7 +18,7 @@ import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqu
 
 const MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS = 1500
 
-export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, location }) => {
+export const PremiumFilterableReportsContainer = ({ accessType, adminInfo }) => {
   const [loadingFilters, setLoadingFilters] = React.useState(true)
 
   const [allTimeframes, setAllTimeframes] = React.useState(null)
@@ -131,8 +133,6 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
       classroom_ids: selectedClassrooms?.map(c => c.id) || null,
       grades: selectedGrades?.map(g => g.value)
     }
-
-    const requestUrl = queryString.stringifyUrl({ url: '/snapshots/options', query: searchParams }, { arrayFormat: 'comma' })
 
     requestPost('/snapshots/options', searchParams, (filterData) => {
       const timeframeOptions = filterData.timeframes.map(tf => ({ ...tf, label: tf.name }))
@@ -270,9 +270,6 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
     openMobileFilterMenu
   }
 
-  const shouldRenderDataExportContainer = location && location.pathname === '/teachers/premium_hub/data_export'
-  const shouldRenderUsageSnapshotsContainer = location && location.pathname === '/teachers/premium_hub/usage_snapshot_report'
-
   if (accessType !== FULL) {
     return restrictedPage
   }
@@ -290,8 +287,11 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
       <Filters
         {...filterProps}
       />
-      {shouldRenderDataExportContainer && <DataExportContainer {...sharedProps} />}
-      {shouldRenderUsageSnapshotsContainer && <UsageSnapshotsContainer {...sharedProps} />}
+      <Routes>
+        <Route element={<DiagnosticGrowthReportsContainer {...sharedProps} />} path='/teachers/premium_hub/diagnostic_growth_report' />
+        <Route element={<DataExportContainer {...sharedProps} />} path='/teachers/premium_hub/data_export' />
+        <Route element={<UsageSnapshotsContainer {...sharedProps} />} path='/teachers/premium_hub/usage_snapshot_report' />
+      </Routes>
     </div>
   )
 }

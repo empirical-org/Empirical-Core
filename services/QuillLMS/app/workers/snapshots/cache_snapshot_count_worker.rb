@@ -35,7 +35,7 @@ module Snapshots
 
       Rails.cache.write(cache_key, payload, expires_in: cache_expiry)
 
-      PusherTrigger.run(user_id, PUSHER_EVENT,
+      SendPusherMessageWorker.perform_async(user_id, PUSHER_EVENT,
         {
           query: query,
           timeframe: timeframe['name'],

@@ -27,6 +27,7 @@ import {
   Tooltip,
 } from '../../../../../Shared/index'
 
+const POST_TEST_DESCRIPTION = '<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \"improved\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \"maintained\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.'
 
 interface StudentResultsTableProps {
   skillGroupSummaries: SkillGroupSummary[];
@@ -241,13 +242,14 @@ const StudentResultsTable = ({ isPreTest, skillGroupSummaries, studentResults, o
 
   const tableHeaders = skillGroupSummaries.map(skillGroupSummary => {
     const { name, description, gained_proficiency_in_post_test_student_names, not_yet_proficient_student_names } = skillGroupSummary
+    const appendedDescription = isPreTest ? description : description + POST_TEST_DESCRIPTION
     const notYetProficientStudentCount = isPreTest && not_yet_proficient_student_names.length
     const proficientStudentCount = isPreTest ? completedStudentCount - notYetProficientStudentCount : gained_proficiency_in_post_test_student_names.length
     return (
       <th className="skill-group-header" key={name}>
         <div className="name-and-tooltip">
           <span className="skill-name">{name}</span>
-          <SkillGroupTooltip description={description} key={name} name={name} />
+          <SkillGroupTooltip description={appendedDescription} key={name} name={name} />
         </div>
         {renderCountData({ completedStudentCount, proficientStudentCount })}
       </th>

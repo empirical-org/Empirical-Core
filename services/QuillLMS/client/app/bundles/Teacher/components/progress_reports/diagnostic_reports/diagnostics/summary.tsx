@@ -33,7 +33,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => 
 
     if (numberOfStudentsNeedingPractice) {
       const tooltipText = `<p>${not_yet_proficient_student_names.join('<br>')}</p>`
-      const tooltipTriggerText = numberOfStudentsNeedingPractice === 1 ? "1 student needs practice" : `${numberOfStudentsNeedingPractice} students need practice`
+      const tooltipTriggerText = numberOfStudentsNeedingPractice === 1 ? "1 student recommended practice" : `${numberOfStudentsNeedingPractice} students recommended practice`
       needPracticeElement = (<Tooltip
         tooltipText={tooltipText}
         tooltipTriggerText={tooltipTriggerText}

@@ -112,13 +112,13 @@ exports[`StudentResultsTable component should render when there is no student da
                 Compound-Complex Sentences
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Compound-Complex Sentences"
                 name="Compound-Complex Sentences"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Compound-Complex Sentences<br/><br/>null</p>"
+                  tooltipText="<p>Compound-Complex Sentences<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -173,13 +173,13 @@ exports[`StudentResultsTable component should render when there is no student da
                 Appositive Phrases
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Appositive Phrases"
                 name="Appositive Phrases"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Appositive Phrases<br/><br/>null</p>"
+                  tooltipText="<p>Appositive Phrases<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -234,13 +234,13 @@ exports[`StudentResultsTable component should render when there is no student da
                 Relative Clauses
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Relative Clauses"
                 name="Relative Clauses"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Relative Clauses<br/><br/>null</p>"
+                  tooltipText="<p>Relative Clauses<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -295,13 +295,13 @@ exports[`StudentResultsTable component should render when there is no student da
                 Participal Phrases
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Participal Phrases"
                 name="Participal Phrases"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Participal Phrases<br/><br/>null</p>"
+                  tooltipText="<p>Participal Phrases<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -356,13 +356,13 @@ exports[`StudentResultsTable component should render when there is no student da
                 Parallel Structure
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Parallel Structure"
                 name="Parallel Structure"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Parallel Structure<br/><br/>null</p>"
+                  tooltipText="<p>Parallel Structure<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -417,13 +417,13 @@ exports[`StudentResultsTable component should render when there is no student da
                 Advanced Combining
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Advanced Combining"
                 name="Advanced Combining"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Advanced Combining<br/><br/>null</p>"
+                  tooltipText="<p>Advanced Combining<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -478,13 +478,13 @@ exports[`StudentResultsTable component should render when there is no student da
                 Subject-Verb Agreement
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Subject-Verb Agreement"
                 name="Subject-Verb Agreement"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Subject-Verb Agreement<br/><br/>null</p>"
+                  tooltipText="<p>Subject-Verb Agreement<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -539,13 +539,13 @@ exports[`StudentResultsTable component should render when there is no student da
                 Nouns, Pronouns, and Verbs
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Nouns, Pronouns, and Verbs"
                 name="Nouns, Pronouns, and Verbs"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Nouns, Pronouns, and Verbs<br/><br/>null</p>"
+                  tooltipText="<p>Nouns, Pronouns, and Verbs<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -1646,13 +1646,13 @@ exports[`StudentResultsTable component should render when there is student data 
                 Capitalization
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Capitalization"
                 name="Capitalization"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Capitalization<br/><br/>null</p>"
+                  tooltipText="<p>Capitalization<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -1727,13 +1727,13 @@ exports[`StudentResultsTable component should render when there is student data 
                 Plural and Possessive Nouns
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Plural and Possessive Nouns"
                 name="Plural and Possessive Nouns"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Plural and Possessive Nouns<br/><br/>null</p>"
+                  tooltipText="<p>Plural and Possessive Nouns<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -1808,13 +1808,13 @@ exports[`StudentResultsTable component should render when there is student data 
                 Adjectives and Adverbs
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Adjectives and Adverbs"
                 name="Adjectives and Adverbs"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Adjectives and Adverbs<br/><br/>null</p>"
+                  tooltipText="<p>Adjectives and Adverbs<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -1889,13 +1889,13 @@ exports[`StudentResultsTable component should render when there is student data 
                 Prepositional Phrases
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Prepositional Phrases"
                 name="Prepositional Phrases"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Prepositional Phrases<br/><br/>null</p>"
+                  tooltipText="<p>Prepositional Phrases<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -1970,13 +1970,13 @@ exports[`StudentResultsTable component should render when there is student data 
                 Compound Subjects, Objects, and Predicates
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Compound Subjects, Objects, and Predicates"
                 name="Compound Subjects, Objects, and Predicates"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Compound Subjects, Objects, and Predicates<br/><br/>null</p>"
+                  tooltipText="<p>Compound Subjects, Objects, and Predicates<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -2051,13 +2051,13 @@ exports[`StudentResultsTable component should render when there is student data 
                 Commonly Confused Words
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Commonly Confused Words"
                 name="Commonly Confused Words"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Commonly Confused Words<br/><br/>null</p>"
+                  tooltipText="<p>Commonly Confused Words<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
