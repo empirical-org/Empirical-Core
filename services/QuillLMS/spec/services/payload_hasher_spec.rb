@@ -7,5 +7,5 @@ describe PayloadHasher do
 
   let(:payload) { ['hello', 'world'] }
 
-  it { expect(subject).to eq('afa27b44d43b02a9fea41d13cedc2e4016cfcf87c5dbf990e593669aa8ce286d') }
+  it { expect(subject).to eq('2095312189753de6ad47dfe20cbe97ec') }
 end

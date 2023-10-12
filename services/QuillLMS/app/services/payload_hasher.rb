@@ -8,6 +8,6 @@ class PayloadHasher < ApplicationService
   end
 
   def run
-    Digest::SHA256.hexdigest(payload.join('-'))
+    Digest::MD5.hexdigest(payload.join('-'))
   end
 end
