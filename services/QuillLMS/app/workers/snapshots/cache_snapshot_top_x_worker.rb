@@ -32,9 +32,9 @@ module Snapshots
 
       PusherTrigger.run(user_id, PUSHER_EVENT,
         {
-          query:,
+          query: query,
           timeframe: timeframe['name'],
-          school_ids:
+          school_ids: school_ids
         }.merge(filters)
       )
     end
@@ -56,18 +56,18 @@ module Snapshots
         SlowQueryError.new,
         TOO_SLOW_THRESHOLD,
         {
-          query:,
-          timeframe_start:,
-          timeframe_end:,
-          school_ids:
+          query: query,
+          timeframe_start: timeframe_start,
+          timeframe_end: timeframe_end,
+          school_ids: school_ids
         }.merge(filters_symbolized)
       )
 
       long_process_notifier.run do
         QUERIES[query].run(**{
-          timeframe_start:,
-          timeframe_end:,
-          school_ids:
+          timeframe_start: timeframe_start,
+          timeframe_end: timeframe_end,
+          school_ids: school_ids
         }.merge(filters_symbolized))
       end
     end
