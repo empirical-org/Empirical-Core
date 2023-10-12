@@ -16,6 +16,13 @@ import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqu
 
 const MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS = 1500
 
+const sidebarImgSrcStem = `${process.env.CDN_URL}/images/pages/administrator/sidebar`
+const openGreenSidebarIcon = `${sidebarImgSrcStem}/open_sidebar_green.svg`
+const openGraySidebarIcon = `${sidebarImgSrcStem}/open_sidebar_gray.svg`
+const closedGreenSidebarIcon = `${sidebarImgSrcStem}/closed_sidebar_green.svg`
+const closedGraySidebarIcon = `${sidebarImgSrcStem}/closed_sidebar_gray.svg`
+
+
 export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, location }) => {
   const [loadingFilters, setLoadingFilters] = React.useState(true)
 
@@ -136,8 +143,6 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
       grades: selectedGrades?.map(g => g.value)
     }
 
-    const requestUrl = queryString.stringifyUrl({ url: '/snapshots/options', query: searchParams }, { arrayFormat: 'comma' })
-
     requestPost('/snapshots/options', searchParams, (filterData) => {
       const timeframeOptions = filterData.timeframes.map(tf => ({ ...tf, label: tf.name }))
       const gradeOptions = filterData.grades.map(grade => ({ ...grade, label: grade.name }))
@@ -225,10 +230,14 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
 
   function renderShowFilterMenuButton() {
     const ariaLabel = showFilters ? 'Close filter menu' : 'Open filter menu'
-    const imgSrcStem = `${process.env.CDN_URL}/images/pages/administrator/sidebar`
 
-    let imgSrc = showFilters ? `${imgSrcStem}/open_` : `${imgSrcStem}/closed_`
-    imgSrc += hasAdjustedFiltersFromDefault ? 'sidebar_green.svg' : 'sidebar_gray.svg'
+    let imgSrc
+
+    if (showFilters) {
+      imgSrc = hasAdjustedFiltersFromDefault ? openGreenSidebarIcon : openGraySidebarIcon
+    } else {
+      imgSrc = hasAdjustedFiltersFromDefault ? closedGreenSidebarIcon : closedGraySidebarIcon
+    }
 
     return (
       <button

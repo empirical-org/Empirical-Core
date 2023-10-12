@@ -15,8 +15,12 @@
     border-radius: 8px;
     border: 1px solid $quill-grey-10;
     background: $quill-grey-1;
-    padding: 8px 5px;
     margin-bottom: 11px;
+    height: 34px;
+    width: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     &.filters-adjusted {
       border: 1px solid $quill-green-20;
       background: $quill-green-5;

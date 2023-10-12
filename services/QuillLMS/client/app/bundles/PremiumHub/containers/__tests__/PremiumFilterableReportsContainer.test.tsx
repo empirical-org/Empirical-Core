@@ -1,8 +1,11 @@
 import * as React from "react";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
+
+import { defaultFilterData, } from './data'
 
 import { FULL } from "../../shared";
 import PremiumFilterableReportsContainer from "../PremiumFilterableReportsContainer";
+import * as requestsApi from '../../../../modules/request';
 
 const props = {
   adminInfo: {
@@ -23,8 +26,23 @@ const props = {
 }
 
 describe('PremiumFilterableReportsContainer', () => {
-  test('it should render', () => {
-    const { asFragment } = render(<PremiumFilterableReportsContainer {...props} />);
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  // Mock requestPost to resolve with the defaultFilterData
+  jest.spyOn(requestsApi, 'requestPost').mockImplementation((url, params, callback) => {
+    callback(defaultFilterData);
+  });
+
+  test('it should render', async () => {
+    const { asFragment, queryByAltText, } = render(<PremiumFilterableReportsContainer {...props} />);
+
+    // Wait for the spinner (identified by its alt text) to be removed
+    await waitFor(() => expect(queryByAltText('Loading spinner')).toBeNull());
+
+    // Take the snapshot
     expect(asFragment()).toMatchSnapshot();
-  })
+  });
 })
