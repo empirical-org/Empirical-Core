@@ -13,9 +13,9 @@ class LongProcessNotifier < ApplicationService
     start = self.class.current_time
     result = yield
     runtime = self.class.current_time - start
-    return result if runtime < @threshold.to_i
 
-    ErrorNotifier.report(@error, @options.merge({time_to_execute: runtime}))
+    ErrorNotifier.report(@error, @options.merge({time_to_execute: runtime})) if runtime >= threshold.to_i
+    
     result
   end
 
