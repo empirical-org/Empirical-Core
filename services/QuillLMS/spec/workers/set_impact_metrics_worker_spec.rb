@@ -32,7 +32,7 @@ describe SetImpactMetricsWorker do
       allow(ImpactMetrics::ActivitiesAllTimeQuery).to receive(:run).and_return(activity_sessions_payload)
       allow(ImpactMetrics::ActiveStudentsAllTimeQuery).to receive(:run).and_return(active_students_payload)
       allow(ImpactMetrics::ActiveTeachersAllTimeQuery).to receive(:run).and_return(teachers_payload)
-      allow(ImpactMetrics::SchoolsContainingCertainTeachersQuery).to receive(:run).with(teacher_ids: teachers.pluck(:id)).and_return(schools_payload)
+      allow(ImpactMetrics::SchoolsContainingCertainTeachersQuery).to receive(:run).and_return(schools_payload)
     end
 
     it 'should set the NUMBER_OF_SENTENCES redis value' do

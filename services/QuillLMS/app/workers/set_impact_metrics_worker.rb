@@ -13,8 +13,8 @@ class SetImpactMetricsWorker
     teachers = ImpactMetrics::ActiveTeachersAllTimeQuery.run
     teacher_ids = teachers.to_a.map {|teacher| teacher[:id]}
 
-    schools = ImpactMetrics::SchoolsContainingCertainTeachersQuery.run(teacher_ids: teacher_ids)
-    low_income_schools = schools.select { |school| (school["free_lunches"] || 0) > FREE_LUNCH_MINIMUM}
+    schools = ImpactMetrics::SchoolsContainingCertainTeachersQuery.run
+    low_income_schools = schools.select { |school| (school[:free_lunches] || 0) > FREE_LUNCH_MINIMUM}
 
     number_of_sentences = self.class.round_to_ten_thousands(finished_activity_sessions_count) * SENTENCES_PER_ACTIVITY_SESSION
     $redis.set(PagesController::NUMBER_OF_SENTENCES, number_of_sentences)

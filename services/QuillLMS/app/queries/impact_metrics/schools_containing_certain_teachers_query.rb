@@ -2,16 +2,23 @@
 
 module ImpactMetrics
   class SchoolsContainingCertainTeachersQuery < ::QuillBigQuery::Query
-    attr_reader :teacher_ids
-
-    def initialize(teacher_ids:, **options)
-      @teacher_ids = teacher_ids
-
-      super(**options)
-    end
 
     def run
       runner.execute(query)
+    end
+
+    def cte_clause
+      <<-SQL
+	      WITH teacher_ids AS (
+          select users.id as id
+          FROM lms.users
+          JOIN lms.units on units.user_id = users.id
+          JOIN lms.classroom_units ON classroom_units.unit_id = units.id
+          JOIN lms.activity_sessions ON activity_sessions.classroom_unit_id = classroom_units.id
+          GROUP BY users.id
+          HAVING count(activity_sessions) > #{ActiveTeachersAllTimeQuery::ACTIVITY_SESSION_MINIMUM}
+        )
+      SQL
     end
 
     def select_clause
@@ -29,7 +36,7 @@ module ImpactMetrics
 
     def where_clause
       <<-SQL
-        WHERE schools_users.user_id IN (#{teacher_ids.join(', ')})
+        WHERE schools_users.user_id IN ( SELECT id FROM teacher_ids)
       SQL
     end
   end
