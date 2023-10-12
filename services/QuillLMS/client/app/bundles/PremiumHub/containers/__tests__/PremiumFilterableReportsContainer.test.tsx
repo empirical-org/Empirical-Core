@@ -1,5 +1,6 @@
 import * as React from "react";
-import { render, waitFor } from "@testing-library/react";
+import { render, waitFor, screen, } from "@testing-library/react";
+import userEvent from '@testing-library/user-event'
 
 import { defaultFilterData, } from './data'
 
@@ -27,22 +28,38 @@ const props = {
 
 describe('PremiumFilterableReportsContainer', () => {
 
+  beforeEach(() => {
+    jest.spyOn(requestsApi, 'requestPost').mockImplementation((url, params, callback) => {
+      callback(defaultFilterData);
+    });
+  })
+
   afterEach(() => {
     jest.restoreAllMocks();
-  });
-
-  // Mock requestPost to resolve with the defaultFilterData
-  jest.spyOn(requestsApi, 'requestPost').mockImplementation((url, params, callback) => {
-    callback(defaultFilterData);
   });
 
   test('it should render', async () => {
     const { asFragment, queryByAltText, } = render(<PremiumFilterableReportsContainer {...props} />);
 
-    // Wait for the spinner (identified by its alt text) to be removed
     await waitFor(() => expect(queryByAltText('Loading spinner')).toBeNull());
 
-    // Take the snapshot
     expect(asFragment()).toMatchSnapshot();
   });
+
+  test('it should toggle filter menu visibility when clicking the showFilterMenuButton', async () => {
+    const filterMenuTestId = 'filter-menu'
+
+    const { queryByAltText, } = render(<PremiumFilterableReportsContainer {...props} />);
+
+    await waitFor(() => expect(queryByAltText('Loading spinner')).toBeNull());
+
+    await userEvent.click(screen.getByLabelText('Close filter menu'));
+
+    expect(screen.queryByTestId(filterMenuTestId)).not.toBeInTheDocument();
+
+    await userEvent.click(screen.getByLabelText('Open filter menu'));
+
+    expect(screen.getByTestId(filterMenuTestId)).toBeInTheDocument();
+  })
+
 })

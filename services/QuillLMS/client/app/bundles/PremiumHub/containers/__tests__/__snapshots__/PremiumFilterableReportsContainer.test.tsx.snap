@@ -7,6 +7,7 @@ exports[`PremiumFilterableReportsContainer it should render 1`] = `
   >
     <section
       class="filter-container mobile-hidden "
+      data-testid="filter-menu"
     >
       <div
         class="top-section"

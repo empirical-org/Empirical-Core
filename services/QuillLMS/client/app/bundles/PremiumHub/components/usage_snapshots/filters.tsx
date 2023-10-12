@@ -75,7 +75,7 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
   }
 
   return (
-    <section className={`filter-container ${showMobileFilterMenu ? 'mobile-open' : 'mobile-hidden'} ${hasAdjustedFiltersFromDefault ? 'space-for-buttons' : ''}`}>
+    <section className={`filter-container ${showMobileFilterMenu ? 'mobile-open' : 'mobile-hidden'} ${hasAdjustedFiltersFromDefault ? 'space-for-buttons' : ''}`} data-testId="filter-menu" >
       <div className="top-section">
         <button className="interactive-wrapper focus-on-light" onClick={closeMobileFilterMenu} type="button">
           <img alt="" src={closeIconSrc} />
