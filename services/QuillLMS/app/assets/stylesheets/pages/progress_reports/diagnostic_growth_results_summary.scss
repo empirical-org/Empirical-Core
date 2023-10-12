@@ -34,9 +34,14 @@
       }
     }
     .card-footer {
-      display: flex;
+      display: block;
+      text-align: center;
+      margin: 0 auto;
       justify-content: space-between;
       align-items: center;
+    }
+    .growth-tooltip {
+      margin: 0 auto;
     }
   }
   .growth-element {
@@ -47,6 +52,16 @@
     line-height: 1;
     img {
       margin-right: 4px;
+    }
+    &.in-card.no-growth {
+      margin: 0 auto;
+      margin-top: 10px;
+      width: 80px;
+    }
+    &.in-card:not(.no-growth) {
+      margin: 0 auto;
+      margin-top: 10px;
+      width: 100px;
     }
     &.no-growth {
       color: $quill-grey-50;
