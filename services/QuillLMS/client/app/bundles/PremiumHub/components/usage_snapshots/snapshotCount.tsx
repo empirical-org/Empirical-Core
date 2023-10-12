@@ -107,22 +107,26 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     })
   }
 
+  function filtersMatchHash(hashMessage) {
+    const filterTarget = [].concat(
+      queryKey,
+      selectedTimeframe,
+      selectedSchoolIds,
+      selectedGrades,
+      selectedTeacherIds,
+      selectedClassroomIds
+    )
+
+    const filterHash = hashPayload(filterTarget)
+
+    return hashMessage == filterHash
+  }
+
   function initializePusher() {
     pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
       const { message, } = body
 
-      const filterTarget = [].concat(
-        queryKey,
-        selectedTimeframe,
-        selectedSchoolIds,
-        selectedGrades,
-        selectedTeacherIds,
-        selectedClassroomIds
-      )
-
-      const filterHash = hashPayload(filterTarget)
-
-      if (message == filterHash) getData()
+      if (filtersMatchHash(message)) getData()
     });
   };
 
