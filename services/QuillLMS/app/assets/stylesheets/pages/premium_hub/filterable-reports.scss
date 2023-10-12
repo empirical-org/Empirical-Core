@@ -103,6 +103,11 @@
       max-width: $sitewidepagewidth;
       width: 100%;
     }
+    .download-report-button, .manage-subscription-button {
+      img {
+        margin-right: 4px;
+      }
+    }
     h1 {
       font-weight: 700;
       font-size: 24px;
