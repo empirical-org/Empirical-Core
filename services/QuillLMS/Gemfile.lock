@@ -733,7 +733,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     ssrf_filter (1.0.7)
-    stripe (8.7.0)
+    stripe (9.4.0)
     super_diff (0.6.1)
       attr_extras (>= 6.2.4)
       diff-lcs
@@ -914,7 +914,7 @@ DEPENDENCIES
   spring
   spring-commands-rspec
   sprockets-rails (~> 3.2.2)
-  stripe (~> 8)
+  stripe (~> 9.4)
   super_diff
   timecop (~> 0.9.8)
   ttfunk
