@@ -3,8 +3,8 @@
 class MemoryProfilerReport < ApplicationService
   attr_reader :report
 
-  def initialize(&block)
-    @report = ::MemoryProfiler.report(&block)
+  def initialize(&)
+    @report = ::MemoryProfiler.report(&)
   end
 
   def run

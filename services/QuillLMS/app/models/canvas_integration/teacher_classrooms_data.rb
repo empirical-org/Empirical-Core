@@ -11,8 +11,8 @@ module CanvasIntegration
       @serialized_classrooms_data = serialized_classrooms_data
     end
 
-    def each(&block)
-      classrooms_data.each(&block)
+    def each(&)
+      classrooms_data.each(&)
     end
 
     private def classrooms_data

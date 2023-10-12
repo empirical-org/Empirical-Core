@@ -121,13 +121,13 @@ class EgFormBuilder < CMS::FormBuilder
     end
   end
 
-  def actions(options = {}, &block)
+  def actions(options = {}, &)
     options.reverse_merge! save: 'Save', saving: 'Saving...', class: 'form-actions', save_class: 'btn btn-primary'
     @template.content_tag(:div, class: options.delete(:class)) do
       actions = ''.html_safe
       actions << submit(options[:save], data: {disable_with: options[:saving]}, class: options[:save_class])
       actions << status
-      actions << @template.capture(&block) if block_given?
+      actions << @template.capture(&) if block_given?
       actions
     end
   end
@@ -149,16 +149,16 @@ class EgFormBuilder < CMS::FormBuilder
     end
   end
 
-  def field_wrapper(type, name, options = {}, &block)
+  def field_wrapper(type, name, options = {}, &)
     classes = "field #{type} #{name.to_s.dasherize} control-group"
     classes << options[:classes] if options[:classes]
     classes << ' error' if object.errors.include? name
     options.merge! class: classes
-    @template.content_tag :div, options, &block
+    @template.content_tag(:div, options, &)
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def field(*args, **kwargs, &block)
+  def field(*args, **kwargs, &)
     type, name, options = _extract_field_args(args)
     out = ''.html_safe
 
