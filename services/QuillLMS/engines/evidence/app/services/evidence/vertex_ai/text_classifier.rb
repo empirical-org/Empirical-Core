@@ -7,6 +7,9 @@ module Evidence
       DISPLAY_NAMES = 'displayNames'
       PREDICT_API_TIMEOUT = 5.0
 
+      PREDICTION_EXCEPTION_CLASSES = [Google::Cloud::InternalError, Google::Cloud::UnknownError]
+      PREDICTION_NUM_RETRIES = 2
+
       attr_reader :endpoint_external_id, :text
 
       def initialize(endpoint_external_id, text)
@@ -40,12 +43,17 @@ module Evidence
       end
 
       private def prediction
-        client
-          .predict(endpoint: endpoint, instances: instances)
+        prediction_response
           .predictions
           .first
           .struct_value
           .fields
+      end
+
+      private def prediction_response
+        retry_with_exceptions(PREDICTION_NUM_RETRIES, PREDICTION_EXCEPTION_CLASSES) do
+          client.predict(endpoint: endpoint, instances: instances)
+        end
       end
 
       private def top_score
@@ -64,6 +72,16 @@ module Evidence
           .each_with_index
           .max_by { |score, i| [score, i] }
           .last
+      end
+
+      private def retry_with_exceptions(max_num_retries, exception_classes)
+        num_retries = 0
+        begin
+          yield
+        rescue *exception_classes => e
+          num_retries += 1
+          num_retries <= max_num_retries ? retry : raise(e)
+        end
       end
     end
   end
