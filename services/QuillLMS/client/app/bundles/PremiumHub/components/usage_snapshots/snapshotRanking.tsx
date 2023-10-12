@@ -131,7 +131,7 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
         selectedGrades,
         selectedTeacherIds,
         selectedClassroomIds
-      ).join('-')
+      )
 
       const filterHash = hashPayload(filterTarget)
 

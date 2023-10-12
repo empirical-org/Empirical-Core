@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as _ from 'lodash'
 
-import { createHash, } from 'crypto'
+import * as md5 from 'md5'
 
 import { unorderedArraysAreEqual, } from '../../modules/unorderedArraysAreEqual'
 
@@ -49,5 +49,5 @@ export function mapItemsIfNotAll(selectedItems, allItems, mapKey = 'id') {
 
 export function hashPayload(payload) {
   const joinedPayload = payload.join('-')
-  return createHash('sha256').update(joinedPayload).digest('hex')
-}    
+  return md5(joinedPayload)
+}

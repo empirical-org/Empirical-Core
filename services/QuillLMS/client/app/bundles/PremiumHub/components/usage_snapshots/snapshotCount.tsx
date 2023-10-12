@@ -118,7 +118,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
         selectedGrades,
         selectedTeacherIds,
         selectedClassroomIds
-      ).join('-')
+      )
 
       const filterHash = hashPayload(filterTarget)
 
