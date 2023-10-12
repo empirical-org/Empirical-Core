@@ -47,6 +47,7 @@ export function mapItemsIfNotAll(selectedItems, allItems, mapKey = 'id') {
   return selectedItems.map(i => i[mapKey])
 }
 
+/* Should produce the same output as backend `app/services/payload_hasher.rb:run` */
 export function hashPayload(payload) {
   const joinedPayload = payload.join('-')
   return md5(joinedPayload)
