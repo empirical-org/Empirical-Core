@@ -162,8 +162,6 @@ gem 'capitalize-names', require: 'capitalize_names'
 
 gem 'rexml'
 
-gem 'psych', '~> 5.1', '>= 5.1.1'
-
 group :production, :staging do
   gem 'rails-autoscale-web'
   gem 'rails-autoscale-sidekiq'
@@ -178,7 +176,7 @@ group :development do
   gem 'foreman'
   gem 'graphiql-rails'
   gem 'letter_opener'
-  gem 'spring', '~> 4.1', '>= 4.1.1'
+  gem 'spring'
   gem 'spring-commands-rspec'
   gem 'annotate'
 end

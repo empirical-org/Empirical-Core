@@ -516,8 +516,6 @@ GEM
       pry (>= 0.13, < 0.15)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
-    psych (5.1.1)
-      stringio
     public_suffix (5.0.3)
     puma (5.6.7)
       nio4r (~> 2.0)
@@ -735,7 +733,6 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     ssrf_filter (1.0.8)
-    stringio (3.0.8)
     stripe (5.55.0)
     super_diff (0.10.0)
       attr_extras (>= 6.2.4)
@@ -870,7 +867,6 @@ DEPENDENCIES
   pry
   pry-byebug
   pry-rails
-  psych (~> 5.1, >= 5.1.1)
   puma (~> 5.6.4)
   puma_worker_killer
   pusher (~> 1.3)
@@ -914,7 +910,7 @@ DEPENDENCIES
   sidekiq-pro!
   sidekiq-retries
   slim-rails
-  spring (~> 4.1, >= 4.1.1)
+  spring
   spring-commands-rspec
   sprockets-rails (~> 3.2.2)
   stripe (~> 5.30)
