@@ -52,6 +52,10 @@ export const arrowPointingRightIcon = {
   src: `${process.env.CDN_URL}/images/icons/icons-arrow-back.svg`,
   alt: "Arrow pointing right icon"
 }
+export const whiteArrowPointingDownIcon = {
+  src: `${process.env.CDN_URL}/images/icons/downward-arrow-icon-white.svg`,
+  alt: "White arrow pointing down icon"
+}
 
 export const expandIcon = {
   src: `${process.env.CDN_URL}/images/icons/expand.svg`,
@@ -235,4 +239,14 @@ export const redDiamondIcon = {
 export const evidenceHandbookIcon = {
   alt: 'Stack of papers with text "Quill Reading for Evidence Teacher Handbook"',
   src: `${process.env.CDN_URL}/images/evidence/evidence-teacher-handbook.svg`
+}
+
+export const filterIcon = {
+  alt: 'Filter icon with three vertical dots and 3 horizontal lines',
+  src: `${process.env.CDN_URL}/images/icons/icons-filter.svg`
+}
+
+export const documentFileIcon = {
+  alt: 'Document file with folded corner and two horizontal lines',
+  src: `${process.env.CDN_URL}/images/icons/file-document.svg`
 }

@@ -51,6 +51,19 @@ const headers3 = [
   }
 ]
 
+const headers4 = [
+  {
+    name: 'Diagnostic',
+    attribute: 'name',
+    width: '200px'
+  },
+  {
+    name: 'Average Score',
+    attribute: 'average_score',
+    width: '100px'
+  }
+]
+
 const rows1 = [
   {
     name: 'Maya Angelou',
@@ -145,6 +158,60 @@ const rows3 = [
   }
 ]
 
+const rows4 = [
+  {
+    name: 'Starter Diagnostic',
+    id: 1,
+    average_score: "75%",
+    aggregate_rows: [
+      {
+        id: 1,
+        name: 'Grade 6',
+        average_score: '50%'
+      },
+      {
+        id: 2,
+        name: 'Grade 7',
+        average_score: '100%'
+      },
+    ]
+  },
+  {
+    name: 'Intermediate Diagnostic',
+    id: 2,
+    average_score: "85%",
+    aggregate_rows: [
+      {
+        id: 1,
+        name: 'Grade 6',
+        average_score: '80%'
+      },
+      {
+        id: 2,
+        name: 'Grade 7',
+        average_score: '90%'
+      },
+    ]
+  },
+  {
+    name: 'Advanced Diagnostic',
+    id: 3,
+    average_score: "90%",
+    aggregate_rows: [
+      {
+        id: 1,
+        name: 'Grade 6',
+        average_score: '100%'
+      },
+      {
+        id: 2,
+        name: 'Grade 7',
+        average_score: '80%'
+      },
+    ]
+  }
+]
+
 class DataTables extends React.Component<any, any> {
   constructor(props) {
     super(props)
@@ -218,6 +285,27 @@ const headers1 = ${JSON.stringify(headers1)}
               <DataTable
                 headers={headers1}
                 rows={rows1}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="element-container">
+          <div>
+            <h4 className="style-guide-h4">Data table with aggregate row data</h4>
+            <pre>
+              {`
+const rows1 = ${JSON.stringify(rows4)}
+const headers1 = ${JSON.stringify(headers4)}
+<DataTable
+  rows={rows4}
+  headers={headers4}
+/>
+`}
+            </pre>
+            <div className="data-tables-container">
+              <DataTable
+                headers={headers4}
+                rows={rows4}
               />
             </div>
           </div>

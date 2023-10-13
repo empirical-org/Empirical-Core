@@ -7,6 +7,13 @@ module Snapshots
     sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
 
     PUSHER_EVENT = 'admin-snapshot-top-x-cached'
+    TOO_SLOW_THRESHOLD = 20
+
+    class SlowQueryError < StandardError
+      def message
+        "Snapshot Count query took more than #{TOO_SLOW_THRESHOLD}"
+      end
+    end
 
     QUERIES = {
       'top-concepts-assigned' => Snapshots::TopConceptsAssignedQuery,
@@ -44,13 +51,28 @@ module Snapshots
     end
 
     private def generate_payload(query, timeframe, school_ids, filters)
+      timeframe_start = DateTime.parse(timeframe['current_start'])
+      timeframe_end = DateTime.parse(timeframe['current_end'])
       filters_symbolized = filters.symbolize_keys
 
-      QUERIES[query].run(**{
-        timeframe_start: DateTime.parse(timeframe['current_start']),
-        timeframe_end: DateTime.parse(timeframe['current_end']),
-        school_ids: school_ids
-      }.merge(filters_symbolized))
+      long_process_notifier = LongProcessNotifier.new(
+        SlowQueryError.new,
+        TOO_SLOW_THRESHOLD,
+        {
+          query:,
+          timeframe_start:,
+          timeframe_end:,
+          school_ids:
+        }.merge(filters_symbolized)
+      )
+
+      long_process_notifier.run do
+        QUERIES[query].run(**{
+          timeframe_start:,
+          timeframe_end:,
+          school_ids:
+        }.merge(filters_symbolized))
+      end
     end
   end
 end
