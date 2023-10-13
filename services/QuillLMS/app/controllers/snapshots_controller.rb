@@ -22,16 +22,21 @@ class SnapshotsController < ApplicationController
 
   WORKERS_FOR_ACTIONS = {
     "count" => Snapshots::CacheSnapshotCountWorker,
+    "previous_count" => Snapshots::CacheSnapshotPreviousCountWorker,
     "top_x" => Snapshots::CacheSnapshotTopXWorker,
     "data_export" => Snapshots::CachePremiumReportsWorker
   }
 
-  before_action :set_query, only: [:count, :top_x, :data_export]
-  before_action :validate_request, only: [:count, :top_x, :data_export]
-  before_action :authorize_request, only: [:count, :top_x, :data_export]
+  before_action :set_query, only: [:count, :previous_count, :top_x, :data_export]
+  before_action :validate_request, only: [:count, :previous_count, :top_x, :data_export]
+  before_action :authorize_request, only: [:count, :previous_count, :top_x, :data_export]
 
   def count
     render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
+  end
+
+  def previous_count
+    render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name], true)
   end
 
   def top_x
@@ -132,12 +137,18 @@ class SnapshotsController < ApplicationController
     return render json: { error: 'user is not authorized for all specified schools' }, status: 403
   end
 
-  private def retrieve_cache_or_enqueue_worker(worker)
+  private def retrieve_cache_or_enqueue_worker(worker, previous_timeframe = false)
 
-    previous_start, previous_end, current_start, current_end = Snapshots::Timeframes.calculate_timeframes(snapshot_params[:timeframe],
+    previous_start, previous_end, timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(snapshot_params[:timeframe],
       custom_start: snapshot_params[:timeframe_custom_start],
       custom_end: snapshot_params[:timeframe_custom_end])
-    cache_key = cache_key_for_timeframe(snapshot_params[:timeframe], current_start, current_end)
+
+    if previous_timeframe
+      timeframe_start = previous_start
+      timeframe_end = previous_end
+    end
+
+    cache_key = cache_key_for_timeframe(snapshot_params[:timeframe], timeframe_start, timeframe_end)
     response = Rails.cache.read(cache_key)
 
     return { results: response } if response
@@ -147,10 +158,8 @@ class SnapshotsController < ApplicationController
       current_user.id,
       {
         name: snapshot_params[:timeframe],
-        previous_start: previous_start,
-        previous_end: previous_end,
-        current_start: current_start,
-        current_end: current_end
+        timeframe_start: timeframe_start,
+        timeframe_end: timeframe_end
       },
       snapshot_params[:school_ids],
       {
@@ -162,12 +171,12 @@ class SnapshotsController < ApplicationController
     { message: 'Generating snapshot' }
   end
 
-  private def cache_key_for_timeframe(timeframe_name, current_start, current_end)
+  private def cache_key_for_timeframe(timeframe_name, timeframe_start, timeframe_end)
 
     Snapshots::CacheKeys.generate_key(@query,
       timeframe_name,
-      current_start,
-      current_end,
+      timeframe_start,
+      timeframe_end,
       snapshot_params.fetch(:school_ids, []),
       additional_filters: {
         grades: snapshot_params.fetch(:grades, []),

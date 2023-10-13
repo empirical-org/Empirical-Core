@@ -63,10 +63,8 @@ module Snapshots
     end
 
     private def generate_payload(query, timeframe, school_ids, filters)
-      previous_timeframe_start = parse_datetime_string(timeframe['previous_start'])
-      previous_timeframe_end = parse_datetime_string(timeframe['previous_end'])
-      current_timeframe_start = parse_datetime_string(timeframe['current_start'])
-      timeframe_end = parse_datetime_string(timeframe['current_end'])
+      timeframe_start = parse_datetime_string(timeframe['timeframe_start'])
+      timeframe_end = parse_datetime_string(timeframe['timeframe_end'])
       filters_symbolized = filters.symbolize_keys
 
       long_process_notifier = LongProcessNotifier.new(
@@ -74,7 +72,7 @@ module Snapshots
         TOO_SLOW_THRESHOLD,
         {
           query:,
-          timeframe_start: current_timeframe_start,
+          timeframe_start:,
           timeframe_end:,
           school_ids:
         }.merge(filters_symbolized)
@@ -82,21 +80,10 @@ module Snapshots
 
       long_process_notifier.run do
         current_snapshot = QUERIES[query].run(**{
-          timeframe_start: current_timeframe_start,
+          timeframe_start:,
           timeframe_end:,
           school_ids:
         }.merge(filters_symbolized))
-
-        if previous_timeframe_start
-          previous_snapshot = QUERIES[query].run(**{
-            timeframe_start: previous_timeframe_start,
-            timeframe_end: previous_timeframe_end,
-            school_ids:
-          }.merge(filters_symbolized))
-        else
-          previous_snapshot = nil
-        end
-        { current: current_snapshot&.fetch(:count, nil), previous: previous_snapshot&.fetch(:count, nil) }
       end
     end
 
