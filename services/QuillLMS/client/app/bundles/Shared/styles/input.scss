@@ -218,6 +218,7 @@
     }
     .dropdown__menu {
       border-radius: 0px 4px 4px 4px;
+      overflow: hidden;
     }
     .dropdown__value-container {
       display: flex;
