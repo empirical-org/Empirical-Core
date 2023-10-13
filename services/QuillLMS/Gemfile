@@ -111,7 +111,7 @@ gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 
 # API
 gem 'active_model_serializers', '~> 0.10.13'
-gem 'graphql'
+gem 'graphql', '~> 1.11', '>= 1.11.7'
 
 # UI HELPERS
 gem 'sass'
