@@ -342,7 +342,7 @@ Naming/AsciiIdentifiers:
   Enabled: true
 
 Naming/BlockForwarding:
-  Enabled: true
+  Enabled: false
 
 Naming/ClassAndModuleCamelCase:
   Enabled: true

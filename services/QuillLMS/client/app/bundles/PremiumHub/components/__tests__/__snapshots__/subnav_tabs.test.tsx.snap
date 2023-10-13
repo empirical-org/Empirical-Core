@@ -26,7 +26,7 @@ exports[`AdminSubnav it should render 1`] = `
         >
           <li>
             <a
-              class=" "
+              class=""
               href="/teachers/premium_hub"
             >
               Overview
@@ -37,7 +37,7 @@ exports[`AdminSubnav it should render 1`] = `
           </li>
           <li>
             <a
-              class=" "
+              class=""
               href="/teachers/premium_hub/school_subscriptions"
             >
               School Subscriptions
@@ -48,7 +48,7 @@ exports[`AdminSubnav it should render 1`] = `
           </li>
           <li>
             <a
-              class=" premium"
+              class=""
               href="/teachers/premium_hub/district_activity_scores"
             >
               Activity Scores
@@ -59,7 +59,7 @@ exports[`AdminSubnav it should render 1`] = `
           </li>
           <li>
             <a
-              class=" premium"
+              class=""
               href="/teachers/premium_hub/district_concept_reports"
             >
               Concept Reports
@@ -70,7 +70,7 @@ exports[`AdminSubnav it should render 1`] = `
           </li>
           <li>
             <a
-              class=" premium"
+              class=""
               href="/teachers/premium_hub/district_standards_reports"
             >
               Standards Reports
@@ -81,7 +81,7 @@ exports[`AdminSubnav it should render 1`] = `
           </li>
           <li>
             <a
-              class=" premium"
+              class=""
               href="/teachers/premium_hub/integrations"
             >
               Integrations
@@ -92,7 +92,7 @@ exports[`AdminSubnav it should render 1`] = `
           </li>
           <li>
             <a
-              class=" premium"
+              class=""
               href="/teachers/premium_hub/usage_snapshot_report"
             >
               Usage Snapshot Report
@@ -114,7 +114,7 @@ exports[`AdminSubnav it should render 1`] = `
       <ul>
         <li>
           <a
-            class=" "
+            class=""
             href="/teachers/premium_hub"
           >
             Overview
@@ -125,7 +125,7 @@ exports[`AdminSubnav it should render 1`] = `
         </li>
         <li>
           <a
-            class=" "
+            class=""
             href="/teachers/premium_hub/school_subscriptions"
           >
             School Subscriptions
@@ -136,7 +136,7 @@ exports[`AdminSubnav it should render 1`] = `
         </li>
         <li>
           <a
-            class=" premium"
+            class=""
             href="/teachers/premium_hub/district_activity_scores"
           >
             Activity Scores
@@ -147,7 +147,7 @@ exports[`AdminSubnav it should render 1`] = `
         </li>
         <li>
           <a
-            class=" premium"
+            class=""
             href="/teachers/premium_hub/district_concept_reports"
           >
             Concept Reports
@@ -158,7 +158,7 @@ exports[`AdminSubnav it should render 1`] = `
         </li>
         <li>
           <a
-            class=" premium"
+            class=""
             href="/teachers/premium_hub/district_standards_reports"
           >
             Standards Reports
@@ -169,7 +169,7 @@ exports[`AdminSubnav it should render 1`] = `
         </li>
         <li>
           <a
-            class=" premium"
+            class=""
             href="/teachers/premium_hub/integrations"
           >
             Integrations
@@ -180,7 +180,7 @@ exports[`AdminSubnav it should render 1`] = `
         </li>
         <li>
           <a
-            class=" premium"
+            class=""
             href="/teachers/premium_hub/usage_snapshot_report"
           >
             Usage Snapshot Report

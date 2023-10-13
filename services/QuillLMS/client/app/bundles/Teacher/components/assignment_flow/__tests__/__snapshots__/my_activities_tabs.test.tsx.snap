@@ -28,7 +28,7 @@ exports[`MyActivitiesTabs it should render 1`] = `
         >
           <li>
             <a
-              class="active "
+              class="active"
               href="/teachers/classrooms/activity_planner"
             >
               My Open Activity Packs
@@ -39,7 +39,7 @@ exports[`MyActivitiesTabs it should render 1`] = `
           </li>
           <li>
             <a
-              class=" "
+              class=""
               href="/teachers/classrooms/activity_planner/closed"
             >
               My Closed Activity Packs
@@ -50,7 +50,7 @@ exports[`MyActivitiesTabs it should render 1`] = `
           </li>
           <li>
             <a
-              class=" "
+              class=""
               href="/teachers/classrooms/activity_planner/lessons"
             >
               Launch Lessons
@@ -72,7 +72,7 @@ exports[`MyActivitiesTabs it should render 1`] = `
       <ul>
         <li>
           <a
-            class="active "
+            class="active"
             href="/teachers/classrooms/activity_planner"
           >
             My Open Activity Packs
@@ -83,7 +83,7 @@ exports[`MyActivitiesTabs it should render 1`] = `
         </li>
         <li>
           <a
-            class=" "
+            class=""
             href="/teachers/classrooms/activity_planner/closed"
           >
             My Closed Activity Packs
@@ -94,7 +94,7 @@ exports[`MyActivitiesTabs it should render 1`] = `
         </li>
         <li>
           <a
-            class=" "
+            class=""
             href="/teachers/classrooms/activity_planner/lessons"
           >
             Launch Lessons

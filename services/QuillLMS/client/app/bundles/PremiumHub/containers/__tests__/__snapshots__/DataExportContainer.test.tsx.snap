@@ -12,10 +12,16 @@ exports[`DataExportContainer full state it should render 1`] = `
         Data Export
       </h1>
       <button
-        class="quill-button contained primary medium focus-on-light"
+        class="quill-button download-report-button contained primary medium focus-on-light"
         type="button"
       >
-        Download Report
+        <img
+          alt="White arrow pointing down icon"
+          src="undefined/images/icons/downward-arrow-icon-white.svg"
+        />
+        <span>
+          Download
+        </span>
       </button>
     </div>
     <div
@@ -26,7 +32,7 @@ exports[`DataExportContainer full state it should render 1`] = `
         type="button"
       >
         <img
-          alt="Filter icon"
+          alt="Filter icon with three vertical dots and 3 horizontal lines"
           src="undefined/images/icons/icons-filter.svg"
         />
         Filters

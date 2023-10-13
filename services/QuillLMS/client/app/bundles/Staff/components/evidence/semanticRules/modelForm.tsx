@@ -89,7 +89,7 @@ const ModelForm = ({ location, history, match }) => {
       <DropdownInput
         handleChange={handleSetName}
         isSearchable={true}
-        label="Name"
+        label="Name (note: if you're not finding a particular name, ensure that endpoint and model name are identical including leading/trailing whitespace)"
         options={nameOptions}
         value={nameOptions.find(opt => opt.value === name)}
       />
@@ -102,7 +102,7 @@ const ModelForm = ({ location, history, match }) => {
       />
       <button className="quill-button fun primary contained" id="add-model-button" onClick={submitModel} type="submit">Submit</button>
       {errors['Model Submission Error'] && <p className="error-message">{errors['Model Submission Error']}</p>}
-    </div>
+    </div >
   );
 }
 

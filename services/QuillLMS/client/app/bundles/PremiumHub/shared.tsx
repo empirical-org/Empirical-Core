@@ -1,6 +1,8 @@
 import * as React from 'react'
 import * as _ from 'lodash'
 
+import * as md5 from 'md5'
+
 import { unorderedArraysAreEqual, } from '../../modules/unorderedArraysAreEqual'
 
 export const RESTRICTED = 'restricted'
@@ -43,4 +45,10 @@ export function mapItemsIfNotAll(selectedItems, allItems, mapKey = 'id') {
   if (allItemsSelected || selectionsEqual(selectedItems, allItems)) return null
 
   return selectedItems.map(i => i[mapKey])
+}
+
+/* Should produce the same output as backend `app/services/payload_hasher.rb:run` */
+export function hashPayload(payloadArray: Array<any>) {
+  const joinedPayload = payloadArray.join('-')
+  return md5(joinedPayload)
 }

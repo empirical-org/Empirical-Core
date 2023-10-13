@@ -1,0 +1,185 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OverviewTable loaded state it should render the expected empty state message 1`] = `
+<DocumentFragment>
+  <p
+    class="empty-state-message"
+  >
+    There is no diagnostic data available for the filters selected. Try modifying or removing a filter to see results.
+  </p>
+  <table
+    class="data-table growth-diagnostic-reports-overview-table reporting-format"
+  >
+    <thead>
+      <tr
+        class="data-table-headers"
+      >
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 182px; min-width: 182px; text-align: right;"
+        >
+          Diagnostic Name
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 182px; min-width: 182px; text-align: right;"
+        >
+          Pre Diagnostic Completed
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 182px; min-width: 182px; text-align: right;"
+        >
+          Completed Activities
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 182px; min-width: 182px; text-align: right;"
+        >
+          <div
+            class="multi-line-header"
+          >
+            <p>
+              Average Activities &
+            </p>
+            <p>
+              Time Spent
+            </p>
+          </div>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 182px; min-width: 182px; text-align: right;"
+        >
+          <div
+            class="multi-line-header"
+          >
+            <p>
+              Post Diagnostic
+            </p>
+            <p>
+              Completed
+            </p>
+          </div>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 182px; min-width: 182px; text-align: right;"
+        >
+          Overall Skill Growth
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="data-table-body"
+    />
+  </table>
+</DocumentFragment>
+`;
+
+exports[`OverviewTable loaded state it should render the expected header components 1`] = `
+<DocumentFragment>
+  <p
+    class="empty-state-message"
+  >
+    There is no diagnostic data available for the filters selected. Try modifying or removing a filter to see results.
+  </p>
+  <table
+    class="data-table growth-diagnostic-reports-overview-table reporting-format"
+  >
+    <thead>
+      <tr
+        class="data-table-headers"
+      >
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 182px; min-width: 182px; text-align: right;"
+        >
+          Diagnostic Name
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 182px; min-width: 182px; text-align: right;"
+        >
+          Pre Diagnostic Completed
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 182px; min-width: 182px; text-align: right;"
+        >
+          Completed Activities
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 182px; min-width: 182px; text-align: right;"
+        >
+          <div
+            class="multi-line-header"
+          >
+            <p>
+              Average Activities &
+            </p>
+            <p>
+              Time Spent
+            </p>
+          </div>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 182px; min-width: 182px; text-align: right;"
+        >
+          <div
+            class="multi-line-header"
+          >
+            <p>
+              Post Diagnostic
+            </p>
+            <p>
+              Completed
+            </p>
+          </div>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 182px; min-width: 182px; text-align: right;"
+        >
+          Overall Skill Growth
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="data-table-body"
+    />
+  </table>
+</DocumentFragment>
+`;
+
+exports[`OverviewTable loading state it should render loading spinner 1`] = `
+<DocumentFragment>
+  <div
+    class="loading-spinner"
+  >
+    <div
+      class="spinner-container"
+    >
+      <img
+        alt=""
+        class="spinner"
+        src="https://assets.quill.org/images/icons/loader_still.svg"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
