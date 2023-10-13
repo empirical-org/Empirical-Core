@@ -44,7 +44,7 @@ module Demo
     end
 
     private def load_file(file)
-      YAML.load_file(FILE_DIRECTORY + file)
+      Psych.unsafe_load_file(FILE_DIRECTORY+file)
     end
 
     # Important! This only needs to be run if there is a change to:
