@@ -16,8 +16,7 @@ module ImpactMetrics
       let(:schools_user_two) { create(:schools_users, user: second_teacher, school: chosen_school_two) }
       let(:excluded_school) { create(:school) }
 
-      let(:teacher_ids) { [teacher.id, second_teacher.id] }
-      let(:query_args) { { teacher_ids: teacher_ids } }
+      let(:query_args) { {} }
 
       let(:cte_records) {
         [
@@ -38,13 +37,6 @@ module ImpactMetrics
 
       it { expect(results).to match_array(expected_results) }
 
-      # Make sure bigquery can handle long array arguments
-      context 'lots of teacher ids' do
-        let(:lots_of_teacher_ids) { (1..1000).to_a }
-        let(:query_args) { { teacher_ids: teacher_ids + lots_of_teacher_ids } }
-
-        it { expect(results).to match_array(expected_results) }
-      end
     end
   end
 end

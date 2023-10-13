@@ -18,7 +18,6 @@ module QuillBigQuery
 
     def query
       <<-SQL
-        #{cte_clause}
         #{select_clause}
         #{from_and_join_clauses}
         #{where_clause}
@@ -30,10 +29,6 @@ module QuillBigQuery
 
     def select_clause
       raise NotImplementedError
-    end
-
-    def cte_clause
-      ""
     end
 
     def group_by_clause
