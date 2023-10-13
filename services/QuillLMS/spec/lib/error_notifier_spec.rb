@@ -3,9 +3,10 @@
 require 'rails_helper'
 
 describe ErrorNotifier do
+  let(:error) { StandardError }
+  let(:key_values) { {key: 'value', key2: 'value2'}}
+
   describe '#report' do
-    let(:error) { StandardError }
-    let(:key_values) { {key: 'value', key2: 'value2'}}
 
     it 'should notify Sentry and New Relic' do
       expect(Sentry).to receive(:capture_exception).with(error, extra: {}).once
