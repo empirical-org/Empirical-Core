@@ -31,7 +31,7 @@ describe SetImpactMetricsWorker do
     before do
       allow(ImpactMetrics::ActivitiesAllTimeQuery).to receive(:run).and_return(activity_sessions_payload)
       allow(ImpactMetrics::ActiveStudentsAllTimeQuery).to receive(:run).and_return(active_students_payload)
-      allow(ImpactMetrics::ActiveTeachersAllTimeQuery).to receive(:run).and_return(teachers_payload)
+      allow(ImpactMetrics::ActiveTeachersAllTimeCountQuery).to receive(:run).and_return(teachers_payload)
       allow(ImpactMetrics::SchoolsContainingCertainTeachersQuery).to receive(:run).and_return(schools_payload)
     end
 

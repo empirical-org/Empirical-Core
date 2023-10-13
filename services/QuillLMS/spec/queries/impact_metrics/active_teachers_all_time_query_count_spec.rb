@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 module ImpactMetrics
-  describe ActiveTeachersAllTimeQuery do
+  describe ActiveTeachersAllTimeCountQuery do
     context 'for active teachers all time', :big_query_snapshot do
       include_context 'QuillBigQuery TestRunner Setup'
 
@@ -15,8 +15,6 @@ module ImpactMetrics
 
       let(:cte_records) { [users, units, classroom_units, activity_sessions] }
       let(:query_args) { {} }
-
-      it { expect(results).to match_array(users.map { |u| { id: u.id}}) }
 
       context 'only one teacher with activity_sessions' do
         let(:activity_sessions) { [create_list(:activity_session, 10, classroom_unit: classroom_units.first)] }

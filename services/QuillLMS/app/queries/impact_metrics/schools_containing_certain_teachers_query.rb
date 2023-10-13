@@ -29,7 +29,7 @@ module ImpactMetrics
           JOIN lms.classroom_units ON classroom_units.unit_id = units.id
           JOIN lms.activity_sessions a_s ON a_s.classroom_unit_id = classroom_units.id
           GROUP BY users.id
-          HAVING count(a_s) > #{ActiveTeachersAllTimeQuery::ACTIVITY_SESSION_MINIMUM}
+          HAVING count(a_s) > #{ActiveTeachersAllTimeCountQuery::ACTIVITY_SESSION_MINIMUM}
         )
       SQL
     end

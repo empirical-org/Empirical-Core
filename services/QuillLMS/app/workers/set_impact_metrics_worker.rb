@@ -10,7 +10,8 @@ class SetImpactMetricsWorker
     finished_activity_sessions_count = ImpactMetrics::ActivitiesAllTimeQuery.run[0][:count]
     active_students_count = ImpactMetrics::ActiveStudentsAllTimeQuery.run[0][:count]
 
-    teachers = ImpactMetrics::ActiveTeachersAllTimeQuery.run
+    teacher_count = ImpactMetrics::ActiveTeachersAllTimeCountQuery.run[0][:count]
+    number_of_teachers = self.class.round_to_hundreds(teacher_count)
 
     schools = ImpactMetrics::SchoolsContainingCertainTeachersQuery.run
     low_income_schools = schools.select { |school| (school[:free_lunches] || 0) > FREE_LUNCH_MINIMUM}
@@ -19,7 +20,7 @@ class SetImpactMetricsWorker
     $redis.set(PagesController::NUMBER_OF_SENTENCES, number_of_sentences)
     number_of_students = self.class.round_to_ten_thousands(active_students_count)
     $redis.set(PagesController::NUMBER_OF_STUDENTS, number_of_students)
-    number_of_teachers = self.class.round_to_hundreds(teachers.size)
+
     $redis.set(PagesController::NUMBER_OF_TEACHERS, number_of_teachers)
     number_of_schools = schools.length
     $redis.set(PagesController::NUMBER_OF_SCHOOLS, number_of_schools)
