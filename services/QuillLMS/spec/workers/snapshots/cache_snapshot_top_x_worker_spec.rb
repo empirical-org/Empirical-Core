@@ -33,6 +33,7 @@ module Snapshots
     it { expect { described_class::QUERIES.values }.not_to raise_error }
 
     context '#perform' do
+      let(:perform) { subject.perform(cache_key, query, user_id, timeframe, school_ids, filters) }
       let(:timeframe_end) { DateTime.now }
       let(:current_timeframe_start) { timeframe_end - 30.days }
       let(:previous_timeframe_start) { current_timeframe_start - 30.days }
@@ -66,7 +67,7 @@ module Snapshots
         expect(Rails.cache).to receive(:write)
         expect(SendPusherMessageWorker).to receive(:perform_async)
 
-        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters)
+        perform
       end
 
       context 'serialization/deserialization' do
@@ -100,7 +101,7 @@ module Snapshots
         expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: cache_ttl)
         expect(SendPusherMessageWorker).to receive(:perform_async)
 
-        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters)
+        perform
       end
 
       it 'should send a Pusher notification' do
@@ -111,7 +112,30 @@ module Snapshots
           school_ids: school_ids
         }.merge(filters))
 
-        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters)
+        perform
+      end
+
+      context 'slow query reporting' do
+        let(:start) { 0 }
+        let(:finish) { described_class::TOO_SLOW_THRESHOLD }
+
+        before { allow(LongProcessNotifier).to receive(:current_time).and_return(start, finish) }
+
+        it do
+          allow(PusherTrigger).to receive(:run)
+          expect(ErrorNotifier).to receive(:report)
+          perform
+        end
+
+        context 'query takes less time than threshold' do
+          let(:finish) { start }
+
+          it do
+            allow(PusherTrigger).to receive(:run)
+            expect(ErrorNotifier).not_to receive(:report)
+            perform
+          end
+        end
       end
     end
   end

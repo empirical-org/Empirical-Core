@@ -9,7 +9,7 @@ inherit_mode:
     - Exclude
 
 AllCops:
-  TargetRubyVersion: 3.0
+  TargetRubyVersion: 3.1
   Exclude:
     - "QuillLMS/engines/evidence/spec/dummy/**/*"
     - "QuillLMS/engines/evidence/lib/generators/**/*"
@@ -342,7 +342,7 @@ Naming/AsciiIdentifiers:
   Enabled: true
 
 Naming/BlockForwarding:
-  Enabled: true
+  Enabled: false
 
 Naming/ClassAndModuleCamelCase:
   Enabled: true
