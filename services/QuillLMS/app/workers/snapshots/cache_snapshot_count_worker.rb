@@ -42,13 +42,16 @@ module Snapshots
 
       Rails.cache.write(cache_key, payload, expires_in: cache_expiry)
 
-      SendPusherMessageWorker.perform_async(user_id, PUSHER_EVENT,
-        {
-          query:,
-          timeframe: timeframe['name'],
-          school_ids:
-        }.merge(filters)
-      )
+      filter_hash = PayloadHasher.run([
+        query,
+        timeframe['name'],
+        school_ids,
+        filters['grades'],
+        filters['teacher_ids'],
+        filters['classroom_ids']
+      ].flatten)
+
+      SendPusherMessageWorker.perform_async(user_id, PUSHER_EVENT, filter_hash)
     end
 
     private def cache_expiry

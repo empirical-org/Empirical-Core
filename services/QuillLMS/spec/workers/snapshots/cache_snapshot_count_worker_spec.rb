@@ -21,13 +21,7 @@ module Snapshots
         classroom_ids: classroom_ids
       }
     end
-    let(:filters_with_string_keys) do
-      {
-        "grades" => grades,
-        "teacher_ids" => teacher_ids,
-        "classroom_ids" => classroom_ids
-      }
-    end
+    let(:filters_with_string_keys) { filters.stringify_keys }
 
     let(:query_double) { double(run: {}) }
 
@@ -136,17 +130,19 @@ module Snapshots
       end
 
       it 'should send a Pusher notification' do
-        expect(Rails.cache).to receive(:write)
-        expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, described_class::PUSHER_EVENT, {
-          query: query,
-          timeframe: timeframe_name,
-          school_ids: school_ids,
-          grades: grades,
-          teacher_ids: teacher_ids,
-          classroom_ids: classroom_ids
-        })
+        hashed_payload = PayloadHasher.run([
+          query,
+          timeframe_name,
+          school_ids,
+          grades,
+          teacher_ids,
+          classroom_ids
+        ].flatten)
 
-        perform
+        expect(Rails.cache).to receive(:write)
+        expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, described_class::PUSHER_EVENT, hashed_payload)
+
+        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters_with_string_keys)
       end
 
       context 'slow query reporting' do
