@@ -126,7 +126,7 @@ gem 'slim-rails'
 gem 'es5-shim-rails'
 # Use the exact gem version to match npm version of react-on-rails
 gem 'react_on_rails', '= 11.3.0'
-gem 'webpacker', '= 3.0.0'
+gem 'webpacker'
 
 # ASSET/UI
 gem 'uglifier', require: false
@@ -162,7 +162,7 @@ gem 'capitalize-names', require: 'capitalize_names'
 
 gem 'rexml'
 
-gem 'psych', '< 4'
+gem 'psych', '~> 5.1', '>= 5.1.1'
 
 group :production, :staging do
   gem 'rails-autoscale-web'
