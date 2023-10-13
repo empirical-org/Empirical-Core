@@ -167,10 +167,8 @@ describe SnapshotsController, type: :controller do
             user.id,
             {
               name: timeframe_name,
-              previous_start: previous_timeframe,
-              previous_end: previous_end,
-              current_start: current_timeframe,
-              current_end: timeframe_end
+              timeframe_start: current_timeframe,
+              timeframe_end: timeframe_end
             },
             school_ids,
             {
@@ -180,6 +178,33 @@ describe SnapshotsController, type: :controller do
             })
 
           get :count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
+
+          json_response = JSON.parse(response.body)
+
+          expect(json_response).to eq("message" => "Generating snapshot")
+        end
+
+        it 'should trigger a job to cache data if the cache is empty for previous_counts' do
+          query_name = 'active-classrooms'
+
+          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return([previous_timeframe, previous_end, current_timeframe, timeframe_end])
+          expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
+          expect(Snapshots::CacheSnapshotPreviousCountWorker).to receive(:perform_async).with(cache_key,
+            query_name,
+            user.id,
+            {
+              name: timeframe_name,
+              timeframe_start: previous_timeframe,
+              timeframe_end: previous_end
+            },
+            school_ids,
+            {
+              grades: nil,
+              teacher_ids: nil,
+              classroom_ids: nil
+            })
+
+          get :previous_count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
 
           json_response = JSON.parse(response.body)
 
@@ -196,10 +221,8 @@ describe SnapshotsController, type: :controller do
             user.id,
             {
               name: timeframe_name,
-              previous_start: previous_timeframe,
-              previous_end: previous_end,
-              current_start: current_timeframe,
-              current_end: timeframe_end
+              timeframe_start: current_timeframe,
+              timeframe_end: timeframe_end
             },
             school_ids,
             {
@@ -225,10 +248,8 @@ describe SnapshotsController, type: :controller do
             user.id,
             {
               name: timeframe_name,
-              previous_start: previous_timeframe,
-              previous_end: previous_end,
-              current_start: current_timeframe,
-              current_end: timeframe_end
+              timeframe_start: current_timeframe,
+              timeframe_end: timeframe_end
             },
             school_ids,
             {
@@ -257,10 +278,8 @@ describe SnapshotsController, type: :controller do
             user.id,
             {
               name: timeframe_name,
-              previous_start: previous_timeframe,
-              previous_end: previous_end,
-              current_start: current_timeframe,
-              current_end: timeframe_end
+              timeframe_start: current_timeframe,
+              timeframe_end: timeframe_end
             },
             school_ids,
             {
@@ -285,10 +304,8 @@ describe SnapshotsController, type: :controller do
             user.id,
             {
               name: timeframe_name,
-              previous_start: current_start - timeframe_length,
-              previous_end: current_start,
-              current_start: current_start,
-              current_end: current_end
+              timeframe_start: current_start,
+              timeframe_end: current_end
             },
             school_ids,
             {
