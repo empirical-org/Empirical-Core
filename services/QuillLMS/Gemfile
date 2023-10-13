@@ -178,7 +178,7 @@ group :development do
   gem 'foreman'
   gem 'graphiql-rails'
   gem 'letter_opener'
-  gem 'spring'
+  gem 'spring', '~> 4.1', '>= 4.1.1'
   gem 'spring-commands-rspec'
   gem 'annotate'
 end

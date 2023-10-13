@@ -912,7 +912,7 @@ DEPENDENCIES
   sidekiq-pro!
   sidekiq-retries
   slim-rails
-  spring
+  spring (~> 4.1, >= 4.1.1)
   spring-commands-rspec
   sprockets-rails (~> 3.2.2)
   stripe (~> 5.30)
