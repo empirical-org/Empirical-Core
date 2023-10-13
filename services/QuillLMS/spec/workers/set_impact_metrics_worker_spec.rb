@@ -9,22 +9,22 @@ describe SetImpactMetricsWorker do
     let(:activity_sessions) { create_list(:activity_session, 10)}
 
     let(:activity_sessions_payload) {
-      [{"count" => activity_sessions.length}]
+      [{count: activity_sessions.length}]
     }
 
-    let(:active_students_payload) { [{"count" => activity_sessions.length}]}
+    let(:active_students_payload) { [{count: activity_sessions.length}]}
 
     let(:teachers) { create_list(:teacher, 15)}
 
     let(:teachers_payload) {
-      teachers.map {|t| {"id" => t.id}}
+      teachers.map {|t| {id: t.id}}
     }
 
     let(:schools_payload) {
       [
-        {"id" => 333, "free_lunches" => 30},
-        {"id" => 334, "free_lunches" => 0},
-        {"id" => 545, "free_lunches" => 54}
+        {id: 333, free_lunches: 30},
+        {id: 334, free_lunches: 0},
+        {id: 545, free_lunches: 54}
       ]
     }
 
@@ -57,7 +57,7 @@ describe SetImpactMetricsWorker do
 
     it 'should set the NUMBER_OF_LOW_INCOME_SCHOOLS redis value' do
       subject.perform
-      expect($redis.get(PagesController::NUMBER_OF_LOW_INCOME_SCHOOLS)).to eq(schools_payload.filter { |s| s["free_lunches"] > SetImpactMetricsWorker::FREE_LUNCH_MINIMUM}.length.to_s)
+      expect($redis.get(PagesController::NUMBER_OF_LOW_INCOME_SCHOOLS)).to eq(schools_payload.filter { |s| s[:free_lunches] > SetImpactMetricsWorker::FREE_LUNCH_MINIMUM}.length.to_s)
     end
   end
 end

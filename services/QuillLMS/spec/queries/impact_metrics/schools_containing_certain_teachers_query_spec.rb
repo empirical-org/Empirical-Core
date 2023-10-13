@@ -16,6 +16,10 @@ module ImpactMetrics
       let(:schools_user_two) { create(:schools_users, user: second_teacher, school: chosen_school_two) }
       let(:excluded_school) { create(:school) }
 
+      let(:units) { [teacher, second_teacher].map { |user| create(:unit, user: user) } }
+      let(:classroom_units) { units.map { |unit| create(:classroom_unit, unit: unit) } }
+      let(:activity_sessions) { classroom_units.map { |classroom_unit| create_list(:activity_session, 10, classroom_unit: classroom_unit) } }
+
       let(:query_args) { {} }
 
       let(:cte_records) {
@@ -27,7 +31,10 @@ module ImpactMetrics
           second_teacher,
           schools_user,
           schools_user_two,
-          excluded_school
+          excluded_school,
+          units,
+          classroom_units,
+          activity_sessions
         ]
       }
 

@@ -7,20 +7,6 @@ module ImpactMetrics
       runner.execute(query)
     end
 
-    # def cte_clause
-    #   <<-SQL
-	  #     WITH teacher_ids AS (
-    #       SELECT users.id AS id
-    #       FROM lms.users
-    #       JOIN lms.units ON units.user_id = users.id
-    #       JOIN lms.classroom_units ON classroom_units.unit_id = units.id
-    #       JOIN lms.activity_sessions ON activity_sessions.classroom_unit_id = classroom_units.id
-    #       GROUP BY users.id
-    #       HAVING count(activity_sessions) > #{ActiveTeachersAllTimeQuery::ACTIVITY_SESSION_MINIMUM}
-    #     )
-    #   SQL
-    # end
-
     def select_clause
       <<-SQL
         SELECT DISTINCT schools.id, schools.free_lunches
@@ -37,13 +23,13 @@ module ImpactMetrics
     def where_clause
       <<-SQL
         WHERE schools_users.user_id IN (
-        SELECT users.id AS id
-        FROM lms.users users
-        JOIN lms.units ON units.user_id = users.id
-        JOIN lms.classroom_units ON classroom_units.unit_id = units.id
-        JOIN lms.activity_sessions ON activity_sessions.classroom_unit_id = classroom_units.id
-        GROUP BY users.id
-        HAVING count(activity_sessions) > #{ActiveTeachersAllTimeQuery::ACTIVITY_SESSION_MINIMUM}
+          SELECT users.id AS id
+          FROM lms.users users
+          JOIN lms.units ON units.user_id = users.id
+          JOIN lms.classroom_units ON classroom_units.unit_id = units.id
+          JOIN lms.activity_sessions a_s ON a_s.classroom_unit_id = classroom_units.id
+          GROUP BY users.id
+          HAVING count(a_s) > #{ActiveTeachersAllTimeQuery::ACTIVITY_SESSION_MINIMUM}
         )
       SQL
     end
