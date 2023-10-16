@@ -33,10 +33,10 @@ interface SnapshotCountProps {
 const PUSHER_CURRENT_EVENT_KEY = 'admin-snapshot-count-cached'
 const PUSHER_PREVIOUS_EVENT_KEY = 'admin-snapshot-previous-count-cached'
 
-const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, passedCount, passedChange, passedChangeDirection, singularLabel, pusherChannel, }: SnapshotCountProps) => {
+const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, passedCount, passedPrevious, passedChange, passedChangeDirection, singularLabel, pusherChannel, }: SnapshotCountProps) => {
   const [count, setCount] = React.useState(passedCount || null)
-  const [previous, setPrevious] = React.useState(null)
-  const [change, setChange] = React.useState(passedChange || 0)
+  const [previous, setPrevious] = React.useState(passedPrevious)
+  const [change, setChange] = React.useState(passedChange)
   const [changeDirection, setChangeDirection] = React.useState(passedChangeDirection || null)
   const [loading, setLoading] = React.useState(false)
   const [currentRetryTimeout, setCurrentRetryTimeout] = React.useState(null)
