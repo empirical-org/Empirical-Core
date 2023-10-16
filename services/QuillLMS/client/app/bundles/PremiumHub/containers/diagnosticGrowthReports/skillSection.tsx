@@ -9,7 +9,7 @@ const headers = [
     attribute: 'skill',
     width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
     name: '',
