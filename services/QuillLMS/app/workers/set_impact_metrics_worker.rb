@@ -13,7 +13,7 @@ class SetImpactMetricsWorker
     teacher_count = ImpactMetrics::ActiveTeachersAllTimeCountQuery.run[0][:count]
     number_of_teachers = self.class.round_to_hundreds(teacher_count)
 
-    schools = ImpactMetrics::SchoolsContainingCertainTeachersQuery.run
+    schools = ImpactMetrics::SchoolsWithMinimumActivitySessions.run
     low_income_schools = schools.select { |school| (school[:free_lunches] || 0) > FREE_LUNCH_MINIMUM}
 
     number_of_sentences = self.class.round_to_ten_thousands(finished_activity_sessions_count) * SENTENCES_PER_ACTIVITY_SESSION
