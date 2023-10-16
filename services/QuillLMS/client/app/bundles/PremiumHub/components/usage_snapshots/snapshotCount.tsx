@@ -30,14 +30,17 @@ interface SnapshotCountProps {
   pusherChannel?: any;
 }
 
-const PUSHER_EVENT_KEY = 'admin-snapshot-count-cached'
+const PUSHER_CURRENT_EVENT_KEY = 'admin-snapshot-count-cached'
+const PUSHER_PREVIOUS_EVENT_KEY = 'admin-snapshot-previous-count-cached'
 
 const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, passedCount, passedChange, passedChangeDirection, singularLabel, pusherChannel, }: SnapshotCountProps) => {
   const [count, setCount] = React.useState(passedCount || null)
+  const [previous, setPrevious] = React.useState(null)
   const [change, setChange] = React.useState(passedChange || 0)
   const [changeDirection, setChangeDirection] = React.useState(passedChangeDirection || null)
   const [loading, setLoading] = React.useState(false)
-  const [retryTimeout, setRetryTimeout] = React.useState(null)
+  const [currentRetryTimeout, setCurrentRetryTimeout] = React.useState(null)
+  const [previousRetryTimeout, setPreviousRetryTimeout] = React.useState(null)
 
   React.useEffect(() => {
     initializePusher()
@@ -48,12 +51,34 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
 
     resetToDefault()
 
-    setRetryTimeout(setTimeout(getData, 20000))
+    setCurrentRetryTimeout(setTimeout(getCurrentData, 20000))
+    setPreviousRetryTimeout(setTimeout(getPreviousData, 20000))
   }, [searchCount])
 
   React.useEffect(() => {
-    if (retryTimeout) getData()
-  }, [retryTimeout])
+    if (currentRetryTimeout) getCurrentData()
+  }, [currentRetryTimeout])
+
+  React.useEffect(() => {
+    if (previousRetryTimeout) getPreviousData()
+  }, [previousRetryTimeout])
+
+  React.useEffect(() => {
+    if (!previous || count === 'N/A') {
+      setChangeDirection(NONE)
+      return
+    }
+
+    const roundedPrevious = Math.round(previous || 0)
+
+    const changeTotal = Math.round(((count - roundedPrevious) / (roundedPrevious || 1)) * 100)
+    setChange(Math.abs(changeTotal))
+    if (changeTotal) {
+      setChangeDirection(changeTotal > 0 ? POSITIVE : NEGATIVE)
+    } else {
+      setChangeDirection(NONE)
+    }
+  }, [count, previous])
 
   function resetToDefault() {
     setCount(passedCount || null)
@@ -61,8 +86,8 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     setChange(passedChange || 0)
   }
 
-  function getData() {
-    const searchParams = {
+  function getSearchParams() {
+    return {
       query: queryKey,
       timeframe: selectedTimeframe,
       timeframe_custom_start: customTimeframeStart,
@@ -72,38 +97,37 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
       classroom_ids: selectedClassroomIds,
       grades: selectedGrades
     }
+  }
 
-    requestPost(`/snapshots/count`, searchParams, (body) => {
+  function getCurrentData() {
+
+    requestPost(`/snapshots/count`, getSearchParams(), (body) => {
       if (!body.hasOwnProperty('results')) {
         setLoading(true)
-      } else {
-        const { results, } = body
-        const { previous, current, } = results
-
-        const roundedCurrent = (current === null) ? 'N/A' : Math.round(current || 0)
-
-        setCount(roundedCurrent)
-
-        if (!previous || current === null) {
-          setChangeDirection(NONE)
-          setLoading(false)
-          return
-        }
-
-        const roundedPrevious = Math.round(previous || 0)
-
-        const changeTotal = Math.round(((roundedCurrent - roundedPrevious) / (roundedPrevious || 1)) * 100)
-        setChange(Math.abs(changeTotal))
-        if (changeTotal) {
-          setChangeDirection(changeTotal > 0 ? POSITIVE : NEGATIVE)
-        } else {
-          setChangeDirection(NONE)
-        }
-        if (retryTimeout) {
-          clearTimeout(retryTimeout)
-        }
-        setLoading(false)
+        return
       }
+
+      clearTimeout(currentRetryTimeout)
+
+      const { results, } = body
+      const { count } = results
+
+      setCount((count === null) ? 'N/A' : Math.round(count || 0))
+
+      setLoading(false)
+    })
+  }
+
+  function getPreviousData() {
+    requestPost(`/snapshots/previous_count`, getSearchParams(), (body) => {
+      if (!body.hasOwnProperty('results')) return
+
+      clearTimeout(previousRetryTimeout)
+
+      const { results, } = body
+      const { count } = results
+
+      setPrevious(Math.round(count || 0))
     })
   }
 
@@ -123,10 +147,16 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
   }
 
   function initializePusher() {
-    pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
+    pusherChannel?.bind(PUSHER_CURRENT_EVENT_KEY, (body) => {
       const { message, } = body
 
-      if (filtersMatchHash(message)) getData()
+      if (filtersMatchHash(message)) getCurrentData()
+    });
+
+    pusherChannel?.bind(PUSHER_PREVIOUS_EVENT_KEY, (body) => {
+      const { message, } = body
+
+      if (filtersMatchHash(message)) getPreviousData()
     });
   };
 
