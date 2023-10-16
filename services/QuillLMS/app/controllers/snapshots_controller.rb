@@ -36,7 +36,7 @@ class SnapshotsController < ApplicationController
   end
 
   def previous_count
-    render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name], true)
+    render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name], previous_timeframe: true)
   end
 
   def top_x
@@ -137,7 +137,7 @@ class SnapshotsController < ApplicationController
     return render json: { error: 'user is not authorized for all specified schools' }, status: 403
   end
 
-  private def retrieve_cache_or_enqueue_worker(worker, previous_timeframe = false)
+  private def retrieve_cache_or_enqueue_worker(worker, previous_timeframe: false)
 
     previous_start, previous_end, timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(snapshot_params[:timeframe],
       custom_start: snapshot_params[:timeframe_custom_start],
