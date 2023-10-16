@@ -342,7 +342,8 @@ Naming/AsciiIdentifiers:
   Enabled: true
 
 Naming/BlockForwarding:
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: explicit
 
 Naming/ClassAndModuleCamelCase:
   Enabled: true
