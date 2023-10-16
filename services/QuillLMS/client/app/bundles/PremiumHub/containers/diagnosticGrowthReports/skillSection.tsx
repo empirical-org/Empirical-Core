@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
-import { DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH, groupByDropdownOptions } from '../../shared'
+import { DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH, diagnosticTypeDropdownOptions, groupByDropdownOptions } from '../../shared'
 
 const headers = [
   {
@@ -95,7 +95,7 @@ export const SkillSection = ({
 }) => {
 
   const [groupByValue, setGroupByValue] = React.useState<DropdownObjectInterface>(groupByDropdownOptions[0])
-  const [diagnosticTypeValue, setDiagnosticTypeValue] = React.useState<DropdownObjectInterface>(groupByDropdownOptions[0])
+  const [diagnosticTypeValue, setDiagnosticTypeValue] = React.useState<DropdownObjectInterface>(diagnosticTypeDropdownOptions[0])
 
   function handleDiagnosticTypeOptionChange(option) {
     setDiagnosticTypeValue(option)
@@ -117,7 +117,7 @@ export const SkillSection = ({
           handleChange={handleDiagnosticTypeOptionChange}
           isSearchable={true}
           label="Diagnostic:"
-          options={groupByDropdownOptions}
+          options={diagnosticTypeDropdownOptions}
           value={diagnosticTypeValue}
         />
         <DropdownInput
@@ -130,7 +130,7 @@ export const SkillSection = ({
         />
       </div>
       <DataTable
-        className="growth-diagnostic-reports-overview-table reporting-format"
+        className="growth-diagnostic-reports-by-skill-table reporting-format"
         emptyStateMessage={noResultsMessage('diagnostic')}
         headers={headers}
         rows={[]}

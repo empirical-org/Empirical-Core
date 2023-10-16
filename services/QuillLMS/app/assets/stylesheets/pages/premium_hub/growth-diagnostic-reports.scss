@@ -62,7 +62,7 @@
     display: flex;
   }
   .diagnostic-type-dropdown {
-    margin-right: 32px;
+    margin-right: 32px !important;
   }
   .group-by-dropdown,
   .diagnostic-type-dropdown {
@@ -70,7 +70,7 @@
     max-width: 300px;
     width: 100%;
   }
-  .growth-diagnostic-reports-overview-table {
+  .growth-diagnostic-reports-overview-table, .growth-diagnostic-reports-by-skill-table {
     margin-top: 48px;
     .data-table-headers {
       padding-right: 0px;
