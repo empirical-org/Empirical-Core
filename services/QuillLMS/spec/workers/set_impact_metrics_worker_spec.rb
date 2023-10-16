@@ -17,7 +17,7 @@ describe SetImpactMetricsWorker do
     let(:teachers) { create_list(:teacher, 15)}
 
     let(:teachers_payload) {
-      teachers.map {|t| {id: t.id}}
+      [{:count => 3}]
     }
 
     let(:schools_payload) {
