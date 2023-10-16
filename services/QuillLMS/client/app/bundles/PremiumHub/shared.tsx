@@ -13,6 +13,14 @@ export const PENDING = 'Pending'
 export const DENIED = 'Denied'
 export const SKIPPED = 'Skipped'
 
+export const OVERVIEW = 'overview'
+export const SKILL = 'skill'
+export const STUDENT = 'student'
+
+export const DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH = '182px'
+export const diagnosticTypeDropdownOptions = [{ label: 'Grade', value: 'grade' }, { label: 'Teacher', value: 'teacher' }, { label: 'Classroom', value: 'classroom' }]
+export const groupByDropdownOptions = [{ label: 'Grade', value: 'grade' }, { label: 'Teacher', value: 'teacher' }, { label: 'Classroom', value: 'classroom' }]
+
 export const premiumLockImage = <img alt="Gray lock" src={`${process.env.CDN_URL}/images/pages/administrator/premium_lock.svg`} />
 
 export const restrictedElement = (

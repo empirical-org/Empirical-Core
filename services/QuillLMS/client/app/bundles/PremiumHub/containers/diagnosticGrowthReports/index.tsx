@@ -1,9 +1,9 @@
 import * as React from 'react'
 
-import { FULL, restrictedPage } from '../../shared'
-import { Spinner, whiteArrowPointingDownIcon, filterIcon, documentFileIcon, DropdownInput } from '../../../Shared/index'
-import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
-import OverviewTable from './overviewTable'
+import { FULL, restrictedPage, OVERVIEW, SKILL, STUDENT } from '../../shared'
+import { Spinner, whiteArrowPointingDownIcon, filterIcon, documentFileIcon } from '../../../Shared/index'
+import OverviewSection from './overviewSection'
+import SkillSection from './skillSection'
 
 const emailWhiteIconSrc = `${process.env.CDN_URL}/images/icons/email-icon-white.svg`
 const barChartGreySrc = `${process.env.CDN_URL}/images/pages/diagnostic_reports/icons-bar-chart.svg`
@@ -12,11 +12,6 @@ const groupOfStudentsGreyIconSrc = `${process.env.CDN_URL}/images/pages/administ
 const groupOfStudentsWhiteIconSrc = `${process.env.CDN_URL}/images/icons/students-white.svg`
 const pencilGreyIconSrc = `${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/pencil.svg`
 const pencilWhiteIconSrc = `${process.env.CDN_URL}/images/icons/white-pencil-icon.svg`
-
-const OVERVIEW = 'overview'
-const SKILL = 'skill'
-const STUDENT = 'student'
-const dropdownOptions = [{ label: 'Grade', value: 'grade' }, { label: 'Teacher', value: 'teacher'}, { label: 'Classroom', value: 'classroom' }]
 
 export const DiagnosticGrowthReportsContainer = ({
   accessType,
@@ -38,11 +33,7 @@ export const DiagnosticGrowthReportsContainer = ({
 }) => {
 
   const [activeTab, setActiveTab] = React.useState<string>(OVERVIEW)
-  const [groupByValue, setGroupByValue] = React.useState<DropdownObjectInterface>(dropdownOptions[0])
 
-  function handleFilterOptionChange(option) {
-    setGroupByValue(option)
-  }
   function handleTabChange(e) {
     setActiveTab(e.currentTarget.value)
   }
@@ -108,21 +99,14 @@ export const DiagnosticGrowthReportsContainer = ({
           <span>Performance by Student</span>
         </button>
       </div>
-      <DropdownInput
-        className="group-by-dropdown"
-        handleChange={handleFilterOptionChange}
-        isSearchable={true}
-        label="Group by:"
-        options={dropdownOptions}
-        value={groupByValue}
-      />
       <div className="filter-button-container">
         <button className="interactive-wrapper focus-on-light" onClick={openMobileFilterMenu} type="button">
           <img alt={filterIcon.alt} src={filterIcon.src} />
           Filters
         </button>
       </div>
-      {activeTab === OVERVIEW && <OverviewTable {...sharedProps} />}
+      {activeTab === OVERVIEW && <OverviewSection {...sharedProps} />}
+      {activeTab === SKILL && <SkillSection {...sharedProps} />}
     </main>
   )
 }

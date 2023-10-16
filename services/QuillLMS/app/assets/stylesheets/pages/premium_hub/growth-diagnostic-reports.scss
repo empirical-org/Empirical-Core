@@ -58,9 +58,17 @@
       }
     }
   }
-  .group-by-dropdown {
+  .dropdowns-container {
+    display: flex;
+  }
+  .diagnostic-type-dropdown {
+    margin-right: 32px;
+  }
+  .group-by-dropdown,
+  .diagnostic-type-dropdown {
     margin-top: 32px;
     max-width: 300px;
+    width: 100%;
   }
   .growth-diagnostic-reports-overview-table {
     margin-top: 48px;
