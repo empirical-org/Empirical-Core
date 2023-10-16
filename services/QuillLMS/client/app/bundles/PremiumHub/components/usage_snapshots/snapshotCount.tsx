@@ -160,7 +160,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     });
   };
 
-  const className = `snapshot-item snapshot-count ${size} ${changeDirection || ''}`
+  const className = `snapshot-item snapshot-count ${size} ${(changeDirection !== NONE) ? changeDirection : ''}`
 
   let icon
 
