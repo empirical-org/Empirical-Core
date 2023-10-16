@@ -22,7 +22,12 @@ module ImpactMetrics
       SQL
     end
 
-    def from_and_join_clauses; ''; end
-    def where_clause; ''; end
+    def from_and_join_clauses
+      ''
+    end
+
+    def where_clause
+      ''
+    end
   end
 end

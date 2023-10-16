@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ImpactMetrics
-  class SchoolsWithMinimumActivitySessions < ::QuillBigQuery::Query
+  class SchoolsWithMinimumActivitySessionsQuery < ::QuillBigQuery::Query
 
     def run
       runner.execute(query)

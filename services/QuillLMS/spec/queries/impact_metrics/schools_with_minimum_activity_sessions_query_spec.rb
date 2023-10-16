@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 module ImpactMetrics
-  describe SchoolsWithMinimumActivitySessions do
+  describe SchoolsWithMinimumActivitySessionsQuery do
     context 'for schools all time', :big_query_snapshot do
       include_context 'QuillBigQuery TestRunner Setup'
 
