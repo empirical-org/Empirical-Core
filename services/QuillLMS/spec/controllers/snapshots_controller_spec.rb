@@ -211,6 +211,22 @@ describe SnapshotsController, type: :controller do
           expect(json_response).to eq("message" => "Generating snapshot")
         end
 
+        context 'all-time timeframe' do
+          let(:query_name) { 'active-classrooms' }
+          let(:timeframe_name) { 'all-time' }
+
+          it 'previous_count should return nil without having to check cache' do
+            expect(Rails.cache).not_to receive(:read)
+            expect(Snapshots::CacheSnapshotPreviousCountWorker).not_to receive(:perform_async)
+
+            get :previous_count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
+
+            json_response = JSON.parse(response.body)
+
+            expect(json_response).to eq("count" => nil)
+          end
+        end
+
         it 'should trigger a job to cache data if the cache is empty for top_x' do
           query_name = 'most-active-schools'
 
