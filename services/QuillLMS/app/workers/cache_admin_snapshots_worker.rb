@@ -10,24 +10,24 @@ class CacheAdminSnapshotsWorker
 
     @school_ids = @user.schools_admins.pluck(:school_id)
 
-    previous_start, previous_end, current_start, current_end = Snapshots::Timeframes.calculate_timeframes(Snapshots::DEFAULT_TIMEFRAME)
+    previous_start, previous_end, current_start, current_end = Snapshots::Timeframes.calculate_timeframes(Snapshots::Timeframes::DEFAULT_TIMEFRAME)
 
     Snapshots::CacheSnapshotCountWorker::QUERIES.each do |query, worker|
-      worker.perform_async(generate_worker_payload(query, previous_start, previous_end))
-      worker.perform_async(generate_worker_payload(query, current_start, current_end))
+      worker.perform_async(*generate_worker_payload(query, previous_start, previous_end, @school_ids))
+      worker.perform_async(*generate_worker_payload(query, current_start, current_end, @school_ids))
     end
 
     Snapshots::CacheSnapshotTopXWorker::QUERIES.each do |query, worker|
-      worker.perform_async(generate_worker_payload(query, current_start, current_end)
+      worker.perform_async(*generate_worker_payload(query, current_start, current_end, @school_ids))
     end
   end
 
   private def generate_worker_payload(query, timeframe_start, timeframe_end, school_ids)
     cache_key = Snapshots::CacheKeys.generate_key(query,
-      Snapshots::DEFAULT_TIMEFRAME,
+      Snapshots::Timeframes::DEFAULT_TIMEFRAME,
       timeframe_start,
       timeframe_end,
-      school_ids 
+      school_ids
     )
 
     [
@@ -35,11 +35,11 @@ class CacheAdminSnapshotsWorker
       query,
       @user.id,
       {
-        name: Snapshots::DEFAULT_TIMEFRAME,
+        name: Snapshots::Timeframes::DEFAULT_TIMEFRAME,
         timeframe_start:,
         timeframe_end:
       },
-      @school_ids
+      school_ids
     ]
   end
 end
