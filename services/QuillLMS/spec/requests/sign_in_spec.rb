@@ -2,25 +2,29 @@
 
 require 'rails_helper'
 
-describe 'Sign in', type: :request do
-  before do
-    User.create(email: 'student@quill.org',
-                name: 'John Smith',
-                username: 'student1',
-                password: '12345',
-                password_confirmation: '12345',
-                role: 'student')
-  end
+RSpec.describe 'Sign in', type: :request do
+  subject { post '/session/login_through_ajax', params: params, as: :json }
 
-  describe 'POST /session' do
-    it 'creates with valid attributes' do
-      post '/session', params: { user: {email: 'student@quill.org', password: '12345'} }
-      expect(response).to redirect_to(profile_path)
+  let(:user) { create(:user) }
+
+  describe 'POST /session/login_through_ajax' do
+    context 'with valid params' do
+      let(:params) { { user: { email: user.email, password: user.password } } }
+
+      it 'is authorized' do
+        subject
+        expect(response).to have_http_status(:success)
+        expect(JSON.parse(response.body)).to eq({ 'redirect' => '/' })
+      end
     end
 
-    it 'does not create with invalid attributes' do
-      post '/session', params: { user: {email: 'student@quill.org', password: 'wrong'} }
-      expect(response).to_not redirect_to(profile_path)
+    context 'with invalid params' do
+      let(:params) { { user: { email: user.email, password: 'wrong-password' } } }
+
+      it 'is unauthorized' do
+        subject
+        expect(response).to have_http_status(:unauthorized)
+      end
     end
   end
 end

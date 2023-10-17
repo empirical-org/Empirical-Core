@@ -90,7 +90,7 @@ describe 'Sign up', type: :request do
 
       it 'allows student to sign in' do
         sign_in(expected_student_email, expected_student_password)
-        expect(response).to redirect_to(profile_path)
+        expect(response).to have_http_status(:success)
         expect(User.find(session[:user_id])).to_not eq(nil)
       end
 
