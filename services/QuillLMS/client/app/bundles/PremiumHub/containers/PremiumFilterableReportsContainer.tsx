@@ -18,7 +18,14 @@ import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqu
 
 const MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS = 1500
 
-export const PremiumFilterableReportsContainer = ({ accessType, adminInfo }) => {
+const sidebarImgSrcStem = `${process.env.CDN_URL}/images/pages/administrator/sidebar`
+const openGreenSidebarIcon = `${sidebarImgSrcStem}/open_sidebar_green.svg`
+const openGraySidebarIcon = `${sidebarImgSrcStem}/open_sidebar_gray.svg`
+const closedGreenSidebarIcon = `${sidebarImgSrcStem}/closed_sidebar_green.svg`
+const closedGraySidebarIcon = `${sidebarImgSrcStem}/closed_sidebar_gray.svg`
+
+
+export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) => {
   const [loadingFilters, setLoadingFilters] = React.useState(true)
 
   const [allTimeframes, setAllTimeframes] = React.useState(null)
@@ -56,6 +63,8 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo }) => 
   const [showMobileFilterMenu, setShowMobileFilterMenu] = React.useState(false)
 
   const [pusherChannel, setPusherChannel] = React.useState(null)
+
+  const [showFilters, setShowFilters] = React.useState(true)
 
   React.useEffect(() => {
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
@@ -108,6 +117,8 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo }) => 
   function openMobileFilterMenu() { setShowMobileFilterMenu(true) }
 
   function closeMobileFilterMenu() { setShowMobileFilterMenu(false) }
+
+  function toggleFilterMenu() { setShowFilters(!showFilters) }
 
   function handleSetSelectedTimeframe(timeframe) {
     setLastUsedTimeframe(selectedTimeframe)
@@ -219,6 +230,29 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo }) => 
 
   function handleClickDownloadReport() { window.print() }
 
+  function renderShowFilterMenuButton() {
+    const ariaLabel = showFilters ? 'Close filter menu' : 'Open filter menu'
+
+    let imgSrc
+
+    if (showFilters) {
+      imgSrc = hasAdjustedFiltersFromDefault ? openGreenSidebarIcon : openGraySidebarIcon
+    } else {
+      imgSrc = hasAdjustedFiltersFromDefault ? closedGreenSidebarIcon : closedGraySidebarIcon
+    }
+
+    return (
+      <button
+        aria-label={ariaLabel}
+        className={`interactive-wrapper focus-on-light show-filter-menu-button ${hasAdjustedFiltersFromDefault ? 'filters-adjusted' : ''}`}
+        onClick={toggleFilterMenu}
+        type="button"
+      >
+        <img alt="" src={imgSrc} />
+      </button>
+    )
+  }
+
   if (loadingFilters) {
     return <Spinner />
   }
@@ -249,6 +283,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo }) => 
     hasAdjustedFiltersSinceLastSubmission,
     customStartDate,
     customEndDate,
+    showFilterMenuButton: renderShowFilterMenuButton()
   }
 
   const sharedProps = {
@@ -267,31 +302,44 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo }) => 
     allTeachers,
     selectedTimeframe,
     handleClickDownloadReport,
-    openMobileFilterMenu
+    openMobileFilterMenu,
   }
 
   if (accessType !== FULL) {
     return restrictedPage
   }
 
+  let filterMenu
+
+  if (showFilters) {
+    filterMenu = (
+      <React.Fragment>
+        {showCustomDateModal && (
+          <CustomDateModal
+            close={closeCustomDateModal}
+            passedEndDate={customEndDate}
+            passedStartDate={customStartDate}
+            setCustomDates={setCustomDates}
+          />
+        )}
+        <Filters
+          {...filterProps}
+        />
+      </React.Fragment>
+    )
+  }
+
   return (
     <div className="filterable-reports-container white-background">
-      {showCustomDateModal && (
-        <CustomDateModal
-          close={closeCustomDateModal}
-          passedEndDate={customEndDate}
-          passedStartDate={customStartDate}
-          setCustomDates={setCustomDates}
-        />
-      )}
-      <Filters
-        {...filterProps}
-      />
-      <Routes>
-        <Route element={<DiagnosticGrowthReportsContainer {...sharedProps} />} path='/teachers/premium_hub/diagnostic_growth_report' />
-        <Route element={<DataExportContainer {...sharedProps} />} path='/teachers/premium_hub/data_export' />
-        <Route element={<UsageSnapshotsContainer {...sharedProps} />} path='/teachers/premium_hub/usage_snapshot_report' />
-      </Routes>
+      {filterMenu}
+      <div className={showFilters ? '' : 'filter-menu-closed'}>
+        {showFilters ? null : renderShowFilterMenuButton()}
+        <Routes>
+          <Route element={<DiagnosticGrowthReportsContainer {...sharedProps} />} path='/teachers/premium_hub/diagnostic_growth_report' />
+          <Route element={<DataExportContainer {...sharedProps} />} path='/teachers/premium_hub/data_export' />
+          <Route element={<UsageSnapshotsContainer {...sharedProps} />} path='/teachers/premium_hub/usage_snapshot_report' />
+        </Routes>
+      </div>
     </div>
   )
 }

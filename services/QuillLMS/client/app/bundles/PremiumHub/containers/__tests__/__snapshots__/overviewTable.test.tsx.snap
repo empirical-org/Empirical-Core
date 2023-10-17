@@ -175,7 +175,7 @@ exports[`OverviewTable loading state it should render loading spinner 1`] = `
       class="spinner-container"
     >
       <img
-        alt=""
+        alt="Loading spinner"
         class="spinner"
         src="https://assets.quill.org/images/icons/loader_still.svg"
       />
