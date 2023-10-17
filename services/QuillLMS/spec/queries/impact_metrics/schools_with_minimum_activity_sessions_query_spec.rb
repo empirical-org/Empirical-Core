@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 module ImpactMetrics
-  describe SchoolsContainingCertainTeachersQuery do
+  describe SchoolsWithMinimumActivitySessionsQuery do
     context 'for schools all time', :big_query_snapshot do
       include_context 'QuillBigQuery TestRunner Setup'
 
@@ -16,8 +16,11 @@ module ImpactMetrics
       let(:schools_user_two) { create(:schools_users, user: second_teacher, school: chosen_school_two) }
       let(:excluded_school) { create(:school) }
 
-      let(:teacher_ids) { [teacher.id, second_teacher.id] }
-      let(:query_args) { { teacher_ids: teacher_ids } }
+      let(:units) { [teacher, second_teacher].map { |user| create(:unit, user: user) } }
+      let(:classroom_units) { units.map { |unit| create(:classroom_unit, unit: unit) } }
+      let(:activity_sessions) { classroom_units.map { |classroom_unit| create_list(:activity_session, 10, classroom_unit: classroom_unit) } }
+
+      let(:query_args) { {} }
 
       let(:cte_records) {
         [
@@ -28,7 +31,10 @@ module ImpactMetrics
           second_teacher,
           schools_user,
           schools_user_two,
-          excluded_school
+          excluded_school,
+          units,
+          classroom_units,
+          activity_sessions
         ]
       }
 
@@ -38,13 +44,6 @@ module ImpactMetrics
 
       it { expect(results).to match_array(expected_results) }
 
-      # Make sure bigquery can handle long array arguments
-      context 'lots of teacher ids' do
-        let(:lots_of_teacher_ids) { (1..1000).to_a }
-        let(:query_args) { { teacher_ids: teacher_ids + lots_of_teacher_ids } }
-
-        it { expect(results).to match_array(expected_results) }
-      end
     end
   end
 end
