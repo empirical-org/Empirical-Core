@@ -2211,5 +2211,23 @@ describe User, type: :model do
       it { expect { subject }.not_to change(user, :clever_id) }
     end
   end
+
+  describe '#unlink_google_account!' do
+    subject { user.unlink_google_account! }
+
+    context 'user has google_account' do
+      let(:user) { create(:teacher, :signed_up_with_google) }
+
+      it { expect { subject }.to change(user, :google_id).from(user.google_id).to(nil) }
+      it { expect { subject }.to change(user, :signed_up_with_google).from(true).to(false) }
+    end
+
+    context 'user does not have google_account' do
+      let(:user) { create(:teacher) }
+
+      it { expect { subject }.not_to change(user, :google_id) }
+      it { expect { subject }.not_to change(user, :signed_up_with_google) }
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength
