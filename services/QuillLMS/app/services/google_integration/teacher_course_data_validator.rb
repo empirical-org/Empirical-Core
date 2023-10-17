@@ -2,15 +2,14 @@
 
 module GoogleIntegration
   class TeacherCourseDataValidator < ::ApplicationService
-    attr_reader :course_data, :user_external_id
+    attr_reader :course_data
 
-    def initialize(course_data, user_external_id)
+    def initialize(course_data)
       @course_data = course_data
-      @user_external_id = user_external_id
     end
 
     def run
-      owner? && (active? || already_imported?)
+      active? || already_imported?
     end
 
     private def active?
@@ -19,10 +18,6 @@ module GoogleIntegration
 
     private def already_imported?
       ::Classroom.unscoped.exists?(google_classroom_id: course_data.id)
-    end
-
-    private def owner?
-      course_data.owner_id == user_external_id
     end
   end
 end
