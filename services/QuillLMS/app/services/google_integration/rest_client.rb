@@ -36,7 +36,7 @@ module GoogleIntegration
         [].tap do |classrooms_data|
           teacher_courses_data.each do |course_data|
             student_count = CourseStudentsAggregator.run(api, course_data.id).count
-            classrooms_data << ClassroomDataAdapter.run(course_data, student_count)
+            classrooms_data << ClassroomDataAdapter.run(course_data, student_count, user_external_id)
           end
         end
       end
@@ -63,7 +63,7 @@ module GoogleIntegration
       api
         .list_courses(teacher_id: ME, course_states: [ACTIVE_STATE, ARCHIVED_STATE])
         &.courses
-        &.select { |course_data| TeacherCourseDataValidator.run(course_data, user_external_id) } || []
+        &.select { |course_data| TeacherCourseDataValidator.run(course_data) } || []
     end
   end
 end

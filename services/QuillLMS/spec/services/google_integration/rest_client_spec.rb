@@ -96,7 +96,7 @@ module GoogleIntegration
       let(:courses_data) { create_list(:google_classroom_api_course, num_courses, owner_id: user_external_id) }
       let(:num_students) { 2 }
       let(:students_data) { create_list(:google_classroom_api_student, num_students) }
-      let(:classrooms_data) { courses_data.map { |course_data| ClassroomDataAdapter.run(course_data, num_students) } }
+      let(:classrooms_data) { courses_data.map { |course_data| ClassroomDataAdapter.run(course_data, num_students, user_external_id) } }
 
       before do
         allow(api).to receive(:list_courses).and_return(double(courses: courses_data))
