@@ -21,18 +21,13 @@ module Snapshots
         classroom_ids: classroom_ids
       }
     end
-    let(:filters_with_string_keys) do
-      {
-        "grades" => grades,
-        "teacher_ids" => teacher_ids,
-        "classroom_ids" => classroom_ids
-      }
-    end
+    let(:filters_with_string_keys) { filters.stringify_keys }
     let(:query_double) { double(run: {}) }
 
     it { expect { described_class::QUERIES.values }.not_to raise_error }
 
     context '#perform' do
+      let(:perform) { subject.perform(cache_key, query, user_id, timeframe, school_ids, filters) }
       let(:timeframe_end) { DateTime.now }
       let(:current_timeframe_start) { timeframe_end - 30.days }
       let(:previous_timeframe_start) { current_timeframe_start - 30.days }
@@ -64,14 +59,14 @@ module Snapshots
       it 'should execute a query for the timeframe' do
         expect(query_double).to receive(:run).with(expected_query_args)
         expect(Rails.cache).to receive(:write)
-        expect(PusherTrigger).to receive(:run)
+        expect(SendPusherMessageWorker).to receive(:perform_async)
 
-        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters)
+        perform
       end
 
       context 'serialization/deserialization' do
-        it 'should desieralize timeframes back into DateTimes' do
-          allow(PusherTrigger).to receive(:run)
+        it 'should deserialize timeframes back into DateTimes' do
+          allow(SendPusherMessageWorker).to receive(:perform_async)
           Sidekiq::Testing.inline! do
             expect(query_double).to receive(:run).with(expected_query_args)
 
@@ -84,7 +79,7 @@ module Snapshots
         it 'should execute a query for the timeframe' do
           expect(query_double).to receive(:run).with(expected_query_args)
           expect(Rails.cache).to receive(:write)
-          expect(PusherTrigger).to receive(:run)
+          expect(SendPusherMessageWorker).to receive(:perform_async)
 
           subject.perform(cache_key, query, user_id, timeframe, school_ids, filters_with_string_keys)
         end
@@ -98,20 +93,48 @@ module Snapshots
 
         expect(query_double).to receive(:run).and_return(payload)
         expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: cache_ttl)
-        expect(PusherTrigger).to receive(:run)
+        expect(SendPusherMessageWorker).to receive(:perform_async)
 
-        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters)
+        perform
       end
 
       it 'should send a Pusher notification' do
-        expect(Rails.cache).to receive(:write)
-        expect(PusherTrigger).to receive(:run).with(user_id, described_class::PUSHER_EVENT, {
-          query: query,
-          timeframe: timeframe_name,
-          school_ids: school_ids
-        }.merge(filters))
+        hashed_payload = PayloadHasher.run([
+          query,
+          timeframe_name,
+          school_ids,
+          grades,
+          teacher_ids,
+          classroom_ids
+        ].flatten)
 
-        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters)
+        expect(Rails.cache).to receive(:write)
+        expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, described_class::PUSHER_EVENT, hashed_payload)
+
+        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters_with_string_keys)
+      end
+
+      context 'slow query reporting' do
+        let(:start) { 0 }
+        let(:finish) { described_class::TOO_SLOW_THRESHOLD }
+
+        before { allow(LongProcessNotifier).to receive(:current_time).and_return(start, finish) }
+
+        it do
+          allow(PusherTrigger).to receive(:run)
+          expect(ErrorNotifier).to receive(:report)
+          perform
+        end
+
+        context 'query takes less time than threshold' do
+          let(:finish) { start }
+
+          it do
+            allow(PusherTrigger).to receive(:run)
+            expect(ErrorNotifier).not_to receive(:report)
+            perform
+          end
+        end
       end
     end
   end

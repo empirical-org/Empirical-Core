@@ -16,7 +16,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
           target="_blank"
         >
           <img
-            alt=""
+            alt="Document file with folded corner and two horizontal lines"
             src="undefined/images/icons/file-document.svg"
           />
           <span>
@@ -25,10 +25,16 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
         </a>
       </h1>
       <button
-        class="quill-button contained primary medium focus-on-light"
+        class="quill-button download-report-button contained primary medium focus-on-light"
         type="button"
       >
-        Download Report
+        <img
+          alt="White arrow pointing down icon"
+          src="undefined/images/icons/downward-arrow-icon-white.svg"
+        />
+        <span>
+          Download
+        </span>
       </button>
     </div>
     <div
@@ -116,7 +122,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
         type="button"
       >
         <img
-          alt="Filter icon"
+          alt="Filter icon with three vertical dots and 3 horizontal lines"
           src="undefined/images/icons/icons-filter.svg"
         />
         Filters

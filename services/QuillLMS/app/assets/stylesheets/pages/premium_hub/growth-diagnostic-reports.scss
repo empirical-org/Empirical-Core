@@ -1,0 +1,75 @@
+.diagnostic-reports-main {
+  // this 317px comes from the filter sidebar element width
+  max-width: calc(100% - 317px) !important;
+  .header {
+    .buttons-container {
+      display: flex;
+      button:first-of-type {
+        margin-right: 8px;
+      }
+    }
+  }
+  .tabs-for-pages-container {
+    display: flex;
+    margin-top: 32px;
+
+    .performance-type-button {
+      display: flex;
+      align-items: center;
+      padding: 13px 32px;
+      background-color: $quill-grey-1;
+      color: $quill-grey-90;
+      height: 36px;
+      span {
+        font-weight: 600;
+      }
+
+      img {
+        margin-right: 4px;
+        height: 16px;
+        width: 16px;
+      }
+
+      &.overview {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+        border: 1px solid $quill-grey-10;
+        &.active {
+          border-left: 1px solid $quill-green;
+        }
+      }
+      &.skill {
+        border-top: 1px solid $quill-grey-10;
+        border-bottom: 1px solid $quill-grey-10;
+      }
+      &.student {
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border: 1px solid $quill-grey-10;
+        &.active {
+          border-right: 1px solid $quill-green;
+        }
+      }
+      &.active {
+        background-color: $quill-green;
+        color: $quill-white;
+        border-top: 1px solid $quill-green;
+        border-bottom: 1px solid $quill-green;
+      }
+    }
+  }
+  .group-by-dropdown {
+    margin-top: 32px;
+    max-width: 300px;
+  }
+  .growth-diagnostic-reports-overview-table {
+    margin-top: 48px;
+    .data-table-headers {
+      padding-right: 0px;
+      th:last-of-type {
+        margin-right: 0px;
+      }
+    }
+  }
+}
+

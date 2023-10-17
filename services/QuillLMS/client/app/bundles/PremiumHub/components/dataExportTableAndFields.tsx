@@ -3,7 +3,7 @@ import * as moment from 'moment';
 
 import { requestPost, } from '../../../modules/request'
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
-import { DataTable, Spinner, informationIcon, smallWhiteCheckIcon } from '../../Shared';
+import { DataTable, Spinner, informationIcon, smallWhiteCheckIcon, noResultsMessage } from '../../Shared';
 
 const STANDARD_WIDTH = "152px";
 const STUDENT_NAME = "Student Name";
@@ -258,10 +258,10 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
       </section>
       {loading && <Spinner />}
       {!loading && <DataTable
-        className="data-export-table"
+        className="data-export-table reporting-format"
         defaultSortAttribute="completed_at"
         defaultSortDirection="desc"
-        emptyStateMessage="There are no activities available for the filters selected. Try modifying or removing a filter to see results."
+        emptyStateMessage={noResultsMessage('activity')}
         headers={getHeaders()}
         rows={data || []}
       />}

@@ -4,7 +4,7 @@ import { SMALL, POSITIVE, NEGATIVE, NONE } from './shared'
 
 import { requestPost, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'
-import { selectionsEqual } from '../../shared'
+import { hashPayload, selectionsEqual } from '../../shared'
 
 const smallArrowUpIcon = <img alt="Arrow pointing up" className="small" src={`${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/arrow_up_icon.svg`} />
 const smallArrowDownIcon = <img alt="Arrow pointing down" className="small" src={`${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/arrow_down_icon.svg`} />
@@ -37,6 +37,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
   const [change, setChange] = React.useState(passedChange || 0)
   const [changeDirection, setChangeDirection] = React.useState(passedChangeDirection || null)
   const [loading, setLoading] = React.useState(false)
+  const [retryTimeout, setRetryTimeout] = React.useState(null)
 
   React.useEffect(() => {
     initializePusher()
@@ -47,8 +48,12 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
 
     resetToDefault()
 
-    getData()
+    setRetryTimeout(setTimeout(getData, 20000))
   }, [searchCount])
+
+  React.useEffect(() => {
+    if (retryTimeout) getData()
+  }, [retryTimeout])
 
   function resetToDefault() {
     setCount(passedCount || null)
@@ -94,25 +99,34 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
         } else {
           setChangeDirection(NONE)
         }
+        if (retryTimeout) {
+          clearTimeout(retryTimeout)
+        }
         setLoading(false)
       }
     })
+  }
+
+  function filtersMatchHash(hashMessage) {
+    const filterTarget = [].concat(
+      queryKey,
+      selectedTimeframe,
+      selectedSchoolIds,
+      selectedGrades,
+      selectedTeacherIds,
+      selectedClassroomIds
+    )
+
+    const filterHash = hashPayload(filterTarget)
+
+    return hashMessage == filterHash
   }
 
   function initializePusher() {
     pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
       const { message, } = body
 
-      const queryKeysAreEqual = message.query === queryKey
-      const timeframesAreEqual = message.timeframe === selectedTimeframe
-      const schoolIdsAreEqual = selectionsEqual(message.school_ids, selectedSchoolIds)
-      const teacherIdsAreEqual = selectionsEqual(message.teacher_ids, selectedTeacherIds)
-      const classroomIdsAreEqual = selectionsEqual(message.classroom_ids, selectedClassroomIds)
-      const gradesAreEqual =  selectionsEqual(message.grades, selectedGrades?.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
-
-      if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {
-        getData()
-      }
+      if (filtersMatchHash(message)) getData()
     });
   };
 

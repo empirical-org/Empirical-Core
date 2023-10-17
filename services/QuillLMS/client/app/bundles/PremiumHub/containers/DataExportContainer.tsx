@@ -1,10 +1,8 @@
 import * as React from 'react'
 
 import { FULL, restrictedPage, mapItemsIfNotAll } from '../shared';
-import { Spinner } from '../../Shared/index'
+import { Spinner, filterIcon, whiteArrowPointingDownIcon } from '../../Shared/index'
 import DataExportTableAndFields from '../components/dataExportTableAndFields';
-
-const filterIconSrc = `${process.env.CDN_URL}/images/icons/icons-filter.svg`
 
 export const DataExportContainer = ({
   accessType,
@@ -37,11 +35,14 @@ export const DataExportContainer = ({
     <main className="data-export-main">
       <div className="header">
         <h1>Data Export</h1>
-        <button className="quill-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">Download Report</button>
+        <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">
+          <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />
+          <span>Download</span>
+        </button>
       </div>
       <div className="filter-button-container">
         <button className="interactive-wrapper focus-on-light" onClick={openMobileFilterMenu} type="button">
-          <img alt="Filter icon" src={filterIconSrc} />
+          <img alt={filterIcon.alt} src={filterIcon.src} />
           Filters
         </button>
       </div>

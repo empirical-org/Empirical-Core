@@ -2,11 +2,12 @@
 
 module GoogleIntegration
   class ClassroomDataAdapter < ::ApplicationService
-    attr_reader :course_data, :student_count
+    attr_reader :course_data, :student_count, :user_external_id
 
-    def initialize(course_data, student_count)
+    def initialize(course_data, student_count, user_external_id)
       @course_data = course_data
       @student_count = student_count
+      @user_external_id = user_external_id
     end
 
     def run
@@ -15,12 +16,18 @@ module GoogleIntegration
         classroom_external_id: classroom_external_id,
         name: name,
         studentCount: student_count,
-        year: year
+        year: year,
+        is_owner: owner?,
+        archived: already_imported? && !already_imported_classroom.visible
       }
     end
 
     private def already_imported?
-      ::Classroom.unscoped.exists?(google_classroom_id: classroom_external_id)
+      already_imported_classroom&.present?
+    end
+
+    private def already_imported_classroom
+      @already_imported_classroom ||= ::Classroom.unscoped.find_by(google_classroom_id: classroom_external_id)
     end
 
     private def classroom_external_id
@@ -33,6 +40,10 @@ module GoogleIntegration
 
     private def year
       course_data.creation_time&.to_date&.year
+    end
+
+    private def owner?
+      course_data.owner_id == user_external_id
     end
   end
 end
