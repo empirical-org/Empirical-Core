@@ -27,5 +27,5 @@ Geocoder.configure(
   #   prefix: 'geocoder:'
   # }
   ip_lookup: :geoip2,
-  geoip2: { file: File.join('lib/data/GeoLite2-City_20221004', 'GeoLite2-City.mmdb') }
+  geoip2: { file: File.join('lib/data/GeoLite2-City_20231013', 'GeoLite2-City.mmdb') }
 )
