@@ -51,8 +51,8 @@ module Snapshots
     end
 
     private def generate_payload(query, timeframe, school_ids, filters)
-      timeframe_start = DateTime.parse(timeframe['current_start'])
-      timeframe_end = DateTime.parse(timeframe['current_end'])
+      timeframe_start = DateTime.parse(timeframe['timeframe_start'])
+      timeframe_end = DateTime.parse(timeframe['timeframe_end'])
       filters_symbolized = filters.symbolize_keys
 
       long_process_notifier = LongProcessNotifier.new(
