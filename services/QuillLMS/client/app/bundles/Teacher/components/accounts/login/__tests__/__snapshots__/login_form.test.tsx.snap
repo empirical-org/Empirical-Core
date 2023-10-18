@@ -41,6 +41,26 @@ exports[`LoginForm it should render 1`] = `
               </span>
             </button>
           </form>
+          <div
+            class="google-tbd"
+          >
+            <h4>
+              <img
+                alt=""
+                src="undefined/images/icons/description-information.svg"
+              />
+               Having trouble logging in with Google?
+            </h4>
+            <p>
+              If you're a Google user, you can also log in using your email address. You just need to create a password.
+            </p>
+            <a
+              class="inline-link"
+              href="/password_reset"
+            >
+              Create a password
+            </a>
+          </div>
           <button
             type="button"
           >
