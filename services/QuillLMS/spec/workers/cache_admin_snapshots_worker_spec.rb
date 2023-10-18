@@ -31,12 +31,12 @@ describe CacheAdminSnapshotsWorker, type: :worker do
   context 'enqueueing cache workers' do
     it do
       expect(worker).to receive(:generate_worker_payload)
-        .with(query_name, previous_timeframe_start, previous_timeframe_end, school_ids)
+        .with(query_name, previous_timeframe_start, previous_timeframe_end)
         .once
         .ordered
         .and_return(previous_payload)
       expect(worker).to receive(:generate_worker_payload)
-        .with(query_name, current_timeframe_start, current_timeframe_end, school_ids)
+        .with(query_name, current_timeframe_start, current_timeframe_end)
         .twice
         .ordered
         .and_return(payload)
