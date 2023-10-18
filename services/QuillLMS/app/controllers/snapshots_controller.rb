@@ -22,21 +22,16 @@ class SnapshotsController < ApplicationController
 
   WORKERS_FOR_ACTIONS = {
     "count" => Snapshots::CacheSnapshotCountWorker,
-    "previous_count" => Snapshots::CacheSnapshotPreviousCountWorker,
     "top_x" => Snapshots::CacheSnapshotTopXWorker,
     "data_export" => Snapshots::CachePremiumReportsWorker
   }
 
-  before_action :set_query, only: [:count, :previous_count, :top_x, :data_export]
-  before_action :validate_request, only: [:count, :previous_count, :top_x, :data_export]
-  before_action :authorize_request, only: [:count, :previous_count, :top_x, :data_export]
+  before_action :set_query, only: [:count, :top_x, :data_export]
+  before_action :validate_request, only: [:count, :top_x, :data_export]
+  before_action :authorize_request, only: [:count, :top_x, :data_export]
 
   def count
     render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
-  end
-
-  def previous_count
-    render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name], previous_timeframe: true)
   end
 
   def top_x
@@ -137,13 +132,13 @@ class SnapshotsController < ApplicationController
     return render json: { error: 'user is not authorized for all specified schools' }, status: 403
   end
 
-  private def retrieve_cache_or_enqueue_worker(worker, previous_timeframe: false)
+  private def retrieve_cache_or_enqueue_worker(worker)
 
     previous_start, previous_end, timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(snapshot_params[:timeframe],
       custom_start: snapshot_params[:timeframe_custom_start],
       custom_end: snapshot_params[:timeframe_custom_end])
 
-    if previous_timeframe
+    if snapshot_params[:previous_timeframe]
       timeframe_start = previous_start
       timeframe_end = previous_end
     end
@@ -168,7 +163,8 @@ class SnapshotsController < ApplicationController
         grades: snapshot_params[:grades],
         teacher_ids: snapshot_params[:teacher_ids],
         classroom_ids: snapshot_params[:classroom_ids]
-      })
+      },
+      previous_timeframe: snapshot_params[:previous_timeframe])
 
     { message: 'Generating snapshot' }
   end
@@ -192,6 +188,7 @@ class SnapshotsController < ApplicationController
       :timeframe,
       :timeframe_custom_start,
       :timeframe_custom_end,
+      :previous_timeframe,
       school_ids: [],
       grades: [],
       teacher_ids: [],

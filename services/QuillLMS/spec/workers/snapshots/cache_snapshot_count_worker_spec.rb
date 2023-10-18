@@ -14,6 +14,7 @@ module Snapshots
     let(:grades) { ['Kindergarten',1,2,3,4] }
     let(:teacher_ids) { [3,4,5] }
     let(:classroom_ids) { [6,7] }
+    let(:previous_timeframe) { nil }
     let(:filters) do
       {
         grades: grades,
@@ -28,7 +29,7 @@ module Snapshots
     it { expect { described_class::QUERIES.values }.not_to raise_error }
 
     context '#perform' do
-      let(:perform) { subject.perform(cache_key, query, user_id, timeframe, school_ids, filters) }
+      let(:perform) { subject.perform(cache_key, query, user_id, timeframe, school_ids, filters, previous_timeframe) }
       let(:timeframe_end) { DateTime.now }
       let(:current_timeframe_start) { timeframe_end - 30.days }
       let(:timeframe) {
@@ -59,9 +60,19 @@ module Snapshots
       it 'should execute the query for the current timeframe' do
         expect(query_double).to receive(:run).with(expected_query_args)
         expect(Rails.cache).to receive(:write)
-        expect(SendPusherMessageWorker).to receive(:perform_async)
+        expect(SendPusherMessageWorker).to receive(:perform_async).with(anything, described_class::CURRENT_TIMEFRAME_PUSHER_EVENT, anything)
 
         perform
+      end
+
+      context 'when previous_timeframe param is passed with a value' do
+        let(:previous_timeframe) { 'true' }
+
+        it do
+          expect(SendPusherMessageWorker).to receive(:perform_async).with(anything, described_class::PREVIOUS_TIMEFRAME_PUSHER_EVENT, anything)
+
+          perform
+        end
       end
 
       context 'serialization/deserialization' do
@@ -70,7 +81,7 @@ module Snapshots
           Sidekiq::Testing.inline! do
             expect(query_double).to receive(:run).with(expected_query_args)
 
-            described_class.perform_async(cache_key, query, user_id, timeframe, school_ids, filters)
+            described_class.perform_async(cache_key, query, user_id, timeframe, school_ids, filters, previous_timeframe)
           end
         end
       end
@@ -81,17 +92,8 @@ module Snapshots
           expect(Rails.cache).to receive(:write)
           expect(SendPusherMessageWorker).to receive(:perform_async)
 
-          subject.perform(cache_key, query, user_id, timeframe, school_ids, filters_with_string_keys)
+          subject.perform(cache_key, query, user_id, timeframe, school_ids, filters_with_string_keys, previous_timeframe)
         end
-      end
-
-      it 'should only execute a query for current timeframe if the previous_timeframe_start is nil' do
-        expect(query_double).to receive(:run).and_return({}).once
-        expect(Rails.cache).to receive(:write)
-        expect(SendPusherMessageWorker).to receive(:perform_async)
-        timeframe['previous_start'] = nil
-
-        perform
       end
 
       it 'should write a payload to cache' do
@@ -121,9 +123,9 @@ module Snapshots
         ].flatten)
 
         expect(Rails.cache).to receive(:write)
-        expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, described_class::PUSHER_EVENT, hashed_payload)
+        expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, described_class::CURRENT_TIMEFRAME_PUSHER_EVENT, hashed_payload)
 
-        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters_with_string_keys)
+        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters_with_string_keys, previous_timeframe)
       end
 
       context 'slow query reporting' do

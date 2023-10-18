@@ -175,7 +175,8 @@ describe SnapshotsController, type: :controller do
               grades: nil,
               teacher_ids: nil,
               classroom_ids: nil
-            })
+            },
+            previous_timeframe: nil)
 
           get :count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
 
@@ -189,7 +190,7 @@ describe SnapshotsController, type: :controller do
 
           allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return([previous_timeframe, previous_end, current_timeframe, timeframe_end])
           expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
-          expect(Snapshots::CacheSnapshotPreviousCountWorker).to receive(:perform_async).with(cache_key,
+          expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(cache_key,
             query_name,
             user.id,
             {
@@ -202,9 +203,10 @@ describe SnapshotsController, type: :controller do
               grades: nil,
               teacher_ids: nil,
               classroom_ids: nil
-            })
+            },
+            previous_timeframe: "true")
 
-          get :previous_count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
+          get :count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids, previous_timeframe: true }
 
           json_response = JSON.parse(response.body)
 
@@ -217,9 +219,9 @@ describe SnapshotsController, type: :controller do
 
           it 'previous_count should return nil without having to check cache' do
             expect(Rails.cache).not_to receive(:read)
-            expect(Snapshots::CacheSnapshotPreviousCountWorker).not_to receive(:perform_async)
+            expect(Snapshots::CacheSnapshotCountWorker).not_to receive(:perform_async)
 
-            get :previous_count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
+            get :count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids, previous_timeframe: true }
 
             json_response = JSON.parse(response.body)
 
@@ -245,7 +247,8 @@ describe SnapshotsController, type: :controller do
               grades: nil,
               teacher_ids: nil,
               classroom_ids: nil
-            })
+            },
+            previous_timeframe: nil)
 
           get :top_x, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
 
@@ -272,7 +275,8 @@ describe SnapshotsController, type: :controller do
               grades: nil,
               teacher_ids: nil,
               classroom_ids: nil
-            })
+            },
+            previous_timeframe: nil)
 
           get :data_export, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
 
@@ -302,7 +306,8 @@ describe SnapshotsController, type: :controller do
               grades: grades,
               teacher_ids: teacher_ids,
               classroom_ids: classroom_ids
-            })
+            },
+            previous_timeframe: nil)
 
           get :count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids, grades: grades, teacher_ids: teacher_ids, classroom_ids: classroom_ids }
         end
@@ -328,7 +333,8 @@ describe SnapshotsController, type: :controller do
               grades: nil,
               teacher_ids: nil,
               classroom_ids: nil
-            })
+            },
+            previous_timeframe: nil)
 
           get :count, params: { query: query_name, timeframe: timeframe_name, timeframe_custom_start: current_start.to_s, timeframe_custom_end: current_end.to_s, school_ids: school_ids }
         end

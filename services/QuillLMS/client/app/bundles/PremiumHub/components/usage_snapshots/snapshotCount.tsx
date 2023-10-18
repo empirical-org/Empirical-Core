@@ -119,7 +119,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
   }
 
   function getPreviousData() {
-    requestPost(`/snapshots/previous_count`, getSearchParams(), (body) => {
+    requestPost(`/snapshots/count?previous_timeframe=true`, getSearchParams(), (body) => {
       if (!body.hasOwnProperty('results')) return
 
       clearTimeout(previousRetryTimeout)
