@@ -109,17 +109,18 @@
 
     .google-tbd {
       text-align: left;
-      font-size: 14px;
+      font-size: 12px;
       border-radius: var(--radius-radius-sm, 8px);
       padding: 12px;
       box-shadow: 0 0 0 1px $quill-grey-20;
       margin-bottom: 16px;
       background-color: $quill-grey-1;
       h4 {
-        font-size: 14px;
+        font-size: 12px;
         font-weight: 700;
         display: flex;
         margin-bottom: 8px;
+        align-items: center;
       }
       img {
         margin-right: 4px;
@@ -134,7 +135,7 @@
         height: auto;
         margin: 0px !important;
         justify-content: flex-start;
-        font-size: 14px;
+        font-size: 12px;
         color: $quill-green;
         background-color: transparent;
       }
