@@ -762,6 +762,39 @@ ALTER SEQUENCE public.admin_infos_id_seq OWNED BY public.admin_infos.id;
 
 
 --
+-- Name: admin_report_filter_selections; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_report_filter_selections (
+    id bigint NOT NULL,
+    report character varying NOT NULL,
+    filter_selections jsonb,
+    user_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_report_filter_selections_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.admin_report_filter_selections_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: admin_report_filter_selections_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.admin_report_filter_selections_id_seq OWNED BY public.admin_report_filter_selections.id;
+
+
+--
 -- Name: announcements; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5471,6 +5504,13 @@ ALTER TABLE ONLY public.admin_infos ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
+-- Name: admin_report_filter_selections id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_report_filter_selections ALTER COLUMN id SET DEFAULT nextval('public.admin_report_filter_selections_id_seq'::regclass);
+
+
+--
 -- Name: announcements id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6498,6 +6538,14 @@ ALTER TABLE ONLY public.admin_approval_requests
 
 ALTER TABLE ONLY public.admin_infos
     ADD CONSTRAINT admin_infos_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_report_filter_selections admin_report_filter_selections_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_report_filter_selections
+    ADD CONSTRAINT admin_report_filter_selections_pkey PRIMARY KEY (id);
 
 
 --
@@ -7771,6 +7819,20 @@ CREATE INDEX index_admin_approval_requests_on_admin_info_id ON public.admin_appr
 --
 
 CREATE INDEX index_admin_infos_on_user_id ON public.admin_infos USING btree (user_id);
+
+
+--
+-- Name: index_admin_report_filter_selections_on_report; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_report_filter_selections_on_report ON public.admin_report_filter_selections USING btree (report);
+
+
+--
+-- Name: index_admin_report_filter_selections_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_report_filter_selections_on_user_id ON public.admin_report_filter_selections USING btree (user_id);
 
 
 --
@@ -9929,6 +9991,14 @@ ALTER TABLE ONLY public.activity_survey_responses
 
 
 --
+-- Name: admin_report_filter_selections fk_rails_f3c9548131; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_report_filter_selections
+    ADD CONSTRAINT fk_rails_f3c9548131 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: content_partner_activities fk_rails_f7c9018094; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10497,6 +10567,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230801140455'),
 ('20230801140522'),
 ('20230912150456'),
-('20230929135017');
+('20230929135017'),
+('20231018141022');
 
 
