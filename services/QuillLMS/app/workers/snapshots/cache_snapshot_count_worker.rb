@@ -6,7 +6,8 @@ module Snapshots
 
     sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
 
-    PUSHER_EVENT = 'admin-snapshot-count-cached'
+    CURRENT_TIMEFRAME_PUSHER_EVENT = 'admin-snapshot-count-cached'
+    PREVIOUS_TIMEFRAME_PUSHER_EVENT = 'admin-snapshot-previous-count-cached'
     TOO_SLOW_THRESHOLD = 20
 
     class SlowQueryError < StandardError
@@ -37,7 +38,7 @@ module Snapshots
       'teacher-accounts-created' => Snapshots::TeacherAccountsCreatedQuery
     }
 
-    def perform(cache_key, query, user_id, timeframe, school_ids, filters)
+    def perform(cache_key, query, user_id, timeframe, school_ids, filters, previous_timeframe)
       payload = generate_payload(query, timeframe, school_ids, filters)
 
       Rails.cache.write(cache_key, payload, expires_in: cache_expiry)
@@ -51,7 +52,8 @@ module Snapshots
         filters['classroom_ids']
       ].flatten)
 
-      SendPusherMessageWorker.perform_async(user_id, PUSHER_EVENT, filter_hash)
+      pusher_event = previous_timeframe ? PREVIOUS_TIMEFRAME_PUSHER_EVENT : CURRENT_TIMEFRAME_PUSHER_EVENT
+      SendPusherMessageWorker.perform_async(user_id, pusher_event, filter_hash)
     end
 
     private def cache_expiry
