@@ -16,7 +16,7 @@ class PasswordResetController < ApplicationController
         render json: { message: 'Oops! You have a Clever account. Log in that way instead.', type: 'email' }, status: 401
       else
         user.refresh_token!
-        user.unlink_google_account!
+        user.unlink_google_account! if user.teacher?
         UserMailer.password_reset_email(user).deliver_now!
         flash[:notice] = 'We sent you an email with instructions on how to reset your password.'
         flash.keep(:notice)
