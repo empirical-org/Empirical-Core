@@ -28,7 +28,7 @@ class AdminReportFilterSelection < ApplicationRecord
   REPORTS = [
     DATA_EXPORT = 'data_export',
     USAGE_SNAPSHOT_REPORT = 'usage_snapshot_report',
-    GROWTH_DIAGNOSTIC_REPORT = 'growth_diagnostic_report',
+    GROWTH_DIAGNOSTIC_REPORT = 'growth_diagnostic_report'
   ]
 
   validates :report, :inclusion=> { :in => REPORTS }
