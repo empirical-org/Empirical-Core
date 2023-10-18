@@ -12,13 +12,13 @@ class CacheAdminSnapshotsWorker
 
     previous_start, previous_end, current_start, current_end = Snapshots::Timeframes.calculate_timeframes(Snapshots::Timeframes::DEFAULT_TIMEFRAME)
 
-    Snapshots::CacheSnapshotCountWorker::QUERIES.each do |query, worker|
-      worker.perform_async(*generate_worker_payload(query, previous_start, previous_end, @school_ids))
-      worker.perform_async(*generate_worker_payload(query, current_start, current_end, @school_ids))
+    Snapshots::CacheSnapshotCountWorker::QUERIES.keys.each do |query|
+      Snapshots::CacheSnapshotCountWorker.perform_async(*generate_worker_payload(query, previous_start, previous_end, @school_ids))
+      Snapshots::CacheSnapshotCountWorker.perform_async(*generate_worker_payload(query, current_start, current_end, @school_ids))
     end
 
-    Snapshots::CacheSnapshotTopXWorker::QUERIES.each do |query, worker|
-      worker.perform_async(*generate_worker_payload(query, current_start, current_end, @school_ids))
+    Snapshots::CacheSnapshotTopXWorker::QUERIES.keys.each do |query|
+      Snapshots::CacheSnapshotTopXWorker.perform_async(*generate_worker_payload(query, current_start, current_end, @school_ids))
     end
   end
 

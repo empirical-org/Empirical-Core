@@ -12,9 +12,6 @@ describe CacheAdminSnapshotsWorker, type: :worker do
   let(:school) { schools_admin.school }
   let(:school_ids) { [school.id] }
 
-  let(:mock_count_worker) { double(perform_async: nil) }
-  let(:mock_top_x_worker) { double(perform_async: nil) }
-
   let(:previous_timeframe_start) { previous_timeframe_end - 1.day }
   let(:previous_timeframe_end) { current_timeframe_start - 1.day }
   let(:current_timeframe_start) { current_timeframe_end - 1.day }
@@ -27,8 +24,8 @@ describe CacheAdminSnapshotsWorker, type: :worker do
   before do
     allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return([previous_timeframe_start, previous_timeframe_end, current_timeframe_start, current_timeframe_end])
 
-    stub_const("Snapshots::CacheSnapshotCountWorker::QUERIES", { query_name => mock_count_worker })
-    stub_const("Snapshots::CacheSnapshotTopXWorker::QUERIES", { query_name => mock_top_x_worker })
+    stub_const("Snapshots::CacheSnapshotCountWorker::QUERIES", { query_name => nil })
+    stub_const("Snapshots::CacheSnapshotTopXWorker::QUERIES", { query_name => nil })
   end
 
   context 'enqueueing cache workers' do
@@ -43,9 +40,9 @@ describe CacheAdminSnapshotsWorker, type: :worker do
         .twice
         .ordered
         .and_return(payload)
-      expect(mock_count_worker).to receive(:perform_async).with(*previous_payload)
-      expect(mock_count_worker).to receive(:perform_async).with(*payload)
-      expect(mock_top_x_worker).to receive(:perform_async).with(*payload)
+      expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(*previous_payload)
+      expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(*payload)
+      expect(Snapshots::CacheSnapshotTopXWorker).to receive(:perform_async).with(*payload)
 
       subject
     end
