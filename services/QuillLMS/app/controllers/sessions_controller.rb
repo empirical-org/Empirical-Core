@@ -3,46 +3,22 @@
 class SessionsController < ApplicationController
   include CleverAuthable
 
-  class OriginalRouteStillInUseError < StandardError; end
-
   CLEAR_ANALYTICS_SESSION_KEY = "clear_analytics_session"
 
   around_action :force_writer_db_role, only: [:destroy]
 
   before_action :signed_in!, only: [:destroy]
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  def create
-    email_or_username = params[:user][:email].downcase.strip unless params[:user][:email].nil?
-    @user =  User.find_by_username_or_email(email_or_username)
-    if @user.nil?
-      report_that_route_is_still_in_use
-      login_failure_message
-    elsif @user.signed_up_with_google || @user.google_id
-      report_that_route_is_still_in_use
-      login_failure 'You signed up with Google, please log in with Google using the link above.'
-    elsif @user.clever_id
-      report_that_route_is_still_in_use
-      login_failure 'You signed up with Clever, please log in with Clever using the link above.'
-    elsif @user.password_digest.nil?
-      report_that_route_is_still_in_use
-      login_failure 'Something went wrong verifying your password. Please use the "Forgot password?" link below to reset it.'
-    elsif @user.authenticate(params[:user][:password])
-      sign_in(@user)
-      if session[ApplicationController::POST_AUTH_REDIRECT].present?
-        redirect_to URI.parse(session.delete(ApplicationController::POST_AUTH_REDIRECT)).path
-      elsif params[:redirect].present?
-        redirect_to URI.parse(params[:redirect]).path
-      elsif session[:attempted_path]
-        redirect_to URI.parse(session.delete(:attempted_path)).path
-      else
-        redirect_to profile_path
-      end
-    else
-      login_failure_message
-    end
+  def new
+    @js_file = 'login'
+    @user = User.new
+    @title = 'Log In'
+    @clever_link = clever_link
+    @google_offline_access_expired = session.delete(ApplicationController::GOOGLE_OFFLINE_ACCESS_EXPIRED)
+    @expired_session_redirect = session.delete(ApplicationController::EXPIRED_SESSION_REDIRECT)
+    session[:role] = nil
+    session[ApplicationController::POST_AUTH_REDIRECT] = params[:redirect] if params[:redirect]
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def login_through_ajax
@@ -110,17 +86,6 @@ class SessionsController < ApplicationController
     end
   end
 
-  def new
-    @js_file = 'login'
-    @user = User.new
-    @title = 'Log In'
-    @clever_link = clever_link
-    @google_offline_access_expired = session.delete(ApplicationController::GOOGLE_OFFLINE_ACCESS_EXPIRED)
-    @expired_session_redirect = session.delete(ApplicationController::EXPIRED_SESSION_REDIRECT)
-    session[:role] = nil
-    session[ApplicationController::POST_AUTH_REDIRECT] = params[:redirect] if params[:redirect]
-  end
-
   def failure
     login_failure_message
     # redirect_to signed_out_path
@@ -138,9 +103,5 @@ class SessionsController < ApplicationController
       return redirect_to url
     end
     redirect_to profile_path
-  end
-
-  private def report_that_route_is_still_in_use
-    ErrorNotifier.report(OriginalRouteStillInUseError.new)
   end
 end
