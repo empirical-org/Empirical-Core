@@ -149,13 +149,8 @@ class LoginFormApp extends React.Component {
             <div className="auth-section">
               <AuthGoogleAccessForm text='Log in with Google' />
               <div className="google-tbd">
-                <img alt="" src={informationSrc} />
-                <h4>Having trouble logging in with Google?</h4>
-                <div className="google-tbd-text">
-                  <p>If you're a Google user, you can also log in using your email address. You just need to create a password</p>
-                </div>
-              </div>
-              <div>
+                <h4><img alt="" src={informationSrc} /> Having trouble logging in with Google?</h4>
+                <p>If you're a Google user, you can also log in using your email address. You just need to create a password.</p>
                 <a className="inline-link" href="/password_reset">Create a password</a>
               </div>
               <button onClick={this.handleCleverClick} type="button">
