@@ -129,7 +129,7 @@ class ApplicationController < ActionController::Base
 
   protected def confirm_valid_session
     return if current_user.nil? || session.nil? || session[:staff_id] || admin_impersonating_user?(current_user)
-    return unless reset_session? || current_user.google_access_expired?
+    return unless reset_session? || current_user.google_access_expired_and_no_password?
 
     reset_session_and_redirect_to_sign_in
   end
