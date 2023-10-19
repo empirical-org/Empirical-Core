@@ -58,7 +58,7 @@
 require 'rails_helper'
 
 # rubocop:disable Metrics/BlockLength
-describe User, type: :model do
+RSpec.describe User, type: :model do
 
   it { is_expected.to callback(:capitalize_name).before(:save) }
   it { is_expected.to callback(:generate_student_username_if_absent).before(:validation) }
@@ -1905,7 +1905,7 @@ describe User, type: :model do
       context 'district_premium? is false' do
         before { allow(user).to receive(:district_premium?).and_return(false) }
 
-        it { expect(subject).to be_falsey }
+        it { expect(subject).to eq false }
       end
 
       context 'district_premium? is true' do
@@ -1931,7 +1931,7 @@ describe User, type: :model do
   describe '#learn_worlds_access_override?' do
     subject { user.learn_worlds_access_override? }
 
-    it { expect(subject).to be_falsey }
+    it { expect(subject).to eq false }
 
     context 'override exists' do
       before do
@@ -2209,6 +2209,83 @@ describe User, type: :model do
       it { expect { subject }.not_to change(user, :google_id) }
       it { expect { subject }.not_to change(user, :signed_up_with_google) }
       it { expect { subject }.not_to change(user, :clever_id) }
+    end
+  end
+
+  describe '#unlink_google_account!' do
+    subject { user.unlink_google_account! }
+
+    context 'user has google_account' do
+      let(:user) { create(:teacher, :signed_up_with_google) }
+
+      it { expect { subject }.to change(user, :google_id).from(user.google_id).to(nil) }
+      it { expect { subject }.to change(user, :signed_up_with_google).from(true).to(false) }
+    end
+
+    context 'user does not have google_account' do
+      let(:user) { create(:teacher) }
+
+      it { expect { subject }.not_to change(user, :google_id) }
+      it { expect { subject }.not_to change(user, :signed_up_with_google) }
+    end
+  end
+
+  describe '#google_access_expired?' do
+    subject { user.google_access_expired? }
+
+    let(:user) { create(:user) }
+
+    context 'google_id is not present' do
+      before { allow(user).to receive(:google_id).and_return(nil) }
+
+      it { is_expected.to eq false }
+    end
+
+    context 'google_id is present' do
+      before { allow(user).to receive(:google_id).and_return('some-google-id') }
+
+      context 'auth credential is not present' do
+        it { is_expected.to eq false }
+      end
+
+      context 'auth_credential is not expired' do
+        before { create(:google_auth_credential, user: user)  }
+
+        it { is_expected.to eq false }
+      end
+
+      context 'auth_credential is expired' do
+        before { create(:google_auth_credential, :expired, user: user)  }
+
+        it { is_expected.to eq true }
+      end
+    end
+  end
+
+  describe '#google_access_expired_and_no_password?' do
+    subject { user.google_access_expired_and_no_password? }
+
+    context 'google_access_expired? is false' do
+      before { allow(user).to receive(:google_access_expired?).and_return(false) }
+
+      it { is_expected.to eq false }
+    end
+
+    context 'google_access_expired? is true' do
+      before { allow(user).to receive(:google_access_expired?).and_return(true) }
+
+      context 'password digest is not nil' do
+        before { allow(user).to receive(:password_digest).and_return('some-password-digest') }
+
+        it { is_expected.to eq false }
+      end
+
+      context 'password digest is nil' do
+        before { allow(user).to receive(:password_digest).and_return(nil) }
+
+        it { is_expected.to eq true }
+      end
+
     end
   end
 end

@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
     @user =  User.find_by_username_or_email(email_or_username)
     if @user.nil? || @user.sales_contact?
       render json: {message: 'An account with this email or username does not exist. Try again.', type: 'email'}, status: :unauthorized
-    elsif @user.signed_up_with_google || @user.google_id
+    elsif @user.google_id && @user.password_digest.nil?
       render json: {message: 'Oops! You have a Google account. Log in that way instead.', type: 'email'}, status: :unauthorized
     elsif @user.clever_id
       render json: {message: 'Oops! You have a Clever account. Log in that way instead.', type: 'email'}, status: :unauthorized
