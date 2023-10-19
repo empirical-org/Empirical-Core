@@ -28,10 +28,15 @@ module Snapshots
 
       it do
         expect(described_class.calculate_timeframes('last-30-days')).to eq([
-          end_of_yesterday - 60.days,
-          end_of_yesterday - 30.days,
           end_of_yesterday - 30.days,
           end_of_yesterday
+        ])
+      end
+
+      it do
+        expect(described_class.calculate_timeframes('last-30-days', previous_timeframe: true)).to eq([
+          end_of_yesterday - 60.days,
+          end_of_yesterday - 30.days
         ])
       end
 
@@ -39,20 +44,16 @@ module Snapshots
         let(:now) { DateTime.parse('2023-01-10') }
 
         it do
-          expect(described_class.calculate_timeframes('this-month')).to eq([
+          expect(described_class.calculate_timeframes('this-month', previous_timeframe: true)).to eq([
             end_of_yesterday.beginning_of_month - 1.month,
             end_of_yesterday - 1.month,
-            end_of_yesterday.beginning_of_month,
-            end_of_yesterday
           ])
         end
 
         it do
-          expect(described_class.calculate_timeframes('this-school-year')).to eq([
+          expect(described_class.calculate_timeframes('this-school-year', previous_timeframe: true)).to eq([
             School.school_year_start(end_of_yesterday) - 1.year,
-            end_of_yesterday - 1.year,
-            School.school_year_start(end_of_yesterday),
-            end_of_yesterday
+            end_of_yesterday - 1.year
           ])
         end
       end
@@ -62,11 +63,9 @@ module Snapshots
         let(:custom_end) { now - 30.minutes }
 
         it do
-          expect(described_class.calculate_timeframes('custom', custom_start: custom_start.to_s, custom_end: custom_end.to_s)).to eq([
+          expect(described_class.calculate_timeframes('custom', custom_start: custom_start.to_s, custom_end: custom_end.to_s, previous_timeframe: true)).to eq([
             (custom_start - (custom_end - custom_start)).beginning_of_day,
-            custom_start.end_of_day,
-            custom_start.beginning_of_day,
-            custom_end.end_of_day
+            custom_start.end_of_day
           ])
         end
       end

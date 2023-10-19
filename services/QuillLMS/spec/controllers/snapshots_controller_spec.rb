@@ -23,6 +23,13 @@ describe SnapshotsController, type: :controller do
         [:top_x, 'most-active-schools']
       ]
     }
+    let(:previous_start) { now - 1.day }
+    let(:previous_end) { current_start }
+    let(:current_start) { now }
+    let(:current_end) { now + 1.day }
+    let(:previous_timeframe) { [previous_start, previous_end] }
+    let(:current_timeframe) { [current_start, current_end] }
+    let(:timeframes) { current_timeframe }
 
     before do
       allow(DateTime).to receive(:current).and_return(now)
@@ -33,11 +40,6 @@ describe SnapshotsController, type: :controller do
       let(:grades) { ['Kindergarten', '1'] }
       let(:teacher_ids) { ['4', '5'] }
       let(:classroom_ids) { ['7', '8'] }
-      let(:previous_start) { now - 1.day }
-      let(:previous_end) { current_start }
-      let(:current_start) { now }
-      let(:current_end) { now + 1.day }
-      let(:timeframes) { [previous_start, previous_end, current_start, current_end] }
 
       before do
         allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
@@ -152,23 +154,23 @@ describe SnapshotsController, type: :controller do
       end
 
       context 'param variation' do
-        let(:previous_timeframe) { 'PREVIOUS_TIMEFRAME' }
+        let(:previous_start) { 'PREVIOUS_TIMEFRAME' }
         let(:previous_end) { 'PREVIOUS_END' }
-        let(:current_timeframe) { 'CURRENT_TIMEFRAME' }
-        let(:timeframe_end) { 'TIMEFRAME_END' }
+        let(:current_start) { 'CURRENT_TIMEFRAME' }
+        let(:current_end) { 'TIMEFRAME_END' }
 
         it 'should trigger a job to cache data if the cache is empty for counts' do
           query_name = 'active-classrooms'
 
-          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return([previous_timeframe, previous_end, current_timeframe, timeframe_end])
+          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
           expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
           expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(cache_key,
             query_name,
             user.id,
             {
               name: timeframe_name,
-              timeframe_start: current_timeframe,
-              timeframe_end: timeframe_end
+              timeframe_start: current_start,
+              timeframe_end: current_end
             },
             school_ids,
             {
@@ -188,14 +190,14 @@ describe SnapshotsController, type: :controller do
         it 'should trigger a job to cache data if the cache is empty for previous_counts' do
           query_name = 'active-classrooms'
 
-          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return([previous_timeframe, previous_end, current_timeframe, timeframe_end])
+          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(previous_timeframe)
           expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
           expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(cache_key,
             query_name,
             user.id,
             {
               name: timeframe_name,
-              timeframe_start: previous_timeframe,
+              timeframe_start: previous_start,
               timeframe_end: previous_end
             },
             school_ids,
@@ -232,15 +234,15 @@ describe SnapshotsController, type: :controller do
         it 'should trigger a job to cache data if the cache is empty for top_x' do
           query_name = 'most-active-schools'
 
-          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return([previous_timeframe, previous_end, current_timeframe, timeframe_end])
+          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
           expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
           expect(Snapshots::CacheSnapshotTopXWorker).to receive(:perform_async).with(cache_key,
             query_name,
             user.id,
             {
               name: timeframe_name,
-              timeframe_start: current_timeframe,
-              timeframe_end: timeframe_end
+              timeframe_start: current_start,
+              timeframe_end: current_end
             },
             school_ids,
             {
@@ -260,15 +262,15 @@ describe SnapshotsController, type: :controller do
         it 'should trigger a job to cache data if the cache is empty for data_export' do
           query_name = 'data-export'
 
-          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return([previous_timeframe, previous_end, current_timeframe, timeframe_end])
+          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
           expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
           expect(Snapshots::CachePremiumReportsWorker).to receive(:perform_async).with(cache_key,
             query_name,
             user.id,
             {
               name: timeframe_name,
-              timeframe_start: current_timeframe,
-              timeframe_end: timeframe_end
+              timeframe_start: current_start,
+              timeframe_end: current_end
             },
             school_ids,
             {
@@ -291,15 +293,15 @@ describe SnapshotsController, type: :controller do
           teacher_ids = ['3', '4']
           classroom_ids = ['5', '6', '7']
 
-          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return([previous_timeframe, previous_end, current_timeframe, timeframe_end])
+          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
           expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
           expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(cache_key,
             query_name,
             user.id,
             {
               name: timeframe_name,
-              timeframe_start: current_timeframe,
-              timeframe_end: timeframe_end
+              timeframe_start: current_start,
+              timeframe_end: current_end
             },
             school_ids,
             {
