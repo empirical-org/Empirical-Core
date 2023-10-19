@@ -94,6 +94,11 @@ module PagesHelper
             img: 'team-eric-adams.webp'
           },
           {
+            name: 'Leah Allen-Manning',
+            title: 'Content Marketing Partner',
+            img: 'team-leah-allen-manning.webp'
+          },
+          {
             name: 'Devin Kawailani Barricklow',
             title: 'Senior Curriculum Developer',
             img: 'team-devin-barricklow.webp'
