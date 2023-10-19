@@ -64,7 +64,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
   }, [previousRetryTimeout])
 
   React.useEffect(() => {
-    if (!previous || count === 'N/A') {
+    if (!previous || count === 'N/A' || count === null) {
       setChangeDirection(NONE)
       return
     }
