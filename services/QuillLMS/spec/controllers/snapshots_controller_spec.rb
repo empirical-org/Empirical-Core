@@ -178,7 +178,7 @@ describe SnapshotsController, type: :controller do
               teacher_ids: nil,
               classroom_ids: nil
             },
-            previous_timeframe: nil)
+            nil)
 
           get :count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
 
@@ -206,7 +206,7 @@ describe SnapshotsController, type: :controller do
               teacher_ids: nil,
               classroom_ids: nil
             },
-            previous_timeframe: "true")
+            "true")
 
           get :count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids, previous_timeframe: true }
 
@@ -250,7 +250,7 @@ describe SnapshotsController, type: :controller do
               teacher_ids: nil,
               classroom_ids: nil
             },
-            previous_timeframe: nil)
+            nil)
 
           get :top_x, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
 
@@ -278,7 +278,7 @@ describe SnapshotsController, type: :controller do
               teacher_ids: nil,
               classroom_ids: nil
             },
-            previous_timeframe: nil)
+            nil)
 
           get :data_export, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
 
@@ -309,7 +309,7 @@ describe SnapshotsController, type: :controller do
               teacher_ids: teacher_ids,
               classroom_ids: classroom_ids
             },
-            previous_timeframe: nil)
+            nil)
 
           get :count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids, grades: grades, teacher_ids: teacher_ids, classroom_ids: classroom_ids }
         end
@@ -336,7 +336,7 @@ describe SnapshotsController, type: :controller do
               teacher_ids: nil,
               classroom_ids: nil
             },
-            previous_timeframe: nil)
+            nil)
 
           get :count, params: { query: query_name, timeframe: timeframe_name, timeframe_custom_start: current_start.to_s, timeframe_custom_end: current_end.to_s, school_ids: school_ids }
         end

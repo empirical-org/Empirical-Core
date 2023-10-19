@@ -160,7 +160,7 @@ class SnapshotsController < ApplicationController
         teacher_ids: snapshot_params[:teacher_ids],
         classroom_ids: snapshot_params[:classroom_ids]
       },
-      previous_timeframe: snapshot_params[:previous_timeframe])
+      snapshot_params[:previous_timeframe])
 
     { message: 'Generating snapshot' }
   end
