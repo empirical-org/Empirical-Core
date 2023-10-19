@@ -58,7 +58,7 @@
 require 'rails_helper'
 
 # rubocop:disable Metrics/BlockLength
-describe User, type: :model do
+RSpec.describe User, type: :model do
 
   it { is_expected.to callback(:capitalize_name).before(:save) }
   it { is_expected.to callback(:generate_student_username_if_absent).before(:validation) }
@@ -1905,7 +1905,7 @@ describe User, type: :model do
       context 'district_premium? is false' do
         before { allow(user).to receive(:district_premium?).and_return(false) }
 
-        it { expect(subject).to eq falsey }
+        it { expect(subject).to eq false }
       end
 
       context 'district_premium? is true' do
@@ -1931,7 +1931,7 @@ describe User, type: :model do
   describe '#learn_worlds_access_override?' do
     subject { user.learn_worlds_access_override? }
 
-    it { expect(subject).to eq falsey }
+    it { expect(subject).to eq false }
 
     context 'override exists' do
       before do
