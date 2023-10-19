@@ -11,10 +11,11 @@ interface NewAdminOrDistrictUserProps {
   type: string,
   returnUrl: string,
   schoolId?: number,
-  districtId?: number
+  districtId?: number,
+  schools?: any[]
 }
 
-const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId }: NewAdminOrDistrictUserProps) => {
+const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId, schools }: NewAdminOrDistrictUserProps) => {
   const [firstName, setFirstName] = React.useState<string>('');
   const [lastName, setLastName] = React.useState<string>('');
   const [email, setEmail] = React.useState<string>('');
@@ -22,6 +23,7 @@ const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId }: NewAd
   const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
   const [snackbarText, setSnackbarText] = React.useState<string>('');
   const [loading, setLoading] = React.useState<boolean>(false);
+  const [schoolIds, setSchoolIds] = React.useState<Number[]>([]);
 
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
@@ -53,7 +55,8 @@ const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId }: NewAd
       const params = {
         first_name: firstName.trim(),
         last_name: lastName.trim(),
-        email: email.trim()
+        email: email.trim(),
+        school_ids: schoolIds,
       }
       requestPost(requestUrl, params, (body) => {
         if(body.error) {
@@ -74,6 +77,39 @@ const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId }: NewAd
 
   function handleCancelClick() {
     window.location.href = returnUrl
+  }
+
+  function handleCheckboxChange(schoolId) {
+    setSchoolIds((prevSchoolIds) => {
+      let updatedSchoolIds = prevSchoolIds.slice()
+      if (updatedSchoolIds.includes(schoolId)) {
+        updatedSchoolIds = updatedSchoolIds.filter(s => s !== schoolId)
+      } else {
+        updatedSchoolIds.push(schoolId)
+      }
+      return updatedSchoolIds;
+    });
+  };
+
+  function attachSchools() {
+    return (
+      <section>
+        <h3>Attach Schools</h3>
+        <p>The user will become an Admin for the following schools:</p>
+        {
+          schools.map((school) => (
+            <div key={school.id}>
+              <input
+                id={`checkbox-${school.id}`}
+                onChange={() => handleCheckboxChange(school.id)}
+                type="checkbox"
+              />
+              <label htmlFor={`checkbox-${school.id}`}>{school.name}</label>
+            </div>
+          ))
+        }
+      </section>
+    )
   }
 
   const header = type === ADMIN ? 'New Admin' : 'New District Admin'
@@ -107,6 +143,7 @@ const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId }: NewAd
           label="Email"
           value={email}
         />
+        {type !== ADMIN && attachSchools()}
         <section className="buttons-container">
           <button className="quill-button small primary contained" onClick={handleSubmitClick}>{innerSubmitButtonElement}</button>
           <button className="quill-button small secondary outlined" onClick={handleCancelClick}>Cancel</button>

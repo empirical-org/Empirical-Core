@@ -6,8 +6,9 @@ class Cms::DistrictAdminsController < Cms::CmsController
 
   def create
     user = User.find_by(email: params[:email])
+    school_ids = params[:school_ids]
     if user
-      create_district_admin_user_for_existing_user(user)
+      create_district_admin_user_for_existing_user(user, school_ids)
     else
       create_new_account_for_district_admin_user
     end
@@ -43,7 +44,7 @@ class Cms::DistrictAdminsController < Cms::CmsController
     end
   end
 
-  private def create_district_admin_user_for_existing_user(user, new_user: false)
+  private def create_district_admin_user_for_existing_user(user, school_ids, new_user: false)
 
     if @district.district_admins.exists?(user_id: user.id)
       return render json: { message: t('district_admin.already_assigned', district_name: @district.name) }
@@ -52,6 +53,7 @@ class Cms::DistrictAdminsController < Cms::CmsController
     district_admin = @district.district_admins.build(user_id: user.id)
 
     if district_admin.save!
+      district_admin.attach_schools(school_ids)
       admin_info = AdminInfo.find_or_create_by!(user: user)
       admin_info.update(approver_role: User::STAFF, approval_status: AdminInfo::APPROVED)
 
@@ -69,7 +71,7 @@ class Cms::DistrictAdminsController < Cms::CmsController
     if user.save!
       user.refresh_token!
       ExpirePasswordTokenWorker.perform_in(30.days, user.id)
-      create_district_admin_user_for_existing_user(user, new_user: true)
+      create_district_admin_user_for_existing_user(user, params[:school_ids], new_user: true)
     else
       render json: { error: user.errors.messages }
     end

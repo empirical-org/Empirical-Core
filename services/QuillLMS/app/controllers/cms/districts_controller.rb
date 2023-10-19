@@ -42,6 +42,7 @@ class Cms::DistrictsController < Cms::CmsController
     @js_file = 'staff'
     @style_file = 'staff'
     @cms_district_path = cms_district_path(id)
+    @schools = @district.schools
   end
 
   def new_subscription
