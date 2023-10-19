@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
     if @user.nil? || @user.sales_contact?
       render json: {message: 'An account with this email or username does not exist. Try again.', type: 'email'}, status: :unauthorized
     elsif @user.google_id && @user.password_digest.nil?
-      render json: {message: 'Oops! You have a Google account. Log in that way instead.', type: 'email'}, status: :unauthorized
+      render json: {message: "Your account is linked to Google. To sign in with your email address, create a password by clicking 'Forgot password'.", type: 'email'}, status: :unauthorized
     elsif @user.clever_id
       render json: {message: 'Oops! You have a Clever account. Log in that way instead.', type: 'email'}, status: :unauthorized
     elsif @user.password_digest.nil?
@@ -51,7 +51,7 @@ class SessionsController < ApplicationController
         render json: {redirect: '/'}
       end
     else
-      render json: {message: 'Wrong password. Try again or click Forgot password to reset it.', type: 'password'}, status: :unauthorized
+      render json: {message: "Wrong password. Try again or click 'Forgot password' to reset it.", type: 'password'}, status: :unauthorized
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity
