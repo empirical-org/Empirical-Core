@@ -1,9 +1,9 @@
-import * as React from 'react';
 import * as moment from 'moment';
+import * as React from 'react';
 
-import { requestPost, } from '../../../modules/request'
-import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
-import { DataTable, Spinner, informationIcon, smallWhiteCheckIcon, noResultsMessage } from '../../Shared';
+import { requestPost, } from '../../../modules/request';
+import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual';
+import { DataTable, Spinner, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon, whiteArrowPointingDownIcon } from '../../Shared';
 
 const STANDARD_WIDTH = "152px";
 const STUDENT_NAME = "Student Name";
@@ -25,6 +25,7 @@ const PUSHER_EVENT_KEY = "data-export-cached";
 interface DataExportTableAndFieldsProps {
   customTimeframeEnd: string;
   customTimeframeStart: string;
+  openMobileFilterMenu: Function;
   pusherChannel?: any;
   queryKey: string;
   searchCount: number;
@@ -35,7 +36,7 @@ interface DataExportTableAndFieldsProps {
   selectedTimeframe: string;
 }
 
-export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, pusherChannel }: DataExportTableAndFieldsProps) => {
+export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, openMobileFilterMenu, pusherChannel }: DataExportTableAndFieldsProps) => {
   const [showStudentEmail, setShowStudentEmail] = React.useState<boolean>(true);
   const [showSchool, setShowSchool] = React.useState<boolean>(true);
   const [showGrade, setShowGrade] = React.useState<boolean>(true);
@@ -128,7 +129,6 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   }, [searchCount])
 
   function getData() {
-
     const searchParams = {
       query: queryKey,
       timeframe: selectedTimeframe,
@@ -151,6 +151,22 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
         setData(formattedData)
         setLoading(false)
       }
+    })
+  }
+
+  function startCsvDownload() {
+    const requestParams = {
+      query: 'create_report_download',
+      timeframe: selectedTimeframe,
+      timeframe_custom_start: customTimeframeStart,
+      timeframe_custom_end: customTimeframeEnd,
+      school_ids: selectedSchoolIds,
+      teacher_ids: selectedTeacherIds,
+      classroom_ids: selectedClassroomIds,
+      grades: selectedGrades,
+      headers_to_display: getHeaders().map(header => header.attribute)
+    }
+    requestPost('/snapshots/create_report_download', requestParams, (body) => {
     })
   }
 
@@ -242,30 +258,46 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   }
 
   return(
-    <div className="data-export-container">
-      <section className="fields-section">
-        <h3>Fields</h3>
-        <div className="fields-container">
-          {renderCheckboxes()}
-        </div>
-      </section>
-      <section className="preview-section">
-        <h3>Preview</h3>
-        <div className="preview-disclaimer-container">
-          <img alt={informationIcon.alt} src={informationIcon.src} />
-          <p>This preview is limited to the first 10 results. Your download will include all activities.</p>
-        </div>
-      </section>
-      {loading && <Spinner />}
-      {!loading && <DataTable
-        className="data-export-table reporting-format"
-        defaultSortAttribute="completed_at"
-        defaultSortDirection="desc"
-        emptyStateMessage={noResultsMessage('activity')}
-        headers={getHeaders()}
-        rows={data || []}
-      />}
-    </div>
+    <React.Fragment>
+      <div className="header">
+        <h1>Data Export</h1>
+        <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={startCsvDownload} type="button">
+          <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />
+          <span>Download</span>
+        </button>
+      </div>
+      <div className="filter-button-container">
+        <button className="interactive-wrapper focus-on-light" onClick={openMobileFilterMenu} type="button">
+          <img alt={filterIcon.alt} src={filterIcon.src} />
+          Filters
+        </button>
+      </div>
+
+      <div className="data-export-container">
+        <section className="fields-section">
+          <h3>Fields</h3>
+          <div className="fields-container">
+            {renderCheckboxes()}
+          </div>
+        </section>
+        <section className="preview-section">
+          <h3>Preview</h3>
+          <div className="preview-disclaimer-container">
+            <img alt={informationIcon.alt} src={informationIcon.src} />
+            <p>This preview is limited to the first 10 results. Your download will include all activities.</p>
+          </div>
+        </section>
+        {loading && <Spinner />}
+        {!loading && <DataTable
+          className="data-export-table reporting-format"
+          defaultSortAttribute="completed_at"
+          defaultSortDirection="desc"
+          emptyStateMessage={noResultsMessage('activity')}
+          headers={getHeaders()}
+          rows={data || []}
+        />}
+      </div>
+    </React.Fragment>
   )
 }
 

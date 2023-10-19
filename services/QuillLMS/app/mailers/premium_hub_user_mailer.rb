@@ -15,6 +15,11 @@ class PremiumHubUserMailer < UserMailer
     mail to: user.email, subject: subject
   end
 
+  def admin_premium_download_report_email(file_url, email)
+    @file_url = file_url
+    mail to: email, subject: "TEST EMAIL"
+  end
+
   def admin_account_created_email(user, admin_name, school_name, is_reminder)
     @user = user
     @admin_name = admin_name
