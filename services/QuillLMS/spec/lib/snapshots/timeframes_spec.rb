@@ -46,7 +46,7 @@ module Snapshots
         it do
           expect(described_class.calculate_timeframes('this-month', previous_timeframe: true)).to eq([
             end_of_yesterday.beginning_of_month - 1.month,
-            end_of_yesterday - 1.month,
+            end_of_yesterday - 1.month
           ])
         end
 
