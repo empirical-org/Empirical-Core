@@ -1,5 +1,6 @@
 #premium-hub .filterable-reports-container {
   display: flex;
+  align-items: flex-start;
   min-height: 100vh;
   .dropdown {
     margin-right: 0px;
@@ -10,14 +11,37 @@
   section {
     border-bottom: none;
   }
+  .show-filter-menu-button {
+    border-radius: 8px;
+    border: 1px solid $quill-grey-10;
+    background: $quill-grey-1;
+    margin-bottom: 11px;
+    height: 34px;
+    width: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &.filters-adjusted {
+      border: 1px solid $quill-green-20;
+      background: $quill-green-5;
+    }
+  }
   .filter-container {
-    min-width: 317px;
-    width: 317px;
+    min-width: 333px;
+    width: 333px;
     max-height: 100vh;
+    min-height: 100vh;
     overflow: scroll;
     top: 0;
     padding: 0px;
     position: sticky;
+    .dropdowns {
+      border-radius: 8px;
+      border: 1px solid $quill-grey-5;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.10);
+      padding: 16px 16px 32px;
+      overflow: visible;
+    }
     .top-section {
       height: 64px;
       padding: 0px 16px;
@@ -35,8 +59,9 @@
       }
     }
     .filters {
-      padding: 32px 24px 84px;
+      padding: 16px 16px 84px;
       min-height: calc(100% - 68px); // accounting for height of filter buttons
+      height: 100%;
       .filter-label {
         display: flex;
         align-items: center;
@@ -65,11 +90,15 @@
       display: flex;
       padding: 16px 24px;
       justify-content: space-between;
-      background-color: $quill-green-5;
       bottom: 0;
       width: 301px;
       border-radius: 8px;
-      margin: 0px 8px 8px;
+      margin: 0px 16px 16px;
+      border-radius: 8px;
+      border: 1px solid $quill-green-20;
+      background: $quill-green-10;
+      box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+
       &.fixed {
         position: fixed;
       }
@@ -87,11 +116,24 @@
     .dropdown__menu {
       width: 258px;
     }
+    .show-filter-menu-button-wrapper {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+  .filter-menu-closed {
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+    max-width: 1328px; // same as main
+    .show-filter-menu-button {
+      top: 32px;
+      position: absolute;
+    }
   }
   main {
     padding: 32px 64px;
-    border-left: 1px solid $quill-grey-5;
-    max-width: calc($sitewidepagewidth + 129px); // $sitewidepagewidth + 64px padding on both sides + 1 for border
+    max-width: 1328px; // $sitewidepagewidth + 64px padding on both sides
     width: 100%;
     .header {
       display: flex;
@@ -575,6 +617,9 @@
       &.mobile-hidden {
         display: none;
       }
+    }
+    .show-filter-menu-button {
+      display: none;
     }
   }
 

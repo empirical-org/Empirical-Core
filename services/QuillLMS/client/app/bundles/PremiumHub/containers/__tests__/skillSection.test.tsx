@@ -30,8 +30,7 @@ describe('SkillSection', () => {
     test('it should render loading spinner', () => {
       const { asFragment } = render(<SkillSection {...props} />);
       expect(asFragment()).toMatchSnapshot();
-      const loadingSpinner = screen.getByRole('img')
-      expect(loadingSpinner.getAttribute('class')).toEqual('spinner')
+      expect(screen.getByAltText(/loading spinner/i)).toBeInTheDocument()
     })
   })
   describe('loaded state', () => {

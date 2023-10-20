@@ -317,7 +317,7 @@ exports[`DataExportContainer full state it should render 1`] = `
           class="spinner-container"
         >
           <img
-            alt=""
+            alt="Loading spinner"
             class="spinner"
             src="https://assets.quill.org/images/icons/loader_still.svg"
           />
@@ -350,7 +350,7 @@ exports[`DataExportContainer loading state it should render 1`] = `
       class="spinner-container"
     >
       <img
-        alt=""
+        alt="Loading spinner"
         class="spinner"
         src="https://assets.quill.org/images/icons/loader_still.svg"
       />

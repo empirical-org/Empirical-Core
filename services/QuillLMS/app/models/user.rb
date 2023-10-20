@@ -710,6 +710,10 @@ class User < ApplicationRecord
     google_id.present? && auth_credential.present? && auth_credential.google_access_expired?
   end
 
+  def google_access_expired_and_no_password?
+    google_access_expired? && password_digest.nil?
+  end
+
   # Note this is an incremented count, so could be off.
   def completed_activity_count
     user_activity_classifications.sum(:count)
@@ -866,6 +870,10 @@ class User < ApplicationRecord
 
   def unlink_clever_and_google_accounts!
     update!(clever_id: nil, google_id: nil, signed_up_with_google: false)
+  end
+
+  def unlink_google_account!
+    update!(google_id: nil, signed_up_with_google: false)
   end
 
   private def validate_flags

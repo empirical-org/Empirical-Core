@@ -4,16 +4,10 @@ require 'rails_helper'
 
 module GoogleIntegration
   RSpec.describe TeacherCourseDataValidator do
-    subject { described_class.run(course_data, user_external_id) }
+    subject { described_class.run(course_data) }
 
     let(:course_data) { create(:google_classroom_api_course, course_state: course_state) }
     let(:course_state) { RestClient::ACTIVE_STATE }
-
-    context 'not owner' do
-      let(:user_external_id) { Faker::Number.number(digits: 21) }
-
-      it { is_expected.to eq false }
-    end
 
     context 'owner' do
       let(:user_external_id) { course_data.owner_id }

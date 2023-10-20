@@ -10,10 +10,13 @@ module SessionHelper
     }.merge(hash)
   end
 
-  def sign_in *args
+  def sign_in(*args)
     user = args.first if args.length == 1
     email, password = user ? [user.email || user.username, user.password] : args
     password = password.presence || '123456'
-    post '/session', params: { user: {email: email, password: password} }
+
+    post '/session/login_through_ajax',
+      params: { user: { email: email, password: password } },
+      as: :json
   end
 end

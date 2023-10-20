@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { requestPost, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'
-import { selectionsEqual } from '../../shared'
+import { hashPayload, selectionsEqual } from '../../shared'
 
 const expandImg = <img alt="" src={`${process.env.CDN_URL}/images/pages/administrator/expand.svg`} />
 
@@ -120,21 +120,26 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
     })
   }
 
+  function filtersMatchHash(hashMessage) {
+    const filterTarget = [].concat(
+      queryKey,
+      selectedTimeframe,
+      selectedSchoolIds,
+      selectedGrades,
+      selectedTeacherIds,
+      selectedClassroomIds
+    )
+
+    const filterHash = hashPayload(filterTarget)
+
+    return hashMessage == filterHash
+  }
+
   function initializePusher() {
     pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
       const { message, } = body
 
-      const queryKeysAreEqual = message.query === queryKey
-
-      const timeframesAreEqual = message.timeframe === selectedTimeframe
-      const schoolIdsAreEqual = selectionsEqual(message.school_ids, selectedSchoolIds)
-      const teacherIdsAreEqual = selectionsEqual(message.teacher_ids, selectedTeacherIds)
-      const classroomIdsAreEqual = selectionsEqual(message.classroom_ids, selectedClassroomIds)
-      const gradesAreEqual =  selectionsEqual(message.grades, selectedGrades?.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
-
-      if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {
-        getData()
-      }
+      if (filtersMatchHash(message)) getData()
     });
   };
 
