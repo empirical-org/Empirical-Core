@@ -5,35 +5,42 @@
   <div class="banner google-integration-change-banner" id="google-login-and-signup-banner">
     <div class="content-container">
       <p>Having trouble signing in with Google? Create a password for Quill or request app verification. <a href="<%= banner_link %>" rel="noopener noreferrer" target="_blank">Learn more</a></p>
-      <button class="interactive-wrapper" id="close-google-login-and-signup-banner"><img alt="" src="<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>"></button>
     </div>
   </div>
 <% elsif current_user&.teacher? && current_user&.google_id %>
   <div class="banner google-integration-change-banner" id="google-teacher-banner">
     <div class="content-container">
       <p>Google Classroom teachers, if your students are having trouble signing in, ask them to create a Quill password or request app verification. <a href="<%= banner_link %>" rel="noopener noreferrer" target="_blank">Learn more</a></p>
-      <button class="interactive-wrapper" id="close-google-teacher-banner"><img alt="" src="<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>"></button>
     </div>
+    <button aria-label="Dismiss the banner" class="interactive-wrapper" id="close-google-teacher-banner"><img alt="" src="<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>"></button>
   </div>
 <% end %>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const banners = {
-      'google-teacher-banner': 'google_teacher_banner_closed',
-      'google-login-and-signup-banner': 'google_login_and_signup_banner_closed'
-    };
+    const bannerId = 'google-teacher-banner'
+    const cookieName = 'google_teacher_banner_closed'
 
-    for (let [bannerId, cookieName] of Object.entries(banners)) {
+    const bannerElement = document.getElementById(bannerId);
+    const closeButton = document.getElementById(`close-${bannerId}`);
+
+    if (bannerElement && closeButton) {
       if (document.cookie.indexOf(`${cookieName}=1`) === -1) {
-        document.getElementById(bannerId).style.display = 'block';
+        bannerElement.style.display = 'block';
       }
 
-      document.getElementById(`close-${bannerId}`).addEventListener('click', function(e) {
+      closeButton.addEventListener('click', function(e) {
         e.preventDefault();
-        document.getElementById(bannerId).style.display = 'none';
+        bannerElement.style.display = 'none';
         document.cookie = `${cookieName}=1; path=/`;
       });
     }
+
+    const loginSignupBanner = document.getElementById('google-login-and-signup-banner');
+
+    if (document.cookie.indexOf('google_login_and_signup_banner_closed=1') === -1 && loginSignupBanner) {
+      loginSignupBanner.style.display = 'block';
+    }
+
   });
 </script>

@@ -1,5 +1,5 @@
 .banner {
-  background-color: #014f92;
+  background-color: $quill-viridian;
   padding: 16px 0px;
   display: none;
   &#webinar-banner-one-off {
@@ -7,6 +7,17 @@
   }
   &.webinar-banner {
     display: block;
+  }
+  &.google-integration-change-banner {
+    button {
+      position: absolute;
+      top: 16;
+      right: 16px;
+    }
+    p {
+      text-align: center;
+      padding-right: 0px;
+    }
   }
   &#student-feedback-banner {
     .interactive-wrapper {
@@ -24,8 +35,6 @@
   }
   a {
     text-decoration: underline;
-    font-weight: bold;
-    cursor: pointer;
   }
   .banner-icon {
     padding-left: 15px;
