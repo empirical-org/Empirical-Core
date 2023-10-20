@@ -1,6 +1,5 @@
 .data-export-main {
-  // this 317px comes from the filter sidebar element width
-  max-width: calc(100% - 317px) !important;
+  max-width: 1107px !important;
 
   .data-export-container {
     display: flex;
