@@ -9,7 +9,7 @@ const headers = [
     attribute: 'name',
     width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
     noTooltip: true,
-    isSortable: true
+    isSortable: false
   },
   {
     name: '',
