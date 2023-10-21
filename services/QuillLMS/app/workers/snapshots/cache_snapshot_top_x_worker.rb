@@ -25,7 +25,8 @@ module Snapshots
       'most-completed-activities' => Snapshots::MostCompletedActivitiesQuery
     }
 
-    def perform(cache_key, query, user_id, timeframe, school_ids, filters)
+    # previous_timeframe param here is not used, but is included to enforce parity with the CacheSnapshotCountWorker signature
+    def perform(cache_key, query, user_id, timeframe, school_ids, filters, previous_timeframe)
       payload = generate_payload(query, timeframe, school_ids, filters)
 
       Rails.cache.write(cache_key, payload.to_a, expires_in: cache_expiry)
@@ -51,8 +52,8 @@ module Snapshots
     end
 
     private def generate_payload(query, timeframe, school_ids, filters)
-      timeframe_start = DateTime.parse(timeframe['current_start'])
-      timeframe_end = DateTime.parse(timeframe['current_end'])
+      timeframe_start = DateTime.parse(timeframe['timeframe_start'])
+      timeframe_end = DateTime.parse(timeframe['timeframe_end'])
       filters_symbolized = filters.symbolize_keys
 
       long_process_notifier = LongProcessNotifier.new(

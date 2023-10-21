@@ -33,13 +33,15 @@ describe('SnapshotCount component', () => {
   }
 
   const positiveTrendData = {
-    passedCount: 1000,
+    passedCount: 1500,
+    passedPrevious: 1000,
     passedChange: 50,
     passedChangeDirection: POSITIVE
   }
 
   const negativeTrendData = {
     passedCount: 1000,
+    passedPrevious: 2000,
     passedChange: 50,
     passedChangeDirection: NEGATIVE
   }
