@@ -214,7 +214,13 @@ const ActiveClassrooms = ({
       if (body.quill_retrieval_processing) { return }
 
       setAllProviderClassrooms(body.classrooms)
-      setProviderClassrooms(body.classrooms.filter(classroom => !classroom.alreadyImported && classroom.is_owner))
+
+      if (providerConfig?.isGoogle) {
+        setProviderClassrooms(body.classrooms.filter(classroom => !classroom.alreadyImported && classroom.is_owner))
+      } else {
+        setProviderClassrooms(body.classrooms.filter(classroom => !classroom.alreadyImported))
+      }
+
       setProviderClassroomsLoading(false)
     })
   }

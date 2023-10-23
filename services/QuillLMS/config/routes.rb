@@ -730,6 +730,7 @@ EmpiricalGrammar::Application.routes.draw do
     collection do
       post :count
       post :options
+      post :previous_count
       post :top_x
       post :data_export
     end
