@@ -20,7 +20,8 @@ describe SnapshotsController, type: :controller do
     let(:controller_actions) {
       [
         [:count, 'active-classrooms'],
-        [:top_x, 'most-active-schools']
+        [:top_x, 'most-active-schools'],
+        [:data_export, 'data-export']
       ]
     }
     let(:previous_start) { now - 1.day }
