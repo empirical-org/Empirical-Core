@@ -6,7 +6,8 @@ module Snapshots
 
     sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
 
-    PUSHER_EVENT = 'admin-snapshot-count-cached'
+    CURRENT_TIMEFRAME_PUSHER_EVENT = 'admin-snapshot-count-cached'
+    PREVIOUS_TIMEFRAME_PUSHER_EVENT = 'admin-snapshot-previous-count-cached'
     TOO_SLOW_THRESHOLD = 20
 
     class SlowQueryError < StandardError
@@ -37,7 +38,7 @@ module Snapshots
       'teacher-accounts-created' => Snapshots::TeacherAccountsCreatedQuery
     }
 
-    def perform(cache_key, query, user_id, timeframe, school_ids, filters)
+    def perform(cache_key, query, user_id, timeframe, school_ids, filters, previous_timeframe)
       payload = generate_payload(query, timeframe, school_ids, filters)
 
       Rails.cache.write(cache_key, payload, expires_in: cache_expiry)
@@ -51,7 +52,8 @@ module Snapshots
         filters['classroom_ids']
       ].flatten)
 
-      SendPusherMessageWorker.perform_async(user_id, PUSHER_EVENT, filter_hash)
+      pusher_event = previous_timeframe ? PREVIOUS_TIMEFRAME_PUSHER_EVENT : CURRENT_TIMEFRAME_PUSHER_EVENT
+      SendPusherMessageWorker.perform_async(user_id, pusher_event, filter_hash)
     end
 
     private def cache_expiry
@@ -63,10 +65,8 @@ module Snapshots
     end
 
     private def generate_payload(query, timeframe, school_ids, filters)
-      previous_timeframe_start = parse_datetime_string(timeframe['previous_start'])
-      previous_timeframe_end = parse_datetime_string(timeframe['previous_end'])
-      current_timeframe_start = parse_datetime_string(timeframe['current_start'])
-      timeframe_end = parse_datetime_string(timeframe['current_end'])
+      timeframe_start = parse_datetime_string(timeframe['timeframe_start'])
+      timeframe_end = parse_datetime_string(timeframe['timeframe_end'])
       filters_symbolized = filters.symbolize_keys
 
       long_process_notifier = LongProcessNotifier.new(
@@ -74,7 +74,7 @@ module Snapshots
         TOO_SLOW_THRESHOLD,
         {
           query:,
-          timeframe_start: current_timeframe_start,
+          timeframe_start:,
           timeframe_end:,
           school_ids:
         }.merge(filters_symbolized)
@@ -82,21 +82,10 @@ module Snapshots
 
       long_process_notifier.run do
         current_snapshot = QUERIES[query].run(**{
-          timeframe_start: current_timeframe_start,
+          timeframe_start:,
           timeframe_end:,
           school_ids:
         }.merge(filters_symbolized))
-
-        if previous_timeframe_start
-          previous_snapshot = QUERIES[query].run(**{
-            timeframe_start: previous_timeframe_start,
-            timeframe_end: previous_timeframe_end,
-            school_ids:
-          }.merge(filters_symbolized))
-        else
-          previous_snapshot = nil
-        end
-        { current: current_snapshot&.fetch(:count, nil), previous: previous_snapshot&.fetch(:count, nil) }
       end
     end
 
