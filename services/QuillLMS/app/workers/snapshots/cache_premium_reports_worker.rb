@@ -35,8 +35,8 @@ module Snapshots
       filters_symbolized = filters.symbolize_keys
 
       QUERIES[query].run(**{
-        timeframe_start: DateTime.parse(timeframe['current_start']),
-        timeframe_end: DateTime.parse(timeframe['current_end']),
+        timeframe_start: DateTime.parse(timeframe['timeframe_start']),
+        timeframe_end: DateTime.parse(timeframe['timeframe_end']),
         school_ids: school_ids
       }.merge(filters_symbolized))
     end
