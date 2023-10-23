@@ -10,7 +10,7 @@ module Snapshots
       'data-export' => Snapshots::DataExportQuery
     }
 
-    def perform(cache_key, query, user_id, timeframe, school_ids, filters)
+    def perform(cache_key, query, user_id, timeframe, school_ids, filters, previous_timeframe)
       payload = generate_payload(query, timeframe, school_ids, filters)
       Rails.cache.write(cache_key, payload.to_a, expires_in: cache_expiry)
 
