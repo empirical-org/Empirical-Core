@@ -7,7 +7,13 @@ module Evidence
       DISPLAY_NAMES = 'displayNames'
       PREDICT_API_TIMEOUT = 5.0
 
-      PREDICTION_EXCEPTION_CLASSES = [Google::Cloud::InternalError, Google::Cloud::UnknownError]
+      PREDICTION_EXCEPTION_CLASSES = [
+        Google::Cloud::InternalError,
+        Google::Cloud::UnknownError,
+        Google::Cloud::DeadlineExceededError
+      ].freeze
+
+
       PREDICTION_NUM_RETRIES = 1
 
       attr_reader :endpoint_external_id, :text
