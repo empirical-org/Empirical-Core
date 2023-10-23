@@ -16,7 +16,7 @@ const AVERAGE_TOOLTIP_ITEM_HEIGHT = 40 // update when CSS changes -- currently 2
 const NoClassroomsToImportModal = ({ close, provider, allProviderClassrooms }: NoClassroomsToImportModalProps) => {
   const providerTitle = providerConfigLookup[provider].title
 
-  const unownedClassrooms = allProviderClassrooms.filter(classroom => !classroom.is_owner)
+  const unownedClassrooms = provider === 'Google' ? allProviderClassrooms.filter(classroom => !classroom.is_owner) : []
   const importedAndArchivedClassrooms = allProviderClassrooms.filter(classroom => classroom.archived && classroom.alreadyImported)
 
   let notSeeingClassesSection
@@ -24,7 +24,7 @@ const NoClassroomsToImportModal = ({ close, provider, allProviderClassrooms }: N
   if (unownedClassrooms.length || importedAndArchivedClassrooms.length) {
     const importedAndArchivedClassroomsSection = importedAndArchivedClassrooms.length ? (
       <p>
-        You have&nbsp;<b>{importedAndArchivedClassrooms.length} synced Google Classroom{importedAndArchivedClassrooms.length > 1 ? 's' : ''} <a href="/teachers/classrooms/archived">archived in Quill</a></b>
+        You have&nbsp;<b>{importedAndArchivedClassrooms.length} synced {provider} Classroom{importedAndArchivedClassrooms.length > 1 ? 's' : ''} <a href="/teachers/classrooms/archived">archived in Quill</a></b>
         <Tooltip
           averageItemHeight={AVERAGE_TOOLTIP_ITEM_HEIGHT}
           tooltipText={importedAndArchivedClassrooms.map(c => c.name)}
@@ -35,7 +35,7 @@ const NoClassroomsToImportModal = ({ close, provider, allProviderClassrooms }: N
 
     const unownedClassroomsSection = unownedClassrooms.length ? (
       <p>
-        There {unownedClassrooms.length > 1 ? 'are' : 'is'}&nbsp;<b>{unownedClassrooms.length} Google Classroom{unownedClassrooms.length > 1 ? 's' : ''}</b>&nbsp;you have access to, but don&#39;t own
+        There {unownedClassrooms.length > 1 ? 'are' : 'is'}&nbsp;<b>{unownedClassrooms.length} {provider} Classroom{unownedClassrooms.length > 1 ? 's' : ''}</b>&nbsp;you have access to, but don&#39;t own
         <Tooltip
           averageItemHeight={AVERAGE_TOOLTIP_ITEM_HEIGHT}
           tooltipText={unownedClassrooms.map(c => c.name)}

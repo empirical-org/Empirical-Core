@@ -145,7 +145,12 @@ const AssignStudents = ({
 
       if (body.quill_retrieval_processing) { return }
 
-      setProviderClassrooms(body.classrooms.filter(classroom => !classroom.alreadyImported))
+      if (providerConfig?.isGoogle) {
+        setProviderClassrooms(body.classrooms.filter(classroom => !classroom.alreadyImported && classroom.is_owner))
+      } else {
+        setProviderClassrooms(body.classrooms.filter(classroom => !classroom.alreadyImported))
+      }
+
       setProviderClassroomsLoading(false)
     })
   }
