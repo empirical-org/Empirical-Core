@@ -4,8 +4,12 @@ module AdminDiagnosticReports
   class PostDiagnosticAggregateCompletedQuery < DiagnosticAggregateQuery
     def specific_select_clause
       <<-SQL
-          COUNT(DISTINCT activity_sessions.id) AS pre_students_assigned
-          AVG(activity_sessions.percentage) AS post_average_percentage
+          SELECT
+              name,
+              COUNT(DISTINCT activity_session_id) AS post_students_completed,
+              SAFE_DIVIDE(SUM(CAST(optimal AS INT64)), CAST(COUNT(DISTINCT concept_result_id) AS FLOAT64)) AS average_score
+            FROM (#{super})
+            GROUP BY name #{additional_aggregation_group_by_clause}
       SQL
     end
 
