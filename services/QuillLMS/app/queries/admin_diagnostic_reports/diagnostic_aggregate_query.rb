@@ -108,11 +108,11 @@ module AdminDiagnosticReports
     private def roll_up_average(rows, value_column, weight_column)
       total_weighted_value, total_weight = rows.reduce([0, 0]) do |accumulator, row|
         [
-          accumulator[0] + (row[:value_column] * row[:weight_column]),
-          accumulator[1] + row[:weight_column]
+          accumulator[0] + (row[value_column] * row[weight_column]),
+          accumulator[1] + row[weight_column]
         ]
       end
-      total_weighted_value / total_weight
+      total_weighted_value.to_f / total_weight
     end
   end
 end

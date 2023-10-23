@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AdminDiagnosticReports
-  class PostDiagnosticAggregateAssignedQuery < DiagnosticAggregateQuery
+  class PostDiagnosticAssignedQuery < DiagnosticAggregateQuery
     def specific_select_clause
       <<-SQL
           COUNT(DISTINCT CONCAT(classroom_units.id, ':', assigned_student_id)) AS post_students_assigned
@@ -32,6 +32,12 @@ module AdminDiagnosticReports
 
     def relevant_date_column
       "classroom_units.created_at"
+    end
+
+    private def aggregate_diagnostic(rows)
+      {
+        post_students_assigned: roll_up_sum(rows, :post_students_assigned)
+      }
     end
   end
 end

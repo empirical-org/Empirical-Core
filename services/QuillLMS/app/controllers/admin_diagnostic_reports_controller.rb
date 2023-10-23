@@ -2,7 +2,7 @@
 
 class AdminDiagnosticReportsController < ApplicationController
   WORKERS_FOR_ACTIONS = {
-    "report" => DoesNotExist
+    "report" => AdminDiagnosticReports::DiagnosticOverviewWorker
   }
 
   before_action :set_query
@@ -43,10 +43,11 @@ class AdminDiagnosticReportsController < ApplicationController
 
   private def retrieve_cache_or_enqueue_worker(worker)
 
-    previous_start, previous_end, current_start, current_end = Snapshots::Timeframes.calculate_timeframes(snapshot_params[:timeframe],
+    timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(
+      snapshot_params[:timeframe],
       custom_start: snapshot_params[:timeframe_custom_start],
       custom_end: snapshot_params[:timeframe_custom_end])
-    cache_key = cache_key_for_timeframe(snapshot_params[:timeframe], current_start, current_end)
+    cache_key = cache_key_for_timeframe(snapshot_params[:timeframe], timeframe_start, timeframe_end)
     response = Rails.cache.read(cache_key)
 
     return { results: response } if response
@@ -56,10 +57,8 @@ class AdminDiagnosticReportsController < ApplicationController
       current_user.id,
       {
         name: snapshot_params[:timeframe],
-        previous_start: previous_start,
-        previous_end: previous_end,
-        current_start: current_start,
-        current_end: current_end
+        timeframe_start: current_start,
+        timeframe_end: timeframe_end
       },
       snapshot_params[:school_ids],
       {
@@ -71,12 +70,12 @@ class AdminDiagnosticReportsController < ApplicationController
     { message: 'Generating snapshot' }
   end
 
-  private def cache_key_for_timeframe(timeframe_name, current_start, current_end)
+  private def cache_key_for_timeframe(timeframe_name, timeframe_start, timeframe_end)
 
     Snapshots::CacheKeys.generate_key(@query,
       timeframe_name,
-      current_start,
-      current_end,
+      timeframe_start,
+      timeframe_end,
       snapshot_params.fetch(:school_ids, []),
       additional_filters: {
         grades: snapshot_params.fetch(:grades, []),

@@ -1,25 +1,24 @@
 # frozen_string_literal: true
 
 module AdminDiagnosticReports
-  class PreDiagnosticAggregateCompletedQuery < DiagnosticAggregateQuery
+  class PostDiagnosticCompletedQuery < DiagnosticAggregateQuery
     def query
       <<-SQL
         SELECT
             name,
-            COUNT(DISTINCT activity_session_id) AS pre_students_completed,
+            COUNT(DISTINCT activity_session_id) AS post_students_completed,
             SAFE_DIVIDE(SUM(CAST(optimal AS INT64)), CAST(COUNT(DISTINCT concept_result_id) AS FLOAT64)) AS average_score
           FROM (#{super})
-          GROUP BY name #{additional_aggregation_group_by_clause}
+          GROUP BY name, #{additional_aggregation}
       SQL
     end
 
-    def select_clause
+    def specific_select_clause
       <<-SQL
-        SELECT
-          activities.name,
-          activity_sessions.id AS activity_session_id,
-          MAX(concept_results.correct) AS optimal,
-          MAX(concept_results.id) AS concept_result_id
+        activity_sessions.id AS activity_session_id,
+        MAX(concept_results.correct) AS optimal,
+        MAX(concept_results.id) AS concept_result_id,
+        #{additional_aggregation}
       SQL
     end
 
@@ -29,15 +28,16 @@ module AdminDiagnosticReports
           ON classroom_units.id = activity_sessions.classroom_unit_id
         JOIN special.concept_results
           ON activity_sessions.id = concept_results.activity_session_id
+        JOIN lms.activities AS post_activities
+          ON activity_sessions.activity_id = post_activities.id
         JOIN lms.activities
-          ON activity_sessions.activity_id = activities.id
+          ON post_activities.id = activities.follow_up_activity_id
       SQL
     end
 
     def where_clause
       super + <<-SQL
           #{activity_classification_where_clause}
-          #{pre_diagnostics_where_clause}
       SQL
     end
 
@@ -49,12 +49,15 @@ module AdminDiagnosticReports
       "AND activities.activity_classification_id = #{DIAGNOSTIC_CLASSIFICATION_ID}"
     end
 
-    def pre_diagnostics_where_clause
-      "AND activities.follow_up_activity_id IS NOT NULL"
-    end
-
     def relevant_date_column
       "activity_sessions.completed_at"
+    end
+
+    private def aggregate_diagnostic(rows)
+      {
+        post_students_completed: roll_up_sum(rows, :post_students_completed),
+        post_average_score: roll_up_average(rows, :average_score, :post_students_completed)
+      }
     end
   end
 end

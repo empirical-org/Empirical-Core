@@ -41,5 +41,13 @@ module AdminDiagnosticReports
     def relevant_date_column
       "activity_sessions.completed_at"
     end
+
+    private def aggregate_diagnostic(rows)
+      {
+        students_completed_practice: roll_up_sum(rows, :students_completed_practice),
+        average_practice_activities_count: roll_up_average(rows, :average_practice_activities_count, :students_completed_practice),
+        average_time_spent_seconds: roll_up_average(rows, :average_time_spent_seconds, :students_completed_practice)
+      }
+    end
   end
 end
