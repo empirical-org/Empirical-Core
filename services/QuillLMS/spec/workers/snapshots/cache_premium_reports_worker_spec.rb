@@ -35,13 +35,11 @@ module Snapshots
     context '#perform' do
       let(:timeframe_end) { DateTime.now }
       let(:current_timeframe_start) { timeframe_end - 30.days }
-      let(:previous_timeframe_start) { current_timeframe_start - 30.days }
       let(:timeframe) {
         {
           'name' => timeframe_name,
-          'previous_start' => previous_timeframe_start.to_s,
-          'current_start' => current_timeframe_start.to_s,
-          'current_end' => timeframe_end.to_s
+          'timeframe_start' => current_timeframe_start.to_s,
+          'timeframe_end' => timeframe_end.to_s
         }
       }
       let(:expected_query_args) {
@@ -66,7 +64,7 @@ module Snapshots
         expect(Rails.cache).to receive(:write)
         expect(SendPusherMessageWorker).to receive(:perform_async)
 
-        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters)
+        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters, nil)
       end
 
       context 'serialization/deserialization' do
@@ -75,7 +73,7 @@ module Snapshots
           Sidekiq::Testing.inline! do
             expect(query_double).to receive(:run).with(expected_query_args)
 
-            described_class.perform_async(cache_key, query, user_id, timeframe, school_ids, filters)
+            described_class.perform_async(cache_key, query, user_id, timeframe, school_ids, filters, nil)
           end
         end
       end
@@ -86,7 +84,7 @@ module Snapshots
           expect(Rails.cache).to receive(:write)
           expect(SendPusherMessageWorker).to receive(:perform_async)
 
-          subject.perform(cache_key, query, user_id, timeframe, school_ids, filters_with_string_keys)
+          subject.perform(cache_key, query, user_id, timeframe, school_ids, filters_with_string_keys, nil)
         end
       end
 
@@ -100,7 +98,7 @@ module Snapshots
         expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: cache_ttl)
         expect(SendPusherMessageWorker).to receive(:perform_async)
 
-        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters)
+        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters, nil)
       end
 
       it 'should send a Pusher notification' do
@@ -111,7 +109,7 @@ module Snapshots
           school_ids: school_ids
         }.merge(filters))
 
-        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters)
+        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters, nil)
       end
     end
   end
