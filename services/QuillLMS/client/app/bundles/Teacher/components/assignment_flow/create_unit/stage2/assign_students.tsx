@@ -19,7 +19,7 @@ import ButtonLoadingIndicator from '../../../shared/button_loading_indicator'
 const canvasIconSrc = `${process.env.CDN_URL}/images/icons/canvas.svg`
 const cleverIconSrc = `${process.env.CDN_URL}/images/icons/clever.svg`
 const googleClassroomIconSrc = `${process.env.CDN_URL}/images/icons/google-classroom.svg`
-const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`
+const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty_class.svg`
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 const indeterminateSrc = `${process.env.CDN_URL}/images/icons/indeterminate.svg`
 

@@ -95,8 +95,8 @@ module Snapshots
           let(:timeframe) { Snapshots::Timeframes.calculate_timeframes(Snapshots::Timeframes::DEFAULT_TIMEFRAME) }
           let(:query_args) do
             {
-              timeframe_start: timeframe[2],
-              timeframe_end: timeframe[3],
+              timeframe_start: timeframe[0],
+              timeframe_end: timeframe[1],
               school_ids: school_ids
             }
           end

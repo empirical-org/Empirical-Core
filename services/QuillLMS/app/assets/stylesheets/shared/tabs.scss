@@ -60,7 +60,7 @@
 .tab-subnavigation-wrapper {
   &.desktop {
     background: $quill-green;
-    min-height: 48px;
+    min-height: 44px;
     padding: 8px 0;
 
     &.about-subtabs {
@@ -75,7 +75,8 @@
 
       li {
         float: left;
-        padding: 4px;
+        padding-left: 4px;
+        padding-right: 4px;
         &:first-of-type {
           padding-left: 0px;
         }
@@ -83,12 +84,21 @@
           border-radius: 6px;
           color: $quill-white;
           font-size: 13px;
-          height: 35px;
+          display: flex;
+          align-items: center;
+          height: 28px;
           padding: 5px 12px;
 
           &.active {
             background: $quill-white;
             color: $quill-green;
+            text-decoration: none;
+          }
+
+          &:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            color: $quill-white;
           }
 
           .fa-external-link {
@@ -213,12 +223,6 @@
   ul {
     display: flex;
     align-items: center;
-    li {
-      padding: 0px 5px !important;
-      a {
-        height: 28px !important;
-      }
-    }
   }
 
   a {
@@ -237,6 +241,7 @@
       }
       &:hover {
         color: $quill-white;
+        background-color: rgba(255, 255, 255, 0.5);
         .small-diamond-icon {
           background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
         }
@@ -245,13 +250,7 @@
     .small-diamond-icon {
       background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
     }
-
   }
-  a:hover {
-    text-decoration: none;
-    background-color: rgba(255, 255, 255, 0.5);
-  }
-
   li a img {
     margin-top: -3px;
   }

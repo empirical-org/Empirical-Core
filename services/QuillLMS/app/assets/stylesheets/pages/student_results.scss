@@ -69,13 +69,13 @@
             height: 24px;
             border-radius: 2px;
             margin-right: 8px;
-            &.proficient {
+            &.frequently-demonstrated-skill {
               background-color: #4ea500;
             }
-            &.nearly-proficient {
+            &.sometimes-demonstrated-skill {
               background-color: #eb9911;
             }
-            &.not-yet-proficient {
+            &.rarely-demonstrated-skill {
               background-color: #e73030;
             }
           }

@@ -11,9 +11,9 @@ describe('ResultsPage container', () => {
   const integrationPartnerSessionId = 'blahblah'
 
   const resultCategoryNames = {
-    NEARLY_PROFICIENT: 'Nearly proficient',
-    NOT_YET_PROFICIENT: 'Not yet proficient',
-    PROFICIENT: 'Proficient'
+    SOMETIMES_DEMONSTRATED_SKILL: 'Sometimes demonstrated skill',
+    RARELY_DEMONSTRATED_SKILL: 'Rarely demonstrated skill',
+    FREQUENTLY_DEMONSTRATED_SKILL: 'Frequently demonstrated skill'
   }
 
   const sharedProps = {
@@ -22,9 +22,9 @@ describe('ResultsPage container', () => {
     percentage: 0.76,
     resultCategoryNames,
     results: {
-      'Nearly proficient': ['Parallel Structure'],
-      'Not yet proficient': ['Punctuation'],
-      'Proficient': ['Regular Past Participles', 'Commas in Lists', 'Capitalize Geographic Names']
+      'Sometimes demonstrated skill': ['Parallel Structure'],
+      'Rarely demonstrated skill': ['Punctuation'],
+      'Frequently demonstrated skill': ['Regular Past Participles', 'Commas in Lists', 'Capitalize Geographic Names']
     }
   }
 

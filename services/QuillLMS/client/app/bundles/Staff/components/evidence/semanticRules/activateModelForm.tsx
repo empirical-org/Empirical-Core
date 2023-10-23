@@ -40,26 +40,26 @@ const ActivateModelForm = ({ match }) => {
     queryFn: fetchRules
   });
 
-  if(!modelToActivate && modelData && modelData.model) {
+  if (!modelToActivate && modelData && modelData.model) {
     setModelToActivate(modelData.model);
   }
 
-  if(!activeModel && modelsData && modelsData.models && modelsData.models[0]) {
+  if (!activeModel && modelsData && modelsData.models && modelsData.models[0]) {
     setActiveModel(modelsData.models[0]);
   }
 
 
-  if(!existingLabels && rulesData && rulesData.rules) {
+  if (!existingLabels && rulesData && rulesData.rules) {
     const rulesHash = {};
     rulesData.rules.forEach(rule => {
       const { label } = rule;
-      const { name } =  label;
+      const { name } = label;
       rulesHash[name] = rule;
     });
     setExistingLabels(rulesHash);
   }
 
-  if(!labelsChecked && existingLabels && modelToActivate) {
+  if (!labelsChecked && existingLabels && modelToActivate) {
     const { model } = modelData;
     const { labels } = model;
     const labelPresent = (label) => existingLabels[label];
@@ -68,7 +68,7 @@ const ActivateModelForm = ({ match }) => {
     setLabelsChecked(true);
   }
 
-  if(!activeLabels && activeModel) {;
+  if (!activeLabels && activeModel) {
     updateActiveLabels(activeModel);
   }
 
@@ -76,7 +76,7 @@ const ActivateModelForm = ({ match }) => {
     setIsLoading(true);
     activateModel(modelId).then((response) => {
       const { error } = response;
-      if(error) {
+      if (error) {
         setError(error);
         setIsLoading(false);
       } else {
@@ -97,12 +97,12 @@ const ActivateModelForm = ({ match }) => {
     setActiveLabels(activeLabelsHash);
   }
 
-  function modelRows (model) {
-    if(!model) {
+  function modelRows(model) {
+    if (!model) {
       return [];
     }
     // format for DataTable to display labels on left side and values on right
-    const { automl_model_id, name, older_models } = model;
+    const { model_external_id, name, older_models } = model;
 
     const fields = [
       {
@@ -111,7 +111,7 @@ const ActivateModelForm = ({ match }) => {
       },
       {
         label: 'Model ID',
-        value: automl_model_id
+        value: model_external_id
       },
       {
         label: 'Model Version',
@@ -128,8 +128,8 @@ const ActivateModelForm = ({ match }) => {
     });
   }
 
-  function missingLabelsRows (model) {
-    if(!model) {
+  function missingLabelsRows(model) {
+    if (!model) {
       return [];
     }
 
@@ -153,8 +153,8 @@ const ActivateModelForm = ({ match }) => {
     });
   }
 
-  function labelStatusRows (model) {
-    if(!model) {
+  function labelStatusRows(model) {
+    if (!model) {
       return [];
     }
 
@@ -184,19 +184,19 @@ const ActivateModelForm = ({ match }) => {
   }
 
   const dataTableFields = [
-    { name: "", attribute:"field", width: "200px" },
-    { name: "", attribute:"value", width: "400px" }
+    { name: "", attribute: "field", width: "200px" },
+    { name: "", attribute: "value", width: "400px" }
   ];
 
 
   const labelStatusDataTableFields = [
-    { name: "AutoML Label", attribute:"label_name", width: "200px" },
-    { name: "Present in internal tool?", attribute:"model_status", width: "200px" },
-    { name: "Active in AutoML model?", attribute:"status", width: "200px" }
+    { name: "AutoML Label", attribute: "label_name", width: "200px" },
+    { name: "Present in internal tool?", attribute: "model_status", width: "200px" },
+    { name: "Active in AutoML model?", attribute: "status", width: "200px" }
   ];
 
-  if((!modelData && !modelsData) || isLoading) {
-    return(
+  if ((!modelData && !modelsData) || isLoading) {
+    return (
       <div className="loading-spinner-container">
         <Spinner />
       </div>
@@ -210,7 +210,7 @@ const ActivateModelForm = ({ match }) => {
   const buttonStyle = buttonDisabled ? 'disabled' : '';
   const labelLink = <Link to={`/activities/${activityId}/semantic-labels/${promptId}/new`}>Add Label</Link>;
 
-  return(
+  return (
     <div className="activate-model-container">
       <Link className="return-link" to={{ pathname: `/activities/${activityId}/semantic-labels`, state: 'returned-to-index' }}>← Return to Semantic Rules Index</Link>
       <section className="activate-model-form">

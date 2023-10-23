@@ -154,7 +154,7 @@ class EgFormBuilder < CMS::FormBuilder
     classes << options[:classes] if options[:classes]
     classes << ' error' if object.errors.include? name
     options.merge! class: classes
-    @template.content_tag :div, options, &block
+    @template.content_tag(:div, options, &block)
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity

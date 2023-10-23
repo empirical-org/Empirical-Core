@@ -59,7 +59,7 @@ gem 'google-cloud-bigquery', '~> 1.43.0'
 gem 'google-apis-classroom_v1', '~> 0.27.0'
 gem 'faraday_middleware'
 gem 'newrelic_rpm', '~> 9.3.1'
-gem 'stripe', '~> 5.30'
+gem 'stripe', '~> 9.4'
 gem 'prawn'
 gem 'prawn-table'
 gem 'pdf-core'
@@ -162,10 +162,13 @@ gem 'capitalize-names', require: 'capitalize_names'
 
 gem 'rexml'
 
+gem 'psych', '< 4'
+
 group :production, :staging do
   gem 'rails-autoscale-web'
   gem 'rails-autoscale-sidekiq'
   gem 'lograge'
+  gem "matrix", '~> 0.4.2'
 end
 
 group :development do
@@ -187,7 +190,7 @@ group :test, :development do
   gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'factory_bot_rails', require: false
-  gem 'timecop'
+  gem 'timecop', '~> 0.9.8'
   gem 'byebug'
   gem 'rspec-retry'
   gem 'rspec-redis_helper'
@@ -202,7 +205,6 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-screenshot'
-  gem 'mini_racer', '= 0.4.0'
   gem 'fakeredis', '~> 0.7.0'
   gem 'rails-controller-testing'
   gem 'selenium-webdriver', '~> 4.11.0'

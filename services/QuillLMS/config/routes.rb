@@ -321,7 +321,6 @@ EmpiricalGrammar::Application.routes.draw do
       get 'diagnostic_report' => 'diagnostic_reports#default_diagnostic_report'
       get 'diagnostic_results_summary' => 'diagnostic_reports#diagnostic_results_summary'
       get 'diagnostic_growth_results_summary' => 'diagnostic_reports#diagnostic_growth_results_summary'
-      get 'diagnostic_student_responses_index' => 'diagnostic_reports#diagnostic_student_responses_index'
       get 'individual_student_diagnostic_responses/:student_id' => 'diagnostic_reports#individual_student_diagnostic_responses'
       get 'question_view/classroom/:classroom_id/activity/:activity_id/unit/:unit_id' => 'diagnostic_reports#question_view'
       get 'question_view/classroom/:classroom_id/activity/:activity_id' => 'diagnostic_reports#question_view'
@@ -554,7 +553,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/finish_sign_up', to: 'sessions#finish_sign_up'
   post '/session/login_through_ajax', to: 'sessions#login_through_ajax'
   post '/session/set_post_auth_redirect', to: 'sessions#set_post_auth_redirect'
-  resource :session
+  resource :session, only: [:new, :destroy]
 
   resource :account, only: [:new, :create, :edit, :update, :show] do
     post :role, on: :member
@@ -606,7 +605,7 @@ EmpiricalGrammar::Application.routes.draw do
     put '/teachers/import_students', to: 'teachers#import_students'
   end
 
-  resources :canvas_instances, only: [:create, :index]
+  resources :canvas_instances, only: [:create, :index, :update, :destroy]
 
   get '/clever/auth_url_details', to: 'clever#auth_url_details'
   get '/clever/no_classroom', to: 'clever#no_classroom'
@@ -730,7 +729,8 @@ EmpiricalGrammar::Application.routes.draw do
   resources :snapshots, only: [] do
     collection do
       post :count
-      get :options
+      post :options
+      post :previous_count
       post :top_x
       post :data_export
     end

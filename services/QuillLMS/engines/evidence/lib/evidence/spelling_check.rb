@@ -26,6 +26,8 @@ module Evidence
       'then',
       'sanchez',
       'sánchez',
+      "shoguns'",
+      "shogun's",
       'kanaka',
       'kānaka',
       'worldwatch',
@@ -89,7 +91,7 @@ module Evidence
     private def bing_response
       @response ||= HTTParty.get(BING_API_URL.to_s,
         headers: {
-          "Ocp-Apim-Subscription-Key": ENV['OCP-APIM-SUBSCRIPTION-KEY']
+          "Ocp-Apim-Subscription-Key": ENV['BING_SPELL_KEY']
         },
         query: {
           text: @entry,

@@ -264,7 +264,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             diagnostic={
               Object {
                 "activityId": 1664,
-                "lockedText": "This is locked because you haven't assigned the Starter Baseline Diagnostic yet. Assign it to unlock the Starter Growth Diagnostic.",
+                "lockedText": "This is locked because you haven't assigned the Starter Baseline Diagnostic yet. Assign it to unlock the Starter Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
                 "name": "Starter Growth Diagnostic (Post)",
                 "unitTemplateId": 217,
                 "what": "The Starter Growth Diagnostic has different questions but covers the same skills as the Starter Baseline Diagnostic.",
@@ -499,14 +499,14 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             diagnostic={
               Object {
                 "activityId": 1669,
-                "lockedText": "This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic.",
+                "lockedText": "This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
                 "name": "Intermediate Growth Diagnostic (Post)",
                 "unitTemplateId": 237,
                 "what": "The Intermediate Growth Diagnostic has different questions but covers the same skills as the Intermediate Baseline Diagnostic.",
                 "when": "Your students have completed the Intermediate Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
               }
             }
-            lockedText="This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic."
+            lockedText="This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
             showNewTag={true}
           >
             <AssignmentCard
@@ -525,7 +525,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               buttonLink="/activity_sessions/anonymous?activity_id=1669"
               buttonText="Preview"
               header="Intermediate Growth Diagnostic (Post)"
-              lockedText="This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic."
+              lockedText="This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
               selectCard={[Function]}
               showNewTag={true}
             >
@@ -571,7 +571,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     </a>
                     <Tooltip
                       isTabbable={true}
-                      tooltipText="This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic."
+                      tooltipText="This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
                       tooltipTriggerText={
                         <button
                           className="quill-button small disabled contained"
@@ -780,14 +780,14 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             diagnostic={
               Object {
                 "activityId": 1680,
-                "lockedText": "This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic.",
+                "lockedText": "This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
                 "name": "Advanced Growth Diagnostic (Post)",
                 "unitTemplateId": 409,
                 "what": "The Advanced Growth Diagnostic has different questions but covers the same skills as the Advanced Baseline Diagnostic.",
                 "when": "Your students have completed the Advanced Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
               }
             }
-            lockedText="This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic."
+            lockedText="This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
             showNewTag={true}
           >
             <AssignmentCard
@@ -806,7 +806,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               buttonLink="/activity_sessions/anonymous?activity_id=1680"
               buttonText="Preview"
               header="Advanced Growth Diagnostic (Post)"
-              lockedText="This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic."
+              lockedText="This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
               selectCard={[Function]}
               showNewTag={true}
             >
@@ -852,7 +852,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     </a>
                     <Tooltip
                       isTabbable={true}
-                      tooltipText="This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic."
+                      tooltipText="This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
                       tooltipTriggerText={
                         <button
                           className="quill-button small disabled contained"
@@ -1061,7 +1061,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             diagnostic={
               Object {
                 "activityId": 1774,
-                "lockedText": "This is locked because you haven't assigned the ELL Starter Baseline Diagnostic yet. Assign it to unlock the ELL Starter Growth Diagnostic.",
+                "lockedText": "This is locked because you haven't assigned the ELL Starter Baseline Diagnostic yet. Assign it to unlock the ELL Starter Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
                 "name": "ELL Starter Growth Diagnostic (Post)",
                 "unitTemplateId": 411,
                 "what": "The ELL Starter Growth Diagnostic has different questions but covers the same skills as the ELL Starter Baseline Diagnostic.",
@@ -1294,7 +1294,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             diagnostic={
               Object {
                 "activityId": 1814,
-                "lockedText": "This is locked because you haven't assigned the ELL Intermediate Baseline Diagnostic yet. Assign it to unlock the ELL Intermediate Growth Diagnostic.",
+                "lockedText": "This is locked because you haven't assigned the ELL Intermediate Baseline Diagnostic yet. Assign it to unlock the ELL Intermediate Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
                 "name": "ELL Intermediate Growth Diagnostic (Post)",
                 "unitTemplateId": 444,
                 "what": "The ELL Intermediate Growth Diagnostic has different questions but covers the same skills as the ELL Intermediate Baseline Diagnostic.",
@@ -1527,7 +1527,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             diagnostic={
               Object {
                 "activityId": 1818,
-                "lockedText": "This is locked because you haven't assigned the ELL Advanced Baseline Diagnostic yet. Assign it to unlock the ELL Advanced Growth Diagnostic.",
+                "lockedText": "This is locked because you haven't assigned the ELL Advanced Baseline Diagnostic yet. Assign it to unlock the ELL Advanced Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
                 "name": "ELL Advanced Growth Diagnostic (Post)",
                 "unitTemplateId": 445,
                 "what": "The ELL Advanced Growth Diagnostic has different questions but covers the same skills as the ELL Advanced Baseline Diagnostic.",

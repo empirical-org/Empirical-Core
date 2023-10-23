@@ -4,16 +4,19 @@ require 'rails_helper'
 
 module GoogleIntegration
   RSpec.describe ClassroomDataAdapter do
-    subject { described_class.run(course, student_count) }
+    subject { described_class.run(course, student_count, user_external_id) }
 
     let(:course) { create(:google_classroom_api_course) }
     let(:students) { students_response.students }
 
-    let(:already_imported) { false }
+    let(:already_imported) { nil }
+    let(:archived) { nil }
+    let(:is_owner) { true }
     let(:classroom_external_id) { course.id.to_i }
     let(:classroom_name) { course.name }
     let(:student_count) { Faker::Number.number(digits: 2) }
     let(:year) { course.creation_time&.to_date&.year }
+    let(:user_external_id) { course.owner_id }
 
     let(:expected_results) do
       {
@@ -21,7 +24,9 @@ module GoogleIntegration
         classroom_external_id: classroom_external_id,
         name: classroom_name,
         studentCount: student_count,
-        year: year
+        year: year,
+        archived: archived,
+        is_owner: is_owner
       }
     end
 
@@ -29,6 +34,7 @@ module GoogleIntegration
 
     context 'classroom already imported' do
       let(:already_imported) { true }
+      let(:archived) { false }
 
       before { create(:classroom, google_classroom_id: classroom_external_id) }
 
@@ -50,5 +56,22 @@ module GoogleIntegration
 
       it { is_expected.to eq expected_results }
     end
+
+    context 'classroom already imported and archived' do
+      let(:already_imported) { true }
+      let(:archived) { true }
+
+      before { create(:classroom, google_classroom_id: classroom_external_id, visible: false) }
+
+      it { is_expected.to eq expected_results }
+    end
+
+    context 'classroom not owned' do
+      let(:is_owner) { false }
+      let(:user_external_id) { Faker::Number.number }
+
+      it { is_expected.to eq expected_results }
+    end
+
   end
 end

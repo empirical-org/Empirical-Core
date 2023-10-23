@@ -1,22 +1,16 @@
 import * as React from 'react'
+import { renderToString } from 'react-dom/server';
+import * as moment from 'moment'
 
 import AssignmentCard from './assignment_card'
 
 import { requestGet, requestPost, } from '../../../../../modules/request'
-import { evidenceToolIcon } from "../../../../Shared"
+import { evidenceToolIcon, Tooltip, DataTable, } from "../../../../Shared"
 import { ASSIGN_ACTIVITIES_FEATURED_BLOG_ID } from '../../../constants/featuredBlogPost'
 import ArticleSpotlight from '../../shared/articleSpotlight'
 import { CLICKED_ACTIVITY_PACK_ID } from '../assignmentFlowConstants'
 
-interface ActivityToSuggest {
-  name: string;
-  classification: string,
-  topics: [],
-  link: string,
-  date_released: string,
-  preview_link: string,
-  activity_id: number
-}
+const TOPIC_WIDTH = '319px'
 
 const diagnosticWaveSrc = `${process.env.CDN_URL}/images/illustrations/diagnostic-wave.svg`
 const activityLibrarySrc = `${process.env.CDN_URL}/images/icons/icons-activity-library.svg`
@@ -24,6 +18,7 @@ const activityPacksSrc = `${process.env.CDN_URL}/images/icons/icons-activity-pac
 const allDiagnosticsSrc = `${process.env.CDN_URL}/images/icons/icons-diagnostics-all.svg`
 const graduationCapSrc = `${process.env.CDN_URL}/images/icons/icons-graduation-cap.svg`
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
+const globeIconSrc = `${process.env.CDN_URL}/images/icons/icons-description-topic.svg`
 
 const minis = (diagnosticBannerShowing) => [
   (<AssignmentCard
@@ -74,9 +69,51 @@ const minis = (diagnosticBannerShowing) => [
   />)
 ];
 
-const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }) => {
+const headers = [
+  {
+    width: '24px',
+    name: 'Tool',
+    attribute: 'tool',
+    noTooltip: true
+  }, {
+    width: '394px',
+    name: 'Name',
+    attribute: 'name',
+  }, {
+    width: TOPIC_WIDTH,
+    name: 'Topics',
+    attribute: 'topics',
+    containsOwnTooltip: true
+  }, {
+    width: '180px',
+    name: 'Date released',
+    attribute: 'dateReleased',
+  }, {
+    width: '60px',
+    name: '',
+    attribute: 'previewLink',
+    noTooltip: true
+  }, {
+    width: '70px',
+    name: '',
+    attribute: 'select',
+    noTooltip: true
+  }
+]
+
+const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner, passedSuggestedActivities }) => {
   const [diagnosticBannerShowing, setDiagnosticBannerShowing] = React.useState(showDiagnosticBanner)
-  const [activitiesToSuggest, setActivitiesToSuggest] = React.useState([])
+  const [activitiesToSuggest, setActivitiesToSuggest] = React.useState(passedSuggestedActivities || [])
+  const [showAllSuggestedActivities, setShowAllSuggestedActivities] = React.useState(false)
+
+  React.useEffect(() => {
+    getData()
+  }, []);
+
+  React.useEffect(() => {
+    // remove any previously stored activityPackId used for back navigation element focus in the event that user assigned pack or navigated back to dashboard before assigning
+    window.sessionStorage.removeItem(CLICKED_ACTIVITY_PACK_ID);
+  }, []);
 
   const getData = () => {
     requestGet(
@@ -87,14 +124,9 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
     );
   }
 
-  React.useEffect(() => {
-    getData()
-  }, []);
-
-  React.useState(() => {
-    // remove any previously stored activityPackId used for back navigation element focus in the event that user assigned pack or navigated back to dashboard before assigning
-    window.sessionStorage.removeItem(CLICKED_ACTIVITY_PACK_ID);
-  }, []);
+  function handleClickShowAll() {
+    setShowAllSuggestedActivities(true)
+  }
 
   function closeDiagnosticBanner() {
     setDiagnosticBannerShowing(false)
@@ -111,48 +143,74 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
         <h2>We see you&#39;re new here! Try starting with a diagnostic.</h2>
         <p>We recommend that when teachers start using Quill, they first assign a diagnostic to assess their students&#39; needs. Then, we&#39;ll provide each student a personalized learning plan of recommended activities based on their performance.</p>
       </div>
-      <button className="interactive-wrapper" onClick={closeDiagnosticBanner}>
+      <button className="interactive-wrapper" onClick={closeDiagnosticBanner} type="button">
         <img alt="X" src={closeIconSrc} />
       </button>
     </section>)
   }
 
-  const suggestedActivitiesList = activitiesToSuggest.length > 0 &&
-  (
-    <div>
+  const activitiesToShow = showAllSuggestedActivities ? activitiesToSuggest : activitiesToSuggest.slice(0, 5)
+
+  const rows = activitiesToShow.map(activity => {
+    const topicsTooltipHTMLRows = activity.topics.map(topic => {
+      return (
+        <p key={topic[2]}>
+          <img alt="" src={globeIconSrc} />
+          <span>{topic[0]}</span>
+          <span className="slash">/</span>
+          <span>{topic[1]}</span>
+          <span className="slash">/</span>
+          <span>{topic[2]}</span>
+        </p>
+      )
+    })
+
+    const displayedTopics = activity.topics.map((topic, i) => {
+      if (i === activity.topics.length - 1) {
+        return <div className="topic" key={topic}><img alt="" src={globeIconSrc} /><span>{topic[2]}</span></div>
+      }
+
+      return <div className="topic" key={topic}><img alt="" src={globeIconSrc} /><span>{topic[2]}</span><span className="vertical-divider" /></div>
+    })
+
+    const topicsTooltipString = renderToString(<div className="topics">{topicsTooltipHTMLRows}</div>)
+
+    const topicsStyle = {
+      minWidth: TOPIC_WIDTH,
+      width: TOPIC_WIDTH
+    }
+
+    const dateReleased = <span>{moment(activity.publication_date).format('MMMM DD, YYYY')}</span>
+    const newTag = activity.publication_date > moment().subtract(3, 'months') ? <span className="new-tag">NEW</span> : null
+
+    return {
+      tool: <img alt={evidenceToolIcon.alt} src={evidenceToolIcon.src} />,
+      name: <a href={`/assign/activity-library?activityClassificationFilters[]=evidence&search=${encodeURI(activity.name)}`}>{activity.name}</a>,
+      topics: (
+        <Tooltip
+          tooltipText={topicsTooltipString}
+          tooltipTriggerStyle={topicsStyle}
+          tooltipTriggerText={displayedTopics}
+          tooltipTriggerTextClass='data-table-row-section topic-section'
+          tooltipTriggerTextStyle={topicsStyle}
+        />
+      ),
+      dateReleased: <div className="date-released">{dateReleased}{newTag}</div>,
+      previewLink: <a className="preview-link" href={`/activity_sessions/anonymous?activity_id=${activity.id}`} rel="noopener noreferrer" target="_blank">Preview</a>,
+      select: <a className="quill-button secondary fun focus-on-light outlined select-suggested" href={`/assign/activity-library?activityClassificationFilters[]=evidence&search=${encodeURI(activity.name)}`}>Select</a>
+    }
+  })
+
+  const evidenceSection = activitiesToSuggest.length ? (
+    <React.Fragment>
       <h1 className="evidence-header">Browse the newest Reading for Evidence activities</h1>
-      <table className="data-table suggested-activities-table">
-        <tr className="data-table-headers">
-          <th className="data-table-header">Tool</th>
-          <th className="data-table-header activity-header">Activity</th>
-          <th className="data-table-header topics-header">Topics</th>
-          <th className="data-table-header">Date released</th>
-        </tr>
-        <tbody className="data-table-body">
-          <div className="list-item">
-            {activitiesToSuggest.map((a) => {
-              return (
-                <tr className="data-table-row" key={a.id}>
-                  <span className="tool-col"><img alt={evidenceToolIcon.alt} src={evidenceToolIcon.src} /></span>
-                  <td className="data-table-row-section name-col">
-                    <a href={`/assign/activity-library?activityClassificationFilters[]=evidence&search=${encodeURI(a.name)}`}>{a.name}</a>
-                  </td>
-                  <td className="data-table-row-section topics-col">
-                    {a.topics.map((t, i) => {
-                      return <p key={i}>{t.join(" / ")}</p>
-                    })}
-                  </td>
-                  <td className="date-col">{a.publication_date}</td>
-                  <td className="preview-col"><a href={`/activity_sessions/anonymous?activity_id=${a.id}`} rel="noopener noreferrer" target="_blank">Preview</a></td>
-                  <button className="quill-button secondary medium focus-on-light outlined select-suggested" onClick={() => window.location.href = `/assign/activity-library?activityClassificationFilters[]=evidence&search=${encodeURI(a.name)}`} type="button">Select</button>
-                </tr>
-              )
-            })}
-          </div>
-        </tbody>
-      </table>
-    </div>
-  )
+      <DataTable
+        headers={headers}
+        rows={rows}
+      />
+      {showAllSuggestedActivities ? null : <button className="quill-button outlined small secondary focus-on-light show-all-button" onClick={handleClickShowAll} type="button">Show all {activitiesToSuggest.length} Reading for Evidence activities</button>}
+    </React.Fragment>
+  ) : null
 
   return (
     <React.Fragment>
@@ -164,11 +222,11 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
             <p className="previously-assigned-activities">
               You have {numberOfActivitiesAssigned} {numberOfActivitiesAssigned === 1 ? 'activity' : 'activities'} assigned.&nbsp;
             </p>
-            <div className="view-assigned-activities"><a href="/teachers/classrooms/activity_planner">View assigned activities</a></div>
+            <a className="quill-button view-assigned-activities secondary outlined small focus-on-light" href="/teachers/classrooms/activity_planner">View assigned activities</a>
           </div>
           {diagnosticBanner}
           <div className="minis">{minis(diagnosticBannerShowing)}</div>
-          {suggestedActivitiesList}
+          {evidenceSection}
         </div>
       </div>
       <ArticleSpotlight blogPostId={ASSIGN_ACTIVITIES_FEATURED_BLOG_ID} />

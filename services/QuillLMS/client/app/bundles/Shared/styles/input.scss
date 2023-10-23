@@ -53,7 +53,7 @@
   }
 
   input, input:focus {
-    height: 20px;
+    height: 24px;
     padding-left: 0px;
   }
 
@@ -218,6 +218,7 @@
     }
     .dropdown__menu {
       border-radius: 0px 4px 4px 4px;
+      overflow: hidden;
     }
     .dropdown__value-container {
       display: flex;

@@ -16,7 +16,6 @@ module DiagnosticReports
   GAINED_SOME_PROFICIENCY = 'Gained Some Proficiency'
   MAINTAINED_PROFICIENCY = 'Maintained Proficiency'
   GAINED_PROFICIENCY_TEXTS = [GAINED_PROFICIENCY, GAINED_SOME_PROFICIENCY]
-  GROWTH_PROFICIENCY_TEXTS = [GAINED_PROFICIENCY, GAINED_SOME_PROFICIENCY, MAINTAINED_PROFICIENCY]
   FULL_OR_MAINTAINED_PROFICIENCY_TEXTS = [GAINED_PROFICIENCY, MAINTAINED_PROFICIENCY]
 
   def data_for_question_by_activity_session(all_concept_results, diagnostic_question_skill)
@@ -58,7 +57,6 @@ module DiagnosticReports
     end
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   def set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id=nil, hashify_activity_sessions: false)
     if unit_id
       classroom_unit = ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
@@ -68,7 +66,7 @@ module DiagnosticReports
         .where(classroom_unit: classroom_unit, is_final_score: true, user_id: classroom_unit.assigned_student_ids, activity_id: activity_id)
     else
       classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: {unit_activities: {activity_id: activity_id}})
-      assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
+      assigned_student_ids = assigned_student_ids_filtered_by_classroom_roster(classroom_units)
       @assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
       @activity_sessions = ActivitySession
         .includes(:concept_results, activity: {diagnostic_question_skills: :question})
@@ -81,7 +79,15 @@ module DiagnosticReports
 
     @activity_sessions = @activity_sessions.to_h { |session| [session.user_id, session] }
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
+
+  private def assigned_student_ids_filtered_by_classroom_roster(classroom_units)
+    classroom_id = classroom_units.first&.classroom_id
+    return [] unless classroom_id
+
+    assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
+    rostered_student_ids = Classroom.find(classroom_id).students.pluck(:id)
+    assigned_student_ids.intersection(rostered_student_ids)
+  end
 
   private def set_pre_test_activity_sessions_and_assigned_students(activity_id, classroom_id, hashify_activity_sessions: false)
     classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: {unit_activities: {activity_id: activity_id}})

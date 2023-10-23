@@ -5,78 +5,6 @@ require 'rails_helper'
 describe SessionsController, type: :controller do
   it { should use_before_action :signed_in! }
 
-  describe '#create' do
-    let!(:user) { create(:user) }
-
-    before do
-      user.update(password: "test123")
-      user.reload
-    end
-
-    context 'when user is nil' do
-      it 'should report login failiure' do
-        post :create, params: { user: { email: "test@whatever.com" } }
-        expect(response).to redirect_to "/session/new"
-      end
-    end
-
-    context 'when user has signed up with google' do
-      before do
-        allow_any_instance_of(User).to receive(:signed_up_with_google) { true }
-      end
-
-      it 'should report login failiure' do
-        post :create, params: { user: { email: user.email } }
-        expect(flash[:error]).to eq 'You signed up with Google, please log in with Google using the link above.'
-        expect(response).to redirect_to "/session/new"
-      end
-    end
-
-    context 'when user has signed up with clever' do
-      before do
-        allow_any_instance_of(User).to receive(:clever_id) { 1 }
-      end
-
-      it 'should report login failiure' do
-        post :create, params: { user: { email: user.email } }
-        expect(flash[:error]).to eq 'You signed up with Clever, please log in with Clever using the link above.'
-        expect(response).to redirect_to "/session/new"
-      end
-    end
-
-    context 'when user has no password digest' do
-      before do
-        allow_any_instance_of(User).to receive(:password_digest) { nil }
-      end
-
-      it 'should report login failiure' do
-        post :create, params: { user: { email: user.email } }
-        expect(flash[:error]).to eq 'Something went wrong verifying your password. Please use the "Forgot password?" link below to reset it.'
-        expect(response).to redirect_to "/session/new"
-      end
-    end
-
-    context 'when user is authenticated' do
-      context 'when redirect present' do
-        it 'should redirect to the given url' do
-          post :create, params: { user: { email: user.email, password: "test123" }, redirect: root_path }
-          expect(response).to redirect_to root_path
-        end
-      end
-
-      context 'when redirect not present' do
-        before do
-          user.update(password: "test123")
-        end
-
-        it 'should redirect to profile path' do
-          post :create, params: { user: { email: user.email, password: "test123" } }
-          expect(response).to redirect_to profile_path
-        end
-      end
-    end
-  end
-
   describe '#login_through_ajax' do
     let!(:user) { create(:user) }
 
@@ -86,14 +14,14 @@ describe SessionsController, type: :controller do
     end
 
     context 'when user is nil' do
-      it 'should report login failiure' do
+      it 'should report login failure' do
         post :login_through_ajax, params: { user: { email: "test@whatever.com" } }, as: :json
         expect(response.body).to eq({message: 'An account with this email or username does not exist. Try again.', type: 'email'}.to_json)
       end
     end
 
     context 'when user has a non-authenticating role' do
-      it 'should report login failiure' do
+      it 'should report login failure' do
         user.update(role: User::SALES_CONTACT)
         post :login_through_ajax, params: { user: { email: user.email } }, as: :json
         expect(response.body).to eq({message: 'An account with this email or username does not exist. Try again.', type: 'email'}.to_json)
@@ -105,9 +33,18 @@ describe SessionsController, type: :controller do
         allow_any_instance_of(User).to receive(:signed_up_with_google) { true }
       end
 
-      it 'should report login failiure' do
+      it 'should report login failure' do
         post :login_through_ajax, params: { user: { email: user.email } }, as: :json
-        expect(response.body).to eq({message: 'Oops! You have a Google account. Log in that way instead.', type: 'email'}.to_json)
+        expect(response.body).to eq({message: "Wrong password. Try again or click 'Forgot password' to reset it.", type: 'password'}.to_json)
+      end
+    end
+
+    context 'when user has signed up with clever' do
+      before { allow_any_instance_of(User).to receive(:clever_id) { 1 } }
+
+      it 'should report login failure' do
+        post :login_through_ajax, params: { user: { email: user.email } }
+        expect(response.body).to eq({message: 'Oops! You have a Clever account. Log in that way instead.', type: 'email'}.to_json)
       end
     end
 
@@ -116,7 +53,7 @@ describe SessionsController, type: :controller do
         allow_any_instance_of(User).to receive(:password_digest) { nil }
       end
 
-      it 'should report login failiure' do
+      it 'should report login failure' do
         post :login_through_ajax, params: { user: { email: user.email } }, as: :json
         expect(response.body).to eq({message: 'Something went wrong verifying your password. Please use the "Forgot password?" link below to reset it.', type: 'email'}.to_json)
       end

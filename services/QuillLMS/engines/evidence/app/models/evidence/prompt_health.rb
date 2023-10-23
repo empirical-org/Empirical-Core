@@ -5,25 +5,33 @@
 # Table name: evidence_prompt_healths
 #
 #  id                                  :bigint           not null, primary key
-#  prompt_id                           :integer          not null
 #  activity_short_name                 :string           not null
-#  text                                :string           not null
-#  current_version                     :integer          not null
-#  version_responses                   :integer          not null
-#  first_attempt_optimal               :integer
-#  final_attempt_optimal               :integer
 #  avg_attempts                        :float
-#  confidence                          :float
-#  percent_automl_consecutive_repeated :integer
-#  percent_automl                      :integer
-#  percent_plagiarism                  :integer
-#  percent_opinion                     :integer
-#  percent_grammar                     :integer
-#  percent_spelling                    :integer
 #  avg_time_spent_per_prompt           :integer
-#  evidence_activity_health_id         :bigint
+#  confidence                          :float
+#  current_version                     :integer          not null
+#  final_attempt_optimal               :integer
+#  first_attempt_optimal               :integer
+#  percent_automl                      :integer
+#  percent_automl_consecutive_repeated :integer
+#  percent_grammar                     :integer
+#  percent_opinion                     :integer
+#  percent_plagiarism                  :integer
+#  percent_spelling                    :integer
+#  text                                :string           not null
+#  version_responses                   :integer          not null
 #  created_at                          :datetime         not null
 #  updated_at                          :datetime         not null
+#  evidence_activity_health_id         :bigint
+#  prompt_id                           :integer          not null
+#
+# Indexes
+#
+#  index_evidence_prompt_healths_on_evidence_activity_health_id  (evidence_activity_health_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (evidence_activity_health_id => evidence_activity_healths.id) ON DELETE => cascade
 #
 module Evidence
   class PromptHealth < ApplicationRecord

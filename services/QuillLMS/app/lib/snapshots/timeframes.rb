@@ -69,13 +69,19 @@ module Snapshots
       TIMEFRAMES.find { |timeframe| timeframe[:value] == timeframe_value }
     end
 
-    def self.calculate_timeframes(timeframe_value, custom_start: nil, custom_end: nil)
+    def self.calculate_timeframes(timeframe_value, custom_start: nil, custom_end: nil, previous_timeframe: false)
       timeframe = find_timeframe(timeframe_value)
 
       end_of_yesterday = DateTime.current.end_of_day - 1.day
 
-      [:previous_start, :previous_end, :current_start, :current_end].map do |value|
-        timeframe[value].call(end_of_yesterday, custom_start, custom_end)
+      if previous_timeframe
+        [:previous_start, :previous_end].map do |value|
+          timeframe[value].call(end_of_yesterday, custom_start, custom_end)
+        end
+      else
+        [:current_start, :current_end].map do |value|
+          timeframe[value].call(end_of_yesterday, custom_start, custom_end)
+        end
       end
     end
 

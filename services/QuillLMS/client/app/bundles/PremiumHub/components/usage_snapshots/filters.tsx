@@ -5,7 +5,7 @@ import useWindowSize from '../../../Shared/hooks/useWindowSize';
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
 
-const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassrooms, applyFilters, clearFilters, selectedGrades, setSelectedGrades, hasAdjustedFiltersFromDefault, handleSetSelectedTimeframe, selectedTimeframe, selectedSchools, setSelectedSchools, selectedTeachers, setSelectedTeachers, selectedClassrooms, setSelectedClassrooms, closeMobileFilterMenu, showMobileFilterMenu, hasAdjustedFiltersSinceLastSubmission, customStartDate, customEndDate, }) => {
+const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassrooms, applyFilters, clearFilters, selectedGrades, setSelectedGrades, hasAdjustedFiltersFromDefault, handleSetSelectedTimeframe, selectedTimeframe, selectedSchools, setSelectedSchools, selectedTeachers, setSelectedTeachers, selectedClassrooms, setSelectedClassrooms, closeMobileFilterMenu, showMobileFilterMenu, hasAdjustedFiltersSinceLastSubmission, customStartDate, customEndDate, showFilterMenuButton, }) => {
   const size = useWindowSize();
 
   function effectiveSelectedSchools() {
@@ -37,8 +37,45 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
 
   const timeframeHelperText = customStartDate && customEndDate ? `${customStartDate.format('MM/DD/YYYY')} - ${customEndDate.format('MM/DD/YYYY')}` : null
 
+  let classroomsFilter = (
+    <div className="disabled-classroom-filter">
+      <label className="filter-label" htmlFor="classroom-filter">
+        <span>Classroom</span>
+        <Tooltip
+          tooltipText="To filter by classroom, first apply broader filters above."
+          tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
+        />
+      </label>
+      <DropdownInput
+        disabled={true}
+        id="classroom-filter"
+        isMulti={true}
+        isSearchable={true}
+        label=""
+        options={[allClassrooms[0]]}
+        optionType="classroom"
+        value={[selectedClassrooms[0]]}
+      />
+    </div>
+  )
+
+  if (allClassrooms.length) {
+    classroomsFilter = (
+      <DropdownInputWithSearchTokens
+        id="classroom-filter"
+        identifier="id"
+        label="Classroom"
+        onChange={setSelectedClassrooms}
+        options={allClassrooms}
+        optionType="classroom"
+        value={selectedClassrooms}
+        valueToDisplay={effectiveSelectedClassrooms()}
+      />
+    )
+  }
+
   return (
-    <section className={`filter-container ${showMobileFilterMenu ? 'mobile-open' : 'mobile-hidden'} ${hasAdjustedFiltersFromDefault ? 'space-for-buttons' : ''}`}>
+    <section className={`filter-container ${showMobileFilterMenu ? 'mobile-open' : 'mobile-hidden'} ${hasAdjustedFiltersFromDefault ? 'space-for-buttons' : ''}`} data-testId="filter-menu" >
       <div className="top-section">
         <button className="interactive-wrapper focus-on-light" onClick={closeMobileFilterMenu} type="button">
           <img alt="" src={closeIconSrc} />
@@ -46,62 +83,58 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
         </button>
       </div>
       <div className="filters">
-        <label className="filter-label" htmlFor="timeframe-filter">
-          <span>Timeframe</span>
-          <Tooltip
-            tooltipText="This report is updated nightly."
-            tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
+        <div className="dropdowns">
+          <div className="show-filter-menu-button-wrapper">
+            {showFilterMenuButton}
+          </div>
+          <label className="filter-label" htmlFor="timeframe-filter">
+            <span>Timeframe</span>
+            <Tooltip
+              tooltipText="This report is updated nightly."
+              tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
+            />
+          </label>
+          <DropdownInput
+            handleChange={handleSetSelectedTimeframe}
+            helperText={timeframeHelperText}
+            id="timeframe-filter"
+            isSearchable={false}
+            label=""
+            options={allTimeframes}
+            value={selectedTimeframe}
           />
-        </label>
-        <DropdownInput
-          handleChange={handleSetSelectedTimeframe}
-          helperText={timeframeHelperText}
-          id="timeframe-filter"
-          isSearchable={false}
-          label=""
-          options={allTimeframes}
-          value={selectedTimeframe}
-        />
-        <DropdownInputWithSearchTokens
-          id="school-filter"
-          identifier="id"
-          label="School"
-          onChange={setSelectedSchools}
-          options={allSchools}
-          optionType="school"
-          value={selectedSchools}
-          valueToDisplay={effectiveSelectedSchools()}
-        />
-        <DropdownInputWithSearchTokens
-          id="grade-filter"
-          identifier="value"
-          label="Grade"
-          onChange={setSelectedGrades}
-          options={allGrades}
-          optionType="grade"
-          value={selectedGrades}
-          valueToDisplay={selectedGrades}
-        />
-        <DropdownInputWithSearchTokens
-          id="teacher-filter"
-          identifier="id"
-          label="Teacher"
-          onChange={setSelectedTeachers}
-          options={allTeachers}
-          optionType="teacher"
-          value={selectedTeachers}
-          valueToDisplay={effectiveSelectedTeachers()}
-        />
-        <DropdownInputWithSearchTokens
-          id="classroom-filter"
-          identifier="id"
-          label="Classroom"
-          onChange={setSelectedClassrooms}
-          options={allClassrooms}
-          optionType="classroom"
-          value={selectedClassrooms}
-          valueToDisplay={effectiveSelectedClassrooms()}
-        />
+          <DropdownInputWithSearchTokens
+            id="school-filter"
+            identifier="id"
+            label="School"
+            onChange={setSelectedSchools}
+            options={allSchools}
+            optionType="school"
+            value={selectedSchools}
+            valueToDisplay={effectiveSelectedSchools()}
+          />
+          <DropdownInputWithSearchTokens
+            id="grade-filter"
+            identifier="value"
+            label="Grade"
+            onChange={setSelectedGrades}
+            options={allGrades}
+            optionType="grade"
+            value={selectedGrades}
+            valueToDisplay={selectedGrades}
+          />
+          <DropdownInputWithSearchTokens
+            id="teacher-filter"
+            identifier="id"
+            label="Teacher"
+            onChange={setSelectedTeachers}
+            options={allTeachers}
+            optionType="teacher"
+            value={selectedTeachers}
+            valueToDisplay={effectiveSelectedTeachers()}
+          />
+          {classroomsFilter}
+        </div>
       </div>
       {renderFilterButtons()}
     </section>

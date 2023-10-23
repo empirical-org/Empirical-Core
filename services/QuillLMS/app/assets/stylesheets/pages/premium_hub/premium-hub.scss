@@ -472,9 +472,20 @@
       a {
         display: flex;
         align-items: center;
-        height: 28px !important;
+        .small-diamond-icon {
+          background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
+        }
         &.active {
           color: $quill-maroon !important;
+          .small-diamond-icon {
+            background-image: url("https://assets.quill.org/images/icons/red-diamond.svg");
+          }
+          &:hover {
+            color: $quill-white !important;
+            .small-diamond-icon {
+              background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
+            }
+          }
         }
 
         &.premium {

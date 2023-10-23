@@ -598,6 +598,8 @@ describe TeacherFixController do
           subject
           expect(response.code).to eq '200'
         end
+
+        it { expect { subject }.to change(ChangeLog, :count).by(1) }
       end
 
       context 'that has no students' do

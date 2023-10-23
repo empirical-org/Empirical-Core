@@ -10,6 +10,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
+--
+
+-- *not* creating schema, since initdb creates it
+
+
+--
 -- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -755,6 +762,39 @@ ALTER SEQUENCE public.admin_infos_id_seq OWNED BY public.admin_infos.id;
 
 
 --
+-- Name: admin_report_filter_selections; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_report_filter_selections (
+    id bigint NOT NULL,
+    report character varying NOT NULL,
+    filter_selections jsonb,
+    user_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_report_filter_selections_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.admin_report_filter_selections_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: admin_report_filter_selections_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.admin_report_filter_selections_id_seq OWNED BY public.admin_report_filter_selections.id;
+
+
+--
 -- Name: announcements; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1342,8 +1382,7 @@ CREATE TABLE public.classroom_units (
     assigned_student_ids integer[] DEFAULT '{}'::integer[],
     assign_on_join boolean DEFAULT false,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    source_classroom_unit_id integer
+    updated_at timestamp without time zone
 );
 
 
@@ -2567,6 +2606,43 @@ CREATE SEQUENCE public.evidence_activity_healths_id_seq
 --
 
 ALTER SEQUENCE public.evidence_activity_healths_id_seq OWNED BY public.evidence_activity_healths.id;
+
+
+--
+-- Name: evidence_automl_models; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_automl_models (
+    id bigint NOT NULL,
+    model_external_id character varying NOT NULL,
+    endpoint_external_id character varying NOT NULL,
+    name character varying NOT NULL,
+    labels character varying[] DEFAULT '{}'::character varying[],
+    prompt_id bigint,
+    state character varying NOT NULL,
+    notes text DEFAULT ''::text,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_automl_models_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_automl_models_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_automl_models_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_automl_models_id_seq OWNED BY public.evidence_automl_models.id;
 
 
 --
@@ -5428,6 +5504,13 @@ ALTER TABLE ONLY public.admin_infos ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
+-- Name: admin_report_filter_selections id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_report_filter_selections ALTER COLUMN id SET DEFAULT nextval('public.admin_report_filter_selections_id_seq'::regclass);
+
+
+--
 -- Name: announcements id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5782,6 +5865,13 @@ ALTER TABLE ONLY public.districts ALTER COLUMN id SET DEFAULT nextval('public.di
 --
 
 ALTER TABLE ONLY public.evidence_activity_healths ALTER COLUMN id SET DEFAULT nextval('public.evidence_activity_healths_id_seq'::regclass);
+
+
+--
+-- Name: evidence_automl_models id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_automl_models ALTER COLUMN id SET DEFAULT nextval('public.evidence_automl_models_id_seq'::regclass);
 
 
 --
@@ -6451,6 +6541,14 @@ ALTER TABLE ONLY public.admin_infos
 
 
 --
+-- Name: admin_report_filter_selections admin_report_filter_selections_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_report_filter_selections
+    ADD CONSTRAINT admin_report_filter_selections_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: announcements announcements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6864,6 +6962,14 @@ ALTER TABLE ONLY public.districts
 
 ALTER TABLE ONLY public.evidence_activity_healths
     ADD CONSTRAINT evidence_activity_healths_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_automl_models evidence_automl_models_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_automl_models
+    ADD CONSTRAINT evidence_automl_models_pkey PRIMARY KEY (id);
 
 
 --
@@ -7716,6 +7822,20 @@ CREATE INDEX index_admin_infos_on_user_id ON public.admin_infos USING btree (use
 
 
 --
+-- Name: index_admin_report_filter_selections_on_report; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_report_filter_selections_on_report ON public.admin_report_filter_selections USING btree (report);
+
+
+--
+-- Name: index_admin_report_filter_selections_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_report_filter_selections_on_user_id ON public.admin_report_filter_selections USING btree (user_id);
+
+
+--
 -- Name: index_announcements_on_start_and_end; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8252,6 +8372,13 @@ CREATE INDEX index_districts_users_on_district_id_and_user_id ON public.district
 --
 
 CREATE INDEX index_districts_users_on_user_id ON public.districts_users USING btree (user_id);
+
+
+--
+-- Name: index_evidence_automl_models_on_prompt_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_evidence_automl_models_on_prompt_id ON public.evidence_automl_models USING btree (prompt_id);
 
 
 --
@@ -9360,6 +9487,14 @@ ALTER TABLE ONLY public.district_subscriptions
 
 
 --
+-- Name: evidence_automl_models fk_rails_3c28762764; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_automl_models
+    ADD CONSTRAINT fk_rails_3c28762764 FOREIGN KEY (prompt_id) REFERENCES public.comprehension_prompts(id);
+
+
+--
 -- Name: classroom_units fk_rails_3e1ff09783; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9853,6 +9988,14 @@ ALTER TABLE ONLY public.sales_stages
 
 ALTER TABLE ONLY public.activity_survey_responses
     ADD CONSTRAINT fk_rails_e65c2d2818 FOREIGN KEY (activity_session_id) REFERENCES public.activity_sessions(id);
+
+
+--
+-- Name: admin_report_filter_selections fk_rails_f3c9548131; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_report_filter_selections
+    ADD CONSTRAINT fk_rails_f3c9548131 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -10422,6 +10565,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230728183700'),
 ('20230731184420'),
 ('20230801140455'),
-('20230801140522');
+('20230801140522'),
+('20230912150456'),
+('20230929135017'),
+('20231018141022');
 
 

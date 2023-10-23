@@ -2,6 +2,13 @@
 
 module FooterHelper
 
+  EXCLUDED_FOOTER_PATHS = [
+    '/teachers/premium_hub/usage_snapshot_report',
+    '/teachers/premium_hub/data_export',
+    '/teachers/premium_hub/diagnostic_growth_report'
+
+  ].freeze
+
   def teacher_dashboard_links
     [
       { href: '/assign', label: 'Assign Activities' },
@@ -63,5 +70,9 @@ module FooterHelper
       { href: '/press', label: 'Press' },
       { href: '/contact', label: 'Contact Us' }
     ]
+  end
+
+  def show_footer?(path)
+    !path.in?(EXCLUDED_FOOTER_PATHS)
   end
 end

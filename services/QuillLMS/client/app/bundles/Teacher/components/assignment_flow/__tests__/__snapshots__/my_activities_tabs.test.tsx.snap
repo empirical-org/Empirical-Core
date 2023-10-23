@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MyActivitiesTabs it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="unit-tabs tab-subnavigation-wrapper mobile"
+  >
+    <div
+      class="dropdown-container"
+    >
+      <div
+        class=""
+      >
+        <button
+          class="interactive-wrapper"
+          id="mobile-subnav-dropdown"
+          type="button"
+        >
+          <p>
+            My Open Activity Packs
+          </p>
+          <i
+            class="fa fa-thin fa-angle-down"
+          />
+        </button>
+        <ul
+          class="dropdown-menu"
+        >
+          <li>
+            <a
+              class="active"
+              href="/teachers/classrooms/activity_planner"
+            >
+              My Open Activity Packs
+            </a>
+            <div
+              class="checkmark-icon active"
+            />
+          </li>
+          <li>
+            <a
+              class=""
+              href="/teachers/classrooms/activity_planner/closed"
+            >
+              My Closed Activity Packs
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
+          <li>
+            <a
+              class=""
+              href="/teachers/classrooms/activity_planner/lessons"
+            >
+              Launch Lessons
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div
+    class="unit-tabs tab-subnavigation-wrapper desktop"
+  >
+    <div
+      class="container"
+    >
+      <ul>
+        <li>
+          <a
+            class="active"
+            href="/teachers/classrooms/activity_planner"
+          >
+            My Open Activity Packs
+          </a>
+          <div
+            class="checkmark-icon active"
+          />
+        </li>
+        <li>
+          <a
+            class=""
+            href="/teachers/classrooms/activity_planner/closed"
+          >
+            My Closed Activity Packs
+          </a>
+          <div
+            class="checkmark-icon "
+          />
+        </li>
+        <li>
+          <a
+            class=""
+            href="/teachers/classrooms/activity_planner/lessons"
+          >
+            Launch Lessons
+          </a>
+          <div
+            class="checkmark-icon "
+          />
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;

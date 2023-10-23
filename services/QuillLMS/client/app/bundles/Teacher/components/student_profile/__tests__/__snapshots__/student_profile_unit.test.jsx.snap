@@ -400,60 +400,66 @@ exports[`StudentProfileUnit component should render 1`] = `
         <table
           className="data-table undefined"
         >
-          <tr
-            className="data-table-headers"
-          >
-            <th
-              className="data-table-header name-section"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "823px",
-                  "textAlign": "left",
-                  "width": "823px",
-                }
-              }
+          <thead>
+            <tr
+              className="data-table-headers"
             >
-              Activity
-            </th>
-            <th
-              className="data-table-header tool-icon-section"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "24px",
-                  "textAlign": "right",
-                  "width": "24px",
+              <th
+                className="data-table-header name-section"
+                key="0"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "823px",
+                    "textAlign": "left",
+                    "width": "823px",
+                  }
                 }
-              }
-            >
-              Tool
-            </th>
-            <th
-              className="data-table-header due-date-section"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "100px",
-                  "textAlign": "left",
-                  "width": "100px",
+              >
+                Activity
+              </th>
+              <th
+                className="data-table-header tool-icon-section"
+                key="1"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "24px",
+                    "textAlign": "right",
+                    "width": "24px",
+                  }
                 }
-              }
-            >
-              Due date
-            </th>
-            <th
-              className="data-table-header action-button-section"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "88px",
-                  "textAlign": "left",
-                  "width": "88px",
+              >
+                Tool
+              </th>
+              <th
+                className="data-table-header due-date-section"
+                key="2"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "100px",
+                    "textAlign": "left",
+                    "width": "100px",
+                  }
                 }
-              }
-            />
-          </tr>
+              >
+                Due date
+              </th>
+              <th
+                className="data-table-header action-button-section"
+                key="3"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "88px",
+                    "textAlign": "left",
+                    "width": "88px",
+                  }
+                }
+              />
+            </tr>
+          </thead>
           <tbody
             className="data-table-body"
           >
@@ -1023,7 +1029,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                 className="score"
               >
                 <div
-                  className="proficient"
+                  className="frequently-demonstrated-skill"
                 />
                 <span>
                   Frequently demonstrated skill
@@ -1047,7 +1053,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                 className="score"
               >
                 <div
-                  className="nearly-proficient"
+                  className="sometimes-demonstrated-skill"
                 />
                 <span>
                   Sometimes demonstrated skill
@@ -1061,86 +1067,94 @@ exports[`StudentProfileUnit component should render 1`] = `
         <table
           className="data-table undefined"
         >
-          <tr
-            className="data-table-headers"
-          >
-            <th
-              className="data-table-header name-section"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "474px",
-                  "textAlign": "left",
-                  "width": "474px",
-                }
-              }
+          <thead>
+            <tr
+              className="data-table-headers"
             >
-              Activity
-            </th>
-            <th
-              className="data-table-header score-section tooltip-section"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "230px",
-                  "textAlign": "left",
-                  "width": "230px",
+              <th
+                className="data-table-header name-section"
+                key="0"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "474px",
+                    "textAlign": "left",
+                    "width": "474px",
+                  }
                 }
-              }
-            >
-              Score
-            </th>
-            <th
-              className="data-table-header tool-icon-section"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "24px",
-                  "textAlign": "right",
-                  "width": "24px",
+              >
+                Activity
+              </th>
+              <th
+                className="data-table-header score-section tooltip-section"
+                key="1"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "230px",
+                    "textAlign": "left",
+                    "width": "230px",
+                  }
                 }
-              }
-            >
-              Tool
-            </th>
-            <th
-              className="data-table-header completed-due-date-section"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "110px",
-                  "textAlign": "left",
-                  "width": "110px",
+              >
+                Score
+              </th>
+              <th
+                className="data-table-header tool-icon-section"
+                key="2"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "24px",
+                    "textAlign": "right",
+                    "width": "24px",
+                  }
                 }
-              }
-            >
-              Due date
-            </th>
-            <th
-              className="data-table-header completed-date-section"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "110px",
-                  "textAlign": "right",
-                  "width": "110px",
+              >
+                Tool
+              </th>
+              <th
+                className="data-table-header completed-due-date-section"
+                key="3"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "110px",
+                    "textAlign": "left",
+                    "width": "110px",
+                  }
                 }
-              }
-            >
-              Completed date
-            </th>
-            <th
-              className="data-table-header action-button-section tooltip-section"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "88px",
-                  "textAlign": "left",
-                  "width": "88px",
+              >
+                Due date
+              </th>
+              <th
+                className="data-table-header completed-date-section"
+                key="4"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "110px",
+                    "textAlign": "right",
+                    "width": "110px",
+                  }
                 }
-              }
-            />
-          </tr>
+              >
+                Completed date
+              </th>
+              <th
+                className="data-table-header action-button-section tooltip-section"
+                key="5"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "88px",
+                    "textAlign": "left",
+                    "width": "88px",
+                  }
+                }
+              />
+            </tr>
+          </thead>
           <tbody
             className="data-table-body"
           >
@@ -1176,7 +1190,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   className="score"
                 >
                   <div
-                    className="proficient"
+                    className="frequently-demonstrated-skill"
                   />
                   <span>
                     Frequently demonstrated skill
@@ -1270,7 +1284,7 @@ exports[`StudentProfileUnit component should render 1`] = `
                   className="score"
                 >
                   <div
-                    className="nearly-proficient"
+                    className="sometimes-demonstrated-skill"
                   />
                   <span>
                     Sometimes demonstrated skill

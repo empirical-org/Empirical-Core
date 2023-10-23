@@ -5,6 +5,7 @@ Rails.autoloaders.each do |autoloader|
   autoloader.inflector.inflect(
     'auto_ml' => 'AutoML',
     'html_tag_remover' => 'HTMLTagRemover',
-    'open_ai' => 'OpenAI'
+    'open_ai' => 'OpenAI',
+    'vertex_ai' => 'VertexAI'
   )
 end

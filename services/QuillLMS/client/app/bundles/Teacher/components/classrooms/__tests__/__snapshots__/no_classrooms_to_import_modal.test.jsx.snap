@@ -1,47 +1,330 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NoClassroomsToImportModal component should render NoClassroomsToImportModal 1`] = `
-<div
-  className="modal-container provider-classrooms-empty-modal-container"
->
+exports[`NoClassroomsToImportModal component it should render when there are no classrooms 1`] = `
+<DocumentFragment>
   <div
-    className="modal-background"
-  />
-  <div
-    className="provider-classrooms-empty-modal quill-modal modal-body"
+    class="modal-container provider-classrooms-empty-modal-container"
   >
-    <div>
-      <h3
-        className="title"
-      >
-        Create classrooms in 
-        Clever
-      </h3>
-    </div>
     <div
-      className="no-active-classes"
-    >
-      <img
-        alt="empty class"
-        src="undefined/images/illustrations/empty-class.svg"
-      />
-      <p>
-        No classes are available to import yet. Go to 
-        Clever
-         and create classes to import them into Quill.
-      </p>
-    </div>
+      class="modal-background"
+    />
     <div
-      className="form-buttons"
+      class="provider-classrooms-empty-modal quill-modal modal-body"
     >
-      <button
-        className="quill-button contained primary medium"
-        onClick={[Function]}
-        type="button"
+      <div>
+        <h3
+          class="title"
+        >
+          Create classrooms in Google Classroom
+        </h3>
+      </div>
+      <div
+        class="explanation"
       >
-        Close
-      </button>
+        <img
+          alt="empty class"
+          src="undefined/images/illustrations/empty_class.svg"
+        />
+        <p>
+          No classes are available to import yet. Go to Google Classroom and create classes to import them into Quill.
+        </p>
+      </div>
+      <div
+        class="form-buttons"
+      >
+        <button
+          class="quill-button contained primary medium"
+          type="button"
+        >
+          Close
+        </button>
+      </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
+`;
+
+exports[`NoClassroomsToImportModal component it should render when there is an archivedClassroom 1`] = `
+<DocumentFragment>
+  <div
+    class="modal-container provider-classrooms-empty-modal-container"
+  >
+    <div
+      class="modal-background"
+    />
+    <div
+      class="provider-classrooms-empty-modal quill-modal modal-body"
+    >
+      <div>
+        <h3
+          class="title"
+        >
+          Create classrooms in Google Classroom
+        </h3>
+      </div>
+      <div
+        class="explanation"
+      >
+        <img
+          alt="empty class"
+          src="undefined/images/illustrations/empty_class.svg"
+        />
+        <p>
+          No classes are available to import yet. Go to Google Classroom and create classes to import them into Quill.
+        </p>
+      </div>
+      <div
+        class="not-seeing-classes-section"
+      >
+        <h4>
+          Not seeing classes?
+        </h4>
+        <p>
+          You have 
+          <b>
+            1 synced Google Classroom 
+            <a
+              href="/teachers/classrooms/archived"
+            >
+              archived in Quill
+            </a>
+          </b>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </p>
+      </div>
+      <div
+        class="form-buttons"
+      >
+        <button
+          class="quill-button contained primary medium"
+          type="button"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`NoClassroomsToImportModal component it should render when there is an unownedClassroom 1`] = `
+<DocumentFragment>
+  <div
+    class="modal-container provider-classrooms-empty-modal-container"
+  >
+    <div
+      class="modal-background"
+    />
+    <div
+      class="provider-classrooms-empty-modal quill-modal modal-body"
+    >
+      <div>
+        <h3
+          class="title"
+        >
+          Create classrooms in Google Classroom
+        </h3>
+      </div>
+      <div
+        class="explanation"
+      >
+        <img
+          alt="empty class"
+          src="undefined/images/illustrations/empty_class.svg"
+        />
+        <p>
+          No classes are available to import yet. Go to Google Classroom and create classes to import them into Quill.
+        </p>
+      </div>
+      <div
+        class="not-seeing-classes-section"
+      >
+        <h4>
+          Not seeing classes?
+        </h4>
+        <p>
+          There is 
+          <b>
+            1 Google Classroom
+          </b>
+           you have access to, but don't own
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </p>
+      </div>
+      <div
+        class="form-buttons"
+      >
+        <button
+          class="quill-button contained primary medium"
+          type="button"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`NoClassroomsToImportModal component it should render when there is both an unowned and an archived classroom 1`] = `
+<DocumentFragment>
+  <div
+    class="modal-container provider-classrooms-empty-modal-container"
+  >
+    <div
+      class="modal-background"
+    />
+    <div
+      class="provider-classrooms-empty-modal quill-modal modal-body"
+    >
+      <div>
+        <h3
+          class="title"
+        >
+          Create classrooms in Google Classroom
+        </h3>
+      </div>
+      <div
+        class="explanation"
+      >
+        <img
+          alt="empty class"
+          src="undefined/images/illustrations/empty_class.svg"
+        />
+        <p>
+          No classes are available to import yet. Go to Google Classroom and create classes to import them into Quill.
+        </p>
+      </div>
+      <div
+        class="not-seeing-classes-section"
+      >
+        <h4>
+          Not seeing classes?
+        </h4>
+        <p>
+          You have 
+          <b>
+            1 synced Google Classroom 
+            <a
+              href="/teachers/classrooms/archived"
+            >
+              archived in Quill
+            </a>
+          </b>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </p>
+        <p>
+          There is 
+          <b>
+            1 Google Classroom
+          </b>
+           you have access to, but don't own
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </p>
+      </div>
+      <div
+        class="form-buttons"
+      >
+        <button
+          class="quill-button contained primary medium"
+          type="button"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;

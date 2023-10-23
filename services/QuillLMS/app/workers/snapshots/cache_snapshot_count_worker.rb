@@ -4,7 +4,17 @@ module Snapshots
   class CacheSnapshotCountWorker
     include Sidekiq::Worker
 
-    PUSHER_EVENT = 'admin-snapshot-count-cached'
+    sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
+
+    CURRENT_TIMEFRAME_PUSHER_EVENT = 'admin-snapshot-count-cached'
+    PREVIOUS_TIMEFRAME_PUSHER_EVENT = 'admin-snapshot-previous-count-cached'
+    TOO_SLOW_THRESHOLD = 20
+
+    class SlowQueryError < StandardError
+      def message
+        "Snapshot Count query took more than #{TOO_SLOW_THRESHOLD}"
+      end
+    end
 
     QUERIES = {
       'active-classrooms' => Snapshots::ActiveClassroomsQuery,
@@ -28,18 +38,22 @@ module Snapshots
       'teacher-accounts-created' => Snapshots::TeacherAccountsCreatedQuery
     }
 
-    def perform(cache_key, query, user_id, timeframe, school_ids, filters)
+    def perform(cache_key, query, user_id, timeframe, school_ids, filters, previous_timeframe)
       payload = generate_payload(query, timeframe, school_ids, filters)
 
       Rails.cache.write(cache_key, payload, expires_in: cache_expiry)
 
-      PusherTrigger.run(user_id, PUSHER_EVENT,
-        {
-          query: query,
-          timeframe: timeframe['name'],
-          school_ids: school_ids
-        }.merge(filters)
-      )
+      filter_hash = PayloadHasher.run([
+        query,
+        timeframe['name'],
+        school_ids,
+        filters['grades'],
+        filters['teacher_ids'],
+        filters['classroom_ids']
+      ].flatten)
+
+      pusher_event = previous_timeframe ? PREVIOUS_TIMEFRAME_PUSHER_EVENT : CURRENT_TIMEFRAME_PUSHER_EVENT
+      SendPusherMessageWorker.perform_async(user_id, pusher_event, filter_hash)
     end
 
     private def cache_expiry
@@ -51,29 +65,28 @@ module Snapshots
     end
 
     private def generate_payload(query, timeframe, school_ids, filters)
-      previous_timeframe_start = parse_datetime_string(timeframe['previous_start'])
-      previous_timeframe_end = parse_datetime_string(timeframe['previous_end'])
-      current_timeframe_start = parse_datetime_string(timeframe['current_start'])
-      timeframe_end = parse_datetime_string(timeframe['current_end'])
+      timeframe_start = parse_datetime_string(timeframe['timeframe_start'])
+      timeframe_end = parse_datetime_string(timeframe['timeframe_end'])
       filters_symbolized = filters.symbolize_keys
 
-      current_snapshot = QUERIES[query].run(**{
-        timeframe_start: current_timeframe_start,
-        timeframe_end: timeframe_end,
-        school_ids: school_ids
-      }.merge(filters_symbolized))
+      long_process_notifier = LongProcessNotifier.new(
+        SlowQueryError.new,
+        TOO_SLOW_THRESHOLD,
+        {
+          query:,
+          timeframe_start:,
+          timeframe_end:,
+          school_ids:
+        }.merge(filters_symbolized)
+      )
 
-      if previous_timeframe_start
-        previous_snapshot = QUERIES[query].run(**{
-          timeframe_start: previous_timeframe_start,
-          timeframe_end: previous_timeframe_end,
-          school_ids: school_ids
+      long_process_notifier.run do
+        current_snapshot = QUERIES[query].run(**{
+          timeframe_start:,
+          timeframe_end:,
+          school_ids:
         }.merge(filters_symbolized))
-      else
-        previous_snapshot = nil
       end
-
-      { current: current_snapshot&.fetch(:count, nil), previous: previous_snapshot&.fetch(:count, nil) }
     end
 
     private def parse_datetime_string(value)
