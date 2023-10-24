@@ -1,5 +1,4 @@
 .diagnostic-reports-main {
-  max-width: 1107px !important;
   .header {
     .buttons-container {
       display: flex;
@@ -70,6 +69,7 @@
     width: 100%;
   }
   .growth-diagnostic-reports-overview-table, .growth-diagnostic-reports-by-skill-table {
+    width: 68vw;
     margin-top: 48px;
     .data-table-headers {
       padding-right: 0px;
