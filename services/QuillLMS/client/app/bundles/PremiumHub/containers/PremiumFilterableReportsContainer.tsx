@@ -121,7 +121,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
 
     setHasAdjustedFiltersSinceLastSubmission(newValueForHasAdjustedFiltersSinceLastSubmission)
 
-  }, [selectedSchools, selectedGrades, selectedTeachers, selectedClassrooms, selectedTimeframe])
+  }, [selectedSchools, selectedGrades, selectedTeachers, selectedClassrooms, selectedTimeframe, loadingFilters])
 
   React.useEffect(() => {
     if (showCustomDateModal || (customStartDate && customEndDate) || !lastUsedTimeframe) { return }
@@ -174,7 +174,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
   function getFilterSelections() {
     requestPost('/admin_report_filter_selections/show', { report: reportPath() }, (selections) => {
       if (selections) {
-        const { grades, schools, teachers, classrooms, timeframe, } =  JSON.parse(selections.filter_selections)
+        const { grades, schools, teachers, classrooms, timeframe, } = selections.filter_selections
         setSelectedAndLastSubmitted(grades, schools, teachers, classrooms, timeframe)
       }
       setLoadingSavedFilterSelections(false)
@@ -191,8 +191,10 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
 
     }
     const params = {
-      filter_selections: JSON.stringify(filterSelections),
-      report: reportPath(),
+      admin_report_filter_selection: {
+        filter_selections: filterSelections,
+        report: reportPath(),
+      }
     }
 
     requestPost('/admin_report_filter_selections/create_or_update', params, () => {})
@@ -217,6 +219,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
       const classroomOptions = filterData.classrooms.map(classroom => ({ ...classroom, label: classroom.name, value: classroom.id }))
       const allTeacherOptions = filterData.all_teachers?.map(teacher => ({ ...teacher, label: teacher.name, value: teacher.id }))
       const allClassroomOptions = filterData.all_classrooms?.map(classroom => ({ ...classroom, label: classroom.name, value: classroom.id }))
+      const allSchoolOptions = filterData.all_schools?.map(school => ({ ...school, label: school.name, value: school.id }))
 
       const timeframe = defaultTimeframe(timeframeOptions)
 
@@ -231,7 +234,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
       }
 
       if (loadingFilters) {
-        setOriginalAllSchools(schoolOptions)
+        setOriginalAllSchools(allSchoolOptions)
         setOriginalAllClassrooms(allClassroomOptions)
         setOriginalAllTeachers(allTeacherOptions)
 

@@ -50,7 +50,8 @@ class SnapshotsController < ApplicationController
       teachers: format_option_list(sorted_teacher_options),
       classrooms: format_option_list(classroom_options),
       all_classrooms: initial_load? ? format_option_list(all_classroom_options) : nil,
-      all_teachers: initial_load? ? format_option_list(all_sorted_teacher_options) : nil
+      all_teachers: initial_load? ? format_option_list(all_sorted_teacher_options) : nil,
+      all_schools: initial_load? ? format_option_list(school_options) : nil
     }
   end
 
@@ -90,6 +91,7 @@ class SnapshotsController < ApplicationController
       .joins(:schools_users)
       .left_outer_joins(:classrooms_teachers)
       .joins("LEFT OUTER JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id") # manual join to avoid the default scope on Classroom
+      .where(schools_users: {school_id: school_options.pluck(:id)})
 
     teachers.sort_by(&:last_name)
   end
@@ -97,6 +99,8 @@ class SnapshotsController < ApplicationController
   private def all_classroom_options
     Classroom.unscoped
       .distinct
+      .joins(:classrooms_teachers)
+      .where(classrooms_teachers: {user_id: all_sorted_teacher_options.pluck(:id)})
       .order(:name)
   end
 

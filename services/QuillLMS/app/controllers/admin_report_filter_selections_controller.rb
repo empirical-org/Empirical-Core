@@ -23,6 +23,17 @@ class AdminReportFilterSelectionsController < ApplicationController
   end
 
   private def admin_report_filter_selection_params
-    params.permit(:report, :filter_selections)
+    params
+      .require(:admin_report_filter_selection)
+      .permit(
+        :report,
+        filter_selections: [
+          timeframe: [:value, :name, :default, :label],
+          schools: [:id, :name, :label, :value],
+          teachers: [:id, :name, :label, :value],
+          classrooms: [:id, :name, :label, :value],
+          grades: [:value, :name, :label]
+        ]
+      )
   end
 end
