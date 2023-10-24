@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class AdminReportCsvUploader < CarrierWave::Uploader::Base
-  attr_accessor :admin_id
+  attr_reader :admin_id
 
   fog_directory ENV.fetch('ADMIN_REPORT_FOG_DIRECTORY', 'admin-report-fog-directory-staging')
 
   FILENAME_PREFIX = 'ADMIN_REPORT_'
 
-  def initialize(model, mounted_as, admin_id:)
+  def initialize(model = nil, mounted_as = nil, admin_id:)
     @admin_id = admin_id
     super(model, mounted_as)
   end

@@ -7,13 +7,13 @@ module Snapshots
     class CloudUploadError < StandardError; end
 
     QUERIES = {
-      'create_report_download' => Snapshots::UntruncatedDataExportQuery
+      'create_csv_report_download' => Snapshots::UntruncatedDataExportQuery
     }
     TEMPFILE_NAME = 'temp.csv'
 
     def perform(query, user_id, timeframe, school_ids, headers_to_display, filters)
       payload = generate_payload(query, timeframe, school_ids, filters)
-      uploader = AdminReportCsvUploader.new(nil, nil, admin_id: user_id)
+      uploader = AdminReportCsvUploader.new(admin_id: user_id)
 
       csv_tempfile = Tempfile.new(TEMPFILE_NAME)
       csv_tempfile << Adapters::Csv::AdminPremiumDataExport.to_csv_string(payload, headers_to_display)

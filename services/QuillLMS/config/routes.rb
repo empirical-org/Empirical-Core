@@ -733,7 +733,7 @@ EmpiricalGrammar::Application.routes.draw do
       post :previous_count
       post :top_x
       post :data_export
-      post :create_report_download
+      post :create_csv_report_download
     end
   end
 

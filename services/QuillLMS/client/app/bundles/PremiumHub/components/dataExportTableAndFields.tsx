@@ -154,9 +154,9 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
     })
   }
 
-  function startCsvDownload() {
+  function createCsvReportDownload() {
     const requestParams = {
-      query: 'create_report_download',
+      query: 'create_csv_report_download',
       timeframe: selectedTimeframe,
       timeframe_custom_start: customTimeframeStart,
       timeframe_custom_end: customTimeframeEnd,
@@ -166,7 +166,7 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
       grades: selectedGrades,
       headers_to_display: getHeaders().map(header => header.attribute)
     }
-    requestPost('/snapshots/create_report_download', requestParams, (body) => {
+    requestPost('/snapshots/create_csv_report_download', requestParams, (body) => {
     })
   }
 
@@ -261,7 +261,7 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
     <React.Fragment>
       <div className="header">
         <h1>Data Export</h1>
-        <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={startCsvDownload} type="button">
+        <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={createCsvReportDownload} type="button">
           <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />
           <span>Download</span>
         </button>

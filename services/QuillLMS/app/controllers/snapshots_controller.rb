@@ -24,12 +24,12 @@ class SnapshotsController < ApplicationController
     "count" => Snapshots::CacheSnapshotCountWorker,
     "top_x" => Snapshots::CacheSnapshotTopXWorker,
     "data_export" => Snapshots::CachePremiumReportsWorker,
-    "create_report_download" => Snapshots::PremiumDownloadReportsWorker
+    "create_csv_report_download" => Snapshots::PremiumDownloadReportsWorker
   }
 
-  before_action :set_query, only: [:count, :top_x, :data_export, :create_report_download]
-  before_action :validate_request, only: [:count, :top_x, :data_export, :create_report_download]
-  before_action :authorize_request, only: [:count, :top_x, :data_export, :create_report_download]
+  before_action :set_query, only: [:count, :top_x, :data_export, :create_csv_report_download]
+  before_action :validate_request, only: [:count, :top_x, :data_export, :create_csv_report_download]
+  before_action :authorize_request, only: [:count, :top_x, :data_export, :create_csv_report_download]
 
   def count
     render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
@@ -39,7 +39,7 @@ class SnapshotsController < ApplicationController
     render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
   end
 
-  def create_report_download
+  def create_csv_report_download
     timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(snapshot_params[:timeframe],
       custom_start: snapshot_params[:timeframe_custom_start],
       custom_end: snapshot_params[:timeframe_custom_end],
