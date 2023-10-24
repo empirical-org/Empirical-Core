@@ -1,6 +1,4 @@
 .diagnostic-reports-main {
-  // this 317px comes from the filter sidebar element width
-  max-width: calc(100% - 317px) !important;
   .header {
     .buttons-container {
       display: flex;
@@ -58,11 +56,20 @@
       }
     }
   }
-  .group-by-dropdown {
+  .dropdowns-container {
+    display: flex;
+  }
+  .diagnostic-type-dropdown {
+    margin-right: 32px !important;
+  }
+  .group-by-dropdown,
+  .diagnostic-type-dropdown {
     margin-top: 32px;
     max-width: 300px;
+    width: 100%;
   }
-  .growth-diagnostic-reports-overview-table {
+  .growth-diagnostic-reports-overview-table, .growth-diagnostic-reports-by-skill-table {
+    width: 68vw;
     margin-top: 48px;
     .data-table-headers {
       padding-right: 0px;

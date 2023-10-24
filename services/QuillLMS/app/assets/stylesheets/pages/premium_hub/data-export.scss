@@ -1,7 +1,4 @@
 .data-export-main {
-  // this 317px comes from the filter sidebar element width
-  max-width: calc(100% - 317px) !important;
-
   .data-export-container {
     display: flex;
     flex-direction: column;
@@ -51,7 +48,8 @@
     }
 
     .preview-section {
-
+      width: 68vw;
+      max-width: $sitewidepagewidth;
       .preview-disclaimer-container {
         display: flex;
         padding: 16px;
@@ -71,7 +69,7 @@
       border-radius: 8px;
       overflow-y: clip;
       overflow-x: auto;
-      width: 100%;
+      width: 68vw;
 
       .data-table-headers {
         background-color: $quill-grey-1;

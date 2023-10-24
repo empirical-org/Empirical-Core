@@ -96,6 +96,20 @@ exports[`DiagnosticGrowthReports full state it should render the expected header
       </button>
     </div>
     <div
+      class="filter-button-container"
+    >
+      <button
+        class="interactive-wrapper focus-on-light"
+        type="button"
+      >
+        <img
+          alt="Filter icon with three vertical dots and 3 horizontal lines"
+          src="undefined/images/icons/icons-filter.svg"
+        />
+        Filters
+      </button>
+    </div>
+    <div
       class="dropdown-container input-container inactive has-text  group-by-dropdown searchable "
       role="button"
       tabindex="0"
@@ -175,20 +189,6 @@ exports[`DiagnosticGrowthReports full state it should render the expected header
           </div>
         </div>
       </div>
-    </div>
-    <div
-      class="filter-button-container"
-    >
-      <button
-        class="interactive-wrapper focus-on-light"
-        type="button"
-      >
-        <img
-          alt="Filter icon with three vertical dots and 3 horizontal lines"
-          src="undefined/images/icons/icons-filter.svg"
-        />
-        Filters
-      </button>
     </div>
     <p
       class="empty-state-message"
@@ -368,6 +368,20 @@ exports[`DiagnosticGrowthReports full state it should render the overview table 
       </button>
     </div>
     <div
+      class="filter-button-container"
+    >
+      <button
+        class="interactive-wrapper focus-on-light"
+        type="button"
+      >
+        <img
+          alt="Filter icon with three vertical dots and 3 horizontal lines"
+          src="undefined/images/icons/icons-filter.svg"
+        />
+        Filters
+      </button>
+    </div>
+    <div
       class="dropdown-container input-container inactive has-text  group-by-dropdown searchable "
       role="button"
       tabindex="0"
@@ -447,20 +461,6 @@ exports[`DiagnosticGrowthReports full state it should render the overview table 
           </div>
         </div>
       </div>
-    </div>
-    <div
-      class="filter-button-container"
-    >
-      <button
-        class="interactive-wrapper focus-on-light"
-        type="button"
-      >
-        <img
-          alt="Filter icon with three vertical dots and 3 horizontal lines"
-          src="undefined/images/icons/icons-filter.svg"
-        />
-        Filters
-      </button>
     </div>
     <p
       class="empty-state-message"
