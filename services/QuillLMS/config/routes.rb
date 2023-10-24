@@ -736,6 +736,13 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  resources :admin_report_filter_selections, only: [] do
+    collection do
+      post '/show', to: 'admin_report_filter_selections#show'
+      post '/create_or_update', to: 'admin_report_filter_selections#create_or_update'
+    end
+  end
+
   other_pages = %w(
     beta
     board
