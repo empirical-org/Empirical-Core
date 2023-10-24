@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe CompleteAccountCreation do
+RSpec.describe CompleteAccountCreation do
 
   it 'triggers account creation when user is a teacher' do
     user = create(:user, role: 'teacher')
