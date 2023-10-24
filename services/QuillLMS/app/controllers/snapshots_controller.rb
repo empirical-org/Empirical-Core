@@ -48,7 +48,9 @@ class SnapshotsController < ApplicationController
       schools: format_option_list(school_options),
       grades: GRADE_OPTIONS,
       teachers: format_option_list(sorted_teacher_options),
-      classrooms: format_option_list(classroom_options)
+      classrooms: format_option_list(classroom_options),
+      all_classrooms: initial_load? ? format_option_list(all_classroom_options) : nil,
+      all_teachers: initial_load? ? format_option_list(all_sorted_teacher_options) : nil
     }
   end
 
@@ -81,6 +83,21 @@ class SnapshotsController < ApplicationController
     return teachers.where(classrooms: {grade: grades}) if grades.present?
 
     teachers
+  end
+
+  private def all_sorted_teacher_options
+    teachers = User.distinct
+      .joins(:schools_users)
+      .left_outer_joins(:classrooms_teachers)
+      .joins("LEFT OUTER JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id") # manual join to avoid the default scope on Classroom
+
+    teachers.sort_by(&:last_name)
+  end
+
+  private def all_classroom_options
+    Classroom.unscoped
+      .distinct
+      .order(:name)
   end
 
   private def sorted_teacher_options
@@ -192,8 +209,17 @@ class SnapshotsController < ApplicationController
   end
 
   private def option_params
-    params.permit(school_ids: [],
+    params.permit(
+      :is_initial_load,
+      :report,
+      school_ids: [],
       grades: [],
-      teacher_ids: [])
+      teacher_ids: []
+    )
   end
+
+  private def initial_load?
+    option_params[:is_initial_load] == "true" || option_params[:is_initial_load] == true
+  end
+
 end

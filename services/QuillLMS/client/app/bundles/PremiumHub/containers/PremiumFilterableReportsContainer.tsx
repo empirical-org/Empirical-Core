@@ -3,6 +3,7 @@ import queryString from 'query-string';
 import * as _ from 'lodash'
 import * as Pusher from 'pusher-js';
 import { Routes, Route } from "react-router-dom-v5-compat";
+import { useLocation } from 'react-router-dom';
 
 import DataExportContainer from './DataExportContainer';
 import UsageSnapshotsContainer from './UsageSnapshotsContainer';
@@ -23,7 +24,6 @@ const openGreenSidebarIcon = `${sidebarImgSrcStem}/open_sidebar_green.svg`
 const openGraySidebarIcon = `${sidebarImgSrcStem}/open_sidebar_gray.svg`
 const closedGreenSidebarIcon = `${sidebarImgSrcStem}/closed_sidebar_green.svg`
 const closedGraySidebarIcon = `${sidebarImgSrcStem}/closed_sidebar_gray.svg`
-
 
 export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) => {
   const [loadingFilters, setLoadingFilters] = React.useState(true)
@@ -65,6 +65,8 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
   const [pusherChannel, setPusherChannel] = React.useState(null)
 
   const [showFilters, setShowFilters] = React.useState(true)
+
+  const location = useLocation();
 
   React.useEffect(() => {
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
@@ -137,22 +139,24 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
   }
 
   function getFilters() {
-    const searchParams = {
+    const params = {
       timeframe: selectedTimeframe,
       school_ids: selectedSchools?.map(s => s.id) || null,
       teacher_ids: selectedTeachers?.map(t => t.id) || null,
       classroom_ids: selectedClassrooms?.map(c => c.id) || null,
-      grades: selectedGrades?.map(g => g.value)
+      grades: selectedGrades?.map(g => g.value),
+      report: location.pathname.slice(location.pathname.lastIndexOf("/") , location.pathname.length),
+      is_initial_load: loadingFilters
     }
 
-    requestPost('/snapshots/options', searchParams, (filterData) => {
+    requestPost('/snapshots/options', params, (filterData) => {
       const timeframeOptions = filterData.timeframes.map(tf => ({ ...tf, label: tf.name }))
       const gradeOptions = filterData.grades.map(grade => ({ ...grade, label: grade.name }))
       const schoolOptions = filterData.schools.map(school => ({ ...school, label: school.name, value: school.id }))
-
       const teacherOptions = filterData.teachers.map(teacher => ({ ...teacher, label: teacher.name, value: teacher.id }))
-
       const classroomOptions = filterData.classrooms.map(classroom => ({ ...classroom, label: classroom.name, value: classroom.id }))
+      const allTeacherOptions = filterData.all_teachers?.map(teacher => ({ ...teacher, label: teacher.name, value: teacher.id }))
+      const allClassroomOptions = filterData.all_classrooms?.map(classroom => ({ ...classroom, label: classroom.name, value: classroom.id }))
 
       const timeframe = defaultTimeframe(timeframeOptions)
 
@@ -177,9 +181,9 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
 
         setLastUsedTimeframe(timeframe)
 
-        setOriginalAllClassrooms(classroomOptions)
         setOriginalAllSchools(schoolOptions)
-        setOriginalAllTeachers(teacherOptions)
+        setOriginalAllClassrooms(allClassroomOptions)
+        setOriginalAllTeachers(allTeacherOptions)
 
         setLoadingFilters(false)
       }
