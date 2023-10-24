@@ -108,6 +108,27 @@ module Analytics
       })
     end
 
+    def track_google_student_set_password(student, teacher)
+      return if teacher.nil? || student.nil?
+
+      identify(teacher)
+      track(
+        event: Analytics::SegmentIo::BackgroundEvents::GOOGLE_STUDENT_set_password,
+        properties: { student_id: student.id },
+        user_id: teacher.id
+      )
+    end
+
+    def track_google_teacher_set_password(teacher)
+      return if teacher.nil?
+
+      identify(teacher)
+      track(
+        event: Analytics::SegmentIo::BackgroundEvents::GOOGLE_TEACHER_set_password,
+        user_id: teacher.id
+      )
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity
     def track_classroom_creation(classroom)
       # TODO: Remove early return once this bug is fixed

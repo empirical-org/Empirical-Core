@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Analytics::SegmentAnalytics do
+RSpec.describe Analytics::SegmentAnalytics do
   let(:analytics) { described_class.new }
   let(:track_calls) { analytics.backend.track_calls }
   let(:identify_calls) { analytics.backend.identify_calls }
@@ -487,6 +487,74 @@ describe Analytics::SegmentAnalytics do
       expect(identify_calls.size).to eq(1)
       expect(track_calls.size).to eq(0)
       expect(identify_calls[0][:traits].length).to eq(11)
+    end
+  end
+
+  context '#track_google_student_set_password' do
+    subject { analytics.track_google_student_set_password(student, teacher) }
+
+    context 'teacher is nil' do
+      let(:teacher) { nil }
+      let(:student) { nil }
+
+      it 'tracks no events' do
+        subject
+        expect(identify_calls.size).to eq 0
+        expect(track_calls.size).to eq 0
+      end
+    end
+
+    context 'teacher is present' do
+      let(:teacher) { create(:teacher) }
+
+      context 'student is nil' do
+        let(:student) { nil }
+
+        it 'tracks no events' do
+          subject
+          expect(identify_calls.size).to eq 0
+          expect(track_calls.size).to eq 0
+        end
+      end
+
+      context 'student is present' do
+        let(:student) { create(:student) }
+
+        it 'tracks an event with information about the student and teacher' do
+          subject
+          expect(identify_calls.size).to eq 1
+          expect(track_calls.size).to eq 1
+          expect(track_calls[0][:event]).to eq Analytics::SegmentIo::BackgroundEvents::GOOGLE_STUDENT_set_password
+          expect(track_calls[0][:user_id]).to eq teacher.id
+          expect(track_calls[0][:properties][:student_id]).to eq student.id
+        end
+      end
+    end
+  end
+
+  context '#track_google_teacher_set_password' do
+    subject { analytics.track_google_teacher_set_password(teacher) }
+
+    context 'teacher is nil' do
+      let(:teacher) { nil }
+
+      it 'tracks no events' do
+        subject
+        expect(identify_calls.size).to eq 0
+        expect(track_calls.size).to eq 0
+      end
+    end
+
+    context 'teacher is present' do
+      let(:teacher) { create(:teacher) }
+
+      it 'tracks an event with information about the student and teacher' do
+        subject
+        expect(identify_calls.size).to eq 1
+        expect(track_calls.size).to eq 1
+        expect(track_calls[0][:event]).to eq Analytics::SegmentIo::BackgroundEvents::GOOGLE_TEACHER_set_password
+        expect(track_calls[0][:user_id]).to eq teacher.id
+      end
     end
   end
 end
