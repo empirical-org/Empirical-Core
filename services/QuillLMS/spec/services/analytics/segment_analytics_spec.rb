@@ -524,7 +524,7 @@ RSpec.describe Analytics::SegmentAnalytics do
           subject
           expect(identify_calls.size).to eq 1
           expect(track_calls.size).to eq 1
-          expect(track_calls[0][:event]).to eq Analytics::SegmentIo::BackgroundEvents::GOOGLE_STUDENT_set_password
+          expect(track_calls[0][:event]).to eq Analytics::SegmentIo::BackgroundEvents::GOOGLE_STUDENT_SET_PASSWORD
           expect(track_calls[0][:user_id]).to eq teacher.id
           expect(track_calls[0][:properties][:student_id]).to eq student.id
         end
@@ -552,7 +552,7 @@ RSpec.describe Analytics::SegmentAnalytics do
         subject
         expect(identify_calls.size).to eq 1
         expect(track_calls.size).to eq 1
-        expect(track_calls[0][:event]).to eq Analytics::SegmentIo::BackgroundEvents::GOOGLE_TEACHER_set_password
+        expect(track_calls[0][:event]).to eq Analytics::SegmentIo::BackgroundEvents::GOOGLE_TEACHER_SET_PASSWORD
         expect(track_calls[0][:user_id]).to eq teacher.id
       end
     end
