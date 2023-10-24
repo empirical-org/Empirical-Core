@@ -4,6 +4,7 @@ import { FULL, restrictedPage, OVERVIEW, SKILL, STUDENT } from '../../shared'
 import { Spinner, whiteArrowPointingDownIcon, filterIcon, documentFileIcon } from '../../../Shared/index'
 import OverviewSection from './overviewSection'
 import SkillSection from './skillSection'
+import StudentSection from './studentSection'
 
 const emailWhiteIconSrc = `${process.env.CDN_URL}/images/icons/email-icon-white.svg`
 const barChartGreySrc = `${process.env.CDN_URL}/images/pages/diagnostic_reports/icons-bar-chart.svg`
@@ -107,6 +108,7 @@ export const DiagnosticGrowthReportsContainer = ({
       </div>
       {activeTab === OVERVIEW && <OverviewSection {...sharedProps} />}
       {activeTab === SKILL && <SkillSection {...sharedProps} />}
+      {activeTab === STUDENT && <StudentSection {...sharedProps} />}
     </main>
   )
 }
