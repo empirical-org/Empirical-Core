@@ -113,7 +113,7 @@ module Analytics
 
       identify(teacher)
       track(
-        event: Analytics::SegmentIo::BackgroundEvents::GOOGLE_STUDENT_set_password,
+        event: Analytics::SegmentIo::BackgroundEvents::GOOGLE_STUDENT_SET_PASSWORD,
         properties: { student_id: student.id },
         user_id: teacher.id
       )
@@ -124,7 +124,7 @@ module Analytics
 
       identify(teacher)
       track(
-        event: Analytics::SegmentIo::BackgroundEvents::GOOGLE_TEACHER_set_password,
+        event: Analytics::SegmentIo::BackgroundEvents::GOOGLE_TEACHER_SET_PASSWORD,
         user_id: teacher.id
       )
     end

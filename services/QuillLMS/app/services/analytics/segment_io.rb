@@ -80,8 +80,8 @@ module Analytics
       ADMIN_INVITED_BY_TEACHER = "Admin invited by teacher"
       TEACHER_INVITED_ADMIN = "Teacher invited admin"
       # Google user has password added
-      GOOGLE_STUDENT_set_password = "Google user set a password | student"
-      GOOGLE_TEACHER_set_password = "Google user set a password | teacher"
+      GOOGLE_STUDENT_SET_PASSWORD = "Google user set a password | student"
+      GOOGLE_TEACHER_SET_PASSWORD = "Google user set a password | teacher"
     end
 
     module Properties
