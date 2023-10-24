@@ -42,7 +42,7 @@ class Cms::DistrictsController < Cms::CmsController
     @js_file = 'staff'
     @style_file = 'staff'
     @cms_district_path = cms_district_path(id)
-    @schools = @district.schools
+    @schools = schools_formatted_for_new_admin
   end
 
   def new_subscription
@@ -83,6 +83,17 @@ class Cms::DistrictsController < Cms::CmsController
 
   private def set_district
     @district = District.find(params[:id])
+  end
+
+  private def schools_formatted_for_new_admin
+    @district.schools.map { |s|
+      {
+        id: s.id,
+        name: s.name,
+        checked: s.subscriptions.first.present?,
+        has_subscription: s.subscriptions.first.present?
+      }
+    }
   end
 
   private def text_search_inputs

@@ -3,6 +3,7 @@ import * as React from 'react';
 import { requestPost } from '../../../modules/request';
 import { Input, Snackbar, Spinner, defaultSnackbarTimeout } from '../../Shared';
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
+import { DataTable } from '../../Shared/index';
 import { InputEvent } from '../interfaces/evidenceInterfaces';
 
 const ADMIN = 'admin';
@@ -15,6 +16,13 @@ interface NewAdminOrDistrictUserProps {
   schools?: any[]
 }
 
+interface School {
+  id: number,
+  name: string,
+  checked: boolean,
+  has_subscription: string
+}
+
 const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId, schools }: NewAdminOrDistrictUserProps) => {
   const [firstName, setFirstName] = React.useState<string>('');
   const [lastName, setLastName] = React.useState<string>('');
@@ -23,7 +31,12 @@ const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId, schools
   const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
   const [snackbarText, setSnackbarText] = React.useState<string>('');
   const [loading, setLoading] = React.useState<boolean>(false);
-  const [schoolIds, setSchoolIds] = React.useState<Number[]>([]);
+
+  const reformattedSchools = schools.map((s) => {
+    s.has_subscription ? s.has_subscription = 'Yes' : s.has_subscription = ''
+    return s
+  })
+  const [checklistSchools, setChecklistSchools] = React.useState<School[]>(reformattedSchools);
 
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
@@ -56,7 +69,7 @@ const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId, schools
         first_name: firstName.trim(),
         last_name: lastName.trim(),
         email: email.trim(),
-        school_ids: schoolIds,
+        school_ids: checklistSchools.filter((s) => s.checked).map((s) => s.id),
       }
       requestPost(requestUrl, params, (body) => {
         if(body.error) {
@@ -79,35 +92,48 @@ const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId, schools
     window.location.href = returnUrl
   }
 
-  function handleCheckboxChange(schoolId) {
-    setSchoolIds((prevSchoolIds) => {
-      let updatedSchoolIds = prevSchoolIds.slice()
-      if (updatedSchoolIds.includes(schoolId)) {
-        updatedSchoolIds = updatedSchoolIds.filter(s => s !== schoolId)
-      } else {
-        updatedSchoolIds.push(schoolId)
-      }
-      return updatedSchoolIds;
-    });
+  function checkAllRows() {
+    const schools = checklistSchools.map(school => {
+      school.checked = true
+      return school
+    })
+    setChecklistSchools(schools)
+  }
+
+  function uncheckAllRows() {
+    const schools = checklistSchools.map(school => {
+      school.checked = false
+      return school
+    })
+    setChecklistSchools(schools)
+  }
+
+  function handleCheckboxChange(id) {
+    const schools = [...checklistSchools]
+    const school = schools.find(school => school.id === id)
+    school.checked = !school.checked
+    setChecklistSchools(schools)
   };
 
   function attachSchools() {
+    const headers = [
+      {width: '460px', name: 'School', attribute: 'name'},
+      {width: '120px', name: 'Has Subscription?', attribute: 'has_subscription'}
+    ]
+
     return (
       <section>
         <h3>Attach Schools</h3>
         <p>The user will become an Admin for the following schools:</p>
-        {
-          schools.map((school) => (
-            <div key={school.id}>
-              <input
-                id={`checkbox-${school.id}`}
-                onChange={() => handleCheckboxChange(school.id)}
-                type="checkbox"
-              />
-              <label htmlFor={`checkbox-${school.id}`}>{school.name}</label>
-            </div>
-          ))
-        }
+        <DataTable
+          checkAllRows={checkAllRows}
+          checkRow={handleCheckboxChange}
+          headers={headers}
+          rows={checklistSchools}
+          showCheckboxes={true}
+          uncheckAllRows={uncheckAllRows}
+          uncheckRow={handleCheckboxChange}
+        />
       </section>
     )
   }
