@@ -26,6 +26,7 @@ const closedGreenSidebarIcon = `${sidebarImgSrcStem}/closed_sidebar_green.svg`
 const closedGraySidebarIcon = `${sidebarImgSrcStem}/closed_sidebar_gray.svg`
 
 export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) => {
+  const [loadingSavedFilterSelections, setLoadingSavedFilterSelections] = React.useState(true)
   const [loadingFilters, setLoadingFilters] = React.useState(true)
 
   const [allTimeframes, setAllTimeframes] = React.useState(null)
@@ -73,8 +74,20 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     const channel = pusher.subscribe(String(adminInfo.id));
     setPusherChannel(channel)
 
-    getFilters()
+    getFilterSelections()
   }, [])
+
+  React.useEffect(() => {
+    if (!loadingSavedFilterSelections) {
+      getFilters()
+    }
+  }, [loadingSavedFilterSelections])
+
+  React.useEffect(() => {
+    if (loadingSavedFilterSelections) { return }
+
+    saveFilterSelections()
+  }, [searchCount])
 
   React.useEffect(() => {
     if (loadingFilters) { return }
@@ -138,6 +151,53 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     return timeframes?.find(timeframe => timeframe.default) || null
   }
 
+  function reportPath() {
+    return location.pathname.slice(location.pathname.lastIndexOf("/") + 1, location.pathname.length)
+  }
+
+  function setSelectedAndLastSubmitted(grades, schools, teachers, classrooms, timeframe) {
+    setSelectedGrades(grades)
+    setSelectedSchools(schools)
+    setSelectedTeachers(teachers)
+    setSelectedClassrooms(classrooms)
+    setSelectedTimeframe(timeframe)
+
+    setLastSubmittedGrades(grades)
+    setLastSubmittedSchools(schools)
+    setLastSubmittedTeachers(teachers)
+    setLastSubmittedClassrooms(classrooms)
+    setLastSubmittedTimeframe(timeframe)
+
+    setLastUsedTimeframe(timeframe)
+  }
+
+  function getFilterSelections() {
+    requestPost('/admin_report_filter_selections/show', { report: reportPath() }, (selections) => {
+      if (selections) {
+        const { grades, schools, teachers, classrooms, timeframe, } =  JSON.parse(selections.filter_selections)
+        setSelectedAndLastSubmitted(grades, schools, teachers, classrooms, timeframe)
+      }
+      setLoadingSavedFilterSelections(false)
+    })
+  }
+
+  function saveFilterSelections() {
+    const filterSelections = {
+      timeframe: selectedTimeframe,
+      schools: selectedSchools,
+      teachers: selectedTeachers,
+      classrooms: selectedClassrooms,
+      grades: selectedGrades,
+
+    }
+    const params = {
+      filter_selections: JSON.stringify(filterSelections),
+      report: reportPath(),
+    }
+
+    requestPost('/admin_report_filter_selections/create_or_update', params, () => {})
+  }
+
   function getFilters() {
     const params = {
       timeframe: selectedTimeframe,
@@ -166,21 +226,11 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
       if (allTeachers?.length !== teacherOptions.length) { setAllTeachers(teacherOptions) }
       if (allClassrooms?.length !== classroomOptions.length) { setAllClassrooms(classroomOptions) }
 
+      if (loadingFilters && (!selectedGrades || !selectedSchools || !selectedTeachers || !selectedClassrooms || !selectedTimeframe)) {
+        setSelectedAndLastSubmitted(gradeOptions, schoolOptions, teacherOptions, classroomOptions, timeframe)
+      }
+
       if (loadingFilters) {
-        setSelectedGrades(gradeOptions)
-        setSelectedSchools(schoolOptions)
-        setSelectedTeachers(teacherOptions)
-        setSelectedClassrooms(classroomOptions)
-        setSelectedTimeframe(timeframe)
-
-        setLastSubmittedGrades(gradeOptions)
-        setLastSubmittedSchools(schoolOptions)
-        setLastSubmittedTeachers(teacherOptions)
-        setLastSubmittedClassrooms(classroomOptions)
-        setLastSubmittedTimeframe(timeframe)
-
-        setLastUsedTimeframe(timeframe)
-
         setOriginalAllSchools(schoolOptions)
         setOriginalAllClassrooms(allClassroomOptions)
         setOriginalAllTeachers(allTeacherOptions)
