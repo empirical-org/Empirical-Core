@@ -236,8 +236,8 @@ class User < ApplicationRecord
   before_validation :prep_authentication_terms
   before_save :capitalize_name, if: proc { will_save_change_to_name? && !skip_capitalize_names_callback }
   before_save :set_time_zone, unless: :time_zone
-  before_save :track_google_user_set_password, if: proc { google_user_set_password? }
-  after_save  :update_invitee_email_address, if: proc { saved_change_to_email? }
+  before_update :track_google_user_set_password, if: proc { google_user_set_password? }
+  after_save :update_invitee_email_address, if: proc { saved_change_to_email? }
   after_save :check_for_school
   after_create :generate_referrer_id, if: proc { teacher? }
   after_create :generate_default_notification_email_frequency, if: :teacher?
