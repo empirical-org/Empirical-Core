@@ -236,7 +236,7 @@ class User < ApplicationRecord
   before_validation :prep_authentication_terms
   before_save :capitalize_name, if: proc { will_save_change_to_name? && !skip_capitalize_names_callback }
   before_save :set_time_zone, unless: :time_zone
-  before_update :track_google_user_set_password, if: proc { google_user_set_password? }
+  before_update :track_google_student_set_password, if: proc { google_student_set_password? }
   after_save :update_invitee_email_address, if: proc { saved_change_to_email? }
   after_save :check_for_school
   after_create :generate_referrer_id, if: proc { teacher? }
@@ -877,16 +877,12 @@ class User < ApplicationRecord
     update!(google_id: nil, signed_up_with_google: false)
   end
 
-  def track_google_user_set_password
-    if student?
-      Analytics::SegmentAnalytics.new.track_google_student_set_password(self, teacher_of_student)
-    elsif teacher? || admin?
-      Analytics::SegmentAnalytics.new.track_google_teacher_set_password(self)
-    end
+  def track_google_student_set_password
+    Analytics::SegmentAnalytics.new.track_google_student_set_password(self, teacher_of_student)
   end
 
-  def google_user_set_password?
-    google_id.present? && password_digest_changed? && password_digest_was.nil?
+  def google_student_set_password?
+    student? && google_id.present? && password_digest_changed? && password_digest_was.nil?
   end
 
   private def validate_flags
