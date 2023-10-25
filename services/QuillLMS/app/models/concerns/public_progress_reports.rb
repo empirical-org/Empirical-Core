@@ -250,7 +250,7 @@ module PublicProgressReports
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def get_key_target_skill_concept_for_question(concept_results, is_evidence=false)
+  def get_key_target_skill_concept_for_question(concept_results, is_evidence: false)
     default = {
       name: is_evidence ? 'Writing with Evidence' : 'Conventions of Language',
       correct: get_score_for_question(concept_results) > 0
