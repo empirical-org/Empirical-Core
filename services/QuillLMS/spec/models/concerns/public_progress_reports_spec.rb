@@ -369,25 +369,26 @@ describe PublicProgressReports, type: :model do
     it 'should return a default key target skill concept if the first concept result has no extra metadata' do
       concept_result =  create(:concept_result)
 
-      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result], false)).to eq(default)
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result], concept_result.activity_session)).to eq(default)
     end
 
     it 'should return the evidence default key target skill concept if the first concept result has no extra metadata and it was an evidence session' do
-      concept_result =  create(:concept_result)
+      evidence_activity_session = create(:evidence_activity_session)
+      concept_result =  create(:concept_result, activity_session: evidence_activity_session)
 
-      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result], true)).to eq(evidence_default)
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result], concept_result.activity_session)).to eq(evidence_default)
     end
 
     it 'should return a default key target skill concept if the first concept result does not have a question_concept_uid' do
       concept_result =  create(:concept_result, extra_metadata: { question_uid: 'blah' })
 
-      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result], false)).to eq(default)
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result], concept_result.activity_session)).to eq(default)
     end
 
     it 'should return a default key target skill concept if the first concept result has a question_concept_uid that is not in the database' do
       concept_result =  create(:concept_result, extra_metadata: { question_concept_uid: 'blah' })
 
-      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result], false)).to eq(default)
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result], concept_result.activity_session)).to eq(default)
     end
 
     it 'should return a key target skill concept with the parent of the question\'s concept that is correct if the student reached an optimal response' do
@@ -402,7 +403,7 @@ describe PublicProgressReports, type: :model do
         name: concept.parent.name
       }
 
-      expect(FakeReports.new.get_key_target_skill_concept_for_question([incorrect_concept_result, correct_concept_result], false)).to eq(expected)
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([incorrect_concept_result, correct_concept_result], correct_concept_result.activity_session)).to eq(expected)
     end
 
     it 'should return a key target skill concept with the parent of the question\'s concept that is incorrect if the student did not reach an optimal response' do
@@ -416,7 +417,7 @@ describe PublicProgressReports, type: :model do
         name: concept.parent.name
       }
 
-      expect(FakeReports.new.get_key_target_skill_concept_for_question([incorrect_concept_result], false)).to eq(expected)
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([incorrect_concept_result], incorrect_concept_result.activity_session)).to eq(expected)
     end
 
   end
