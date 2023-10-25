@@ -1,6 +1,6 @@
 <% base_image_url = "#{ENV['CDN_URL']}/images/pages/teacher_premium" %>
 
-<%= render 'teachers/shared/scorebook_tabs' %>
+<%= render 'teachers/shared/scorebook_tabs' if current_user %>
 <div class="white-background-accommodate-footer teacher-premium">
   <div class="navbar-divider-bar"></div>
   <div class="container">
