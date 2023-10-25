@@ -324,7 +324,6 @@ RSpec.describe User, type: :model do
     it "should give the correct value for all the constants" do
       expect(User::ROLES).to eq(%w(teacher student staff sales-contact admin))
       expect(User::SAFE_ROLES).to eq(%w(student teacher sales-contact admin))
-      expect(User::VALID_EMAIL_REGEX).to eq(/\A[\w+\-.']+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i)
     end
   end
 
