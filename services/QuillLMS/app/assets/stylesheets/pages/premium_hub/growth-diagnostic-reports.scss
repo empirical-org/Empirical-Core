@@ -71,10 +71,32 @@
   .growth-diagnostic-reports-overview-table, .growth-diagnostic-reports-by-skill-table {
     width: 68vw;
     margin-top: 48px;
+    height: 600px;
     .data-table-headers {
       padding-right: 0px;
+      th:first-of-type {
+        .quill-tooltip {
+          left: 36px;
+        }
+      }
       th:last-of-type {
         margin-right: 0px;
+        .quill-tooltip-wrapper {
+          left: -132px;
+          right: 0px;
+        }
+      }
+      .data-table-header {
+        display: flex;
+        justify-content: space-between;
+        .quill-tooltip-trigger {
+          img {
+            margin-right: 8px;
+          }
+        }
+        .quill-tooltip {
+          text-align: left;
+        }
       }
     }
   }

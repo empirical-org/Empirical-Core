@@ -53,10 +53,10 @@ const headers = [
   },
   {
     name: '',
-    attribute: 'studentsRecommendedPractice',
+    attribute: 'studentsWithoutImprovement',
     width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
     primaryTitle: 'Students',
-    secondaryTitle: 'Recommended Practice',
+    secondaryTitle: 'Without Improvement',
     tooltipName: '',
     tooltipDescription: '',
     noTooltip: true,

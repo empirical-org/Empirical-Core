@@ -43,7 +43,7 @@ describe('SkillSection', () => {
       expect(screen.getByRole('columnheader', { name: /post skill score/i })).toBeInTheDocument()
       expect(screen.getByRole('columnheader', { name: /growth results/i })).toBeInTheDocument()
       expect(screen.getByRole('columnheader', { name: /students improved skill/i })).toBeInTheDocument()
-      expect(screen.getByRole('columnheader', { name: /students recommended practice/i })).toBeInTheDocument()
+      expect(screen.getByRole('columnheader', { name: /students without improvement/i })).toBeInTheDocument()
       expect(screen.getByRole('columnheader', { name: /students maintained proficiency/i })).toBeInTheDocument()
     })
     test('it should render the expected empty state message', () => {

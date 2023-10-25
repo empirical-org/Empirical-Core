@@ -1,6 +1,7 @@
 import * as CSS from 'csstype';
 import * as React from 'react';
 import { SortableHandle, } from 'react-sortable-hoc';
+import ReactHtmlParser from 'react-html-parser'
 
 import { SortableList, } from './sortableList';
 import { Tooltip } from './tooltip';
@@ -286,7 +287,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const { sortAscending, sortAttribute, } = this.state
     let className = `${dataTableHeaderClassName} ${header.headerClassName}`
     let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
-    let headerContent = header.name
+    let headerContent = <span>{header.name}</span>
     let headerTitle = header.name
     let headerTooltip = null
     const isMultilineHeader = header.primaryTitle && header.secondaryTitle
@@ -308,9 +309,11 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     }
 
     if(header.tooltipName && header.tooltipDescription) {
+      const { tooltipName, tooltipDescription } = header
+      const formattedDescription = Array.isArray(tooltipDescription) ? tooltipDescription.join('<br/><br/>') : tooltipDescription
       headerTooltip = (
         <Tooltip
-          tooltipText={`<p>${header.tooltipName}<br/><br/>${header.tooltipDescription}</p>`}
+          tooltipText={`<p>${tooltipName}<br/><br/>${formattedDescription}</p>`}
           tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
         />
       )
