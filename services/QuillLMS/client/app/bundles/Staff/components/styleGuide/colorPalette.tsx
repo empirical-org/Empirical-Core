@@ -104,6 +104,10 @@ const baseColorTitlesAndVariableNames = [
     variableName: "quill-green-vibrant"
   },
   {
+    title: 'Quill Viridian',
+    variableName: "quill-viridian"
+  },
+  {
     title: 'Quill Teal',
     variableName: "quill-teal"
   },
