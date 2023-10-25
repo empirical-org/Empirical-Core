@@ -359,10 +359,23 @@ describe PublicProgressReports, type: :model do
       }
     }
 
+    let!(:evidence_default) {
+      {
+        name: 'Writing with Evidence',
+        correct: true
+      }
+    }
+
     it 'should return a default key target skill concept if the first concept result has no extra metadata' do
       concept_result =  create(:concept_result)
 
       expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result])).to eq(default)
+    end
+
+    it 'should return the evidence default key target skill concept if the first concept result has no extra metadata and it was an evidence session' do
+      concept_result =  create(:concept_result)
+
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result], true)).to eq(evidence_default)
     end
 
     it 'should return a default key target skill concept if the first concept result does not have a question_concept_uid' do
