@@ -212,7 +212,6 @@ module PublicProgressReports
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def format_concept_results(activity_session, concept_results)
-    is_evidence = activity_session.classification.key == ActivityClassification::EVIDENCE_KEY
     concept_results.group_by{|cr| cr.question_number}.map { |key, cr|
 
       # if we don't sort them, we can't rely on the first result being the first attemptNum
@@ -225,7 +224,7 @@ module PublicProgressReports
         prompt: prompt_text,
         answer: cr.first.answer,
         score: get_score_for_question(cr),
-        key_target_skill_concept: get_key_target_skill_concept_for_question(cr, is_evidence),
+        key_target_skill_concept: get_key_target_skill_concept_for_question(cr, activity_session),
         concepts: cr.map { |crs|
           attempt_number = crs.attempt_number
           direct = crs.concept_result_directions&.text || crs.concept_result_instructions&.text || ""
@@ -250,9 +249,9 @@ module PublicProgressReports
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def get_key_target_skill_concept_for_question(concept_results, is_evidence)
+  def get_key_target_skill_concept_for_question(concept_results, activity_session)
     default = {
-      name: is_evidence ? 'Writing with Evidence' : 'Conventions of Language',
+      name: activity_session.is_evidence? ? 'Writing with Evidence' : 'Conventions of Language',
       correct: get_score_for_question(concept_results) > 0
     }
 
