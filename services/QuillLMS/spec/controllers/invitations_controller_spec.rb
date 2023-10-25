@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe InvitationsController, type: :controller do
+RSpec.describe InvitationsController, type: :controller do
   let(:classroom) { create(:classroom) }
   let(:user) { classroom.owner }
 
