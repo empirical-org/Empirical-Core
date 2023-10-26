@@ -6,6 +6,7 @@ describe Cms::DistrictAdminsController do
   let(:user) { create(:staff) }
   let!(:district1) { create(:district) }
   let!(:district2) { create(:district) }
+  let!(:school) { create(:school, district: district1)}
   let!(:admin) { create(:user) }
 
   before do
@@ -33,6 +34,23 @@ describe Cms::DistrictAdminsController do
           expect(ActionMailer::Base.deliveries.last.subject).to eq('[Action Required] Test, a Quill district admin account was created for you')
           expect(ActionMailer::Base.deliveries.last.to).to eq(['test@email.com'])
         end
+      end
+
+      it 'attaches the user as admin to the specified schools' do
+        email = 'test@email.com'
+        post :create, params: { district_id: district1.id, email: email, first_name: 'Test', last_name: 'User', school_ids: [school.id] }
+
+        new_user = User.find_by(email: email)
+        expect(SchoolsAdmins.where(user: new_user, school: school).first).to be
+      end
+
+      it 'if a specified school has premium, attaches the user to that school' do
+        email = 'test@email.com'
+        create(:school_subscription, school: school)
+        post :create, params: { district_id: district1.id, email: email, first_name: 'Test', last_name: 'User', school_ids: [school.id] }
+
+        new_user = User.find_by(email: email)
+        expect(SchoolsUsers.where(user: new_user, school: school).first).to be
       end
     end
 

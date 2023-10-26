@@ -29,7 +29,7 @@ class DistrictAdmin < ApplicationRecord
   def attach_schools(school_ids)
     admin
       .schools_admins
-      .create!(school_ids.map { |id| { school_id: id } } )
+      .create!(school_ids&.map { |id| { school_id: id } } )
   end
 
   def detach_schools
