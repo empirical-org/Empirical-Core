@@ -14,6 +14,7 @@ module Snapshots
     def perform(query, user_id, timeframe, school_ids, headers_to_display, filters)
       payload = generate_payload(query, timeframe, school_ids, filters)
       uploader = AdminReportCsvUploader.new(admin_id: user_id)
+      user = User.find(user_id)
 
       csv_tempfile = Tempfile.new(TEMPFILE_NAME)
       csv_tempfile << Adapters::Csv::AdminPremiumDataExport.to_csv_string(payload, headers_to_display)
@@ -25,8 +26,8 @@ module Snapshots
 
       uploaded_file_url = uploader.url
 
-      email = ENV.fetch('TEST_EMAIL_ADDRESS', User.find(user_id).email) # TODO: remove after integration testing
-      PremiumHubUserMailer.admin_premium_download_report_email(uploaded_file_url, email).deliver_now!
+      email = ENV.fetch('TEST_EMAIL_ADDRESS', user.email) # TODO: remove after integration testing
+      PremiumHubUserMailer.admin_premium_download_report_email(user, uploaded_file_url, email).deliver_now!
     end
 
     private def generate_payload(query, timeframe, school_ids, filters)

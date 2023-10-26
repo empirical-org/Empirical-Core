@@ -1,4 +1,9 @@
-<p>Hi user,</p>
+<p>Dear <%= @user.first_name %>,</p>
 
-<a href=<%= @file_url%> rel="noopener noreferrer" target="_blank">Here is your requested report.</a>
+<p> The CSV data export that you requested on <%= @human_date %> is ready to download. </p>
 
+<a href=<%= @file_url%> rel="noopener noreferrer" target="_blank">Download</a>
+
+<p>Best regards,</p>
+
+<p><%= @constants[:signatures][:quill_team]%></p>
