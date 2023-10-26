@@ -4798,7 +4798,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              Name
+              <span>
+                Name
+              </span>
             </th>
             <th
               className="data-table-header undefined"
@@ -4812,7 +4814,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              Username/Email
+              <span>
+                Username/Email
+              </span>
             </th>
             <th
               className="data-table-header undefined"
@@ -4826,7 +4830,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              Log-in Method
+              <span>
+                Log-in Method
+              </span>
             </th>
             <th
               className="data-table-header undefined"
@@ -4840,7 +4846,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              Last Active
+              <span>
+                Last Active
+              </span>
             </th>
             <th
               className="data-table-header undefined"
@@ -4854,7 +4862,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              Activities
+              <span>
+                Activities
+              </span>
             </th>
             <th
               className="data-table-header actions-header"

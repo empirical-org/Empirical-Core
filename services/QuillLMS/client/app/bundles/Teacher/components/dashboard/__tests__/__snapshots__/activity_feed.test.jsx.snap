@@ -534,7 +534,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 }
               }
             >
-              Student
+              <span>
+                Student
+              </span>
             </th>
             <th
               className="data-table-header undefined"
@@ -548,7 +550,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 }
               }
             >
-              Activity
+              <span>
+                Activity
+              </span>
             </th>
             <th
               className="data-table-header undefined"
@@ -562,7 +566,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 }
               }
             >
-              Score
+              <span>
+                Score
+              </span>
             </th>
             <th
               className="data-table-header completed-section"
@@ -576,7 +582,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 }
               }
             >
-              Completed
+              <span>
+                Completed
+              </span>
             </th>
           </tr>
         </thead>

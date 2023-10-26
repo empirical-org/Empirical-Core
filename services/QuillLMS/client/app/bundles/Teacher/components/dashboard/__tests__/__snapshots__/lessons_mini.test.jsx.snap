@@ -648,7 +648,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              Quill Lesson
+              <span>
+                Quill Lesson
+              </span>
             </th>
             <th
               className="data-table-header undefined"
@@ -662,7 +664,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              Class
+              <span>
+                Class
+              </span>
             </th>
             <th
               className="data-table-header actions-header"
@@ -683,7 +687,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              Present
+              <span>
+                Present
+              </span>
             </th>
           </tr>
         </thead>

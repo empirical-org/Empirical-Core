@@ -210,6 +210,30 @@ exports[`SkillSection loaded state it should render the expected empty state mes
               Skill Score
             </p>
           </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
         <th
           class="data-table-header undefined"
@@ -226,20 +250,96 @@ exports[`SkillSection loaded state it should render the expected empty state mes
               Skill Score
             </p>
           </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
         <th
           class="data-table-header undefined"
           scope="col"
           style="width: 182px; min-width: 182px; text-align: right;"
         >
-          Growth Results
+          <span>
+            Growth Results
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
         <th
           class="data-table-header undefined"
           scope="col"
           style="width: 182px; min-width: 182px; text-align: right;"
         >
-          Students Improved Skill
+          <span>
+            Students Improved Skill
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
         <th
           class="data-table-header undefined"
@@ -253,9 +353,33 @@ exports[`SkillSection loaded state it should render the expected empty state mes
               Students
             </p>
             <p>
-              Recommended Practice
+              Without Improvement
             </p>
           </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
         <th
           class="data-table-header undefined"
@@ -272,6 +396,30 @@ exports[`SkillSection loaded state it should render the expected empty state mes
               Proficiency
             </p>
           </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
       </tr>
     </thead>
@@ -492,6 +640,30 @@ exports[`SkillSection loaded state it should render the expected header componen
               Skill Score
             </p>
           </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
         <th
           class="data-table-header undefined"
@@ -508,20 +680,96 @@ exports[`SkillSection loaded state it should render the expected header componen
               Skill Score
             </p>
           </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
         <th
           class="data-table-header undefined"
           scope="col"
           style="width: 182px; min-width: 182px; text-align: right;"
         >
-          Growth Results
+          <span>
+            Growth Results
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
         <th
           class="data-table-header undefined"
           scope="col"
           style="width: 182px; min-width: 182px; text-align: right;"
         >
-          Students Improved Skill
+          <span>
+            Students Improved Skill
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
         <th
           class="data-table-header undefined"
@@ -535,9 +783,33 @@ exports[`SkillSection loaded state it should render the expected header componen
               Students
             </p>
             <p>
-              Recommended Practice
+              Without Improvement
             </p>
           </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
         <th
           class="data-table-header undefined"
@@ -554,6 +826,30 @@ exports[`SkillSection loaded state it should render the expected header componen
               Proficiency
             </p>
           </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
       </tr>
     </thead>

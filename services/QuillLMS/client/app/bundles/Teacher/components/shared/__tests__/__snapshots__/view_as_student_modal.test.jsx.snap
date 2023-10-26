@@ -5082,7 +5082,9 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  Name
+                  <span>
+                    Name
+                  </span>
                 </th>
                 <th
                   className="data-table-header undefined"
@@ -5096,7 +5098,9 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  Username
+                  <span>
+                    Username
+                  </span>
                 </th>
                 <th
                   className="data-table-header view-button-section"
@@ -5109,7 +5113,9 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                       "width": "88px",
                     }
                   }
-                />
+                >
+                  <span />
+                </th>
               </tr>
             </thead>
             <tbody
@@ -10469,7 +10475,9 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  Name
+                  <span>
+                    Name
+                  </span>
                 </th>
                 <th
                   className="data-table-header undefined"
@@ -10483,7 +10491,9 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  Username
+                  <span>
+                    Username
+                  </span>
                 </th>
                 <th
                   className="data-table-header view-button-section"
@@ -10496,7 +10506,9 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                       "width": "88px",
                     }
                   }
-                />
+                >
+                  <span />
+                </th>
               </tr>
             </thead>
             <tbody

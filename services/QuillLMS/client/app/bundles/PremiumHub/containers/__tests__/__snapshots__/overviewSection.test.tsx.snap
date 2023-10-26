@@ -100,21 +100,99 @@ exports[`OverviewSection loaded state it should render the expected empty state 
           scope="col"
           style="width: 182px; min-width: 182px; text-align: right;"
         >
-          Diagnostic Name
+          <span>
+            Diagnostic Name
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
         <th
           class="data-table-header undefined"
           scope="col"
           style="width: 182px; min-width: 182px; text-align: right;"
         >
-          Pre Diagnostic Completed
+          <span>
+            Pre Diagnostic Completed
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
         <th
           class="data-table-header undefined"
           scope="col"
           style="width: 182px; min-width: 182px; text-align: right;"
         >
-          Completed Activities
+          <span>
+            Completed Activities
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
         <th
           class="data-table-header undefined"
@@ -131,6 +209,30 @@ exports[`OverviewSection loaded state it should render the expected empty state 
               Time Spent
             </p>
           </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
         <th
           class="data-table-header undefined"
@@ -147,13 +249,63 @@ exports[`OverviewSection loaded state it should render the expected empty state 
               Completed
             </p>
           </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
         <th
           class="data-table-header undefined"
           scope="col"
           style="width: 182px; min-width: 182px; text-align: right;"
         >
-          Overall Skill Growth
+          <span>
+            Overall Skill Growth
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
       </tr>
     </thead>
@@ -264,21 +416,99 @@ exports[`OverviewSection loaded state it should render the expected header compo
           scope="col"
           style="width: 182px; min-width: 182px; text-align: right;"
         >
-          Diagnostic Name
+          <span>
+            Diagnostic Name
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
         <th
           class="data-table-header undefined"
           scope="col"
           style="width: 182px; min-width: 182px; text-align: right;"
         >
-          Pre Diagnostic Completed
+          <span>
+            Pre Diagnostic Completed
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
         <th
           class="data-table-header undefined"
           scope="col"
           style="width: 182px; min-width: 182px; text-align: right;"
         >
-          Completed Activities
+          <span>
+            Completed Activities
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
         <th
           class="data-table-header undefined"
@@ -295,6 +525,30 @@ exports[`OverviewSection loaded state it should render the expected header compo
               Time Spent
             </p>
           </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
         <th
           class="data-table-header undefined"
@@ -311,13 +565,63 @@ exports[`OverviewSection loaded state it should render the expected header compo
               Completed
             </p>
           </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
         <th
           class="data-table-header undefined"
           scope="col"
           style="width: 182px; min-width: 182px; text-align: right;"
         >
-          Overall Skill Growth
+          <span>
+            Overall Skill Growth
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
         </th>
       </tr>
     </thead>

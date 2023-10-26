@@ -6567,7 +6567,9 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                           }
                                         }
                                       >
-                                        Name
+                                        <span>
+                                          Name
+                                        </span>
                                       </th>
                                       <th
                                         className="data-table-header undefined"
@@ -6581,7 +6583,9 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                           }
                                         }
                                       >
-                                        Role
+                                        <span>
+                                          Role
+                                        </span>
                                       </th>
                                       <th
                                         className="data-table-header undefined"
@@ -6595,7 +6599,9 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                           }
                                         }
                                       >
-                                        Email
+                                        <span>
+                                          Email
+                                        </span>
                                       </th>
                                       <th
                                         className="data-table-header undefined"
@@ -6609,7 +6615,9 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                           }
                                         }
                                       >
-                                        Status
+                                        <span>
+                                          Status
+                                        </span>
                                       </th>
                                       <th
                                         className="data-table-header actions-header"
