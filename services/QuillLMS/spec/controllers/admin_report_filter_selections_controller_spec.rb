@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe AdminReportFilterSelectionsController, type: :controller do
   let(:user) { create(:user) }
-  let(:valid_attributes) { { report: AdminReportFilterSelection::REPORTS.sample, user_id: user.id } }
+  let(:valid_attributes) { { report: AdminReportFilterSelection::DATA_EXPORT, user_id: user.id } }
   let(:invalid_attributes) { { report: 'invalid_report', user_id: user.id } }
 
   before do
@@ -40,7 +40,7 @@ describe AdminReportFilterSelectionsController, type: :controller do
       end
 
       it "updates the filter selections" do
-        report = AdminReportFilterSelection::REPORTS.sample
+        report = AdminReportFilterSelection::USAGE_SNAPSHOT_REPORT
         admin_report_filter_selection = create(:admin_report_filter_selection, user: user, report: report, filter_selections: { 'timeframe' => { 'value' => 'last_week' } })
 
         timeframe = { 'value' => 'last_month', 'name' => 'Last Month' }
