@@ -41,7 +41,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => 
       />)
     }
     cardContent = (<React.Fragment>
-      <span className="percentage-circle-label">Proficient</span>
+      <span className="percentage-circle-label">Score</span>
       <PercentageCircle
         bgcolor="#ebebeb"
         borderWidth={8}
