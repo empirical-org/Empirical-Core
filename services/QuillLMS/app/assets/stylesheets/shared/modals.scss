@@ -1192,6 +1192,8 @@
         margin-bottom: 12px;
         &.grade {
           margin-bottom: 24px;
+          min-height: 74px;
+          justify-content: flex-start;
         }
         &.name {
           min-height: 80px;
