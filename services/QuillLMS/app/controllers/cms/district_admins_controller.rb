@@ -54,6 +54,7 @@ class Cms::DistrictAdminsController < Cms::CmsController
 
     if district_admin.save!
       district_admin.attach_schools(school_ids)
+      attach_as_teacher_to_first_premium_school(user)
       admin_info = AdminInfo.find_or_create_by!(user: user)
       admin_info.update(approver_role: User::STAFF, approval_status: AdminInfo::APPROVED)
 
@@ -75,6 +76,13 @@ class Cms::DistrictAdminsController < Cms::CmsController
     else
       render json: { error: user.errors.messages }
     end
+  end
+
+  private def attach_as_teacher_to_first_premium_school(admin)
+    first_premium_school = admin.administered_schools.find { |s| s.subscription.present? }
+    return if first_premium_school.blank?
+
+    SchoolsUsers.create!(user: admin, school: first_premium_school)
   end
 
   private def user_params

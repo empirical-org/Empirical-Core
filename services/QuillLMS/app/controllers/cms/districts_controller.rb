@@ -90,8 +90,8 @@ class Cms::DistrictsController < Cms::CmsController
       {
         id: s.id,
         name: s.name,
-        checked: s.subscriptions.first.present?,
-        has_subscription: s.subscriptions.first.present?
+        checked: s.subscription.present?,
+        has_subscription: s.subscription.present?
       }
     }
   end
