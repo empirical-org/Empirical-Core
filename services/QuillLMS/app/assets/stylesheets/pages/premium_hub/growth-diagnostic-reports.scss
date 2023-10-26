@@ -67,11 +67,12 @@
     margin-top: 32px;
     max-width: 300px;
     width: 100%;
+    min-height: 74px;
+    justify-content: flex-start;
   }
   .growth-diagnostic-reports-overview-table, .growth-diagnostic-reports-by-skill-table {
     width: 68vw;
     margin-top: 48px;
-    height: 600px;
     .data-table-headers {
       padding-right: 0px;
       th:first-of-type {

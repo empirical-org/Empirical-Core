@@ -1,7 +1,14 @@
 import * as React from 'react'
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
-import { DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH, diagnosticTypeDropdownOptions } from '../../shared'
+import { DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH, POST_QUESTIONS_CORRECT_TOOLTIP_TEXT, POST_SKILLS_IMPROVED_OR_MAINTAINED_TOOLTIP_TEXT, PRE_QUESTIONS_CORRECT_TOOLTIP_TEXT, PRE_SKILLS_PROFICIENT_TOOLTIP_TEXT, PRE_TO_POST_IMPROVED_SKILLS_TOOLTIP_TEXT, TOTAL_ACTIVITIES_AND_TIME_SPENT_TOOLTIP_TEXT, diagnosticTypeDropdownOptions } from '../../shared'
+
+const PRE_TO_POST_IMPROVED_SKILLS = "Pre to Post: Improved Skills"
+const PRE_QUESTIONS_CORRECT = "Pre: Questions Correct"
+const PRE_SKILLS_PROFICIENT = "Pre: Skills Proficient"
+const TOTAL_ACTIVITIES_AND_TIME_SPENT = "Total Activities & Time Spent"
+const POST_QUESTIONS_CORRECT = 'Post: Questions Correct'
+const POST_SKILLS_IMPROVED_OR_MAINTAINED = 'Post: Skills Improved Or Maintained'
 
 const headers = [
   {
@@ -17,8 +24,8 @@ const headers = [
     width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
     primaryTitle: 'Pre to Post:',
     secondaryTitle: 'Improved Skills',
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: PRE_TO_POST_IMPROVED_SKILLS,
+    tooltipDescription: PRE_TO_POST_IMPROVED_SKILLS_TOOLTIP_TEXT,
     noTooltip: true,
     isSortable: false
   },
@@ -28,8 +35,8 @@ const headers = [
     width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
     primaryTitle: 'Pre:',
     secondaryTitle: 'Questions Correct',
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: PRE_QUESTIONS_CORRECT,
+    tooltipDescription: PRE_QUESTIONS_CORRECT_TOOLTIP_TEXT,
     noTooltip: true,
     isSortable: false
   },
@@ -39,8 +46,8 @@ const headers = [
     width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
     primaryTitle: 'Pre:',
     secondaryTitle: 'Skills Proficient',
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: PRE_SKILLS_PROFICIENT,
+    tooltipDescription: PRE_SKILLS_PROFICIENT_TOOLTIP_TEXT,
     noTooltip: true,
     isSortable: false
   },
@@ -50,8 +57,8 @@ const headers = [
     width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
     primaryTitle: 'Total Activities &',
     secondaryTitle: 'Time Spent',
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: TOTAL_ACTIVITIES_AND_TIME_SPENT,
+    tooltipDescription: TOTAL_ACTIVITIES_AND_TIME_SPENT_TOOLTIP_TEXT,
     noTooltip: true,
     isSortable: false
   },
@@ -61,8 +68,8 @@ const headers = [
     width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
     primaryTitle: 'Post:',
     secondaryTitle: 'Questions Correct',
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: POST_QUESTIONS_CORRECT,
+    tooltipDescription: POST_QUESTIONS_CORRECT_TOOLTIP_TEXT,
     noTooltip: true,
     isSortable: false
   },
@@ -72,8 +79,8 @@ const headers = [
     width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
     primaryTitle: 'Post: Skills',
     secondaryTitle: 'Improved Or Maintained',
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: POST_SKILLS_IMPROVED_OR_MAINTAINED,
+    tooltipDescription: POST_SKILLS_IMPROVED_OR_MAINTAINED_TOOLTIP_TEXT,
     noTooltip: true,
     isSortable: false
   },

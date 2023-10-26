@@ -1,7 +1,14 @@
 import * as React from 'react'
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
-import { DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH, diagnosticTypeDropdownOptions, groupByDropdownOptions } from '../../shared'
+import { DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH, GROWTH_RESULTS_TOOLTIP_TEXT, POST_SKILL_SCORE_TOOLTIP_TEXT, PRE_SKILL_SCORE_TOOLTIP_TEXT, STUDENTS_IMPROVED_SKILL_TOOLTIP_TEXT, STUDENTS_MAINTAINED_PROFICIENCY_TOOLTIP_TEXT, STUDENTS_WITHOUT_IMPROVEMENT_TOOLTIP_TEXT, diagnosticTypeDropdownOptions, groupByDropdownOptions } from '../../shared'
+
+const PRE_SKILL_SCORE = "Pre Skill Score"
+const POST_SKILL_SCORE = "Post Skill Score"
+const GROWTH_RESULTS = "Growth Results"
+const STUDENTS_IMPROVED_SKILL = "Students Improved Skill"
+const STUDENTS_WITHOUT_IMPROVEMENT = "Students Without Improvement"
+const STUDENTS_MAINTAINED_PROFICIENCY = "Students Maintained Proficiency"
 
 const headers = [
   {
@@ -17,8 +24,8 @@ const headers = [
     width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
     primaryTitle: 'Pre',
     secondaryTitle: 'Skill Score',
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: PRE_SKILL_SCORE,
+    tooltipDescription: PRE_SKILL_SCORE_TOOLTIP_TEXT,
     noTooltip: true,
     isSortable: false
   },
@@ -28,26 +35,26 @@ const headers = [
     width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
     primaryTitle: 'Post',
     secondaryTitle: 'Skill Score',
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: POST_SKILL_SCORE,
+    tooltipDescription: POST_SKILL_SCORE_TOOLTIP_TEXT,
     noTooltip: true,
     isSortable: false
   },
   {
-    name: 'Growth Results',
+    name: GROWTH_RESULTS,
     attribute: 'growthResults',
     width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: GROWTH_RESULTS,
+    tooltipDescription: GROWTH_RESULTS_TOOLTIP_TEXT,
     noTooltip: true,
     isSortable: false
   },
   {
-    name: 'Students Improved Skill',
+    name: STUDENTS_IMPROVED_SKILL,
     attribute: 'studentsImprovedSkill',
     width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: STUDENTS_IMPROVED_SKILL,
+    tooltipDescription: STUDENTS_IMPROVED_SKILL_TOOLTIP_TEXT,
     noTooltip: true,
     isSortable: false
   },
@@ -57,8 +64,8 @@ const headers = [
     width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
     primaryTitle: 'Students',
     secondaryTitle: 'Without Improvement',
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: STUDENTS_WITHOUT_IMPROVEMENT,
+    tooltipDescription: STUDENTS_WITHOUT_IMPROVEMENT_TOOLTIP_TEXT,
     noTooltip: true,
     isSortable: false
   },
@@ -68,8 +75,8 @@ const headers = [
     width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
     primaryTitle: 'Students Maintained',
     secondaryTitle: 'Proficiency',
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: STUDENTS_MAINTAINED_PROFICIENCY,
+    tooltipDescription: STUDENTS_MAINTAINED_PROFICIENCY_TOOLTIP_TEXT,
     noTooltip: true,
     isSortable: false
   },
