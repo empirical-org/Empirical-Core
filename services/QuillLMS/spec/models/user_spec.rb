@@ -2284,19 +2284,25 @@ RSpec.describe User, type: :model do
 
         it { is_expected.to eq true }
       end
-
     end
   end
 
-  describe '#google_user_set_password?' do
-    subject { user.google_user_set_password? }
+  describe '#google_student_set_password?' do
+    subject { user.google_student_set_password? }
 
-    let(:user) { create(:user, google_id: google_id, password: password) }
-    let(:role) { 'user' }
+    let(:user) { create(:user, google_id: google_id, password: password, role: role) }
+    let(:role) { User::STUDENT}
+    let(:google_id) { 'abc123' }
+    let(:password) { 'password' }
+
+    context 'user is not a student' do
+      let(:role) { User::TEACHER }
+
+      it { expect(subject).to eq false }
+    end
 
     context 'google_id is not present' do
       let(:google_id) { nil }
-      let(:password) { 'password' }
 
       it 'is not a google user so false' do
         user.password = 'new_password'
@@ -2304,110 +2310,48 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context 'google_id is present' do
-      let(:google_id) { 'abc123' }
+    context 'password_digest has not changed' do
+      it { expect(subject).to eq false }
+    end
 
-      context 'password_digest has not changed' do
-        let(:password) { nil }
+    context 'password_digest has changed' do
+      context 'password_digest was not nil' do
+        let(:password) { 'password' }
 
-        it { expect(subject).to eq false }
+        it 'already had a password' do
+          user.password = nil
+          expect(subject).to eq false
+        end
       end
 
-      context 'password_digest has changed' do
-        context 'password_digest was not nil' do
-          let(:password) { 'password' }
+      context 'password_digest was nil' do
+        let(:password) { nil }
 
-          it 'already had a password' do
-            user.password = nil
-            expect(subject).to eq false
-          end
-        end
-
-        context 'password_digest was nil' do
-          let(:password) { nil }
-
-          it 'sets a password' do
-            user.password = 'password'
-            expect(subject).to eq true
-          end
+        it 'sets a password' do
+          user.password = 'password'
+          expect(subject).to eq true
         end
       end
     end
   end
 
-  describe '#track_google_user_set_password' do
-    subject { user.track_google_user_set_password }
+  describe '#track_google_student_set_password' do
+    subject { user.track_google_student_set_password }
 
     let(:analytics_instance) { double('Analytics') }
-    let(:user) { create(:user, google_id: 'abc123', role: role) }
+    let(:user) { create(:user, google_id: 'abc123') }
+    let(:teacher) { double('Teacher') }
 
     before do
       allow(Analytics::SegmentAnalytics).to receive(:new).and_return(analytics_instance)
       allow(analytics_instance).to receive(:track_google_student_set_password)
-      allow(analytics_instance).to receive(:track_google_teacher_set_password)
+      allow(user).to receive(:teacher_of_student).and_return(teacher)
     end
 
-    context 'google_user_set_password? is false' do
-      let(:role) { 'user' }
-
-      before { allow(user).to receive(:google_user_set_password?).and_return(false) }
-
-      it 'tracks nothing' do
-        expect(analytics_instance).not_to receive(:track_google_student_set_password)
-        expect(analytics_instance).not_to receive(:track_google_teacher_set_password)
-        user.password =  'password'
-        subject
-      end
-    end
-
-    context 'google_user_set_password? is true' do
-      before { allow(user).to receive(:google_user_set_password?).and_return(true) }
-
-      context 'user is a student' do
-        let(:role) { User::STUDENT }
-        let(:teacher) { double('Teacher') }
-
-        before { allow(user).to receive(:teacher_of_student).and_return(teacher) }
-
-        it 'tracks google student set password' do
-          expect(analytics_instance).to receive(:track_google_student_set_password).with(user, teacher)
-          expect(analytics_instance).not_to receive(:track_google_teacher_set_password)
-          user.password = 'password'
-          subject
-        end
-      end
-
-      context 'user is a teacher' do
-        let(:role) { User::TEACHER }
-
-        it 'tracks google teacher set password' do
-          expect(analytics_instance).not_to receive(:track_google_student_set_password)
-          expect(analytics_instance).to receive(:track_google_teacher_set_password).with(user)
-          user.password = 'password'
-          subject
-        end
-      end
-
-      context 'user is an admin' do
-        let(:role) { User::ADMIN }
-
-        it 'tracks google teacher set password' do
-          expect(analytics_instance).not_to receive(:track_google_student_set_password)
-          expect(analytics_instance).to receive(:track_google_teacher_set_password).with(user)
-          user.password = 'password'
-          subject
-        end
-      end
-
-      context 'user is not a student, teacher or admin' do
-        let(:role) { 'user' }
-
-        it 'tracks nothing' do
-          expect(analytics_instance).not_to receive(:track_google_student_set_password)
-          expect(analytics_instance).not_to receive(:track_google_teacher_set_password)
-          user.password = 'password'
-        end
-      end
+    it 'tracks google student set password' do
+      expect(analytics_instance).to receive(:track_google_student_set_password).with(user, teacher)
+      user.password = 'password'
+      subject
     end
   end
 end
