@@ -1,290 +1,326 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DataExportTableAndFields component should match snapshot 1`] = `
-<div
-  className="data-export-container"
->
-  <section
-    className="fields-section"
+<Fragment>
+  <div
+    className="header"
   >
-    <h3>
-      Fields
-    </h3>
-    <div
-      className="fields-container"
-    >
-      <div
-        className="checkbox-container"
-      >
-        <button
-          aria-label="Checked checkbox"
-          className="quill-checkbox selected"
-          id="Student Email"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Checked checkbox"
-            src="undefined/images/shared/check-small-white.svg"
-          />
-        </button>
-        <label
-          htmlFor="Student Email"
-        >
-          Student Email
-        </label>
-      </div>
-      <div
-        className="checkbox-container"
-      >
-        <button
-          aria-label="Checked checkbox"
-          className="quill-checkbox selected"
-          id="Completed Date"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Checked checkbox"
-            src="undefined/images/shared/check-small-white.svg"
-          />
-        </button>
-        <label
-          htmlFor="Completed Date"
-        >
-          Completed Date
-        </label>
-      </div>
-      <div
-        className="checkbox-container"
-      >
-        <button
-          aria-label="Checked checkbox"
-          className="quill-checkbox selected"
-          id="Activity"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Checked checkbox"
-            src="undefined/images/shared/check-small-white.svg"
-          />
-        </button>
-        <label
-          htmlFor="Activity"
-        >
-          Activity
-        </label>
-      </div>
-      <div
-        className="checkbox-container"
-      >
-        <button
-          aria-label="Checked checkbox"
-          className="quill-checkbox selected"
-          id="Activity Pack"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Checked checkbox"
-            src="undefined/images/shared/check-small-white.svg"
-          />
-        </button>
-        <label
-          htmlFor="Activity Pack"
-        >
-          Activity Pack
-        </label>
-      </div>
-      <div
-        className="checkbox-container"
-      >
-        <button
-          aria-label="Checked checkbox"
-          className="quill-checkbox selected"
-          id="Score"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Checked checkbox"
-            src="undefined/images/shared/check-small-white.svg"
-          />
-        </button>
-        <label
-          htmlFor="Score"
-        >
-          Score
-        </label>
-      </div>
-      <div
-        className="checkbox-container"
-      >
-        <button
-          aria-label="Checked checkbox"
-          className="quill-checkbox selected"
-          id="Time Spent"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Checked checkbox"
-            src="undefined/images/shared/check-small-white.svg"
-          />
-        </button>
-        <label
-          htmlFor="Time Spent"
-        >
-          Time Spent
-        </label>
-      </div>
-      <div
-        className="checkbox-container"
-      >
-        <button
-          aria-label="Checked checkbox"
-          className="quill-checkbox selected"
-          id="Standard"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Checked checkbox"
-            src="undefined/images/shared/check-small-white.svg"
-          />
-        </button>
-        <label
-          htmlFor="Standard"
-        >
-          Standard
-        </label>
-      </div>
-      <div
-        className="checkbox-container"
-      >
-        <button
-          aria-label="Checked checkbox"
-          className="quill-checkbox selected"
-          id="Tool"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Checked checkbox"
-            src="undefined/images/shared/check-small-white.svg"
-          />
-        </button>
-        <label
-          htmlFor="Tool"
-        >
-          Tool
-        </label>
-      </div>
-      <div
-        className="checkbox-container"
-      >
-        <button
-          aria-label="Checked checkbox"
-          className="quill-checkbox selected"
-          id="School"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Checked checkbox"
-            src="undefined/images/shared/check-small-white.svg"
-          />
-        </button>
-        <label
-          htmlFor="School"
-        >
-          School
-        </label>
-      </div>
-      <div
-        className="checkbox-container"
-      >
-        <button
-          aria-label="Checked checkbox"
-          className="quill-checkbox selected"
-          id="Grade"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Checked checkbox"
-            src="undefined/images/shared/check-small-white.svg"
-          />
-        </button>
-        <label
-          htmlFor="Grade"
-        >
-          Grade
-        </label>
-      </div>
-      <div
-        className="checkbox-container"
-      >
-        <button
-          aria-label="Checked checkbox"
-          className="quill-checkbox selected"
-          id="Teacher"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Checked checkbox"
-            src="undefined/images/shared/check-small-white.svg"
-          />
-        </button>
-        <label
-          htmlFor="Teacher"
-        >
-          Teacher
-        </label>
-      </div>
-      <div
-        className="checkbox-container"
-      >
-        <button
-          aria-label="Checked checkbox"
-          className="quill-checkbox selected"
-          id="Class"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Checked checkbox"
-            src="undefined/images/shared/check-small-white.svg"
-          />
-        </button>
-        <label
-          htmlFor="Class"
-        >
-          Class
-        </label>
-      </div>
-    </div>
-  </section>
-  <section
-    className="preview-section"
-  >
-    <h3>
-      Preview
-    </h3>
-    <div
-      className="preview-disclaimer-container"
+    <h1>
+      Data Export
+    </h1>
+    <button
+      className="quill-button download-report-button contained primary medium focus-on-light"
+      onClick={[Function]}
+      type="button"
     >
       <img
-        alt="Information icon"
-        src="undefined/images/pages/evidence/icons-information-small.svg"
+        alt="White arrow pointing down icon"
+        src="undefined/images/icons/downward-arrow-icon-white.svg"
       />
-      <p>
-        This preview is limited to the first 10 results. Your download will include all activities.
-      </p>
-    </div>
-  </section>
-  <Spinner />
-</div>
+      <span>
+        Download
+      </span>
+    </button>
+  </div>
+  <div
+    className="filter-button-container"
+  >
+    <button
+      className="interactive-wrapper focus-on-light"
+      type="button"
+    >
+      <img
+        alt="Filter icon with three vertical dots and 3 horizontal lines"
+        src="undefined/images/icons/icons-filter.svg"
+      />
+      Filters
+    </button>
+  </div>
+  <div
+    className="data-export-container"
+  >
+    <section
+      className="fields-section"
+    >
+      <h3>
+        Fields
+      </h3>
+      <div
+        className="fields-container"
+      >
+        <div
+          className="checkbox-container"
+        >
+          <button
+            aria-label="Checked checkbox"
+            className="quill-checkbox selected"
+            id="Student Email"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Checked checkbox"
+              src="undefined/images/shared/check-small-white.svg"
+            />
+          </button>
+          <label
+            htmlFor="Student Email"
+          >
+            Student Email
+          </label>
+        </div>
+        <div
+          className="checkbox-container"
+        >
+          <button
+            aria-label="Checked checkbox"
+            className="quill-checkbox selected"
+            id="Completed Date"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Checked checkbox"
+              src="undefined/images/shared/check-small-white.svg"
+            />
+          </button>
+          <label
+            htmlFor="Completed Date"
+          >
+            Completed Date
+          </label>
+        </div>
+        <div
+          className="checkbox-container"
+        >
+          <button
+            aria-label="Checked checkbox"
+            className="quill-checkbox selected"
+            id="Activity"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Checked checkbox"
+              src="undefined/images/shared/check-small-white.svg"
+            />
+          </button>
+          <label
+            htmlFor="Activity"
+          >
+            Activity
+          </label>
+        </div>
+        <div
+          className="checkbox-container"
+        >
+          <button
+            aria-label="Checked checkbox"
+            className="quill-checkbox selected"
+            id="Activity Pack"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Checked checkbox"
+              src="undefined/images/shared/check-small-white.svg"
+            />
+          </button>
+          <label
+            htmlFor="Activity Pack"
+          >
+            Activity Pack
+          </label>
+        </div>
+        <div
+          className="checkbox-container"
+        >
+          <button
+            aria-label="Checked checkbox"
+            className="quill-checkbox selected"
+            id="Score"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Checked checkbox"
+              src="undefined/images/shared/check-small-white.svg"
+            />
+          </button>
+          <label
+            htmlFor="Score"
+          >
+            Score
+          </label>
+        </div>
+        <div
+          className="checkbox-container"
+        >
+          <button
+            aria-label="Checked checkbox"
+            className="quill-checkbox selected"
+            id="Time Spent"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Checked checkbox"
+              src="undefined/images/shared/check-small-white.svg"
+            />
+          </button>
+          <label
+            htmlFor="Time Spent"
+          >
+            Time Spent
+          </label>
+        </div>
+        <div
+          className="checkbox-container"
+        >
+          <button
+            aria-label="Checked checkbox"
+            className="quill-checkbox selected"
+            id="Standard"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Checked checkbox"
+              src="undefined/images/shared/check-small-white.svg"
+            />
+          </button>
+          <label
+            htmlFor="Standard"
+          >
+            Standard
+          </label>
+        </div>
+        <div
+          className="checkbox-container"
+        >
+          <button
+            aria-label="Checked checkbox"
+            className="quill-checkbox selected"
+            id="Tool"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Checked checkbox"
+              src="undefined/images/shared/check-small-white.svg"
+            />
+          </button>
+          <label
+            htmlFor="Tool"
+          >
+            Tool
+          </label>
+        </div>
+        <div
+          className="checkbox-container"
+        >
+          <button
+            aria-label="Checked checkbox"
+            className="quill-checkbox selected"
+            id="School"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Checked checkbox"
+              src="undefined/images/shared/check-small-white.svg"
+            />
+          </button>
+          <label
+            htmlFor="School"
+          >
+            School
+          </label>
+        </div>
+        <div
+          className="checkbox-container"
+        >
+          <button
+            aria-label="Checked checkbox"
+            className="quill-checkbox selected"
+            id="Grade"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Checked checkbox"
+              src="undefined/images/shared/check-small-white.svg"
+            />
+          </button>
+          <label
+            htmlFor="Grade"
+          >
+            Grade
+          </label>
+        </div>
+        <div
+          className="checkbox-container"
+        >
+          <button
+            aria-label="Checked checkbox"
+            className="quill-checkbox selected"
+            id="Teacher"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Checked checkbox"
+              src="undefined/images/shared/check-small-white.svg"
+            />
+          </button>
+          <label
+            htmlFor="Teacher"
+          >
+            Teacher
+          </label>
+        </div>
+        <div
+          className="checkbox-container"
+        >
+          <button
+            aria-label="Checked checkbox"
+            className="quill-checkbox selected"
+            id="Class"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Checked checkbox"
+              src="undefined/images/shared/check-small-white.svg"
+            />
+          </button>
+          <label
+            htmlFor="Class"
+          >
+            Class
+          </label>
+        </div>
+      </div>
+    </section>
+    <section
+      className="preview-section"
+    >
+      <h3>
+        Preview
+      </h3>
+      <div
+        className="preview-disclaimer-container"
+      >
+        <img
+          alt="Information icon"
+          src="undefined/images/pages/evidence/icons-information-small.svg"
+        />
+        <p>
+          This preview is limited to the first 10 results. Your download will include all activities.
+        </p>
+      </div>
+    </section>
+    <Spinner />
+  </div>
+</Fragment>
 `;
