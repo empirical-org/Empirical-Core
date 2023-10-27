@@ -91,9 +91,11 @@ const RuleViewForm = ({
 
   const queryClient = useQueryClient()
 
+  const promptIds = activityData.prompts.map(p => p.id)
+
   // cache ruleSets data for handling rule suborder
   const { data: rulesData } = useQuery({
-    queryKey: [`rules-${activityId}`, activityId],
+    queryKey: [`rules-${activityId}`, null, promptIds.join(','), rule_type],
     queryFn: fetchRules
   });
 
@@ -117,7 +119,9 @@ const RuleViewForm = ({
 
   React.useEffect(() => {
     if(!rulesCount && rulesData && rulesData.rules) {
+      console.log("Setting rule count")
       const { rules } = rulesData;
+      console.log(rules.length)
       setRulesCount(rules.length);
     }
     else if(!universalRulesCount && universalRulesData && universalRulesData.universalRules) {
