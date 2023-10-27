@@ -69,7 +69,7 @@ const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId, schools
         first_name: firstName.trim(),
         last_name: lastName.trim(),
         email: email.trim(),
-        school_ids: checklistSchools.filter((s) => s.checked).map((s) => s.id),
+        school_ids: checklistSchools.filter(s => s.checked).map(s => s.id),
       }
       requestPost(requestUrl, params, (body) => {
         if(body.error) {

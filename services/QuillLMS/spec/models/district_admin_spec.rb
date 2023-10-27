@@ -26,8 +26,6 @@ describe DistrictAdmin, type: :model, redis: true do
   let!(:user) { create(:user, email: 'test@quill.org') }
   let!(:district) { create(:district) }
   let!(:district_admin) { create(:district_admin, user: user, district: district) }
-  let!(:school1) { create(:school) }
-  let!(:school2) { create(:school) }
 
   describe '#admin' do
     it 'should return the user associated' do
@@ -36,6 +34,9 @@ describe DistrictAdmin, type: :model, redis: true do
   end
 
   describe '#attach_schools' do
+    let!(:school1) { create(:school) }
+    let!(:school2) { create(:school) }
+
     it 'should attach the specified schools to the district admin as administered schools' do
       district_admin.attach_schools([school1.id, school2.id])
       expect(district_admin.user.administered_schools).to match_array([school1, school2])

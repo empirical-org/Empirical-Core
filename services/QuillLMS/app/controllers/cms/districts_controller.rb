@@ -86,14 +86,14 @@ class Cms::DistrictsController < Cms::CmsController
   end
 
   private def schools_formatted_for_new_admin
-    @district.schools.map { |s|
+    @district.schools.map do |school|
       {
-        id: s.id,
-        name: s.name,
-        checked: s.subscription.present?,
-        has_subscription: s.subscription.present?
+        id: school.id,
+        name: school.name,
+        checked: school.subscription.present?,
+        has_subscription: school.subscription.present?
       }
-    }
+    end
   end
 
   private def text_search_inputs
