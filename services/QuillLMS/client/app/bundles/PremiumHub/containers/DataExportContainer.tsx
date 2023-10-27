@@ -1,8 +1,8 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { FULL, restrictedPage, mapItemsIfNotAll } from '../shared';
-import { Spinner, filterIcon, whiteArrowPointingDownIcon } from '../../Shared/index'
+import { Spinner } from '../../Shared/index';
 import DataExportTableAndFields from '../components/dataExportTableAndFields';
+import { FULL, mapItemsIfNotAll, restrictedPage } from '../shared';
 
 export const DataExportContainer = ({
   accessType,
@@ -19,7 +19,6 @@ export const DataExportContainer = ({
   selectedTeachers,
   allTeachers,
   selectedTimeframe,
-  handleClickDownloadReport,
   openMobileFilterMenu
 }) => {
 
@@ -33,23 +32,11 @@ export const DataExportContainer = ({
 
   return (
     <main className="data-export-main">
-      <div className="header">
-        <h1>Data Export</h1>
-        <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">
-          <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />
-          <span>Download</span>
-        </button>
-      </div>
-      <div className="filter-button-container">
-        <button className="interactive-wrapper focus-on-light" onClick={openMobileFilterMenu} type="button">
-          <img alt={filterIcon.alt} src={filterIcon.src} />
-          Filters
-        </button>
-      </div>
       <DataExportTableAndFields
         customTimeframeEnd={customEndDate?.toDate()}
         customTimeframeStart={customStartDate?.toDate()}
         key="data-export-table-and-fields"
+        openMobileFilterMenu={openMobileFilterMenu}
         pusherChannel={pusherChannel}
         queryKey="data-export"
         searchCount={searchCount}

@@ -23,12 +23,13 @@ class SnapshotsController < ApplicationController
   WORKERS_FOR_ACTIONS = {
     "count" => Snapshots::CacheSnapshotCountWorker,
     "top_x" => Snapshots::CacheSnapshotTopXWorker,
-    "data_export" => Snapshots::CachePremiumReportsWorker
+    "data_export" => Snapshots::CachePremiumReportsWorker,
+    "create_csv_report_download" => Snapshots::PremiumDownloadReportsWorker
   }
 
-  before_action :set_query, only: [:count, :top_x, :data_export]
-  before_action :validate_request, only: [:count, :top_x, :data_export]
-  before_action :authorize_request, only: [:count, :top_x, :data_export]
+  before_action :set_query, only: [:count, :top_x, :data_export, :create_csv_report_download]
+  before_action :validate_request, only: [:count, :top_x, :data_export, :create_csv_report_download]
+  before_action :authorize_request, only: [:count, :top_x, :data_export, :create_csv_report_download]
 
   def count
     render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
@@ -36,6 +37,34 @@ class SnapshotsController < ApplicationController
 
   def top_x
     render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
+  end
+
+  def create_csv_report_download
+    timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(snapshot_params[:timeframe],
+      custom_start: snapshot_params[:timeframe_custom_start],
+      custom_end: snapshot_params[:timeframe_custom_end],
+      previous_timeframe: snapshot_params[:previous_timeframe])
+
+    worker_params = [
+      @query,
+      current_user.id,
+      {
+        name: snapshot_params[:timeframe],
+        timeframe_start: timeframe_start,
+        timeframe_end: timeframe_end
+      },
+      snapshot_params[:school_ids],
+      snapshot_params[:headers_to_display],
+      {
+        grades: snapshot_params[:grades],
+        teacher_ids: snapshot_params[:teacher_ids],
+        classroom_ids: snapshot_params[:classroom_ids]
+      }
+
+    ]
+    WORKERS_FOR_ACTIONS[action_name].perform_async(*worker_params)
+
+    render json: { message: 'Generating report' }
   end
 
   def data_export
@@ -133,7 +162,6 @@ class SnapshotsController < ApplicationController
   end
 
   private def retrieve_cache_or_enqueue_worker(worker)
-
     timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(snapshot_params[:timeframe],
       custom_start: snapshot_params[:timeframe_custom_start],
       custom_end: snapshot_params[:timeframe_custom_end],
@@ -185,6 +213,7 @@ class SnapshotsController < ApplicationController
       :timeframe_custom_start,
       :timeframe_custom_end,
       :previous_timeframe,
+      headers_to_display: [],
       school_ids: [],
       grades: [],
       teacher_ids: [],
