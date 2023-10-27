@@ -11,5 +11,5 @@ ReactOnRails.configure do |config|
   config.replay_console = true
   config.logging_on_server = true
   config.prerender = false
-  config.trace = Rails.env.development?
+  config.trace = ENV.fetch('REACT_ON_RAILS_TRACE', Rails.env.development?).to_s == 'true'
 end
