@@ -310,7 +310,9 @@ export const buildRule = ({
   Object.keys(rulePrompts).forEach(key => {
     rulePrompts[key].checked && promptIds.push(rulePrompts[key].id);
   });
-  const order = universal ? universalRulesCount : rulesCount;
+
+  // Admin prefer order to be 1-indexed rather than 0-indexed
+  const order = universal ? (universalRulesCount + 1) : (rulesCount + 1);
 
   let newOrUpdatedRule: any = {
     concept_uid: ruleConceptUID,
