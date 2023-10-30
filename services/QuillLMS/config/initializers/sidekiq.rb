@@ -13,7 +13,7 @@ end
 module SidekiqQueue
   # QUEUE DEFINITIONS
 
-  # INSTANT: Consitently low-latency jobs that should also be the highest priority
+  # INSTANT: Consitently low-latency jobs that should also always be the highest priority
   # e.g. Pusher jobs that are fast and the last step to updating the UI
   INSTANT = 'instant'
   # CRITICAL: Jobs that impact the user experience,
