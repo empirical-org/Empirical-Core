@@ -161,6 +161,7 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   }
 
   function createCsvReportDownload() {
+    const buttonDisableTime = 2000
     const requestParams = {
       query: 'create_csv_report_download',
       timeframe: selectedTimeframe,
@@ -173,9 +174,10 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
       headers_to_display: getHeaders().map(header => header.attribute)
     }
     setDownloadButtonBusy(true)
-    setShowSnackbar(true)
+
     requestPost('/snapshots/create_csv_report_download', requestParams, (body) => {
-      setDownloadButtonBusy(false)
+      setShowSnackbar(true)
+      setTimeout(() => {setDownloadButtonBusy(false)}, buttonDisableTime);
     })
   }
 
