@@ -311,7 +311,6 @@ export const buildRule = ({
     rulePrompts[key].checked && promptIds.push(rulePrompts[key].id);
   });
 
-  // Admin prefer order to be 1-indexed rather than 0-indexed
   const order = universal ? universalRulesCount : rulesCount;
 
   let newOrUpdatedRule: any = {
