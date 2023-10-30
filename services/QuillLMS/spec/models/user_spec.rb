@@ -58,7 +58,7 @@
 require 'rails_helper'
 
 # rubocop:disable Metrics/BlockLength
-describe User, type: :model do
+RSpec.describe User, type: :model do
 
   it { is_expected.to callback(:capitalize_name).before(:save) }
   it { is_expected.to callback(:generate_student_username_if_absent).before(:validation) }
@@ -324,7 +324,6 @@ describe User, type: :model do
     it "should give the correct value for all the constants" do
       expect(User::ROLES).to eq(%w(teacher student staff sales-contact admin))
       expect(User::SAFE_ROLES).to eq(%w(student teacher sales-contact admin))
-      expect(User::VALID_EMAIL_REGEX).to eq(/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i)
     end
   end
 
@@ -1905,7 +1904,7 @@ describe User, type: :model do
       context 'district_premium? is false' do
         before { allow(user).to receive(:district_premium?).and_return(false) }
 
-        it { expect(subject).to be_falsey }
+        it { expect(subject).to eq false }
       end
 
       context 'district_premium? is true' do
@@ -1931,7 +1930,7 @@ describe User, type: :model do
   describe '#learn_worlds_access_override?' do
     subject { user.learn_worlds_access_override? }
 
-    it { expect(subject).to be_falsey }
+    it { expect(subject).to eq false }
 
     context 'override exists' do
       before do
@@ -2209,6 +2208,150 @@ describe User, type: :model do
       it { expect { subject }.not_to change(user, :google_id) }
       it { expect { subject }.not_to change(user, :signed_up_with_google) }
       it { expect { subject }.not_to change(user, :clever_id) }
+    end
+  end
+
+  describe '#unlink_google_account!' do
+    subject { user.unlink_google_account! }
+
+    context 'user has google_account' do
+      let(:user) { create(:teacher, :signed_up_with_google) }
+
+      it { expect { subject }.to change(user, :google_id).from(user.google_id).to(nil) }
+      it { expect { subject }.to change(user, :signed_up_with_google).from(true).to(false) }
+    end
+
+    context 'user does not have google_account' do
+      let(:user) { create(:teacher) }
+
+      it { expect { subject }.not_to change(user, :google_id) }
+      it { expect { subject }.not_to change(user, :signed_up_with_google) }
+    end
+  end
+
+  describe '#google_access_expired?' do
+    subject { user.google_access_expired? }
+
+    let(:user) { create(:user) }
+
+    context 'google_id is not present' do
+      before { allow(user).to receive(:google_id).and_return(nil) }
+
+      it { is_expected.to eq false }
+    end
+
+    context 'google_id is present' do
+      before { allow(user).to receive(:google_id).and_return('some-google-id') }
+
+      context 'auth credential is not present' do
+        it { is_expected.to eq false }
+      end
+
+      context 'auth_credential is not expired' do
+        before { create(:google_auth_credential, user: user)  }
+
+        it { is_expected.to eq false }
+      end
+
+      context 'auth_credential is expired' do
+        before { create(:google_auth_credential, :expired, user: user)  }
+
+        it { is_expected.to eq true }
+      end
+    end
+  end
+
+  describe '#google_access_expired_and_no_password?' do
+    subject { user.google_access_expired_and_no_password? }
+
+    context 'google_access_expired? is false' do
+      before { allow(user).to receive(:google_access_expired?).and_return(false) }
+
+      it { is_expected.to eq false }
+    end
+
+    context 'google_access_expired? is true' do
+      before { allow(user).to receive(:google_access_expired?).and_return(true) }
+
+      context 'password digest is not nil' do
+        before { allow(user).to receive(:password_digest).and_return('some-password-digest') }
+
+        it { is_expected.to eq false }
+      end
+
+      context 'password digest is nil' do
+        before { allow(user).to receive(:password_digest).and_return(nil) }
+
+        it { is_expected.to eq true }
+      end
+    end
+  end
+
+  describe '#google_student_set_password?' do
+    subject { user.google_student_set_password? }
+
+    let(:user) { create(:user, google_id: google_id, password: password, role: role) }
+    let(:role) { User::STUDENT}
+    let(:google_id) { 'abc123' }
+    let(:password) { 'password' }
+
+    context 'user is not a student' do
+      let(:role) { User::TEACHER }
+
+      it { expect(subject).to eq false }
+    end
+
+    context 'google_id is not present' do
+      let(:google_id) { nil }
+
+      it 'is not a google user so false' do
+        user.password = 'new_password'
+        expect(subject).to eq false
+      end
+    end
+
+    context 'password_digest has not changed' do
+      it { expect(subject).to eq false }
+    end
+
+    context 'password_digest has changed' do
+      context 'password_digest was not nil' do
+        let(:password) { 'password' }
+
+        it 'already had a password' do
+          user.password = nil
+          expect(subject).to eq false
+        end
+      end
+
+      context 'password_digest was nil' do
+        let(:password) { nil }
+
+        it 'sets a password' do
+          user.password = 'password'
+          expect(subject).to eq true
+        end
+      end
+    end
+  end
+
+  describe '#track_google_student_set_password' do
+    subject { user.track_google_student_set_password }
+
+    let(:analytics_instance) { double('Analytics') }
+    let(:user) { create(:user, google_id: 'abc123') }
+    let(:teacher) { double('Teacher') }
+
+    before do
+      allow(Analytics::SegmentAnalytics).to receive(:new).and_return(analytics_instance)
+      allow(analytics_instance).to receive(:track_google_student_set_password)
+      allow(user).to receive(:teacher_of_student).and_return(teacher)
+    end
+
+    it 'tracks google student set password' do
+      expect(analytics_instance).to receive(:track_google_student_set_password).with(user, teacher)
+      user.password = 'password'
+      subject
     end
   end
 end

@@ -74,6 +74,7 @@ const ActiveClassrooms = ({
 
   const [classrooms, setClassrooms] = useState(initialClassrooms.filter(classroom => classroom.visible))
   const [coteacherInvitations, setCoteacherInvitations] = useState(initialCoteacherInvitations)
+  const [allProviderClassrooms, setAllProviderClassrooms] = useState([])
   const [providerClassrooms, setProviderClassrooms] = useState([])
   const [providerClassroomsLoading, setProviderClassroomsLoading] = useState(false)
   const [pendingImportFromProviderRequest, setPendingImportFromProviderRequest] = useState(false)
@@ -212,7 +213,14 @@ const ActiveClassrooms = ({
 
       if (body.quill_retrieval_processing) { return }
 
-      setProviderClassrooms(body.classrooms.filter(classroom => !classroom.alreadyImported))
+      setAllProviderClassrooms(body.classrooms)
+
+      if (providerConfig?.isGoogle) {
+        setProviderClassrooms(body.classrooms.filter(classroom => !classroom.alreadyImported && classroom.is_owner))
+      } else {
+        setProviderClassrooms(body.classrooms.filter(classroom => !classroom.alreadyImported))
+      }
+
       setProviderClassroomsLoading(false)
     })
   }
@@ -522,7 +530,7 @@ const ActiveClassrooms = ({
 
   const renderNoClassroomsToImportModal = () => {
     if (visibleModal === noClassroomsToImportModal) {
-      return <NoClassroomsToImportModal close={closeModal} provider={provider} />
+      return <NoClassroomsToImportModal allProviderClassrooms={allProviderClassrooms} close={closeModal} provider={provider} />
     }
   }
 

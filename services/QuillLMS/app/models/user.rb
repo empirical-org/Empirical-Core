@@ -93,7 +93,6 @@ class User < ApplicationRecord
   TEACHER_INFO_ROLES = [TEACHER, INDIVIDUAL_CONTRIBUTOR, ADMIN]
   ROLES              = [TEACHER, STUDENT, STAFF, SALES_CONTACT, ADMIN]
   SAFE_ROLES         = [STUDENT, TEACHER, SALES_CONTACT, ADMIN]
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
   ALPHA = 'alpha'
   BETA = 'beta'
@@ -236,7 +235,8 @@ class User < ApplicationRecord
   before_validation :prep_authentication_terms
   before_save :capitalize_name, if: proc { will_save_change_to_name? && !skip_capitalize_names_callback }
   before_save :set_time_zone, unless: :time_zone
-  after_save  :update_invitee_email_address, if: proc { saved_change_to_email? }
+  before_update :track_google_student_set_password, if: proc { google_student_set_password? }
+  after_save :update_invitee_email_address, if: proc { saved_change_to_email? }
   after_save :check_for_school
   after_create :generate_referrer_id, if: proc { teacher? }
   after_create :generate_default_notification_email_frequency, if: :teacher?
@@ -407,7 +407,7 @@ class User < ApplicationRecord
   end
 
   def username_cannot_be_an_email
-    return unless username =~ VALID_EMAIL_REGEX
+    return unless ValidatesEmailFormatOf.validate_email_format(username).nil?
 
     if new_record?
       errors.add(:username, :invalid)
@@ -710,6 +710,10 @@ class User < ApplicationRecord
     google_id.present? && auth_credential.present? && auth_credential.google_access_expired?
   end
 
+  def google_access_expired_and_no_password?
+    google_access_expired? && password_digest.nil?
+  end
+
   # Note this is an incremented count, so could be off.
   def completed_activity_count
     user_activity_classifications.sum(:count)
@@ -866,6 +870,18 @@ class User < ApplicationRecord
 
   def unlink_clever_and_google_accounts!
     update!(clever_id: nil, google_id: nil, signed_up_with_google: false)
+  end
+
+  def unlink_google_account!
+    update!(google_id: nil, signed_up_with_google: false)
+  end
+
+  def track_google_student_set_password
+    Analytics::SegmentAnalytics.new.track_google_student_set_password(self, teacher_of_student)
+  end
+
+  def google_student_set_password?
+    student? && google_id.present? && password_digest_changed? && password_digest_was.nil?
   end
 
   private def validate_flags

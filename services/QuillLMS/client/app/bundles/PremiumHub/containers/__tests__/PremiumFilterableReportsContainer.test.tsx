@@ -1,8 +1,14 @@
 import * as React from "react";
-import { render } from "@testing-library/react";
+import { render, waitFor, screen, } from "@testing-library/react";
+import userEvent from '@testing-library/user-event'
+import { BrowserRouter, Route } from 'react-router-dom';
+import { CompatRouter } from "react-router-dom-v5-compat";
+
+import { defaultFilterData, } from './data'
 
 import { FULL } from "../../shared";
 import PremiumFilterableReportsContainer from "../PremiumFilterableReportsContainer";
+import * as requestsApi from '../../../../modules/request';
 
 const props = {
   adminInfo: {
@@ -23,8 +29,39 @@ const props = {
 }
 
 describe('PremiumFilterableReportsContainer', () => {
-  test('it should render', () => {
-    const { asFragment } = render(<PremiumFilterableReportsContainer {...props} />);
-    expect(asFragment()).toMatchSnapshot();
+
+  beforeEach(() => {
+    jest.spyOn(requestsApi, 'requestPost').mockImplementation((url, params, callback) => {
+      callback(defaultFilterData);
+    });
   })
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  test('it should render', async () => {
+    const { asFragment, queryByAltText, } = render(<BrowserRouter><CompatRouter><PremiumFilterableReportsContainer {...props} /></CompatRouter></BrowserRouter>);
+
+    await waitFor(() => expect(queryByAltText('Loading spinner')).toBeNull());
+
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  test('it should toggle filter menu visibility when clicking the showFilterMenuButton', async () => {
+    const filterMenuTestId = 'filter-menu'
+
+    const { queryByAltText, } = render(<BrowserRouter><CompatRouter><PremiumFilterableReportsContainer {...props} /></CompatRouter></BrowserRouter>);
+
+    await waitFor(() => expect(queryByAltText('Loading spinner')).toBeNull());
+
+    await userEvent.click(screen.getByLabelText('Close filter menu'));
+
+    expect(screen.queryByTestId(filterMenuTestId)).not.toBeInTheDocument();
+
+    await userEvent.click(screen.getByLabelText('Open filter menu'));
+
+    expect(screen.getByTestId(filterMenuTestId)).toBeInTheDocument();
+  })
+
 })

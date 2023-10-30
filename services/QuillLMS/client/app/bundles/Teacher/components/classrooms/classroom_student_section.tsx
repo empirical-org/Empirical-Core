@@ -497,7 +497,7 @@ const ClassroomStudentSection = ({
       const { name, username, email, id, provider, last_active, number_of_completed_activities, } = student
       const checked = !!selectedStudentIds.includes(id)
       const synced = syncedStatus(student, classroomProvider)
-      const logInMethod = provider ? provider : 'Username'
+      const logInMethod = provider === 'Google' ? 'Google or email' : (provider || 'Username');
 
       return {
         synced,

@@ -553,7 +553,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/finish_sign_up', to: 'sessions#finish_sign_up'
   post '/session/login_through_ajax', to: 'sessions#login_through_ajax'
   post '/session/set_post_auth_redirect', to: 'sessions#set_post_auth_redirect'
-  resource :session
+  resource :session, only: [:new, :destroy]
 
   resource :account, only: [:new, :create, :edit, :update, :show] do
     post :role, on: :member
@@ -730,8 +730,10 @@ EmpiricalGrammar::Application.routes.draw do
     collection do
       post :count
       post :options
+      post :previous_count
       post :top_x
       post :data_export
+      post :create_csv_report_download
     end
   end
 
