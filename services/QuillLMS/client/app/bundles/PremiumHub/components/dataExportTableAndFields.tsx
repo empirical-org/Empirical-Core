@@ -3,7 +3,8 @@ import * as React from 'react';
 
 import { requestPost, } from '../../../modules/request';
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual';
-import { DataTable, Spinner, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon } from '../../Shared';
+import { DataTable, Snackbar, Spinner, defaultSnackbarTimeout, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon } from '../../Shared';
+import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
 import ButtonLoadingIndicator from '../../Teacher/components/shared/button_loading_indicator';
 
 const STANDARD_WIDTH = "152px";
@@ -52,7 +53,10 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   const [showTimeSpent, setShowTimeSpent] = React.useState<boolean>(true);
   const [loading, setLoading] = React.useState<boolean>(true);
   const [downloadButtonBusy, setDownloadButtonBusy] = React.useState<boolean>(false);
+  const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
   const [data, setData] = React.useState<any>(null);
+
+  useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   const fields = {
     [STUDENT_NAME]: {
@@ -169,6 +173,7 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
       headers_to_display: getHeaders().map(header => header.attribute)
     }
     setDownloadButtonBusy(true)
+    setShowSnackbar(true)
     requestPost('/snapshots/create_csv_report_download', requestParams, (body) => {
       setDownloadButtonBusy(false)
     })
@@ -281,6 +286,7 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   return(
     <React.Fragment>
       <div className="header">
+        <Snackbar text="You will receive an email with a download link shortly." visible={true} />
         <h1>Data Export</h1>
         {renderDownloadButton()}
       </div>
