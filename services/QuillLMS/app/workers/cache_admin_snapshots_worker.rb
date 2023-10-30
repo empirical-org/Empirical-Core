@@ -10,7 +10,8 @@ class CacheAdminSnapshotsWorker
 
     @school_ids = @user.schools_admins.pluck(:school_id)
 
-    previous_start, previous_end, current_start, current_end = Snapshots::Timeframes.calculate_timeframes(Snapshots::Timeframes::DEFAULT_TIMEFRAME)
+    current_start, current_end = Snapshots::Timeframes.calculate_timeframes(Snapshots::Timeframes::DEFAULT_TIMEFRAME)
+    previous_start, previous_end = Snapshots::Timeframes.calculate_timeframes(Snapshots::Timeframes::DEFAULT_TIMEFRAME, previous_timeframe: true)
 
     Snapshots::CacheSnapshotCountWorker::QUERIES.keys.each do |query|
       Snapshots::CacheSnapshotCountWorker.perform_async(*generate_worker_payload(query, previous_start, previous_end))
