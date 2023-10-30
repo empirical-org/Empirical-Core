@@ -69,9 +69,11 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
       const { name, id, regex_rules, suborder, prompt_ids } = rule;
       const ruleLink = (<Link to={`/activities/${activityId}/regex-rules/${id}`}>View</Link>);
       const promptsIcons = getPromptsIcons(activityData, prompt_ids);
+
+      // for priority, return a 1-indexed suborder instead of 0-indexed for human readability
       return {
         id,
-        priority: typeof suborder === 'string' ? parseInt(suborder) : suborder,
+        priority: typeof suborder === 'string' ? (parseInt(suborder) + 1) : (suborder + 1),
         name,
         incorrect_sequence: renderRegexTags(regex_rules, 'incorrect'),
         required_sequence: renderRegexTags(regex_rules, 'required'),
@@ -106,7 +108,7 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
     return(
       <DataTable
         className="rules-table regex-index-table"
-        defaultSortAttribute="name"
+        defaultSortAttribute="priority"
         headers={dataTableFields}
         isReorderable={true}
         reorderCallback={handleReorder}

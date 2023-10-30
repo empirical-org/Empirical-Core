@@ -312,7 +312,7 @@ export const buildRule = ({
   });
 
   // Admin prefer order to be 1-indexed rather than 0-indexed
-  const order = universal ? (universalRulesCount + 1) : (rulesCount + 1);
+  const order = universal ? universalRulesCount : rulesCount;
 
   let newOrUpdatedRule: any = {
     concept_uid: ruleConceptUID,
