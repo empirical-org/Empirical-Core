@@ -286,7 +286,7 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   return(
     <React.Fragment>
       <div className="header">
-        <Snackbar text="You will receive an email with a download link shortly." visible={true} />
+        <Snackbar text="You will receive an email with a download link shortly." visible={showSnackbar} />
         <h1>Data Export</h1>
         {renderDownloadButton()}
       </div>

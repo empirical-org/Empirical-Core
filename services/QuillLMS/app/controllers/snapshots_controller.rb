@@ -40,7 +40,6 @@ class SnapshotsController < ApplicationController
   end
 
   def create_csv_report_download
-    sleep 4
     timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(snapshot_params[:timeframe],
       custom_start: snapshot_params[:timeframe_custom_start],
       custom_end: snapshot_params[:timeframe_custom_end],

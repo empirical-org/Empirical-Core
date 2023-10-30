@@ -48,10 +48,11 @@ describe PremiumHubUserMailer, type: :mailer do
   describe 'admin_premium_download_report_email' do
     let(:file_url) { 's3.csv' }
     let(:email) { 'a@b.org' }
-    let(:mail) { described_class.admin_premium_download_report_email(file_url, email) }
+    let(:user_first_name) { 'bob' }
+    let(:mail) { described_class.admin_premium_download_report_email(user_first_name, file_url, email) }
 
     it 'rendering should include the correct file path' do
-      body_contains_expected_content = mail.body.include?("s3.csv")
+      body_contains_expected_content = mail.body.include?(file_url) && mail.body.include?(user_first_name)
       expect(body_contains_expected_content).to eq(true)
       expect(mail.to).to eq([email])
     end
