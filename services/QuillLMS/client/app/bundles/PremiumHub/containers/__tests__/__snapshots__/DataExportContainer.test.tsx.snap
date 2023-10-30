@@ -8,6 +8,11 @@ exports[`DataExportContainer full state it should render 1`] = `
     <div
       class="header"
     >
+      <div
+        class="quill-snackbar "
+      >
+        You will receive an email with a download link shortly.
+      </div>
       <h1>
         Data Export
       </h1>
@@ -15,13 +20,7 @@ exports[`DataExportContainer full state it should render 1`] = `
         class="quill-button download-report-button contained primary medium focus-on-light"
         type="button"
       >
-        <img
-          alt="White arrow pointing down icon"
-          src="undefined/images/icons/downward-arrow-icon-white.svg"
-        />
-        <span>
-          Download
-        </span>
+        Download
       </button>
     </div>
     <div
