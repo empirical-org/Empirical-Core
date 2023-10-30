@@ -32,6 +32,7 @@ interface SnapshotCountProps {
 
 const PUSHER_CURRENT_EVENT_KEY = 'admin-snapshot-count-cached'
 const PUSHER_PREVIOUS_EVENT_KEY = 'admin-snapshot-previous-count-cached'
+const PREVIOUS_PERIOD_DELAY = 100
 
 const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, passedCount, passedPrevious, passedChange, passedChangeDirection, singularLabel, pusherChannel, }: SnapshotCountProps) => {
   const [count, setCount] = React.useState(passedCount || null)
@@ -100,7 +101,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
   }
 
   function getCurrentData() {
-
+    console.log('fired current data request');
     requestPost(`/snapshots/count`, getSearchParams(), (body) => {
       if (!body.hasOwnProperty('results')) {
         setLoading(true)
@@ -119,16 +120,21 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
   }
 
   function getPreviousData() {
-    requestPost(`/snapshots/count?previous_timeframe=true`, getSearchParams(), (body) => {
-      if (!body.hasOwnProperty('results')) return
+    // delay the previous data requests by a negligible amount to ensure
+    // all of the current period data requests run first
+    setTimeout(() => {
+      console.log('fired previous data request');
+      requestPost(`/snapshots/count?previous_timeframe=true`, getSearchParams(), (body) => {
+        if (!body.hasOwnProperty('results')) return
 
-      clearTimeout(previousRetryTimeout)
+        clearTimeout(previousRetryTimeout)
 
-      const { results, } = body
-      const { count } = results
+        const { results, } = body
+        const { count } = results
 
-      setPrevious(Math.round(count || 0))
-    })
+        setPrevious(Math.round(count || 0))
+      })
+    }, PREVIOUS_PERIOD_DELAY)
   }
 
   function filtersMatchHash(hashMessage) {
