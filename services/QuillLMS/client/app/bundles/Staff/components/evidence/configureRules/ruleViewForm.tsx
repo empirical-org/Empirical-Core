@@ -2,6 +2,7 @@ import * as React from "react";
 import { useQuery, useQueryClient } from 'react-query';
 import { Link, withRouter } from 'react-router-dom';
 
+import { RULES_BASED_1, RULES_BASED_2, RULES_BASED_3 } from '../../../../../constants/evidence';
 import { LOW_CONFIDENCE, PLAGIARISM, regexRuleTypes, ruleOptimalOptions } from '../../../../../constants/evidence';
 import { Spinner } from '../../../../Shared/index';
 import { formatPrompts } from '../../../helpers/evidence/promptHelpers';
@@ -119,9 +120,7 @@ const RuleViewForm = ({
 
   React.useEffect(() => {
     if(!rulesCount && rulesData && rulesData.rules) {
-      console.log("Setting rule count")
       const { rules } = rulesData;
-      console.log(rules.length)
       setRulesCount(rules.length);
     }
     else if(!universalRulesCount && universalRulesData && universalRulesData.universalRules) {
@@ -172,7 +171,9 @@ const RuleViewForm = ({
     deleteRule(ruleId).then((response) => {
       toggleShowDeleteRuleModal();
       // update ruleSets cache to remove delete ruleSet
-      queryClient.refetchQueries(`rules-${activityId}`);
+      queryClient.refetchQueries([`rules-${activityId}-${RULES_BASED_1}`])
+      queryClient.refetchQueries([`rules-${activityId}-${RULES_BASED_2}`])
+      queryClient.refetchQueries([`rules-${activityId}-${RULES_BASED_3}`])
       history.push(`/activities/${activityId}/${returnLinkRuleType}`);
     });
   }
