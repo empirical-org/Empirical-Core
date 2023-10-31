@@ -32,7 +32,7 @@ describe CacheAdminSnapshotsWorker, type: :worker do
   context 'enqueueing cache workers' do
     it do
       expect(worker).to receive(:generate_worker_payload)
-        .with(query_name, previous_timeframe_start, previous_timeframe_end)
+        .with(query_name, previous_timeframe_start, previous_timeframe_end, previous_timeframe: true)
         .once
         .ordered
         .and_return(previous_payload)
@@ -44,6 +44,64 @@ describe CacheAdminSnapshotsWorker, type: :worker do
       expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(*previous_payload)
       expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(*payload)
       expect(Snapshots::CacheSnapshotTopXWorker).to receive(:perform_async).with(*payload)
+
+      subject
+    end
+  end
+
+  context 'stored report filters' do
+    let(:school_filters) do
+      [
+        {"id" => 129107, "name" => "Vitally Test", "label" => "Vitally Test", "value" => 129107},
+        {"id" => 157509, "name" => "Gem Prep => Pocatello School", "label" => "Gem Prep => Pocatello School", "value" => 157509}
+      ]
+    end
+    let(:grade_filters) do
+      [
+        {"name" => "Kindergarten", "label" => "Kindergarten", "value" => "Kindergarten"},
+        {"name" => "1st", "label" => "1st", "value" => "1"}
+      ]
+    end
+    let(:teacher_filters) do
+      [
+        {"id" => 9639714, "name" => "Peter 1027", "label" => "Peter 1027", "value" => 9639714},
+        {"id" => 13837796, "name" => "Test Csv", "label" => "Test Csv", "value" => 13837796}
+      ]
+    end
+    let(:classroom_filters) do
+      [
+        {"id" => 1267312, "name" => "Academic Block Test", "label" => "Academic Block Test", "value" => 1267312},
+        {"id" => 942566, "name" => "Clever 101 - 2021 Import", "label" => "Clever 101 - 2021 Import", "value" => 942566}
+      ]
+    end
+    let(:filter_selections) do
+      {
+        "schools" => school_filters,
+        "grades" => grade_filters,
+        "teachers" => teacher_filters,
+        "classrooms" => classroom_filters
+      }
+    end
+    let!(:filter_selection) { create(:admin_report_filter_selection, user: admin, report: described_class::REPORT_NAME, filter_selections:) }
+    let(:expected_args) do
+      [
+        anything,
+        query_name,
+        admin.id,
+        anything,
+        school_filters.map { |s| s['value'] },
+        {
+          grades: grade_filters.map { |g| g['value'] },
+          teacher_ids: teacher_filters.map { |g| g['value'] },
+          classroom_ids: classroom_filters.map { |c| c['value'] }
+        }
+      ]
+    end
+
+    it do
+      expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(*expected_args + [true])
+      expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(*expected_args + [nil])
+      expect(Snapshots::CacheSnapshotTopXWorker).to receive(:perform_async).with(*expected_args + [nil])
 
       subject
     end
