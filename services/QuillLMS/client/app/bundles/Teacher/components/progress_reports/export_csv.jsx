@@ -2,7 +2,8 @@ import React from 'react';
 
 import Pusher from 'pusher-js';
 import { requestPost, } from '../../../../modules/request/index';
-import ButtonLoadingIndicator from '../shared/button_loading_indicator';
+import { ButtonLoadingSpinner, } from '../../../Shared/index'
+;
 
 export default class ExportCSV extends React.Component {
   static defaultProps = {requestUrl: `${process.env.DEFAULT_URL}/teachers/progress_reports/csv_exports`};
@@ -66,7 +67,7 @@ export default class ExportCSV extends React.Component {
     } else if (s.waitingForCsv) {
       content = (<span>
                         Downloading
-        <ButtonLoadingIndicator />
+        <ButtonLoadingSpinner />
       </span>)
     } else {
       content = 'Download Report'
