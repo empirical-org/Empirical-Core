@@ -135,261 +135,148 @@
     max-width: 16%;
     border-bottom: 1px solid #d6d5d6;
     border-right: 1px solid #d6d5d6;
+    position: relative;
     div {
       width: 40px;
       height: 40px;
     }
   }
-  .quill-black {
-    background-color: $quill-black;
-  }
-  .quill-grey-90 {
-    background-color: $quill-grey-90;
-  }
-  .quill-grey-80 {
-    background-color: $quill-grey-80;
-  }
-  .quill-grey-70 {
-    background-color: $quill-grey-70;
-  }
-  .quill-grey-60 {
-    background-color: $quill-grey-60;
-  }
-  .quill-grey-50 {
-    background-color: $quill-grey-50;
-  }
-  .quill-grey-40 {
-    background-color: $quill-grey-40;
-  }
-  .quill-grey-35 {
-    background-color: $quill-grey-35;
-  }
-  .quill-grey-30 {
-    background-color: $quill-grey-30;
-  }
-  .quill-grey-25 {
-    background-color: $quill-grey-25;
-  }
-  .quill-grey-20 {
-    background-color: $quill-grey-20;
-  }
-  .quill-grey-15 {
-    background-color: $quill-grey-15;
-  }
-  .quill-grey-10 {
-    background-color: $quill-grey-10;
-  }
-  .quill-grey-5 {
-    background-color: $quill-grey-5;
-  }
-  .quill-grey-3 {
-    background-color: $quill-grey-3;
-  }
-  .quill-grey-2 {
-    background-color: $quill-grey-2;
-  }
-  .quill-grey-1 {
-    background-color: $quill-grey-1;
-  }
-  .quill-white {
-    background-color: $quill-white;
-  }
-  .quill-green {
-    background-color: $quill-green;
-  }
-  .quill-green-50 {
-    background-color: $quill-green-50;
-  }
-  .quill-green-20 {
-    background-color: $quill-green-20;
-  }
-  .quill-green-10 {
-    background-color: $quill-green-10;
-  }
-  .quill-green-5 {
-    background-color: $quill-green-5;
-  }
-  .quill-green-1 {
-    background-color: $quill-green-1;
-  }
-  .quill-green-warm {
-    background-color: $quill-green-warm;
-  }
-  .quill-green-warm-50 {
-    background-color: $quill-green-warm-50;
-  }
-  .quill-green-warm-20 {
-    background-color: $quill-green-warm-20;
-  }
-  .quill-green-warm-10 {
-    background-color: $quill-green-warm-10;
-  }
-  .quill-green-warm-5 {
-    background-color: $quill-green-warm-5;
-  }
-  .quill-green-warm-1 {
-    background-color: $quill-green-warm-1;
-  }
-  .quill-green-vibrant {
-    background-color: $quill-green-vibrant;
-  }
-  .quill-green-vibrant-50 {
-    background-color: $quill-green-vibrant-50;
-  }
-  .quill-green-vibrant-20 {
-    background-color: $quill-green-vibrant-20;
-  }
-  .quill-green-vibrant-10 {
-    background-color: $quill-green-vibrant-10;
-  }
-  .quill-green-vibrant-5 {
-    background-color: $quill-green-vibrant-5;
-  }
-  .quill-green-vibrant-1 {
-    background-color: $quill-green-vibrant-1;
-  }
-  .quill-teal {
-    background-color: $quill-teal;
-  }
-  .quill-teal-50 {
-    background-color: $quill-teal-50;
-  }
-  .quill-teal-20 {
-    background-color: $quill-teal-20;
-  }
-  .quill-teal-10 {
-    background-color: $quill-teal-10;
-  }
-  .quill-teal-5 {
-    background-color: $quill-teal-5;
-  }
-  .quill-teal-1 {
-    background-color: $quill-teal-1;
-  }
-  .quill-blue {
-    background-color: $quill-blue;
-  }
-  .quill-blue-50 {
-    background-color: $quill-blue-50;
-  }
-  .quill-blue-20 {
-    background-color: $quill-blue-20;
-  }
-  .quill-blue-10 {
-    background-color: $quill-blue-10;
-  }
-  .quill-blue-5 {
-    background-color: $quill-blue-5;
-  }
-  .quill-blue-1 {
-    background-color: $quill-blue-1;
-  }
-  .quill-purple {
-    background-color: $quill-purple;
-  }
-  .quill-purple-50 {
-    background-color: $quill-purple-50;
-  }
-  .quill-purple-20 {
-    background-color: $quill-purple-20;
-  }
-  .quill-purple-10 {
-    background-color: $quill-purple-10;
-  }
-  .quill-purple-5 {
-    background-color: $quill-purple-5;
-  }
-  .quill-purple-1 {
-    background-color: $quill-purple-1;
-  }
-  .quill-violet {
-    background-color: $quill-violet;
-  }
-  .quill-violet-50 {
-    background-color: $quill-violet-50;
-  }
-  .quill-violet-20 {
-    background-color: $quill-violet-20;
-  }
-  .quill-violet-10 {
-    background-color: $quill-violet-10;
-  }
-  .quill-violet-5 {
-    background-color: $quill-violet-5;
-  }
-  .quill-violet-1 {
-    background-color: $quill-violet-1;
-  }
-  .quill-red {
-    background-color: $quill-red;
-  }
-  .quill-red-50 {
-    background-color: $quill-red-50;
-  }
-  .quill-red-20 {
-    background-color: $quill-red-20;
-  }
-  .quill-red-10 {
-    background-color: $quill-red-10;
-  }
-  .quill-red-5 {
-    background-color: $quill-red-5;
-  }
-  .quill-red-1 {
-    background-color: $quill-red-1;
-  }
-  .quill-maroon {
-    background-color: $quill-maroon;
-  }
-  .quill-maroon-50 {
-    background-color: $quill-maroon-50;
-  }
-  .quill-maroon-20 {
-    background-color: $quill-maroon-20;
-  }
-  .quill-maroon-10 {
-    background-color: $quill-maroon-10;
-  }
-  .quill-maroon-5 {
-    background-color: $quill-maroon-5;
-  }
-  .quill-maroon-1 {
-    background-color: $quill-maroon-1;
-  }
-  .quill-gold {
-    background-color: $quill-gold;
-  }
-  .quill-gold-50 {
-    background-color: $quill-gold-50;
-  }
-  .quill-gold-20 {
-    background-color: $quill-gold-20;
-  }
-  .quill-gold-10 {
-    background-color: $quill-gold-10;
-  }
-  .quill-gold-5 {
-    background-color: $quill-gold-5;
-  }
-  .quill-gold-1 {
-    background-color: $quill-gold-1;
-  }
-  .quill-gold-dark {
-    background-color: $quill-gold-dark;
-  }
-  .quill-gold-dark-50 {
-    background-color: $quill-gold-dark-50;
-  }
-  .quill-gold-dark-20 {
-    background-color: $quill-gold-dark-20;
-  }
-  .quill-gold-dark-10 {
-    background-color: $quill-gold-dark-10;
-  }
-  .quill-gold-dark-5 {
-    background-color: $quill-gold-dark-5;
-  }
-  .quill-gold-dark-1 {
-    background-color: $quill-gold-dark-1;
+
+  $colors: (
+    quill-black: $quill-black,
+    quill-grey-90: $quill-grey-90,
+    quill-grey-80: $quill-grey-80,
+    quill-grey-70: $quill-grey-70,
+    quill-grey-60: $quill-grey-60,
+    quill-grey-50: $quill-grey-50,
+    quill-grey-40: $quill-grey-40,
+    quill-grey-35: $quill-grey-35,
+    quill-grey-30: $quill-grey-30,
+    quill-grey-25: $quill-grey-25,
+    quill-grey-20: $quill-grey-20,
+    quill-grey-15: $quill-grey-15,
+    quill-grey-10: $quill-grey-10,
+    quill-grey-5: $quill-grey-5,
+    quill-grey-3: $quill-grey-3,
+    quill-grey-2: $quill-grey-2,
+    quill-grey-1: $quill-grey-1,
+    quill-white: $quill-white,
+
+    quill-black-transparent-90: $quill-black-transparent-90,
+    quill-black-transparent-80: $quill-black-transparent-80,
+    quill-black-transparent-70: $quill-black-transparent-70,
+    quill-black-transparent-60: $quill-black-transparent-60,
+    quill-black-transparent-50: $quill-black-transparent-50,
+    quill-black-transparent-40: $quill-black-transparent-40,
+    quill-black-transparent-30: $quill-black-transparent-30,
+    quill-black-transparent-20: $quill-black-transparent-20,
+    quill-black-transparent-10: $quill-black-transparent-10,
+    quill-white-transparent-90: $quill-white-transparent-90,
+    quill-white-transparent-80: $quill-white-transparent-80,
+    quill-white-transparent-70: $quill-white-transparent-70,
+    quill-white-transparent-60: $quill-white-transparent-60,
+    quill-white-transparent-50: $quill-white-transparent-50,
+    quill-white-transparent-40: $quill-white-transparent-40,
+    quill-white-transparent-30: $quill-white-transparent-30,
+    quill-white-transparent-20: $quill-white-transparent-20,
+    quill-white-transparent-10: $quill-white-transparent-10,
+    quill-green-transparent-90: $quill-green-transparent-90,
+    quill-green-transparent-80: $quill-green-transparent-80,
+    quill-green-transparent-70: $quill-green-transparent-70,
+    quill-green-transparent-60: $quill-green-transparent-60,
+    quill-green-transparent-50: $quill-green-transparent-50,
+    quill-green-transparent-40: $quill-green-transparent-40,
+    quill-green-transparent-30: $quill-green-transparent-30,
+    quill-green-transparent-20: $quill-green-transparent-20,
+    quill-green-transparent-10: $quill-green-transparent-10,
+
+    quill-green: $quill-green,
+    quill-green-50: $quill-green-50,
+    quill-green-20: $quill-green-20,
+    quill-green-10: $quill-green-10,
+    quill-green-5: $quill-green-5,
+    quill-green-1: $quill-green-1,
+    quill-green-warm: $quill-green-warm,
+    quill-green-warm-50: $quill-green-warm-50,
+    quill-green-warm-20: $quill-green-warm-20,
+    quill-green-warm-10: $quill-green-warm-10,
+    quill-green-warm-5: $quill-green-warm-5,
+    quill-green-warm-1: $quill-green-warm-1,
+    quill-green-vibrant: $quill-green-vibrant,
+    quill-green-vibrant-50: $quill-green-vibrant-50,
+    quill-green-vibrant-20: $quill-green-vibrant-20,
+    quill-green-vibrant-10: $quill-green-vibrant-10,
+    quill-green-vibrant-5: $quill-green-vibrant-5,
+    quill-green-vibrant-1: $quill-green-vibrant-1,
+    quill-viridian: $quill-viridian,
+    quill-viridian-50: $quill-viridian-50,
+    quill-viridian-20: $quill-viridian-20,
+    quill-viridian-10: $quill-viridian-10,
+    quill-viridian-5: $quill-viridian-5,
+    quill-viridian-1: $quill-viridian-1,
+    quill-teal: $quill-teal,
+    quill-teal-50: $quill-teal-50,
+    quill-teal-20: $quill-teal-20,
+    quill-teal-10: $quill-teal-10,
+    quill-teal-5: $quill-teal-5,
+    quill-teal-1: $quill-teal-1,
+    quill-blue: $quill-blue,
+    quill-blue-50: $quill-blue-50,
+    quill-blue-20: $quill-blue-20,
+    quill-blue-10: $quill-blue-10,
+    quill-blue-5: $quill-blue-5,
+    quill-blue-1: $quill-blue-1,
+    quill-purple: $quill-purple,
+    quill-purple-50: $quill-purple-50,
+    quill-purple-20: $quill-purple-20,
+    quill-purple-10: $quill-purple-10,
+    quill-purple-5: $quill-purple-5,
+    quill-purple-1: $quill-purple-1,
+    quill-violet: $quill-violet,
+    quill-violet-50: $quill-violet-50,
+    quill-violet-20: $quill-violet-20,
+    quill-violet-10: $quill-violet-10,
+    quill-violet-5: $quill-violet-5,
+    quill-violet-1: $quill-violet-1,
+    quill-red: $quill-red,
+    quill-red-50: $quill-red-50,
+    quill-red-20: $quill-red-20,
+    quill-red-10: $quill-red-10,
+    quill-red-5: $quill-red-5,
+    quill-red-1: $quill-red-1,
+    quill-maroon: $quill-maroon,
+    quill-maroon-50: $quill-maroon-50,
+    quill-maroon-20: $quill-maroon-20,
+    quill-maroon-10: $quill-maroon-10,
+    quill-maroon-5: $quill-maroon-5,
+    quill-maroon-1: $quill-maroon-1,
+    quill-gold: $quill-gold,
+    quill-gold-50: $quill-gold-50,
+    quill-gold-20: $quill-gold-20,
+    quill-gold-10: $quill-gold-10,
+    quill-gold-5: $quill-gold-5,
+    quill-gold-1: $quill-gold-1,
+    quill-gold-dark: $quill-gold-dark,
+    quill-gold-dark-50: $quill-gold-dark-50,
+    quill-gold-dark-20: $quill-gold-dark-20,
+    quill-gold-dark-10: $quill-gold-dark-10,
+    quill-gold-dark-5: $quill-gold-dark-5,
+    quill-gold-dark-1: $quill-gold-dark-1
+  );
+
+  @each $name, $color in $colors {
+    .#{$name} {
+      background-color: $color;
+      &::before {
+        content: "#{$color}";
+        display: block;
+        position: absolute;
+        top: 0px;
+        text-align: center;
+        width: 100%;
+        left: 0;
+        top: 140px;
+      }
+    }
   }
 }
