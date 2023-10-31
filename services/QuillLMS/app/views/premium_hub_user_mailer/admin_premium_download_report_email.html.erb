@@ -1,12 +1,8 @@
-<p>Hi user,</p>
+<p>Dear <%= @user_first_name %>,</p>
 
-<a href=<%= @file_url%> rel="noopener noreferrer" target="_blank">Here is your requested report./a>
+<p> The CSV data export that you requested on <%= @human_date %> is ready to download. </p>
 
-<a href=<%= @constants[:links][:premium_hub]%> rel="noopener noreferrer" target="_blank">View the Premium Hub</a>
-
-<p>ℹ️ <strong>Need help?</strong></p>
-
-<p>If you have any questions or issues with your account, please reply to this email. You can also <a href=<%= @constants[:links][:premium]%> rel="noopener noreferrer" target="_blank">learn more about Quill Premium here</a> and <a href=<%= @constants[:links][:school_dashboard]%> rel="noopener noreferrer" target="_blank">learn more about the Premium Hub here</a>.</p>
+<a href=<%= @file_url%> rel="noopener noreferrer" target="_blank">Download</a>
 
 <p>Best regards,</p>
 
