@@ -8,7 +8,7 @@ class Cms::DistrictAdminsController < Cms::CmsController
     user = User.find_by(email: params[:email])
     school_ids = params[:school_ids]
     if user && @district.district_admins.exists?(user_id: user.id)
-      render json: { message: t('district_admin.already_assigned', district_name: @district.name) }
+      render json: { message: t('district_admin.already_assigned', district_name: @district.name) }, status: 200
     elsif user
       create_district_admin_user_for_existing_user(user, school_ids)
       InternalTool::MadeDistrictAdminEmailWorker.perform_async(user.id, @district.id)
@@ -18,6 +18,8 @@ class Cms::DistrictAdminsController < Cms::CmsController
       InternalTool::DistrictAdminAccountCreatedEmailWorker.perform_async(user.id, @district.id)
       render json: { message: t('district_admin.new_account') }, status: 200
     end
+  rescue ActiveRecord::RecordInvalid => e
+    render json: { error: e.record.errors.messages }
   end
 
   def destroy
@@ -44,26 +46,20 @@ class Cms::DistrictAdminsController < Cms::CmsController
 
   private def create_district_admin_user_for_existing_user(user, school_ids)
     district_admin = @district.district_admins.build(user_id: user.id)
-    if district_admin.save!
-      district_admin.attach_schools(school_ids)
-      attach_as_teacher_to_first_premium_school(user)
-      admin_info = AdminInfo.find_or_create_by!(user: user)
-      admin_info.update(approver_role: User::STAFF, approval_status: AdminInfo::APPROVED)
-    else
-      render json: { error: district_admin.errors.messages }
-    end
+    district_admin.save!
+    district_admin.attach_schools(school_ids)
+    attach_as_teacher_to_first_premium_school(user)
+    admin_info = AdminInfo.find_or_create_by!(user: user)
+    admin_info.update(approver_role: User::STAFF, approval_status: AdminInfo::APPROVED)
   end
 
   private def create_new_account_for_district_admin_user
     user = User.new(user_params)
-    if user.save!
-      user.refresh_token!
-      ExpirePasswordTokenWorker.perform_in(30.days, user.id)
-      create_district_admin_user_for_existing_user(user, params[:school_ids])
-      user
-    else
-      render json: { error: user.errors.messages }
-    end
+    user.save!
+    user.refresh_token!
+    ExpirePasswordTokenWorker.perform_in(30.days, user.id)
+    create_district_admin_user_for_existing_user(user, params[:school_ids])
+    user
   end
 
   private def attach_as_teacher_to_first_premium_school(admin)

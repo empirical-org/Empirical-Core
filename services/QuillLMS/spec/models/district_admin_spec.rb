@@ -55,5 +55,16 @@ describe DistrictAdmin, type: :model, redis: true do
 
       it { expect { subject }.to not_change(SchoolsAdmins, :count) }
     end
+
+    context 'admin is teacher for a school' do
+      before do
+        school = create(:school)
+        create(:schools_users, user: user, school: school)
+      end
+
+      it 'should detach that admin as teacher from the school' do
+        expect { subject }.to change(SchoolsUsers, :count).from(1).to(0)
+      end
+    end
   end
 end

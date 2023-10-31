@@ -37,6 +37,10 @@ class DistrictAdmin < ApplicationRecord
       .schools_admins
       .where(school: district_schools)
       .destroy_all
+
+    admin
+      .schools_users
+      &.destroy
   end
 
   private def unattached_district_schools
