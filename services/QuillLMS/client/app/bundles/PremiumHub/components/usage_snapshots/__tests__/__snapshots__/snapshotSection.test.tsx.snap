@@ -169,7 +169,7 @@ exports[`SnapshotSection component when the section is Classrooms should match s
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -241,7 +241,7 @@ exports[`SnapshotSection component when the section is Classrooms should match s
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -314,7 +314,7 @@ exports[`SnapshotSection component when the section is Classrooms should match s
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -386,7 +386,7 @@ exports[`SnapshotSection component when the section is Classrooms should match s
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -695,7 +695,7 @@ exports[`SnapshotSection component when the section is Highlights should match s
             size="medium"
           >
             <section
-              className="snapshot-item snapshot-count medium "
+              className="snapshot-item snapshot-count medium no-change"
             >
               <div
                 className="count-and-label"
@@ -768,7 +768,7 @@ exports[`SnapshotSection component when the section is Highlights should match s
             size="medium"
           >
             <section
-              className="snapshot-item snapshot-count medium "
+              className="snapshot-item snapshot-count medium no-change"
             >
               <div
                 className="count-and-label"
@@ -1043,7 +1043,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -1116,7 +1116,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -1189,7 +1189,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -1262,7 +1262,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -1607,7 +1607,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -1680,7 +1680,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -1753,7 +1753,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -1826,7 +1826,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -1898,7 +1898,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -2616,7 +2616,7 @@ exports[`SnapshotSection component when the section is Users should match snapsh
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -2689,7 +2689,7 @@ exports[`SnapshotSection component when the section is Users should match snapsh
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -2762,7 +2762,7 @@ exports[`SnapshotSection component when the section is Users should match snapsh
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -2835,7 +2835,7 @@ exports[`SnapshotSection component when the section is Users should match snapsh
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
