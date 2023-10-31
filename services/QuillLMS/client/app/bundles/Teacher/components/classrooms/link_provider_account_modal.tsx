@@ -20,7 +20,7 @@ const LinkProviderAccountModal = ({ link, close, provider, user }: LinkProviderA
     const buttonText = 'Link Account'
     let buttonClass = 'quill-button contained primary medium';
 
-    if (!termsAccepted) {
+    if (termsAccepted) {
       if (provider === 'Google') { return <AuthGoogleAccessForm offlineAccess={true} text={buttonText} /> }
 
       return <a className={buttonClass} href={link}>{buttonText}</a>
@@ -70,7 +70,7 @@ const LinkProviderAccountModal = ({ link, close, provider, user }: LinkProviderA
             onClick={close}
             type="button"
           >
-          Cancel
+            Cancel
           </button>
           {renderLinkAccountButton()}
         </div>
