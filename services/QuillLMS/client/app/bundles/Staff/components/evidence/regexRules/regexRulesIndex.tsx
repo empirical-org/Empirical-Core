@@ -67,20 +67,19 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
     }
     const formattedRows = rulesData && rulesData.rules && rulesData.rules.map((rule: RuleInterface) => {
       const { name, id, regex_rules, suborder, prompt_ids } = rule;
-      const ruleLink = (<Link to={`/activities/${activityId}/regex-rules/${id}`}>View</Link>);
+      const nameLink = (<Link to={`/activities/${activityId}/regex-rules/${id}`}>{name}</Link>);
       const promptsIcons = getPromptsIcons(activityData, prompt_ids);
 
       // for priority, return a 1-indexed suborder instead of 0-indexed for human readability
       return {
         id,
         priority: typeof suborder === 'string' ? (parseInt(suborder) + 1) : (suborder + 1),
-        name,
+        name: nameLink,
         incorrect_sequence: renderRegexTags(regex_rules, 'incorrect'),
         required_sequence: renderRegexTags(regex_rules, 'required'),
         because_prompt: promptsIcons[BECAUSE],
         but_prompt: promptsIcons[BUT],
         so_prompt: promptsIcons[SO],
-        view: ruleLink
       }
     });
     return formattedRows.sort(firstBy('priority').thenBy('id'));
@@ -153,7 +152,6 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
     { name: "Because", attribute:"because_prompt", width: "50px" },
     { name: "But", attribute:"but_prompt", width: "50px" },
     { name: "So", attribute:"so_prompt", width: "50px" },
-    { name: "", attribute:"view", width: "50px" },
   ];
   const addRulesBased1Link = <Link to={{ pathname: `/activities/${activityId}/regex-rules/new`, state: { ruleType: RULES_BASED_1 }}}>Add Sentence Structure Regex Rule</Link>;
   const addRulesBased2Link = <Link to={{ pathname: `/activities/${activityId}/regex-rules/new`, state: { ruleType: RULES_BASED_2 }}}>Add Post-Topic Regex Rule</Link>;
