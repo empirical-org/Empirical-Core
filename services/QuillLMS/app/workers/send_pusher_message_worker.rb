@@ -2,7 +2,7 @@
 
 class SendPusherMessageWorker
   include Sidekiq::Worker
-  sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
+  sidekiq_options queue: SidekiqQueue::INSTANT
 
   def perform(user_id, pusher_event, payload = nil)
     return unless user_id && pusher_event

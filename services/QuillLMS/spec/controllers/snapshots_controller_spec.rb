@@ -36,6 +36,49 @@ describe SnapshotsController, type: :controller do
       allow(DateTime).to receive(:current).and_return(now)
     end
 
+    describe '#create_csv_report_download' do
+      let(:query) { 'create_csv_report_download' }
+      let(:grades) { ['Kindergarten', '1'] }
+      let(:teacher_ids) { ['4', '5'] }
+      let(:classroom_ids) { ['7', '8'] }
+      let(:headers_to_display) { %w(student_name student_email) }
+
+      before do
+        allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
+      end
+
+      it 'should trigger PremiumDownloadReportsWorker with correct payload' do
+        expected_worker_params = [
+          'create_csv_report_download',
+          user.id,
+          {
+            name: timeframe_name,
+            timeframe_start: current_start,
+            timeframe_end: current_end
+          },
+          school_ids,
+          headers_to_display,
+          {
+            grades: grades,
+            teacher_ids: teacher_ids,
+            classroom_ids: classroom_ids
+          }
+        ]
+
+        expect(Snapshots::PremiumDownloadReportsWorker).to receive(:perform_async).with(*expected_worker_params)
+
+        post :create_csv_report_download, params: {
+          query:,
+          timeframe: timeframe_name,
+          school_ids:,
+          grades:,
+          teacher_ids:,
+          headers_to_display:,
+          classroom_ids:
+        }
+      end
+    end
+
     context 'cache key generation' do
       let(:query) { 'most-active-schools' }
       let(:grades) { ['Kindergarten', '1'] }
