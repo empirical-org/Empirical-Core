@@ -1095,4 +1095,12 @@ end
       it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(1) }
     end
   end
+
+  context 'is_evidence?' do
+    let!(:evidence_activity_session) { create(:evidence_activity_session) }
+    let!(:diagnostic_activity_session) { create(:activity_session) }
+
+    it { expect(evidence_activity_session.is_evidence?).to eq(true) }
+    it { expect(diagnostic_activity_session.is_evidence?).to eq(false) }
+  end
 end
