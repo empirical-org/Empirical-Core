@@ -3,7 +3,9 @@ import * as React from 'react';
 
 import { requestPost, } from '../../../modules/request';
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual';
-import { DataTable, Spinner, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon, whiteArrowPointingDownIcon } from '../../Shared';
+import { DataTable, Snackbar, Spinner, defaultSnackbarTimeout, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon } from '../../Shared';
+import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
+import ButtonLoadingIndicator from '../../Teacher/components/shared/button_loading_indicator';
 
 const STANDARD_WIDTH = "152px";
 const STUDENT_NAME = "Student Name";
@@ -50,7 +52,11 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   const [showStandard, setShowStandard] = React.useState<boolean>(true);
   const [showTimeSpent, setShowTimeSpent] = React.useState<boolean>(true);
   const [loading, setLoading] = React.useState<boolean>(true);
+  const [downloadButtonBusy, setDownloadButtonBusy] = React.useState<boolean>(false);
+  const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
   const [data, setData] = React.useState<any>(null);
+
+  useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   const fields = {
     [STUDENT_NAME]: {
@@ -155,6 +161,7 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   }
 
   function createCsvReportDownload() {
+    const buttonDisableTime = 2000
     const requestParams = {
       query: 'create_csv_report_download',
       timeframe: selectedTimeframe,
@@ -166,7 +173,11 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
       grades: selectedGrades,
       headers_to_display: getHeaders().map(header => header.attribute)
     }
+    setDownloadButtonBusy(true)
+
     requestPost('/snapshots/create_csv_report_download', requestParams, (body) => {
+      setShowSnackbar(true)
+      setTimeout(() => {setDownloadButtonBusy(false)}, buttonDisableTime);
     })
   }
 
@@ -257,14 +268,29 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
     })
   }
 
+  const renderDownloadButton = () => {
+    let buttonContent = <React.Fragment>Download</React.Fragment>
+    let buttonClassName = "quill-button download-report-button contained primary medium focus-on-light"
+
+    if (downloadButtonBusy) {
+      buttonContent = <React.Fragment>Download<ButtonLoadingIndicator /></React.Fragment>
+      buttonClassName += ' disabled'
+    }
+
+    return (
+      <button className={buttonClassName} onClick={createCsvReportDownload} type="button">
+        {buttonContent}
+      </button>
+    )
+  }
+
+
   return(
     <React.Fragment>
       <div className="header">
+        <Snackbar text="You will receive an email with a download link shortly." visible={showSnackbar} />
         <h1>Data Export</h1>
-        <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={createCsvReportDownload} type="button">
-          <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />
-          <span>Download</span>
-        </button>
+        {renderDownloadButton()}
       </div>
       <div className="filter-button-container">
         <button className="interactive-wrapper focus-on-light" onClick={openMobileFilterMenu} type="button">

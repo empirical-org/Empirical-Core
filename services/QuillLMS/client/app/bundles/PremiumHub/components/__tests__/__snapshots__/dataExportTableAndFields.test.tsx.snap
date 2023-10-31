@@ -5,6 +5,10 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
   <div
     className="header"
   >
+    <Snackbar
+      text="You will receive an email with a download link shortly."
+      visible={false}
+    />
     <h1>
       Data Export
     </h1>
@@ -13,13 +17,7 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
       onClick={[Function]}
       type="button"
     >
-      <img
-        alt="White arrow pointing down icon"
-        src="undefined/images/icons/downward-arrow-icon-white.svg"
-      />
-      <span>
-        Download
-      </span>
+      Download
     </button>
   </div>
   <div

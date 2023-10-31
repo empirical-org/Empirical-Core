@@ -15,9 +15,11 @@ class PremiumHubUserMailer < UserMailer
     mail to: user.email, subject: subject
   end
 
-  def admin_premium_download_report_email(file_url, email)
+  def admin_premium_download_report_email(user_first_name, file_url, email)
+    @user_first_name = user_first_name
     @file_url = file_url
-    mail to: email, subject: "TEST EMAIL"
+    @human_date = DateTime.current.strftime('%B %d, %Y')
+    mail to: email, subject: "Your Quill data export is ready"
   end
 
   def admin_account_created_email(user, admin_name, school_name, is_reminder)
