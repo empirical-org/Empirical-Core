@@ -34,23 +34,32 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
     }
   }, [activityData]);
 
-  const { data: rulesBased1Data } = useQuery({
+  const { data: rulesBased1Data } = useQuery(
     // cache rules data for updates
-    queryKey: [`rules-${activityId}-${RULES_BASED_1}`, null, promptIds, RULES_BASED_1],
-    queryFn: fetchRules
-  });
+    [`rules-${activityId}-${RULES_BASED_1}`, null, promptIds, RULES_BASED_1],
+    fetchRules,
+    {
+      enabled: !!promptIds,
+    }
+  );
 
-  const { data: rulesBased2Data } = useQuery({
+  const { data: rulesBased2Data } = useQuery(
     // cache rules data for updates
-    queryKey: [`rules-${activityId}-${RULES_BASED_2}`, null, promptIds, RULES_BASED_2],
-    queryFn: fetchRules
-  });
+    [`rules-${activityId}-${RULES_BASED_2}`, null, promptIds, RULES_BASED_2],
+    fetchRules,
+    {
+      enabled: !!promptIds,
+    }
+  );
 
-  const { data: rulesBased3Data } = useQuery({
+  const { data: rulesBased3Data } = useQuery(
     // cache rules data for updates
-    queryKey: [`rules-${activityId}-${RULES_BASED_3}`, null, promptIds, RULES_BASED_3],
-    queryFn: fetchRules
-  });
+    [`rules-${activityId}-${RULES_BASED_3}`, null, promptIds, RULES_BASED_3],
+    fetchRules,
+    {
+      enabled: !!promptIds,
+    }
+  );
 
   function handleReorder(sortInfo) {
     const idsInOrder = sortInfo.map(item => item.key)
