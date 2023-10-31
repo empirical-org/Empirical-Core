@@ -50,6 +50,16 @@ module AdminDiagnosticReports
       raise NotImplementedError
     end
 
+    def where_clause
+      super + <<-SQL
+          #{activity_classification_where_clause}
+      SQL
+    end
+
+    def activity_classification_where_clause
+      "AND activities.activity_classification_id = #{DIAGNOSTIC_CLASSIFICATION_ID}"
+    end
+
     def group_by_clause
       "GROUP BY activities.name, #{aggregation_clause}"
     end
