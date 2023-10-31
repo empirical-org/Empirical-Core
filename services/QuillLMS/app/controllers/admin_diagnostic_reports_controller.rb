@@ -42,7 +42,6 @@ class AdminDiagnosticReportsController < ApplicationController
   end
 
   private def retrieve_cache_or_enqueue_worker(worker)
-
     timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(
       snapshot_params[:timeframe],
       custom_start: snapshot_params[:timeframe_custom_start],
@@ -57,7 +56,7 @@ class AdminDiagnosticReportsController < ApplicationController
       current_user.id,
       {
         name: snapshot_params[:timeframe],
-        timeframe_start: current_start,
+        timeframe_start: timeframe_start,
         timeframe_end: timeframe_end
       },
       snapshot_params[:school_ids],
