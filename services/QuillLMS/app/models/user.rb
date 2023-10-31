@@ -247,7 +247,7 @@ class User < ApplicationRecord
   scope :student, -> { where(role: STUDENT) }
   scope :admin, ->  { where(role: ADMIN) }
 
-  scope :teachers_in_schools, lambda { | school_ids|
+  scope :teachers_in_schools, lambda { |school_ids|
     distinct
       .joins(:schools_users)
       .left_outer_joins(:classrooms_teachers)
