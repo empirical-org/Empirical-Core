@@ -37,6 +37,7 @@ module Snapshots
           'timeframe_end' => timeframe_end.to_s
         }
       }
+      let(:expected_pusher_event) { "#{described_class::PUSHER_EVENT}:#{query}" }
       let(:timeframe_pusher_payload) { { start: current_timeframe_start.to_s, end: timeframe_end.to_s } }
       let(:expected_query_args) {
         {
@@ -108,7 +109,7 @@ module Snapshots
         ].flatten)
 
         expect(Rails.cache).to receive(:write)
-        expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, described_class::PUSHER_EVENT, {
+        expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, expected_pusher_event, {
           hash: hashed_payload,
           timeframe: timeframe_pusher_payload
         })

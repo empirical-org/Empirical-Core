@@ -39,6 +39,7 @@ module Snapshots
           'timeframe_end' => timeframe_end.to_s
         }
       }
+      let(:expected_pusher_event) { "#{described_class::CURRENT_TIMEFRAME_PUSHER_EVENT}:#{query}" }
       let(:timeframe_pusher_payload) { { start: current_timeframe_start.to_s, end: timeframe_end.to_s } }
 
       let(:expected_query_args) {
@@ -61,16 +62,17 @@ module Snapshots
       it 'should execute the query for the current timeframe' do
         expect(query_double).to receive(:run).with(expected_query_args)
         expect(Rails.cache).to receive(:write)
-        expect(SendPusherMessageWorker).to receive(:perform_async).with(anything, described_class::CURRENT_TIMEFRAME_PUSHER_EVENT, anything)
+        expect(SendPusherMessageWorker).to receive(:perform_async).with(anything, expected_pusher_event, anything)
 
         perform
       end
 
       context 'when previous_timeframe param is passed with a value' do
         let(:previous_timeframe) { 'true' }
+        let(:expected_pusher_event) { "#{described_class::PREVIOUS_TIMEFRAME_PUSHER_EVENT}:#{query}" }
 
         it do
-          expect(SendPusherMessageWorker).to receive(:perform_async).with(anything, described_class::PREVIOUS_TIMEFRAME_PUSHER_EVENT, anything)
+          expect(SendPusherMessageWorker).to receive(:perform_async).with(anything, expected_pusher_event, anything)
 
           perform
         end
@@ -124,7 +126,7 @@ module Snapshots
         ].flatten)
 
         expect(Rails.cache).to receive(:write)
-        expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, described_class::CURRENT_TIMEFRAME_PUSHER_EVENT, {
+        expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, expected_pusher_event, {
           hash: hashed_payload,
           timeframe: timeframe_pusher_payload
         })

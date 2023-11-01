@@ -40,13 +40,17 @@ module Snapshots
         filters['classroom_ids']
       ].flatten)
 
-      SendPusherMessageWorker.perform_async(user_id, PUSHER_EVENT, {
+      SendPusherMessageWorker.perform_async(user_id, pusher_event_name(query), {
         hash: filter_hash,
         timeframe: {
           start: timeframe['timeframe_start'],
           end: timeframe['timeframe_end']
         }
       })
+    end
+
+    private def pusher_event_name(query)
+      "#{PUSHER_EVENT}:#{query}"
     end
 
     private def cache_expiry

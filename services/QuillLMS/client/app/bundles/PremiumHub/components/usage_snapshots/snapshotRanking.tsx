@@ -147,7 +147,7 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
   }
 
   function initializePusher() {
-    pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
+    pusherChannel?.bind(`${PUSHER_EVENT_KEY}:${queryKey}`, (body) => {
       const { message, } = body
       const { hash, timeframe, } = message
 

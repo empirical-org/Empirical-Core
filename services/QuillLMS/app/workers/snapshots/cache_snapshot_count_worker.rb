@@ -52,14 +52,18 @@ module Snapshots
         filters['classroom_ids']
       ].flatten)
 
-      pusher_event = previous_timeframe ? PREVIOUS_TIMEFRAME_PUSHER_EVENT : CURRENT_TIMEFRAME_PUSHER_EVENT
-      SendPusherMessageWorker.perform_async(user_id, pusher_event, {
+      SendPusherMessageWorker.perform_async(user_id, pusher_event_name(query, previous_timeframe: previous_timeframe), {
         hash: filter_hash,
         timeframe: {
           start: timeframe['timeframe_start'],
           end: timeframe['timeframe_end']
         }
       })
+    end
+
+    private def pusher_event_name(query, previous_timeframe: false)
+      pusher_event = previous_timeframe ? PREVIOUS_TIMEFRAME_PUSHER_EVENT : CURRENT_TIMEFRAME_PUSHER_EVENT
+      "#{pusher_event}:#{query}"
     end
 
     private def cache_expiry

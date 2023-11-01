@@ -159,14 +159,14 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
   }
 
   function initializePusher() {
-    pusherChannel?.bind(PUSHER_CURRENT_EVENT_KEY, (body) => {
+    pusherChannel?.bind(`${PUSHER_CURRENT_EVENT_KEY}:${queryKey}`, (body) => {
       const { message, } = body
       const { hash, timeframe, } = message
 
       if (filtersMatchHash(hash) && customTimeframeMatches(timeframe)) getCurrentData()
     });
 
-    pusherChannel?.bind(PUSHER_PREVIOUS_EVENT_KEY, (body) => {
+    pusherChannel?.bind(`${PUSHER_PREVIOUS_EVENT_KEY}:${queryKey}`, (body) => {
       const { message, } = body
 
       if (filtersMatchHash(message)) getPreviousData()
