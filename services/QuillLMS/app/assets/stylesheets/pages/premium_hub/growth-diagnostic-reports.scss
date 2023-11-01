@@ -70,33 +70,38 @@
     min-height: 74px;
     justify-content: flex-start;
   }
-  .growth-diagnostic-reports-overview-table, .growth-diagnostic-reports-by-skill-table {
-    width: 68vw;
-    margin-top: 48px;
-    .data-table-headers {
-      padding-right: 0px;
-      th:first-of-type {
-        .quill-tooltip {
-          left: 36px;
-        }
-      }
-      th:last-of-type {
-        margin-right: 0px;
-        .quill-tooltip-wrapper {
-          left: -132px;
-          right: 0px;
-        }
-      }
-      .data-table-header {
-        display: flex;
-        justify-content: space-between;
-        .quill-tooltip-trigger {
-          img {
-            margin-right: 8px;
+  .growth-reports-table-container {
+    overflow: scroll;
+    height: 100vh;
+    .growth-diagnostic-reports-overview-table, .growth-diagnostic-reports-by-skill-table, .growth-diagnostic-reports-by-student-table {
+      overflow: visible;
+      width: 68vw;
+      margin-top: 48px;
+      .data-table-headers {
+        padding-right: 0px;
+        th:first-of-type {
+          .quill-tooltip {
+            left: 36px;
           }
         }
-        .quill-tooltip {
-          text-align: left;
+        th:last-of-type {
+          margin-right: 0px;
+          .quill-tooltip-wrapper {
+            left: -132px;
+            right: 0px;
+          }
+        }
+        .data-table-header {
+          display: flex;
+          justify-content: space-between;
+          .quill-tooltip-trigger {
+            img {
+              margin-right: 8px;
+            }
+          }
+          .quill-tooltip {
+            text-align: left;
+          }
         }
       }
     }

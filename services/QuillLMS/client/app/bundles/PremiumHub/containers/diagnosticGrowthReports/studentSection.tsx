@@ -126,7 +126,7 @@ export const StudentSection = ({
         value={diagnosticTypeValue}
       />
       <DataTable
-        className="growth-diagnostic-reports-by-skill-table reporting-format"
+        className="growth-diagnostic-reports-by-student-table reporting-format"
         emptyStateMessage={noResultsMessage('diagnostic')}
         headers={headers}
         rows={[]}

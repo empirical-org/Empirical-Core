@@ -119,12 +119,14 @@ export const OverviewSection = ({
         options={groupByDropdownOptions}
         value={groupByValue}
       />
-      <DataTable
-        className="growth-diagnostic-reports-overview-table reporting-format"
-        emptyStateMessage={noResultsMessage('diagnostic')}
-        headers={headers}
-        rows={[]}
-      />
+      <div className="growth-reports-table-container">
+        <DataTable
+          className="growth-diagnostic-reports-overview-table reporting-format"
+          emptyStateMessage={noResultsMessage('diagnostic')}
+          headers={headers}
+          rows={[]}
+        />
+      </div>
     </React.Fragment>
   )
 }
