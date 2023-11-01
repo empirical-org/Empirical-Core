@@ -30,6 +30,8 @@ class AdminReportFilterSelectionsController < ApplicationController
       .permit(
         :report,
         filter_selections: [
+          :custom_start_date,
+          :custom_end_date,
           timeframe: [:value, :name, :default, :label],
           schools: [:id, :name, :label, :value],
           teachers: [:id, :name, :label, :value],
