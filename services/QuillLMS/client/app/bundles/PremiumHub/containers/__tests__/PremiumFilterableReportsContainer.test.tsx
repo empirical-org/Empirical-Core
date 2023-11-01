@@ -1,7 +1,7 @@
 import * as React from "react";
 import { render, waitFor, screen, } from "@testing-library/react";
 import userEvent from '@testing-library/user-event'
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, } from 'react-router-dom';
 import { CompatRouter } from "react-router-dom-v5-compat";
 
 import { defaultFilterData, } from './data'
@@ -32,7 +32,11 @@ describe('PremiumFilterableReportsContainer', () => {
 
   beforeEach(() => {
     jest.spyOn(requestsApi, 'requestPost').mockImplementation((url, params, callback) => {
-      callback(defaultFilterData);
+      if (url === '/snapshots/options') {
+        callback(defaultFilterData);
+      } else {
+        callback(null)
+      }
     });
   })
 

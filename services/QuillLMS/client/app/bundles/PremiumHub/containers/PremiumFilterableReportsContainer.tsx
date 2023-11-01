@@ -3,6 +3,7 @@ import queryString from 'query-string';
 import * as _ from 'lodash'
 import * as Pusher from 'pusher-js';
 import { Routes, Route } from "react-router-dom-v5-compat";
+import { useLocation } from 'react-router-dom';
 
 import DataExportContainer from './DataExportContainer';
 import UsageSnapshotsContainer from './UsageSnapshotsContainer';
@@ -24,8 +25,8 @@ const openGraySidebarIcon = `${sidebarImgSrcStem}/open_sidebar_gray.svg`
 const closedGreenSidebarIcon = `${sidebarImgSrcStem}/closed_sidebar_green.svg`
 const closedGraySidebarIcon = `${sidebarImgSrcStem}/closed_sidebar_gray.svg`
 
-
 export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) => {
+  const [loadingSavedFilterSelections, setLoadingSavedFilterSelections] = React.useState(true)
   const [loadingFilters, setLoadingFilters] = React.useState(true)
 
   const [allTimeframes, setAllTimeframes] = React.useState(null)
@@ -66,13 +67,27 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
 
   const [showFilters, setShowFilters] = React.useState(true)
 
+  const location = useLocation();
+
   React.useEffect(() => {
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channel = pusher.subscribe(String(adminInfo.id));
     setPusherChannel(channel)
 
-    getFilters()
+    getFilterSelections()
   }, [])
+
+  React.useEffect(() => {
+    if (!loadingSavedFilterSelections) {
+      getFilters()
+    }
+  }, [loadingSavedFilterSelections])
+
+  React.useEffect(() => {
+    if (loadingSavedFilterSelections) { return }
+
+    saveFilterSelections()
+  }, [searchCount])
 
   React.useEffect(() => {
     if (loadingFilters) { return }
@@ -106,7 +121,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
 
     setHasAdjustedFiltersSinceLastSubmission(newValueForHasAdjustedFiltersSinceLastSubmission)
 
-  }, [selectedSchools, selectedGrades, selectedTeachers, selectedClassrooms, selectedTimeframe])
+  }, [selectedSchools, selectedGrades, selectedTeachers, selectedClassrooms, selectedTimeframe, loadingFilters])
 
   React.useEffect(() => {
     if (showCustomDateModal || (customStartDate && customEndDate) || !lastUsedTimeframe) { return }
@@ -136,23 +151,75 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     return timeframes?.find(timeframe => timeframe.default) || null
   }
 
+  function reportPath() {
+    return location.pathname.slice(location.pathname.lastIndexOf("/") + 1, location.pathname.length)
+  }
+
+  function setSelectedAndLastSubmitted(grades, schools, teachers, classrooms, timeframe) {
+    setSelectedGrades(grades)
+    setSelectedSchools(schools)
+    setSelectedTeachers(teachers)
+    setSelectedClassrooms(classrooms)
+    setSelectedTimeframe(timeframe)
+
+    setLastSubmittedGrades(grades)
+    setLastSubmittedSchools(schools)
+    setLastSubmittedTeachers(teachers)
+    setLastSubmittedClassrooms(classrooms)
+    setLastSubmittedTimeframe(timeframe)
+
+    setLastUsedTimeframe(timeframe)
+  }
+
+  function getFilterSelections() {
+    requestPost('/admin_report_filter_selections/show', { report: reportPath() }, (selections) => {
+      if (selections) {
+        const { grades, schools, teachers, classrooms, timeframe, } = selections.filter_selections
+        setSelectedAndLastSubmitted(grades, schools, teachers, classrooms, timeframe)
+      }
+      setLoadingSavedFilterSelections(false)
+    })
+  }
+
+  function saveFilterSelections() {
+    const filterSelections = {
+      timeframe: selectedTimeframe,
+      schools: selectedSchools,
+      teachers: selectedTeachers,
+      classrooms: selectedClassrooms,
+      grades: selectedGrades,
+
+    }
+    const params = {
+      admin_report_filter_selection: {
+        filter_selections: filterSelections,
+        report: reportPath(),
+      }
+    }
+
+    requestPost('/admin_report_filter_selections/create_or_update', params, () => {})
+  }
+
   function getFilters() {
-    const searchParams = {
+    const params = {
       timeframe: selectedTimeframe,
       school_ids: selectedSchools?.map(s => s.id) || null,
       teacher_ids: selectedTeachers?.map(t => t.id) || null,
       classroom_ids: selectedClassrooms?.map(c => c.id) || null,
-      grades: selectedGrades?.map(g => g.value)
+      grades: selectedGrades?.map(g => g.value),
+      report: location.pathname.slice(location.pathname.lastIndexOf("/") , location.pathname.length),
+      is_initial_load: loadingFilters
     }
 
-    requestPost('/snapshots/options', searchParams, (filterData) => {
+    requestPost('/snapshots/options', params, (filterData) => {
       const timeframeOptions = filterData.timeframes.map(tf => ({ ...tf, label: tf.name }))
       const gradeOptions = filterData.grades.map(grade => ({ ...grade, label: grade.name }))
       const schoolOptions = filterData.schools.map(school => ({ ...school, label: school.name, value: school.id }))
-
       const teacherOptions = filterData.teachers.map(teacher => ({ ...teacher, label: teacher.name, value: teacher.id }))
-
       const classroomOptions = filterData.classrooms.map(classroom => ({ ...classroom, label: classroom.name, value: classroom.id }))
+      const allTeacherOptions = filterData.all_teachers?.map(teacher => ({ ...teacher, label: teacher.name, value: teacher.id }))
+      const allClassroomOptions = filterData.all_classrooms?.map(classroom => ({ ...classroom, label: classroom.name, value: classroom.id }))
+      const allSchoolOptions = filterData.all_schools?.map(school => ({ ...school, label: school.name, value: school.id }))
 
       const timeframe = defaultTimeframe(timeframeOptions)
 
@@ -162,24 +229,14 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
       if (allTeachers?.length !== teacherOptions.length) { setAllTeachers(teacherOptions) }
       if (allClassrooms?.length !== classroomOptions.length) { setAllClassrooms(classroomOptions) }
 
+      if (loadingFilters && (!selectedGrades || !selectedSchools || !selectedTeachers || !selectedClassrooms || !selectedTimeframe)) {
+        setSelectedAndLastSubmitted(gradeOptions, schoolOptions, teacherOptions, classroomOptions, timeframe)
+      }
+
       if (loadingFilters) {
-        setSelectedGrades(gradeOptions)
-        setSelectedSchools(schoolOptions)
-        setSelectedTeachers(teacherOptions)
-        setSelectedClassrooms(classroomOptions)
-        setSelectedTimeframe(timeframe)
-
-        setLastSubmittedGrades(gradeOptions)
-        setLastSubmittedSchools(schoolOptions)
-        setLastSubmittedTeachers(teacherOptions)
-        setLastSubmittedClassrooms(classroomOptions)
-        setLastSubmittedTimeframe(timeframe)
-
-        setLastUsedTimeframe(timeframe)
-
-        setOriginalAllClassrooms(classroomOptions)
-        setOriginalAllSchools(schoolOptions)
-        setOriginalAllTeachers(teacherOptions)
+        setOriginalAllSchools(allSchoolOptions)
+        setOriginalAllClassrooms(allClassroomOptions)
+        setOriginalAllTeachers(allTeacherOptions)
 
         setLoadingFilters(false)
       }
@@ -332,7 +389,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
   return (
     <div className="filterable-reports-container white-background">
       {filterMenu}
-      <div className={showFilters ? '' : 'filter-menu-closed'}>
+      <div className={showFilters ? 'filter-menu-open' : 'filter-menu-closed'}>
         {showFilters ? null : renderShowFilterMenuButton()}
         <Routes>
           <Route element={<DiagnosticGrowthReportsContainer {...sharedProps} />} path='/teachers/premium_hub/diagnostic_growth_report' />
