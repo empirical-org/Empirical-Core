@@ -106,7 +106,7 @@ exports[`PremiumFilterableReportsContainer it should render 1`] = `
                   <div
                     class="dropdown__single-value css-1dimb5e-singleValue"
                   >
-                    This school year
+                    Today
                   </div>
                   <input
                     aria-autocomplete="list"
