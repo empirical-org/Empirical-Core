@@ -394,6 +394,41 @@ describe SnapshotsController, type: :controller do
     let(:classroom) { create(:classroom, grade: target_grade) }
     let!(:classrooms_teacher) { create(:classrooms_teacher, user: teacher, classroom: classroom, role: 'owner') }
 
+    context "#options with initial load" do
+      let(:initial_load) { 'true' }
+
+      let(:other_school) { create(:school) }
+      let!(:schools_admins) { create(:schools_admins, school: other_school, user: user )}
+      let(:other_teacher) { create(:teacher, school: other_school) }
+      let(:other_classroom) { create(:classroom, grade: target_grade) }
+      let!(:other_classrooms_teacher) { create(:classrooms_teacher, user: other_teacher, classroom: other_classroom, role: 'owner') }
+
+      it 'should include all schools when initial load is true, regardless of any filters applied' do
+        get :options, params: { is_initial_load: initial_load, school_ids: [school.id] }
+
+        json_response = JSON.parse(response.body)
+
+        expect(json_response['all_schools'].map { |s| s["id"] }).to include(school.id, other_school.id)
+      end
+
+      it 'should include all teachers when initial load is true, regardless of any filters applied' do
+        get :options, params: { is_initial_load: initial_load, school_ids: [school.id] }
+
+        json_response = JSON.parse(response.body)
+
+        expect(json_response['all_teachers'].map { |t| t["id"] }).to include(teacher.id, other_teacher.id)
+      end
+
+      it 'should include all classrooms when initial load is true, regardless of any filters applied' do
+        get :options, params: { is_initial_load: initial_load, school_ids: [school.id] }
+
+        json_response = JSON.parse(response.body)
+
+        expect(json_response['all_classrooms'].map { |c| c["id"] }).to include(classroom.id, other_classroom.id)
+      end
+    end
+
+
     it 'should return all valid timeframe options with names' do
       get :options
 

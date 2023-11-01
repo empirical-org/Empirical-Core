@@ -121,10 +121,12 @@
       justify-content: flex-end;
     }
   }
+  .filter-menu-closed, .filter-menu-open {
+    width: 100%;
+  }
   .filter-menu-closed {
     margin: 0 auto;
     position: relative;
-    width: 100%;
     max-width: 1328px; // same as main
     .show-filter-menu-button {
       top: 32px;
@@ -328,7 +330,7 @@
             line-height: 21px;
           }
         }
-        &.positive, &.negative, &.none {
+        &.positive, &.negative, &.no-change {
           .count {
             color: $quill-grey-90;
           }

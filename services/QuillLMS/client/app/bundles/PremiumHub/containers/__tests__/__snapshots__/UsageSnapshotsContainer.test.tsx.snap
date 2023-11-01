@@ -153,7 +153,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
               class="counts"
             >
               <section
-                class="snapshot-item snapshot-count medium "
+                class="snapshot-item snapshot-count medium no-change"
               >
                 <div
                   class="count-and-label"
@@ -176,7 +176,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                 </div>
               </section>
               <section
-                class="snapshot-item snapshot-count medium "
+                class="snapshot-item snapshot-count medium no-change"
               >
                 <div
                   class="count-and-label"
@@ -224,7 +224,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
               class="counts"
             >
               <section
-                class="snapshot-item snapshot-count small "
+                class="snapshot-item snapshot-count small no-change"
               >
                 <div
                   class="count-and-label"
@@ -247,7 +247,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                 </div>
               </section>
               <section
-                class="snapshot-item snapshot-count small "
+                class="snapshot-item snapshot-count small no-change"
               >
                 <div
                   class="count-and-label"
@@ -270,7 +270,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                 </div>
               </section>
               <section
-                class="snapshot-item snapshot-count small "
+                class="snapshot-item snapshot-count small no-change"
               >
                 <div
                   class="count-and-label"
@@ -293,7 +293,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                 </div>
               </section>
               <section
-                class="snapshot-item snapshot-count small "
+                class="snapshot-item snapshot-count small no-change"
               >
                 <div
                   class="count-and-label"
@@ -404,7 +404,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
               class="first-row"
             >
               <section
-                class="snapshot-item snapshot-count small "
+                class="snapshot-item snapshot-count small no-change"
               >
                 <div
                   class="count-and-label"
@@ -427,7 +427,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                 </div>
               </section>
               <section
-                class="snapshot-item snapshot-count small "
+                class="snapshot-item snapshot-count small no-change"
               >
                 <div
                   class="count-and-label"
@@ -450,7 +450,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                 </div>
               </section>
               <section
-                class="snapshot-item snapshot-count small "
+                class="snapshot-item snapshot-count small no-change"
               >
                 <div
                   class="count-and-label"
@@ -473,7 +473,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                 </div>
               </section>
               <section
-                class="snapshot-item snapshot-count small "
+                class="snapshot-item snapshot-count small no-change"
               >
                 <div
                   class="count-and-label"
@@ -622,7 +622,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
               class="third-and-fourth-row"
             >
               <section
-                class="snapshot-item snapshot-count small "
+                class="snapshot-item snapshot-count small no-change"
               >
                 <div
                   class="count-and-label"
@@ -645,7 +645,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                 </div>
               </section>
               <section
-                class="snapshot-item snapshot-count small "
+                class="snapshot-item snapshot-count small no-change"
               >
                 <div
                   class="count-and-label"
@@ -668,7 +668,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                 </div>
               </section>
               <section
-                class="snapshot-item snapshot-count small "
+                class="snapshot-item snapshot-count small no-change"
               >
                 <div
                   class="count-and-label"
@@ -691,7 +691,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                 </div>
               </section>
               <section
-                class="snapshot-item snapshot-count small "
+                class="snapshot-item snapshot-count small no-change"
               >
                 <div
                   class="count-and-label"
@@ -714,7 +714,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                 </div>
               </section>
               <section
-                class="snapshot-item snapshot-count small "
+                class="snapshot-item snapshot-count small no-change"
               >
                 <div
                   class="count-and-label"
@@ -906,7 +906,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
               class="counts"
             >
               <section
-                class="snapshot-item snapshot-count small "
+                class="snapshot-item snapshot-count small no-change"
               >
                 <div
                   class="count-and-label"
@@ -929,7 +929,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                 </div>
               </section>
               <section
-                class="snapshot-item snapshot-count small "
+                class="snapshot-item snapshot-count small no-change"
               >
                 <div
                   class="count-and-label"
@@ -952,7 +952,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                 </div>
               </section>
               <section
-                class="snapshot-item snapshot-count small "
+                class="snapshot-item snapshot-count small no-change"
               >
                 <div
                   class="count-and-label"
@@ -975,7 +975,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                 </div>
               </section>
               <section
-                class="snapshot-item snapshot-count small "
+                class="snapshot-item snapshot-count small no-change"
               >
                 <div
                   class="count-and-label"
