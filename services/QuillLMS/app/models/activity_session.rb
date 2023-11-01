@@ -513,6 +513,10 @@ class ActivitySession < ApplicationRecord
     end
   end
 
+  def is_evidence?
+    classification.key == ActivityClassification::EVIDENCE_KEY
+  end
+
   private def correctly_assigned
     if classroom_unit && (classroom_unit.validate_assigned_student(user_id) == false)
       ErrorNotifier.report(StudentNotAssignedActivityError.new)

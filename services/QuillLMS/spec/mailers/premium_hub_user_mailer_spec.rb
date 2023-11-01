@@ -45,6 +45,19 @@ describe PremiumHubUserMailer, type: :mailer do
     end
   end
 
+  describe 'admin_premium_download_report_email' do
+    let(:file_url) { 's3.csv' }
+    let(:email) { 'a@b.org' }
+    let(:user_first_name) { 'bob' }
+    let(:mail) { described_class.admin_premium_download_report_email(user_first_name, file_url, email) }
+
+    it 'rendering should include the correct file path' do
+      body_contains_expected_content = mail.body.include?(file_url) && mail.body.include?(user_first_name)
+      expect(body_contains_expected_content).to eq(true)
+      expect(mail.to).to eq([email])
+    end
+  end
+
   describe 'teacher_link_school_email' do
     let(:user) { build(:user) }
     let(:admin_user) { build(:user) }
