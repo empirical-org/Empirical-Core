@@ -72,11 +72,12 @@
   }
   .growth-reports-table-container {
     overflow: scroll;
-    height: 100vh;
+    width: auto;
+    margin-right: -64px; // this way the scrollable table doesn't awkwardly get cut off where the container's padding ends
     .growth-diagnostic-reports-overview-table, .growth-diagnostic-reports-by-skill-table, .growth-diagnostic-reports-by-student-table {
       overflow: visible;
-      width: 68vw;
       margin-top: 48px;
+      width: max-content; // the table itself needs to be big enough to accommodate all its content
       .data-table-headers {
         padding-right: 0px;
         th:first-of-type {
@@ -107,4 +108,3 @@
     }
   }
 }
-
