@@ -332,7 +332,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
   return (
     <div className="filterable-reports-container white-background">
       {filterMenu}
-      <div className={showFilters ? '' : 'filter-menu-closed'}>
+      <div className={showFilters ? 'filter-menu-open' : 'filter-menu-closed'}>
         {showFilters ? null : renderShowFilterMenuButton()}
         <Routes>
           <Route element={<DiagnosticGrowthReportsContainer {...sharedProps} />} path='/teachers/premium_hub/diagnostic_growth_report' />

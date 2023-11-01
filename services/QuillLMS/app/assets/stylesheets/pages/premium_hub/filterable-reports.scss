@@ -560,6 +560,12 @@
     }
   }
 
+  @media (max-width: 1700px) {
+    .filter-menu-open main {
+      max-width: calc(100vw - 333px); // page width minus the filter menu width
+    }
+  }
+
   @media (max-width: 1450px) {
     main {
       .snapshot-section.highlights .counts {

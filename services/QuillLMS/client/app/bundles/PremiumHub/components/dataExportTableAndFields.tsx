@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { requestPost, } from '../../../modules/request';
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual';
-import { DataTable, Snackbar, Spinner, defaultSnackbarTimeout, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon } from '../../Shared';
+import { DataTable, Snackbar, Spinner, defaultSnackbarTimeout, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon, whiteArrowPointingDownIcon } from '../../Shared';
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
 import ButtonLoadingIndicator from '../../Teacher/components/shared/button_loading_indicator';
 
@@ -269,17 +269,16 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   }
 
   const renderDownloadButton = () => {
-    let buttonContent = <React.Fragment>Download</React.Fragment>
     let buttonClassName = "quill-button download-report-button contained primary medium focus-on-light"
 
     if (downloadButtonBusy) {
-      buttonContent = <React.Fragment>Download<ButtonLoadingIndicator /></React.Fragment>
       buttonClassName += ' disabled'
     }
 
     return (
-      <button className={buttonClassName} onClick={createCsvReportDownload} type="button">
-        {buttonContent}
+      <button className={buttonClassName} disabled={downloadButtonBusy} onClick={createCsvReportDownload} type="button">
+        <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />
+        <span>Download</span>
       </button>
     )
   }

@@ -72,10 +72,11 @@
   }
   .growth-reports-table-container {
     overflow: scroll;
+    width: auto;
     height: 100vh;
     .growth-diagnostic-reports-overview-table, .growth-diagnostic-reports-by-skill-table, .growth-diagnostic-reports-by-student-table {
       overflow: visible;
-      width: 68vw;
+      width: max-content;
       margin-top: 48px;
       .data-table-headers {
         padding-right: 0px;
@@ -107,4 +108,3 @@
     }
   }
 }
-
