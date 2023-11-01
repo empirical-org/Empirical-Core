@@ -18,7 +18,7 @@
     ul {
       list-style-type: none;
       padding-left: 0px;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
       img {
         margin-right: 8px;
         margin-top: 3px;
@@ -36,6 +36,9 @@
       line-height: 18px; /* 112.5% */
       margin-bottom: 24px;
       display: block;
+      &:first-of-type {
+        margin-top: 32px;
+      }
     }
     .integration-tip {
       margin-top: 64px;

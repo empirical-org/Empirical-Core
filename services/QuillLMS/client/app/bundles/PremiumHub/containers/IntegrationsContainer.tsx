@@ -21,7 +21,7 @@ const IntegrationsContainer = (sharedProps) => {
         </div>
       </header>
       <Routes>
-        <Route element={<GoogleIntegrationContainer accessType={accessType} />} path='/teachers/premium_hub/integrations/clever' />
+        <Route element={<CleverIntegrationContainer accessType={accessType} />} path='/teachers/premium_hub/integrations/clever' />
         <Route element={<GoogleIntegrationContainer accessType={accessType} />} path='/teachers/premium_hub/integrations/google' />
         <Route element={<CanvasIntegrationContainer accessType={accessType} />} path='/teachers/premium_hub/integrations/canvas' />
         <Route element={<Navigate to="/teachers/premium_hub/integrations/canvas" />} path='/teachers/premium_hub/integrations' />
