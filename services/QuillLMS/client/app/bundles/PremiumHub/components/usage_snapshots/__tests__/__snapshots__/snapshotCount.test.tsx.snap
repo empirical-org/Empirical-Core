@@ -51,7 +51,7 @@ exports[`SnapshotCount component size medium should match snapshot 1`] = `
   size="medium"
 >
   <section
-    className="snapshot-item snapshot-count medium "
+    className="snapshot-item snapshot-count medium no-change"
   >
     <div
       className="count-and-label"
@@ -301,7 +301,7 @@ exports[`SnapshotCount component size medium when there is no data  should match
   size="medium"
 >
   <section
-    className="snapshot-item snapshot-count medium "
+    className="snapshot-item snapshot-count medium no-change"
   >
     <div
       className="count-and-label"
@@ -377,7 +377,7 @@ exports[`SnapshotCount component size small when it is coming soon should match 
   size="small"
 >
   <section
-    className="snapshot-item snapshot-count small "
+    className="snapshot-item snapshot-count small no-change"
   >
     <div
       className="count-and-label"
@@ -627,7 +627,7 @@ exports[`SnapshotCount component size small when there is no data  should match 
   size="small"
 >
   <section
-    className="snapshot-item snapshot-count small "
+    className="snapshot-item snapshot-count small no-change"
   >
     <div
       className="count-and-label"
