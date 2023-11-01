@@ -53,7 +53,13 @@ module Snapshots
       ].flatten)
 
       pusher_event = previous_timeframe ? PREVIOUS_TIMEFRAME_PUSHER_EVENT : CURRENT_TIMEFRAME_PUSHER_EVENT
-      SendPusherMessageWorker.perform_async(user_id, pusher_event, filter_hash)
+      SendPusherMessageWorker.perform_async(user_id, pusher_event, {
+        hash: filter_hash,
+        timeframe: {
+          start: timeframe['timeframe_start'],
+          end: timeframe['timeframe_end']
+        }
+      })
     end
 
     private def cache_expiry

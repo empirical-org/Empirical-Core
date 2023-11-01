@@ -135,11 +135,23 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
     return hashMessage == filterHash
   }
 
+  function customTimeframeMatches(timeframe) {
+    if (!customTimeframeStart || !customTimeframeEnd) return true
+
+    const remoteStart = timeframe?.start?.split('T', 1)[0]
+    const remoteEnd = timeframe?.end?.split('T', 1)[0]
+    const localStart = customTimeframeStart?.toISOString()?.split('T', 1)[0]
+    const localEnd = customTimeframeEnd?.toISOString()?.split('T', 1)[0]
+
+    return remoteStart == localStart && remoteEnd == localEnd
+  }
+
   function initializePusher() {
     pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
       const { message, } = body
+      const { hash, timeframe, } = message
 
-      if (filtersMatchHash(message)) getData()
+      if (filtersMatchHash(hash) && customTimeframeMatches(timeframe)) getData()
     });
   };
 

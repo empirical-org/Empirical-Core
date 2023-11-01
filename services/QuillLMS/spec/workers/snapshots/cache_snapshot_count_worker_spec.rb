@@ -39,6 +39,7 @@ module Snapshots
           'timeframe_end' => timeframe_end.to_s
         }
       }
+      let(:timeframe_pusher_payload) { { start: current_timeframe_start.to_s, end: timeframe_end.to_s } }
 
       let(:expected_query_args) {
         {
@@ -123,7 +124,10 @@ module Snapshots
         ].flatten)
 
         expect(Rails.cache).to receive(:write)
-        expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, described_class::CURRENT_TIMEFRAME_PUSHER_EVENT, hashed_payload)
+        expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, described_class::CURRENT_TIMEFRAME_PUSHER_EVENT, {
+          hash: hashed_payload,
+          timeframe: timeframe_pusher_payload
+        })
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, filters_with_string_keys, previous_timeframe)
       end

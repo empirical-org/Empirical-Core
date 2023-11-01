@@ -147,11 +147,23 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     return hashMessage == filterHash
   }
 
+  function customTimeframeMatches(timeframe) {
+    if (!customTimeframeStart || !customTimeframeEnd) return true
+
+    const remoteStart = timeframe?.start?.split('T', 1)[0]
+    const remoteEnd = timeframe?.end?.split('T', 1)[0]
+    const localStart = customTimeframeStart?.toISOString()?.split('T', 1)[0]
+    const localEnd = customTimeframeEnd?.toISOString()?.split('T', 1)[0]
+
+    return remoteStart == localStart && remoteEnd == localEnd
+  }
+
   function initializePusher() {
     pusherChannel?.bind(PUSHER_CURRENT_EVENT_KEY, (body) => {
       const { message, } = body
+      const { hash, timeframe, } = message
 
-      if (filtersMatchHash(message)) getCurrentData()
+      if (filtersMatchHash(hash) && customTimeframeMatches(timeframe)) getCurrentData()
     });
 
     pusherChannel?.bind(PUSHER_PREVIOUS_EVENT_KEY, (body) => {

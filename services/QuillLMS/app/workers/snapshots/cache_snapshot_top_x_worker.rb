@@ -40,7 +40,13 @@ module Snapshots
         filters['classroom_ids']
       ].flatten)
 
-      SendPusherMessageWorker.perform_async(user_id, PUSHER_EVENT, filter_hash)
+      SendPusherMessageWorker.perform_async(user_id, PUSHER_EVENT, {
+        hash: filter_hash,
+        timeframe: {
+          start: timeframe['timeframe_start'],
+          end: timeframe['timeframe_end']
+        }
+      })
     end
 
     private def cache_expiry
