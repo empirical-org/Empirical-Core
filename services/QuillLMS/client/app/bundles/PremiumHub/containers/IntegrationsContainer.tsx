@@ -1,14 +1,10 @@
 import React from 'react';
+import { Routes, Route } from "react-router-dom-v5-compat";
 
 import CanvasIntegrationContainer from '../components/canvas/container'
-import { FULL, restrictedPage } from '../shared';
 
 const IntegrationsContainer = (sharedProps) => {
   const { accessType } = sharedProps
-
-  const renderContent = () => (
-    accessType === FULL ? <CanvasIntegrationContainer /> : restrictedPage
-  )
 
   return (
     <div className='integrations-container white-background-accommodate-footer'>
@@ -20,7 +16,9 @@ const IntegrationsContainer = (sharedProps) => {
           </nav>
         </div>
       </header>
-      {renderContent()}
+      <Routes>
+        <Route element={<CanvasIntegrationContainer accessType={accessType} />} path='/teachers/premium_hub/integrations/canvas' />
+      </Routes>
     </div>
   )
 }
