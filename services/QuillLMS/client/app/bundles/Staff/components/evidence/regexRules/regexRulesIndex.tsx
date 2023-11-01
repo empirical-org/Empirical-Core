@@ -36,7 +36,7 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
 
   const { data: rulesBased1Data } = useQuery(
     // cache rules data for updates
-    [`rules-${activityId}-${RULES_BASED_1}`, null, promptIds, RULES_BASED_1],
+    [`rules-${activityId}-${RULES_BASED_1}`, activityId, promptIds, RULES_BASED_1],
     fetchRules,
     {
       enabled: !!promptIds,
@@ -45,7 +45,7 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
 
   const { data: rulesBased2Data } = useQuery(
     // cache rules data for updates
-    [`rules-${activityId}-${RULES_BASED_2}`, null, promptIds, RULES_BASED_2],
+    [`rules-${activityId}-${RULES_BASED_2}`, activityId, promptIds, RULES_BASED_2],
     fetchRules,
     {
       enabled: !!promptIds,
@@ -54,7 +54,7 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
 
   const { data: rulesBased3Data } = useQuery(
     // cache rules data for updates
-    [`rules-${activityId}-${RULES_BASED_3}`, null, promptIds, RULES_BASED_3],
+    [`rules-${activityId}-${RULES_BASED_3}`, activityId, promptIds, RULES_BASED_3],
     fetchRules,
     {
       enabled: !!promptIds,

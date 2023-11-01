@@ -431,7 +431,9 @@ export async function handleSubmitRule({
 }
 
 export function getRulesUrl(activityId: string, promptId: string, ruleType: string) {
-  if (activityId) {
+  if (activityId && ruleType) {
+    return `activities/${activityId}/rules?rule_type=${ruleType}`
+  } else if (activityId) {
     return `activities/${activityId}/rules`
   } else if (!ruleType) {
     throw new Error('A rule type must be specified.')

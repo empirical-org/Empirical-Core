@@ -72,11 +72,17 @@ module Evidence
 
     # GET /activities/1/rules.json
     def rules
+      rule_type = rules_params[:rule_type]
       @activity = Evidence::Activity.includes(
         prompts: { rules: [:plagiarism_texts, { feedbacks: :highlights }, :label, :regex_rules, :hint, :prompts]}
       ).find(params[:id])
-      rules = @activity.prompts&.map {|p| p.rules}&.flatten&.uniq
-      render json: rules
+      if rule_type.present?
+        rules = @activity.prompts&.map {|p| p.rules.where(rule_type: rule_type)}
+      else
+        rules = @activity.prompts&.map {|p| p.rules}
+      end
+
+      render json: rules&.flatten&.uniq
     end
 
     # GET /activities/1/change_logs.json
@@ -174,6 +180,10 @@ module Evidence
 
     private def seed_data_params
       params.permit(:id, :nouns, :use_passage, label_configs: {}, activity: {})
+    end
+
+    private def rules_params
+      params.permit(:rule_type)
     end
 
     private def activity_params

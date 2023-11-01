@@ -96,7 +96,7 @@ const RuleViewForm = ({
 
   // cache ruleSets data for handling rule suborder
   const { data: rulesData } = useQuery({
-    queryKey: [`rules-${activityId}-${rule_type}`, null, promptIds.join(','), rule_type],
+    queryKey: [`rules-${activityId}-${rule_type}`, activityId, promptIds.join(','), rule_type],
     queryFn: fetchRules,
   });
 
