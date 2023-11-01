@@ -1,5 +1,6 @@
 import * as React from 'react'
 import queryString from 'query-string';
+import moment from 'moment';
 import * as _ from 'lodash'
 import * as Pusher from 'pusher-js';
 import { Routes, Route } from "react-router-dom-v5-compat";
@@ -155,27 +156,29 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     return location.pathname.slice(location.pathname.lastIndexOf("/") + 1, location.pathname.length)
   }
 
-  function setSelectedAndLastSubmitted(grades, schools, teachers, classrooms, timeframe) {
+  function setSelectedAndLastSubmitted(grades, schools, teachers, classrooms, timeframe, startDate, endDate) {
     setSelectedGrades(grades)
     setSelectedSchools(schools)
     setSelectedTeachers(teachers)
     setSelectedClassrooms(classrooms)
     setSelectedTimeframe(timeframe)
+    setCustomStartDate(startDate)
+    setCustomEndDate(endDate)
 
     setLastSubmittedGrades(grades)
     setLastSubmittedSchools(schools)
     setLastSubmittedTeachers(teachers)
     setLastSubmittedClassrooms(classrooms)
     setLastSubmittedTimeframe(timeframe)
-
-    setLastUsedTimeframe(timeframe)
+    setLastSubmittedCustomStartDate(startDate)
+    setLastSubmittedCustomEndDate(endDate)
   }
 
   function getFilterSelections() {
     requestPost('/admin_report_filter_selections/show', { report: reportPath() }, (selections) => {
       if (selections) {
-        const { grades, schools, teachers, classrooms, timeframe, } = selections.filter_selections
-        setSelectedAndLastSubmitted(grades, schools, teachers, classrooms, timeframe)
+        const { grades, schools, teachers, classrooms, timeframe, custom_start_date, custom_end_date, } = selections.filter_selections
+        setSelectedAndLastSubmitted(grades, schools, teachers, classrooms, timeframe, moment(custom_start_date), moment(custom_end_date))
       }
       setLoadingSavedFilterSelections(false)
     })
@@ -188,6 +191,8 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
       teachers: selectedTeachers,
       classrooms: selectedClassrooms,
       grades: selectedGrades,
+      custom_start_date: customStartDate,
+      custom_end_date: customEndDate
 
     }
     const params = {
@@ -230,7 +235,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
       if (allClassrooms?.length !== classroomOptions.length) { setAllClassrooms(classroomOptions) }
 
       if (loadingFilters && (!selectedGrades || !selectedSchools || !selectedTeachers || !selectedClassrooms || !selectedTimeframe)) {
-        setSelectedAndLastSubmitted(gradeOptions, schoolOptions, teacherOptions, classroomOptions, timeframe)
+        setSelectedAndLastSubmitted(gradeOptions, schoolOptions, teacherOptions, classroomOptions, timeframe, null, null)
       }
 
       if (loadingFilters) {
