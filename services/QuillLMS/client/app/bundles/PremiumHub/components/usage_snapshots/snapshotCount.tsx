@@ -32,6 +32,7 @@ interface SnapshotCountProps {
 
 const PUSHER_CURRENT_EVENT_KEY = 'admin-snapshot-count-cached'
 const PUSHER_PREVIOUS_EVENT_KEY = 'admin-snapshot-previous-count-cached'
+const NOT_APPLICABLE = 'N/A'
 
 const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, passedCount, passedPrevious, passedChange, passedChangeDirection, singularLabel, pusherChannel, }: SnapshotCountProps) => {
   const [count, setCount] = React.useState(passedCount || null)
@@ -64,7 +65,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
   }, [previousRetryTimeout])
 
   React.useEffect(() => {
-    if (!previous || count === 'N/A' || count === null) {
+    if (!previous || count === NOT_APPLICABLE || count === null) {
       setChangeDirection(NONE)
       return
     }
@@ -112,7 +113,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
       const { results, } = body
       const { count } = results
 
-      setCount((count === null) ? 'N/A' : Math.round(count || 0))
+      setCount((count === null) ? NOT_APPLICABLE : Math.round(count || 0))
 
       setLoading(false)
     })
@@ -160,7 +161,12 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     });
   };
 
-  const className = `snapshot-item snapshot-count ${size} ${(changeDirection !== NONE) ? changeDirection : ''}`
+  let className = `snapshot-item snapshot-count ${size}`
+  if (changeDirection === NONE && count !== NOT_APPLICABLE) {
+    className += ' no-change'
+  } else if (changeDirection !== NONE) {
+    className += ` ${changeDirection}`
+  }
 
   let icon
 
