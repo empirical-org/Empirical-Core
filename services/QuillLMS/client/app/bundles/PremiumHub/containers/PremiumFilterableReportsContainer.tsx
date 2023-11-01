@@ -178,7 +178,9 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     requestPost('/admin_report_filter_selections/show', { report: reportPath() }, (selections) => {
       if (selections) {
         const { grades, schools, teachers, classrooms, timeframe, custom_start_date, custom_end_date, } = selections.filter_selections
-        setSelectedAndLastSubmitted(grades, schools, teachers, classrooms, timeframe, moment(custom_start_date), moment(custom_end_date))
+        const startDate = custom_start_date ? moment(custom_start_date) : null
+        const endDate = custom_end_date ? moment(custom_end_date) : null
+        setSelectedAndLastSubmitted(grades, schools, teachers, classrooms, timeframe, startDate, endDate)
       }
       setLoadingSavedFilterSelections(false)
     })
