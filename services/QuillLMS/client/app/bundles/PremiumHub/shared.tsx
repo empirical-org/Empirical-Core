@@ -1,6 +1,5 @@
 import * as React from 'react'
 import * as _ from 'lodash'
-
 import * as md5 from 'md5'
 
 import { unorderedArraysAreEqual, } from '../../modules/unorderedArraysAreEqual'
@@ -41,6 +40,10 @@ export const diagnosticTypeDropdownOptions = [
 ]
 
 export const premiumLockImage = <img alt="Gray lock" src={`${process.env.CDN_URL}/images/pages/administrator/premium_lock.svg`} />
+
+export const baseIntegrationImgSrc = `${process.env.CDN_URL}/images/pages/administrator/integrations`
+export const circleCheckSrc = `${baseIntegrationImgSrc}/circle-check.svg`
+export const circleCheckImg = <img alt="" src={circleCheckSrc} />
 
 export const restrictedElement = (
   <div className="restricted">
