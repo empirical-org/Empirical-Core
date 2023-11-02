@@ -464,7 +464,7 @@ exports[`PremiumFilterableReportsContainer it should render 1`] = `
       </div>
     </section>
     <div
-      class=""
+      class="filter-menu-open"
     />
   </div>
 </DocumentFragment>

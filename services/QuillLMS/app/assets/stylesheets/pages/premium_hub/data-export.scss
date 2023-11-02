@@ -48,7 +48,6 @@
     }
 
     .preview-section {
-      width: 68vw;
       max-width: $sitewidepagewidth;
       .preview-disclaimer-container {
         display: flex;
@@ -69,7 +68,6 @@
       border-radius: 8px;
       overflow-y: clip;
       overflow-x: auto;
-      width: 68vw;
 
       .data-table-headers {
         background-color: $quill-grey-1;

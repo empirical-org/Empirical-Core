@@ -89,7 +89,7 @@ exports[`StudentSection loaded state it should render the expected empty state m
     There is no diagnostic data available for the filters selected. Try modifying or removing a filter to see results.
   </p>
   <table
-    class="data-table growth-diagnostic-reports-by-skill-table reporting-format"
+    class="data-table growth-diagnostic-reports-by-student-table reporting-format"
   >
     <thead>
       <tr
@@ -442,7 +442,7 @@ exports[`StudentSection loaded state it should render the expected header compon
     There is no diagnostic data available for the filters selected. Try modifying or removing a filter to see results.
   </p>
   <table
-    class="data-table growth-diagnostic-reports-by-skill-table reporting-format"
+    class="data-table growth-diagnostic-reports-by-student-table reporting-format"
   >
     <thead>
       <tr

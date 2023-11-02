@@ -74,6 +74,8 @@
     overflow: scroll;
     width: auto;
     height: 100vh;
+    margin-right: -64px;
+    padding-right: 64px;
     .growth-diagnostic-reports-overview-table, .growth-diagnostic-reports-by-skill-table, .growth-diagnostic-reports-by-student-table {
       overflow: visible;
       width: max-content;

@@ -20,7 +20,13 @@ exports[`DataExportContainer full state it should render 1`] = `
         class="quill-button download-report-button contained primary medium focus-on-light"
         type="button"
       >
-        Download
+        <img
+          alt="White arrow pointing down icon"
+          src="undefined/images/icons/downward-arrow-icon-white.svg"
+        />
+        <span>
+          Download
+        </span>
       </button>
     </div>
     <div

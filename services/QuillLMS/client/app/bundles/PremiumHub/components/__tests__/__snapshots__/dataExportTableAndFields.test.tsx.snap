@@ -14,10 +14,17 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
     </h1>
     <button
       className="quill-button download-report-button contained primary medium focus-on-light"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
-      Download
+      <img
+        alt="White arrow pointing down icon"
+        src="undefined/images/icons/downward-arrow-icon-white.svg"
+      />
+      <span>
+        Download
+      </span>
     </button>
   </div>
   <div
