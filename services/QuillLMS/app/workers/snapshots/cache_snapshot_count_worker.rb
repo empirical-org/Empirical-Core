@@ -51,7 +51,7 @@ module Snapshots
         school_ids,
         filters['grades'],
         filters['teacher_ids'],
-        filters['classroom_ids'],
+        filters['classroom_ids']
       ].flatten)
 
       SendPusherMessageWorker.perform_async(user_id, pusher_event_name(query, previous_timeframe: previous_timeframe), filter_hash)

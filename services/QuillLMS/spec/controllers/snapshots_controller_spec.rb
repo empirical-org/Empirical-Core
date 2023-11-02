@@ -279,6 +279,7 @@ describe SnapshotsController, type: :controller do
 
         context 'most-active-schools query for TopX' do
           let(:query) { 'most-active-schools' }
+
           it 'should trigger a job to cache data if the cache is empty for top_x' do
             allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
             expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
@@ -313,7 +314,7 @@ describe SnapshotsController, type: :controller do
           let(:grades) { ["Kindergarten", "1", "2"] }
           let(:teacher_ids) { ['3', '4'] }
           let(:classroom_ids) { ['5', '6', '7'] }
-      
+
           it 'should include school_ids and grades in the call to the cache worker if they are in params' do
 
             allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
