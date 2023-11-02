@@ -7,7 +7,6 @@ import { BECAUSE, BUT, RULES_BASED_1, RULES_BASED_2, RULES_BASED_3, SO } from '.
 import { DataTable, Error, Spinner } from '../../../../Shared/index';
 import { getPromptsIcons } from '../../../helpers/evidence/promptHelpers';
 import { renderHeader } from '../../../helpers/evidence/renderHelpers';
-import { getPromptIdString } from '../../../helpers/evidence/ruleHelpers';
 import { ActivityRouteProps, RegexRuleInterface, RuleInterface } from '../../../interfaces/evidenceInterfaces';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { fetchRules, updateRuleOrders, } from '../../../utils/evidence/ruleAPIs';
@@ -15,8 +14,6 @@ import { fetchRules, updateRuleOrders, } from '../../../utils/evidence/ruleAPIs'
 const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const { params } = match;
   const { activityId } = params;
-
-  const [promptIds, setPromptIds] = React.useState<string>(null);
 
   const queryClient = useQueryClient()
 
@@ -26,47 +23,28 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
     queryFn: fetchActivity
   });
 
-  React.useEffect(() => {
-    if(!promptIds && activityData && activityData.activity) {
-      const { prompts } = activityData.activity;
-      const promptIdString = getPromptIdString(prompts);
-      setPromptIds(promptIdString);
-    }
-  }, [activityData]);
-
   const { data: rulesBased1Data } = useQuery(
     // cache rules data for updates
-    [`rules-${activityId}-${RULES_BASED_1}`, activityId, promptIds, RULES_BASED_1],
-    fetchRules,
-    {
-      enabled: !!promptIds,
-    }
+    [`rules-${activityId}-${RULES_BASED_1}`, activityId, null, RULES_BASED_1],
+    fetchRules
   );
 
   const { data: rulesBased2Data } = useQuery(
     // cache rules data for updates
-    [`rules-${activityId}-${RULES_BASED_2}`, activityId, promptIds, RULES_BASED_2],
-    fetchRules,
-    {
-      enabled: !!promptIds,
-    }
+    [`rules-${activityId}-${RULES_BASED_2}`, activityId, null, RULES_BASED_2],
+    fetchRules
   );
 
   const { data: rulesBased3Data } = useQuery(
     // cache rules data for updates
-    [`rules-${activityId}-${RULES_BASED_3}`, activityId, promptIds, RULES_BASED_3],
-    fetchRules,
-    {
-      enabled: !!promptIds,
-    }
+    [`rules-${activityId}-${RULES_BASED_3}`, activityId, null, RULES_BASED_3],
+    fetchRules
   );
 
-  function handleReorder(sortInfo) {
+  function handleReorder(sortInfo, ruleType) {
     const idsInOrder = sortInfo.map(item => item.key)
     updateRuleOrders(idsInOrder).then((response) => {
-      queryClient.refetchQueries([`rules-${activityId}-${RULES_BASED_1}`])
-      queryClient.refetchQueries([`rules-${activityId}-${RULES_BASED_2}`])
-      queryClient.refetchQueries([`rules-${activityId}-${RULES_BASED_3}`])
+      queryClient.refetchQueries([`rules-${activityId}-${ruleType}`])
     });
   }
 
@@ -105,11 +83,11 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
     );
   }
 
-  function renderTable(rows: any[], ruleType: string) {
+  function renderTable(rows: any[], ruleTypeHumanReadable: string, ruleTypeForEndpoint: string) {
     if(rows && !rows.length) {
       return(
         <section className="no-rules-section">
-          <p>{`No ${ruleType} Regex rules.`}</p>
+          <p>{`No ${ruleTypeHumanReadable} Regex rules.`}</p>
         </section>
       );
     }
@@ -119,7 +97,7 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
         defaultSortAttribute="priority"
         headers={dataTableFields}
         isReorderable={true}
-        reorderCallback={handleReorder}
+        reorderCallback={(sortInfo) => handleReorder(sortInfo, ruleTypeForEndpoint)}
         rows={rows}
       />
     );
@@ -175,15 +153,15 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
       <a className="quill-button fun secondary outlined focus-on-light play-activity-button" href={`/evidence/#/play?uid=${activityId}&skipToPrompts=true`} rel="noopener noreferrer" target="_blank">Play Test Activity</a>
       <section className="rules-based-section">
         <button className="quill-button fun primary contained add-rule-button" type="submit">{addRulesBased1Link}</button>
-        {renderTable(rulesBased1Rows, 'Sentence Structure')}
+        {renderTable(rulesBased1Rows, 'Sentence Structure', RULES_BASED_1)}
       </section>
       <section className="rules-based-section">
         <button className="quill-button fun primary contained add-rule-button" type="submit">{addRulesBased2Link}</button>
-        {renderTable(rulesBased2Rows, 'Post-Topic')}
+        {renderTable(rulesBased2Rows, 'Post-Topic', RULES_BASED_2)}
       </section>
       <section className="rules-based-section">
         <button className="quill-button fun primary contained add-rule-button" type="submit">{addRulesBased3Link}</button>
-        {renderTable(rulesBased3Rows, 'Typo')}
+        {renderTable(rulesBased3Rows, 'Typo', RULES_BASED_3)}
       </section>
     </div>
   );

@@ -92,11 +92,9 @@ const RuleViewForm = ({
 
   const queryClient = useQueryClient()
 
-  const promptIds = activityData.prompts.map(p => p.id)
-
   // cache ruleSets data for handling rule suborder
   const { data: rulesData } = useQuery({
-    queryKey: [`rules-${activityId}-${rule_type}`, activityId, promptIds.join(','), rule_type],
+    queryKey: [`rules-${activityId}-${rule_type}`, activityId, null, rule_type],
     queryFn: fetchRules,
   });
 
@@ -171,10 +169,9 @@ const RuleViewForm = ({
     deleteRule(ruleId).then((response) => {
       toggleShowDeleteRuleModal();
       // update ruleSets cache to remove delete ruleSet
-      queryClient.refetchQueries([`rules-${activityId}-${RULES_BASED_1}`])
-      queryClient.refetchQueries([`rules-${activityId}-${RULES_BASED_2}`])
-      queryClient.refetchQueries([`rules-${activityId}-${RULES_BASED_3}`])
-      history.push(`/activities/${activityId}/${returnLinkRuleType}`);
+      queryClient.refetchQueries([`rules-${activityId}-${rule_type}`]).then(() => {
+        history.push(`/activities/${activityId}/${returnLinkRuleType}`);
+      });
     });
   }
 
