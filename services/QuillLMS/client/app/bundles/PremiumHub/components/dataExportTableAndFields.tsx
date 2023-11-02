@@ -219,17 +219,6 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
     return hashMessage == filterHash
   }
 
-  function customTimeframeMatches(timeframe) {
-    if (!customTimeframeStart || !customTimeframeEnd) return true
-
-    const remoteStart = timeframe?.custom_start?.split('T', 1)[0]
-    const remoteEnd = timeframe?.custom_end?.split('T', 1)[0]
-    const localStart = customTimeframeStart?.toISOString()?.split('T', 1)[0]
-    const localEnd = customTimeframeEnd?.toISOString()?.split('T', 1)[0]
-
-    return remoteStart == localStart && remoteEnd == localEnd
-  }
-
   function initializePusher() {
     pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
       const { message, } = body
