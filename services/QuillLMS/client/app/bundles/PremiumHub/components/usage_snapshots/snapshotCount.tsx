@@ -159,7 +159,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     const filterTarget = [].concat(
       queryKey,
       selectedTimeframe,
-      customTimeframeStartString
+      customTimeframeStartString,
       customTimeframeEndString,
       selectedSchoolIds,
       selectedGrades,
