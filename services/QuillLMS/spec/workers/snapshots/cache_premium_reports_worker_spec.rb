@@ -35,6 +35,8 @@ module Snapshots
     context '#perform' do
       let(:timeframe_end) { DateTime.now }
       let(:current_timeframe_start) { timeframe_end - 30.days }
+      let(:custom_timeframe_start) { nil }
+      let(:custom_timeframe_end) { nil }
       let(:timeframe) {
         {
           'name' => timeframe_name,
@@ -52,6 +54,18 @@ module Snapshots
           classroom_ids: classroom_ids
         }
       }
+      let(:hashed_payload) do
+        PayloadHasher.run([
+          query,
+          timeframe_name,
+          custom_timeframe_start&.to_s&.split('T')&.first,
+          custom_timeframe_end&.to_s&.split('T')&.first,
+          school_ids,
+          grades,
+          teacher_ids,
+          classroom_ids
+        ].flatten)
+      end
 
       before do
         stub_const("Snapshots::CachePremiumReportsWorker::QUERIES", {
@@ -102,25 +116,10 @@ module Snapshots
       end
 
       it 'should send a Pusher notification' do
-        filter_hash = PayloadHasher.run([
-          query,
-          timeframe['name'],
-          school_ids,
-          filters['grades'],
-          filters['teacher_ids'],
-          filters['classroom_ids']
-        ].flatten)
-
         expect(Rails.cache).to receive(:write)
-        expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, described_class::PUSHER_EVENT, {
-          hash: filter_hash,
-          timeframe: {
-            custom_start: nil,
-            custom_end: nil
-          }
-        })
+        expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, described_class::PUSHER_EVENT, hashed_payload)
 
-        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters, nil)
+        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters.stringify_keys, nil)
       end
     end
   end

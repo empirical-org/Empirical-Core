@@ -60,17 +60,13 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
   React.useEffect(() => {
     if (!pusherCurrentMessage) return
 
-    const { hash, timeframe, } = pusherCurrentMessage
-
-    if (filtersMatchHash(hash) && customTimeframeMatches(timeframe)) getCurrentData()
+    if (filtersMatchHash(pusherCurrentMessage)) getCurrentData()
   }, [pusherCurrentMessage])
 
   React.useEffect(() => {
     if (!pusherPreviousMessage) return
 
-    const { hash, timeframe, } = pusherPreviousMessage
-
-    if (filtersMatchHash(hash) && customTimeframeMatches(timeframe)) getPreviousData()
+    if (filtersMatchHash(pusherPreviousMessage)) getPreviousData()
   }, [pusherPreviousMessage])
 
   React.useEffect(() => {
@@ -149,6 +145,8 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     const filterTarget = [].concat(
       queryKey,
       selectedTimeframe,
+      customTimeframeStart?.toISOString().split('T',1)[0],
+      customTimeframeEnd?.toISOString().split('T',1)[0],
       selectedSchoolIds,
       selectedGrades,
       selectedTeacherIds,
@@ -158,17 +156,6 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     const filterHash = hashPayload(filterTarget)
 
     return hashMessage == filterHash
-  }
-
-  function customTimeframeMatches(timeframe) {
-    if (!customTimeframeStart || !customTimeframeEnd) return true
-
-    const remoteStart = timeframe?.custom_start?.split('T', 1)[0]
-    const remoteEnd = timeframe?.custom_end?.split('T', 1)[0]
-    const localStart = customTimeframeStart?.toISOString()?.split('T', 1)[0]
-    const localEnd = customTimeframeEnd?.toISOString()?.split('T', 1)[0]
-
-    return remoteStart == localStart && remoteEnd == localEnd
   }
 
   function initializePusher() {

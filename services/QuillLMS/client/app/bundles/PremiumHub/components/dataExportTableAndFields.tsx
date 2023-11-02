@@ -138,9 +138,7 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   React.useEffect(() => {
     if (!pusherMessage) return
 
-    const { hash, timeframe, } = pusherMessage
-
-    if (filtersMatchHash(hash) && customTimeframeMatches(timeframe)) getData()
+    if (filtersMatchHash(pusherMessage)) getData()
   }, [pusherMessage])
 
   function getData() {
@@ -194,6 +192,8 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
     const filterTarget = [].concat(
       queryKey,
       selectedTimeframe,
+      customTimeframeStart?.toISOString().split('T',1)[0],
+      customTimeframeEnd?.toISOString().split('T',1)[0],
       selectedSchoolIds,
       selectedGrades,
       selectedTeacherIds,

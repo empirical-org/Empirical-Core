@@ -17,19 +17,15 @@ module Snapshots
       filter_hash = PayloadHasher.run([
         query,
         timeframe['name'],
+        timeframe['custom_start']&.to_s&.split('T')&.first,
+        timeframe['custom_end']&.to_s&.split('T')&.first,
         school_ids,
         filters['grades'],
         filters['teacher_ids'],
         filters['classroom_ids']
       ].flatten)
 
-      SendPusherMessageWorker.perform_async(user_id, PUSHER_EVENT, {
-        hash: filter_hash,
-        timeframe: {
-          custom_start: timeframe['custom_start'],
-          custom_end: timeframe['custom_end']
-        }
-      })
+      SendPusherMessageWorker.perform_async(user_id, PUSHER_EVENT, filter_hash)
     end
 
     private def cache_expiry

@@ -53,6 +53,18 @@ module Snapshots
           classroom_ids: classroom_ids
         }
       }
+      let(:hashed_payload) do
+        PayloadHasher.run([
+          query,
+          timeframe_name,
+          custom_timeframe_start&.to_s&.split('T')&.first,
+          custom_timeframe_end&.to_s&.split('T')&.first,
+          school_ids,
+          grades,
+          teacher_ids,
+          classroom_ids
+        ].flatten)
+      end
 
       before do
         stub_const("Snapshots::CacheSnapshotTopXWorker::QUERIES", {
@@ -103,20 +115,8 @@ module Snapshots
       end
 
       it 'should send a Pusher notification' do
-        hashed_payload = PayloadHasher.run([
-          query,
-          timeframe_name,
-          school_ids,
-          grades,
-          teacher_ids,
-          classroom_ids
-        ].flatten)
-
         expect(Rails.cache).to receive(:write)
-        expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, expected_pusher_event, {
-          hash: hashed_payload,
-          timeframe: timeframe_pusher_payload
-        })
+        expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, expected_pusher_event, hashed_payload)
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, filters_with_string_keys, nil)
       end
@@ -126,7 +126,7 @@ module Snapshots
         let(:custom_timeframe_end) { timeframe_end }
 
         it do
-          expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, expected_pusher_event, { hash: anything, timeframe: timeframe_pusher_payload })
+          expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, expected_pusher_event, hashed_payload)
 
           subject.perform(cache_key, query, user_id, timeframe, school_ids, filters_with_string_keys, nil)
         end
