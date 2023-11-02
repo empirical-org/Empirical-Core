@@ -102,12 +102,23 @@ module Snapshots
       end
 
       it 'should send a Pusher notification' do
+        filter_hash = PayloadHasher.run([
+          query,
+          timeframe['name'],
+          school_ids,
+          filters['grades'],
+          filters['teacher_ids'],
+          filters['classroom_ids']
+        ].flatten)
+
         expect(Rails.cache).to receive(:write)
         expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, described_class::PUSHER_EVENT, {
-          query: query,
-          timeframe: timeframe_name,
-          school_ids: school_ids
-        }.merge(filters))
+          hash: filter_hash,
+          timeframe: {
+            custom_start: nil,
+            custom_end: nil
+          }
+        })
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, filters, nil)
       end

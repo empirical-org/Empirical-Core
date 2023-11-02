@@ -6,6 +6,7 @@ import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqu
 import { DataTable, Snackbar, Spinner, defaultSnackbarTimeout, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon } from '../../Shared';
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
 import ButtonLoadingIndicator from '../../Teacher/components/shared/button_loading_indicator';
+import { hashPayload, } from '../shared'
 
 const STANDARD_WIDTH = "152px";
 const STUDENT_NAME = "Student Name";
@@ -55,6 +56,7 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   const [downloadButtonBusy, setDownloadButtonBusy] = React.useState<boolean>(false);
   const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
   const [data, setData] = React.useState<any>(null);
+  const [pusherMessage, setPusherMessage] = React.useState<any>(null)
 
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
@@ -130,9 +132,16 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   }, [pusherChannel])
 
   React.useEffect(() => {
-    initializePusher()
     getData()
   }, [searchCount])
+
+  React.useEffect(() => {
+    if (!pusherMessage) return
+
+    const { hash, timeframe, } = pusherMessage
+
+    if (filtersMatchHash(hash) && customTimeframeMatches(timeframe)) getData()
+  }, [pusherMessage])
 
   function getData() {
     const searchParams = {
@@ -181,20 +190,37 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
     })
   }
 
+  function filtersMatchHash(hashMessage) {
+    const filterTarget = [].concat(
+      queryKey,
+      selectedTimeframe,
+      selectedSchoolIds,
+      selectedGrades,
+      selectedTeacherIds,
+      selectedClassroomIds
+    )
+
+    const filterHash = hashPayload(filterTarget)
+
+    return hashMessage == filterHash
+  }
+
+  function customTimeframeMatches(timeframe) {
+    if (!customTimeframeStart || !customTimeframeEnd) return true
+
+    const remoteStart = timeframe?.custom_start?.split('T', 1)[0]
+    const remoteEnd = timeframe?.custom_end?.split('T', 1)[0]
+    const localStart = customTimeframeStart?.toISOString()?.split('T', 1)[0]
+    const localEnd = customTimeframeEnd?.toISOString()?.split('T', 1)[0]
+
+    return remoteStart == localStart && remoteEnd == localEnd
+  }
+
   function initializePusher() {
     pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
       const { message, } = body
 
-      const queryKeysAreEqual = message.query === queryKey
-      const timeframesAreEqual = message.timeframe === selectedTimeframe
-      const schoolIdsAreEqual = unorderedArraysAreEqual(message.school_ids, selectedSchoolIds)
-      const teacherIdsAreEqual = unorderedArraysAreEqual(message.teacher_ids, selectedTeacherIds)
-      const classroomIdsAreEqual = unorderedArraysAreEqual(message.classroom_ids, selectedClassroomIds)
-      const gradesAreEqual = unorderedArraysAreEqual(message.grades, selectedGrades.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
-
-      if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {
-        getData()
-      }
+      setPusherMessage(message)
     });
   };
 
