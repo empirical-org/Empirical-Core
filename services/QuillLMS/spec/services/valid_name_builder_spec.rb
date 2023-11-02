@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe DuplicateNameResolver do
+RSpec.describe ValidNameBuilder do
   subject { described_class.run(name, existing_names) }
 
   let(:name) { 'name' }
@@ -33,10 +33,10 @@ RSpec.describe DuplicateNameResolver do
     end
   end
 
-  context "name is longer than TRUNCATE_LENGTH" do
-    let(:name) { 'a' * (described_class::TRUNCATE_LENGTH * 500)  }
+  context "name is longer than MAX_LENGTH" do
+    let(:name) { 'a' * (described_class::MAX_LENGTH + 1)  }
     let(:existing_names) { [] }
-    let(:truncated_name) { name.truncate(described_class::TRUNCATE_LENGTH) }
+    let(:truncated_name) { name.truncate(described_class::MAX_LENGTH - described_class::RANDOM_STRING_SUFFIX_LENGTH) }
 
     it { is_expected.to eq truncated_name }
 
