@@ -57,6 +57,8 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
   const [data, setData] = React.useState<any>(null);
   const [pusherMessage, setPusherMessage] = React.useState<any>(null)
+  const [customTimeframeStartString, setCustomTimeframeStartString] = React.useState(null)
+  const [customTimeframeEndString, setCustomTimeframeEndString] = React.useState(null)
 
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
@@ -136,6 +138,18 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   }, [searchCount])
 
   React.useEffect(() => {
+    if (!customTimeframeStart) return
+
+    setCustomTimeframeStartString(customTimeframeStart.toISOString())
+  }, [customTimeframeStart])
+
+  React.useEffect(() => {
+    if (!customTimeframeEnd) return
+
+    setCustomTimeframeEndString(customTimeframeEnd.toISOString())
+  }, [customTimeframeEnd])
+
+  React.useEffect(() => {
     if (!pusherMessage) return
 
     if (filtersMatchHash(pusherMessage)) getData()
@@ -192,8 +206,8 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
     const filterTarget = [].concat(
       queryKey,
       selectedTimeframe,
-      customTimeframeStart?.toISOString().split('T',1)[0],
-      customTimeframeEnd?.toISOString().split('T',1)[0],
+      customTimeframeStartString,
+      customTimeframeEndString,
       selectedSchoolIds,
       selectedGrades,
       selectedTeacherIds,

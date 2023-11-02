@@ -45,6 +45,8 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
   const [previousRetryTimeout, setPreviousRetryTimeout] = React.useState(null)
   const [pusherCurrentMessage, setPusherCurrentMessage] = React.useState(null)
   const [pusherPreviousMessage, setPusherPreviousMessage] = React.useState(null)
+  const [customTimeframeStartString, setCustomTimeframeStartString] = React.useState(null)
+  const [customTimeframeEndString, setCustomTimeframeEndString] = React.useState(null)
 
   React.useEffect(() => {
     initializePusher()
@@ -56,6 +58,18 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     getCurrentData()
     getPreviousData()
   }, [searchCount])
+
+  React.useEffect(() => {
+    if (!customTimeframeStart) return
+
+    setCustomTimeframeStartString(customTimeframeStart.toISOString())
+  }, [customTimeframeStart])
+
+  React.useEffect(() => {
+    if (!customTimeframeEnd) return
+
+    setCustomTimeframeEndString(customTimeframeEnd.toISOString())
+  }, [customTimeframeEnd])
 
   React.useEffect(() => {
     if (!pusherCurrentMessage) return
@@ -145,8 +159,8 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     const filterTarget = [].concat(
       queryKey,
       selectedTimeframe,
-      customTimeframeStart?.toISOString().split('T',1)[0],
-      customTimeframeEnd?.toISOString().split('T',1)[0],
+      customTimeframeStartString
+      customTimeframeEndString,
       selectedSchoolIds,
       selectedGrades,
       selectedTeacherIds,

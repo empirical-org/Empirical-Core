@@ -57,8 +57,8 @@ module Snapshots
         PayloadHasher.run([
           query,
           timeframe_name,
-          custom_timeframe_start&.to_s&.split('T')&.first,
-          custom_timeframe_end&.to_s&.split('T')&.first,
+          custom_timeframe_start,
+          custom_timeframe_end,
           school_ids,
           grades,
           teacher_ids,

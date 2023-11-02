@@ -46,8 +46,8 @@ module Snapshots
       filter_hash = PayloadHasher.run([
         query,
         timeframe['name'],
-        timeframe['custom_start']&.to_s&.split('T')&.first,
-        timeframe['custom_end']&.to_s&.split('T')&.first,
+        timeframe['custom_start'],
+        timeframe['custom_end'],
         school_ids,
         filters['grades'],
         filters['teacher_ids'],

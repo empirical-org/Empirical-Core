@@ -75,6 +75,8 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
   const [retryTimeout, setRetryTimeout] = React.useState(null)
   const [showModal, setShowModal] = React.useState(false)
   const [pusherMessage, setPusherMessage] = React.useState(null)
+  const [customTimeframeStartString, setCustomTimeframeStartString] = React.useState(null)
+  const [customTimeframeEndString, setCustomTimeframeEndString] = React.useState(null)
 
   React.useEffect(() => {
     initializePusher()
@@ -85,6 +87,18 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
 
     getData()
   }, [searchCount])
+
+  React.useEffect(() => {
+    if (!customTimeframeStart) return
+
+    setCustomTimeframeStartString(customTimeframeStart.toISOString())
+  }, [customTimeframeStart])
+
+  React.useEffect(() => {
+    if (!customTimeframeEnd) return
+
+    setCustomTimeframeEndString(customTimeframeEnd.toISOString())
+  }, [customTimeframeEnd])
 
   React.useEffect(() => {
     if (!pusherMessage) return
@@ -129,8 +143,8 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
     const filterTarget = [].concat(
       queryKey,
       selectedTimeframe,
-      customTimeframeStart?.toISOString().split('T',1)[0],
-      customTimeframeEnd?.toISOString().split('T',1)[0],
+      customTimeframeStartString,
+      customTimeframeEndString,
       selectedSchoolIds,
       selectedGrades,
       selectedTeacherIds,
