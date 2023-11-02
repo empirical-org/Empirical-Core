@@ -37,6 +37,11 @@ describe Adapters::Csv::AdminPremiumDataExport do
         expected_result = "student_name,activity_name\nTest Student,Test Activity\n"
         expect(subject.to_csv_string(valid_input, [:student_name, :activity_name])).to eq expected_result
       end
+
+      it 'coerces custom columns from strings to symbols' do
+        expected_result = "student_name,activity_name\nTest Student,Test Activity\n"
+        expect(subject.to_csv_string(valid_input, ['student_name', 'activity_name'])).to eq expected_result
+      end
     end
 
     context 'with invalid input' do

@@ -55,7 +55,7 @@ module GoogleIntegration
       it { expect { subject }.to change(ClassroomsTeacher, :count).from(1).to(2) }
 
       context "teacher owns other classrooms with names #{name}_1, ... #{name}_max" do
-        let(:max) { ::DuplicateNameResolver::MAX_BEFORE_RANDOMIZED }
+        let(:max) { ::ValidNameBuilder::MAX_BEFORE_RANDOMIZED }
 
         before do
           2.upto(max) do |n|

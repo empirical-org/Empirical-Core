@@ -27,17 +27,18 @@ module Adapters
       )
 
       def self.to_csv_string(bigquery_result, columns = ORDERED_COLUMNS)
-        validate_input!(bigquery_result, columns)
+        sym_columns = columns.map(&:to_sym)
+        validate_input!(bigquery_result)
 
         CSV.generate do |csv|
-          csv << columns.map(&:to_s)
+          csv << sym_columns.map(&:to_s)
           bigquery_result.each do |row|
-            csv << columns.map { |key| row[key] }
+            csv << sym_columns.map { |key| row[key] }
           end
         end
       end
 
-      def self.validate_input!(bigquery_result, columns)
+      def self.validate_input!(bigquery_result)
         bigquery_result.each do |row|
           next if (row.keys - ORDERED_COLUMNS).empty?
 
