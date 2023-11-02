@@ -23,6 +23,6 @@ class AdminReportCsvUploader < CarrierWave::Uploader::Base
     # See: http://stackoverflow.com/questions/6920926/carrierwave-create-the-same-unique-filename-for-all-versioned-files
     random_token = Digest::SHA2.hexdigest("#{Time.current.utc}--#{admin_id}").first(6)
     date = Date.current.strftime("%m-%d-%y")
-    "#{FILENAME_PREFIX}#{admin_id}_#{date}_#{random_token}"
+    "#{FILENAME_PREFIX}#{admin_id}_#{date}_#{random_token}.csv"
   end
 end
