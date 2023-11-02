@@ -57,7 +57,7 @@ module CanvasIntegration
     end
 
     private def valid_name
-      ::DuplicateNameResolver.run(data[:name], other_owned_classroom_names)
+      ::ValidNameBuilder.run(data[:name], other_owned_classroom_names)
     end
   end
 end
