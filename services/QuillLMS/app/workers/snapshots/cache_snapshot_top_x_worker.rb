@@ -43,8 +43,8 @@ module Snapshots
       SendPusherMessageWorker.perform_async(user_id, pusher_event_name(query), {
         hash: filter_hash,
         timeframe: {
-          start: timeframe['timeframe_start'],
-          end: timeframe['timeframe_end']
+          custom_start: timeframe['custom_start'],
+          custom_end: timeframe['custom_end']
         }
       })
     end
