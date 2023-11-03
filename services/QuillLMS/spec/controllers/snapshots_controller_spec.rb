@@ -202,61 +202,63 @@ describe SnapshotsController, type: :controller do
         let(:previous_end) { 'PREVIOUS_END' }
         let(:current_start) { 'CURRENT_TIMEFRAME' }
         let(:current_end) { 'TIMEFRAME_END' }
-
-        it 'should trigger a job to cache data if the cache is empty for counts' do
-          query_name = 'active-classrooms'
-
-          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
-          expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
-          expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(cache_key,
-            query_name,
+        let(:query) { 'active-classrooms' }
+        let(:previous_timeframe_flag) { nil }
+        let(:custom_start) { nil }
+        let(:custom_end) { nil }
+        let(:grades) { nil }
+        let(:teacher_ids) { nil }
+        let(:classroom_ids) { nil }
+        let(:expected_worker_params) do
+          [
+            cache_key,
+            query,
             user.id,
             {
               name: timeframe_name,
               timeframe_start: current_start,
-              timeframe_end: current_end
+              timeframe_end: current_end,
+              custom_start: custom_start&.to_s,
+              custom_end: custom_end&.to_s
             },
             school_ids,
             {
-              grades: nil,
-              teacher_ids: nil,
-              classroom_ids: nil
+              grades:,
+              teacher_ids:,
+              classroom_ids:
             },
-            nil)
+            previous_timeframe_flag
+          ]
+        end
 
-          get :count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
+        it 'should trigger a job to cache data if the cache is empty for counts' do
+          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
+          expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
+          expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(*expected_worker_params)
+
+          get :count, params: { query:, timeframe: timeframe_name, school_ids: }
 
           json_response = JSON.parse(response.body)
 
           expect(json_response).to eq("message" => "Generating snapshot")
         end
 
-        it 'should trigger a job to cache data if the cache is empty for previous_counts' do
-          query_name = 'active-classrooms'
+        context 'previous_timeframe param is true' do
+          let(:previous_timeframe_flag) { "true" }
+          let(:current_start) { previous_start }
+          let(:current_end) { previous_end }
 
-          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(previous_timeframe)
-          expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
-          expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(cache_key,
-            query_name,
-            user.id,
-            {
-              name: timeframe_name,
-              timeframe_start: previous_start,
-              timeframe_end: previous_end
-            },
-            school_ids,
-            {
-              grades: nil,
-              teacher_ids: nil,
-              classroom_ids: nil
-            },
-            "true")
+          it 'should trigger a job to cache data if the cache is empty for previous_counts' do
+            allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(previous_timeframe)
+            expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
+            expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(*expected_worker_params)
 
-          get :count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids, previous_timeframe: true }
+            get :count, params: { query:, timeframe: timeframe_name, school_ids:, previous_timeframe: previous_timeframe_flag}
 
-          json_response = JSON.parse(response.body)
+            json_response = JSON.parse(response.body)
 
-          expect(json_response).to eq("message" => "Generating snapshot")
+            expect(json_response).to eq("message" => "Generating snapshot")
+          end
         end
 
         context 'all-time timeframe' do
@@ -275,114 +277,69 @@ describe SnapshotsController, type: :controller do
           end
         end
 
-        it 'should trigger a job to cache data if the cache is empty for top_x' do
-          query_name = 'most-active-schools'
+        context 'most-active-schools query for TopX' do
+          let(:query) { 'most-active-schools' }
 
-          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
-          expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
-          expect(Snapshots::CacheSnapshotTopXWorker).to receive(:perform_async).with(cache_key,
-            query_name,
-            user.id,
-            {
-              name: timeframe_name,
-              timeframe_start: current_start,
-              timeframe_end: current_end
-            },
-            school_ids,
-            {
-              grades: nil,
-              teacher_ids: nil,
-              classroom_ids: nil
-            },
-            nil)
+          it 'should trigger a job to cache data if the cache is empty for top_x' do
+            allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
+            expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
+            expect(Snapshots::CacheSnapshotTopXWorker).to receive(:perform_async).with(*expected_worker_params)
 
-          get :top_x, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
+            get :top_x, params: { query:, timeframe: timeframe_name, school_ids: }
 
-          json_response = JSON.parse(response.body)
+            json_response = JSON.parse(response.body)
 
-          expect(json_response).to eq("message" => "Generating snapshot")
+            expect(json_response).to eq("message" => "Generating snapshot")
+          end
         end
 
-        it 'should trigger a job to cache data if the cache is empty for data_export' do
-          query_name = 'data-export'
+        context 'data-export query for DataExport' do
+          let(:query) { 'data-export' }
 
-          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
-          expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
-          expect(Snapshots::CachePremiumReportsWorker).to receive(:perform_async).with(cache_key,
-            query_name,
-            user.id,
-            {
-              name: timeframe_name,
-              timeframe_start: current_start,
-              timeframe_end: current_end
-            },
-            school_ids,
-            {
-              grades: nil,
-              teacher_ids: nil,
-              classroom_ids: nil
-            },
-            nil)
+          it 'should trigger a job to cache data if the cache is empty for data_export' do
+            allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
+            expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
+            expect(Snapshots::CachePremiumReportsWorker).to receive(:perform_async).with(*expected_worker_params)
 
-          get :data_export, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
+            get :data_export, params: { query:, timeframe: timeframe_name, school_ids: }
 
-          json_response = JSON.parse(response.body)
+            json_response = JSON.parse(response.body)
 
-          expect(json_response).to eq("message" => "Generating snapshot")
+            expect(json_response).to eq("message" => "Generating snapshot")
+          end
         end
 
-        it 'should include school_ids and grades in the call to the cache worker if they are in params' do
-          query_name = 'active-classrooms'
-          grades = ["Kindergarten", "1", "2"]
-          teacher_ids = ['3', '4']
-          classroom_ids = ['5', '6', '7']
+        context 'school_ids and grades specified' do
+          let(:query) { 'active-classrooms' }
+          let(:grades) { ["Kindergarten", "1", "2"] }
+          let(:teacher_ids) { ['3', '4'] }
+          let(:classroom_ids) { ['5', '6', '7'] }
 
-          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
-          expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
-          expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(cache_key,
-            query_name,
-            user.id,
-            {
-              name: timeframe_name,
-              timeframe_start: current_start,
-              timeframe_end: current_end
-            },
-            school_ids,
-            {
-              grades: grades,
-              teacher_ids: teacher_ids,
-              classroom_ids: classroom_ids
-            },
-            nil)
+          it 'should include school_ids and grades in the call to the cache worker if they are in params' do
 
-          get :count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids, grades: grades, teacher_ids: teacher_ids, classroom_ids: classroom_ids }
+            allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
+            expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
+            expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(*expected_worker_params)
+
+            get :count, params: { query:, timeframe: timeframe_name, school_ids:, grades:, teacher_ids:, classroom_ids: }
+          end
         end
 
-        it 'should properly calculate custom timeframes' do
-          query_name = 'active-classrooms'
-          timeframe_name = 'custom'
-          current_end = DateTime.now.change(usec: 0)
-          timeframe_length = 3.days
-          current_start = current_end - timeframe_length
+        context 'custom timeframe calculation' do
+          let(:query) { 'active-classrooms' }
+          let(:timeframe_name) { 'custom' }
+          let(:custom_end) { DateTime.now.change(usec: 0) }
+          let(:timeframe_length) { 3.days }
+          let(:custom_start) { custom_end - timeframe_length }
+          let(:current_start) { custom_start }
+          let(:current_end) { custom_end }
 
-          expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
-          expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(cache_key,
-            query_name,
-            user.id,
-            {
-              name: timeframe_name,
-              timeframe_start: current_start,
-              timeframe_end: current_end
-            },
-            school_ids,
-            {
-              grades: nil,
-              teacher_ids: nil,
-              classroom_ids: nil
-            },
-            nil)
+          it 'should properly calculate custom timeframes' do
+            expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
+            expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(*expected_worker_params)
 
-          get :count, params: { query: query_name, timeframe: timeframe_name, timeframe_custom_start: current_start.to_s, timeframe_custom_end: current_end.to_s, school_ids: school_ids }
+            get :count, params: { query:, timeframe: timeframe_name, timeframe_custom_start: custom_start.to_s, timeframe_custom_end: custom_end.to_s, school_ids: }
+          end
         end
       end
     end

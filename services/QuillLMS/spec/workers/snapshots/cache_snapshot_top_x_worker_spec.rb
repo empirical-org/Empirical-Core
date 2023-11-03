@@ -30,13 +30,19 @@ module Snapshots
       let(:perform) { subject.perform(cache_key, query, user_id, timeframe, school_ids, filters, nil) }
       let(:timeframe_end) { DateTime.now }
       let(:current_timeframe_start) { timeframe_end - 30.days }
+      let(:custom_timeframe_start) { nil }
+      let(:custom_timeframe_end) { nil }
       let(:timeframe) {
         {
           'name' => timeframe_name,
           'timeframe_start' => current_timeframe_start.to_s,
-          'timeframe_end' => timeframe_end.to_s
+          'timeframe_end' => timeframe_end.to_s,
+          'custom_start' => custom_timeframe_start&.to_s,
+          'custom_end' => custom_timeframe_end&.to_s
         }
       }
+      let(:expected_pusher_event) { "#{described_class::PUSHER_EVENT}:#{query}" }
+      let(:timeframe_pusher_payload) { { custom_start: custom_timeframe_start&.to_s, custom_end: custom_timeframe_end&.to_s } }
       let(:expected_query_args) {
         {
           timeframe_start: current_timeframe_start,
@@ -47,6 +53,18 @@ module Snapshots
           classroom_ids: classroom_ids
         }
       }
+      let(:hashed_payload) do
+        PayloadHasher.run([
+          query,
+          timeframe_name,
+          custom_timeframe_start,
+          custom_timeframe_end,
+          school_ids,
+          grades,
+          teacher_ids,
+          classroom_ids
+        ].flatten)
+      end
 
       before do
         stub_const("Snapshots::CacheSnapshotTopXWorker::QUERIES", {
@@ -97,19 +115,21 @@ module Snapshots
       end
 
       it 'should send a Pusher notification' do
-        hashed_payload = PayloadHasher.run([
-          query,
-          timeframe_name,
-          school_ids,
-          grades,
-          teacher_ids,
-          classroom_ids
-        ].flatten)
-
         expect(Rails.cache).to receive(:write)
-        expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, described_class::PUSHER_EVENT, hashed_payload)
+        expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, expected_pusher_event, hashed_payload)
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, filters_with_string_keys, nil)
+      end
+
+      context 'custom timeframe params' do
+        let(:custom_timeframe_start) { current_timeframe_start }
+        let(:custom_timeframe_end) { timeframe_end }
+
+        it do
+          expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, expected_pusher_event, hashed_payload)
+
+          subject.perform(cache_key, query, user_id, timeframe, school_ids, filters_with_string_keys, nil)
+        end
       end
 
       context 'slow query reporting' do

@@ -22,6 +22,7 @@ interface SnapshotRankingProps {
 }
 
 const PUSHER_EVENT_KEY = 'admin-snapshot-top-x-cached'
+const RETRY_TIMEOUT = 20000
 
 const RankingModal = ({ label, closeModal, headers, data, }) => {
   return (
@@ -73,6 +74,9 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
   const [loading, setLoading] = React.useState(false)
   const [retryTimeout, setRetryTimeout] = React.useState(null)
   const [showModal, setShowModal] = React.useState(false)
+  const [pusherMessage, setPusherMessage] = React.useState(null)
+  const [customTimeframeStartString, setCustomTimeframeStartString] = React.useState(null)
+  const [customTimeframeEndString, setCustomTimeframeEndString] = React.useState(null)
 
   React.useEffect(() => {
     initializePusher()
@@ -81,12 +85,26 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
   React.useEffect(() => {
     resetToDefault()
 
-    setRetryTimeout(setTimeout(getData, 20000))
+    getData()
   }, [searchCount])
 
   React.useEffect(() => {
-    if (retryTimeout) getData()
-  }, [retryTimeout])
+    if (!customTimeframeStart) return
+
+    setCustomTimeframeStartString(customTimeframeStart.toISOString())
+  }, [customTimeframeStart])
+
+  React.useEffect(() => {
+    if (!customTimeframeEnd) return
+
+    setCustomTimeframeEndString(customTimeframeEnd.toISOString())
+  }, [customTimeframeEnd])
+
+  React.useEffect(() => {
+    if (!pusherMessage) return
+
+    if (filtersMatchHash(pusherMessage)) getData()
+  }, [pusherMessage])
 
   function resetToDefault() {
     setData(passedData || null)
@@ -106,15 +124,16 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
 
     requestPost(`/snapshots/top_x`, searchParams, (body) => {
       if (!body.hasOwnProperty('results')) {
+        setRetryTimeout(setTimeout(getData, RETRY_TIMEOUT))
         setLoading(true)
       } else {
+        clearTimeout(retryTimeout)
+
         const { results, } = body
         // We consider `null` to be a lack of data, so if the result is `[]` we need to explicitly `setData(null)`
         const data = results.length > 0 ? results : null
         setData(data)
-        if (retryTimeout) {
-          clearTimeout(retryTimeout)
-        }
+
         setLoading(false)
       }
     })
@@ -124,6 +143,8 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
     const filterTarget = [].concat(
       queryKey,
       selectedTimeframe,
+      customTimeframeStartString,
+      customTimeframeEndString,
       selectedSchoolIds,
       selectedGrades,
       selectedTeacherIds,
@@ -136,10 +157,9 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
   }
 
   function initializePusher() {
-    pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
+    pusherChannel?.bind(`${PUSHER_EVENT_KEY}:${queryKey}`, (body) => {
       const { message, } = body
-
-      if (filtersMatchHash(message)) getData()
+      setPusherMessage(message)
     });
   };
 
