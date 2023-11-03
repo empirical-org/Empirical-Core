@@ -3,7 +3,9 @@
 class AdminReportCsvUploader < CarrierWave::Uploader::Base
   attr_reader :admin_id
 
+  FILE_EXPIRATION = 365 * 24 * 60 * 60
   fog_directory ENV.fetch('ADMIN_REPORT_FOG_DIRECTORY', 'admin-report-fog-directory-staging')
+  fog_authenticated_url_expiration FILE_EXPIRATION
 
   FILENAME_PREFIX = 'ADMIN_REPORT_'
 
