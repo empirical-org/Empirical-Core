@@ -14,6 +14,9 @@ import { fetchRules, updateRuleOrders, } from '../../../utils/evidence/ruleAPIs'
 const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const { params } = match;
   const { activityId } = params;
+  const [regexOneLoading, setRegexOneLoading] = React.useState<boolean>(false);
+  const [regexTwoLoading, setRegexTwoLoading] = React.useState<boolean>(false);
+  const [regexThreeLoading, setRegexThreeLoading] = React.useState<boolean>(false);
 
   const queryClient = useQueryClient()
 
@@ -41,10 +44,33 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
     fetchRules
   );
 
+  function setRegexIsLoading(ruleType, isLoading) {
+    if (ruleType === RULES_BASED_1) {
+      setRegexOneLoading(isLoading)
+    } else if (ruleType === RULES_BASED_2) {
+      setRegexTwoLoading(isLoading)
+    } else {
+      setRegexThreeLoading(isLoading)
+    }
+  }
+
+  function getRegexIsLoading(ruleType) {
+    if (ruleType === RULES_BASED_1) {
+      return regexOneLoading
+    } else if (ruleType === RULES_BASED_2) {
+      return regexTwoLoading
+    } else {
+      return regexThreeLoading
+    }
+  }
+
   function handleReorder(sortInfo, ruleType) {
+    setRegexIsLoading(ruleType, true)
     const idsInOrder = sortInfo.map(item => item.key)
     updateRuleOrders(idsInOrder).then((response) => {
-      queryClient.refetchQueries([`rules-${activityId}-${ruleType}`])
+      queryClient.refetchQueries([`rules-${activityId}-${ruleType}`]).then((response) => {
+        setRegexIsLoading(ruleType, false)
+      })
     });
   }
 
@@ -89,6 +115,12 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
         <section className="no-rules-section">
           <p>{`No ${ruleTypeHumanReadable} Regex rules.`}</p>
         </section>
+      );
+    } else if (getRegexIsLoading(ruleTypeForEndpoint)) {
+      return(
+        <div className="loading-spinner-container">
+          <Spinner />
+        </div>
       );
     }
     return(
