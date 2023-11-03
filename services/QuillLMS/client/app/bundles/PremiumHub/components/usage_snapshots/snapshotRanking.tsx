@@ -95,7 +95,7 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
   }, [customTimeframeStart])
 
   React.useEffect(() => {
-    if (!customTimeframeEnd) return
+    if (!customTimeframeEnd) return setCustomTimeframeEndString(null)
 
     setCustomTimeframeEndString(customTimeframeEnd.toISOString())
   }, [customTimeframeEnd])
