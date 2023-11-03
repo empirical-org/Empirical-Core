@@ -3,7 +3,10 @@
 class AdminReportCsvUploader < CarrierWave::Uploader::Base
   attr_reader :admin_id
 
-  FILE_EXPIRATION = 365 * 24 * 60 * 60
+  # Max value is 604800, 7 days
+  # See: https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html
+  FILE_EXPIRATION = 604800
+
   fog_directory ENV.fetch('ADMIN_REPORT_FOG_DIRECTORY', 'admin-report-fog-directory-staging')
   fog_authenticated_url_expiration FILE_EXPIRATION
 
