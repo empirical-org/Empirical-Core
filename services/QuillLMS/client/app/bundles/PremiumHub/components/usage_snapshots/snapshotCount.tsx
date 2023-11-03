@@ -60,13 +60,13 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
   }, [searchCount])
 
   React.useEffect(() => {
-    if (!customTimeframeStart) return
+    if (!customTimeframeStart) return setCustomTimeframeStartString(null)
 
     setCustomTimeframeStartString(customTimeframeStart.toISOString())
   }, [customTimeframeStart])
 
   React.useEffect(() => {
-    if (!customTimeframeEnd) return
+    if (!customTimeframeEnd) return setCustomTimeframeEndString(null)
 
     setCustomTimeframeEndString(customTimeframeEnd.toISOString())
   }, [customTimeframeEnd])
