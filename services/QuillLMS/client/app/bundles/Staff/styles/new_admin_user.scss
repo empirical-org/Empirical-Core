@@ -27,5 +27,11 @@
         }
       }
     }
+    table {
+      overflow: visible;
+      th.data-table-header {
+        text-align: left !important;
+      }
+    }
   }
 }

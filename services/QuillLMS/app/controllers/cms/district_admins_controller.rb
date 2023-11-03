@@ -6,11 +6,20 @@ class Cms::DistrictAdminsController < Cms::CmsController
 
   def create
     user = User.find_by(email: params[:email])
-    if user
-      create_district_admin_user_for_existing_user(user)
+    school_ids = params[:school_ids]
+    if user && @district.district_admins.exists?(user_id: user.id)
+      render json: { message: t('district_admin.already_assigned', district_name: @district.name) }, status: 200
+    elsif user
+      create_district_admin_user_for_existing_user(user, school_ids)
+      InternalTool::MadeDistrictAdminEmailWorker.perform_async(user.id, @district.id)
+      render json: { message: t('district_admin.existing_account') }, status: 200
     else
-      create_new_account_for_district_admin_user
+      user = create_new_account_for_district_admin_user
+      InternalTool::DistrictAdminAccountCreatedEmailWorker.perform_async(user.id, @district.id)
+      render json: { message: t('district_admin.new_account') }, status: 200
     end
+  rescue ActiveRecord::RecordInvalid => e
+    render json: { error: e.record.errors.messages }
   end
 
   def destroy
@@ -35,44 +44,29 @@ class Cms::DistrictAdminsController < Cms::CmsController
     params.require(:email)
   end
 
-  private def determine_district_admin_worker(user_id, district_id, new_user)
-    if new_user
-      InternalTool::DistrictAdminAccountCreatedEmailWorker.perform_async(user_id, district_id)
-    else
-      InternalTool::MadeDistrictAdminEmailWorker.perform_async(user_id, district_id)
-    end
-  end
-
-  private def create_district_admin_user_for_existing_user(user, new_user: false)
-
-    if @district.district_admins.exists?(user_id: user.id)
-      return render json: { message: t('district_admin.already_assigned', district_name: @district.name) }
-    end
-
+  private def create_district_admin_user_for_existing_user(user, school_ids)
     district_admin = @district.district_admins.build(user_id: user.id)
-
-    if district_admin.save!
-      admin_info = AdminInfo.find_or_create_by!(user: user)
-      admin_info.update(approver_role: User::STAFF, approval_status: AdminInfo::APPROVED)
-
-      determine_district_admin_worker(user.id, @district.id, new_user)
-      returned_message = new_user ? t('district_admin.new_account') : t('district_admin.existing_account')
-      render json: { message: returned_message }, status: 200
-    else
-      render json: { error: district_admin.errors.messages }
-    end
+    district_admin.save!
+    district_admin.attach_schools(school_ids)
+    attach_as_teacher_to_first_premium_school(user)
+    admin_info = AdminInfo.find_or_create_by!(user: user)
+    admin_info.update(approver_role: User::STAFF, approval_status: AdminInfo::APPROVED)
   end
 
   private def create_new_account_for_district_admin_user
     user = User.new(user_params)
+    user.save!
+    user.refresh_token!
+    ExpirePasswordTokenWorker.perform_in(30.days, user.id)
+    create_district_admin_user_for_existing_user(user, params[:school_ids])
+    user
+  end
 
-    if user.save!
-      user.refresh_token!
-      ExpirePasswordTokenWorker.perform_in(30.days, user.id)
-      create_district_admin_user_for_existing_user(user, new_user: true)
-    else
-      render json: { error: user.errors.messages }
-    end
+  private def attach_as_teacher_to_first_premium_school(admin)
+    first_premium_school = admin.administered_schools.find { |s| s.subscription.present? }
+    return if first_premium_school.blank? || admin.school == first_premium_school
+
+    SchoolsUsers.create!(user: admin, school: first_premium_school)
   end
 
   private def user_params
