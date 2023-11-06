@@ -1,5 +1,4 @@
 import * as React from 'react'
-import queryString from 'query-string';
 import moment from 'moment';
 import * as _ from 'lodash'
 import * as Pusher from 'pusher-js';
@@ -189,14 +188,14 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
   function saveFilterSelections() {
     const filterSelections = {
       timeframe: selectedTimeframe,
-      schools: selectedSchools,
-      teachers: selectedTeachers,
-      classrooms: selectedClassrooms,
+      schools: unorderedArraysAreEqual(selectedSchools, allSchools) ? null : selectedSchools,
+      teachers: unorderedArraysAreEqual(selectedTeachers, allTeachers) ? null : selectedTeachers,
+      classrooms: unorderedArraysAreEqual(selectedClassrooms, allClassrooms) ? null : selectedClassrooms,
       grades: selectedGrades,
       custom_start_date: customStartDate,
       custom_end_date: customEndDate
-
     }
+
     const params = {
       admin_report_filter_selection: {
         filter_selections: filterSelections,
@@ -236,11 +235,17 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
       if (allTeachers?.length !== teacherOptions.length) { setAllTeachers(teacherOptions) }
       if (allClassrooms?.length !== classroomOptions.length) { setAllClassrooms(classroomOptions) }
 
-      if (loadingFilters && (!selectedGrades || !selectedSchools || !selectedTeachers || !selectedClassrooms || !selectedTimeframe)) {
-        setSelectedAndLastSubmitted(gradeOptions, schoolOptions, teacherOptions, classroomOptions, timeframe, null, null)
-      }
-
       if (loadingFilters) {
+        setSelectedAndLastSubmitted(
+          selectedGrades || gradeOptions,
+          selectedSchools || schoolOptions,
+          selectedTeachers || teacherOptions,
+          selectedClassrooms || classroomOptions,
+          selectedTimeframe || timeframe,
+          null,
+          null
+        );
+
         setOriginalAllSchools(allSchoolOptions)
         setOriginalAllClassrooms(allClassroomOptions)
         setOriginalAllTeachers(allTeacherOptions)
