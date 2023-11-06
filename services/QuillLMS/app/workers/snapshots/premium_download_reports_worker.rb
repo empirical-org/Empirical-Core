@@ -24,7 +24,8 @@ module Snapshots
       upload_status = uploader.store!(csv_tempfile)
       raise CloudUploadError, "Unable to upload CSV for user #{user_id}" unless upload_status
 
-      uploaded_file_url = uploader.url
+      # The response-content-disposition param triggers browser file download instead of screen rendering
+      uploaded_file_url = uploader.url(query: {"response-content-disposition" => "attachment;"})
 
       email = ENV.fetch('TEST_EMAIL_ADDRESS', user.email) # TODO: remove after integration testing
       PremiumHubUserMailer.admin_premium_download_report_email(user.first_name, uploaded_file_url, email).deliver_now!
