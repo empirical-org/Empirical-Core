@@ -34,24 +34,34 @@ describe Adapters::Csv::AdminPremiumDataExport do
       end
 
       it 'handles subsets of valid columns and orders them according to ORDERED_COLUMNS' do
-        expected_result = "student_name,activity_name\nTest Student,Test Activity\n"
+        expected_result = "Student Name,Activity\nTest Student,Test Activity\n"
         expect(subject.to_csv_string(valid_input, [:student_name, :activity_name])).to eq expected_result
       end
 
       it 'coerces custom columns from strings to symbols' do
-        expected_result = "student_name,activity_name\nTest Student,Test Activity\n"
+        expected_result = "Student Name,Activity\nTest Student,Test Activity\n"
         expect(subject.to_csv_string(valid_input, ['student_name', 'activity_name'])).to eq expected_result
       end
     end
 
     context 'with invalid input' do
-      let(:invalid_input) { valid_input.first.merge(extra_column: 'Extraneous') }
+      context 'invalid column selection' do
+        let(:invalid_column_selection) { [:student_name, :weird_column] }
 
-      it 'raises a ColumnMismatchError' do
-        expect { subject.to_csv_string([invalid_input]) }.to raise_error(described_class::UnhandledColumnError)
+        it do
+          expect { subject.to_csv_string(valid_input, invalid_column_selection) }.to raise_error(described_class::UnhandledColumnError)
+        end
+      end
+
+      context 'BigQuery payload lacks the requested columns' do
+        let(:payload_missing_columns) { [valid_input.first.reject{|k,v| k == :activity_name}] }
+
+        it do
+          expect { subject.to_csv_string(payload_missing_columns) }.to raise_error(described_class::BigQueryResultMissingRequestedColumnError)
+        end
+
       end
     end
   end
-
 
 end
