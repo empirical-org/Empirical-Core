@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import ButtonLoadingIndicator from '../shared/button_loading_indicator';
+import { ButtonLoadingSpinner, } from '../../../Shared/index'
+;
 
 import { requestPost } from '../../../../modules/request/index';
 import { DropdownInput } from '../../../Shared/index';
@@ -103,7 +104,7 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
   renderSubmitButton() {
     const { waiting, } = this.state
     if (waiting) {
-      return <button className={this.submitButtonClass()}><ButtonLoadingIndicator /></button>
+      return <button className={this.submitButtonClass()}><ButtonLoadingSpinner /></button>
     } else {
       return <button className={this.submitButtonClass()} onClick={this.moveStudents}>Move {this.studentOrStudents().toLowerCase()}</button>
     }

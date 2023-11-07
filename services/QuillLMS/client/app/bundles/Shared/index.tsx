@@ -23,6 +23,8 @@ export {
 export {
   ArchivedButton,
   ButtonLoadingSpinner,
+  DarkButtonLoadingSpinner,
+  LightButtonLoadingSpinner,
   Card,
   CarouselAnimation,
   DataTable,

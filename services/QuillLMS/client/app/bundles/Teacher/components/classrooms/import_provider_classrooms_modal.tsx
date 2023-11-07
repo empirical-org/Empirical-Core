@@ -8,7 +8,8 @@ import { providerConfigLookup } from './providerHelpers'
 
 import { requestPost } from '../../../../modules/request/index';
 import { DataTable, DropdownInput } from '../../../Shared/index';
-import ButtonLoadingIndicator from '../shared/button_loading_indicator';
+import { ButtonLoadingSpinner, } from '../../../Shared/index'
+;
 
 interface ImportProviderClassroomsModalProps {
   classrooms: Array<any>;
@@ -169,7 +170,7 @@ const ImportProviderClassroomsModal = ({classrooms: initialClassrooms, close, on
           className={footerButtonClass()}
           type="button"
         >
-          <ButtonLoadingIndicator />
+          <ButtonLoadingSpinner />
         </button>
 
       )

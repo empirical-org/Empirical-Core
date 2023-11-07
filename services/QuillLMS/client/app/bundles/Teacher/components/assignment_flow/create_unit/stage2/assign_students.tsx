@@ -14,7 +14,8 @@ import ImportProviderClassroomsModal from '../../../classrooms/import_provider_c
 import LinkProviderAccountModal from '../../../classrooms/link_provider_account_modal'
 import NoClassroomsToImportModal from '../../../classrooms/no_classrooms_to_import_modal'
 import ReauthorizeProviderModal from '../../../classrooms/reauthorize_provider_modal'
-import ButtonLoadingIndicator from '../../../shared/button_loading_indicator'
+import { ButtonLoadingSpinner, } from '../../../../../Shared/index'
+
 
 const canvasIconSrc = `${process.env.CDN_URL}/images/icons/canvas.svg`
 const cleverIconSrc = `${process.env.CDN_URL}/images/icons/clever.svg`
@@ -265,7 +266,7 @@ const AssignStudents = ({
     let buttonClassName = "interactive-wrapper import-from-provider-button"
 
     if (providerClassroomsLoading && pendingImportFromProviderRequest) {
-      buttonContent = <React.Fragment>Import from {theProviderTitle}<ButtonLoadingIndicator /></React.Fragment>
+      buttonContent = <React.Fragment>Import from {theProviderTitle}<ButtonLoadingSpinner /></React.Fragment>
       buttonClassName += ' loading'
     }
 

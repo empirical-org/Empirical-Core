@@ -2,7 +2,8 @@ import * as React from 'react';
 
 import { requestPut } from '../../../../modules/request/index';
 import pusherInitializer from '../../../../modules/pusherInitializer'
-import ButtonLoadingIndicator from '../shared/button_loading_indicator';
+import { ButtonLoadingSpinner, } from '../../../Shared/index'
+;
 import { providerConfigLookup } from './providerHelpers'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
@@ -69,7 +70,7 @@ const ImportProviderClassroomStudentsModal = ({ close, classroom, onSuccess, pro
     if (waiting) {
       return (
         <button className={submitButtonClass()} type="button">
-          <ButtonLoadingIndicator />
+          <ButtonLoadingSpinner />
         </button>
       )
     } else {

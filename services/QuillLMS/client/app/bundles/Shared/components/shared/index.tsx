@@ -3,7 +3,9 @@ export {
 } from './archivedButton'
 
 export {
-  ButtonLoadingSpinner
+  ButtonLoadingSpinner,
+  DarkButtonLoadingSpinner,
+  LightButtonLoadingSpinner,
 } from './buttonLoadingSpinner'
 
 export {
