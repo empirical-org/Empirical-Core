@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AssigningIndicator from '../../shared/button_loading_indicator';
+import { ButtonLoadingSpinner, } from '../../../../Shared/index';
 import AssignmentFlowNavigation from '../assignment_flow_navigation';
 import CustomActivityPack from './custom_activity_pack/index';
 
@@ -26,7 +26,7 @@ export default class SelectActivitiesContainer extends React.Component {
     if (this.props.editing) {
       const clickHandler = this.state.loading ? null : this.handleClick;
       const color = this.state.loading ? 'lightgray' : 'quillgreen';
-      const text = this.state.loading ? <span>Saving <AssigningIndicator /></span> : 'Update Activities';
+      const text = this.state.loading ? <span>Saving <ButtonLoadingSpinner /></span> : 'Update Activities';
       return <button className={`q-button cta-button bg-${color} text-white pull-right`} id="continue" onClick={clickHandler}>{text}</button>;
     }
   }

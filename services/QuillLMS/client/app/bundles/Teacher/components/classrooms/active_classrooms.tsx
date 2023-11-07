@@ -23,7 +23,8 @@ import { Snackbar, SortableList, defaultSnackbarTimeout } from '../../../Shared/
 import { MY_CLASSES_FEATURED_BLOG_POST_ID } from '../../constants/featuredBlogPost'
 import ArticleSpotlight from '../shared/articleSpotlight'
 import BulkArchiveClassesBanner from '../shared/bulk_archive_classes_banner'
-import ButtonLoadingIndicator from '../shared/button_loading_indicator'
+import { DarkButtonLoadingSpinner, } from '../../../Shared/index'
+
 import ViewAsStudentModal from '../shared/view_as_student_modal'
 
 export const createAClassModal = 'createAClassModal'
@@ -425,7 +426,7 @@ const ActiveClassrooms = ({
     let buttonClassName = "interactive-wrapper import-from-provider-button"
 
     if (providerClassroomsLoading && pendingImportFromProviderRequest) {
-      buttonContent = <React.Fragment>Import from {theProviderTitle}<ButtonLoadingIndicator /></React.Fragment>
+      buttonContent = <React.Fragment>Import from {theProviderTitle}<DarkButtonLoadingSpinner /></React.Fragment>
       buttonClassName += ' loading'
     }
 
