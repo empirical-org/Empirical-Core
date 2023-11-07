@@ -24,16 +24,20 @@
     }
   }
   nav {
-    button {
+    a, button {
       background-color: white;
       padding: 14px 16px;
       font-weight: 600;
       color: $quill-grey-50;
       margin-bottom: -1px;
+      display: inline-block;
       &.active {
         border-bottom: 2px solid $quill-green;
         font-weight: bold;
         color: $quill-green;
+      }
+      &:hover {
+        text-decoration: none;
       }
     }
   }

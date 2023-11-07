@@ -214,6 +214,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/premium_hub' => 'teachers#premium_hub'
   get 'teachers/premium_hub/school_subscriptions' => 'teachers#premium_hub', as: :premium_hub_school_subscriptions
   get 'teachers/premium_hub/:tab' => 'teachers#premium_hub'
+  get 'teachers/premium_hub/:tab/:subtab' => 'teachers#premium_hub'
   get 'teachers/admin_dashboard', to: redirect('teachers/premium_hub')
   get 'teachers/admin_dashboard/:tab', to: redirect('teachers/premium_hub/%{tab}')
   post 'teachers/unlink/:teacher_id' => 'teachers#unlink'

@@ -1,5 +1,89 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`CanvasIntegrationContainer when access is restricted it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <div
+      class="integration-container"
+    >
+      <img
+        alt=""
+        class="logo"
+        src="undefined/images/pages/administrator/integrations/canvas.svg"
+      />
+      <h1>
+        Unlock Canvas with School or District Premium
+      </h1>
+      <p>
+        Looking to streamline your school’s teaching process with Quill’s Canvas integration? Subscribe to School or District Premium to allow teachers at your school or district to:
+      </p>
+      <ul>
+        <li>
+          <img
+            alt=""
+            src="undefined/images/pages/administrator/integrations/circle-check.svg"
+          />
+          Seamlessly import their Canvas rosters.
+        </li>
+        <li>
+          <img
+            alt=""
+            src="undefined/images/pages/administrator/integrations/circle-check.svg"
+          />
+          Automatically create and sync Canvas student accounts.
+        </li>
+        <li>
+          <img
+            alt=""
+            src="undefined/images/pages/administrator/integrations/circle-check.svg"
+          />
+          Access a host of other premium benefits, including priority technical support, enhanced reporting, and assistance from our professional learning team.
+        </li>
+      </ul>
+      <a
+        href="/premium"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Explore premium
+      </a>
+      <a
+        href="https://support.quill.org/en/articles/8500172-how-to-choose-your-rostering-integration"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        How to choose your integration
+      </a>
+      <a
+        href="https://support.quill.org/en/articles/8337988-how-do-i-set-up-the-canvas-integration-for-my-school-district-for-canvas-quill-administrators"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        How to set up this integration
+      </a>
+      <div
+        class="integration-tip"
+      >
+        <div>
+          <h2>
+            Integration Tip
+          </h2>
+          <p>
+            Start the school year right by choosing a single integration. Changing mid-year can cause rostering challenges and may take up more of your valuable time, so decide upfront for a better experience.
+          </p>
+        </div>
+        <img
+          alt=""
+          src="undefined/images/pages/administrator/integrations/lightbulb.svg"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`CanvasIntegrationContainer when there are existing Canvas integrations it should render 1`] = `
 <DocumentFragment>
   <div

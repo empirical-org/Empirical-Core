@@ -6,12 +6,16 @@ import CanvasIntegrationInstance from './canvasIntegrationInstance'
 
 import { requestGet, } from '../../../../modules/request';
 import { Spinner, } from '../../../Shared/index'
+import { FULL, baseIntegrationImgSrc, circleCheckImg } from '../../shared'
+import IntegrationTip from '../integration_tip'
 
 export const CANVAS_INTEGRATIONS_PATH = '/canvas_instances'
 export const SCHOOLS_WITH_SUBSCRIPTIONS_PATH = '/subscriptions/school_admin_subscriptions'
 
-const CanvasIntegrationContainer = ({ passedSchools, passedCanvasIntegrations }) => {
-  const [loading, setLoading] = React.useState(!(passedSchools && passedCanvasIntegrations))
+const canvasIconSrc = `${baseIntegrationImgSrc}/canvas.svg`
+
+const CanvasIntegrationContainer = ({ passedSchools, passedCanvasIntegrations, accessType, }) => {
+  const [loading, setLoading] = React.useState(accessType === FULL && !(passedSchools && passedCanvasIntegrations))
   const [canvasIntegrations, setCanvasIntegrations] = React.useState(passedCanvasIntegrations || null)
   const [schoolsWithSubscriptions, setSchoolsWithSubscriptions] = React.useState(passedSchools || null)
   const [showNewModal, setShowNewModal] = React.useState(false)
@@ -47,6 +51,27 @@ const CanvasIntegrationContainer = ({ passedSchools, passedCanvasIntegrations })
   function handleNewCanvasInstanceSubmission() {
     getCanvasIntegrations()
     closeModal()
+  }
+
+  if (accessType !== FULL) {
+    return (
+      <div className="container">
+        <div className="integration-container">
+          <img alt="" className="logo" src={canvasIconSrc} />
+          <h1>Unlock Canvas with School or District Premium</h1>
+          <p>Looking to streamline your school’s teaching process with Quill’s Canvas integration? Subscribe to School or District Premium to allow teachers at your school or district to:</p>
+          <ul>
+            <li>{circleCheckImg}Seamlessly import their Canvas rosters.</li>
+            <li>{circleCheckImg}Automatically create and sync Canvas student accounts.</li>
+            <li>{circleCheckImg}Access a host of other premium benefits, including priority technical support, enhanced reporting, and assistance from our professional learning team.</li>
+          </ul>
+          <a href="/premium" rel="noopener noreferrer" target="_blank">Explore premium</a>
+          <a href="https://support.quill.org/en/articles/8500172-how-to-choose-your-rostering-integration" rel="noopener noreferrer" target="_blank">How to choose your integration</a>
+          <a href="https://support.quill.org/en/articles/8337988-how-do-i-set-up-the-canvas-integration-for-my-school-district-for-canvas-quill-administrators" rel="noopener noreferrer" target="_blank">How to set up this integration</a>
+          <IntegrationTip />
+        </div>
+      </div>
+    )
   }
 
   if (loading) {
