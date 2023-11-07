@@ -20,7 +20,7 @@ module AdminDiagnosticReports
 
     def where_clause
       super + <<-SQL
-          #{pre_diagnostics_where_clause}
+        #{pre_diagnostics_where_clause}
       SQL
     end
 
