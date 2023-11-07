@@ -73,6 +73,8 @@ module AdminDiagnosticReports
     end
 
     private def post_process(result)
+      return [] if result.empty?
+
       result.group_by { |row| row[:diagnostic_name] }
         .values
         .map do |diagnostic_rows|

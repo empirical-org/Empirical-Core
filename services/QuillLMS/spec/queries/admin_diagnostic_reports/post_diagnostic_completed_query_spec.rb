@@ -8,59 +8,78 @@ module AdminDiagnosticReports
 
     context 'big_query_snapshot', :big_query_snapshot do
       let(:classroom_units) { classrooms.map { |classroom| create(:classroom_unit, classroom: classroom) } }
+      let(:activity) { create(:diagnostic_activity) }
+      let(:pre_activity) { create(:diagnostic_activity, follow_up_activity: activity) }
+      let(:activity_sessions) { classroom_units.map { |classroom_unit| create(:activity_session, :finished, classroom_unit: classroom_unit, activity: activity) } }
+      let(:optimal_concept_results) { activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session: activity_session, question_number: i + 1) } }
+      let(:concept_results) { optimal_concept_results }
 
-      # For each classroom (each of which has a single classroom_unit), create activity_sessions for it, but creating one less for each subsequent classroom so that they'll have different relevant counts
-      let(:activity_sessions) { classroom_units.map { |classroom_unit| create(:activity_session, classroom_unit: classroom_unit, 
-        classroom_units.map.with_index do |classroom_unit, i|
-          create_list(:activity_session, (num_classrooms - i), classroom_unit: classroom_unit)
-        end
-      end
+      # Some of our tests include activity_sessions having NULL in its timestamps so we need a version that has timestamps with datetime data in them so that WITH in the CTE understands the data type expected
+      let(:reference_activity_session) { create(:activity_session, :finished) }
 
-      let(:runner_context) {
+      let(:cte_records) do
         [
           classrooms,
           teachers,
           classrooms_teachers,
           schools,
           schools_users,
-          classroom_units
+          classroom_units,
+          activity_sessions,
+          concept_results,
+          activity,
+          pre_activity,
+          reference_activity_session
         ]
-      }
-
-      context 'all activity_sessions' do
-        let(:expected_result) do
-          (0..9).map { |i| { count: activity_sessions[i].length, value: teachers[i].name } }
-        end
-        let(:cte_records) { [runner_context, activity_sessions] }
-
-        it { expect(results).to eq(expected_result) }
       end
 
-      context 'limited activity_sessions' do
-        let(:cte_records) { [runner_context, activity_sessions[0]] }
-
-        it { expect(results).to eq([{ count: activity_sessions[0].length, value: teachers[0].name }]) }
+      let(:query_args) do
+        {
+          timeframe_start: timeframe_start,
+          timeframe_end: timeframe_end,
+          school_ids: school_ids,
+          grades: grades,
+          teacher_ids: teacher_ids,
+          classroom_ids: classroom_ids,
+          aggregation: 'grade'
+        }
       end
 
-      context 'activity_sessions completed outside of timeframe' do
-        let(:too_old_session) { create(:activity_session, classroom_unit: classroom_units[0], completed_at: timeframe_start - 1.day) }
-        let(:too_new_session) { create(:activity_session, classroom_unit: classroom_units[0], completed_at: timeframe_end + 1.day) }
+      it { expect(results.first[:post_students_completed]).to eq(activity_sessions.length) }
+      it { expect(results.first[:post_average_score]).to eq(1.0) }
 
-        let(:cte_records) { [runner_context, too_old_session, too_new_session] }
+      context 'no finished activity sessions' do
+        let(:activity_sessions) { classroom_units.map { |classroom_unit| create(:activity_session, :unstarted, classroom_unit: classroom_unit, activity: activity) } }
 
         it { expect(results).to eq([]) }
       end
 
-      context 'unstarted and unfinished activity_sessions' do
-        # percentage has to be set for CTE to UNION these with items that have percentages set
-        let(:unstarted_session) { create(:activity_session, :unstarted, classroom_unit: classroom_units[0], percentage: 0.0) }
-        let(:started_session) { create(:activity_session, :started, classroom_unit: classroom_units[0], percentage: 0.0) }
-        # We need at least one session with a non-null `completed_at` value in the CTE for BigQuery to understand the TYPE of that column, so we insert this unrelated session into the CTE
-        let(:reference_session) { create(:activity_session) }
+      context 'a mix of finished and unfinished activity sessions' do
+        let(:unfinished_activity_session) { create(:activity_session, :unstarted, classroom_unit: classroom_units.first, activity: activity) }
+        let(:finished_activity_session) { create(:activity_session, :finished, classroom_unit: classroom_units.last, activity: activity) }
+        let(:activity_sessions) { [unfinished_activity_session, finished_activity_session] }
 
-        let(:cte_records) { [runner_context, unstarted_session, started_session, reference_session] }
+        it { expect(results.first[:post_students_completed]).to eq(1) }
+      end
 
-        it { expect(results).to eq([]) }
+      context 'all concept results are non-optimal' do
+        let(:concept_results) { activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session: activity_session, correct: false, question_number: i + 1) } }
+
+        it { expect(results.first[:post_average_score]).to eq(0) }
+      end
+
+      context 'a mix of optimal and non-optimal concept results' do
+        let(:non_optimal_concept_results) { activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session: activity_session, correct: false, question_number: optimal_concept_results.length + i + 1) } }
+        let(:concept_results) { optimal_concept_results + non_optimal_concept_results }
+
+        it { expect(results.first[:post_average_score]).to eq(0.5) }
+      end
+
+      context 'optimal and non-optimal concept results for the same question number' do
+        let(:non_optimal_concept_results) { optimal_concept_results.map { |cr| create(:concept_result, activity_session: cr.activity_session, correct: false, question_number: cr.question_number) } }
+        let(:concept_results) { optimal_concept_results + non_optimal_concept_results }
+
+        it { expect(results.first[:post_average_score]).to eq(1.0) }
       end
     end
   end
