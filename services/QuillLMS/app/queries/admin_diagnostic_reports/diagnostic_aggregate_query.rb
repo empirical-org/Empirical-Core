@@ -13,7 +13,16 @@ module AdminDiagnosticReports
       'classroom'
     ]
     DIAGNOSTIC_ORDER_BY_NAME = [
-
+      'Starter Baseline Diagnostic (Pre)',
+      'Intermediate Baseline Diagnostic (Pre)',
+      'Advanced Baseline Diagnostic (Pre)',
+      'ELL Starter Baseline Diagnostic (Pre)',
+      'ELL Intermediate Baseline Diagnostic (Pre)',
+      'ELL Advanced Baseline Diagnostic (Pre)',
+      'AP Writing Skills Survey',
+      'Pre-AP Writing Skills Survey 1',
+      'Pre-AP Writing Skills Survey 2',
+      'SpringBoard Writing Skills Survey'
     ]
 
     def initialize(aggregation:, **options)
