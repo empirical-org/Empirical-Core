@@ -3,9 +3,8 @@ import * as React from 'react';
 
 import { requestPost, } from '../../../modules/request';
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual';
-import { DataTable, Snackbar, Spinner, defaultSnackbarTimeout, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon } from '../../Shared';
+import { DataTable, Snackbar, Spinner, LightButtonLoadingSpinner, defaultSnackbarTimeout, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon, } from '../../Shared';
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
-import ButtonLoadingIndicator from '../../Teacher/components/shared/button_loading_indicator';
 import { hashPayload, } from '../shared'
 
 const STANDARD_WIDTH = "152px";
@@ -302,7 +301,7 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
     let buttonClassName = "quill-button download-report-button contained primary medium focus-on-light"
 
     if (downloadButtonBusy) {
-      buttonContent = <React.Fragment>Download<ButtonLoadingIndicator /></React.Fragment>
+      buttonContent = <React.Fragment>Download<LightButtonLoadingSpinner /></React.Fragment>
       buttonClassName += ' disabled'
     }
 
