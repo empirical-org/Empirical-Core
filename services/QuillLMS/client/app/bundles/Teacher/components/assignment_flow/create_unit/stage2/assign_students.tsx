@@ -14,8 +14,7 @@ import ImportProviderClassroomsModal from '../../../classrooms/import_provider_c
 import LinkProviderAccountModal from '../../../classrooms/link_provider_account_modal'
 import NoClassroomsToImportModal from '../../../classrooms/no_classrooms_to_import_modal'
 import ReauthorizeProviderModal from '../../../classrooms/reauthorize_provider_modal'
-import { ButtonLoadingSpinner, } from '../../../../../Shared/index'
-
+import { ButtonLoadingSpinner, DropdownInput, } from '../../../../../Shared/index'
 
 const canvasIconSrc = `${process.env.CDN_URL}/images/icons/canvas.svg`
 const cleverIconSrc = `${process.env.CDN_URL}/images/icons/clever.svg`
@@ -84,6 +83,10 @@ const AssignStudents = ({
     openModal(providerClassrooms.length ? importProviderClassroomsModal : noClassroomsToImportModal)
   }, [providerClassrooms])
 
+  function handleImportClassesClick(option) {
+    return importFromProvider[option.value]()
+  }
+
   const closeModal = (callback = null) => {
     setVisibleModal(null)
 
@@ -104,7 +107,7 @@ const AssignStudents = ({
       setPendingImportFromProviderRequest(true)
       retrieveProviderClassrooms()
     } else {
-      openModal(linkCanvasAccountModal)
+      openModal(linkCleverAccountModal)
     }
   }
 
@@ -229,9 +232,7 @@ const AssignStudents = ({
             <span className="assignment-section-name">Choose classes or students</span>
           </div>
           <div className="import-or-create-classroom-buttons">
-            {renderImportFromProviderButton(canvasProvider)}
-            {renderImportFromProviderButton(cleverProvider)}
-            {renderImportFromProviderButton(googleProvider)}
+            {provider ? renderImportFromProviderButton(provider) : renderImportClassesDropdown()}
             <button
               className="quill-button medium secondary outlined create-a-class-button"
               onClick={() => openModal(createAClassForm)}
@@ -257,9 +258,6 @@ const AssignStudents = ({
   }
 
   const renderImportFromProviderButton = (theProvider: string) => {
-    if (provider && provider != theProvider) { return null }
-    if (!provider && theProvider === canvasProvider) { return null }
-
     const theProviderTitle = providerConfigLookup[theProvider].title
 
     let buttonContent = <React.Fragment>Import from {theProviderTitle}</React.Fragment>
@@ -292,6 +290,32 @@ const AssignStudents = ({
         onSuccess={onSuccess}
         provider={provider}
         user={user}
+      />
+    )
+  }
+
+  const renderImportClassesDropdown = () => {
+    const options = [
+      {
+        label: 'Import from Clever',
+        value: cleverProvider,
+      },
+      {
+        label: 'Import from Google Classroom',
+        value: googleProvider,
+      },
+      {
+        label: 'Import from Canvas',
+        value: canvasProvider,
+      }
+    ]
+
+    return (
+      <DropdownInput
+        className="import-classes-dropdown-input"
+        handleChange={handleImportClassesClick}
+        options={options}
+        value={{ label: 'Import Classes', value: null }}
       />
     )
   }
