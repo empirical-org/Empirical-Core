@@ -14,6 +14,7 @@ import ImportProviderClassroomsModal from '../../../classrooms/import_provider_c
 import LinkProviderAccountModal from '../../../classrooms/link_provider_account_modal'
 import NoClassroomsToImportModal from '../../../classrooms/no_classrooms_to_import_modal'
 import ReauthorizeProviderModal from '../../../classrooms/reauthorize_provider_modal'
+import CanvasModal from '../../../classrooms/canvas_modal'
 import { ButtonLoadingSpinner, DropdownInput, } from '../../../../../Shared/index'
 
 const canvasIconSrc = `${process.env.CDN_URL}/images/icons/canvas.svg`
@@ -325,10 +326,6 @@ const AssignStudents = ({
     let linkAccountProvider = ''
 
     switch (visibleModal) {
-      // case linkCanvasAccountModal:
-      //   link = canvasLink
-      //   linkAccountProvider = canvasProvider
-      //   break;
       case linkCleverAccountModal:
         link = cleverLink
         linkAccountProvider = cleverProvider
@@ -337,6 +334,8 @@ const AssignStudents = ({
         // no link assignment since google uses a different component for linking accounts
         linkAccountProvider = googleProvider
         break
+      case linkCanvasAccountModal:
+        return <CanvasModal close={closeModal} user={user} />
       default:
         return null
     }

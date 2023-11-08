@@ -17,6 +17,7 @@ import LinkProviderAccountModal from './link_provider_account_modal'
 import NoClassroomsToImportModal from './no_classrooms_to_import_modal'
 import ReauthorizeProviderModal from './reauthorize_provider_modal'
 import RenameClassModal from './rename_classroom_modal'
+import CanvasModal from './canvas_modal'
 
 import { requestGet, requestPut } from '../../../../modules/request/index'
 import { Snackbar, SortableList, defaultSnackbarTimeout } from '../../../Shared/index'
@@ -507,6 +508,8 @@ const ActiveClassrooms = ({
     } else if (visibleModal === linkGoogleAccountModal) {
       // no link assignment since google uses a different component for linking accounts
       linkAccountProvider = googleProvider
+    } else if (visibleModal === linkCanvasAccountModal) {
+      return <CanvasModal close={closeModal} user={user} />
     } else {
       return null
     }
