@@ -39,6 +39,7 @@ module AdminDiagnosticReports
         }
       end
 
+      it { expect(results.first[:name]).to eq(activity.name) }
       it { expect(results.first[:pre_students_assigned]).to eq(students.length) }
 
       context 'student assigned to multiple instances of the same diagnostic' do

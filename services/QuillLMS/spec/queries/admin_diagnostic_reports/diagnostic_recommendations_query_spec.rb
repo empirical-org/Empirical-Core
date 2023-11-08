@@ -65,6 +65,7 @@ module AdminDiagnosticReports
       let(:average_time_spent_seconds_results) { results.first[:average_time_spent_seconds] }
       let(:average_practice_activities_count_results) { results.first[:average_practice_activities_count] }
 
+      it { expect(results.first[:name]).to eq(diagnostic_activity.name) }
       it { expect(students_completed_practice_results).to eq(students.length) }
       it { expect(average_time_spent_seconds_results).to eq(activity_sessions.map(&:timespent).sum / students.length) }
       it { expect(average_practice_activities_count_results).to eq(activity_sessions.length / students.length) }

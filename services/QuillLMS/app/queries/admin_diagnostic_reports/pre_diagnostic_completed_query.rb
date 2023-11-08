@@ -5,11 +5,12 @@ module AdminDiagnosticReports
     def query
       <<-SQL
         SELECT
-            name,
+            diagnostic_id,
+            diagnostic_name,
             COUNT(DISTINCT activity_session_id) AS pre_students_completed,
             SAFE_DIVIDE(SUM(CAST(optimal AS INT64)), CAST(COUNT(DISTINCT concept_result_id) AS FLOAT64)) AS average_score
           FROM (#{super})
-          GROUP BY name, #{additional_aggregation}
+          GROUP BY diagnostic_id, diagnostic_name, #{additional_aggregation}
       SQL
     end
 

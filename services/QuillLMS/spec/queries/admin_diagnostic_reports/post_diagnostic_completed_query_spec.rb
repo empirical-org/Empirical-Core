@@ -45,6 +45,7 @@ module AdminDiagnosticReports
         }
       end
 
+      it { expect(results.first[:name]).to eq(pre_activity.name) }
       it { expect(results.first[:post_students_completed]).to eq(activity_sessions.length) }
       it { expect(results.first[:post_average_score]).to eq(1.0) }
 
