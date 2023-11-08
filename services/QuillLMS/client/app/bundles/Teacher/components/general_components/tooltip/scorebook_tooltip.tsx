@@ -57,7 +57,7 @@ export const ScorebookTooltip = ({ data }) => {
         const textifiedNextNumber = nextNumber > 10 ? numberSuffixBuilder(i + 1) : ordinalNumbers[nextNumber]
         attemptText = `(${textifiedNextNumber} attempt in progress)`
         const descriptionElement = <p className="description"><span className="percentage">{scoreText}</span><br /> {attemptText}</p>
-        return <ActivityDetailsSection key={i} header={`${ordinalNumber} score`} description={descriptionElement} />
+        return <ActivityDetailsSection key={i} description={descriptionElement} header={`${ordinalNumber} score`} />
       }
       const descriptionElement = (
         <div className="description-block">
@@ -65,7 +65,7 @@ export const ScorebookTooltip = ({ data }) => {
           <p className="description">{`${moment.utc(completed_at).format('MMMM D, YYYY [at] h:mm a')} / ${timespent ? getTimeSpent(timespent) : NOT_APPLICABLE}`}</p>
         </div>
       )
-      return <ActivityDetailsSection key={i} header={`${ordinalNumber} score`} description={descriptionElement} />
+      return <ActivityDetailsSection key={i} description={descriptionElement} header={`${ordinalNumber} score`} />
     })
   };
 
@@ -81,7 +81,7 @@ export const ScorebookTooltip = ({ data }) => {
   function scoringExplanation() {
     const actClassId = data.activity ? data.activity.classification.id : data.activity_classification_id;
     if (Number(actClassId) === 4) {
-      return <ActivityDetailsSection header="Scoring" description={QUILL_DIAGNOSTIC_SCORING_EXPLANATION} />
+      return <ActivityDetailsSection description={QUILL_DIAGNOSTIC_SCORING_EXPLANATION} header="Scoring" />
     }
   }
 

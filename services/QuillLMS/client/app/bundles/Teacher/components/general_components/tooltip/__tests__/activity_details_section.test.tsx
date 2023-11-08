@@ -5,7 +5,7 @@ import ActivityDetailsSection from '../activity_details_section';
 
 describe('ActivityDetailsSection component', () => {
   it('should render', () => {
-    const { asFragment } = render(<ActivityDetailsSection header="Test Header" description="This is a test description" />);
+    const { asFragment } = render(<ActivityDetailsSection description="This is a test description" header="Test Header" />);
     expect(asFragment()).toMatchSnapshot();
   })
 });
