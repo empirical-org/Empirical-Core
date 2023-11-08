@@ -57,6 +57,9 @@ module QuillBigQuery
         "NULL"
       elsif value.is_a?(Array)
         "ARRAY#{value.map { |v| attr_type_value(attr_type, v) }}"
+      # This condition is intended to handle cases where we've used a rails enum in the model, but want to make sure to treat it as an INT in the database
+      elsif record.class.respond_to?(attr.pluralize) && record.class.send(attr.pluralize).is_a?(Hash)
+        record.class.send(attr.pluralize).fetch(record.send(attr))
       else
         attr_type_value(attr_type, value)
       end
