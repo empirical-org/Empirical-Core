@@ -1,10 +1,10 @@
 import * as React from 'react'
 
 interface ActivityDetailsSectionPropsInterface {
-  key: string;
+  key?: string;
   customClass?: string;
   header: string;
-  description: string | Element
+  description: string | React.ReactElement
 }
 export const ActivityDetailsSection = ({ key, customClass, header, description }: ActivityDetailsSectionPropsInterface) => {
   if(!header || !description) { return }
