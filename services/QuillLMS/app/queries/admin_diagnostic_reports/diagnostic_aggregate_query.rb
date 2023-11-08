@@ -74,7 +74,7 @@ module AdminDiagnosticReports
         'grade' => "classrooms.grade",
         'classroom' => "classrooms.name",
         'teacher' => "users.name"
-      }.fetch(@additional_aggregation)
+      }.fetch(additional_aggregation)
     end
 
     private def post_process(result)
@@ -84,40 +84,49 @@ module AdminDiagnosticReports
         .values
         .map do |diagnostic_rows|
           {
+            id: diagnostic_rows.first[:diagnostic_id],
             name: diagnostic_rows.first[:diagnostic_name],
+            group_by: additional_aggregation,
             aggregate_rows: process_aggregate_rows(diagnostic_rows)
-          }.merge(aggregate_diagnostic(aggregate_sort(diagnostic_rows)))
+          }.merge(aggregate_diagnostic(diagnostic_rows))
         end
         .sort_by { |diagnostic| DIAGNOSTIC_ORDER_BY_ID.index(diagnostic[:diagnostic_id]) }
     end
 
     private def process_aggregate_rows(diagnostic_rows)
+      aggregate_sort(diagnostic_rows)
+        .map do |row|
+          # Make grade information more human-readable than simple integers
+          next row unless grade_aggregation?
+          next row.merge({name: "No grade selected"}) if row[:name].nil?
+          # to_i returns 0 for non-numeric strings, so this will only apply to numbered grades
+          next row.merge({name: "Grade #{row[:name]}"}) if row[:name].to_i > 0
+
+          row
+        end
+    end
+
+    private def aggregate_sort(diagnostic_rows)
       diagnostic_rows.sort do |a, b|
         # nils are always at the end
-        if b.nil?
-         -1 if b.nil?
-        else
-          # if we're sorting by grade, convert named grades to integers, otherwise just sort by the raw value
-          Classroom::GRADE_INTEGERS.fetch(a[:name], a[:name]) <=> Classroom::GRADE_INTEGERS.fetch(b[:name], b[:name])
-        end
-      end
-      # Make grade information more human-readable
-      .each do |row|
-        return unless @additional_aggregation == 'grade'
+        next -1 if b[:name].nil?
+        next 1 if a[:name].nil?
+        next sort_grades(a[:name], b[:name]) if grade_aggregation?
 
-        return row[:name] = "No grade selected" if row[:name].nil?
-
-        # remember that to_i returns 0 for non-numeric strings
-        row[:name] = "Grade #{row[:name]}" if row[:name].to_i > 0
+        a[:name] <=> b[:name]
       end
+    end
+
+    private def sort_grades(a, b)
+      Classroom::GRADE_INTEGERS.fetch(a.to_sym, a).to_i <=> Classroom::GRADE_INTEGERS.fetch(b.to_sym, b).to_i
+    end
+
+    private def grade_aggregation?
+      additional_aggregation == 'grade'
     end
 
     private def aggregate_diagnostic(diagnostic_rows)
       raise NotImplementedError
-    end
-
-    private def aggregate_sort(diagnostic_rows)
-      diagnostic_rows.sort_by { |row| row['name'] }
     end
 
     # Used in `aggregate_diagnostic` implementations
