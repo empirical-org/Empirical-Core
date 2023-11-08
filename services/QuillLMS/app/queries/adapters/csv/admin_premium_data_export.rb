@@ -46,6 +46,8 @@ module Adapters
           value&.strftime("%F")
         when :timespent
           (value / 60).to_i
+        when :score
+          value&.round(2)
         else
           value
         end

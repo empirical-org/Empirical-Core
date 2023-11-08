@@ -9,6 +9,8 @@ describe Adapters::Csv::AdminPremiumDataExport do
     it { expect(described_class.format_cell(:completed_at, DateTime.new(2020,1,1))).to eq ('2020-01-01')}
     it { expect(described_class.format_cell(:activity_pack, 'foo')).to eq ('foo')}
     it { expect(described_class.format_cell(:timespent, 61)).to eq (1)}
+    it { expect(described_class.format_cell(:score, 0.667)).to eq (0.67)}
+    it { expect(described_class.format_cell(:not_a_special_case, 1.5)).to eq (1.5)}
   end
 
   describe '#to_csv_string' do
