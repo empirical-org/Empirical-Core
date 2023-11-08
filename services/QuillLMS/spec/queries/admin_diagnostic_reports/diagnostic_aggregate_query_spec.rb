@@ -48,7 +48,7 @@ module AdminDiagnosticReports
     let(:unit_activities) { units.map(&:unit_activities) }
     let(:classroom_units) do
       classrooms.map do |classroom|
-        units.map { |unit| create(:classroom_unit, classroom: classroom, unit:unit) }
+        units.map { |unit| create(:classroom_unit, classroom: classroom, unit: unit) }
       end.flatten
     end
 

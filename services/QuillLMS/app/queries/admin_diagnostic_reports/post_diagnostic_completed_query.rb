@@ -36,7 +36,7 @@ module AdminDiagnosticReports
     end
 
     def group_by_clause
-      super + ", activity_sessions.id, concept_results.question_number"
+      "#{super}, activity_sessions.id, concept_results.question_number"
     end
 
     def relevant_date_column

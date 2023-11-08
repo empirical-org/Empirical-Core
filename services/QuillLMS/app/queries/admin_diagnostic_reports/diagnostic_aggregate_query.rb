@@ -8,7 +8,7 @@ module AdminDiagnosticReports
 
     AGGREGATION_OPTIONS = [
       'grade',
-      'teacher', 
+      'teacher',
       'classroom'
     ]
     DIAGNOSTIC_ORDER_BY_ID = [
@@ -21,7 +21,7 @@ module AdminDiagnosticReports
     ]
 
     def initialize(aggregation:, **options)
-      raise InvalidAggregationError.new("#{aggregation} is not a valid aggregation value.") unless AGGREGATION_OPTIONS.include?(aggregation)
+      raise InvalidAggregationError, "#{aggregation} is not a valid aggregation value." unless AGGREGATION_OPTIONS.include?(aggregation)
 
       @additional_aggregation = aggregation
 
@@ -82,15 +82,17 @@ module AdminDiagnosticReports
 
       result.group_by { |row| row[:diagnostic_name] }
         .values
-        .map do |diagnostic_rows|
-          {
-            id: diagnostic_rows.first[:diagnostic_id],
-            name: diagnostic_rows.first[:diagnostic_name],
-            group_by: additional_aggregation,
-            aggregate_rows: process_aggregate_rows(diagnostic_rows)
-          }.merge(aggregate_diagnostic(diagnostic_rows))
-        end
+        .map { |diagnostic_rows| build_diagnostic_aggregates(diagnostic_rows) }
         .sort_by { |diagnostic| DIAGNOSTIC_ORDER_BY_ID.index(diagnostic[:diagnostic_id]) }
+    end
+
+    private def build_diagnostic_aggregates(diagnostic_rows)
+      {
+        id: diagnostic_rows.first[:diagnostic_id],
+        name: diagnostic_rows.first[:diagnostic_name],
+        group_by: additional_aggregation,
+        aggregate_rows: process_aggregate_rows(diagnostic_rows)
+      }.merge(aggregate_diagnostic(diagnostic_rows))
     end
 
     private def process_aggregate_rows(diagnostic_rows)
@@ -117,8 +119,8 @@ module AdminDiagnosticReports
       end
     end
 
-    private def sort_grades(a, b)
-      Classroom::GRADE_INTEGERS.fetch(a.to_sym, a).to_i <=> Classroom::GRADE_INTEGERS.fetch(b.to_sym, b).to_i
+    private def sort_grades(first, second)
+      Classroom::GRADE_INTEGERS.fetch(first.to_sym, first).to_i <=> Classroom::GRADE_INTEGERS.fetch(second.to_sym, second).to_i
     end
 
     private def grade_aggregation?

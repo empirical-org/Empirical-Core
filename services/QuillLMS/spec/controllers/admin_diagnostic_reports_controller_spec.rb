@@ -19,7 +19,7 @@ describe AdminDiagnosticReportsController, type: :controller do
     let(:school_ids) { [school.id.to_s] }
     let(:controller_actions) {
       [
-        [:report, 'pre-diagnostic-assigned'],
+        [:report, 'pre-diagnostic-assigned']
       ]
     }
     let(:previous_start) { now - 1.day }

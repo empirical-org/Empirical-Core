@@ -62,7 +62,7 @@ module AdminDiagnosticReports
       end
 
       context 'no students assigned to classroom_unit' do
-        let(:classroom_units) { [ create(:classroom_unit, classroom: classrooms.first, assigned_student_ids: [], unit: unit) ] }
+        let(:classroom_units) { [create(:classroom_unit, classroom: classrooms.first, assigned_student_ids: [], unit: unit)] }
 
         it { expect(results).to eq([]) }
       end
