@@ -18,7 +18,7 @@ const KeyTargetSkillConcepts = ({ groupedKeyTargetSkillConcepts, }) => {
   )
   return(
     <React.Fragment>
-      <ActivityDetailsSection header="Target Skills" description={descriptionElement} />
+      {!!groupedKeyTargetSkillConcepts?.length && <ActivityDetailsSection header="Target Skills" description={descriptionElement} />}
       <p className="tooltip-message">Clicking on the activity icon loads the report</p>
     </React.Fragment>
   )

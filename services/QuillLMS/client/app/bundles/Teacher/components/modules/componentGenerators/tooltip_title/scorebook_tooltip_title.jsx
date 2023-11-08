@@ -10,9 +10,6 @@ import ActivityDetailsSection from '../../../general_components/tooltip/activity
 import { NOT_APPLICABLE, Spinner } from '../../../../../Shared'
 import moment from 'moment';
 
-const DIAGNOSTIC_SCORING_EXPLANATION = "Quill Diagnostic does not provide a score. You can click to view recommended activities based on the student's performance."
-const LESSONS_SCORING_EXPLANATION = "Quill Lessons are facilitated by the teachers and not graded. You can click to view your student's answers from this lesson."
-const EVIDENCE_SCORING_EXPLANATION = "Quill Reading for Evidence does not provide a score. You can click the activity icon to load the full report."
 const percentageDisplayer = new PercentageDisplayer()
 
 export default class ScorebookTooltip extends React.Component {
@@ -56,10 +53,10 @@ export default class ScorebookTooltip extends React.Component {
     const attemptInProgress = data.started > 0
 
     return data.sessions.map((session, i) => {
-      const { percentage, completed_at, timespent } = session
-      console.log("🚀 ~ file: scorebook_tooltip_title.jsx:60 ~ ScorebookTooltip ~ returndata.sessions.map ~ session:", session)
+      const { percentage, number_of_correct_questions, number_of_questions, completed_at, timespent } = session
       const ordinalNumber = numberSuffixBuilder(i + 1)
       const formattedPercentage = percentageDisplayer.run(percentage)
+      const scoreText = `${number_of_correct_questions} of ${number_of_questions} Target Skills Correct (${formattedPercentage})`
       const sessionLength = data.sessions.length
       let attemptText = ''
 
@@ -68,12 +65,12 @@ export default class ScorebookTooltip extends React.Component {
         const nextNumber = sessionLength + 1
         const textifiedNextNumber = nextNumber > 10 ? numberSuffixBuilder(textifiedNextNumber) : ordinalNumbers[nextNumber]
         attemptText = `(${textifiedNextNumber} attempt in progress)`
-        const descriptionElement = <p className="description"><span className="percentage">{formattedPercentage}</span> {attemptText}</p>
+        const descriptionElement = <p className="description"><span className="percentage">{scoreText}</span><br /> {attemptText}</p>
         return <ActivityDetailsSection key={i} header={`${ordinalNumber} score`} description={descriptionElement} />
       }
       const descriptionElement = (
         <div className="description-block">
-          <p className="description"><span className="percentage">{formattedPercentage}</span> {attemptText}</p>
+          <p className="description"><span className="percentage">{scoreText}</span> {attemptText}</p>
           <p className="description">{`${moment.utc(completed_at).format('MMMM D, YYYY [at] h:mm a')} / ${timespent ? getTimeSpent(timespent) : NOT_APPLICABLE}`}</p>
         </div>
       )
@@ -94,11 +91,7 @@ export default class ScorebookTooltip extends React.Component {
     const { data } = this.props;
     const actClassId = data.activity ? data.activity.classification.id : data.activity_classification_id;
     if (Number(actClassId) === 4 && data.percentage) {
-      return <ActivityDetailsSection header="Scoring" description={DIAGNOSTIC_SCORING_EXPLANATION} />
-    } else if (Number(actClassId) === 6 && data.percentage) {
-      return <ActivityDetailsSection header="Scoring" description={LESSONS_SCORING_EXPLANATION} />
-    } else if (Number(actClassId) === 9 && data.completed_attempts) {
-      return <ActivityDetailsSection header="Scoring" description={EVIDENCE_SCORING_EXPLANATION} />
+      return <ActivityDetailsSection header="Scoring" description="Quill Diagnostic does not provide a score. You can click to view recommended activities based on the student's performance." />
     }
   }
 
