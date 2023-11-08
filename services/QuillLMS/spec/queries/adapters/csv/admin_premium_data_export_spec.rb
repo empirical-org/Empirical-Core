@@ -6,11 +6,11 @@ describe Adapters::Csv::AdminPremiumDataExport do
   subject { described_class }
 
   describe '#format_cell' do
-    it { expect(described_class.format_cell(:completed_at, DateTime.new(2020,1,1))).to eq ('2020-01-01')}
-    it { expect(described_class.format_cell(:activity_pack, 'foo')).to eq ('foo')}
-    it { expect(described_class.format_cell(:timespent, 61)).to eq (1)}
-    it { expect(described_class.format_cell(:score, 0.667)).to eq (0.67)}
-    it { expect(described_class.format_cell(:not_a_special_case, 1.5)).to eq (1.5)}
+    it { expect(described_class.format_cell(:completed_at, DateTime.new(2020,1,1))).to eq('2020-01-01')}
+    it { expect(described_class.format_cell(:activity_pack, 'foo')).to eq('foo')}
+    it { expect(described_class.format_cell(:timespent, 61)).to eq(1)}
+    it { expect(described_class.format_cell(:score, 0.667)).to eq(0.67)}
+    it { expect(described_class.format_cell(:not_a_special_case, 1.5)).to eq(1.5)}
   end
 
   describe '#to_csv_string' do
@@ -62,7 +62,7 @@ describe Adapters::Csv::AdminPremiumDataExport do
       end
 
       context 'BigQuery payload lacks the requested columns' do
-        let(:payload_missing_columns) { [valid_input.first.reject{|k,v| k == :activity_name}] }
+        let(:payload_missing_columns) { [valid_input.first.except(:activity_name)] }
 
         it do
           expect { subject.to_csv_string(payload_missing_columns) }.to raise_error(described_class::BigQueryResultMissingRequestedColumnError)
