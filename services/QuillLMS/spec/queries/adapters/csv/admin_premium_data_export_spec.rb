@@ -5,6 +5,12 @@ require 'rails_helper'
 describe Adapters::Csv::AdminPremiumDataExport do
   subject { described_class }
 
+  describe '#format_cell' do
+    it { expect(described_class.format_cell(:completed_at, DateTime.new(2020,1,1))).to eq ('2020-01-01')}
+    it { expect(described_class.format_cell(:activity_pack, 'foo')).to eq ('foo')}
+    it { expect(described_class.format_cell(:timespent, 61)).to eq (1)}
+  end
+
   describe '#to_csv_string' do
     let(:valid_input) {
       [{

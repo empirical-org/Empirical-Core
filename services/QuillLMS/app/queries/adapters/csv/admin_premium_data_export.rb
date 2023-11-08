@@ -9,19 +9,19 @@ module Adapters
       class BigQueryResultMissingRequestedColumnError < StandardError; end
 
       ORDERED_COLUMNS = {
-        student_name: 'Student Name',
-        student_email: 'Student Email',
-        completed_at: 'Completed Date',
-        activity_name: 'Activity',
-        activity_pack: 'Activity Pack',
-        score: 'Score',
-        timespent: 'Time Spent',
-        standard: 'Standard',
-        tool: 'Tool',
-        school_name: 'School',
-        classroom_grade: 'Grade',
-        teacher_name: 'Teacher',
-        classroom_name: 'Class',
+        student_name:     'Student Name',
+        student_email:    'Student Email',
+        completed_at:     'Completed Date',
+        activity_name:    'Activity',
+        activity_pack:    'Activity Pack',
+        score:            'Score',
+        timespent:        'Time Spent (Mins)',
+        standard:         'Standard',
+        tool:             'Tool',
+        school_name:      'School',
+        classroom_grade:  'Grade',
+        teacher_name:     'Teacher',
+        classroom_name:   'Class',
       }
 
       def self.to_csv_string(bigquery_result, columns = ORDERED_COLUMNS.keys)
@@ -31,7 +31,7 @@ module Adapters
         CSV.generate do |csv|
           csv << human_displayable_csv_headers(sym_columns)
           bigquery_result.each do |row|
-            csv << sym_columns.map { |key| row[key] }
+            csv << sym_columns.map { |key| format_cell(key, row[key]) }
           end
         end
       end
@@ -40,8 +40,16 @@ module Adapters
         sym_columns.map{|col| ORDERED_COLUMNS[col] }
       end
 
-      # def self.transform_cell(sym_column, value)
-      # end
+      def self.format_cell(sym_column, value)
+        case sym_column
+        when :completed_at
+          value&.strftime("%F")
+        when :timespent
+          (value / 60).to_i
+        else
+          value
+        end
+      end
 
       def self.row_contains_requested_columns?(row, requested_columns)
         (row.keys & requested_columns).length == requested_columns.length
