@@ -47,7 +47,7 @@ module Adapters
         when :timespent
           (value / 60).to_i
         when :score
-          value&.round(2)
+          value.respond_to?(:*) ? "#{(value*100).round(0)}%" : ''
         else
           value
         end
@@ -58,7 +58,7 @@ module Adapters
       end
 
       def self.validate_input!(bigquery_result, sym_columns)
-        if sym_columns.to_set > ORDERED_COLUMNS.keys.to_set
+        if !(ORDERED_COLUMNS.keys.to_set >= sym_columns.to_set)
           raise UnhandledColumnError, "Requested column(s) not supported: #{sym_columns - ORDERED_COLUMNS.keys}"
         end
 
