@@ -36,7 +36,8 @@ describe GradesController do
         due_date: activity_session.classroom_unit.unit_activities.first.due_date,
         grouped_key_target_skill_concepts: [{ name: concept.parent.name, correct: 1, incorrect: 1 }],
         number_of_questions: 2,
-        number_of_correct_questions: 1
+        number_of_correct_questions: 1,
+        timespent: activity_session.timespent
       )
 
       # Due to time-precision rounding on strings, we have to do this comparison

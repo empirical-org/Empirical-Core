@@ -1,5 +1,5 @@
 import moment from 'moment'
-import React from 'react'
+import * as React from 'react'
 import ActivityDetailsSection from './activity_details_section'
 import { NOT_APPLICABLE } from '../../../../Shared'
 

@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScorebookTooltip component should render 1`] = `
+<DocumentFragment>
+  <div
+    class="scorebook-tooltip"
+  >
+    <i
+      class="fas fa-caret-up"
+    />
+    <i
+      class="fas fa-caret-up border-color"
+    />
+    <div
+      class="title"
+    >
+      Capitalizing Holidays, People, & Places - Mixed Topics
+    </div>
+    <div
+      class="main"
+    >
+      <div
+        class="activity-overview"
+      >
+        <div
+          class="activity-details"
+        >
+          <div
+            class="activity-detail"
+          >
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Objectives
+              </p>
+              <p
+                class="description"
+              >
+                Students rewrite sentences, adding the correct capitalization.
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Published
+              </p>
+              <p
+                class="description"
+              >
+                November 8, 2023 at 8:50 pm
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Due
+              </p>
+              <p
+                class="description"
+              >
+                N/A
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            1st score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                undefined of undefined Target Skills Correct (Not completed yet)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              November 8, 2023 at 8:50 pm / N/A
+            </p>
+          </div>
+        </div>
+      </div>
+      <p
+        class="tooltip-message"
+      >
+        Clicking on the activity icon loads the report
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;

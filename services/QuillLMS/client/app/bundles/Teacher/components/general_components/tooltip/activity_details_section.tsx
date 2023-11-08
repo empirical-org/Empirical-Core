@@ -6,6 +6,7 @@ interface ActivityDetailsSectionPropsInterface {
   header: string;
   description: string | React.ReactElement
 }
+
 export const ActivityDetailsSection = ({ key, customClass, header, description }: ActivityDetailsSectionPropsInterface) => {
   if(!header || !description) { return }
 

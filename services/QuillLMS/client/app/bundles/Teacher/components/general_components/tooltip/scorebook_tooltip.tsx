@@ -1,8 +1,7 @@
 import * as React from 'react';
 
 import { getTimeSpent } from '../../../helpers/studentReports';
-import AboutPremium from './about_premium.jsx';
-import ActivityDetails from './activity_details.jsx';
+import ActivityDetails from './activity_details';
 import KeyTargetSkillConcepts from './key_target_skill_concepts';
 import numberSuffixBuilder from '../../modules/numberSuffixBuilder';
 import PercentageDisplayer from '../../modules/percentage_displayer.jsx';
@@ -10,14 +9,10 @@ import ActivityDetailsSection from './activity_details_section';
 import { NOT_APPLICABLE, Spinner } from '../../../../Shared'
 import moment from 'moment';
 
+const QUILL_DIAGNOSTIC_SCORING_EXPLANATION = "The Quill Diagnostic is meant to diagnose skills to practice. Students are not provided a color-coded score or percentage score. Teachers see only a percentage score without a color."
 const percentageDisplayer = new PercentageDisplayer()
 
 export const ScorebookTooltip = ({ data }) => {
-  function aboutPremiumOrNot() {
-    if (data.concept_results && data.concept_results.length && !['trial', 'school', 'paid'].includes(data.premium_state)) {
-      return <AboutPremium />
-    }
-  }
 
   function activityOverview() {
     return (
@@ -75,7 +70,8 @@ export const ScorebookTooltip = ({ data }) => {
   };
 
   function totalScoreOrNot() {
-    if (data.percentage && data.sessions && data.sessions.length > 0) {
+    const hasScoreData = data.percentage && data.sessions && data.sessions.length > 0
+    if (hasScoreData) {
       return displayScores()
     } else {
       return <span />
@@ -84,14 +80,14 @@ export const ScorebookTooltip = ({ data }) => {
 
   function scoringExplanation() {
     const actClassId = data.activity ? data.activity.classification.id : data.activity_classification_id;
-    if (Number(actClassId) === 4 && data.percentage) {
-      return <ActivityDetailsSection header="Scoring" description="Quill Diagnostic does not provide a score. You can click to view recommended activities based on the student's performance." />
+    if (Number(actClassId) === 4) {
+      return <ActivityDetailsSection header="Scoring" description={QUILL_DIAGNOSTIC_SCORING_EXPLANATION} />
     }
   }
 
   const name = data.activity ? data.activity.name : data.name;
   return (
-    <div className="scorebook-tooltip" style={{ position: 'relative', }}>
+    <div className="scorebook-tooltip">
       <i className="fas fa-caret-up" />
       <i className="fas fa-caret-up border-color" />
       <div className="title">

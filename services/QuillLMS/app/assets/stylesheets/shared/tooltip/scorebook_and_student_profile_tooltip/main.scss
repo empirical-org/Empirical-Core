@@ -17,38 +17,6 @@
     font-size: 12px;
     line-height: 16px;
     padding: 0px;
-    .key-target-skill-concepts {
-      width: 280px;
-      font-size: 13px;
-      padding: 0px;
-      margin: 0px;
-      color: $quill-black;
-      border-bottom: 1px solid $quill-grey-15;
-      padding-bottom: 6px;
-      margin-bottom: 16px;
-
-
-      .row {
-        display: flex;
-        align-items: center;
-
-        .correct-answer, .incorrect-answer {
-          font-weight: 700;
-          text-align: right;
-          line-height: 18px;
-        }
-
-        .correct-answer {
-          color: $quill-green-vibrant-50;
-        }
-        .incorrect-answer {
-          color: $quill-gold-dark-50;
-        }
-      }
-    }
-    .total-score {
-      text-align: center;
-    }
 
     .no-data-message {
       color: $quill-grey-50;
@@ -84,11 +52,15 @@
     }
     .activity-tooltip-details-section {
       display: flex;
+      justify-content: space-between;
       padding-top: 10px;
       border-top: 1px solid $quill-grey-15;
       &.no-border-top {
         border-top: none;
         padding-bottom: 0 !important;
+      }
+      &.target-skills-section {
+        margin-top: 10px;
       }
       .header {
         font-size: 12px;
