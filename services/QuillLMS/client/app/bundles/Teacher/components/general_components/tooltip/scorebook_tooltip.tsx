@@ -9,10 +9,15 @@ import ActivityDetailsSection from './activity_details_section';
 import { NOT_APPLICABLE, Spinner } from '../../../../Shared'
 import moment from 'moment';
 
+const ORDINAL_NUMBERS = ['Zeroth', 'First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh', 'Eighth', 'Ninth', 'Tenth']
 const QUILL_DIAGNOSTIC_SCORING_EXPLANATION = "The Quill Diagnostic is meant to diagnose skills to practice. Students are not provided a color-coded score or percentage score. Teachers see only a percentage score without a color."
 const percentageDisplayer = new PercentageDisplayer()
 
 export const ScorebookTooltip = ({ data }) => {
+
+  if (!Object.keys(data).length) { return <span /> }
+
+  const { marked_complete, completed_attempts, locked, scheduled, sessions, started, activity, name } = data
 
   function activityOverview() {
     return (
@@ -25,36 +30,35 @@ export const ScorebookTooltip = ({ data }) => {
   }
 
   function keyTargetSkillConceptsOrExplanation() {
-    if (data.marked_complete && data.completed_attempts === 0) {
+    if (marked_complete && completed_attempts === 0) {
       return <p className="no-data-message">This student has missed this lesson. To make up this material, you can assign this lesson again to the students who missed it.</p>
-    } else if (data.scheduled && !data.completed_attempts) {
+    } else if (scheduled && !completed_attempts) {
       return <p className="no-data-message">This scheduled activity has not been published.</p>;
-    } else if (data.locked) {
+    } else if (locked) {
       return <p className="no-data-message">This activity is set for staggered release and has not been unlocked by this student.</p>;
-    } else if (!data.completed_attempts) {
+    } else if (!completed_attempts) {
       return <p className="no-data-message">This activity has not been completed.</p>;
-    } else if (data.sessions && data.sessions.length) {
-      return <KeyTargetSkillConcepts groupedKeyTargetSkillConcepts={data.sessions[data.sessions.length - 1].grouped_key_target_skill_concepts} />
+    } else if (sessions && sessions.length) {
+      return <KeyTargetSkillConcepts groupedKeyTargetSkillConcepts={sessions[sessions.length - 1].grouped_key_target_skill_concepts} />
     } else {
       return <Spinner />
     }
   };
 
   function displayScores() {
-    const attemptInProgress = data.started > 0
+    const attemptInProgress = started > 0
 
-    return data.sessions.map((session, i) => {
+    return sessions.map((session, i) => {
       const { percentage, number_of_correct_questions, number_of_questions, completed_at, timespent } = session
       const ordinalNumber = numberSuffixBuilder(i + 1)
       const formattedPercentage = percentageDisplayer.run(percentage)
       const scoreText = `${number_of_correct_questions} of ${number_of_questions} Target Skills Correct (${formattedPercentage})`
-      const sessionLength = data.sessions.length
+      const sessionLength = sessions.length
       let attemptText = ''
 
       if (attemptInProgress && i === sessionLength - 1) {
-        const ordinalNumbers = ['Zeroth', 'First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh', 'Eighth', 'Ninth', 'Tenth']
         const nextNumber = sessionLength + 1
-        const textifiedNextNumber = nextNumber > 10 ? numberSuffixBuilder(i + 1) : ordinalNumbers[nextNumber]
+        const textifiedNextNumber = nextNumber > 10 ? numberSuffixBuilder(i + 1) : ORDINAL_NUMBERS[nextNumber]
         attemptText = `(${textifiedNextNumber} attempt in progress)`
         const descriptionElement = <p className="description"><span className="percentage">{scoreText}</span><br /> {attemptText}</p>
         return <ActivityDetailsSection key={i} description={descriptionElement} header={`${ordinalNumber} score`} />
@@ -70,7 +74,8 @@ export const ScorebookTooltip = ({ data }) => {
   };
 
   function totalScoreOrNot() {
-    const hasScoreData = data.percentage && data.sessions && data.sessions.length > 0
+    const { percentage, sessions } = data
+    const hasScoreData = percentage && sessions && sessions.length > 0
     if (hasScoreData) {
       return displayScores()
     } else {
@@ -79,19 +84,20 @@ export const ScorebookTooltip = ({ data }) => {
   };
 
   function scoringExplanation() {
-    const actClassId = data.activity ? data.activity.classification.id : data.activity_classification_id;
+    const { activity, activity_classification_id } = data
+    const actClassId = activity ? activity.classification.id : activity_classification_id;
     if (Number(actClassId) === 4) {
       return <ActivityDetailsSection description={QUILL_DIAGNOSTIC_SCORING_EXPLANATION} header="Scoring" />
     }
   }
 
-  const name = data.activity ? data.activity.name : data.name;
+  const title = activity ? activity.name : name;
   return (
     <div className="scorebook-tooltip">
       <i className="fas fa-caret-up" />
       <i className="fas fa-caret-up border-color" />
       <div className="title">
-        {name}
+        {title}
       </div>
       <div className="main">
         {activityOverview()}

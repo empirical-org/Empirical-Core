@@ -53,7 +53,7 @@ exports[`ScorebookTooltip component should render 1`] = `
               <p
                 class="description"
               >
-                November 8, 2023 at 8:50 pm
+                November 8, 2023 at 9:24 pm
               </p>
             </div>
             <div
@@ -96,7 +96,7 @@ exports[`ScorebookTooltip component should render 1`] = `
             <p
               class="description"
             >
-              November 8, 2023 at 8:50 pm / N/A
+              November 8, 2023 at 9:24 pm / N/A
             </p>
           </div>
         </div>
