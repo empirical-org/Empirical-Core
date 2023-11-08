@@ -20,16 +20,6 @@ module AdminDiagnosticReports
       SQL
     end
 
-    def where_clause
-      super + <<-SQL
-          #{activity_classification_where_clause}
-      SQL
-    end
-
-    def activity_classification_where_clause
-      "AND activities.activity_classification_id = #{DIAGNOSTIC_CLASSIFICATION_ID}"
-    end
-
     def relevant_date_column
       "classroom_units.created_at"
     end

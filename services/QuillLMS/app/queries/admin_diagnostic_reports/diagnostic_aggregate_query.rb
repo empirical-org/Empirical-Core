@@ -6,23 +6,18 @@ module AdminDiagnosticReports
 
     attr_reader :additional_aggregation
 
-    DIAGNOSTIC_CLASSIFICATION_ID = 4
     AGGREGATION_OPTIONS = [
       'grade',
       'teacher', 
       'classroom'
     ]
-    DIAGNOSTIC_ORDER_BY_NAME = [
-      'Starter Baseline Diagnostic (Pre)',
-      'Intermediate Baseline Diagnostic (Pre)',
-      'Advanced Baseline Diagnostic (Pre)',
-      'ELL Starter Baseline Diagnostic (Pre)',
-      'ELL Intermediate Baseline Diagnostic (Pre)',
-      'ELL Advanced Baseline Diagnostic (Pre)',
-      'AP Writing Skills Survey',
-      'Pre-AP Writing Skills Survey 1',
-      'Pre-AP Writing Skills Survey 2',
-      'SpringBoard Writing Skills Survey'
+    DIAGNOSTIC_ORDER_BY_ID = [
+      1663, # Starter Baseline Diagnostic (Pre)
+      1668, # Intermediate Baseline Diagnostic (Pre)
+      1678, # Advanced Baseline Diagnostic (Pre)
+      1161, # ELL Starter Baseline Diagnostic (Pre)
+      1568, # ELL Intermediate Baseline Diagnostic (Pre)
+      1590  # ELL Advanced Baseline Diagnostic (Pre)
     ]
 
     def initialize(aggregation:, **options)
@@ -40,6 +35,7 @@ module AdminDiagnosticReports
     def select_clause
       <<-SQL
         SELECT
+          activities.id AS diagnostic_id,
           activities.name AS diagnostic_name,
           #{aggregation_clause} AS name,
           #{specific_select_clause}
@@ -61,16 +57,16 @@ module AdminDiagnosticReports
 
     def where_clause
       super + <<-SQL
-          #{activity_classification_where_clause}
+          #{relevant_diagnostic_where_clause}
       SQL
     end
 
-    def activity_classification_where_clause
-      "AND activities.activity_classification_id = #{DIAGNOSTIC_CLASSIFICATION_ID}"
+    def relevant_diagnostic_where_clause
+      "AND activities.id IN (#{DIAGNOSTIC_ORDER_BY_ID.join(',')})"
     end
 
     def group_by_clause
-      "GROUP BY activities.name, #{aggregation_clause}"
+      "GROUP BY activities.id, activities.name, #{aggregation_clause}"
     end
 
     def aggregation_clause
@@ -90,9 +86,9 @@ module AdminDiagnosticReports
           {
             name: diagnostic_rows.first[:diagnostic_name],
             aggregate_rows: process_aggregate_rows(diagnostic_rows)
-          }.merge(aggregate_diagnostic(diagnostic_rows))
+          }.merge(aggregate_diagnostic(aggregate_sort(diagnostic_rows)))
         end
-        .sort_by { |diagnostic| DIAGNOSTIC_ORDER_BY_NAME.index(diagnostic[:diagnostic_name]) }
+        .sort_by { |diagnostic| DIAGNOSTIC_ORDER_BY_ID.index(diagnostic[:diagnostic_id]) }
     end
 
     private def process_aggregate_rows(diagnostic_rows)
@@ -118,6 +114,10 @@ module AdminDiagnosticReports
 
     private def aggregate_diagnostic(diagnostic_rows)
       raise NotImplementedError
+    end
+
+    private def aggregate_sort(diagnostic_rows)
+      diagnostic_rows.sort_by { |row| row['name'] }
     end
 
     # Used in `aggregate_diagnostic` implementations

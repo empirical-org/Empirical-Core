@@ -9,7 +9,7 @@ module AdminDiagnosticReports
     context 'big_query_snapshot', :big_query_snapshot do
       let(:classroom_units) { classrooms.map { |classroom| create(:classroom_unit, classroom: classroom) } }
       let(:activity) { create(:diagnostic_activity) }
-      let(:pre_activity) { create(:diagnostic_activity, follow_up_activity: activity) }
+      let(:pre_activity) { create(:diagnostic_activity, follow_up_activity: activity, id: described_class::DIAGNOSTIC_ORDER_BY_ID.first) }
       let(:activity_sessions) { classroom_units.map { |classroom_unit| create(:activity_session, :finished, classroom_unit: classroom_unit, activity: activity) } }
       let(:optimal_concept_results) { activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session: activity_session, question_number: i + 1) } }
       let(:concept_results) { optimal_concept_results }

@@ -33,18 +33,8 @@ module AdminDiagnosticReports
       SQL
     end
 
-    def where_clause
-      super + <<-SQL
-          #{pre_diagnostics_where_clause}
-      SQL
-    end
-
     def group_by_clause
       super + ", activity_sessions.id, concept_results.question_number"
-    end
-
-    def pre_diagnostics_where_clause
-      "AND activities.follow_up_activity_id IS NOT NULL"
     end
 
     def relevant_date_column

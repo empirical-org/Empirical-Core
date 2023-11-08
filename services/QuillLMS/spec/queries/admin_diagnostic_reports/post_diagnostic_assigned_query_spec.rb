@@ -8,7 +8,7 @@ module AdminDiagnosticReports
 
     context 'big_query_snapshot', :big_query_snapshot do
       let(:activity) { create(:diagnostic_activity) }
-      let(:post_activity) { create(:diagnostic_activity, follow_up_activity: activity) }
+      let(:pre_activity) { create(:diagnostic_activity, follow_up_activity: activity, id: described_class::DIAGNOSTIC_ORDER_BY_ID.first) }
       let(:unit) { create(:unit, activities: [activity]) }
       let(:unit_activities) { unit.unit_activities }
       let(:students) { classrooms.map { |classroom| create(:student, student_in_classroom: [classroom]) } }
@@ -24,7 +24,7 @@ module AdminDiagnosticReports
           classroom_units,
           students,
           activity,
-          post_activity,
+          pre_activity,
           unit_activities
         ]
       end
