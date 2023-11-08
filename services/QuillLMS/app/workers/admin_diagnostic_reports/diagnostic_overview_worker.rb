@@ -9,7 +9,7 @@ module AdminDiagnosticReports
 
     class SlowQueryError < StandardError
       def message
-        "Snapshot Count query took more than #{TOO_SLOW_THRESHOLD}"
+        "Diagnostic Overview query took more than #{TOO_SLOW_THRESHOLD}"
       end
     end
 
