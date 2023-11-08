@@ -7,8 +7,7 @@ module AdminDiagnosticReports
     include_context 'Snapshots Period CTE'
 
     context 'big_query_snapshot', :big_query_snapshot do
-      # Our underlying query identifies pre diagnostics by the presence of `follow_up_activity_id`, so that value must be set, even if it references nothing
-      let(:diagnostic_activity) { create(:diagnostic_activity, follow_up_activity_id: 1, id: described_class::DIAGNOSTIC_ORDER_BY_ID.first) }
+      let(:diagnostic_activity) { create(:diagnostic_activity, id: described_class::DIAGNOSTIC_ORDER_BY_ID.first) }
 
       let(:recommended_activity) { create(:activity) }
       let(:recommended_unit_template) { create(:unit_template, activities: [recommended_activity]) }
