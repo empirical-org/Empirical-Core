@@ -1,17 +1,13 @@
 import React from 'react';
 
-const KeyTargetSkillConcept = (
-  {
-    name,
-    correct,
-    incorrect,
-  },
-) => {
+const KeyTargetSkillConcept = ({ name, correct, incorrect }) => {
   return (
-    <div className='row'>
-      <div className='col-xs-8 no-pl'>{name}</div>
-      <div className='col-xs-2 correct-answer'>{correct}</div>
-      <div className='col-xs-2 no-pr incorrect-answer'>{incorrect}</div>
+    <div className="target-skill-container">
+      <p>{name}</p>
+      <div className="counts-container">
+        <p className="correct-answer">{correct}</p>
+        <p className="incorrect-answer">{incorrect}</p>
+      </div>
     </div>
   );
 };
