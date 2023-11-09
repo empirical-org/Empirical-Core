@@ -113,18 +113,28 @@ module AdminDiagnosticReports
         let(:aggregation_arg) { 'grade' }
         let(:number_grade_names) { number_grades.map { |grade| "Grade #{grade}" } }
         # 'No grade selected' is how we expect the queries to represent NULL grades
-        let(:ordered_grade_names) { ['Kindergarten'] + number_grade_names + ['University', 'PostGraduate', 'Other', 'No grade selected'] }
+        let(:expected_grade_name_order) { ['Kindergarten'] + number_grade_names + ['University', 'PostGraduate', 'Other', 'No grade selected'] }
         let(:kindergarten_classroom_units) { classroom_units.filter { |classroom_unit| classroom_unit.classroom.grade == 'Kindergarten' } }
 
-        it { expect(results.first[:aggregate_rows].pluck(:name)).to eq(ordered_grade_names) }
+        it { expect(results.first[:aggregate_rows].pluck(:name)).to eq(expected_grade_name_order) }
         it { expect(results.first[:aggregate_rows].first[:classroom_unit_count]).to eq(kindergarten_classroom_units.length) }
       end
 
       context 'aggregation by teacher' do
         let(:aggregation_arg) { 'teacher' }
-        let(:expected_teacher_name_order) { teachers.map(&:name).sort }
+        let(:expected_teacher_name_order) { teachers.map(&:name).sort { |a, b| a.split.last <=> b.split.last } }
 
         it { expect(results.first[:aggregate_rows].pluck(:name)).to eq(expected_teacher_name_order) }
+
+        # The User factory gives people names like "FistName LastName 1", but that's not terribly useful for testing sorting by last name
+        context 'teachers have real-ish names' do
+          before do
+            # Because teachers are derived from classrooms in shared context, it's easier to control their names with this rather than overriding `let`
+            teachers.each { |teacher| teacher.update(name: Faker::Name.name) }
+          end
+
+          it { expect(results.first[:aggregate_rows].pluck(:name)).to eq(expected_teacher_name_order) }
+        end
 
         context 'teachers have the same name' do
           before do

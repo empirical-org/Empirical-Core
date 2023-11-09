@@ -122,6 +122,7 @@ module AdminDiagnosticReports
         next -1 if b[:name].nil?
         next 1 if a[:name].nil?
         next sort_grades(a[:name], b[:name]) if grade_aggregation?
+        next sort_teachers(a[:name], b[:name]) if teacher_aggregation?
 
         a[:name] <=> b[:name]
       end
@@ -135,8 +136,17 @@ module AdminDiagnosticReports
       Classroom::GRADE_INTEGERS.fetch(first.to_sym, first).to_i <=> Classroom::GRADE_INTEGERS.fetch(second.to_sym, second).to_i
     end
 
+    private def sort_teachers(first, second)
+      # Not totally pleased with this as a sorting method, but it's what we do elsewhere for name sorting
+      first.split.last <=> second.split.last
+    end
+
     private def grade_aggregation?
       additional_aggregation == 'grade'
+    end
+
+    private def teacher_aggregation?
+      additional_aggregation == 'teacher'
     end
 
     private def aggregate_diagnostic(diagnostic_rows)
