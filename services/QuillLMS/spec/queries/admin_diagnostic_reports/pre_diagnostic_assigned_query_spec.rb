@@ -12,6 +12,7 @@ module AdminDiagnosticReports
       let(:unit_activities) { unit.unit_activities }
       let(:students) { classrooms.map { |classroom| create(:student, student_in_classroom: [classroom]) } }
       let(:classroom_units) { students.map { |student| create(:classroom_unit, classroom: student.student_in_classroom.first, assigned_student_ids: [student.id], unit: unit) } }
+      let(:grade_names) { classrooms.map(&:grade).uniq.map { |g| g.to_i > 0 ? "Grade #{g}" : g } }
 
       let(:cte_records) do
         [
@@ -40,6 +41,7 @@ module AdminDiagnosticReports
       end
 
       it { expect(results.first[:name]).to eq(activity.name) }
+      it { expect(results.first[:aggregate_rows].map { |row| row[:name] }).to match_array(grade_names) }
       it { expect(results.first[:pre_students_assigned]).to eq(students.length) }
 
       context 'student assigned to multiple instances of the same diagnostic' do

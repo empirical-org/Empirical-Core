@@ -13,6 +13,7 @@ module AdminDiagnosticReports
       let(:activity_sessions) { classroom_units.map { |classroom_unit| create(:activity_session, :finished, classroom_unit: classroom_unit, activity: activity) } }
       let(:optimal_concept_results) { activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session: activity_session, question_number: i + 1) } }
       let(:concept_results) { optimal_concept_results }
+      let(:grade_names) { classrooms.map(&:grade).uniq.map { |g| g.to_i > 0 ? "Grade #{g}" : g } }
 
       # Some of our tests include activity_sessions having NULL in its timestamps so we need a version that has timestamps with datetime data in them so that WITH in the CTE understands the data type expected
       let(:reference_activity_session) { create(:activity_session, :finished) }
@@ -46,6 +47,7 @@ module AdminDiagnosticReports
       end
 
       it { expect(results.first[:name]).to eq(pre_activity.name) }
+      it { expect(results.first[:aggregate_rows].map { |row| row[:name] }).to match_array(grade_names) }
       it { expect(results.first[:post_students_completed]).to eq(activity_sessions.length) }
       it { expect(results.first[:post_average_score]).to eq(1.0) }
 

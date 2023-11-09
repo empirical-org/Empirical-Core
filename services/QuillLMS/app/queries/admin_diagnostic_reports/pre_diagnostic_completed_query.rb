@@ -7,6 +7,7 @@ module AdminDiagnosticReports
         SELECT
             diagnostic_id,
             diagnostic_name,
+            name,
             COUNT(DISTINCT activity_session_id) AS pre_students_completed,
             SAFE_DIVIDE(SUM(CAST(optimal AS INT64)), CAST(COUNT(DISTINCT concept_result_id) AS FLOAT64)) AS average_score
           FROM (#{super})

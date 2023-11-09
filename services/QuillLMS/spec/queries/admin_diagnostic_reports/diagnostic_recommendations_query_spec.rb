@@ -26,6 +26,7 @@ module AdminDiagnosticReports
       let(:activity_sessions) { classroom_units.map { |classroom_unit| create(:activity_session, :finished, classroom_unit: classroom_unit, activity: recommended_activity, timespent: timespent) } }
 
       let(:students) { activity_sessions.map(&:user) }
+      let(:grade_names) { classrooms.map(&:grade).uniq.map { |g| g.to_i > 0 ? "Grade #{g}" : g } }
 
       # Some of our tests include activity_sessions having NULL in its timestamps so we need a version that has timestamps with datetime data in them so that WITH in the CTE understands the data type expected
       let(:reference_activity_session) { create(:activity_session, :finished) }
@@ -66,6 +67,7 @@ module AdminDiagnosticReports
       let(:average_practice_activities_count_results) { results.first[:average_practice_activities_count] }
 
       it { expect(results.first[:name]).to eq(diagnostic_activity.name) }
+      it { expect(results.first[:aggregate_rows].map { |row| row[:name] }).to match_array(grade_names) }
       it { expect(students_completed_practice_results).to eq(students.length) }
       it { expect(average_time_spent_seconds_results).to eq(activity_sessions.map(&:timespent).sum / students.length) }
       it { expect(average_practice_activities_count_results).to eq(activity_sessions.length / students.length) }
