@@ -33,4 +33,28 @@ describe("Getting concept results from a completed Evidence activity", () => {
         conceptResult.metadata.correct == 1
     )).length).toEqual(1)
   })
+
+  it("should score 1.0 if any responses are optimal", () => {
+    const result = generateConceptResults(currentActivity, submittedResponses, topicOptimalData)
+
+    expect(result[0].metadata.questionScore).toEqual(1.0)
+  })
+
+  it("should score 0.0 if no responses are optimal", () => {
+    const noOptimalResponses = {
+      "1": [
+        {
+          "concept_uid": "placeholder",
+          "entry":"Type an answer because some response may be provided.",
+          "feedback":"Thank you for your response.",
+          "feedback_type":"autoML",
+          "optimal":false,
+          "highlight":null
+        }
+      ]
+    }
+    const result = generateConceptResults(currentActivity, noOptimalResponses, topicOptimalData)
+
+    expect(result[0].metadata.questionScore).toEqual(0.0)
+  })
 });
