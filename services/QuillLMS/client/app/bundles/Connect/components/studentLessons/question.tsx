@@ -343,9 +343,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
         if (negativeConceptWithConceptFeedback) {
           return <ConceptExplanation {...conceptsFeedback.data[negativeConceptWithConceptFeedback.conceptUID]} />
         }
-      }
-
-      if (latestAttempt.response.concept_results) {
+      } else if (latestAttempt.response.concept_results) {
         const negativeConcepts = this.getNegativeConceptResultsForResponse(latestAttempt.response.concept_results);
         const negativeConceptWithConceptFeedback = negativeConcepts.find(c => {
           return conceptsFeedback.data[c.conceptUID]
