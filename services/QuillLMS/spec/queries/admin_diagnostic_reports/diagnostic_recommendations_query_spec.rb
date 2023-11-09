@@ -4,17 +4,15 @@ require 'rails_helper'
 
 module AdminDiagnosticReports
   describe DiagnosticRecommendationsQuery do
-    include_context 'Snapshots Period CTE'
+    include_context 'Admin Diagnostic Aggregate CTE'
 
     context 'big_query_snapshot', :big_query_snapshot do
-      let(:diagnostic_activity) { create(:diagnostic_activity, id: described_class::DIAGNOSTIC_ORDER_BY_ID.first) }
-
       let(:recommended_activity) { create(:activity) }
       let(:recommended_unit_template) { create(:unit_template, activities: [recommended_activity]) }
       let(:recommended_unit_templates) { [recommended_unit_template] }
 
       let(:units) { recommended_unit_templates.map { |ut| create(:unit, unit_template: ut) } }
-      let(:recommendations) { recommended_unit_templates.map { |ut| create(:recommendation, activity: diagnostic_activity, unit_template: ut, category: 0) } }
+      let(:recommendations) { recommended_unit_templates.map { |ut| create(:recommendation, activity: pre_diagnostic, unit_template: ut, category: 0) } }
       let(:classroom_units) do
         classrooms.map do |classroom|
           units.map { |unit| create(:classroom_unit, classroom: classroom, unit: unit) }
@@ -39,7 +37,7 @@ module AdminDiagnosticReports
           schools,
           schools_users,
           classroom_units,
-          diagnostic_activity,
+          pre_diagnostic,
           recommended_activity,
           recommended_unit_templates,
           units,
@@ -50,23 +48,11 @@ module AdminDiagnosticReports
         ]
       end
 
-      let(:query_args) do
-        {
-          timeframe_start: timeframe_start,
-          timeframe_end: timeframe_end,
-          school_ids: school_ids,
-          grades: grades,
-          teacher_ids: teacher_ids,
-          classroom_ids: classroom_ids,
-          aggregation: 'grade'
-        }
-      end
-
       let(:students_completed_practice_results) { results.first[:students_completed_practice] }
       let(:average_time_spent_seconds_results) { results.first[:average_time_spent_seconds] }
       let(:average_practice_activities_count_results) { results.first[:average_practice_activities_count] }
 
-      it { expect(results.first[:name]).to eq(diagnostic_activity.name) }
+      it { expect(results.first[:name]).to eq(pre_diagnostic.name) }
       it { expect(results.first[:aggregate_rows].map { |row| row[:name] }).to match_array(grade_names) }
       it { expect(students_completed_practice_results).to eq(students.length) }
       it { expect(average_time_spent_seconds_results).to eq(activity_sessions.map(&:timespent).sum / students.length) }

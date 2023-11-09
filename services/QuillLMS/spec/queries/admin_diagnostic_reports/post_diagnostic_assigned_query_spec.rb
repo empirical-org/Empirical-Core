@@ -4,16 +4,13 @@ require 'rails_helper'
 
 module AdminDiagnosticReports
   describe PostDiagnosticAssignedQuery do
-    include_context 'Snapshots Period CTE'
+    include_context 'Admin Diagnostic Aggregate CTE'
 
     context 'big_query_snapshot', :big_query_snapshot do
-      let(:activity) { create(:diagnostic_activity) }
-      let(:pre_activity) { create(:diagnostic_activity, follow_up_activity: activity, id: described_class::DIAGNOSTIC_ORDER_BY_ID.first) }
-      let(:unit) { create(:unit, activities: [activity]) }
+      let(:unit) { create(:unit, activities: [post_diagnostic]) }
       let(:unit_activities) { unit.unit_activities }
       let(:students) { classrooms.map { |classroom| create(:student, student_in_classroom: [classroom]) } }
       let(:classroom_units) { students.map { |student| create(:classroom_unit, classroom: student.student_in_classroom.first, assigned_student_ids: [student.id], unit: unit) } }
-      let(:grade_names) { classrooms.map(&:grade).uniq.map { |g| g.to_i > 0 ? "Grade #{g}" : g } }
 
       let(:cte_records) do
         [
@@ -24,25 +21,13 @@ module AdminDiagnosticReports
           schools_users,
           classroom_units,
           students,
-          activity,
-          pre_activity,
+          post_diagnostic,
+          pre_diagnostic,
           unit_activities
         ]
       end
 
-      let(:query_args) do
-        {
-          timeframe_start: timeframe_start,
-          timeframe_end: timeframe_end,
-          school_ids: school_ids,
-          grades: grades,
-          teacher_ids: teacher_ids,
-          classroom_ids: classroom_ids,
-          aggregation: 'grade'
-        }
-      end
-
-      it { expect(results.first[:name]).to eq(pre_activity.name) }
+      it { expect(results.first[:name]).to eq(pre_diagnostic.name) }
       it { expect(results.first[:aggregate_rows].map { |row| row[:name] }).to match_array(grade_names) }
       it { expect(results.first[:post_students_assigned]).to eq(students.length) }
 

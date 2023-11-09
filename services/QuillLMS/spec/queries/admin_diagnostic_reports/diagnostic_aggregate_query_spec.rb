@@ -4,7 +4,7 @@ require 'rails_helper'
 
 module AdminDiagnosticReports
   describe DiagnosticAggregateQuery do
-    include_context 'Snapshots Period CTE'
+    include_context 'Admin Diagnostic Aggregate CTE'
 
     let(:test_admin_diagnostic_query) do
       Class.new(described_class) do
@@ -42,7 +42,6 @@ module AdminDiagnosticReports
     let(:grades) { number_grades + non_number_grades + [nil] }
     let(:classrooms) { grades.map { |grade| create(:classroom, grade: grade) } }
 
-    let(:pre_diagnostic) { create(:diagnostic_activity, id: described_class::DIAGNOSTIC_ORDER_BY_ID.first) }
     let(:activities) { [pre_diagnostic] }
     let(:units) { activities.map { |a| create(:unit, activities: activities) } }
     let(:unit_activities) { units.map(&:unit_activities) }
@@ -72,7 +71,6 @@ module AdminDiagnosticReports
         school_ids: school_ids,
       }
     end
-    let(:aggregation_arg) { 'grade' }
     let(:results) { test_admin_diagnostic_query.run(**query_args, aggregation: aggregation_arg, runner: runner) }
 
     context 'external_api', :big_query_snapshot do
