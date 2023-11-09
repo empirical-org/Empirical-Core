@@ -58,7 +58,7 @@ module Adapters
       end
 
       def self.validate_input!(bigquery_result, sym_columns)
-        if !(ORDERED_COLUMNS.keys.to_set >= sym_columns.to_set)
+        if (ORDERED_COLUMNS.keys & sym_columns).length != sym_columns.length
           raise UnhandledColumnError, "Requested column(s) not supported: #{sym_columns - ORDERED_COLUMNS.keys}"
         end
 
