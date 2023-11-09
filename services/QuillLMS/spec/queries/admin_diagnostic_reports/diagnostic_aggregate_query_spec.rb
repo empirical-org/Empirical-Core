@@ -39,7 +39,7 @@ module AdminDiagnosticReports
 
     let(:number_grades) { Array(1..12) }
     let(:non_number_grades) { Classroom::GRADE_INTEGERS.keys.map(&:to_s) }
-    let(:grades) { number_grades + non_number_grades + [nil] }
+    let(:grades) { number_grades + non_number_grades + ['Other', nil] }
     let(:classrooms) { grades.map { |grade| create(:classroom, grade: grade) } }
 
     let(:activities) { [pre_diagnostic] }
@@ -113,7 +113,7 @@ module AdminDiagnosticReports
         let(:aggregation_arg) { 'grade' }
         let(:number_grade_names) { number_grades.map { |grade| "Grade #{grade}" } }
         # 'No grade selected' is how we expect the queries to represent NULL grades
-        let(:ordered_grade_names) { ['Kindergarten'] + number_grade_names + ['University', 'PostGraduate', 'No grade selected'] }
+        let(:ordered_grade_names) { ['Kindergarten'] + number_grade_names + ['University', 'PostGraduate', 'Other', 'No grade selected'] }
         let(:kindergarten_classroom_units) { classroom_units.filter { |classroom_unit| classroom_unit.classroom.grade == 'Kindergarten' } }
 
         it { expect(results.first[:aggregate_rows].pluck(:name)).to eq(ordered_grade_names) }

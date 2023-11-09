@@ -120,6 +120,9 @@ module AdminDiagnosticReports
     end
 
     private def sort_grades(first, second)
+      # If the grade isn't a number, or in the GRADE_INTEGERS hash, sort it to the end
+      return -1 if second.to_i == 0 && !Classroom::GRADE_INTEGERS.key?(second.to_sym)
+      return 1 if first.to_i == 0 && !Classroom::GRADE_INTEGERS.key?(first.to_sym)
       Classroom::GRADE_INTEGERS.fetch(first.to_sym, first).to_i <=> Classroom::GRADE_INTEGERS.fetch(second.to_sym, second).to_i
     end
 
