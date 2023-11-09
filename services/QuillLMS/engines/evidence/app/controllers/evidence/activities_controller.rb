@@ -195,10 +195,8 @@ module Evidence
     end
 
     private def activity_rules_by_rule_type(activity, rule_type)
-      if rule_type.present?
-        rules = activity.prompts&.map {|p| p.rules.where(rule_type: rule_type)}
-      else
-        rules = activity.prompts&.map {|p| p.rules}
+      rules = activity.prompts&.map do |prompt|
+        rule_type.present? ? prompt.rules.where(rule_type: rule_type) : prompt.rules
       end
       rules&.flatten&.uniq
     end

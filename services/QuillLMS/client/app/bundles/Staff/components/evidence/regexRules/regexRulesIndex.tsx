@@ -26,23 +26,23 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
     queryFn: fetchActivity
   });
 
-  const { data: rulesBased1Data } = useQuery(
+  const { data: rulesBased1Data } = useQuery({
     // cache rules data for updates
-    [`rules-${activityId}-${RULES_BASED_1}`, activityId, null, RULES_BASED_1],
-    fetchRules
-  );
+    queryKey: [`rules-${activityId}-${RULES_BASED_1}`, activityId, null, RULES_BASED_1],
+    queryFn: fetchRules
+  });
 
-  const { data: rulesBased2Data } = useQuery(
+  const { data: rulesBased2Data } = useQuery({
     // cache rules data for updates
-    [`rules-${activityId}-${RULES_BASED_2}`, activityId, null, RULES_BASED_2],
-    fetchRules
-  );
+    queryKey: [`rules-${activityId}-${RULES_BASED_2}`, activityId, null, RULES_BASED_2],
+    queryFn: fetchRules
+  });
 
-  const { data: rulesBased3Data } = useQuery(
+  const { data: rulesBased3Data } = useQuery({
     // cache rules data for updates
-    [`rules-${activityId}-${RULES_BASED_3}`, activityId, null, RULES_BASED_3],
-    fetchRules
-  );
+    queryKey: [`rules-${activityId}-${RULES_BASED_3}`, activityId, null, RULES_BASED_3],
+    queryFn: fetchRules
+  });
 
   function setRegexIsLoading(ruleType, isLoading) {
     if (ruleType === RULES_BASED_1) {

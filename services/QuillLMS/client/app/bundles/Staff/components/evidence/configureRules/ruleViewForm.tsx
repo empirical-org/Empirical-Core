@@ -2,7 +2,6 @@ import * as React from "react";
 import { useQuery, useQueryClient } from 'react-query';
 import { Link, withRouter } from 'react-router-dom';
 
-import { RULES_BASED_1, RULES_BASED_2, RULES_BASED_3 } from '../../../../../constants/evidence';
 import { LOW_CONFIDENCE, PLAGIARISM, regexRuleTypes, ruleOptimalOptions } from '../../../../../constants/evidence';
 import { Spinner } from '../../../../Shared/index';
 import { formatPrompts } from '../../../helpers/evidence/promptHelpers';
@@ -95,7 +94,7 @@ const RuleViewForm = ({
   // cache ruleSets data for handling rule suborder
   const { data: rulesData } = useQuery({
     queryKey: [`rules-${activityId}-${rule_type}`, activityId, null, rule_type],
-    queryFn: fetchRules,
+    queryFn: fetchRules
   });
 
   // cache ruleSets data for handling universal rule suborder
