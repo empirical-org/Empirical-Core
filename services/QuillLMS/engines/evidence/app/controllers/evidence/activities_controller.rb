@@ -71,18 +71,13 @@ module Evidence
     end
 
     # GET /activities/1/rules.json
+    # params [:id, :rule_type]
     def rules
-      rule_type = rules_params[:rule_type]
       @activity = Evidence::Activity.includes(
         prompts: { rules: [:plagiarism_texts, { feedbacks: :highlights }, :label, :regex_rules, :hint, :prompts]}
       ).find(params[:id])
-      if rule_type.present?
-        rules = @activity.prompts&.map {|p| p.rules.where(rule_type: rule_type)}
-      else
-        rules = @activity.prompts&.map {|p| p.rules}
-      end
 
-      render json: rules&.flatten&.uniq
+      render json: activity_rules_by_rule_type(@activity, rules_params[:rule_type])
     end
 
     # GET /activities/1/change_logs.json
@@ -197,6 +192,15 @@ module Evidence
         passages_attributes: [:id, :text, :image_link, :image_alt_text, :image_caption, :image_attribution, :highlight_prompt, :essential_knowledge_text],
         prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :first_strong_example, :second_strong_example]
       )
+    end
+
+    private def activity_rules_by_rule_type(activity, rule_type)
+      if rule_type.present?
+        rules = activity.prompts&.map {|p| p.rules.where(rule_type: rule_type)}
+      else
+        rules = activity.prompts&.map {|p| p.rules}
+      end
+      rules&.flatten&.uniq
     end
   end
 end
