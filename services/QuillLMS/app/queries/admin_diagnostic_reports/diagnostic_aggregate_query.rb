@@ -37,7 +37,7 @@ module AdminDiagnosticReports
         SELECT
           activities.id AS diagnostic_id,
           activities.name AS diagnostic_name,
-          #{aggregation_clause} AS name,
+          #{aggregate_sort_clause} AS name,
           #{specific_select_clause}
       SQL
     end
@@ -66,10 +66,18 @@ module AdminDiagnosticReports
     end
 
     def group_by_clause
-      "GROUP BY activities.id, activities.name, #{aggregation_clause}"
+      "GROUP BY activities.id, activities.name, #{aggregate_by_clause}, #{aggregate_sort_clause}"
     end
 
-    def aggregation_clause
+    def aggregate_by_clause
+      {
+        'grade' => "classrooms.grade",
+        'classroom' => "classrooms.id",
+        'teacher' => "users.id"
+      }.fetch(additional_aggregation)
+    end
+
+    def aggregate_sort_clause
       {
         'grade' => "classrooms.grade",
         'classroom' => "classrooms.name",

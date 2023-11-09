@@ -125,6 +125,15 @@ module AdminDiagnosticReports
         let(:expected_teacher_name_order) { teachers.map(&:name).sort }
 
         it { expect(results.first[:aggregate_rows].pluck(:name)).to eq(expected_teacher_name_order) }
+
+        context 'teachers have the same name' do
+          before do
+            # Because teachers are derived from classrooms in shared context, it's easier to control their names with this rather than overriding `let`
+            teachers.each { |teacher| teacher.update(name: 'Same Name') }
+          end
+
+          it { expect(results.first[:aggregate_rows].length).to eq(teachers.length) }
+        end
       end
 
       context 'aggregation by classroom' do
@@ -133,6 +142,11 @@ module AdminDiagnosticReports
 
         it { expect(results.first[:aggregate_rows].pluck(:name)).to eq(expected_classroom_name_order) }
 
+        context 'classrooms have the same name' do
+          let(:classrooms) { create_list(:classroom, num_classrooms, name: 'Same Name') }
+
+          it { expect(results.first[:aggregate_rows].length).to eq(classrooms.length) }
+        end
       end
     end
   end
