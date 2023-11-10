@@ -17,6 +17,10 @@ class AdminReportCsvUploader < CarrierWave::Uploader::Base
     super(model, mounted_as)
   end
 
+  def fog_attributes
+    { 'Content-Type' => 'text/csv' }
+  end
+
   def fog_public
     false
   end
