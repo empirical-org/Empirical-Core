@@ -35,9 +35,23 @@ module Evidence
     LMS_ACTIVITY_DEFAULT_FLAG = 'alpha'
     FLAGS_ATTRIBUTE = 'flags'
 
+    DEFAULT_BECAUSE_RULE_NAME = "Match with \"because of\" responses"
+    DEFAULT_BECAUSE_RULE_CONCEPT = "6gQZPREURQQAaSzpIt_EEw"
+    DEFAULT_BECAUSE_RULE_FEEDBACK = "Revise your work. Instead of starting your response with the word of, start with a person, place or thing."
+    DEFAULT_BECAUSE_RULE_REGEX = "^of"
+
+    DEFAULT_SO_RULE_NAME = "Match with \"so that\" responses"
+    DEFAULT_SO_RULE_CONCEPT = "R3sBcYAvoXP2_oNVXiA98g"
+    DEFAULT_SO_RULE_FEEDBACK = "Your response suggests a <i>so that</i> relationship, which explains a reason why something was done. Instead, use <i>so</i> to explain what happened as a result."
+    DEFAULT_SO_RULE_REGEX = "^of"
+
+    DEFAULT_REPEAT_STEM_RULE_NAME = "Repeating the stem"
+    DEFAULT_REPEAT_STEM_RULE_CONCEPT = "Kr8PdUfXnU0L7RrGpY4uqg"
+
     before_destroy :expire_turking_rounds
     before_validation :set_parent_activity, on: :create
     after_save :update_parent_activity_name, if: :saved_change_to_title?
+    after_commit :create_default_regex_rules, on: :create
 
     has_many :passages, inverse_of: :activity, dependent: :destroy
     has_many :prompts, inverse_of: :activity, dependent: :destroy
@@ -132,6 +146,107 @@ module Evidence
     # ChangeLog's 'after_update: log_update'
     def increment_version!
       update_columns(version: version + 1)
+    end
+
+    def stem
+      because_prompt.text.gsub(' because', '')
+    end
+
+    def because_prompt
+      prompts.find_by(conjunction: 'because')
+    end
+
+    def but_prompt
+      prompts.find_by(conjunction: 'but')
+    end
+
+    def so_prompt
+      prompts.find_by(conjunction: 'so')
+    end
+
+    def create_default_regex_rules
+      create_default_because_rule
+      create_default_so_rule
+      create_default_repeat_stem_rule
+    end
+
+    def create_default_because_rule
+      Evidence::Rule.create({
+        name: DEFAULT_BECAUSE_RULE_NAME,
+        universal: false,
+        concept_uid: DEFAULT_BECAUSE_RULE_CONCEPT,
+        optimal: false,
+        rule_type: Evidence::Rule::TYPE_REGEX_ONE,
+        suborder: 0,
+        state: Evidence::Rule::STATE_ACTIVE,
+        feedbacks_attributes: [
+          {
+            text: DEFAULT_BECAUSE_RULE_FEEDBACK,
+            order: 0
+          }
+        ],
+        regex_rules_attributes: [
+          {
+            regex_text: DEFAULT_BECAUSE_RULE_REGEX,
+            sequence_type: Evidence::RegexRule::TYPE_INCORRECT,
+            case_sensitive: false
+          }
+        ],
+        prompt_ids: [because_prompt.id]
+      })
+    end
+
+    def create_default_so_rule
+      Evidence::Rule.create({
+        name: DEFAULT_SO_RULE_NAME,
+        universal: false,
+        concept_uid: DEFAULT_SO_RULE_CONCEPT,
+        optimal: false,
+        rule_type: Evidence::Rule::TYPE_REGEX_ONE,
+        suborder: 1,
+        state: Evidence::Rule::STATE_ACTIVE,
+        feedbacks_attributes: [
+          {
+            text: DEFAULT_SO_RULE_FEEDBACK,
+            order: 0
+          }
+        ],
+        regex_rules_attributes: [
+          {
+            regex_text: DEFAULT_SO_RULE_REGEX,
+            sequence_type: Evidence::RegexRule::TYPE_INCORRECT,
+            case_sensitive: false
+          }
+        ],
+        hint_id: 1,
+        prompt_ids: [so_prompt.id]
+      })
+    end
+
+    def create_default_repeat_stem_rule
+      Evidence::Rule.create({
+        name: DEFAULT_REPEAT_STEM_RULE_NAME,
+        universal: false,
+        concept_uid: DEFAULT_REPEAT_STEM_RULE_CONCEPT,
+        optimal: false,
+        rule_type: Evidence::Rule::TYPE_REGEX_ONE,
+        suborder: 2,
+        state: Evidence::Rule::STATE_ACTIVE,
+        feedbacks_attributes: [
+          {
+            text: "Revise your work. You don't need to repeate \"#{stem}\" before writing your response.",
+            order: 0
+          }
+        ],
+        regex_rules_attributes: [
+          {
+            regex_text: "^#{stem}",
+            sequence_type: Evidence::RegexRule::TYPE_INCORRECT,
+            case_sensitive: false
+          }
+        ],
+        prompt_ids: [because_prompt.id, but_prompt.id, so_prompt.id]
+      })
     end
 
     private def expire_turking_rounds
