@@ -45,9 +45,9 @@ module Adapters
         when :completed_at
           value&.strftime("%F")
         when :timespent
-          (value / 60).to_i
+          (value / 60)
         when :score
-          value.respond_to?(:*) ? "#{(value*100).round(0)}%" : ''
+          value.is_a?(Numeric) ? "#{(value*100).round(0)}%" : ''
         else
           value
         end
