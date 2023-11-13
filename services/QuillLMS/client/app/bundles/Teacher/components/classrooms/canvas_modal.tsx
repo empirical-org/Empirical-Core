@@ -124,7 +124,7 @@ interface CanvasModalProps {
 
 const CanvasModal = ({ close, user }: CanvasModalProps) => {
   const subscriptionType = user.subscription?.account_type
-  const hasSchoolOrDistrictPremium = subscriptionType.includes(SCHOOL) || subscriptionType.includes(DISTRICT)
+  const hasSchoolOrDistrictPremium = subscriptionType?.includes(SCHOOL) || subscriptionType?.includes(DISTRICT)
   const schoolLinkedToCanvas = user.school_linked_to_canvas
   const userIsTeacher = user.role === TEACHER
 
