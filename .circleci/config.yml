@@ -390,7 +390,7 @@ jobs:
           name: Run Rubocop for LMS
           command: |
             cd services/QuillLMS
-            bundle install
+            bundle install rubocop rubocop-rspec rubocop-rails
             bundle exec rubocop
   rubocop_cms_lint:
     working_directory: ~/Empirical-Core
@@ -402,7 +402,7 @@ jobs:
           name: Run Rubocop for CMS
           command: |
             cd services/QuillCMS
-            bundle install
+            bundle install rubocop rubocop-rspec rubocop-rails
             bundle exec rubocop
 workflows:
   version: 2
