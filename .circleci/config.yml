@@ -380,17 +380,30 @@ jobs:
           name: Run ESlint
           command: |
             npm run eslint
-  rubocop_lint:
+  rubocop_lms_lint:
     working_directory: ~/Empirical-Core
     docker:
       - image: cimg/ruby:3.1.4-node
     steps:
       - checkout
       - run:
-          name: Run Rubocop
+          name: Run Rubocop for LMS
           command: |
-            cd services
-            ./rubocop.sh
+            cd services/QuillLMS
+            bundle install
+            bundle exec rubocop
+  rubocop_cms_lint:
+    working_directory: ~/Empirical-Core
+    docker:
+      - image: cimg/ruby:3.2.0-node
+    steps:
+      - checkout
+      - run:
+          name: Run Rubocop for CMS
+          command: |
+            cd services/QuillCMS
+            bundle install
+            bundle exec rubocop
 workflows:
   version: 2
   build-test:
@@ -413,5 +426,7 @@ workflows:
     jobs:
       - node_lint:
           <<: *default_filter
-      - rubocop_lint:
+      - rubocop_cms_lint:
+          <<: *default_filter
+      - rubocop_lms_lint:
           <<: *default_filter
