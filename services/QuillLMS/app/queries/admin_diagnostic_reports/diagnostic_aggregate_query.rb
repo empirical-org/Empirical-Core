@@ -37,6 +37,7 @@ module AdminDiagnosticReports
         SELECT
           activities.id AS diagnostic_id,
           activities.name AS diagnostic_name,
+          #{aggregate_by_clause} AS aggregate_id,
           #{aggregate_sort_clause} AS name,
           #{specific_select_clause}
       SQL
@@ -66,7 +67,7 @@ module AdminDiagnosticReports
     end
 
     def group_by_clause
-      "GROUP BY activities.id, activities.name, #{aggregate_by_clause}, #{aggregate_sort_clause}"
+      "GROUP BY activities.id, activities.name, aggregate_id, #{aggregate_sort_clause}"
     end
 
     def aggregate_by_clause
@@ -106,6 +107,9 @@ module AdminDiagnosticReports
     private def process_aggregate_rows(diagnostic_rows)
       aggregate_sort(diagnostic_rows)
         .map do |row|
+          # we only need aggregate_id during the SQL grouping, and don't need to pass that value on
+          row.delete(:aggregate_id)
+
           # Make grade information more human-readable than simple integers
           next row unless grade_aggregation?
           next row.merge({name: "No grade selected"}) if row[:name].nil?

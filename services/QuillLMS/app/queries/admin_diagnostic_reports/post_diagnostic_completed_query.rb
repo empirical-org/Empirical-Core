@@ -7,11 +7,12 @@ module AdminDiagnosticReports
         SELECT
             diagnostic_id,
             diagnostic_name,
+            aggregate_id,
             name,
             COUNT(DISTINCT activity_session_id) AS post_students_completed,
             SAFE_DIVIDE(SUM(CAST(optimal AS INT64)), CAST(COUNT(DISTINCT concept_result_id) AS FLOAT64)) AS average_score
           FROM (#{super})
-          GROUP BY diagnostic_id, diagnostic_name, #{additional_aggregation}
+          GROUP BY diagnostic_id, diagnostic_name, aggregate_id, name
       SQL
     end
 
@@ -19,8 +20,7 @@ module AdminDiagnosticReports
       <<-SQL
         activity_sessions.id AS activity_session_id,
         MAX(concept_results.correct) AS optimal,
-        MAX(concept_results.id) AS concept_result_id,
-        #{additional_aggregation}
+        MAX(concept_results.id) AS concept_result_id
       SQL
     end
 

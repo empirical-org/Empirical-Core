@@ -79,6 +79,7 @@ module AdminDiagnosticReports
       it { expect(results.first[:name]).to eq(pre_diagnostic.name) }
       it { expect(results.first[:classroom_unit_count]).to eq(classroom_units.length) }
       it { expect(results.first[:average_classroom_units_per_teacher]).to eq(classroom_units.length / teachers.length) }
+      it { expect(results.first[:aggregate_rows].first.key?(:aggregate_id)).to be(false) }
 
       context 'aggregate_rows ordering' do
         it { expect(results.first[:aggregate_rows].first[:name]).to eq('Kindergarten') }
