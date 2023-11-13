@@ -18,7 +18,6 @@ describe('CanvasModal', () => {
   it('renders correctly for TEACHER_LACKS_RELEVANT_PREMIUM', () => {
     const userProps = {
       role: TEACHER,
-      subscription: { account_type: TEACHER_PREMIUM },
       school_linked_to_canvas: false
     };
 
