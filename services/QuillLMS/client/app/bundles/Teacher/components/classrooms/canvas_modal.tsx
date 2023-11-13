@@ -1,5 +1,3 @@
-// the lettering in the comments below reflect the various states in the table in the spec (https://www.notion.so/quill/Implement-new-teacher-and-admin-states-for-the-Canvas-integration-cd214f6450474aa09272c966475e6c21?pvs=4#583ffffb07d0403bb54a7987195d2a07) as of 11/8/23
-
 import * as React from 'react';
 
 export const circleCheckSrc = `${process.env.CDN_URL}/images/pages/administrator/integrations/circle-check.svg`
