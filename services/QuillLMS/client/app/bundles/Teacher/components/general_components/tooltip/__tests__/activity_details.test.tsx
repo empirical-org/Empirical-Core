@@ -9,7 +9,7 @@ jest.mock('moment', () => ({
 }))
 
 describe('ActivityDetails component', () => {
-  const baseData: any = { publishDate: '2016-10-17 00:05:50.361093' };
+  const baseData: any = { publishDate: '2021-10-17' };
 
   it('should render', () => {
     const { asFragment } = render(<ActivityDetails data={baseData} />);
@@ -34,11 +34,12 @@ describe('ActivityDetails component', () => {
     const { asFragment } = render(<ActivityDetails data={baseData} />);
     expect(asFragment()).toMatchSnapshot();
     expect(screen.getByText(/published/i)).toBeInTheDocument()
+    expect(screen.getByText(/October 17, 2021/i)).toBeInTheDocument()
   })
-  it('should show Due if dueDate present', () => {
-    baseData.dueDate = true
+  it('should show due date if dueDate present', () => {
+    baseData.dueDate = '2021-10-21'
     const { asFragment } = render(<ActivityDetails data={baseData} />);
     expect(asFragment()).toMatchSnapshot();
-    expect(screen.getByText(/due/i)).toBeInTheDocument()
+    expect(screen.getByText(/October 21, 2021/i)).toBeInTheDocument()
   })
 });

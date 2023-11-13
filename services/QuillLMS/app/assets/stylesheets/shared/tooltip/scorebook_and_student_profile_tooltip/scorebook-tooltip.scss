@@ -28,7 +28,8 @@
 
 .scorebook-tooltip,
 .student-profile-tooltip {
-  width: 390px;
+  max-width: 390px;
+  width: max-content;
   background-color: $quill-white;
   border: 1px solid $quill-grey-15;
   border-radius: 16px;

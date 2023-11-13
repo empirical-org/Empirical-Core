@@ -33,11 +33,11 @@ export const ScorebookTooltip = ({ data }) => {
     if (marked_complete && completed_attempts === 0) {
       return <p className="no-data-message">This student has missed this lesson. To make up this material, you can assign this lesson again to the students who missed it.</p>
     } else if (scheduled && !completed_attempts) {
-      return <p className="no-data-message">This scheduled activity has not been published.</p>;
+      return <p className="no-data-message">This scheduled activity has not been published.</p>
     } else if (locked) {
-      return <p className="no-data-message">This activity is set for staggered release and has not been unlocked by this student.</p>;
+      return <p className="no-data-message">This activity is set for staggered release and has not been unlocked by this student.</p>
     } else if (!completed_attempts) {
-      return <p className="no-data-message">This activity has not been completed.</p>;
+      return <p className="no-data-message">This activity has not been completed.</p>
     } else if (sessions && sessions.length) {
       return <KeyTargetSkillConcepts groupedKeyTargetSkillConcepts={sessions[sessions.length - 1].grouped_key_target_skill_concepts} />
     } else {
@@ -61,7 +61,7 @@ export const ScorebookTooltip = ({ data }) => {
         const textifiedNextNumber = nextNumber > 10 ? numberSuffixBuilder(i + 1) : ORDINAL_NUMBERS[nextNumber]
         attemptText = `(${textifiedNextNumber} attempt in progress)`
         const descriptionElement = <p className="description"><span className="percentage">{scoreText}</span><br /> {attemptText}</p>
-        return <ActivityDetailsSection key={i} description={descriptionElement} header={`${ordinalNumber} score`} />
+        return <ActivityDetailsSection description={descriptionElement} header={`${ordinalNumber} score`} key={i} />
       }
       const descriptionElement = (
         <div className="description-block">
@@ -69,7 +69,7 @@ export const ScorebookTooltip = ({ data }) => {
           <p className="description">{`${moment.utc(completed_at).format('MMMM D, YYYY [at] h:mm a')} / ${timespent ? getTimeSpent(timespent) : NOT_APPLICABLE}`}</p>
         </div>
       )
-      return <ActivityDetailsSection key={i} description={descriptionElement} header={`${ordinalNumber} score`} />
+      return <ActivityDetailsSection description={descriptionElement} header={`${ordinalNumber} score`} key={i} />
     })
   };
 
