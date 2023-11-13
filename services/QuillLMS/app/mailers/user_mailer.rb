@@ -121,7 +121,7 @@ class UserMailer < ActionMailer::Base
 
   def daily_stats_email(date_string)
     # Sidekiq converts variables to strings, so we recreate the Time object with the date string
-    date_object = Time.parse(date_string)
+    date_object = Time.zone.parse(date_string)
     start_time = date_object.beginning_of_day
     end_time = date_object.end_of_day
     subject_date = date_object.strftime('%m/%d/%Y')
