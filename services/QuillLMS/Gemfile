@@ -196,6 +196,9 @@ group :test, :development do
   gem 'rspec-redis_helper'
   gem 'brakeman', '= 4.1.1'
   gem 'memory_profiler'
+  gem 'rubocop'
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
 end
 
 group :test, :development, :cypress do
