@@ -7,7 +7,8 @@ module AdminDiagnosticReports
     subject { described_class.new }
 
     let(:cache_key) { 'CACHE_KEY' }
-    let(:query) { 'most-active-schools' }
+    let(:query) { 'pre-diagnostic-completed' }
+    let(:aggregation) { 'grade' }
     let(:user_id) { 123 }
     let(:timeframe_name) { 'last-30-days' }
     let(:school_ids) { [1,2,3] }
@@ -27,7 +28,7 @@ module AdminDiagnosticReports
     it { expect { described_class::QUERIES.values }.not_to raise_error }
 
     context '#perform' do
-      let(:perform) { subject.perform(cache_key, query, user_id, timeframe, school_ids, filters) }
+      let(:perform) { subject.perform(cache_key, query, aggregation, user_id, timeframe, school_ids, filters) }
       let(:timeframe_end) { DateTime.now }
       let(:current_timeframe_start) { timeframe_end - 30.days }
       let(:timeframe) {
@@ -39,6 +40,7 @@ module AdminDiagnosticReports
       }
       let(:expected_query_args) {
         {
+          aggregation: aggregation,
           timeframe_start: current_timeframe_start,
           timeframe_end: timeframe_end,
           school_ids: school_ids,
@@ -68,7 +70,7 @@ module AdminDiagnosticReports
           Sidekiq::Testing.inline! do
             expect(query_double).to receive(:run).with(expected_query_args)
 
-            described_class.perform_async(cache_key, query, user_id, timeframe, school_ids, filters)
+            described_class.perform_async(cache_key, query, aggregation, user_id, timeframe, school_ids, filters)
           end
         end
       end
@@ -79,7 +81,7 @@ module AdminDiagnosticReports
           expect(Rails.cache).to receive(:write)
           expect(SendPusherMessageWorker).to receive(:perform_async)
 
-          subject.perform(cache_key, query, user_id, timeframe, school_ids, filters_with_string_keys)
+          subject.perform(cache_key, query, aggregation, user_id, timeframe, school_ids, filters_with_string_keys)
         end
       end
 
@@ -109,7 +111,7 @@ module AdminDiagnosticReports
         expect(Rails.cache).to receive(:write)
         expect(SendPusherMessageWorker).to receive(:perform_async).with(user_id, described_class::PUSHER_EVENT, hashed_payload)
 
-        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters_with_string_keys)
+        subject.perform(cache_key, query, aggregation, user_id, timeframe, school_ids, filters_with_string_keys)
       end
 
       context 'slow query reporting' do

@@ -21,8 +21,8 @@ module AdminDiagnosticReports
       'post-diagnostic-completed' => PostDiagnosticCompletedQuery
     }
 
-    def perform(cache_key, query, user_id, timeframe, school_ids, filters)
-      payload = generate_payload(query, timeframe, school_ids, filters)
+    def perform(cache_key, query, aggregation, user_id, timeframe, school_ids, filters)
+      payload = generate_payload(query, aggregation, timeframe, school_ids, filters)
 
       Rails.cache.write(cache_key, payload, expires_in: cache_expiry)
 
@@ -45,7 +45,7 @@ module AdminDiagnosticReports
       now.end_of_day.to_i - now.to_i
     end
 
-    private def generate_payload(query, timeframe, school_ids, filters)
+    private def generate_payload(query, aggregation, timeframe, school_ids, filters)
       timeframe_start = parse_datetime_string(timeframe['timeframe_start'])
       timeframe_end = parse_datetime_string(timeframe['timeframe_end'])
       filters_symbolized = filters.symbolize_keys
@@ -55,6 +55,7 @@ module AdminDiagnosticReports
         TOO_SLOW_THRESHOLD,
         {
           query:,
+          aggregation:,
           timeframe_start:,
           timeframe_end:,
           school_ids:
@@ -63,9 +64,10 @@ module AdminDiagnosticReports
 
       long_process_notifier.run do
         QUERIES[query].run(**{
-          timeframe_start: timeframe_start,
-          timeframe_end: timeframe_end,
-          school_ids: school_ids
+          aggregation:,
+          timeframe_start:,
+          timeframe_end:,
+          school_ids:
         }.merge(filters_symbolized))
       end
     end

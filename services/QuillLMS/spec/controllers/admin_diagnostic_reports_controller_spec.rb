@@ -16,6 +16,7 @@ describe AdminDiagnosticReportsController, type: :controller do
     let(:now) { DateTime.current }
     let(:current_snapshot_stub) { 'CURRENT' }
     let(:previous_snapshot_stub) { 'PREVIOUS' }
+    let(:group_by) { 'grade' }
     let(:school_ids) { [school.id.to_s] }
     let(:controller_actions) {
       [
@@ -36,6 +37,7 @@ describe AdminDiagnosticReportsController, type: :controller do
 
     context 'cache key generation' do
       let(:query) { 'pre-diagnostic-assigned' }
+      let(:query_group_by) { "#{query}-#{group_by}" }
       let(:grades) { ['Kindergarten', '1'] }
       let(:teacher_ids) { ['4', '5'] }
       let(:classroom_ids) { ['7', '8'] }
@@ -47,7 +49,7 @@ describe AdminDiagnosticReportsController, type: :controller do
       it do
         expect(Snapshots::CacheKeys).to receive(:generate_key).with(
           described_class::CACHE_REPORT_NAME,
-          query,
+          query_group_by,
           timeframe_name,
           current_start,
           current_end,
@@ -58,7 +60,7 @@ describe AdminDiagnosticReportsController, type: :controller do
             classroom_ids: classroom_ids
           })
 
-        post :report, params: { query: query, timeframe: timeframe_name, school_ids: school_ids, grades: grades, teacher_ids: teacher_ids, classroom_ids: classroom_ids }
+        post :report, params: { query: query, group_by: group_by, timeframe: timeframe_name, school_ids: school_ids, grades: grades, teacher_ids: teacher_ids, classroom_ids: classroom_ids }
       end
     end
 
@@ -153,6 +155,7 @@ describe AdminDiagnosticReportsController, type: :controller do
           expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
           expect(AdminDiagnosticReports::DiagnosticOverviewWorker).to receive(:perform_async).with(cache_key,
             query_name,
+            group_by,
             user.id,
             {
               name: timeframe_name,
@@ -166,7 +169,7 @@ describe AdminDiagnosticReportsController, type: :controller do
               classroom_ids: nil
             })
 
-          post :report, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
+          post :report, params: { query: query_name, group_by: group_by, timeframe: timeframe_name, school_ids: school_ids }
 
           json_response = JSON.parse(response.body)
 
@@ -183,6 +186,7 @@ describe AdminDiagnosticReportsController, type: :controller do
           expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
           expect(AdminDiagnosticReports::DiagnosticOverviewWorker).to receive(:perform_async).with(cache_key,
             query_name,
+            group_by,
             user.id,
             {
               name: timeframe_name,
@@ -196,7 +200,7 @@ describe AdminDiagnosticReportsController, type: :controller do
               classroom_ids: classroom_ids
             })
 
-          post :report, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids, grades: grades, teacher_ids: teacher_ids, classroom_ids: classroom_ids }
+          post :report, params: { query: query_name, group_by: group_by, timeframe: timeframe_name, school_ids: school_ids, grades: grades, teacher_ids: teacher_ids, classroom_ids: classroom_ids }
         end
 
         it 'should properly calculate custom timeframes' do
@@ -209,6 +213,7 @@ describe AdminDiagnosticReportsController, type: :controller do
           expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
           expect(AdminDiagnosticReports::DiagnosticOverviewWorker).to receive(:perform_async).with(cache_key,
             query_name,
+            group_by,
             user.id,
             {
               name: timeframe_name,
@@ -222,7 +227,7 @@ describe AdminDiagnosticReportsController, type: :controller do
               classroom_ids: nil
             })
 
-          post :report, params: { query: query_name, timeframe: timeframe_name, timeframe_custom_start: current_start.to_s, timeframe_custom_end: current_end.to_s, school_ids: school_ids }
+          post :report, params: { query: query_name, group_by: group_by, timeframe: timeframe_name, timeframe_custom_start: current_start.to_s, timeframe_custom_end: current_end.to_s, school_ids: school_ids }
         end
       end
     end
