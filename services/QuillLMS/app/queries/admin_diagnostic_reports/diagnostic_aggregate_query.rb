@@ -17,7 +17,11 @@ module AdminDiagnosticReports
       1678, # Advanced Baseline Diagnostic (Pre)
       1161, # ELL Starter Baseline Diagnostic (Pre)
       1568, # ELL Intermediate Baseline Diagnostic (Pre)
-      1590  # ELL Advanced Baseline Diagnostic (Pre)
+      1590, # ELL Advanced Baseline Diagnostic (Pre)
+      992,  # AP Writing Skills Survey
+      1229, #  Pre-AP Writing Skills Survey 1
+      1230, # Pre-AP Writing Skills Survey 2
+      1432  # SpringBoard Writing Skills Survey
     ]
 
     def initialize(aggregation:, **options)
