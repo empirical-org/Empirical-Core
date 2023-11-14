@@ -13,6 +13,8 @@ module Snapshots
       let(:activity_category_activities) { create_list(:activity_category_activity, num_concepts) }
       let(:activity_categories) { activity_category_activities.map { |aca| aca.activity_category } }
 
+      let(:students) { create_list(:user, 3, role: 'student')}
+
       let(:standards) { [ create(:standard) ] }
       let(:activity_classifications) { [create(:activity_classification)]}
       let(:activities) do
@@ -26,13 +28,21 @@ module Snapshots
 
       let(:units) { Unit.all }
 
-      # Note that we're setting assigned_student_ids to an arbitrary one-length array because we don't actually need to reference the students in question, so any number "works" here.
       let(:classroom_units) do
-        classrooms.map { |classroom| create_list(:classroom_unit, num_concepts, classroom: classroom, assigned_student_ids: [1]) }.flatten
+        classrooms.map do |classroom|
+          create_list(:classroom_unit, num_concepts, classroom: classroom, assigned_student_ids: students.map(&:id))
+        end.flatten
       end
+
       let(:activity_sessions) do
         classroom_units.map do |classroom_unit|
-          create(:activity_session, classroom_unit: classroom_unit, timespent: rand(1..100), activity: activities.first)
+          create(
+            :activity_session,
+            classroom_unit: classroom_unit,
+            timespent: rand(1..100),
+            activity: activities.first,
+            user: students.sample
+          )
         end
       end
       # We have one activity connected to each concept.
@@ -61,21 +71,39 @@ module Snapshots
           activity_classifications,
           activity_sessions,
           standards,
-          units
+          units,
+          students
         ]
       }
 
       let(:cte_records) { [runner_context] }
 
-      context 'query LIMITs and shape' do
-        let(:expected_result) do
-          # (0..9).map { |i| { count: unit_activity_bundles[i].length, value: activity_categories[i].name} }
-        end
-        it do
-          binding.pry
+      context 'basic shape tests' do
+        it { expect(results.count).to eq 10 }
+
+        it 'each row contains the expected fields' do
+          expected_fields = %i(
+            student_name
+            student_email
+            completed_at
+            activity_name
+            activity_pack
+            score
+            timespent
+            standard
+            tool
+            school_name
+            classroom_grade
+            teacher_name
+            classroom_name
+          )
+
+          results.each do |row|
+            expect(row.keys.to_set > expected_fields.to_set).to be true
+          end
 
         end
-        #it { expect(results).to eq(expected_result) }
+
       end
 
       context 'classroom_units created outside of timeframe' do
