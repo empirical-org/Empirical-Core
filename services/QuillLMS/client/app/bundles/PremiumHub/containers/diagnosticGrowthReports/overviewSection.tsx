@@ -1,13 +1,13 @@
 import * as React from 'react'
-import { Spinner, DataTable, noResultsMessage } from '../../../Shared/index'
-
-const DEFAULT_CELL_WIDTH = '182px'
+import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
+import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
+import { DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH, groupByDropdownOptions } from '../../shared'
 
 const headers = [
   {
     name: 'Diagnostic Name',
     attribute: 'name',
-    width: DEFAULT_CELL_WIDTH,
+    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
     tooltipName: '',
     tooltipDescription: '',
     noTooltip: true,
@@ -16,7 +16,7 @@ const headers = [
   {
     name: 'Pre Diagnostic Completed',
     attribute: 'preDiagnosticCompleted',
-    width: DEFAULT_CELL_WIDTH,
+    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
     tooltipName: '',
     tooltipDescription: '',
     noTooltip: true,
@@ -25,7 +25,7 @@ const headers = [
   {
     name: 'Completed Activities',
     attribute: 'studentsCompletedPractice',
-    width: DEFAULT_CELL_WIDTH,
+    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
     tooltipName: '',
     tooltipDescription: '',
     noTooltip: true,
@@ -34,7 +34,7 @@ const headers = [
   {
     name: '',
     attribute: 'averageActivitiesAndTimeSpent',
-    width: DEFAULT_CELL_WIDTH,
+    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
     primaryTitle: 'Average Activities &',
     secondaryTitle: 'Time Spent',
     tooltipName: '',
@@ -45,7 +45,7 @@ const headers = [
   {
     name: '',
     attribute: 'postDiagnosticCompleted',
-    width: DEFAULT_CELL_WIDTH,
+    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
     primaryTitle: 'Post Diagnostic',
     secondaryTitle: 'Completed',
     tooltipName: '',
@@ -56,7 +56,7 @@ const headers = [
   {
     name: 'Overall Skill Growth',
     attribute: 'overallSkillGrowth',
-    width: DEFAULT_CELL_WIDTH,
+    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
     tooltipName: '',
     tooltipDescription: '',
     noTooltip: true,
@@ -65,7 +65,7 @@ const headers = [
 ]
 
 
-export const OverviewTable = ({
+export const OverviewSection = ({
   loadingFilters,
   customStartDate,
   customEndDate,
@@ -83,18 +83,34 @@ export const OverviewTable = ({
   openMobileFilterMenu
 }) => {
 
+  const [groupByValue, setGroupByValue] = React.useState<DropdownObjectInterface>(groupByDropdownOptions[0])
+
+  function handleFilterOptionChange(option) {
+    setGroupByValue(option)
+  }
+
   if (loadingFilters) {
     return <Spinner />
   }
 
   return (
-    <DataTable
-      className="growth-diagnostic-reports-overview-table reporting-format"
-      emptyStateMessage={noResultsMessage('diagnostic')}
-      headers={headers}
-      rows={[]}
-    />
+    <React.Fragment>
+      <DropdownInput
+        className="group-by-dropdown"
+        handleChange={handleFilterOptionChange}
+        isSearchable={true}
+        label="Group by:"
+        options={groupByDropdownOptions}
+        value={groupByValue}
+      />
+      <DataTable
+        className="growth-diagnostic-reports-overview-table reporting-format"
+        emptyStateMessage={noResultsMessage('diagnostic')}
+        headers={headers}
+        rows={[]}
+      />
+    </React.Fragment>
   )
 }
 
-export default OverviewTable;
+export default OverviewSection;

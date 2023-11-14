@@ -224,7 +224,7 @@ module PublicProgressReports
         prompt: prompt_text,
         answer: cr.first.answer,
         score: get_score_for_question(cr),
-        key_target_skill_concept: get_key_target_skill_concept_for_question(cr),
+        key_target_skill_concept: get_key_target_skill_concept_for_question(cr, activity_session),
         concepts: cr.map { |crs|
           attempt_number = crs.attempt_number
           direct = crs.concept_result_directions&.text || crs.concept_result_instructions&.text || ""
@@ -249,9 +249,9 @@ module PublicProgressReports
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def get_key_target_skill_concept_for_question(concept_results)
+  def get_key_target_skill_concept_for_question(concept_results, activity_session)
     default = {
-      name: 'Conventions of Language',
+      name: activity_session.is_evidence? ? 'Writing with Evidence' : 'Conventions of Language',
       correct: get_score_for_question(concept_results) > 0
     }
 

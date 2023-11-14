@@ -32,6 +32,8 @@ interface SnapshotCountProps {
 
 const PUSHER_CURRENT_EVENT_KEY = 'admin-snapshot-count-cached'
 const PUSHER_PREVIOUS_EVENT_KEY = 'admin-snapshot-previous-count-cached'
+const NOT_APPLICABLE = 'N/A'
+const RETRY_TIMEOUT = 20000
 
 const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, passedCount, passedPrevious, passedChange, passedChangeDirection, singularLabel, pusherChannel, }: SnapshotCountProps) => {
   const [count, setCount] = React.useState(passedCount || null)
@@ -41,30 +43,48 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
   const [loading, setLoading] = React.useState(false)
   const [currentRetryTimeout, setCurrentRetryTimeout] = React.useState(null)
   const [previousRetryTimeout, setPreviousRetryTimeout] = React.useState(null)
+  const [pusherCurrentMessage, setPusherCurrentMessage] = React.useState(null)
+  const [pusherPreviousMessage, setPusherPreviousMessage] = React.useState(null)
+  const [customTimeframeStartString, setCustomTimeframeStartString] = React.useState(null)
+  const [customTimeframeEndString, setCustomTimeframeEndString] = React.useState(null)
 
   React.useEffect(() => {
     initializePusher()
   }, [pusherChannel])
 
   React.useEffect(() => {
-    initializePusher()
-
     resetToDefault()
 
-    setCurrentRetryTimeout(setTimeout(getCurrentData, 20000))
-    setPreviousRetryTimeout(setTimeout(getPreviousData, 20000))
+    getCurrentData()
+    getPreviousData()
   }, [searchCount])
 
   React.useEffect(() => {
-    if (currentRetryTimeout) getCurrentData()
-  }, [currentRetryTimeout])
+    if (!customTimeframeStart) return setCustomTimeframeStartString(null)
+
+    setCustomTimeframeStartString(customTimeframeStart.toISOString())
+  }, [customTimeframeStart])
 
   React.useEffect(() => {
-    if (previousRetryTimeout) getPreviousData()
-  }, [previousRetryTimeout])
+    if (!customTimeframeEnd) return setCustomTimeframeEndString(null)
+
+    setCustomTimeframeEndString(customTimeframeEnd.toISOString())
+  }, [customTimeframeEnd])
 
   React.useEffect(() => {
-    if (!previous || count === 'N/A' || count === null) {
+    if (!pusherCurrentMessage) return
+
+    if (filtersMatchHash(pusherCurrentMessage)) getCurrentData()
+  }, [pusherCurrentMessage])
+
+  React.useEffect(() => {
+    if (!pusherPreviousMessage) return
+
+    if (filtersMatchHash(pusherPreviousMessage)) getPreviousData()
+  }, [pusherPreviousMessage])
+
+  React.useEffect(() => {
+    if (!previous || count === NOT_APPLICABLE || count === null) {
       setChangeDirection(NONE)
       return
     }
@@ -103,6 +123,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
 
     requestPost(`/snapshots/count`, getSearchParams(), (body) => {
       if (!body.hasOwnProperty('results')) {
+        setCurrentRetryTimeout(setTimeout(getCurrentData, RETRY_TIMEOUT))
         setLoading(true)
         return
       }
@@ -112,7 +133,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
       const { results, } = body
       const { count } = results
 
-      setCount((count === null) ? 'N/A' : Math.round(count || 0))
+      setCount((count === null) ? NOT_APPLICABLE : Math.round(count || 0))
 
       setLoading(false)
     })
@@ -120,7 +141,10 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
 
   function getPreviousData() {
     requestPost(`/snapshots/count?previous_timeframe=true`, getSearchParams(), (body) => {
-      if (!body.hasOwnProperty('results')) return
+      if (!body.hasOwnProperty('results')) {
+        setPreviousRetryTimeout(setTimeout(getPreviousData, RETRY_TIMEOUT))
+        return
+      }
 
       clearTimeout(previousRetryTimeout)
 
@@ -135,6 +159,8 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     const filterTarget = [].concat(
       queryKey,
       selectedTimeframe,
+      customTimeframeStartString,
+      customTimeframeEndString,
       selectedSchoolIds,
       selectedGrades,
       selectedTeacherIds,
@@ -147,20 +173,23 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
   }
 
   function initializePusher() {
-    pusherChannel?.bind(PUSHER_CURRENT_EVENT_KEY, (body) => {
+    pusherChannel?.bind(`${PUSHER_CURRENT_EVENT_KEY}:${queryKey}`, (body) => {
       const { message, } = body
-
-      if (filtersMatchHash(message)) getCurrentData()
+      setPusherCurrentMessage(message)
     });
 
-    pusherChannel?.bind(PUSHER_PREVIOUS_EVENT_KEY, (body) => {
+    pusherChannel?.bind(`${PUSHER_PREVIOUS_EVENT_KEY}:${queryKey}`, (body) => {
       const { message, } = body
-
-      if (filtersMatchHash(message)) getPreviousData()
+      setPusherPreviousMessage(message)
     });
   };
 
-  const className = `snapshot-item snapshot-count ${size} ${(changeDirection !== NONE) ? changeDirection : ''}`
+  let className = `snapshot-item snapshot-count ${size}`
+  if (changeDirection === NONE && count !== NOT_APPLICABLE) {
+    className += ' no-change'
+  } else if (changeDirection !== NONE) {
+    className += ` ${changeDirection}`
+  }
 
   let icon
 

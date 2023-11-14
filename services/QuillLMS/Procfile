@@ -3,9 +3,11 @@ web: bundle exec puma -C ./config/puma.rb
 # Note, using MALLOC_ARENA_MAX=2 based on this article:
 # https://github.com/mperham/sidekiq/wiki/Deployment#heroku
 
-worker: MAX_THREADS=$SIDEKIQ_PROCESS_MAX_THREADS MALLOC_ARENA_MAX=2 bundle exec sidekiq -q critical -q critical_external -q default
+worker: MAX_THREADS=$SIDEKIQ_PROCESS_MAX_THREADS MALLOC_ARENA_MAX=2 bundle exec sidekiq -q instant -q critical -q critical_external -q default
 
 reportworker: MAX_THREADS=$SIDEKIQ_REPORTWORKER_PROCESS_MAX_THREADS MALLOC_ARENA_MAX=2 bundle exec sidekiq -q default -q low -q critical -q critical_external
+
+instantworker: MAX_THREADS=$SIDEKIQ_INSTANT_PROCESS_MAX_THREADS MALLOC_ARENA_MAX=2 bundle exec sidekiq -q instant
 
 # Backup workers that we can use in case we need to isolate external jobs from the queue
 externalworker: MAX_THREADS=$SIDEKIQ_PROCESS_MAX_THREADS MALLOC_ARENA_MAX=2 bundle exec sidekiq -q critical_external

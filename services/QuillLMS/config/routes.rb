@@ -214,6 +214,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/premium_hub' => 'teachers#premium_hub'
   get 'teachers/premium_hub/school_subscriptions' => 'teachers#premium_hub', as: :premium_hub_school_subscriptions
   get 'teachers/premium_hub/:tab' => 'teachers#premium_hub'
+  get 'teachers/premium_hub/:tab/:subtab' => 'teachers#premium_hub'
   get 'teachers/admin_dashboard', to: redirect('teachers/premium_hub')
   get 'teachers/admin_dashboard/:tab', to: redirect('teachers/premium_hub/%{tab}')
   post 'teachers/unlink/:teacher_id' => 'teachers#unlink'
@@ -733,6 +734,14 @@ EmpiricalGrammar::Application.routes.draw do
       post :previous_count
       post :top_x
       post :data_export
+      post :create_csv_report_download
+    end
+  end
+
+  resources :admin_report_filter_selections, only: [] do
+    collection do
+      post '/show', to: 'admin_report_filter_selections#show'
+      post '/create_or_update', to: 'admin_report_filter_selections#create_or_update'
     end
   end
 

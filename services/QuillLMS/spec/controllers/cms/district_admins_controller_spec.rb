@@ -6,6 +6,7 @@ describe Cms::DistrictAdminsController do
   let(:user) { create(:staff) }
   let!(:district1) { create(:district) }
   let!(:district2) { create(:district) }
+  let!(:school) { create(:school, district: district1)}
   let!(:admin) { create(:user) }
 
   before do
@@ -14,25 +15,43 @@ describe Cms::DistrictAdminsController do
 
   describe '#create' do
     describe 'for a new user' do
+      let(:test_email) { 'test@email.com' }
 
       it 'creates the user admin info record as staff approved' do
-        post :create, params: { district_id: district1.id, email: 'test@email.com', first_name: 'Test', last_name: 'User' }
+        post :create, params: { district_id: district1.id, email: test_email, first_name: 'Test', last_name: 'User' }
 
-        new_user = User.find_by(email: 'test@email.com')
+        new_user = User.find_by(email: test_email)
         expect(new_user.admin_info.approver_role).to eq(User::STAFF)
         expect(new_user.admin_info.approval_status).to eq(AdminInfo::APPROVED)
       end
 
       it 'creates a new user account and district admin, and sends the expected email' do
         Sidekiq::Testing.inline! do
-          post :create, params: { district_id: district1.id, email: 'test@email.com', first_name: 'Test', last_name: 'User' }
+          post :create, params: { district_id: district1.id, email: test_email, first_name: 'Test', last_name: 'User' }
 
-          new_user = User.find_by(email: 'test@email.com')
+          new_user = User.find_by(email: test_email)
           expect(new_user).to be
           expect(DistrictAdmin.find_by_user_id(new_user.id)).to be
           expect(ActionMailer::Base.deliveries.last.subject).to eq('[Action Required] Test, a Quill district admin account was created for you')
-          expect(ActionMailer::Base.deliveries.last.to).to eq(['test@email.com'])
+          expect(ActionMailer::Base.deliveries.last.to).to eq([test_email])
         end
+      end
+
+      it 'attaches the user as admin to the specified schools' do
+        email = test_email
+        post :create, params: { district_id: district1.id, email: email, first_name: 'Test', last_name: 'User', school_ids: [school.id] }
+
+        new_user = User.find_by(email: email)
+        expect(SchoolsAdmins.where(user: new_user, school: school).first).to be
+      end
+
+      it 'if a specified school has premium, attaches the user to that school' do
+        email = test_email
+        create(:school_subscription, school: school)
+        post :create, params: { district_id: district1.id, email: email, first_name: 'Test', last_name: 'User', school_ids: [school.id] }
+
+        new_user = User.find_by(email: email)
+        expect(SchoolsUsers.where(user: new_user, school: school).first).to be
       end
     end
 

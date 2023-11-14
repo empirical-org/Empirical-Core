@@ -75,6 +75,21 @@ const greys = [
   }
 ]
 
+const transparentColorTitlesAndVariableNames = [
+  {
+    title: 'Quill Black',
+    variableName: 'quill-black-transparent'
+  },
+  {
+    title: 'Quill White',
+    variableName: 'quill-white-transparent'
+  },
+  {
+    title: 'Quill Green',
+    variableName: 'quill-green-transparent'
+  }
+]
+
 const baseColorTitlesAndVariableNames = [
   {
     title: 'Quill Green',
@@ -87,6 +102,10 @@ const baseColorTitlesAndVariableNames = [
   {
     title: 'Quill Green Vibrant',
     variableName: "quill-green-vibrant"
+  },
+  {
+    title: 'Quill Viridian',
+    variableName: "quill-viridian"
   },
   {
     title: 'Quill Teal',
@@ -123,6 +142,7 @@ const baseColorTitlesAndVariableNames = [
 ]
 
 const colorNumbers = [null, 50, 20, 10, 5, 1]
+const transparentColorNumbers = [90, 80, 70, 60, 50, 40, 30, 20, 10]
 
 const renderElement =(title, variableName) => (
   <div className="element" key={variableName}>
@@ -152,6 +172,23 @@ const ColorPalette = () => {
       </div>
     )
   })
+
+  const transparentColorRows = transparentColorTitlesAndVariableNames.map(color => {
+    const colors = transparentColorNumbers.map(number => {
+      let title = color.title
+      let variableName = color.variableName
+      title+= ` - ${number}%`
+      variableName+= `-${number}`
+
+      return renderElement(title, variableName)
+    })
+    return (
+      <div className="color-row" key={`${color.variableName}-row`}>
+        {colors}
+      </div>
+    )
+  })
+
   return (
     <div id="color-palette">
       <h2 className="style-guide-h2">Color Palette</h2>
@@ -160,6 +197,10 @@ const ColorPalette = () => {
         <div className="color-row">
           {greys.map(grey => renderElement(grey.title, grey.variableName))}
         </div>
+      </div>
+      <div className="element-container">
+        <h4 className="style-guide-h4">Transparent</h4>
+        {transparentColorRows}
       </div>
       <div className="element-container">
         <h4 className="style-guide-h4">Colors</h4>

@@ -10,17 +10,22 @@ module Snapshots
       'data-export' => Snapshots::DataExportQuery
     }
 
-    def perform(cache_key, query, user_id, timeframe, school_ids, filters)
+    def perform(cache_key, query, user_id, timeframe, school_ids, filters, previous_timeframe)
       payload = generate_payload(query, timeframe, school_ids, filters)
       Rails.cache.write(cache_key, payload.to_a, expires_in: cache_expiry)
 
-      SendPusherMessageWorker.perform_async(user_id, PUSHER_EVENT,
-        {
-          query: query,
-          timeframe: timeframe['name'],
-          school_ids: school_ids
-        }.merge(filters)
-      )
+      filter_hash = PayloadHasher.run([
+        query,
+        timeframe['name'],
+        timeframe['custom_start'],
+        timeframe['custom_end'],
+        school_ids,
+        filters['grades'],
+        filters['teacher_ids'],
+        filters['classroom_ids']
+      ].flatten)
+
+      SendPusherMessageWorker.perform_async(user_id, PUSHER_EVENT, filter_hash)
     end
 
     private def cache_expiry
@@ -35,8 +40,8 @@ module Snapshots
       filters_symbolized = filters.symbolize_keys
 
       QUERIES[query].run(**{
-        timeframe_start: DateTime.parse(timeframe['current_start']),
-        timeframe_end: DateTime.parse(timeframe['current_end']),
+        timeframe_start: DateTime.parse(timeframe['timeframe_start']),
+        timeframe_end: DateTime.parse(timeframe['timeframe_end']),
         school_ids: school_ids
       }.merge(filters_symbolized))
     end

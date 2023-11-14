@@ -24,12 +24,13 @@ class SnapshotsController < ApplicationController
   WORKERS_FOR_ACTIONS = {
     "count" => Snapshots::CacheSnapshotCountWorker,
     "top_x" => Snapshots::CacheSnapshotTopXWorker,
-    "data_export" => Snapshots::CachePremiumReportsWorker
+    "data_export" => Snapshots::CachePremiumReportsWorker,
+    "create_csv_report_download" => Snapshots::PremiumDownloadReportsWorker
   }
 
-  before_action :set_query, only: [:count, :top_x, :data_export]
-  before_action :validate_request, only: [:count, :top_x, :data_export]
-  before_action :authorize_request, only: [:count, :top_x, :data_export]
+  before_action :set_query, only: [:count, :top_x, :data_export, :create_csv_report_download]
+  before_action :validate_request, only: [:count, :top_x, :data_export, :create_csv_report_download]
+  before_action :authorize_request, only: [:count, :top_x, :data_export, :create_csv_report_download]
 
   def count
     render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
@@ -39,17 +40,59 @@ class SnapshotsController < ApplicationController
     render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
   end
 
+  def create_csv_report_download
+    timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(snapshot_params[:timeframe],
+      custom_start: snapshot_params[:timeframe_custom_start],
+      custom_end: snapshot_params[:timeframe_custom_end],
+      previous_timeframe: snapshot_params[:previous_timeframe])
+
+    worker_params = [
+      @query,
+      current_user.id,
+      {
+        name: snapshot_params[:timeframe],
+        timeframe_start: timeframe_start,
+        timeframe_end: timeframe_end
+      },
+      snapshot_params[:school_ids],
+      snapshot_params[:headers_to_display],
+      {
+        grades: snapshot_params[:grades],
+        teacher_ids: snapshot_params[:teacher_ids],
+        classroom_ids: snapshot_params[:classroom_ids]
+      }
+
+    ]
+    WORKERS_FOR_ACTIONS[action_name].perform_async(*worker_params)
+
+    render json: { message: 'Generating report' }
+  end
+
   def data_export
     render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
   end
 
   def options
-    render json: {
+    render json: build_options_hash
+  end
+
+  private def build_options_hash
+    {
       timeframes: Snapshots::Timeframes.frontend_options,
       schools: format_option_list(school_options),
       grades: GRADE_OPTIONS,
       teachers: format_option_list(sorted_teacher_options),
       classrooms: format_option_list(classroom_options)
+    }.merge(initial_load_options)
+  end
+
+  private def initial_load_options
+    return {} unless initial_load?
+
+    {
+      all_classrooms: format_option_list(all_classroom_options),
+      all_teachers: format_option_list(all_sorted_teacher_options),
+      all_schools: format_option_list(school_options)
     }
   end
 
@@ -73,15 +116,25 @@ class SnapshotsController < ApplicationController
   private def teacher_options
     grades = option_params[:grades]&.map { |i| Utils::String.parse_null_to_nil(i) }
 
-    teachers = User.distinct
-      .joins(:schools_users)
-      .left_outer_joins(:classrooms_teachers)
-      .joins("LEFT OUTER JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id") # manual join to avoid the default scope on Classroom
-      .where(schools_users: {school_id: filtered_schools.pluck(:id)})
+    teachers = User.teachers_in_schools(filtered_schools.pluck(:id))
 
     return teachers.where(classrooms: {grade: grades}) if grades.present?
 
     teachers
+  end
+
+  private def all_sorted_teacher_options
+    User
+      .teachers_in_schools(school_options.pluck(:id))
+      .sort_by(&:last_name)
+  end
+
+  private def all_classroom_options
+    Classroom.unscoped
+      .distinct
+      .joins(:classrooms_teachers)
+      .where(classrooms_teachers: {user_id: all_sorted_teacher_options.pluck(:id)})
+      .order(:name)
   end
 
   private def sorted_teacher_options
@@ -134,7 +187,6 @@ class SnapshotsController < ApplicationController
   end
 
   private def retrieve_cache_or_enqueue_worker(worker)
-
     timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(snapshot_params[:timeframe],
       custom_start: snapshot_params[:timeframe_custom_start],
       custom_end: snapshot_params[:timeframe_custom_end],
@@ -153,7 +205,9 @@ class SnapshotsController < ApplicationController
       {
         name: snapshot_params[:timeframe],
         timeframe_start: timeframe_start,
-        timeframe_end: timeframe_end
+        timeframe_end: timeframe_end,
+        custom_start: snapshot_params[:timeframe_custom_start],
+        custom_end: snapshot_params[:timeframe_custom_end]
       },
       snapshot_params[:school_ids],
       {
@@ -187,6 +241,7 @@ class SnapshotsController < ApplicationController
       :timeframe_custom_start,
       :timeframe_custom_end,
       :previous_timeframe,
+      headers_to_display: [],
       school_ids: [],
       grades: [],
       teacher_ids: [],
@@ -194,8 +249,17 @@ class SnapshotsController < ApplicationController
   end
 
   private def option_params
-    params.permit(school_ids: [],
+    params.permit(
+      :is_initial_load,
+      :report,
+      school_ids: [],
       grades: [],
-      teacher_ids: [])
+      teacher_ids: []
+    )
   end
+
+  private def initial_load?
+    option_params[:is_initial_load].in?([true, "true"])
+  end
+
 end

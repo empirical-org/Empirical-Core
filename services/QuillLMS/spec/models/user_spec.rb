@@ -324,7 +324,6 @@ RSpec.describe User, type: :model do
     it "should give the correct value for all the constants" do
       expect(User::ROLES).to eq(%w(teacher student staff sales-contact admin))
       expect(User::SAFE_ROLES).to eq(%w(student teacher sales-contact admin))
-      expect(User::VALID_EMAIL_REGEX).to eq(/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i)
     end
   end
 
@@ -2285,7 +2284,74 @@ RSpec.describe User, type: :model do
 
         it { is_expected.to eq true }
       end
+    end
+  end
 
+  describe '#google_student_set_password?' do
+    subject { user.google_student_set_password? }
+
+    let(:user) { create(:user, google_id: google_id, password: password, role: role) }
+    let(:role) { User::STUDENT}
+    let(:google_id) { 'abc123' }
+    let(:password) { 'password' }
+
+    context 'user is not a student' do
+      let(:role) { User::TEACHER }
+
+      it { expect(subject).to eq false }
+    end
+
+    context 'google_id is not present' do
+      let(:google_id) { nil }
+
+      it 'is not a google user so false' do
+        user.password = 'new_password'
+        expect(subject).to eq false
+      end
+    end
+
+    context 'password_digest has not changed' do
+      it { expect(subject).to eq false }
+    end
+
+    context 'password_digest has changed' do
+      context 'password_digest was not nil' do
+        let(:password) { 'password' }
+
+        it 'already had a password' do
+          user.password = nil
+          expect(subject).to eq false
+        end
+      end
+
+      context 'password_digest was nil' do
+        let(:password) { nil }
+
+        it 'sets a password' do
+          user.password = 'password'
+          expect(subject).to eq true
+        end
+      end
+    end
+  end
+
+  describe '#track_google_student_set_password' do
+    subject { user.track_google_student_set_password }
+
+    let(:analytics_instance) { double('Analytics') }
+    let(:user) { create(:user, google_id: 'abc123') }
+    let(:teacher) { double('Teacher') }
+
+    before do
+      allow(Analytics::SegmentAnalytics).to receive(:new).and_return(analytics_instance)
+      allow(analytics_instance).to receive(:track_google_student_set_password)
+      allow(user).to receive(:teacher_of_student).and_return(teacher)
+    end
+
+    it 'tracks google student set password' do
+      expect(analytics_instance).to receive(:track_google_student_set_password).with(user, teacher)
+      user.password = 'password'
+      subject
     end
   end
 end

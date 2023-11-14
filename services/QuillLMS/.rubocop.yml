@@ -1,0 +1,157 @@
+inherit_from:
+  - ../.rubocop_base.yml
+  - .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 3.1
+  Exclude:
+    - "engines/evidence/spec/dummy/**/*"
+    - "engines/evidence/lib/generators/**/*"
+    - "node_modules/**/*"
+    - "client/node_modules/**/*"
+
+Layout/ArrayAlignment:
+  Enabled: true
+  Exclude:
+    - script/map_concepts_to_activities_across_apps.rb
+
+Layout/MultilineHashBraceLayout:
+  Enabled: true
+  Exclude:
+    - spec/services/google_integration/classroom/parsers/students_spec.rb
+
+Layout/HeredocIndentation:
+  Enabled: true
+  Exclude:
+    - lib/tasks/merge_duplicate_clever_accounts.rake
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: true
+  AllowedMethods:
+    - change
+    - not_change
+
+Lint/AssignmentInCondition:
+  Enabled: true
+  Exclude:
+    - app/models/user.rb
+    - bin/spring"
+
+Lint/DuplicateMethods:
+  Exclude:
+    - app/models/concerns/teacher.rb
+    - app/services/create_lessons_token.rb
+    - app/controllers/api/v1/incorrect_sequences_controller.rb
+
+Lint/PercentStringArray:
+  Exclude:
+    - config/initializers/secure_headers.rb
+
+Metrics/AbcSize:
+  Exclude:
+    - app/services/demo/create_admin_report.rb:20:11
+
+Metrics/ClassLength:
+  Exclude:
+    - app/controllers/pages_controller.rb
+
+Metrics/ModuleLength:
+  Enabled: true
+  Max: 448
+  Exclude:
+    - app/models/concerns/teacher.rb
+    - app/helpers/pages_helper.rb
+    - engines/evidence/spec/controllers/evidence/rules_controller_spec.rb
+
+Metrics/ParameterLists:
+  Enabled: true
+  Max: 7
+  Exclude:
+    - app/controllers/cms/users_controller.rb
+    - app/queries/scorebook/query.rb
+    - app/services/google_integration/client.rb
+
+Naming/AccessorMethodName:
+  Enabled: true
+  Exclude:
+    - app/models/concerns/teacher.rb
+    - app/models/subscription.rb
+    - app/controllers/api/v1/focus_points_controller.rb
+    - app/controllers/api/v1/incorrect_sequences_controller.rb
+    - app/controllers/api/v1/questions_controller.rb
+
+Naming/FileName:
+  Enabled: true
+  Exclude:
+    - config/initializers/rack-attack.rb
+
+Naming/MethodName:
+  Enabled: true
+  Exclude:
+    - app/serializers/lesson_planner/unit_serializer.rb
+
+Rails/TimeZone:
+  Enabled: true
+  Exclude:
+    - spec/models/firebase_app_spec.rb
+
+Style/ClassEqualityComparison:
+  Enabled: true
+  Exclude:
+    - app/helpers/navigation_helper.rb
+
+Style/ClassVars:
+  Enabled: true
+  Exclude:
+    - app/queries/dashboard.rb
+    - app/services/associators/students_to_classrooms.rb
+    - app/services/quill_clever.rb
+
+Style/FormatStringToken:
+  Enabled: true
+  Exclude:
+    - config/routes.rb
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  SafeAutoCorrect: true
+  Include:
+    - "**/*"
+
+Style/HashTransformKeys:
+  Enabled: true
+  Exclude:
+    - app/helpers/segmentio_helper.rb
+
+Style/IdenticalConditionalBranches:
+  Exclude:
+    - app/controllers/sessions_controller.rb
+
+Style/IfInsideElse:
+  Enabled: true
+  Exclude:
+    - app/controllers/profiles_controller.rb
+    - app/models/concerns/public_progress_reports.rb
+
+Style/MixinUsage:
+  Enabled: true
+  Exclude:
+    - app/models/concerns/lessons_recommendations.rb
+    - db/seeds.rb
+    - spec/controllers/concerns/teacher_fixes_spec.rb
+    - spec/workers/fast_assign_worker_spec.rb
+
+Style/RedundantCapitalW:
+  Enabled: true
+  Exclude:
+    - config/initializers/sentry.rb
+
+Style/RedundantInterpolation:
+  Enabled: true
+  Exclude:
+    - config/routes.rb
+    - spec/cypress/app_commands/factory_bot.rb
+
+Style/RescueModifier:
+  Exclude:
+    - db/migrate/20140916143956_make_username_downcase.rb

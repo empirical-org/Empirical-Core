@@ -58,7 +58,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { s
     cardContent = (<React.Fragment>
       <div className="percentage-circles">
         <div>
-          <span className="percentage-circle-label">Pre proficient</span>
+          <span className="percentage-circle-label">Pre score</span>
           <PercentageCircle
             bgcolor="#ebebeb"
             borderWidth={8}
@@ -69,7 +69,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { s
           />
         </div>
         <div>
-          <span className="percentage-circle-label">Post proficient</span>
+          <span className="percentage-circle-label">Post score</span>
           <PercentageCircle
             bgcolor="#ebebeb"
             borderWidth={8}
@@ -141,7 +141,7 @@ export const GrowthResults = ({ activityName, passedStudentResults, passedSkillG
     return(
       <section className="lower-header-section">
         <span className="activity-name">{`${activityDisplayedName}:`}</span>
-        {renderGrowthElement(classwideGrowthDisplayedAverage, 'Class-wide skill growth', false)}
+        {renderGrowthElement(classwideGrowthDisplayedAverage, 'Average class-wide growth across all skills', false)}
       </section>
     )
   }

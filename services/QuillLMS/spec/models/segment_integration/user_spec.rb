@@ -58,6 +58,8 @@ RSpec.describe SegmentIntegration::User do
 
     describe '#school_params' do
       it 'returns the expected params hash' do
+        admin.school = schools.first
+
         total_teachers_at_school = 2
         total_students_at_school = 40
         total_activities_completed_by_students_at_school = 400

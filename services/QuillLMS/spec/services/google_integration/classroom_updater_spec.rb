@@ -96,7 +96,7 @@ module GoogleIntegration
       end
 
       context 'teacher owns other classrooms with names other_name1, ... other_name_[max]' do
-        let(:max) { ::DuplicateNameResolver::MAX_BEFORE_RANDOMIZED }
+        let(:max) { ::ValidNameBuilder::MAX_BEFORE_RANDOMIZED }
 
         before do
           2.upto(max) do |n|

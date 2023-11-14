@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class PasswordResetController < ApplicationController
-
   before_action :set_title
 
   def index
@@ -16,7 +15,7 @@ class PasswordResetController < ApplicationController
         render json: { message: 'Oops! You have a Clever account. Log in that way instead.', type: 'email' }, status: 401
       else
         user.refresh_token!
-        user.unlink_google_account! if user.teacher?
+        unlink_teacher_or_admin_google_account(user)
         UserMailer.password_reset_email(user).deliver_now!
         flash[:notice] = 'We sent you an email with instructions on how to reset your password.'
         flash.keep(:notice)
@@ -51,4 +50,11 @@ class PasswordResetController < ApplicationController
     @title = "Password Reset"
   end
 
+  private def unlink_teacher_or_admin_google_account(user)
+    return unless user.google_id
+    return unless user.teacher? || user.admin?
+
+    Analytics::SegmentAnalytics.new.track_google_teacher_set_password(user)
+    user.unlink_google_account!
+  end
 end

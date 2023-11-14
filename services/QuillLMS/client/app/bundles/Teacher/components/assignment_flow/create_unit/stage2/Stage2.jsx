@@ -7,7 +7,8 @@ import OverrideWarningModal from './overrideWarningModal';
 import ReviewActivities from './review_activities';
 import SkipRecommendationsWarningModal from './skipRecommendationsWarningModal';
 
-import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
+import { ButtonLoadingSpinner, } from '../../../../../Shared/index'
+;
 import ScrollToTop from '../../../shared/scroll_to_top';
 import { postTestClassAssignmentLockedMessages, } from '../../assignmentFlowConstants';
 import AssignmentFlowNavigation from '../../assignment_flow_navigation';
@@ -26,7 +27,7 @@ export class Stage2 extends React.Component {
   assignButton() {
     const { loading, } = this.state
     return loading
-      ? <button className={`${this.determineAssignButtonClass()} pull-right`} id="assign" type="button">Assigning... <ButtonLoadingIndicator /></button>
+      ? <button className={`${this.determineAssignButtonClass()} pull-right`} id="assign" type="button">Assigning... <ButtonLoadingSpinner /></button>
       : <button className={`${this.determineAssignButtonClass()} pull-right`} id="assign" onClick={this.handleClickAssign} type="button">Assign pack to classes</button>;
   }
 

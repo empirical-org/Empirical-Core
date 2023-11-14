@@ -1,14 +1,5 @@
 import { DIRECTIONS, } from '../components/studentView/promptStep'
 
-
-export const ATTEMPTS_TO_SCORE = {
-  1: 1.0,
-  2: 0.75,
-  3: 0.5,
-  4: 0.25,
-  5: 0.0
-}
-
 export const generateConceptResults = (currentActivity, submittedResponses, topicOptimalData) => {
   const conjunctionToQuestionNumber = {
     because: 1,
@@ -29,7 +20,7 @@ export const generateConceptResults = (currentActivity, submittedResponses, topi
         directions: (attempt == 1) ? DIRECTIONS : responses[index - 1].feedback,
         prompt: prompt.text,
         questionNumber: conjunctionToQuestionNumber[prompt.conjunction],
-        questionScore: ATTEMPTS_TO_SCORE[responses.length],
+        questionScore: responses.some((r) => r.optimal) ? 1.0 : 0.0
       }
 
       if (topicOptimalData && topicOptimalData.rule_types.includes(response.feedback_type)) {

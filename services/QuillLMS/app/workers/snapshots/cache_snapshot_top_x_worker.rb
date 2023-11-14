@@ -34,13 +34,19 @@ module Snapshots
       filter_hash = PayloadHasher.run([
         query,
         timeframe['name'],
+        timeframe['custom_start'],
+        timeframe['custom_end'],
         school_ids,
         filters['grades'],
         filters['teacher_ids'],
         filters['classroom_ids']
       ].flatten)
 
-      SendPusherMessageWorker.perform_async(user_id, PUSHER_EVENT, filter_hash)
+      SendPusherMessageWorker.perform_async(user_id, pusher_event_name(query), filter_hash)
+    end
+
+    private def pusher_event_name(query)
+      "#{PUSHER_EVENT}:#{query}"
     end
 
     private def cache_expiry

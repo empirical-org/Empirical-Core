@@ -20,7 +20,8 @@ SecureHeaders::Configuration.default do |config|
       "https://*.youtube.com",
       "https://*.amazonaws.com",
       "https://*.loom.com",
-      "https://*.salesmate.io"
+      "https://*.salesmate.io",
+      "https://td.doubleclick.net/"
     ],
 
     object_src: %w('none'),                                       # addresses <embed>, <object>, and <applet>
@@ -129,7 +130,8 @@ SecureHeaders::Configuration.default do |config|
       "http://localhost:3100",
       "ws://localhost:3200",
       "https://checkout.stripe.com",
-      "https://capture-api.ap3prod.com"
+      "https://capture-api.ap3prod.com",
+      "https://pagead2.googlesyndication.com/"
     ]
   }
 
