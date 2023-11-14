@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AdminDiagnosticReportsController < ApplicationController
+  CACHE_REPORT_NAME = 'admin-diagnostic-overview'
   WORKERS_FOR_ACTIONS = {
     "report" => AdminDiagnosticReports::DiagnosticOverviewWorker
   }
@@ -71,7 +72,8 @@ class AdminDiagnosticReportsController < ApplicationController
 
   private def cache_key_for_timeframe(timeframe_name, timeframe_start, timeframe_end)
 
-    Snapshots::CacheKeys.generate_key(@query,
+    Snapshots::CacheKeys.generate_key(CACHE_REPORT_NAME,
+      @query,
       timeframe_name,
       timeframe_start,
       timeframe_end,

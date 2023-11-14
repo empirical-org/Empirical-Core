@@ -46,6 +46,7 @@ describe AdminDiagnosticReportsController, type: :controller do
 
       it do
         expect(Snapshots::CacheKeys).to receive(:generate_key).with(
+          described_class::CACHE_REPORT_NAME,
           query,
           timeframe_name,
           current_start,
