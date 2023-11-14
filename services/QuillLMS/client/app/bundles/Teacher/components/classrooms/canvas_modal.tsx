@@ -37,18 +37,17 @@ const HOW_TO_IMPORT_CANVAS_CLASSES_HREF = "https://support.quill.org/en/articles
 
 const TEACHER_LACKS_PREMIUM_EMAIL_HREF = "mailto:?subject=Can you help unlock Quill's Canvas integration?&body=Hi [Insert Your Administrator’s Name],%0D%0A%0D%0AI've been digging into the Canvas integration in Quill, and it seems like a fantastic tool for our teaching needs. To tap into its full potential, we'd need a School Premium or District Premium subscription.%0D%0A%0D%0AFor more details on Quill's premium offerings, they have a page listing the benefits and pricing here: https://www.quill.org/premium.%0D%0A%0D%0AIf you're curious about how Quill’s Canvas integration works, you can learn more here: https://support.quill.org/en/articles/8337988-how-do-i-set-up-the-canvas-integration-for-my-school-district-for-canvas-quill-administrators.%0D%0A%0D%0AI'd appreciate it if you would consider reaching out to Quill at sales@quill.org to discuss the possibility of upgrading our subscription. This could open up some exciting opportunities for us.%0D%0A%0D%0AThank you for your time and consideration.%0D%0A%0D%0ABest regards,%0D%0A%0D%0A[Insert Your Name]"
 
-const TEACHER_LACKS_SCHOOL_CANVAS_EMAIL_HREF = "mailto:?subject=Can you help set up Quill's Canvas integration?&body=Hi [Insert Your Administrator’s Name],%0D%0A%0D%0AI've been digging into the Canvas integration in Quill, and it seems like a fantastic tool for our teaching needs. The good news is that the integration is already unlocked because we have a School or District Premium subscription. I just need an administrator’s help to set it up.%0D%0A%0D%0AYou can view Quill’s instructions on how to set up the Canvas integration here: https://support.quill.org/en/articles/8337988-how-do-i-set-up-the-canvas-integration-for-my-school-district-for-canvas-quill-administrators%0D%0A%0D%0AThank you for your time and consideration.%0D%0A%0D%0ABest regards,%0D%0A%0D%0A[Insert Your Name]"
+const TEACHER_LACKS_SCHOOL_CANVAS_EMAIL_HREF = "mailto:?subject=Can you help set up Quill's Canvas integration?&body=Hi [Insert Your Administrator’s Name],%0D%0A%0D%0AI've been digging into the Canvas integration in Quill, and it seems like a fantastic tool for our teaching needs. The good news is that the integration is already unlocked because we have a subscription. I just need an administrator’s help to set it up.%0D%0A%0D%0AYou can view Quill’s instructions on how to set up the Canvas integration here: https://support.quill.org/en/articles/8337988-how-do-i-set-up-the-canvas-integration-for-my-school-district-for-canvas-quill-administrators%0D%0A%0D%0AThank you for your time and consideration.%0D%0A%0D%0ABest regards,%0D%0A%0D%0A[Insert Your Name]"
 
 const canvasStates = {
   [TEACHER_LACKS_RELEVANT_PREMIUM]: {
     header: UNLOCK_CANVAS_WITH_SCHOOL_OR_DISTRICT_PREMIUM,
-    paragraphCopy: 'Looking to streamline your teaching process with Quill’s Canvas integration? Subscribe to School or District Premium* to:',
+    paragraphCopy: 'Looking to streamline your teaching process with Quill’s Canvas integration? Subscribe to School or District Premium to:',
     checklistItems: [
       SEAMLESSLY_IMPORT_YOUR_CANVAS_ROSTERS,,
       AUTOMATICALLY_CREATE_AND_SYNC_CANVAS_STUDENT_ACCOUNTS,
       ACCESS_A_HOST_OF_OTHER_PREMIUM_BENEFITS
     ],
-    asterisk: <p className="asterisk">* The Canvas integration is not included in the Teacher Premium subscription.</p>,
     buttons: [
       <a className={PRIMARY_BUTTON_STYLE} href={RELATIVE_PREMIUM_HREF} key={EXPLORE_PREMIUM} rel="noopener noreferrer" target="_blank">{EXPLORE_PREMIUM}</a>,
       <a className={PRIMARY_BUTTON_STYLE} href={TEACHER_LACKS_PREMIUM_EMAIL_HREF} key={CONTACT_YOUR_ADMINISTRATOR}>{CONTACT_YOUR_ADMINISTRATOR}</a>,
@@ -56,7 +55,7 @@ const canvasStates = {
   },
   [TEACHER_LACKS_SCHOOL_CANVAS]: {
     header: 'Contact your administrator to unlock Canvas',
-    paragraphCopy: 'Looking to streamline your teaching process with Quill’s Canvas integration? Great news! Your School or District Premium subscription gives you access to the integration. The next step is for your administrator to set it up. Once they have done so, you’ll be able\u00A0to:',
+    paragraphCopy: 'Looking to streamline your teaching process with Quill’s Canvas integration? Great news! Your subscription gives you access to the integration. The next step is for your administrator to set it up. Once they have done so, you’ll be able\u00A0to:',
     checklistItems: [
       SEAMLESSLY_IMPORT_YOUR_CANVAS_ROSTERS,,
       AUTOMATICALLY_CREATE_AND_SYNC_CANVAS_STUDENT_ACCOUNTS,
@@ -68,7 +67,7 @@ const canvasStates = {
   },
   [TEACHER_LACKS_INDIVIDUAL_CANVAS]: {
     header: ONE_STEP_AWAY_FROM_USING_CANVAS,
-    paragraphCopy: 'Looking to streamline your teaching process with Quill’s Canvas integration? Great news! Your School or District Premium subscription gives you access to the integration and it has been set up by an administrator for your school. The last step is for you to log in to Quill via your Canvas account. Once you have done so, you’ll be able\u00A0to:',
+    paragraphCopy: 'Looking to streamline your teaching process with Quill’s Canvas integration? Great news! Your subscription gives you access to the integration and it has been set up by an administrator for your school. The last step is for you to log in to Quill via your Canvas account. Once you have done so, you’ll be able\u00A0to:',
     checklistItems: [
       SEAMLESSLY_IMPORT_YOUR_CANVAS_ROSTERS,,
       AUTOMATICALLY_CREATE_AND_SYNC_CANVAS_STUDENT_ACCOUNTS,
@@ -92,7 +91,7 @@ const canvasStates = {
   },
   [ADMIN_LACKS_SCHOOL_CANVAS]: {
     header: 'Get started with Canvas',
-    paragraphCopy: 'Looking to streamline your school’s teaching process with Quill’s Canvas integration? Great news! Your School or District Premium subscription gives you access to the integration. The next step is to set it up. This will allow teachers at your school or district to:',
+    paragraphCopy: 'Looking to streamline your school’s teaching process with Quill’s Canvas integration? Great news! Your subscription gives you access to the integration. The next step is to set it up. This will allow teachers at your school or district to:',
     checklistItems: [
       SEAMLESSLY_IMPORT_THEIR_CANVAS_ROSTERS,
       AUTOMATICALLY_CREATE_AND_SYNC_CANVAS_STUDENT_ACCOUNTS,
@@ -104,7 +103,7 @@ const canvasStates = {
   },
   [ADMIN_LACKS_INDIVIDUAL_CANVAS]: {
     header: ONE_STEP_AWAY_FROM_USING_CANVAS,
-    paragraphCopy: 'Looking to streamline your teaching process with Quill’s Canvas integration? Great news! Your School or District Premium subscription gives you access to the integration and it has been set up by you or another administrator for your school. The last step is for you to log in to Quill via your Canvas account. Once you have done so, you’ll be able\u00A0to:',
+    paragraphCopy: 'Looking to streamline your teaching process with Quill’s Canvas integration? Great news! Your subscription gives you access to the integration and it has been set up by you or another administrator for your school. The last step is for you to log in to Quill via your Canvas account. Once you have done so, you’ll be able\u00A0to:',
     checklistItems: [
       SEAMLESSLY_IMPORT_YOUR_CANVAS_ROSTERS,,
       AUTOMATICALLY_CREATE_AND_SYNC_CANVAS_STUDENT_ACCOUNTS,
@@ -157,7 +156,6 @@ const CanvasModal = ({ close, user }: CanvasModalProps) => {
             <li key={checklistItem}>{circleCheckImg}{checklistItem}</li>
           ))}
         </ul>
-        {canvasStates[canvasState].asterisk}
         <div className="form-buttons">
           <button
             className="quill-button outlined secondary medium focus-on-light"

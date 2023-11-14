@@ -19,7 +19,7 @@ exports[`CanvasModal renders correctly for ADMIN_LACKS_INDIVIDUAL_CANVAS 1`] = `
         </h3>
       </div>
       <p>
-        Looking to streamline your teaching process with Quill’s Canvas integration? Great news! Your School or District Premium subscription gives you access to the integration and it has been set up by you or another administrator for your school. The last step is for you to log in to Quill via your Canvas account. Once you have done so, you’ll be able to:
+        Looking to streamline your teaching process with Quill’s Canvas integration? Great news! Your subscription gives you access to the integration and it has been set up by you or another administrator for your school. The last step is for you to log in to Quill via your Canvas account. Once you have done so, you’ll be able to:
       </p>
       <ul>
         <li>
@@ -162,7 +162,7 @@ exports[`CanvasModal renders correctly for ADMIN_LACKS_SCHOOL_CANVAS 1`] = `
         </h3>
       </div>
       <p>
-        Looking to streamline your school’s teaching process with Quill’s Canvas integration? Great news! Your School or District Premium subscription gives you access to the integration. The next step is to set it up. This will allow teachers at your school or district to:
+        Looking to streamline your school’s teaching process with Quill’s Canvas integration? Great news! Your subscription gives you access to the integration. The next step is to set it up. This will allow teachers at your school or district to:
       </p>
       <ul>
         <li>
@@ -234,7 +234,7 @@ exports[`CanvasModal renders correctly for TEACHER_LACKS_INDIVIDUAL_CANVAS 1`] =
         </h3>
       </div>
       <p>
-        Looking to streamline your teaching process with Quill’s Canvas integration? Great news! Your School or District Premium subscription gives you access to the integration and it has been set up by an administrator for your school. The last step is for you to log in to Quill via your Canvas account. Once you have done so, you’ll be able to:
+        Looking to streamline your teaching process with Quill’s Canvas integration? Great news! Your subscription gives you access to the integration and it has been set up by an administrator for your school. The last step is for you to log in to Quill via your Canvas account. Once you have done so, you’ll be able to:
       </p>
       <ul>
         <li>
@@ -298,7 +298,7 @@ exports[`CanvasModal renders correctly for TEACHER_LACKS_RELEVANT_PREMIUM 1`] = 
         </h3>
       </div>
       <p>
-        Looking to streamline your teaching process with Quill’s Canvas integration? Subscribe to School or District Premium* to:
+        Looking to streamline your teaching process with Quill’s Canvas integration? Subscribe to School or District Premium to:
       </p>
       <ul>
         <li>
@@ -323,11 +323,6 @@ exports[`CanvasModal renders correctly for TEACHER_LACKS_RELEVANT_PREMIUM 1`] = 
           Access a host of other premium benefits, including priority technical support, enhanced reporting, and assistance from our professional learning team.
         </li>
       </ul>
-      <p
-        class="asterisk"
-      >
-        * The Canvas integration is not included in the Teacher Premium subscription.
-      </p>
       <div
         class="form-buttons"
       >
@@ -380,7 +375,7 @@ exports[`CanvasModal renders correctly for TEACHER_LACKS_SCHOOL_CANVAS 1`] = `
         </h3>
       </div>
       <p>
-        Looking to streamline your teaching process with Quill’s Canvas integration? Great news! Your School or District Premium subscription gives you access to the integration. The next step is for your administrator to set it up. Once they have done so, you’ll be able to:
+        Looking to streamline your teaching process with Quill’s Canvas integration? Great news! Your subscription gives you access to the integration. The next step is for your administrator to set it up. Once they have done so, you’ll be able to:
       </p>
       <ul>
         <li>
@@ -420,7 +415,7 @@ exports[`CanvasModal renders correctly for TEACHER_LACKS_SCHOOL_CANVAS 1`] = `
           </a>
           <a
             class="quill-button contained primary medium focus-on-light"
-            href="mailto:?subject=Can you help set up Quill's Canvas integration?&body=Hi [Insert Your Administrator’s Name],%0D%0A%0D%0AI've been digging into the Canvas integration in Quill, and it seems like a fantastic tool for our teaching needs. The good news is that the integration is already unlocked because we have a School or District Premium subscription. I just need an administrator’s help to set it up.%0D%0A%0D%0AYou can view Quill’s instructions on how to set up the Canvas integration here: https://support.quill.org/en/articles/8337988-how-do-i-set-up-the-canvas-integration-for-my-school-district-for-canvas-quill-administrators%0D%0A%0D%0AThank you for your time and consideration.%0D%0A%0D%0ABest regards,%0D%0A%0D%0A[Insert Your Name]"
+            href="mailto:?subject=Can you help set up Quill's Canvas integration?&body=Hi [Insert Your Administrator’s Name],%0D%0A%0D%0AI've been digging into the Canvas integration in Quill, and it seems like a fantastic tool for our teaching needs. The good news is that the integration is already unlocked because we have a subscription. I just need an administrator’s help to set it up.%0D%0A%0D%0AYou can view Quill’s instructions on how to set up the Canvas integration here: https://support.quill.org/en/articles/8337988-how-do-i-set-up-the-canvas-integration-for-my-school-district-for-canvas-quill-administrators%0D%0A%0D%0AThank you for your time and consideration.%0D%0A%0D%0ABest regards,%0D%0A%0D%0A[Insert Your Name]"
           >
             Contact your administrator
           </a>

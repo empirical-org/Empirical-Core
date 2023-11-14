@@ -29,7 +29,7 @@ const Banner = ({ bodyText, headerText, buttons, }) => (
   </section>
 )
 
-const PremiumHubContainer = ({ id, location, children, }) => {
+const PremiumHubContainer = ({ id, location, children, user, }) => {
   const [adminInfo, setAdminInfo] = React.useState({})
   const [loading, setLoading] = React.useState(true)
 
@@ -124,7 +124,8 @@ const PremiumHubContainer = ({ id, location, children, }) => {
 
   const sharedProps = {
     adminInfo,
-    accessType: accessType()
+    accessType: accessType(),
+    user
   }
 
   return (
