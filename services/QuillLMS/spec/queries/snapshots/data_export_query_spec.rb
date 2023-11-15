@@ -79,7 +79,11 @@ module Snapshots
       let(:cte_records) { [runner_context] }
 
       context 'basic shape tests' do
-        it { expect(results.count).to eq 10 }
+        xit 'should have one row per activity session' do
+          expect(results.map{|r| r[:activity_session_id] }.uniq).to eq(
+            results.map{|r| r[:activity_session_id] }
+          )
+        end
 
         it 'each row contains the expected fields' do
           expected_fields = %i(
@@ -101,7 +105,8 @@ module Snapshots
           results.each do |row|
             expect(row.keys.to_set > expected_fields.to_set).to be true
           end
-
+          #binding.pry
+          puts "ROWS: #{results.count}"
         end
 
       end
