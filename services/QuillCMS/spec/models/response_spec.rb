@@ -5,18 +5,18 @@ RSpec.describe Response do
     it "after_create_commit calls #create_index_in_elastic_search and #wipe_question_cache" do
       response = Response.new()
       expect(response).to receive(:create_index_in_elastic_search)
-      expect(response).to receive(:wipe_question_cache)
+      expect(response).to receive(:conditional_wipe_question_cache)
       response.save
     end
 
-    it "after_update_commit calls #update_index_in_elastic_search" do
+    it "after_update_commit calls #update_index_in_elastic_search and #conditional_wipe_question_cache" do
       response = Response.create()
       expect(response).to receive(:update_index_in_elastic_search)
-      expect(response).to receive(:wipe_question_cache)
+      expect(response).to receive(:conditional_wipe_question_cache)
       response.update(text: 'covfefe')
     end
 
-    it "after_update_commit calls #destroy_index_in_elastic_search" do
+    it "before_destroy calls #destroy_index_in_elastic_search and #wipe_question_cache" do
       response = Response.create()
       expect(response).to receive(:destroy_index_in_elastic_search)
       expect(response).to receive(:wipe_question_cache)
@@ -62,5 +62,40 @@ RSpec.describe Response do
       expect(Rails.cache.read(cache_key)).to be_nil
     end
   end
+
+  describe '#conditional_wipe_question_cache' do
+  let(:response) { Response.create() }
+
+  context 'when non-count attributes are updated' do
+    it 'calls wipe_question_cache' do
+      expect(response).to receive(:wipe_question_cache)
+      response.update(text: 'new text')
+    end
+  end
+
+  context 'when both count and non-count attributes are updated' do
+    it 'calls wipe_question_cache' do
+      expect(response).to receive(:wipe_question_cache)
+      response.update(text: 'new text', count: 10)
+    end
+  end
+
+  context 'when only count, child_count, or first_attempt_count are updated' do
+    it 'does not call wipe_question_cache when count is updated' do
+      expect(response).not_to receive(:wipe_question_cache)
+      response.update(count: 5)
+    end
+
+    it 'does not call wipe_question_cache when child_count is updated' do
+      expect(response).not_to receive(:wipe_question_cache)
+      response.update(child_count: 3)
+    end
+
+    it 'does not call wipe_question_cache when first_attempt_count is updated' do
+      expect(response).not_to receive(:wipe_question_cache)
+      response.update(first_attempt_count: 2)
+    end
+  end
+end
 
 end
