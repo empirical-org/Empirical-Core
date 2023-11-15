@@ -57,7 +57,7 @@ RSpec.describe Response do
       expect do
         response = Response.create(question_uid: question_uid)
         response.wipe_question_cache
-      end.to change(Rails.cache.read(cache_key)).from('cached content').to(nil)
+      end.to change { Rails.cache.read(cache_key) }.from('cached content').to(nil)
     end
   end
 
