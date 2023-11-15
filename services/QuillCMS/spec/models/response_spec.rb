@@ -64,7 +64,7 @@ RSpec.describe Response do
   end
 
   describe '#conditional_wipe_question_cache' do
-  let(:response) { Response.create() }
+  let!(:response) { Response.create() }
 
   context 'when non-count attributes are updated' do
     it 'calls wipe_question_cache' do
