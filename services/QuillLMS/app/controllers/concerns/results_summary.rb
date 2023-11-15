@@ -21,7 +21,10 @@ module ResultsSummary
 
     {
       student_results: student_results,
-      skill_group_summaries: @skill_group_summaries
+      skill_group_summaries: @skill_group_summaries,
+      activity_id: activity_id,
+      classroom_id: classroom_id,
+      unit_id: unit_id
     }
   end
 
