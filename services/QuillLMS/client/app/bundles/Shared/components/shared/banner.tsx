@@ -12,9 +12,9 @@ interface BannerProps {
     src: string
   },
   buttons: {
-    className: string,
     onClick?: () => void,
     href?: string,
+    standardButtonStyle: boolean,
     text: string,
     target?: string
   }[],
@@ -33,12 +33,12 @@ export const Banner = ({ tagText, primaryHeaderText, secondaryHeaderText, bodyTe
         <p className="body">{bodyText}</p>
         <div className="buttons-container">
           {buttons.map(button => {
-            const { className, onClick, href, text, target } = button
-            const showArrow = className === "nonstandard-banner-button"
+            const { onClick, href, standardButtonStyle, text, target } = button
+            const buttonClass = standardButtonStyle ? "quill-button fun primary contained" : "nonstandard-banner-button"
             if(button.onClick) {
-              return <button className={className} onClick={onClick}>{text}</button>
+              return <button className={`${buttonClass} focus-on-light`} onClick={onClick}>{text}</button>
             } else {
-              return <a className={className} href={href} rel="noopener noreferrer" target={target}>{text} {showArrow && <img alt={arrowPointingRightIcon.alt} src={arrowPointingRightIcon.src} />}</a>
+              return <a className={`${buttonClass} focus-on-light`} href={href} rel="noopener noreferrer" target={target}>{text} {!standardButtonStyle && <img alt={arrowPointingRightIcon.alt} src={arrowPointingRightIcon.src} />}</a>
             }
           })}
         </div>

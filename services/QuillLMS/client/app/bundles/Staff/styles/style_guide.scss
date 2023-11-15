@@ -133,6 +133,15 @@
       justify-content: flex-start;
       min-height: 64px;
     }
+    .premium-options-container {
+      .radio-options {
+        display: flex;
+        align-items: baseline;
+        .radio:first-of-type {
+          margin-right: 8px;
+        }
+      }
+    }
   }
 }
 
