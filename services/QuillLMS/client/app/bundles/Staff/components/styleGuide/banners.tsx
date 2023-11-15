@@ -41,10 +41,8 @@ const Banners = () => {
           {
             `
   <Banner
-    tagText="new"
-    primaryHeaderText="Start of a new school year?"
+    bannerStyle="${colorOption.value}"
     bodyText="Quickly archive last year's classes."
-    icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg" }}
     buttons={[
       {
         href: "",
@@ -53,7 +51,9 @@ const Banners = () => {
         target: "_blank"
       }
     ]}
-    bannerStyle="${colorOption.value}"
+    icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg" }}
+    primaryHeaderText="Start of a new school year?"
+    tagText="new"
   />
             `
           }
@@ -67,10 +67,8 @@ const Banners = () => {
           value={colorOption}
         />
         <Banner
-          tagText="new"
-          primaryHeaderText="Start of a new school year?"
+          bannerStyle={colorOption.value}
           bodyText="Quickly archive last year's classes."
-          icon={{ alt: "Image of a school building", src: `https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg` }}
           buttons={[
             {
               href: "",
@@ -79,7 +77,9 @@ const Banners = () => {
               target: "_blank"
             }
           ]}
-          bannerStyle={colorOption.value}
+          icon={{ alt: "Image of a school building", src: `https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg` }}
+          primaryHeaderText="Start of a new school year?"
+          tagText="new"
         />
       </div>
       <div className="element-container">
@@ -88,11 +88,8 @@ const Banners = () => {
           {
             `
   <Banner
-    tagText="new tool"
-    primaryHeaderText="Provide reading texts that enable students to write with evidence"
-    secondaryHeaderText="Quill Reading for Evidence"
+    bannerStyle="${colorOption.value}"
     bodyText="Quickly archive last year's classes."
-    icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg" }}
     buttons={[
       {
         href: "",
@@ -119,7 +116,10 @@ const Banners = () => {
         target: "_blank"
       },
     ]}
-    bannerStyle="${colorOption.value}"
+    icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg" }}
+    primaryHeaderText="Provide reading texts that enable students to write with evidence"
+    secondaryHeaderText="Quill Reading for Evidence"
+    tagText="new tool"
   />
             `
           }
@@ -133,11 +133,8 @@ const Banners = () => {
           value={colorOption}
         />
         <Banner
-          tagText="new tool"
-          primaryHeaderText="Provide reading texts that enable students to write with evidence"
-          secondaryHeaderText="Quill Reading for Evidence"
+          bannerStyle={colorOption.value}
           bodyText="Quickly archive last year's classes."
-          icon={{ alt: "Image of a school building", src: `https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg` }}
           buttons={[
             {
               href: "",
@@ -164,7 +161,10 @@ const Banners = () => {
               target: "_blank"
             },
           ]}
-          bannerStyle={colorOption.value}
+          icon={{ alt: "Image of a school building", src: `https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg` }}
+          primaryHeaderText="Provide reading texts that enable students to write with evidence"
+          secondaryHeaderText="Quill Reading for Evidence"
+          tagText="new tool"
         />
       </div>
       <div className="element-container">
@@ -173,10 +173,8 @@ const Banners = () => {
           {
             `
   <Banner
-    tagText="new"
-    primaryHeaderText="Start of a new school year?"
+    bannerStyle="${premiumStyle}"
     bodyText="Quickly archive last year's classes."
-    icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/banners/${premiumStyle}-large.svg" }}
     buttons={[
       {
         className: "nonstandard-banner-button",
@@ -185,7 +183,9 @@ const Banners = () => {
         target: "_blank"
       }
     ]}
-    bannerStyle="${premiumStyle}"
+    icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/banners/${premiumStyle}-large.svg" }}
+    primaryHeaderText="Start of a new school year?"
+    tagText="new"
   />
             `
           }
@@ -208,9 +208,8 @@ const Banners = () => {
           </div>
         </div>
         <Banner
-          primaryHeaderText="Learn More About Quill Premium"
+          bannerStyle={premiumStyle}
           bodyText="Premium subscriptions for schools and districts interested in priority technical support, additional reporting, and support from Quill's professional learning team--plus an option for individual teachers"
-          icon={{ alt: "Image of a school building", src: `https://assets.quill.org/images/banners/${premiumStyle}-large.svg` }}
           buttons={[
             {
               href: "",
@@ -219,7 +218,8 @@ const Banners = () => {
               target: "_blank"
             }
           ]}
-          bannerStyle={premiumStyle}
+          icon={{ alt: "Image of a school building", src: `https://assets.quill.org/images/banners/${premiumStyle}-large.svg` }}
+          primaryHeaderText="Learn More About Quill Premium"
         />
       </div>
     </div>
