@@ -3,9 +3,9 @@ require 'elasticsearch/model'
 class Response < ApplicationRecord
   include Elasticsearch::Model
   include ResponseScopes
-  after_create_commit :create_index_in_elastic_search
-  after_update_commit :update_index_in_elastic_search
-  before_destroy :destroy_index_in_elastic_search
+  after_create_commit :create_index_in_elastic_search, :wipe_question_cache
+  after_update_commit :update_index_in_elastic_search, :wipe_question_cache
+  before_destroy :destroy_index_in_elastic_search, :wipe_question_cache
 
   validates :question_uid, uniqueness: { scope: :text }
 
@@ -75,6 +75,10 @@ class Response < ApplicationRecord
 
   def destroy_index_in_elastic_search
     __elasticsearch__.delete_document
+  end
+
+  def wipe_question_cache
+    Rails.cache.delete(questions_cache_key(question_uid))
   end
 
   def self.questions_cache_key(question_uid)

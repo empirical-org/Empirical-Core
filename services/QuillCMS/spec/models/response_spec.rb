@@ -2,21 +2,24 @@ require "rails_helper"
 
 RSpec.describe Response do
   context "ActiveRecord callbacks" do
-    it "after_create_commit calls #create_index_in_elastic_search" do
+    it "after_create_commit calls #create_index_in_elastic_search and #wipe_question_cache" do
       response = Response.new()
       expect(response).to receive(:create_index_in_elastic_search)
+      expect(response).to receive(:wipe_question_cache)
       response.save
     end
 
     it "after_update_commit calls #update_index_in_elastic_search" do
       response = Response.create()
       expect(response).to receive(:update_index_in_elastic_search)
+      expect(response).to receive(:wipe_question_cache)
       response.update(text: 'covfefe')
     end
 
     it "after_update_commit calls #destroy_index_in_elastic_search" do
       response = Response.create()
       expect(response).to receive(:destroy_index_in_elastic_search)
+      expect(response).to receive(:wipe_question_cache)
       response.destroy
     end
 
@@ -41,4 +44,23 @@ RSpec.describe Response do
       expect(new_response.valid?).to be true
     end
   end
+
+  describe '#wipe_question_cache' do
+    let(:question_uid) { 'some-unique-uid' }
+    let(:cache_key) { Response.questions_cache_key(question_uid) }
+
+    before do
+      Rails.cache.write(cache_key, 'cached content')
+    end
+
+    it 'clears the cache for the given question UID' do
+      expect(Rails.cache.read(cache_key)).to eq('cached content')
+
+      response = Response.create(question_uid: question_uid)
+      response.wipe_question_cache
+
+      expect(Rails.cache.read(cache_key)).to be_nil
+    end
+  end
+
 end
