@@ -10,8 +10,14 @@ RSpec.describe PdfFileBuilder do
   let(:pdf_file_builder) { described_class.new(data, template) }
   let(:pdf_string) { 'PDF content' }
 
+  before do
+    allow(WickedPdf)
+      .to receive(:new)
+      .and_return(double(pdf_from_string: pdf_string))
+  end
+
   describe '#run' do
-    it { expect(subject).to be_a(Tempfile) }
+    it { expect(subject).to be_a Tempfile }
     it { expect(subject.read).to eq pdf_string }
   end
 end
