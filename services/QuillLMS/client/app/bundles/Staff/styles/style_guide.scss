@@ -7,6 +7,7 @@
   font-variant-numeric: tabular-nums;
   overflow: scroll;
   height: 100%;
+  margin-bottom: 24px;
 }
 
 .style-guide {
@@ -80,7 +81,7 @@
   }
 
   .sliders-container {
-    margin: 20px 0px;
+    margin: 20px 0px 20px 8px;
     .slider-container {
       width: 160px;
     }
@@ -122,6 +123,17 @@
 
 .short {
   height: 200px;
+}
+
+#banners {
+  .element-container {
+    .color-options-dropdown {
+      max-width: 200px;
+      margin-top: 16px;
+      justify-content: flex-start;
+      min-height: 64px;
+    }
+  }
 }
 
 #color-palette {

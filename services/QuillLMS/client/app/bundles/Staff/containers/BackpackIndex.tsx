@@ -1,11 +1,12 @@
 import * as React from 'react'
 
-import ColorPalette from '../components/styleGuide/colorPalette'
+import Banners from '../components/styleGuide/banners'
 import Buttons from '../components/styleGuide/buttons'
 import Cards from '../components/styleGuide/cards'
+import ColorPalette from '../components/styleGuide/colorPalette'
 import DataTables from '../components/styleGuide/dataTables'
-import Menus from '../components/styleGuide/menus'
 import DropdownInputsWithSearchTokens from '../components/styleGuide/dropdownInputsWithSearchTokens'
+import Menus from '../components/styleGuide/menus'
 import Sliders from '../components/styleGuide/sliders'
 import Snackbars from '../components/styleGuide/snackbars'
 import TextFields from '../components/styleGuide/textFields'
@@ -43,6 +44,7 @@ export default class BackpackIndex extends React.Component {
             {this.renderLink('#tooltips', 'Tooltips')}
             {this.renderLink('#data-tables', 'Data Tables')}
             {this.renderLink('#sliders', 'Sliders')}
+            {this.renderLink('#banners', 'Banners')}
           </ul>
         </aside>
         <div className="style-guide">
@@ -59,6 +61,7 @@ export default class BackpackIndex extends React.Component {
           <Tooltips />
           <DataTables />
           <Sliders />
+          <Banners />
         </div>
       </div>
     )

@@ -1,0 +1,127 @@
+.banner-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 8px;
+  .left-side-container {
+    .upper-section {
+      margin-bottom: 8px;
+      .tag {
+        color: $quill-white;
+        width: max-content;
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 9px;
+        font-weight: 700;
+        margin: 0;
+        text-transform: uppercase;
+      }
+    }
+    .primary-header {
+      color: $quill-grey-90;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 26px;
+      margin-bottom: 8px;
+    }
+    .body {
+      color: $quill-grey-50;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+    }
+    .buttons-container {
+      margin-top: 24px;
+      .nonstandard-banner-button {
+        color: $quill-grey-50;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 20px;
+        margin-right: 5px;
+        text-decoration: none;
+        &:hover {
+        }
+      }
+    }
+  }
+  &.green {
+    background-color: $quill-green-1;
+    border: 1px solid $quill-green-20;
+    .tag {
+      background-color: $quill-green;
+    }
+  }
+  &.gold {
+    background-color: $quill-gold-dark-1;
+    border: 1px solid $quill-gold;
+    .tag {
+      background-color: $quill-gold-dark-50;
+    }
+  }
+  &.viridian {
+    background-color: $quill-viridian-1;
+    border: 1px solid $quill-viridian-20;
+
+    .tag {
+      background-color: $quill-viridian;
+    }
+  }
+  &.teal {
+    background-color: $quill-teal-1;
+    border: 1px solid $quill-teal-20;
+
+    .tag {
+      background-color: $quill-teal;
+    }
+  }
+  &.blue {
+    background-color: $quill-blue-1;
+    border: 1px solid $quill-blue-20;
+
+    .tag {
+      background-color: $quill-blue;
+    }
+  }
+  &.purple {
+    background-color: $quill-purple-1;
+    border: 1px solid $quill-purple-20;
+
+    .tag {
+      background-color: $quill-purple;
+    }
+  }
+  &.violet {
+    background-color: $quill-violet-1;
+    border: 1px solid $quill-violet-20;
+
+    .tag {
+      background-color: $quill-violet;
+    }
+  }
+  &.red {
+    background-color: $quill-red-1;
+    border: 1px solid $quill-red-20;
+
+    .tag {
+      background-color: $quill-red;
+    }
+  }
+  &.maroon {
+    background-color: $quill-maroon-1;
+    border: 1px solid $quill-maroon-20;
+
+    .tag {
+      background-color: $quill-maroon;
+    }
+  }
+  &.grey {
+    background-color: $quill-grey-1;
+    border: 1px solid $quill-grey-15;
+
+    .tag {
+      background-color: $quill-grey-50;
+    }
+  }
+}

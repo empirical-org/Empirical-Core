@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { arrowPointingRightIcon } from '../../images';
+
 interface BannerProps {
   tagText?: string,
   primaryHeaderText: string,
@@ -34,9 +36,9 @@ export const Banner = ({ tagText, primaryHeaderText, secondaryHeaderText, bodyTe
             const { className, onClick, href, text, target } = button
             const showArrow = className === "nonstandard-banner-button"
             if(button.onClick) {
-              return <button className={className} onClick={onClick}>{text}{showArrow && <img alt="arrow pointing right" className="arrow-icon" />}</button>
+              return <button className={className} onClick={onClick}>{text}</button>
             } else {
-              return <a className={className} href={href} rel="noopener noreferrer" target={target}>{text}</a>
+              return <a className={className} href={href} rel="noopener noreferrer" target={target}>{text} {showArrow && <img alt={arrowPointingRightIcon.alt} src={arrowPointingRightIcon.src} />}</a>
             }
           })}
         </div>
