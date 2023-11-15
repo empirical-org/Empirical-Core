@@ -44,6 +44,7 @@ module Evidence
     DEFAULT_SO_RULE_CONCEPT = "R3sBcYAvoXP2_oNVXiA98g"
     DEFAULT_SO_RULE_FEEDBACK = "Your response suggests a <i>so that</i> relationship, which explains a reason why something was done. Instead, use <i>so</i> to explain what happened as a result."
     DEFAULT_SO_RULE_REGEX = "^of"
+    DEFAULT_SO_RULE_HINT_ID = 657
 
     DEFAULT_REPEAT_STEM_RULE_NAME = "Repeating the stem"
     DEFAULT_REPEAT_STEM_RULE_CONCEPT = "Kr8PdUfXnU0L7RrGpY4uqg"
@@ -51,7 +52,6 @@ module Evidence
     before_destroy :expire_turking_rounds
     before_validation :set_parent_activity, on: :create
     after_save :update_parent_activity_name, if: :saved_change_to_title?
-    after_commit :create_default_regex_rules, on: :create
 
     has_many :passages, inverse_of: :activity, dependent: :destroy
     has_many :prompts, inverse_of: :activity, dependent: :destroy
@@ -149,7 +149,7 @@ module Evidence
     end
 
     def stem
-      because_prompt.text.gsub(' because', '')
+      because_prompt&.text&.gsub(' because', '') || ""
     end
 
     def because_prompt
@@ -192,7 +192,7 @@ module Evidence
             case_sensitive: false
           }
         ],
-        prompt_ids: [because_prompt.id]
+        prompt_ids: [because_prompt&.id]
       })
     end
 
@@ -218,8 +218,8 @@ module Evidence
             case_sensitive: false
           }
         ],
-        hint_id: 1,
-        prompt_ids: [so_prompt.id]
+        hint_id: DEFAULT_SO_RULE_HINT_ID,
+        prompt_ids: [so_prompt&.id]
       })
     end
 
@@ -245,7 +245,7 @@ module Evidence
             case_sensitive: false
           }
         ],
-        prompt_ids: [because_prompt.id, but_prompt.id, so_prompt.id]
+        prompt_ids: [because_prompt&.id, but_prompt&.id, so_prompt&.id]
       })
     end
 
