@@ -36,6 +36,28 @@ module AdminDiagnosticReports
       post_process(run_query)
     end
 
+    def run_query
+      runner.execute(union_query)
+    end
+
+    def union_query
+      <<-SQL
+        WITH aggregate_rows AS (#{query})
+        SELECT
+          diagnostic_id,
+          diagnostic_name,
+          NULL as aggregate_id,
+          'ROLLUP' AS name,
+          group_by,
+          #{rollup_aggregation_select},
+        FROM aggregate_rows
+        GROUP BY diagnostic_id, diagnostic_name, group_by
+        UNION ALL
+        SELECT *
+          FROM aggregate_rows
+      SQL
+    end
+
     def select_clause
       <<-SQL
         SELECT
@@ -43,6 +65,7 @@ module AdminDiagnosticReports
           activities.name AS diagnostic_name,
           #{aggregate_by_clause} AS aggregate_id,
           #{aggregate_sort_clause} AS name,
+          '#{additional_aggregation}' AS group_by,
           #{specific_select_clause}
       SQL
     end
@@ -100,20 +123,16 @@ module AdminDiagnosticReports
     end
 
     private def build_diagnostic_aggregates(diagnostic_rows)
-      {
-        id: diagnostic_rows.first[:diagnostic_id],
-        name: diagnostic_rows.first[:diagnostic_name],
-        group_by: additional_aggregation,
+      overview_row_index = diagnostic_rows.find_index { |row| row[:name] == 'ROLLUP' }
+      overview_row = diagnostic_rows.delete_at(overview_row_index)
+      overview_row.merge({
         aggregate_rows: process_aggregate_rows(diagnostic_rows)
-      }.merge(aggregate_diagnostic(diagnostic_rows))
+      })
     end
 
     private def process_aggregate_rows(diagnostic_rows)
       aggregate_sort(diagnostic_rows)
         .map do |row|
-          # we only need aggregate_id during the SQL grouping, and don't need to pass that value on
-          row.delete(:aggregate_id)
-
           # Make grade information more human-readable than simple integers
           next row unless grade_aggregation?
           next row.merge({name: "No grade selected"}) if row[:name].nil?
@@ -157,24 +176,22 @@ module AdminDiagnosticReports
       additional_aggregation == 'teacher'
     end
 
-    private def aggregate_diagnostic(diagnostic_rows)
+    private def rollup_aggregation_hash
       raise NotImplementedError
     end
 
-    # Used in `aggregate_diagnostic` implementations
-    private def roll_up_sum(rows, column)
-      rows.map { |row| row[column.to_sym] }.sum
+    private def rollup_aggregation_select
+      rollup_aggregation_hash.map do |column, aggregation_function|
+        aggregation_function.call(column)
+      end.join(", ")
     end
 
-    # Used in `aggregate_diagnostic` implementations
-    private def roll_up_average(rows, value_column, weight_column)
-      total_weighted_value, total_weight = rows.reduce([0, 0]) do |accumulator, row|
-        [
-          accumulator[0] + (row[value_column] * row[weight_column]),
-          accumulator[1] + row[weight_column]
-        ]
-      end
-      total_weighted_value.to_f / total_weight
+    private def sum_aggregate
+      -> (column) { "SUM(#{column}) AS #{column}" }
+    end
+
+    private def average_aggregate(weight_column)
+      -> (column) { "SUM(#{weight_column} * #{column}) / SUM(#{weight_column}) AS #{column}" }
     end
   end
 end

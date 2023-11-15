@@ -16,14 +16,15 @@ module QuillBigQuery
       <<-SQL
         WITH
           #{cte}
-        #{table_namespaces_removed_query(query)}
+        #{table_namespaces_and_with_removed_query(query)}
       SQL
     end
 
     # BigQuery doesn't support CTE aliases with period in the name.
     # So, we need to remove the 'lms.' and 'special.' prefixes from 'FROM' and 'JOIN' clauses
-    private def table_namespaces_removed_query(query)
-      query.gsub(/(FROM|JOIN)\s+(?:lms|special)\.(\w+)/, '\1 \2')
+    # We also are adding a WITH clause with the CTE, but we can't have two WITH clauses, so we need to swap any existing WITH from the query with a `,` to add it to the CTE with list at the end
+    private def table_namespaces_and_with_removed_query(query)
+      query.gsub(/(FROM|JOIN)\s+(?:lms|special)\.(\w+)/, '\1 \2').gsub('WITH', ', ')
     end
 
     private def cte

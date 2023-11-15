@@ -32,7 +32,7 @@ module AdminDiagnosticReports
         ]
       end
 
-      it { expect(results.first[:name]).to eq(pre_diagnostic.name) }
+      it { expect(results.first[:diagnostic_name]).to eq(pre_diagnostic.name) }
       it { expect(results.first[:aggregate_rows].map { |row| row[:name] }).to match_array(grade_names) }
       it { expect(results.first[:pre_students_completed]).to eq(activity_sessions.length) }
       it { expect(results.first[:pre_average_score]).to eq(1.0) }
