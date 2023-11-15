@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-class AdminReportPdfUploader < ApplicationUploader
-  FILENAME_PREFIX = 'ADMIN_REPORT_'
+class AdminSnapshotReportPdfUploader < ApplicationUploader
+  FILENAME_PREFIX = 'ADMIN_SNAPSHOT_REPORT_'
 
   fog_authenticated_url_expiration 7.days.to_i
   fog_directory ADMIN_REPORT_FOG_DIRECTORY
 
   attr_reader :admin_id
 
-  def initialize(model = nil, mounted_as = nil, admin_id:)
+  def initialize(admin_id:)
     @admin_id = admin_id
-    super(model, mounted_as)
+    super(nil, nil)
   end
 
   def filename
-    "ADMIN_REPORT_#{@admin_id}_#{date}_#{generate_token}.pdf"
+    "#{FILENAME_PREFIX}_#{@admin_id}_#{date}_#{generate_token}.pdf"
   end
 
   def fog_attributes
