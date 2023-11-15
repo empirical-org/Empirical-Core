@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Banner it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="banner-container green"
+  >
+    <div
+      class="left-side-container"
+    >
+      <div
+        class="upper-section"
+      >
+        <p
+          class="tag"
+        >
+          new
+        </p>
+      </div>
+      <p
+        class="primary-header"
+      >
+        Test header text
+      </p>
+      <p
+        class="body"
+      >
+        Test body text.
+      </p>
+      <div
+        class="buttons-container"
+      >
+        <a
+          class="quill-button fun primary contained focus-on-light"
+          href="www.test1.com"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Learn more 
+        </a>
+        <button
+          class="quill-button fun primary contained focus-on-light"
+        >
+          View activities
+        </button>
+        <a
+          class="nonstandard-banner-button focus-on-light"
+          href="www.test2.com"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          See tool demo 
+          <img
+            alt="Arrow pointing right icon"
+            src="undefined/images/icons/icons-arrow-back.svg"
+          />
+        </a>
+        <a
+          class="nonstandard-banner-button focus-on-light"
+          href="www.test3.com"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Get the Teacher Handbook 
+          <img
+            alt="Arrow pointing right icon"
+            src="undefined/images/icons/icons-arrow-back.svg"
+          />
+        </a>
+      </div>
+    </div>
+    <img
+      alt=""
+      class="banner-icon"
+      src=""
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Banner should render the buttons as expected 1`] = `
+<DocumentFragment>
+  <div
+    class="banner-container green"
+  >
+    <div
+      class="left-side-container"
+    >
+      <div
+        class="upper-section"
+      >
+        <p
+          class="tag"
+        >
+          new
+        </p>
+      </div>
+      <p
+        class="primary-header"
+      >
+        Test header text
+      </p>
+      <p
+        class="body"
+      >
+        Test body text.
+      </p>
+      <div
+        class="buttons-container"
+      >
+        <a
+          class="quill-button fun primary contained focus-on-light"
+          href="www.test1.com"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Learn more 
+        </a>
+        <button
+          class="quill-button fun primary contained focus-on-light"
+        >
+          View activities
+        </button>
+        <a
+          class="nonstandard-banner-button focus-on-light"
+          href="www.test2.com"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          See tool demo 
+          <img
+            alt="Arrow pointing right icon"
+            src="undefined/images/icons/icons-arrow-back.svg"
+          />
+        </a>
+        <a
+          class="nonstandard-banner-button focus-on-light"
+          href="www.test3.com"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Get the Teacher Handbook 
+          <img
+            alt="Arrow pointing right icon"
+            src="undefined/images/icons/icons-arrow-back.svg"
+          />
+        </a>
+      </div>
+    </div>
+    <img
+      alt=""
+      class="banner-icon"
+      src=""
+    />
+  </div>
+</DocumentFragment>
+`;
