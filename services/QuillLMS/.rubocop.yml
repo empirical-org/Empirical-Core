@@ -4,7 +4,6 @@ inherit_from:
 
 AllCops:
   TargetRubyVersion: 3.1
-  TargetRailsVersion: 7.1
   Exclude:
     - "engines/evidence/spec/dummy/**/*"
     - "engines/evidence/lib/generators/**/*"

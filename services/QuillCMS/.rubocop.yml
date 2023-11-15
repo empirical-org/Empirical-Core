@@ -4,7 +4,6 @@ inherit_from:
 
 AllCops:
   TargetRubyVersion: 3.2
-  TargetRailsVersion: 7.1
 
 Layout/ArrayAlignment:
   Enabled: true
