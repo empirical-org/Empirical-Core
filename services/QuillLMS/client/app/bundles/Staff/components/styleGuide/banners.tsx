@@ -30,6 +30,8 @@ const Banners = () => {
     setPremiumOption(e.target.value)
   }
 
+  const premiumStyle = premiumOption === DISTRICT_PREMIUM ? "district-premium" : "premium"
+
   return(
     <div id="banners">
       <h2 className="style-guide-h2">Banners</h2>
@@ -42,7 +44,7 @@ const Banners = () => {
     tagText="new"
     primaryHeaderText="Start of a new school year?"
     bodyText="Quickly archive last year's classes."
-    icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/accounts/school-building.svg" }}
+    icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg" }}
     buttons={[
       {
         href: "",
@@ -68,7 +70,7 @@ const Banners = () => {
           tagText="new"
           primaryHeaderText="Start of a new school year?"
           bodyText="Quickly archive last year's classes."
-          icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/accounts/school-building.svg" }}
+          icon={{ alt: "Image of a school building", src: `https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg` }}
           buttons={[
             {
               href: "",
@@ -90,7 +92,7 @@ const Banners = () => {
     primaryHeaderText="Provide reading texts that enable students to write with evidence"
     secondaryHeaderText="Quill Reading for Evidence"
     bodyText="Quickly archive last year's classes."
-    icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/accounts/school-building.svg" }}
+    icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg" }}
     buttons={[
       {
         href: "",
@@ -135,7 +137,7 @@ const Banners = () => {
           primaryHeaderText="Provide reading texts that enable students to write with evidence"
           secondaryHeaderText="Quill Reading for Evidence"
           bodyText="Quickly archive last year's classes."
-          icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/accounts/school-building.svg" }}
+          icon={{ alt: "Image of a school building", src: `https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg` }}
           buttons={[
             {
               href: "",
@@ -174,7 +176,7 @@ const Banners = () => {
     tagText="new"
     primaryHeaderText="Start of a new school year?"
     bodyText="Quickly archive last year's classes."
-    icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/accounts/school-building.svg" }}
+    icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/banners/${premiumStyle}-large.svg" }}
     buttons={[
       {
         className: "nonstandard-banner-button",
@@ -183,7 +185,7 @@ const Banners = () => {
         target: "_blank"
       }
     ]}
-    bannerStyle="${premiumOption === DISTRICT_PREMIUM ? "district-premium" : "premium"}"
+    bannerStyle="${premiumStyle}"
   />
             `
           }
@@ -207,8 +209,8 @@ const Banners = () => {
         </div>
         <Banner
           primaryHeaderText="Learn More About Quill Premium"
-          bodyText="Premium subscriptions for schools and districts interested in priority technical support, additional reporting, and support from Quill’s professional learning team--plus an option for individual teachers"
-          icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/accounts/school-building.svg" }}
+          bodyText="Premium subscriptions for schools and districts interested in priority technical support, additional reporting, and support from Quill's professional learning team--plus an option for individual teachers"
+          icon={{ alt: "Image of a school building", src: `https://assets.quill.org/images/banners/${premiumStyle}-large.svg` }}
           buttons={[
             {
               href: "",
@@ -217,7 +219,7 @@ const Banners = () => {
               target: "_blank"
             }
           ]}
-          bannerStyle={premiumOption === DISTRICT_PREMIUM ? "district-premium" : "premium"}
+          bannerStyle={premiumStyle}
         />
       </div>
     </div>
