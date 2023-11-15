@@ -100,7 +100,7 @@
     }
 
     .activity-name {
-      width: 40%;
+      max-width: 40%;
       a {
         color: $quill-grey-40;
         &.standard {color: #027360;}
@@ -202,6 +202,29 @@
     overflow-x: auto;
     .student-overview-table {
       width: max-content !important;
+    }
+  }
+}
+
+@media print {
+  #student-overview {
+    zoom: 85%;
+    .student-overview-table {
+      .activity-image, .activity-name {
+        padding-left: 0px;
+      }
+      .unit-name {
+        padding-left: 0px;
+      }
+      td, th {
+        padding-right: 8px;
+      }
+    }
+    .activity-image {
+      max-width: 0px;
+      .icon-wrapper {
+        display: none;
+      }
     }
   }
 }
