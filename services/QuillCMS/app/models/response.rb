@@ -78,7 +78,7 @@ class Response < ApplicationRecord
   end
 
   def wipe_question_cache
-    Rails.cache.delete(Response.questions_cache_key(question_uid))
+    Rails.cache.delete(::Response.questions_cache_key(question_uid))
   end
 
   def self.questions_cache_key(question_uid)
