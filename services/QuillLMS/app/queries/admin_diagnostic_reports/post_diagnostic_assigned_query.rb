@@ -24,9 +24,9 @@ module AdminDiagnosticReports
       "classroom_units.created_at"
     end
 
-    private def aggregate_diagnostic(rows)
+    private def rollup_aggregation_hash
       {
-        post_students_assigned: roll_up_sum(rows, :post_students_assigned)
+        post_students_assigned: sum_aggregate
       }
     end
   end

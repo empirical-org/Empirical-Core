@@ -9,10 +9,11 @@ module AdminDiagnosticReports
             diagnostic_name,
             aggregate_id,
             name,
+            group_by,
             COUNT(DISTINCT activity_session_id) AS post_students_completed,
-            SAFE_DIVIDE(SUM(CAST(optimal AS INT64)), CAST(COUNT(DISTINCT concept_result_id) AS FLOAT64)) AS average_score
+            SAFE_DIVIDE(SUM(CAST(optimal AS INT64)), CAST(COUNT(DISTINCT concept_result_id) AS FLOAT64)) AS post_average_score
           FROM (#{super})
-          GROUP BY diagnostic_id, diagnostic_name, aggregate_id, name
+          GROUP BY diagnostic_id, diagnostic_name, aggregate_id, name, group_by
       SQL
     end
 
@@ -45,10 +46,10 @@ module AdminDiagnosticReports
       "activity_sessions.completed_at"
     end
 
-    private def aggregate_diagnostic(rows)
+    private def rollup_aggregation_hash
       {
-        post_students_completed: roll_up_sum(rows, :post_students_completed),
-        post_average_score: roll_up_average(rows, :average_score, :post_students_completed)
+        post_students_completed: sum_aggregate,
+        post_average_score: average_aggregate(:post_students_completed)
       }
     end
   end

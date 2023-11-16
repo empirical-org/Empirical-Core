@@ -27,11 +27,11 @@ module AdminDiagnosticReports
       "activity_sessions.completed_at"
     end
 
-    private def aggregate_diagnostic(rows)
+    private def rollup_aggregation_hash
       {
-        students_completed_practice: roll_up_sum(rows, :students_completed_practice),
-        average_practice_activities_count: roll_up_average(rows, :average_practice_activities_count, :students_completed_practice),
-        average_time_spent_seconds: roll_up_average(rows, :average_time_spent_seconds, :students_completed_practice)
+        students_completed_practice: sum_aggregate,
+        average_practice_activities_count: average_aggregate(:students_completed_practice),
+        average_time_spent_seconds: average_aggregate(:students_completed_practice)
       }
     end
   end

@@ -28,10 +28,10 @@ module AdminDiagnosticReports
           "classroom_units.created_at"
         end
 
-        private def aggregate_diagnostic(rows)
+        private def rollup_aggregation_hash
           {
-            classroom_unit_count: roll_up_sum(rows, :classroom_unit_count),
-            average_classroom_units_per_teacher: roll_up_average(rows, :classroom_unit_count, :teacher_count)
+            classroom_unit_count: sum_aggregate,
+            teacher_count: average_aggregate(:classroom_unit_count)
           }
         end
       end
@@ -76,10 +76,9 @@ module AdminDiagnosticReports
     context 'external_api', :big_query_snapshot do
       it { expect(results.length).to be(activities.length) }
       it { expect(results.first[:group_by]).to eq(aggregation_arg) }
-      it { expect(results.first[:name]).to eq(pre_diagnostic.name) }
+      it { expect(results.first[:diagnostic_name]).to eq(pre_diagnostic.name) }
       it { expect(results.first[:classroom_unit_count]).to eq(classroom_units.length) }
-      it { expect(results.first[:average_classroom_units_per_teacher]).to eq(classroom_units.length / teachers.length) }
-      it { expect(results.first[:aggregate_rows].first.key?(:aggregate_id)).to be(false) }
+      it { expect(results.first[:teacher_count]).to eq(teachers.length / classroom_units.length) }
 
       context 'aggregate_rows ordering' do
         it { expect(results.first[:aggregate_rows].first[:name]).to eq('Kindergarten') }
@@ -91,15 +90,15 @@ module AdminDiagnosticReports
         let(:activities) { [pre_diagnostic, pre_diagnostic2] }
 
         it { expect(results.length).to be(activities.length) }
-        it { expect(results.first[:id]).to eq(pre_diagnostic.id) }
-        it { expect(results.last[:id]).to eq(pre_diagnostic2.id) }
+        it { expect(results.first[:diagnostic_id]).to eq(pre_diagnostic.id) }
+        it { expect(results.last[:diagnostic_id]).to eq(pre_diagnostic2.id) }
       end
 
       context 'activities not in DIAGNOSTIC_ORDER_BY_ID are ignored' do
         let(:non_diagnostic) { create(:activity, id: 1) }
         let(:activities) { [pre_diagnostic, non_diagnostic] }
 
-        it { expect(results.pluck(:id)).not_to include(non_diagnostic.id) }
+        it { expect(results.pluck(:diagnostic_id)).not_to include(non_diagnostic.id) }
       end
 
       context 'invalid aggregation arg' do
@@ -123,7 +122,7 @@ module AdminDiagnosticReports
 
       context 'aggregation by teacher' do
         let(:aggregation_arg) { 'teacher' }
-        let(:expected_teacher_name_order) { teachers.map(&:name).sort { |a, b| a.split.last <=> b.split.last } }
+        let(:expected_teacher_name_order) { teachers.map(&:name).sort_by { |teacher| teacher.split.last } }
 
         it { expect(results.first[:aggregate_rows].pluck(:name)).to eq(expected_teacher_name_order) }
 

@@ -144,28 +144,28 @@ module AdminDiagnosticReports
     end
 
     private def aggregate_sort(diagnostic_rows)
-      diagnostic_rows.sort do |a, b|
-        # nils are always at the end
-        next -1 if b[:name].nil?
-        next 1 if a[:name].nil?
-        next sort_grades(a[:name], b[:name]) if grade_aggregation?
-        next sort_teachers(a[:name], b[:name]) if teacher_aggregation?
+      diagnostic_rows.sort_by do |row|
+        next sort_grades(row[:name]) if grade_aggregation?
+        next sort_teachers(row[:name]) if teacher_aggregation?
 
-        a[:name] <=> b[:name]
+        row[:name]
       end
     end
 
-    private def sort_grades(first, second)
+    private def sort_grades(name)
       # If the grade isn't a number, or in the GRADE_INTEGERS hash, sort it to the end
-      return -1 if second.to_i == 0 && !Classroom::GRADE_INTEGERS.key?(second.to_sym)
-      return 1 if first.to_i == 0 && !Classroom::GRADE_INTEGERS.key?(first.to_sym)
+      last_grade = Classroom::GRADE_INTEGERS.values.max
+      # Nils always at the end
+      return last_grade + 2 if name.nil?
+      # Any other value before nils but after everything else
+      return last_grade + 1 if name.to_i == 0 && !Classroom::GRADE_INTEGERS.key?(name.to_sym)
 
-      Classroom::GRADE_INTEGERS.fetch(first.to_sym, first).to_i <=> Classroom::GRADE_INTEGERS.fetch(second.to_sym, second).to_i
+      Classroom::GRADE_INTEGERS.fetch(name.to_sym, name).to_i
     end
 
-    private def sort_teachers(first, second)
+    private def sort_teachers(name)
       # Not totally pleased with this as a sorting method, but it's what we do elsewhere for name sorting
-      first.split.last <=> second.split.last
+      name.split.last
     end
 
     private def grade_aggregation?
