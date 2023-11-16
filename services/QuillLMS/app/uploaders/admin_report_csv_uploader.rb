@@ -15,7 +15,7 @@ class AdminReportCsvUploader < ApplicationUploader
   end
 
   def filename
-    "ADMIN_REPORT_#{@admin_id}_#{date}_#{generate_token}.csv"
+    "#{FILENAME_PREFIX}_REPORT_#{@admin_id}_#{date}_#{generate_token}.csv"
   end
 
   def fog_attributes
