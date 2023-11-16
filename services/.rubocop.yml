@@ -316,6 +316,7 @@ Metrics/ModuleLength:
     - "QuillLMS/app/models/concerns/teacher.rb"
     - "QuillLMS/app/helpers/pages_helper.rb"
     - "QuillLMS/engines/evidence/spec/controllers/evidence/rules_controller_spec.rb"
+    - "QuillLMS/engines/evidence/spec/controllers/evidence/activities_controller_spec.rb"
 
 Metrics/ParameterLists:
   Enabled: true
