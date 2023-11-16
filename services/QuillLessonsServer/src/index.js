@@ -506,9 +506,13 @@ r.connect(dbConfig, (err, connection) => {
 
         client.on('deleteClassroomLesson', (data) => {
           console.log("received delete classroom lesson");
+          console.log("data is...");
+          console.log(data);
           nrTrack('deleteClassroomLesson', data, () => {
             authorizeRole(adminRoles, data, authToken, client, () => {
-              console.log("role is authorized")
+              console.log("role is authorized");
+              console.log("data in role is");
+              console.log(data);
               deleteClassroomLesson({ ...adaptors, ...data });
             });
           });
