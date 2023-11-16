@@ -38,13 +38,12 @@
   .progress-reports-2018 {
     padding-top: 0px;
     padding-bottom: 0px;
-    .meta-overview, .dropdown-container {
+    .meta-overview p, .dropdown-container {
       display: none;
     }
 
     > .student-name {
       display: block;
-      padding: 1rem;
     }
     .rt-tr {
       display: flex;
@@ -59,6 +58,10 @@
         display: none;
       }
     }
+  }
+
+  .gray-background-accommodate-footer, .white-background-accommodate-footer {
+    padding-bottom: 0px;
   }
 
 }
