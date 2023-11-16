@@ -62,7 +62,7 @@ const PremiumHubContainer = ({ id, location, children, }) => {
 
     if (accessType() === FULL || accessType() === LOADING) { return <span /> }
 
-    if (accessType() === LIMITED) {
+    if (accessType() === LIMITED && !location.pathname.includes('integrations')) {
       return (
         <Banner
           bodyText="Subscribe to School or District Premium to unlock all Premium Hub features. Manage teacher accounts, access teacher reports, and view school-wide student data."
