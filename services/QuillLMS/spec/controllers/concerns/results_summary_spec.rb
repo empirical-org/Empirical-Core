@@ -27,6 +27,9 @@ describe ResultsSummary do
   describe '#results_summary' do
     it 'should return data with the student results and skill group summaries' do
       expect(results_summary(unit_activity.activity_id, classroom.id, nil)).to eq({
+        activity_id: unit_activity.activity_id,
+        classroom_id: classroom.id,
+        unit_id: nil,
         skill_group_summaries: [
           {
             name: skill_group_activity.skill_group.name,
