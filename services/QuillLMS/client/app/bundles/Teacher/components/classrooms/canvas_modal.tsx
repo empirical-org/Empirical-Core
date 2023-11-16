@@ -50,7 +50,7 @@ const canvasStates = {
     ],
     buttons: [
       <a className={PRIMARY_BUTTON_STYLE} href={RELATIVE_PREMIUM_HREF} key={EXPLORE_PREMIUM} rel="noopener noreferrer" target="_blank">{EXPLORE_PREMIUM}</a>,
-      <a className={PRIMARY_BUTTON_STYLE} href={TEACHER_LACKS_PREMIUM_EMAIL_HREF} key={CONTACT_YOUR_ADMINISTRATOR}>{CONTACT_YOUR_ADMINISTRATOR}</a>,
+      <a className={PRIMARY_BUTTON_STYLE} href={TEACHER_LACKS_PREMIUM_EMAIL_HREF} key={CONTACT_YOUR_ADMINISTRATOR} rel="noopener noreferrer" target="_blank">{CONTACT_YOUR_ADMINISTRATOR}</a>,
     ]
   },
   [TEACHER_LACKS_SCHOOL_CANVAS]: {
@@ -62,7 +62,7 @@ const canvasStates = {
     ],
     buttons: [
       <a className={PRIMARY_BUTTON_STYLE} href={HOW_TO_IMPORT_CANVAS_CLASSES_HREF} key={LEARN_MORE} rel="noopener noreferrer" target="_blank">{LEARN_MORE}</a>,
-      <a className={PRIMARY_BUTTON_STYLE} href={TEACHER_LACKS_SCHOOL_CANVAS_EMAIL_HREF} key={CONTACT_YOUR_ADMINISTRATOR}>{CONTACT_YOUR_ADMINISTRATOR}</a>,
+      <a className={PRIMARY_BUTTON_STYLE} href={TEACHER_LACKS_SCHOOL_CANVAS_EMAIL_HREF} key={CONTACT_YOUR_ADMINISTRATOR} rel="noopener noreferrer" target="_blank">{CONTACT_YOUR_ADMINISTRATOR}</a>,
     ]
   },
   [TEACHER_LACKS_INDIVIDUAL_CANVAS]: {
