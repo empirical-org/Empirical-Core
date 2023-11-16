@@ -220,3 +220,28 @@
     }
   }
 }
+
+@media print {
+  .activities-scores-by-classroom, .concepts-overview, .standards-all-classrooms, .individual-standard {
+    table {
+      width: 100%;
+    }
+    td, th {
+      width: 20% !important;
+    }
+  }
+
+  .concept-student-concepts, .individual-student {
+    table, .ReactTable {
+      width: 100%;
+      page-break-inside: unset !important;
+    }
+    td, th {
+      width: 18% !important;
+    }
+  }
+
+  .standards-all-classrooms, .individual-student {
+    zoom: 90%;
+  }
+}

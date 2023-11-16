@@ -180,7 +180,7 @@ export default class ConceptsStudentsProgressReport extends React.Component {
     const selectedClassroom = dropdownClassrooms.find(c => String(c.id) === String(selectedClassroomId))
 
     return (
-      <div className='progress-reports-2018'>
+      <div className='progress-reports-2018 concepts-overview'>
         <div className="meta-overview flex-row space-between">
           <div className='header-and-info'>
             <h1>Concept Results</h1>
