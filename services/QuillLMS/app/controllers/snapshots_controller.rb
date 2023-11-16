@@ -126,6 +126,7 @@ class SnapshotsController < ApplicationController
   private def all_sorted_teacher_options
     User
       .teachers_in_schools(school_options.pluck(:id))
+      .where(classrooms_teachers: {role: ClassroomsTeacher::ROLE_TYPES[:owner]})
       .sort_by(&:last_name)
   end
 
