@@ -6,6 +6,7 @@ import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import LandingPage from './landing.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
 import PlaySentenceFragment from './sentenceFragment.jsx';
+import FinishedTurkDiagnostic from '../turk/finishedDiagnostic'
 
 import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
@@ -36,6 +37,7 @@ import { getParameterByName } from '../../libs/getParameterByName';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
 
 const TITLE_CARD_TYPE = "TL"
+const TURK = 'turk'
 
 // TODO: triage issue with missing title cards. Currently, we have to dipatch data from this.questionsForLesson() to the loadData action in
 // three different places to ensure that preview mode always works: componentDidMount, onSpinnerMount & startActivity. Without these three calls,
@@ -118,6 +120,11 @@ export class StudentDiagnostic extends React.Component {
 
     if (currentQuestion.type === TITLE_CARD_TYPE) { return `title_card_${finishedTitleCards.length + 1}`}
     if (currentQuestion.type !== TITLE_CARD_TYPE) { return `prompt_${finishedQuestions.length + 1}`}
+  }
+
+  isTurkSession = () => {
+    const { match, } = this.props
+    return match.path.includes(TURK)
   }
 
   resetTimers = (e=null) => {
@@ -210,7 +217,7 @@ export class StudentDiagnostic extends React.Component {
         data
       },
       (body) => {
-        document.location.href = process.env.DEFAULT_URL;
+        if (!this.isTurkSession()) { document.location.href = process.env.DEFAULT_URL; }
         this.setState({ saved: true, });
       },
       (body) => {
@@ -233,7 +240,7 @@ export class StudentDiagnostic extends React.Component {
         data
       },
       (body) => {
-        document.location.href = process.env.DEFAULT_URL;
+        if (!this.isTurkSession()) { document.location.href = process.env.DEFAULT_URL; }
         this.setState({ saved: true, });
       }
     )
@@ -408,7 +415,7 @@ export class StudentDiagnostic extends React.Component {
   }
 
   render() {
-    const { playDiagnostic, dispatch, previewMode, isOnMobile, handleTogglePreview } = this.props
+    const { playDiagnostic, dispatch, previewMode, isOnMobile, handleTogglePreview, match, } = this.props
     const { error, saved, } = this.state
     let component;
 
@@ -476,11 +483,17 @@ export class StudentDiagnostic extends React.Component {
         );
       }
     } else if (playDiagnostic.answeredQuestions.length > 0 && playDiagnostic.unansweredQuestions.length === 0) {
-      component = (<FinishedDiagnostic
-        error={error}
-        saved={saved}
-        saveToLMS={this.saveToLMS}
-      />);
+      component = this.isTurkSession() ? (
+        <FinishedTurkDiagnostic
+          error={error}
+          saved={saved}
+          saveToLMS={this.saveToLMS}
+        />
+      ) : (
+        <FinishedDiagnostic
+          saveToLMS={this.saveToLMS}
+        />
+      );
     } else {
       component = (<LandingPage
         begin={this.startActivity}
@@ -493,7 +506,7 @@ export class StudentDiagnostic extends React.Component {
     return (
       <div>
         <section className="section is-fullheight minus-nav student">
-          {isOnMobile && !studentSession && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreview} />}
+          {isOnMobile && !studentSession && !this.isTurkSession() && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreview} />}
           {this.renderProgressBar()}
           <div className="student-container student-container-diagnostic">
             <CarouselAnimation>
