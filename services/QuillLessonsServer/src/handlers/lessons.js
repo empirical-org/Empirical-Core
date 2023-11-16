@@ -59,6 +59,8 @@ export function deleteClassroomLesson({
   connection,
   activityId
 }) {
+  console.log("deleting classroom lesson from database")
+  console.log(activityId)
   r.table('classroom_lessons')
     .filter({id: activityId})
     .delete()
