@@ -349,7 +349,8 @@ describe SnapshotsController, type: :controller do
     let(:target_grade) { '1' }
     let(:teacher) { create(:teacher, school: school) }
     let(:classroom) { create(:classroom, grade: target_grade) }
-    let!(:classrooms_teacher) { create(:classrooms_teacher, user: teacher, classroom: classroom, role: 'owner') }
+    let(:teacher_role) { ClassroomsTeacher::ROLE_TYPES[:owner] }
+    let!(:classrooms_teacher) { create(:classrooms_teacher, user: teacher, classroom: classroom, role: teacher_role) }
 
     context "#options with initial load" do
       let(:initial_load) { 'true' }
@@ -429,7 +430,19 @@ describe SnapshotsController, type: :controller do
 
       it do
         subject
-        expect(json_response['teachers']).to eq([{"id" => teacher.id, "name" => teacher.name}])
+        expect(json_response['teachers']).to eq([])
+      end
+    end
+
+    context 'teachers who are coteachers' do
+      subject { get :options }
+
+      let(:json_response) { JSON.parse(response.body) }
+      let(:teacher_role) { ClassroomsTeacher::ROLE_TYPES[:coteacher] }
+
+      it do
+        subject
+        expect(json_response['teachers']).to eq([])
       end
     end
 

@@ -116,6 +116,7 @@ class SnapshotsController < ApplicationController
     grades = option_params[:grades]&.map { |i| Utils::String.parse_null_to_nil(i) }
 
     teachers = User.teachers_in_schools(filtered_schools.pluck(:id))
+      .where(classrooms_teachers: {role: ClassroomsTeacher::ROLE_TYPES[:owner]})
 
     return teachers.where(classrooms: {grade: grades}) if grades.present?
 
