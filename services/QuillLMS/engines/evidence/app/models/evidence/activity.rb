@@ -37,17 +37,17 @@ module Evidence
 
     DEFAULT_BECAUSE_RULE_NAME = "Match with \"because of\" responses"
     DEFAULT_BECAUSE_RULE_CONCEPT = "6gQZPREURQQAaSzpIt_EEw"
-    DEFAULT_BECAUSE_RULE_FEEDBACK = "Revise your work. Instead of starting your response with the word of, start with a person, place or thing."
+    DEFAULT_BECAUSE_RULE_FEEDBACK = "Revise your work. Instead of starting your response with the word <i>of</i>, start with a person, place or thing."
     DEFAULT_BECAUSE_RULE_REGEX = "^of"
 
     DEFAULT_SO_RULE_NAME = "Match with \"so that\" responses"
     DEFAULT_SO_RULE_CONCEPT = "R3sBcYAvoXP2_oNVXiA98g"
     DEFAULT_SO_RULE_FEEDBACK = "Your response suggests a <i>so that</i> relationship, which explains a reason why something was done. Instead, use <i>so</i> to explain what happened as a result."
-    DEFAULT_SO_RULE_REGEX = "^of"
+    DEFAULT_SO_RULE_REGEX = "^that(?!('s | is why))"
     DEFAULT_SO_RULE_HINT_ID = 657
 
     DEFAULT_REPEAT_STEM_RULE_NAME = "Repeating the stem"
-    DEFAULT_REPEAT_STEM_RULE_CONCEPT = "Kr8PdUfXnU0L7RrGpY4uqg"
+    DEFAULT_REPEAT_STEM_RULE_CONCEPT = "N5VXCdTAs91gP46gATuvPQ"
 
     before_destroy :expire_turking_rounds
     before_validation :set_parent_activity, on: :create
@@ -234,7 +234,7 @@ module Evidence
         state: Evidence::Rule::STATE_ACTIVE,
         feedbacks_attributes: [
           {
-            text: "Revise your work. You don't need to repeate \"#{stem}\" before writing your response.",
+            text: "Revise your work. You don't need to repeat \"#{stem}\" before writing your response.",
             order: 0
           }
         ],
