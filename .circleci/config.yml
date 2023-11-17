@@ -1,5 +1,37 @@
 version: 2
 jobs:
+  lms_node_build:
+    working_directory: ~/Empirical-Core
+    parallelism: 3
+    docker:
+      - image: circleci/node:fermium
+    steps:
+      - checkout
+      - run:
+          name: Install npm 8
+          command: |
+            sudo npm install npm@8.19.2 -g
+
+      - restore_cache:
+          keys:
+            - npm-cache-lms-client-v8-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+            - npm-cache-lms-client-v8-{{ checksum "services/QuillLMS/client/package.json" }}-
+            - npm-cache-lms-client-v8-
+      - run:
+          name: Install NPM dependencies
+          command: |
+            cd services/QuillLMS/client
+            npm install
+      - save_cache:
+          key: npm-cache-lms-client-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+          paths:
+            - services/QuillLMS/client/node_modules
+      - run:
+          name: Run LMS Frontend Tests
+          command: |
+            cd services/QuillLMS/client
+            TESTFILES=$(circleci tests glob "app/**/*.test.*" | circleci tests split)
+            node --expose-gc ./node_modules/.bin/jest $TESTFILES --maxWorkers=2 --logHeapUsage
   lms_rails_build:
     working_directory: ~/Empirical-Core
     parallelism: 6
@@ -211,38 +243,6 @@ jobs:
             bin/rspec --tag big_query_snapshot
           environment:
             SUPPRESS_PUTS: "true"
-  lms_node_build:
-    working_directory: ~/Empirical-Core
-    parallelism: 3
-    docker:
-      - image: circleci/node:fermium
-    steps:
-      - checkout
-      - run:
-          name: Install npm 8
-          command: |
-            sudo npm install npm@8.19.2 -g
-
-      - restore_cache:
-          keys:
-            - npm-cache-lms-client-v8-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-            - npm-cache-lms-client-v8-{{ checksum "services/QuillLMS/client/package.json" }}-
-            - npm-cache-lms-client-v8-
-      - run:
-          name: Install NPM dependencies
-          command: |
-            cd services/QuillLMS/client
-            npm install
-      - save_cache:
-          key: npm-cache-lms-client-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-          paths:
-            - services/QuillLMS/client/node_modules
-      - run:
-          name: Run LMS Frontend Tests
-          command: |
-            cd services/QuillLMS/client
-            TESTFILES=$(circleci tests glob "app/**/*.test.*" | circleci tests split)
-            node --expose-gc ./node_modules/.bin/jest $TESTFILES --maxWorkers=2 --logHeapUsage
   cms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
