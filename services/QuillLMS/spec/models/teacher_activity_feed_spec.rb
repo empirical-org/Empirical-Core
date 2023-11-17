@@ -189,15 +189,15 @@ describe TeacherActivityFeed, type: :model do
 
     context 'when the timestamp was more than one week ago' do
       it 'should return the written out date if this calendar year' do
-        completed_at = Time.parse('2021-01-01')
-        now = Time.parse('2021-01-08')
+        completed_at = Time.zone.parse('2021-01-01')
+        now = Time.zone.parse('2021-01-08')
 
         expect(feed.send(:text_for_completed, completed_at, now)).to eq(completed_at.strftime("%b #{completed_at.day.ordinalize}"))
       end
 
       it 'should return the written out date if with year if not this calendar year' do
-        completed_at = Time.parse('2020-12-31')
-        now = Time.parse('2021-01-07')
+        completed_at = Time.zone.parse('2020-12-31')
+        now = Time.zone.parse('2021-01-07')
 
         expect(feed.send(:text_for_completed, completed_at, now)).to eq(completed_at.strftime("%b #{completed_at.day.ordinalize}, %Y"))
       end
@@ -205,7 +205,7 @@ describe TeacherActivityFeed, type: :model do
 
     context 'when the timestamp was a different calendar year' do
       it 'should return the written out date' do
-        completed_at = Time.parse('2019-12-31')
+        completed_at = Time.zone.parse('2019-12-31')
         expect(feed.send(:text_for_completed, completed_at)).to eq(completed_at.strftime("%b #{completed_at.day.ordinalize}, %Y"))
       end
     end

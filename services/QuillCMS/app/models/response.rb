@@ -5,7 +5,8 @@ class Response < ApplicationRecord
   include ResponseScopes
   after_create_commit :create_index_in_elastic_search
   after_update_commit :update_index_in_elastic_search
-  before_destroy :destroy_index_in_elastic_search
+  after_commit :conditional_wipe_question_cache, on: [:create, :update]
+  before_destroy :destroy_index_in_elastic_search, :wipe_question_cache
 
   validates :question_uid, uniqueness: { scope: :text }
 
@@ -75,6 +76,16 @@ class Response < ApplicationRecord
 
   def destroy_index_in_elastic_search
     __elasticsearch__.delete_document
+  end
+
+  def conditional_wipe_question_cache
+    unless (saved_changes.keys - ['count', 'child_count', 'first_attempt_count', 'updated_at', 'created_at']).empty?
+      wipe_question_cache
+    end
+  end
+
+  def wipe_question_cache
+    Rails.cache.delete(self.class.questions_cache_key(question_uid))
   end
 
   def self.questions_cache_key(question_uid)

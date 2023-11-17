@@ -333,6 +333,16 @@ module Evidence
         expect(rule.id).to(eq(parsed_response[0]["id"]))
       end
 
+      it 'should filter rule by rule_type' do
+        grammar_rule = create(:evidence_rule, :rule_type => (Rule::TYPE_GRAMMAR), :prompts => ([prompt]))
+        automl_rule = create(:evidence_rule, :rule_type => (Rule::TYPE_AUTOML), :prompts => ([prompt]))
+        get(:rules, :params => ({ :id => activity.id, :rule_type => (Rule::TYPE_GRAMMAR) }))
+        parsed_response = JSON.parse(response.body)
+        expect(response.code.to_i).to(eq(200))
+        expect(parsed_response.size).to eq(1)
+        expect(grammar_rule.id).to(eq(parsed_response[0]["id"]))
+      end
+
       it 'should return feedbacks and highlights associated with the rules' do
         get(:rules, :params => ({ :id => activity.id }))
         parsed_response = JSON.parse(response.body)
