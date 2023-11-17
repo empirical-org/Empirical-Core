@@ -446,6 +446,19 @@ describe SnapshotsController, type: :controller do
       end
     end
 
+    context 'teachers who are both an owner and a coteacher' do
+      subject { get :options }
+
+      let(:json_response) { JSON.parse(response.body) }
+      let(:coteacher_classroom) { create(:classroom, grade: target_grade) }
+      let!(:coteacher_classrooms_teacher) { create(:classrooms_teacher, user: teacher, classroom: coteacher_classroom, role: ClassroomsTeacher::ROLE_TYPES[:coteacher]) }
+
+      it do
+        subject
+        expect(json_response['teachers']).to eq([{"id" => teacher.id, "name" => teacher.name}])
+      end
+    end
+
     it 'should return a list of all classrooms and their ids tied to the current_user' do
       get :options
 
