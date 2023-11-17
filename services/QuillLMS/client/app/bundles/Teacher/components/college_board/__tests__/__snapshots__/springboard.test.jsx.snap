@@ -762,6 +762,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
           >
             <ExpandableUnit
               isFirst={true}
+              key="Unit 1: Telling Details"
               learningCycles={
                 Array [
                   Object {
@@ -1092,6 +1093,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
             </ExpandableUnit>
             <ExpandableUnit
               isFirst={false}
+              key="Unit 2: Pivotal Words and Phrases"
               learningCycles={
                 Array [
                   Object {
@@ -1422,6 +1424,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
             </ExpandableUnit>
             <ExpandableUnit
               isFirst={false}
+              key="Unit 3: Compelling Evidence"
               learningCycles={
                 Array [
                   Object {
@@ -1752,6 +1755,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
             </ExpandableUnit>
             <ExpandableUnit
               isFirst={false}
+              key="Unit 4: Powerful Openings"
               learningCycles={
                 Array [
                   Object {
@@ -3563,6 +3567,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
             <ExpandableUnit
               isFirst={true}
               isPartOfAssignmentFlow={true}
+              key="Unit 1: Telling Details"
               learningCycles={
                 Array [
                   Object {
@@ -3894,6 +3899,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
             <ExpandableUnit
               isFirst={false}
               isPartOfAssignmentFlow={true}
+              key="Unit 2: Pivotal Words and Phrases"
               learningCycles={
                 Array [
                   Object {
@@ -4225,6 +4231,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
             <ExpandableUnit
               isFirst={false}
               isPartOfAssignmentFlow={true}
+              key="Unit 3: Compelling Evidence"
               learningCycles={
                 Array [
                   Object {
@@ -4556,6 +4563,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
             <ExpandableUnit
               isFirst={false}
               isPartOfAssignmentFlow={true}
+              key="Unit 4: Powerful Openings"
               learningCycles={
                 Array [
                   Object {

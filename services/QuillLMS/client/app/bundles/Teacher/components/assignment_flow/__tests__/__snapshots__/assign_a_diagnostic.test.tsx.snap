@@ -177,6 +177,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               buttonLink="/activity_sessions/anonymous?activity_id=1663"
               buttonText="Preview"
               header="Starter Baseline Diagnostic (Pre)"
+              key="1663"
               selectCard={[Function]}
             >
               <div
@@ -290,6 +291,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               buttonLink="/activity_sessions/anonymous?activity_id=1664"
               buttonText="Preview"
               header="Starter Growth Diagnostic (Post)"
+              key="1664"
               lockedText={false}
               selectCard={[Function]}
               showNewTag={true}
@@ -412,6 +414,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               buttonLink="/activity_sessions/anonymous?activity_id=1668"
               buttonText="Preview"
               header="Intermediate Baseline Diagnostic (Pre)"
+              key="1668"
               selectCard={[Function]}
             >
               <div
@@ -525,6 +528,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               buttonLink="/activity_sessions/anonymous?activity_id=1669"
               buttonText="Preview"
               header="Intermediate Growth Diagnostic (Post)"
+              key="1669"
               lockedText="This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
               selectCard={[Function]}
               showNewTag={true}
@@ -693,6 +697,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               buttonLink="/activity_sessions/anonymous?activity_id=1678"
               buttonText="Preview"
               header="Advanced Baseline Diagnostic (Pre)"
+              key="1678"
               selectCard={[Function]}
             >
               <div
@@ -806,6 +811,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               buttonLink="/activity_sessions/anonymous?activity_id=1680"
               buttonText="Preview"
               header="Advanced Growth Diagnostic (Post)"
+              key="1680"
               lockedText="This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
               selectCard={[Function]}
               showNewTag={true}
@@ -974,6 +980,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               buttonLink="/activity_sessions/anonymous?activity_id=1161"
               buttonText="Preview"
               header="ELL Starter Baseline Diagnostic (Pre)"
+              key="1161"
               selectCard={[Function]}
             >
               <div
@@ -1086,6 +1093,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               buttonLink="/activity_sessions/anonymous?activity_id=1774"
               buttonText="Preview"
               header="ELL Starter Growth Diagnostic (Post)"
+              key="1774"
               selectCard={[Function]}
               showNewTag={true}
             >
@@ -1207,6 +1215,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               buttonLink="/activity_sessions/anonymous?activity_id=1568"
               buttonText="Preview"
               header="ELL Intermediate Baseline Diagnostic (Pre)"
+              key="1568"
               selectCard={[Function]}
             >
               <div
@@ -1319,6 +1328,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               buttonLink="/activity_sessions/anonymous?activity_id=1814"
               buttonText="Preview"
               header="ELL Intermediate Growth Diagnostic (Post)"
+              key="1814"
               selectCard={[Function]}
               showNewTag={true}
             >
@@ -1440,6 +1450,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               buttonLink="/activity_sessions/anonymous?activity_id=1590"
               buttonText="Preview"
               header="ELL Advanced Baseline Diagnostic (Pre)"
+              key="1590"
               selectCard={[Function]}
             >
               <div
@@ -1552,6 +1563,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               buttonLink="/activity_sessions/anonymous?activity_id=1818"
               buttonText="Preview"
               header="ELL Advanced Growth Diagnostic (Post)"
+              key="1818"
               selectCard={[Function]}
               showNewTag={true}
             >
@@ -1670,6 +1682,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             buttonLink="/activity_sessions/anonymous?activity_id=992"
             buttonText="Preview"
             header="AP Writing Skills Survey"
+            key="992"
             selectCard={[Function]}
           >
             <div
@@ -1781,6 +1794,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             buttonLink="/activity_sessions/anonymous?activity_id=1229"
             buttonText="Preview"
             header="Pre-AP Writing Skills Survey 1"
+            key="1229"
             selectCard={[Function]}
           >
             <div
@@ -1892,6 +1906,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             buttonLink="/activity_sessions/anonymous?activity_id=1230"
             buttonText="Preview"
             header="Pre-AP Writing Skills Survey 2"
+            key="1230"
             selectCard={[Function]}
           >
             <div
@@ -2003,6 +2018,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             buttonLink="/activity_sessions/anonymous?activity_id=1432"
             buttonText="Preview"
             header="SpringBoard Writing Skills Survey"
+            key="1432"
             selectCard={[Function]}
           >
             <div

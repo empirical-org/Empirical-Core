@@ -50,14 +50,17 @@ const QuestionTable = ({ question, }) => {
     {
       label: 'Directions',
       value: directions,
+      id: directions
     },
     {
       label: 'Prompt',
-      value: prompt
+      value: prompt,
+      id: prompt
     },
     {
       label: 'Response',
-      value: answer
+      value: answer,
+      id: answer
     }
   ]
 
@@ -65,7 +68,8 @@ const QuestionTable = ({ question, }) => {
     rows.push({
       label: 'Concept',
       value: concept.name,
-      conceptTag: concept.correct ? correctTag : incorrectTag
+      conceptTag: concept.correct ? correctTag : incorrectTag,
+      id: concept.name
     })
   })
 

@@ -22,7 +22,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
       <ExpandableUnitSection
         isFirst={index === 0}
         isPartOfAssignmentFlow={isPartOfAssignmentFlow}
-        key={u.id}
+        key={u.title}
         learningCycles={u.learning_cycles}
         slug={SPRING_BOARD_SLUG}
         tag={<div className="college-board-activity-tag">For SpringBoard 9</div>}
