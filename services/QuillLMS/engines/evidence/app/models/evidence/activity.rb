@@ -35,6 +35,10 @@ module Evidence
     LMS_ACTIVITY_DEFAULT_FLAG = 'alpha'
     FLAGS_ATTRIBUTE = 'flags'
 
+    BECAUSE_CONJUNCTION = 'because'
+    BUT_CONJUNCTION = 'but'
+    SO_CONJUNCTION = 'so'
+
     DEFAULT_BECAUSE_RULE_NAME = "Match with \"because of\" responses"
     DEFAULT_BECAUSE_RULE_CONCEPT = "6gQZPREURQQAaSzpIt_EEw"
     DEFAULT_BECAUSE_RULE_FEEDBACK = "Revise your work. Instead of starting your response with the word <i>of</i>, start with a person, place or thing."
@@ -153,15 +157,15 @@ module Evidence
     end
 
     def because_prompt
-      prompts.find_by(conjunction: 'because')
+      prompts.find_by(conjunction: BECAUSE_CONJUNCTION)
     end
 
     def but_prompt
-      prompts.find_by(conjunction: 'but')
+      prompts.find_by(conjunction: BUT_CONJUNCTION)
     end
 
     def so_prompt
-      prompts.find_by(conjunction: 'so')
+      prompts.find_by(conjunction: SO_CONJUNCTION)
     end
 
     def create_default_regex_rules

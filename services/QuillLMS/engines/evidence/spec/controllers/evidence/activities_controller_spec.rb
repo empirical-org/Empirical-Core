@@ -118,7 +118,17 @@ module Evidence
       end
 
       it 'should create a new default regex rule for the because prompt' do
-        post(:create, :params => ({ :activity => ({ :parent_activity_id => activity.parent_activity_id, :scored_level => activity.scored_level, :target_level => activity.target_level, :title => activity.title, :notes => activity.notes, :prompts_attributes => ([{ :text => "meat is bad for you.", :conjunction => "because" }]) }) }))
+        post :create,
+          params: {
+            activity:  {
+              parent_activity_id: activity.parent_activity_id,
+              scored_level:  activity.scored_level,
+              target_level: activity.target_level,
+              title: activity.title,
+              notes: activity.notes,
+              prompts_attributes: [{ text: "meat is bad for you.", conjunction: "because"}]
+            }
+          }
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
         because_rule = Activity.first.because_prompt.rules.find_by(name: Evidence::Activity::DEFAULT_BECAUSE_RULE_NAME)
@@ -130,7 +140,17 @@ module Evidence
       end
 
       it 'should create a new default regex rule for the so prompt' do
-        post(:create, :params => ({ :activity => ({ :parent_activity_id => activity.parent_activity_id, :scored_level => activity.scored_level, :target_level => activity.target_level, :title => activity.title, :notes => activity.notes, :prompts_attributes => ([{ :text => "meat is bad for you.", :conjunction => "so" }]) }) }))
+        post :create,
+          params: {
+            activity:  {
+              parent_activity_id: activity.parent_activity_id,
+              scored_level:  activity.scored_level,
+              target_level: activity.target_level,
+              title: activity.title,
+              notes: activity.notes,
+              prompts_attributes: [{ text: "meat is bad for you.", conjunction: "so"}]
+            }
+          }
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
         so_rule = Activity.first.so_prompt.rules.find_by(name: Evidence::Activity::DEFAULT_SO_RULE_NAME)
@@ -143,7 +163,21 @@ module Evidence
       end
 
       it 'should create a new default regex rule for repeating the stem' do
-        post(:create, :params => ({ :activity => ({ :parent_activity_id => activity.parent_activity_id, :scored_level => activity.scored_level, :target_level => activity.target_level, :title => activity.title, :notes => activity.notes, :prompts_attributes => ([{ :text => "meat is bad for you because", :conjunction => "because" }, { :text => "meat is bad for you.", :conjunction => "but" }, { :text => "meat is bad for you.", :conjunction => "so" }]) }) }))
+        post :create,
+          params: {
+            activity:  {
+              parent_activity_id: activity.parent_activity_id,
+              scored_level:  activity.scored_level,
+              target_level: activity.target_level,
+              title: activity.title,
+              notes: activity.notes,
+              prompts_attributes: [
+                { text: "meat is bad for you.", conjunction: "because"},
+                { text: "meat is bad for you.", conjunction: "but"},
+                { text: "meat is bad for you.", conjunction: "so"}
+              ]
+            }
+          }
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
         activity = Activity.first
