@@ -22,7 +22,7 @@ export {
 
 export {
   ArchivedButton,
-  Banner,
+  PostNavigationBanner,
   ButtonLoadingSpinner,
   DarkButtonLoadingSpinner,
   LightButtonLoadingSpinner,

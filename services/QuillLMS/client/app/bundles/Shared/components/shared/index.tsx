@@ -3,8 +3,8 @@ export {
 } from './archivedButton'
 
 export {
-  Banner
-} from './banner'
+  PostNavigationBanner
+} from './postNavigationBanner'
 
 export {
   ButtonLoadingSpinner,

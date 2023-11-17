@@ -21,7 +21,7 @@ interface BannerProps {
   bannerStyle: string
 }
 
-export const Banner = ({ tagText, primaryHeaderText, secondaryHeaderText, bodyText, icon, buttons, bannerStyle }: BannerProps) => {
+export const PostNavigationBanner = ({ tagText, primaryHeaderText, secondaryHeaderText, bodyText, icon, buttons, bannerStyle }: BannerProps) => {
   return(
     <div className={`banner-container ${bannerStyle}`}>
       <div className="left-side-container">
@@ -48,4 +48,4 @@ export const Banner = ({ tagText, primaryHeaderText, secondaryHeaderText, bodyTe
   )
 }
 
-export default Banner
+export default PostNavigationBanner

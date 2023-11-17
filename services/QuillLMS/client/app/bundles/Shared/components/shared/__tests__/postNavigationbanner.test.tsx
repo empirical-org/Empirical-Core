@@ -1,7 +1,7 @@
 import * as React from "react";
 import { render, screen } from "@testing-library/react";
 
-import Banner from "../banner";
+import PostNavigationBanner from "../postNavigationBanner";
 
 const mockProps = {
   tagText: 'new',
@@ -39,13 +39,13 @@ const mockProps = {
   bannerStyle: 'green'
 }
 
-describe('Banner', () => {
+describe('PostNavigationBanner', () => {
   test('it should render', () => {
-    const { asFragment } = render(<Banner {...mockProps} />);
+    const { asFragment } = render(<PostNavigationBanner {...mockProps} />);
     expect(asFragment()).toMatchSnapshot();
   })
   it('should render the buttons as expected', () => {
-    const { asFragment } = render(<Banner {...mockProps} />);
+    const { asFragment } = render(<PostNavigationBanner {...mockProps} />);
     expect(asFragment()).toMatchSnapshot();
     expect(screen.getByRole('link', { name: 'Learn more' })).toHaveAttribute('href', 'www.test1.com')
     expect(screen.getByRole('button', { name: 'View activities' })).toBeInTheDocument()

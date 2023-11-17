@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Banner, DropdownInput } from '../../../Shared';
+import { PostNavigationBanner, DropdownInput } from '../../../Shared';
 import { DropdownObjectInterface } from '../../interfaces/evidenceInterfaces';
 
 const SCHOOL_OR_TEACHER_PREMIUM = 'School or Teacher Premium'
@@ -18,7 +18,7 @@ const COLOR_OPTIONS = [
   { label: 'Quill Grey', value: 'grey' }
 ]
 
-const Banners = () => {
+const PostNavigationBanners = () => {
   const [colorOption, setColorOption] = React.useState<DropdownObjectInterface>(COLOR_OPTIONS[0]);
   const [premiumOption, setPremiumOption] = React.useState<string>(PREMIUM_OPTIONS[0]);
 
@@ -33,14 +33,14 @@ const Banners = () => {
   const premiumStyle = premiumOption === DISTRICT_PREMIUM ? "district-premium" : "premium"
 
   return(
-    <div id="banners">
+    <div id="post-navigation-banners">
       <h2 className="style-guide-h2">Banners</h2>
       <div className="element-container">
         <h3>Standard Banner with one button</h3>
         <pre>
           {
             `
-  <Banner
+  <PostNavigationBanner
     bannerStyle="${colorOption.value}"
     bodyText="Quickly archive last year's classes."
     buttons={[
@@ -66,7 +66,7 @@ const Banners = () => {
           options={COLOR_OPTIONS}
           value={colorOption}
         />
-        <Banner
+        <PostNavigationBanner
           bannerStyle={colorOption.value}
           bodyText="Quickly archive last year's classes."
           buttons={[
@@ -87,7 +87,7 @@ const Banners = () => {
         <pre>
           {
             `
-  <Banner
+  <PostNavigationBanner
     bannerStyle="${colorOption.value}"
     bodyText="Quickly archive last year's classes."
     buttons={[
@@ -132,7 +132,7 @@ const Banners = () => {
           options={COLOR_OPTIONS}
           value={colorOption}
         />
-        <Banner
+        <PostNavigationBanner
           bannerStyle={colorOption.value}
           bodyText="Quickly archive last year's classes."
           buttons={[
@@ -172,7 +172,7 @@ const Banners = () => {
         <pre>
           {
             `
-  <Banner
+  <PostNavigationBanner
     bannerStyle="${premiumStyle}"
     bodyText="Quickly archive last year's classes."
     buttons={[
@@ -207,7 +207,7 @@ const Banners = () => {
             </div>
           </div>
         </div>
-        <Banner
+        <PostNavigationBanner
           bannerStyle={premiumStyle}
           bodyText="Premium subscriptions for schools and districts interested in priority technical support, additional reporting, and support from Quill's professional learning team--plus an option for individual teachers"
           buttons={[
@@ -226,4 +226,4 @@ const Banners = () => {
   )
 }
 
-export default Banners
+export default PostNavigationBanners

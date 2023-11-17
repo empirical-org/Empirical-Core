@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import Banners from '../components/styleGuide/banners'
+import PostNavigationBanners from '../components/styleGuide/postNavigationBanners'
 import Buttons from '../components/styleGuide/buttons'
 import Cards from '../components/styleGuide/cards'
 import ColorPalette from '../components/styleGuide/colorPalette'
@@ -44,7 +44,7 @@ export default class BackpackIndex extends React.Component {
             {this.renderLink('#tooltips', 'Tooltips')}
             {this.renderLink('#data-tables', 'Data Tables')}
             {this.renderLink('#sliders', 'Sliders')}
-            {this.renderLink('#banners', 'Banners')}
+            {this.renderLink('#post-navigation-banners', 'Post Navigation Banners')}
           </ul>
         </aside>
         <div className="style-guide">
@@ -61,7 +61,7 @@ export default class BackpackIndex extends React.Component {
           <Tooltips />
           <DataTables />
           <Sliders />
-          <Banners />
+          <PostNavigationBanners />
         </div>
       </div>
     )
