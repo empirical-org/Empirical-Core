@@ -42,5 +42,26 @@ describe UserWithProviderSerializer, type: :serializer do
       it { expect(parsed_user['provider']).to eq User::CANVAS_PROVIDER }
       it { expect(parsed_user['user_external_id']).to eq user.user_external_id(canvas_instance: canvas_instance) }
     end
+
+    context 'when user has a school that is linked to canvas' do
+      let(:school) { create(:schools_users, user: user).school }
+      let!(:canvas_instance_school) { create(:canvas_instance_school, school: school) }
+
+      before { user.reload }
+
+      it { expect(parsed_user['school_linked_to_canvas']).to eq true }
+    end
+
+    context 'when user has a school that is not linked to canvas' do
+      let(:school) { create(:schools_users, user: user).school }
+
+      before { user.reload }
+
+      it { expect(parsed_user['school_linked_to_canvas']).to eq nil }
+    end
+
+    context 'when user does not have a school' do
+      it { expect(parsed_user['school_linked_to_canvas']).to eq nil }
+    end
   end
 end
