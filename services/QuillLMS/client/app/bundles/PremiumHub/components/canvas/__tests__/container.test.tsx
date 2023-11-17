@@ -11,12 +11,12 @@ describe('CanvasIntegrationContainer', () => {
 
   describe('when there are existing Canvas integrations', () => {
     test('it should render', () => {
-      const { asFragment } = render(<CanvasIntegrationContainer accessType={FULL} passedCanvasIntegrations={[canvasIntegration]} passedSchools={schools} />);
+      const { asFragment } = render(<CanvasIntegrationContainer accessType={FULL} passedCanvasIntegrations={[canvasIntegration]} passedSchools={schools} user={{}} />);
       expect(asFragment()).toMatchSnapshot();
     })
 
     test('clicking the Add New Canvas Integration button should open the new integration form', async () => {
-      render(<CanvasIntegrationContainer accessType={FULL} passedCanvasIntegrations={[canvasIntegration]} passedSchools={schools} />)
+      render(<CanvasIntegrationContainer accessType={FULL} passedCanvasIntegrations={[canvasIntegration]} passedSchools={schools} user={{}} />)
       const user = userEvent.setup()
 
       expect(screen.queryByRole('form', {name: /new canvas integration/i})).not.toBeInTheDocument()
@@ -27,14 +27,14 @@ describe('CanvasIntegrationContainer', () => {
 
   describe('when there are not existing Canvas integrations', () => {
     test('it should render', () => {
-      const { asFragment } = render(<CanvasIntegrationContainer accessType={FULL} passedCanvasIntegrations={[]} passedSchools={schools} />);
+      const { asFragment } = render(<CanvasIntegrationContainer accessType={FULL} passedCanvasIntegrations={[]} passedSchools={schools} user={{}} />);
       expect(asFragment()).toMatchSnapshot();
     })
   })
 
   describe('when access is restricted', () => {
     test('it should render', () => {
-      const { asFragment } = render(<CanvasIntegrationContainer accessType={RESTRICTED} />);
+      const { asFragment } = render(<CanvasIntegrationContainer accessType={RESTRICTED} user={{}} />);
       expect(asFragment()).toMatchSnapshot();
     })
   })
