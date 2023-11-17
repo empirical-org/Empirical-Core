@@ -41,7 +41,7 @@ module Adapters
       end
 
       def self.format_score(score)
-        return '' unless score.is_a?(Numeric)
+        return 'Completed' unless score.is_a?(Numeric)
         return 'Completed' if score == -1
         "#{(score*100).round(0)}%"
       end

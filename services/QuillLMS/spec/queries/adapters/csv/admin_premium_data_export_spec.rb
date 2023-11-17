@@ -15,6 +15,8 @@ describe Adapters::Csv::AdminPremiumDataExport do
 
     it { expect(described_class.format_cell(:score, 0.66777)).to eq('67%')}
     it { expect(described_class.format_cell(:score, -1)).to eq('Completed')}
+    it { expect(described_class.format_cell(:score, nil)).to eq('Completed')}
+    it { expect(described_class.format_cell(:score, '')).to eq('Completed')}
 
     it { expect(described_class.format_cell(:not_a_special_case, 1.5)).to eq(1.5)}
   end
