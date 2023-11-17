@@ -40,14 +40,25 @@ module Adapters
         sym_columns.map{|col| ORDERED_COLUMNS[col] }
       end
 
+      def self.format_score(score)
+        return '' unless score.is_a?(Numeric)
+        return 'Completed' if score == -1
+        "#{(score*100).round(0)}%"
+      end
+
+      def self.format_timespent(timespent)
+        return '< 1' if timespent < 60
+        (timespent / 60)
+      end
+
       def self.format_cell(sym_column, value)
         case sym_column
         when :completed_at
           value&.strftime("%F")
         when :timespent
-          (value / 60)
+          format_timespent(value)
         when :score
-          value.is_a?(Numeric) ? "#{(value*100).round(0)}%" : ''
+          format_score(value)
         else
           value
         end
