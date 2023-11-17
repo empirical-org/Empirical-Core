@@ -430,7 +430,7 @@ describe SnapshotsController, type: :controller do
 
       it do
         subject
-        expect(json_response['teachers']).to eq([])
+        expect(json_response['teachers']).to eq([{"id" => teacher.id, "name" => teacher.name}])
       end
     end
 
