@@ -21,7 +21,11 @@ module ResultsSummary
 
     {
       student_results: student_results,
-      skill_group_summaries: @skill_group_summaries
+      skill_group_summaries: @skill_group_summaries,
+      # @TODO - remove these last three attributes once we work out the bug described in this PR: https://github.com/empirical-org/Empirical-Core/pull/11245
+      activity_id: activity_id,
+      classroom_id: classroom_id,
+      unit_id: unit_id
     }
   end
 

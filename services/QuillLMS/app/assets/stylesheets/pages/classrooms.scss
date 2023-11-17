@@ -58,9 +58,53 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 56px;
+
+    .input-container {
+      width: 250px;
+      min-height: min-content;
+      justify-content: flex-start;
+
+      input {
+        font-size: 14px !important;
+      }
+
+      .dropdown {
+        margin-bottom: 0px;
+      }
+
+      .dropdown__control {
+        background-color: transparent;
+        border: none;
+        margin-bottom: 0px;
+      }
+
+      .dropdown__single-value {
+        display: flex;
+      }
+
+      &.inactive.has-text label {
+        margin-bottom: 0px;
+      }
+
+      &.inactive {
+        width: 160px;
+      }
+
+      &.import-classes-dropdown-input {
+        .dropdown__single-value::before {
+          content: url('https://assets.quill.org/images/pages/activity_summary/students.svg');
+          position: relative;
+          margin-right: 8px;
+        }
+        .dropdown__menu {
+          margin-top: -20px;
+        }
+      }
+    }
   }
   .buttons {
     display: flex;
+    align-items: center;
     .create-a-class-button {
       margin-left: 24px;
     }

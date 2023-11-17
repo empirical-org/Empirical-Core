@@ -29,7 +29,7 @@ const Banner = ({ bodyText, headerText, buttons, }) => (
   </section>
 )
 
-const PremiumHubContainer = ({ id, location, children, }) => {
+const PremiumHubContainer = ({ id, location, children, user, }) => {
   const [adminInfo, setAdminInfo] = React.useState({})
   const [loading, setLoading] = React.useState(true)
 
@@ -62,7 +62,7 @@ const PremiumHubContainer = ({ id, location, children, }) => {
 
     if (accessType() === FULL || accessType() === LOADING) { return <span /> }
 
-    if (accessType() === LIMITED) {
+    if (accessType() === LIMITED && !location.pathname.includes('integrations')) {
       return (
         <Banner
           bodyText="Subscribe to School or District Premium to unlock all Premium Hub features. Manage teacher accounts, access teacher reports, and view school-wide student data."
@@ -124,7 +124,8 @@ const PremiumHubContainer = ({ id, location, children, }) => {
 
   const sharedProps = {
     adminInfo,
-    accessType: accessType()
+    accessType: accessType(),
+    user
   }
 
   return (

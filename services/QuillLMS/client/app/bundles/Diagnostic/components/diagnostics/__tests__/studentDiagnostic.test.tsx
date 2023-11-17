@@ -51,6 +51,7 @@ let mockProps = {
   sentenceFragments: { hasreceiveddata: true },
   skippedToQuestionFromIntro: false,
   match: {
+    path: '',
     params: {
       diagnosticID: 'testID',
       lessonID: 'testID'
