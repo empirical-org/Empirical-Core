@@ -125,6 +125,7 @@ gem 'slim-rails'
 
 gem 'es5-shim-rails'
 # Use the exact gem version to match npm version of react-on-rails
+gem 'execjs'
 gem 'react_on_rails', '= 13.4.0'
 gem 'webpacker', '~> 3.0.0'
 
