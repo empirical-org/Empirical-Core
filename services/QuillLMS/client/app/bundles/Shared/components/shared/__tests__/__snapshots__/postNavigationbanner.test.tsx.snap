@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Banner it should render 1`] = `
+exports[`PostNavigationBanner it should render 1`] = `
 <DocumentFragment>
   <div
     class="banner-container green"
@@ -78,7 +78,7 @@ exports[`Banner it should render 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Banner should render the buttons as expected 1`] = `
+exports[`PostNavigationBanner should render the buttons as expected 1`] = `
 <DocumentFragment>
   <div
     class="banner-container green"
