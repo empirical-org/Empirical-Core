@@ -116,7 +116,7 @@ export const OrganizeLocker = ({ history, personalLocker, userId }) => {
   }
 
   function handleAddSection() {
-    const updatedLockerPreferences = _.cloneDeep(lockerPreferences) || {};
+    let updatedLockerPreferences = _.cloneDeep(lockerPreferences);
     updatedLockerPreferences[uuid()] = { label: '', lockers: {} };
     setLockerPreferences(updatedLockerPreferences);
   }
