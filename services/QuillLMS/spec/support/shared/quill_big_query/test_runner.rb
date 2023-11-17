@@ -16,14 +16,15 @@ module QuillBigQuery
       <<-SQL
         WITH
           #{cte}
-        #{table_namespaces_removed_query(query)}
+        #{table_namespaces_and_with_removed_query(query)}
       SQL
     end
 
     # BigQuery doesn't support CTE aliases with period in the name.
     # So, we need to remove the 'lms.' and 'special.' prefixes from 'FROM' and 'JOIN' clauses
-    private def table_namespaces_removed_query(query)
-      query.gsub(/(FROM|JOIN)\s+(?:lms|special)\.(\w+)/, '\1 \2')
+    # We also are adding a WITH clause with the CTE, but we can't have two WITH clauses, so we need to swap any existing WITH from the query with a `,` to add it to the CTE with list at the end
+    private def table_namespaces_and_with_removed_query(query)
+      query.gsub(/(FROM|JOIN)\s+(?:lms|special)\.(\w+)/, '\1 \2').gsub('WITH', ', ')
     end
 
     private def cte
@@ -57,6 +58,9 @@ module QuillBigQuery
         "NULL"
       elsif value.is_a?(Array)
         "ARRAY#{value.map { |v| attr_type_value(attr_type, v) }}"
+      # This condition is intended to handle cases where we've used a rails enum in the model, but want to make sure to treat it as an INT in the database
+      elsif record.class.respond_to?(attr.pluralize) && record.class.send(attr.pluralize).is_a?(Hash)
+        record.class.send(attr.pluralize).fetch(record.send(attr))
       else
         attr_type_value(attr_type, value)
       end

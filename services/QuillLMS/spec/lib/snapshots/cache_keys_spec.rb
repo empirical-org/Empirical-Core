@@ -3,6 +3,7 @@
 module Snapshots
   describe CacheKeys do
     let(:user_id) { 123 }
+    let(:report) { 'admin-snapshot' }
     let(:query) { 'active-classrooms' }
     let(:previous_timeframe_start) { DateTime.current.end_of_day - 61.days }
     let(:current_timeframe_start) { DateTime.current.end_of_day - 31.days }
@@ -21,13 +22,14 @@ module Snapshots
 
     context '#generate_key' do
       it 'should compile a valid cache key' do
-        expect(Snapshots::CacheKeys.generate_key(query,
+        expect(Snapshots::CacheKeys.generate_key(report,
+          query,
           previous_timeframe_start,
           current_timeframe_start,
           timeframe_end,
           school_ids)
         ).to eq([
-          "admin-snapshot",
+          report,
           query,
           previous_timeframe_start,
           current_timeframe_start,
@@ -38,14 +40,15 @@ module Snapshots
       end
 
       it 'should compile a valid cache key with additional filters' do
-        expect(Snapshots::CacheKeys.generate_key(query,
+        expect(Snapshots::CacheKeys.generate_key(report,
+          query,
           previous_timeframe_start,
           current_timeframe_start,
           timeframe_end,
           school_ids,
           additional_filters: additional_filters)
         ).to eq([
-          "admin-snapshot",
+          report,
           query,
           previous_timeframe_start,
           current_timeframe_start,
@@ -62,14 +65,15 @@ module Snapshots
         custom_start = custom_end - 1.day
         calculated_previous_start = custom_start - 1.day
 
-        expect(Snapshots::CacheKeys.generate_key(query,
+        expect(Snapshots::CacheKeys.generate_key(report,
+          query,
           calculated_previous_start,
           custom_start,
           custom_end,
           school_ids,
           additional_filters: additional_filters)
         ).to eq([
-          "admin-snapshot",
+          report,
           query,
           calculated_previous_start,
           custom_start,
@@ -82,13 +86,15 @@ module Snapshots
       end
 
       it 'should generate the same cache key when arrays are in different orders' do
-        expect(Snapshots::CacheKeys.generate_key(query,
+        expect(Snapshots::CacheKeys.generate_key(report,
+          query,
           previous_timeframe_start,
           current_timeframe_start,
           timeframe_end,
           school_ids,
           additional_filters: additional_filters)
-        ).to eq(Snapshots::CacheKeys.generate_key(query,
+        ).to eq(Snapshots::CacheKeys.generate_key(report,
+          query,
           previous_timeframe_start,
           current_timeframe_start,
           timeframe_end,
