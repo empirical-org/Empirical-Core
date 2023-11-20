@@ -7,13 +7,13 @@ interface ActivityDetailsSectionPropsInterface {
   description: string | React.ReactElement
 }
 
-export const ActivityDetailsSection = ({ key, customClass, header, description }: ActivityDetailsSectionPropsInterface) => {
+export const ActivityDetailsSection = ({ customClass, header, description }: ActivityDetailsSectionPropsInterface) => {
   if(!header || !description) { return }
 
   const descriptionElement = typeof (description) === "string" ? <p className="description">{description}</p> : description
   const containerClassName = `activity-tooltip-details-section ${customClass || ''}`
   return(
-    <div className={containerClassName} key={key}>
+    <div className={containerClassName}>
       <p className="header">{header}</p>
       {descriptionElement}
     </div>

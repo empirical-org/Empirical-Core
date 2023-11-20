@@ -18,7 +18,7 @@ describe('ScorebookTooltip component', () => {
     marked_complete: null,
     name: "Capitalizing Holidays, People, & Places - Mixed Topics",
     percentage: 0.9,
-    publishDate: null,
+    publishDate: '2021-12-10T09:00:00.000Z',
     scheduled: null,
     sessions: [
       {
