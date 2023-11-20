@@ -68,7 +68,6 @@ describe('ScorebookTooltip component', () => {
       mockProps.completed_attempts = 0
       const { asFragment } = render(<ScorebookTooltip data={mockProps} />);
       expect(asFragment()).toMatchSnapshot();
-      console.log(screen.debug())
       expect(screen.getByText(/This student has missed this lesson. To make up this material, you can assign this lesson again to the students who missed it./i)).toBeInTheDocument()
     })
     it('activity has not been published', () => {
@@ -76,7 +75,6 @@ describe('ScorebookTooltip component', () => {
       mockProps.completed_attempts = null
       const { asFragment } = render(<ScorebookTooltip data={mockProps} />);
       expect(asFragment()).toMatchSnapshot();
-      console.log(screen.debug())
       expect(screen.getByText(/This scheduled activity has not been published./i)).toBeInTheDocument()
     })
     it('activity is locked', () => {
@@ -84,7 +82,6 @@ describe('ScorebookTooltip component', () => {
       mockProps.locked = true
       const { asFragment } = render(<ScorebookTooltip data={mockProps} />);
       expect(asFragment()).toMatchSnapshot();
-      console.log(screen.debug())
       expect(screen.getByText(/This activity is set for staggered release and has not been unlocked by this student./i)).toBeInTheDocument()
     })
     it('activity has not been completed', () => {
@@ -92,7 +89,6 @@ describe('ScorebookTooltip component', () => {
       mockProps.completed_attempts = null
       const { asFragment } = render(<ScorebookTooltip data={mockProps} />);
       expect(asFragment()).toMatchSnapshot();
-      console.log(screen.debug())
       expect(screen.getByText(/This activity has not been completed./i)).toBeInTheDocument()
     })
   })
