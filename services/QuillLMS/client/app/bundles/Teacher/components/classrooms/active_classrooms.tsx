@@ -17,13 +17,14 @@ import LinkProviderAccountModal from './link_provider_account_modal'
 import NoClassroomsToImportModal from './no_classrooms_to_import_modal'
 import ReauthorizeProviderModal from './reauthorize_provider_modal'
 import RenameClassModal from './rename_classroom_modal'
+import CanvasModal from './canvas_modal'
 
 import { requestGet, requestPut } from '../../../../modules/request/index'
 import { Snackbar, SortableList, defaultSnackbarTimeout } from '../../../Shared/index'
 import { MY_CLASSES_FEATURED_BLOG_POST_ID } from '../../constants/featuredBlogPost'
 import ArticleSpotlight from '../shared/articleSpotlight'
 import BulkArchiveClassesBanner from '../shared/bulk_archive_classes_banner'
-import { DarkButtonLoadingSpinner, } from '../../../Shared/index'
+import { DarkButtonLoadingSpinner, DropdownInput, } from '../../../Shared/index'
 
 import ViewAsStudentModal from '../shared/view_as_student_modal'
 
@@ -105,6 +106,10 @@ const ActiveClassrooms = ({
     openModal(providerClassrooms.length ? importProviderClassroomsModal : noClassroomsToImportModal)
   }, [providerClassrooms])
 
+  function handleImportClassesClick(option) {
+    return importFromProvider[option.value]()
+  }
+
   const closeModal = (callback = null) => {
     setVisibleModal(null)
 
@@ -158,7 +163,7 @@ const ActiveClassrooms = ({
       setPendingImportFromProviderRequest(true)
       retrieveProviderClassrooms()
     } else {
-      openModal(linkCanvasAccountModal)
+      openModal(linkCleverAccountModal)
     }
   }
 
@@ -407,9 +412,7 @@ const ActiveClassrooms = ({
       <div className="header">
         <h1>Active Classes</h1>
         <div className="buttons">
-          {renderImportFromProviderButton(canvasProvider)}
-          {renderImportFromProviderButton(cleverProvider)}
-          {renderImportFromProviderButton(googleProvider)}
+          {provider ? renderImportFromProviderButton(provider) : renderImportClassesDropdown()}
           {renderCreateAClassButton()}
         </div>
       </div>
@@ -417,9 +420,6 @@ const ActiveClassrooms = ({
   }
 
   const renderImportFromProviderButton = (theProvider: string) => {
-    if (provider && provider != theProvider) { return null }
-    if (!provider && theProvider === canvasProvider) { return null }
-
     const theProviderTitle = providerConfigLookup[theProvider].title
 
     let buttonContent = <React.Fragment>Import from {theProviderTitle}</React.Fragment>
@@ -439,6 +439,32 @@ const ActiveClassrooms = ({
         <img alt={alt} className='import-from-provider-button-icon' src={src} />
         {buttonContent}
       </button>
+    )
+  }
+
+  const renderImportClassesDropdown = () => {
+    const options = [
+      {
+        label: 'Import from Clever',
+        value: cleverProvider,
+      },
+      {
+        label: 'Import from Google Classroom',
+        value: googleProvider,
+      },
+      {
+        label: 'Import from Canvas',
+        value: canvasProvider,
+      }
+    ]
+
+    return (
+      <DropdownInput
+        className="import-classes-dropdown-input"
+        handleChange={handleImportClassesClick}
+        options={options}
+        value={{ label: 'Import Classes', value: null }}
+      />
     )
   }
 
@@ -482,6 +508,8 @@ const ActiveClassrooms = ({
     } else if (visibleModal === linkGoogleAccountModal) {
       // no link assignment since google uses a different component for linking accounts
       linkAccountProvider = googleProvider
+    } else if (visibleModal === linkCanvasAccountModal) {
+      return <CanvasModal close={closeModal} user={user} />
     } else {
       return null
     }

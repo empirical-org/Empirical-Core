@@ -6,7 +6,7 @@ import GoogleIntegrationContainer from '../components/google/container'
 import CleverIntegrationContainer from '../components/clever/container'
 
 const IntegrationsContainer = (sharedProps) => {
-  const { accessType } = sharedProps
+  const { accessType, user, } = sharedProps
 
   return (
     <div className='integrations-container white-background-accommodate-footer'>
@@ -23,7 +23,7 @@ const IntegrationsContainer = (sharedProps) => {
       <Routes>
         <Route element={<CleverIntegrationContainer accessType={accessType} />} path='/teachers/premium_hub/integrations/clever' />
         <Route element={<GoogleIntegrationContainer accessType={accessType} />} path='/teachers/premium_hub/integrations/google' />
-        <Route element={<CanvasIntegrationContainer accessType={accessType} />} path='/teachers/premium_hub/integrations/canvas' />
+        <Route element={<CanvasIntegrationContainer accessType={accessType} user={user} />} path='/teachers/premium_hub/integrations/canvas' />
         <Route element={<Navigate to="/teachers/premium_hub/integrations/canvas" />} path='/teachers/premium_hub/integrations' />
       </Routes>
     </div>

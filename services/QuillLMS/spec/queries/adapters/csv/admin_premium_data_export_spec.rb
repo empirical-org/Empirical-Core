@@ -5,6 +5,14 @@ require 'rails_helper'
 describe Adapters::Csv::AdminPremiumDataExport do
   subject { described_class }
 
+  describe '#format_cell' do
+    it { expect(described_class.format_cell(:completed_at, DateTime.new(2020,1,1))).to eq('2020-01-01')}
+    it { expect(described_class.format_cell(:activity_pack, 'foo')).to eq('foo')}
+    it { expect(described_class.format_cell(:timespent, 61)).to eq(1)}
+    it { expect(described_class.format_cell(:score, 0.66777)).to eq('67%')}
+    it { expect(described_class.format_cell(:not_a_special_case, 1.5)).to eq(1.5)}
+  end
+
   describe '#to_csv_string' do
     let(:valid_input) {
       [{
@@ -34,24 +42,34 @@ describe Adapters::Csv::AdminPremiumDataExport do
       end
 
       it 'handles subsets of valid columns and orders them according to ORDERED_COLUMNS' do
-        expected_result = "student_name,activity_name\nTest Student,Test Activity\n"
+        expected_result = "Student Name,Activity\nTest Student,Test Activity\n"
         expect(subject.to_csv_string(valid_input, [:student_name, :activity_name])).to eq expected_result
       end
 
       it 'coerces custom columns from strings to symbols' do
-        expected_result = "student_name,activity_name\nTest Student,Test Activity\n"
+        expected_result = "Student Name,Activity\nTest Student,Test Activity\n"
         expect(subject.to_csv_string(valid_input, ['student_name', 'activity_name'])).to eq expected_result
       end
     end
 
     context 'with invalid input' do
-      let(:invalid_input) { valid_input.first.merge(extra_column: 'Extraneous') }
+      context 'invalid column selection' do
+        let(:invalid_column_selection) { [:student_name, :weird_column] }
 
-      it 'raises a ColumnMismatchError' do
-        expect { subject.to_csv_string([invalid_input]) }.to raise_error(described_class::UnhandledColumnError)
+        it do
+          expect { subject.to_csv_string(valid_input, invalid_column_selection) }.to raise_error(described_class::UnhandledColumnError)
+        end
+      end
+
+      context 'BigQuery payload lacks the requested columns' do
+        let(:payload_missing_columns) { [valid_input.first.except(:activity_name)] }
+
+        it do
+          expect { subject.to_csv_string(payload_missing_columns) }.to raise_error(described_class::BigQueryResultMissingRequestedColumnError)
+        end
+
       end
     end
   end
-
 
 end

@@ -62,6 +62,7 @@ gem 'newrelic_rpm', '~> 9.3.1'
 gem 'stripe', '~> 9.4'
 gem 'prawn'
 gem 'prawn-table'
+gem 'wicked_pdf'
 gem 'pdf-core'
 gem 'pdf-inspector'
 gem 'ttfunk'
@@ -169,6 +170,7 @@ group :production, :staging do
   gem 'rails-autoscale-sidekiq'
   gem 'lograge'
   gem "matrix", '~> 0.4.2'
+  gem 'wkhtmltopdf-heroku', '2.12.6.1.pre.jammy'
 end
 
 group :development do
@@ -196,6 +198,10 @@ group :test, :development do
   gem 'rspec-redis_helper'
   gem 'brakeman', '= 4.1.1'
   gem 'memory_profiler'
+  gem 'rubocop'
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
+  gem 'wkhtmltopdf-binary'
 end
 
 group :test, :development, :cypress do

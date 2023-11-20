@@ -128,7 +128,7 @@ export const expectedPayload = {
         "directions":"Use information from the text to finish the sentence:",
         "prompt":"Type an answer, but",
         "questionNumber":2,
-        "questionScore":0.75
+        "questionScore":1
       }
     },
     {
@@ -141,7 +141,7 @@ export const expectedPayload = {
         "directions":"Remember, for this activity, avoid giving your opinion—your thoughts, feelings, or suggestions. Rewrite your response without the word must, and make sure that your response expresses an idea from the text.",
         "prompt":"Type an answer, but",
         "questionNumber":2,
-        "questionScore":0.75
+        "questionScore":1
       }
     },
     {
@@ -154,7 +154,7 @@ export const expectedPayload = {
         "directions":"Use information from the text to finish the sentence:",
         "prompt":"Type an answer, so",
         "questionNumber":3,
-        "questionScore":0.75
+        "questionScore":1
       }
     },
     {
@@ -167,7 +167,7 @@ export const expectedPayload = {
         "directions":"Use information from the text to finish the sentence:",
         "prompt":"Type an answer, so",
         "questionNumber":3,
-        "questionScore":0.75
+        "questionScore":1
       }
     },
     {
@@ -180,7 +180,7 @@ export const expectedPayload = {
         "directions":"Remember, for this activity, avoid giving your opinion—your thoughts, feelings, or suggestions. Rewrite your response without the word should, and make sure that your response expresses an idea from the text.",
         "prompt":"Type an answer, so",
         "questionNumber":3,
-        "questionScore":0.75
+        "questionScore":1
       }
     }
   ]

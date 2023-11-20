@@ -8,6 +8,7 @@ module Evidence
         'using_ought' => '938dcafb-7b03-4fce-bacb-0ec690eccec0',
         'using_should' => 'aa5884e6-2646-4f4b-b0ed-938a2eab0507',
         'command_check' => '69c71c98-a9bc-49a6-856c-c206520f5e60',
+        'common_initial_opinionated_phrases_check' => '53ea6c87-bb2c-48c3-a5fa-00f70f134bfd',
         'common_opinionated_phrases_keyword_check' => '7ade48ba-f073-4ce5-9c54-501d556e99e2',
         'first_person_opinionated_phrase_keyword_check' => '5ed4c961-60e6-4c29-9ace-e80c6492b377',
         'first_person_reference_keyword_check' => 'a900cbe9-f50b-4760-878f-2e3e530db81d',
