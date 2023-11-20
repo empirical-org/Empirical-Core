@@ -19,6 +19,14 @@ module Snapshots
 
       it { expect(results).to eq(count: teachers.length) }
 
+      context 'when users are coteachers instead of classroom owners' do
+        before do
+          classrooms_teachers.each { |classroom_teacher| classroom_teacher.update(role: ClassroomsTeacher::ROLE_TYPES[:coteacher]) }
+        end
+
+        it { expect(results).to eq(count: teachers.length) }
+      end
+
       context 'with users created outside of timeframe' do
         before do
           teachers.each { |teacher| teacher.update(created_at: timeframe_start - 1.day) }
