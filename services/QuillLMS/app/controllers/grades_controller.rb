@@ -49,7 +49,8 @@ class GradesController < ApplicationController
       completed_at: activity_session.completed_at + current_user.utc_offset.seconds,
       grouped_key_target_skill_concepts: format_grouped_key_target_skill_concepts(key_target_skill_concepts),
       number_of_questions: questions.length,
-      number_of_correct_questions: correct_key_target_skill_concepts.length
+      number_of_correct_questions: correct_key_target_skill_concepts.length,
+      timespent: activity_session.timespent
     }
   end
 

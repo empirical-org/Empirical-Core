@@ -28,20 +28,21 @@
 
 .scorebook-tooltip,
 .student-profile-tooltip {
-  width: 310px;
-  background-color: white;
-  border: 1px solid $lightgray;
-  border-radius: 6px;
+  max-width: 390px;
+  width: max-content;
+  background-color: $quill-white;
+  border: 1px solid $quill-grey-15;
+  border-radius: 16px;
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.20);
+  padding: 24px;
 
   .title {
-    text-align: center;
-    background-color: $lightgray2;
+    text-align: left;
     font-weight: 700;
-    padding: 5px;
+    padding-bottom: 10px;
     font-size: 16px;
-    padding-top: 8px;
-    padding-bottom: 9px;
-    margin-bottom: 12px;
-    border-bottom: 1px solid $lightgray;
+    border-bottom: 1px solid $quill-grey-15;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
   }
 }
