@@ -1,2 +1,5 @@
 default:
   open_positions:
+    - category: 'Curriculum'
+      title: 'Social Studies Curriculum Developer'
+      url: 'https://wellfound.com/l/2zzvHp'
