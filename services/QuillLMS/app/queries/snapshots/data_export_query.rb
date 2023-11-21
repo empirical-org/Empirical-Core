@@ -63,7 +63,7 @@ module Snapshots
     end
 
     def group_by_clause
-      "GROUP BY activity_session_id"
+      "GROUP BY activity_sessions.id"
     end
   end
 end
