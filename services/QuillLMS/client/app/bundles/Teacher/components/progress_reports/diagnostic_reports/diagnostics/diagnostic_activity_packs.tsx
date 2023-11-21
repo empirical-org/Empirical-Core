@@ -154,7 +154,7 @@ const Diagnostic = ({ diagnostic, }) => {
 }
 
 const Classroom = ({ classroom, }) => {
-  const diagnostics = classroom.diagnostics.map(d => <Diagnostic diagnostic={d} key={`${d.pre.id}-${classroom.id}`} />)
+  const diagnostics = classroom.diagnostics.map(d => <Diagnostic diagnostic={d} key={`${d.pre.activity_id}-${classroom.id}`} />)
   return (
     <section className="classroom-section" key={classroom.id}>
       <h2>{classroom.name}</h2>
