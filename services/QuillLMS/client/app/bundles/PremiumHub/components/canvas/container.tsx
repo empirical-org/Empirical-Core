@@ -4,6 +4,7 @@ import CanvasIntegrationForm from './canvasIntegrationForm'
 import CanvasIntegrationModal from './canvasIntegrationModal'
 import CanvasIntegrationInstance from './canvasIntegrationInstance'
 
+import CanvasInstructionsModal from '../../../Teacher/components/classrooms/canvas_modal'
 import { requestGet, } from '../../../../modules/request';
 import { Spinner, } from '../../../Shared/index'
 import { FULL, baseIntegrationImgSrc, circleCheckImg } from '../../shared'
@@ -14,14 +15,12 @@ export const SCHOOLS_WITH_SUBSCRIPTIONS_PATH = '/subscriptions/school_admin_subs
 
 const canvasIconSrc = `${baseIntegrationImgSrc}/canvas.svg`
 
-const CanvasIntegrationContainer = ({ passedSchools, passedCanvasIntegrations, accessType, }) => {
-  const [loading, setLoading] = React.useState(accessType === FULL && !(passedSchools && passedCanvasIntegrations))
+const CanvasIntegrationContainer = ({ passedSchools, passedCanvasIntegrations, accessType, user, }) => {
+  const [loading, setLoading] = React.useState(!(passedSchools && passedCanvasIntegrations))
   const [canvasIntegrations, setCanvasIntegrations] = React.useState(passedCanvasIntegrations || null)
   const [schoolsWithSubscriptions, setSchoolsWithSubscriptions] = React.useState(passedSchools || null)
   const [showNewModal, setShowNewModal] = React.useState(false)
-
-  function openModal() { setShowNewModal(true) }
-  function closeModal() { setShowNewModal(false) }
+  const [showCanvasInstructionsModal, setShowCanvasInstructionsModal] = React.useState(false)
 
   React.useEffect(() => {
     if (loading) {
@@ -35,6 +34,20 @@ const CanvasIntegrationContainer = ({ passedSchools, passedCanvasIntegrations, a
       setLoading(false)
     }
   }, [schoolsWithSubscriptions, canvasIntegrations])
+
+  function handleClickAddNewCanvasIntegration() {
+    if (accessType === FULL) {
+      openNewModal()
+    } else {
+      openGenericCanvasInstructionsModal()
+    }
+  }
+
+  function openNewModal() { setShowNewModal(true) }
+  function closeNewModal() { setShowNewModal(false) }
+
+  function openGenericCanvasInstructionsModal() { setShowCanvasInstructionsModal(true) }
+  function closeCanvasInstructionsModal() { setShowCanvasInstructionsModal(false) }
 
   function getSchoolsWithSubscriptions() {
     requestGet(SCHOOLS_WITH_SUBSCRIPTIONS_PATH, (body) => {
@@ -50,10 +63,10 @@ const CanvasIntegrationContainer = ({ passedSchools, passedCanvasIntegrations, a
 
   function handleNewCanvasInstanceSubmission() {
     getCanvasIntegrations()
-    closeModal()
+    closeNewModal()
   }
 
-  if (accessType !== FULL) {
+  if (accessType !== FULL && !user.school_linked_to_canvas) {
     return (
       <div className="container">
         <div className="integration-container">
@@ -105,15 +118,21 @@ const CanvasIntegrationContainer = ({ passedSchools, passedCanvasIntegrations, a
     <div className="container canvas-container">
       {showNewModal && (
         <CanvasIntegrationModal
-          close={closeModal}
+          close={closeNewModal}
           schools={schoolsWithSubscriptions}
           success={handleNewCanvasInstanceSubmission}
+        />
+      )}
+      {showCanvasInstructionsModal && (
+        <CanvasInstructionsModal
+          close={closeCanvasInstructionsModal}
+          user={user}
         />
       )}
       {canvasIntegrationElements}
       <button
         className="quill-button contained medium primary focus-on-light add-new-canvas-integration-button"
-        onClick={openModal}
+        onClick={handleClickAddNewCanvasIntegration}
         type="button"
       >
         Add New Canvas Integration

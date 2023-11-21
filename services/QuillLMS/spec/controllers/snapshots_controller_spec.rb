@@ -32,6 +32,8 @@ describe SnapshotsController, type: :controller do
     let(:current_timeframe) { [current_start, current_end] }
     let(:timeframes) { current_timeframe }
 
+    let(:json_response) { JSON.parse(response.body) }
+
     before do
       allow(DateTime).to receive(:current).and_return(now)
     end
@@ -91,6 +93,7 @@ describe SnapshotsController, type: :controller do
 
       it do
         expect(Snapshots::CacheKeys).to receive(:generate_key).with(
+          described_class::CACHE_REPORT_NAME,
           query,
           timeframe_name,
           current_start,
@@ -161,6 +164,7 @@ describe SnapshotsController, type: :controller do
             get action, params: { query: query_name, school_ids: school_ids }
 
             expect(response.status).to eq(400)
+            expect(json_response['error']).to eq('timeframe must be present and valid')
           end
         end
 
@@ -169,6 +173,7 @@ describe SnapshotsController, type: :controller do
             get action, params: { query: query_name, timeframe: 'INVALID_TIMEFRAME', school_ids: school_ids }
 
             expect(response.status).to eq(400)
+            expect(json_response['error']).to eq('timeframe must be present and valid')
           end
         end
 
@@ -177,6 +182,7 @@ describe SnapshotsController, type: :controller do
             get action, params: { query: query_name, timeframe: timeframe_name }
 
             expect(response.status).to eq(400)
+            expect(json_response['error']).to eq('school_ids are required')
           end
         end
 
@@ -185,14 +191,16 @@ describe SnapshotsController, type: :controller do
             get action, params: { query: query_name, timeframe: timeframe_name, school_ids: [] }
 
             expect(response.status).to eq(400)
+            expect(json_response['error']).to eq('school_ids are required')
           end
         end
 
         it 'should 400 if the query name provided is not valid for the endpoint' do
           controller_actions.each do |action, _|
-            get action, params: { query: 'INVALID_QUERY_NAME', timeframe: timeframe_name, school_ids: [] }
+            get action, params: { query: 'INVALID_QUERY_NAME', timeframe: timeframe_name, school_ids: [1] }
 
             expect(response.status).to eq(400)
+            expect(json_response['error']).to eq('unrecognized query type for this endpoint')
           end
         end
       end
@@ -349,7 +357,8 @@ describe SnapshotsController, type: :controller do
     let(:target_grade) { '1' }
     let(:teacher) { create(:teacher, school: school) }
     let(:classroom) { create(:classroom, grade: target_grade) }
-    let!(:classrooms_teacher) { create(:classrooms_teacher, user: teacher, classroom: classroom, role: 'owner') }
+    let(:teacher_role) { ClassroomsTeacher::ROLE_TYPES[:owner] }
+    let!(:classrooms_teacher) { create(:classrooms_teacher, user: teacher, classroom: classroom, role: teacher_role) }
 
     context "#options with initial load" do
       let(:initial_load) { 'true' }
@@ -426,6 +435,31 @@ describe SnapshotsController, type: :controller do
       before do
         classrooms_teacher.destroy
       end
+
+      it do
+        subject
+        expect(json_response['teachers']).to eq([{"id" => teacher.id, "name" => teacher.name}])
+      end
+    end
+
+    context 'teachers who are coteachers' do
+      subject { get :options }
+
+      let(:json_response) { JSON.parse(response.body) }
+      let(:teacher_role) { ClassroomsTeacher::ROLE_TYPES[:coteacher] }
+
+      it do
+        subject
+        expect(json_response['teachers']).to eq([])
+      end
+    end
+
+    context 'teachers who are both an owner and a coteacher' do
+      subject { get :options }
+
+      let(:json_response) { JSON.parse(response.body) }
+      let(:coteacher_classroom) { create(:classroom, grade: target_grade) }
+      let!(:coteacher_classrooms_teacher) { create(:classrooms_teacher, user: teacher, classroom: coteacher_classroom, role: ClassroomsTeacher::ROLE_TYPES[:coteacher]) }
 
       it do
         subject

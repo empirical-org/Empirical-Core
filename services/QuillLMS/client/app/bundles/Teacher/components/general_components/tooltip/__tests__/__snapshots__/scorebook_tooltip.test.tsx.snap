@@ -1,0 +1,1044 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScorebookTooltip component key target and skills explanation activity has not been completed 1`] = `
+<DocumentFragment>
+  <div
+    class="scorebook-tooltip"
+  >
+    <i
+      class="fas fa-caret-up"
+    />
+    <i
+      class="fas fa-caret-up border-color"
+    />
+    <div
+      class="title"
+    >
+      Capitalizing Holidays, People, & Places - Mixed Topics
+    </div>
+    <div
+      class="main"
+    >
+      <div
+        class="activity-overview"
+      >
+        <div
+          class="activity-details"
+        >
+          <div
+            class="activity-detail"
+          >
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Objectives
+              </p>
+              <p
+                class="description"
+              >
+                Students rewrite sentences, adding the correct capitalization.
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Published
+              </p>
+              <p
+                class="description"
+              >
+                December 10, 2021 at 9:00 am
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Due
+              </p>
+              <p
+                class="description"
+              >
+                N/A
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            1st score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                8 of 10 Target Skills Correct (80%)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              December 12, 2021 at 9:00 am / 2 mins
+            </p>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            2nd score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                6 of 10 Target Skills Correct (60%)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              December 17, 2021 at 9:00 am / 4 mins
+            </p>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            Scoring
+          </p>
+          <p
+            class="description"
+          >
+            The Quill Diagnostic is meant to diagnose skills to practice. Students are not provided a color-coded score or percentage score. Teachers see only a percentage score without a color.
+          </p>
+        </div>
+      </div>
+      <p
+        class="no-data-message"
+      >
+        This activity has not been completed.
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ScorebookTooltip component key target and skills explanation activity has not been published 1`] = `
+<DocumentFragment>
+  <div
+    class="scorebook-tooltip"
+  >
+    <i
+      class="fas fa-caret-up"
+    />
+    <i
+      class="fas fa-caret-up border-color"
+    />
+    <div
+      class="title"
+    >
+      Capitalizing Holidays, People, & Places - Mixed Topics
+    </div>
+    <div
+      class="main"
+    >
+      <div
+        class="activity-overview"
+      >
+        <div
+          class="activity-details"
+        >
+          <div
+            class="activity-detail"
+          >
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Objectives
+              </p>
+              <p
+                class="description"
+              >
+                Students rewrite sentences, adding the correct capitalization.
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Scheduled For
+              </p>
+              <p
+                class="description"
+              >
+                December 10, 2021 at 9:00 am
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Due
+              </p>
+              <p
+                class="description"
+              >
+                N/A
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            1st score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                8 of 10 Target Skills Correct (80%)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              December 12, 2021 at 9:00 am / 2 mins
+            </p>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            2nd score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                6 of 10 Target Skills Correct (60%)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              December 17, 2021 at 9:00 am / 4 mins
+            </p>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            Scoring
+          </p>
+          <p
+            class="description"
+          >
+            The Quill Diagnostic is meant to diagnose skills to practice. Students are not provided a color-coded score or percentage score. Teachers see only a percentage score without a color.
+          </p>
+        </div>
+      </div>
+      <p
+        class="no-data-message"
+      >
+        This scheduled activity has not been published.
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ScorebookTooltip component key target and skills explanation activity is locked 1`] = `
+<DocumentFragment>
+  <div
+    class="scorebook-tooltip"
+  >
+    <i
+      class="fas fa-caret-up"
+    />
+    <i
+      class="fas fa-caret-up border-color"
+    />
+    <div
+      class="title"
+    >
+      Capitalizing Holidays, People, & Places - Mixed Topics
+    </div>
+    <div
+      class="main"
+    >
+      <div
+        class="activity-overview"
+      >
+        <div
+          class="activity-details"
+        >
+          <div
+            class="activity-detail"
+          >
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Objectives
+              </p>
+              <p
+                class="description"
+              >
+                Students rewrite sentences, adding the correct capitalization.
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Published
+              </p>
+              <p
+                class="description"
+              >
+                December 10, 2021 at 9:00 am
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Due
+              </p>
+              <p
+                class="description"
+              >
+                N/A
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            1st score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                8 of 10 Target Skills Correct (80%)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              December 12, 2021 at 9:00 am / 2 mins
+            </p>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            2nd score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                6 of 10 Target Skills Correct (60%)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              December 17, 2021 at 9:00 am / 4 mins
+            </p>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            Scoring
+          </p>
+          <p
+            class="description"
+          >
+            The Quill Diagnostic is meant to diagnose skills to practice. Students are not provided a color-coded score or percentage score. Teachers see only a percentage score without a color.
+          </p>
+        </div>
+      </div>
+      <p
+        class="no-data-message"
+      >
+        This activity is set for staggered release and has not been unlocked by this student.
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ScorebookTooltip component key target and skills explanation student missed the lesson 1`] = `
+<DocumentFragment>
+  <div
+    class="scorebook-tooltip"
+  >
+    <i
+      class="fas fa-caret-up"
+    />
+    <i
+      class="fas fa-caret-up border-color"
+    />
+    <div
+      class="title"
+    >
+      Capitalizing Holidays, People, & Places - Mixed Topics
+    </div>
+    <div
+      class="main"
+    >
+      <div
+        class="activity-overview"
+      >
+        <div
+          class="activity-details"
+        >
+          <div
+            class="activity-detail"
+          >
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Objectives
+              </p>
+              <p
+                class="description"
+              >
+                Students rewrite sentences, adding the correct capitalization.
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Published
+              </p>
+              <p
+                class="description"
+              >
+                December 10, 2021 at 9:00 am
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Due
+              </p>
+              <p
+                class="description"
+              >
+                N/A
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            1st score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                8 of 10 Target Skills Correct (80%)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              December 12, 2021 at 9:00 am / 2 mins
+            </p>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            2nd score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                6 of 10 Target Skills Correct (60%)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              December 17, 2021 at 9:00 am / 4 mins
+            </p>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            Scoring
+          </p>
+          <p
+            class="description"
+          >
+            The Quill Diagnostic is meant to diagnose skills to practice. Students are not provided a color-coded score or percentage score. Teachers see only a percentage score without a color.
+          </p>
+        </div>
+      </div>
+      <p
+        class="no-data-message"
+      >
+        This student has missed this lesson. To make up this material, you can assign this lesson again to the students who missed it.
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ScorebookTooltip component scoring should display a scoring explanation if it is a Diagnostic activity 1`] = `
+<DocumentFragment>
+  <div
+    class="scorebook-tooltip"
+  >
+    <i
+      class="fas fa-caret-up"
+    />
+    <i
+      class="fas fa-caret-up border-color"
+    />
+    <div
+      class="title"
+    >
+      Capitalizing Holidays, People, & Places - Mixed Topics
+    </div>
+    <div
+      class="main"
+    >
+      <div
+        class="activity-overview"
+      >
+        <div
+          class="activity-details"
+        >
+          <div
+            class="activity-detail"
+          >
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Objectives
+              </p>
+              <p
+                class="description"
+              >
+                Students rewrite sentences, adding the correct capitalization.
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Published
+              </p>
+              <p
+                class="description"
+              >
+                December 10, 2021 at 9:00 am
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Due
+              </p>
+              <p
+                class="description"
+              >
+                N/A
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            1st score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                8 of 10 Target Skills Correct (80%)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              December 12, 2021 at 9:00 am / 2 mins
+            </p>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            2nd score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                6 of 10 Target Skills Correct (60%)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              December 17, 2021 at 9:00 am / 4 mins
+            </p>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            Scoring
+          </p>
+          <p
+            class="description"
+          >
+            The Quill Diagnostic is meant to diagnose skills to practice. Students are not provided a color-coded score or percentage score. Teachers see only a percentage score without a color.
+          </p>
+        </div>
+      </div>
+      <p
+        class="tooltip-message"
+      >
+        Clicking on the activity icon loads the report
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ScorebookTooltip component scoring should display the scoring information for each session 1`] = `
+<DocumentFragment>
+  <div
+    class="scorebook-tooltip"
+  >
+    <i
+      class="fas fa-caret-up"
+    />
+    <i
+      class="fas fa-caret-up border-color"
+    />
+    <div
+      class="title"
+    >
+      Capitalizing Holidays, People, & Places - Mixed Topics
+    </div>
+    <div
+      class="main"
+    >
+      <div
+        class="activity-overview"
+      >
+        <div
+          class="activity-details"
+        >
+          <div
+            class="activity-detail"
+          >
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Objectives
+              </p>
+              <p
+                class="description"
+              >
+                Students rewrite sentences, adding the correct capitalization.
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Published
+              </p>
+              <p
+                class="description"
+              >
+                December 10, 2021 at 9:00 am
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Due
+              </p>
+              <p
+                class="description"
+              >
+                N/A
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            1st score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                8 of 10 Target Skills Correct (80%)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              December 12, 2021 at 9:00 am / 2 mins
+            </p>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            2nd score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                6 of 10 Target Skills Correct (60%)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              December 17, 2021 at 9:00 am / 4 mins
+            </p>
+          </div>
+        </div>
+      </div>
+      <p
+        class="tooltip-message"
+      >
+        Clicking on the activity icon loads the report
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ScorebookTooltip component should render 1`] = `
+<DocumentFragment>
+  <div
+    class="scorebook-tooltip"
+  >
+    <i
+      class="fas fa-caret-up"
+    />
+    <i
+      class="fas fa-caret-up border-color"
+    />
+    <div
+      class="title"
+    >
+      Capitalizing Holidays, People, & Places - Mixed Topics
+    </div>
+    <div
+      class="main"
+    >
+      <div
+        class="activity-overview"
+      >
+        <div
+          class="activity-details"
+        >
+          <div
+            class="activity-detail"
+          >
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Objectives
+              </p>
+              <p
+                class="description"
+              >
+                Students rewrite sentences, adding the correct capitalization.
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Published
+              </p>
+              <p
+                class="description"
+              >
+                December 10, 2021 at 9:00 am
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Due
+              </p>
+              <p
+                class="description"
+              >
+                N/A
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            1st score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                8 of 10 Target Skills Correct (80%)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              December 12, 2021 at 9:00 am / 2 mins
+            </p>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            2nd score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                6 of 10 Target Skills Correct (60%)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              December 17, 2021 at 9:00 am / 4 mins
+            </p>
+          </div>
+        </div>
+      </div>
+      <p
+        class="tooltip-message"
+      >
+        Clicking on the activity icon loads the report
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KeyTargetSkillConcepts component should render 1`] = `
+<DocumentFragment>
+  <div
+    class="activity-tooltip-details-section target-skills-section"
+  >
+    <p
+      class="header"
+    >
+      Target Skills
+    </p>
+    <div
+      class="description-block"
+    >
+      <div
+        class="target-skill-container"
+      >
+        <p>
+          Conventions of Language
+        </p>
+        <div
+          class="counts-container"
+        >
+          <p
+            class="correct-answer"
+          >
+            1
+          </p>
+          <p
+            class="incorrect-answer"
+          >
+            7
+          </p>
+        </div>
+      </div>
+      <div
+        class="target-skill-container"
+      >
+        <p>
+          Subordinating Conjunctions
+        </p>
+        <div
+          class="counts-container"
+        >
+          <p
+            class="correct-answer"
+          >
+            0
+          </p>
+          <p
+            class="incorrect-answer"
+          >
+            3
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p
+    class="tooltip-message"
+  >
+    Clicking on the activity icon loads the report
+  </p>
+</DocumentFragment>
+`;

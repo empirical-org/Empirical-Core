@@ -29,32 +29,32 @@ exports[`Assign students component should render 1`] = `
       <div
         className="import-or-create-classroom-buttons"
       >
-        <button
-          className="interactive-wrapper import-from-provider-button"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Clever Icon"
-            className="import-from-provider-button-icon"
-            src="undefined/images/icons/clever.svg"
-          />
-          Import from 
-          Clever
-        </button>
-        <button
-          className="interactive-wrapper import-from-provider-button"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Google Classroom Icon"
-            className="import-from-provider-button-icon"
-            src="undefined/images/icons/google-classroom.svg"
-          />
-          Import from 
-          Google Classroom
-        </button>
+        <DropdownInput
+          className="import-classes-dropdown-input"
+          handleChange={[Function]}
+          options={
+            Array [
+              Object {
+                "label": "Import from Clever",
+                "value": "Clever",
+              },
+              Object {
+                "label": "Import from Google Classroom",
+                "value": "Google",
+              },
+              Object {
+                "label": "Import from Canvas",
+                "value": "Canvas",
+              },
+            ]
+          }
+          value={
+            Object {
+              "label": "Import Classes",
+              "value": null,
+            }
+          }
+        />
         <button
           className="quill-button medium secondary outlined create-a-class-button"
           onClick={[Function]}
