@@ -39,7 +39,7 @@ module Snapshots
           ON activity_sessions.activity_id = activities.id
         JOIN lms.activity_classifications
           ON activities.activity_classification_id = activity_classifications.id
-        JOIN lms.standards
+        LEFT OUTER JOIN lms.standards
           ON activities.standard_id = standards.id
         JOIN lms.users
           ON schools_users.user_id = users.id
