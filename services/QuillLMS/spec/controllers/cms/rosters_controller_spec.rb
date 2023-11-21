@@ -12,6 +12,7 @@ describe Cms::RostersController do
   describe '#upload_teachers_and_students' do
     let!(:school) { create(:school)}
     let!(:existing_student) { create(:student) }
+    let!(:existing_teacher) { create(:teacher) }
 
     it 'should create teachers and students based on the data provided, and it should ignore empty items in payload arrays' do
       teacher_email = "Email@test.org"
@@ -85,6 +86,53 @@ describe Cms::RostersController do
       expect(StudentsClassrooms.find_by(classroom: classroom, student: existing_student)).to be
       expect(response.status).to eq 200
       expect(JSON.parse(response.body)).to be_empty
+    end
+
+    it 'should overwrite password for existing student if the parameter overwritePasswords is true' do
+      create(:schools_users, school: school, user: existing_teacher)
+      new_password = "new-password"
+      classroom = "classroom"
+
+      post :upload_teachers_and_students, params: {
+        school_id: school.id,
+        students: [
+          {
+            name: existing_student.name,
+            email: existing_student.email,
+            teacher_name: existing_teacher.name,
+            teacher_email: existing_teacher.email,
+            classroom: classroom,
+            password: new_password
+          }
+        ],
+        overwritePasswords: true
+      }
+      expect(response.status).to eq 200
+      existing_student.reload
+      expect(existing_student.authenticate(new_password)).to eq(existing_student)
+    end
+
+    it 'should not overwrite passwords for existing student if the parameter overwritePasswords is false' do
+      create(:schools_users, school: school, user: existing_teacher)
+      new_password = "new-password"
+      classroom = "classroom"
+
+      post :upload_teachers_and_students, params: {
+        school_id: school.id,
+        students: [
+          {
+            name: existing_student.name,
+            email: existing_student.email,
+            teacher_name: existing_teacher.name,
+            teacher_email: existing_teacher.email,
+            classroom: classroom,
+            password: new_password
+          }
+        ],
+        overwritePasswords: false
+      }
+      expect(response.status).to eq 200
+      expect(existing_student.authenticate(new_password)).to eq(false)
     end
 
     it 'should flash error if school is not found' do
