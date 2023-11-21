@@ -21,7 +21,7 @@ const LinkProviderAccountModal = ({ link, close, provider, user }: LinkProviderA
     let buttonClass = 'quill-button contained primary medium';
 
     if (termsAccepted) {
-      if (provider === 'Google') { return <AuthGoogleAccessForm offlineAccess={true} text={buttonText} /> }
+      if (provider === 'Google') { return <AuthGoogleAccessForm buttonClass={buttonClass} offlineAccess={true} text={buttonText} /> }
 
       return <a className={buttonClass} href={link}>{buttonText}</a>
     } else {
