@@ -62,7 +62,6 @@ class ShowClassroomLesson extends Component<any, any> {
     if (confirmation) {
       deleteLesson(this.props.match.params.classroomLessonID)
       window.location.href = `${window.location.origin}/lessons/#/admin/classroom-lessons/`
-      window.location.reload()
     }
   }
 
