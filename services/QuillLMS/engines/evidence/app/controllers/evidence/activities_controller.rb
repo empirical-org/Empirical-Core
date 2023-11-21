@@ -20,6 +20,8 @@ module Evidence
     # POST /activities.json
     def create
       if @activity.save
+        @activity.create_default_regex_rules
+
         changelog_params = {
           action: Evidence.change_log_class::EVIDENCE_ACTIONS[:create],
           changed_record_type: 'Evidence::Activity',
