@@ -3,6 +3,10 @@ export {
 } from './archivedButton'
 
 export {
+  PostNavigationBanner
+} from './postNavigationBanner'
+
+export {
   ButtonLoadingSpinner,
   DarkButtonLoadingSpinner,
   LightButtonLoadingSpinner,
