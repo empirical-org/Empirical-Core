@@ -1,0 +1,247 @@
+.banner-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 8px;
+  .left-side-container {
+    .upper-section {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      .tag {
+        color: $quill-white;
+        width: max-content;
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 9px;
+        font-weight: 700;
+        margin: 0;
+        text-transform: uppercase;
+      }
+      .secondary-header {
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 700;
+        margin: 0px 0px 0px 8px;
+      }
+    }
+    .primary-header {
+      color: $quill-grey-90;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 26px;
+      margin-bottom: 8px;
+    }
+    .body {
+      color: $quill-grey-50;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+    }
+    .buttons-container {
+      display: flex;
+      margin-top: 24px;
+      .quill-button {
+        margin-right: 16px;
+      }
+      .nonstandard-banner-button {
+        display: flex;
+        align-items: center;
+        color: $quill-grey-50;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 20px;
+        margin-right: 10px;
+        padding: 2px;
+        text-decoration: none;
+        border-radius: 4px;
+        &:hover {
+          color: $quill-grey-20;
+          img {
+            opacity: 0.4;
+          }
+        }
+        &:first-of-type {
+          margin-left: -2px;
+        }
+        img {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+  &.green {
+    background-color: $quill-green-1;
+    border: 1px solid $quill-green-20;
+    .tag, .quill-button {
+      background-color: $quill-green !important;
+    }
+    .quill-button:hover {
+      background-color: $quill-green-50 !important;
+    }
+    .secondary-header {
+      color: $quill-green;
+    }
+  }
+  &.gold {
+    background-color: $quill-gold-dark-1;
+    border: 1px solid $quill-gold;
+    .tag, .quill-button {
+      background-color: $quill-gold-dark-50 !important;
+    }
+    .quill-button:hover {
+      background-color: $quill-gold-dark-20 !important;
+    }
+    .secondary-header {
+      color: $quill-gold-dark-50;
+    }
+  }
+  &.viridian {
+    background-color: $quill-viridian-1;
+    border: 1px solid $quill-viridian-20;
+
+    .tag, .quill-button {
+      background-color: $quill-viridian !important;
+    }
+    .quill-button:hover {
+      background-color: $quill-viridian-50 !important;
+    }
+    .secondary-header {
+      color: $quill-viridian;
+    }
+  }
+  &.teal {
+    background-color: $quill-teal-1;
+    border: 1px solid $quill-teal-20;
+
+    .tag, .quill-button {
+      background-color: $quill-teal !important;
+    }
+    .quill-button:hover {
+      background-color: $quill-teal-50 !important;
+    }
+    .secondary-header {
+      color: $quill-teal;
+    }
+  }
+  &.blue {
+    background-color: $quill-blue-1;
+    border: 1px solid $quill-blue-20;
+
+    .tag, .quill-button {
+      background-color: $quill-blue !important;
+    }
+    .quill-button:hover {
+      background-color: $quill-blue-50 !important;
+    }
+    .secondary-header {
+      color: $quill-blue;
+    }
+  }
+  &.purple {
+    background-color: $quill-purple-1;
+    border: 1px solid $quill-purple-20;
+
+    .tag, .quill-button {
+      background-color: $quill-purple !important;
+    }
+    .quill-button:hover {
+      background-color: $quill-purple-50 !important;
+    }
+    .secondary-header {
+      color: $quill-purple;
+    }
+  }
+  &.violet {
+    background-color: $quill-violet-1;
+    border: 1px solid $quill-violet-20;
+
+    .tag, .quill-button {
+      background-color: $quill-violet !important;
+    }
+    .quill-button:hover {
+      background-color: $quill-violet-50 !important;
+    }
+    .secondary-header {
+      color: $quill-violet;
+    }
+  }
+  &.red {
+    background-color: $quill-red-1;
+    border: 1px solid $quill-red-20;
+
+    .tag, .quill-button {
+      background-color: $quill-red !important;
+    }
+    .quill-button:hover {
+      background-color: $quill-red-50 !important;
+    }
+    .secondary-header {
+      color: $quill-red;
+    }
+  }
+  &.maroon {
+    background-color: $quill-maroon-1;
+    border: 1px solid $quill-maroon-20;
+
+    .tag, .quill-button {
+      background-color: $quill-maroon !important;
+    }
+    .quill-button:hover {
+      background-color: $quill-maroon-50 !important;
+    }
+    .secondary-header {
+      color: $quill-maroon;
+    }
+  }
+  &.grey {
+    background-color: $quill-grey-1;
+    border: 1px solid $quill-grey-15;
+
+    .tag, .quill-button {
+      background-color: $quill-grey-50 !important;
+    }
+    .quill-button:hover {
+      background-color: $quill-grey-20 !important;
+    }
+    .secondary-header {
+      color: $quill-grey-50;
+    }
+  }
+  &.premium {
+    background-color: $quill-gold-1;
+    border: 1px solid $quill-gold-dark-10;
+
+    .tag,
+    .quill-button {
+      background-color: $quill-gold-dark-50 !important;
+    }
+
+    .quill-button:hover {
+      background-color: $quill-gold-20 !important;
+    }
+
+    .secondary-header {
+      color: $quill-gold-dark-50;
+    }
+  }
+  &.district-premium {
+    background-color: $quill-maroon-1;
+    border: 1px solid $quill-maroon-20;
+
+    .tag,
+    .quill-button {
+      background-color: $quill-maroon !important;
+    }
+
+    .quill-button:hover {
+      background-color: $quill-maroon-50 !important;
+    }
+
+    .secondary-header {
+      color: $quill-maroon;
+    }
+  }
+}
