@@ -17,6 +17,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
     >
       <th
         className="data-table-header"
+        key="0"
         scope="col"
         style={
           Object {
@@ -27,6 +28,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       />
       <th
         className="data-table-header"
+        key="1"
         scope="col"
         style={
           Object {
@@ -39,6 +41,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
+        key="2"
         scope="col"
         style={
           Object {
@@ -51,6 +54,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
+        key="3"
         scope="col"
         style={
           Object {
@@ -63,6 +67,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
+        key="4"
         scope="col"
         style={
           Object {
@@ -75,6 +80,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
+        key="5"
         scope="col"
         style={
           Object {
@@ -87,6 +93,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
+        key="6"
         scope="col"
         style={
           Object {
@@ -117,6 +124,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
+        key="7"
         scope="col"
         style={
           Object {
@@ -129,6 +137,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
+        key="8"
         scope="col"
         style={
           Object {

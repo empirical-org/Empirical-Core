@@ -269,14 +269,14 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
       if (i === 0) { return }
 
       let checkbox = (
-        <div className="checkbox-container">
+        <div className="checkbox-container" key={fieldLabel}>
           <button aria-label="Unchecked checkbox" className="quill-checkbox unselected" id={fieldLabel} onClick={toggleCheckbox} type="button" />
           <label htmlFor={fieldLabel}>{fieldLabel}</label>
         </div>
       )
       if (fields[fieldLabel].checked) {
         checkbox = (
-          <div className="checkbox-container">
+          <div className="checkbox-container" key={fieldLabel}>
             <button aria-label="Checked checkbox" className="quill-checkbox selected" id={fieldLabel} onClick={toggleCheckbox} type="button">
               <img alt="Checked checkbox" src={smallWhiteCheckIcon.src} />
             </button>

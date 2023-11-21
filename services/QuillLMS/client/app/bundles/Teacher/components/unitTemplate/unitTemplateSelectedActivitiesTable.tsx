@@ -16,7 +16,7 @@ export const UnitTemplateSelectedActivitiesTable = ({ activities, selectedActivi
         <tr className="data-table-row" key={id}>
           {fields.map((field, i) => {
             const style = { width: `${unitTemplateDataTableFields[i].width}`, minWidth: `${unitTemplateDataTableFields[i].width}` }
-            return <td className={`data-table-row-section ${unitTemplateDataTableFields[i].rowSectionClassName}`} style={style}>{field}</td>
+            return <td className={`data-table-row-section ${unitTemplateDataTableFields[i].rowSectionClassName}`} key={i} style={style}>{field}</td>
           })}
         </tr>
       )
@@ -26,10 +26,10 @@ export const UnitTemplateSelectedActivitiesTable = ({ activities, selectedActivi
   function renderHeaders() {
     return(
       <tr className="data-table-headers">
-        {unitTemplateDataTableFields.map(header => {
+        {unitTemplateDataTableFields.map((header, i) => {
           const { width, name } = header;
           const style = { width: `${width}`, minWidth: `${width}` }
-          return <th className="data-table-header" scope="col" style={style}>{name}</th>;
+          return <th className="data-table-header" key={i} scope="col" style={style}>{name}</th>;
         })}
       </tr>
     )

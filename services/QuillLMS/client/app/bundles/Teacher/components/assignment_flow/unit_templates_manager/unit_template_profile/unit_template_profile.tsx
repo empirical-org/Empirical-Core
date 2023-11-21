@@ -124,7 +124,7 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
         <ul>
           {activities.map(activity => {
             const { id, name } = activity
-            return <li><a className="interactive-wrapper" id={id} onClick={this.handleActivityClick}>{name}</a></li>
+            return <li key={id}><a className="interactive-wrapper" id={id} onClick={this.handleActivityClick}>{name}</a></li>
           })}
         </ul>
       </section>

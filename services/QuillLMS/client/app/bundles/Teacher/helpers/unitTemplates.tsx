@@ -135,7 +135,7 @@ export const validateUnitTemplateForm = ({ activityPackFlag, activityPackName, a
 
 export const renderActivityPackTooltipElement = (data) => {
   if (!data) { return }
-  const { activities } = data;
+  const { activities, } = data;
   const table = (
     <table className="activity-tooltip-table">
       <tbody>
@@ -145,9 +145,9 @@ export const renderActivityPackTooltipElement = (data) => {
           <th>Grade Level Range</th>
         </tr>
         {activities && activities.length && activities.map((activity: Activity) => {
-          const { name, readability, classification, id } = activity
+          const { name, readability, classification } = activity
           return(
-            <tr key={id}>
+            <tr key={name}>
               <td>{name}</td>
               <td>{classification.name}</td>
               <td>{readability}</td>
@@ -181,9 +181,9 @@ export const renderPreviouslyAssignedActivitiesTooltipElement = (data) => {
           <th>Students</th>
         </tr>
         {data.length && data.map((unit) => {
-          const { name, assigned_date, classrooms, students, id, } = unit;
+          const { name, assigned_date, classrooms, students, } = unit;
           return(
-            <tr key={id}>
+            <tr key={name}>
               <td>{name}</td>
               <td>{moment(assigned_date).format("MM/DD/YY")}</td>
               <td>{classrooms.map(classroom => (<p key={classroom}>{classroom}</p>))}</td>

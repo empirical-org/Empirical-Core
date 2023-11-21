@@ -40,7 +40,7 @@ const SnapshotSection = ({ active, name, className, itemGroupings, searchCount, 
           />
         )
       } else if (type === FEEDBACK) {
-        return <SnapshotFeedback />
+        return <SnapshotFeedback key={FEEDBACK} />
       }
     })
 
