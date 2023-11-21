@@ -11,21 +11,21 @@ module Snapshots
       <<-SQL
         SELECT
           activity_sessions.id AS activity_session_id,
-          activity_classifications.name AS tool,
-          classrooms_teachers.classroom_id AS classroom_id,
-          activity_sessions.completed_at AS completed_at,
-          activity_sessions.timespent AS timespent,
-          (CASE WHEN activity_classifications.scored THEN activity_sessions.percentage ELSE -1 END) AS score,
-          standards.name AS standard,
-          activity_sessions.user_id AS student_id,
-          activities.name AS activity_name,
-          units.name AS activity_pack,
-          users.name AS teacher_name,
-          students.name AS student_name,
-          students.email AS student_email,
-          schools.name AS school_name,
-          classrooms.name AS classroom_name,
-          classrooms.grade AS classroom_grade
+          MAX(activity_classifications.name) AS tool,
+          MAX(classrooms_teachers.classroom_id) AS classroom_id,
+          MAX(activity_sessions.completed_at) AS completed_at,
+          MAX(activity_sessions.timespent) AS timespent,
+          MAX(CASE WHEN activity_classifications.scored THEN activity_sessions.percentage ELSE -1 END) AS score,
+          MAX(standards.name) AS standard,
+          MAX(activity_sessions.user_id) AS student_id,
+          MAX(activities.name) AS activity_name,
+          MAX(units.name) AS activity_pack,
+          MAX(users.name) AS teacher_name,
+          MAX(students.name) AS student_name,
+          MAX(students.email) AS student_email,
+          MAX(schools.name) AS school_name,
+          MAX(classrooms.name) AS classroom_name,
+          MAX(classrooms.grade) AS classroom_grade
       SQL
     end
 
@@ -60,6 +60,10 @@ module Snapshots
 
     def limit_clause
       "LIMIT 10"
+    end
+
+    def group_by_clause
+      "GROUP BY activity_session_id"
     end
   end
 end
