@@ -47,6 +47,7 @@ module Adapters
       end
 
       def self.format_timespent(timespent)
+        return '' unless timespent.is_a?(Numeric)
         return '< 1' if timespent < 60
         (timespent / 60)
       end
