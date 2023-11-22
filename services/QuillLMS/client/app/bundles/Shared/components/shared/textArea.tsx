@@ -174,12 +174,12 @@ export class TextArea extends React.Component<InputProps, InputState> {
         >
           <label>{label}</label>
           <textarea
+            defaultValue={value}
             disabled={disabled}
             id={id}
             maxLength={characterLimit ? characterLimit : 10000}
             onFocus={this.activateInput}
             ref={(input) => { this.input = input; }}
-            value={value}
           />
           {this.renderHelperText()}
           {this.renderCharacterLimit()}

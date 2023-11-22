@@ -206,7 +206,7 @@ exports[`VerifySchool component should render if there are no admins 1`] = `
             helperText="If you do not have a LinkedIn profile, please provide a link to another website that demonstrates your connection to School Name."
             placeholder="Enter URL"
             showPlaceholderWhenInactive={true}
-            value={null}
+            value=""
           >
             <div
               className="input-container  inactive  undefined "
@@ -222,7 +222,7 @@ exports[`VerifySchool component should render if there are no admins 1`] = `
                 onChange={[Function]}
                 onFocus={[Function]}
                 placeholder="Enter URL"
-                value={null}
+                value=""
               />
               <span
                 className="helper-text"
@@ -241,7 +241,7 @@ exports[`VerifySchool component should render if there are no admins 1`] = `
             handleChange={[Function]}
             placeholder="Type an answer"
             showPlaceholderWhenInactive={true}
-            value={null}
+            value=""
           >
             <div
               className="input-container  inactive  undefined "
@@ -257,7 +257,7 @@ exports[`VerifySchool component should render if there are no admins 1`] = `
                 onChange={[Function]}
                 onFocus={[Function]}
                 placeholder="Type an answer"
-                value={null}
+                value=""
               />
             </div>
           </Input>
