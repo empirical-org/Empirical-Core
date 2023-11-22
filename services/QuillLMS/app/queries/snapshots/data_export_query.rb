@@ -41,6 +41,8 @@ module Snapshots
           ON activities.activity_classification_id = activity_classifications.id
         LEFT OUTER JOIN lms.standards
           ON activities.standard_id = standards.id
+        JOIN lms.users
+          ON schools_users.user_id = users.id
         JOIN lms.units
           ON classroom_units.unit_id = units.id
         JOIN lms.users AS students
