@@ -40,11 +40,11 @@ export class TextArea extends React.Component<InputProps, InputState> {
     this.deactivateInput = this.deactivateInput.bind(this)
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     document.addEventListener('mousedown', this.handleClick, false)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.error !== this.props.error && this.state.errorAcknowledged) {
       this.setState({ errorAcknowledged: false, })
     } else if (nextProps.timesSubmitted !== this.props.timesSubmitted && nextProps.error && this.state.errorAcknowledged) {

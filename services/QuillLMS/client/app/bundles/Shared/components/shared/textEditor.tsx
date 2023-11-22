@@ -48,7 +48,7 @@ class TextEditor extends React.Component <any, any> {
     }
   }
 
-  componentWillReceiveProps(nextProps: any) {
+  UNSAFE_componentWillReceiveProps(nextProps: any) {
     const { boilerplate, EditorState, handleTextChange, ContentState, } = this.props
     if (nextProps.boilerplate !== boilerplate) {
       this.setState({text: EditorState.createWithContent(ContentState.createFromBlockArray(this.contentState(nextProps.boilerplate)))},
