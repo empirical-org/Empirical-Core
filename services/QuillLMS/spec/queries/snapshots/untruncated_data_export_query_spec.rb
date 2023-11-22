@@ -64,7 +64,6 @@ module Snapshots
       let(:cte_records) { [runner_context] }
 
       context 'basic shape tests' do
-        # TODO: this test should pass when the production query bug is fixed
         it 'should have one row per activity session' do
           expect(results.map{|r| r[:activity_session_id] }.uniq).to eq(
             results.map{|r| r[:activity_session_id] }

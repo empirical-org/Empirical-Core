@@ -13,7 +13,6 @@ module QuillBigQuery
     end
 
     private def translate_to_big_query_with_cte(query)
-      puts query
       <<-SQL
         WITH
           #{cte}
