@@ -199,6 +199,7 @@ group :test, :development do
   gem 'rspec-redis_helper'
   gem 'brakeman', '= 4.1.1'
   gem 'memory_profiler'
+  gem 'mini_racer', '= 0.8.0'
   gem 'rubocop'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
@@ -219,5 +220,5 @@ group :test do
   gem 'shoulda-callback-matchers', '~> 1.1.1'
   gem 'super_diff', require: false
   gem 'vcr', '~> 6.2.0'
-  gem 'webmock'
+  gem 'webmock', '~> 3.19'
 end

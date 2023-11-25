@@ -11,9 +11,7 @@ global.scrollTo = jest.fn()
 
 const mockParse = () => ({ uid: activityOne.activity_id })
 jest.mock('query-string', () => ({
-  default: {
-    parse: mockParse
-  }
+  parse: mockParse
 }))
 
 const mockTrackAnalyticsEvent = jest.fn()

@@ -6,6 +6,7 @@ import DistrictConceptReportsProgressReport from './DistrictConceptReports';
 import DistrictStandardsReportsProgressReport from './DistrictStandardsReports';
 import IntegrationsContainer from './IntegrationsContainer';
 import PremiumFilterableReportsContainer from './PremiumFilterableReportsContainer';
+import PremiumHub from './PremiumHub';
 import SchoolSubscriptionsContainer from './SchoolSubscriptionsContainer';
 
 import { requestGet, } from '../../../modules/request/index';

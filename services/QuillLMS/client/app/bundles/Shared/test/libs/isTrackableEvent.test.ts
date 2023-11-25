@@ -1,8 +1,8 @@
-import * as expect from 'expect';
-import { isTrackableStudentEvent, UserIdsForEvent } from '../../../Shared';
+import expect from 'expect';
+import { isTrackableStudentEvent } from '../../../Shared';
 
 describe('#isTrackableStudentEvent', () => {
-  const idData: UserIdsForEvent = { teacherId: null, studentId: null }
+  const idData = { teacherId: null, studentId: null }
   it('returns false if both ID values are not present', () => {
     expect(isTrackableStudentEvent(idData)).toEqual(false)
   });

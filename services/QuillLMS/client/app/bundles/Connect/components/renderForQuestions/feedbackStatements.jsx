@@ -1,5 +1,4 @@
 import React from 'react';
-const C = require('../../constants').default;
 
 export default class extends React.Component {
   renderFeedbackStatements = () => {

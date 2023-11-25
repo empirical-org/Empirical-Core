@@ -1,6 +1,6 @@
 import React from 'react';
 import Textarea from 'react-textarea-autosize';
-const C = require('../../constants').default;
+import C from '../../constants';
 
 const noUnderlineErrors = [];
 

@@ -5,10 +5,8 @@ import CustomActivityPack from '../index';
 import { activities } from './data';
 
 jest.mock('query-string', () => ({
-  default: {
-    parseUrl: jest.fn(() => ({ query: {} })),
-    stringifyUrl: jest.fn(() => '')
-  }
+  parseUrl: jest.fn(() => ({ query: {} })),
+  stringifyUrl: jest.fn(() => '')
 })
 )
 

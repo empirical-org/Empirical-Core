@@ -1,6 +1,6 @@
-import * as React from 'react'
 import * as _ from 'lodash'
-import * as md5 from 'md5'
+import md5 from 'md5'
+import * as React from 'react'
 
 import { unorderedArraysAreEqual, } from '../../modules/unorderedArraysAreEqual'
 
