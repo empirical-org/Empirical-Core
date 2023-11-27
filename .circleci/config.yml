@@ -1,4 +1,5 @@
 version: 2
+resource_class: large
 jobs:
   lms_rails_build:
     working_directory: ~/Empirical-Core
