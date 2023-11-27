@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { FULL, restrictedPage, OVERVIEW, SKILL, STUDENT } from '../../shared'
+import { FULL, restrictedPage, OVERVIEW, SKILL, STUDENT, mapItemsIfNotAll } from '../../shared'
 import { Spinner, whiteArrowPointingDownIcon, filterIcon, documentFileIcon } from '../../../Shared/index'
 import OverviewSection from './overviewSection'
 import SkillSection from './skillSection'
@@ -14,11 +14,12 @@ const groupOfStudentsWhiteIconSrc = `${process.env.CDN_URL}/images/icons/student
 const pencilGreyIconSrc = `${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/pencil.svg`
 const pencilWhiteIconSrc = `${process.env.CDN_URL}/images/icons/white-pencil-icon.svg`
 
+// these reports only show for the current school year
+const SELECTED_TIMEFRAME = "this-school-year"
+
 export const DiagnosticGrowthReportsContainer = ({
   accessType,
   loadingFilters,
-  customStartDate,
-  customEndDate,
   pusherChannel,
   searchCount,
   selectedClassrooms,
@@ -28,7 +29,6 @@ export const DiagnosticGrowthReportsContainer = ({
   selectedSchools,
   selectedTeachers,
   allTeachers,
-  selectedTimeframe,
   handleClickDownloadReport,
   openMobileFilterMenu
 }) => {
@@ -48,21 +48,13 @@ export const DiagnosticGrowthReportsContainer = ({
   }
 
   const sharedProps = {
-    loadingFilters,
-    customStartDate,
-    customEndDate,
-    pusherChannel,
     searchCount,
-    selectedClassrooms,
-    allClassrooms,
-    selectedGrades,
-    allGrades,
-    selectedSchools,
-    selectedTeachers,
-    allTeachers,
-    selectedTimeframe,
-    handleClickDownloadReport,
-    openMobileFilterMenu
+    selectedGrades: mapItemsIfNotAll(selectedGrades, allGrades, 'value'),
+    selectedSchoolIds: selectedSchools.map(school => school.id),
+    selectedTeacherIds: mapItemsIfNotAll(selectedTeachers, allTeachers),
+    selectedClassroomIds: mapItemsIfNotAll(selectedClassrooms, allClassrooms),
+    selectedTimeframe: SELECTED_TIMEFRAME,
+    pusherChannel
   }
 
   return (

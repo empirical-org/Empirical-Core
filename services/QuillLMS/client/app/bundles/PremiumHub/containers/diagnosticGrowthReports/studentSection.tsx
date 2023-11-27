@@ -81,31 +81,19 @@ const headers = [
 
 
 export const StudentSection = ({
-  loadingFilters,
-  customStartDate,
-  customEndDate,
-  pusherChannel,
   searchCount,
-  selectedClassrooms,
-  allClassrooms,
   selectedGrades,
-  allGrades,
-  selectedSchools,
-  selectedTeachers,
-  allTeachers,
+  selectedSchoolIds,
+  selectedTeacherIds,
+  selectedClassroomIds,
   selectedTimeframe,
-  handleClickDownloadReport,
-  openMobileFilterMenu
+  pusherChannel
 }) => {
 
   const [diagnosticTypeValue, setDiagnosticTypeValue] = React.useState<DropdownObjectInterface>(diagnosticTypeDropdownOptions[0])
 
   function handleDiagnosticTypeOptionChange(option) {
     setDiagnosticTypeValue(option)
-  }
-
-  if (loadingFilters) {
-    return <Spinner />
   }
 
   return (
