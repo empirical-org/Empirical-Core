@@ -12,6 +12,7 @@ describe Adapters::Csv::AdminPremiumDataExport do
 
     it { expect(described_class.format_cell(:timespent, 61)).to eq(1)}
     it { expect(described_class.format_cell(:timespent, 59)).to eq('< 1')}
+    it { expect(described_class.format_cell(:timespent, nil)).to eq('')}
 
     it { expect(described_class.format_cell(:score, 0.66777)).to eq('67%')}
     it { expect(described_class.format_cell(:score, -1)).to eq('Completed')}
