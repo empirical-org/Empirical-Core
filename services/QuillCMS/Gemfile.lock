@@ -148,6 +148,13 @@ GEM
       concurrent-ruby (~> 1.0)
     json (2.6.3)
     jsonapi-renderer (0.2.2)
+    judoscale-rails (1.5.2)
+      judoscale-ruby (= 1.5.2)
+      railties
+    judoscale-ruby (1.5.2)
+    judoscale-sidekiq (1.5.2)
+      judoscale-ruby (= 1.5.2)
+      sidekiq (>= 5.0)
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.2)
@@ -247,7 +254,6 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
-    rails_autoscale_agent (0.12.0)
     railties (6.1.7.6)
       actionpack (= 6.1.7.6)
       activesupport (= 6.1.7.6)
@@ -381,6 +387,8 @@ DEPENDENCIES
   factory_bot_rails
   faraday-httpclient (~> 2.0, >= 2.0.1)
   httparty (~> 0.18)
+  judoscale-rails
+  judoscale-sidekiq
   kaminari (~> 1.2)
   listen (>= 3.0.5, < 3.2)
   newrelic_rpm (~> 9.3.1)
@@ -391,7 +399,6 @@ DEPENDENCIES
   rack-attack (~> 6.5)
   rack-cors (~> 1.1)
   rails (~> 6.1)
-  rails_autoscale_agent (~> 0.10)
   rb-readline
   redis (~> 4.5)
   redis-namespace (~> 1.8)
