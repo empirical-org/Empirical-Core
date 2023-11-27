@@ -52,7 +52,6 @@ module Snapshots
           schools_users,
           classroom_units,
           activities,
-          classroom_units,
           activity_classifications,
           activity_sessions,
           standards,
@@ -65,8 +64,8 @@ module Snapshots
 
       context 'basic shape tests' do
         it 'should have one row per activity session' do
-          expect(results.map{|r| r[:activity_session_id] }.uniq).to eq(
-            results.map{|r| r[:activity_session_id] }
+          expect(results.pluck(:activity_session_id).uniq).to eq(
+            results.pluck(:activity_session_id)
           )
         end
 
