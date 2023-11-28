@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 module Snapshots
-  describe DataExportQuery do
+  describe UntruncatedDataExportQuery do
     include_context 'Snapshots Period CTE'
 
     context 'big_query_snapshot', :big_query_snapshot do
@@ -68,8 +68,6 @@ module Snapshots
             results.pluck(:activity_session_id)
           )
         end
-
-        it { expect(results.count).to eq 10 }
 
         it 'each row contains the expected fields' do
           expected_fields = %i(
