@@ -153,10 +153,10 @@ module AdminDiagnosticReports
           most_recent_activity_sessions.student_id,
           most_recent_activity_sessions.pre_activity_session_id,
           most_recent_activity_sessions.post_activity_session_id,
+          pre_skill_scores.skill_name,
           most_recent_activity_sessions.aggregate_id,
           most_recent_activity_sessions.name,
           most_recent_activity_sessions.group_by,
-          COUNT(DISTINCT post_skill_scores.student_id) AS total_students,
           COUNT(DISTINCT CASE WHEN
             (pre_correct_total = pre_total_questions
               AND post_correct_total = post_total_questions
@@ -166,8 +166,9 @@ module AdminDiagnosticReports
               AND post_correct_total > pre_correct_total
             ) THEN post_skill_scores.student_id ELSE NULL END) AS improved_proficiency,
           COUNT(DISTINCT CASE WHEN
-            (pre_correct_total < pre_total_questions
-              AND post_correct_total <= pre_correct_total
+            (post_correct_total < pre_correct_total
+             OR (pre_correct_total < pre_total_questions
+              AND post_correct_total = pre_correct_total)
             ) THEN post_skill_scores.student_id ELSE NULL END) AS recommended_practice
         FROM most_recent_activity_sessions
         JOIN pre_skill_scores
@@ -175,7 +176,7 @@ module AdminDiagnosticReports
         LEFT OUTER JOIN post_skill_scores
           ON most_recent_activity_sessions.post_activity_session_id = post_skill_scores.post_activity_session_id
             AND pre_skill_scores.skill_name = post_skill_scores.skill_name
-        GROUP BY most_recent_activity_sessions.student_id, most_recent_activity_sessions.pre_activity_session_id, most_recent_activity_sessions.post_activity_session_id, aggregate_id, name, group_by
+        GROUP BY most_recent_activity_sessions.student_id, most_recent_activity_sessions.pre_activity_session_id, most_recent_activity_sessions.post_activity_session_id, pre_skill_scores.skill_name, aggregate_id, name, group_by
       SQL
     end
 
@@ -194,7 +195,7 @@ module AdminDiagnosticReports
           ON most_recent_activity_sessions.post_activity_session_id = post_skill_scores.post_activity_session_id
             AND pre_skill_scores.skill_name = post_skill_scores.skill_name
         LEFT OUTER JOIN with_improvement
-          ON most_recent_activity_sessions.student_id = with_improvement.student_id
+          ON most_recent_activity_sessions.student_id = with_improvement.student_id AND pre_skill_scores.skill_name = with_improvement.skill_name
         GROUP BY aggregate_id, name, skill_name, group_by
       SQL
     end
@@ -211,6 +212,10 @@ module AdminDiagnosticReports
       "pre_activity_sessions.completed_at"
     end
 
+    private def group_sort_by(group)
+      group[:skill_name]
+    end
+
     private def rollup_aggregation_hash
       {
         pre_score: percentage_aggregate(:pre_correct_total, :pre_total_questions),
@@ -219,7 +224,6 @@ module AdminDiagnosticReports
         pre_total_questions: sum_aggregate,
         post_correct_total: sum_aggregate,
         post_total_questions: sum_aggregate,
-        total_students: sum_aggregate,
         maintained_proficiency: sum_aggregate,
         improved_proficiency: sum_aggregate,
         recommended_practice: sum_aggregate

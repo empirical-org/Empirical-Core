@@ -140,8 +140,12 @@ module AdminDiagnosticReports
 
       result.group_by { |row| row[self.class::AGGREGATE_COLUMN] }
         .values
-        .map { |diagnostic_rows| build_diagnostic_aggregates(diagnostic_rows) }
-        .sort_by { |diagnostic| DIAGNOSTIC_ORDER_BY_ID.index(diagnostic[:diagnostic_id]) }
+        .map { |group_rows| build_diagnostic_aggregates(group_rows) }
+        .sort_by { |group| group_sort_by(group) }
+    end
+
+    private def group_sort_by(group)
+      DIAGNOSTIC_ORDER_BY_ID.index(group[:diagnostic_id])
     end
 
     private def build_diagnostic_aggregates(diagnostic_rows)
