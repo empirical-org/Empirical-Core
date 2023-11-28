@@ -25,8 +25,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - bundle-cache-lms-v3-{{ checksum "services/QuillLMS/Gemfile.lock" }}
-            - bundle-cache-lms-v3
+            - bundle-cache-lms-v4-{{ checksum "services/QuillLMS/Gemfile.lock" }}
+            - bundle-cache-lms-v4
       - run:
           name: Bundle Install if cache isn't present.
           command: |
