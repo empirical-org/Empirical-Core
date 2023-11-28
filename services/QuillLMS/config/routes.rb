@@ -751,6 +751,12 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  resources :admin_diagnostic_skills, only: [] do
+    collection do
+      post :report
+    end
+  end
+
   other_pages = %w(
     beta
     board
