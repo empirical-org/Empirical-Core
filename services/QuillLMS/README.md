@@ -104,3 +104,4 @@ bash deploy.sh staging|staging2|sprint|prod
 [staging 2 (Heroku)](https://dashboard.heroku.com/apps/empirical-grammar-staging2)
 [sprint (Heroku)](https://dashboard.heroku.com/apps/quill-lms-sprint)
 [production (Heroku)](https://dashboard.heroku.com/apps/empirical-grammar)
+foo
