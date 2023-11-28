@@ -1,8 +1,16 @@
-version: 2
+version: 2.1
+
+executors:
+  large-ruby-executor:
+    resource_class: large
+    docker:
+      - image: cimg/ruby:3.1.4
+
 jobs:
   lms_rails_build:
     working_directory: ~/Empirical-Core
     parallelism: 6
+    executor: large-ruby-executor
     docker:
       - image: cimg/ruby:3.1.4
         environment:
@@ -25,7 +33,7 @@ jobs:
       - run:
           command: |
             while true; do
-              sleep 2
+              sleep 5
               ps auxwwf
               echo "====== mem monitor ====="
             done
