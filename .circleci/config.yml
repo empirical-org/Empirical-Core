@@ -30,14 +30,6 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: password
     steps:
-      - run:
-          command: |
-            while true; do
-              sleep 5
-              ps auxwwf
-              echo "====== mem monitor ====="
-            done
-          background: true
       - checkout
       - restore_cache:
           keys:
