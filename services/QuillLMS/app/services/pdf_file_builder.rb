@@ -2,6 +2,7 @@
 
 class PdfFileBuilder < ApplicationService
   ENCODING = 'ascii-8bit'
+  LAYOUT = 'pdf'
   TEMPFILE_NAME = 'temp.pdf'
 
   attr_reader :data, :template
@@ -18,7 +19,7 @@ class PdfFileBuilder < ApplicationService
   end
 
   private def html
-    ApplicationController.renderer.render(locals: { data: data }, template: template, layout: 'pdf')
+    ApplicationController.renderer.render(locals: { data: data }, template: template, layout: LAYOUT)
   end
 
   private def pdf
@@ -26,6 +27,6 @@ class PdfFileBuilder < ApplicationService
   end
 
   private def tempfile
-    @tempfile ||= Tempfile.new(TEMPFILE_NAME, encoding: 'ascii-8bit')
+    @tempfile ||= Tempfile.new(TEMPFILE_NAME, encoding: ENCODING)
   end
 end
