@@ -40,6 +40,11 @@ jobs:
           paths:
             - services/QuillLMS/vendor/bundle
       - run:
+          name: debug script
+          command: |
+            cd services/QuillLMS
+            bundle platform
+      - run:
           name: Install postgres dependencies
           command: |
             sudo apt update
