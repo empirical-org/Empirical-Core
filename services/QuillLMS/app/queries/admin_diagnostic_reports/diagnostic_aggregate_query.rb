@@ -6,6 +6,7 @@ module AdminDiagnosticReports
 
     attr_reader :additional_aggregation
 
+    AGGREGATE_COLUMN = :diagnostic_id
     AGGREGATION_OPTIONS = [
       'grade',
       'teacher',
@@ -42,16 +43,33 @@ module AdminDiagnosticReports
 
     def union_query
       <<-SQL
-        WITH aggregate_rows AS (#{query})
+        WITH #{with_sql}
+        #{contextual_query}
+      SQL
+    end
+
+    def with_sql
+      with_queries.map do |name, query|
+        "#{name} AS (#{query})"
+      end.join(",\n")
+    end
+
+    def with_queries
+      {
+        aggregate_rows: query
+      }
+    end
+
+    def contextual_query
+      <<-SQL
         SELECT
-          diagnostic_id,
-          diagnostic_name,
+          #{rollup_select_columns},
           NULL as aggregate_id,
           'ROLLUP' AS name,
           group_by,
-          #{rollup_aggregation_select},
+          #{rollup_aggregation_select}
         FROM aggregate_rows
-        GROUP BY diagnostic_id, diagnostic_name, group_by
+        GROUP BY #{rollup_select_columns}, group_by
         UNION ALL
         SELECT *
           FROM aggregate_rows
@@ -68,6 +86,10 @@ module AdminDiagnosticReports
           '#{additional_aggregation}' AS group_by,
           #{specific_select_clause}
       SQL
+    end
+
+    def rollup_select_columns
+      "diagnostic_id, diagnostic_name"
     end
 
     def from_and_join_clauses
@@ -116,7 +138,7 @@ module AdminDiagnosticReports
     private def post_process(result)
       return [] if result.empty?
 
-      result.group_by { |row| row[:diagnostic_name] }
+      result.group_by { |row| row[self.class::AGGREGATE_COLUMN] }
         .values
         .map { |diagnostic_rows| build_diagnostic_aggregates(diagnostic_rows) }
         .sort_by { |diagnostic| DIAGNOSTIC_ORDER_BY_ID.index(diagnostic[:diagnostic_id]) }
@@ -192,6 +214,10 @@ module AdminDiagnosticReports
 
     private def average_aggregate(weight_column)
       -> (column) { "SUM(#{weight_column} * #{column}) / SUM(#{weight_column}) AS #{column}" }
+    end
+
+    private def percentage_aggregate(numerator_column, denominator_column)
+      -> (column) { "SUM(#{numerator_column}) / SUM(#{denominator_column}) * 100 AS #{column}" }
     end
   end
 end
