@@ -1,129 +1,124 @@
-.data-export-main {
-  .data-export-container {
-    display: flex;
-    flex-direction: column;
+.data-export-container {
+  display: flex;
+  flex-direction: column;
 
-    section {
-      padding: 0;
+  section {
+    padding: 0;
+  }
+
+  .fields-section,
+  .preview-section {
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      color: $quill-grey-90;
     }
+  }
 
-    .fields-section,
-    .preview-section {
-      h3 {
-        font-size: 20px;
-        font-weight: 600;
-        color: $quill-grey-90;
-      }
-    }
+  .fields-section {
+    margin-top: 32px;
 
-    .fields-section {
-      margin-top: 32px;
-      max-width: $sitewidepagewidth;
+    .fields-container {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 16px 0px 32px;
+      gap: 8px;
 
-      .fields-container {
+      .checkbox-container {
         display: flex;
-        flex-wrap: wrap;
-        margin: 16px 0px 32px;
+        flex: 1 0 16%;
+        max-height: 35px;
+        max-width: 165px;
+        width: 100%;
+        padding: 8px;
+        align-items: center;
         gap: 8px;
-
-        .checkbox-container {
-          display: flex;
-          flex: 1 0 16%;
-          max-height: 35px;
-          max-width: 165px;
-          width: 100%;
-          padding: 8px;
-          align-items: center;
-          gap: 8px;
-          border-radius: 8px;
-          border: 1px solid $quill-grey-5;
-          background: $quill-grey-1;
-
-          label {
-            font-weight: 400;
-            margin-bottom: 0;
-          }
-        }
-      }
-    }
-
-    .preview-section {
-      width: 68vw;
-      max-width: $sitewidepagewidth;
-      .preview-disclaimer-container {
-        display: flex;
-        padding: 16px;
         border-radius: 8px;
         border: 1px solid $quill-grey-5;
-        background: #F4F4F4;
-        margin: 16px 0px 24px 0px;
+        background: $quill-grey-1;
 
-        img {
-          margin-right: 10px;
+        label {
+          font-weight: 400;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  .preview-section {
+    .preview-disclaimer-container {
+      max-width: 650px;
+      display: flex;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid $quill-grey-5;
+      background: #F4F4F4;
+      margin: 16px 0px 24px 0px;
+
+      img {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .data-export-table {
+    border: 1px solid $quill-grey-5;
+    border-radius: 8px;
+    overflow-y: clip;
+    overflow-x: auto;
+
+    .data-table-headers {
+      background-color: $quill-grey-1;
+      min-height: 52px;
+
+      th {
+        color: $quill-grey-90;
+        font-weight: 700;
+        align-items: center;
+        min-height: 52px;
+        max-width: 152px;
+
+        &:not(:last-child) {
+          border-right: 1px solid $quill-grey-5;
         }
       }
     }
 
-    .data-export-table {
-      border: 1px solid $quill-grey-5;
-      border-radius: 8px;
-      overflow-y: clip;
-      overflow-x: auto;
-      width: 68vw;
-
-      .data-table-headers {
-        background-color: $quill-grey-1;
-        min-height: 52px;
-
-        th {
-          color: $quill-grey-90;
-          font-weight: 700;
+    .data-table-body {
+      .data-table-row {
+        td {
+          display: flex;
           align-items: center;
           min-height: 52px;
           max-width: 152px;
+          white-space: break-spaces;
+          padding-right: 24px;
+          margin-right: 24px !important;
+          font-size: 12px;
 
           &:not(:last-child) {
             border-right: 1px solid $quill-grey-5;
           }
-        }
-      }
 
-      .data-table-body {
-        .data-table-row {
-          td {
-            display: flex;
-            align-items: center;
-            min-height: 52px;
-            max-width: 152px;
-            white-space: break-spaces;
-            padding-right: 24px;
-            margin-right: 24px !important;
-            font-size: 12px;
-
-            &:not(:last-child) {
-              border-right: 1px solid $quill-grey-5;
-            }
-
-            .quill-tooltip-trigger {
-              span {
-                padding-right: 24px;
-              }
+          .quill-tooltip-trigger {
+            span {
+              padding-right: 24px;
             }
           }
+        }
 
-          td:first-of-type {
+        td:first-of-type {
+          .quill-tooltip {
+            right: 0;
+          }
+        }
+
+        td:last-of-type {
+          .quill-tooltip-wrapper {
+            left: auto !important;
+
             .quill-tooltip {
               right: 0;
-            }
-          }
-
-          td:last-of-type {
-            .quill-tooltip-wrapper {
-              left: auto !important;
-
-              .quill-tooltip {
-                right: 0;
-              }
             }
           }
         }
