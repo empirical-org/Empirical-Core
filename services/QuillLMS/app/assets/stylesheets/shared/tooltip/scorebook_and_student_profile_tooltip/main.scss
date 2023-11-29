@@ -5,79 +5,118 @@
     top: -20px;
     left: 146px;
     font-size: 34px;
-    color: #f4f2f2;
+    color: $quill-white;
     &.border-color {
       top: -22px;
       z-index: -10;
-      color: #cecece;
+      color: $quill-grey-15;
     }
   }
 
   .main {
-    color: #262626;
     font-size: 12px;
     line-height: 16px;
-    padding: 0px 15px;
-     p {
-       padding-top: 6px;
-     }
-    .key-target-skill-concepts {
-      width: 280px;
-      font-size: 13px;
-      padding: 0px;
-      margin: 0px;
-      color: $quill-black;
-      border-bottom: 1px solid $quill-grey-15;
-      padding-bottom: 6px;
-      margin-bottom: 16px;
-      .row, .tooltip-message {
-        margin: 0px;
+    padding: 0px;
 
-        padding: 4px 0px;
-      }
-
-      .tooltip-message {
-        font-size: 13px;
-        color: #969696;
-      }
-
-
-      .row {
-        display: flex;
-        align-items: center;
-
-        .correct-answer, .incorrect-answer {
-          font-weight: 700;
-          text-align: right;
-          line-height: 18px;
-        }
-
-        .correct-answer {
-          color: $quill-green-vibrant-50;
-        }
-        .incorrect-answer {
-          color: $quill-gold-dark-50;
-        }
-      }
+    .no-data-message {
+      color: $quill-grey-50;
     }
-    .total-score {
-      text-align: center;
+
+    .loading-spinner {
+      .spinner-container {
+        padding: 0;
+        margin: 8px 0px 0px 0px;
+        .spinner {
+          height: 24px;
+        }
+      }
     }
 
     .tooltip-message {
+      border-top: 1px solid $quill-grey-15;
       text-align: center;
+      padding-top: 10px;
+      margin-top: 10px;
+      font-size: 11px;
+      color: $quill-grey-30;
     }
 
     .tooltip-score-time-data {
       font-size: 13px;
     }
 
+    .tooltip-details-divider {
+      height: 1px;
+      background-color: $quill-grey-15;
+      width: 100%;
+    }
+    .activity-tooltip-details-section {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid $quill-grey-15;
+      &.no-border-top {
+        border-top: none;
+        padding-bottom: 0 !important;
+      }
+      &.target-skills-section {
+        margin-top: 10px;
+      }
+      .header {
+        font-size: 12px;
+        font-weight: 700;
+        width: 100%;
+        max-width: 80px;
+      }
+      .description, .description-block {
+        max-width: 254px;
+        width: 100%;
+        font-size: 12px;
+        font-weight: 400;
+        color: $quill-grey-50;
+      }
+      .description-block {
+        .description:not(:first-of-type) {
+          padding-top: 8px;
+        }
+        .target-skill-container {
+          display: flex;
+          justify-content: space-between;
+          .counts-container {
+            display: flex;
+            .incorrect-answer, .correct-answer {
+              min-width: 20px;
+              padding: 0px 4px;
+              text-align: center;
+              font-weight: 700;
+              border-radius: 4px;
+            }
+            .correct-answer {
+              background-color: $quill-green-vibrant-20;
+              color: $quill-green-vibrant;
+            }
+            .incorrect-answer {
+              background-color: $quill-gold-dark-20;
+              color: $quill-gold-dark;
+              margin-left: 8px;
+            }
+          }
+        }
+        .target-skill-container:not(:last-of-type) {
+          padding-bottom: 8px;
+        }
+      }
+    }
+    .activity-tooltip-details-section:not(:last-of-type) {
+      padding-bottom: 8px;
+    }
     .activity-details {
       font-size: 13px;
       &.no-concept-results {
         border-top: 0px;
       }
       .activity-detail {
+        padding-bottom: 10px;
         .activity-detail-title {
           font-weight: 800;
           margin-right: 5px;

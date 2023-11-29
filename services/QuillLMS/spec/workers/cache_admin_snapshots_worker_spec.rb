@@ -47,6 +47,13 @@ describe CacheAdminSnapshotsWorker, type: :worker do
 
       subject
     end
+
+    context 'make actual calls to workers' do
+      # Make sure that the actual calls don't error (the previous test mocks their calls)
+      Sidekiq::Testing.inline! do
+        it { expect { subject }.not_to raise_error }
+      end
+    end
   end
 
   context 'non-existent admin_id' do

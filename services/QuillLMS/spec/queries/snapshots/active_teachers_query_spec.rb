@@ -22,6 +22,14 @@ module Snapshots
         let(:cte_records) { [runner_context, user_logins] }
 
         it { expect(results).to eq(count: teachers.length) }
+
+        context 'when users are coteachers instead of classroom owners' do
+          before do
+            classrooms_teachers.each { |classroom_teacher| classroom_teacher.update(role: ClassroomsTeacher::ROLE_TYPES[:coteacher]) }
+          end
+
+          it { expect(results).to eq(count: teachers.length) }
+        end
       end
 
       context 'multiple valid user_logins for each user' do

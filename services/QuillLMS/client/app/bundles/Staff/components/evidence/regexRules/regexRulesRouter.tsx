@@ -50,7 +50,8 @@ const RegexRulesRouter = ({ history, match }) => {
       } else {
         setErrors([]);
         // update rules cache to display newly updated rule
-        queryClient.refetchQueries(`rule-${ruleId}`).then(() => {
+        queryClient.refetchQueries(`rule-${ruleId}`)
+        queryClient.refetchQueries(`rules-${activityId}-${rule.rule_type}`).then(() => {
           history.push(`/activities/${activityId}/regex-rules`);
         });
       }

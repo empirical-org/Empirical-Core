@@ -24,7 +24,8 @@ class CacheAdminSnapshotsWorker
   end
 
   private def generate_worker_payload(query, timeframe_start, timeframe_end)
-    cache_key = Snapshots::CacheKeys.generate_key(query,
+    cache_key = Snapshots::CacheKeys.generate_key(SnapshotsController::CACHE_REPORT_NAME,
+      query,
       Snapshots::Timeframes::DEFAULT_TIMEFRAME,
       timeframe_start,
       timeframe_end,
