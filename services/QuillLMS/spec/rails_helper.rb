@@ -85,7 +85,7 @@ RSpec.configure do |config|
 
   config.filter_run_excluding benchmarking: true
   config.filter_run_excluding big_query_snapshot: true
-  config.filter_run_excluding broken: true
+  config.filter_run_excluding broken: true # TODO: remove after fixing
   config.filter_run_excluding external_api: true
 
   config.silence_filter_announcements = true
