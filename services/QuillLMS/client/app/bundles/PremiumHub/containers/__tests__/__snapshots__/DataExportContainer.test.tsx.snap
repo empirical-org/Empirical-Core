@@ -2,9 +2,7 @@
 
 exports[`DataExportContainer full state it should render 1`] = `
 <DocumentFragment>
-  <main
-    class="data-export-main"
-  >
+  <main>
     <div
       class="header"
     >
@@ -20,7 +18,13 @@ exports[`DataExportContainer full state it should render 1`] = `
         class="quill-button download-report-button contained primary medium focus-on-light"
         type="button"
       >
-        Download
+        <img
+          alt="White arrow pointing down icon"
+          src="undefined/images/icons/downward-arrow-icon-white.svg"
+        />
+        <span>
+          Download
+        </span>
       </button>
     </div>
     <div
@@ -297,17 +301,30 @@ exports[`DataExportContainer full state it should render 1`] = `
         <h3>
           Preview
         </h3>
-        <div
-          class="preview-disclaimer-container"
+        <span
+          aria-hidden="false"
+          class="quill-tooltip-trigger "
+          role="tooltip"
         >
-          <img
-            alt="Information icon"
-            src="undefined/images/pages/evidence/icons-information-small.svg"
-          />
-          <p>
-            This preview is limited to the first 10 results. Your download will include all activities.
-          </p>
-        </div>
+          <span
+            class="undefined"
+            role="button"
+            tabindex="0"
+          >
+            <img
+              alt="Question mark icon"
+              src="undefined/images/icons/icons-help.svg"
+            />
+          </span>
+          <span
+            class="quill-tooltip-wrapper"
+          >
+            <span
+              aria-live="polite"
+              class="quill-tooltip"
+            />
+          </span>
+        </span>
       </section>
       <div
         class="loading-spinner"
