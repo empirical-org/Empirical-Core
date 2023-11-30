@@ -12,13 +12,6 @@ import {
 
 import { Results, } from '../results'
 
-// jest.mock('qs', () => ({
-//   default: {
-//     parse: jest.fn(() => ({}))
-//   }
-// })
-// )
-
 describe('Results component', () => {
   it('should render when there are results', () => {
     const wrapper = mount(<Results
