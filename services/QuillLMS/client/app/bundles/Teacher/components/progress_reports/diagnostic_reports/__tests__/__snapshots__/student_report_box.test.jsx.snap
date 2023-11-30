@@ -160,7 +160,7 @@ exports[`StudentReportBox should render 1`] = `
               </td>
             </tr>
             <span
-              key="[object Object]-attemptNum"
+              key="[object Object]-1"
             >
               <tr
                 className="Feedback"
@@ -253,7 +253,7 @@ exports[`StudentReportBox should render 1`] = `
               </td>
             </tr>
             <span
-              key="false-attemptNum"
+              key="false-2"
             />
             <tr
               key="2-concepts"

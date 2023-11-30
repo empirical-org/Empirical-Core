@@ -17,7 +17,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
     >
       <th
         className="data-table-header"
-        key="0"
+        key="addActivity"
         scope="col"
         style={
           Object {
@@ -28,7 +28,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       />
       <th
         className="data-table-header"
-        key="1"
+        key="name"
         scope="col"
         style={
           Object {
@@ -41,7 +41,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
-        key="2"
+        key="description"
         scope="col"
         style={
           Object {
@@ -54,7 +54,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
-        key="3"
+        key="inPacks"
         scope="col"
         style={
           Object {
@@ -67,7 +67,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
-        key="4"
+        key="flag"
         scope="col"
         style={
           Object {
@@ -80,7 +80,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
-        key="5"
+        key="readability"
         scope="col"
         style={
           Object {
@@ -93,7 +93,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
-        key="6"
+        key="concept"
         scope="col"
         style={
           Object {
@@ -124,7 +124,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
-        key="7"
+        key="tool"
         scope="col"
         style={
           Object {
@@ -137,7 +137,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
-        key="8"
+        key="edit"
         scope="col"
         style={
           Object {

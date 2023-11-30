@@ -77,7 +77,7 @@ const StudentReportBox = ({ questionData, boxNumber, showScore, showDiff, }) => 
       feedback = feedbackOrDirections(feedback, 'Feedback')
     }
 
-    return <span key={`${feedback}-attemptNum`}>{feedback}</span>
+    return <span key={`${String(feedback)}-${attemptNum}`}>{feedback}</span>
   }
 
   function conceptsByAttempt() {
