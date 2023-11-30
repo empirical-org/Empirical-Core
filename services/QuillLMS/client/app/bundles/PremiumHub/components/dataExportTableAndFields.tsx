@@ -2,7 +2,7 @@ import * as moment from 'moment';
 import * as React from 'react';
 
 import { requestPost, } from '../../../modules/request';
-import { DataTable, Snackbar, Spinner, LightButtonLoadingSpinner, defaultSnackbarTimeout, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon, whiteArrowPointingDownIcon, Tooltip, helpIcon, } from '../../Shared';
+import { DataTable, Snackbar, Spinner, LightButtonLoadingSpinner, defaultSnackbarTimeout, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon, whiteArrowPointingDownIcon, Tooltip, helpIcon, NOT_APPLICABLE, } from '../../Shared';
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
 import { hashPayload, } from '../shared'
 
@@ -23,6 +23,7 @@ const TIME_SPENT = "Time Spent";
 
 const PUSHER_EVENT_KEY = "data-export-cached";
 const COMPLETED = "Completed"
+const NON_PERCENTAGE_TOOLS = ["Quill Reading for Evidence", "Quill Diagnostic", "Quill Lessons"]
 
 interface DataExportTableAndFieldsProps {
   customTimeframeEnd: string;
@@ -244,11 +245,13 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
 
     return data.map((entry, index) => {
       const formattedEntry = {...entry}
-      const { score } = entry
+      const { score, tool } = entry
       let percentage
 
-      if (!score || isNaN(score) || score < 0) {
+      if (NON_PERCENTAGE_TOOLS.includes(tool)) {
         percentage = COMPLETED
+      } else if ((isNaN(score) || score < 0) && score !== 0) {
+        percentage = NOT_APPLICABLE
       } else {
         percentage = Math.round(parseFloat(score) * 100) + '%'
       }
