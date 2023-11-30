@@ -188,9 +188,9 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
   function saveFilterSelections() {
     const filterSelections = {
       timeframe: selectedTimeframe,
-      schools: unorderedArraysAreEqual(selectedSchools, allSchools) ? null : selectedSchools,
-      teachers: unorderedArraysAreEqual(selectedTeachers, allTeachers) ? null : selectedTeachers,
-      classrooms: unorderedArraysAreEqual(selectedClassrooms, allClassrooms) ? null : selectedClassrooms,
+      schools: unorderedArraysAreEqual(selectedSchools, originalAllSchools) ? null : selectedSchools,
+      teachers: unorderedArraysAreEqual(selectedTeachers, originalAllTeachers) ? null : selectedTeachers,
+      classrooms: unorderedArraysAreEqual(selectedClassrooms, originalAllClassrooms) ? null : selectedClassrooms,
       grades: selectedGrades,
       custom_start_date: customStartDate,
       custom_end_date: customEndDate
@@ -242,8 +242,8 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
           selectedTeachers || teacherOptions,
           selectedClassrooms || classroomOptions,
           selectedTimeframe || timeframe,
-          null,
-          null
+          customStartDate || null,
+          customEndDate || null
         );
 
         setOriginalAllSchools(allSchoolOptions)
