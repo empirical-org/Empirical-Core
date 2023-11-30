@@ -35,6 +35,7 @@ module Snapshots
           #{grades_where_clause}
           #{teacher_ids_where_clause}
           #{classroom_ids_where_clause}
+          #{owner_teachers_only_where_clause}
       SQL
     end
 
@@ -67,6 +68,10 @@ module Snapshots
       return "" if classroom_ids.blank?
 
       "AND classrooms.id IN (#{classroom_ids.join(',')})"
+    end
+
+    def owner_teachers_only_where_clause
+      "AND classrooms_teachers.role = '#{ClassroomsTeacher::ROLE_TYPES[:owner]}'"
     end
   end
 end

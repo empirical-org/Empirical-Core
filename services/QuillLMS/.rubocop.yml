@@ -62,6 +62,7 @@ Metrics/ModuleLength:
     - app/models/concerns/teacher.rb
     - app/helpers/pages_helper.rb
     - engines/evidence/spec/controllers/evidence/rules_controller_spec.rb
+    - engines/evidence/spec/controllers/evidence/activities_controller_spec.rb
 
 Metrics/ParameterLists:
   Enabled: true

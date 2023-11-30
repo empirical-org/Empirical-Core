@@ -5,7 +5,7 @@
 module QuillBigQuery
   class Runner
     def self.execute(query)
-      Google::Cloud::Bigquery.new.query(query)
+      Google::Cloud::Bigquery.new.query(query).all.to_a
     rescue => e
       raise e, "Query: #{query}"
     end
