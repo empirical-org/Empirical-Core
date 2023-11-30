@@ -16,4 +16,6 @@ redis-testing: redis-server --port 6378
 
 redis-caching: redis-server --port 7654
 
+# vite opens a lot of files, so we increase the ulimit
+ulimit -n 99999
 vite: bin/vite dev
