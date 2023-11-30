@@ -320,7 +320,7 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
           src="undefined/images/pages/evidence/icons-information-small.svg"
         />
         <p>
-          This preview is limited to the first 10 results. Your download will include all activities.
+          This preview is limited to the first 10 results. Your download will include all activities matching your criteria.
         </p>
       </div>
     </section>

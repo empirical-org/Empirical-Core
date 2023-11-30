@@ -2,8 +2,7 @@ import * as moment from 'moment';
 import * as React from 'react';
 
 import { requestPost, } from '../../../modules/request';
-import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual';
-import { DataTable, Snackbar, Spinner, LightButtonLoadingSpinner, defaultSnackbarTimeout, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon, whiteArrowPointingDownIcon, NOT_APPLICABLE, } from '../../Shared';
+import { DataTable, Snackbar, Spinner, LightButtonLoadingSpinner, defaultSnackbarTimeout, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon, whiteArrowPointingDownIcon, } from '../../Shared';
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
 import { hashPayload, } from '../shared'
 
@@ -248,10 +247,8 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
       const { score } = entry
       let percentage
 
-      if (score === COMPLETED) {
-        percentage = score
-      } else if (!score || isNaN(score) || score < 0) {
-        percentage = NOT_APPLICABLE
+      if (!score || isNaN(score) || score < 0) {
+        percentage = COMPLETED
       } else {
         percentage = Math.round(parseFloat(score) * 100) + '%'
       }
@@ -333,7 +330,7 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
           <h3>Preview</h3>
           <div className="preview-disclaimer-container">
             <img alt={informationIcon.alt} src={informationIcon.src} />
-            <p>This preview is limited to the first 10 results. Your download will include all activities.</p>
+            <p>This preview is limited to the first 10 results. Your download will include all activities matching your criteria.</p>
           </div>
         </section>
         {loading && <Spinner />}
