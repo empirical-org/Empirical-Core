@@ -8,6 +8,7 @@ export const UploadRosters = () => {
   const [schoolId, setSchoolId] = React.useState<Number>();
   const [teachers, setTeachers] = React.useState<Array<any>>([]);
   const [students, setStudents] = React.useState<Array<any>>([])
+  const [overwritePasswords, setOverwritePasswords] = React.useState<boolean>(false)
 
   function handleSchoolIdChange(e) {
     setSchoolId(e.target.value)
@@ -41,7 +42,8 @@ export const UploadRosters = () => {
       {
         school_id: schoolId,
         teachers: teachers,
-        students: students
+        students: students,
+        overwritePasswords: overwritePasswords,
       },
       (body) => {
         alert("Rosters uploaded successfully!")
@@ -52,6 +54,10 @@ export const UploadRosters = () => {
         }
       }
     );
+  }
+
+  function toggleOverwritePasswords() {
+    setOverwritePasswords(!overwritePasswords)
   }
 
   return (
@@ -73,6 +79,17 @@ export const UploadRosters = () => {
           type="file"
         />
       </p>
+      <div className="overwrite-passwords-div">
+        <input
+          aria-label="Overwrite passwords"
+          checked={overwritePasswords}
+          id="overwrite-passwords"
+          name="overwrite-passwords"
+          onChange={toggleOverwritePasswords}
+          type="checkbox"
+        />
+        <label className="overwrite-passwords-label" htmlFor="overwrite-passwords">Overwrite existing students&apos; passwords?</label>
+      </div>
       <button className="quill-button primary medium upload-rosters-button" onClick={submitRosters} type="button">Upload Rosters</button>
     </div>
   )
