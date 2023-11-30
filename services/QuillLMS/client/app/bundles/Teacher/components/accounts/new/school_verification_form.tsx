@@ -8,8 +8,8 @@ import { Input, } from '../../../../Shared/index';
 const schoolVerificationSrc = `${process.env.CDN_URL}/images/onboarding/school_verification.svg`
 
 const SchoolVerificationForm = ({ schoolName, }) => {
-  const [verificationUrl, setVerificationUrl] = React.useState(null)
-  const [verificationReason, setVerificationReason] = React.useState(null)
+  const [verificationUrl, setVerificationUrl] = React.useState('')
+  const [verificationReason, setVerificationReason] = React.useState('')
 
   function submitAdminInfo() {
     requestPut(

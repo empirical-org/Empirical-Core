@@ -45,8 +45,8 @@ const CustomDateModal = ({ close, passedStartDate, setCustomDates, passedEndDate
       <div className="custom-date-modal quill-modal modal-body">
         <h2>Select custom date range</h2>
         <DateRangePicker
-          autoFocus={true}
           endDate={endDate}
+          endDateId="end-date"
           focusedInput={focusedInput}
           isOutsideRange={isOutsideRange}
           navNext={rightArrowImg}
@@ -55,6 +55,7 @@ const CustomDateModal = ({ close, passedStartDate, setCustomDates, passedEndDate
           onDatesChange={handleDateChange}
           onFocusChange={handleSetFocusedInput}
           startDate={startDate}
+          startDateId="start-date"
         />
         <div className="button-section">
           <button className="quill-button medium secondary outlined focus-on-light" onClick={close} type="button">Cancel</button>
