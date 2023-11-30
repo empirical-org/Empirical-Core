@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import * as React from 'react';
 
 import CopyModal from './copy_modal';
@@ -9,11 +9,11 @@ import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor';
 import { DataTable, Snackbar, Tooltip, defaultSnackbarTimeout, publishedIcon, scheduledIcon, } from '../../../../Shared/index';
 import { getIconForActivityClassification } from '../../../../Shared/libs';
 import {
-  DUE_DATE_DEFAULT_TEXT,
-  DatePickerContainer,
-  INVALID_DATES_SNACKBAR_COPY,
-  PUBLISH_DATE_DEFAULT_TEXT,
-  formatDateTimeForDisplay,
+    DUE_DATE_DEFAULT_TEXT,
+    DatePickerContainer,
+    INVALID_DATES_SNACKBAR_COPY,
+    PUBLISH_DATE_DEFAULT_TEXT,
+    formatDateTimeForDisplay,
 } from '../../../helpers/unitActivityDates';
 import * as api from '../../modules/call_api';
 

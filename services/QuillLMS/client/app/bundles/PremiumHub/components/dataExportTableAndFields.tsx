@@ -1,11 +1,10 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import * as React from 'react';
 
 import { requestPost, } from '../../../modules/request';
-import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual';
-import { DataTable, Snackbar, Spinner, LightButtonLoadingSpinner, defaultSnackbarTimeout, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon, } from '../../Shared';
+import { DataTable, LightButtonLoadingSpinner, Snackbar, Spinner, defaultSnackbarTimeout, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon, } from '../../Shared';
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
-import { hashPayload, } from '../shared'
+import { hashPayload, } from '../shared';
 
 const STANDARD_WIDTH = "152px";
 const STUDENT_NAME = "Student Name";

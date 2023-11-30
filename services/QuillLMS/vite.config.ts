@@ -82,6 +82,7 @@ export default defineConfig(({command, mode}) => {
         // so jsx syntax can be detected
         // Removing the plugin does not fix "SyntaxError: Unexpected token" in build mode
         plugins: [
+          // esbuildCommonjs(['react-moment']), This was suggested to avoid the issues importing moment lib
           {
             name: "load-js-files-as-jsx",
             setup(build) {
