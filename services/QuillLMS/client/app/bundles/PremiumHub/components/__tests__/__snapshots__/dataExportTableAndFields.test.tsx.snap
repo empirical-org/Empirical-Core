@@ -312,17 +312,16 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
       <h3>
         Preview
       </h3>
-      <div
-        className="preview-disclaimer-container"
-      >
-        <img
-          alt="Information icon"
-          src="undefined/images/pages/evidence/icons-information-small.svg"
-        />
-        <p>
-          This preview is limited to the first 10 results. Your download will include all activities matching your criteria.
-        </p>
-      </div>
+      <Tooltip
+        isTabbable={true}
+        tooltipText="This preview is limited to the first 10 results. Your download will include all activities matching your criteria."
+        tooltipTriggerText={
+          <img
+            alt="Question mark icon"
+            src="undefined/images/icons/icons-help.svg"
+          />
+        }
+      />
     </section>
     <Spinner />
   </div>

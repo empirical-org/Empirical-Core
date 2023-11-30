@@ -2,7 +2,7 @@ import * as moment from 'moment';
 import * as React from 'react';
 
 import { requestPost, } from '../../../modules/request';
-import { DataTable, Snackbar, Spinner, LightButtonLoadingSpinner, defaultSnackbarTimeout, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon, whiteArrowPointingDownIcon, } from '../../Shared';
+import { DataTable, Snackbar, Spinner, LightButtonLoadingSpinner, defaultSnackbarTimeout, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon, whiteArrowPointingDownIcon, Tooltip, helpIcon, } from '../../Shared';
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
 import { hashPayload, } from '../shared'
 
@@ -328,10 +328,10 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
         </section>
         <section className="preview-section">
           <h3>Preview</h3>
-          <div className="preview-disclaimer-container">
-            <img alt={informationIcon.alt} src={informationIcon.src} />
-            <p>This preview is limited to the first 10 results. Your download will include all activities matching your criteria.</p>
-          </div>
+          <Tooltip
+            tooltipText="This preview is limited to the first 10 results. Your download will include all activities matching your criteria."
+            tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
+          />
         </section>
         {loading && <Spinner />}
         {!loading && <DataTable
