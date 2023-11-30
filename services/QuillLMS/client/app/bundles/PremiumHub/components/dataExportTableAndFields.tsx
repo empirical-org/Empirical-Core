@@ -23,6 +23,7 @@ const STANDARD = "Standard";
 const TIME_SPENT = "Time Spent";
 
 const PUSHER_EVENT_KEY = "data-export-cached";
+const COMPLETED = "Completed"
 
 interface DataExportTableAndFieldsProps {
   customTimeframeEnd: string;
@@ -247,9 +248,9 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
       const { score } = entry
       let percentage
 
-      if (score === "Completed") {
+      if (score === COMPLETED) {
         percentage = score
-      } else if (isNaN(score) || score < 0) {
+      } else if (!score || isNaN(score) || score < 0) {
         percentage = NOT_APPLICABLE
       } else {
         percentage = Math.round(parseFloat(score) * 100) + '%'
