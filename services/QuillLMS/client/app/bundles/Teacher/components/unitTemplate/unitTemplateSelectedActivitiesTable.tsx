@@ -27,9 +27,9 @@ export const UnitTemplateSelectedActivitiesTable = ({ activities, selectedActivi
     return(
       <tr className="data-table-headers">
         {unitTemplateDataTableFields.map((header, i) => {
-          const { width, name } = header;
+          const { width, name, attribute, } = header;
           const style = { width: `${width}`, minWidth: `${width}` }
-          return <th className="data-table-header" key={i} scope="col" style={style}>{name}</th>;
+          return <th className="data-table-header" key={attribute} scope="col" style={style}>{name}</th>;
         })}
       </tr>
     )
