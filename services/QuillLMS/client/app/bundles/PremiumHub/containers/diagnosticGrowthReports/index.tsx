@@ -58,7 +58,7 @@ export const DiagnosticGrowthReportsContainer = ({
   }
 
   return (
-    <main className="diagnostic-reports-main">
+    <main>
       <div className="header">
         <h1>
           <span>Diagnostic Growth Report</span>

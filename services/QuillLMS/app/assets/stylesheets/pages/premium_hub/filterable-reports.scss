@@ -567,21 +567,17 @@
 
   .filter-menu-open {
     main {
-      .data-export-container {
-        .data-table {
-          // 333px width of filter menu plus 64px padding on either side
-          max-width: calc(100vw - 461px);
-        }
+      .data-table {
+        // 333px width of filter menu plus 64px padding on either side
+        max-width: calc(100vw - 461px);
       }
     }
   }
 
   .filter-menu-closed {
     main {
-      .data-export-container {
-        .data-table {
-          max-width: 100%;
-        }
+      .data-table {
+        max-width: 100%;
       }
     }
   }
@@ -589,10 +585,8 @@
   @media (max-width: 1265px) {
     .filter-menu-open {
       main {
-        .data-export-container {
-          .data-table {
-            max-width: 100%;
-          }
+        .data-table {
+          max-width: 100%;
         }
       }
     }

@@ -3,6 +3,7 @@ import * as _ from 'lodash'
 import * as md5 from 'md5'
 
 import { unorderedArraysAreEqual, } from '../../modules/unorderedArraysAreEqual'
+import { NOT_APPLICABLE } from '../Shared'
 
 export const RESTRICTED = 'restricted'
 export const LIMITED = 'limited'
@@ -79,4 +80,16 @@ export function mapItemsIfNotAll(selectedItems, allItems, mapKey = 'id') {
 export function hashPayload(payloadArray: Array<any>) {
   const joinedPayload = payloadArray.join('-')
   return md5(joinedPayload)
+}
+
+export function getTimeInMinutesAndSeconds(seconds) {
+  if(!seconds) return NOT_APPLICABLE
+
+  let numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60).toString();
+  let numseconds = Math.floor((((seconds % 31536000) % 86400) % 3600) % 60).toString();
+
+  if (numminutes.length === 1) numminutes = "0" + numminutes
+  if (numseconds.length === 1) numseconds = "0" + numseconds
+
+  return `${numminutes}:${numseconds}`
 }
