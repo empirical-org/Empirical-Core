@@ -21,9 +21,10 @@ describe AdminDiagnosticSkillsController, type: :controller do
     let(:school_ids) { [school.id.to_s] }
     let(:controller_actions) {
       [
-        [:report, 'pre-diagnostic-assigned']
+        [:report, 'diagnostic-skills']
       ]
     }
+    let(:query_name) { 'diagnostic-skills' }
     let(:previous_start) { now - 1.day }
     let(:previous_end) { current_start }
     let(:current_start) { now }
@@ -39,8 +40,7 @@ describe AdminDiagnosticSkillsController, type: :controller do
     end
 
     context 'cache key generation' do
-      let(:query) { 'pre-diagnostic-assigned' }
-      let(:query_group_by) { "#{query}-#{group_by}-#{diagnostic_id}" }
+      let(:query_group_by) { "#{query_name}-#{group_by}-#{diagnostic_id}" }
       let(:grades) { ['Kindergarten', '1'] }
       let(:teacher_ids) { ['4', '5'] }
       let(:classroom_ids) { ['7', '8'] }
@@ -63,7 +63,7 @@ describe AdminDiagnosticSkillsController, type: :controller do
             classroom_ids: classroom_ids
           })
 
-        post :report, params: { query: query, group_by: group_by, diagnostic_id: diagnostic_id, timeframe: timeframe_name, school_ids: school_ids, grades: grades, teacher_ids: teacher_ids, classroom_ids: classroom_ids }
+        post :report, params: { query: query_name, group_by: group_by, diagnostic_id: diagnostic_id, timeframe: timeframe_name, school_ids: school_ids, grades: grades, teacher_ids: teacher_ids, classroom_ids: classroom_ids }
       end
     end
 
@@ -157,8 +157,6 @@ describe AdminDiagnosticSkillsController, type: :controller do
         let(:current_end) { 'TIMEFRAME_END' }
 
         it 'should trigger a job to cache data if the cache is empty for counts' do
-          query_name = 'pre-diagnostic-assigned'
-
           allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
           expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
           expect(AdminDiagnosticReports::DiagnosticSkillsWorker).to receive(:perform_async).with(cache_key,
@@ -186,7 +184,6 @@ describe AdminDiagnosticSkillsController, type: :controller do
         end
 
         it 'should include school_ids and grades in the call to the cache worker if they are in params' do
-          query_name = 'pre-diagnostic-assigned'
           grades = ["Kindergarten", "1", "2"]
           teacher_ids = ['3', '4']
           classroom_ids = ['5', '6', '7']
@@ -214,7 +211,6 @@ describe AdminDiagnosticSkillsController, type: :controller do
         end
 
         it 'should properly calculate custom timeframes' do
-          query_name = 'pre-diagnostic-assigned'
           timeframe_name = 'custom'
           current_end = DateTime.now.change(usec: 0)
           timeframe_length = 3.days
