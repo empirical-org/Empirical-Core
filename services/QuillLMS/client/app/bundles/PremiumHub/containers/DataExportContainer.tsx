@@ -31,7 +31,7 @@ export const DataExportContainer = ({
   }
 
   return (
-    <main className="data-export-main">
+    <main>
       <DataExportTableAndFields
         customTimeframeEnd={customEndDate?.toDate()}
         customTimeframeStart={customStartDate?.toDate()}

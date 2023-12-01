@@ -2,8 +2,7 @@ import * as moment from 'moment';
 import * as React from 'react';
 
 import { requestPost, } from '../../../modules/request';
-import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual';
-import { DataTable, Snackbar, Spinner, LightButtonLoadingSpinner, defaultSnackbarTimeout, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon, } from '../../Shared';
+import { DataTable, Snackbar, Spinner, LightButtonLoadingSpinner, defaultSnackbarTimeout, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon, whiteArrowPointingDownIcon, Tooltip, helpIcon, NOT_APPLICABLE, } from '../../Shared';
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
 import { hashPayload, } from '../shared'
 
@@ -23,6 +22,8 @@ const STANDARD = "Standard";
 const TIME_SPENT = "Time Spent";
 
 const PUSHER_EVENT_KEY = "data-export-cached";
+const COMPLETED = "Completed"
+const NON_PERCENTAGE_TOOLS = ["Quill Reading for Evidence", "Quill Diagnostic", "Quill Lessons"]
 
 interface DataExportTableAndFieldsProps {
   customTimeframeEnd: string;
@@ -244,8 +245,16 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
 
     return data.map((entry, index) => {
       const formattedEntry = {...entry}
-      const score = Math.round(parseFloat(entry.score) * 100);
-      const percentage = isNaN(score) || score < 0 ? 'N/A' : score + '%';
+      const { score, tool } = entry
+      let percentage
+
+      if (NON_PERCENTAGE_TOOLS.includes(tool)) {
+        percentage = COMPLETED
+      } else if ((isNaN(score) || score < 0) && score !== 0) {
+        percentage = NOT_APPLICABLE
+      } else {
+        percentage = Math.round(parseFloat(score) * 100) + '%'
+      }
 
       formattedEntry.id = index
       formattedEntry.completed_at = moment(entry.completed_at).format("MM/DD/YYYY");
@@ -296,29 +305,15 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
     })
   }
 
-  const renderDownloadButton = () => {
-    let buttonContent = <React.Fragment>Download</React.Fragment>
-    let buttonClassName = "quill-button download-report-button contained primary medium focus-on-light"
-
-    if (downloadButtonBusy) {
-      buttonContent = <React.Fragment>Download<LightButtonLoadingSpinner /></React.Fragment>
-      buttonClassName += ' disabled'
-    }
-
-    return (
-      <button className={buttonClassName} onClick={createCsvReportDownload} type="button">
-        {buttonContent}
-      </button>
-    )
-  }
-
-
   return(
     <React.Fragment>
       <div className="header">
         <Snackbar text="You will receive an email with a download link shortly." visible={showSnackbar} />
         <h1>Data Export</h1>
-        {renderDownloadButton()}
+        <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={createCsvReportDownload} type="button">
+          {downloadButtonBusy ? <LightButtonLoadingSpinner /> : <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />}
+          <span>Download</span>
+        </button>
       </div>
       <div className="filter-button-container">
         <button className="interactive-wrapper focus-on-light" onClick={openMobileFilterMenu} type="button">
@@ -336,10 +331,10 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
         </section>
         <section className="preview-section">
           <h3>Preview</h3>
-          <div className="preview-disclaimer-container">
-            <img alt={informationIcon.alt} src={informationIcon.src} />
-            <p>This preview is limited to the first 10 results. Your download will include all activities.</p>
-          </div>
+          <Tooltip
+            tooltipText="This preview is limited to the first 10 results. Your download will include all activities matching your criteria."
+            tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
+          />
         </section>
         {loading && <Spinner />}
         {!loading && <DataTable
