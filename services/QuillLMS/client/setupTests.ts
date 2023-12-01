@@ -10,14 +10,14 @@ Object.defineProperty(document, 'fonts', {
   value: { addEventListener: jest.fn(), removeEventListener: jest.fn() },
 });
 
-jest.mock('query-string', () => ({
-  default: {
-    parseUrl: jest.fn(() => ({ query: {} })),
-    stringifyUrl: jest.fn(() => ''),
-    parse: jest.fn(() => ({})),
-  }
-})
-)
+// jest.mock('query-string', () => ({
+//   default: {
+//     parseUrl: jest.fn(() => ({ query: {} })),
+//     stringifyUrl: jest.fn(() => ''),
+//     parse: jest.fn(() => ({})),
+//   }
+// })
+// )
 
 global.IntersectionObserver = class IntersectionObserver {
   constructor() {}
