@@ -6,7 +6,7 @@ module SessionStore
   DEFAULT_OPTIONS = {
     httponly: true,
     same_site: :lax, # Rails default since 6.1, making it explicit
-    expire_after: 60.days,
+    expire_after: 180.days,
     secure: Rails.env.production? || Rails.env.staging?
   }
 end
