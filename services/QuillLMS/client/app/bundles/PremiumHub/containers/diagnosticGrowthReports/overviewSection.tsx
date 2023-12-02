@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
-import { DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH, getTimeInMinutesAndSeconds, groupByDropdownOptions, hashPayload } from '../../shared'
+import { DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH, groupByDropdownOptions, hashPayload } from '../../shared'
 import { requestPost, } from '../../../../modules/request';
+import { aggregateOverviewData } from './helpers';
 
 const QUERY_KEY = "admin-diagnostic-overview"
 const PUSHER_EVENT_KEY = "admin-diagnostic-overview-cached";
@@ -95,7 +96,7 @@ export const OverviewSection = ({
 
   React.useEffect(() => {
     getData()
-  }, [searchCount])
+  }, [searchCount, groupByValue])
 
 
   React.useEffect(() => {
@@ -106,7 +107,14 @@ export const OverviewSection = ({
 
   React.useEffect(() => {
     if (preDiagnosticAssignedData && postDiagnosticAssignedData && preDiagnosticCompletedData && postDiagnosticCompletedData && recommendationsData) {
-      aggregateData()
+      aggregateOverviewData({
+        preDiagnosticAssignedData,
+        postDiagnosticAssignedData,
+        preDiagnosticCompletedData,
+        postDiagnosticCompletedData,
+        recommendationsData,
+        setAggregatedData
+      })
     }
   }, [preDiagnosticAssignedData, postDiagnosticAssignedData, preDiagnosticCompletedData, postDiagnosticCompletedData, recommendationsData])
 
@@ -136,79 +144,6 @@ export const OverviewSection = ({
     getPostDiagnosticAssignedData()
     getPostDiagnosticCompletedData()
     getRecommendationsData()
-  }
-
-  function aggregateData() {
-    const preDiagnosticAssignedDataHash = {}
-    const postDiagnosticAssignedDataHash = {}
-    const preDiagnosticCompletedDataHash = {}
-    const postDiagnosticCompletedDataHash = {}
-    const recommendationsDataHash = {}
-    const aggregateRowsData = {}
-
-    const combinedData = preDiagnosticAssignedData.map(entry => {
-      const { diagnostic_id, diagnostic_name, aggregate_rows, pre_students_assigned } = entry
-      preDiagnosticAssignedDataHash[diagnostic_id] = { pre_students_assigned }
-      // aggregateRowsData[diagnostic_id] = aggregate_rows
-      return {
-        id: diagnostic_id,
-        name: diagnostic_name,
-        preDiagnosticCompleted: null,
-        studentsCompletedPractice: null,
-        averageActivitiesAndTimeSpent: null,
-        postDiagnosticCompleted: null,
-        overallSkillGrowth: null,
-        aggregate_rows: null
-      }
-    })
-
-    postDiagnosticAssignedData.map(entry => {
-      const { diagnostic_id, aggregate_rows, post_students_assigned } = entry
-      postDiagnosticAssignedDataHash[diagnostic_id] = { post_students_assigned }
-      // aggregateRowsData[diagnostic_id] = aggregate_rows
-    })
-    preDiagnosticCompletedData.map(entry => {
-      const { diagnostic_id, aggregate_rows, pre_average_score, pre_students_completed } = entry
-      preDiagnosticCompletedDataHash[diagnostic_id] = {
-        pre_average_score,
-        pre_students_completed
-      }
-      // aggregateRowsData[diagnostic_id] = aggregate_rows
-    })
-    postDiagnosticCompletedData.map(entry => {
-      const { diagnostic_id, aggregate_rows, post_average_score, post_students_completed } = entry
-      postDiagnosticCompletedDataHash[diagnostic_id] = {
-        post_average_score,
-        post_students_completed
-      }
-      // aggregateRowsData[diagnostic_id] = aggregate_rows
-    })
-    recommendationsData.map(entry => {
-      const { diagnostic_id, aggregate_rows, average_practice_activities_count, average_time_spent_seconds, students_completed_practice } = entry
-      recommendationsDataHash[diagnostic_id] = {
-        average_practice_activities_count,
-        average_time_spent_seconds,
-        students_completed_practice
-      }
-      // aggregateRowsData[diagnostic_id] = aggregate_rows
-    })
-
-    combinedData.forEach(entry => {
-      const { id } = entry
-      if(!preDiagnosticAssignedDataHash[id]?.pre_students_assigned) { return }
-      const preStudentsAssigned = preDiagnosticAssignedDataHash[id]?.pre_students_assigned
-      const preStudentsCompleted = preDiagnosticCompletedDataHash[id]?.pre_students_completed
-      const postStudentsAssigned = postDiagnosticAssignedDataHash[id]?.post_students_assigned
-      const postStudentsCompleted = postDiagnosticCompletedDataHash[id]?.post_students_completed
-      const studentsCompletedPractice = recommendationsDataHash[id]?.students_completed_practice
-      const averageActivitiesCount = recommendationsDataHash[id]?.average_practice_activities_count
-      const averageTimespent = recommendationsDataHash[id]?.average_time_spent_seconds
-      entry.preDiagnosticCompleted = `${preStudentsCompleted || 0} of ${preStudentsAssigned || 0} Students`
-      entry.studentsCompletedPractice = `${studentsCompletedPractice || 0} Students`
-      entry.averageActivitiesAndTimeSpent = `${Math.round(averageActivitiesCount) || 0} Activities (${getTimeInMinutesAndSeconds(averageTimespent)})`
-      entry.postDiagnosticCompleted = `${postStudentsCompleted || 0} of ${postStudentsAssigned || 0} Students`
-    })
-    setAggregatedData(combinedData)
   }
 
   function getPreDiagnosticAssignedData () {
