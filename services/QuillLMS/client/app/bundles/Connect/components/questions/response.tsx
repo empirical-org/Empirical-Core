@@ -13,12 +13,12 @@ import {
   submitResponseEdit,
 } from '../../actions/responses';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
+import C from '../../constants';
 import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import ResponseList from './responseList.jsx';
 
 const jsDiff = require('diff');
-const C = require('../../constants').default;
 
 interface ResponseObj {
   author: string,

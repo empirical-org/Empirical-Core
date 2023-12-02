@@ -5,7 +5,7 @@ const moment = require('moment');
 import { requestDelete, requestGet, requestPost, requestPut } from '../../../modules/request/index';
 import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
 
-const C = require('../constants').default;
+import C from '../constants';
 
 export function deleteStatus(questionId) {
   return { type: C.DELETE_RESPONSE_STATUS, data: { questionId, }, };

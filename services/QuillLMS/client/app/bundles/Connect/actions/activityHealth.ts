@@ -1,4 +1,4 @@
-const C = require('../constants').default;
+import C from '../constants';
 
 const setFlag = (flag) => {
   return (dispatch) => {

@@ -1,4 +1,4 @@
-const C = require('../constants').default;
+import C from '../constants';
 
 const moment = require('moment');
 
@@ -12,10 +12,10 @@ import lessonActions from '../actions/lessons';
 import { Question } from '../interfaces/questions';
 import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api';
 import {
-  FILL_IN_BLANKS_TYPE,
-  FocusPointApi,
-  IncorrectSequenceApi,
-  QuestionApi
+    FILL_IN_BLANKS_TYPE,
+    FocusPointApi,
+    IncorrectSequenceApi,
+    QuestionApi
 } from '../libs/questions_api';
 import { submitResponse } from './responses';
 
