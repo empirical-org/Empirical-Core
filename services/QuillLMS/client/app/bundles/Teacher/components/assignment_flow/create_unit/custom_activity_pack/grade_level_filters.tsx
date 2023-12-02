@@ -36,13 +36,14 @@ const GradeLevelFilters = ({ gradeLevelFilters, handleGradeLevelFilterChange, }:
 
   let gradeLevelRangeText = 'All Grades'
   let checkbox = <button aria-label="Enable Grade Level Range filters" className="focus-on-light quill-checkbox unselected" onClick={handleEnableGradeLevelFilters} type="button" />
+  let lowerValue = GRADE_LEVEL_LABELS[0]
 
   if (gradeLevelFilters.length) {
     checkbox = (<button aria-label="Disable GradeLevel Range filters" className="focus-on-light quill-checkbox selected" onClick={clearAllGradeLevelFilters} type="button">
       <img alt="Checked checkbox" src={smallWhiteCheckIcon.src} />
     </button>)
 
-    const lowerValue = GRADE_LEVEL_LABELS.findIndex(label => label.includes(String(gradeLevelFilters[0])))
+    lowerValue = GRADE_LEVEL_LABELS.findIndex(label => label.includes(String(gradeLevelFilters[0])))
     const lowestGrade = GRADE_LEVEL_LABELS[lowerValue].split('-')[0]
     gradeLevelRangeText = `${lowestGrade} - 12`
   }
