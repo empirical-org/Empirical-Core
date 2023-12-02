@@ -2,19 +2,19 @@ import fuzzy from 'fuzzyset.js';
 import _ from 'underscore';
 import constants from '../constants';
 import {
-  checkChangeObjectMatch
+    checkChangeObjectMatch
 } from './algorithms/changeObjects';
 import {
-  getFeedbackForMissingWord
+    getFeedbackForMissingWord
 } from './algorithms/joiningWords';
 import {
-  spacingBeforePunctuation
+    spacingBeforePunctuation
 } from './algorithms/spacingBeforePunctuation';
 import quillNormalize from './quillNormalizer';
 import { checkForMissingWords } from './requiredWords';
 import { getOptimalResponses, getTopOptimalResponse } from './sharedResponseFunctions';
 
-const jsDiff = require('diff');
+import * as jsDiff from 'diff';
 
 const ERROR_TYPES = {
   NO_ERROR: 'NO_ERROR',

@@ -18,7 +18,7 @@ import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.j
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import ResponseList from './responseList.jsx';
 
-const jsDiff = require('diff');
+import * as jsDiff from 'diff';
 
 interface ResponseObj {
   author: string,
