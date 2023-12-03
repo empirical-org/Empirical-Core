@@ -9,6 +9,5 @@ WICKED_PDF_EXE_PATH =
 
 WickedPdf.config = {
   enable_local_file_access: true,
-  exe_path: WICKED_PDF_EXE_PATH,
-  no_pdf_compression: true
+  exe_path: WICKED_PDF_EXE_PATH
 }

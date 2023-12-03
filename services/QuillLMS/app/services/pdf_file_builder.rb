@@ -3,6 +3,7 @@
 class PdfFileBuilder < ApplicationService
   ENCODING = 'ascii-8bit'
   LAYOUT = 'pdf'
+  LANDSCAPE = 'Landscape'
   TEMPFILE_NAME = 'temp.pdf'
 
   attr_reader :data, :template
@@ -19,11 +20,16 @@ class PdfFileBuilder < ApplicationService
   end
 
   private def html
-    ApplicationController.renderer.render(locals: { data: data }, template: template, layout: LAYOUT)
+    ApplicationController.renderer.render(
+      locals: { data: data },
+      layout: LAYOUT,
+      template: template
+    )
   end
 
   private def pdf
     WickedPdf.new.pdf_from_string(html)
+    # WickedPdf.new.pdf_from_string(html, orientation: LANDSCAPE)
   end
 
   private def tempfile

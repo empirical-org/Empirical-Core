@@ -50,6 +50,9 @@ class Cron
 
     # Email notifications
     TeacherNotifications::EnqueueUsersForRollupEmailWorker.perform_async(TeacherInfo::DAILY_EMAIL)
+
+    # PDF report subscriptions
+    BlahWorker.perform_async
   end
 
   # Configured in Heroku Scheduler to run at XX:20
