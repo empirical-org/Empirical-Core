@@ -10,7 +10,22 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
       visible={false}
     />
     <h1>
-      Data Export
+      <span>
+        Data Export
+      </span>
+      <a
+        href="https://support.quill.org/en/articles/8672493-how-do-i-use-the-admin-data-export"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="Document file with folded corner and two horizontal lines"
+          src="undefined/images/icons/file-document.svg"
+        />
+        <span>
+          Guide
+        </span>
+      </a>
     </h1>
     <button
       className="quill-button download-report-button contained primary medium focus-on-light"
