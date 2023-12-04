@@ -1,5 +1,7 @@
-import { NOT_APPLICABLE } from "../../../Shared"
+import * as React from 'react'
 import { getTimeInMinutesAndSeconds } from "../../shared"
+
+const noDataToShow = '--'
 
 export function aggregateOverviewData({
   preDiagnosticAssignedData,
@@ -7,7 +9,8 @@ export function aggregateOverviewData({
   preDiagnosticCompletedData,
   postDiagnosticCompletedData,
   recommendationsData,
-  setAggregatedData
+  setAggregatedData,
+  setLoading
 }) {
   const preDiagnosticAssignedDataHash = {}
   const postDiagnosticAssignedDataHash = {}
@@ -41,7 +44,9 @@ export function aggregateOverviewData({
     postDiagnosticAssignedDataHash[diagnostic_id] = { post_students_assigned }
     aggregate_rows.map(row => {
       const { aggregate_id, post_students_assigned } = row
-      aggregateRowsData[diagnostic_id][aggregate_id] = { ...aggregateRowsData[diagnostic_id][aggregate_id], post_students_assigned }
+      if (aggregateRowsData[diagnostic_id] && aggregateRowsData[diagnostic_id][aggregate_id]) {
+        aggregateRowsData[diagnostic_id][aggregate_id] = { ...aggregateRowsData[diagnostic_id][aggregate_id], post_students_assigned }
+      }
     })
   })
   preDiagnosticCompletedData.map(entry => {
@@ -52,7 +57,9 @@ export function aggregateOverviewData({
     }
     aggregate_rows.map(row => {
       const { aggregate_id, pre_average_score, pre_students_completed } = row
-      aggregateRowsData[diagnostic_id][aggregate_id] = { ...aggregateRowsData[diagnostic_id][aggregate_id], pre_average_score, pre_students_completed }
+      if (aggregateRowsData[diagnostic_id] && aggregateRowsData[diagnostic_id][aggregate_id]) {
+        aggregateRowsData[diagnostic_id][aggregate_id] = { ...aggregateRowsData[diagnostic_id][aggregate_id], pre_average_score, pre_students_completed }
+      }
     })
   })
   postDiagnosticCompletedData.map(entry => {
@@ -63,7 +70,9 @@ export function aggregateOverviewData({
     }
     aggregate_rows.map(row => {
       const { aggregate_id, post_average_score, post_students_completed } = row
-      aggregateRowsData[diagnostic_id][aggregate_id] = { ...aggregateRowsData[diagnostic_id][aggregate_id], post_average_score, post_students_completed }
+      if (aggregateRowsData[diagnostic_id] && aggregateRowsData[diagnostic_id][aggregate_id]) {
+        aggregateRowsData[diagnostic_id][aggregate_id] = { ...aggregateRowsData[diagnostic_id][aggregate_id], post_average_score, post_students_completed }
+      }
     })
   })
   recommendationsData.map(entry => {
@@ -75,7 +84,9 @@ export function aggregateOverviewData({
     }
     aggregate_rows.map(row => {
       const { aggregate_id, average_practice_activities_count, average_time_spent_seconds, students_completed_practice } = row
-      aggregateRowsData[diagnostic_id][aggregate_id] = { ...aggregateRowsData[diagnostic_id][aggregate_id], average_practice_activities_count, average_time_spent_seconds, students_completed_practice }
+      if (aggregateRowsData[diagnostic_id] && aggregateRowsData[diagnostic_id][aggregate_id]) {
+        aggregateRowsData[diagnostic_id][aggregate_id] = { ...aggregateRowsData[diagnostic_id][aggregate_id], average_practice_activities_count, average_time_spent_seconds, students_completed_practice }
+      }
     })
   })
 
@@ -92,31 +103,39 @@ export function aggregateOverviewData({
     const averageActivitiesCount = recommendationsDataHash[id]?.average_practice_activities_count
     const averageTimespent = recommendationsDataHash[id]?.average_time_spent_seconds
     const aggregateRowsDataForDiagnostic = aggregateRowsData[id]
-    let overallSkillGrowth = 'No Growth'
-    if (preDiagnosticScore && postDiagnosticScore && postDiagnosticScore > preDiagnosticScore) {
-      overallSkillGrowth = `+${Math.round((postDiagnosticScore * 100) - (preDiagnosticScore * 100))}%`
+    let overallSkillGrowth: string | JSX.Element = 'No Growth'
+    if (preDiagnosticScore && !postDiagnosticScore) {
+      overallSkillGrowth = noDataToShow
+    } else if (preDiagnosticScore && postDiagnosticScore && postDiagnosticScore > preDiagnosticScore) {
+      overallSkillGrowth = <p className="emphasized-content">{`+${Math.round((postDiagnosticScore * 100) - (preDiagnosticScore * 100))}%`}</p>
     }
-    entry.preDiagnosticCompleted = preStudentsAssigned ? `${preStudentsCompleted || 0} of ${preStudentsAssigned} Students` : NOT_APPLICABLE
-    entry.studentsCompletedPractice = studentsCompletedPractice ? `${studentsCompletedPractice} Students` : NOT_APPLICABLE
-    entry.averageActivitiesAndTimeSpent = averageActivitiesCount ? `${Math.round(averageActivitiesCount) || 0} Activities (${getTimeInMinutesAndSeconds(averageTimespent)})` : NOT_APPLICABLE
-    entry.postDiagnosticCompleted = postStudentsAssigned ? `${postStudentsCompleted || 0} of ${postStudentsAssigned} Students` : NOT_APPLICABLE
+    entry.preDiagnosticCompleted = preStudentsAssigned ? <p className="emphasized-content">{`${preStudentsCompleted || 0} of ${preStudentsAssigned} Students`}</p> : noDataToShow
+    entry.studentsCompletedPractice = studentsCompletedPractice ? `${studentsCompletedPractice} Students` : noDataToShow
+    entry.averageActivitiesAndTimeSpent = averageActivitiesCount ? `${Math.round(averageActivitiesCount) || 0} Activities (${getTimeInMinutesAndSeconds(averageTimespent)})` : noDataToShow
+    entry.postDiagnosticCompleted = postStudentsAssigned ? `${postStudentsCompleted || 0} of ${postStudentsAssigned} Students` : noDataToShow
     entry.overallSkillGrowth = overallSkillGrowth
-    entry.aggregate_rows = Object.keys(aggregateRowsDataForDiagnostic).map(key => {
+    const aggregateRows = Object.keys(aggregateRowsDataForDiagnostic).map(key => {
       const { name, post_average_score, post_students_assigned, post_students_completed, pre_average_score, pre_students_assigned, pre_students_completed, students_completed_practice, average_practice_activities_count, average_time_spent_seconds } = aggregateRowsDataForDiagnostic[key]
-      let overallSkillGrowth = 'No Growth'
-      if (pre_average_score && post_average_score && post_average_score > pre_average_score) {
-        overallSkillGrowth = `+${Math.round((post_average_score * 100) - (pre_average_score * 100))}%`
+      let overallSkillGrowth: string | JSX.Element = 'No Growth'
+
+      if(!name) { return null }
+      if(pre_average_score  && !post_average_score) {
+        overallSkillGrowth = noDataToShow
+      } else if (pre_average_score && post_average_score && post_average_score > pre_average_score) {
+        overallSkillGrowth = <p className="emphasized-content">{`+${Math.round((post_average_score * 100) - (pre_average_score * 100))}%`}</p>
       }
       return {
         id: key,
         name,
-        preDiagnosticCompleted: pre_students_assigned ? `${pre_students_completed || 0} of ${pre_students_assigned} Students` : NOT_APPLICABLE,
-        studentsCompletedPractice: students_completed_practice ? `${students_completed_practice} Students` : NOT_APPLICABLE,
-        averageActivitiesAndTimeSpent: average_practice_activities_count ? `${Math.round(average_practice_activities_count) || 0} Activities (${getTimeInMinutesAndSeconds(average_time_spent_seconds)})` : NOT_APPLICABLE,
-        postDiagnosticCompleted: post_students_assigned ? `${post_students_completed || 0} of ${post_students_assigned} Students` : NOT_APPLICABLE,
+        preDiagnosticCompleted: pre_students_assigned ? <p className="emphasized-content">{`${pre_students_completed || 0} of ${pre_students_assigned} Students`}</p> : noDataToShow,
+        studentsCompletedPractice: students_completed_practice ? `${students_completed_practice} Students` : noDataToShow,
+        averageActivitiesAndTimeSpent: average_practice_activities_count ? `${Math.round(average_practice_activities_count) || 0} Activities (${getTimeInMinutesAndSeconds(average_time_spent_seconds)})` : noDataToShow,
+        postDiagnosticCompleted: post_students_assigned ? `${post_students_completed || 0} of ${post_students_assigned} Students` : noDataToShow,
         overallSkillGrowth
       }
     })
+    entry.aggregate_rows = aggregateRows.filter(row => !!row)
   })
   setAggregatedData(combinedData)
+  setLoading(false)
 }

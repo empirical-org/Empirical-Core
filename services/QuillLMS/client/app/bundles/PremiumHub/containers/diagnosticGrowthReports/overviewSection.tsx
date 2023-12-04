@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
-import { DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH, groupByDropdownOptions, hashPayload } from '../../shared'
+import { groupByDropdownOptions, hashPayload } from '../../shared'
 import { requestPost, } from '../../../../modules/request';
 import { aggregateOverviewData } from './helpers';
 
@@ -12,7 +12,7 @@ const headers = [
   {
     name: 'Diagnostic Name',
     attribute: 'name',
-    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
+    width: '200px',
     tooltipName: '',
     tooltipDescription: '',
     noTooltip: true,
@@ -21,7 +21,7 @@ const headers = [
   {
     name: 'Pre Diagnostic Completed',
     attribute: 'preDiagnosticCompleted',
-    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
+    width: '200px',
     tooltipName: '',
     tooltipDescription: '',
     noTooltip: true,
@@ -30,7 +30,7 @@ const headers = [
   {
     name: 'Completed Activities',
     attribute: 'studentsCompletedPractice',
-    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
+    width: '200px',
     tooltipName: '',
     tooltipDescription: '',
     noTooltip: true,
@@ -39,7 +39,7 @@ const headers = [
   {
     name: '',
     attribute: 'averageActivitiesAndTimeSpent',
-    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
+    width: '200px',
     primaryTitle: 'Average Activities &',
     secondaryTitle: 'Time Spent',
     tooltipName: '',
@@ -50,7 +50,7 @@ const headers = [
   {
     name: '',
     attribute: 'postDiagnosticCompleted',
-    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
+    width: '200px',
     primaryTitle: 'Post Diagnostic',
     secondaryTitle: 'Completed',
     tooltipName: '',
@@ -61,7 +61,7 @@ const headers = [
   {
     name: 'Overall Skill Growth',
     attribute: 'overallSkillGrowth',
-    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
+    width: '130px',
     tooltipName: '',
     tooltipDescription: '',
     noTooltip: true,
@@ -113,7 +113,8 @@ export const OverviewSection = ({
         preDiagnosticCompletedData,
         postDiagnosticCompletedData,
         recommendationsData,
-        setAggregatedData
+        setAggregatedData,
+        setLoading
       })
     }
   }, [preDiagnosticAssignedData, postDiagnosticAssignedData, preDiagnosticCompletedData, postDiagnosticCompletedData, recommendationsData])
@@ -139,6 +140,7 @@ export const OverviewSection = ({
   }
 
   function getData() {
+    setLoading(true)
     getPreDiagnosticAssignedData()
     getPreDiagnosticCompletedData()
     getPostDiagnosticAssignedData()
@@ -151,11 +153,10 @@ export const OverviewSection = ({
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
       if (!body.hasOwnProperty('results')) {
-        setLoading(true)
+        return
       } else {
         const { results, } = body
         setPreDiagnosticAssignedData(results)
-        setLoading(false)
       }
     })
   }
@@ -165,11 +166,10 @@ export const OverviewSection = ({
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
       if (!body.hasOwnProperty('results')) {
-        setLoading(true)
+        return
       } else {
         const { results, } = body
         setPostDiagnosticAssignedData(results)
-        setLoading(false)
       }
     })
   }
@@ -179,11 +179,10 @@ export const OverviewSection = ({
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
       if (!body.hasOwnProperty('results')) {
-        setLoading(true)
+        return
       } else {
         const { results, } = body
         setPreDiagnosticCompletedData(results)
-        setLoading(false)
       }
     })
   }
@@ -193,11 +192,10 @@ export const OverviewSection = ({
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
       if (!body.hasOwnProperty('results')) {
-        setLoading(true)
+        return
       } else {
         const { results, } = body
         setPostDiagnosticCompletedData(results)
-        setLoading(false)
       }
     })
   }
@@ -207,11 +205,10 @@ export const OverviewSection = ({
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
       if (!body.hasOwnProperty('results')) {
-        setLoading(true)
+        return
       } else {
         const { results, } = body
         setRecommendationsData(results)
-        setLoading(false)
       }
     })
   }

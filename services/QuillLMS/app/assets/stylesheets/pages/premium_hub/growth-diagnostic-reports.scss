@@ -74,8 +74,33 @@ main {
     margin-top: 48px;
     .data-table-headers {
       padding-right: 0px;
+      th {
+        font-size: 13px !important;
+      }
       th:last-of-type {
         margin-right: 0px;
+      }
+    }
+    .data-table-body {
+      .data-table-row {
+        padding-right: 0 !important;
+        td {
+          font-size: 13px !important;
+          .emphasized-content {
+            color: $quill-green;
+            background-color: $quill-green-1;
+            border: 1px solid $quill-green-20;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-weight: 700;
+          }
+        }
+        td:not(:first-of-type) {
+          justify-content: center;
+        }
+        td:last-of-type {
+          margin-right: 0 !important;
+        }
       }
     }
   }

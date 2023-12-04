@@ -4,8 +4,35 @@ import { DropdownInput, DropdownInputWithSearchTokens, Tooltip, helpIcon, } from
 import useWindowSize from '../../../Shared/hooks/useWindowSize';
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
+const DIAGNOSTIC_GROWTH_REPORT_PATH = 'diagnostic_growth_report'
 
-const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassrooms, applyFilters, clearFilters, selectedGrades, setSelectedGrades, hasAdjustedFiltersFromDefault, handleSetSelectedTimeframe, selectedTimeframe, selectedSchools, setSelectedSchools, selectedTeachers, setSelectedTeachers, selectedClassrooms, setSelectedClassrooms, closeMobileFilterMenu, showMobileFilterMenu, hasAdjustedFiltersSinceLastSubmission, customStartDate, customEndDate, showFilterMenuButton, }) => {
+const Filters = ({
+  allTimeframes,
+  allSchools,
+  allGrades,
+  allTeachers,
+  allClassrooms,
+  applyFilters,
+  clearFilters,
+  selectedGrades,
+  setSelectedGrades,
+  hasAdjustedFiltersFromDefault,
+  handleSetSelectedTimeframe,
+  selectedTimeframe,
+  selectedSchools,
+  setSelectedSchools,
+  selectedTeachers,
+  setSelectedTeachers,
+  selectedClassrooms,
+  setSelectedClassrooms,
+  closeMobileFilterMenu,
+  showMobileFilterMenu,
+  hasAdjustedFiltersSinceLastSubmission,
+  customStartDate,
+  customEndDate,
+  showFilterMenuButton,
+  reportType
+}) => {
   const size = useWindowSize();
 
   function effectiveSelectedSchools() {
@@ -74,6 +101,8 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
     )
   }
 
+  const isGrowthDiagnosticReport = reportType === DIAGNOSTIC_GROWTH_REPORT_PATH
+
   return (
     <section className={`filter-container ${showMobileFilterMenu ? 'mobile-open' : 'mobile-hidden'} ${hasAdjustedFiltersFromDefault ? 'space-for-buttons' : ''}`} data-testid="filter-menu" >
       <div className="top-section">
@@ -90,11 +119,13 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
           <label className="filter-label" htmlFor="timeframe-filter">
             <span>Timeframe</span>
             <Tooltip
-              tooltipText="This report is updated nightly."
+              tooltipText={isGrowthDiagnosticReport ? "The diagnostic growth report only shows results for the current school year. This report is updated nightly." : "This report is updated nightly."}
               tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
             />
           </label>
           <DropdownInput
+            className={isGrowthDiagnosticReport ? 'timeframe-filter disabled' : ''}
+            disabled={isGrowthDiagnosticReport}
             handleChange={handleSetSelectedTimeframe}
             helperText={timeframeHelperText}
             id="timeframe-filter"
