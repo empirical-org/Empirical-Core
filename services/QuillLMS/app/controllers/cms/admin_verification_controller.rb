@@ -6,7 +6,7 @@ class Cms::AdminVerificationController < Cms::CmsController
 
   def index
     @js_file = 'staff'
-    @style_file = 'staff'
+    @style_file = "#{ApplicationController::STAFF}.scss"
     respond_to do |format|
       format.html
       format.json {

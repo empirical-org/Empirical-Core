@@ -1,4 +1,4 @@
-const C = require('../constants').default;
+import C from '../constants';
 const moment = require('moment');
 
 import Pusher from 'pusher-js';
@@ -11,10 +11,10 @@ import { push } from 'react-router-redux';
 import _ from 'underscore';
 import { requestPost, } from '../../../modules/request/index';
 import {
-  FocusPointApi,
-  IncorrectSequenceApi,
-  QuestionApi,
-  SENTENCE_COMBINING_TYPE
+    FocusPointApi,
+    IncorrectSequenceApi,
+    QuestionApi,
+    SENTENCE_COMBINING_TYPE
 } from '../libs/questions_api';
 import { submitResponse } from './responses';
 import sessionActions from './sessions';

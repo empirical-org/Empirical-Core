@@ -2,14 +2,13 @@ import fuzzy from 'fuzzyset.js';
 import _ from 'underscore';
 import constants from '../constants';
 import {
-  checkChangeObjectMatch
+    checkChangeObjectMatch
 } from './algorithms/changeObjects';
 import { getOptimalResponses, getSubOptimalResponses } from './sharedResponseFunctions';
 
 import quillNormalize from './quillNormalizer';
 import { sortByLevenshteinAndOptimal } from './responseTools.js';
 
-const jsDiff = require('diff');
 
 const ERROR_TYPES = {
   NO_ERROR: 'NO_ERROR',

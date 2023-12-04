@@ -2,10 +2,10 @@ import $ from 'jquery';
 import 'lazysizes';
 import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 
-require('../../assets/styles/home.scss');
-require('./bootstrap_carousel.js');
-require('./tabslet.js')
-require('../../assets/javascripts/clickHandlers');
+import '../../assets/javascripts/clickHandlers';
+import '../../assets/styles/home.scss';
+import './bootstrap_carousel.js';
+import './tabslet.js';
 
 document.onreadystatechange = () => {
   const state = document.readyState;

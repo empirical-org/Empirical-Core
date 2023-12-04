@@ -4,19 +4,19 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import { requestGet, } from '../../../../modules/request/index';
 import {
-  QuestionBar,
-  ResponseSortFields,
-  ResponseToggleFields,
-  hashToCollection
+    QuestionBar,
+    ResponseSortFields,
+    ResponseToggleFields,
+    hashToCollection
 } from '../../../Shared/index';
-import filterActions from '../../actions/filters';
+import * as filterActions from '../../actions/filters';
 import massEdit from '../../actions/massEdit';
 import questionActions from '../../actions/questions';
 import { submitResponseEdit } from '../../actions/responses';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import {
-  rematchAll,
-  rematchOne
+    rematchAll,
+    rematchOne
 } from '../../libs/grading/rematching.ts';
 import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
 import QuestionMatcher from '../../libs/question';
@@ -25,7 +25,7 @@ import POSMatcher from '../../libs/sentenceFragment.js';
 import POSForResponsesList from './POSForResponsesList.jsx';
 import ResponseList from './responseList.jsx';
 
-const C = require('../../constants').default;
+import C from '../../constants';
 
 const labels = C.ERROR_AUTHORS;
 const qualityLabels = ['Human Optimal', 'Human Sub-Optimal', 'Algorithm Optimal', 'Algorithm Sub-Optimal', 'Unmatched'];

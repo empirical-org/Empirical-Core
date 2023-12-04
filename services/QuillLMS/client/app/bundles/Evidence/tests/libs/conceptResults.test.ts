@@ -1,4 +1,4 @@
-import * as _expect from 'expect';
+import expect from 'expect';
 const expect = _expect as any as typeof _expect.default
 
 import {
@@ -29,7 +29,7 @@ describe("Getting concept results from a completed Evidence activity", () => {
   it("should generate topic-optimal ConceptResults when a non-optimal post-autoML feedback is received", () => {
     const result = generateConceptResults(currentActivity, submittedResponses, topicOptimalData)
     expect(result.filter(conceptResult => (
-      conceptResult.concept_uid == topicOptimalData.concept_uids[3] && 
+      conceptResult.concept_uid == topicOptimalData.concept_uids[3] &&
         conceptResult.metadata.correct == 1
     )).length).toEqual(1)
   })

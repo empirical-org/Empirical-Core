@@ -5,7 +5,7 @@ import _ from 'underscore';
 import { Feedback, SentenceFragments, getDisplayedText, getLatestAttempt, renderPreviewFeedback } from '../../../Shared/index';
 import { submitResponse } from '../../actions/diagnostics.js';
 import {
-  getGradedResponsesWithCallback
+    getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 import getResponse from '../renderForQuestions/checkAnswer';
 import RenderQuestionCues from '../renderForQuestions/cues.tsx';
@@ -14,7 +14,7 @@ import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 
-const C = require('../../constants').default;
+import C from '../../constants';
 
 class PlayDiagnosticQuestion extends React.Component {
   constructor(props) {

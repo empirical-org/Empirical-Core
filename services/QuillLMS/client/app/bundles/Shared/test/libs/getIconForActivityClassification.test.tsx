@@ -1,4 +1,4 @@
-import * as expect from 'expect';
+import expect from 'expect';
 import * as React from 'react';
 
 import { connectToolIcon, diagnosticToolIcon, evidenceToolIcon, getIconForActivityClassification, grammarToolIcon, lessonsToolIcon, proofreaderToolIcon } from '../../../Shared';

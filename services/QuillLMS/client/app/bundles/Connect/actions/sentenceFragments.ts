@@ -1,12 +1,12 @@
-const C = require('../constants').default;
 import lessonActions from '../actions/lessons';
+import C from '../constants';
 import { Question } from '../interfaces/questions';
 import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api';
 import {
-  FocusPointApi,
-  IncorrectSequenceApi,
-  QuestionApi,
-  SENTENCE_FRAGMENTS_TYPE
+    FocusPointApi,
+    IncorrectSequenceApi,
+    QuestionApi,
+    SENTENCE_FRAGMENTS_TYPE
 } from '../libs/questions_api';
 import { submitResponse } from './responses';
 
