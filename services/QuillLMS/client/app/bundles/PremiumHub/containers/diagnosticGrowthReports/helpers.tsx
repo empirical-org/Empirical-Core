@@ -3,6 +3,13 @@ import { getTimeInMinutesAndSeconds } from "../../shared"
 
 const noDataToShow = '--'
 
+export const diagnosticNameTooltipText = "This report shows all of the diagnostics that have been assigned by teachers connected to your account.<br/><br/>  Each diagnostic offering includes a Pre assessment of each student's writing skills, around 40 practice activities recommended by the diagnostic based on the Pre performance, and a Post diagnostic to measure growth after the practice activities are completed.<br/><br/> Diagnostic will not be displayed in this report until at least one teacher has assigned it within the filters you have selected."
+export const preDiagnosticCompletedTooltipText = "The total number of students who completed the Pre diagnostic of all of the students assigned the Pre diagnostic."
+export const completedActivitiesTooltipText = "The total number of students who have completed the practice activities linked to this diagnostic.<br/><br/> A student is counted once the student has completed at least one practice activity linked to this diagnostic."
+export const averageActivitiesAndTimeSpentTooltipText = "Each diagnostic is linked to recommended practice activities. For the students who have completed activities, this shows the average number of completed activities and the average time spent per student.<br/><br/> This counts the practice activities connected to this particular diagnostic - not the total number of activities that the student has practiced on Quill."
+export const postDiagnosticCompletedTooltipText = "The total number of students who completed the Post diagnostic of all of the students assigned the Post diagnostic.<br/><br/> Students are not included in this count until their teacher assigns the Post diagnostic to them."
+export const overallSkillGrowthTooltipText = "The average increase in growth scores across all of the skills.<br/><br/> The Performance by Skill report shows the average increase in questions answered correctly for each skill, and the overall growth is the average increase across all skills."
+
 export function aggregateOverviewData({
   preDiagnosticAssignedData,
   postDiagnosticAssignedData,
@@ -104,7 +111,7 @@ export function aggregateOverviewData({
     const averageTimespent = recommendationsDataHash[id]?.average_time_spent_seconds
     const aggregateRowsDataForDiagnostic = aggregateRowsData[id]
     let overallSkillGrowth: string | JSX.Element = 'No Growth'
-    if (preDiagnosticScore && !postDiagnosticScore) {
+    if (!preDiagnosticScore || !postDiagnosticScore) {
       overallSkillGrowth = noDataToShow
     } else if (preDiagnosticScore && postDiagnosticScore && postDiagnosticScore > preDiagnosticScore) {
       overallSkillGrowth = <p className="emphasized-content">{`+${Math.round((postDiagnosticScore * 100) - (preDiagnosticScore * 100))}%`}</p>
@@ -119,7 +126,7 @@ export function aggregateOverviewData({
       let overallSkillGrowth: string | JSX.Element = 'No Growth'
 
       if(!name) { return null }
-      if(pre_average_score  && !post_average_score) {
+      if(!pre_average_score  || !post_average_score) {
         overallSkillGrowth = noDataToShow
       } else if (pre_average_score && post_average_score && post_average_score > pre_average_score) {
         overallSkillGrowth = <p className="emphasized-content">{`+${Math.round((post_average_score * 100) - (pre_average_score * 100))}%`}</p>

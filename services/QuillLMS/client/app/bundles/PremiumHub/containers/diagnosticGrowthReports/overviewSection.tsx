@@ -3,36 +3,40 @@ import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Sh
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
 import { groupByDropdownOptions, hashPayload } from '../../shared'
 import { requestPost, } from '../../../../modules/request';
-import { aggregateOverviewData } from './helpers';
+import { aggregateOverviewData, averageActivitiesAndTimeSpentTooltipText, completedActivitiesTooltipText, diagnosticNameTooltipText, overallSkillGrowthTooltipText, postDiagnosticCompletedTooltipText, preDiagnosticCompletedTooltipText } from './helpers';
 
 const QUERY_KEY = "admin-diagnostic-overview"
 const PUSHER_EVENT_KEY = "admin-diagnostic-overview-cached";
+const DIAGNOSTIC_NAME = 'Diagnostic Name'
+const PRE_DIAGNOSTIC_COMPLETED = 'Pre Diagnostic Completed'
+const COMPLETED_ACTIVITIES = 'Completed Activities'
+const OVERALL_SKILL_GROWTH = 'Overall Skill Growth'
 
 const headers = [
   {
-    name: 'Diagnostic Name',
+    name: DIAGNOSTIC_NAME,
     attribute: 'name',
     width: '200px',
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: DIAGNOSTIC_NAME,
+    tooltipDescription: diagnosticNameTooltipText,
     noTooltip: true,
     isSortable: false
   },
   {
-    name: 'Pre Diagnostic Completed',
+    name: PRE_DIAGNOSTIC_COMPLETED,
     attribute: 'preDiagnosticCompleted',
     width: '200px',
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: PRE_DIAGNOSTIC_COMPLETED,
+    tooltipDescription: preDiagnosticCompletedTooltipText,
     noTooltip: true,
     isSortable: false
   },
   {
-    name: 'Completed Activities',
+    name: COMPLETED_ACTIVITIES,
     attribute: 'studentsCompletedPractice',
     width: '200px',
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: COMPLETED_ACTIVITIES,
+    tooltipDescription: completedActivitiesTooltipText,
     noTooltip: true,
     isSortable: false
   },
@@ -42,8 +46,8 @@ const headers = [
     width: '200px',
     primaryTitle: 'Average Activities &',
     secondaryTitle: 'Time Spent',
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: 'Average Activities & Time Spent',
+    tooltipDescription: averageActivitiesAndTimeSpentTooltipText,
     noTooltip: true,
     isSortable: false
   },
@@ -53,17 +57,17 @@ const headers = [
     width: '200px',
     primaryTitle: 'Post Diagnostic',
     secondaryTitle: 'Completed',
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: 'Post Diagnostic Completed',
+    tooltipDescription: postDiagnosticCompletedTooltipText,
     noTooltip: true,
     isSortable: false
   },
   {
-    name: 'Overall Skill Growth',
+    name: OVERALL_SKILL_GROWTH,
     attribute: 'overallSkillGrowth',
     width: '130px',
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: OVERALL_SKILL_GROWTH,
+    tooltipDescription: overallSkillGrowthTooltipText,
     noTooltip: true,
     isSortable: false
   }

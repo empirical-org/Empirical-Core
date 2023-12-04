@@ -286,8 +286,8 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const { sortAscending, sortAttribute, } = this.state
     let className = `${dataTableHeaderClassName} ${header.headerClassName}`
     let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
-    let headerContent = header.name
-    let headerTitle = header.name
+    let headerContent = <span>{header.name}</span>
+    let headerTitle = <span>{header.name}</span>
     let headerTooltip = null
     const isMultilineHeader = header.primaryTitle && header.secondaryTitle
 
@@ -430,7 +430,8 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const rowClassName = `data-table-row ${row.checked ? 'checked' : ''} ${row.className || ''}`
     const rowSections = headers.map((header, i) => this.renderRowSection({ row, header, isAggregateRow, i }))
     const rowContent = <React.Fragment>{this.renderRowCheckbox(row)}{this.renderRowDragHandle(row)}{rowSections}{this.renderRowRemoveIcon(row)}</React.Fragment>
-    let rowElement = <tr className={rowClassName} key={String(row.id)}>{rowContent}</tr>
+    const aggregateRowClassName = isAggregateRow ? 'aggregate-row' : ''
+    let rowElement = <tr className={`${rowClassName}${aggregateRowClassName}`} key={String(row.id)}>{rowContent}</tr>
     const aggregateRowIdentifier = `${row[headers[0].attribute]}-${row.id}`
     const showAggregateRows = row.aggregate_rows?.length && expandedParentRowIdentifier === aggregateRowIdentifier
     if (row.link) {
