@@ -159,18 +159,15 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
     <ToggleComponentSection components={[passageComponent]} label={titleCase(TEXT)} />,
     <ToggleComponentSection
       components={[
-        <ImageSection
-          activityPassages={activityPassages}
+        <PromptsForm
+          activityBecausePrompt={activityBecausePrompt}
+          activityButPrompt={activityButPrompt}
+          activitySoPrompt={activitySoPrompt}
           errors={errors}
-          handleSetImageAltText={handleSetImageAltText}
-          handleSetImageAttribution={handleSetImageAttribution}
-          handleSetImageCaption={handleSetImageCaption}
-          handleSetImageLink={handleSetImageLink}
-          imageAttributionGuideLink={imageAttributionGuideLink}
-          imageAttributionStyle={imageAttributionStyle}
+          handleSetPrompt={handleSetPrompt}
         />
       ]}
-      label={IMAGE}
+      label={PROMPTS}
     />,
     <ToggleComponentSection
       components={[
@@ -184,20 +181,23 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
       ]}
       label={HIGHLIGHTING_PROMPT}
     />,
-    <ToggleComponentSection components={[buildingEssentialKnowledgeComponent]} label={BUILDING_ESSENTIAL_KNOWLEDGE} />,
-    <ToggleComponentSection components={[getMaxAttemptsFeedbackComponent(BECAUSE, activityBecausePrompt), getMaxAttemptsFeedbackComponent(BUT, activityButPrompt), getMaxAttemptsFeedbackComponent(SO, activitySoPrompt)]} label={MAX_ATTEMPTS_FEEDBACK} />,
     <ToggleComponentSection
       components={[
-        <PromptsForm
-          activityBecausePrompt={activityBecausePrompt}
-          activityButPrompt={activityButPrompt}
-          activitySoPrompt={activitySoPrompt}
+        <ImageSection
+          activityPassages={activityPassages}
           errors={errors}
-          handleSetPrompt={handleSetPrompt}
+          handleSetImageAltText={handleSetImageAltText}
+          handleSetImageAttribution={handleSetImageAttribution}
+          handleSetImageCaption={handleSetImageCaption}
+          handleSetImageLink={handleSetImageLink}
+          imageAttributionGuideLink={imageAttributionGuideLink}
+          imageAttributionStyle={imageAttributionStyle}
         />
       ]}
-      label={PROMPTS}
-    />
+      label={IMAGE}
+    />,
+    <ToggleComponentSection components={[getMaxAttemptsFeedbackComponent(BECAUSE, activityBecausePrompt), getMaxAttemptsFeedbackComponent(BUT, activityButPrompt), getMaxAttemptsFeedbackComponent(SO, activitySoPrompt)]} label={MAX_ATTEMPTS_FEEDBACK} />,
+    <ToggleComponentSection components={[buildingEssentialKnowledgeComponent]} label={BUILDING_ESSENTIAL_KNOWLEDGE} />,
   ];
 
   const formattedRows = formComponents.map((component, i) => {

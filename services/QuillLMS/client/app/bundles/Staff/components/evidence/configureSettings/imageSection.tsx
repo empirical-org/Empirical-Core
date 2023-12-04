@@ -1,7 +1,9 @@
 import * as React from 'react';
+import Dropzone from 'react-dropzone';
 
 import { IMAGE_ALT_TEXT, IMAGE_ATTRIBUTION, IMAGE_CAPTION, IMAGE_LINK } from '../../../../../constants/evidence';
 import { Input } from '../../../../Shared';
+import getAuthToken from '../../../../Teacher/components/modules/get_auth_token';
 
 export const ImageSection = ({
   activityPassages,
@@ -13,14 +15,38 @@ export const ImageSection = ({
   imageAttributionGuideLink,
   handleSetImageAttribution
 }) => {
+  const [uploadedMediaLink, setUploadedMediaLink] = React.useState<string>(activityPassages[0].image_link);
+
+  function handleDrop (acceptedFiles) {
+    acceptedFiles.forEach(file => {
+      const data = new FormData()
+      data.append('file', file)
+      fetch(`${process.env.DEFAULT_URL}/cms/images`, {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+          'X-CSRF-Token': getAuthToken()
+        },
+        body: data
+      })
+        .then(response => response.json()) // if the response is a JSON object
+        .then(response => setUploadedMediaLink(response.url)); // Handle the success response object
+    });
+  }
+
   return(
     <React.Fragment>
+      <div className="media-upload-container">
+        <label>Click the square below or drag an image into it to upload an image or video:</label>
+        <div className="dropzone-container"><Dropzone onDrop={handleDrop} /></div>
+      </div>
       <Input
         className="image-link-input"
         error={errors[IMAGE_LINK]}
         handleChange={handleSetImageLink}
         label="Image Link"
-        value={activityPassages[0].image_link}
+        value={uploadedMediaLink}
       />
       <Input
         className="image-alt-text-input"
