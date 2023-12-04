@@ -59,7 +59,7 @@ export const UnitTemplateMinisTable = ({ unitTemplates, userSignedIn }) => {
       <section className="tools-section">
         {tools.map((tool, i) => {
           const toolName = i === tools.length - 1 ? tool : `${tool},`;
-          return <p style={{ color: toolColors[tool] }}>{toolName}</p>
+          return <p key={toolName} style={{ color: toolColors[tool] }}>{toolName}</p>
         })}
       </section>
     )

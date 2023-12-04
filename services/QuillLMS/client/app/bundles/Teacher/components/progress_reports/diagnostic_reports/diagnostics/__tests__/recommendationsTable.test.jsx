@@ -18,7 +18,7 @@ const selectionsNoStudentData = [{"activity_count":4,"activity_pack_id":320,"nam
 const selectionsWithStudentData = [{"activity_count":7,"activity_pack_id":308,"diagnostic_progress":{},"name":"Capitalization","students":[11115784,11115786,11115796,11115769,11115787]},{"activity_count":5,"activity_pack_id":310,"diagnostic_progress":{},"name":"Plural and Possessive Nouns","students":[11115784,11115782,11115796,11115769,11115787,11115797]},{"activity_count":12,"activity_pack_id":312,"diagnostic_progress":{},"name":"Adjectives and Adverbs","students":[11115791,11115784,11115786,11115782,11115796,11115769,11115774,11115787,11115797,11115764]},{"activity_count":5,"activity_pack_id":314,"diagnostic_progress":{},"name":"Prepositional Phrases","students":[11115784,11115786,11115782,11115796,11115769,11115787,11115797,11115764]},{"activity_count":7,"activity_pack_id":316,"diagnostic_progress":{},"name":"Compound Subjects, Objects, and Predicates","students":[11115784,11115786,11115782,11115796,11115769,11115774,11115787,11115797]},{"activity_count":4,"activity_pack_id":318,"diagnostic_progress":{},"name":"Commonly Confused Words","students":[11115784,11115782,11115796,11115769,11115774,11115787,11115797]}]
 
 const sharedProps = {
-  responsesLink: jest.fn(),
+  responsesLink: () => '',
   setSelections: jest.fn(),
   students: students,
   previouslyAssignedRecommendations: []

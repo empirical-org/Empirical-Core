@@ -28,6 +28,18 @@ jest.mock('../../../actions/activities', () => ({
   getTopicOptimalInfo: mockGetTopicOptimalInfo
 }))
 
+const mockResponse = jest.fn();
+Object.defineProperty(window, 'location', {
+  value: {
+    hash: {
+      endsWith: mockResponse,
+      includes: mockResponse,
+    },
+    href: '',
+    assign: mockResponse,
+  },
+  writable: true,
+});
 
 import { StudentViewContainer } from '../../../components/studentView/container';
 

@@ -19,16 +19,19 @@ describe("StudentProfileUnits component", () => {
             unit_id: 1,
             unit_name: "Same ID",
             user_pack_sequence_item_status: UNLOCKED,
+            ua_id: 1
           },
           {
             unit_id: 1,
             unit_name: "Same ID",
             user_pack_sequence_item_status: UNLOCKED,
+            ua_id: 2
           },
           {
             unit_id: 2,
             unit_name: "Different",
             user_pack_sequence_item_status: LOCKED,
+            ua_id: 3
           },
         ]}
       />

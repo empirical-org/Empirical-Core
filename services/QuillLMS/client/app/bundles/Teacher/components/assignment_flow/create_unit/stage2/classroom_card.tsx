@@ -33,7 +33,7 @@ export default class ClassroomCard extends React.Component<ClassroomCardProps, C
     document.addEventListener('mousedown', this.handleClick, false)
   }
 
-  componentDidUnmount() {
+  componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleClick, false)
   }
 

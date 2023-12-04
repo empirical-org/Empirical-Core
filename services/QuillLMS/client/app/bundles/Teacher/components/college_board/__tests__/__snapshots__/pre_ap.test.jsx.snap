@@ -678,6 +678,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
           >
             <ExpandableUnit
               isFirst={true}
+              key="Unit 1: Telling Details"
               learningCycles={
                 Array [
                   Object {
@@ -996,6 +997,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
             </ExpandableUnit>
             <ExpandableUnit
               isFirst={false}
+              key="Unit 2: Pivotal Words and Phrases"
               learningCycles={
                 Array [
                   Object {
@@ -1314,6 +1316,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
             </ExpandableUnit>
             <ExpandableUnit
               isFirst={false}
+              key="Unit 3: Compelling Evidence"
               learningCycles={
                 Array [
                   Object {
@@ -1632,6 +1635,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
             </ExpandableUnit>
             <ExpandableUnit
               isFirst={false}
+              key="Unit 4: Powerful Openings"
               learningCycles={
                 Array [
                   Object {
@@ -3457,6 +3461,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             <ExpandableUnit
               isFirst={true}
               isPartOfAssignmentFlow={true}
+              key="Unit 1: Telling Details"
               learningCycles={
                 Array [
                   Object {
@@ -3776,6 +3781,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             <ExpandableUnit
               isFirst={false}
               isPartOfAssignmentFlow={true}
+              key="Unit 2: Pivotal Words and Phrases"
               learningCycles={
                 Array [
                   Object {
@@ -4095,6 +4101,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             <ExpandableUnit
               isFirst={false}
               isPartOfAssignmentFlow={true}
+              key="Unit 3: Compelling Evidence"
               learningCycles={
                 Array [
                   Object {
@@ -4414,6 +4421,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             <ExpandableUnit
               isFirst={false}
               isPartOfAssignmentFlow={true}
+              key="Unit 4: Powerful Openings"
               learningCycles={
                 Array [
                   Object {

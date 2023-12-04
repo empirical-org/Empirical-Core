@@ -407,10 +407,10 @@ exports[`SalesForm Component should match snapshot 1`] = `
                 Comments (optional)
               </label>
               <textarea
+                defaultValue=""
                 id="Comments"
                 maxLength={10000}
                 onFocus={[Function]}
-                value=""
               />
             </div>
           </div>

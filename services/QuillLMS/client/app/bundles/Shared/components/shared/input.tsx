@@ -47,7 +47,7 @@ export class Input extends React.Component<InputProps, InputState> {
     document.addEventListener(MOUSEDOWN, this.handleClick, false)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { error, timesSubmitted, } = this.props
     const { errorAcknowledged, } = this.state
 

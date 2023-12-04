@@ -583,11 +583,12 @@ exports[`ActivityFeed component not on mobile should render when there are activ
         <tbody
           className="data-table-body"
         >
-          <tr>
+          <tr
+            key="33"
+          >
             <a
               className="data-table-row  focus-on-light"
               href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/76/user/7/activity/810"
-              key="33"
             >
               <td
                 className="data-table-row-section undefined"
@@ -701,11 +702,12 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               </td>
             </a>
           </tr>
-          <tr>
+          <tr
+            key="32"
+          >
             <a
               className="data-table-row  focus-on-light"
               href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/885"
-              key="32"
             >
               <td
                 className="data-table-row-section undefined"
@@ -873,11 +875,12 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               </td>
             </a>
           </tr>
-          <tr>
+          <tr
+            key="29"
+          >
             <a
               className="data-table-row  focus-on-light"
               href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/804"
-              key="29"
             >
               <td
                 className="data-table-row-section undefined"
@@ -991,11 +994,12 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               </td>
             </a>
           </tr>
-          <tr>
+          <tr
+            key="28"
+          >
             <a
               className="data-table-row  focus-on-light"
               href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/802"
-              key="28"
             >
               <td
                 className="data-table-row-section undefined"
@@ -1109,11 +1113,12 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               </td>
             </a>
           </tr>
-          <tr>
+          <tr
+            key="27"
+          >
             <a
               className="data-table-row  focus-on-light"
               href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/75/user/7/activity/808"
-              key="27"
             >
               <td
                 className="data-table-row-section undefined"
@@ -1227,11 +1232,12 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               </td>
             </a>
           </tr>
-          <tr>
+          <tr
+            key="26"
+          >
             <a
               className="data-table-row  focus-on-light"
               href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/801"
-              key="26"
             >
               <td
                 className="data-table-row-section undefined"
@@ -1345,11 +1351,12 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               </td>
             </a>
           </tr>
-          <tr>
+          <tr
+            key="25"
+          >
             <a
               className="data-table-row  focus-on-light"
               href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/181"
-              key="25"
             >
               <td
                 className="data-table-row-section undefined"
@@ -1463,11 +1470,12 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               </td>
             </a>
           </tr>
-          <tr>
+          <tr
+            key="24"
+          >
             <a
               className="data-table-row  focus-on-light"
               href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/6/unit/85/user/7/activity/849"
-              key="24"
             >
               <td
                 className="data-table-row-section undefined"
@@ -1582,11 +1590,12 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               </td>
             </a>
           </tr>
-          <tr>
+          <tr
+            key="23"
+          >
             <a
               className="data-table-row  focus-on-light"
               href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/85/user/7/activity/849"
-              key="23"
             >
               <td
                 className="data-table-row-section undefined"
@@ -1701,11 +1710,12 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               </td>
             </a>
           </tr>
-          <tr>
+          <tr
+            key="3"
+          >
             <a
               className="data-table-row  focus-on-light"
               href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/6/activity/849"
-              key="3"
             >
               <td
                 className="data-table-row-section undefined"
@@ -1820,11 +1830,12 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               </td>
             </a>
           </tr>
-          <tr>
+          <tr
+            key="2"
+          >
             <a
               className="data-table-row  focus-on-light"
               href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/7/activity/849"
-              key="2"
             >
               <td
                 className="data-table-row-section undefined"

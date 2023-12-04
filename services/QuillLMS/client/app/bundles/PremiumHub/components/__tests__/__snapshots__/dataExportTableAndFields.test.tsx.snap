@@ -54,6 +54,7 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
       >
         <div
           className="checkbox-container"
+          key="Student Email"
         >
           <button
             aria-label="Checked checkbox"
@@ -75,6 +76,7 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
         </div>
         <div
           className="checkbox-container"
+          key="Completed Date"
         >
           <button
             aria-label="Checked checkbox"
@@ -96,6 +98,7 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
         </div>
         <div
           className="checkbox-container"
+          key="Activity"
         >
           <button
             aria-label="Checked checkbox"
@@ -117,6 +120,7 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
         </div>
         <div
           className="checkbox-container"
+          key="Activity Pack"
         >
           <button
             aria-label="Checked checkbox"
@@ -138,6 +142,7 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
         </div>
         <div
           className="checkbox-container"
+          key="Score"
         >
           <button
             aria-label="Checked checkbox"
@@ -159,6 +164,7 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
         </div>
         <div
           className="checkbox-container"
+          key="Time Spent"
         >
           <button
             aria-label="Checked checkbox"
@@ -180,6 +186,7 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
         </div>
         <div
           className="checkbox-container"
+          key="Standard"
         >
           <button
             aria-label="Checked checkbox"
@@ -201,6 +208,7 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
         </div>
         <div
           className="checkbox-container"
+          key="Tool"
         >
           <button
             aria-label="Checked checkbox"
@@ -222,6 +230,7 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
         </div>
         <div
           className="checkbox-container"
+          key="School"
         >
           <button
             aria-label="Checked checkbox"
@@ -243,6 +252,7 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
         </div>
         <div
           className="checkbox-container"
+          key="Grade"
         >
           <button
             aria-label="Checked checkbox"
@@ -264,6 +274,7 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
         </div>
         <div
           className="checkbox-container"
+          key="Teacher"
         >
           <button
             aria-label="Checked checkbox"
@@ -285,6 +296,7 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
         </div>
         <div
           className="checkbox-container"
+          key="Class"
         >
           <button
             aria-label="Checked checkbox"

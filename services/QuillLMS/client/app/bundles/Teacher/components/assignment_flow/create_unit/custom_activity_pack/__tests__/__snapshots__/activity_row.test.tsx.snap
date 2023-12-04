@@ -252,21 +252,25 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
               Grades: 
               <span
                 className="grade-level filtered"
+                key="4 - 5"
               >
                 4 - 5
               </span>
               <span
                 className="grade-level filtered"
+                key="6 - 7"
               >
                 6 - 7
               </span>
               <span
                 className="grade-level filtered"
+                key="8 - 9"
               >
                 8 - 9
               </span>
               <span
                 className="grade-level filtered"
+                key="10 - 12"
               >
                 10 - 12
               </span>
@@ -332,6 +336,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       >
         <span
           className="attribute-section topic"
+          key="Hernan Cortes & the Aztec Empire"
         >
           <img
             alt="Globe icon"
@@ -346,6 +351,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
         </span>
         <span
           className="attribute-section topic"
+          key="Maya, Aztec, & Inca Civilizations"
         >
           <img
             alt="Globe icon"
@@ -668,21 +674,25 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
               Grades: 
               <span
                 className="grade-level filtered"
+                key="4 - 5"
               >
                 4 - 5
               </span>
               <span
                 className="grade-level filtered"
+                key="6 - 7"
               >
                 6 - 7
               </span>
               <span
                 className="grade-level filtered"
+                key="8 - 9"
               >
                 8 - 9
               </span>
               <span
                 className="grade-level filtered"
+                key="10 - 12"
               >
                 10 - 12
               </span>
@@ -748,6 +758,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       >
         <span
           className="attribute-section topic"
+          key="Hernan Cortes & the Aztec Empire"
         >
           <img
             alt="Globe icon"
@@ -762,6 +773,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
         </span>
         <span
           className="attribute-section topic"
+          key="Maya, Aztec, & Inca Civilizations"
         >
           <img
             alt="Globe icon"
@@ -1146,21 +1158,25 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
               Grades: 
               <span
                 className="grade-level filtered"
+                key="4 - 5"
               >
                 4 - 5
               </span>
               <span
                 className="grade-level filtered"
+                key="6 - 7"
               >
                 6 - 7
               </span>
               <span
                 className="grade-level filtered"
+                key="8 - 9"
               >
                 8 - 9
               </span>
               <span
                 className="grade-level filtered"
+                key="10 - 12"
               >
                 10 - 12
               </span>
@@ -1227,6 +1243,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       >
         <span
           className="attribute-section topic"
+          key="Hernan Cortes & the Aztec Empire"
         >
           <img
             alt="Globe icon"
@@ -1241,6 +1258,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
         </span>
         <span
           className="attribute-section topic"
+          key="Maya, Aztec, & Inca Civilizations"
         >
           <img
             alt="Globe icon"
@@ -1629,21 +1647,25 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
               Grades: 
               <span
                 className="grade-level filtered"
+                key="4 - 5"
               >
                 4 - 5
               </span>
               <span
                 className="grade-level filtered"
+                key="6 - 7"
               >
                 6 - 7
               </span>
               <span
                 className="grade-level filtered"
+                key="8 - 9"
               >
                 8 - 9
               </span>
               <span
                 className="grade-level filtered"
+                key="10 - 12"
               >
                 10 - 12
               </span>
@@ -1710,6 +1732,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       >
         <span
           className="attribute-section topic"
+          key="Hernan Cortes & the Aztec Empire"
         >
           <img
             alt="Globe icon"
@@ -1724,6 +1747,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
         </span>
         <span
           className="attribute-section topic"
+          key="Maya, Aztec, & Inca Civilizations"
         >
           <img
             alt="Globe icon"

@@ -3,12 +3,12 @@ import { flagOptions } from '../../../../constants/flagOptions'
 
 const flagOptionList = () => {
   return ( flagOptions.map((flagOption) => (
-    <option value={flagOption.value}>{flagOption.label}</option>
+    <option key={flagOption.value} value={flagOption.value}>{flagOption.label}</option>
   )) )
 }
 const FlagDropdown = (props) => {
   const label = props.isLessons ? undefined : (<label className="label">Flag</label>)
-  const allFlags = props.isLessons ? (<option value="All Flags">All Flags</option>) : undefined
+  const allFlags = props.isLessons ? (<option key="All Flags" value="All Flags">All Flags</option>) : undefined
   return (
     <p className="control">
       {label}

@@ -184,6 +184,7 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner, 
     const newTag = activity.publication_date > moment().subtract(3, 'months') ? <span className="new-tag">NEW</span> : null
 
     return {
+      id: activity.id,
       tool: <img alt={evidenceToolIcon.alt} src={evidenceToolIcon.src} />,
       name: <a href={`/assign/activity-library?activityClassificationFilters[]=evidence&search=${encodeURI(activity.name)}`}>{activity.name}</a>,
       topics: (
