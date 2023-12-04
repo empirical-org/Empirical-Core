@@ -40,3 +40,5 @@ global.IntersectionObserver = class IntersectionObserver {
 };
 
 window.process.env = processEnvMock.env
+
+window.scrollTo = jest.fn();
