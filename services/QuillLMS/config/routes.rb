@@ -21,6 +21,8 @@ EmpiricalGrammar::Application.routes.draw do
   get '/study', to: "students#index"
   get '/classes', to: "students#index"
 
+  get '/pdfs', to: 'pages#pdfz'
+
   get '/school_for_current_user', to: 'schools_users#school_for_current_user'
 
   resources :admins, only: [:show], format: 'json' do
