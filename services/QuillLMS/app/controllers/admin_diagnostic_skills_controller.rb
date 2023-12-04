@@ -29,7 +29,7 @@ class AdminDiagnosticSkillsController < ApplicationController
 
     return render json: { error: 'diagnostic_id param is required' }, status: 400 unless school_ids_param_valid?
 
-    return render json: { error: 'unrecognized query type for this endpoint' }, status: 400 unless WORKERS_FOR_ACTIONS[action_name]::QUERIES.keys.include?(@query)
+    return render json: { error: 'unrecognized query type for this endpoint' }, status: 400 unless query_param_valid?
   end
 
   private def timeframe_param_valid?
@@ -46,6 +46,10 @@ class AdminDiagnosticSkillsController < ApplicationController
 
   private def diagnostic_id_param_valid?
     permitted_params[:diagnostic_id].present?
+  end
+
+  private def query_param_valid?
+    WORKERS_FOR_ACTIONS[action_name]::QUERIES.keys.include?(@query)
   end
 
   private def authorize_request

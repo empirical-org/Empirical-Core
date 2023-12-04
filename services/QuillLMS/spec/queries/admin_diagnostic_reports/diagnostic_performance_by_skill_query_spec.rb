@@ -94,14 +94,14 @@ module AdminDiagnosticReports
 
         expect(result[:aggregate_rows].length).to eq(classrooms.map(&:grade).uniq.length)
         expect(result[:skill_name]).to eq(skill_group.name)
-        expect(result[:pre_score]).to eq(all_pre_concept_results.select { |cr| cr.correct }.length.to_f / all_pre_concept_results.length * 100)
+        expect(result[:pre_score]).to eq(all_pre_concept_results.select(&:correct).length.to_f / all_pre_concept_results.length * 100)
         expect(result[:post_score]).to eq(all_post_concept_results.select { |cr| cr.correct }.length.to_f / all_post_concept_results.length * 100)
         expect(result[:pre_correct_total]).to eq(all_pre_concept_results.select { |cr| cr.correct }.length)
         expect(result[:pre_total_questions]).to eq(all_pre_concept_results.length)
         expect(result[:post_correct_total]).to eq(all_post_concept_results.select { |cr| cr.correct }.length)
         expect(result[:post_total_questions]).to eq(all_post_concept_results.length)
 
-        # The setup for these tests gives users 50% correct rates on their pre-diagnostic, and 100% correct rates on their post-diagnostic, which correspond to "imrpoved proficiency"
+        # The setup for these tests gives users 50% correct rates on their pre-diagnostic, and 100% correct rates on their post-diagnostic, which correspond to "improved proficiency"
         expect(result[:maintained_proficiency]).to eq(0)
         expect(result[:improved_proficiency]).to eq(post_activity_sessions.length)
         expect(result[:recommended_practice]).to eq(0)
