@@ -29,11 +29,11 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
   const [loadingSavedFilterSelections, setLoadingSavedFilterSelections] = React.useState(true)
   const [loadingFilters, setLoadingFilters] = React.useState(true)
 
-  const [allTimeframes, setAllTimeframes] = React.useState(null)
-  const [allSchools, setAllSchools] = React.useState(null)
-  const [allGrades, setAllGrades] = React.useState(null)
-  const [allTeachers, setAllTeachers] = React.useState(null)
-  const [allClassrooms, setAllClassrooms] = React.useState(null)
+  const [availableTimeframes, setAvailableTimeframes] = React.useState(null)
+  const [availableSchools, setAvailableSchools] = React.useState(null)
+  const [availableGrades, setAvailableGrades] = React.useState(null)
+  const [availableTeachers, setAvailableTeachers] = React.useState(null)
+  const [availableClassrooms, setAvailableClassrooms] = React.useState(null)
 
   const [originalAllSchools, setOriginalAllSchools] = React.useState(null)
   const [originalAllTeachers, setOriginalAllTeachers] = React.useState(null)
@@ -100,10 +100,10 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
 
     const newValueForHasAdjustedFiltersFromDefault = (
       !unorderedArraysAreEqual(selectedSchools, originalAllSchools)
-      || !unorderedArraysAreEqual(selectedGrades, allGrades)
+      || !unorderedArraysAreEqual(selectedGrades, availableGrades)
       || !unorderedArraysAreEqual(selectedTeachers, originalAllTeachers)
       || !unorderedArraysAreEqual(selectedClassrooms, originalAllClassrooms)
-      || !_.isEqual(selectedTimeframe, defaultTimeframe(allTimeframes))
+      || !_.isEqual(selectedTimeframe, defaultTimeframe(availableTimeframes))
     )
 
     setHasAdjustedFiltersFromDefault(newValueForHasAdjustedFiltersFromDefault)
@@ -188,9 +188,9 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
   function saveFilterSelections() {
     const filterSelections = {
       timeframe: selectedTimeframe,
-      schools: unorderedArraysAreEqual(selectedSchools, allSchools) ? null : selectedSchools,
-      teachers: unorderedArraysAreEqual(selectedTeachers, allTeachers) ? null : selectedTeachers,
-      classrooms: unorderedArraysAreEqual(selectedClassrooms, allClassrooms) ? null : selectedClassrooms,
+      schools: unorderedArraysAreEqual(selectedSchools, originalAllSchools) ? null : selectedSchools,
+      teachers: unorderedArraysAreEqual(selectedTeachers, originalAllTeachers) ? null : selectedTeachers,
+      classrooms: unorderedArraysAreEqual(selectedClassrooms, originalAllClassrooms) ? null : selectedClassrooms,
       grades: selectedGrades,
       custom_start_date: customStartDate,
       custom_end_date: customEndDate
@@ -229,11 +229,11 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
 
       const timeframe = defaultTimeframe(timeframeOptions)
 
-      if (allGrades?.length !== gradeOptions.length) { setAllGrades(gradeOptions) }
-      if (allTimeframes?.length !== timeframeOptions.length) { setAllTimeframes(timeframeOptions) }
-      if (allSchools?.length !== schoolOptions.length) { setAllSchools(schoolOptions) }
-      if (allTeachers?.length !== teacherOptions.length) { setAllTeachers(teacherOptions) }
-      if (allClassrooms?.length !== classroomOptions.length) { setAllClassrooms(classroomOptions) }
+      if (availableGrades?.length !== gradeOptions.length) { setAvailableGrades(gradeOptions) }
+      if (availableTimeframes?.length !== timeframeOptions.length) { setAvailableTimeframes(timeframeOptions) }
+      if (availableSchools?.length !== schoolOptions.length) { setAvailableSchools(schoolOptions) }
+      if (availableTeachers?.length !== teacherOptions.length) { setAvailableTeachers(teacherOptions) }
+      if (availableClassrooms?.length !== classroomOptions.length) { setAvailableClassrooms(classroomOptions) }
 
       if (loadingFilters) {
         setSelectedAndLastSubmitted(
@@ -242,8 +242,8 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
           selectedTeachers || teacherOptions,
           selectedClassrooms || classroomOptions,
           selectedTimeframe || timeframe,
-          null,
-          null
+          customStartDate || null,
+          customEndDate || null
         );
 
         setOriginalAllSchools(allSchoolOptions)
@@ -256,21 +256,21 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
   }
 
   function clearFilters() {
-    setSelectedGrades(allGrades)
+    setSelectedGrades(availableGrades)
     setSelectedSchools(originalAllSchools)
     setSelectedTeachers(originalAllTeachers)
     setSelectedClassrooms(originalAllClassrooms)
-    setSelectedTimeframe(defaultTimeframe(allTimeframes))
+    setSelectedTimeframe(defaultTimeframe(availableTimeframes))
     setCustomStartDate(null)
     setCustomEndDate(null)
 
     // what follows is basically duplicating the logic in applyFilters, but avoids a race condition where the "lastSubmitted" values get set before the new selected values are set
     setSearchCount(searchCount + 1)
-    setLastSubmittedGrades(allGrades)
+    setLastSubmittedGrades(availableGrades)
     setLastSubmittedSchools(originalAllSchools)
     setLastSubmittedTeachers(originalAllTeachers)
     setLastSubmittedClassrooms(originalAllClassrooms)
-    setLastSubmittedTimeframe(defaultTimeframe(allTimeframes))
+    setLastSubmittedTimeframe(defaultTimeframe(availableTimeframes))
     setLastSubmittedCustomStartDate(null)
     setLastSubmittedCustomEndDate(null)
     setHasAdjustedFiltersSinceLastSubmission(false)
@@ -326,14 +326,14 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     return <Spinner />
   }
 
-  const allClassroomsToPass = allClassrooms.length > MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS ? [] : allClassrooms
+  const availableClassroomsToPass = availableClassrooms.length > MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS ? [] : availableClassrooms
 
   const filterProps = {
-    allTimeframes,
-    allSchools,
-    allGrades,
-    allTeachers,
-    allClassrooms: allClassroomsToPass,
+    availableTimeframes,
+    availableSchools,
+    availableGrades,
+    availableTeachers,
+    availableClassrooms: availableClassroomsToPass,
     applyFilters,
     clearFilters,
     selectedGrades,
@@ -363,12 +363,12 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     pusherChannel,
     searchCount,
     selectedClassrooms,
-    allClassrooms: allClassroomsToPass,
+    availableClassrooms: availableClassroomsToPass,
     selectedGrades,
-    allGrades,
+    availableGrades,
     selectedSchools,
     selectedTeachers,
-    allTeachers,
+    availableTeachers,
     selectedTimeframe,
     handleClickDownloadReport,
     openMobileFilterMenu,

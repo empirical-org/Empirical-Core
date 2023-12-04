@@ -7,7 +7,7 @@ class SmartSpinner extends React.Component<any, any> {
     super(props);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.props.onMount) {
       this.props.onMount();
     }

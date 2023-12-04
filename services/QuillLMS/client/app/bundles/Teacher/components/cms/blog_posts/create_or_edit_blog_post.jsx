@@ -605,9 +605,9 @@ export default class CreateOrEditBlogPost extends React.Component {
     if ([STANDARD].includes(preview_card_type)) {
       contentFields = [
         <label key="title-label">Title:</label>,
-        <input key="title" onChange={this.handleBlogPostPreviewTitleChange} type='text' value={blogPostPreviewTitle} />,
+        <input key="title" onChange={this.handleBlogPostPreviewTitleChange} type='text' value={blogPostPreviewTitle || ''} />,
         <label key="description-label">Description: <i>(Please, choose the juiciest quote from the article that makes you want to read it and you should aim for 200 characters for the card description., for example: &#34;I put jazz on and my kids work on Quill.&#34;)</i></label>,
-        <input key="description" onChange={this.handleBlogPostPreviewDescriptionChange} type='text' value={blogPostPreviewDescription} />,
+        <input key="description" onChange={this.handleBlogPostPreviewDescriptionChange} type='text' value={blogPostPreviewDescription || ''} />,
       ]
     } else if (preview_card_type === CUSTOM_HTML) {
       contentFields = [
@@ -718,16 +718,16 @@ export default class CreateOrEditBlogPost extends React.Component {
         <form>
           <div className="left-column">
             <label>Title:</label>
-            <input onChange={this.handleTitleChange} type="text" value={title} />
+            <input onChange={this.handleTitleChange} type="text" value={title || ''} />
 
             <label>SEO Meta Description:</label>
-            <input onChange={this.handleSubtitleChange} type="text" value={subtitle} />
+            <input onChange={this.handleSubtitleChange} type="text" value={subtitle || ''} />
 
             <label>SEO Meta Image:</label>
-            <input onChange={this.handleImageLinkChange} type="text" value={imageLink} />
+            <input onChange={this.handleImageLinkChange} type="text" value={imageLink || ''} />
 
             <label>Press Name (optional):</label>
-            <input onChange={this.handlePressNameChange} type="text" value={pressName} />
+            <input onChange={this.handlePressNameChange} type="text" value={pressName || ''} />
 
             <div className='short-fields'>
               <div>
@@ -748,14 +748,14 @@ export default class CreateOrEditBlogPost extends React.Component {
 
             <div>
               <label>External Link: (Optional, use only if this card should point to another website)</label>
-              <input onChange={this.handleExternalLinkChange} value={externalLink} />
+              <input onChange={this.handleExternalLinkChange} value={externalLink || ''} />
             </div>
 
             <div className="media-upload-container">
               <label>Click the square below or drag an image into it to upload an image or video:</label>
               <div className="dropzone-container"><Dropzone onDrop={this.handleDrop} /></div>
               <label style={{marginTop: '10px'}}>Here is the link to your uploaded image or video:</label>
-              <input value={uploadedMediaLink} />
+              <input readOnly value={uploadedMediaLink || ''} />
               <a className="quill-button fun secondary outlined focus-on-light" href="/cms/images" target="_blank">All Uploaded Media</a>
             </div>
 

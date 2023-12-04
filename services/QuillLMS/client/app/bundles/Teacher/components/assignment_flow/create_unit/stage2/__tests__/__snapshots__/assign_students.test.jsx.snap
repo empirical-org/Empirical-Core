@@ -104,6 +104,7 @@ exports[`Assign students component should render 1`] = `
               "visible": true,
             }
           }
+          key="285380"
           students={
             Array [
               Object {
@@ -751,6 +752,7 @@ exports[`Assign students component should render 1`] = `
               "visible": true,
             }
           }
+          key="285380"
           students={Array []}
           toggleClassroomSelection={[Function]}
           toggleStudentSelection={[Function]}

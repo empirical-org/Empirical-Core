@@ -4135,6 +4135,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
       >
         <section
           className="classroom-section"
+          key="6"
         >
           <h2>
             New Class
@@ -4161,6 +4162,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                 },
               }
             }
+            key="992-6"
           >
             <section
               className="diagnostic"
@@ -4386,6 +4388,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
       >
         <section
           className="classroom-section"
+          key="1"
         >
           <h2>
             Quill Classroom
@@ -4416,6 +4419,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                 },
               }
             }
+            key="992-1"
           >
             <section
               className="diagnostic"
@@ -4560,6 +4564,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                 },
               }
             }
+            key="1678-1"
           >
             <section
               className="diagnostic"
@@ -4759,6 +4764,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                 },
               }
             }
+            key="1668-1"
           >
             <section
               className="diagnostic"
@@ -4958,6 +4964,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                 },
               }
             }
+            key="1663-1"
           >
             <section
               className="diagnostic"

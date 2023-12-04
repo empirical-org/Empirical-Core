@@ -198,6 +198,7 @@ const AssignStudents = ({
     return (
       <ClassroomCard
         classroom={classroom}
+        key={classroom.id}
         lockedClassroomIds={lockedClassroomIds}
         lockedMessage={lockedMessage}
         students={students}

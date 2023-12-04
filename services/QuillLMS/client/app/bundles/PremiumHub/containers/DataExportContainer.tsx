@@ -12,12 +12,12 @@ export const DataExportContainer = ({
   pusherChannel,
   searchCount,
   selectedClassrooms,
-  allClassrooms,
+  availableClassrooms,
   selectedGrades,
-  allGrades,
+  availableGrades,
   selectedSchools,
   selectedTeachers,
-  allTeachers,
+  availableTeachers,
   selectedTimeframe,
   openMobileFilterMenu
 }) => {
@@ -40,10 +40,10 @@ export const DataExportContainer = ({
         pusherChannel={pusherChannel}
         queryKey="data-export"
         searchCount={searchCount}
-        selectedClassroomIds={mapItemsIfNotAll(selectedClassrooms, allClassrooms)}
-        selectedGrades={mapItemsIfNotAll(selectedGrades, allGrades, 'value')}
+        selectedClassroomIds={mapItemsIfNotAll(selectedClassrooms, availableClassrooms)}
+        selectedGrades={mapItemsIfNotAll(selectedGrades, availableGrades, 'value')}
         selectedSchoolIds={selectedSchools.map(school => school.id)}
-        selectedTeacherIds={mapItemsIfNotAll(selectedTeachers, allTeachers)}
+        selectedTeacherIds={mapItemsIfNotAll(selectedTeachers, availableTeachers)}
         selectedTimeframe={selectedTimeframe.value}
       />
     </main>

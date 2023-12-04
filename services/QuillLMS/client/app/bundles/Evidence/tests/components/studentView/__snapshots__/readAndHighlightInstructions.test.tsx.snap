@@ -39,14 +39,19 @@ exports[`ReadAndHighlightInstructions component when the student has not started
             Directions
           </h3>
           <ul>
-            <li>
+            <li
+              key="highlight-direction-1"
+            >
               First, read the highlighting task below.
             </li>
-            <li>
+            <li
+              key="highlight-direction-2"
+            >
               Then, read the text and highlight sentences to complete the task.
             </li>
             <li
               className="sr-only"
+              key="highlight-direction-3"
             >
               Screenreader users, please use your tab keys to navigate through the passage. Highlightable sentences are toggle-able buttons. Use the Enter key on a focused sentence to add it to your highlights or to remove it once it has already been highlighted.
             </li>
@@ -171,14 +176,19 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
             Directions
           </h3>
           <ul>
-            <li>
+            <li
+              key="highlight-direction-1"
+            >
               First, read the highlighting task below.
             </li>
-            <li>
+            <li
+              key="highlight-direction-2"
+            >
               Then, read the text and highlight sentences to complete the task.
             </li>
             <li
               className="sr-only"
+              key="highlight-direction-3"
             >
               Screenreader users, please use your tab keys to navigate through the passage. Highlightable sentences are toggle-able buttons. Use the Enter key on a focused sentence to add it to your highlights or to remove it once it has already been highlighted.
             </li>

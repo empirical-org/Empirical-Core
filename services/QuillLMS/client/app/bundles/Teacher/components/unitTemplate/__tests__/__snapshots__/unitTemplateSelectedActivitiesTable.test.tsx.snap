@@ -17,6 +17,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
     >
       <th
         className="data-table-header"
+        key="addActivity"
         scope="col"
         style={
           Object {
@@ -27,6 +28,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       />
       <th
         className="data-table-header"
+        key="name"
         scope="col"
         style={
           Object {
@@ -39,6 +41,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
+        key="description"
         scope="col"
         style={
           Object {
@@ -51,6 +54,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
+        key="inPacks"
         scope="col"
         style={
           Object {
@@ -63,6 +67,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
+        key="flag"
         scope="col"
         style={
           Object {
@@ -75,6 +80,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
+        key="readability"
         scope="col"
         style={
           Object {
@@ -87,6 +93,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
+        key="concept"
         scope="col"
         style={
           Object {
@@ -117,6 +124,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
+        key="tool"
         scope="col"
         style={
           Object {
@@ -129,6 +137,7 @@ exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`]
       </th>
       <th
         className="data-table-header"
+        key="edit"
         scope="col"
         style={
           Object {
