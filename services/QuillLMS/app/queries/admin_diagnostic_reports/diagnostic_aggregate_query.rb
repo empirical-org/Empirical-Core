@@ -37,11 +37,7 @@ module AdminDiagnosticReports
       post_process(run_query)
     end
 
-    def run_query
-      runner.execute(union_query)
-    end
-
-    def union_query
+    def query
       <<-SQL
         WITH #{with_sql}
         #{contextual_query}
@@ -56,7 +52,7 @@ module AdminDiagnosticReports
 
     def with_queries
       {
-        aggregate_rows: query
+        aggregate_rows: root_query
       }
     end
 

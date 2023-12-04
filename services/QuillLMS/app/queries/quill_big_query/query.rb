@@ -17,6 +17,10 @@ module QuillBigQuery
     end
 
     def query
+      root_query
+    end
+
+    def root_query
       <<-SQL
         #{select_clause}
         #{from_and_join_clauses}

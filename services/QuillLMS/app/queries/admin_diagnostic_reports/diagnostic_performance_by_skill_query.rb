@@ -55,7 +55,7 @@ module AdminDiagnosticReports
 
     def with_queries
       {
-        most_recent_activity_sessions: query,
+        most_recent_activity_sessions: root_query,
         pre_questions_correct:,
         pre_skill_scores:,
         post_questions_correct:,

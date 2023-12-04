@@ -2,7 +2,7 @@
 
 module AdminDiagnosticReports
   class PreDiagnosticCompletedQuery < DiagnosticAggregateQuery
-    def query
+    def root_query
       <<-SQL
         SELECT
             diagnostic_id,
