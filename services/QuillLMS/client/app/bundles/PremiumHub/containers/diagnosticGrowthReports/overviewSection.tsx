@@ -81,7 +81,9 @@ export const OverviewSection = ({
   selectedTeacherIds,
   selectedClassroomIds,
   selectedTimeframe,
-  pusherChannel
+  pusherChannel,
+  hasAdjustedFiltersFromDefault,
+  handleSetNoDiagnosticData
 }) => {
 
   const [groupByValue, setGroupByValue] = React.useState<DropdownObjectInterface>(groupByDropdownOptions[0])
@@ -92,7 +94,7 @@ export const OverviewSection = ({
   const [postDiagnosticCompletedData, setPostDiagnosticCompletedData] = React.useState<any>(null);
   const [recommendationsData, setRecommendationsData] = React.useState<any>(null);
   const [aggregatedData, setAggregatedData] = React.useState<any>([]);
-  const [pusherMessage, setPusherMessage] = React.useState<any>(null)
+  const [pusherMessage, setPusherMessage] = React.useState<string>(null)
 
   React.useEffect(() => {
     initializePusher()
@@ -101,7 +103,6 @@ export const OverviewSection = ({
   React.useEffect(() => {
     getData()
   }, [searchCount, groupByValue])
-
 
   React.useEffect(() => {
     if (!pusherMessage) return
@@ -118,6 +119,8 @@ export const OverviewSection = ({
         postDiagnosticCompletedData,
         recommendationsData,
         setAggregatedData,
+        hasAdjustedFiltersFromDefault,
+        handleSetNoDiagnosticData,
         setLoading
       })
     }

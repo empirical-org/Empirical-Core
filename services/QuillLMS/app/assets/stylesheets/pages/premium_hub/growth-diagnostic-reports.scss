@@ -7,6 +7,27 @@ main {
       }
     }
   }
+  .no-diagnostic-data-container {
+    margin-top: 48px;
+    h2 {
+      font-size: 20px !important;
+      margin-bottom: 8px;
+    }
+    p {
+      color: $quill-grey-50;
+      max-width: 820px;
+    }
+    p:first-of-type {
+      margin-bottom: 16px;
+    }
+    p:last-of-type {
+      margin-bottom: 32px;
+    }
+    a {
+      font-weight: 600;
+      color: $quill-green;
+    }
+  }
   .tabs-for-pages-container {
     display: flex;
     margin-top: 32px;
@@ -94,6 +115,7 @@ main {
       .data-table-row {
         padding-right: 0 !important;
         td {
+          min-height: 46px !important;
           font-size: 13px !important;
           .emphasized-content {
             color: $quill-green;

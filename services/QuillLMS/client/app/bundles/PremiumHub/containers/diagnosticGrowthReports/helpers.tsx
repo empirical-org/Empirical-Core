@@ -17,8 +17,17 @@ export function aggregateOverviewData({
   postDiagnosticCompletedData,
   recommendationsData,
   setAggregatedData,
+  handleSetNoDiagnosticData,
+  hasAdjustedFiltersFromDefault,
   setLoading
 }) {
+
+  if ((!preDiagnosticAssignedData.length && !postDiagnosticAssignedData.length && !preDiagnosticCompletedData.length && !postDiagnosticCompletedData.length && !recommendationsData.length) && !hasAdjustedFiltersFromDefault) {
+    handleSetNoDiagnosticData(true)
+    setLoading(false)
+    return
+  }
+
   const preDiagnosticAssignedDataHash = {}
   const postDiagnosticAssignedDataHash = {}
   const preDiagnosticCompletedDataHash = {}

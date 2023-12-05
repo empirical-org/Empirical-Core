@@ -373,6 +373,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo }) => 
     selectedTimeframe,
     handleClickDownloadReport,
     openMobileFilterMenu,
+    hasAdjustedFiltersFromDefault
   }
 
   if (accessType !== FULL) {

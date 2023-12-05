@@ -30,13 +30,59 @@ export const DiagnosticGrowthReportsContainer = ({
   selectedTeachers,
   allTeachers,
   handleClickDownloadReport,
-  openMobileFilterMenu
+  openMobileFilterMenu,
+  hasAdjustedFiltersFromDefault
 }) => {
 
   const [activeTab, setActiveTab] = React.useState<string>(OVERVIEW)
+  const [noDiagnosticData, setNoDiagnosticData] = React.useState<boolean>(false)
 
   function handleTabChange(e) {
     setActiveTab(e.currentTarget.value)
+  }
+
+  function handleSetNoDiagnosticData(value: boolean) {
+    setNoDiagnosticData(value)
+  }
+
+  function renderContent() {
+
+    if (noDiagnosticData) {
+      return <div className="no-diagnostic-data-container">
+        <h2>There are not yet any completed diagnostics.</h2>
+        <p>The Quill Diagnostic enables you to provide a Pre-Diagnostic at the start of the year to identify skills students need to practice. The Post-Diagnostic allows you to then measure students&apos; learning gains over the course of the school year.</p>
+        <p>At the moment, there are no teachers connected to your admin account who have completed a diagnostic. Once at least one teacher has completed a diagnostic with at least one student, you will be able to see their results in this report. View our guide our guide to learn how teachers can assign diagnostics to their students.</p>
+        <a className="assign-link focus-on-light" href="" rel="noopener noreferrer" target="_blank">How to Assign a Diagnostic</a>
+      </div>
+    }
+
+    return(
+      <React.Fragment>
+        <div className="tabs-for-pages-container">
+          <button className={`interactive-wrapper performance-type-button overview ${activeTab === OVERVIEW ? 'active' : ''}`} onClick={handleTabChange} value={OVERVIEW}>
+            <img alt="" src={activeTab === OVERVIEW ? barChartWhiteIconSrc : barChartGreySrc} />
+            <span>Performance Overview</span>
+          </button>
+          <button className={`interactive-wrapper performance-type-button skill ${activeTab === SKILL ? 'active' : ''}`} onClick={handleTabChange} value={SKILL}>
+            <img alt="" src={activeTab === SKILL ? pencilWhiteIconSrc : pencilGreyIconSrc} />
+            <span>Performance by Skill</span>
+          </button>
+          <button className={`interactive-wrapper performance-type-button student ${activeTab === STUDENT ? 'active' : ''}`} onClick={handleTabChange} value={STUDENT}>
+            <img alt="" src={activeTab === STUDENT ? groupOfStudentsWhiteIconSrc : groupOfStudentsGreyIconSrc} />
+            <span>Performance by Student</span>
+          </button>
+        </div>
+        <div className="filter-button-container">
+          <button className="interactive-wrapper focus-on-light" onClick={openMobileFilterMenu} type="button">
+            <img alt={filterIcon.alt} src={filterIcon.src} />
+            Filters
+          </button>
+        </div>
+        {activeTab === OVERVIEW && <OverviewSection {...sharedProps} />}
+        {activeTab === SKILL && <SkillSection {...sharedProps} />}
+        {activeTab === STUDENT && <StudentSection {...sharedProps} />}
+      </React.Fragment>
+    )
   }
 
   if (loadingFilters) {
@@ -54,7 +100,9 @@ export const DiagnosticGrowthReportsContainer = ({
     selectedTeacherIds: mapItemsIfNotAll(selectedTeachers, allTeachers),
     selectedClassroomIds: mapItemsIfNotAll(selectedClassrooms, allClassrooms),
     selectedTimeframe: SELECTED_TIMEFRAME,
-    pusherChannel
+    pusherChannel,
+    hasAdjustedFiltersFromDefault,
+    handleSetNoDiagnosticData
   }
 
   return (
@@ -78,29 +126,7 @@ export const DiagnosticGrowthReportsContainer = ({
           </button>
         </div>
       </div>
-      <div className="tabs-for-pages-container">
-        <button className={`interactive-wrapper performance-type-button overview ${activeTab === OVERVIEW ? 'active' : ''}`} onClick={handleTabChange} value={OVERVIEW}>
-          <img alt="" src={activeTab === OVERVIEW ? barChartWhiteIconSrc : barChartGreySrc} />
-          <span>Performance Overview</span>
-        </button>
-        <button className={`interactive-wrapper performance-type-button skill ${activeTab === SKILL ? 'active' : ''}`} onClick={handleTabChange} value={SKILL}>
-          <img alt="" src={activeTab === SKILL ? pencilWhiteIconSrc : pencilGreyIconSrc} />
-          <span>Performance by Skill</span>
-        </button>
-        <button className={`interactive-wrapper performance-type-button student ${activeTab === STUDENT ? 'active' : ''}`} onClick={handleTabChange} value={STUDENT}>
-          <img alt="" src={activeTab === STUDENT ? groupOfStudentsWhiteIconSrc : groupOfStudentsGreyIconSrc} />
-          <span>Performance by Student</span>
-        </button>
-      </div>
-      <div className="filter-button-container">
-        <button className="interactive-wrapper focus-on-light" onClick={openMobileFilterMenu} type="button">
-          <img alt={filterIcon.alt} src={filterIcon.src} />
-          Filters
-        </button>
-      </div>
-      {activeTab === OVERVIEW && <OverviewSection {...sharedProps} />}
-      {activeTab === SKILL && <SkillSection {...sharedProps} />}
-      {activeTab === STUDENT && <StudentSection {...sharedProps} />}
+      {renderContent()}
     </main>
   )
 }
