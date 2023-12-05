@@ -1,13 +1,12 @@
 import * as React from 'react'
 
-import CanvasIntegrationForm from './canvasIntegrationForm'
 import CanvasIntegrationModal from './canvasIntegrationModal'
 import CanvasIntegrationInstance from './canvasIntegrationInstance'
 
 import CanvasInstructionsModal from '../../../Teacher/components/classrooms/canvas_modal'
 import { requestGet, } from '../../../../modules/request';
 import { Spinner, } from '../../../Shared/index'
-import { FULL, baseIntegrationImgSrc, circleCheckImg } from '../../shared'
+import { FULL, LOADING, baseIntegrationImgSrc, circleCheckImg } from '../../shared'
 import IntegrationTip from '../integration_tip'
 
 export const CANVAS_INTEGRATIONS_PATH = '/canvas_instances'
@@ -66,7 +65,27 @@ const CanvasIntegrationContainer = ({ passedSchools, passedCanvasIntegrations, a
     closeNewModal()
   }
 
-  if (accessType !== FULL && !user.school_linked_to_canvas) {
+  function renderModal() {
+    return (
+      <React.Fragment>
+        {showNewModal && (
+          <CanvasIntegrationModal
+            close={closeNewModal}
+            schools={schoolsWithSubscriptions}
+            success={handleNewCanvasInstanceSubmission}
+          />
+        )}
+        {showCanvasInstructionsModal && (
+          <CanvasInstructionsModal
+            close={closeCanvasInstructionsModal}
+            user={user}
+          />
+        )}
+      </React.Fragment>
+    )
+  }
+
+  if (![FULL, LOADING].includes(accessType) && !user.school_linked_to_canvas) {
     return (
       <div className="container">
         <div className="integration-container">
@@ -78,9 +97,11 @@ const CanvasIntegrationContainer = ({ passedSchools, passedCanvasIntegrations, a
             <li>{circleCheckImg}Automatically create and sync Canvas student accounts.</li>
             <li>{circleCheckImg}Access a host of other premium benefits, including priority technical support, enhanced reporting, and assistance from our professional learning team.</li>
           </ul>
-          <a href="/premium" rel="noopener noreferrer" target="_blank">Explore premium</a>
-          <a href="https://support.quill.org/en/articles/8500172-how-to-choose-your-rostering-integration" rel="noopener noreferrer" target="_blank">How to choose your integration</a>
-          <a href="https://support.quill.org/en/articles/8337988-how-do-i-set-up-the-canvas-integration-for-my-school-district-for-canvas-quill-administrators" rel="noopener noreferrer" target="_blank">How to set up this integration</a>
+          <div className="links">
+            <a href="/premium" rel="noopener noreferrer" target="_blank">Explore premium</a>
+            <a href="https://support.quill.org/en/articles/8500172-how-to-choose-your-rostering-integration" rel="noopener noreferrer" target="_blank">How to choose your integration</a>
+            <a href="https://support.quill.org/en/articles/8337988-how-do-i-set-up-the-canvas-integration-for-my-school-district-for-canvas-quill-administrators" rel="noopener noreferrer" target="_blank">How to set up this integration</a>
+          </div>
           <IntegrationTip />
         </div>
       </div>
@@ -97,8 +118,28 @@ const CanvasIntegrationContainer = ({ passedSchools, passedCanvasIntegrations, a
 
   if (!canvasIntegrations.length) {
     return (
-      <div className="container canvas-container">
-        <CanvasIntegrationForm schools={schoolsWithSubscriptions} success={getCanvasIntegrations} />
+      <div className="container">
+        {renderModal()}
+        <div className="integration-container">
+          <img alt="" className="logo" src={canvasIconSrc} />
+          <h1>Get started with Canvas</h1>
+          <p>Looking to streamline your school’s teaching process with Quill’s Canvas integration? Great news! Your subscription gives you access to the integration. The next step is to set it up. This will allow teachers at your school or district to:</p>
+          <ul>
+            <li>{circleCheckImg}Seamlessly import their Canvas rosters.</li>
+            <li>{circleCheckImg}Automatically create and sync Canvas student accounts.</li>
+          </ul>
+          <div className="links">
+            <button
+              className="quill-button contained medium primary focus-on-light"
+              onClick={handleClickAddNewCanvasIntegration}
+              type="button"
+            >
+              Add New Canvas Integration
+            </button>
+            <a href="https://support.quill.org/en/articles/8500172-how-to-choose-your-rostering-integration" rel="noopener noreferrer" target="_blank">How to choose your integration</a>
+            <a href="https://support.quill.org/en/articles/8337988-how-do-i-set-up-the-canvas-integration-for-my-school-district-for-canvas-quill-administrators" rel="noopener noreferrer" target="_blank">How to set up this integration</a>
+          </div>
+        </div>
       </div>
     )
   }
@@ -116,19 +157,7 @@ const CanvasIntegrationContainer = ({ passedSchools, passedCanvasIntegrations, a
 
   return (
     <div className="container canvas-container">
-      {showNewModal && (
-        <CanvasIntegrationModal
-          close={closeNewModal}
-          schools={schoolsWithSubscriptions}
-          success={handleNewCanvasInstanceSubmission}
-        />
-      )}
-      {showCanvasInstructionsModal && (
-        <CanvasInstructionsModal
-          close={closeCanvasInstructionsModal}
-          user={user}
-        />
-      )}
+      {renderModal()}
       {canvasIntegrationElements}
       <button
         className="quill-button contained medium primary focus-on-light add-new-canvas-integration-button"
@@ -137,6 +166,7 @@ const CanvasIntegrationContainer = ({ passedSchools, passedCanvasIntegrations, a
       >
         Add New Canvas Integration
       </button>
+      <a className="setup-guide" href="https://support.quill.org/en/articles/8337988-how-do-i-set-up-the-canvas-integration-for-my-school-district-for-canvas-quill-administrators" rel="noopener noreferrer" target="_blank">Setup guide</a>
     </div>
   )
 }
