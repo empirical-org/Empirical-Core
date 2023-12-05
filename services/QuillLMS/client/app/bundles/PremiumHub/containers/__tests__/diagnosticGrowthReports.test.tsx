@@ -62,7 +62,6 @@ describe('DiagnosticGrowthReports', () => {
       props.passedData = true
       const { asFragment } = render(<DiagnosticGrowthReports {...props} />);
       expect(asFragment()).toMatchSnapshot();
-      console.log(screen.debug())
       expect(screen.getByRole('heading', { name: /there are not yet any completed diagnostics\./i})).toBeInTheDocument()
       expect(screen.getByRole('link', { name: /how to assign a diagnostic/i })).toBeInTheDocument()
     })

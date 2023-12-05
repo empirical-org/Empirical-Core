@@ -61,12 +61,14 @@ export const DiagnosticGrowthReportsContainer = ({
   function renderContent() {
 
     if (noDiagnosticData) {
-      return <div className="no-diagnostic-data-container">
-        <h2>There are not yet any completed diagnostics.</h2>
-        <p>The Quill Diagnostic enables you to provide a Pre-Diagnostic at the start of the year to identify skills students need to practice. The Post-Diagnostic allows you to then measure students&apos; learning gains over the course of the school year.</p>
-        <p>At the moment, there are no teachers connected to your admin account who have completed a diagnostic. Once at least one teacher has completed a diagnostic with at least one student, you will be able to see their results in this report. View our guide our guide to learn how teachers can assign diagnostics to their students.</p>
-        <a className="assign-link focus-on-light" href="" rel="noopener noreferrer" target="_blank">How to Assign a Diagnostic</a>
-      </div>
+      return(
+        <div className="no-diagnostic-data-container">
+          <h2>There are not yet any completed diagnostics.</h2>
+          <p>The Quill Diagnostic enables you to provide a Pre-Diagnostic at the start of the year to identify skills students need to practice. The Post-Diagnostic allows you to then measure students&apos; learning gains over the course of the school year.</p>
+          <p>At the moment, there are no teachers connected to your admin account who have completed a diagnostic. Once at least one teacher has completed a diagnostic with at least one student, you will be able to see their results in this report. View our guide our guide to learn how teachers can assign diagnostics to their students.</p>
+          <a className="assign-link focus-on-light" href="" rel="noopener noreferrer" target="_blank">How to Assign a Diagnostic</a>
+        </div>
+      )
     }
 
     return(
