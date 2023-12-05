@@ -183,7 +183,9 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
               onClick={[Function]}
               type="button"
             >
-              Pack type
+              <span>
+                Pack type
+              </span>
               <div
                 className="sort-tooltip-container"
               />
@@ -206,7 +208,9 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
               onClick={[Function]}
               type="button"
             >
-              Pack name
+              <span>
+                Pack name
+              </span>
               <div
                 className="sort-tooltip-container"
               />
@@ -229,7 +233,9 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
               onClick={[Function]}
               type="button"
             >
-              Tools
+              <span>
+                Tools
+              </span>
               <div
                 className="sort-tooltip-container"
               />
@@ -252,7 +258,9 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
               onClick={[Function]}
               type="button"
             >
-              Grade Level
+              <span>
+                Grade Level
+              </span>
               <div
                 className="sort-tooltip-container"
               />
@@ -275,7 +283,9 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
               onClick={[Function]}
               type="button"
             >
-              Activities
+              <span>
+                Activities
+              </span>
               <div
                 className="sort-tooltip-container"
               />
@@ -298,7 +308,9 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
               onClick={[Function]}
               type="button"
             >
-              Duration
+              <span>
+                Duration
+              </span>
               <div
                 className="sort-tooltip-container"
               />

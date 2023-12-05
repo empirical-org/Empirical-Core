@@ -94,7 +94,7 @@ main {
   .growth-diagnostic-reports-overview-table, .growth-diagnostic-reports-by-skill-table {
     margin-top: 48px;
     .data-table-headers {
-      padding-right: 0px;
+      padding-right: 8px;
       th {
         justify-content: space-between;
         font-size: 13px !important;
@@ -113,7 +113,7 @@ main {
     }
     .data-table-body {
       .data-table-row {
-        padding-right: 0 !important;
+        padding-right: 8 !important;
         td {
           min-height: 46px !important;
           font-size: 13px !important;

@@ -7,8 +7,6 @@ import DiagnosticGrowthReports from "../diagnosticGrowthReports";
 const props = {
   accessType: RESTRICTED,
   loadingFilters: true,
-  customStartDate: null,
-  customEndDate: null,
   pusherChannel: null,
   searchCount: 0,
   selectedClassrooms: [],
@@ -18,13 +16,10 @@ const props = {
   selectedSchools: [],
   selectedTeachers: [],
   allTeachers: [],
-  selectedTimeframe: {
-    label: "This school year",
-    name: "This school year",
-    value: "this-school-year"
-  },
   handleClickDownloadReport: jest.fn(),
-  openMobileFilterMenu: jest.fn()
+  openMobileFilterMenu: jest.fn(),
+  hasAdjustedFiltersFromDefault: false,
+  passedData: null
 }
 
 describe('DiagnosticGrowthReports', () => {
@@ -58,21 +53,18 @@ describe('DiagnosticGrowthReports', () => {
       const { asFragment } = render(<DiagnosticGrowthReports {...props} />);
       expect(asFragment()).toMatchSnapshot();
       expect(screen.getByRole('heading', { name: /diagnostic growth report/i })).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: /manage subscription/i })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: /download/i })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: /performance overview/i })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: /performance by skill/i })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: /performance by student/i })).toBeInTheDocument()
     })
-    test('it should render the overview table', () => {
+    test('it should render expected messaging if there is no diagnostic data', () => {
+      props.passedData = true
       const { asFragment } = render(<DiagnosticGrowthReports {...props} />);
       expect(asFragment()).toMatchSnapshot();
-      expect(screen.getByRole('columnheader', { name: /diagnostic name/i })).toBeInTheDocument()
-      expect(screen.getByRole('columnheader', { name: /pre diagnostic completed/i })).toBeInTheDocument()
-      expect(screen.getByRole('columnheader', { name: /completed activities/i })).toBeInTheDocument()
-      expect(screen.getByRole('columnheader', { name: /average activities & time spent/i })).toBeInTheDocument()
-      expect(screen.getByRole('columnheader', { name: /post diagnostic completed/i })).toBeInTheDocument()
-      expect(screen.getByRole('columnheader', { name: /overall skill growth/i })).toBeInTheDocument()
+      console.log(screen.debug())
+      expect(screen.getByRole('heading', { name: /there are not yet any completed diagnostics\./i})).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: /how to assign a diagnostic/i })).toBeInTheDocument()
     })
   })
 })

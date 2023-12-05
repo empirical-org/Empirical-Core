@@ -16,7 +16,7 @@ const headers = [
   {
     name: DIAGNOSTIC_NAME,
     attribute: 'name',
-    width: '200px',
+    width: '176px',
     tooltipName: DIAGNOSTIC_NAME,
     tooltipDescription: diagnosticNameTooltipText,
     noTooltip: true,
@@ -25,7 +25,7 @@ const headers = [
   {
     name: PRE_DIAGNOSTIC_COMPLETED,
     attribute: 'preDiagnosticCompleted',
-    width: '200px',
+    width: '176px',
     tooltipName: PRE_DIAGNOSTIC_COMPLETED,
     tooltipDescription: preDiagnosticCompletedTooltipText,
     noTooltip: true,
@@ -34,7 +34,7 @@ const headers = [
   {
     name: COMPLETED_ACTIVITIES,
     attribute: 'studentsCompletedPractice',
-    width: '200px',
+    width: '176px',
     tooltipName: COMPLETED_ACTIVITIES,
     tooltipDescription: completedActivitiesTooltipText,
     noTooltip: true,
@@ -43,7 +43,7 @@ const headers = [
   {
     name: '',
     attribute: 'averageActivitiesAndTimeSpent',
-    width: '200px',
+    width: '176px',
     primaryTitle: 'Average Activities &',
     secondaryTitle: 'Time Spent',
     tooltipName: 'Average Activities & Time Spent',
@@ -54,7 +54,7 @@ const headers = [
   {
     name: '',
     attribute: 'postDiagnosticCompleted',
-    width: '200px',
+    width: '176px',
     primaryTitle: 'Post Diagnostic',
     secondaryTitle: 'Completed',
     tooltipName: 'Post Diagnostic Completed',
@@ -65,7 +65,7 @@ const headers = [
   {
     name: OVERALL_SKILL_GROWTH,
     attribute: 'overallSkillGrowth',
-    width: '130px',
+    width: '106px',
     tooltipName: OVERALL_SKILL_GROWTH,
     tooltipDescription: overallSkillGrowthTooltipText,
     noTooltip: true,
@@ -239,6 +239,20 @@ export const OverviewSection = ({
     setGroupByValue(option)
   }
 
+  function renderContent() {
+    if(loading) {
+      return <Spinner />
+    }
+    return(
+      <DataTable
+        className="growth-diagnostic-reports-overview-table reporting-format"
+        emptyStateMessage={noResultsMessage('diagnostic')}
+        headers={headers}
+        rows={aggregatedData}
+      />
+    )
+  }
+
   return (
     <React.Fragment>
       <DropdownInput
@@ -249,13 +263,7 @@ export const OverviewSection = ({
         options={groupByDropdownOptions}
         value={groupByValue}
       />
-      {loading && <Spinner />}
-      {!loading && <DataTable
-        className="growth-diagnostic-reports-overview-table reporting-format"
-        emptyStateMessage={noResultsMessage('diagnostic')}
-        headers={headers}
-        rows={aggregatedData}
-      />}
+      {renderContent()}
     </React.Fragment>
   )
 }

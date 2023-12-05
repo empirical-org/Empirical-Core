@@ -631,39 +631,51 @@ exports[`AssignANewActivity component with suggested activities should render 1`
               scope="col"
               style="width: 24px; min-width: 24px; text-align: left;"
             >
-              Tool
+              <span>
+                Tool
+              </span>
             </th>
             <th
               class="data-table-header undefined"
               scope="col"
               style="width: 394px; min-width: 394px; text-align: left;"
             >
-              Name
+              <span>
+                Name
+              </span>
             </th>
             <th
               class="data-table-header undefined"
               scope="col"
               style="width: 319px; min-width: 319px; text-align: left;"
             >
-              Topics
+              <span>
+                Topics
+              </span>
             </th>
             <th
               class="data-table-header undefined"
               scope="col"
               style="width: 180px; min-width: 180px; text-align: left;"
             >
-              Date released
+              <span>
+                Date released
+              </span>
             </th>
             <th
               class="data-table-header undefined"
               scope="col"
               style="width: 60px; min-width: 60px; text-align: left;"
-            />
+            >
+              <span />
+            </th>
             <th
               class="data-table-header undefined"
               scope="col"
               style="width: 70px; min-width: 70px; text-align: left;"
-            />
+            >
+              <span />
+            </th>
           </tr>
         </thead>
         <tbody

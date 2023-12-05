@@ -6,7 +6,6 @@ import OverviewSection from './overviewSection'
 import SkillSection from './skillSection'
 import StudentSection from './studentSection'
 
-const emailWhiteIconSrc = `${process.env.CDN_URL}/images/icons/email-icon-white.svg`
 const barChartGreySrc = `${process.env.CDN_URL}/images/pages/diagnostic_reports/icons-bar-chart.svg`
 const barChartWhiteIconSrc = `${process.env.CDN_URL}/images/icons/white-bar-chart-icon.svg`
 const groupOfStudentsGreyIconSrc = `${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/students.svg`
@@ -31,11 +30,12 @@ export const DiagnosticGrowthReportsContainer = ({
   allTeachers,
   handleClickDownloadReport,
   openMobileFilterMenu,
-  hasAdjustedFiltersFromDefault
+  hasAdjustedFiltersFromDefault,
+  passedData
 }) => {
 
   const [activeTab, setActiveTab] = React.useState<string>(OVERVIEW)
-  const [noDiagnosticData, setNoDiagnosticData] = React.useState<boolean>(false)
+  const [noDiagnosticData, setNoDiagnosticData] = React.useState<boolean>(!!passedData)
 
   function handleTabChange(e) {
     setActiveTab(e.currentTarget.value)
@@ -43,6 +43,19 @@ export const DiagnosticGrowthReportsContainer = ({
 
   function handleSetNoDiagnosticData(value: boolean) {
     setNoDiagnosticData(value)
+  }
+
+  const sharedProps = {
+    searchCount,
+    selectedGrades: mapItemsIfNotAll(selectedGrades, allGrades, 'value'),
+    selectedSchoolIds: selectedSchools.map(school => school.id),
+    selectedTeacherIds: mapItemsIfNotAll(selectedTeachers, allTeachers),
+    selectedClassroomIds: mapItemsIfNotAll(selectedClassrooms, allClassrooms),
+    selectedTimeframe: SELECTED_TIMEFRAME,
+    pusherChannel,
+    hasAdjustedFiltersFromDefault,
+    handleSetNoDiagnosticData,
+    passedData: null
   }
 
   function renderContent() {
@@ -93,18 +106,6 @@ export const DiagnosticGrowthReportsContainer = ({
     return restrictedPage
   }
 
-  const sharedProps = {
-    searchCount,
-    selectedGrades: mapItemsIfNotAll(selectedGrades, allGrades, 'value'),
-    selectedSchoolIds: selectedSchools.map(school => school.id),
-    selectedTeacherIds: mapItemsIfNotAll(selectedTeachers, allTeachers),
-    selectedClassroomIds: mapItemsIfNotAll(selectedClassrooms, allClassrooms),
-    selectedTimeframe: SELECTED_TIMEFRAME,
-    pusherChannel,
-    hasAdjustedFiltersFromDefault,
-    handleSetNoDiagnosticData
-  }
-
   return (
     <main>
       <div className="header">
@@ -116,10 +117,6 @@ export const DiagnosticGrowthReportsContainer = ({
           </a>
         </h1>
         <div className="buttons-container">
-          <button className="quill-button manage-subscription-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">
-            <img alt="" src={emailWhiteIconSrc} />
-            <span>Manage subscription</span>
-          </button>
           <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">
             <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />
             <span>Download</span>

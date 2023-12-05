@@ -4,38 +4,20 @@ import { render, screen } from "@testing-library/react";
 import SkillSection from "../diagnosticGrowthReports/skillSection";
 
 const props = {
-  loadingFilters: true,
-  customStartDate: null,
-  customEndDate: null,
-  pusherChannel: null,
   searchCount: 0,
-  selectedClassrooms: [],
-  allClassrooms: [],
   selectedGrades: [],
-  allGrades: [],
-  selectedSchools: [],
-  selectedTeachers: [],
-  allTeachers: [],
-  selectedTimeframe: {
-    label: "This school year",
-    name: "This school year",
-    value: "this-school-year"
-  },
-  handleClickDownloadReport: jest.fn(),
-  openMobileFilterMenu: jest.fn()
+  selectedSchoolIds: [],
+  selectedTeacherIds: [],
+  selectedClassroomIds: [],
+  selectedTimeframe: "This school year",
+  pusherChannel: null,
+  hasAdjustedFiltersFromDefault: false,
+  handleSetNoDiagnosticData: jest.fn()
 }
 
 describe('SkillSection', () => {
-  describe('loading state', () => {
-    test('it should render loading spinner', () => {
-      const { asFragment } = render(<SkillSection {...props} />);
-      expect(asFragment()).toMatchSnapshot();
-      expect(screen.getByAltText(/loading spinner/i)).toBeInTheDocument()
-    })
-  })
   describe('loaded state', () => {
     test('it should render the expected header components', () => {
-      props.loadingFilters = false
       const { asFragment } = render(<SkillSection {...props} />);
       expect(asFragment()).toMatchSnapshot();
       expect(screen.getByRole('button', { name: /skill/i })).toBeInTheDocument()

@@ -590,7 +590,7 @@
   .filter-menu-closed {
     main {
       .data-table {
-        max-width: 100%;
+        max-width: max-content;
       }
     }
   }
@@ -599,7 +599,7 @@
     .filter-menu-open {
       main {
         .data-table {
-          max-width: 100%;
+          max-width: max-content;
         }
       }
     }

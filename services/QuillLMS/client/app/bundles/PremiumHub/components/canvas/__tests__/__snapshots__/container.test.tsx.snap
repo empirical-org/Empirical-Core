@@ -225,7 +225,9 @@ exports[`CanvasIntegrationContainer when there are not existing Canvas integrati
               scope="col"
               style="width: 356px; min-width: 356px; text-align: left;"
             >
-              Schools
+              <span>
+                Schools
+              </span>
             </th>
           </tr>
         </thead>

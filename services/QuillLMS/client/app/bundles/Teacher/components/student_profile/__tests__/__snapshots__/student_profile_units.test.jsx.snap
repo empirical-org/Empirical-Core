@@ -507,7 +507,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Activity
+                    <span>
+                      Activity
+                    </span>
                   </th>
                   <th
                     className="data-table-header tool-icon-section"
@@ -521,7 +523,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Tool
+                    <span>
+                      Tool
+                    </span>
                   </th>
                   <th
                     className="data-table-header due-date-section"
@@ -535,7 +539,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Due date
+                    <span>
+                      Due date
+                    </span>
                   </th>
                   <th
                     className="data-table-header action-button-section"
@@ -548,7 +554,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "88px",
                       }
                     }
-                  />
+                  >
+                    <span />
+                  </th>
                 </tr>
               </thead>
               <tbody
@@ -1217,7 +1225,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Activity
+                    <span>
+                      Activity
+                    </span>
                   </th>
                   <th
                     className="data-table-header tool-icon-section"
@@ -1231,7 +1241,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Tool
+                    <span>
+                      Tool
+                    </span>
                   </th>
                   <th
                     className="data-table-header due-date-section"
@@ -1245,7 +1257,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Due date
+                    <span>
+                      Due date
+                    </span>
                   </th>
                   <th
                     className="data-table-header action-button-section"
@@ -1258,7 +1272,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "88px",
                       }
                     }
-                  />
+                  >
+                    <span />
+                  </th>
                 </tr>
               </thead>
               <tbody
@@ -2269,7 +2285,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Activity
+                    <span>
+                      Activity
+                    </span>
                   </th>
                   <th
                     className="data-table-header tool-icon-section"
@@ -2283,7 +2301,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Tool
+                    <span>
+                      Tool
+                    </span>
                   </th>
                   <th
                     className="data-table-header due-date-section"
@@ -2297,7 +2317,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Due date
+                    <span>
+                      Due date
+                    </span>
                   </th>
                   <th
                     className="data-table-header action-button-section"
@@ -2310,7 +2332,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "88px",
                       }
                     }
-                  />
+                  >
+                    <span />
+                  </th>
                 </tr>
               </thead>
               <tbody
@@ -2979,7 +3003,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Activity
+                    <span>
+                      Activity
+                    </span>
                   </th>
                   <th
                     className="data-table-header tool-icon-section"
@@ -2993,7 +3019,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Tool
+                    <span>
+                      Tool
+                    </span>
                   </th>
                   <th
                     className="data-table-header due-date-section"
@@ -3007,7 +3035,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Due date
+                    <span>
+                      Due date
+                    </span>
                   </th>
                   <th
                     className="data-table-header action-button-section"
@@ -3020,7 +3050,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "88px",
                       }
                     }
-                  />
+                  >
+                    <span />
+                  </th>
                 </tr>
               </thead>
               <tbody
@@ -4117,7 +4149,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    Activity
+                    <span>
+                      Activity
+                    </span>
                   </th>
                   <th
                     className="data-table-header score-section tooltip-section"
@@ -4131,7 +4165,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    Score
+                    <span>
+                      Score
+                    </span>
                   </th>
                   <th
                     className="data-table-header tool-icon-section"
@@ -4145,7 +4181,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    Tool
+                    <span>
+                      Tool
+                    </span>
                   </th>
                   <th
                     className="data-table-header completed-due-date-section"
@@ -4159,7 +4197,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    Due date
+                    <span>
+                      Due date
+                    </span>
                   </th>
                   <th
                     className="data-table-header completed-date-section"
@@ -4173,7 +4213,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    Completed date
+                    <span>
+                      Completed date
+                    </span>
                   </th>
                   <th
                     className="data-table-header action-button-section tooltip-section"
@@ -4186,7 +4228,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                         "width": "88px",
                       }
                     }
-                  />
+                  >
+                    <span />
+                  </th>
                 </tr>
               </thead>
               <tbody
@@ -5028,7 +5072,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Activity
+                    <span>
+                      Activity
+                    </span>
                   </th>
                   <th
                     className="data-table-header tool-icon-section"
@@ -5042,7 +5088,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Tool
+                    <span>
+                      Tool
+                    </span>
                   </th>
                   <th
                     className="data-table-header due-date-section"
@@ -5056,7 +5104,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Due date
+                    <span>
+                      Due date
+                    </span>
                   </th>
                   <th
                     className="data-table-header action-button-section"
@@ -5069,7 +5119,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "88px",
                       }
                     }
-                  />
+                  >
+                    <span />
+                  </th>
                 </tr>
               </thead>
               <tbody
@@ -5797,7 +5849,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Activity
+                    <span>
+                      Activity
+                    </span>
                   </th>
                   <th
                     className="data-table-header tool-icon-section"
@@ -5811,7 +5865,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Tool
+                    <span>
+                      Tool
+                    </span>
                   </th>
                   <th
                     className="data-table-header due-date-section"
@@ -5825,7 +5881,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Due date
+                    <span>
+                      Due date
+                    </span>
                   </th>
                   <th
                     className="data-table-header action-button-section"
@@ -5838,7 +5896,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "88px",
                       }
                     }
-                  />
+                  >
+                    <span />
+                  </th>
                 </tr>
               </thead>
               <tbody
@@ -6980,7 +7040,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Activity
+                    <span>
+                      Activity
+                    </span>
                   </th>
                   <th
                     className="data-table-header tool-icon-section"
@@ -6994,7 +7056,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Tool
+                    <span>
+                      Tool
+                    </span>
                   </th>
                   <th
                     className="data-table-header due-date-section"
@@ -7008,7 +7072,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Due date
+                    <span>
+                      Due date
+                    </span>
                   </th>
                   <th
                     className="data-table-header action-button-section"
@@ -7021,7 +7087,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "88px",
                       }
                     }
-                  />
+                  >
+                    <span />
+                  </th>
                 </tr>
               </thead>
               <tbody
@@ -7749,7 +7817,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Activity
+                    <span>
+                      Activity
+                    </span>
                   </th>
                   <th
                     className="data-table-header tool-icon-section"
@@ -7763,7 +7833,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Tool
+                    <span>
+                      Tool
+                    </span>
                   </th>
                   <th
                     className="data-table-header due-date-section"
@@ -7777,7 +7849,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Due date
+                    <span>
+                      Due date
+                    </span>
                   </th>
                   <th
                     className="data-table-header action-button-section"
@@ -7790,7 +7864,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "88px",
                       }
                     }
-                  />
+                  >
+                    <span />
+                  </th>
                 </tr>
               </thead>
               <tbody
@@ -8932,7 +9008,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Activity
+                    <span>
+                      Activity
+                    </span>
                   </th>
                   <th
                     className="data-table-header tool-icon-section"
@@ -8946,7 +9024,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Tool
+                    <span>
+                      Tool
+                    </span>
                   </th>
                   <th
                     className="data-table-header due-date-section"
@@ -8960,7 +9040,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Due date
+                    <span>
+                      Due date
+                    </span>
                   </th>
                   <th
                     className="data-table-header action-button-section"
@@ -8973,7 +9055,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "88px",
                       }
                     }
-                  />
+                  >
+                    <span />
+                  </th>
                 </tr>
               </thead>
               <tbody
@@ -9701,7 +9785,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Activity
+                    <span>
+                      Activity
+                    </span>
                   </th>
                   <th
                     className="data-table-header tool-icon-section"
@@ -9715,7 +9801,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Tool
+                    <span>
+                      Tool
+                    </span>
                   </th>
                   <th
                     className="data-table-header due-date-section"
@@ -9729,7 +9817,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Due date
+                    <span>
+                      Due date
+                    </span>
                   </th>
                   <th
                     className="data-table-header action-button-section"
@@ -9742,7 +9832,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "88px",
                       }
                     }
-                  />
+                  >
+                    <span />
+                  </th>
                 </tr>
               </thead>
               <tbody

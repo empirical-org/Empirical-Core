@@ -97,7 +97,9 @@ exports[`CanvasIntegrationModal it should render when there is an existing integ
                 scope="col"
                 style="width: 356px; min-width: 356px; text-align: left;"
               >
-                Schools
+                <span>
+                  Schools
+                </span>
               </th>
             </tr>
           </thead>
@@ -271,7 +273,9 @@ exports[`CanvasIntegrationModal it should render when there is not an existing i
                 scope="col"
                 style="width: 356px; min-width: 356px; text-align: left;"
               >
-                Schools
+                <span>
+                  Schools
+                </span>
               </th>
             </tr>
           </thead>
