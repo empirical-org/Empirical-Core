@@ -83,7 +83,7 @@ export const OverviewSection = ({
   selectedTimeframe,
   pusherChannel,
   hasAdjustedFiltersFromDefault,
-  handleSetNoDiagnosticData
+  handleSetNoDiagnosticDataAvailable
 }) => {
 
   const [groupByValue, setGroupByValue] = React.useState<DropdownObjectInterface>(groupByDropdownOptions[0])
@@ -120,7 +120,7 @@ export const OverviewSection = ({
         recommendationsData,
         setAggregatedData,
         hasAdjustedFiltersFromDefault,
-        handleSetNoDiagnosticData,
+        handleSetNoDiagnosticDataAvailable,
         setLoading
       })
     }

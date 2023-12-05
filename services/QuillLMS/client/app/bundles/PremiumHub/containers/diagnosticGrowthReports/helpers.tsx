@@ -17,13 +17,13 @@ export function aggregateOverviewData({
   postDiagnosticCompletedData,
   recommendationsData,
   setAggregatedData,
-  handleSetNoDiagnosticData,
+  handleSetNoDiagnosticDataAvailable,
   hasAdjustedFiltersFromDefault,
   setLoading
 }) {
 
   if ((!preDiagnosticAssignedData.length && !postDiagnosticAssignedData.length && !preDiagnosticCompletedData.length && !postDiagnosticCompletedData.length && !recommendationsData.length) && !hasAdjustedFiltersFromDefault) {
-    handleSetNoDiagnosticData(true)
+    handleSetNoDiagnosticDataAvailable(true)
     setLoading(false)
     return
   }

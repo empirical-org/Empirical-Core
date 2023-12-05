@@ -35,14 +35,14 @@ export const DiagnosticGrowthReportsContainer = ({
 }) => {
 
   const [activeTab, setActiveTab] = React.useState<string>(OVERVIEW)
-  const [noDiagnosticData, setNoDiagnosticData] = React.useState<boolean>(!!passedData)
+  const [noDiagnosticDataAvailable, setNoDiagnosticDataAvailable] = React.useState<boolean>(!!passedData)
 
   function handleTabChange(e) {
     setActiveTab(e.currentTarget.value)
   }
 
-  function handleSetNoDiagnosticData(value: boolean) {
-    setNoDiagnosticData(value)
+  function handleSetNoDiagnosticDataAvailable(value: boolean) {
+    setNoDiagnosticDataAvailable(value)
   }
 
   const sharedProps = {
@@ -54,13 +54,13 @@ export const DiagnosticGrowthReportsContainer = ({
     selectedTimeframe: SELECTED_TIMEFRAME,
     pusherChannel,
     hasAdjustedFiltersFromDefault,
-    handleSetNoDiagnosticData,
+    handleSetNoDiagnosticDataAvailable,
     passedData: null
   }
 
   function renderContent() {
 
-    if (noDiagnosticData) {
+    if (noDiagnosticDataAvailable) {
       return(
         <div className="no-diagnostic-data-container">
           <h2>There are not yet any completed diagnostics.</h2>
