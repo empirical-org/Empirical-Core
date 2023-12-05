@@ -331,17 +331,18 @@
       .snapshot-section.practice .second-row,
       .snapshot-section.practice .third-and-fourth-row {
         margin-bottom: 16px;
+        gap: 16px;
       }
 
       .snapshot-section.practice .first-row {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .snapshot-section.practice .second-row,
       .snapshot-section.practice .fifth-row {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: none;
       }
 
       .snapshot-section.practice .third-and-fourth-row {
@@ -350,10 +351,6 @@
       }
 
       /* Adjusting Grid Layouts */
-      .snapshot-section.highlights .counts {
-        grid-template-columns: none;
-      }
-
       .snapshot-section .snapshot-feedback {
         grid-column: inherit;
       }
@@ -364,23 +361,8 @@
         flex-direction: column;
       }
 
-      .snapshot-section.practice .first-row {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .snapshot-section.practice .second-row {
-        grid-template-columns: none;
-      }
-
       .snapshot-section.practice .third-and-fourth-row {
         grid-template: repeat(3, 1fr)/repeat(2, 1fr);
-      }
-
-      .snapshot-section.practice .first-row,
-      .snapshot-section.practice .third-and-fourth-row,
-      .snapshot-section.practice .fifth-row {
-        display: flex;
-        flex-direction: column;
       }
     </style>
   </head>
