@@ -1,0 +1,129 @@
+.Frame309 {
+  display: inline-block;
+  vertical-align: top;
+  height: auto;
+  width: 200.4px;
+  margin-right: 8px;
+  box-sizing: border-box;
+  padding: 8px 16px 16px;
+  background: #F6E5DC;
+  border-radius: 8px;
+  border: 1px solid #E8AB88;
+  gap: 8px;
+}
+
+.FilteredResults {
+  color: black;
+  font-size: 14px;
+  font-family: 'Adelle Sans';
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.Frame316 {
+  gap: 8px;
+}
+
+.Frame74 {
+  width: 100%;
+  padding-bottom: 8px;
+}
+
+.Frame73 {
+  display: inline-block;
+  padding: 6px 10px;
+  background: #06806B;
+  border-radius: 16px;
+  gap: 10px;
+}
+
+.InputText {
+  color: white;
+  font-size: 12px;
+  font-family: 'Adelle Sans';
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.Frame152 {
+  width: 1106px;
+  height: 233px;
+  padding: 24px;
+  background: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.10);
+  border-radius: 8px;
+  border: 1px solid #E0E0E0;
+  display: inline-block;
+}
+
+.Frame151 {
+  height: 185px;
+  display: inline-block;
+}
+
+.Frame150 {
+  width: 100%;
+  display: inline-block;
+}
+
+.Icon {
+  width: 32px;
+  padding-left: 4px;
+  padding-right: 4px;
+  display: inline-block;
+}
+
+.IconsSStar {
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+
+.Stroke {
+  width: 20.35px;
+  height: 19.47px;
+  left: 1.70px;
+  top: 2px;
+  position: absolute;
+  background: #5C5C5C;
+}
+
+.ActiveClasses {
+  font-family: 'Adelle Sans', sans-serif;
+  word-wrap: break-word;
+  display: inline-block;
+}
+
+.Frame88 {
+  display: inline-block;
+}
+
+.Frame80 {
+  width: 521px;
+  height: 137px;
+  padding: 32px;
+  background: #F3FAF6;
+  border-radius: 8px;
+  border: 1px solid #BEE5D2;
+  display: inline-block;
+}
+
+.Frame79 {
+  display: inline-block;
+}
+
+.Frame169 {
+  display: inline-block;
+}
+
+.IconAdminreportsModuleArrowupMedium {
+  width: 26.82px;
+  padding-left: 4px;
+  padding-right: 4px;
+  display: inline-block;
+}
+
+.Frame276 {
+  height: 21px;
+  display: inline-block;
+}
