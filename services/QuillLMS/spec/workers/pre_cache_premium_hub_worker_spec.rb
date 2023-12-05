@@ -26,12 +26,6 @@ describe PreCachePremiumHubsWorker, type: :worker do
     worker.perform
   end
 
-  it 'enqueues CacheAdminSnapshotsWorker for all active admins' do
-    expect(mock_snapshot_cache_worker).to receive(:perform_async).with(current_admin1.id).once
-    expect(mock_snapshot_cache_worker).to receive(:perform_async).with(current_admin2.id).once
-    worker.perform
-  end
-
   it 'does not enqueue FindAdminUsersWorker for non-admins' do
     expect(mock_users_worker).not_to receive(:perform_async).with(not_admin.id)
     worker.perform

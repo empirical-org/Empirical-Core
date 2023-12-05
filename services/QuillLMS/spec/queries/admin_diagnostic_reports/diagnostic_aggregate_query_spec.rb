@@ -11,7 +11,8 @@ module AdminDiagnosticReports
         def specific_select_clause
           <<-SQL
             COUNT(classroom_units.id) AS classroom_unit_count,
-            COUNT(users.id) AS teacher_count
+            COUNT(users.id) AS teacher_count,
+            0 AS percentage
           SQL
         end
 
@@ -31,7 +32,8 @@ module AdminDiagnosticReports
         private def rollup_aggregation_hash
           {
             classroom_unit_count: sum_aggregate,
-            teacher_count: average_aggregate(:classroom_unit_count)
+            teacher_count: average_aggregate(:classroom_unit_count),
+            percentage: percentage_aggregate(:classroom_unit_count, :teacher_count)
           }
         end
       end
@@ -79,6 +81,7 @@ module AdminDiagnosticReports
       it { expect(results.first[:diagnostic_name]).to eq(pre_diagnostic.name) }
       it { expect(results.first[:classroom_unit_count]).to eq(classroom_units.length) }
       it { expect(results.first[:teacher_count]).to eq(teachers.length / classroom_units.length) }
+      it { expect(results.first[:percentage]).to eq(classroom_units.length / teachers.length * 100) }
 
       context 'aggregate_rows ordering' do
         it { expect(results.first[:aggregate_rows].first[:name]).to eq('Kindergarten') }
