@@ -7,11 +7,11 @@ const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
 const DIAGNOSTIC_GROWTH_REPORT_PATH = 'diagnostic_growth_report'
 
 const Filters = ({
-  allTimeframes,
-  allSchools,
-  allGrades,
-  allTeachers,
-  allClassrooms,
+  availableTimeframes,
+  availableSchools,
+  availableGrades,
+  availableTeachers,
+  availableClassrooms,
   applyFilters,
   clearFilters,
   selectedGrades,
@@ -36,15 +36,15 @@ const Filters = ({
   const size = useWindowSize();
 
   function effectiveSelectedSchools() {
-    return selectedSchools.filter(s => allSchools.find(as => as.id === s.id))
+    return selectedSchools.filter(s => availableSchools.find(as => as.id === s.id))
   }
 
   function effectiveSelectedTeachers() {
-    return selectedTeachers.filter(t => allTeachers.find(at => at.id === t.id))
+    return selectedTeachers.filter(t => availableTeachers.find(at => at.id === t.id))
   }
 
   function effectiveSelectedClassrooms() {
-    return selectedClassrooms.filter(c => allClassrooms.find(ac => ac.id === c.id))
+    return selectedClassrooms.filter(c => availableClassrooms.find(ac => ac.id === c.id))
   }
 
   function renderFilterButtons() {
@@ -79,21 +79,21 @@ const Filters = ({
         isMulti={true}
         isSearchable={true}
         label=""
-        options={[allClassrooms[0]]}
+        options={[availableClassrooms[0]]}
         optionType="classroom"
         value={[selectedClassrooms[0]]}
       />
     </div>
   )
 
-  if (allClassrooms.length) {
+  if (availableClassrooms.length) {
     classroomsFilter = (
       <DropdownInputWithSearchTokens
         id="classroom-filter"
         identifier="id"
         label="Classroom"
         onChange={setSelectedClassrooms}
-        options={allClassrooms}
+        options={availableClassrooms}
         optionType="classroom"
         value={selectedClassrooms}
         valueToDisplay={effectiveSelectedClassrooms()}
@@ -131,7 +131,7 @@ const Filters = ({
             id="timeframe-filter"
             isSearchable={false}
             label=""
-            options={allTimeframes}
+            options={availableTimeframes}
             value={selectedTimeframe}
           />
           <DropdownInputWithSearchTokens
@@ -139,7 +139,7 @@ const Filters = ({
             identifier="id"
             label="School"
             onChange={setSelectedSchools}
-            options={allSchools}
+            options={availableSchools}
             optionType="school"
             value={selectedSchools}
             valueToDisplay={effectiveSelectedSchools()}
@@ -149,7 +149,7 @@ const Filters = ({
             identifier="value"
             label="Grade"
             onChange={setSelectedGrades}
-            options={allGrades}
+            options={availableGrades}
             optionType="grade"
             value={selectedGrades}
             valueToDisplay={selectedGrades}
@@ -159,7 +159,7 @@ const Filters = ({
             identifier="id"
             label="Teacher"
             onChange={setSelectedTeachers}
-            options={allTeachers}
+            options={availableTeachers}
             optionType="teacher"
             value={selectedTeachers}
             valueToDisplay={effectiveSelectedTeachers()}

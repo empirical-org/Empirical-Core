@@ -435,12 +435,12 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const aggregateRowIdentifier = `${row[headers[0].attribute]}-${row.id}`
     const showAggregateRows = row.aggregate_rows?.length && expandedParentRowIdentifier === aggregateRowIdentifier
     if (row.link) {
-      rowElement = <tr><a className={rowClassName} href={row.link} key={String(row.id)}>{rowContent}</a></tr>
+      rowElement = <tr key={String(row.id)}><a className={rowClassName} href={row.link}>{rowContent}</a></tr>
     }
 
     if (showAggregateRows) {
       return(
-        <React.Fragment>
+        <React.Fragment key={String(row.id)}>
           {rowElement}
           {row.aggregate_rows.map(row => {
             return this.renderRow(row, true)

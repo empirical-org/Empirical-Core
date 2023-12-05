@@ -15,7 +15,8 @@ interface PromptProps {
 const getElementObject = (htmlText: string, style: object) => {
   return {
     text: htmlText,
-    style: style
+    style: style,
+    key: htmlText
   }
 }
 
@@ -43,7 +44,7 @@ const getFormattedElementsArray = (elements: Element[]) => {
       const elementObject = getElementObject(htmlText, style);
       formattedElements.push(elementObject);
       htmlText = '';
-      formattedElements.push(<span style={style} />)
+      formattedElements.push(<span key={i} style={style} />)
     } else if(typeof children !== 'string') {
       formattedElements.push(element);
     } else if(typeof children === 'string' && i === elements.length - 1) {
@@ -75,4 +76,3 @@ const Prompt = (props: PromptProps) => {
 }
 
 export { Prompt };
-

@@ -336,6 +336,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 }
               />
               <span
+                key="2"
                 style={
                   Object {
                     "marginRight": 5,
@@ -372,6 +373,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 }
               />
               <span
+                key="10"
                 style={
                   Object {
                     "marginRight": 5,

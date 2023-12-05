@@ -321,11 +321,12 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
       <tbody
         className="data-table-body"
       >
-        <tr>
+        <tr
+          key="3"
+        >
           <a
             className="data-table-row  "
             href="/activities/packs/3"
-            key="3"
           >
             <td
               className="data-table-row-section pack-type-section"
@@ -407,6 +408,7 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
                 className="tools-section"
               >
                 <p
+                  key="Grammar"
                   style={
                     Object {
                       "color": "#9035D6",

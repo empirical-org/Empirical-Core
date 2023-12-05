@@ -27,12 +27,12 @@ export const UsageSnapshotsContainer = ({
   pusherChannel,
   searchCount,
   selectedClassrooms,
-  allClassrooms,
+  availableClassrooms,
   selectedGrades,
-  allGrades,
+  availableGrades,
   selectedSchools,
   selectedTeachers,
-  allTeachers,
+  availableTeachers,
   selectedTimeframe,
   handleClickDownloadReport,
   openMobileFilterMenu
@@ -82,10 +82,10 @@ export const UsageSnapshotsContainer = ({
       name={section.name}
       pusherChannel={pusherChannel}
       searchCount={searchCount}
-      selectedClassroomIds={mapItemsIfNotAll(selectedClassrooms, allClassrooms)}
-      selectedGrades={mapItemsIfNotAll(selectedGrades, allGrades, 'value')}
+      selectedClassroomIds={mapItemsIfNotAll(selectedClassrooms, availableClassrooms)}
+      selectedGrades={mapItemsIfNotAll(selectedGrades, availableGrades, 'value')}
       selectedSchoolIds={selectedSchools.map(s => s.id)}
-      selectedTeacherIds={mapItemsIfNotAll(selectedTeachers, allTeachers)}
+      selectedTeacherIds={mapItemsIfNotAll(selectedTeachers, availableTeachers)}
       selectedTimeframe={selectedTimeframe.value}
     />
   ))

@@ -2,7 +2,7 @@ import * as React from "react";
 import { useQuery } from 'react-query';
 import { Link, withRouter } from 'react-router-dom';
 
-import { DropdownInput, Input, Spinner, TextArea } from '../../../../Shared/index';
+import { DropdownInput, Spinner, TextArea } from '../../../../Shared/index';
 import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { InputEvent } from '../../../interfaces/evidenceInterfaces';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';

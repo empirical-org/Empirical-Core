@@ -92,7 +92,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     this.setOptionFocus()
   }
 
-  componentWillReceiveProps(nextProps: any) {
+  UNSAFE_componentWillReceiveProps(nextProps: any) {
     const { error, timesSubmitted, options } = this.props
     const { errorAcknowledged, } = this.state
     if (nextProps.error !== error && errorAcknowledged) {

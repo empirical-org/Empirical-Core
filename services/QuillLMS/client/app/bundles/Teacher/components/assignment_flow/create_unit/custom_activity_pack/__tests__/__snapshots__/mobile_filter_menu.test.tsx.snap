@@ -17055,6 +17055,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                   direction="to right"
                                   disabled={false}
                                   draggableTrack={false}
+                                  key="range-grade-level-slider"
                                   max={3}
                                   min={0}
                                   onChange={[Function]}
@@ -17076,56 +17077,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         "#dbdbdb",
                                       ]
                                     }
+                                    innerRef={
+                                      Object {
+                                        "current": <div
+                                          class="track"
+                                        >
+                                          <div
+                                            class="mark first-mark"
+                                            style="position: absolute;"
+                                          >
+                                            4-5
+                                          </div>
+                                          <div
+                                            class="mark"
+                                            style="position: absolute;"
+                                          >
+                                            6-7
+                                          </div>
+                                          <div
+                                            class="mark"
+                                            style="position: absolute;"
+                                          >
+                                            8-9
+                                          </div>
+                                          <div
+                                            class="mark last-mark"
+                                            style="position: absolute;"
+                                          >
+                                            10-12
+                                          </div>
+                                          <div
+                                            aria-valuemax="3"
+                                            aria-valuemin="0"
+                                            aria-valuenow="2"
+                                            class="thumb"
+                                            draggable="false"
+                                            role="slider"
+                                            style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                                            tabindex="0"
+                                          />
+                                        </div>,
+                                      }
+                                    }
+                                    key="track-grade-level-slider"
                                     maxValue={3}
                                     minValue={0}
-                                    props={
+                                    onMouseDown={[Function]}
+                                    onTouchStart={[Function]}
+                                    style={
                                       Object {
-                                        "onMouseDown": [Function],
-                                        "onTouchStart": [Function],
-                                        "ref": Object {
-                                          "current": <div
-                                            class="track"
-                                          >
-                                            <div
-                                              class="mark first-mark"
-                                              style="position: absolute;"
-                                            >
-                                              4-5
-                                            </div>
-                                            <div
-                                              class="mark"
-                                              style="position: absolute;"
-                                            >
-                                              6-7
-                                            </div>
-                                            <div
-                                              class="mark"
-                                              style="position: absolute;"
-                                            >
-                                              8-9
-                                            </div>
-                                            <div
-                                              class="mark last-mark"
-                                              style="position: absolute;"
-                                            >
-                                              10-12
-                                            </div>
-                                            <div
-                                              aria-valuemax="3"
-                                              aria-valuemin="0"
-                                              aria-valuenow="2"
-                                              class="thumb"
-                                              draggable="false"
-                                              role="slider"
-                                              style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                                              tabindex="0"
-                                            />
-                                          </div>,
-                                        },
-                                        "style": Object {
-                                          "cursor": "pointer",
-                                          "transform": "scale(1)",
-                                        },
+                                        "cursor": "pointer",
+                                        "transform": "scale(1)",
                                       }
                                     }
                                     values={
@@ -17153,8 +17155,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                           }
                                         }
                                       >
-                                        <Mark
+                                        <ForwardRef
                                           index={0}
+                                          key="mark0"
                                           markLabels={
                                             Array [
                                               "4-5",
@@ -17163,28 +17166,16 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                               "10-12",
                                             ]
                                           }
-                                          props={
+                                          style={
                                             Object {
-                                              "key": "mark0",
-                                              "ref": Object {
-                                                "current": <div
-                                                  class="mark first-mark"
-                                                  style="position: absolute;"
-                                                >
-                                                  4-5
-                                                </div>,
-                                              },
-                                              "style": Object {
-                                                "left": "NaNpx",
-                                                "marginTop": "NaNpx",
-                                                "position": "absolute",
-                                              },
+                                              "left": "NaNpx",
+                                              "marginTop": "NaNpx",
+                                              "position": "absolute",
                                             }
                                           }
                                         >
                                           <div
                                             className="mark first-mark"
-                                            key="mark0"
                                             style={
                                               Object {
                                                 "left": "NaNpx",
@@ -17195,9 +17186,10 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                           >
                                             4-5
                                           </div>
-                                        </Mark>
-                                        <Mark
+                                        </ForwardRef>
+                                        <ForwardRef
                                           index={1}
+                                          key="mark1"
                                           markLabels={
                                             Array [
                                               "4-5",
@@ -17206,28 +17198,16 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                               "10-12",
                                             ]
                                           }
-                                          props={
+                                          style={
                                             Object {
-                                              "key": "mark1",
-                                              "ref": Object {
-                                                "current": <div
-                                                  class="mark"
-                                                  style="position: absolute;"
-                                                >
-                                                  6-7
-                                                </div>,
-                                              },
-                                              "style": Object {
-                                                "left": "NaNpx",
-                                                "marginTop": "NaNpx",
-                                                "position": "absolute",
-                                              },
+                                              "left": "NaNpx",
+                                              "marginTop": "NaNpx",
+                                              "position": "absolute",
                                             }
                                           }
                                         >
                                           <div
                                             className="mark"
-                                            key="mark1"
                                             style={
                                               Object {
                                                 "left": "NaNpx",
@@ -17238,9 +17218,10 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                           >
                                             6-7
                                           </div>
-                                        </Mark>
-                                        <Mark
+                                        </ForwardRef>
+                                        <ForwardRef
                                           index={2}
+                                          key="mark2"
                                           markLabels={
                                             Array [
                                               "4-5",
@@ -17249,28 +17230,16 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                               "10-12",
                                             ]
                                           }
-                                          props={
+                                          style={
                                             Object {
-                                              "key": "mark2",
-                                              "ref": Object {
-                                                "current": <div
-                                                  class="mark"
-                                                  style="position: absolute;"
-                                                >
-                                                  8-9
-                                                </div>,
-                                              },
-                                              "style": Object {
-                                                "left": "NaNpx",
-                                                "marginTop": "NaNpx",
-                                                "position": "absolute",
-                                              },
+                                              "left": "NaNpx",
+                                              "marginTop": "NaNpx",
+                                              "position": "absolute",
                                             }
                                           }
                                         >
                                           <div
                                             className="mark"
-                                            key="mark2"
                                             style={
                                               Object {
                                                 "left": "NaNpx",
@@ -17281,9 +17250,10 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                           >
                                             8-9
                                           </div>
-                                        </Mark>
-                                        <Mark
+                                        </ForwardRef>
+                                        <ForwardRef
                                           index={3}
+                                          key="mark3"
                                           markLabels={
                                             Array [
                                               "4-5",
@@ -17292,28 +17262,16 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                               "10-12",
                                             ]
                                           }
-                                          props={
+                                          style={
                                             Object {
-                                              "key": "mark3",
-                                              "ref": Object {
-                                                "current": <div
-                                                  class="mark last-mark"
-                                                  style="position: absolute;"
-                                                >
-                                                  10-12
-                                                </div>,
-                                              },
-                                              "style": Object {
-                                                "left": "NaNpx",
-                                                "marginTop": "NaNpx",
-                                                "position": "absolute",
-                                              },
+                                              "left": "NaNpx",
+                                              "marginTop": "NaNpx",
+                                              "position": "absolute",
                                             }
                                           }
                                         >
                                           <div
                                             className="mark last-mark"
-                                            key="mark3"
                                             style={
                                               Object {
                                                 "left": "NaNpx",
@@ -17324,43 +17282,29 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                           >
                                             10-12
                                           </div>
-                                        </Mark>
-                                        <Thumb
-                                          props={
+                                        </ForwardRef>
+                                        <ForwardRef
+                                          aria-valuemax={3}
+                                          aria-valuemin={0}
+                                          aria-valuenow={2}
+                                          draggable={false}
+                                          key="0"
+                                          onKeyDown={[Function]}
+                                          onKeyUp={[Function]}
+                                          role="slider"
+                                          style={
                                             Object {
-                                              "aria-valuemax": 3,
-                                              "aria-valuemin": 0,
-                                              "aria-valuenow": 2,
-                                              "draggable": false,
-                                              "key": 0,
-                                              "onKeyDown": [Function],
-                                              "onKeyUp": [Function],
-                                              "ref": Object {
-                                                "current": <div
-                                                  aria-valuemax="3"
-                                                  aria-valuemin="0"
-                                                  aria-valuenow="2"
-                                                  class="thumb"
-                                                  draggable="false"
-                                                  role="slider"
-                                                  style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                                                  tabindex="0"
-                                                />,
-                                              },
-                                              "role": "slider",
-                                              "style": Object {
-                                                "MozUserSelect": "none",
-                                                "WebkitUserSelect": "none",
-                                                "cursor": "grab",
-                                                "msUserSelect": "none",
-                                                "position": "absolute",
-                                                "touchAction": "none",
-                                                "userSelect": "none",
-                                                "zIndex": 0,
-                                              },
-                                              "tabIndex": 0,
+                                              "MozUserSelect": "none",
+                                              "WebkitUserSelect": "none",
+                                              "cursor": "grab",
+                                              "msUserSelect": "none",
+                                              "position": "absolute",
+                                              "touchAction": "none",
+                                              "userSelect": "none",
+                                              "zIndex": 0,
                                             }
                                           }
+                                          tabIndex={0}
                                         >
                                           <div
                                             aria-valuemax={3}
@@ -17368,7 +17312,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             aria-valuenow={2}
                                             className="thumb"
                                             draggable={false}
-                                            key="0"
                                             onKeyDown={[Function]}
                                             onKeyUp={[Function]}
                                             role="slider"
@@ -17386,7 +17329,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             }
                                             tabIndex={0}
                                           />
-                                        </Thumb>
+                                        </ForwardRef>
                                       </div>
                                     </div>
                                   </Track>
@@ -17601,6 +17544,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                 direction="to right"
                                 disabled={false}
                                 draggableTrack={false}
+                                key="range-readability-grade-level-slider"
                                 max={4}
                                 min={0}
                                 onChange={[Function]}
@@ -17624,72 +17568,73 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                       "#dbdbdb",
                                     ]
                                   }
+                                  innerRef={
+                                    Object {
+                                      "current": <div
+                                        class="track"
+                                      >
+                                        <div
+                                          class="mark first-mark"
+                                          style="position: absolute;"
+                                        >
+                                          2-3
+                                        </div>
+                                        <div
+                                          class="mark"
+                                          style="position: absolute;"
+                                        >
+                                          4-5
+                                        </div>
+                                        <div
+                                          class="mark"
+                                          style="position: absolute;"
+                                        >
+                                          6-7
+                                        </div>
+                                        <div
+                                          class="mark"
+                                          style="position: absolute;"
+                                        >
+                                          8-9
+                                        </div>
+                                        <div
+                                          class="mark last-mark"
+                                          style="position: absolute;"
+                                        >
+                                          10-12
+                                        </div>
+                                        <div
+                                          aria-valuemax="4"
+                                          aria-valuemin="0"
+                                          aria-valuenow="0"
+                                          class="thumb"
+                                          draggable="false"
+                                          role="slider"
+                                          style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                                          tabindex="0"
+                                        />
+                                        <div
+                                          aria-valuemax="4"
+                                          aria-valuemin="0"
+                                          aria-valuenow="4"
+                                          class="thumb"
+                                          draggable="false"
+                                          role="slider"
+                                          style="position: absolute; z-index: 1; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                                          tabindex="0"
+                                        />
+                                      </div>,
+                                    }
+                                  }
+                                  key="track-readability-grade-level-slider"
                                   maxValue={4}
                                   minValue={0}
-                                  props={
+                                  onMouseDown={[Function]}
+                                  onTouchStart={[Function]}
+                                  style={
                                     Object {
-                                      "onMouseDown": [Function],
-                                      "onTouchStart": [Function],
-                                      "ref": Object {
-                                        "current": <div
-                                          class="track"
-                                        >
-                                          <div
-                                            class="mark first-mark"
-                                            style="position: absolute;"
-                                          >
-                                            2-3
-                                          </div>
-                                          <div
-                                            class="mark"
-                                            style="position: absolute;"
-                                          >
-                                            4-5
-                                          </div>
-                                          <div
-                                            class="mark"
-                                            style="position: absolute;"
-                                          >
-                                            6-7
-                                          </div>
-                                          <div
-                                            class="mark"
-                                            style="position: absolute;"
-                                          >
-                                            8-9
-                                          </div>
-                                          <div
-                                            class="mark last-mark"
-                                            style="position: absolute;"
-                                          >
-                                            10-12
-                                          </div>
-                                          <div
-                                            aria-valuemax="4"
-                                            aria-valuemin="0"
-                                            aria-valuenow="0"
-                                            class="thumb"
-                                            draggable="false"
-                                            role="slider"
-                                            style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                                            tabindex="0"
-                                          />
-                                          <div
-                                            aria-valuemax="4"
-                                            aria-valuemin="0"
-                                            aria-valuenow="4"
-                                            class="thumb"
-                                            draggable="false"
-                                            role="slider"
-                                            style="position: absolute; z-index: 1; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                                            tabindex="0"
-                                          />
-                                        </div>,
-                                      },
-                                      "style": Object {
-                                        "cursor": "inherit",
-                                        "transform": "scale(1)",
-                                      },
+                                      "cursor": "inherit",
+                                      "transform": "scale(1)",
                                     }
                                   }
                                   values={
@@ -17718,8 +17663,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         }
                                       }
                                     >
-                                      <Mark
+                                      <ForwardRef
                                         index={0}
+                                        key="mark0"
                                         markLabels={
                                           Array [
                                             "2-3",
@@ -17729,28 +17675,16 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             "10-12",
                                           ]
                                         }
-                                        props={
+                                        style={
                                           Object {
-                                            "key": "mark0",
-                                            "ref": Object {
-                                              "current": <div
-                                                class="mark first-mark"
-                                                style="position: absolute;"
-                                              >
-                                                2-3
-                                              </div>,
-                                            },
-                                            "style": Object {
-                                              "left": "NaNpx",
-                                              "marginTop": "NaNpx",
-                                              "position": "absolute",
-                                            },
+                                            "left": "NaNpx",
+                                            "marginTop": "NaNpx",
+                                            "position": "absolute",
                                           }
                                         }
                                       >
                                         <div
                                           className="mark first-mark"
-                                          key="mark0"
                                           style={
                                             Object {
                                               "left": "NaNpx",
@@ -17761,9 +17695,10 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         >
                                           2-3
                                         </div>
-                                      </Mark>
-                                      <Mark
+                                      </ForwardRef>
+                                      <ForwardRef
                                         index={1}
+                                        key="mark1"
                                         markLabels={
                                           Array [
                                             "2-3",
@@ -17773,28 +17708,16 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             "10-12",
                                           ]
                                         }
-                                        props={
+                                        style={
                                           Object {
-                                            "key": "mark1",
-                                            "ref": Object {
-                                              "current": <div
-                                                class="mark"
-                                                style="position: absolute;"
-                                              >
-                                                4-5
-                                              </div>,
-                                            },
-                                            "style": Object {
-                                              "left": "NaNpx",
-                                              "marginTop": "NaNpx",
-                                              "position": "absolute",
-                                            },
+                                            "left": "NaNpx",
+                                            "marginTop": "NaNpx",
+                                            "position": "absolute",
                                           }
                                         }
                                       >
                                         <div
                                           className="mark"
-                                          key="mark1"
                                           style={
                                             Object {
                                               "left": "NaNpx",
@@ -17805,9 +17728,10 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         >
                                           4-5
                                         </div>
-                                      </Mark>
-                                      <Mark
+                                      </ForwardRef>
+                                      <ForwardRef
                                         index={2}
+                                        key="mark2"
                                         markLabels={
                                           Array [
                                             "2-3",
@@ -17817,28 +17741,16 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             "10-12",
                                           ]
                                         }
-                                        props={
+                                        style={
                                           Object {
-                                            "key": "mark2",
-                                            "ref": Object {
-                                              "current": <div
-                                                class="mark"
-                                                style="position: absolute;"
-                                              >
-                                                6-7
-                                              </div>,
-                                            },
-                                            "style": Object {
-                                              "left": "NaNpx",
-                                              "marginTop": "NaNpx",
-                                              "position": "absolute",
-                                            },
+                                            "left": "NaNpx",
+                                            "marginTop": "NaNpx",
+                                            "position": "absolute",
                                           }
                                         }
                                       >
                                         <div
                                           className="mark"
-                                          key="mark2"
                                           style={
                                             Object {
                                               "left": "NaNpx",
@@ -17849,9 +17761,10 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         >
                                           6-7
                                         </div>
-                                      </Mark>
-                                      <Mark
+                                      </ForwardRef>
+                                      <ForwardRef
                                         index={3}
+                                        key="mark3"
                                         markLabels={
                                           Array [
                                             "2-3",
@@ -17861,28 +17774,16 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             "10-12",
                                           ]
                                         }
-                                        props={
+                                        style={
                                           Object {
-                                            "key": "mark3",
-                                            "ref": Object {
-                                              "current": <div
-                                                class="mark"
-                                                style="position: absolute;"
-                                              >
-                                                8-9
-                                              </div>,
-                                            },
-                                            "style": Object {
-                                              "left": "NaNpx",
-                                              "marginTop": "NaNpx",
-                                              "position": "absolute",
-                                            },
+                                            "left": "NaNpx",
+                                            "marginTop": "NaNpx",
+                                            "position": "absolute",
                                           }
                                         }
                                       >
                                         <div
                                           className="mark"
-                                          key="mark3"
                                           style={
                                             Object {
                                               "left": "NaNpx",
@@ -17893,9 +17794,10 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         >
                                           8-9
                                         </div>
-                                      </Mark>
-                                      <Mark
+                                      </ForwardRef>
+                                      <ForwardRef
                                         index={4}
+                                        key="mark4"
                                         markLabels={
                                           Array [
                                             "2-3",
@@ -17905,28 +17807,16 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             "10-12",
                                           ]
                                         }
-                                        props={
+                                        style={
                                           Object {
-                                            "key": "mark4",
-                                            "ref": Object {
-                                              "current": <div
-                                                class="mark last-mark"
-                                                style="position: absolute;"
-                                              >
-                                                10-12
-                                              </div>,
-                                            },
-                                            "style": Object {
-                                              "left": "NaNpx",
-                                              "marginTop": "NaNpx",
-                                              "position": "absolute",
-                                            },
+                                            "left": "NaNpx",
+                                            "marginTop": "NaNpx",
+                                            "position": "absolute",
                                           }
                                         }
                                       >
                                         <div
                                           className="mark last-mark"
-                                          key="mark4"
                                           style={
                                             Object {
                                               "left": "NaNpx",
@@ -17937,43 +17827,29 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         >
                                           10-12
                                         </div>
-                                      </Mark>
-                                      <Thumb
-                                        props={
+                                      </ForwardRef>
+                                      <ForwardRef
+                                        aria-valuemax={4}
+                                        aria-valuemin={0}
+                                        aria-valuenow={0}
+                                        draggable={false}
+                                        key="0"
+                                        onKeyDown={[Function]}
+                                        onKeyUp={[Function]}
+                                        role="slider"
+                                        style={
                                           Object {
-                                            "aria-valuemax": 4,
-                                            "aria-valuemin": 0,
-                                            "aria-valuenow": 0,
-                                            "draggable": false,
-                                            "key": 0,
-                                            "onKeyDown": [Function],
-                                            "onKeyUp": [Function],
-                                            "ref": Object {
-                                              "current": <div
-                                                aria-valuemax="4"
-                                                aria-valuemin="0"
-                                                aria-valuenow="0"
-                                                class="thumb"
-                                                draggable="false"
-                                                role="slider"
-                                                style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                                                tabindex="0"
-                                              />,
-                                            },
-                                            "role": "slider",
-                                            "style": Object {
-                                              "MozUserSelect": "none",
-                                              "WebkitUserSelect": "none",
-                                              "cursor": "grab",
-                                              "msUserSelect": "none",
-                                              "position": "absolute",
-                                              "touchAction": "none",
-                                              "userSelect": "none",
-                                              "zIndex": 0,
-                                            },
-                                            "tabIndex": 0,
+                                            "MozUserSelect": "none",
+                                            "WebkitUserSelect": "none",
+                                            "cursor": "grab",
+                                            "msUserSelect": "none",
+                                            "position": "absolute",
+                                            "touchAction": "none",
+                                            "userSelect": "none",
+                                            "zIndex": 0,
                                           }
                                         }
+                                        tabIndex={0}
                                       >
                                         <div
                                           aria-valuemax={4}
@@ -17981,7 +17857,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                           aria-valuenow={0}
                                           className="thumb"
                                           draggable={false}
-                                          key="0"
                                           onKeyDown={[Function]}
                                           onKeyUp={[Function]}
                                           role="slider"
@@ -17999,43 +17874,29 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                           }
                                           tabIndex={0}
                                         />
-                                      </Thumb>
-                                      <Thumb
-                                        props={
+                                      </ForwardRef>
+                                      <ForwardRef
+                                        aria-valuemax={4}
+                                        aria-valuemin={0}
+                                        aria-valuenow={4}
+                                        draggable={false}
+                                        key="1"
+                                        onKeyDown={[Function]}
+                                        onKeyUp={[Function]}
+                                        role="slider"
+                                        style={
                                           Object {
-                                            "aria-valuemax": 4,
-                                            "aria-valuemin": 0,
-                                            "aria-valuenow": 4,
-                                            "draggable": false,
-                                            "key": 1,
-                                            "onKeyDown": [Function],
-                                            "onKeyUp": [Function],
-                                            "ref": Object {
-                                              "current": <div
-                                                aria-valuemax="4"
-                                                aria-valuemin="0"
-                                                aria-valuenow="4"
-                                                class="thumb"
-                                                draggable="false"
-                                                role="slider"
-                                                style="position: absolute; z-index: 1; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                                                tabindex="0"
-                                              />,
-                                            },
-                                            "role": "slider",
-                                            "style": Object {
-                                              "MozUserSelect": "none",
-                                              "WebkitUserSelect": "none",
-                                              "cursor": "grab",
-                                              "msUserSelect": "none",
-                                              "position": "absolute",
-                                              "touchAction": "none",
-                                              "userSelect": "none",
-                                              "zIndex": 1,
-                                            },
-                                            "tabIndex": 0,
+                                            "MozUserSelect": "none",
+                                            "WebkitUserSelect": "none",
+                                            "cursor": "grab",
+                                            "msUserSelect": "none",
+                                            "position": "absolute",
+                                            "touchAction": "none",
+                                            "userSelect": "none",
+                                            "zIndex": 1,
                                           }
                                         }
+                                        tabIndex={0}
                                       >
                                         <div
                                           aria-valuemax={4}
@@ -18043,7 +17904,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                           aria-valuenow={4}
                                           className="thumb"
                                           draggable={false}
-                                          key="1"
                                           onKeyDown={[Function]}
                                           onKeyUp={[Function]}
                                           role="slider"
@@ -18061,7 +17921,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                           }
                                           tabIndex={0}
                                         />
-                                      </Thumb>
+                                      </ForwardRef>
                                     </div>
                                   </div>
                                 </Track>
@@ -18293,6 +18153,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                 direction="to right"
                                 disabled={false}
                                 draggableTrack={false}
+                                key="range-ccss-grade-level-slider"
                                 max={11}
                                 min={1}
                                 onChange={[Function]}
@@ -18316,108 +18177,109 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                       "#dbdbdb",
                                     ]
                                   }
+                                  innerRef={
+                                    Object {
+                                      "current": <div
+                                        class="track"
+                                      >
+                                        <div
+                                          class="mark first-mark"
+                                          style="position: absolute;"
+                                        >
+                                          1
+                                        </div>
+                                        <div
+                                          class="mark"
+                                          style="position: absolute;"
+                                        >
+                                          2
+                                        </div>
+                                        <div
+                                          class="mark"
+                                          style="position: absolute;"
+                                        >
+                                          3
+                                        </div>
+                                        <div
+                                          class="mark"
+                                          style="position: absolute;"
+                                        >
+                                          4
+                                        </div>
+                                        <div
+                                          class="mark"
+                                          style="position: absolute;"
+                                        >
+                                          5
+                                        </div>
+                                        <div
+                                          class="mark"
+                                          style="position: absolute;"
+                                        >
+                                          6
+                                        </div>
+                                        <div
+                                          class="mark"
+                                          style="position: absolute;"
+                                        >
+                                          7
+                                        </div>
+                                        <div
+                                          class="mark"
+                                          style="position: absolute;"
+                                        >
+                                          8
+                                        </div>
+                                        <div
+                                          class="mark"
+                                          style="position: absolute;"
+                                        >
+                                          9
+                                        </div>
+                                        <div
+                                          class="mark"
+                                          style="position: absolute;"
+                                        >
+                                          10
+                                        </div>
+                                        <div
+                                          class="mark last-mark"
+                                          style="position: absolute;"
+                                        >
+                                          11
+                                        </div>
+                                        <div
+                                          aria-valuemax="11"
+                                          aria-valuemin="1"
+                                          aria-valuenow="1"
+                                          class="thumb"
+                                          draggable="false"
+                                          role="slider"
+                                          style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                                          tabindex="0"
+                                        />
+                                        <div
+                                          aria-valuemax="11"
+                                          aria-valuemin="1"
+                                          aria-valuenow="11"
+                                          class="thumb"
+                                          draggable="false"
+                                          role="slider"
+                                          style="position: absolute; z-index: 1; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                                          tabindex="0"
+                                        />
+                                      </div>,
+                                    }
+                                  }
+                                  key="track-ccss-grade-level-slider"
                                   maxValue={11}
                                   minValue={1}
-                                  props={
+                                  onMouseDown={[Function]}
+                                  onTouchStart={[Function]}
+                                  style={
                                     Object {
-                                      "onMouseDown": [Function],
-                                      "onTouchStart": [Function],
-                                      "ref": Object {
-                                        "current": <div
-                                          class="track"
-                                        >
-                                          <div
-                                            class="mark first-mark"
-                                            style="position: absolute;"
-                                          >
-                                            1
-                                          </div>
-                                          <div
-                                            class="mark"
-                                            style="position: absolute;"
-                                          >
-                                            2
-                                          </div>
-                                          <div
-                                            class="mark"
-                                            style="position: absolute;"
-                                          >
-                                            3
-                                          </div>
-                                          <div
-                                            class="mark"
-                                            style="position: absolute;"
-                                          >
-                                            4
-                                          </div>
-                                          <div
-                                            class="mark"
-                                            style="position: absolute;"
-                                          >
-                                            5
-                                          </div>
-                                          <div
-                                            class="mark"
-                                            style="position: absolute;"
-                                          >
-                                            6
-                                          </div>
-                                          <div
-                                            class="mark"
-                                            style="position: absolute;"
-                                          >
-                                            7
-                                          </div>
-                                          <div
-                                            class="mark"
-                                            style="position: absolute;"
-                                          >
-                                            8
-                                          </div>
-                                          <div
-                                            class="mark"
-                                            style="position: absolute;"
-                                          >
-                                            9
-                                          </div>
-                                          <div
-                                            class="mark"
-                                            style="position: absolute;"
-                                          >
-                                            10
-                                          </div>
-                                          <div
-                                            class="mark last-mark"
-                                            style="position: absolute;"
-                                          >
-                                            11
-                                          </div>
-                                          <div
-                                            aria-valuemax="11"
-                                            aria-valuemin="1"
-                                            aria-valuenow="1"
-                                            class="thumb"
-                                            draggable="false"
-                                            role="slider"
-                                            style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                                            tabindex="0"
-                                          />
-                                          <div
-                                            aria-valuemax="11"
-                                            aria-valuemin="1"
-                                            aria-valuenow="11"
-                                            class="thumb"
-                                            draggable="false"
-                                            role="slider"
-                                            style="position: absolute; z-index: 1; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                                            tabindex="0"
-                                          />
-                                        </div>,
-                                      },
-                                      "style": Object {
-                                        "cursor": "inherit",
-                                        "transform": "scale(1)",
-                                      },
+                                      "cursor": "inherit",
+                                      "transform": "scale(1)",
                                     }
                                   }
                                   values={
@@ -18446,8 +18308,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         }
                                       }
                                     >
-                                      <Mark
+                                      <ForwardRef
                                         index={0}
+                                        key="mark0"
                                         markLabels={
                                           Array [
                                             1,
@@ -18463,28 +18326,16 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             11,
                                           ]
                                         }
-                                        props={
+                                        style={
                                           Object {
-                                            "key": "mark0",
-                                            "ref": Object {
-                                              "current": <div
-                                                class="mark first-mark"
-                                                style="position: absolute;"
-                                              >
-                                                1
-                                              </div>,
-                                            },
-                                            "style": Object {
-                                              "left": "NaNpx",
-                                              "marginTop": "NaNpx",
-                                              "position": "absolute",
-                                            },
+                                            "left": "NaNpx",
+                                            "marginTop": "NaNpx",
+                                            "position": "absolute",
                                           }
                                         }
                                       >
                                         <div
                                           className="mark first-mark"
-                                          key="mark0"
                                           style={
                                             Object {
                                               "left": "NaNpx",
@@ -18495,9 +18346,10 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         >
                                           1
                                         </div>
-                                      </Mark>
-                                      <Mark
+                                      </ForwardRef>
+                                      <ForwardRef
                                         index={1}
+                                        key="mark1"
                                         markLabels={
                                           Array [
                                             1,
@@ -18513,28 +18365,16 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             11,
                                           ]
                                         }
-                                        props={
+                                        style={
                                           Object {
-                                            "key": "mark1",
-                                            "ref": Object {
-                                              "current": <div
-                                                class="mark"
-                                                style="position: absolute;"
-                                              >
-                                                2
-                                              </div>,
-                                            },
-                                            "style": Object {
-                                              "left": "NaNpx",
-                                              "marginTop": "NaNpx",
-                                              "position": "absolute",
-                                            },
+                                            "left": "NaNpx",
+                                            "marginTop": "NaNpx",
+                                            "position": "absolute",
                                           }
                                         }
                                       >
                                         <div
                                           className="mark"
-                                          key="mark1"
                                           style={
                                             Object {
                                               "left": "NaNpx",
@@ -18545,9 +18385,10 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         >
                                           2
                                         </div>
-                                      </Mark>
-                                      <Mark
+                                      </ForwardRef>
+                                      <ForwardRef
                                         index={2}
+                                        key="mark2"
                                         markLabels={
                                           Array [
                                             1,
@@ -18563,28 +18404,16 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             11,
                                           ]
                                         }
-                                        props={
+                                        style={
                                           Object {
-                                            "key": "mark2",
-                                            "ref": Object {
-                                              "current": <div
-                                                class="mark"
-                                                style="position: absolute;"
-                                              >
-                                                3
-                                              </div>,
-                                            },
-                                            "style": Object {
-                                              "left": "NaNpx",
-                                              "marginTop": "NaNpx",
-                                              "position": "absolute",
-                                            },
+                                            "left": "NaNpx",
+                                            "marginTop": "NaNpx",
+                                            "position": "absolute",
                                           }
                                         }
                                       >
                                         <div
                                           className="mark"
-                                          key="mark2"
                                           style={
                                             Object {
                                               "left": "NaNpx",
@@ -18595,9 +18424,10 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         >
                                           3
                                         </div>
-                                      </Mark>
-                                      <Mark
+                                      </ForwardRef>
+                                      <ForwardRef
                                         index={3}
+                                        key="mark3"
                                         markLabels={
                                           Array [
                                             1,
@@ -18613,28 +18443,16 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             11,
                                           ]
                                         }
-                                        props={
+                                        style={
                                           Object {
-                                            "key": "mark3",
-                                            "ref": Object {
-                                              "current": <div
-                                                class="mark"
-                                                style="position: absolute;"
-                                              >
-                                                4
-                                              </div>,
-                                            },
-                                            "style": Object {
-                                              "left": "NaNpx",
-                                              "marginTop": "NaNpx",
-                                              "position": "absolute",
-                                            },
+                                            "left": "NaNpx",
+                                            "marginTop": "NaNpx",
+                                            "position": "absolute",
                                           }
                                         }
                                       >
                                         <div
                                           className="mark"
-                                          key="mark3"
                                           style={
                                             Object {
                                               "left": "NaNpx",
@@ -18645,9 +18463,10 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         >
                                           4
                                         </div>
-                                      </Mark>
-                                      <Mark
+                                      </ForwardRef>
+                                      <ForwardRef
                                         index={4}
+                                        key="mark4"
                                         markLabels={
                                           Array [
                                             1,
@@ -18663,28 +18482,16 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             11,
                                           ]
                                         }
-                                        props={
+                                        style={
                                           Object {
-                                            "key": "mark4",
-                                            "ref": Object {
-                                              "current": <div
-                                                class="mark"
-                                                style="position: absolute;"
-                                              >
-                                                5
-                                              </div>,
-                                            },
-                                            "style": Object {
-                                              "left": "NaNpx",
-                                              "marginTop": "NaNpx",
-                                              "position": "absolute",
-                                            },
+                                            "left": "NaNpx",
+                                            "marginTop": "NaNpx",
+                                            "position": "absolute",
                                           }
                                         }
                                       >
                                         <div
                                           className="mark"
-                                          key="mark4"
                                           style={
                                             Object {
                                               "left": "NaNpx",
@@ -18695,9 +18502,10 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         >
                                           5
                                         </div>
-                                      </Mark>
-                                      <Mark
+                                      </ForwardRef>
+                                      <ForwardRef
                                         index={5}
+                                        key="mark5"
                                         markLabels={
                                           Array [
                                             1,
@@ -18713,28 +18521,16 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             11,
                                           ]
                                         }
-                                        props={
+                                        style={
                                           Object {
-                                            "key": "mark5",
-                                            "ref": Object {
-                                              "current": <div
-                                                class="mark"
-                                                style="position: absolute;"
-                                              >
-                                                6
-                                              </div>,
-                                            },
-                                            "style": Object {
-                                              "left": "NaNpx",
-                                              "marginTop": "NaNpx",
-                                              "position": "absolute",
-                                            },
+                                            "left": "NaNpx",
+                                            "marginTop": "NaNpx",
+                                            "position": "absolute",
                                           }
                                         }
                                       >
                                         <div
                                           className="mark"
-                                          key="mark5"
                                           style={
                                             Object {
                                               "left": "NaNpx",
@@ -18745,9 +18541,10 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         >
                                           6
                                         </div>
-                                      </Mark>
-                                      <Mark
+                                      </ForwardRef>
+                                      <ForwardRef
                                         index={6}
+                                        key="mark6"
                                         markLabels={
                                           Array [
                                             1,
@@ -18763,28 +18560,16 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             11,
                                           ]
                                         }
-                                        props={
+                                        style={
                                           Object {
-                                            "key": "mark6",
-                                            "ref": Object {
-                                              "current": <div
-                                                class="mark"
-                                                style="position: absolute;"
-                                              >
-                                                7
-                                              </div>,
-                                            },
-                                            "style": Object {
-                                              "left": "NaNpx",
-                                              "marginTop": "NaNpx",
-                                              "position": "absolute",
-                                            },
+                                            "left": "NaNpx",
+                                            "marginTop": "NaNpx",
+                                            "position": "absolute",
                                           }
                                         }
                                       >
                                         <div
                                           className="mark"
-                                          key="mark6"
                                           style={
                                             Object {
                                               "left": "NaNpx",
@@ -18795,9 +18580,10 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         >
                                           7
                                         </div>
-                                      </Mark>
-                                      <Mark
+                                      </ForwardRef>
+                                      <ForwardRef
                                         index={7}
+                                        key="mark7"
                                         markLabels={
                                           Array [
                                             1,
@@ -18813,28 +18599,16 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             11,
                                           ]
                                         }
-                                        props={
+                                        style={
                                           Object {
-                                            "key": "mark7",
-                                            "ref": Object {
-                                              "current": <div
-                                                class="mark"
-                                                style="position: absolute;"
-                                              >
-                                                8
-                                              </div>,
-                                            },
-                                            "style": Object {
-                                              "left": "NaNpx",
-                                              "marginTop": "NaNpx",
-                                              "position": "absolute",
-                                            },
+                                            "left": "NaNpx",
+                                            "marginTop": "NaNpx",
+                                            "position": "absolute",
                                           }
                                         }
                                       >
                                         <div
                                           className="mark"
-                                          key="mark7"
                                           style={
                                             Object {
                                               "left": "NaNpx",
@@ -18845,9 +18619,10 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         >
                                           8
                                         </div>
-                                      </Mark>
-                                      <Mark
+                                      </ForwardRef>
+                                      <ForwardRef
                                         index={8}
+                                        key="mark8"
                                         markLabels={
                                           Array [
                                             1,
@@ -18863,28 +18638,16 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             11,
                                           ]
                                         }
-                                        props={
+                                        style={
                                           Object {
-                                            "key": "mark8",
-                                            "ref": Object {
-                                              "current": <div
-                                                class="mark"
-                                                style="position: absolute;"
-                                              >
-                                                9
-                                              </div>,
-                                            },
-                                            "style": Object {
-                                              "left": "NaNpx",
-                                              "marginTop": "NaNpx",
-                                              "position": "absolute",
-                                            },
+                                            "left": "NaNpx",
+                                            "marginTop": "NaNpx",
+                                            "position": "absolute",
                                           }
                                         }
                                       >
                                         <div
                                           className="mark"
-                                          key="mark8"
                                           style={
                                             Object {
                                               "left": "NaNpx",
@@ -18895,9 +18658,10 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         >
                                           9
                                         </div>
-                                      </Mark>
-                                      <Mark
+                                      </ForwardRef>
+                                      <ForwardRef
                                         index={9}
+                                        key="mark9"
                                         markLabels={
                                           Array [
                                             1,
@@ -18913,28 +18677,16 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             11,
                                           ]
                                         }
-                                        props={
+                                        style={
                                           Object {
-                                            "key": "mark9",
-                                            "ref": Object {
-                                              "current": <div
-                                                class="mark"
-                                                style="position: absolute;"
-                                              >
-                                                10
-                                              </div>,
-                                            },
-                                            "style": Object {
-                                              "left": "NaNpx",
-                                              "marginTop": "NaNpx",
-                                              "position": "absolute",
-                                            },
+                                            "left": "NaNpx",
+                                            "marginTop": "NaNpx",
+                                            "position": "absolute",
                                           }
                                         }
                                       >
                                         <div
                                           className="mark"
-                                          key="mark9"
                                           style={
                                             Object {
                                               "left": "NaNpx",
@@ -18945,9 +18697,10 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         >
                                           10
                                         </div>
-                                      </Mark>
-                                      <Mark
+                                      </ForwardRef>
+                                      <ForwardRef
                                         index={10}
+                                        key="mark10"
                                         markLabels={
                                           Array [
                                             1,
@@ -18963,28 +18716,16 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             11,
                                           ]
                                         }
-                                        props={
+                                        style={
                                           Object {
-                                            "key": "mark10",
-                                            "ref": Object {
-                                              "current": <div
-                                                class="mark last-mark"
-                                                style="position: absolute;"
-                                              >
-                                                11
-                                              </div>,
-                                            },
-                                            "style": Object {
-                                              "left": "NaNpx",
-                                              "marginTop": "NaNpx",
-                                              "position": "absolute",
-                                            },
+                                            "left": "NaNpx",
+                                            "marginTop": "NaNpx",
+                                            "position": "absolute",
                                           }
                                         }
                                       >
                                         <div
                                           className="mark last-mark"
-                                          key="mark10"
                                           style={
                                             Object {
                                               "left": "NaNpx",
@@ -18995,43 +18736,29 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         >
                                           11
                                         </div>
-                                      </Mark>
-                                      <Thumb
-                                        props={
+                                      </ForwardRef>
+                                      <ForwardRef
+                                        aria-valuemax={11}
+                                        aria-valuemin={1}
+                                        aria-valuenow={1}
+                                        draggable={false}
+                                        key="0"
+                                        onKeyDown={[Function]}
+                                        onKeyUp={[Function]}
+                                        role="slider"
+                                        style={
                                           Object {
-                                            "aria-valuemax": 11,
-                                            "aria-valuemin": 1,
-                                            "aria-valuenow": 1,
-                                            "draggable": false,
-                                            "key": 0,
-                                            "onKeyDown": [Function],
-                                            "onKeyUp": [Function],
-                                            "ref": Object {
-                                              "current": <div
-                                                aria-valuemax="11"
-                                                aria-valuemin="1"
-                                                aria-valuenow="1"
-                                                class="thumb"
-                                                draggable="false"
-                                                role="slider"
-                                                style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                                                tabindex="0"
-                                              />,
-                                            },
-                                            "role": "slider",
-                                            "style": Object {
-                                              "MozUserSelect": "none",
-                                              "WebkitUserSelect": "none",
-                                              "cursor": "grab",
-                                              "msUserSelect": "none",
-                                              "position": "absolute",
-                                              "touchAction": "none",
-                                              "userSelect": "none",
-                                              "zIndex": 0,
-                                            },
-                                            "tabIndex": 0,
+                                            "MozUserSelect": "none",
+                                            "WebkitUserSelect": "none",
+                                            "cursor": "grab",
+                                            "msUserSelect": "none",
+                                            "position": "absolute",
+                                            "touchAction": "none",
+                                            "userSelect": "none",
+                                            "zIndex": 0,
                                           }
                                         }
+                                        tabIndex={0}
                                       >
                                         <div
                                           aria-valuemax={11}
@@ -19039,7 +18766,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                           aria-valuenow={1}
                                           className="thumb"
                                           draggable={false}
-                                          key="0"
                                           onKeyDown={[Function]}
                                           onKeyUp={[Function]}
                                           role="slider"
@@ -19057,43 +18783,29 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                           }
                                           tabIndex={0}
                                         />
-                                      </Thumb>
-                                      <Thumb
-                                        props={
+                                      </ForwardRef>
+                                      <ForwardRef
+                                        aria-valuemax={11}
+                                        aria-valuemin={1}
+                                        aria-valuenow={11}
+                                        draggable={false}
+                                        key="1"
+                                        onKeyDown={[Function]}
+                                        onKeyUp={[Function]}
+                                        role="slider"
+                                        style={
                                           Object {
-                                            "aria-valuemax": 11,
-                                            "aria-valuemin": 1,
-                                            "aria-valuenow": 11,
-                                            "draggable": false,
-                                            "key": 1,
-                                            "onKeyDown": [Function],
-                                            "onKeyUp": [Function],
-                                            "ref": Object {
-                                              "current": <div
-                                                aria-valuemax="11"
-                                                aria-valuemin="1"
-                                                aria-valuenow="11"
-                                                class="thumb"
-                                                draggable="false"
-                                                role="slider"
-                                                style="position: absolute; z-index: 1; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                                                tabindex="0"
-                                              />,
-                                            },
-                                            "role": "slider",
-                                            "style": Object {
-                                              "MozUserSelect": "none",
-                                              "WebkitUserSelect": "none",
-                                              "cursor": "grab",
-                                              "msUserSelect": "none",
-                                              "position": "absolute",
-                                              "touchAction": "none",
-                                              "userSelect": "none",
-                                              "zIndex": 1,
-                                            },
-                                            "tabIndex": 0,
+                                            "MozUserSelect": "none",
+                                            "WebkitUserSelect": "none",
+                                            "cursor": "grab",
+                                            "msUserSelect": "none",
+                                            "position": "absolute",
+                                            "touchAction": "none",
+                                            "userSelect": "none",
+                                            "zIndex": 1,
                                           }
                                         }
+                                        tabIndex={0}
                                       >
                                         <div
                                           aria-valuemax={11}
@@ -19101,7 +18813,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                           aria-valuenow={11}
                                           className="thumb"
                                           draggable={false}
-                                          key="1"
                                           onKeyDown={[Function]}
                                           onKeyUp={[Function]}
                                           role="slider"
@@ -19119,7 +18830,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                           }
                                           tabIndex={0}
                                         />
-                                      </Thumb>
+                                      </ForwardRef>
                                     </div>
                                   </div>
                                 </Track>

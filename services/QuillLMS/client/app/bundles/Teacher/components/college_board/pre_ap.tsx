@@ -22,7 +22,7 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
       <ExpandableUnitSection
         isFirst={index === 0}
         isPartOfAssignmentFlow={isPartOfAssignmentFlow}
-        key={u.id}
+        key={u.title}
         learningCycles={u.learning_cycles}
         slug={PRE_AP_SLUG}
         title={u.title}

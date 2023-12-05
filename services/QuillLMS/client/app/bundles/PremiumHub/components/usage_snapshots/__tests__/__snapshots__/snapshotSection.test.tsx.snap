@@ -1921,7 +1921,9 @@ exports[`SnapshotSection component when the section is Practice should match sna
               </div>
             </section>
           </SnapshotCount>
-          <SnapshotFeedback>
+          <SnapshotFeedback
+            key="feedback"
+          >
             <a
               aria-label="Open link to feedback forum in new tab"
               className="focus-on-light snapshot-item snapshot-feedback"

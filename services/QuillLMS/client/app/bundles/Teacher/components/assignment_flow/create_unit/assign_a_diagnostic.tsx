@@ -41,6 +41,7 @@ const DiagnosticAssignmentCard = ({ history, diagnostic, lockedText, showNewTag,
       buttonLink={`/activity_sessions/anonymous?activity_id=${diagnostic.activityId}`}
       buttonText="Preview"
       header={diagnostic.name}
+      key={diagnostic.activityId}
       lockedText={lockedText}
       selectCard={onSelectCard}
       showNewTag={showNewTag}

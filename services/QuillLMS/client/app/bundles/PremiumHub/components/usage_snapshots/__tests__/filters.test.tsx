@@ -8,11 +8,11 @@ import Filters from '../filters';
 
 describe('Filters component', () => {
   const mockProps = {
-    allTimeframes: timeframes,
-    allSchools: schools,
-    allGrades: grades,
-    allTeachers: teachers,
-    allClassrooms: classrooms,
+    availableTimeframes: timeframes,
+    availableSchools: schools,
+    availableGrades: grades,
+    availableTeachers: teachers,
+    availableClassrooms: classrooms,
     applyFilters: jest.fn(),
     clearFilters: jest.fn(),
     selectedGrades: grades,
@@ -46,9 +46,9 @@ describe('Filters component', () => {
     });
   })
 
-  describe('when allClassrooms is empty', () => {
+  describe('when availableClassrooms is empty', () => {
     test('a disabled classrooms dropdown should be rendered', () => {
-      const { asFragment } = render(<Filters {...mockProps} allClassrooms={[]} />);
+      const { asFragment } = render(<Filters {...mockProps} availableClassrooms={[]} />);
       expect(asFragment()).toMatchSnapshot();
       expect(screen.getByRole('button', { name: /all classrooms selected/i })).toHaveAttribute('disabled')
     })
