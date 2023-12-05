@@ -13,7 +13,6 @@ class PreCachePremiumHubsWorker
 
     active_admin_ids.each do |id|
       FindAdminUsersWorker.set(queue: SidekiqQueue::DEFAULT).perform_async(id)
-      CacheAdminSnapshotsWorker.set(queue: SidekiqQueue::DEFAULT).perform_async(id)
     end
   end
 end
