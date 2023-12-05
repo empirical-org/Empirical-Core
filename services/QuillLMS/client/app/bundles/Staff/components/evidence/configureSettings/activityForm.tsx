@@ -47,7 +47,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
   function handleSetImageAltText(e: InputEvent){ handleSetActivityPassages('image_alt_text', e.target.value) };
   function handleSetPassageText(text: string) { handleSetActivityPassages('text', text)}
   function handleSetPassageEssentialKnowledgeText(text: string) { handleSetActivityPassages('essential_knowledge_text', text)}
-  function handleSetImageAttribution(e: TextAreaEvent) { handleSetActivityPassages('image_attribution', e.target.value)}
+  function handleSetImageAttribution(text: string) { handleSetActivityPassages('image_attribution', text)}
   function handleSetImageCaption(e: InputEvent) { handleSetActivityPassages('image_caption', e.target.value)}
 
   function handleSetActivityPassages(key, value){
