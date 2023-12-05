@@ -3,7 +3,7 @@ import * as React from 'react'
 import { baseIntegrationImgSrc, circleCheckImg } from '../../shared'
 import IntegrationTip from '../integration_tip'
 
-const googleIconSrc = `${baseIntegrationImgSrc}/google.svg`
+const googleIconSrc = `${baseIntegrationImgSrc}/google_logo.svg`
 
 const GoogleIntegrationContainer = () => {
   return (

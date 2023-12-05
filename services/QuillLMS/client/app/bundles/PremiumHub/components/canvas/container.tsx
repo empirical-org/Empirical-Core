@@ -12,7 +12,7 @@ import IntegrationTip from '../integration_tip'
 export const CANVAS_INTEGRATIONS_PATH = '/canvas_instances'
 export const SCHOOLS_WITH_SUBSCRIPTIONS_PATH = '/subscriptions/school_admin_subscriptions'
 
-const canvasIconSrc = `${baseIntegrationImgSrc}/canvas.svg`
+const canvasIconSrc = `${baseIntegrationImgSrc}/canvas_logo.svg`
 
 const CanvasIntegrationContainer = ({ passedSchools, passedCanvasIntegrations, accessType, user, }) => {
   const [loading, setLoading] = React.useState(!(passedSchools && passedCanvasIntegrations))
@@ -139,6 +139,7 @@ const CanvasIntegrationContainer = ({ passedSchools, passedCanvasIntegrations, a
             <a href="https://support.quill.org/en/articles/8500172-how-to-choose-your-rostering-integration" rel="noopener noreferrer" target="_blank">How to choose your integration</a>
             <a href="https://support.quill.org/en/articles/8337988-how-do-i-set-up-the-canvas-integration-for-my-school-district-for-canvas-quill-administrators" rel="noopener noreferrer" target="_blank">How to set up this integration</a>
           </div>
+          <IntegrationTip />
         </div>
       </div>
     )

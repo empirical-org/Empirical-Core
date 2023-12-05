@@ -11,7 +11,7 @@ exports[`CleverIntegrationContainer when access is full it should render 1`] = `
       <img
         alt=""
         class="logo"
-        src="undefined/images/pages/administrator/integrations/clever.svg"
+        src="undefined/images/pages/administrator/integrations/clever_logo.svg"
       />
       <h1>
         Streamline teaching with Clever
@@ -88,7 +88,7 @@ exports[`CleverIntegrationContainer when access is restricted it should render 1
       <img
         alt=""
         class="logo"
-        src="undefined/images/pages/administrator/integrations/clever.svg"
+        src="undefined/images/pages/administrator/integrations/clever_logo.svg"
       />
       <h1>
         Streamline teaching with Clever

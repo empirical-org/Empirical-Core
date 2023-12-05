@@ -3,7 +3,7 @@ import * as React from 'react'
 import { FULL, baseIntegrationImgSrc, circleCheckImg } from '../../shared'
 import IntegrationTip from '../integration_tip'
 
-const cleverIconSrc = `${baseIntegrationImgSrc}/clever.svg`
+const cleverIconSrc = `${baseIntegrationImgSrc}/clever_logo.svg`
 
 const CleverIntegrationContainer = ({ accessType, }) => {
   return (

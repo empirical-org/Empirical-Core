@@ -11,7 +11,7 @@ exports[`GoogleIntegrationContainer it should render 1`] = `
       <img
         alt=""
         class="logo"
-        src="undefined/images/pages/administrator/integrations/google.svg"
+        src="undefined/images/pages/administrator/integrations/google_logo.svg"
       />
       <h1>
         Streamline teaching with Google Classroom

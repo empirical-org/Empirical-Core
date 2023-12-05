@@ -11,7 +11,7 @@ exports[`CanvasIntegrationContainer when access is restricted it should render 1
       <img
         alt=""
         class="logo"
-        src="undefined/images/pages/administrator/integrations/canvas.svg"
+        src="undefined/images/pages/administrator/integrations/canvas_logo.svg"
       />
       <h1>
         Unlock Canvas with School or District Premium
@@ -161,7 +161,7 @@ exports[`CanvasIntegrationContainer when there are not existing Canvas integrati
       <img
         alt=""
         class="logo"
-        src="undefined/images/pages/administrator/integrations/canvas.svg"
+        src="undefined/images/pages/administrator/integrations/canvas_logo.svg"
       />
       <h1>
         Get started with Canvas
@@ -208,6 +208,22 @@ exports[`CanvasIntegrationContainer when there are not existing Canvas integrati
         >
           How to set up this integration
         </a>
+      </div>
+      <div
+        class="integration-tip"
+      >
+        <div>
+          <h2>
+            Integration Tip
+          </h2>
+          <p>
+            Start the school year right by choosing a single integration. Changing mid-year can cause rostering challenges and may take up more of your valuable time, so decide upfront for a better experience.
+          </p>
+        </div>
+        <img
+          alt=""
+          src="undefined/images/pages/administrator/integrations/lightbulb.svg"
+        />
       </div>
     </div>
   </div>
