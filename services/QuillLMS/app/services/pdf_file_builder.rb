@@ -18,9 +18,11 @@ class PdfFileBuilder < ApplicationService
   end
 
   private def html
-    ApplicationController
-      .renderer
-      .render(locals: { data: data }, template: template, layout: 'pdf')
+    body_html = ApplicationController
+      .new
+      .render_to_string(locals: { data: data }, template: template, layout: 'pdf')
+      
+    Grover::HTMLPreprocessor.process(body_html, "#{ENV['DEFAULT_URL']}/", 'https')
   end
 
   private def pdf
