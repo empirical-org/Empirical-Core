@@ -3599,6 +3599,40 @@ ALTER SEQUENCE public.partner_contents_id_seq OWNED BY public.partner_contents.i
 
 
 --
+-- Name: pdf_subscriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.pdf_subscriptions (
+    id bigint NOT NULL,
+    title character varying NOT NULL,
+    frequency character varying NOT NULL,
+    filter_selections jsonb,
+    user_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: pdf_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.pdf_subscriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pdf_subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.pdf_subscriptions_id_seq OWNED BY public.pdf_subscriptions.id;
+
+
+--
 -- Name: plans; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6064,6 +6098,13 @@ ALTER TABLE ONLY public.partner_contents ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
+-- Name: pdf_subscriptions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pdf_subscriptions ALTER COLUMN id SET DEFAULT nextval('public.pdf_subscriptions_id_seq'::regclass);
+
+
+--
 -- Name: plans id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -7186,6 +7227,14 @@ ALTER TABLE ONLY public.page_areas
 
 ALTER TABLE ONLY public.partner_contents
     ADD CONSTRAINT partner_contents_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pdf_subscriptions pdf_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pdf_subscriptions
+    ADD CONSTRAINT pdf_subscriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -8592,6 +8641,27 @@ CREATE INDEX index_partner_contents_on_partner ON public.partner_contents USING 
 
 
 --
+-- Name: index_pdf_subscriptions_on_frequency; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pdf_subscriptions_on_frequency ON public.pdf_subscriptions USING btree (frequency);
+
+
+--
+-- Name: index_pdf_subscriptions_on_title; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pdf_subscriptions_on_title ON public.pdf_subscriptions USING btree (title);
+
+
+--
+-- Name: index_pdf_subscriptions_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pdf_subscriptions_on_user_id ON public.pdf_subscriptions USING btree (user_id);
+
+
+--
 -- Name: index_plans_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9727,6 +9797,14 @@ ALTER TABLE ONLY public.learn_worlds_accounts
 
 
 --
+-- Name: pdf_subscriptions fk_rails_9bbfb9971e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pdf_subscriptions
+    ADD CONSTRAINT fk_rails_9bbfb9971e FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: provider_classrooms fk_rails_9c61f34d66; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10568,6 +10646,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230801140522'),
 ('20230912150456'),
 ('20230929135017'),
-('20231018141022');
+('20231018141022'),
+('20231206143410');
 
 
