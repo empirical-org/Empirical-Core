@@ -22,7 +22,7 @@ class PdfFileBuilder < ApplicationService
   end
 
   private def pdf
-    WickedPdf.new.pdf_from_string(html)
+    ''
   end
 
   private def tempfile
