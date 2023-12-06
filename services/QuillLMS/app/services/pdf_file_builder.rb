@@ -18,11 +18,15 @@ class PdfFileBuilder < ApplicationService
   end
 
   private def html
-    ApplicationController.renderer.render(locals: { data: data }, template: template, layout: 'pdf')
+    ApplicationController
+      .renderer
+      .render(locals: { data: data }, template: template, layout: 'pdf')
   end
 
   private def pdf
-    ''
+    Grover
+      .new(html)
+      .to_pdf
   end
 
   private def tempfile
