@@ -255,6 +255,9 @@
 
       .header-row {
         border-top: 1px solid #aeaeae;
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0px;
 
         th {
           font-weight: 700;
@@ -296,49 +299,49 @@
   .snapshot-section.classrooms .counts {
     display: grid;
     gap: 16px;
+  }
 
-    /* Specific Grid Template Styles */
-    .highlights .counts {
+  /* Specific Grid Template Styles */
+  .highlights .counts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .users .snapshot-section-content,
+  .classrooms .snapshot-section-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .users .counts,
+  .classrooms .counts {
+    grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+  }
+
+  .practice .snapshot-section-content {
+    display: flex;
+    flex-direction: column;
+
+    .first-row,
+    .second-row,
+    .third-and-fourth-row {
+      margin-bottom: 16px;
+      gap: 16px;
+    }
+
+    .first-row {
+      display: grid;
       grid-template-columns: repeat(2, 1fr);
     }
 
-    .users .snapshot-section-content,
-    .classrooms .snapshot-section-content {
-      grid-template-columns: repeat(2, 1fr);
+    .second-row,
+    .fifth-row {
+      display: grid;
+      grid-template-columns: none;
+      gap: 16px;
     }
 
-    .users .counts,
-    .classrooms .counts {
-      grid-template: repeat(2, 1fr) / repeat(2, 1fr);
-    }
-
-    .practice .snapshot-section-content {
-      display: flex;
-      flex-direction: column;
-
-      .first-row,
-      .second-row,
-      .third-and-fourth-row {
-        margin-bottom: 16px;
-        gap: 16px;
-      }
-
-      .first-row {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .second-row,
-      .fifth-row {
-        display: grid;
-        grid-template-columns: none;
-        gap: 16px;
-      }
-
-      .third-and-fourth-row {
-        display: grid;
-        grid-template: repeat(3, 1fr)/repeat(2, 1fr);
-      }
+    .third-and-fourth-row {
+      display: grid;
+      grid-template: repeat(3, 1fr)/repeat(2, 1fr);
     }
   }
 
@@ -346,5 +349,6 @@
   .snapshot-section.classrooms .snapshot-section-content {
     display: flex;
     flex-direction: column;
+    gap: 16px;
   }
 }
