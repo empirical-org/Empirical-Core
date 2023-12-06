@@ -166,13 +166,6 @@
           }
         }
 
-        &.snapshot-count .loading-spinner-wrapper {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-        }
-
         &.small {
           padding: 16px;
           height: 133px;
@@ -220,7 +213,7 @@
     display: flex;
     padding: 16px;
     flex-direction: column;
-    grid-column: span 3;
+    grid-column: inherit;
     justify-content: flex-start;
     color: inherit;
     text-decoration: none;
@@ -299,8 +292,6 @@
 
   /* Responsive Grid Styles for Various Sections */
   .snapshot-section.highlights .counts,
-  .snapshot-section.users .snapshot-section-content,
-  .snapshot-section.classrooms .snapshot-section-content,
   .snapshot-section.users .counts,
   .snapshot-section.classrooms .counts {
     display: grid;
@@ -346,23 +337,14 @@
 
       .third-and-fourth-row {
         display: grid;
-        grid-template: repeat(2, 1fr) / repeat(4, 1fr);
+        grid-template: repeat(3, 1fr)/repeat(2, 1fr);
       }
     }
-  }
-
-  /* Adjusting Grid Layouts */
-  .snapshot-section .snapshot-feedback {
-    grid-column: inherit;
   }
 
   .snapshot-section.users .snapshot-section-content,
   .snapshot-section.classrooms .snapshot-section-content {
     display: flex;
     flex-direction: column;
-  }
-
-  .snapshot-section.practice .third-and-fourth-row {
-    grid-template: repeat(3, 1fr)/repeat(2, 1fr);
   }
 }
