@@ -16929,6 +16929,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                           maxValue={3}
                           minValue={0}
                           step={1}
+                          value="4-5"
                         />
                       </div>
                     </div>
@@ -17011,9 +17012,10 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                             maxValue={3}
                             minValue={0}
                             step={1}
+                            value="4-5"
                           >
                             <Slider
-                              className="slider-container one-thumb-slider-container display-as-disabled"
+                              className="slider-container one-thumb-slider-container"
                               handleChange={[Function]}
                               id="grade-level-slider"
                               markLabels={
@@ -17030,17 +17032,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                               trackColors={
                                 Array [
                                   "#dbdbdb",
-                                  "#dbdbdb",
+                                  "#06806b",
                                 ]
                               }
                               values={
                                 Array [
-                                  2,
+                                  "4-5",
                                 ]
                               }
                             >
                               <div
-                                className="slider-container one-thumb-slider-container display-as-disabled"
+                                className="slider-container one-thumb-slider-container"
                                 id="grade-level-slider"
                                 style={
                                   Object {
@@ -17065,7 +17067,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                   step={1}
                                   values={
                                     Array [
-                                      2,
+                                      "4-5",
                                     ]
                                   }
                                 >
@@ -17073,7 +17075,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                     colors={
                                       Array [
                                         "#dbdbdb",
-                                        "#dbdbdb",
+                                        "#06806b",
                                       ]
                                     }
                                     maxValue={3}
@@ -17113,7 +17115,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             <div
                                               aria-valuemax="3"
                                               aria-valuemin="0"
-                                              aria-valuenow="2"
+                                              aria-valuenow="4-5"
                                               class="thumb"
                                               draggable="false"
                                               role="slider"
@@ -17130,7 +17132,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                     }
                                     values={
                                       Array [
-                                        2,
+                                        "4-5",
                                       ]
                                     }
                                   >
@@ -17149,7 +17151,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         className="track"
                                         style={
                                           Object {
-                                            "background": "linear-gradient(to right, #dbdbdb 0%, #dbdbdb 66.66666666666666%, #dbdbdb 66.66666666666666%, #dbdbdb 100%)",
+                                            "background": "linear-gradient(to right, #dbdbdb 0%, #dbdbdb NaN%, #06806b NaN%, #06806b 100%)",
                                           }
                                         }
                                       >
@@ -17330,7 +17332,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             Object {
                                               "aria-valuemax": 3,
                                               "aria-valuemin": 0,
-                                              "aria-valuenow": 2,
+                                              "aria-valuenow": "4-5",
                                               "draggable": false,
                                               "key": 0,
                                               "onKeyDown": [Function],
@@ -17339,7 +17341,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                                 "current": <div
                                                   aria-valuemax="3"
                                                   aria-valuemin="0"
-                                                  aria-valuenow="2"
+                                                  aria-valuenow="4-5"
                                                   class="thumb"
                                                   draggable="false"
                                                   role="slider"
@@ -17365,7 +17367,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                           <div
                                             aria-valuemax={3}
                                             aria-valuemin={0}
-                                            aria-valuenow={2}
+                                            aria-valuenow="4-5"
                                             className="thumb"
                                             draggable={false}
                                             key="0"
