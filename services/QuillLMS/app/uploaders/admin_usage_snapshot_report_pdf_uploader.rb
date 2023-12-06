@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AdminSnapshotReportPdfUploader < ApplicationUploader
+class AdminUsageSnapshotReportPdfUploader < ApplicationUploader
   FILENAME_PREFIX = 'ADMIN_SNAPSHOT_REPORT_'
 
   fog_authenticated_url_expiration 7.days.to_i
