@@ -1,5 +1,4 @@
 import expect from 'expect';
-const expect = _expect as any as typeof _expect.default
 
 import {
   generateConceptResults
