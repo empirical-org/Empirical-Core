@@ -2,10 +2,10 @@ import { push } from 'react-router-redux';
 import C from '../constants';
 import { Question } from '../interfaces/questions';
 import {
-    FILL_IN_BLANKS_TYPE,
-    FocusPointApi,
-    IncorrectSequenceApi,
-    QuestionApi
+  FILL_IN_BLANKS_TYPE,
+  FocusPointApi,
+  IncorrectSequenceApi,
+  QuestionApi
 } from '../libs/questions_api';
 import { submitResponse } from './responses';
 import sessionActions from './sessions';

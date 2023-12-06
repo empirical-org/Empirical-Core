@@ -65,6 +65,6 @@ function submitTitleCardEdit(uid, content) {
 }
 
 export {
-    loadSpecifiedTitleCards, loadTitleCards, startListeningToTitleCards, submitNewTitleCard, submitTitleCardEdit
+  loadSpecifiedTitleCards, loadTitleCards, startListeningToTitleCards, submitNewTitleCard, submitTitleCardEdit
 };
 

@@ -2,13 +2,13 @@ import fuzzy from 'fuzzyset.js';
 import _ from 'underscore';
 import constants from '../constants';
 import {
-    checkChangeObjectMatch
+  checkChangeObjectMatch
 } from './algorithms/changeObjects';
 import {
-    getFeedbackForMissingWord
+  getFeedbackForMissingWord
 } from './algorithms/joiningWords';
 import {
-    spacingBeforePunctuation
+  spacingBeforePunctuation
 } from './algorithms/spacingBeforePunctuation';
 import quillNormalize from './quillNormalizer';
 import { checkForMissingWords } from './requiredWords';

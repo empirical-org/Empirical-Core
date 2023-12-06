@@ -139,7 +139,7 @@ function delete_null_properties(test, recurse) {
 }
 
 export {
-    allQuestions, denormalizeSession,
-    normalizeSession
+  allQuestions, denormalizeSession,
+  normalizeSession
 };
 

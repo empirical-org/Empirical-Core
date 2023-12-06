@@ -2,7 +2,7 @@ import fuzzy from 'fuzzyset.js';
 import _ from 'underscore';
 import constants from '../constants';
 import {
-    checkChangeObjectMatch
+  checkChangeObjectMatch
 } from './algorithms/changeObjects';
 import { getOptimalResponses, getSubOptimalResponses } from './sharedResponseFunctions';
 
