@@ -768,7 +768,7 @@ ALTER SEQUENCE public.admin_infos_id_seq OWNED BY public.admin_infos.id;
 CREATE TABLE public.admin_report_filter_selections (
     id bigint NOT NULL,
     report character varying NOT NULL,
-    filter_selections jsonb,
+    filter_selections jsonb NOT NULL,
     user_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -3599,6 +3599,38 @@ ALTER SEQUENCE public.partner_contents_id_seq OWNED BY public.partner_contents.i
 
 
 --
+-- Name: pdf_subscriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.pdf_subscriptions (
+    id bigint NOT NULL,
+    frequency character varying NOT NULL,
+    admin_report_filter_selection_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: pdf_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.pdf_subscriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pdf_subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.pdf_subscriptions_id_seq OWNED BY public.pdf_subscriptions.id;
+
+
+--
 -- Name: plans; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6064,6 +6096,13 @@ ALTER TABLE ONLY public.partner_contents ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
+-- Name: pdf_subscriptions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pdf_subscriptions ALTER COLUMN id SET DEFAULT nextval('public.pdf_subscriptions_id_seq'::regclass);
+
+
+--
 -- Name: plans id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -7186,6 +7225,14 @@ ALTER TABLE ONLY public.page_areas
 
 ALTER TABLE ONLY public.partner_contents
     ADD CONSTRAINT partner_contents_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pdf_subscriptions pdf_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pdf_subscriptions
+    ADD CONSTRAINT pdf_subscriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -8592,6 +8639,20 @@ CREATE INDEX index_partner_contents_on_partner ON public.partner_contents USING 
 
 
 --
+-- Name: index_pdf_subscriptions_on_admin_report_filter_selection_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pdf_subscriptions_on_admin_report_filter_selection_id ON public.pdf_subscriptions USING btree (admin_report_filter_selection_id);
+
+
+--
+-- Name: index_pdf_subscriptions_on_frequency; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pdf_subscriptions_on_frequency ON public.pdf_subscriptions USING btree (frequency);
+
+
+--
 -- Name: index_plans_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9991,14 +10052,6 @@ ALTER TABLE ONLY public.activity_survey_responses
 
 
 --
--- Name: admin_report_filter_selections fk_rails_f3c9548131; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.admin_report_filter_selections
-    ADD CONSTRAINT fk_rails_f3c9548131 FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
 -- Name: content_partner_activities fk_rails_f7c9018094; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10568,6 +10621,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230801140522'),
 ('20230912150456'),
 ('20230929135017'),
-('20231018141022');
+('20231018141022'),
+('20231206143410'),
+('20231207135455'),
+('20231207151344');
 
 
