@@ -3,6 +3,7 @@
 class PdfFileBuilder < ApplicationService
   ENCODING = 'ascii-8bit'
   TEMPFILE_NAME = 'temp.pdf'
+  LAYOUT = 'pdf'
 
   attr_reader :data, :template
 
@@ -17,21 +18,27 @@ class PdfFileBuilder < ApplicationService
     tempfile
   end
 
-  private def html
-    body_html = ApplicationController
+  private def html_with_absolute_urls
+    Grover::HTMLPreprocessor.process(html_with_relative_urls, "#{ENV['DEFAULT_URL']}/", 'https')
+  end
+
+  private def html_with_relative_urls
+    ApplicationController
       .new
-      .render_to_string(locals: { data: data }, template: template, layout: 'pdf')
-      
-    Grover::HTMLPreprocessor.process(body_html, "#{ENV['DEFAULT_URL']}/", 'https')
+      .render_to_string(
+        layout: LAYOUT,
+        locals: { data: data },
+        template: template
+      )
   end
 
   private def pdf
     Grover
-      .new(html)
+      .new(html_with_absolute_urls)
       .to_pdf
   end
 
   private def tempfile
-    @tempfile ||= Tempfile.new(TEMPFILE_NAME, encoding: 'ascii-8bit')
+    @tempfile ||= Tempfile.new(TEMPFILE_NAME, encoding: ENCODING)
   end
 end
