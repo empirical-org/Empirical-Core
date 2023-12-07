@@ -81,7 +81,7 @@ const IndividualTopicFilterRow = ({ topicFilters, topicKey, handleTopicFilterCha
   )
 }
 
-const TopicToggle = ({filteredActivities, grouping, uniqueLevelTwoTopics, uniqueLevelOneTopics, topicFilters, handleTopicFilterChange, level, topics, }: TopicToggleProps) => {
+const TopicToggle = ({ filteredActivities, grouping, uniqueLevelTwoTopics, uniqueLevelOneTopics, topicFilters, handleTopicFilterChange, level, topics, }: TopicToggleProps) => {
   const [isOpen, setIsOpen] = React.useState(false)
 
   function toggleIsOpen() { setIsOpen(!isOpen) }
@@ -116,11 +116,10 @@ const TopicToggle = ({filteredActivities, grouping, uniqueLevelTwoTopics, unique
 
   if (isOpen) {
     if (level === LEVEL_THREE) {
-      individualFilters = grouping.levelTwoIds.map((levelTwoId: string) =>
-      {
+      individualFilters = grouping.levelTwoIds.map((levelTwoId: string) => {
         const levelTwoTopic = topics.find(t => t.id === levelTwoId);
         const filteredLevelOneTopics = uniqueLevelOneTopics.filter(t => t.parent_id === levelTwoTopic.id)
-        const filteredGrouping = {group: levelTwoTopic.name, levelTwoIds: grouping.levelTwoIds, levelOneIds: filteredLevelOneTopics.map(t => t.id)}
+        const filteredGrouping = { group: levelTwoTopic.name, levelTwoIds: grouping.levelTwoIds, levelOneIds: filteredLevelOneTopics.map(t => t.id) }
         return (
           <TopicToggle
             filteredActivities={filteredActivities}
@@ -137,15 +136,15 @@ const TopicToggle = ({filteredActivities, grouping, uniqueLevelTwoTopics, unique
       )
     } else {
       individualFilters = grouping.levelOneIds.map((levelOneId: string) =>
-        (<IndividualTopicFilterRow
-          filteredActivities={filteredActivities}
-          handleTopicFilterChange={handleTopicFilterChange}
-          key={levelOneId}
-          topicFilters={topicFilters}
-          topicKey={levelOneId}
-          uniqueLevelOneTopics={uniqueLevelOneTopics}
-          uniqueLevelTwoTopics={uniqueLevelTwoTopics}
-        />)
+      (<IndividualTopicFilterRow
+        filteredActivities={filteredActivities}
+        handleTopicFilterChange={handleTopicFilterChange}
+        key={levelOneId}
+        topicFilters={topicFilters}
+        topicKey={levelOneId}
+        uniqueLevelOneTopics={uniqueLevelOneTopics}
+        uniqueLevelTwoTopics={uniqueLevelTwoTopics}
+      />)
       )
     }
   }
@@ -154,7 +153,7 @@ const TopicToggle = ({filteredActivities, grouping, uniqueLevelTwoTopics, unique
 
   return (
     <section className="toggle-section activity-classification-toggle">
-      <div className={className+" filter-row"}>
+      <div className={className + " filter-row"}>
         <div>
           {toggleArrow}
           {topLevelCheckbox}
@@ -176,7 +175,11 @@ const TopicFilters = ({ activities, filterActivities, topicFilters, handleTopicF
 
   function clearAllTopicFilters() { handleTopicFilterChange([]) }
 
-  function getUniqueTopics(topics) { return Array.from(new Set(topics.map(a => a.id))).map(id => topics.find(t => t.id === id)) }
+  function getUniqueTopics(topics) {
+    const nonNullTopics = topics.filter(t => t?.id)
+    const topicIdsArray = Array.from(new Set(nonNullTopics.map(a => a.id)))
+    return topicIdsArray.map(id => topics.find(t => t.id === id))
+  }
 
   if (topics.length) {
     activities.forEach(a => { levelOneTopicsInUse = levelOneTopicsInUse.concat(a.topics) })
@@ -189,7 +192,7 @@ const TopicFilters = ({ activities, filterActivities, topicFilters, handleTopicF
     const uniqueLevelThreeTopics = getUniqueTopics(levelThreeTopicsInUse)
 
     topicGroupings = uniqueLevelThreeTopics.sort((a, b) => a.name.localeCompare(b.name)).map(levelThree => {
-      const levelTwoIds =  uniqueLevelTwoTopics.filter(levelTwo => levelTwo.parent_id === levelThree.id).sort((a, b) => a.name.localeCompare(b.name)).map(levelTwo => levelTwo.id)
+      const levelTwoIds = uniqueLevelTwoTopics.filter(levelTwo => levelTwo.parent_id === levelThree.id).sort((a, b) => a.name.localeCompare(b.name)).map(levelTwo => levelTwo.id)
       return {
         group: levelThree.name,
         levelTwoIds: levelTwoIds,
@@ -199,17 +202,17 @@ const TopicFilters = ({ activities, filterActivities, topicFilters, handleTopicF
   }
 
   const topicToggles = topicGroupings.map(grouping =>
-    (<TopicToggle
-      filteredActivities={filteredActivities}
-      grouping={grouping}
-      handleTopicFilterChange={handleTopicFilterChange}
-      key={grouping.group}
-      level={LEVEL_THREE}
-      topicFilters={topicFilters}
-      topics={topics}
-      uniqueLevelOneTopics={uniqueLevelOneTopics}
-      uniqueLevelTwoTopics={uniqueLevelTwoTopics}
-    />)
+  (<TopicToggle
+    filteredActivities={filteredActivities}
+    grouping={grouping}
+    handleTopicFilterChange={handleTopicFilterChange}
+    key={grouping.group}
+    level={LEVEL_THREE}
+    topicFilters={topicFilters}
+    topics={topics}
+    uniqueLevelOneTopics={uniqueLevelOneTopics}
+    uniqueLevelTwoTopics={uniqueLevelTwoTopics}
+  />)
   )
 
   const clearButton = topicFilters.length ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={clearAllTopicFilters} type="button">Clear</button> : <span />
