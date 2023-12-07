@@ -93,6 +93,8 @@ main {
   }
   .growth-diagnostic-reports-overview-table, .growth-diagnostic-reports-by-skill-table {
     margin-top: 48px;
+    max-height: 800px;
+    overflow-y: scroll;
     .data-table-headers {
       padding-right: 8px;
       th {

@@ -10,39 +10,89 @@ export const overallSkillGrowthTooltipText = "The average increase in growth sco
 
 const noDataToShow = '--'
 
-export function aggregateOverviewData({
-  preDiagnosticAssignedData,
-  postDiagnosticAssignedData,
-  preDiagnosticCompletedData,
-  postDiagnosticCompletedData,
-  recommendationsData,
-  setAggregatedData,
-  handleSetNoDiagnosticDataAvailable,
-  hasAdjustedFiltersFromDefault,
-  setLoading
-}) {
+function processAggregateRows(aggregateRowsData, diagnosticId, rowData) {
+  // set initial empty value if first pass
+  if (!aggregateRowsData[diagnosticId]) {
+    aggregateRowsData[diagnosticId] = {}
+  }
+  rowData.map(row => {
+    const { aggregate_id, ...properties } = row;
+    if(aggregateRowsData[diagnosticId] && !aggregateRowsData[diagnosticId][aggregate_id]) {
+      aggregateRowsData[diagnosticId][aggregate_id] = {...properties}
+    }
+    if (aggregateRowsData[diagnosticId] && aggregateRowsData[diagnosticId][aggregate_id]) {
+      aggregateRowsData[diagnosticId][aggregate_id] = { ...aggregateRowsData[diagnosticId][aggregate_id], ...properties };
+    }
+  });
+}
 
+function preDiagnosticCompletedValue(preStudentsAssigned, preStudentsCompleted) {
+  return preStudentsAssigned ? <p className="emphasized-content">{`${preStudentsCompleted || 0} of ${preStudentsAssigned} Students`}</p> : noDataToShow
+}
+
+function studentsCompletedPracticeValue(studentsCompletedPractice) {
+  return studentsCompletedPractice ? `${studentsCompletedPractice} Students` : noDataToShow
+}
+
+function averageActivitiesAndTimeSpentValue(averageActivitiesCount, averageTimespent) {
+  return averageActivitiesCount ? `${Math.round(averageActivitiesCount) || 0} Activities (${getTimeInMinutesAndSeconds(averageTimespent)})` : noDataToShow
+}
+
+function postDiagnosticCompleted(postStudentsAssigned, postStudentsCompleted) {
+  return postStudentsAssigned ? `${postStudentsCompleted || 0} of ${postStudentsAssigned} Students` : noDataToShow
+}
+
+function overallSkillGrowthValue(preScore, postScore) {
+  if (!postScore) {
+    return noDataToShow;
+  } else if (preScore && postScore && postScore > preScore) {
+    return <p className="emphasized-content">{`+${Math.round((postScore * 100) - (preScore * 100))}%`}</p>;
+  }
+  return 'No Growth';
+}
+
+function createAggregateRowData(aggregateRowsDataForDiagnostic) {
+  return Object.keys(aggregateRowsDataForDiagnostic).map(key => {
+    const data = aggregateRowsDataForDiagnostic[key];
+    // we can early return if there are no students assigned to pre diagnostic
+    if (!data.pre_students_assigned) { return null }
+    const overallSkillGrowth = overallSkillGrowthValue(data.pre_average_score, data.post_average_score);
+
+    return {
+      id: key,
+      name: data.name,
+      preDiagnosticCompleted: preDiagnosticCompletedValue(data.pre_students_assigned, data.pre_students_completed),
+      studentsCompletedPractice: studentsCompletedPracticeValue(data.students_completed_practice),
+      averageActivitiesAndTimeSpent: averageActivitiesAndTimeSpentValue(data.average_practice_activities_count, data.average_time_spent_seconds),
+      postDiagnosticCompleted: postDiagnosticCompleted(data.post_students_assigned, data.post_students_completed),
+      overallSkillGrowth
+    };
+  }).filter(row => !!row);
+}
+
+export function aggregateOverviewData(args) {
+  const { preDiagnosticAssignedData, postDiagnosticAssignedData, preDiagnosticCompletedData, postDiagnosticCompletedData, recommendationsData, setAggregatedData, handleSetNoDiagnosticDataAvailable, hasAdjustedFiltersFromDefault, setLoading } = args;
+
+  // if there are no results for the pre diagnostic API and filters are at default, no diagnostics have been assigned
   if (!preDiagnosticAssignedData.length && !hasAdjustedFiltersFromDefault) {
-    handleSetNoDiagnosticDataAvailable(true)
-    setLoading(false)
-    return
+    handleSetNoDiagnosticDataAvailable(true);
+    setLoading(false);
+    return;
   }
 
-  const preDiagnosticAssignedDataHash = {}
-  const postDiagnosticAssignedDataHash = {}
-  const preDiagnosticCompletedDataHash = {}
-  const postDiagnosticCompletedDataHash = {}
-  const recommendationsDataHash = {}
-  const aggregateRowsData = {}
+  // Hash tables for data storage of each individual API results plus storing the aggregate row data for each diagnostic
+  const preDiagnosticAssignedDataHash = {};
+  const postDiagnosticAssignedDataHash = {};
+  const preDiagnosticCompletedDataHash = {};
+  const postDiagnosticCompletedDataHash = {};
+  const recommendationsDataHash = {};
+  const aggregateRowsData = {};
 
+  // on first pass, we build the object needed for each row for the data table and populate with the necessary pre-diagnostic-assigned API results data
   const combinedData = preDiagnosticAssignedData.map(entry => {
     const { diagnostic_id, diagnostic_name, aggregate_rows, pre_students_assigned } = entry
     preDiagnosticAssignedDataHash[diagnostic_id] = { pre_students_assigned }
-    aggregateRowsData[diagnostic_id] = {}
-    aggregate_rows.map(row => {
-      const { aggregate_id, pre_students_assigned, name } = row
-      aggregateRowsData[diagnostic_id][aggregate_id] = { name, pre_students_assigned }
-    })
+    processAggregateRows(aggregateRowsData, diagnostic_id, aggregate_rows)
     return {
       id: diagnostic_id,
       name: diagnostic_name,
@@ -52,45 +102,37 @@ export function aggregateOverviewData({
       postDiagnosticCompleted: null,
       overallSkillGrowth: null,
       aggregate_rows: null
-    }
-  })
+    };
+  });
 
+  // process data for post-diagnostic-assigned API results
   postDiagnosticAssignedData.map(entry => {
     const { diagnostic_id, aggregate_rows, post_students_assigned } = entry
     postDiagnosticAssignedDataHash[diagnostic_id] = { post_students_assigned }
-    aggregate_rows.map(row => {
-      const { aggregate_id, post_students_assigned } = row
-      if (aggregateRowsData[diagnostic_id] && aggregateRowsData[diagnostic_id][aggregate_id]) {
-        aggregateRowsData[diagnostic_id][aggregate_id] = { ...aggregateRowsData[diagnostic_id][aggregate_id], post_students_assigned }
-      }
-    })
+    processAggregateRows(aggregateRowsData, diagnostic_id, aggregate_rows)
   })
+
+  // process data for pre-diagnostic-completed API results
   preDiagnosticCompletedData.map(entry => {
     const { diagnostic_id, aggregate_rows, pre_average_score, pre_students_completed } = entry
     preDiagnosticCompletedDataHash[diagnostic_id] = {
       pre_average_score,
       pre_students_completed
     }
-    aggregate_rows.map(row => {
-      const { aggregate_id, pre_average_score, pre_students_completed } = row
-      if (aggregateRowsData[diagnostic_id] && aggregateRowsData[diagnostic_id][aggregate_id]) {
-        aggregateRowsData[diagnostic_id][aggregate_id] = { ...aggregateRowsData[diagnostic_id][aggregate_id], pre_average_score, pre_students_completed }
-      }
-    })
+    processAggregateRows(aggregateRowsData, diagnostic_id, aggregate_rows)
   })
+
+  // process data for post-diagnostic-completed API results
   postDiagnosticCompletedData.map(entry => {
     const { diagnostic_id, aggregate_rows, post_average_score, post_students_completed } = entry
     postDiagnosticCompletedDataHash[diagnostic_id] = {
       post_average_score,
       post_students_completed
     }
-    aggregate_rows.map(row => {
-      const { aggregate_id, post_average_score, post_students_completed } = row
-      if (aggregateRowsData[diagnostic_id] && aggregateRowsData[diagnostic_id][aggregate_id]) {
-        aggregateRowsData[diagnostic_id][aggregate_id] = { ...aggregateRowsData[diagnostic_id][aggregate_id], post_average_score, post_students_completed }
-      }
-    })
+    processAggregateRows(aggregateRowsData, diagnostic_id, aggregate_rows)
   })
+
+  // process data for recommendations API results
   recommendationsData.map(entry => {
     const { diagnostic_id, aggregate_rows, average_practice_activities_count, average_time_spent_seconds, students_completed_practice } = entry
     recommendationsDataHash[diagnostic_id] = {
@@ -98,12 +140,7 @@ export function aggregateOverviewData({
       average_time_spent_seconds,
       students_completed_practice
     }
-    aggregate_rows.map(row => {
-      const { aggregate_id, average_practice_activities_count, average_time_spent_seconds, students_completed_practice } = row
-      if (aggregateRowsData[diagnostic_id] && aggregateRowsData[diagnostic_id][aggregate_id]) {
-        aggregateRowsData[diagnostic_id][aggregate_id] = { ...aggregateRowsData[diagnostic_id][aggregate_id], average_practice_activities_count, average_time_spent_seconds, students_completed_practice }
-      }
-    })
+    processAggregateRows(aggregateRowsData, diagnostic_id, aggregate_rows)
   })
 
   combinedData.forEach(entry => {
@@ -119,39 +156,14 @@ export function aggregateOverviewData({
     const averageActivitiesCount = recommendationsDataHash[id]?.average_practice_activities_count
     const averageTimespent = recommendationsDataHash[id]?.average_time_spent_seconds
     const aggregateRowsDataForDiagnostic = aggregateRowsData[id]
-    let overallSkillGrowth: string | JSX.Element = 'No Growth'
-    if (!preDiagnosticScore || !postDiagnosticScore) {
-      overallSkillGrowth = noDataToShow
-    } else if (preDiagnosticScore && postDiagnosticScore && postDiagnosticScore > preDiagnosticScore) {
-      overallSkillGrowth = <p className="emphasized-content">{`+${Math.round((postDiagnosticScore * 100) - (preDiagnosticScore * 100))}%`}</p>
-    }
-    entry.preDiagnosticCompleted = preStudentsAssigned ? <p className="emphasized-content">{`${preStudentsCompleted || 0} of ${preStudentsAssigned} Students`}</p> : noDataToShow
-    entry.studentsCompletedPractice = studentsCompletedPractice ? `${studentsCompletedPractice} Students` : noDataToShow
-    entry.averageActivitiesAndTimeSpent = averageActivitiesCount ? `${Math.round(averageActivitiesCount) || 0} Activities (${getTimeInMinutesAndSeconds(averageTimespent)})` : noDataToShow
-    entry.postDiagnosticCompleted = postStudentsAssigned ? `${postStudentsCompleted || 0} of ${postStudentsAssigned} Students` : noDataToShow
-    entry.overallSkillGrowth = overallSkillGrowth
-    const aggregateRows = Object.keys(aggregateRowsDataForDiagnostic).map(key => {
-      const { name, post_average_score, post_students_assigned, post_students_completed, pre_average_score, pre_students_assigned, pre_students_completed, students_completed_practice, average_practice_activities_count, average_time_spent_seconds } = aggregateRowsDataForDiagnostic[key]
-      let overallSkillGrowth: string | JSX.Element = 'No Growth'
-
-      if(!name) { return null }
-      if(!pre_average_score  || !post_average_score) {
-        overallSkillGrowth = noDataToShow
-      } else if (pre_average_score && post_average_score && post_average_score > pre_average_score) {
-        overallSkillGrowth = <p className="emphasized-content">{`+${Math.round((post_average_score * 100) - (pre_average_score * 100))}%`}</p>
-      }
-      return {
-        id: key,
-        name,
-        preDiagnosticCompleted: pre_students_assigned ? <p className="emphasized-content">{`${pre_students_completed || 0} of ${pre_students_assigned} Students`}</p> : noDataToShow,
-        studentsCompletedPractice: students_completed_practice ? `${students_completed_practice} Students` : noDataToShow,
-        averageActivitiesAndTimeSpent: average_practice_activities_count ? `${Math.round(average_practice_activities_count) || 0} Activities (${getTimeInMinutesAndSeconds(average_time_spent_seconds)})` : noDataToShow,
-        postDiagnosticCompleted: post_students_assigned ? `${post_students_completed || 0} of ${post_students_assigned} Students` : noDataToShow,
-        overallSkillGrowth
-      }
-    })
-    entry.aggregate_rows = aggregateRows.filter(row => !!row)
+    entry.preDiagnosticCompleted = preDiagnosticCompletedValue(preStudentsAssigned, preStudentsCompleted)
+    entry.studentsCompletedPractice = studentsCompletedPracticeValue(studentsCompletedPractice)
+    entry.averageActivitiesAndTimeSpent = averageActivitiesAndTimeSpentValue(averageActivitiesCount, averageTimespent)
+    entry.postDiagnosticCompleted = postDiagnosticCompleted(postStudentsAssigned, postStudentsCompleted)
+    entry.overallSkillGrowth = overallSkillGrowthValue(preDiagnosticScore, postDiagnosticScore)
+    entry.aggregate_rows = createAggregateRowData(aggregateRowsDataForDiagnostic)
   })
-  setAggregatedData(combinedData)
-  setLoading(false)
+  debugger
+  setAggregatedData(combinedData);
+  setLoading(false);
 }
