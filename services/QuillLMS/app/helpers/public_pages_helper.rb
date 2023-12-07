@@ -545,7 +545,7 @@ module PublicPagesHelper
       },
       {
         question: 'Do you accept purchase orders?',
-        answer: "<p>Yes, we accept purchase orders. You may email a purchase order to <a href='mailto: sales@quill.org'>sales@quill.org</a>. <a href='https://drive.google.com/file/d/1YPRiFMOthu3Jomf6IOG7nBQE2gvzbG2l/view'>Access our W-9</a> and reach out with any questions at 510-671-0222.</p>"
+        answer: "<p>We accept purchase orders for school and district subscriptions only. You may email a purchase order to <a href='mailto: sales@quill.org'>sales@quill.org</a>. <a href='https://drive.google.com/file/d/1GPAnfQGMCnuIIk5Ge_CmbjSPTmt5C3zy/view?usp=sharing'>Access our W-9</a> and reach out with any questions at 510-671-0222.</p>"
       },
       {
         question: 'Do you offer financial aid?',
