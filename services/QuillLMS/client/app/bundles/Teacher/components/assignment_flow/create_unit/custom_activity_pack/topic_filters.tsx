@@ -136,15 +136,15 @@ const TopicToggle = ({ filteredActivities, grouping, uniqueLevelTwoTopics, uniqu
       )
     } else {
       individualFilters = grouping.levelOneIds.map((levelOneId: string) =>
-      (<IndividualTopicFilterRow
-        filteredActivities={filteredActivities}
-        handleTopicFilterChange={handleTopicFilterChange}
-        key={levelOneId}
-        topicFilters={topicFilters}
-        topicKey={levelOneId}
-        uniqueLevelOneTopics={uniqueLevelOneTopics}
-        uniqueLevelTwoTopics={uniqueLevelTwoTopics}
-      />)
+        (<IndividualTopicFilterRow
+          filteredActivities={filteredActivities}
+          handleTopicFilterChange={handleTopicFilterChange}
+          key={levelOneId}
+          topicFilters={topicFilters}
+          topicKey={levelOneId}
+          uniqueLevelOneTopics={uniqueLevelOneTopics}
+          uniqueLevelTwoTopics={uniqueLevelTwoTopics}
+        />)
       )
     }
   }
@@ -202,17 +202,17 @@ const TopicFilters = ({ activities, filterActivities, topicFilters, handleTopicF
   }
 
   const topicToggles = topicGroupings.map(grouping =>
-  (<TopicToggle
-    filteredActivities={filteredActivities}
-    grouping={grouping}
-    handleTopicFilterChange={handleTopicFilterChange}
-    key={grouping.group}
-    level={LEVEL_THREE}
-    topicFilters={topicFilters}
-    topics={topics}
-    uniqueLevelOneTopics={uniqueLevelOneTopics}
-    uniqueLevelTwoTopics={uniqueLevelTwoTopics}
-  />)
+    (<TopicToggle
+      filteredActivities={filteredActivities}
+      grouping={grouping}
+      handleTopicFilterChange={handleTopicFilterChange}
+      key={grouping.group}
+      level={LEVEL_THREE}
+      topicFilters={topicFilters}
+      topics={topics}
+      uniqueLevelOneTopics={uniqueLevelOneTopics}
+      uniqueLevelTwoTopics={uniqueLevelTwoTopics}
+    />)
   )
 
   const clearButton = topicFilters.length ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={clearAllTopicFilters} type="button">Clear</button> : <span />
