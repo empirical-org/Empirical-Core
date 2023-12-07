@@ -37,6 +37,8 @@ describe('OverviewSection', () => {
       expect(loadingSpinner.getAttribute('class')).toEqual('spinner')
     })
   })
+  // TODO: add more thorough testing in a subsequent PR
+
   // describe('loaded state', () => {
   //   test('it should render the expected header components', () => {
   //     const { asFragment } = render(<OverviewSection {...props} />);

@@ -51,11 +51,11 @@ exports[`DiagnosticGrowthReports full state it should render expected messaging 
         The Quill Diagnostic enables you to provide a Pre-Diagnostic at the start of the year to identify skills students need to practice. The Post-Diagnostic allows you to then measure students' learning gains over the course of the school year.
       </p>
       <p>
-        At the moment, there are no teachers connected to your admin account who have completed a diagnostic. Once at least one teacher has completed a diagnostic with at least one student, you will be able to see their results in this report. View our guide our guide to learn how teachers can assign diagnostics to their students.
+        At the moment, there are no teachers connected to your admin account who have completed a diagnostic. Once at least one teacher has completed a diagnostic with at least one student, you will be able to see their results in this report. View our guide to learn how teachers can assign diagnostics to their students.
       </p>
       <a
         class="assign-link focus-on-light"
-        href=""
+        href="https://support.quill.org/en/articles/1049933-how-do-i-assign-a-quill-diagnostic"
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -123,7 +123,7 @@ exports[`DiagnosticGrowthReports full state it should render the expected header
         </span>
       </button>
       <button
-        class="interactive-wrapper performance-type-button skill "
+        class="interactive-wrapper performance-type-button overview "
         value="skill"
       >
         <img
@@ -135,7 +135,7 @@ exports[`DiagnosticGrowthReports full state it should render the expected header
         </span>
       </button>
       <button
-        class="interactive-wrapper performance-type-button student "
+        class="interactive-wrapper performance-type-button overview "
         value="student"
       >
         <img
