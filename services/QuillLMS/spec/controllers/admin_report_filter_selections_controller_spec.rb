@@ -2,9 +2,25 @@
 
 require 'rails_helper'
 
-describe AdminReportFilterSelectionsController, type: :controller do
+RSpec.describe AdminReportFilterSelectionsController, type: :controller do
   let(:user) { create(:user) }
-  let(:valid_params) { { report: AdminReportFilterSelection::DATA_EXPORT, user_id: user.id } }
+
+  let(:valid_params) do
+    {
+      filter_selections: {
+        classrooms: nil,
+        custom_end_date: nil,
+        custom_start_date: nil,
+        grades: [],
+        schools: [],
+        teachers: [],
+        timeframe: {}
+      },
+      report: AdminReportFilterSelection::DATA_EXPORT,
+      user_id: user.id
+    }
+  end
+
   let(:invalid_params) { { report: 'invalid_report' } }
   let(:valid_model_attributes) { valid_params.merge({ user_id: user.id }) }
 
