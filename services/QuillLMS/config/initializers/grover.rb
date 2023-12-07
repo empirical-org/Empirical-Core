@@ -3,8 +3,8 @@ Grover.configure do |config|
     print_background: true,
     format: 'Letter',
     margin: {
-      top: '50px',
-      bottom: '50px'
+      top: '54px',
+      bottom: '54px'
     },
   }
 end
