@@ -17111,7 +17111,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                           <div
                                             aria-valuemax="3"
                                             aria-valuemin="0"
-                                            aria-valuenow="2"
+                                            aria-valuenow="4-5"
                                             class="thumb"
                                             draggable="false"
                                             role="slider"
@@ -17128,57 +17128,8 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                     onTouchStart={[Function]}
                                     style={
                                       Object {
-<<<<<<< HEAD
                                         "cursor": "pointer",
                                         "transform": "scale(1)",
-=======
-                                        "onMouseDown": [Function],
-                                        "onTouchStart": [Function],
-                                        "ref": Object {
-                                          "current": <div
-                                            class="track"
-                                          >
-                                            <div
-                                              class="mark first-mark"
-                                              style="position: absolute;"
-                                            >
-                                              4-5
-                                            </div>
-                                            <div
-                                              class="mark"
-                                              style="position: absolute;"
-                                            >
-                                              6-7
-                                            </div>
-                                            <div
-                                              class="mark"
-                                              style="position: absolute;"
-                                            >
-                                              8-9
-                                            </div>
-                                            <div
-                                              class="mark last-mark"
-                                              style="position: absolute;"
-                                            >
-                                              10-12
-                                            </div>
-                                            <div
-                                              aria-valuemax="3"
-                                              aria-valuemin="0"
-                                              aria-valuenow="4-5"
-                                              class="thumb"
-                                              draggable="false"
-                                              role="slider"
-                                              style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                                              tabindex="0"
-                                            />
-                                          </div>,
-                                        },
-                                        "style": Object {
-                                          "cursor": "pointer",
-                                          "transform": "scale(1)",
-                                        },
->>>>>>> 851c207b97 (regressions)
                                       }
                                     }
                                     values={
@@ -17337,7 +17288,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         <ForwardRef
                                           aria-valuemax={3}
                                           aria-valuemin={0}
-                                          aria-valuenow={2}
+                                          aria-valuenow="4-5"
                                           draggable={false}
                                           key="0"
                                           onKeyDown={[Function]}
@@ -17345,7 +17296,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                           role="slider"
                                           style={
                                             Object {
-<<<<<<< HEAD
                                               "MozUserSelect": "none",
                                               "WebkitUserSelect": "none",
                                               "cursor": "grab",
@@ -17354,39 +17304,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                               "touchAction": "none",
                                               "userSelect": "none",
                                               "zIndex": 0,
-=======
-                                              "aria-valuemax": 3,
-                                              "aria-valuemin": 0,
-                                              "aria-valuenow": "4-5",
-                                              "draggable": false,
-                                              "key": 0,
-                                              "onKeyDown": [Function],
-                                              "onKeyUp": [Function],
-                                              "ref": Object {
-                                                "current": <div
-                                                  aria-valuemax="3"
-                                                  aria-valuemin="0"
-                                                  aria-valuenow="4-5"
-                                                  class="thumb"
-                                                  draggable="false"
-                                                  role="slider"
-                                                  style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                                                  tabindex="0"
-                                                />,
-                                              },
-                                              "role": "slider",
-                                              "style": Object {
-                                                "MozUserSelect": "none",
-                                                "WebkitUserSelect": "none",
-                                                "cursor": "grab",
-                                                "msUserSelect": "none",
-                                                "position": "absolute",
-                                                "touchAction": "none",
-                                                "userSelect": "none",
-                                                "zIndex": 0,
-                                              },
-                                              "tabIndex": 0,
->>>>>>> 851c207b97 (regressions)
                                             }
                                           }
                                           tabIndex={0}
