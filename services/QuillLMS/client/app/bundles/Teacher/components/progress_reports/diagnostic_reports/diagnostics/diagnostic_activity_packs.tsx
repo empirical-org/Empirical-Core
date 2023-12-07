@@ -4,7 +4,7 @@ import * as React from 'react';
 import EmptyDiagnosticProgressReport from './empty_diagnostic_progress_report.jsx';
 import GrowthSummarySection from './growthSummarySection';
 import { Classroom, Diagnostic } from './interfaces';
-import { baseDiagnosticImageSrc, goToAssign, } from './shared';
+import { baseDiagnosticImageSrc, calculateClassGrowthPercentage, goToAssign, } from './shared';
 
 import { requestGet } from '../../../../../../modules/request/index';
 import { DropdownInput, Tooltip, } from '../../../../../Shared/index';
@@ -99,7 +99,7 @@ const Diagnostic = ({ diagnostic, }) => {
   const completedStudentCount = studentResults.filter(sr => sr.skill_groups).length
 
   React.useEffect(() => {
-    if(post && post.activity_id) {
+    if (post && post.activity_id) {
       getResults()
     }
   }, [])
