@@ -5,8 +5,15 @@ import { groupByDropdownOptions, hashPayload } from '../../shared'
 import { requestPost, } from '../../../../modules/request';
 import { aggregateOverviewData, averageActivitiesAndTimeSpentTooltipText, completedActivitiesTooltipText, diagnosticNameTooltipText, overallSkillGrowthTooltipText, postDiagnosticCompletedTooltipText, preDiagnosticCompletedTooltipText } from './helpers';
 
-const QUERY_KEY = "admin-diagnostic-overview"
-const PUSHER_EVENT_KEY = "admin-diagnostic-overview-cached";
+const QUERY_KEY = 'admin-diagnostic-overview'
+const PUSHER_EVENT_KEY = 'admin-diagnostic-overview-cached';
+const PRE_DIAGNOSTIC_ASSIGNED_QUERYSTRING = 'pre-diagnostic-assigned'
+const POST_DIAGNOSTIC_ASSIGNED_QUERYSTRING = 'post-diagnostic-assigned'
+const PRE_DIAGNOSTIC_COMPLETED_QUERYSTRING = 'pre-diagnostic-completed'
+const POST_DIAGNOSTIC_COMPLETED_QUERYSTRING = 'post-diagnostic-completed'
+const RECOMMENDATIONS_QUERYSTRING = 'recommendations'
+const DEFAULT_CELL_WIDTH = '176px'
+
 const DIAGNOSTIC_NAME = 'Diagnostic Name'
 const PRE_DIAGNOSTIC_COMPLETED = 'Pre Diagnostic Completed'
 const COMPLETED_ACTIVITIES = 'Completed Activities'
@@ -16,7 +23,7 @@ const headers = [
   {
     name: DIAGNOSTIC_NAME,
     attribute: 'name',
-    width: '176px',
+    width: DEFAULT_CELL_WIDTH,
     tooltipName: DIAGNOSTIC_NAME,
     tooltipDescription: diagnosticNameTooltipText,
     noTooltip: true,
@@ -25,7 +32,7 @@ const headers = [
   {
     name: PRE_DIAGNOSTIC_COMPLETED,
     attribute: 'preDiagnosticCompleted',
-    width: '176px',
+    width: DEFAULT_CELL_WIDTH,
     tooltipName: PRE_DIAGNOSTIC_COMPLETED,
     tooltipDescription: preDiagnosticCompletedTooltipText,
     noTooltip: true,
@@ -34,7 +41,7 @@ const headers = [
   {
     name: COMPLETED_ACTIVITIES,
     attribute: 'studentsCompletedPractice',
-    width: '176px',
+    width: DEFAULT_CELL_WIDTH,
     tooltipName: COMPLETED_ACTIVITIES,
     tooltipDescription: completedActivitiesTooltipText,
     noTooltip: true,
@@ -43,7 +50,7 @@ const headers = [
   {
     name: '',
     attribute: 'averageActivitiesAndTimeSpent',
-    width: '176px',
+    width: DEFAULT_CELL_WIDTH,
     primaryTitle: 'Average Activities &',
     secondaryTitle: 'Time Spent',
     tooltipName: 'Average Activities & Time Spent',
@@ -54,7 +61,7 @@ const headers = [
   {
     name: '',
     attribute: 'postDiagnosticCompleted',
-    width: '176px',
+    width: DEFAULT_CELL_WIDTH,
     primaryTitle: 'Post Diagnostic',
     secondaryTitle: 'Completed',
     tooltipName: 'Post Diagnostic Completed',
@@ -156,7 +163,7 @@ export const OverviewSection = ({
   }
 
   function getPreDiagnosticAssignedData () {
-    const searchParams = getSearchParams("pre-diagnostic-assigned")
+    const searchParams = getSearchParams(PRE_DIAGNOSTIC_ASSIGNED_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
       if (!body.hasOwnProperty('results')) {
@@ -169,7 +176,7 @@ export const OverviewSection = ({
   }
 
   function getPostDiagnosticAssignedData() {
-    const searchParams = getSearchParams("post-diagnostic-assigned")
+    const searchParams = getSearchParams(POST_DIAGNOSTIC_ASSIGNED_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
       if (!body.hasOwnProperty('results')) {
@@ -182,7 +189,7 @@ export const OverviewSection = ({
   }
 
   function getPreDiagnosticCompletedData() {
-    const searchParams = getSearchParams("pre-diagnostic-completed")
+    const searchParams = getSearchParams(PRE_DIAGNOSTIC_COMPLETED_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
       if (!body.hasOwnProperty('results')) {
@@ -195,7 +202,7 @@ export const OverviewSection = ({
   }
 
   function getPostDiagnosticCompletedData() {
-    const searchParams = getSearchParams("post-diagnostic-completed")
+    const searchParams = getSearchParams(POST_DIAGNOSTIC_COMPLETED_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
       if (!body.hasOwnProperty('results')) {
@@ -208,7 +215,7 @@ export const OverviewSection = ({
   }
 
   function getRecommendationsData() {
-    const searchParams = getSearchParams("recommendations")
+    const searchParams = getSearchParams(RECOMMENDATIONS_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
       if (!body.hasOwnProperty('results')) {

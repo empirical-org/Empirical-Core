@@ -41,19 +41,9 @@
       box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.10);
       padding: 16px 16px 32px;
       overflow: visible;
-      .timeframe-filter {
-          &.disabled {
-            .dropdown {
-              .dropdown__control {
-                .dropdown__value-container {
-                  .dropdown__single-value {
-                    color: #7f7f7f;
-                  }
-                }
-              }
-            }
-          }
-        }
+      .timeframe-filter.disabled .dropdown .dropdown__control .dropdown__value-container .dropdown__single-value {
+        color: #7f7f7f
+      }
     }
     .top-section {
       height: 64px;
