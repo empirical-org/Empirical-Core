@@ -59,22 +59,6 @@ export const DiagnosticGrowthReportsContainer = ({
   const [selectedDiagnosticId, setSelectedDiagnosticId] = React.useState<number>(null)
   const [noDiagnosticDataAvailable, setNoDiagnosticDataAvailable] = React.useState<boolean>(!!passedData)
 
-  function handleTabChange(e) {
-    setActiveTab(e.currentTarget.value)
-  }
-
-  function handleTabChangeFromDataChip(value) {
-    setActiveTab(value)
-  }
-
-  function handleSetSelectedDiagnosticId(e) {
-    setSelectedDiagnosticId(Number(e.target.value))
-  }
-
-  function handleSetNoDiagnosticDataAvailable(value: boolean) {
-    setNoDiagnosticDataAvailable(value)
-  }
-
   const sharedProps = {
     searchCount,
     selectedGrades: mapItemsIfNotAll(selectedGrades, availableGrades, 'value'),
@@ -86,6 +70,22 @@ export const DiagnosticGrowthReportsContainer = ({
     hasAdjustedFiltersFromDefault,
     handleSetNoDiagnosticDataAvailable,
     passedData: null
+  }
+
+  function handleTabChange(e) {
+    setActiveTab(e.currentTarget.value)
+  }
+
+  function handleTabChangeFromDataChip(value) {
+    setActiveTab(value)
+  }
+
+  function handleSetNoDiagnosticDataAvailable(value: boolean) {
+    setNoDiagnosticDataAvailable(value)
+  }
+
+  function handleSetSelectedDiagnosticId(e) {
+    setSelectedDiagnosticId(Number(e.target.value))
   }
 
   function renderButtons() {
