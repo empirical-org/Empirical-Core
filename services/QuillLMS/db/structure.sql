@@ -768,7 +768,7 @@ ALTER SEQUENCE public.admin_infos_id_seq OWNED BY public.admin_infos.id;
 CREATE TABLE public.admin_report_filter_selections (
     id bigint NOT NULL,
     report character varying NOT NULL,
-    filter_selections jsonb,
+    filter_selections jsonb NOT NULL,
     user_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -3604,9 +3604,8 @@ ALTER SEQUENCE public.partner_contents_id_seq OWNED BY public.partner_contents.i
 
 CREATE TABLE public.pdf_subscriptions (
     id bigint NOT NULL,
-    title character varying NOT NULL,
     frequency character varying NOT NULL,
-    filter_selections jsonb,
+    admin_report_filter_selection_id bigint NOT NULL,
     user_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -8641,17 +8640,17 @@ CREATE INDEX index_partner_contents_on_partner ON public.partner_contents USING 
 
 
 --
+-- Name: index_pdf_subscriptions_on_admin_report_filter_selection_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pdf_subscriptions_on_admin_report_filter_selection_id ON public.pdf_subscriptions USING btree (admin_report_filter_selection_id);
+
+
+--
 -- Name: index_pdf_subscriptions_on_frequency; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_pdf_subscriptions_on_frequency ON public.pdf_subscriptions USING btree (frequency);
-
-
---
--- Name: index_pdf_subscriptions_on_title; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_pdf_subscriptions_on_title ON public.pdf_subscriptions USING btree (title);
 
 
 --
@@ -10069,6 +10068,14 @@ ALTER TABLE ONLY public.activity_survey_responses
 
 
 --
+-- Name: pdf_subscriptions fk_rails_e92807a6ef; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pdf_subscriptions
+    ADD CONSTRAINT fk_rails_e92807a6ef FOREIGN KEY (admin_report_filter_selection_id) REFERENCES public.admin_report_filter_selections(id);
+
+
+--
 -- Name: admin_report_filter_selections fk_rails_f3c9548131; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10647,6 +10654,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230912150456'),
 ('20230929135017'),
 ('20231018141022'),
-('20231206143410');
+('20231206143410'),
+('20231207135455');
 
 
