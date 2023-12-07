@@ -19,7 +19,8 @@ export function aggregateOverviewData({
   setAggregatedData,
   handleSetNoDiagnosticDataAvailable,
   hasAdjustedFiltersFromDefault,
-  setLoading
+  setLoading,
+  handleGrowthChipClick
 }) {
 
   if ((!preDiagnosticAssignedData.length && !postDiagnosticAssignedData.length && !preDiagnosticCompletedData.length && !postDiagnosticCompletedData.length && !recommendationsData.length) && !hasAdjustedFiltersFromDefault) {
@@ -123,7 +124,7 @@ export function aggregateOverviewData({
     if (!preDiagnosticScore || !postDiagnosticScore) {
       overallSkillGrowth = noDataToShow
     } else if (preDiagnosticScore && postDiagnosticScore && postDiagnosticScore > preDiagnosticScore) {
-      overallSkillGrowth = <p className="emphasized-content">{`+${Math.round((postDiagnosticScore * 100) - (preDiagnosticScore * 100))}%`}</p>
+      overallSkillGrowth = <button className="interactive-wrapper emphasized-content" onClick={handleGrowthChipClick} value={id}>{`+${Math.round((postDiagnosticScore * 100) - (preDiagnosticScore * 100))}%`}</button>
     }
     entry.preDiagnosticCompleted = preStudentsAssigned ? <p className="emphasized-content">{`${preStudentsCompleted || 0} of ${preStudentsAssigned} Students`}</p> : noDataToShow
     entry.studentsCompletedPractice = studentsCompletedPractice ? `${studentsCompletedPractice} Students` : noDataToShow
@@ -138,7 +139,7 @@ export function aggregateOverviewData({
       if(!pre_average_score  || !post_average_score) {
         overallSkillGrowth = noDataToShow
       } else if (pre_average_score && post_average_score && post_average_score > pre_average_score) {
-        overallSkillGrowth = <p className="emphasized-content">{`+${Math.round((post_average_score * 100) - (pre_average_score * 100))}%`}</p>
+        overallSkillGrowth = <button className="interactive-wrapper emphasized-content" onClick={handleGrowthChipClick} value={id}>{`+${Math.round((post_average_score * 100) - (pre_average_score * 100))}%`}</button>
       }
       return {
         id: key,
@@ -154,4 +155,25 @@ export function aggregateOverviewData({
   })
   setAggregatedData(combinedData)
   setLoading(false)
+}
+
+export function aggregateSkillsData({
+  skillsData,
+  setAggregatedData,
+  hasAdjustedFiltersFromDefault,
+  handleSetNoDiagnosticDataAvailable,
+  setLoading
+}) {
+  if (!skillsData.length && !hasAdjustedFiltersFromDefault) {
+    handleSetNoDiagnosticDataAvailable(true)
+    setLoading(false)
+    return
+  }
+  console.log("🚀 ~ file: helpers.tsx:168 ~ skillsData:", skillsData)
+  return skillsData.map(entry => {
+    const { aggregate_rows, improved_proficiency, maintained_proficiency, post_correct_total, post_score, post_total_questions, pre_correct_total, pre_score, pre_total_questions, recommended_practice, skill_name } = entry
+    return {
+
+    }
+  })
 }

@@ -124,6 +124,9 @@ main {
             border-radius: 4px;
             padding: 4px 8px;
             font-weight: 700;
+            &:hover {
+              background-color: $quill-white;
+            }
           }
         }
         td:not(:first-of-type) {

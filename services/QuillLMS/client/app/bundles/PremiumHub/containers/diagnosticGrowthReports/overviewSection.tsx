@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
-import { groupByDropdownOptions, hashPayload } from '../../shared'
+import { SKILL, groupByDropdownOptions, hashPayload } from '../../shared'
 import { requestPost, } from '../../../../modules/request';
 import { aggregateOverviewData, averageActivitiesAndTimeSpentTooltipText, completedActivitiesTooltipText, diagnosticNameTooltipText, overallSkillGrowthTooltipText, postDiagnosticCompletedTooltipText, preDiagnosticCompletedTooltipText } from './helpers';
 
@@ -83,7 +83,9 @@ export const OverviewSection = ({
   selectedTimeframe,
   pusherChannel,
   hasAdjustedFiltersFromDefault,
-  handleSetNoDiagnosticDataAvailable
+  handleSetNoDiagnosticDataAvailable,
+  handleTabChangeFromDataChip,
+  handleSetSelectedDiagnosticId
 }) => {
 
   const [groupByValue, setGroupByValue] = React.useState<DropdownObjectInterface>(groupByDropdownOptions[0])
@@ -121,7 +123,8 @@ export const OverviewSection = ({
         setAggregatedData,
         hasAdjustedFiltersFromDefault,
         handleSetNoDiagnosticDataAvailable,
-        setLoading
+        setLoading,
+        handleGrowthChipClick
       })
     }
   }, [preDiagnosticAssignedData, postDiagnosticAssignedData, preDiagnosticCompletedData, postDiagnosticCompletedData, recommendationsData])
@@ -237,6 +240,11 @@ export const OverviewSection = ({
 
   function handleFilterOptionChange(option) {
     setGroupByValue(option)
+  }
+
+  function handleGrowthChipClick(id: number) {
+    handleSetSelectedDiagnosticId(id)
+    handleTabChangeFromDataChip(SKILL)
   }
 
   function renderContent() {
