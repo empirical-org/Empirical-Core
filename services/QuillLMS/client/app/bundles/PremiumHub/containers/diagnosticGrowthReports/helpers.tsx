@@ -163,7 +163,6 @@ export function aggregateOverviewData(args) {
     entry.overallSkillGrowth = overallSkillGrowthValue(preDiagnosticScore, postDiagnosticScore)
     entry.aggregate_rows = createAggregateRowData(aggregateRowsDataForDiagnostic)
   })
-  debugger
   setAggregatedData(combinedData);
   setLoading(false);
 }
