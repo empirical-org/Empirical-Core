@@ -29,6 +29,7 @@ module AdminDiagnosticReports
       super + <<-SQL
         JOIN lms.activity_sessions
           ON classroom_units.id = activity_sessions.classroom_unit_id
+            AND activity_sessions.user_id IN UNNEST(classroom_units.assigned_student_ids)
         JOIN special.concept_results
           ON activity_sessions.id = concept_results.activity_session_id
         JOIN lms.activities
