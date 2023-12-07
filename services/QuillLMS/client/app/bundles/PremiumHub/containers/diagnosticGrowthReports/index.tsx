@@ -85,8 +85,8 @@ export const DiagnosticGrowthReportsContainer = ({
         {reportButtons.map(button => {
           const { tab, displayName, activeIconSrc, inactiveIconSrc } = button
           return (
-            <button className={`interactive-wrapper performance-type-button overview ${tab === OVERVIEW ? 'active' : ''}`} onClick={handleTabChange} value={tab}>
-              <img alt="" src={tab === OVERVIEW ? activeIconSrc : inactiveIconSrc} />
+            <button className={`interactive-wrapper performance-type-button ${tab} ${tab === activeTab ? 'active' : ''}`} onClick={handleTabChange} value={tab}>
+              <img alt="" src={tab === activeTab ? activeIconSrc : inactiveIconSrc} />
               <span>{displayName}</span>
             </button>
           )
