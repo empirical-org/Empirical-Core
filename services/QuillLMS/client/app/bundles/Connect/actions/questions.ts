@@ -1,6 +1,5 @@
 import C from '../constants';
 
-const moment = require('moment');
 
 import Pusher from 'pusher-js';
 // Put 'pusher' on global window for TypeScript validation
@@ -69,11 +68,11 @@ function cancelQuestionEdit(qid) {
 function submitQuestionEdit(qid, content) {
   return (dispatch, getState) => {
     dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
-    QuestionApi.update(qid, content).then( () => {
+    QuestionApi.update(qid, content).then(() => {
       dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
       dispatch(loadQuestion(qid));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-    }).catch( (error) => {
+    }).catch((error) => {
       dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
       dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
     });
@@ -94,13 +93,13 @@ function submitNewQuestion(content, response, lessonID) {
       dispatch(submitResponse(response));
       dispatch(loadQuestion(response.questionUID));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-      const lessonQuestion = {key: response.questionUID, questionType: C.INTERNAL_SENTENCE_COMBINING_TYPE}
+      const lessonQuestion = { key: response.questionUID, questionType: C.INTERNAL_SENTENCE_COMBINING_TYPE }
       dispatch({ type: C.SUBMIT_LESSON_EDIT, cid: lessonID, });
-      LessonApi.addQuestion(TYPE_CONNECT_LESSON, lessonID, lessonQuestion).then( () => {
+      LessonApi.addQuestion(TYPE_CONNECT_LESSON, lessonID, lessonQuestion).then(() => {
         dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });
         dispatch(lessonActions.loadLesson(lessonID));
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Question successfully added to lesson!', });
-      }).catch( (error) => {
+      }).catch((error) => {
         dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });
         dispatch({ type: C.DISPLAY_ERROR, error: `Add to lesson failed! ${error}`, });
       });
@@ -157,7 +156,7 @@ function updateFlag(qid, flag) {
   return dispatch => {
     QuestionApi.updateFlag(qid, flag).then(() => {
       dispatch(loadQuestion(qid));
-    }).catch( (error) => {
+    }).catch((error) => {
       alert(`Flag update failed! ${error}`);
     });
   }
@@ -169,7 +168,7 @@ function updateModelConceptUID(qid, modelConceptUID) {
       if (!question.modelConceptUID) {
         QuestionApi.updateModelConcept(qid, modelConceptUID).then(() => {
           dispatch(loadQuestion(qid));
-        }).catch( (error) => {
+        }).catch((error) => {
           alert(`Model concept update failed! ${error}`);
         });
       }
@@ -191,7 +190,7 @@ function submitEditedIncorrectSequence(qid, data, seqid) {
   return (dispatch, getState) => {
     IncorrectSequenceApi.update(qid, seqid, data).then(() => {
       dispatch(loadQuestion(qid));
-    }).catch( (error) => {
+    }).catch((error) => {
       alert(`Submission failed! ${error}`);
     });
   };
@@ -211,7 +210,7 @@ function updateIncorrectSequences(qid, data) {
   return (dispatch, getState) => {
     IncorrectSequenceApi.updateAllForQuestion(qid, data).then(() => {
       dispatch(loadQuestion(qid));
-    }).catch( (error) => {
+    }).catch((error) => {
       alert(`Order update failed! ${error}`);
     });
   }
@@ -307,7 +306,7 @@ function getUsedSequences(qid) {
 }
 
 function setUsedSequences(qid, seq) {
-  return {type: C.SET_USED_SEQUENCES, qid, seq}
+  return { type: C.SET_USED_SEQUENCES, qid, seq }
 }
 
 function startResponseEdit(qid, rid) {

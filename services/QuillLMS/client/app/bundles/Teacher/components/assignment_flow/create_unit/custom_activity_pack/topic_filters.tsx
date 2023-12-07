@@ -176,7 +176,6 @@ const TopicFilters = ({ activities, filterActivities, topicFilters, handleTopicF
   function clearAllTopicFilters() { handleTopicFilterChange([]) }
 
   function getUniqueTopics(topics) {
-    console.log("topics: ", topics)
     const nonNullTopics = topics.filter(t => t?.id)
     const topicIdsArray = Array.from(new Set(nonNullTopics.map(a => a.id)))
     return topicIdsArray.map(id => nonNullTopics.find(t => t.id === id))

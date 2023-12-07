@@ -1,5 +1,4 @@
 import C from '../constants';
-const moment = require('moment');
 
 import Pusher from 'pusher-js';
 // Put 'pusher' on global window for TypeScript validation
@@ -72,7 +71,7 @@ function cancelQuestionEdit(qid) {
 function submitQuestionEdit(qid, content) {
   return (dispatch, getState) => {
     dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
-    QuestionApi.update(qid, content).then( () => {
+    QuestionApi.update(qid, content).then(() => {
       dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
       dispatch(loadQuestion(qid));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
@@ -300,7 +299,7 @@ function getUsedSequences(qid) {
 }
 
 function setUsedSequences(qid, seq) {
-  return {type: C.SET_USED_SEQUENCES, qid, seq}
+  return { type: C.SET_USED_SEQUENCES, qid, seq }
 }
 
 function startResponseEdit(qid, rid) {

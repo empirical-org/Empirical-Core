@@ -1,6 +1,6 @@
 /* eslint-env browser*/
+import moment from 'moment';
 import _ from 'underscore';
-const moment = require('moment');
 
 import { requestDelete, requestGet, requestPost, requestPut } from '../../../modules/request/index';
 import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
@@ -198,14 +198,14 @@ function makeIterator(array) {
   let nextIndex = 0;
 
   return {
-    next: function() {
+    next: function () {
       let nextVal = null;
       if (nextIndex < array.length) {
-        nextVal = {value: array[nextIndex], done: false};
+        nextVal = { value: array[nextIndex], done: false };
         nextIndex += 1;
       }
       else {
-        nextVal = {done: true};
+        nextVal = { done: true };
       }
       return nextVal;
     }
@@ -269,7 +269,7 @@ export function submitOptimalResponses(qid, conceptUID, responses, concepts) {
   const convertedResponses = convertConceptNamesToIds(responses, concepts)
   return (dispatch) => {
     convertedResponses.forEach((obj) => {
-      const defaultConcept = [{ conceptUID, correct: true}]
+      const defaultConcept = [{ conceptUID, correct: true }]
       const response = {
         text: obj.text,
         feedback: "That's a strong sentence!",
