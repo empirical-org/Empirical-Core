@@ -4,7 +4,7 @@ module AdminDiagnosticReports
   class DiagnosticOverviewWorker
     include Sidekiq::Worker
 
-    PUSHER_EVENT = 'admin-diagnostic-ovewview-cached'
+    PUSHER_EVENT = 'admin-diagnostic-overview-cached'
     TOO_SLOW_THRESHOLD = 20
 
     class SlowQueryError < StandardError

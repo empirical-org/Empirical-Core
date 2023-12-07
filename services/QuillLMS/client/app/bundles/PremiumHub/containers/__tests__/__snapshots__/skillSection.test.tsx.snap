@@ -189,7 +189,9 @@ exports[`SkillSection loaded state it should render the expected empty state mes
             class="interactive-wrapper focus-on-light"
             type="button"
           >
-            Skill
+            <span>
+              Skill
+            </span>
             <div
               class="sort-tooltip-container"
             />
@@ -232,14 +234,18 @@ exports[`SkillSection loaded state it should render the expected empty state mes
           scope="col"
           style="width: 182px; min-width: 182px; text-align: right;"
         >
-          Growth Results
+          <span>
+            Growth Results
+          </span>
         </th>
         <th
           class="data-table-header undefined"
           scope="col"
           style="width: 182px; min-width: 182px; text-align: right;"
         >
-          Students Improved Skill
+          <span>
+            Students Improved Skill
+          </span>
         </th>
         <th
           class="data-table-header undefined"
@@ -471,7 +477,9 @@ exports[`SkillSection loaded state it should render the expected header componen
             class="interactive-wrapper focus-on-light"
             type="button"
           >
-            Skill
+            <span>
+              Skill
+            </span>
             <div
               class="sort-tooltip-container"
             />
@@ -514,14 +522,18 @@ exports[`SkillSection loaded state it should render the expected header componen
           scope="col"
           style="width: 182px; min-width: 182px; text-align: right;"
         >
-          Growth Results
+          <span>
+            Growth Results
+          </span>
         </th>
         <th
           class="data-table-header undefined"
           scope="col"
           style="width: 182px; min-width: 182px; text-align: right;"
         >
-          Students Improved Skill
+          <span>
+            Students Improved Skill
+          </span>
         </th>
         <th
           class="data-table-header undefined"
@@ -561,23 +573,5 @@ exports[`SkillSection loaded state it should render the expected header componen
       class="data-table-body"
     />
   </table>
-</DocumentFragment>
-`;
-
-exports[`SkillSection loading state it should render loading spinner 1`] = `
-<DocumentFragment>
-  <div
-    class="loading-spinner"
-  >
-    <div
-      class="spinner-container"
-    >
-      <img
-        alt="Loading spinner"
-        class="spinner"
-        src="https://assets.quill.org/images/icons/loader_still.svg"
-      />
-    </div>
-  </div>
 </DocumentFragment>
 `;

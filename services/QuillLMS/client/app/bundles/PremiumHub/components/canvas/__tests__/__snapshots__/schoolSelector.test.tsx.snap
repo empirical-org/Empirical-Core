@@ -28,7 +28,9 @@ exports[`SchoolSelector it should render when all school ids are selected 1`] = 
           scope="col"
           style="width: 356px; min-width: 356px; text-align: left;"
         >
-          Schools
+          <span>
+            Schools
+          </span>
         </th>
       </tr>
     </thead>
@@ -106,7 +108,9 @@ exports[`SchoolSelector it should render when there are no selected school ids 1
           scope="col"
           style="width: 356px; min-width: 356px; text-align: left;"
         >
-          Schools
+          <span>
+            Schools
+          </span>
         </th>
       </tr>
     </thead>
@@ -180,7 +184,9 @@ exports[`SchoolSelector it should render when there is one selected school id 1`
           scope="col"
           style="width: 356px; min-width: 356px; text-align: left;"
         >
-          Schools
+          <span>
+            Schools
+          </span>
         </th>
       </tr>
     </thead>

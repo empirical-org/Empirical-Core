@@ -335,7 +335,9 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
-                  Activity name
+                  <span>
+                    Activity name
+                  </span>
                 </th>
                 <th
                   className="data-table-header undefined"
@@ -349,7 +351,9 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
-                  Suggested grades
+                  <span>
+                    Suggested grades
+                  </span>
                 </th>
               </tr>
             </thead>
@@ -534,7 +538,9 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
-                  Class name
+                  <span>
+                    Class name
+                  </span>
                 </th>
                 <th
                   className="data-table-header undefined"
@@ -548,7 +554,9 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
-                  Assigned grade
+                  <span>
+                    Assigned grade
+                  </span>
                 </th>
               </tr>
             </thead>

@@ -416,7 +416,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Activity
+                <span>
+                  Activity
+                </span>
               </th>
               <th
                 className="data-table-header tool-icon-section"
@@ -430,7 +432,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Tool
+                <span>
+                  Tool
+                </span>
               </th>
               <th
                 className="data-table-header due-date-section"
@@ -444,7 +448,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Due date
+                <span>
+                  Due date
+                </span>
               </th>
               <th
                 className="data-table-header action-button-section"
@@ -457,7 +463,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "88px",
                   }
                 }
-              />
+              >
+                <span />
+              </th>
             </tr>
           </thead>
           <tbody
@@ -1083,7 +1091,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Activity
+                <span>
+                  Activity
+                </span>
               </th>
               <th
                 className="data-table-header score-section tooltip-section"
@@ -1097,7 +1107,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Score
+                <span>
+                  Score
+                </span>
               </th>
               <th
                 className="data-table-header tool-icon-section"
@@ -1111,7 +1123,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Tool
+                <span>
+                  Tool
+                </span>
               </th>
               <th
                 className="data-table-header completed-due-date-section"
@@ -1125,7 +1139,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Due date
+                <span>
+                  Due date
+                </span>
               </th>
               <th
                 className="data-table-header completed-date-section"
@@ -1139,7 +1155,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Completed date
+                <span>
+                  Completed date
+                </span>
               </th>
               <th
                 className="data-table-header action-button-section tooltip-section"
@@ -1152,7 +1170,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "88px",
                   }
                 }
-              />
+              >
+                <span />
+              </th>
             </tr>
           </thead>
           <tbody
