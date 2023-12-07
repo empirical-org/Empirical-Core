@@ -3606,7 +3606,6 @@ CREATE TABLE public.pdf_subscriptions (
     id bigint NOT NULL,
     frequency character varying NOT NULL,
     admin_report_filter_selection_id bigint NOT NULL,
-    user_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -8654,13 +8653,6 @@ CREATE INDEX index_pdf_subscriptions_on_frequency ON public.pdf_subscriptions US
 
 
 --
--- Name: index_pdf_subscriptions_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_pdf_subscriptions_on_user_id ON public.pdf_subscriptions USING btree (user_id);
-
-
---
 -- Name: index_plans_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9796,14 +9788,6 @@ ALTER TABLE ONLY public.learn_worlds_accounts
 
 
 --
--- Name: pdf_subscriptions fk_rails_9bbfb9971e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.pdf_subscriptions
-    ADD CONSTRAINT fk_rails_9bbfb9971e FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
 -- Name: provider_classrooms fk_rails_9c61f34d66; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10065,22 +10049,6 @@ ALTER TABLE ONLY public.sales_stages
 
 ALTER TABLE ONLY public.activity_survey_responses
     ADD CONSTRAINT fk_rails_e65c2d2818 FOREIGN KEY (activity_session_id) REFERENCES public.activity_sessions(id);
-
-
---
--- Name: pdf_subscriptions fk_rails_e92807a6ef; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.pdf_subscriptions
-    ADD CONSTRAINT fk_rails_e92807a6ef FOREIGN KEY (admin_report_filter_selection_id) REFERENCES public.admin_report_filter_selections(id);
-
-
---
--- Name: admin_report_filter_selections fk_rails_f3c9548131; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.admin_report_filter_selections
-    ADD CONSTRAINT fk_rails_f3c9548131 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -10655,6 +10623,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230929135017'),
 ('20231018141022'),
 ('20231206143410'),
-('20231207135455');
+('20231207135455'),
+('20231207151344');
 
 

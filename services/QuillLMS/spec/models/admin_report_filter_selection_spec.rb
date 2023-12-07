@@ -16,10 +16,6 @@
 #  index_admin_report_filter_selections_on_report   (report)
 #  index_admin_report_filter_selections_on_user_id  (user_id)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (user_id => users.id)
-#
 require 'rails_helper'
 
 RSpec.describe AdminReportFilterSelection, type: :model, redis: true do

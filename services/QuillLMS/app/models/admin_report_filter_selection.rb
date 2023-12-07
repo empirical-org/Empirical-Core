@@ -16,10 +16,6 @@
 #  index_admin_report_filter_selections_on_report   (report)
 #  index_admin_report_filter_selections_on_user_id  (user_id)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (user_id => users.id)
-#
 class AdminReportFilterSelection < ApplicationRecord
   REPORTS = [
     DATA_EXPORT = 'data_export',

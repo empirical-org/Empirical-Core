@@ -16,10 +16,6 @@
 #  index_admin_report_filter_selections_on_report   (report)
 #  index_admin_report_filter_selections_on_user_id  (user_id)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (user_id => users.id)
-#
 FactoryBot.define do
   factory :admin_report_filter_selection do
     report { AdminReportFilterSelection::REPORTS.sample }
