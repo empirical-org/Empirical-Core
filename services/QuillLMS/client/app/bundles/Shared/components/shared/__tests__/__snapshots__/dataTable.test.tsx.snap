@@ -14,21 +14,27 @@ exports[`DataTable it should render 1`] = `
           scope="col"
           style="width: 200px; min-width: 200px; text-align: left;"
         >
-          Attribute One
+          <span>
+            Attribute One
+          </span>
         </th>
         <th
           class="data-table-header undefined"
           scope="col"
           style="width: 200px; min-width: 200px; text-align: right;"
         >
-          Attribute Two
+          <span>
+            Attribute Two
+          </span>
         </th>
         <th
           class="data-table-header undefined"
           scope="col"
           style="width: 200px; min-width: 200px; text-align: left;"
         >
-          Attribute Three
+          <span>
+            Attribute Three
+          </span>
         </th>
       </tr>
     </thead>

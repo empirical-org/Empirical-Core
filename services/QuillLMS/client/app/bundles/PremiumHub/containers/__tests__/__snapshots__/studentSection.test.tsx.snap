@@ -100,7 +100,9 @@ exports[`StudentSection loaded state it should render the expected empty state m
           scope="col"
           style="width: 182px; min-width: 182px; text-align: right;"
         >
-          Student Name
+          <span>
+            Student Name
+          </span>
         </th>
         <th
           class="data-table-header undefined"
@@ -307,7 +309,9 @@ exports[`StudentSection loaded state it should render the expected header compon
           scope="col"
           style="width: 182px; min-width: 182px; text-align: right;"
         >
-          Student Name
+          <span>
+            Student Name
+          </span>
         </th>
         <th
           class="data-table-header undefined"
@@ -411,23 +415,5 @@ exports[`StudentSection loaded state it should render the expected header compon
       class="data-table-body"
     />
   </table>
-</DocumentFragment>
-`;
-
-exports[`StudentSection loading state it should render loading spinner 1`] = `
-<DocumentFragment>
-  <div
-    class="loading-spinner"
-  >
-    <div
-      class="spinner-container"
-    >
-      <img
-        alt="Loading spinner"
-        class="spinner"
-        src="https://assets.quill.org/images/icons/loader_still.svg"
-      />
-    </div>
-  </div>
 </DocumentFragment>
 `;
