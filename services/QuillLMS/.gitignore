@@ -74,3 +74,5 @@ nohup.out
 /cypress/videos
 
 **/.DS_Store
+
+.cache
