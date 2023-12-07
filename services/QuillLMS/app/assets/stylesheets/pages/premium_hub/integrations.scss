@@ -34,11 +34,13 @@
       font-size: 16px;
       font-weight: 600;
       line-height: 18px; /* 112.5% */
-      margin-bottom: 24px;
       display: block;
-      &:first-of-type {
-        margin-top: 32px;
-      }
+    }
+    button, a {
+      margin-bottom: 24px;
+    }
+    .links {
+      margin-top: 32px;
     }
     .integration-tip {
       margin-top: 32px;
@@ -82,6 +84,15 @@
   }
   .canvas-container {
     padding-top: 48px;
+    .setup-guide {
+      color: $quill-green;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 18px;
+      margin: 16px auto;
+      text-align: center;
+      display: block;
+    }
   }
   .canvas-integration-form {
     border-radius: 8px;
