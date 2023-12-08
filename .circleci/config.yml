@@ -147,7 +147,7 @@ jobs:
           path: /home/circleci/Empirical-Core/services/QuillLMS/tmp/screenshots
   lms_big_query_build:
     working_directory: ~/Empirical-Core
-    parallelism: 1
+    parallelism: 2
     docker:
       - image: cimg/ruby:3.1.4
         environment:
