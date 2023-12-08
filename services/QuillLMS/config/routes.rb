@@ -929,9 +929,6 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  # TODO: remove this before we go live
-  get '/pdfz', to: 'pages#pdfz'
-
   get 'demo' => 'teachers/progress_reports#demo'
   get 'quill_staff_demo' => 'teachers/progress_reports#staff_demo'
   get 'coach_demo' => 'teachers/progress_reports#coach_demo'

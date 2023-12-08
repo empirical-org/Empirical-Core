@@ -21,9 +21,6 @@ class PagesController < ApplicationController
   NUMBER_OF_LOW_INCOME_SCHOOLS = "NUMBER_OF_LOW_INCOME_SCHOOLS"
   OPEN_POSITIONS = Configs[:careers][:open_positions]
 
-  # TODO: remove this before we go live
-  def pdfz; end
-
   def home
     if signed_in?
       redirect_to(profile_path) && return
@@ -518,8 +515,6 @@ class PagesController < ApplicationController
 
   private def determine_layout
     case action_name
-    when 'pdfz' # TODO: remove this before we go live
-      'pdf' # TODO: remove this before we go live
     when 'home'
       'home'
     when 'home_new', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool', 'evidence_tool'
