@@ -1,195 +1,167 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AdminSubnav it should render 1`] = `
-Document {
-  "_reactListeningopdqfn5y6gd": true,
-  "location": Location {
-    "assign": [Function],
-    "hash": "",
-    "host": "localhost",
-    "hostname": "localhost",
-    "href": "http://localhost/",
-    "origin": "http://localhost",
-    "pathname": "/",
-    "port": "",
-    "protocol": "http:",
-    "reload": [Function],
-    "replace": [Function],
-    "search": "",
-    "toString": [Function],
-  },
-  Symbol(SameObject caches): Object {
-    "childNodes": NodeList [
-      DocumentType {},
-      <html>
-        <head />
-        <body>
-          <div>
-            <div
-              class="tab-subnavigation-wrapper mobile class-subnav premium-hub-subnav red"
+<DocumentFragment>
+  <div
+    class="tab-subnavigation-wrapper mobile class-subnav premium-hub-subnav red"
+  >
+    <div
+      class="dropdown-container"
+    >
+      <div
+        class=""
+      >
+        <button
+          class="interactive-wrapper"
+          id="mobile-subnav-dropdown"
+          type="button"
+        >
+          <p />
+          <i
+            class="fa fa-thin fa-angle-down"
+          />
+        </button>
+        <ul
+          class="dropdown-menu"
+        >
+          <li>
+            <a
+              class=""
+              href="/teachers/premium_hub"
             >
-              <div
-                class="dropdown-container"
-              >
-                <div
-                  class=""
-                >
-                  <button
-                    class="interactive-wrapper"
-                    id="mobile-subnav-dropdown"
-                    type="button"
-                  >
-                    <p />
-                    <i
-                      class="fa fa-thin fa-angle-down"
-                    />
-                  </button>
-                  <ul
-                    class="dropdown-menu"
-                  >
-                    <li>
-                      <a
-                        class=""
-                        href="/teachers/premium_hub"
-                      >
-                        Overview
-                      </a>
-                      <div
-                        class="checkmark-icon "
-                      />
-                    </li>
-                    <li>
-                      <a
-                        class=""
-                        href="/teachers/premium_hub/school_subscriptions"
-                      >
-                        School Subscriptions
-                      </a>
-                      <div
-                        class="checkmark-icon "
-                      />
-                    </li>
-                    <li>
-                      <a
-                        class=""
-                        href="/teachers/premium_hub/integrations"
-                      >
-                        Integrations
-                      </a>
-                      <div
-                        class="checkmark-icon "
-                      />
-                    </li>
-                    <li>
-                      <a
-                        class=""
-                        href="/teachers/premium_hub/district_activity_scores"
-                      >
-                        Activity Scores
-                      </a>
-                      <div
-                        class="checkmark-icon "
-                      />
-                    </li>
-                    <li>
-                      <a
-                        class=""
-                        href="/teachers/premium_hub/district_concept_reports"
-                      >
-                        Concept Reports
-                      </a>
-                      <div
-                        class="checkmark-icon "
-                      />
-                    </li>
-                    <li>
-                      <a
-                        class=""
-                        href="/teachers/premium_hub/district_standards_reports"
-                      >
-                        Standards Reports
-                      </a>
-                      <div
-                        class="checkmark-icon "
-                      />
-                    </li>
-                    <li>
-                      <a
-                        class=""
-                        href="/teachers/premium_hub/usage_snapshot_report"
-                      >
-                        Usage Snapshot Report
-                      </a>
-                      <div
-                        class="checkmark-icon "
-                      />
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+              Overview
+            </a>
             <div
-              class="tab-subnavigation-wrapper desktop class-subnav premium-hub-subnav"
+              class="checkmark-icon "
+            />
+          </li>
+          <li>
+            <a
+              class=""
+              href="/teachers/premium_hub/school_subscriptions"
             >
-              <div
-                class="container"
-              >
-                <ul>
-                  <li>
-                    <a
-                      class=""
-                      href="/teachers/premium_hub"
-                    >
-                      Overview
-                    </a>
-                    <div
-                      class="checkmark-icon "
-                    />
-                  </li>
-                  <li>
-                    <a
-                      class=""
-                      href="/teachers/premium_hub/school_subscriptions"
-                    >
-                      School Subscriptions
-                    </a>
-                    <div
-                      class="checkmark-icon "
-                    />
-                  </li>
-                  <li>
-                    <a
-                      class=""
-                      href="/teachers/premium_hub/integrations"
-                    >
-                      Integrations
-                    </a>
-                    <div
-                      class="checkmark-icon "
-                    />
-                  </li>
-                  <li
-                    class="premium-reports-tab"
-                  >
-                    <button
-                      aria-controls="premium-reports-nav-dropdown"
-                      aria-expanded="false"
-                      aria-haspopup="true"
-                      class="premium-reports-button focus-on-dark  "
-                      type="button"
-                    >
-                      <span>
-                        Premium Reports
-                      </span>
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </body>
-      </html>,
-    ],
-  },
-}
+              School Subscriptions
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
+          <li>
+            <a
+              class=""
+              href="/teachers/premium_hub/integrations"
+            >
+              Integrations
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
+          <li>
+            <a
+              class=""
+              href="/teachers/premium_hub/district_activity_scores"
+            >
+              Activity Scores
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
+          <li>
+            <a
+              class=""
+              href="/teachers/premium_hub/district_concept_reports"
+            >
+              Concept Reports
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
+          <li>
+            <a
+              class=""
+              href="/teachers/premium_hub/district_standards_reports"
+            >
+              Standards Reports
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
+          <li>
+            <a
+              class=""
+              href="/teachers/premium_hub/usage_snapshot_report"
+            >
+              Usage Snapshot Report
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div
+    class="tab-subnavigation-wrapper desktop class-subnav premium-hub-subnav"
+  >
+    <div
+      class="container"
+    >
+      <ul>
+        <li>
+          <a
+            class=""
+            href="/teachers/premium_hub"
+          >
+            Overview
+          </a>
+          <div
+            class="checkmark-icon "
+          />
+        </li>
+        <li>
+          <a
+            class=""
+            href="/teachers/premium_hub/school_subscriptions"
+          >
+            School Subscriptions
+          </a>
+          <div
+            class="checkmark-icon "
+          />
+        </li>
+        <li>
+          <a
+            class=""
+            href="/teachers/premium_hub/integrations"
+          >
+            Integrations
+          </a>
+          <div
+            class="checkmark-icon "
+          />
+        </li>
+        <li
+          class="premium-reports-tab"
+        >
+          <button
+            aria-controls="premium-reports-nav-dropdown"
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="premium-reports-button focus-on-dark  "
+            type="button"
+          >
+            <span>
+              Premium Reports
+            </span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
 `;
