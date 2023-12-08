@@ -23,9 +23,8 @@ const setup = async (openMenu = false) => {
 
 describe('AdminSubnav', () => {
   test('it should render', () => {
-    setup();
-    const asFragment = screen.getByText('Premium Reports').ownerDocument;
-    expect(asFragment).toMatchSnapshot();
+    const { asFragment } = render(<MemoryRouter><AdminSubnav path={mockPath} /></MemoryRouter>);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   test('clicking on premium-reports-button opens the menu', async () => {
