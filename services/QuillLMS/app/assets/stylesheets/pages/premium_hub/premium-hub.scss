@@ -508,13 +508,8 @@
           background: transparent;
           span::after {
             margin-left: 8px;
-            content: "\f077";
+            content: "\f078";
             font-family: "Font Awesome 5 Pro";
-          }
-          &.open {
-            span::after {
-              content: "\f078";
-            }
           }
           &.open:not(.active) {
             background-color: rgba(255, 255, 255, 0.5);

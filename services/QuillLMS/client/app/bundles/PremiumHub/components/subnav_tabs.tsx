@@ -5,12 +5,12 @@ import { renderNavList } from '../../Shared';
 import { MOUSEDOWN, KEYDOWN, } from '../../Shared/utils/eventNames'
 import { ESCAPE, } from '../../Shared/utils/keyNames'
 
-const ACTIVITY_SCORES = 'Activity Scores';
-const CONCEPT_REPORTS = 'Concept Reports';
+const ACTIVITY_SCORES = 'Activity Scores Report';
+const CONCEPT_REPORTS = 'Concepts Report';
 const INTEGRATIONS = 'Integrations';
 const OVERVIEW = 'Overview';
-const SCHOOL_SUBSCRIPTIONS = 'School Subscriptions';
-const STANDARDS_REPORTS = 'Standards Reports';
+const SUBSCRIPTIONS = 'Subscriptions';
+const STANDARDS_REPORTS = 'Standards Report';
 const USAGE_SNAPSHOT_REPORT = 'Usage Snapshot Report'
 const DATA_EXPORT = 'Data Export'
 const DIAGNOSTIC_GROWTH_REPORT = 'Diagnostic Growth Report'
@@ -21,8 +21,8 @@ const baseTabs = {
     label: OVERVIEW,
     url: '/teachers/premium_hub'
   },
-  [SCHOOL_SUBSCRIPTIONS]: {
-    label: SCHOOL_SUBSCRIPTIONS,
+  [SUBSCRIPTIONS]: {
+    label: SUBSCRIPTIONS,
     url: '/teachers/premium_hub/school_subscriptions'
   },
   [INTEGRATIONS]: {
@@ -69,12 +69,12 @@ const premiumReportDropdownItems = [
   //   new: true
   // },
   {
-    label: ACTIVITY_SCORES,
-    url: '/teachers/premium_hub/district_activity_scores'
-  },
-  {
     label: CONCEPT_REPORTS,
     url: '/teachers/premium_hub/district_concept_reports'
+  },
+  {
+    label: ACTIVITY_SCORES,
+    url: '/teachers/premium_hub/district_activity_scores'
   },
   {
     label: STANDARDS_REPORTS,
@@ -97,6 +97,7 @@ const tabs = {
 const PremiumReportsDropdown = ({ activeTab }) => {
   const dropdownId = "premium-reports-nav-dropdown"
   const [isOpen, setIsOpen] = React.useState(false);
+  const containerRef = React.useRef(null)
   const dropdownRef = React.useRef(null);
   const buttonRef = React.useRef(null);
 
@@ -113,8 +114,10 @@ const PremiumReportsDropdown = ({ activeTab }) => {
   const openClass = isOpen ? 'open' : '';
 
   function toggleDropdown() {
-    setIsOpen(!isOpen);
-    if (!isOpen) {
+    if (isOpen) {
+      closeDropdown()
+    } else {
+      setIsOpen(true);
 
       // setTimeout here is a workaround to make sure that the dropdownRef is actually available in the DOM by the time this executes (it pushes execution to the end of the event queue, after the rerender)
       setTimeout(() => {
@@ -131,7 +134,7 @@ const PremiumReportsDropdown = ({ activeTab }) => {
   }
 
   function handleClickOutside(event) {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    if (containerRef.current && !containerRef.current.contains(event.target)) {
       closeDropdown();
     }
   }
@@ -156,7 +159,7 @@ const PremiumReportsDropdown = ({ activeTab }) => {
   }
 
   return (
-    <li className="premium-reports-tab">
+    <li className="premium-reports-tab" ref={containerRef}>
       <button
         aria-controls={dropdownId}
         aria-expanded={isOpen}
@@ -192,7 +195,7 @@ export const AdminSubnav = ({ path }) => {
     if (reportPaths.find(path => pathname.includes(path))) {
       setActiveTab(PREMIUM_REPORTS)
     } else if (pathname.includes('/school_subscriptions')) {
-      setActiveTab(SCHOOL_SUBSCRIPTIONS)
+      setActiveTab(SUBSCRIPTIONS)
     } else if (pathname.includes('/diagnostic_growth_report')) {
       setActiveTab(DIAGNOSTIC_GROWTH_REPORT)
     } else if (pathname.includes('/data_export')) {
