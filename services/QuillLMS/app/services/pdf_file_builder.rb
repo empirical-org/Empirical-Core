@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class PdfFileBuilder < ApplicationService
+  BASE_URL = "#{ENV['DEFAULT_URL']}/"
+  HTTPS = 'https'
+  LAYOUT = 'pdf'
   ENCODING = 'ascii-8bit'
   TEMPFILE_NAME = 'temp.pdf'
-  LAYOUT = 'pdf'
 
   attr_reader :data, :template
 
@@ -19,7 +21,11 @@ class PdfFileBuilder < ApplicationService
   end
 
   private def html_with_absolute_urls
-    Grover::HTMLPreprocessor.process(html_with_relative_urls, "#{ENV['DEFAULT_URL']}/", 'https')
+    Grover::HTMLPreprocessor.process(
+      html_with_relative_urls,
+      BASE_URL,
+      HTTPS
+    )
   end
 
   private def html_with_relative_urls

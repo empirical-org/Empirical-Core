@@ -15,18 +15,7 @@ class BlahWorker
   end
 
   private def data
-    [
-      {
-        label: 'Highlights',
-        snapshot_sections: [
-          {
-            label: 'Sentences Written',
-            count: '1,000,000',
-            change: '-100'
-          }
-        ]
-      }
-    ]
+    {}
   end
 
   private def pdf_file
