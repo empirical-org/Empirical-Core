@@ -14,13 +14,19 @@ module AdminDiagnosticReports
       super + <<-SQL
         JOIN lms.activity_sessions
           ON classroom_units.id = activity_sessions.classroom_unit_id
-            AND activity_sessions.user_id IN UNNEST(classroom_units.assigned_student_ids)
         JOIN lms.units
           ON classroom_units.unit_id = units.id
         JOIN lms.recommendations
           ON units.unit_template_id = recommendations.unit_template_id
         JOIN lms.activities
           ON recommendations.activity_id = activities.id
+      SQL
+    end
+
+    def where_clause
+      <<-SQL
+        #{super}
+        AND activity_sessions.user_id IN (SELECT CAST(id AS INT64) FROM UNNEST(classroom_units.assigned_student_ids) AS id)
       SQL
     end
 
