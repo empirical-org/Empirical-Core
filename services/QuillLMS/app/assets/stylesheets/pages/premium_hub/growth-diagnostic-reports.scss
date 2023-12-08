@@ -94,9 +94,9 @@ main {
   .growth-diagnostic-reports-overview-table, .growth-diagnostic-reports-by-skill-table {
     margin-top: 48px;
     max-height: 800px;
-    overflow-y: scroll;
+    overflow-y: auto !important;
     .data-table-headers {
-      padding-right: 8px;
+      padding-right: 10px;
       th {
         justify-content: space-between;
         font-size: 13px !important;
@@ -111,11 +111,15 @@ main {
           right: 0 !important;
           transform: inherit !important;
         }
+        img {
+          margin-right: 8px;
+        }
       }
     }
     .data-table-body {
       .data-table-row {
-        padding-right: 8 !important;
+        padding-right: 10px !important;
+        border-right: 1px solid $quill-grey-1;
         td {
           min-height: 46px !important;
           font-size: 13px !important;

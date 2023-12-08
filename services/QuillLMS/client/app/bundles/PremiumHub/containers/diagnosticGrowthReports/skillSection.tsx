@@ -1,80 +1,84 @@
 import * as React from 'react'
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
-import { DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH, diagnosticTypeDropdownOptions, groupByDropdownOptions, hashPayload } from '../../shared'
+import { diagnosticTypeDropdownOptions, groupByDropdownOptions, hashPayload } from '../../shared'
 import { requestPost } from '../../../../modules/request'
-import { aggregateSkillsData } from './helpers'
+import { aggregateSkillsData, growthResultsTooltipText, postSkillScoreTooltipText, preSkillScoreTooltipText, studentsImprovedSkillTooltipText, studentsMaintainedProficiencyTooltipText, studentsWithoutImprovementTooltipText } from './helpers'
 
 const QUERY_KEY = "admin-diagnostic-skills"
 const PUSHER_EVENT_KEY = "admin-diagnostic-skills-cached";
+const DEFAULT_CELL_WIDTH = '142px'
+const GROWTH_RESULTS = 'Growth Results'
 
 const headers = [
   {
     name: 'Skill',
-    attribute: 'skill',
-    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
+    attribute: 'name',
+    width: '133px',
     noTooltip: true,
     isSortable: true
   },
   {
     name: '',
     attribute: 'preSkillScore',
-    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
+    width: DEFAULT_CELL_WIDTH,
     primaryTitle: 'Pre',
     secondaryTitle: 'Skill Score',
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: 'Pre Skill Score',
+    tooltipDescription: preSkillScoreTooltipText,
     noTooltip: true,
     isSortable: false
   },
   {
     name: '',
     attribute: 'postSkillScore',
-    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
+    width: DEFAULT_CELL_WIDTH,
     primaryTitle: 'Post',
     secondaryTitle: 'Skill Score',
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: 'Post Skill Score',
+    tooltipDescription: postSkillScoreTooltipText,
     noTooltip: true,
     isSortable: false
   },
   {
-    name: 'Growth Results',
+    name: GROWTH_RESULTS,
     attribute: 'growthResults',
-    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
-    tooltipName: '',
-    tooltipDescription: '',
-    noTooltip: true,
-    isSortable: false
-  },
-  {
-    name: 'Students Improved Skill',
-    attribute: 'studentsImprovedSkill',
-    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
-    tooltipName: '',
-    tooltipDescription: '',
+    width: DEFAULT_CELL_WIDTH,
+    tooltipName: GROWTH_RESULTS,
+    tooltipDescription: growthResultsTooltipText,
     noTooltip: true,
     isSortable: false
   },
   {
     name: '',
-    attribute: 'studentsRecommendedPractice',
-    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
+    attribute: 'studentsImprovedSkill',
+    width: DEFAULT_CELL_WIDTH,
     primaryTitle: 'Students',
-    secondaryTitle: 'Recommended Practice',
-    tooltipName: '',
-    tooltipDescription: '',
+    secondaryTitle: 'Improved Skill',
+    tooltipName: 'Students Improved Skills',
+    tooltipDescription: studentsImprovedSkillTooltipText,
+    noTooltip: true,
+    isSortable: false
+  },
+  {
+    name: '',
+    attribute: 'studentsWithoutImprovement',
+    width: '160px',
+    primaryTitle: 'Students',
+    secondaryTitle: 'Without Improvement',
+    tooltipName: 'Students Without Improvement',
+    tooltipDescription: studentsWithoutImprovementTooltipText,
     noTooltip: true,
     isSortable: false
   },
   {
     name: '',
     attribute: 'studentsMaintainedProficiency',
-    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
+    width: '154px',
     primaryTitle: 'Students Maintained',
     secondaryTitle: 'Proficiency',
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: 'Students Maintained Proficiency',
+    tooltipDescription: studentsMaintainedProficiencyTooltipText,
     noTooltip: true,
     isSortable: false
   },
@@ -89,8 +93,6 @@ export const SkillSection = ({
   selectedClassroomIds,
   selectedTimeframe,
   pusherChannel,
-  hasAdjustedFiltersFromDefault,
-  handleSetNoDiagnosticDataAvailable,
   selectedDiagnosticId
 }) => {
 
@@ -107,7 +109,7 @@ export const SkillSection = ({
 
   React.useEffect(() => {
     getData()
-  }, [searchCount, groupByValue])
+  }, [searchCount, groupByValue, diagnosticTypeValue])
 
   React.useEffect(() => {
     if (!pusherMessage) return
@@ -120,8 +122,6 @@ export const SkillSection = ({
       aggregateSkillsData({
         skillsData,
         setAggregatedData,
-        hasAdjustedFiltersFromDefault,
-        handleSetNoDiagnosticDataAvailable,
         setLoading
       })
     }
@@ -153,7 +153,6 @@ export const SkillSection = ({
         return
       } else {
         const { results, } = body
-        console.log("🚀 ~ file: skillSection.tsx:158 ~ requestPost ~ results:", results)
         setSkillsData(results)
       }
     })

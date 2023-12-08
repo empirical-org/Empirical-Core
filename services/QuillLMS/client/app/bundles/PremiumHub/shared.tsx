@@ -22,21 +22,14 @@ export const STUDENT = 'student'
 export const DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH = '182px'
 export const groupByDropdownOptions = [{ label: 'Grade', value: 'grade' }, { label: 'Teacher', value: 'teacher' }, { label: 'Classroom', value: 'classroom' }]
 export const diagnosticTypeDropdownOptions = [
-  { label: 'Starter Diagnostic (Pre)', value: 1663 },
-  { label: 'Starter Diagnostic (Post)', value: 1664 },
-  { label: 'Intermediate Diagnostic (Pre)', value: 1668 },
-  { label: 'Intermediate Diagnostic (Post)', value: 1669 },
-  { label: 'Advanced Diagnostic (Pre)', value: 1678 },
-  { label: 'Advanced Diagnostic (Post)', value: 1680 },
-  { label: 'ELL Starter Diagnostic (Pre)', value: 1161 },
-  { label: 'ELL Starter Diagnostic (Post)', value: 1774 },
-  { label: 'ELL Intermediate Diagnostic (Pre)', value: 1568 },
-  { label: 'ELL Intermediate Diagnostic (Post)', value: 1814 },
-  { label: 'ELL Advanced Diagnostic (Pre)', value: 1590 },
-  { label: 'ELL Advanced Diagnostic (Post)', value: 1818 },
+  { label: 'Starter Diagnostic', value: 1663 },
+  { label: 'Intermediate Diagnostic', value: 1668 },
+  { label: 'Advanced Diagnostic', value: 1678 },
+  { label: 'ELL Starter Diagnostic', value: 1161 },
+  { label: 'ELL Intermediate Diagnostic', value: 1568 },
+  { label: 'ELL Advanced Diagnostic', value: 1590 },
   { label: 'AP Writing Skills Survey', value: 992 },
-  { label: 'Pre-AP Writing Skills Survey 1', value: 1229 },
-  { label: 'Pre-AP Writing Skills Survey 2', value: 1230 },
+  { label: 'Pre-AP Writing Skills Survey', value: 1229 },
   { label: 'SpringBoard Writing Skills Survey', value: 1432 }
 ]
 

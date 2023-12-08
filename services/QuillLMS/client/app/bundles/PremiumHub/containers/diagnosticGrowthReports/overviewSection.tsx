@@ -32,7 +32,7 @@ const headers = [
   {
     name: PRE_DIAGNOSTIC_COMPLETED,
     attribute: 'preDiagnosticCompleted',
-    width: DEFAULT_CELL_WIDTH,
+    width: '196px',
     tooltipName: PRE_DIAGNOSTIC_COMPLETED,
     tooltipDescription: preDiagnosticCompletedTooltipText,
     noTooltip: true,
