@@ -5,8 +5,7 @@ class BlahWorker
 
   class CloudUploadError < StandardError; end
 
-  # PDF_TEMPLATE = 'pdfs/admin_usage_snapshot_report'
-  PDF_TEMPLATE = 'pages/pdfz'
+  PDF_TEMPLATE = 'pdfs/admin_usage_snapshot_report_pdf'
 
   def perform
     raise CloudUploadError, "Unable to upload PDF for user #{user_id}" unless uploader.store!(pdf_file)

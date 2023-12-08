@@ -6,7 +6,7 @@ RSpec.describe PdfFileBuilder do
   subject { described_class.run(data, template) }
 
   let(:data) { { some_key: 'some_value' } }
-  let(:template) { 'pdf' }
+  let(:template) { BlahWorker::PDF_TEMPLATE }
   let(:pdf_string) { 'PDF content' }
 
   before { allow(Grover).to receive(:new).and_return(double(to_pdf: pdf_string)) }
