@@ -72,6 +72,7 @@ exports[`StudentReportBox should render 1`] = `
           <tbody>
             <tr
               className="Directions"
+              key=""
             >
               <td>
                 Directions
@@ -159,21 +160,18 @@ exports[`StudentReportBox should render 1`] = `
                 </span>
               </td>
             </tr>
-            <span
-              key="[object Object]-1"
+            <tr
+              className="Feedback"
+              key="<p>Revise your work. Use one of the joining words from the instructions.</p>-1"
             >
-              <tr
-                className="Feedback"
-              >
-                <td>
-                  Feedback
-                </td>
-                <td />
-                <td>
-                  Revise your work. Use one of the joining words from the instructions.
-                </td>
-              </tr>
-            </span>
+              <td>
+                Feedback
+              </td>
+              <td />
+              <td>
+                Revise your work. Use one of the joining words from the instructions.
+              </td>
+            </tr>
             <tr
               key="1-concepts"
             >
@@ -252,9 +250,6 @@ exports[`StudentReportBox should render 1`] = `
                 </span>
               </td>
             </tr>
-            <span
-              key="false-2"
-            />
             <tr
               key="2-concepts"
             >
