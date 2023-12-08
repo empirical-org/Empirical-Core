@@ -6,7 +6,6 @@ class PdfFileBuilder < ApplicationService
   LAYOUT = 'pdf'
   ENCODING = 'ascii-8bit'
   TEMPFILE_NAME = 'temp.pdf'
-  LAYOUT = 'pdf'
 
   attr_reader :data, :template
 
