@@ -51,7 +51,8 @@
     "lazysizes": "^5.2.0-beta1",
     "puppeteer": "^19.5.2",
     "quill-marking-logic": "0.15.11",
-    "react-csv": "^1.1.2"
+    "react-csv": "^1.1.2",
+    "react-datetime": "^3.2.0"
   },
   "devDependencies": {
     "@types/enzyme": "^3.10.13",
