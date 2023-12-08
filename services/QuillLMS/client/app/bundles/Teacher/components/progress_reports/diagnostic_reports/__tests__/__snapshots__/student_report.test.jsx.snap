@@ -5074,6 +5074,7 @@ exports[`StudentReport should render 1`] = `
                 <tbody>
                   <tr
                     className="Directions"
+                    key=""
                   >
                     <td>
                       Directions
@@ -5161,21 +5162,18 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="[object Object]-1"
+                  <tr
+                    className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-1"
                   >
-                    <tr
-                      className="Feedback"
-                    >
-                      <td>
-                        Feedback
-                      </td>
-                      <td />
-                      <td>
-                        Proofread your work. Check your ending punctuation.
-                      </td>
-                    </tr>
-                  </span>
+                    <td>
+                      Feedback
+                    </td>
+                    <td />
+                    <td>
+                      Proofread your work. Check your ending punctuation.
+                    </td>
+                  </tr>
                   <tr
                     key="1-concepts"
                   >
@@ -5280,21 +5278,18 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="[object Object]-2"
+                  <tr
+                    className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-2"
                   >
-                    <tr
-                      className="Feedback"
-                    >
-                      <td>
-                        Feedback
-                      </td>
-                      <td />
-                      <td>
-                        Proofread your work. Check your ending punctuation.
-                      </td>
-                    </tr>
-                  </span>
+                    <td>
+                      Feedback
+                    </td>
+                    <td />
+                    <td>
+                      Proofread your work. Check your ending punctuation.
+                    </td>
+                  </tr>
                   <tr
                     key="2-concepts"
                   >
@@ -5399,21 +5394,18 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="[object Object]-3"
+                  <tr
+                    className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-3"
                   >
-                    <tr
-                      className="Feedback"
-                    >
-                      <td>
-                        Feedback
-                      </td>
-                      <td />
-                      <td>
-                        Proofread your work. Check your ending punctuation.
-                      </td>
-                    </tr>
-                  </span>
+                    <td>
+                      Feedback
+                    </td>
+                    <td />
+                    <td>
+                      Proofread your work. Check your ending punctuation.
+                    </td>
+                  </tr>
                   <tr
                     key="3-concepts"
                   >
@@ -5518,21 +5510,18 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="[object Object]-4"
+                  <tr
+                    className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-4"
                   >
-                    <tr
-                      className="Feedback"
-                    >
-                      <td>
-                        Feedback
-                      </td>
-                      <td />
-                      <td>
-                        Proofread your work. Check your ending punctuation.
-                      </td>
-                    </tr>
-                  </span>
+                    <td>
+                      Feedback
+                    </td>
+                    <td />
+                    <td>
+                      Proofread your work. Check your ending punctuation.
+                    </td>
+                  </tr>
                   <tr
                     key="4-concepts"
                   >
@@ -5637,9 +5626,6 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="false-5"
-                  />
                   <tr
                     key="5-concepts"
                   >
@@ -5856,6 +5842,7 @@ exports[`StudentReport should render 1`] = `
                 <tbody>
                   <tr
                     className="Directions"
+                    key=""
                   >
                     <td>
                       Directions
@@ -5943,21 +5930,18 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="[object Object]-1"
+                  <tr
+                    className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-1"
                   >
-                    <tr
-                      className="Feedback"
-                    >
-                      <td>
-                        Feedback
-                      </td>
-                      <td />
-                      <td>
-                        Proofread your work. Check your ending punctuation.
-                      </td>
-                    </tr>
-                  </span>
+                    <td>
+                      Feedback
+                    </td>
+                    <td />
+                    <td>
+                      Proofread your work. Check your ending punctuation.
+                    </td>
+                  </tr>
                   <tr
                     key="1-concepts"
                   >
@@ -6062,21 +6046,18 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="[object Object]-2"
+                  <tr
+                    className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-2"
                   >
-                    <tr
-                      className="Feedback"
-                    >
-                      <td>
-                        Feedback
-                      </td>
-                      <td />
-                      <td>
-                        Proofread your work. Check your ending punctuation.
-                      </td>
-                    </tr>
-                  </span>
+                    <td>
+                      Feedback
+                    </td>
+                    <td />
+                    <td>
+                      Proofread your work. Check your ending punctuation.
+                    </td>
+                  </tr>
                   <tr
                     key="2-concepts"
                   >
@@ -6181,21 +6162,18 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="[object Object]-3"
+                  <tr
+                    className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-3"
                   >
-                    <tr
-                      className="Feedback"
-                    >
-                      <td>
-                        Feedback
-                      </td>
-                      <td />
-                      <td>
-                        Proofread your work. Check your ending punctuation.
-                      </td>
-                    </tr>
-                  </span>
+                    <td>
+                      Feedback
+                    </td>
+                    <td />
+                    <td>
+                      Proofread your work. Check your ending punctuation.
+                    </td>
+                  </tr>
                   <tr
                     key="3-concepts"
                   >
@@ -6300,21 +6278,18 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="[object Object]-4"
+                  <tr
+                    className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-4"
                   >
-                    <tr
-                      className="Feedback"
-                    >
-                      <td>
-                        Feedback
-                      </td>
-                      <td />
-                      <td>
-                        Proofread your work. Check your ending punctuation.
-                      </td>
-                    </tr>
-                  </span>
+                    <td>
+                      Feedback
+                    </td>
+                    <td />
+                    <td>
+                      Proofread your work. Check your ending punctuation.
+                    </td>
+                  </tr>
                   <tr
                     key="4-concepts"
                   >
@@ -6419,9 +6394,6 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="false-5"
-                  />
                   <tr
                     key="5-concepts"
                   >
@@ -6558,6 +6530,7 @@ exports[`StudentReport should render 1`] = `
                 <tbody>
                   <tr
                     className="Directions"
+                    key=""
                   >
                     <td>
                       Directions
@@ -6645,9 +6618,6 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="false-1"
-                  />
                   <tr
                     key="1-concepts"
                   >
@@ -6804,6 +6774,7 @@ exports[`StudentReport should render 1`] = `
                 <tbody>
                   <tr
                     className="Directions"
+                    key=""
                   >
                     <td>
                       Directions
@@ -6891,21 +6862,18 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="[object Object]-1"
+                  <tr
+                    className="Feedback"
+                    key="Try again! Unfortunately, that answer is not correct.-1"
                   >
-                    <tr
-                      className="Feedback"
-                    >
-                      <td>
-                        Feedback
-                      </td>
-                      <td />
-                      <td>
-                        Try again! Unfortunately, that answer is not correct.
-                      </td>
-                    </tr>
-                  </span>
+                    <td>
+                      Feedback
+                    </td>
+                    <td />
+                    <td>
+                      Try again! Unfortunately, that answer is not correct.
+                    </td>
+                  </tr>
                   <tr
                     key="1-concepts"
                   >
@@ -7010,9 +6978,6 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="false-2"
-                  />
                   <tr
                     key="2-concepts"
                   >
@@ -7189,6 +7154,7 @@ exports[`StudentReport should render 1`] = `
                 <tbody>
                   <tr
                     className="Directions"
+                    key=""
                   >
                     <td>
                       Directions
@@ -7276,21 +7242,18 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="[object Object]-1"
+                  <tr
+                    className="Feedback"
+                    key="Try again! Unfortunately, that answer is not correct.-1"
                   >
-                    <tr
-                      className="Feedback"
-                    >
-                      <td>
-                        Feedback
-                      </td>
-                      <td />
-                      <td>
-                        Try again! Unfortunately, that answer is not correct.
-                      </td>
-                    </tr>
-                  </span>
+                    <td>
+                      Feedback
+                    </td>
+                    <td />
+                    <td>
+                      Try again! Unfortunately, that answer is not correct.
+                    </td>
+                  </tr>
                   <tr
                     key="1-concepts"
                   >
@@ -7395,21 +7358,18 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="[object Object]-2"
+                  <tr
+                    className="Feedback"
+                    key="Try again! Unfortunately, that answer is not correct.-2"
                   >
-                    <tr
-                      className="Feedback"
-                    >
-                      <td>
-                        Feedback
-                      </td>
-                      <td />
-                      <td>
-                        Try again! Unfortunately, that answer is not correct.
-                      </td>
-                    </tr>
-                  </span>
+                    <td>
+                      Feedback
+                    </td>
+                    <td />
+                    <td>
+                      Try again! Unfortunately, that answer is not correct.
+                    </td>
+                  </tr>
                   <tr
                     key="2-concepts"
                   >
@@ -7519,9 +7479,6 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="false-3"
-                  />
                   <tr
                     key="3-concepts"
                   >
@@ -7738,6 +7695,7 @@ exports[`StudentReport should render 1`] = `
                 <tbody>
                   <tr
                     className="Directions"
+                    key=""
                   >
                     <td>
                       Directions
@@ -7825,21 +7783,18 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="[object Object]-1"
+                  <tr
+                    className="Feedback"
+                    key="Try again! Unfortunately, that answer is not correct.-1"
                   >
-                    <tr
-                      className="Feedback"
-                    >
-                      <td>
-                        Feedback
-                      </td>
-                      <td />
-                      <td>
-                        Try again! Unfortunately, that answer is not correct.
-                      </td>
-                    </tr>
-                  </span>
+                    <td>
+                      Feedback
+                    </td>
+                    <td />
+                    <td>
+                      Try again! Unfortunately, that answer is not correct.
+                    </td>
+                  </tr>
                   <tr
                     key="1-concepts"
                   >
@@ -7949,21 +7904,18 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="[object Object]-2"
+                  <tr
+                    className="Feedback"
+                    key="<p>Revise your sentence. You don't need to have a space before a period.</p>-2"
                   >
-                    <tr
-                      className="Feedback"
-                    >
-                      <td>
-                        Feedback
-                      </td>
-                      <td />
-                      <td>
-                        Revise your sentence. You don't need to have a space before a period.
-                      </td>
-                    </tr>
-                  </span>
+                    <td>
+                      Feedback
+                    </td>
+                    <td />
+                    <td>
+                      Revise your sentence. You don't need to have a space before a period.
+                    </td>
+                  </tr>
                   <tr
                     key="2-concepts"
                   >
@@ -8073,21 +8025,18 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="[object Object]-3"
+                  <tr
+                    className="Feedback"
+                    key="Try again! Unfortunately, that answer is not correct.-3"
                   >
-                    <tr
-                      className="Feedback"
-                    >
-                      <td>
-                        Feedback
-                      </td>
-                      <td />
-                      <td>
-                        Try again! Unfortunately, that answer is not correct.
-                      </td>
-                    </tr>
-                  </span>
+                    <td>
+                      Feedback
+                    </td>
+                    <td />
+                    <td>
+                      Try again! Unfortunately, that answer is not correct.
+                    </td>
+                  </tr>
                   <tr
                     key="3-concepts"
                   >
@@ -8192,21 +8141,18 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="[object Object]-4"
+                  <tr
+                    className="Feedback"
+                    key="Proofread your work. Check your punctuation.-4"
                   >
-                    <tr
-                      className="Feedback"
-                    >
-                      <td>
-                        Feedback
-                      </td>
-                      <td />
-                      <td>
-                        Proofread your work. Check your punctuation.
-                      </td>
-                    </tr>
-                  </span>
+                    <td>
+                      Feedback
+                    </td>
+                    <td />
+                    <td>
+                      Proofread your work. Check your punctuation.
+                    </td>
+                  </tr>
                   <tr
                     key="4-concepts"
                   >
@@ -8311,9 +8257,6 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="false-5"
-                  />
                   <tr
                     key="5-concepts"
                   >
@@ -8450,6 +8393,7 @@ exports[`StudentReport should render 1`] = `
                 <tbody>
                   <tr
                     className="Directions"
+                    key=""
                   >
                     <td>
                       Directions
@@ -8537,9 +8481,6 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="false-1"
-                  />
                   <tr
                     key="1-concepts"
                   >
@@ -8736,6 +8677,7 @@ exports[`StudentReport should render 1`] = `
                 <tbody>
                   <tr
                     className="Directions"
+                    key=""
                   >
                     <td>
                       Directions
@@ -8823,21 +8765,18 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="[object Object]-1"
+                  <tr
+                    className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-1"
                   >
-                    <tr
-                      className="Feedback"
-                    >
-                      <td>
-                        Feedback
-                      </td>
-                      <td />
-                      <td>
-                        Proofread your work. Check your ending punctuation.
-                      </td>
-                    </tr>
-                  </span>
+                    <td>
+                      Feedback
+                    </td>
+                    <td />
+                    <td>
+                      Proofread your work. Check your ending punctuation.
+                    </td>
+                  </tr>
                   <tr
                     key="1-concepts"
                   >
@@ -8942,21 +8881,18 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="[object Object]-2"
+                  <tr
+                    className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-2"
                   >
-                    <tr
-                      className="Feedback"
-                    >
-                      <td>
-                        Feedback
-                      </td>
-                      <td />
-                      <td>
-                        Proofread your work. Check your ending punctuation.
-                      </td>
-                    </tr>
-                  </span>
+                    <td>
+                      Feedback
+                    </td>
+                    <td />
+                    <td>
+                      Proofread your work. Check your ending punctuation.
+                    </td>
+                  </tr>
                   <tr
                     key="2-concepts"
                   >
@@ -9061,21 +8997,18 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="[object Object]-3"
+                  <tr
+                    className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-3"
                   >
-                    <tr
-                      className="Feedback"
-                    >
-                      <td>
-                        Feedback
-                      </td>
-                      <td />
-                      <td>
-                        Proofread your work. Check your ending punctuation.
-                      </td>
-                    </tr>
-                  </span>
+                    <td>
+                      Feedback
+                    </td>
+                    <td />
+                    <td>
+                      Proofread your work. Check your ending punctuation.
+                    </td>
+                  </tr>
                   <tr
                     key="3-concepts"
                   >
@@ -9180,9 +9113,6 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="false-4"
-                  />
                   <tr
                     key="4-concepts"
                   >
@@ -9319,6 +9249,7 @@ exports[`StudentReport should render 1`] = `
                 <tbody>
                   <tr
                     className="Directions"
+                    key=""
                   >
                     <td>
                       Directions
@@ -9406,9 +9337,6 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <span
-                    key="false-1"
-                  />
                   <tr
                     key="1-concepts"
                   >
