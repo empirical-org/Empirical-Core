@@ -52,6 +52,7 @@ FactoryBot.define do
     temporary           { false }
     visible             { true }
 
+    # TODO: This is super-messy, but required because of an `on: :create` validator in ActivitySession model that requires this setup.  We should consider refactoring that validation requirement so that we can refactor this weird nest of stuff
     before(:create) do |activity_session|
       if activity_session.user && !activity_session.classroom_unit
         activity_session.classroom_unit = create(:classroom_unit, assigned_student_ids: [activity_session.user.id])
