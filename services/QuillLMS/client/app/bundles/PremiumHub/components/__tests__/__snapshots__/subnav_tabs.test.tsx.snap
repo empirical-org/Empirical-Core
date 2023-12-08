@@ -40,7 +40,7 @@ exports[`AdminSubnav it should render 1`] = `
               class=""
               href="/teachers/premium_hub/school_subscriptions"
             >
-              School Subscriptions
+              Subscriptions
             </a>
             <div
               class="checkmark-icon "
@@ -62,7 +62,7 @@ exports[`AdminSubnav it should render 1`] = `
               class=""
               href="/teachers/premium_hub/district_activity_scores"
             >
-              Activity Scores
+              Activity Scores Report
             </a>
             <div
               class="checkmark-icon "
@@ -73,7 +73,7 @@ exports[`AdminSubnav it should render 1`] = `
               class=""
               href="/teachers/premium_hub/district_concept_reports"
             >
-              Concept Reports
+              Concepts Report
             </a>
             <div
               class="checkmark-icon "
@@ -84,7 +84,7 @@ exports[`AdminSubnav it should render 1`] = `
               class=""
               href="/teachers/premium_hub/district_standards_reports"
             >
-              Standards Reports
+              Standards Report
             </a>
             <div
               class="checkmark-icon "
@@ -128,7 +128,7 @@ exports[`AdminSubnav it should render 1`] = `
             class=""
             href="/teachers/premium_hub/school_subscriptions"
           >
-            School Subscriptions
+            Subscriptions
           </a>
           <div
             class="checkmark-icon "
