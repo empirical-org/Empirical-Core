@@ -46,7 +46,7 @@ module AdminDiagnosticReports
       context 'finished activity session from a user who is no longer assigned to the classroom unit' do
         # The ActivitySession factory aggressively attaches students to ClassroomUnit.assigned_student_ids, so it's easier to manually remove them than to try to override a `let` call for this condition
         before do
-          # Make sure all factories run so that the change we make below doens't get overwritten
+          # Make sure all factories run so that the change we make below doesn't get overwritten
           cte_records
           classroom_units.each { |cu| cu.update(assigned_student_ids: []) }
         end
