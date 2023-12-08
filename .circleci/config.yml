@@ -208,7 +208,8 @@ jobs:
           name: Run tests
           command: |
             cd services/QuillLMS
-            bin/rspec --tag big_query_snapshot
+            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split)
+            bin/rspec ${TESTFILES} --tag big_query_snapshot
           environment:
             SUPPRESS_PUTS: "true"
   lms_node_build:
