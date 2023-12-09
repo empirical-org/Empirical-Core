@@ -237,7 +237,8 @@ export const OverviewSection = ({
       selectedSchoolIds,
       selectedGrades,
       selectedTeacherIds,
-      selectedClassroomIds
+      selectedClassroomIds,
+      groupByValue.value
     )
 
     const filterHash = hashPayload(filterTarget)
