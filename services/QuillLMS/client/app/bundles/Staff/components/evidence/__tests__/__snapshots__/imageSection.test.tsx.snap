@@ -2,6 +2,20 @@
 
 exports[`ImageSection component should render ImageSection 1`] = `
 <Fragment>
+  <div
+    className="media-upload-container"
+  >
+    <label>
+      Click the square below or drag an image into it to upload an image or video:
+    </label>
+    <div
+      className="dropzone-container"
+    >
+      <Component
+        onDrop={[Function]}
+      />
+    </div>
+  </div>
   <Input
     autoComplete="on"
     className="image-link-input"
@@ -38,10 +52,12 @@ exports[`ImageSection component should render ImageSection 1`] = `
     >
       Image Attribution Guide
     </a>
-    <textarea
-      aria-labelledby="image-attribution-label"
-      className="image-attribution-text-area"
-      onChange={[MockFunction]}
+    <TextEditor
+      ContentState={[Function]}
+      EditorState={[Function]}
+      handleTextChange={[MockFunction]}
+      key="image-attribution"
+      shouldCheckSpelling={true}
     />
   </div>
 </Fragment>
