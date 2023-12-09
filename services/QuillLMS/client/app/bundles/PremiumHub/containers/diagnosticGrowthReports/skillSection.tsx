@@ -165,7 +165,9 @@ export const SkillSection = ({
       selectedSchoolIds,
       selectedGrades,
       selectedTeacherIds,
-      selectedClassroomIds
+      selectedClassroomIds,
+      groupByValue.value,
+      diagnosticTypeValue.value
     )
 
     const filterHash = hashPayload(filterTarget)
