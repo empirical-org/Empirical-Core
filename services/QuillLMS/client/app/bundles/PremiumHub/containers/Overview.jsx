@@ -99,11 +99,10 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
   const [showSnackbar, setShowSnackbar] = React.useState(false);
   const [snackbarText, setSnackbarText] = React.useState('');
   const [pusherChannel, setPusherChannel] = React.useState(null)
+  const [professionalLearningManagerInformation, setProfessionalLearningManagerInformation] = React.useState(null)
 
   React.useEffect(() => {
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
-    const channel = pusher.subscribe(String(adminId));
-    setPusherChannel(channel)
+    getProfessionalLearningManagerInformation()
   }, [])
 
   React.useEffect(() => {
@@ -120,6 +119,15 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
         receiveData(body, skipLoading)
       }
     );
+  }
+
+  function getProfessionalLearningManagerInformation(csmId) {
+    requestGet(
+      `${process.env.DEFAULT_URL}/admins/${adminId}/vitally_professional_learning_manager_info`,
+    ),
+    (body) => {
+      setProfessionalLearningManagerInformation(body)
+    }
   }
 
   function receiveData(data, skipLoading) {

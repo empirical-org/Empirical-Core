@@ -41,6 +41,12 @@ class AdminsController < ApplicationController
     end
   end
 
+  def vitally_professional_learning_manager_info
+    @api ||= VitallyIntegration::RestApi.new
+    @vitally_district ||= @api.get(VitallyIntegration::RestApi::ENDPOINT_ORGANIZATIONS, current_user.school.district_id)
+    render json: @vitally_district['keyRoles'].find { |kr| kr['keyRole']['label'] == 'CSM' }['vitallyUser']
+  end
+
   def admin_info
     render json: {
       id: current_user.id,
