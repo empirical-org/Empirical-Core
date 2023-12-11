@@ -6,9 +6,7 @@ module Snapshots
 
     class CloudUploadError < StandardError; end
 
-    QUERIES = {
-      'create_csv_report_download' => Snapshots::UntruncatedDataExportQuery
-    }
+    QUERIES = ::Snapshots::PREMIUM_DOWNLOAD_REPORTS_QUERY_MAPPING
     TEMPFILE_NAME = 'temp.csv'
 
     def perform(query, user_id, timeframe, school_ids, headers_to_display, filters)
