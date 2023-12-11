@@ -3,7 +3,7 @@ import * as React from 'react'
 import { baseIntegrationImgSrc, circleCheckImg } from '../../shared'
 import IntegrationTip from '../integration_tip'
 
-const googleIconSrc = `${baseIntegrationImgSrc}/google.svg`
+const googleIconSrc = `${baseIntegrationImgSrc}/google_logo.svg`
 
 const GoogleIntegrationContainer = () => {
   return (
@@ -17,8 +17,10 @@ const GoogleIntegrationContainer = () => {
           <li>{circleCheckImg}Automatically create and sync Google Classroom student accounts.</li>
           <li>{circleCheckImg}Share assignments directly to Google Classroom.</li>
         </ul>
-        <a href="https://support.quill.org/en/articles/8500172-how-to-choose-your-rostering-integration" rel="noopener noreferrer" target="_blank">How to choose your integration</a>
-        <a href="https://support.quill.org/en/articles/8470129-how-do-i-facilitate-the-google-classroom-integration-for-my-school-district" rel="noopener noreferrer" target="_blank">How to set up this integration</a>
+        <div className="links">
+          <a href="https://support.quill.org/en/articles/8500172-how-to-choose-your-rostering-integration" rel="noopener noreferrer" target="_blank">How to choose your integration</a>
+          <a href="https://support.quill.org/en/articles/8470129-how-do-i-facilitate-the-google-classroom-integration-for-my-school-district" rel="noopener noreferrer" target="_blank">How to set up this integration</a>
+        </div>
         <IntegrationTip />
       </div>
     </div>

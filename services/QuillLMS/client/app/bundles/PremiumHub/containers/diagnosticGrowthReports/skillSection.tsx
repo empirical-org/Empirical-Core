@@ -77,21 +77,13 @@ const headers = [
 
 
 export const SkillSection = ({
-  loadingFilters,
-  customStartDate,
-  customEndDate,
-  pusherChannel,
   searchCount,
-  selectedClassrooms,
-  availableClassrooms,
   selectedGrades,
-  availableGrades,
-  selectedSchools,
-  selectedTeachers,
-  availableTeachers,
+  selectedSchoolIds,
+  selectedTeacherIds,
+  selectedClassroomIds,
   selectedTimeframe,
-  handleClickDownloadReport,
-  openMobileFilterMenu
+  pusherChannel
 }) => {
 
   const [groupByValue, setGroupByValue] = React.useState<DropdownObjectInterface>(groupByDropdownOptions[0])
@@ -103,10 +95,6 @@ export const SkillSection = ({
 
   function handleGroupByOptionChange(option) {
     setGroupByValue(option)
-  }
-
-  if (loadingFilters) {
-    return <Spinner />
   }
 
   return (

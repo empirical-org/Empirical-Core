@@ -11,7 +11,7 @@ exports[`CleverIntegrationContainer when access is full it should render 1`] = `
       <img
         alt=""
         class="logo"
-        src="undefined/images/pages/administrator/integrations/clever.svg"
+        src="undefined/images/pages/administrator/integrations/clever_logo.svg"
       />
       <h1>
         Streamline teaching with Clever
@@ -38,20 +38,24 @@ exports[`CleverIntegrationContainer when access is full it should render 1`] = `
       <p>
         You can also access Clever Secure Sync as part of your subscription. This makes the integration even more powerful and easy to configure.
       </p>
-      <a
-        href="https://support.quill.org/en/articles/8500172-how-to-choose-your-rostering-integration"
-        rel="noopener noreferrer"
-        target="_blank"
+      <div
+        class="links"
       >
-        How to choose your integration
-      </a>
-      <a
-        href="https://support.quill.org/en/articles/8461682-how-do-i-set-up-clever-secure-sync-for-my-school-district-for-clever-quill-administrators"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        How to set up this integration
-      </a>
+        <a
+          href="https://support.quill.org/en/articles/8500172-how-to-choose-your-rostering-integration"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          How to choose your integration
+        </a>
+        <a
+          href="https://support.quill.org/en/articles/8461682-how-do-i-set-up-clever-secure-sync-for-my-school-district-for-clever-quill-administrators"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          How to set up this integration
+        </a>
+      </div>
       <div
         class="integration-tip"
       >
@@ -84,7 +88,7 @@ exports[`CleverIntegrationContainer when access is restricted it should render 1
       <img
         alt=""
         class="logo"
-        src="undefined/images/pages/administrator/integrations/clever.svg"
+        src="undefined/images/pages/administrator/integrations/clever_logo.svg"
       />
       <h1>
         Streamline teaching with Clever
@@ -111,27 +115,31 @@ exports[`CleverIntegrationContainer when access is restricted it should render 1
       <p>
         You can also subscribe to School or District Premium to access Clever Secure Sync. This makes the integration even more powerful and easy to configure.
       </p>
-      <a
-        href="/premium"
-        rel="noopener noreferrer"
-        target="_blank"
+      <div
+        class="links"
       >
-        Explore premium
-      </a>
-      <a
-        href="https://support.quill.org/en/articles/8500172-how-to-choose-your-rostering-integration"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        How to choose your integration
-      </a>
-      <a
-        href="https://support.quill.org/en/articles/8461682-how-do-i-set-up-clever-secure-sync-for-my-school-district-for-clever-quill-administrators"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        How to set up this integration
-      </a>
+        <a
+          href="/premium"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Explore premium
+        </a>
+        <a
+          href="https://support.quill.org/en/articles/8500172-how-to-choose-your-rostering-integration"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          How to choose your integration
+        </a>
+        <a
+          href="https://support.quill.org/en/articles/8461682-how-do-i-set-up-clever-secure-sync-for-my-school-district-for-clever-quill-administrators"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          How to set up this integration
+        </a>
+      </div>
       <div
         class="integration-tip"
       >

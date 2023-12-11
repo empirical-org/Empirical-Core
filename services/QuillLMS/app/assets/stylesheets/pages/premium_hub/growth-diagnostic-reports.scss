@@ -1,10 +1,31 @@
-.diagnostic-reports-main {
+main {
   .header {
     .buttons-container {
       display: flex;
       button:first-of-type {
         margin-right: 8px;
       }
+    }
+  }
+  .no-diagnostic-data-container {
+    margin-top: 48px;
+    h2 {
+      font-size: 20px !important;
+      margin-bottom: 8px;
+    }
+    p {
+      color: $quill-grey-50;
+      max-width: 820px;
+    }
+    p:first-of-type {
+      margin-bottom: 16px;
+    }
+    p:last-of-type {
+      margin-bottom: 32px;
+    }
+    a {
+      font-weight: 600;
+      color: $quill-green;
     }
   }
   .tabs-for-pages-container {
@@ -67,13 +88,52 @@
     margin-top: 32px;
     max-width: 300px;
     width: 100%;
+    height: 60px;
+    justify-content: flex-start;
   }
   .growth-diagnostic-reports-overview-table, .growth-diagnostic-reports-by-skill-table {
     margin-top: 48px;
+    max-height: 800px;
+    overflow-y: scroll;
     .data-table-headers {
-      padding-right: 0px;
+      padding-right: 8px;
+      th {
+        justify-content: space-between;
+        font-size: 13px !important;
+        img {
+          margin-right: 8px;
+        }
+      }
       th:last-of-type {
         margin-right: 0px;
+        .quill-tooltip-wrapper {
+          left: auto !important;
+          right: 0 !important;
+          transform: inherit !important;
+        }
+      }
+    }
+    .data-table-body {
+      .data-table-row {
+        padding-right: 8 !important;
+        td {
+          min-height: 46px !important;
+          font-size: 13px !important;
+          .emphasized-content {
+            color: $quill-green;
+            background-color: $quill-green-1;
+            border: 1px solid $quill-green-20;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-weight: 700;
+          }
+        }
+        td:not(:first-of-type) {
+          justify-content: center;
+        }
+        td:last-of-type {
+          margin-right: 0 !important;
+        }
       }
     }
   }

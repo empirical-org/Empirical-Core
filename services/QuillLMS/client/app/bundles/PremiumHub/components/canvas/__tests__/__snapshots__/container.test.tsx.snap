@@ -11,7 +11,7 @@ exports[`CanvasIntegrationContainer when access is restricted it should render 1
       <img
         alt=""
         class="logo"
-        src="undefined/images/pages/administrator/integrations/canvas.svg"
+        src="undefined/images/pages/administrator/integrations/canvas_logo.svg"
       />
       <h1>
         Unlock Canvas with School or District Premium
@@ -42,27 +42,31 @@ exports[`CanvasIntegrationContainer when access is restricted it should render 1
           Access a host of other premium benefits, including priority technical support, enhanced reporting, and assistance from our professional learning team.
         </li>
       </ul>
-      <a
-        href="/premium"
-        rel="noopener noreferrer"
-        target="_blank"
+      <div
+        class="links"
       >
-        Explore premium
-      </a>
-      <a
-        href="https://support.quill.org/en/articles/8500172-how-to-choose-your-rostering-integration"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        How to choose your integration
-      </a>
-      <a
-        href="https://support.quill.org/en/articles/8337988-how-do-i-set-up-the-canvas-integration-for-my-school-district-for-canvas-quill-administrators"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        How to set up this integration
-      </a>
+        <a
+          href="/premium"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Explore premium
+        </a>
+        <a
+          href="https://support.quill.org/en/articles/8500172-how-to-choose-your-rostering-integration"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          How to choose your integration
+        </a>
+        <a
+          href="https://support.quill.org/en/articles/8337988-how-do-i-set-up-the-canvas-integration-for-my-school-district-for-canvas-quill-administrators"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          How to set up this integration
+        </a>
+      </div>
       <div
         class="integration-tip"
       >
@@ -134,6 +138,14 @@ exports[`CanvasIntegrationContainer when there are existing Canvas integrations 
     >
       Add New Canvas Integration
     </button>
+    <a
+      class="setup-guide"
+      href="https://support.quill.org/en/articles/8337988-how-do-i-set-up-the-canvas-integration-for-my-school-district-for-canvas-quill-administrators"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      Setup guide
+    </a>
   </div>
 </DocumentFragment>
 `;
@@ -141,154 +153,79 @@ exports[`CanvasIntegrationContainer when there are existing Canvas integrations 
 exports[`CanvasIntegrationContainer when there are not existing Canvas integrations it should render 1`] = `
 <DocumentFragment>
   <div
-    class="container canvas-container"
+    class="container"
   >
-    <form
-      aria-label="New Canvas Integration"
-      class="canvas-integration-form"
-      name="New Canvas Integration"
+    <div
+      class="integration-container"
     >
-      <h2>
-        New Canvas Integration
-      </h2>
+      <img
+        alt=""
+        class="logo"
+        src="undefined/images/pages/administrator/integrations/canvas_logo.svg"
+      />
+      <h1>
+        Get started with Canvas
+      </h1>
+      <p>
+        Looking to streamline your school’s teaching process with Quill’s Canvas integration? Great news! Your subscription gives you access to the integration. The next step is to set it up. This will allow teachers at your school or district to:
+      </p>
+      <ul>
+        <li>
+          <img
+            alt=""
+            src="undefined/images/pages/administrator/integrations/circle-check.svg"
+          />
+          Seamlessly import their Canvas rosters.
+        </li>
+        <li>
+          <img
+            alt=""
+            src="undefined/images/pages/administrator/integrations/circle-check.svg"
+          />
+          Automatically create and sync Canvas student accounts.
+        </li>
+      </ul>
       <div
-        class="input-container  inactive  undefined "
-        role="button"
-        tabindex="-1"
+        class="links"
       >
-        <label
-          for="canvas-instance-url"
+        <button
+          class="quill-button contained medium primary focus-on-light"
+          type="button"
         >
-          Canvas Instance URL
-        </label>
-        <input
-          autocomplete="on"
-          id="canvas-instance-url"
-          maxlength="10000"
-          type="url"
-          value=""
-        />
+          Add New Canvas Integration
+        </button>
+        <a
+          href="https://support.quill.org/en/articles/8500172-how-to-choose-your-rostering-integration"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          How to choose your integration
+        </a>
+        <a
+          href="https://support.quill.org/en/articles/8337988-how-do-i-set-up-the-canvas-integration-for-my-school-district-for-canvas-quill-administrators"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          How to set up this integration
+        </a>
       </div>
       <div
-        class="input-container  inactive  undefined "
-        role="button"
-        tabindex="-1"
+        class="integration-tip"
       >
-        <label
-          for="client-id"
-        >
-          Client ID
-        </label>
-        <input
-          autocomplete="on"
-          id="client-id"
-          maxlength="10000"
-          value=""
-        />
-      </div>
-      <div
-        class="input-container  inactive  undefined "
-        role="button"
-        tabindex="-1"
-      >
-        <label
-          for="client-secret"
-        >
-          Client Secret
-        </label>
-        <input
-          autocomplete="on"
-          id="client-secret"
-          maxlength="10000"
-          value=""
-        />
-      </div>
-      <table
-        class="data-table undefined"
-      >
-        <thead>
-          <tr
-            class="data-table-headers"
-          >
-            <th
-              class="data-table-header"
-              scope="col"
-            >
-              <button
-                aria-label="Unchecked checkbox"
-                class="quill-checkbox unselected"
-                type="button"
-              />
-            </th>
-            <th
-              class="data-table-header name"
-              scope="col"
-              style="width: 356px; min-width: 356px; text-align: left;"
-            >
-              Schools
-            </th>
-          </tr>
-        </thead>
-        <tbody
-          class="data-table-body"
-        >
-          <tr
-            class="data-table-row  "
-          >
-            <td>
-              <button
-                aria-label="Unchecked checkbox"
-                class="quill-checkbox unselected data-table-row-section"
-                type="button"
-              />
-            </td>
-            <td
-              class="data-table-row-section name"
-              style="width: 356px; min-width: 356px; text-align: left;"
-            >
-              MLK Middle School
-            </td>
-          </tr>
-          <tr
-            class="data-table-row  "
-          >
-            <td>
-              <button
-                aria-label="Unchecked checkbox"
-                class="quill-checkbox unselected data-table-row-section"
-                type="button"
-              />
-            </td>
-            <td
-              class="data-table-row-section name"
-              style="width: 356px; min-width: 356px; text-align: left;"
-            >
-              Toni Morrison High School
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div
-        class="button-wrapper"
-      >
-        <span />
         <div>
-          <button
-            class="quill-button medium outlined secondary focus-on-light"
-            type="button"
-          >
-            Cancel
-          </button>
-          <button
-            class="quill-button medium primary contained focus-on-light disabled"
-            disabled=""
-            type="submit"
-          >
-            Submit
-          </button>
+          <h2>
+            Integration Tip
+          </h2>
+          <p>
+            Start the school year right by choosing a single integration. Changing mid-year can cause rostering challenges and may take up more of your valuable time, so decide upfront for a better experience.
+          </p>
         </div>
+        <img
+          alt=""
+          src="undefined/images/pages/administrator/integrations/lightbulb.svg"
+        />
       </div>
-    </form>
+    </div>
   </div>
 </DocumentFragment>
 `;

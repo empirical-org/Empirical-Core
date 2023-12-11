@@ -14,7 +14,6 @@ const premiumReportLaptopSrc = `${baseImageLink}/premium-report-laptop.webp`
 
 const erikaSrc = `${baseImageLink}/coach-erika.webp`
 const shannonSrc = `${baseImageLink}/coach-shannon.webp`
-const sherrySrc = `${baseImageLink}/coach-sherry.webp`
 
 const PremiumFeature = ({ imageSrc, imageAlt, header, text, popular, subheader, }) => (
   <div className="premium-feature">
@@ -158,13 +157,6 @@ const coachingTeam = (
         imageSrc={shannonSrc}
         subheader={[<span key="years">15+ years in Education</span>, <span key="title">Former HS English Teacher and Director of Instruction</span>]}
         text="Expert in data-informed instructional strategies and prioritizing the needs of special populations in writing practice routines"
-      />
-      <PremiumFeature
-        header="Sherry Lewkowicz"
-        imageAlt="Photograph of Quill's coach, Sherry"
-        imageSrc={sherrySrc}
-        subheader={[<span key="years">15+ years in Education</span>, <span key="title">Former AP English Literature teacher</span>]}
-        text="Expert in writing instruction best practices and helping teachers incorporate those best practices into their teaching"
       />
     </div>
   </section>

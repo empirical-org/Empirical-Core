@@ -9,7 +9,7 @@ RSpec.describe PdfFileBuilder do
   let(:template) { 'pdf' }
   let(:pdf_string) { 'PDF content' }
 
-  before { allow(WickedPdf).to receive(:new).and_return(double(pdf_from_string: pdf_string)) }
+  before { allow(Grover).to receive(:new).and_return(double(to_pdf: pdf_string)) }
 
   describe '#run' do
     it { expect(subject).to be_a Tempfile }

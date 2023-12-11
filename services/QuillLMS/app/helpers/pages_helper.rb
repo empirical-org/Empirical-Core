@@ -142,11 +142,6 @@ module PagesHelper
             img: 'team-peter-kong.webp'
           },
           {
-            name: 'Sherry Lewkowicz',
-            title: 'Professional Learning Manager',
-            img: 'team-sherry-lewkowicz.webp'
-          },
-          {
             name: 'Charlie Looper',
             title: 'Partnerships Specialist II',
             img: 'team-charlie-looper.webp'
