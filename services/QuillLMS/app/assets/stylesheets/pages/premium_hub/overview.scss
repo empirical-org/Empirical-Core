@@ -61,12 +61,26 @@
     flex-direction: column;
     justify-content: space-between;
     height: 184px;
+    &.new {
+      border: 1px solid $quill-maroon-10;
+      background: $quill-maroon-1;
+    }
     h3 {
       color: $quill-grey-90;
       font-size: 20px;
       font-weight: 700;
       margin-bottom: 10px;
       line-height: normal;
+      display: flex;
+      justify-content: space-between;
+      .new-tag {
+        color: $quill-white;
+        background-color: $quill-maroon;
+        font-size: 10px;
+        padding: 4px 6px;
+        border-radius: 5px;
+        height: min-content;
+      }
     }
     p {
       color: $quill-grey-90;
