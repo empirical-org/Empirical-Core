@@ -1,5 +1,6 @@
 import Pusher from 'pusher-js';
 import React from 'react';
+import { Link, } from 'react-router-dom';
 
 import DistrictStandardsReports from './DistrictStandardsReports';
 
@@ -13,10 +14,81 @@ import { sentencesWrittenSnapshotInfo, studentLearningHoursSnapshotInfo, } from 
 const iconLinkBase = `${process.env.CDN_URL}/images/pages/administrator/overview`
 
 const USAGE_HIGHLIGHTS = 'Usage Highlights'
+const PROFESSIONAL_DEVELOPMENT_AND_SUPPORT = 'Professional Development and Support'
+const ACCOUNT_MANAGEMENT = 'Account Management'
+const PREMIUM_REPORTS = 'Premium Reports'
+const INTEGRATIONS = 'Integrations'
 
 export const SECTION_NAME_TO_ICON_URL = {
   [USAGE_HIGHLIGHTS]: `${iconLinkBase}/bulb.svg`,
+  [PROFESSIONAL_DEVELOPMENT_AND_SUPPORT]: `${iconLinkBase}/students.svg`,
+  [ACCOUNT_MANAGEMENT]: `${iconLinkBase}/pencil.svg`,
+  [PREMIUM_REPORTS]: `${iconLinkBase}/bar-graph-increasing.svg`,
+  [INTEGRATIONS]: `${iconLinkBase}/checkbox-multiple.svg`
 }
+
+const premiumReportTiles = [
+  {
+    name: 'Usage Snapshot Report',
+    link: '/teachers/premium_hub/usage_snapshot_report',
+    icon: `${iconLinkBase}/usage-snapshot-report.svg`,
+    description: 'Create new accounts, manage admins, and more.',
+    new: true
+  },
+  {
+    name: 'Diagnostic Growth Report',
+    link: '/teachers/premium_hub/diagnostic_growth_report',
+    icon: `${iconLinkBase}/diagnostic-growth-report.svg`,
+    description: 'Access each teacher’s account to assign activities, manage rosters, and view data.',
+    new: true
+  },
+  {
+    name: 'Data Export',
+    link: '/teachers/premium_hub/data_export',
+    icon: `${iconLinkBase}/data-export.svg`,
+    description: 'View subscription history, manage subscriptions, and more.',
+    new: true
+  },
+  {
+    name: 'Concepts Report',
+    link: '/teachers/premium_hub/district_concept_reports',
+    icon: `${iconLinkBase}/concepts-report.svg`,
+    description: 'Create new accounts, manage admins, and more.',
+  },
+  {
+    name: 'Activity Scores Report',
+    link: '/teachers/premium_hub/district_activity_scores',
+    icon: `${iconLinkBase}/activity-scores-report.svg`,
+    description: 'Access each teacher’s account to assign activities, manage rosters, and view data.',
+  },
+  {
+    name: 'Standards Report',
+    link: '/teachers/premium_hub/district_standards_reports',
+    icon: `${iconLinkBase}/standards-report.svg`,
+    description: 'View subscription history, manage subscriptions, and more.',
+  }
+]
+
+const integrationTiles = [
+  {
+    name: 'Canvas',
+    link: '/teachers/premium_hub/integrations/canvas',
+    icon: `${iconLinkBase}/canvas.svg`,
+    description: 'Make teaching at your school even more effective with our seamless Canvas integration.',
+  },
+  {
+    name: 'Google Classroom',
+    link: '/teachers/premium_hub/integrations/google',
+    icon: `${iconLinkBase}/google-classroom.svg`,
+    description: 'Make teaching at your school even more effective with our seamless Google Classroom integration.',
+  },
+  {
+    name: 'Clever',
+    link: '/teachers/premium_hub/integrations/clever',
+    icon: `${iconLinkBase}/clever.svg`,
+    description: 'Make teaching at your school even more effective with our seamless Clever integration.',
+  }
+]
 
 const DEFAULT_MODEL = { teachers: [] }
 
@@ -138,7 +210,7 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
     )
   }
 
-  function renderHighlightSection() {
+  function renderHighlightsSection() {
     return (
       <section className="snapshot-section-wrapper overview-section-wrapper">
         <h2>
@@ -154,6 +226,37 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
     )
   }
 
+  function renderIntegrationsSection() {
+    const tiles = integrationTiles.map(tile => {
+      return (
+        <div className="tile" key={tile.name}>
+          <div>
+            <h3>{tile.name}</h3>
+            <p>{tile.description}</p>
+          </div>
+          <div className="link-and-image">
+            <Link className="quill-button focus-on-light outlined secondary medium" to={tile.link}>Learn more</Link>
+            <img alt="" src={tile.icon} />
+          </div>
+        </div>
+      )
+    })
+
+    return (
+      <section className="overview-section-wrapper integrations">
+        <h2>
+          <img alt="" src={SECTION_NAME_TO_ICON_URL[INTEGRATIONS]} />
+          <span>{INTEGRATIONS}</span>
+        </h2>
+        <div className="overview-section">
+          <div className="overview-section-content">
+            {tiles}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -163,7 +266,8 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
       <div className="container">
         <h1>Hello, {model.name.split(' ')[0]}!</h1>
         {renderSubheader()}
-        {renderHighlightSection()}
+        {renderHighlightsSection()}
+        {renderIntegrationsSection()}
       </div>
     </div>
   );

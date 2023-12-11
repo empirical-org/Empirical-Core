@@ -43,4 +43,39 @@
       padding: 24px;
       border: 1px solid $quill-grey-5;
   }
+
+  .integrations, .premium-reports, .account-management {
+    .overview-section-content {
+      display: grid;
+      gap: 32px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .tile {
+    border-radius: 8px;
+    border: 1px solid $quill-grey-5;
+    padding: 16px;
+    background: $quill-grey-1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 184px;
+    h3 {
+      color: $quill-grey-90;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: normal;
+    }
+    p {
+      color: $quill-grey-90;
+      line-height: normal;
+    }
+    .link-and-image {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+  }
 }
