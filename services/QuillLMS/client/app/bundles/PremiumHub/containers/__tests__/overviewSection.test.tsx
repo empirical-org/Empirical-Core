@@ -12,7 +12,10 @@ const props = {
   selectedTimeframe: "This school year",
   pusherChannel: null,
   hasAdjustedFiltersFromDefault: false,
-  handleSetNoDiagnosticDataAvailable: jest.fn()
+  handleSetNoDiagnosticDataAvailable: jest.fn(),
+  handleTabChangeFromDataChip: jest.fn(),
+  handleSetSelectedDiagnosticId: jest.fn(),
+  passedData: null
 }
 
 const mockData = [
@@ -39,21 +42,22 @@ describe('OverviewSection', () => {
   })
   // TODO: add more thorough testing in a subsequent PR
 
-  // describe('loaded state', () => {
-  //   test('it should render the expected header components', () => {
-  //     const { asFragment } = render(<OverviewSection {...props} />);
-  //     expect(asFragment()).toMatchSnapshot();
-  //     expect(screen.getByRole('columnheader', { name: /diagnostic name/i })).toBeInTheDocument()
-  //     expect(screen.getByRole('columnheader', { name: /pre diagnostic completed/i })).toBeInTheDocument()
-  //     expect(screen.getByRole('columnheader', { name: /completed activities/i })).toBeInTheDocument()
-  //     expect(screen.getByRole('columnheader', { name: /average activities & time spent/i })).toBeInTheDocument()
-  //     expect(screen.getByRole('columnheader', { name: /post diagnostic completed/i })).toBeInTheDocument()
-  //     expect(screen.getByRole('columnheader', { name: /overall skill growth/i })).toBeInTheDocument()
-  //   })
-  //   test('it should render the expected empty state message', () => {
-  //     const { asFragment } = render(<OverviewSection {...props} />);
-  //     expect(asFragment()).toMatchSnapshot();
-  //     expect(screen.getByText(/there is no diagnostic data available for the filters selected\. try modifying or removing a filter to see results\./i)).toBeInTheDocument()
-  //   })
-  // })
+  describe('loaded state', () => {
+    test('it should render the expected header components', () => {
+      props.passedData = []
+      const { asFragment } = render(<OverviewSection {...props} />);
+      expect(asFragment()).toMatchSnapshot();
+      expect(screen.getByRole('columnheader', { name: /diagnostic name/i })).toBeInTheDocument()
+      expect(screen.getByRole('columnheader', { name: /pre diagnostic completed/i })).toBeInTheDocument()
+      expect(screen.getByRole('columnheader', { name: /completed activities/i })).toBeInTheDocument()
+      expect(screen.getByRole('columnheader', { name: /average activities & time spent/i })).toBeInTheDocument()
+      expect(screen.getByRole('columnheader', { name: /post diagnostic completed/i })).toBeInTheDocument()
+      expect(screen.getByRole('columnheader', { name: /overall skill growth/i })).toBeInTheDocument()
+    })
+    test('it should render the expected empty state message', () => {
+      const { asFragment } = render(<OverviewSection {...props} />);
+      expect(asFragment()).toMatchSnapshot();
+      expect(screen.getByText(/there is no diagnostic data available for the filters selected\. try modifying or removing a filter to see results\./i)).toBeInTheDocument()
+    })
+  })
 })

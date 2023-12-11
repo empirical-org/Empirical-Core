@@ -92,17 +92,18 @@ export const OverviewSection = ({
   hasAdjustedFiltersFromDefault,
   handleSetNoDiagnosticDataAvailable,
   handleTabChangeFromDataChip,
-  handleSetSelectedDiagnosticId
+  handleSetSelectedDiagnosticId,
+  passedData
 }) => {
 
   const [groupByValue, setGroupByValue] = React.useState<DropdownObjectInterface>(groupByDropdownOptions[0])
-  const [loading, setLoading] = React.useState<boolean>(true);
+  const [loading, setLoading] = React.useState<boolean>(!passedData);
   const [preDiagnosticAssignedData, setPreDiagnosticAssignedData] = React.useState<any>(null);
   const [postDiagnosticAssignedData, setPostDiagnosticAssignedData] = React.useState<any>(null);
   const [preDiagnosticCompletedData, setPreDiagnosticCompletedData] = React.useState<any>(null);
   const [postDiagnosticCompletedData, setPostDiagnosticCompletedData] = React.useState<any>(null);
   const [recommendationsData, setRecommendationsData] = React.useState<any>(null);
-  const [aggregatedData, setAggregatedData] = React.useState<any>([]);
+  const [aggregatedData, setAggregatedData] = React.useState<any>(passedData || []);
   const [pusherMessage, setPusherMessage] = React.useState<string>(null)
 
   React.useEffect(() => {
