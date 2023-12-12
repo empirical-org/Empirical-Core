@@ -128,6 +128,8 @@ const PremiumReportsDropdown = ({ activeTab }) => {
   }
 
   function closeDropdown() {
+    if (!isOpen) { return }
+    
     setIsOpen(false);
     // Return focus to the button when dropdown closes
     buttonRef.current.focus();
