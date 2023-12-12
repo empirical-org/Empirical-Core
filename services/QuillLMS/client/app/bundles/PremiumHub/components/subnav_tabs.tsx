@@ -108,7 +108,7 @@ const PremiumReportsDropdown = ({ activeTab }) => {
       document.removeEventListener(MOUSEDOWN, handleClickOutside);
       document.removeEventListener(KEYDOWN, handleKeyDown);
     };
-  }, [dropdownRef]);
+  }, [dropdownRef, isOpen]);
 
   const activeClass = activeTab === PREMIUM_REPORTS ? 'active' : '';
   const openClass = isOpen ? 'open' : '';
@@ -129,7 +129,7 @@ const PremiumReportsDropdown = ({ activeTab }) => {
 
   function closeDropdown() {
     if (!isOpen) { return }
-    
+
     setIsOpen(false);
     // Return focus to the button when dropdown closes
     buttonRef.current.focus();
