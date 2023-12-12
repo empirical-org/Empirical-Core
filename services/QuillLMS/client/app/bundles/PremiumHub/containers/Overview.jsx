@@ -20,8 +20,8 @@ const INTEGRATIONS = 'Integrations'
 
 const iconLinkBase = `${process.env.CDN_URL}/images/pages/administrator/overview`
 
-const scarletAndNattalieImg = <img alt="" src={`${iconLinkBase}/scarlet-and-nattalie.svg`} />
-const alexAndCharlieImg = <img alt="" src={`${iconLinkBase}/alex-and-charlie.svg`} />
+const scarletAndNattalieImg = <img alt="" src={`${iconLinkBase}/scarlet-and-nattalie.png`} />
+const alexAndCharlieImg = <img alt="" src={`${iconLinkBase}/alex-and-charlie.png`} />
 const blackBulb = <img alt="" src={`${iconLinkBase}/black-bulb.svg`} />
 
 export const SECTION_NAME_TO_ICON_URL = {
