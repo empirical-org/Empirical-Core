@@ -5,7 +5,7 @@ import { diagnosticTypeDropdownOptions, groupByDropdownOptions, hashPayload } fr
 import { requestPost } from '../../../../modules/request'
 import { aggregateSkillsData, growthResultsTooltipText, postSkillScoreTooltipText, preSkillScoreTooltipText, studentsImprovedSkillTooltipText, studentsMaintainedProficiencyTooltipText, studentsWithoutImprovementTooltipText } from './helpers'
 
-const QUERY_KEY = "admin-diagnostic-skills"
+const QUERY_KEY = "diagnostic-skills"
 const PUSHER_EVENT_KEY = "admin-diagnostic-skills-cached";
 const DEFAULT_CELL_WIDTH = '142px'
 const GROWTH_RESULTS = 'Growth Results'
@@ -93,22 +93,26 @@ export const SkillSection = ({
   selectedClassroomIds,
   selectedTimeframe,
   pusherChannel,
-  selectedDiagnosticId
+  selectedDiagnosticId,
+  passedData
 }) => {
 
   const [groupByValue, setGroupByValue] = React.useState<DropdownObjectInterface>(groupByDropdownOptions[0])
   const [diagnosticTypeValue, setDiagnosticTypeValue] = React.useState<DropdownObjectInterface>(getInitialDiagnosticType())
   const [pusherMessage, setPusherMessage] = React.useState<string>(null)
   const [skillsData, setSkillsData] = React.useState<any>(null);
-  const [aggregatedData, setAggregatedData] = React.useState<any>([]);
-  const [loading, setLoading] = React.useState<boolean>(true);
+  const [aggregatedData, setAggregatedData] = React.useState<any>(passedData || []);
+  const [loading, setLoading] = React.useState<boolean>(!passedData);
 
   React.useEffect(() => {
     initializePusher()
   }, [pusherChannel])
 
   React.useEffect(() => {
-    getData()
+    if(!passedData) {
+      // this is for testing purposes; this value will always be null in a non-testing environment
+      getData()
+    }
   }, [searchCount, groupByValue, diagnosticTypeValue])
 
   React.useEffect(() => {
@@ -138,7 +142,7 @@ export const SkillSection = ({
   function getData() {
     setLoading(true)
     const searchParams = {
-      query: "diagnostic-skills",
+      query: QUERY_KEY,
       timeframe: selectedTimeframe,
       school_ids: selectedSchoolIds,
       teacher_ids: selectedTeacherIds,
@@ -161,13 +165,13 @@ export const SkillSection = ({
   function filtersMatchHash(hashMessage) {
     const filterTarget = [].concat(
       QUERY_KEY,
+      groupByValue.value,
+      parseInt(diagnosticTypeValue.value),
       selectedTimeframe,
       selectedSchoolIds,
       selectedGrades,
       selectedTeacherIds,
       selectedClassroomIds,
-      groupByValue.value,
-      diagnosticTypeValue.value
     )
 
     const filterHash = hashPayload(filterTarget)

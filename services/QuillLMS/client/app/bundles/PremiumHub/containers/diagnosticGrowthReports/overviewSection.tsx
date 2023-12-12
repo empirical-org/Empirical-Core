@@ -111,7 +111,10 @@ export const OverviewSection = ({
   }, [pusherChannel])
 
   React.useEffect(() => {
-    getData()
+    // this is for testing purposes; this value will always be null in a non-testing environment
+    if(!passedData) {
+      getData()
+    }
   }, [searchCount, groupByValue])
 
   React.useEffect(() => {
@@ -234,17 +237,17 @@ export const OverviewSection = ({
   function filtersMatchHash(hashMessage) {
     const filterTarget = [].concat(
       QUERY_KEY,
+      groupByValue.value,
       selectedTimeframe,
       selectedSchoolIds,
       selectedGrades,
       selectedTeacherIds,
       selectedClassroomIds,
-      groupByValue.value
     )
 
     const filterHash = hashPayload(filterTarget)
 
-    return hashMessage == filterHash
+    return hashMessage === filterHash
   }
 
   function handleFilterOptionChange(option) {
