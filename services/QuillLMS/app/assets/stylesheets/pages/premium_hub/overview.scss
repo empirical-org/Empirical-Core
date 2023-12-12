@@ -52,6 +52,80 @@
     }
   }
 
+  .professional-development {
+    .buttons {
+      display: flex;
+      .quill-button {
+        margin-right: 16px;
+      }
+    }
+    .assigned-professional-learning-manager {
+      display: flex;
+      gap: 16px;
+      img {
+        width: 120px;
+        height: 120px;
+        margin-top: -8px;
+      }
+      .professional-learning-manager, .quick-links {
+        border-radius: 8px;
+        border: 1px solid $quill-grey-5;
+        background: $quill-grey-1;
+        padding: 32px;
+        color: $quill-grey-90;
+      }
+      .professional-learning-manager {
+        display: flex;
+        gap: 16px;
+        height: 245px;
+        .text-and-buttons {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+        h3 {
+          font-size: 24px;
+          font-weight: 700;
+          line-height: 36px;
+          margin-bottom: 10px;
+        }
+        p {
+          font-size: 16px;
+          line-height: normal;
+        }
+      }
+      .quick-links {
+        min-width: 260px;
+        h3 {
+          font-size: 20px;
+          font-weight: 700;
+          line-height: normal;
+          margin-bottom: 16px;
+        }
+        a {
+          display: block;
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 14px;
+          &:not(:last-of-type) {
+            margin-bottom: 10px;
+          }
+          &:hover {
+            text-decoration: none;
+          }
+        }
+        a::after {
+          margin-left: 8px;
+          content: "\f054";
+          font-family: "Font Awesome 5 Pro";
+        }
+      }
+      @media (max-width: 1189px) {
+        flex-direction: column;
+      }
+    }
+  }
+
   .tile {
     border-radius: 8px;
     border: 1px solid $quill-grey-5;

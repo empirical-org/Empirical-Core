@@ -20,8 +20,6 @@ const INTEGRATIONS = 'Integrations'
 
 const iconLinkBase = `${process.env.CDN_URL}/images/pages/administrator/overview`
 
-const erikaImg = <img alt="" src={`${iconLinkBase}/erika.svg`} />
-const shannonImg = <img alt="" src={`${iconLinkBase}/shannon.svg`} />
 const scarletAndNattalieImg = <img alt="" src={`${iconLinkBase}/scarlet-and-nattalie.svg`} />
 const alexAndCharlieImg = <img alt="" src={`${iconLinkBase}/alex-and-charlie.svg`} />
 const blackBulb = <img alt="" src={`${iconLinkBase}/black-bulb.svg`} />
@@ -38,8 +36,8 @@ const ERIKA_EMAIL = 'Erika@quill.org'
 const SHANNON_EMAIL = 'Shannon@quill.org'
 
 const EMAIL_TO_IMG = {
-  [ERIKA_EMAIL]: erikaImg,
-  [SHANNON_EMAIL]: shannonImg
+  [ERIKA_EMAIL]: <img alt="" src={`${iconLinkBase}/erika_headshot.png`} />,
+  [SHANNON_EMAIL]: <img alt="" src={`${iconLinkBase}/shannon_headshot.png`} />
 }
 
 const EMAIL_TO_SCHEDULE_LINK = {
@@ -325,7 +323,7 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
       return (
         <div className="overview-section assigned-professional-learning-manager">
           <div className="professional-learning-manager">
-            <div>
+            <div className="text-and-buttons">
               <div>
                 <h3>Meet your Professional Learning Manager</h3>
                 <p>I am {name}, your main point of contact for Quill implementation questions and scheduling of virtual professional learning opportunities. Please feel free to contact me to discuss how I can best support your district’s Quill journey this year.</p>
