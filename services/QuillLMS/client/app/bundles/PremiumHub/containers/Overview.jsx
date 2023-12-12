@@ -10,8 +10,7 @@ import { Snackbar, defaultSnackbarTimeout, Tooltip, } from '../../Shared/index';
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import SnapshotCount from '../components/usage_snapshots/snapshotCount'
 import { sentencesWrittenSnapshotInfo, studentLearningHoursSnapshotInfo, } from '../components/usage_snapshots/shared'
-
-const iconLinkBase = `${process.env.CDN_URL}/images/pages/administrator/overview`
+import { RESTRICTED, } from '../shared'
 
 const USAGE_HIGHLIGHTS = 'Usage Highlights'
 const PROFESSIONAL_DEVELOPMENT_AND_SUPPORT = 'Professional Development and Support'
@@ -19,12 +18,33 @@ const ACCOUNT_MANAGEMENT = 'Account Management'
 const PREMIUM_REPORTS = 'Premium Reports'
 const INTEGRATIONS = 'Integrations'
 
+const iconLinkBase = `${process.env.CDN_URL}/images/pages/administrator/overview`
+
+const erikaImg = <img alt="" src={`${iconLinkBase}/erika.svg`} />
+const shannonImg = <img alt="" src={`${iconLinkBase}/shannon.svg`} />
+const scarletAndNattalieImg = <img alt="" src={`${iconLinkBase}/scarlet-and-nattalie.svg`} />
+const alexAndCharlieImg = <img alt="" src={`${iconLinkBase}/alex-and-charlie.svg`} />
+const blackBulb = <img alt="" src={`${iconLinkBase}/black-bulb.svg`} />
+
 export const SECTION_NAME_TO_ICON_URL = {
   [USAGE_HIGHLIGHTS]: `${iconLinkBase}/bulb.svg`,
   [PROFESSIONAL_DEVELOPMENT_AND_SUPPORT]: `${iconLinkBase}/students.svg`,
   [ACCOUNT_MANAGEMENT]: `${iconLinkBase}/pencil.svg`,
   [PREMIUM_REPORTS]: `${iconLinkBase}/bar-graph-increasing-black.svg`,
   [INTEGRATIONS]: `${iconLinkBase}/checkbox-multiple.svg`
+}
+
+const ERIKA_EMAIL = 'Erika@quill.org'
+const SHANNON_EMAIL = 'Shannon@quill.org'
+
+const EMAIL_TO_IMG = {
+  [ERIKA_EMAIL]: erikaImg,
+  [SHANNON_EMAIL]: shannonImg
+}
+
+const EMAIL_TO_SCHEDULE_LINK = {
+  [ERIKA_EMAIL]: 'https://calendly.com/erikaatquill/schedule-quill-pd',
+  [SHANNON_EMAIL]: 'https://calendly.com/shannonatquill/discuss-scheduling-quill-pd'
 }
 
 const premiumReportTiles = [
@@ -100,6 +120,7 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
   const [snackbarText, setSnackbarText] = React.useState('');
   const [pusherChannel, setPusherChannel] = React.useState(null)
   const [professionalLearningManagerInformation, setProfessionalLearningManagerInformation] = React.useState(null)
+  const [loadingProfessionalLearningManagerInformation, setLoadingProfessionalLearningManagerInformation] = React.useState(true)
 
   React.useEffect(() => {
     getProfessionalLearningManagerInformation()
@@ -121,13 +142,14 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
     );
   }
 
-  function getProfessionalLearningManagerInformation(csmId) {
+  function getProfessionalLearningManagerInformation() {
     requestGet(
       `${process.env.DEFAULT_URL}/admins/${adminId}/vitally_professional_learning_manager_info`,
-    ),
-    (body) => {
-      setProfessionalLearningManagerInformation(body)
-    }
+      (body) => {
+        setProfessionalLearningManagerInformation(body)
+        setLoadingProfessionalLearningManagerInformation(false)
+      }
+    )
   }
 
   function receiveData(data, skipLoading) {
@@ -296,6 +318,81 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
     )
   }
 
+  function renderProfessionalLearningDevelopmentContent() {
+    if (professionalLearningManagerInformation && [ERIKA_EMAIL, SHANNON_EMAIL].includes(professionalLearningManagerInformation.email)) {
+      const { name, email, } = professionalLearningManagerInformation
+
+      return (
+        <div className="overview-section assigned-professional-learning-manager">
+          <div className="professional-learning-manager">
+            <div>
+              <div>
+                <h3>Meet your Professional Learning Manager</h3>
+                <p>I am {name}, your main point of contact for Quill implementation questions and scheduling of virtual professional learning opportunities. Please feel free to contact me to discuss how I can best support your district’s Quill journey this year.</p>
+              </div>
+              <div className="buttons">
+                <a className="quill-button contained primary medium focus-on-light" href={`mailto:${email}`} rel="noopener noreferrer" target="_blank">Email me</a>
+                <a className="quill-button contained primary medium focus-on-light" href={EMAIL_TO_SCHEDULE_LINK[email]} rel="noopener noreferrer" target="_blank">Schedule a call</a>
+              </div>
+            </div>
+            {EMAIL_TO_IMG[email]}
+          </div>
+          <div className="quick-links">
+            <h3>Quick Links</h3>
+            <a href="https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-premium-hub" rel="noopener noreferrer" target="_blank">Premium Hub User Guide</a>
+            <a href="https://docsend.com/view/9r6gzp5v8w5ky6w9" rel="noopener noreferrer" target="_blank">Live Training Guide</a>
+            <a href="/quill_academy" rel="noopener noreferrer" target="_blank">Quill Academy</a>
+            <a href="/teacher-center" rel="noopener noreferrer" target="_blank">Teacher Center</a>
+            <a href="mailto:support@quill.org" rel="noopener noreferrer" target="_blank">Contact Support</a>
+            <a href="https://quillorg.canny.io/admin-feedback" rel="noopener noreferrer" target="_blank">Request a Feature</a>
+          </div>
+        </div>
+      )
+    } else if (accessType === RESTRICTED) {
+      return (
+        <div className="overview-section restricted-access">
+          <div>
+            <h3>Implement literacy with fidelity</h3>
+            <p className="subheader">{blackBulb}Premium Schools complete three times as many activities as free schools.</p>
+            <p>With personalized learning, interactive activities, and immediate feedback, Quill Premium helps teachers foster literacy skills and critical thinking. If you’re interested in Quill Premium for your teachers, our sales team would love to connect with you.</p>
+            <div className="buttons">
+              <a className="quill-button contained primary medium focus-on-light" href="https://calendly.com/alex-quill" rel="noopener noreferrer" target="_blank">Schedule a call</a>
+              <a className="quill-button contained primary medium focus-on-light" href="https://www.quill.org/premium/request-district-quote" rel="noopener noreferrer" target="_blank">Request a quote</a>
+            </div>
+          </div>
+          {alexAndCharlieImg}
+        </div>
+      )
+    } else {
+      return (
+        <div className="overview-section no-assigned-professional-learning-manager">
+          <div>
+            <h3>Meet your Quill Implementation Team</h3>
+            <p className="subheader">{blackBulb}Premium Schools complete three times as many activities as free schools.</p>
+            <p>We are your main point of contact for Quill questions, onboarding needs, and scheduling of virtual training opportunities. Please feel free to contact us to discuss how we can best support your school’s Quill journey this year.</p>
+            <div className="buttons">
+              <a className="quill-button contained primary medium focus-on-light" href="mailto:schools@quill.org" rel="noopener noreferrer" target="_blank">Email us</a>
+              <a className="quill-button contained primary medium focus-on-light" href="https://calendly.com/schoolsatquill" rel="noopener noreferrer" target="_blank">Schedule training</a>
+            </div>
+          </div>
+          {scarletAndNattalieImg}
+        </div>
+      )
+    }
+  }
+
+  function renderProfessionalDevelopmentSection() {
+    return (
+      <section className="overview-section-wrapper professional-development">
+        <h2>
+          <img alt="" src={SECTION_NAME_TO_ICON_URL[PROFESSIONAL_DEVELOPMENT_AND_SUPPORT]} />
+          <span>{PROFESSIONAL_DEVELOPMENT_AND_SUPPORT}</span>
+        </h2>
+        {renderProfessionalLearningDevelopmentContent()}
+      </section>
+    )
+  }
+
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -306,6 +403,7 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
         <h1>Hello, {model.name.split(' ')[0]}!</h1>
         {renderSubheader()}
         {renderHighlightsSection()}
+        {renderProfessionalDevelopmentSection()}
         {renderPremiumReportsSection()}
         {renderIntegrationsSection()}
       </div>
