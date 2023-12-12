@@ -90,6 +90,7 @@ export const OverviewSection = ({
   selectedTimeframe,
   pusherChannel,
   hasAdjustedFiltersFromDefault,
+  hasAdjustedFiltersSinceLastSubmission,
   handleSetNoDiagnosticDataAvailable,
   handleTabChangeFromDataChip,
   handleSetSelectedDiagnosticId,
@@ -105,6 +106,7 @@ export const OverviewSection = ({
   const [recommendationsData, setRecommendationsData] = React.useState<any>(null);
   const [aggregatedData, setAggregatedData] = React.useState<any>(passedData || []);
   const [pusherMessage, setPusherMessage] = React.useState<string>(null)
+  const [updatedFromPusher, setUpdatedFromPusher] = React.useState<boolean>(false)
 
   React.useEffect(() => {
     initializePusher()
@@ -120,8 +122,18 @@ export const OverviewSection = ({
   React.useEffect(() => {
     if (!pusherMessage) return
 
-    if (filtersMatchHash(pusherMessage)) getData()
+    if (filtersMatchHash(pusherMessage) && !updatedFromPusher) {
+      // this prevents getData from being called multiple times since we receive Pusher messages for each of the 5 different API calls
+      setUpdatedFromPusher(true)
+      getData()
+    }
   }, [pusherMessage])
+
+  React.useEffect(() => {
+    if (hasAdjustedFiltersSinceLastSubmission && updatedFromPusher) {
+      setUpdatedFromPusher(false)
+    }
+  }, [hasAdjustedFiltersSinceLastSubmission])
 
   React.useEffect(() => {
     if (preDiagnosticAssignedData && postDiagnosticAssignedData && preDiagnosticCompletedData && postDiagnosticCompletedData && recommendationsData) {
@@ -234,20 +246,27 @@ export const OverviewSection = ({
     })
   }
 
-  function filtersMatchHash(hashMessage) {
+  function getFilterHash(queryKey) {
     const filterTarget = [].concat(
-      QUERY_KEY,
-      groupByValue.value,
+      queryKey,
       selectedTimeframe,
       selectedSchoolIds,
       selectedGrades,
       selectedTeacherIds,
       selectedClassroomIds,
     )
+    return hashPayload(filterTarget)
+  }
 
-    const filterHash = hashPayload(filterTarget)
+  function filtersMatchHash(hashMessage) {
+    const firstFilterHash = getFilterHash(PRE_DIAGNOSTIC_ASSIGNED_QUERYSTRING)
+    const secondFilterHash = getFilterHash(PRE_DIAGNOSTIC_COMPLETED_QUERYSTRING)
+    const thirdFilterHash = getFilterHash(POST_DIAGNOSTIC_ASSIGNED_QUERYSTRING)
+    const fourthFilterHash = getFilterHash(POST_DIAGNOSTIC_COMPLETED_QUERYSTRING)
+    const fifthFilterHash = getFilterHash(RECOMMENDATIONS_QUERYSTRING)
+    const hashesArray = [firstFilterHash, secondFilterHash, thirdFilterHash, fourthFilterHash, fifthFilterHash]
 
-    return hashMessage === filterHash
+    return hashesArray.includes(hashMessage)
   }
 
   function handleFilterOptionChange(option) {

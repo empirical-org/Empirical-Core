@@ -407,7 +407,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo }) => 
       <div className={showFilters ? 'filter-menu-open' : 'filter-menu-closed'}>
         {showFilters ? null : renderShowFilterMenuButton()}
         <Routes>
-          <Route element={<DiagnosticGrowthReportsContainer {...sharedProps} />} path='/teachers/premium_hub/diagnostic_growth_report' />
+          <Route element={<DiagnosticGrowthReportsContainer {...sharedProps} hasAdjustedFiltersSinceLastSubmission={hasAdjustedFiltersSinceLastSubmission} />} path='/teachers/premium_hub/diagnostic_growth_report' />
           <Route element={<DataExportContainer {...sharedProps} />} path='/teachers/premium_hub/data_export' />
           <Route element={<UsageSnapshotsContainer {...sharedProps} />} path='/teachers/premium_hub/usage_snapshot_report' />
         </Routes>
