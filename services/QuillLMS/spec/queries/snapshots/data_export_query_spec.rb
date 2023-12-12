@@ -6,6 +6,28 @@ module Snapshots
   describe DataExportQuery do
     include_context 'Snapshots Period CTE'
 
+    context 'post query transforms' do
+      let(:stubbed_query_result) { [{completed_at: DateTime.new(2020, 1, 1, 1).to_s}]}
+
+      context 'user timezone exists' do
+        let(:user) { create(:user, time_zone: 'America/Chicago' )}
+
+        it 'should adjust the completed_at DateTime string for the given timezone' do
+          query = DataExportQuery.new(**query_args.merge(user: user))
+          transformed_query = query.post_query_transform(stubbed_query_result)
+          expect(transformed_query.first[:completed_at][..9]).to eq "2019-12-31"
+        end
+      end
+
+      context 'user timezone does not exist' do
+        it 'should return the untransformed DateTime string' do
+          query = DataExportQuery.new(**query_args)
+          transformed_query = query.post_query_transform(stubbed_query_result)
+          expect(transformed_query.first[:completed_at][..9]).to eq "2020-01-01"
+        end
+      end
+    end
+
     context 'big_query_snapshot', :big_query_snapshot do
       let(:num_classrooms) { 1 }
       let(:num_concepts) { 11 }

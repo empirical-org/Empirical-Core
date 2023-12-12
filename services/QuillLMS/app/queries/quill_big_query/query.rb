@@ -12,8 +12,12 @@ module QuillBigQuery
       raise NotImplementedError
     end
 
+    def post_query_transform(query_result)
+      query_result
+    end
+
     def run_query
-      runner.execute(query)
+      post_query_transform(runner.execute(query))
     end
 
     def query
