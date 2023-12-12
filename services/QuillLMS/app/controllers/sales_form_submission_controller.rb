@@ -3,14 +3,9 @@
 class SalesFormSubmissionController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  RENEWAL_REQUEST = 'renewal request'
   QUOTE_REQUEST = 'quote request'
   SCHOOL = 'school'
   DISTRICT = 'district'
-
-  def request_renewal
-    @type = RENEWAL_REQUEST
-  end
 
   def request_quote
     redirect_to '/premium/request-school-quote'

@@ -4,6 +4,7 @@ import React from 'react';
 
 import {
   DISTRICT_PREMIUM,
+  SALESMATE_RENEWAL_FORM_URL,
   SCHOOL_PREMIUM,
   SCHOOL_PREMIUM_SCHOLARSHIP,
   TEACHER_PREMIUM,
@@ -171,7 +172,9 @@ const SubscriptionStatus = ({
         content.buttonOrDate = (
           <a
             className={CTA_BUTTON_CLASSNAME}
-            href="mailto:sales@quill.org"
+            href={SALESMATE_RENEWAL_FORM_URL}
+            rel="noopener noreferrer"
+            target="_blank"
           >
             Contact us to renew
           </a>

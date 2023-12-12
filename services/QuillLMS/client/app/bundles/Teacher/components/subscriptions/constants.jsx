@@ -1,3 +1,5 @@
+export const SALESMATE_RENEWAL_FORM_URL = "https://webforms.salesmate.io/webforms/#/cdc44d13-84f9-45e9-84c4-2136e1bdb5ca"
+
 // subscription types (for display)
 export const TEACHER_PREMIUM_TRIAL = "Teacher Premium Trial"
 export const TEACHER_PREMIUM_CREDIT = "Teacher Premium Credit"
