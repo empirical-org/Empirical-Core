@@ -20,8 +20,8 @@ const INTEGRATIONS = 'Integrations'
 
 const iconLinkBase = `${process.env.CDN_URL}/images/pages/administrator/overview`
 
-const scarletAndNattalieImg = <img alt="" src={`${iconLinkBase}/scarlet-and-nattalie.png`} />
-const alexAndCharlieImg = <img alt="" src={`${iconLinkBase}/alex-and-charlie.png`} />
+const scarletAndNattalieImg = <img alt="" className="photos" src={`${iconLinkBase}/scarlet-and-nattalie.png`} />
+const alexAndCharlieImg = <img alt="" className="photos" src={`${iconLinkBase}/alex-and-charlie.png`} />
 const blackBulb = <img alt="" src={`${iconLinkBase}/black-bulb.svg`} />
 
 export const SECTION_NAME_TO_ICON_URL = {
@@ -317,6 +317,19 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
   }
 
   function renderProfessionalLearningDevelopmentContent() {
+    const quickLinks = (
+      <div className="quick-links">
+        <h3>Quick Links</h3>
+        <a href="https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-premium-hub" rel="noopener noreferrer" target="_blank">Premium Hub User Guide</a>
+        <a href="https://docsend.com/view/9r6gzp5v8w5ky6w9" rel="noopener noreferrer" target="_blank">Live Training Guide</a>
+        <a href="/quill_academy" rel="noopener noreferrer" target="_blank">Quill Academy</a>
+        <a href="/teacher-center" rel="noopener noreferrer" target="_blank">Teacher Center</a>
+        <a href="mailto:support@quill.org" rel="noopener noreferrer" target="_blank">Contact Support</a>
+        <a href="https://quillorg.canny.io/admin-feedback" rel="noopener noreferrer" target="_blank">Request a Feature</a>
+      </div>
+
+    )
+
     if (professionalLearningManagerInformation && [ERIKA_EMAIL, SHANNON_EMAIL].includes(professionalLearningManagerInformation.email)) {
       const { name, email, } = professionalLearningManagerInformation
 
@@ -335,45 +348,43 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
             </div>
             {EMAIL_TO_IMG[email]}
           </div>
-          <div className="quick-links">
-            <h3>Quick Links</h3>
-            <a href="https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-premium-hub" rel="noopener noreferrer" target="_blank">Premium Hub User Guide</a>
-            <a href="https://docsend.com/view/9r6gzp5v8w5ky6w9" rel="noopener noreferrer" target="_blank">Live Training Guide</a>
-            <a href="/quill_academy" rel="noopener noreferrer" target="_blank">Quill Academy</a>
-            <a href="/teacher-center" rel="noopener noreferrer" target="_blank">Teacher Center</a>
-            <a href="mailto:support@quill.org" rel="noopener noreferrer" target="_blank">Contact Support</a>
-            <a href="https://quillorg.canny.io/admin-feedback" rel="noopener noreferrer" target="_blank">Request a Feature</a>
-          </div>
+          {quickLinks}
         </div>
       )
     } else if (accessType === RESTRICTED) {
       return (
         <div className="overview-section restricted-access">
-          <div>
-            <h3>Implement literacy with fidelity</h3>
-            <p className="subheader">{blackBulb}Premium Schools complete three times as many activities as free schools.</p>
-            <p>With personalized learning, interactive activities, and immediate feedback, Quill Premium helps teachers foster literacy skills and critical thinking. If you’re interested in Quill Premium for your teachers, our sales team would love to connect with you.</p>
-            <div className="buttons">
-              <a className="quill-button contained primary medium focus-on-light" href="https://calendly.com/alex-quill" rel="noopener noreferrer" target="_blank">Schedule a call</a>
-              <a className="quill-button contained primary medium focus-on-light" href="https://www.quill.org/premium/request-district-quote" rel="noopener noreferrer" target="_blank">Request a quote</a>
+          <div className="professional-learning-manager">
+            <div>
+              <h3>Implement literacy with fidelity</h3>
+              <p className="section-subheader">{blackBulb}Premium Schools complete three times as many activities as free schools.</p>
+              <p>With personalized learning, interactive activities, and immediate feedback, Quill Premium helps teachers foster literacy skills and critical thinking. If you’re interested in Quill Premium for your teachers, our sales team would love to connect with you.</p>
+              <div className="buttons">
+                <a className="quill-button contained primary medium focus-on-light" href="https://calendly.com/alex-quill" rel="noopener noreferrer" target="_blank">Schedule a call</a>
+                <a className="quill-button contained primary medium focus-on-light" href="https://www.quill.org/premium/request-district-quote" rel="noopener noreferrer" target="_blank">Request a quote</a>
+              </div>
             </div>
+            {alexAndCharlieImg}
           </div>
-          {alexAndCharlieImg}
+          {quickLinks}
         </div>
       )
     } else {
       return (
         <div className="overview-section no-assigned-professional-learning-manager">
-          <div>
-            <h3>Meet your Quill Implementation Team</h3>
-            <p className="subheader">{blackBulb}Premium Schools complete three times as many activities as free schools.</p>
-            <p>We are your main point of contact for Quill questions, onboarding needs, and scheduling of virtual training opportunities. Please feel free to contact us to discuss how we can best support your school’s Quill journey this year.</p>
-            <div className="buttons">
-              <a className="quill-button contained primary medium focus-on-light" href="mailto:schools@quill.org" rel="noopener noreferrer" target="_blank">Email us</a>
-              <a className="quill-button contained primary medium focus-on-light" href="https://calendly.com/schoolsatquill" rel="noopener noreferrer" target="_blank">Schedule training</a>
+          <div className="professional-learning-manager">
+            <div>
+              <h3>Meet your Quill Implementation Team</h3>
+              <p className="section-subheader">{blackBulb}Premium Schools complete three times as many activities as free schools.</p>
+              <p>We are your main point of contact for Quill questions, onboarding needs, and scheduling of virtual training opportunities. Please feel free to contact us to discuss how we can best support your school’s Quill journey this year.</p>
+              <div className="buttons">
+                <a className="quill-button contained primary medium focus-on-light" href="mailto:schools@quill.org" rel="noopener noreferrer" target="_blank">Email us</a>
+                <a className="quill-button contained primary medium focus-on-light" href="https://calendly.com/schoolsatquill" rel="noopener noreferrer" target="_blank">Schedule training</a>
+              </div>
             </div>
+            {scarletAndNattalieImg}
           </div>
-          {scarletAndNattalieImg}
+          {quickLinks}
         </div>
       )
     }
