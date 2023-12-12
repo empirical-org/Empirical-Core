@@ -11,7 +11,8 @@ module Snapshots
     }
 
     def perform(cache_key, query, user_id, timeframe, school_ids, filters, previous_timeframe)
-      payload = generate_payload(query, timeframe, school_ids, filters)
+      user = User.find(user_id)
+      payload = generate_payload(query, timeframe, school_ids, user, filters)
       Rails.cache.write(cache_key, payload.to_a, expires_in: cache_expiry)
 
       filter_hash = PayloadHasher.run([
@@ -36,13 +37,14 @@ module Snapshots
       now.end_of_day.to_i - now.to_i
     end
 
-    private def generate_payload(query, timeframe, school_ids, filters)
+    private def generate_payload(query, timeframe, school_ids, user, filters)
       filters_symbolized = filters.symbolize_keys
 
       QUERIES[query].run(**{
         timeframe_start: DateTime.parse(timeframe['timeframe_start']),
         timeframe_end: DateTime.parse(timeframe['timeframe_end']),
-        school_ids: school_ids
+        school_ids: school_ids,
+        user:
       }.merge(filters_symbolized))
     end
   end

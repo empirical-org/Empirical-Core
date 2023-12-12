@@ -7,7 +7,7 @@ module Snapshots
     include_context 'Snapshots Period CTE'
 
     context 'post query transforms' do
-      let(:stubbed_query_result) { [{completed_at: DateTime.new(2020, 1, 1, 1).to_s}]}
+      let(:stubbed_query_result) { [{completed_at: DateTime.new(2020, 1, 1, 1)}]}
 
       context 'user timezone exists' do
         let(:user) { create(:user, time_zone: 'America/Chicago' )}
@@ -15,7 +15,7 @@ module Snapshots
         it 'should adjust the completed_at DateTime string for the given timezone' do
           query = DataExportQuery.new(**query_args.merge(user: user))
           transformed_query = query.post_query_transform(stubbed_query_result)
-          expect(transformed_query.first[:completed_at][..9]).to eq "2019-12-31"
+          expect(transformed_query.first[:completed_at].strftime("%F")).to eq "2019-12-31"
         end
       end
 
@@ -23,7 +23,7 @@ module Snapshots
         it 'should return the untransformed DateTime string' do
           query = DataExportQuery.new(**query_args)
           transformed_query = query.post_query_transform(stubbed_query_result)
-          expect(transformed_query.first[:completed_at][..9]).to eq "2020-01-01"
+          expect(transformed_query.first[:completed_at].strftime("%F")).to eq "2020-01-01"
         end
       end
     end

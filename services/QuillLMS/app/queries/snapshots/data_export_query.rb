@@ -32,7 +32,7 @@ module Snapshots
     def post_query_transform(query_result)
       return query_result unless user&.time_zone
       query_result.map do |row|
-        datetime_string_with_timezone = DateTime.parse(row[:completed_at]).in_time_zone(user.time_zone).to_s
+        datetime_string_with_timezone = row[:completed_at].in_time_zone(user.time_zone)
         row.merge(completed_at: datetime_string_with_timezone)
       end
 
