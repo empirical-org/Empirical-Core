@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+
 import { MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR } from '../utils/constants';
 
 interface renderNavListProps {
@@ -11,7 +12,8 @@ interface renderNavListProps {
   },
   activeTab: string,
   handleLinkClick: () => void,
-  listClass?: string
+  listClass?: string,
+  childElement?: JSX.Element
 }
 
 function renderListItem({ tabs, handleLinkClick, tabLabel, activeTab, i }) {
@@ -37,12 +39,13 @@ function renderListItem({ tabs, handleLinkClick, tabLabel, activeTab, i }) {
   )
 }
 
-export function renderNavList({ tabs, handleLinkClick, listClass, activeTab }: renderNavListProps) {
+export function renderNavList({ tabs, handleLinkClick, listClass, activeTab, childElement }: renderNavListProps) {
   return (
     <ul className={listClass}>
       {Object.keys(tabs).map((tabLabel, i) => {
         return renderListItem({ tabs, handleLinkClick, tabLabel, activeTab, i })
       })}
+      {childElement}
     </ul>
   )
 }
