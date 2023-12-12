@@ -2,6 +2,7 @@ import * as React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from '@testing-library/user-event';
 
+import * as requestsApi from '../../../../modules/request';
 import OverviewSection from "../diagnosticGrowthReports/overviewSection";
 
 const props = {
@@ -82,6 +83,15 @@ const mockData = [
 ]
 
 describe('OverviewSection', () => {
+  beforeEach(() => {
+    jest.spyOn(requestsApi, 'requestPost').mockImplementation((url, params, callback) => {
+      callback([]);
+    });
+  })
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
   describe('loading state', () => {
     test('it should render loading spinner', () => {
       const { asFragment } = render(<OverviewSection {...props} />);
