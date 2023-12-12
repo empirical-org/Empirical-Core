@@ -121,8 +121,9 @@ main {
         padding-right: 10px !important;
         border-right: 1px solid $quill-grey-1;
         td {
-          min-height: 46px !important;
+          padding: 15px 0px;
           font-size: 13px !important;
+          min-height: 81px !important;
           .emphasized-content {
             color: $quill-green;
             background-color: $quill-green-1;
@@ -143,6 +144,9 @@ main {
         }
       }
     }
+  }
+  .growth-diagnostic-reports-by-skill-table .data-table-body .data-table-row:nth-of-type(4) td {
+    min-height: 98px !important;
   }
 }
 
