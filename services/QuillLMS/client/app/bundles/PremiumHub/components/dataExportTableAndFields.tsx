@@ -1,10 +1,9 @@
-import * as moment from 'moment';
 import * as React from 'react';
 
 import { requestPost, } from '../../../modules/request';
-import { DataTable, Snackbar, Spinner, LightButtonLoadingSpinner, defaultSnackbarTimeout, filterIcon, informationIcon, noResultsMessage, smallWhiteCheckIcon, whiteArrowPointingDownIcon, Tooltip, helpIcon, NOT_APPLICABLE, documentFileIcon, } from '../../Shared';
+import { DataTable, LightButtonLoadingSpinner, NOT_APPLICABLE, Snackbar, Spinner, Tooltip, defaultSnackbarTimeout, documentFileIcon, filterIcon, helpIcon, noResultsMessage, smallWhiteCheckIcon, whiteArrowPointingDownIcon } from '../../Shared';
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
-import { hashPayload, } from '../shared'
+import { hashPayload, } from '../shared';
 
 const STANDARD_WIDTH = "152px";
 const STUDENT_NAME = "Student Name";
@@ -257,7 +256,7 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
       }
 
       formattedEntry.id = index
-      formattedEntry.completed_at = moment(entry.completed_at).format("MM/DD/YYYY");
+      formattedEntry.completed_at = new Date(entry.completed_at).toLocaleDateString("en-US");
       formattedEntry.timespent = getTimeSpentInMinutes(entry.timespent)
       formattedEntry.score = percentage
       return formattedEntry
