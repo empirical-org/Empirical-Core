@@ -9,6 +9,7 @@ import DistrictStandardsReportsProgressReport from './DistrictStandardsReports';
 import SchoolSubscriptionsContainer from './SchoolSubscriptionsContainer';
 import IntegrationsContainer from './IntegrationsContainer';
 import PremiumFilterableReportsContainer from './PremiumFilterableReportsContainer';
+import AccountManagement from './AccountManagement';
 
 import { requestGet, } from '../../../modules/request/index';
 import { NOT_LISTED, NO_SCHOOL_SELECTED, Spinner } from '../../Shared/index';
@@ -147,6 +148,7 @@ const PremiumHubContainer = ({ id, location, children, user, }) => {
             <Route component={routerProps => <PremiumFilterableReportsContainer adminId={id} {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/usage_snapshot_report" />
             <Route component={routerProps => <PremiumFilterableReportsContainer adminId={id} {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/data_export" />
             <Route component={routerProps => <Overview adminId={id} {...sharedProps} {...routerProps} />} exact path="/teachers/premium_hub/overview" />
+            <Route component={routerProps => <AccountManagement adminId={id} {...sharedProps} {...routerProps} />} exact path="/teachers/premium_hub/account_management" />
             <Route component={routerProps => <PremiumHub adminId={id} {...sharedProps} {...routerProps} />} exact path="/teachers/premium_hub/" />
           </Switch>
         </div>

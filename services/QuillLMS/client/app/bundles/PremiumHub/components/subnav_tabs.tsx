@@ -15,6 +15,7 @@ const USAGE_SNAPSHOT_REPORT = 'Usage Snapshot Report'
 const DATA_EXPORT = 'Data Export'
 const DIAGNOSTIC_GROWTH_REPORT = 'Diagnostic Growth Report'
 const PREMIUM_REPORTS = 'Premium Reports'
+const ACCOUNT_MANAGEMENT = 'Account Management'
 
 const baseTabs = {
   [OVERVIEW]: {
@@ -24,6 +25,10 @@ const baseTabs = {
   [SUBSCRIPTIONS]: {
     label: SUBSCRIPTIONS,
     url: '/teachers/premium_hub/school_subscriptions'
+  },
+  [ACCOUNT_MANAGEMENT]: {
+    label: ACCOUNT_MANAGEMENT,
+    url: '/teachers/premium_hub/account_management'
   },
   [INTEGRATIONS]: {
     label: INTEGRATIONS,
@@ -198,6 +203,8 @@ export const AdminSubnav = ({ path }) => {
       setActiveTab(PREMIUM_REPORTS)
     } else if (pathname.includes('/school_subscriptions')) {
       setActiveTab(SUBSCRIPTIONS)
+    } else if (pathname.includes('/account_management')) {
+      setActiveTab(ACCOUNT_MANAGEMENT)
     } else if (pathname.includes('/diagnostic_growth_report')) {
       setActiveTab(DIAGNOSTIC_GROWTH_REPORT)
     } else if (pathname.includes('/data_export')) {
