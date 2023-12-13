@@ -1,4 +1,4 @@
-      /* Data Process By Query: 0.92 GB */
+      /* Data Processed By Query: 0.92 GB */
 
                 SELECT activity_categories.name AS value, COUNT(DISTINCT activity_sessions.id) AS count
 

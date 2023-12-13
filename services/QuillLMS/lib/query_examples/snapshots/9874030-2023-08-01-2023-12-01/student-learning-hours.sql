@@ -1,4 +1,4 @@
-      /* Data Process By Query: 0.71 GB */
+      /* Data Processed By Query: 0.71 GB */
 
         SELECT IFNULL(SUM(activity_sessions.timespent), 0) / 3600.0 AS count
                 FROM lms.schools

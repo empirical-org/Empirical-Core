@@ -1,4 +1,4 @@
-      /* Data Process By Query: 0.73 GB */
+      /* Data Processed By Query: 0.73 GB */
 
         SELECT COUNT(DISTINCT activity_sessions.user_id) AS count
                 FROM lms.schools

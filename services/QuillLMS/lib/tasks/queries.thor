@@ -65,7 +65,7 @@ class Queries < Thor
       gb_processed = (bytes * 1e-9).round(2)
 
       <<-STRING
-      /* Data Process By Query: #{gb_processed} GB */
+      /* Data Processed By Query: #{gb_processed} GB */
 
       STRING
     end

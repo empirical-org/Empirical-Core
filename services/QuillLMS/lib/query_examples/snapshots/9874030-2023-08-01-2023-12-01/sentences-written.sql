@@ -1,4 +1,4 @@
-      /* Data Process By Query: 46.19 GB */
+      /* Data Processed By Query: 46.19 GB */
 
         SELECT COUNT(*) AS count
           FROM (        SELECT COUNT(*)
