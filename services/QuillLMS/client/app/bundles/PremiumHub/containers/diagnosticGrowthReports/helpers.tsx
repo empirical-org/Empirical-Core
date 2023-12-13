@@ -199,7 +199,7 @@ function growthResultsValue(preScore, postScore) {
   return 'No Gain';
 }
 
-function formatData(data, isAggregateRowData) {
+function formatSkillsData(data, isAggregateRowData) {
   return data.map((entry, i) => {
     const { aggregate_rows, improved_proficiency, maintained_proficiency, post_score, pre_score, recommended_practice, skill_name, name } = entry
     const totalStudents = improved_proficiency + maintained_proficiency + recommended_practice
@@ -212,7 +212,7 @@ function formatData(data, isAggregateRowData) {
       studentsImprovedSkill: proficiencyValue(improved_proficiency, totalStudents),
       studentsWithoutImprovement: proficiencyValue(recommended_practice, totalStudents),
       studentsMaintainedProficiency: proficiencyValue(maintained_proficiency, totalStudents),
-      aggregate_rows: isAggregateRowData ? null : formatData(aggregate_rows, true)
+      aggregate_rows: isAggregateRowData ? null : formatSkillsData(aggregate_rows, true)
     }
   })
 }
@@ -226,7 +226,7 @@ export function aggregateSkillsData({
     setLoading(false)
     return
   }
-  const aggregatedData = formatData(skillsData, false)
+  const aggregatedData = formatSkillsData(skillsData, false)
   setAggregatedData(aggregatedData)
   setLoading(false)
 }
