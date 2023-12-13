@@ -207,7 +207,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
       }
     }
 
-    requestPost('/admin_report_filter_selections/create_or_update', params, () => {})
+    requestPost('/admin_report_filter_selections/create_or_update', params, () => { })
   }
 
   function getFilters() {
@@ -217,7 +217,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
       teacher_ids: selectedTeachers?.map(t => t.id) || null,
       classroom_ids: selectedClassrooms?.map(c => c.id) || null,
       grades: selectedGrades?.map(g => g.value),
-      report: location.pathname.slice(location.pathname.lastIndexOf("/") , location.pathname.length),
+      report: location.pathname.slice(location.pathname.lastIndexOf("/"), location.pathname.length),
       is_initial_load: loadingFilters
     }
 

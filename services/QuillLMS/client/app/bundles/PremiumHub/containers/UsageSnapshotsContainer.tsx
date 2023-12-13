@@ -3,8 +3,9 @@ import * as React from 'react'
 import { FULL, restrictedPage, mapItemsIfNotAll } from '../shared';
 import SnapshotSection from '../components/usage_snapshots/snapshotSection'
 import { snapshotSections, TAB_NAMES, ALL, SECTION_NAME_TO_ICON_URL, } from '../components/usage_snapshots/shared'
-import { Spinner, DropdownInput, filterIcon, whiteArrowPointingDownIcon, documentFileIcon } from '../../Shared/index'
+import { Spinner, DropdownInput, filterIcon, whiteArrowPointingDownIcon, documentFileIcon, whiteEmailIcon } from '../../Shared/index'
 import useWindowSize from '../../Shared/hooks/useWindowSize';
+import ReportSubscriptionModal from '../components/usage_snapshots/reportSubscriptionModal';
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 950
 
@@ -39,10 +40,24 @@ export const UsageSnapshotsContainer = ({
 }) => {
 
   const [selectedTab, setSelectedTab] = React.useState(ALL)
+  const [isManageReportSubscriptionModalOpen, setIsManageSubscriptionReportModalOpen] = React.useState(true);
 
   const size = useWindowSize()
 
   function handleSetSelectedTabFromDropdown(option) { setSelectedTab(option.value) }
+
+  function handleClickManageReportSubscription() {
+    setIsManageSubscriptionReportModalOpen(!isManageReportSubscriptionModalOpen);
+  }
+
+  function handleManageReportSubscriptionSave() {
+    console.log("Subscribed!");
+    setIsManageSubscriptionReportModalOpen(false);
+  }
+
+  function handleManageReportSubscriptionCancel() {
+    setIsManageSubscriptionReportModalOpen(false);
+  }
 
   if (loadingFilters) {
     return <Spinner />
@@ -96,6 +111,11 @@ export const UsageSnapshotsContainer = ({
 
   return (
     <main>
+      <ReportSubscriptionModal
+        cancel={handleManageReportSubscriptionCancel}
+        isOpen={isManageReportSubscriptionModalOpen}
+        save={handleManageReportSubscriptionSave}
+      />
       <div className="header">
         <h1>
           <span>Usage Snapshot Report</span>
@@ -104,6 +124,14 @@ export const UsageSnapshotsContainer = ({
             <span>Guide</span>
           </a>
         </h1>
+        <button
+          className="quill-button manage-subscription-button contained primary medium focus-on-light"
+          onClick={handleClickManageReportSubscription}
+          type="button"
+        >
+          <img alt={whiteEmailIcon.alt} src={whiteEmailIcon.src} />
+          <span>Subscribe</span>
+        </button>
         <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">
           <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />
           <span>Download</span>

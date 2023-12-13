@@ -286,7 +286,6 @@
         margin-top: 32px;
       }
     }
-
   }
 
   .custom-date-modal {
@@ -365,6 +364,84 @@
         height: 337px;
       }
     }
+  }
+
+  .manage-report-subscription-modal {
+    height: 389px;
+    width: 536px;
+    background: $quill-white;
+    border-radius: 6px;
+    border: 1px solid $quill-grey-5;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 40px 32px;
+
+    .title-and-description {
+      align-items: flex-start;
+      align-self: stretch;
+      flex-direction: column;
+      display: flex;
+      gap: 8px;
+      justify-content: flex-start;
+
+      .title {
+        color: $quill-black;
+        font-family: 'Open Sans';
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 32px;
+      }
+      .description {
+        align-self: stretch;
+        color: $quill-grey-50;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 22px;
+        word-break: break-word;
+      }
+    }
+
+    .on-off-and-frequency {
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 32px;
+
+      .radio-options {
+        align-self: stretch;
+        height: 88px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 4px;
+      }
+
+      .label {
+        color: #7F7F7F;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 12px;
+        word-wrap: break-word
+      }
+
+      .radio {
+
+      }
+
+      .frequency {
+
+      }
+    }
+    // .button-section {
+    //   display: flex;
+    //   justify-content: flex-end;
+    //   margin-top: 32px;
+    // }
   }
 
   .filter-menu-open {
@@ -503,3 +580,5 @@
     }
   }
 }
+
+
