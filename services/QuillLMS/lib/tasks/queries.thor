@@ -36,8 +36,10 @@ class Queries < Thor
       sql = query
         .new(**{timeframe_start:,timeframe_end:,school_ids:})
         .query
+      metadata = query_metadata(sql)
 
-      File.write(output_directory + "#{key}.sql", sql)
+
+      File.write(output_directory + "#{key}.sql", metadata + sql)
     end
   end
 
@@ -55,6 +57,17 @@ class Queries < Thor
       SchoolsAdmins
         .where(user_id: user_id)
         .pluck(:school_id)
+    end
+
+    private def query_metadata(sql)
+      job = Google::Cloud::Bigquery.new.query_job(sql, dryrun: true)
+      bytes = job.gapi.statistics.total_bytes_processed
+      gb_processed = (bytes * 1e-9).round(2)
+
+      <<-STRING
+      /* Data Process By Query: #{gb_processed} GB */
+
+      STRING
     end
   end
 end

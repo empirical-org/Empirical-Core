@@ -1,3 +1,5 @@
+      /* Data Process By Query: 0.73 GB */
+
                 SELECT IFNULL(CAST(classrooms.grade AS STRING), 'No grade set') AS value, COUNT(DISTINCT activity_sessions.id) AS count
 
                 FROM lms.schools

@@ -1,3 +1,5 @@
+      /* Data Process By Query: 0.53 GB */
+
         SELECT COUNT(DISTINCT classrooms.id) AS count
                 FROM lms.schools
         JOIN lms.schools_users

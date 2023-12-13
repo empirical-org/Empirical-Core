@@ -1,3 +1,5 @@
+      /* Data Process By Query: 1.1 GB */
+
                 SELECT users.name AS value, COUNT(DISTINCT activity_sessions.id) AS count
 
                 FROM lms.schools

@@ -1,3 +1,5 @@
+      /* Data Process By Query: 0.49 GB */
+
         SELECT IFNULL(SUM(students_assigned), 0) AS count
           FROM (        SELECT DISTINCT classroom_units.id, ARRAY_LENGTH(assigned_student_ids) AS students_assigned
                 FROM lms.schools

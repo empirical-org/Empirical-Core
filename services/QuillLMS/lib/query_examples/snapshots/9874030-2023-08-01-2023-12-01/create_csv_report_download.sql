@@ -1,3 +1,5 @@
+      /* Data Process By Query: 2.39 GB */
+
                 SELECT
           activity_sessions.id AS activity_session_id,
           MAX(activity_classifications.name) AS tool,

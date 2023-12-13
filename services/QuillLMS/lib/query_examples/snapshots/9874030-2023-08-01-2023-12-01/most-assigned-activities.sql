@@ -1,3 +1,5 @@
+      /* Data Process By Query: 0.59 GB */
+
         SELECT value, SUM(count) AS count
           FROM (                SELECT activities.name AS value, COUNT(DISTINCT unit_activities.id) * classroom_units.assigned_student_count AS count
 

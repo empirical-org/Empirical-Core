@@ -1,3 +1,5 @@
+      /* Data Process By Query: 46.19 GB */
+
         SELECT COUNT(*) AS count
           FROM (        SELECT COUNT(*)
                 FROM lms.schools
