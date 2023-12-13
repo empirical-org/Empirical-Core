@@ -6,7 +6,7 @@
   position: relative;
 
   &.disabled {
-    input, .dropdown .dropdown__single-value {
+    input {
       color: #7f7f7f;
     }
   }

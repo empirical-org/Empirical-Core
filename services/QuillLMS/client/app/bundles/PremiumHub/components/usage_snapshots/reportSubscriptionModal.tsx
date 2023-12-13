@@ -20,35 +20,28 @@ const ReportSubscriptionModal = ({ cancel, existingFrequency, isOpen, save }) =>
   }
 
   const handleFrequencyOptionChange = (e: { value: string }) => {
-    debugger
     setFrequency(e.value)
   }
 
-  function showTitleAndDescription() {
-    return (
-      <div className="title-and-description">
-        <h2>Subscribe to this report</h2>
-        <p className="description">
-          Keep up to date by having this report delivered to your inbox on a recurring basis. It will use filters
-          currently applied when you subscribe, so please review them before doing so.  You can always change your
-          filters later by turning off the report and re-subscribing.
-        </p>
-      </div>
-    )
-  }
+  function showFrequencyOptions() {
+    const selectedFrequency = frequencyOptions.find(option => frequency === option.value)
 
-  function showIsSubscribedAndFrequency() {
     return (
-      <div className="is-subscribed-and-frequency">
-        {showIsSubscribedOptions()}
-        {showFrequencyOptions()}
+      <div className="frequency-options">
+        <DropdownInput
+          handleChange={handleFrequencyOptionChange}
+          isSearchable={false}
+          label="Frequency"
+          options={frequencyOptions}
+          value={selectedFrequency}
+        />
       </div>
     )
   }
 
   function showIsSubscribedOptions() {
     return (
-      <div className="is-subscribed-options.">
+      <div className="is-subscribed-options">
         <h3 className="is-subscribed-label">Email me this report</h3>
         <div className="radio">
           <label id='is-subscribed-on-button'>
@@ -78,19 +71,25 @@ const ReportSubscriptionModal = ({ cancel, existingFrequency, isOpen, save }) =>
     )
   }
 
-  function showFrequencyOptions() {
-    const selectedFrequency = frequencyOptions.find(option => frequency === option.value)
-
+  function showIsSubscribedAndFrequency() {
     return (
-      <DropdownInput
-        className={`frequency-options ${isSubscribed ? '' : 'disabled'}`}
-        disabled={!isSubscribed}
-        handleChange={handleFrequencyOptionChange}
-        isSearchable={false}
-        label="Frequency"
-        options={frequencyOptions}
-        value={selectedFrequency}
-      />
+      <div className="is-subscribed-and-frequency">
+        {showIsSubscribedOptions()}
+        {isSubscribed && showFrequencyOptions()}
+      </div>
+    )
+  }
+
+  function showTitleAndDescription() {
+    return (
+      <div className="title-and-description">
+        <h2>Subscribe to this report</h2>
+        <p className="description">
+          Keep up to date by having this report delivered to your inbox on a recurring basis. It will use filters
+          currently applied when you subscribe, so please review them before doing so.  You can always change your
+          filters later by turning off the report and re-subscribing.
+        </p>
+      </div>
     )
   }
 
