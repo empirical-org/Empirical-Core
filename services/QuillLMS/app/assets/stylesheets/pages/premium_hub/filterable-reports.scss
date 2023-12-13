@@ -403,7 +403,7 @@
       }
     }
 
-    .on-off-and-frequency {
+    .subscribed-frequency {
       align-self: stretch;
       display: flex;
       flex-direction: column;
@@ -421,7 +421,7 @@
         gap: 4px;
       }
 
-      .label {
+      .is-subscribed-label {
         color: #7F7F7F;
         font-size: 12px;
         font-weight: 500;
