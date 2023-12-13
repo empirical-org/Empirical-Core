@@ -5,8 +5,8 @@
   flex-direction: column;
   position: relative;
 
-  &.disabled {
-    input {
+ &.disabled {
+    input, .dropdown .dropdown__single-value {
       color: #7f7f7f;
     }
   }

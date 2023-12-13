@@ -23,18 +23,11 @@ const ReportSubscriptionModal = ({ cancel, existingFrequency, isOpen, save }) =>
     setFrequency(e.value)
   }
 
-  function showFrequencyOptions() {
-    const selectedFrequency = frequencyOptions.find(option => frequency === option.value)
-
+  function showIsSubscribedAndFrequency() {
     return (
-      <div className="frequency-options">
-        <DropdownInput
-          handleChange={handleFrequencyOptionChange}
-          isSearchable={false}
-          label="Frequency"
-          options={frequencyOptions}
-          value={selectedFrequency}
-        />
+      <div className="is-subscribed-and-frequency">
+        {showIsSubscribedOptions()}
+        {showFrequencyOptions()}
       </div>
     )
   }
@@ -71,11 +64,20 @@ const ReportSubscriptionModal = ({ cancel, existingFrequency, isOpen, save }) =>
     )
   }
 
-  function showIsSubscribedAndFrequency() {
+  function showFrequencyOptions() {
+    const selectedFrequency = frequencyOptions.find(option => frequency === option.value)
+
     return (
-      <div className="is-subscribed-and-frequency">
-        {showIsSubscribedOptions()}
-        {isSubscribed && showFrequencyOptions()}
+      <div className="frequency-options">
+        <DropdownInput
+          className={`${isSubscribed ? '' : 'disabled'}`}
+          disabled={!isSubscribed}
+          handleChange={handleFrequencyOptionChange}
+          isSearchable={false}
+          label="Frequency"
+          options={frequencyOptions}
+          value={selectedFrequency}
+        />
       </div>
     )
   }
