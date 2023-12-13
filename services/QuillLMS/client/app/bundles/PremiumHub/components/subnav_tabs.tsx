@@ -63,11 +63,11 @@ const premiumReportDropdownItems = [
   //   url: '/teachers/premium_hub/diagnostic_growth_report',
   //   new: true
   // },
-  // {
-  //   label: DATA_EXPORT,
-  //   url: '/teachers/premium_hub/data_export',
-  //   new: true
-  // },
+  {
+    label: DATA_EXPORT,
+    url: '/teachers/premium_hub/data_export',
+    new: true
+  },
   {
     label: CONCEPT_REPORTS,
     url: '/teachers/premium_hub/district_concept_reports'
@@ -87,10 +87,6 @@ const tabs = {
   [DIAGNOSTIC_GROWTH_REPORT]: {
     label: DIAGNOSTIC_GROWTH_REPORT,
     url: '/teachers/premium_hub/diagnostic_growth_report'
-  },
-  [DATA_EXPORT]: {
-    label: DATA_EXPORT,
-    url: '/teachers/premium_hub/data_export'
   }
 }
 
@@ -192,7 +188,7 @@ export const AdminSubnav = ({ path }) => {
   function determineActiveTab() {
     const { pathname } = path;
 
-    const reportPaths = ['/district_activity_scores', '/district_concept_reports', '/district_standards_reports', '/usage_snapshot_report']
+    const reportPaths = ['/district_activity_scores', '/district_concept_reports', '/district_standards_reports', '/usage_snapshot_report', '/data_export']
 
     if (reportPaths.find(path => pathname.includes(path))) {
       setActiveTab(PREMIUM_REPORTS)
@@ -200,8 +196,6 @@ export const AdminSubnav = ({ path }) => {
       setActiveTab(SUBSCRIPTIONS)
     } else if (pathname.includes('/diagnostic_growth_report')) {
       setActiveTab(DIAGNOSTIC_GROWTH_REPORT)
-    } else if (pathname.includes('/data_export')) {
-      setActiveTab(DATA_EXPORT)
     } else if (pathname.includes('/integrations')) {
       setActiveTab(INTEGRATIONS)
     } else if (pathname.includes('/premium_hub')) {
@@ -219,7 +213,7 @@ export const AdminSubnav = ({ path }) => {
 
   const dropdownClass = dropdownOpen ? 'open' : '';
 
-  const tabsToShow = window.location.href.includes('data_export') || window.location.href.includes('diagnostic_growth_report') ? tabs : baseTabs
+  const tabsToShow = window.location.href.includes('diagnostic_growth_report') ? tabs : baseTabs
 
   return(
     <React.Fragment>
