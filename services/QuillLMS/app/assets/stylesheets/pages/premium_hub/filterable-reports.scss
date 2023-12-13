@@ -367,7 +367,7 @@
   }
 
   .manage-report-subscription-modal {
-    height: 389px;
+    height: 469px;
     width: 536px;
     background: $quill-white;
     border-radius: 6px;
@@ -406,35 +406,34 @@
     .is-subscribed-and-frequency {
       align-self: stretch;
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
       gap: 32px;
 
       .is-subscribed-options {
+        align-self: stretch;
         height: 88px;
         display: flex;
         flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
         gap: 4px;
-        flex: 1;
-
-        .is-subscribed-label {
-          color: #7F7F7F;
-          font-size: 12px;
-          font-weight: 500;
-          line-height: 12px;
-          word-wrap: break-word
-        }
       }
 
-      .frequency-options {
-        flex: 1;
-        flex-direction: column;
+      .is-subscribed-label {
+        color: #7F7F7F;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 12px;
+        word-wrap: break-word
       }
     }
 
     .save-and-cancel-buttons {
       display: flex;
       justify-content: flex-end;
-      margin-top: 32px;
+      margin: 32px;
     }
   }
 
