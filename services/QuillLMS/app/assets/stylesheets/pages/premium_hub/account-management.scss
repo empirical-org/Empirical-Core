@@ -1,0 +1,24 @@
+#premium-hub .account-management {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+    margin-bottom: 16px;
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: normal;
+    }
+  }
+
+  .dropdown-container {
+    max-width: 552px;
+    margin-bottom: 40px;
+    .dropdown__single-value {
+      font-weight: 700;
+    }
+  }
+
+
+}
