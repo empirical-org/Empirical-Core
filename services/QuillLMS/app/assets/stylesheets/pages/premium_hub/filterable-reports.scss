@@ -403,45 +403,39 @@
       }
     }
 
-    .subscribed-frequency {
+    .is-subscribed-and-frequency {
       align-self: stretch;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
+      flex-wrap: wrap;
       gap: 32px;
 
-      .radio-options {
-        align-self: stretch;
+      .is-subscribed-options {
         height: 88px;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
         gap: 4px;
+        flex: 1;
+
+        .is-subscribed-label {
+          color: #7F7F7F;
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 12px;
+          word-wrap: break-word
+        }
       }
 
-      .is-subscribed-label {
-        color: #7F7F7F;
-        font-size: 12px;
-        font-weight: 500;
-        line-height: 12px;
-        word-wrap: break-word
-      }
-
-      .radio {
-
-      }
-
-      .frequency {
-
+      .frequency-options {
+        flex: 1;
+        flex-direction: column;
       }
     }
-    // .button-section {
-    //   display: flex;
-    //   justify-content: flex-end;
-    //   margin-top: 32px;
-    // }
+
+    .save-and-cancel-buttons {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 32px;
+    }
   }
 
   .filter-menu-open {
