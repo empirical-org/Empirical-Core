@@ -2,15 +2,16 @@
 
 module Snapshots
   class PeriodQuery < ::QuillBigQuery::Query
-    attr_reader :timeframe_start, :timeframe_end, :school_ids, :grades, :teacher_ids, :classroom_ids
+    attr_reader :timeframe_start, :timeframe_end, :school_ids, :grades, :teacher_ids, :classroom_ids, :user
 
-    def initialize(timeframe_start:, timeframe_end:, school_ids:, grades: nil, teacher_ids: nil, classroom_ids: nil, **options)
+    def initialize(timeframe_start:, timeframe_end:, school_ids:, grades: nil, teacher_ids: nil, classroom_ids: nil, user: nil, **options)
       @timeframe_start = timeframe_start
       @timeframe_end = timeframe_end
       @school_ids = school_ids
       @grades = grades
       @teacher_ids = teacher_ids
       @classroom_ids = classroom_ids
+      @user = user
 
       super(**options)
     end

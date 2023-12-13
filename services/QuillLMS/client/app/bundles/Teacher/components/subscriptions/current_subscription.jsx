@@ -3,6 +3,7 @@ import React from 'react';
 
 import {
   CREDIT_CARD,
+  SALESMATE_RENEWAL_FORM_URL,
   SCHOOL_PREMIUM_SCHOLARSHIP,
   TEACHER_PREMIUM_CREDIT,
   TEACHER_PREMIUM_SCHOLARSHIP,
@@ -37,7 +38,7 @@ export default class CurrentSubscription extends React.Component {
       return <span>{baseText} To prevent your subscription from expiring, contact the purchaser at <a href={`mailto:${purchaser_email}`}>{purchaser_email}</a> and ask them to turn on automatic renewal.</span>
     }
     if (payment_method !== CREDIT_CARD && (authorityLevel || !purchaser_email)) {
-      return <span>{baseText} To renew your subscription for next year, <a href="https://quill.org/request_renewal" rel="noopener noreferrer">contact us</a>.</span>
+      return <span>{baseText} To renew your subscription for next year, <a href={SALESMATE_RENEWAL_FORM_URL} rel="noopener noreferrer" target="_blank">contact us</a>.</span>
     }
     if (payment_method !== CREDIT_CARD && !authorityLevel) {
       return <span>{baseText} To renew your subscription for next year, contact the purchaser at <a href={`mailto:${purchaser_email}`}>{purchaser_email}</a> or <a href="mailto:sales@quill.org">the Quill team</a>.</span>
@@ -69,7 +70,7 @@ export default class CurrentSubscription extends React.Component {
     return (
       <span>
         To renew your subscription for next year,
-        <a href="https://quill.org/request_renewal" rel="noopener noreferrer">contact us now</a>.
+        <a href={SALESMATE_RENEWAL_FORM_URL} rel="noopener noreferrer" target="_blank">contact us now</a>.
       </span>
     )
   }
@@ -95,7 +96,7 @@ export default class CurrentSubscription extends React.Component {
           <span className="content-wrapper">
             Off
             <Tooltip
-              tooltipText="To renew your subscription for next year, contact us at https://quill.org/request_renewal."
+              tooltipText={`To renew your subscription for next year, contact us at ${SALESMATE_RENEWAL_FORM_URL}.`}
               tooltipTriggerText={<span><img alt={helpIcon.alt} className="subscription-tooltip" src={helpIcon.src} /></span>}
             />
           </span>
