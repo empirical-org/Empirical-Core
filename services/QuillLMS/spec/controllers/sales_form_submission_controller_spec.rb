@@ -31,13 +31,6 @@ describe SalesFormSubmissionController, type: :controller do
     end
   end
 
-  describe '#request_renewal' do
-    it 'should set type variable to "renewal request"' do
-      get :request_renewal
-      expect(assigns(:type)).to eq(SalesFormSubmissionController::RENEWAL_REQUEST)
-    end
-  end
-
   describe '#request_quote' do
     it 'should redirect to school quote request' do
       get :request_quote

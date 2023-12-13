@@ -796,7 +796,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           </div>
           <a
             className="quill-button medium contained primary focus-on-light"
-            href="mailto:sales@quill.org"
+            href="https://webforms.salesmate.io/webforms/#/cdc44d13-84f9-45e9-84c4-2136e1bdb5ca"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             Contact us to renew
           </a>
@@ -1434,7 +1436,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                           Off
                           <Tooltip
                             isTabbable={true}
-                            tooltipText="To renew your subscription for next year, contact us at https://quill.org/request_renewal."
+                            tooltipText="To renew your subscription for next year, contact us at https://webforms.salesmate.io/webforms/#/cdc44d13-84f9-45e9-84c4-2136e1bdb5ca."
                             tooltipTriggerText={
                               <span>
                                 <img
@@ -1462,7 +1464,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                             Off
                             <Tooltip
                               isTabbable={true}
-                              tooltipText="To renew your subscription for next year, contact us at https://quill.org/request_renewal."
+                              tooltipText="To renew your subscription for next year, contact us at https://webforms.salesmate.io/webforms/#/cdc44d13-84f9-45e9-84c4-2136e1bdb5ca."
                               tooltipTriggerText={
                                 <span>
                                   <img
@@ -1598,8 +1600,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                       Once your current District Premium subscription expires, you will be downgraded to Quill Basic.
                        To renew your subscription for next year, 
                       <a
-                        href="https://quill.org/request_renewal"
+                        href="https://webforms.salesmate.io/webforms/#/cdc44d13-84f9-45e9-84c4-2136e1bdb5ca"
                         rel="noopener noreferrer"
+                        target="_blank"
                       >
                         contact us
                       </a>
@@ -1990,7 +1993,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           </div>
           <a
             className="quill-button medium contained primary focus-on-light"
-            href="mailto:sales@quill.org"
+            href="https://webforms.salesmate.io/webforms/#/cdc44d13-84f9-45e9-84c4-2136e1bdb5ca"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             Contact us to renew
           </a>
@@ -5983,7 +5988,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                           Off
                           <Tooltip
                             isTabbable={true}
-                            tooltipText="To renew your subscription for next year, contact us at https://quill.org/request_renewal."
+                            tooltipText="To renew your subscription for next year, contact us at https://webforms.salesmate.io/webforms/#/cdc44d13-84f9-45e9-84c4-2136e1bdb5ca."
                             tooltipTriggerText={
                               <span>
                                 <img
@@ -6011,7 +6016,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                             Off
                             <Tooltip
                               isTabbable={true}
-                              tooltipText="To renew your subscription for next year, contact us at https://quill.org/request_renewal."
+                              tooltipText="To renew your subscription for next year, contact us at https://webforms.salesmate.io/webforms/#/cdc44d13-84f9-45e9-84c4-2136e1bdb5ca."
                               tooltipTriggerText={
                                 <span>
                                   <img
@@ -6147,8 +6152,9 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                       Once your current School Premium subscription expires, you will be downgraded to Quill Basic.
                        To renew your subscription for next year, 
                       <a
-                        href="https://quill.org/request_renewal"
+                        href="https://webforms.salesmate.io/webforms/#/cdc44d13-84f9-45e9-84c4-2136e1bdb5ca"
                         rel="noopener noreferrer"
+                        target="_blank"
                       >
                         contact us
                       </a>
