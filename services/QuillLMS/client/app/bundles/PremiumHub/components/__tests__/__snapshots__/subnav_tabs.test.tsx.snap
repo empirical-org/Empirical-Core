@@ -101,6 +101,17 @@ exports[`AdminSubnav it should render 1`] = `
               class="checkmark-icon "
             />
           </li>
+          <li>
+            <a
+              class=""
+              href="/teachers/premium_hub/data_export"
+            >
+              Data Export
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
         </ul>
       </div>
     </div>

@@ -48,6 +48,10 @@ const mobileTabs = {
   [USAGE_SNAPSHOT_REPORT]: {
     label: USAGE_SNAPSHOT_REPORT,
     url: '/teachers/premium_hub/usage_snapshot_report'
+  },
+  [DATA_EXPORT]: {
+    label: DATA_EXPORT,
+    url: '/teachers/premium_hub/data_export'
   }
 }
 
