@@ -50,7 +50,7 @@
     "foreman": "^3.0.1",
     "lazysizes": "^5.2.0-beta1",
     "puppeteer": "^19.5.2",
-    "quill-marking-logic": "0.15.12",
+    "quill-marking-logic": "0.15.13",
     "react-csv": "^1.1.2"
   },
   "devDependencies": {
