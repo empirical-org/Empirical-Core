@@ -531,7 +531,7 @@ class PagesController < ApplicationController
     when 'connect_tool', 'grammar_tool', 'diagnostic_tool', 'proofreader_tool', 'home_new', 'evidence_tool', 'lessons_tool', 'ap', 'preap', 'springboard'
       @js_file = 'home'
     when 'premium'
-      @js_file = current_user ? 'app' : 'public'
+      @js_file = current_user ? 'application' : 'public'
     when 'backpack' || 'locker'
       @js_file = 'staff'
     when ApplicationController::EVIDENCE
