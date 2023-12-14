@@ -7,10 +7,10 @@ class QuestionCounter < ApplicationService
   LESSONS_COUNTS = Configs[:lessons_question_counts]
 
   TOOL_CALCULATORS = {
-    passage:    -> (a) { a.data.dig('passage')&.scan(PROOFREADER_REGEX)&.size},
+    passage:    -> (a) { a.data.dig('passage')&.scan(PROOFREADER_REGEX)&.size },
     sentence:   -> (a) { grammar_calculator(a) },
-    connect:    -> (a) { a.data.dig('questions')&.size },
-    diagnostic: -> (a) { a.data.dig('questions')&.size },
+    connect:    -> (a) { question_array_size(a) },
+    diagnostic: -> (a) { question_array_size(a) },
     lessons:    -> (a) { LESSONS_COUNTS.dig(a.uid) },
     evidence:   -> (_) { 3 }
   }
@@ -36,11 +36,18 @@ class QuestionCounter < ApplicationService
   end
 
   def self.grammar_calculator(activity)
-    array_count = activity.data.dig('questions')&.size
-    if array_count.present? && array_count != 0
-      return array_count
-    end
+    count = question_array_size(activity)
 
+    return count if count.present? && count > 0
+
+    concepts_sum(activity)
+  end
+
+  def self.question_array_size(activity)
+    activity.data.dig('questions')&.size
+  end
+
+  def self.concepts_sum(activity)
     activity.data.dig('concepts')&.values&.map(&:values)&.flatten&.sum
   end
 end
