@@ -17,12 +17,44 @@
 @import './shared.scss';
 @import '../../../../../app/assets/stylesheets/shared/teacher-preview-menu.scss';
 
+* {
+  box-sizing: border-box;
+}
+
 html {
   overscroll-behavior: none;
 }
 
 body {
   background-color: white;
+}
+
+// this rule duplicates one from minireset, which was getting pulled in somewhere in the webpack version of this file but not in vite
+html,
+body,
+p,
+ol,
+ul,
+li,
+dl,
+dt,
+dd,
+blockquote,
+figure,
+fieldset,
+legend,
+textarea,
+pre,
+iframe,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0
 }
 
 body, button, input, select, textarea {
