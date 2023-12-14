@@ -5,7 +5,9 @@ exports[`ImageSection component should render ImageSection 1`] = `
   <div
     className="media-upload-container"
   >
-    <label>
+    <label
+      htmlFor="dropzone-container"
+    >
       Click the square below or drag an image into it to upload an image or video:
     </label>
     <div
@@ -19,7 +21,7 @@ exports[`ImageSection component should render ImageSection 1`] = `
   <Input
     autoComplete="on"
     className="image-link-input"
-    handleChange={[MockFunction]}
+    handleChange={[Function]}
     label="Image Link"
     value=""
   />
