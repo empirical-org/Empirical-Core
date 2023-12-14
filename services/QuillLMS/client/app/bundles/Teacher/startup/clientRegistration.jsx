@@ -48,7 +48,6 @@ import StudentNavbarItems from '../../Student/startup/StudentNavbarItemsAppClien
 
 import '../styles/styles.scss';
 
-import '../../../assets/styles/home.scss';
 
 // This is how react_on_rails can see the TeacherApp in the browser.
 
