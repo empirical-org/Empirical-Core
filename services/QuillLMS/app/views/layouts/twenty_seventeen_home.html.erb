@@ -35,6 +35,7 @@
 
     <script defer src="<%= ENV['FONT_AWESOME_KIT_LINK'] %>" crossorigin="anonymous" integrity="sha384-p7JrABPXxZLpj1XoHTzkPyVs8ekVssRFXc4B7XU6Z1c8XVDA7sVPem/lQ9UouxqE"></script>
     <%= render partial: 'typekit' unless Rails.env.test? %>
+    <%= render partial: 'application/lazyload' %>
     <%= vite_typescript_tag((@js_file || 'home'), defer: true, 'crossorigin': 'anonymous') %>
     <%= vite_stylesheet_tag 'home.scss' %>
     <%= vite_stylesheet_tag 'shared.scss' %>
