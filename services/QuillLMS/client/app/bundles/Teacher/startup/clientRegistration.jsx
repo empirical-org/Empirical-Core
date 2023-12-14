@@ -42,7 +42,6 @@ import TutorialsApp from './TutorialsAppClient';
 import UnitTemplateCategoriesApp from './UnitTemplateCategoriesAppClient';
 
 import UploadRostersApp from '../../Staff/startup/UploadRostersAppClient';
-import LockerApp from '../../Staff/startup/lockerAppClient';
 import StudentFeedbackModal from '../../Student/startup/StudentFeedbackModalAppClient';
 import StudentNavbarItems from '../../Student/startup/StudentNavbarItemsAppClient';
 
@@ -90,7 +89,6 @@ ReactOnRails.register({
   SpringBoardApp,
   StudentFeedbackModal,
   UploadRostersApp,
-  LockerApp,
   SalesFormApp,
   DemoAccountBanner,
   AdminAccessApp
