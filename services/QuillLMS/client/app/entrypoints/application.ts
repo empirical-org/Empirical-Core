@@ -24,8 +24,6 @@
 // Example: Import a stylesheet in app/frontend/index.css
 // import '~/index.css'
 
-import '../../../vendor/assets/javascripts/jquery-1.8.2.js'
-import '../../../app/assets/javascripts/loadingbutton.js'
 import '../bundles/Teacher/startup/clientRegistration';
 
 // module.exports = {
