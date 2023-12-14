@@ -32,20 +32,23 @@ export const ImageSection = ({
         body: data
       })
         .then(response => response.json()) // if the response is a JSON object
-        .then(response => setUploadedMediaLink(response.url)); // Handle the success response object
+        .then(response => {
+          setUploadedMediaLink(response.url)
+          handleSetImageLink(response.url)
+        }); // Handle the success response object
     });
   }
 
   return(
     <React.Fragment>
       <div className="media-upload-container">
-        <label>Click the square below or drag an image into it to upload an image or video:</label>
+        <label htmlFor="dropzone-container">Click the square below or drag an image into it to upload an image or video:</label>
         <div className="dropzone-container"><Dropzone onDrop={handleDrop} /></div>
       </div>
       <Input
         className="image-link-input"
         error={errors[IMAGE_LINK]}
-        handleChange={handleSetImageLink}
+        handleChange={(e) => handleSetImageLink(e.target.value)}
         label="Image Link"
         value={uploadedMediaLink}
       />

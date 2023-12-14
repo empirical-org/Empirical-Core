@@ -43,7 +43,11 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
   function handleSetActivityTitle(e: InputEvent){ setActivityTitle(e.target.value) };
   function handleSetActivityNotes(e: InputEvent){ setActivityNotes(e.target.value) };
   function handleSetHighlightPrompt(e: InputEvent){ handleSetActivityPassages('highlight_prompt', e.target.value) };
-  function handleSetImageLink(e: InputEvent){ handleSetActivityPassages('image_link', e.target.value) };
+  function handleSetImageLink(text: string){
+    console.log("setting image link");
+    console.log(text);
+    handleSetActivityPassages('image_link', text)
+  };
   function handleSetImageAltText(e: InputEvent){ handleSetActivityPassages('image_alt_text', e.target.value) };
   function handleSetPassageText(text: string) { handleSetActivityPassages('text', text)}
   function handleSetPassageEssentialKnowledgeText(text: string) { handleSetActivityPassages('essential_knowledge_text', text)}
