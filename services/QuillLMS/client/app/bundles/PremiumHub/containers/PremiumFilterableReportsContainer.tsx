@@ -25,7 +25,7 @@ const openGraySidebarIcon = `${sidebarImgSrcStem}/open_sidebar_gray.svg`
 const closedGreenSidebarIcon = `${sidebarImgSrcStem}/closed_sidebar_green.svg`
 const closedGraySidebarIcon = `${sidebarImgSrcStem}/closed_sidebar_gray.svg`
 
-export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) => {
+export const PremiumFilterableReportsContainer = ({ accessType, adminInfo }) => {
   const [loadingSavedFilterSelections, setLoadingSavedFilterSelections] = React.useState(true)
   const [loadingFilters, setLoadingFilters] = React.useState(true)
 
@@ -352,7 +352,8 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     hasAdjustedFiltersSinceLastSubmission,
     customStartDate,
     customEndDate,
-    showFilterMenuButton: renderShowFilterMenuButton()
+    showFilterMenuButton: renderShowFilterMenuButton(),
+    reportType: reportPath()
   }
 
   const sharedProps = {
@@ -372,6 +373,8 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     selectedTimeframe,
     handleClickDownloadReport,
     openMobileFilterMenu,
+    hasAdjustedFiltersFromDefault,
+    passedData: null
   }
 
   if (accessType !== FULL) {

@@ -2,7 +2,7 @@ import moment from 'moment';
 import * as React from 'react';
 
 import { requestPost, } from '../../../modules/request';
-import { DataTable, LightButtonLoadingSpinner, NOT_APPLICABLE, Snackbar, Spinner, Tooltip, defaultSnackbarTimeout, filterIcon, helpIcon, noResultsMessage, smallWhiteCheckIcon, whiteArrowPointingDownIcon } from '../../Shared';
+import { DataTable, LightButtonLoadingSpinner, NOT_APPLICABLE, Snackbar, Spinner, Tooltip, defaultSnackbarTimeout, documentFileIcon, filterIcon, helpIcon, noResultsMessage, smallWhiteCheckIcon, whiteArrowPointingDownIcon } from '../../Shared';
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
 import { hashPayload, } from '../shared';
 
@@ -257,7 +257,7 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
       }
 
       formattedEntry.id = index
-      formattedEntry.completed_at = moment(entry.completed_at).format("MM/DD/YYYY");
+      formattedEntry.completed_at = moment(entry.completed_at.substring(0,10)).format("MM/DD/YYYY");
       formattedEntry.timespent = getTimeSpentInMinutes(entry.timespent)
       formattedEntry.score = percentage
       return formattedEntry
@@ -309,7 +309,13 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
     <React.Fragment>
       <div className="header">
         <Snackbar text="You will receive an email with a download link shortly." visible={showSnackbar} />
-        <h1>Data Export</h1>
+        <h1>
+          <span>Data Export</span>
+          <a href="https://support.quill.org/en/articles/8672493-how-do-i-use-the-admin-data-export" rel="noopener noreferrer" target="_blank">
+            <img alt={documentFileIcon.alt} src={documentFileIcon.src} />
+            <span>Guide</span>
+          </a>
+        </h1>
         <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={createCsvReportDownload} type="button">
           {downloadButtonBusy ? <LightButtonLoadingSpinner /> : <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />}
           <span>Download</span>

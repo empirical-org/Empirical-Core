@@ -6,15 +6,14 @@ module Snapshots
 
     class CloudUploadError < StandardError; end
 
-    QUERIES = {
-      'create_csv_report_download' => Snapshots::UntruncatedDataExportQuery
-    }
+    QUERIES = ::Snapshots::PREMIUM_DOWNLOAD_REPORTS_QUERY_MAPPING
     TEMPFILE_NAME = 'temp.csv'
 
     def perform(query, user_id, timeframe, school_ids, headers_to_display, filters)
-      payload = generate_payload(query, timeframe, school_ids, filters)
-      uploader = AdminReportCsvUploader.new(admin_id: user_id)
       user = User.find(user_id)
+      payload = generate_payload(query, timeframe, school_ids, user, filters)
+      uploader = AdminReportCsvUploader.new(admin_id: user_id)
+
 
       csv_tempfile = Tempfile.new(TEMPFILE_NAME)
       csv_tempfile << Adapters::Csv::AdminPremiumDataExport.to_csv_string(payload, headers_to_display)
@@ -31,7 +30,7 @@ module Snapshots
       PremiumHubUserMailer.admin_premium_download_report_email(user.first_name, uploaded_file_url, email).deliver_now!
     end
 
-    private def generate_payload(query, timeframe, school_ids, filters)
+    private def generate_payload(query, timeframe, school_ids, user, filters)
       timeframe_start = parse_datetime_string(timeframe['timeframe_start'])
       timeframe_end = parse_datetime_string(timeframe['timeframe_end'])
       filters_symbolized = filters.symbolize_keys
@@ -39,7 +38,8 @@ module Snapshots
       QUERIES[query].run(**{
         timeframe_start:,
         timeframe_end:,
-        school_ids:
+        school_ids:,
+        user:
       }.merge(filters_symbolized))
     end
 

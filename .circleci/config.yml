@@ -147,7 +147,7 @@ jobs:
           path: /home/circleci/Empirical-Core/services/QuillLMS/tmp/screenshots
   lms_big_query_build:
     working_directory: ~/Empirical-Core
-    parallelism: 1
+    parallelism: 2
     docker:
       - image: cimg/ruby:3.1.4
         environment:
@@ -208,7 +208,8 @@ jobs:
           name: Run tests
           command: |
             cd services/QuillLMS
-            bin/rspec --tag big_query_snapshot
+            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split)
+            bin/rspec ${TESTFILES} --tag big_query_snapshot
           environment:
             SUPPRESS_PUTS: "true"
   lms_node_build:

@@ -338,7 +338,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              Diagnostic
+              <span>
+                Diagnostic
+              </span>
             </th>
             <th
               className="data-table-header undefined"
@@ -352,7 +354,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              Class
+              <span>
+                Class
+              </span>
             </th>
             <th
               className="data-table-header undefined"
@@ -366,7 +370,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              Completed
+              <span>
+                Completed
+              </span>
             </th>
             <th
               className="data-table-header last-header"
@@ -380,7 +386,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              Results
+              <span>
+                Results
+              </span>
             </th>
           </tr>
         </thead>

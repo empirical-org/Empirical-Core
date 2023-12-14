@@ -50,6 +50,7 @@
   "dependencies": {
     "foreman": "^3.0.1",
     "lazysizes": "^5.2.0-beta1",
+    "puppeteer": "^19.5.2",
     "postcss": "^8.4.21",
     "postcss-import": "^15.1.0",
     "postcss-preset-env": "^8.0.1",

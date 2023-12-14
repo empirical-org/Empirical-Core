@@ -76,7 +76,7 @@ exports[`PremiumFilterableReportsContainer it should render 1`] = `
             </span>
           </label>
           <div
-            class="dropdown-container input-container inactive has-text not-editable undefined  "
+            class="dropdown-container input-container inactive has-text not-editable   "
             role="button"
             tabindex="0"
           >

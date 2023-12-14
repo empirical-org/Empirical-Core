@@ -819,14 +819,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               }
             }
           >
-            <span
-              className="tool-and-name-header"
-            >
-              <span>
-                Tool
-              </span>
-              <span>
-                Activity
+            <span>
+              <span
+                className="tool-and-name-header"
+              >
+                <span>
+                  Tool
+                </span>
+                <span>
+                  Activity
+                </span>
               </span>
             </span>
           </th>
@@ -842,49 +844,51 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               }
             }
           >
-            <Tooltip
-              isTabbable={true}
-              tooltipText="When you schedule an activity, it is displayed in your dashboard, but it is hidden from a student until the publish date."
-              tooltipTriggerText={
-                <span
-                  className="publish-date-header"
-                >
-                  Publish date
-                </span>
-              }
-            >
-              <span
-                aria-hidden={false}
-                className="quill-tooltip-trigger "
-                role="tooltip"
-              >
-                <span
-                  className="undefined"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  role="button"
-                  tabIndex={0}
-                >
+            <span>
+              <Tooltip
+                isTabbable={true}
+                tooltipText="When you schedule an activity, it is displayed in your dashboard, but it is hidden from a student until the publish date."
+                tooltipTriggerText={
                   <span
                     className="publish-date-header"
                   >
                     Publish date
                   </span>
-                </span>
+                }
+              >
                 <span
-                  className="quill-tooltip-wrapper"
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger "
+                  role="tooltip"
                 >
                   <span
-                    aria-live="polite"
-                    className="quill-tooltip"
-                  />
+                    className="undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <span
+                      className="publish-date-header"
+                    >
+                      Publish date
+                    </span>
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
                 </span>
-              </span>
-            </Tooltip>
+              </Tooltip>
+            </span>
           </th>
           <th
             className="data-table-header due-date-header-container"
@@ -898,36 +902,11 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               }
             }
           >
-            <Tooltip
-              isTabbable={true}
-              tooltipText="Display a due date to students for this activity. Students can still access an activity after the due date."
-              tooltipTriggerText={
-                <span
-                  className="due-date-header"
-                >
-                  Due date 
-                  <span>
-                    (optional)
-                  </span>
-                </span>
-              }
-            >
-              <span
-                aria-hidden={false}
-                className="quill-tooltip-trigger "
-                role="tooltip"
-              >
-                <span
-                  className="undefined"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  role="button"
-                  tabIndex={0}
-                >
+            <span>
+              <Tooltip
+                isTabbable={true}
+                tooltipText="Display a due date to students for this activity. Students can still access an activity after the due date."
+                tooltipTriggerText={
                   <span
                     className="due-date-header"
                   >
@@ -936,17 +915,44 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       (optional)
                     </span>
                   </span>
-                </span>
+                }
+              >
                 <span
-                  className="quill-tooltip-wrapper"
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger "
+                  role="tooltip"
                 >
                   <span
-                    aria-live="polite"
-                    className="quill-tooltip"
-                  />
+                    className="undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <span
+                      className="due-date-header"
+                    >
+                      Due date 
+                      <span>
+                        (optional)
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
                 </span>
-              </span>
-            </Tooltip>
+              </Tooltip>
+            </span>
           </th>
           <th
             className="data-table-header undefined"
@@ -959,7 +965,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                 "width": "30px",
               }
             }
-          />
+          >
+            <span />
+          </th>
           <th
             aria-label="Header for remove column"
             className="data-table-header"
@@ -12655,14 +12663,16 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <span
-              className="tool-and-name-header"
-            >
-              <span>
-                Tool
-              </span>
-              <span>
-                Activity
+            <span>
+              <span
+                className="tool-and-name-header"
+              >
+                <span>
+                  Tool
+                </span>
+                <span>
+                  Activity
+                </span>
               </span>
             </span>
           </th>
@@ -12678,49 +12688,51 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <Tooltip
-              isTabbable={true}
-              tooltipText="When you schedule an activity, it is displayed in your dashboard, but it is hidden from a student until the publish date."
-              tooltipTriggerText={
-                <span
-                  className="publish-date-header"
-                >
-                  Publish date
-                </span>
-              }
-            >
-              <span
-                aria-hidden={false}
-                className="quill-tooltip-trigger "
-                role="tooltip"
-              >
-                <span
-                  className="undefined"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  role="button"
-                  tabIndex={0}
-                >
+            <span>
+              <Tooltip
+                isTabbable={true}
+                tooltipText="When you schedule an activity, it is displayed in your dashboard, but it is hidden from a student until the publish date."
+                tooltipTriggerText={
                   <span
                     className="publish-date-header"
                   >
                     Publish date
                   </span>
-                </span>
+                }
+              >
                 <span
-                  className="quill-tooltip-wrapper"
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger "
+                  role="tooltip"
                 >
                   <span
-                    aria-live="polite"
-                    className="quill-tooltip"
-                  />
+                    className="undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <span
+                      className="publish-date-header"
+                    >
+                      Publish date
+                    </span>
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
                 </span>
-              </span>
-            </Tooltip>
+              </Tooltip>
+            </span>
           </th>
           <th
             className="data-table-header due-date-header-container no-right-margin"
@@ -12734,36 +12746,11 @@ exports[`ActivityTable component renders if the current user did not create the 
               }
             }
           >
-            <Tooltip
-              isTabbable={true}
-              tooltipText="Display a due date to students for this activity. Students can still access an activity after the due date."
-              tooltipTriggerText={
-                <span
-                  className="due-date-header"
-                >
-                  Due date 
-                  <span>
-                    (optional)
-                  </span>
-                </span>
-              }
-            >
-              <span
-                aria-hidden={false}
-                className="quill-tooltip-trigger "
-                role="tooltip"
-              >
-                <span
-                  className="undefined"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  role="button"
-                  tabIndex={0}
-                >
+            <span>
+              <Tooltip
+                isTabbable={true}
+                tooltipText="Display a due date to students for this activity. Students can still access an activity after the due date."
+                tooltipTriggerText={
                   <span
                     className="due-date-header"
                   >
@@ -12772,17 +12759,44 @@ exports[`ActivityTable component renders if the current user did not create the 
                       (optional)
                     </span>
                   </span>
-                </span>
+                }
+              >
                 <span
-                  className="quill-tooltip-wrapper"
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger "
+                  role="tooltip"
                 >
                   <span
-                    aria-live="polite"
-                    className="quill-tooltip"
-                  />
+                    className="undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <span
+                      className="due-date-header"
+                    >
+                      Due date 
+                      <span>
+                        (optional)
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
                 </span>
-              </span>
-            </Tooltip>
+              </Tooltip>
+            </span>
           </th>
           <th
             className="data-table-header undefined"
@@ -12795,7 +12809,9 @@ exports[`ActivityTable component renders if the current user did not create the 
                 "width": "30px",
               }
             }
-          />
+          >
+            <span />
+          </th>
         </tr>
       </thead>
       <tbody

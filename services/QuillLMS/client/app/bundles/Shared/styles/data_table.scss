@@ -119,10 +119,13 @@ table.data-table {
       }
     }
     &:hover {
-      background-color: #f2f2f2;
+      background-color: #f2f2f2 !important;
     }
     &.checked {
       background-color: #e8f7f3;
+    }
+    &.aggregate-row {
+      background-color: $quill-grey-1;
     }
   }
 

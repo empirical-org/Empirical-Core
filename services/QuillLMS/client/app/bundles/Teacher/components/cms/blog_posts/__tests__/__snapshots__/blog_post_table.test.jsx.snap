@@ -1066,7 +1066,9 @@ exports[`BlogPostTable component renders 1`] = `
                 }
               }
             >
-              Featured
+              <span>
+                Featured
+              </span>
             </th>
             <th
               className="data-table-header undefined"
@@ -1080,7 +1082,9 @@ exports[`BlogPostTable component renders 1`] = `
                 }
               }
             >
-              Title
+              <span>
+                Title
+              </span>
             </th>
             <th
               className="data-table-header undefined"
@@ -1094,7 +1098,9 @@ exports[`BlogPostTable component renders 1`] = `
                 }
               }
             >
-              Created
+              <span>
+                Created
+              </span>
             </th>
             <th
               className="data-table-header undefined"
@@ -1108,7 +1114,9 @@ exports[`BlogPostTable component renders 1`] = `
                 }
               }
             >
-              Updated
+              <span>
+                Updated
+              </span>
             </th>
             <th
               className="data-table-header undefined"
@@ -1122,7 +1130,9 @@ exports[`BlogPostTable component renders 1`] = `
                 }
               }
             >
-              Rating
+              <span>
+                Rating
+              </span>
             </th>
             <th
               className="data-table-header undefined"
@@ -1136,7 +1146,9 @@ exports[`BlogPostTable component renders 1`] = `
                 }
               }
             >
-              Views
+              <span>
+                Views
+              </span>
             </th>
             <th
               className="data-table-header undefined"
@@ -1150,7 +1162,9 @@ exports[`BlogPostTable component renders 1`] = `
                 }
               }
             >
-              Actions
+              <span>
+                Actions
+              </span>
             </th>
           </tr>
         </thead>

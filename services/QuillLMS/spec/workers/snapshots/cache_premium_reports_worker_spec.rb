@@ -8,7 +8,8 @@ module Snapshots
 
     let(:cache_key) { 'CACHE_KEY' }
     let(:query) { 'data-export' }
-    let(:user_id) { 123 }
+    let(:user) { create(:user) }
+    let(:user_id) { user.id }
     let(:timeframe_name) { 'last-30-days' }
     let(:school_ids) { [1,2,3] }
     let(:grades) { ['Kindergarten',1,2,3,4] }
@@ -51,7 +52,9 @@ module Snapshots
           school_ids: school_ids,
           grades: grades,
           teacher_ids: teacher_ids,
-          classroom_ids: classroom_ids
+          classroom_ids: classroom_ids,
+          user:
+
         }
       }
       let(:hashed_payload) do

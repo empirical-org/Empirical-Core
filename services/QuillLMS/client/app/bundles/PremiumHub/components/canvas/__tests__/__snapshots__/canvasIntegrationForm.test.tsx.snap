@@ -88,7 +88,9 @@ exports[`CanvasIntegrationForm when there is an existing integration it should r
             scope="col"
             style="width: 356px; min-width: 356px; text-align: left;"
           >
-            Schools
+            <span>
+              Schools
+            </span>
           </th>
         </tr>
       </thead>
@@ -251,7 +253,9 @@ exports[`CanvasIntegrationForm when there is not an existing integration it shou
             scope="col"
             style="width: 356px; min-width: 356px; text-align: left;"
           >
-            Schools
+            <span>
+              Schools
+            </span>
           </th>
         </tr>
       </thead>
