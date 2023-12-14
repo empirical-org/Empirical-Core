@@ -16,7 +16,6 @@ export const ImageSection = ({
   imageAttributionGuideLink,
   handleSetImageAttribution
 }) => {
-  const [uploadedMediaLink, setUploadedMediaLink] = React.useState<string>(activityPassages[0].image_link);
 
   function handleDrop (acceptedFiles) {
     acceptedFiles.forEach(file => {
@@ -33,7 +32,6 @@ export const ImageSection = ({
       })
         .then(response => response.json()) // if the response is a JSON object
         .then(response => {
-          setUploadedMediaLink(response.url)
           handleSetImageLink(response.url)
         }); // Handle the success response object
     });
@@ -50,7 +48,7 @@ export const ImageSection = ({
         error={errors[IMAGE_LINK]}
         handleChange={(e) => handleSetImageLink(e.target.value)}
         label="Image Link"
-        value={uploadedMediaLink}
+        value={activityPassages[0].image_link}
       />
       <Input
         className="image-alt-text-input"

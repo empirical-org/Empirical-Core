@@ -204,7 +204,7 @@ export function validateFormSection({
         !!activityPassages[0].image_link &&
         !!activityPassages[0].image_alt_text &&
         !!activityPassages[0].image_caption &&
-        !!activityPassages[0].image_attribution
+        activityPassages[0].image_attribution !== BREAK_TAG
       );
       return getCheckIcon(imageDetailsPresent);
     case MAX_ATTEMPTS_FEEDBACK:
