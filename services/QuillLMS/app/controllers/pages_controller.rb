@@ -5,7 +5,7 @@ class PagesController < ApplicationController
   include PagesHelper
   before_action :determine_js_file, :determine_flag
   before_action :set_defer_js, except: [
-    :play, :locker, :preap_units, :springboard_units, :evidence,
+    :play, :preap_units, :springboard_units, :evidence,
     :connect, :grammar, :diagnostic, :proofreader, :lessons
   ]
   before_action :set_root_url
@@ -532,7 +532,7 @@ class PagesController < ApplicationController
       @js_file = 'home'
     when 'premium'
       @js_file = current_user ? 'application' : 'public'
-    when 'backpack' || 'locker'
+    when 'backpack', 'locker'
       @js_file = 'staff'
     when ApplicationController::EVIDENCE
       @js_file = ApplicationController::EVIDENCE

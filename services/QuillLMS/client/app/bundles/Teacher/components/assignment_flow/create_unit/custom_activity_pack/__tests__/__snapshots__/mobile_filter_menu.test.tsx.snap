@@ -16867,7 +16867,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <Tooltip
                 isTabbable={false}
-                tooltipText="The grade level range helps you see which activities are accessible to your students, considering things like readability and the topic of the activity. Students never see the grade level range of the activities they’re assigned.<br/><br/>We recommend filtering by the grade you teach, and then using the readability and the concepts filters to narrow down which activities are right for your students. Grades are always presented as a range, rather than as a level, because students in later grades can also benefit from more basic activities.<br/><br/>Click the “?” icon to learn more about how we determine grade ranges and for helpful filtering tips."
+                tooltipText="The grade level range helps you see which activities are accessible to your students, considering things like readability and the topic of the activity. Students never see the grade level range of the activities they’re assigned.<br/><br/>We recommend filtering by the grade you teach, and then using the readability and the concepts filters to narrow down which activities are right for your students. Grades are always presented as a range, rather than as a level, because students in later grades can also benefit from more basic activities.<br/><br/>Click the “?” icon to learn more about how we determine grade ranges and for helpful filtering tips."
                 tooltipTriggerText={
                   <div
                     className="tooltip-trigger-filter-section-content"
@@ -16929,7 +16929,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                           maxValue={3}
                           minValue={0}
                           step={1}
-                          value="4-5"
                         />
                       </div>
                     </div>
@@ -17012,10 +17011,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                             maxValue={3}
                             minValue={0}
                             step={1}
-                            value="4-5"
                           >
                             <Slider
-                              className="slider-container one-thumb-slider-container"
+                              className="slider-container one-thumb-slider-container display-as-disabled"
                               handleChange={[Function]}
                               id="grade-level-slider"
                               markLabels={
@@ -17032,17 +17030,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                               trackColors={
                                 Array [
                                   "#dbdbdb",
-                                  "#06806b",
+                                  "#dbdbdb",
                                 ]
                               }
                               values={
                                 Array [
-                                  "4-5",
+                                  2,
                                 ]
                               }
                             >
                               <div
-                                className="slider-container one-thumb-slider-container"
+                                className="slider-container one-thumb-slider-container display-as-disabled"
                                 id="grade-level-slider"
                                 style={
                                   Object {
@@ -17068,7 +17066,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                   step={1}
                                   values={
                                     Array [
-                                      "4-5",
+                                      2,
                                     ]
                                   }
                                 >
@@ -17076,7 +17074,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                     colors={
                                       Array [
                                         "#dbdbdb",
-                                        "#06806b",
+                                        "#dbdbdb",
                                       ]
                                     }
                                     innerRef={
@@ -17111,7 +17109,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                           <div
                                             aria-valuemax="3"
                                             aria-valuemin="0"
-                                            aria-valuenow="4-5"
+                                            aria-valuenow="2"
                                             class="thumb"
                                             draggable="false"
                                             role="slider"
@@ -17134,7 +17132,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                     }
                                     values={
                                       Array [
-                                        "4-5",
+                                        2,
                                       ]
                                     }
                                   >
@@ -17153,7 +17151,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         className="track"
                                         style={
                                           Object {
-                                            "background": "linear-gradient(to right, #dbdbdb 0%, #dbdbdb NaN%, #06806b NaN%, #06806b 100%)",
+                                            "background": "linear-gradient(to right, #dbdbdb 0%, #dbdbdb 66.66666666666666%, #dbdbdb 66.66666666666666%, #dbdbdb 100%)",
                                           }
                                         }
                                       >
@@ -17288,7 +17286,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         <ForwardRef
                                           aria-valuemax={3}
                                           aria-valuemin={0}
-                                          aria-valuenow="4-5"
+                                          aria-valuenow={2}
                                           draggable={false}
                                           key="0"
                                           onKeyDown={[Function]}
@@ -17311,7 +17309,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                           <div
                                             aria-valuemax={3}
                                             aria-valuemin={0}
-                                            aria-valuenow="4-5"
+                                            aria-valuenow={2}
                                             className="thumb"
                                             draggable={false}
                                             onKeyDown={[Function]}

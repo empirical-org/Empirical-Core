@@ -42,13 +42,11 @@ import TutorialsApp from './TutorialsAppClient';
 import UnitTemplateCategoriesApp from './UnitTemplateCategoriesAppClient';
 
 import UploadRostersApp from '../../Staff/startup/UploadRostersAppClient';
-import LockerApp from '../../Staff/startup/lockerAppClient';
 import StudentFeedbackModal from '../../Student/startup/StudentFeedbackModalAppClient';
 import StudentNavbarItems from '../../Student/startup/StudentNavbarItemsAppClient';
 
 import '../styles/styles.scss';
 
-import '../../../assets/styles/home.scss';
 
 // This is how react_on_rails can see the TeacherApp in the browser.
 
@@ -91,7 +89,6 @@ ReactOnRails.register({
   SpringBoardApp,
   StudentFeedbackModal,
   UploadRostersApp,
-  LockerApp,
   SalesFormApp,
   DemoAccountBanner,
   AdminAccessApp
