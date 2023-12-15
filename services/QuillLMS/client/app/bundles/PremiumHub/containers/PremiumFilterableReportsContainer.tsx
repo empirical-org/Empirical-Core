@@ -189,7 +189,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     })
   }
 
-  function saveFilterSelections() {
+  function saveFilterSelections(report = reportPath(), successCallback = () => { }) {
     const filterSelections = {
       timeframe: selectedTimeframe,
       schools: unorderedArraysAreEqual(selectedSchools, originalAllSchools) ? null : selectedSchools,
@@ -203,11 +203,12 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     const params = {
       admin_report_filter_selection: {
         filter_selections: filterSelections,
-        report: reportPath(),
+        report: report
       }
     }
 
-    requestPost('/admin_report_filter_selections/create_or_update', params, () => { })
+
+    const val = requestPost('/admin_report_filter_selections/create_or_update', params, successCallback)
   }
 
   function getFilters() {
@@ -303,6 +304,10 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
 
   function handleClickDownloadReport() { window.print() }
 
+  function handleClickSaveReportSubscription() {
+    saveFilterSelections(reportPath() + "_pdf",)
+  }
+
   function renderShowFilterMenuButton() {
     const ariaLabel = showFilters ? 'Close filter menu' : 'Open filter menu'
 
@@ -376,6 +381,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     availableTeachers,
     selectedTimeframe,
     handleClickDownloadReport,
+    handleClickSaveReportSubscription,
     openMobileFilterMenu,
     hasAdjustedFiltersFromDefault,
     passedData: null

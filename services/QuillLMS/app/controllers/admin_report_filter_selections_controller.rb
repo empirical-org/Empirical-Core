@@ -1,21 +1,13 @@
 # frozen_string_literal: true
 
 class AdminReportFilterSelectionsController < ApplicationController
-
   def show
-    admin_report_filter_selection = AdminReportFilterSelection.find_by(
-      report: admin_report_filter_selection_params[:report],
-      user_id: current_user.id
-    )
-
+    admin_report_filter_selection = AdminReportFilterSelection.find_by(report:, user_id:)
     render json: admin_report_filter_selection
   end
 
   def create_or_update
-    admin_report_filter_selection = AdminReportFilterSelection.find_or_initialize_by(
-      report: admin_report_filter_selection_params[:report],
-      user_id: current_user.id
-    )
+    admin_report_filter_selection = AdminReportFilterSelection.find_or_initialize_by(report:, user_id:)
 
     if admin_report_filter_selection.update(admin_report_filter_selection_params)
       render json: admin_report_filter_selection, status: :ok
@@ -39,5 +31,13 @@ class AdminReportFilterSelectionsController < ApplicationController
           grades: [:value, :name, :label]
         ]
       )
+  end
+
+  private def report
+    admin_report_filter_selection_params[:report]
+  end
+
+  private def user_id
+    current_user.id
   end
 end

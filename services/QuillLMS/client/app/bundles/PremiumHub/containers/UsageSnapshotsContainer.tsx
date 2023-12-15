@@ -36,6 +36,7 @@ export const UsageSnapshotsContainer = ({
   availableTeachers,
   selectedTimeframe,
   handleClickDownloadReport,
+  handleClickSaveReportSubscription,
   openMobileFilterMenu
 }) => {
 
@@ -50,13 +51,72 @@ export const UsageSnapshotsContainer = ({
     setIsManageSubscriptionReportModalOpen(!isManageReportSubscriptionModalOpen);
   }
 
-  function handleManageReportSubscriptionSave() {
-    setIsManageSubscriptionReportModalOpen(false);
-  }
-
   function handleManageReportSubscriptionCancel() {
     setIsManageSubscriptionReportModalOpen(false);
   }
+
+  function handleManageReportSubscriptionSave(frequency) {
+    setIsManageSubscriptionReportModalOpen(false);
+    handleClickSaveReportSubscription(createPdfSubscription, frequency);
+  }
+
+  function handleClickSaveReportSubscription(successCallback) {
+    const filterSelections = {
+      // existing code for filterSelections...
+    }
+
+    const params = {
+      // existing code for params...
+    }
+
+    requestPost('/admin_report_filter_selections/create_or_update', params, successCallback);
+  }
+
+  function createPdfSubscription(adminReportFilterSelection) {
+    if (adminReportFilterSelection && adminReportFilterSelection.id) {
+      const pdfSubscriptionParams = {
+        pdf_subscription: {
+          admin_report_filter_selection_id: adminReportFilterSelection.id
+        }
+      };
+
+      requestPost('/pdf_subscriptions/create', pdfSubscriptionParams, (response) => {
+        // handle the response from creating PdfSubscription
+      });
+    }
+  }
+unction handleManageReportSubscriptionSave() {
+    setIsManageSubscriptionReportModalOpen(false);
+    handleClickSaveReportSubscription(createPdfSubscription);
+  }
+
+  function handleClickSaveReportSubscription(successCallback) {
+    const filterSelections = {
+      // existing code for filterSelections...
+    }
+
+    const params = {
+      // existing code for params...
+    }
+
+    requestPost('/admin_report_filter_selections/create_or_update', params, successCallback);
+  }
+
+  function createPdfSubscription(adminReportFilterSelection) {
+    if (adminReportFilterSelection && adminReportFilterSelection.id) {
+      const pdfSubscriptionParams = {
+        pdf_subscription: {
+          admin_report_filter_selection_id: adminReportFilterSelection.id
+        }
+      };
+
+      requestPost('/pdf_subscriptions/create', pdfSubscriptionParams, (response) => {
+        // handle the response from creating PdfSubscription
+      });
+    }
+  }
+
+
 
   if (loadingFilters) {
     return <Spinner />
@@ -109,12 +169,15 @@ export const UsageSnapshotsContainer = ({
   }
 
   return (
-
     <main>
       <div className="header">
         <h1>
           <span>Usage Snapshot Report</span>
-          <a href="https://support.quill.org/en/articles/8358350-how-do-i-use-the-usage-snapshot-report" rel="noopener noreferrer" target="_blank">
+          <a
+            href="https://support.quill.org/en/articles/8358350-how-do-i-use-the-usage-snapshot-report"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
             <img alt={documentFileIcon.alt} src={documentFileIcon.src} />
             <span>Guide</span>
           </a>
@@ -127,7 +190,11 @@ export const UsageSnapshotsContainer = ({
           <img alt={whiteEmailIcon.alt} src={whiteEmailIcon.src} />
           <span>Subscribe</span>
         </button>
-        <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">
+        <button
+          className="quill-button download-report-button contained primary medium focus-on-light"
+          onClick={handleClickDownloadReport}
+          type="button"
+        >
           <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />
           <span>Download</span>
         </button>
@@ -136,7 +203,11 @@ export const UsageSnapshotsContainer = ({
         {size.width >= MAX_VIEW_WIDTH_FOR_MOBILE ? tabs : tabDropdown}
       </div>
       <div className="filter-button-container">
-        <button className="interactive-wrapper focus-on-light" onClick={openMobileFilterMenu} type="button">
+        <button
+          className="interactive-wrapper focus-on-light"
+          onClick={openMobileFilterMenu}
+          type="button"
+        >
           <img alt={filterIcon.alt} src={filterIcon.src} />
           Filters
         </button>

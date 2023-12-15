@@ -18,8 +18,8 @@
 #
 class PdfSubscription < ApplicationRecord
   FREQUENCIES = [
-    WEEKLY = 'weekly',
-    MONTHLY = 'monthly'
+    WEEKLY = 'Weekly',
+    MONTHLY = 'Monthly'
   ]
 
   before_create :generate_token
