@@ -276,7 +276,8 @@ CREATE TABLE public.activities (
     standard_id integer,
     raw_score_id integer,
     minimum_grade_level smallint,
-    maximum_grade_level smallint
+    maximum_grade_level smallint,
+    question_count smallint DEFAULT 0 NOT NULL
 );
 
 
@@ -10624,6 +10625,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231018141022'),
 ('20231206143410'),
 ('20231207135455'),
-('20231207151344');
+('20231207151344'),
+('20231214182438');
 
 
