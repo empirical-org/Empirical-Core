@@ -11,6 +11,7 @@
 #  maximum_grade_level        :integer
 #  minimum_grade_level        :integer
 #  name                       :string
+#  question_count             :integer          default(0), not null
 #  repeatable                 :boolean          default(TRUE)
 #  supporting_info            :string
 #  uid                        :string           not null
