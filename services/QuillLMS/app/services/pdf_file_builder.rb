@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class PdfFileBuilder < ApplicationService
+  BASE_URL = "#{ENV['DEFAULT_URL']}/"
+  HTTPS = 'https'
+  LAYOUT = 'pdf'
   ENCODING = 'ascii-8bit'
   TEMPFILE_NAME = 'temp.pdf'
 
@@ -17,19 +20,31 @@ class PdfFileBuilder < ApplicationService
     tempfile
   end
 
-  private def html
+  private def html_with_absolute_urls
+    Grover::HTMLPreprocessor.process(
+      html_with_relative_urls,
+      BASE_URL,
+      HTTPS
+    )
+  end
+
+  private def html_with_relative_urls
     ApplicationController
-      .renderer
-      .render(locals: { data: data }, template: template, layout: 'pdf')
+      .new
+      .render_to_string(
+        layout: LAYOUT,
+        locals: { data: data },
+        template: template
+      )
   end
 
   private def pdf
     Grover
-      .new(html)
+      .new(html_with_absolute_urls)
       .to_pdf
   end
 
   private def tempfile
-    @tempfile ||= Tempfile.new(TEMPFILE_NAME, encoding: 'ascii-8bit')
+    @tempfile ||= Tempfile.new(TEMPFILE_NAME, encoding: ENCODING)
   end
 end

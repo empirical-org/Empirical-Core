@@ -3,6 +3,7 @@
 class PagesController < ApplicationController
   include HTTParty
   include PagesHelper
+
   before_action :determine_js_file, :determine_flag
   before_action :set_defer_js, except: [
     :play, :locker, :preap_units, :springboard_units, :evidence,
