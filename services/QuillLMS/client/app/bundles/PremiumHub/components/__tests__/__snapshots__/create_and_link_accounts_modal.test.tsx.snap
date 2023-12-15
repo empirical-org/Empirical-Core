@@ -9,7 +9,7 @@ exports[`CreateAndLinkAccountsModal it should render 1`] = `
       class="modal-background"
     />
     <div
-      aria-labelledby="createLinkModalTitle"
+      aria-labelledby="createAndLinkAccountsModalTitle"
       aria-modal="true"
       class="admin-action-modal quill-modal"
       role="dialog"
@@ -20,7 +20,7 @@ exports[`CreateAndLinkAccountsModal it should render 1`] = `
       >
         <h3
           class="title"
-          id="createLinkModalTitle"
+          id="createAndLinkAccountsModalTitle"
         >
           Create and Link Accounts
         </h3>

@@ -307,6 +307,7 @@ export const AccountManagement: React.SFC<AccountManagementProps> = ({
 
 
   const schoolOptions = model.schools.map(school => ({ value: school.id, label: school.name}))
+
   const filteredData = model.teachers.filter((d: { school: string }) => d.schools.find(s => s.id === selectedSchoolId)).map(user => {
     const relevantSchool = user.schools.find(s => s.id === selectedSchoolId)
     user.actions = actionsForUser(user, relevantSchool)

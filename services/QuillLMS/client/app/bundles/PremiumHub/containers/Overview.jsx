@@ -10,6 +10,7 @@ import { Snackbar, defaultSnackbarTimeout, Tooltip, } from '../../Shared/index';
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import SnapshotCount from '../components/usage_snapshots/snapshotCount'
 import { sentencesWrittenSnapshotInfo, studentLearningHoursSnapshotInfo, } from '../components/usage_snapshots/shared'
+import LogInAsATeacherModal from '../components/log_in_as_a_teacher_modal'
 import { RESTRICTED, } from '../shared'
 
 const USAGE_HIGHLIGHTS = 'Usage Highlights'
@@ -44,6 +45,30 @@ const EMAIL_TO_SCHEDULE_LINK = {
   [ERIKA_EMAIL]: 'https://calendly.com/erikaatquill/schedule-quill-pd',
   [SHANNON_EMAIL]: 'https://calendly.com/shannonatquill/discuss-scheduling-quill-pd'
 }
+
+const LOG_IN_AS_A_TEACHER = "Log in as a teacher"
+
+const accountManagementTiles = [
+  {
+    name: 'Manage Accounts',
+    link: '/teachers/premium_hub/account_management',
+    icon: `${iconLinkBase}/manage-accounts.svg`,
+    linkText: 'Manage accounts',
+    description: 'Create new accounts, manage admins, and more.',
+  },
+  {
+    name: LOG_IN_AS_A_TEACHER,
+    icon: `${iconLinkBase}/log-in-as-a-teacher.svg`,
+    description: 'Access each teacher’s account to assign activities, manage rosters, and view data.',
+  },
+  {
+    name: 'Manage Subscriptions',
+    link: '/teachers/premium_hub/school_subscriptions',
+    linkText: 'Manage subscriptions',
+    icon: `${iconLinkBase}/manage-subscriptions.svg`,
+    description: 'View subscription history, manage subscriptions, and more.',
+  }
+]
 
 const premiumReportTiles = [
   {
@@ -119,6 +144,7 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
   const [pusherChannel, setPusherChannel] = React.useState(null)
   const [professionalLearningManagerInformation, setProfessionalLearningManagerInformation] = React.useState(null)
   const [loadingProfessionalLearningManagerInformation, setLoadingProfessionalLearningManagerInformation] = React.useState(true)
+  const [showLoginAsTeacherModal, setShowLoginAsTeacherModal] = React.useState(false)
 
   React.useEffect(() => {
     getProfessionalLearningManagerInformation()
@@ -169,6 +195,10 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
       getData(skipLoading)
     });
   };
+
+  function handleClickLogInAsATeacher() { setShowLoginAsTeacherModal(true) }
+
+  function closeLogInAsATeacherModal() { setShowLoginAsTeacherModal(false) }
 
   function renderSubheader() {
     if (model.schools.length === 0) {
@@ -402,6 +432,52 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
     )
   }
 
+  function renderAccountManagement() {
+    const tiles = accountManagementTiles.map(tile => {
+      return (
+        <div className="tile" key={tile.name}>
+          <div>
+            <h3>{tile.name}</h3>
+            <p>{tile.description}</p>
+          </div>
+          <div className="link-and-image">
+            {tile.name === LOG_IN_AS_A_TEACHER ? <button className="quill-button focus-on-light outlined secondary medium" onClick={handleClickLogInAsATeacher} type="button">Log in as a teacher</button> : <Link className="quill-button focus-on-light outlined secondary medium" to={tile.link}>{tile.linkText}</Link>}
+            <img alt="" src={tile.icon} />
+          </div>
+        </div>
+      )
+    })
+
+    return (
+      <section className="overview-section-wrapper account-management">
+        <h2>
+          <img alt="" src={SECTION_NAME_TO_ICON_URL[ACCOUNT_MANAGEMENT]} />
+          <span>{ACCOUNT_MANAGEMENT}</span>
+        </h2>
+        <div className="overview-section">
+          <div className="overview-section-content">
+            {tiles}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  function renderLogInAsATeacherModal() {
+    if (!showLoginAsTeacherModal) { return }
+
+    const schoolOptions = model.schools.map(school => ({ value: school.id, label: school.name, id: school.id }))
+    const teacherOptions = model.teachers.map(teacher => ({ value: teacher.id, label: teacher.name, schoolId: teacher.schools[0].id, id: teacher.id }))
+
+    return (
+      <LogInAsATeacherModal
+        closeModal={closeLogInAsATeacherModal}
+        schoolOptions={schoolOptions}
+        teacherOptions={teacherOptions}
+      />
+    )
+  }
+
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -410,9 +486,11 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
     <div className="white-background-accommodate-footer premium-hub-overview">
       <div className="container">
         <h1>Hello, {model.name.split(' ')[0]}!</h1>
+        {renderLogInAsATeacherModal()}
         {renderSubheader()}
         {renderHighlightsSection()}
         {renderProfessionalDevelopmentSection()}
+        {renderAccountManagement()}
         {renderPremiumReportsSection()}
         {renderIntegrationsSection()}
       </div>

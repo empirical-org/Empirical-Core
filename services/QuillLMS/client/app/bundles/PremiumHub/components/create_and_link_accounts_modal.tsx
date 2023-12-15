@@ -41,7 +41,7 @@ const CreateAndLinkAccountsModal = ({ addTeacherAccount, handleCloseModal, schoo
     <div className="modal-container admin-action-modal-container create-and-link-accounts-modal">
       <div className="modal-background" />
       <div
-        aria-labelledby="createLinkModalTitle"
+        aria-labelledby="createAndLinkAccountsModalTitle"
         aria-modal="true"
         className="admin-action-modal quill-modal"
         ref={modalRef}
@@ -49,7 +49,7 @@ const CreateAndLinkAccountsModal = ({ addTeacherAccount, handleCloseModal, schoo
         tabIndex={-1}
       >
         <div className="admin-action-modal-header">
-          <h3 className="title" id="createLinkModalTitle">Create and Link Accounts</h3>
+          <h3 className="title" id="createAndLinkAccountsModalTitle">Create and Link Accounts</h3>
         </div>
         <div className="admin-action-modal-body modal-body">
           <section className="name-inputs-container">
