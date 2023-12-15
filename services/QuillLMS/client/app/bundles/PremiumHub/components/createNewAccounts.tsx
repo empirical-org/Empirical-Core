@@ -132,7 +132,6 @@ export class CreateNewAccounts extends React.Component<any, any> {
         </section>
       </div>
     )
-
   }
 
   renderSchoolAccessList() {

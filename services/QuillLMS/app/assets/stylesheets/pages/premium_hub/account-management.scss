@@ -12,11 +12,61 @@
     }
   }
 
-  .dropdown-container {
+  .page-school-selector {
     max-width: 552px;
     margin-bottom: 40px;
     .dropdown__single-value {
       font-weight: 700;
+    }
+  }
+
+  .create-and-link-accounts-modal {
+    .quill-modal {
+      max-height: 100vh;
+      overflow: scroll;
+    }
+    .modal-body {
+      margin-bottom: 0px;
+    }
+    section {
+      padding: 0px;
+      border-bottom: none;
+    }
+    .name-inputs-container {
+      display: flex;
+      gap: 16px;
+      .input-container {
+        width: 100%;
+      }
+    }
+    .input-container {
+      margin-bottom: 32px;
+    }
+    .dropdown-container {
+      justify-content: flex-start;
+      min-height: 66px;
+    }
+    .info-section-container {
+      border-radius: 8px;
+      border: 1px solid $quill-grey-5;
+      background: $quill-grey-1;
+      padding: 24px;
+      margin-top: 32px;
+      margin-bottom: 40px;
+      color: $quill-grey-40;
+      span {
+        font-weight: 700;
+      }
+      a {
+        text-decoration: underline;
+        font-weight: 700;
+        color: inherit;
+      }
+    }
+    .info-section:first-of-type {
+      border-bottom: 1px solid $quill-grey-5;
+      padding-bottom: 16px;
+      margin-bottom: 16px;
     }
   }
 
@@ -52,6 +102,11 @@
       .data-table-headers {
         padding-left: 0px;
         border-radius: 8px 8px 0px 0px;
+        button {
+          height: 52px;
+          width: 100%;
+          align-items: center;
+        }
       }
       .data-table-header, .data-table-row td {
         margin-right: 0px !important;
