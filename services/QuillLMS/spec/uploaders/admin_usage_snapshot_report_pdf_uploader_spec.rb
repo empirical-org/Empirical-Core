@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe AdminSnapshotReportPdfUploader do
+RSpec.describe AdminUsageSnapshotReportPdfUploader do
   let(:admin_id) { 123 }
   let(:uploader) { described_class.new(admin_id: admin_id) }
 
