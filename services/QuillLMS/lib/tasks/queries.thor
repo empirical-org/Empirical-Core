@@ -43,6 +43,26 @@ class Queries < Thor
     end
   end
 
+  # user_id 9874030 is a test user
+  # e.g. bundle exec thor queries:print_snapshot_sql 9874030 'sentences-written'
+  desc 'print_snapshot_sql user_id query_key', 'Output .sql fils for all snapshots for a user'
+  def print_snapshot_sql(user_id, query_key, start_time = DEFAULT_START, end_time = DEFAULT_END)
+
+    timeframe_start = DateTime.parse(start_time)
+    timeframe_end = DateTime.parse(end_time)
+    school_ids = school_ids_for_user(user_id)
+
+    query = SNAPSHOT_QUERIES_TO_RUN[query_key]
+
+    sql = query
+      .new(**{timeframe_start:,timeframe_end:,school_ids:})
+      .query
+    metadata = query_metadata(sql)
+
+    puts sql
+    puts metadata
+  end
+
   # put helper methods in this block
   no_commands do
     private def make_directory(path)
