@@ -58,6 +58,7 @@
     "graphql": "^15.5.3",
     "graphql-tag": "^2.9.2",
     "history": "^2.0.1",
+    "html-entities": "^2.3.3",
     "i18next": "^20.4.0",
     "immutable": "^3.8.2",
     "isomorphic-fetch": "^3.0.0",
