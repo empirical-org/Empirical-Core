@@ -1,3 +1,19 @@
+# Note, obtained this by running a Rethink DB query to find the number of slides
+# per activity that are interactive.
+
+# Run in RethinkDB Admin
+# r.db('quill_lessons')
+#   .table("classroom_lessons")
+#   .group('id')
+#   .sum(function(lesson) {
+#     return lesson
+#       .getField('questions')
+#       .filter(function(question) {
+#         return r.expr(['CL-LB', 'CL-ST','CL-FL','CL-MS']).contains(question('type'))
+#       })
+#       .count()
+#   })
+
 default:
   '-KsFqfPtBvlOFZmhZLjI': 2
   '-KsFr4QDNGS7Wtez49ez': 6
