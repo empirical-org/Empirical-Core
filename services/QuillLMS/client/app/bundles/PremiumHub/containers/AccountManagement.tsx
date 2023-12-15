@@ -251,37 +251,36 @@ export const AccountManagement: React.SFC<AccountManagementProps> = ({
       name: 'Name',
       attribute: 'name',
       isSortable: true,
-      width: '350px'
+      width: '370px'
     },
     {
       name: 'Role',
       attribute: 'role',
       isSortable: true,
-      width: '314px'
+      width: '276px'
     },
     {
       name: 'Students',
       attribute: 'number_of_students',
       isSortable: true,
-      width: '118px',
+      width: '156px',
     },
     {
       name: 'Activities Completed',
       attribute: 'number_of_activities_completed',
       isSortable: true,
-      width: '118px',
+      width: '156px',
     },
     {
       name: 'Time Spent',
       attribute: 'time_spent',
       isSortable: true,
-      width: '91px',
+      width: '156px',
     },
     {
       name: 'Actions',
       attribute: 'actions',
-      isActions: true,
-      width: '48px'
+      isActions: true
     }
   ];
 
@@ -324,22 +323,22 @@ export const AccountManagement: React.SFC<AccountManagementProps> = ({
         options={schoolOptions}
         value={schoolOptions.find(so => so.value === selectedSchoolId)}
       />
-      <div className="admins-teachers">
+      <div className="data-table-wrapper">
         <DataTable
-          className='progress-report has-green-arrow'
+          className='reporting-format'
           defaultSortAttribute="role"
           headers={teacherColumns}
           rows={filteredData}
           showActions={true}
         />
+        <p className="warning-section">
+          <span className="warning">Warning:</span> Any changes you make when you
+          access a teacher account will impact the teacher and student facing
+          dashboards. This list provides you with the ability to sign in to all of the
+          teacher accounts for the schools you have admin access.&nbsp;
+          <strong>The data above represents usage from this school year, beginning July 1st.</strong>
+        </p>
       </div>
-      <p className="warning-section">
-        <span className="warning">Warning:</span> Any changes you make when you
-        access a teacher account will impact the teacher and student facing
-        dashboards. This list provides you with the ability to sign in to all of the
-        teacher accounts for the schools you have admin access.
-        <strong>The data above represents usage from this school year, beginning July 1st.</strong>
-      </p>
     </React.Fragment>
   )
 
