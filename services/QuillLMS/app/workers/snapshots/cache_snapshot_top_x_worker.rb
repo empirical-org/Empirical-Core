@@ -15,15 +15,7 @@ module Snapshots
       end
     end
 
-    QUERIES = {
-      'top-concepts-assigned' => Snapshots::TopConceptsAssignedQuery,
-      'top-concepts-practiced' => Snapshots::TopConceptsPracticedQuery,
-      'most-active-grades' => Snapshots::MostActiveGradesQuery,
-      'most-active-schools' => Snapshots::MostActiveSchoolsQuery,
-      'most-active-teachers' => Snapshots::MostActiveTeachersQuery,
-      'most-assigned-activities' => Snapshots::MostAssignedActivitiesQuery,
-      'most-completed-activities' => Snapshots::MostCompletedActivitiesQuery
-    }
+    QUERIES = ::Snapshots::TOPX_QUERY_MAPPING
 
     # previous_timeframe param here is not used, but is included to enforce parity with the CacheSnapshotCountWorker signature
     def perform(cache_key, query, user_id, timeframe, school_ids, filters, previous_timeframe)

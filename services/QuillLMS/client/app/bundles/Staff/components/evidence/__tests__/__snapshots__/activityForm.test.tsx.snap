@@ -159,25 +159,46 @@ exports[`Activity Form component should render Activities 1`] = `
           "component": <ToggleComponentSection
             components={
               Array [
-                <ImageSection
-                  activityPassages={
-                    Array [
-                      Object {
-                        "text": "...",
-                      },
-                    ]
+                <PromptsForm
+                  activityBecausePrompt={
+                    Object {
+                      "conjunction": "because",
+                      "first_strong_example": "",
+                      "id": 7,
+                      "max_attempts": 5,
+                      "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
+                      "second_strong_example": "",
+                      "text": "1",
+                    }
+                  }
+                  activityButPrompt={
+                    Object {
+                      "conjunction": "but",
+                      "first_strong_example": "",
+                      "id": 8,
+                      "max_attempts": 5,
+                      "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
+                      "second_strong_example": "",
+                      "text": "2",
+                    }
+                  }
+                  activitySoPrompt={
+                    Object {
+                      "conjunction": "so",
+                      "first_strong_example": "",
+                      "id": 9,
+                      "max_attempts": 5,
+                      "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
+                      "second_strong_example": "",
+                      "text": "3",
+                    }
                   }
                   errors={Object {}}
-                  handleSetImageAltText={[Function]}
-                  handleSetImageAttribution={[Function]}
-                  handleSetImageCaption={[Function]}
-                  handleSetImageLink={[Function]}
-                  imageAttributionGuideLink="https://www.notion.so/quill/Activity-Images-9bc3993400da46a6af445a8a0d2d9d3f#11e9a01b071e41bc954e1182d56e93e8"
-                  imageAttributionStyle=""
+                  handleSetPrompt={[Function]}
                 />,
               ]
             }
-            label="Image"
+            label="Prompts"
           />,
           "id": 1,
         },
@@ -210,22 +231,25 @@ exports[`Activity Form component should render Activities 1`] = `
           "component": <ToggleComponentSection
             components={
               Array [
-                <React.Fragment>
-                  <p
-                    className="text-editor-label "
-                  >
-                    Building Essential Knowledge Text
-                  </p>
-                  <TextEditor
-                    ContentState={[Function]}
-                    EditorState={[Function]}
-                    handleTextChange={[Function]}
-                    shouldCheckSpelling={true}
-                  />
-                </React.Fragment>,
+                <ImageSection
+                  activityPassages={
+                    Array [
+                      Object {
+                        "text": "...",
+                      },
+                    ]
+                  }
+                  errors={Object {}}
+                  handleSetImageAltText={[Function]}
+                  handleSetImageAttribution={[Function]}
+                  handleSetImageCaption={[Function]}
+                  handleSetImageLink={[Function]}
+                  imageAttributionGuideLink="https://www.notion.so/quill/Activity-Images-9bc3993400da46a6af445a8a0d2d9d3f#11e9a01b071e41bc954e1182d56e93e8"
+                  imageAttributionStyle=""
+                />,
               ]
             }
-            label="Building Essential Knowledge"
+            label="Image"
           />,
           "id": 3,
         },
@@ -296,46 +320,22 @@ exports[`Activity Form component should render Activities 1`] = `
           "component": <ToggleComponentSection
             components={
               Array [
-                <PromptsForm
-                  activityBecausePrompt={
-                    Object {
-                      "conjunction": "because",
-                      "first_strong_example": "",
-                      "id": 7,
-                      "max_attempts": 5,
-                      "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
-                      "second_strong_example": "",
-                      "text": "1",
-                    }
-                  }
-                  activityButPrompt={
-                    Object {
-                      "conjunction": "but",
-                      "first_strong_example": "",
-                      "id": 8,
-                      "max_attempts": 5,
-                      "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
-                      "second_strong_example": "",
-                      "text": "2",
-                    }
-                  }
-                  activitySoPrompt={
-                    Object {
-                      "conjunction": "so",
-                      "first_strong_example": "",
-                      "id": 9,
-                      "max_attempts": 5,
-                      "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
-                      "second_strong_example": "",
-                      "text": "3",
-                    }
-                  }
-                  errors={Object {}}
-                  handleSetPrompt={[Function]}
-                />,
+                <React.Fragment>
+                  <p
+                    className="text-editor-label "
+                  >
+                    Building Essential Knowledge Text
+                  </p>
+                  <TextEditor
+                    ContentState={[Function]}
+                    EditorState={[Function]}
+                    handleTextChange={[Function]}
+                    shouldCheckSpelling={true}
+                  />
+                </React.Fragment>,
               ]
             }
-            label="Prompts"
+            label="Building Essential Knowledge"
           />,
           "id": 5,
         },

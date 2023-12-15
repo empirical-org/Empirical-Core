@@ -21,6 +21,7 @@ const Activities = ({ location, match }) => {
 
   const formattedRows = filteredActivities.map((activity: ActivityInterface) => {
     const { id, title, parent_activity_id, notes } = activity;
+    const activityInternalNameLink = (<Link to={`/activities/${id}`}>{notes}</Link>);
     const activityLink = (<Link to={`/activities/${id}`}>{title}</Link>);
     const highlightLabel = (
       <ActivityInvalidHighlights activityId={id} />
@@ -29,7 +30,7 @@ const Activities = ({ location, match }) => {
       id,
       parent_activity_id,
       title: activityLink,
-      notes,
+      notes: activityInternalNameLink,
       valid_highlights: highlightLabel
     }
   });

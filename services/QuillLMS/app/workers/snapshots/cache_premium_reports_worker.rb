@@ -6,9 +6,7 @@ module Snapshots
 
     PUSHER_EVENT = 'data-export-cached'
 
-    QUERIES = {
-      'data-export' => Snapshots::DataExportQuery
-    }
+    QUERIES = ::Snapshots::PREMIUM_REPORTS_QUERY_MAPPING
 
     def perform(cache_key, query, user_id, timeframe, school_ids, filters, previous_timeframe)
       user = User.find(user_id)
