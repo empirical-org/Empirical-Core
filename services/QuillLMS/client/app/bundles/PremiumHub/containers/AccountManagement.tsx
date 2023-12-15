@@ -24,6 +24,44 @@ const RESTRICTED_TEXT = "Sorry, only verified admins with a subscription to Scho
 
 const DEFAULT_MODEL = { teachers: [] }
 
+const teacherColumns = [
+  {
+    name: 'Name',
+    attribute: 'name',
+    isSortable: true,
+    width: '370px'
+  },
+  {
+    name: 'Role',
+    attribute: 'role',
+    isSortable: true,
+    width: '276px'
+  },
+  {
+    name: 'Students',
+    attribute: 'number_of_students',
+    isSortable: true,
+    width: '156px',
+  },
+  {
+    name: 'Activities Completed',
+    attribute: 'number_of_activities_completed',
+    isSortable: true,
+    width: '156px',
+  },
+  {
+    name: 'Time Spent',
+    attribute: 'time_spent',
+    isSortable: true,
+    width: '156px',
+  },
+  {
+    name: 'Actions',
+    attribute: 'actions',
+    isActions: true
+  }
+];
+
 export const AccountManagement: React.SFC<AccountManagementProps> = ({
   accessType,
   passedModel,
@@ -251,44 +289,6 @@ export const AccountManagement: React.SFC<AccountManagementProps> = ({
   function pendingAdminRequest(user, relevantSchool) {
     return relevantSchool.role.toLowerCase() === TEACHER && user.admin_info?.approval_status === PENDING && model.admin_approval_requests.find(request => request.admin_info_id === user.admin_info?.id)
   }
-
-  const teacherColumns = [
-    {
-      name: 'Name',
-      attribute: 'name',
-      isSortable: true,
-      width: '370px'
-    },
-    {
-      name: 'Role',
-      attribute: 'role',
-      isSortable: true,
-      width: '276px'
-    },
-    {
-      name: 'Students',
-      attribute: 'number_of_students',
-      isSortable: true,
-      width: '156px',
-    },
-    {
-      name: 'Activities Completed',
-      attribute: 'number_of_activities_completed',
-      isSortable: true,
-      width: '156px',
-    },
-    {
-      name: 'Time Spent',
-      attribute: 'time_spent',
-      isSortable: true,
-      width: '156px',
-    },
-    {
-      name: 'Actions',
-      attribute: 'actions',
-      isActions: true
-    }
-  ];
 
   if (loading) {
     return (

@@ -21,6 +21,10 @@ const useModalAccessibility = (handleClose) => {
   };
 
   useEffect(() => {
+    if (modalRef.current) {
+      modalRef.current.focus();
+    }
+
     const handleDocumentClick = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
         handleClose();
@@ -35,16 +39,9 @@ const useModalAccessibility = (handleClose) => {
       }
     };
 
-    // Add event listeners
     document.addEventListener(MOUSEDOWN, handleDocumentClick);
     document.addEventListener(KEYDOWN, handleDocumentKeyDown);
 
-    // Focus on the modal when it opens
-    if (modalRef.current) {
-      modalRef.current.focus();
-    }
-
-    // Cleanup event listeners on unmount
     return () => {
       document.removeEventListener(MOUSEDOWN, handleDocumentClick);
       document.removeEventListener(KEYDOWN, handleDocumentKeyDown);
