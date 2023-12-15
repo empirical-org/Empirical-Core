@@ -23,7 +23,7 @@ export const getCurrentQuestion = ({ action, answeredQuestions, questionSet, una
   })[0];
 
   // check unansweredQuestions
-  if(!currentQuestion) {
+  if (!currentQuestion) {
     currentQuestion = unansweredQuestions.filter((questionObject: QuestionObject) => {
       const { data, question } = questionObject;
       const dataObject = data || question || questionObject;
@@ -31,7 +31,7 @@ export const getCurrentQuestion = ({ action, answeredQuestions, questionSet, una
     })[0];
   }
   // check questionSet, is title card
-  if(!currentQuestion) {
+  if (!currentQuestion) {
     currentQuestion = questionSet.filter((questionObject: QuestionObject) => {
       const { data, question } = questionObject;
       const dataObject = data || question || questionObject;
@@ -50,7 +50,7 @@ export const getQuestionsWithAttempts = (questions: QuestionObject[]) => {
     const dataObject = data || question || questionObject;
     const { attempts, key, uid } = dataObject;
     const keyOrUid = key ? key : uid;
-    if(attempts && attempts.length) {
+    if (attempts && attempts.length) {
       questionsWithAttempts[keyOrUid] = questionObject;
     }
   });
@@ -59,7 +59,7 @@ export const getQuestionsWithAttempts = (questions: QuestionObject[]) => {
 }
 
 export const getFilteredQuestions = ({ questionsSlice, answeredQuestionsWithAttempts, unansweredQuestionsWithAttempts }) => {
-  if(!questionsSlice.length) {
+  if (!questionsSlice.length) {
     return [];
   }
   return questionsSlice.map((questionObject: QuestionObject) => {
@@ -71,9 +71,9 @@ export const getFilteredQuestions = ({ questionsSlice, answeredQuestionsWithAtte
     const answeredQuestionWithAttempts = answeredQuestionsWithAttempts[key] || answeredQuestionsWithAttempts[slicedKey];
     const unansweredQuestionWithAttempts = unansweredQuestionsWithAttempts[key] || unansweredQuestionsWithAttempts[slicedKey];
 
-    if(answeredQuestionWithAttempts) {
+    if (answeredQuestionWithAttempts) {
       return answeredQuestionWithAttempts;
-    } else if(unansweredQuestionWithAttempts) {
+    } else if (unansweredQuestionWithAttempts) {
       return unansweredQuestionWithAttempts;
     } else {
       return questionObject;
@@ -84,7 +84,7 @@ export const getFilteredQuestions = ({ questionsSlice, answeredQuestionsWithAtte
 export const getDisplayedText = ({ previewMode, question, response }) => {
   const latestAttempt = getLatestAttempt(question.attempts);
 
-  if(previewMode && latestAttempt && latestAttempt.response && latestAttempt.response.text) {
+  if (previewMode && latestAttempt && latestAttempt.response && latestAttempt.response.text) {
     return latestAttempt.response.text
   }
   return response;
@@ -95,11 +95,11 @@ export const renderPreviewFeedback = (latestAttempt) => {
   const { feedback, optimal } = response;
   const strippedFeedback = feedback ? stripHtml(feedback).result : '';
 
-  if(optimal && strippedFeedback) {
+  if (optimal && strippedFeedback) {
     return <Feedback feedback={strippedFeedback} feedbackType="correct-matched" />
-  } else if(optimal && !strippedFeedback) {
+  } else if (optimal && !strippedFeedback) {
     return <Feedback feedback="That's a great sentence!" feedbackType="correct-matched" />
-  } else if(!optimal && strippedFeedback !== '') {
+  } else if (!optimal && strippedFeedback !== '') {
     return <Feedback feedback={strippedFeedback} feedbackType="revise-matched" />
   }
   // we don't want to show the directions if the question has already been answered in previewMode
@@ -280,29 +280,31 @@ export const renderQuestions = ({
   }
 }
 
-function transformNode(node, index) {
-  if (node.name === 'mark') {
-    return node.children[0].data
-  }
-  if(node.name === 'strong') {
-    node.name = 'i'
+function transformNode(node, _index) {
+  if (node.type === 'tag') {
+    if (node.name === 'strong' || node.name === 'em') { node.name = 'i'; }
+    if (node.name === 'mark') { node.name = 'span' }
+
+    if (node.children && node.children.length > 0) {
+      return node.children.map((child, i) => { return transformNode(child, i) }).join('')
+    }
+    return node
   }
 }
-
 const renderPassageAndPrompts = ({ passage, prompts, textIsExpanded, toggleExpandedText, handleEvidenceStepUpdate, questionToPreview }) => {
-  if(!passage || !prompts) { return }
+  if (!passage || !prompts) { return }
 
   const { text } = passage;
   const clippedHtml = textIsExpanded ? text : clip(text, 350, { html: true, maxLines: 10 });
   const buttonLabel = textIsExpanded ? 'Collapse text' : 'Preview the full text';
   const orderedPrompts = prompts.sort((prompt1: PromptInterface, prompt2: PromptInterface) => prompt1.conjunction.localeCompare(prompt2.conjunction));
 
-  return(
+  return (
     <React.Fragment>
       <div className="divider" />
       <section className="text-preview-section">
         <h2>Text</h2>
-        {ReactHtmlParser(clippedHtml, {transform: transformNode})}
+        {ReactHtmlParser(clippedHtml, { transform: transformNode })}
         <button className="interactive-wrapper toggle-text-button focus-on-light" onClick={toggleExpandedText}>{buttonLabel}</button>
       </section>
       <div className="divider" />
@@ -313,7 +315,7 @@ const renderPassageAndPrompts = ({ passage, prompts, textIsExpanded, toggleExpan
           {orderedPrompts.map((prompt: PromptInterface) => {
             const { text, conjunction } = prompt;
             return (
-              <button className={`question-container ${getEvidenceStepStyling(conjunction, questionToPreview) } focus-on-light`} id={conjunction} key={conjunction} onClick={handleEvidenceStepUpdate} type="button">
+              <button className={`question-container ${getEvidenceStepStyling(conjunction, questionToPreview)} focus-on-light`} id={conjunction} key={conjunction} onClick={handleEvidenceStepUpdate} type="button">
                 <p className="question-text">{text}...</p>
               </button>
             )
@@ -326,11 +328,11 @@ const renderPassageAndPrompts = ({ passage, prompts, textIsExpanded, toggleExpan
 
 export const renderEvidenceActivityContent = ({ activity, toggleExpandedText, textIsExpanded, handleEvidenceStepUpdate, questionToPreview }) => {
 
-  if(!activity) { return }
+  if (!activity) { return }
 
   const { prompts, passages } = activity
 
-  return(
+  return (
     <React.Fragment>
       <section className="evidence-content-section">
         <h2>What Students Will Do</h2>
