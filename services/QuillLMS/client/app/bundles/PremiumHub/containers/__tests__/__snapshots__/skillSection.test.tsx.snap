@@ -1,5 +1,654 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`SkillSection loaded state clicking toggle button should expand aggregate rows for skill 1`] = `
+<DocumentFragment>
+  <div
+    class="dropdowns-container"
+  >
+    <div
+      class="dropdown-container input-container inactive has-text  diagnostic-type-dropdown searchable "
+      role="button"
+      tabindex="0"
+    >
+      <label>
+        Diagnostic:
+      </label>
+      <div
+        class="dropdown css-b62m3t-container"
+      >
+        <span
+          class="css-1f43avz-a11yText-A11yText"
+          id="react-select-8-live-region"
+        />
+        <span
+          aria-atomic="false"
+          aria-live="polite"
+          aria-relevant="additions text"
+          class="css-1f43avz-a11yText-A11yText"
+        />
+        <div
+          class="dropdown__control css-13cymwt-control"
+        >
+          <div
+            class="dropdown__value-container dropdown__value-container--has-value css-1fdsijx-ValueContainer"
+          >
+            <div
+              class="dropdown__single-value css-1dimb5e-singleValue"
+            >
+              Starter Diagnostic
+            </div>
+            <div
+              class="dropdown__input-container css-qbdosj-Input"
+              data-value=""
+            >
+              <input
+                aria-autocomplete="list"
+                aria-expanded="false"
+                aria-haspopup="true"
+                autocapitalize="none"
+                autocomplete="off"
+                autocorrect="off"
+                class="dropdown__input"
+                id="react-select-8-input"
+                role="combobox"
+                spellcheck="false"
+                style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                tabindex="0"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            class="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
+          >
+            <span
+              class="dropdown__indicator-separator css-1u9des2-indicatorSeparator"
+            />
+            <div
+              aria-hidden="true"
+              class="dropdown__indicator dropdown__dropdown-indicator css-1xc3v61-indicatorContainer"
+            >
+              <svg
+                aria-hidden="true"
+                class="css-tj5bde-Svg"
+                focusable="false"
+                height="20"
+                viewBox="0 0 20 20"
+                width="20"
+              >
+                <path
+                  d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="dropdown-container input-container inactive has-text  group-by-dropdown searchable "
+      role="button"
+      tabindex="0"
+    >
+      <label>
+        Group by:
+      </label>
+      <div
+        class="dropdown css-b62m3t-container"
+      >
+        <span
+          class="css-1f43avz-a11yText-A11yText"
+          id="react-select-9-live-region"
+        />
+        <span
+          aria-atomic="false"
+          aria-live="polite"
+          aria-relevant="additions text"
+          class="css-1f43avz-a11yText-A11yText"
+        />
+        <div
+          class="dropdown__control css-13cymwt-control"
+        >
+          <div
+            class="dropdown__value-container dropdown__value-container--has-value css-1fdsijx-ValueContainer"
+          >
+            <div
+              class="dropdown__single-value css-1dimb5e-singleValue"
+            >
+              Grade
+            </div>
+            <div
+              class="dropdown__input-container css-qbdosj-Input"
+              data-value=""
+            >
+              <input
+                aria-autocomplete="list"
+                aria-expanded="false"
+                aria-haspopup="true"
+                autocapitalize="none"
+                autocomplete="off"
+                autocorrect="off"
+                class="dropdown__input"
+                id="react-select-9-input"
+                role="combobox"
+                spellcheck="false"
+                style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                tabindex="0"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            class="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
+          >
+            <span
+              class="dropdown__indicator-separator css-1u9des2-indicatorSeparator"
+            />
+            <div
+              aria-hidden="true"
+              class="dropdown__indicator dropdown__dropdown-indicator css-1xc3v61-indicatorContainer"
+            >
+              <svg
+                aria-hidden="true"
+                class="css-tj5bde-Svg"
+                focusable="false"
+                height="20"
+                viewBox="0 0 20 20"
+                width="20"
+              >
+                <path
+                  d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table
+    class="data-table growth-diagnostic-reports-by-skill-table reporting-format"
+  >
+    <thead>
+      <tr
+        class="data-table-headers"
+      >
+        <th
+          class="data-table-header undefined sortable"
+          scope="col"
+          style="width: 133px; min-width: 133px; text-align: left;"
+        >
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
+          >
+            <span>
+              Skill
+            </span>
+            <div
+              class="sort-tooltip-container"
+            />
+          </button>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 142px; min-width: 142px; text-align: right;"
+        >
+          <div
+            class="multi-line-header"
+          >
+            <p>
+              Pre
+            </p>
+            <p>
+              Skill Score
+            </p>
+          </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 142px; min-width: 142px; text-align: right;"
+        >
+          <div
+            class="multi-line-header"
+          >
+            <p>
+              Post
+            </p>
+            <p>
+              Skill Score
+            </p>
+          </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 142px; min-width: 142px; text-align: left;"
+        >
+          <span>
+            Growth Results
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 142px; min-width: 142px; text-align: left;"
+        >
+          <div
+            class="multi-line-header"
+          >
+            <p>
+              Students
+            </p>
+            <p>
+              Improved Skill
+            </p>
+          </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 160px; min-width: 160px; text-align: left;"
+        >
+          <div
+            class="multi-line-header"
+          >
+            <p>
+              Students
+            </p>
+            <p>
+              Without Improvement
+            </p>
+          </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 154px; min-width: 154px; text-align: left;"
+        >
+          <div
+            class="multi-line-header"
+          >
+            <p>
+              Students Maintained
+            </p>
+            <p>
+              Proficiency
+            </p>
+          </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="data-table-body"
+    >
+      <tr
+        class="data-table-row  "
+      >
+        <td
+          class="data-table-row-section undefined"
+          style="width: 133px; min-width: 133px; text-align: left;"
+        >
+          <button
+            aria-label="show aggregate row data for Adjectives and Adverbs"
+            class="aggregate-row-toggle interactive-wrapper focus-on-light"
+          >
+            <img
+              alt=""
+              class="aggregate-row-toggle-icon"
+              src="undefined/images/icons/data_table/toggle-arrow-closed.svg"
+            />
+          </button>
+          Adjectives and Adverbs
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 142px; min-width: 142px; text-align: right;"
+        >
+          39%
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 142px; min-width: 142px; text-align: right;"
+        >
+          73%
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 142px; min-width: 142px; text-align: left;"
+        >
+          +34%
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 142px; min-width: 142px; text-align: left;"
+        >
+          32 of 47
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 160px; min-width: 160px; text-align: left;"
+        >
+          11 of 47
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 154px; min-width: 154px; text-align: left;"
+        >
+          4 of 47
+        </td>
+      </tr>
+      <tr
+        class="data-table-row  "
+      >
+        <td
+          class="data-table-row-section undefined"
+          style="width: 133px; min-width: 133px; text-align: left;"
+        >
+          <button
+            aria-label="hide aggregate row data for Capitalization"
+            class="aggregate-row-toggle interactive-wrapper focus-on-light"
+          >
+            <img
+              alt=""
+              class="aggregate-row-toggle-icon"
+              src="undefined/images/icons/data_table/toggle-arrow-expanded.svg"
+            />
+          </button>
+          Capitalization
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 142px; min-width: 142px; text-align: right;"
+        >
+          48%
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 142px; min-width: 142px; text-align: right;"
+        >
+          66%
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 142px; min-width: 142px; text-align: left;"
+        >
+          +18%
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 142px; min-width: 142px; text-align: left;"
+        >
+          11 of 46
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 160px; min-width: 160px; text-align: left;"
+        >
+          22 of 46
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 154px; min-width: 154px; text-align: left;"
+        >
+          14 of 46
+        </td>
+      </tr>
+      <tr
+        class="data-table-row  aggregate-row"
+      >
+        <td
+          class="data-table-row-section undefined"
+          style="width: 133px; min-width: 133px; text-align: left;"
+        >
+          <img
+            alt=""
+            class="aggregate-row-icon"
+            src="undefined/images/icons/data_table/aggregate-row-arrow.svg"
+          />
+          Grade 4
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 142px; min-width: 142px; text-align: right;"
+        >
+          32%
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 142px; min-width: 142px; text-align: right;"
+        >
+          25%
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 142px; min-width: 142px; text-align: left;"
+        >
+          No Gain
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 142px; min-width: 142px; text-align: left;"
+        >
+          5 of 21
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 160px; min-width: 160px; text-align: left;"
+        >
+          7 of 21
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 154px; min-width: 154px; text-align: left;"
+        >
+          9 of 21
+        </td>
+      </tr>
+      <tr
+        class="data-table-row  aggregate-row"
+      >
+        <td
+          class="data-table-row-section undefined"
+          style="width: 133px; min-width: 133px; text-align: left;"
+        >
+          <img
+            alt=""
+            class="aggregate-row-icon"
+            src="undefined/images/icons/data_table/aggregate-row-arrow.svg"
+          />
+          Grade 5
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 142px; min-width: 142px; text-align: right;"
+        >
+          40%
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 142px; min-width: 142px; text-align: right;"
+        >
+          63%
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 142px; min-width: 142px; text-align: left;"
+        >
+          +23%
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 142px; min-width: 142px; text-align: left;"
+        >
+          10 of 35
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 160px; min-width: 160px; text-align: left;"
+        >
+          17 of 35
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 154px; min-width: 154px; text-align: left;"
+        >
+          8 of 35
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
+
 exports[`SkillSection loaded state it should render the expected data when data is present 1`] = `
 <DocumentFragment>
   <div

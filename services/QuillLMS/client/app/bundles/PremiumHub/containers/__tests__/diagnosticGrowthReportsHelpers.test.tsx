@@ -11,7 +11,8 @@ const mockArgs = {
   setAggregatedData: jest.fn(),
   handleSetNoDiagnosticDataAvailable: jest.fn(),
   hasAdjustedFiltersFromDefault: false,
-  setLoading: jest.fn()
+  setLoading: jest.fn(),
+  handleGrowthChipClick: jest.fn()
 }
 
 const mockPreDiagnosticAssignedData = [{
@@ -167,7 +168,7 @@ const mockCombinedData = [{
       averageActivitiesAndTimeSpent: "22 Activities (26:56)",
       id: "5",
       name: "Grade 5",
-      overallSkillGrowth: <button className="interactive-wrapper emphasized-content" value={1663}>+29%</button>,
+      overallSkillGrowth: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>+29%</button>,
       postDiagnosticCompleted: "51 of 52 Students",
       preDiagnosticCompleted: <p className="emphasized-content">125 of 163 Students</p>,
       studentsCompletedPractice: "113 Students"
@@ -176,7 +177,7 @@ const mockCombinedData = [{
       averageActivitiesAndTimeSpent: "12 Activities (25:57)",
       id: "7",
       name: "Grade 7",
-      overallSkillGrowth: <button className="interactive-wrapper emphasized-content" value={1663}>+19%</button>,
+      overallSkillGrowth: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>+19%</button>,
       postDiagnosticCompleted: "4 of 5 Students",
       preDiagnosticCompleted: <p className="emphasized-content">53 of 52 Students</p>,
       studentsCompletedPractice: "46 Students"
@@ -185,7 +186,7 @@ const mockCombinedData = [{
   averageActivitiesAndTimeSpent: "19 Activities (51:56)",
   id: 1663,
   name: "Starter Baseline Diagnostic (Pre)",
-  overallSkillGrowth: <button className="interactive-wrapper emphasized-content" value={1663}>+24%</button>,
+  overallSkillGrowth: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>+24%</button>,
   preDiagnosticCompleted: <p className="emphasized-content">178 of 215 Students</p>,
   postDiagnosticCompleted: "55 of 215 Students",
   studentsCompletedPractice: "159 Students"
