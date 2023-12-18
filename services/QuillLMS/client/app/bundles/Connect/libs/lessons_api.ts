@@ -34,8 +34,8 @@ class LessonApi {
 
 export {
   LessonApi,
-  lessonApiBaseUrl,
   TYPE_CONNECT_LESSON,
-  TYPE_DIAGNOSTIC_LESSON
+  TYPE_DIAGNOSTIC_LESSON,
+  lessonApiBaseUrl
 };
 

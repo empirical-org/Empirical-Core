@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import * as React from 'react';
 import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox';
 

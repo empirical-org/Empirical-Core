@@ -1,10 +1,6 @@
 import React from 'react';
 
-import Stage1 from './select_activities_container';
-import ShareToStudents from './share_activity_pack/shareToStudents';
-import Stage2 from './stage2/Stage2';
-import UnitAssignmentFollowup from './unit_assignment_followup.tsx';
-
+import _ from 'lodash';
 import { requestGet, requestPost, } from '../../../../../modules/request';
 import {
   ACTIVITY_IDS_ARRAY,
@@ -16,6 +12,10 @@ import {
   UNIT_TEMPLATE_NAME
 } from '../assignmentFlowConstants';
 import parsedQueryParams from '../parsedQueryParams';
+import Stage1 from './select_activities_container';
+import ShareToStudents from './share_activity_pack/shareToStudents';
+import Stage2 from './stage2/Stage2';
+import UnitAssignmentFollowup from './unit_assignment_followup.tsx';
 
 export default class CreateUnit extends React.Component {
   constructor(props) {

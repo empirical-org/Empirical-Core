@@ -365,7 +365,7 @@ export default class extends React.Component<ResponseProps, ResponseState> {
   }
 
   renderResponseFooter = (isEditing, response) => {
-    const { readOnly, expanded, response } = this.props
+    const { readOnly, expanded, } = this.props
     if (!readOnly || !expanded) {
       return;
     }
