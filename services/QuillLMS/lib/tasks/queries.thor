@@ -45,7 +45,7 @@ class Queries < Thor
 
   # user_id 9874030 is a test user
   # e.g. bundle exec thor queries:print_snapshot_sql 9874030 'sentences-written'
-  desc 'print_snapshot_sql user_id query_key', 'Output .sql fils for all snapshots for a user'
+  desc 'print_snapshot_sql user_id query_key', 'Print the SQL and data usage for a snaphot query to the console'
   def print_snapshot_sql(user_id, query_key, start_time = DEFAULT_START, end_time = DEFAULT_END)
 
     timeframe_start = DateTime.parse(start_time)
