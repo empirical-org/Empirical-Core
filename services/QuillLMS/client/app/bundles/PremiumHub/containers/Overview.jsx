@@ -471,7 +471,7 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
 
     return (
       <LogInAsATeacherModal
-        closeModal={closeLogInAsATeacherModal}
+        handleCloseModal={closeLogInAsATeacherModal}
         schoolOptions={schoolOptions}
         teacherOptions={teacherOptions}
       />
