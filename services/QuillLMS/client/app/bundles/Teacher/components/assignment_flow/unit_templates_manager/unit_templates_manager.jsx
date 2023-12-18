@@ -1,4 +1,3 @@
-import _l from 'lodash'
 import qs from 'qs'
 import React from 'react'
 import _ from 'underscore'
@@ -59,7 +58,7 @@ export default class UnitTemplatesManager extends React.Component {
 
   setTeacher(data) {
     this.setState({
-      signedInTeacher: !_l.isEmpty(data)
+      signedInTeacher: !_.isEmpty(data)
     })
   }
 

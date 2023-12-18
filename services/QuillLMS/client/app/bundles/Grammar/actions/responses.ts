@@ -1,5 +1,5 @@
 /* eslint-env browser*/
-import * as moment from 'moment';
+import moment from 'moment';
 import { ConceptResult, Response } from 'quill-marking-logic';
 
 import { ActionTypes } from './actionTypes';

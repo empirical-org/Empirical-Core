@@ -1,5 +1,5 @@
-const C = require('../constants').default;
 import { push } from 'react-router-redux';
+import C from '../constants';
 import { ConceptFeedbackApi, } from '../libs/concept_feedback_api.ts';
 
 const actions = {

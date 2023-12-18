@@ -1,7 +1,8 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { ArchivedButton, hashToCollection, } from '../../../Shared/index'
-import { QuestionList } from '../shared/questionList'
+import _ from 'lodash';
+import React from 'react';
+import { connect } from 'react-redux';
+import { ArchivedButton, hashToCollection, } from '../../../Shared/index';
+import { QuestionList } from '../shared/questionList';
 
 class SentenceFragments extends React.Component {
   constructor(props) {

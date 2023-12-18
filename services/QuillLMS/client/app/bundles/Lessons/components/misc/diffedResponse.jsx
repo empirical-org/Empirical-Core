@@ -1,6 +1,6 @@
+import * as jsDiff from 'diff';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-const jsDiff = require('diff');
 
 export class DiffedResponse extends Component {
 

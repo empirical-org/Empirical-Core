@@ -98,6 +98,7 @@ const PremiumHub = ({ adminId, accessType, passedModel, }) => {
     );
   }
 
+
   function scrollToCreateNewAccounts() {
     const section = document.querySelector('#scroll-location');
     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
