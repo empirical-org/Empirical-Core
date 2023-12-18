@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_18_185111) do
+ActiveRecord::Schema.define(version: 2023_12_18_185008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2022_02_18_185111) do
     t.boolean "spelling_error", default: false
     t.index ["question_uid", "text"], name: "index_responses_on_question_uid_and_text", unique: true
     t.index ["uid"], name: "index_responses_on_uid"
+    t.index ["updated_at"], name: "index_responses_on_updated_at"
   end
 
 
