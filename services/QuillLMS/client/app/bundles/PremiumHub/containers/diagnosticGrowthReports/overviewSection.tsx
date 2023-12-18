@@ -5,7 +5,6 @@ import { SKILL, groupByDropdownOptions, hashPayload } from '../../shared'
 import { requestPost, } from '../../../../modules/request';
 import { aggregateOverviewData, averageActivitiesAndTimeSpentTooltipText, completedActivitiesTooltipText, diagnosticNameTooltipText, overallSkillGrowthTooltipText, postDiagnosticCompletedTooltipText, preDiagnosticCompletedTooltipText } from './helpers';
 
-const QUERY_KEY = 'admin-diagnostic-overview'
 const PUSHER_EVENT_KEY = 'admin-diagnostic-overview-cached';
 const PRE_DIAGNOSTIC_ASSIGNED_QUERYSTRING = 'pre-diagnostic-assigned'
 const POST_DIAGNOSTIC_ASSIGNED_QUERYSTRING = 'post-diagnostic-assigned'
@@ -90,7 +89,6 @@ export const OverviewSection = ({
   selectedTimeframe,
   pusherChannel,
   hasAdjustedFiltersFromDefault,
-  hasAdjustedFiltersSinceLastSubmission,
   handleSetNoDiagnosticDataAvailable,
   handleTabChangeFromDataChip,
   handleSetSelectedDiagnosticId,
@@ -106,7 +104,6 @@ export const OverviewSection = ({
   const [recommendationsData, setRecommendationsData] = React.useState<any>(null);
   const [aggregatedData, setAggregatedData] = React.useState<any>(passedData || []);
   const [pusherMessage, setPusherMessage] = React.useState<string>(null)
-  const [updatedFromPusher, setUpdatedFromPusher] = React.useState<boolean>(false)
 
   React.useEffect(() => {
     initializePusher()
@@ -122,18 +119,24 @@ export const OverviewSection = ({
   React.useEffect(() => {
     if (!pusherMessage) return
 
-    if (filtersMatchHash(pusherMessage) && !updatedFromPusher) {
-      // this prevents getData from being called multiple times since we receive Pusher messages for each of the 5 different API calls
-      setUpdatedFromPusher(true)
-      getData()
+    switch (pusherMessage) {
+      case getFilterHash(PRE_DIAGNOSTIC_ASSIGNED_QUERYSTRING):
+        getPreDiagnosticAssignedData()
+        break;
+      case getFilterHash(PRE_DIAGNOSTIC_COMPLETED_QUERYSTRING):
+        getPreDiagnosticCompletedData()
+        break;
+      case getFilterHash(POST_DIAGNOSTIC_ASSIGNED_QUERYSTRING):
+        getPostDiagnosticAssignedData()
+        break;
+      case getFilterHash(POST_DIAGNOSTIC_COMPLETED_QUERYSTRING):
+        getPostDiagnosticCompletedData()
+        break;
+      case getFilterHash(RECOMMENDATIONS_QUERYSTRING):
+        getRecommendationsData()
+        break;
     }
   }, [pusherMessage])
-
-  React.useEffect(() => {
-    if (hasAdjustedFiltersSinceLastSubmission && updatedFromPusher) {
-      setUpdatedFromPusher(false)
-    }
-  }, [hasAdjustedFiltersSinceLastSubmission])
 
   React.useEffect(() => {
     if (preDiagnosticAssignedData && postDiagnosticAssignedData && preDiagnosticCompletedData && postDiagnosticCompletedData && recommendationsData) {
@@ -182,6 +185,7 @@ export const OverviewSection = ({
   }
 
   function getPreDiagnosticAssignedData () {
+    setPreDiagnosticAssignedData(null)
     const searchParams = getSearchParams(PRE_DIAGNOSTIC_ASSIGNED_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
@@ -195,6 +199,7 @@ export const OverviewSection = ({
   }
 
   function getPostDiagnosticAssignedData() {
+    setPostDiagnosticAssignedData(null)
     const searchParams = getSearchParams(POST_DIAGNOSTIC_ASSIGNED_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
@@ -208,6 +213,7 @@ export const OverviewSection = ({
   }
 
   function getPreDiagnosticCompletedData() {
+    setPreDiagnosticCompletedData(null)
     const searchParams = getSearchParams(PRE_DIAGNOSTIC_COMPLETED_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
@@ -221,6 +227,7 @@ export const OverviewSection = ({
   }
 
   function getPostDiagnosticCompletedData() {
+    setPostDiagnosticCompletedData(null)
     const searchParams = getSearchParams(POST_DIAGNOSTIC_COMPLETED_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
@@ -234,6 +241,7 @@ export const OverviewSection = ({
   }
 
   function getRecommendationsData() {
+    setRecommendationsData(null)
     const searchParams = getSearchParams(RECOMMENDATIONS_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
@@ -256,17 +264,6 @@ export const OverviewSection = ({
       selectedClassroomIds,
     )
     return hashPayload(filterTarget)
-  }
-
-  function filtersMatchHash(hashMessage) {
-    const firstFilterHash = getFilterHash(PRE_DIAGNOSTIC_ASSIGNED_QUERYSTRING)
-    const secondFilterHash = getFilterHash(PRE_DIAGNOSTIC_COMPLETED_QUERYSTRING)
-    const thirdFilterHash = getFilterHash(POST_DIAGNOSTIC_ASSIGNED_QUERYSTRING)
-    const fourthFilterHash = getFilterHash(POST_DIAGNOSTIC_COMPLETED_QUERYSTRING)
-    const fifthFilterHash = getFilterHash(RECOMMENDATIONS_QUERYSTRING)
-    const hashesArray = [firstFilterHash, secondFilterHash, thirdFilterHash, fourthFilterHash, fifthFilterHash]
-
-    return hashesArray.includes(hashMessage)
   }
 
   function handleFilterOptionChange(option) {

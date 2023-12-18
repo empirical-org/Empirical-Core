@@ -52,7 +52,6 @@ export const DiagnosticGrowthReportsContainer = ({
   handleClickDownloadReport,
   openMobileFilterMenu,
   hasAdjustedFiltersFromDefault,
-  hasAdjustedFiltersSinceLastSubmission,
   passedData
 }) => {
 
@@ -125,7 +124,7 @@ export const DiagnosticGrowthReportsContainer = ({
             Filters
           </button>
         </div>
-        {activeTab === OVERVIEW && <OverviewSection {...sharedProps} handleSetSelectedDiagnosticId={handleSetSelectedDiagnosticId} handleTabChangeFromDataChip={handleTabChangeFromDataChip} hasAdjustedFiltersSinceLastSubmission={hasAdjustedFiltersSinceLastSubmission} />}
+        {activeTab === OVERVIEW && <OverviewSection {...sharedProps} handleSetSelectedDiagnosticId={handleSetSelectedDiagnosticId} handleTabChangeFromDataChip={handleTabChangeFromDataChip} />}
         {activeTab === SKILL && <SkillSection {...sharedProps} selectedDiagnosticId={selectedDiagnosticId} />}
         {activeTab === STUDENT && <StudentSection {...sharedProps} />}
       </React.Fragment>

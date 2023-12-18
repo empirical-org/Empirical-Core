@@ -14,7 +14,6 @@ const props = {
   selectedTimeframe: "This school year",
   pusherChannel: null,
   hasAdjustedFiltersFromDefault: false,
-  hasAdjustedFiltersSinceLastSubmission: false,
   handleSetNoDiagnosticDataAvailable: jest.fn(),
   handleTabChangeFromDataChip: jest.fn(),
   handleSetSelectedDiagnosticId: jest.fn(),
