@@ -2,7 +2,7 @@ import * as React from "react";
 import { render, screen, } from "@testing-library/react";
 import userEvent from '@testing-library/user-event';
 
-import LogInAsATeacherModal from '../log_in_as_a_teacher_modal'
+import LogInAsATeacherModal from '../logInAsAsTeacherModal'
 
 const props = {
   handleCloseModal: jest.fn(),

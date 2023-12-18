@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { DropdownInput, Input } from '../../Shared/index';
-import useModalAccessibility from '../../Shared/hooks/useModalAccessibility'
+import { DropdownInput, } from '../../../Shared/index';
+import useModalAccessibility from '../../../Shared/hooks/useModalAccessibility'
 
 const LogInAsATeacherModal = ({ teacherOptions, handleCloseModal, schoolOptions }) => {
   const { modalRef } = useModalAccessibility(handleCloseModal);
