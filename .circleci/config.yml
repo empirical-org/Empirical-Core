@@ -226,9 +226,9 @@ jobs:
 
       - restore_cache:
           keys:
-            - npm-cache-lms-client-v8-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-            - npm-cache-lms-client-v8-{{ checksum "services/QuillLMS/client/package.json" }}-
-            - npm-cache-lms-client-v8-
+            - npm-cache-lms-client-v9-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+            - npm-cache-lms-client-v9-{{ checksum "services/QuillLMS/client/package.json" }}-
+            - npm-cache-lms-client-v9-
       - run:
           name: Install NPM dependencies
           command: |
