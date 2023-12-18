@@ -10,7 +10,7 @@ module Snapshots
       let(:concept_results) { activity_sessions.map { |activity_session| create(:concept_result, activity_session: activity_session) } }
       let(:cte_records) { count_query_cte_records << concept_results }
 
-      it { expect(results).to eq(count: concept_results.count) }
+      it { expect(results).to eq(count: activities.sum(&:question_count)) }
     end
   end
 end
