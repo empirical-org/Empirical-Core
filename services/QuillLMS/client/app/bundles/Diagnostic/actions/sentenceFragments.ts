@@ -1,5 +1,5 @@
-const C = require('../constants').default;
 import { push } from 'react-router-redux';
+import C from '../constants';
 import { Question } from '../interfaces/questions';
 import {
   FocusPointApi,

@@ -4,12 +4,6 @@ import * as React from 'react';
 import { Lessons } from '../../components/lessons/lessons';
 import LinkListItem from '../../components/shared/linkListItem';
 
-jest.mock('underscore', () => ({
-  default: {
-    keys: jest.fn(() => (['17', '18', '19']))
-  }
-}));
-
 describe('Lessons Component', () => {
   const mockProps = {
     concepts: {

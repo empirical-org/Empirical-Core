@@ -21,10 +21,10 @@ import ExpandableUnitSection from './ExpandableUnitClient';
 import ForgotPasswordApp from './ForgotPasswordAppClient';
 import LessonPlannerApp from './LessonPlannerAppClient';
 import PreApApp from './PreApAppClient';
+import PremiumHubApp from './PremiumHubAppClient';
 import PremiumPricingGuideApp from './PremiumPricingGuideAppClient';
 import PressApp from './PressAppClient';
 import ProgressReportApp from './ProgressReportAppClient';
-import PremiumHubApp from './PremiumHubAppClient';
 import PublicActivityPacksApp from './PublicActivityPacksAppClient.jsx';
 import PublicUnitTemplatesApp from './PublicUnitTemplatesAppClient.jsx';
 import QuestionsAndAnswersSection from './QuestionsAndAnswersClient';
@@ -42,14 +42,11 @@ import TutorialsApp from './TutorialsAppClient';
 import UnitTemplateCategoriesApp from './UnitTemplateCategoriesAppClient';
 
 import UploadRostersApp from '../../Staff/startup/UploadRostersAppClient';
-import LockerApp from '../../Staff/startup/lockerAppClient';
 import StudentFeedbackModal from '../../Student/startup/StudentFeedbackModalAppClient';
 import StudentNavbarItems from '../../Student/startup/StudentNavbarItemsAppClient';
 
 import '../styles/styles.scss';
-
-require('../../../assets/styles/home.scss');
-require('../../../assets/javascripts/clickHandlers.js');
+import '../../../assets/javascripts/clickHandlers.js'
 
 // This is how react_on_rails can see the TeacherApp in the browser.
 
@@ -92,7 +89,6 @@ ReactOnRails.register({
   SpringBoardApp,
   StudentFeedbackModal,
   UploadRostersApp,
-  LockerApp,
   SalesFormApp,
   DemoAccountBanner,
   AdminAccessApp

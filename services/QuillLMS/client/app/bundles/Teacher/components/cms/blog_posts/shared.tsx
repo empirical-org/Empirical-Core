@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import * as React from 'react';
 
 export const tableHeaders = [
@@ -58,7 +58,6 @@ export const blogPostRows = (blogPosts, handleClickStar, featuredBlogPostLimitRe
     const { created_at, id, external_link, slug, rating, title, updated_at, read_count, draft, featured_order_number, } = blogPost
 
     function onClickStar() { handleClickStar(id) }
-
     const blogPostRow = {
       createdAt: moment(created_at).format('MM/DD/YY'),
       updatedAt: moment(updated_at).format('MM/DD/YY'),

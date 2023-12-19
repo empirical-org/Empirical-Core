@@ -95,7 +95,7 @@ class Cms::ActivitiesController < Cms::CmsController
 
   protected def set_style_and_javascript_file
     @js_file = 'staff'
-    @style_file = 'staff'
+    @style_file = "#{ApplicationController::STAFF}.scss"
   end
 
   protected def activity_params

@@ -1,6 +1,6 @@
-import React from 'react';
-
 import createReactClass from 'create-react-class';
+import React from 'react';
+import _ from 'underscore';
 
 import $ from 'jquery';
 import { stripHtml } from "string-strip-html";

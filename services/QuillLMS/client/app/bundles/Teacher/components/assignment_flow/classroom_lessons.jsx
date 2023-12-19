@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Units from './manage_units/units';
-
+import _ from 'lodash';
 import { requestGet, } from '../../../../modules/request';
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown';
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../progress_reports/progress_report_constants';
 import LoadingIndicator from '../shared/loading_indicator';
+import Units from './manage_units/units';
 
 export default class ClassroomLessons extends React.Component {
   constructor(props) {
