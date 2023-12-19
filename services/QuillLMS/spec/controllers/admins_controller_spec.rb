@@ -13,6 +13,7 @@ describe AdminsController  do
   let(:admin) { create(:teacher) }
   let!(:teacher) { create(:teacher_with_school) }
   let!(:school) { teacher.reload.school }
+  let!(:admin_school) { create(:schools_users, user: admin, school: school) }
   let!(:schools_admins) { create(:schools_admins, school: school, user: admin) }
 
   describe '#show' do
