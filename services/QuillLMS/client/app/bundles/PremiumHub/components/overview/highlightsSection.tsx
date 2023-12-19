@@ -8,7 +8,7 @@ import { sentencesWrittenSnapshotInfo, studentLearningHoursSnapshotInfo, } from 
 const HighlightsSection = ({ pusherChannel, model, }) => {
   function renderHighlights() {
     const snapshotItems = [sentencesWrittenSnapshotInfo, studentLearningHoursSnapshotInfo].map(item => {
-      const { label, size, queryKey, headers, singularLabel, } = item
+      const { label, size, queryKey, singularLabel, } = item
       const props = {
         label,
         queryKey,

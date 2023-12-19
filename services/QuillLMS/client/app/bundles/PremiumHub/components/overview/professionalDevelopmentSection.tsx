@@ -32,6 +32,8 @@ const ProfessionalDevelopmentSection = ({ accessType, adminId, }) => {
   const [loadingProfessionalLearningManagerInformation, setLoadingProfessionalLearningManagerInformation] = React.useState(true)
 
   React.useEffect(() => {
+    if (accessType === RESTRICTED) { return }
+    
     getProfessionalLearningManagerInformation()
   }, [])
 
@@ -57,6 +59,26 @@ const ProfessionalDevelopmentSection = ({ accessType, adminId, }) => {
         <a href="https://quillorg.canny.io/admin-feedback" rel="noopener noreferrer" target="_blank">Request a Feature</a>
       </div>
     )
+
+    if (accessType === RESTRICTED) {
+      return (
+        <div className="overview-section restricted-access">
+          <div className="professional-learning-manager">
+            <div>
+              <h3>Implement literacy with fidelity</h3>
+              <p className="section-subheader">{blackBulb}Premium Schools complete three times as many activities as free schools.</p>
+              <p>With personalized learning, interactive activities, and immediate feedback, Quill Premium helps teachers foster literacy skills and critical thinking. If you’re interested in Quill Premium for your teachers, our sales team would love to connect with you.</p>
+              <div className="buttons">
+                <a className="quill-button contained primary medium focus-on-light" href="https://calendly.com/alex-quill" rel="noopener noreferrer" target="_blank">Schedule a call</a>
+                <a className="quill-button contained primary medium focus-on-light" href="https://www.quill.org/premium/request-district-quote" rel="noopener noreferrer" target="_blank">Request a quote</a>
+              </div>
+            </div>
+            {alexAndCharlieImg}
+          </div>
+          {quickLinks}
+        </div>
+      )
+    }
 
     if (loadingProfessionalLearningManagerInformation) {
       return (
@@ -86,26 +108,6 @@ const ProfessionalDevelopmentSection = ({ accessType, adminId, }) => {
               </div>
             </div>
             {EMAIL_TO_IMG[email]}
-          </div>
-          {quickLinks}
-        </div>
-      )
-    }
-
-    if (accessType === RESTRICTED) {
-      return (
-        <div className="overview-section restricted-access">
-          <div className="professional-learning-manager">
-            <div>
-              <h3>Implement literacy with fidelity</h3>
-              <p className="section-subheader">{blackBulb}Premium Schools complete three times as many activities as free schools.</p>
-              <p>With personalized learning, interactive activities, and immediate feedback, Quill Premium helps teachers foster literacy skills and critical thinking. If you’re interested in Quill Premium for your teachers, our sales team would love to connect with you.</p>
-              <div className="buttons">
-                <a className="quill-button contained primary medium focus-on-light" href="https://calendly.com/alex-quill" rel="noopener noreferrer" target="_blank">Schedule a call</a>
-                <a className="quill-button contained primary medium focus-on-light" href="https://www.quill.org/premium/request-district-quote" rel="noopener noreferrer" target="_blank">Request a quote</a>
-              </div>
-            </div>
-            {alexAndCharlieImg}
           </div>
           {quickLinks}
         </div>
