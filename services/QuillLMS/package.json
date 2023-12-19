@@ -45,7 +45,6 @@
     "postcss-preset-env": "^8.0.1",
     "postcss-scss": "^4.0.6",
     "quill-marking-logic": "0.15.11",
-<<<<<<< HEAD
     "react-csv": "^1.1.2",
     "rollup-plugin-friendly-type-imports": "^1.0.3",
     "sass": "^1.58.3",
@@ -54,9 +53,6 @@
     "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@vitejs/plugin-react": "^3.1.0",
     "@rollup/plugin-replace": "^5.0.2"
-=======
-    "react-csv": "^1.1.2"
->>>>>>> 02493ee5f7 (Remove change to package.json)
   },
   "devDependencies": {
     "@types/enzyme": "^3.10.13",
