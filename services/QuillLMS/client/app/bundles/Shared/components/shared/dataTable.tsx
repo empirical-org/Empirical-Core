@@ -417,6 +417,8 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
         </td>
       )
     } else {
+      // ignoring this linter rule because the interactive effects are only for visual changes (we add a class name)
+      /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
       return (
         <td
           className={className}
@@ -429,6 +431,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
           {sectionText}
         </td>
       )
+      /* eslint-enable jsx-a11y/no-noninteractive-element-interactions */
     }
   }
 

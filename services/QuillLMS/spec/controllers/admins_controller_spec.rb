@@ -353,7 +353,6 @@ describe AdminsController  do
   end
 
   describe '#vitally_professional_learning_manager_info' do
-    let(:admin) { create(:teacher) }
     let(:api_stub) { double }
     let(:vitally_district) { { 'keyRoles' => [{ 'keyRole' => { 'label' => 'CSM' }, 'vitallyUser' => { 'name' => 'Manager', 'email': 'manager@quill.org' } }] } }
 

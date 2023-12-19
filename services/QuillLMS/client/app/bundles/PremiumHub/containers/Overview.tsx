@@ -1,6 +1,5 @@
 import Pusher from 'pusher-js';
 import React from 'react';
-import { Link, } from 'react-router-dom';
 
 import { requestGet, } from '../../../modules/request/index';
 import { Tooltip, Spinner, } from '../../Shared/index';
@@ -51,7 +50,7 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
 
   function bindToAdminUsersChannel(skipLoading) {
     if (!pusherChannel) { return }
-    
+
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }

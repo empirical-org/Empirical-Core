@@ -1,5 +1,6 @@
 import * as React from "react";
 import { render, } from "@testing-library/react";
+import { MemoryRouter } from 'react-router-dom';
 
 import AccountManagementSection from '../accountManagementSection'
 
@@ -9,7 +10,7 @@ const props = {
 
 describe('AccountManagementSection', () => {
   test('it should render', () => {
-    const { asFragment } = render(<AccountManagementSection {...props} />);
+    const { asFragment } = render(<MemoryRouter><AccountManagementSection {...props} /></MemoryRouter>);
     expect(asFragment()).toMatchSnapshot();
   });
 });

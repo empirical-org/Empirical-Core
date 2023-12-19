@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as Pusher from 'pusher-js';
+import Pusher from 'pusher-js';
 
 import { requestGet, requestPost, } from '../../../modules/request/index';
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
