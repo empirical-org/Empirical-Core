@@ -361,12 +361,12 @@ describe AdminsController  do
       allow(controller).to receive(:current_user).and_return(admin)
       allow(VitallyIntegration::RestApi).to receive(:new).and_return(api_stub)
       allow(api_stub).to receive(:get)
-        .with(VitallyIntegration::RestApi::ENDPOINT_ORGANIZATIONS, admin.school.district_id)
+        .with(VitallyIntegration::RestApi::ENDPOINT_ORGANIZATIONS, admin.reload.school.district_id)
         .and_return(vitally_district)
     end
 
     it 'retrieves professional learning manager info and renders it as json' do
-      get :vitally_professional_learning_manager_info
+      get :vitally_professional_learning_manager_info, params: { id: admin.id }
       expect(response).to be_successful
       expect(response.body).to eq(vitally_district['keyRoles'].first['vitallyUser'].to_json)
     end
@@ -375,7 +375,7 @@ describe AdminsController  do
       let(:vitally_district) { { 'keyRoles' => [] } }
 
       it 'renders nil' do
-        get :vitally_professional_learning_manager_info
+        get :vitally_professional_learning_manager_info, params: { id: admin.id }
         expect(response).to be_successful
         expect(response.body).to eq('null')
       end
