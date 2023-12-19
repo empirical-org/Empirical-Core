@@ -97,7 +97,6 @@ export default class ActivityPacks extends React.Component {
       `${process.env.DEFAULT_URL}/teachers/units?report=true`,
       (body) => {
         this.setAllUnits(body);
-        this.populateCompletionAndAverageScore(body);
       }
     )
   }
@@ -114,7 +113,10 @@ export default class ActivityPacks extends React.Component {
   }
 
   setAllUnits = (data) => {
-    this.setState({ allUnits: this.parseUnits(data), }, this.getUnitsForCurrentClass);
+    this.setState({ allUnits: this.parseUnits(data), }, () => {
+      this.getUnitsForCurrentClass()
+      this.populateCompletionAndAverageScore(data);
+    });
   }
 
   addMissingInfo = (data) => {
@@ -196,6 +198,7 @@ export default class ActivityPacks extends React.Component {
         // otherwise, add the activity info if it doesn't already exist
         let completedCount,
           cumulativeScore;
+
         if (caUnit.classroomActivities.has(u.activity_id)) {
           completedCount = Number(caUnit.classroomActivities.get(u.activity_id).completedCount) + Number(u.completed_count || 0);
           cumulativeScore = Number(caUnit.classroomActivities.get(u.activity_id).cumulativeScore) + Number(u.classroom_cumulative_score || 0);

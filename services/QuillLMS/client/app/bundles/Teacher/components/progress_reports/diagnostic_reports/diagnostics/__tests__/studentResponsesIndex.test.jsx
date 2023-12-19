@@ -11,13 +11,6 @@ import {
 
 import { StudentResponsesIndex, } from '../studentResponsesIndex';
 
-jest.mock('qs', () => ({
-  default: {
-    parse: jest.fn(() => ({}))
-  }
-})
-)
-
 describe('StudentResponsesIndex component', () => {
   it('should render when there is no student data', () => {
     const wrapper = mount(<Router>

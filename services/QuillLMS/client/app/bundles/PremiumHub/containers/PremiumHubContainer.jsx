@@ -6,7 +6,6 @@ import Overview from './Overview'
 import DistrictActivityScoresProgressReport from './DistrictActivityScores';
 import DistrictConceptReportsProgressReport from './DistrictConceptReports';
 import DistrictStandardsReportsProgressReport from './DistrictStandardsReports';
-import SchoolSubscriptionsContainer from './SchoolSubscriptionsContainer';
 import IntegrationsContainer from './IntegrationsContainer';
 import PremiumFilterableReportsContainer from './PremiumFilterableReportsContainer';
 import AccountManagement from './AccountManagement';

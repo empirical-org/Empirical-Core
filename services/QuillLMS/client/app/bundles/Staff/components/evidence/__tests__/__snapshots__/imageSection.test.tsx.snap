@@ -13,8 +13,17 @@ exports[`ImageSection component should render ImageSection 1`] = `
     <div
       className="dropzone-container"
     >
-      <Component
+      <t
+        disableClick={false}
+        disablePreview={false}
+        disabled={false}
+        getDataTransferItems={[Function]}
+        inputProps={Object {}}
+        maxSize={Infinity}
+        minSize={0}
+        multiple={true}
         onDrop={[Function]}
+        preventDropOnDocument={true}
       />
     </div>
   </div>

@@ -1,12 +1,12 @@
 @import "../../../client/node_modules/react-datetime/css/react-datetime";
 
-@import "variables";
-@import "bootstrap-sprockets";
+@import 'variables';
+@import '_mixins';
+@import 'shared/icons';
 @import "bootstrap";
-@import "mixins";
+@import "../../../client/app/assets/styles/home.scss";
 @import "custom";
-@import "pages/**/*";
-@import "cms/**/*";
-@import "shared/icons";
-@import "shared/**/*";
+@import "pages/index";
+@import "cms/index";
+@import "shared/index";
 @import "print";

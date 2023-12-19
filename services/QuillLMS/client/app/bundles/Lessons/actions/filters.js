@@ -1,4 +1,4 @@
-let C = require("../constants").default;
+import C from '../constants';
 
 module.exports = {
   toggleExpandSingleResponse: function (rkey) {

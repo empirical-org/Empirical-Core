@@ -2,6 +2,7 @@ import createReactClass from 'create-react-class';
 import moment from 'moment';
 import queryString from 'query-string';
 import React from 'react';
+import _ from 'underscore';
 
 import EmptyStateForReport from './empty_state_for_report.jsx';
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants';

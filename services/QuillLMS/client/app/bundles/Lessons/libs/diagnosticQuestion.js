@@ -9,7 +9,6 @@ import { getOptimalResponses, getSubOptimalResponses } from './sharedResponseFun
 import quillNormalize from './quillNormalizer';
 import { sortByLevenshteinAndOptimal } from './responseTools.js';
 
-const jsDiff = require('diff');
 
 const ERROR_TYPES = {
   NO_ERROR: 'NO_ERROR',
