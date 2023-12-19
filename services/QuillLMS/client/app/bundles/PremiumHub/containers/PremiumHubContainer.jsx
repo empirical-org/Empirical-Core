@@ -9,6 +9,7 @@ import DistrictStandardsReportsProgressReport from './DistrictStandardsReports';
 import IntegrationsContainer from './IntegrationsContainer';
 import PremiumFilterableReportsContainer from './PremiumFilterableReportsContainer';
 import AccountManagement from './AccountManagement';
+import SchoolSubscriptionsContainer from './SchoolSubscriptionsContainer'
 
 import { requestGet, } from '../../../modules/request/index';
 import { NOT_LISTED, NO_SCHOOL_SELECTED, Spinner } from '../../Shared/index';
