@@ -5,7 +5,7 @@ import { requestGet, requestPost, } from '../../../modules/request/index';
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
 import { DataTable, DropdownInput, Snackbar, defaultSnackbarTimeout, Spinner, } from '../../Shared/index';
 import { ADMIN, PENDING, TEACHER, } from '../../Shared/utils/constants';
-import { FULL, RESTRICTED, restrictedElement, } from '../shared';
+import { FULL, RESTRICTED, restrictedElement, RESTRICTED_TEXT, } from '../shared';
 import AdminActionModal from '../components/admin_action_modal'
 import CreateAndLinkAccountsModal from '../components/create_and_link_accounts_modal'
 
@@ -20,8 +20,6 @@ enum modalNames {
   makeAdminModal = 'makeAdminModal',
   createAndLinkAccountsModal = 'createAndLinkAccountsModal'
 }
-
-const RESTRICTED_TEXT = "Sorry, only verified admins with a subscription to School or District Premium can access this feature."
 
 const DEFAULT_MODEL = { teachers: [] }
 

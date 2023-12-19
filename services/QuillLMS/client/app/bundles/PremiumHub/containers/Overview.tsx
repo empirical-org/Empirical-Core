@@ -2,13 +2,15 @@ import Pusher from 'pusher-js';
 import React from 'react';
 
 import { requestGet, } from '../../../modules/request/index';
-import { Tooltip, Spinner, } from '../../Shared/index';
+import { Tooltip, Spinner, Snackbar, defaultSnackbarTimeout, } from '../../Shared/index';
+import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
 import LogInAsATeacherModal from '../components/overview/logInAsAsTeacherModal'
 import HighlightsSection from '../components/overview/highlightsSection'
 import ProfessionalDevelopmentSection from '../components/overview/professionalDevelopmentSection'
 import AccountManagementSection from '../components/overview/accountManagementSection'
 import IntegrationsSection from '../components/overview/integrationsSection'
 import PremiumReportsSection from '../components/overview/premiumReportsSection'
+import { FULL, RESTRICTED_TEXT, } from '../shared'
 
 const DEFAULT_MODEL = { teachers: [] }
 
@@ -17,6 +19,10 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
   const [model, setModel] = React.useState(passedModel || DEFAULT_MODEL)
   const [pusherChannel, setPusherChannel] = React.useState(null)
   const [showLoginAsTeacherModal, setShowLoginAsTeacherModal] = React.useState(false)
+  const [showSnackbar, setShowSnackbar] = React.useState(false);
+  const [snackbarText, setSnackbarText] = React.useState('');
+
+  useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   React.useEffect(() => {
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
@@ -59,7 +65,14 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
     });
   };
 
-  function handleClickLogInAsATeacher() { setShowLoginAsTeacherModal(true) }
+  function handleClickLogInAsATeacher() {
+    if (accessType === FULL) {
+      setShowLoginAsTeacherModal(true)
+    } else {
+      setSnackbarText(RESTRICTED_TEXT)
+      setShowSnackbar(true)
+    }
+  }
 
   function closeLogInAsATeacherModal() { setShowLoginAsTeacherModal(false) }
 
@@ -124,6 +137,7 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
   return (
     <div className="white-background-accommodate-footer premium-hub-overview">
       <div className="container">
+        <Snackbar text={snackbarText} visible={showSnackbar} />
         <h1>Hello, {model.name.split(' ')[0]}!</h1>
         {renderLogInAsATeacherModal()}
         {renderSubheader()}
