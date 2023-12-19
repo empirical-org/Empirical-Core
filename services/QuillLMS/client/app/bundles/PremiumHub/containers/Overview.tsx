@@ -2,33 +2,32 @@ import Pusher from 'pusher-js';
 import React from 'react';
 import { Link, } from 'react-router-dom';
 
-import { requestGet, requestPost, } from '../../../modules/request/index';
-import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
-import { Snackbar, defaultSnackbarTimeout, Tooltip, Spinner, } from '../../Shared/index';
+import { requestGet, } from '../../../modules/request/index';
+import { Tooltip, Spinner, } from '../../Shared/index';
 import LogInAsATeacherModal from '../components/overview/logInAsAsTeacherModal'
 import HighlightsSection from '../components/overview/highlightsSection'
 import ProfessionalDevelopmentSection from '../components/overview/professionalDevelopmentSection'
 import AccountManagementSection from '../components/overview/accountManagementSection'
 import IntegrationsSection from '../components/overview/integrationsSection'
 import PremiumReportsSection from '../components/overview/premiumReportsSection'
-import { RESTRICTED, } from '../shared'
 
 const DEFAULT_MODEL = { teachers: [] }
 
 const Overview = ({ adminId, accessType, passedModel, }) => {
   const [loading, setLoading] = React.useState(passedModel ? false : true)
   const [model, setModel] = React.useState(passedModel || DEFAULT_MODEL)
-  const [error, setError] = React.useState(null)
-  const [showSnackbar, setShowSnackbar] = React.useState(false);
-  const [snackbarText, setSnackbarText] = React.useState('');
   const [pusherChannel, setPusherChannel] = React.useState(null)
   const [showLoginAsTeacherModal, setShowLoginAsTeacherModal] = React.useState(false)
 
   React.useEffect(() => {
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const channel = pusher.subscribe(String(adminId));
+    setPusherChannel(channel)
+  }, [])
+
+  React.useEffect(() => {
     getData()
   }, [pusherChannel])
-
-  useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   function getData(skipLoading = false) {
     bindToAdminUsersChannel(skipLoading);
@@ -52,6 +51,7 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
 
   function bindToAdminUsersChannel(skipLoading) {
     if (!pusherChannel) { return }
+    
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
