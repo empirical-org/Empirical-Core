@@ -1,3 +1,4 @@
+import * as jsDiff from 'diff';
 import fuzzy from 'fuzzyset.js';
 import _ from 'underscore';
 import constants from '../constants';
@@ -13,8 +14,6 @@ import {
 import quillNormalize from './quillNormalizer';
 import { checkForMissingWords } from './requiredWords';
 import { getOptimalResponses, getTopOptimalResponse } from './sharedResponseFunctions';
-
-const jsDiff = require('diff');
 
 const ERROR_TYPES = {
   NO_ERROR: 'NO_ERROR',

@@ -40,7 +40,7 @@ class Cms::DistrictsController < Cms::CmsController
   def new_admin
     id = params[:id]
     @js_file = 'staff'
-    @style_file = 'staff'
+    @style_file = "#{ApplicationController::STAFF}.scss"
     @cms_district_path = cms_district_path(id)
     @schools = schools_formatted_for_new_admin
   end

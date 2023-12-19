@@ -16,27 +16,7 @@ module Snapshots
       end
     end
 
-    QUERIES = {
-      'active-classrooms' => Snapshots::ActiveClassroomsQuery,
-      'active-students' => Snapshots::ActiveStudentsQuery,
-      'active-teachers' => Snapshots::ActiveTeachersQuery,
-      'activities-assigned' => Snapshots::ActivitiesAssignedQuery,
-      'activities-completed' => Snapshots::ActivitiesCompletedQuery,
-      'activity-packs-assigned' => Snapshots::ActivityPacksAssignedQuery,
-      'activity-packs-completed' => Snapshots::ActivityPacksCompletedQuery,
-      'average-active-classrooms-per-teacher' => Snapshots::AverageActiveClassroomsPerTeacherQuery,
-      'average-activities-completed-per-student' => Snapshots::AverageActivitiesCompletedPerStudentQuery,
-      'average-active-students-per-classroom' => Snapshots::AverageActiveStudentsPerClassroomQuery,
-      'baseline-diagnostics-assigned' => Snapshots::BaselineDiagnosticsAssignedQuery,
-      'baseline-diagnostics-completed' => Snapshots::BaselineDiagnosticsCompletedQuery,
-      'classrooms-created' => Snapshots::ClassroomsCreatedQuery,
-      'growth-diagnostics-assigned' => Snapshots::GrowthDiagnosticsAssignedQuery,
-      'growth-diagnostics-completed' => Snapshots::GrowthDiagnosticsCompletedQuery,
-      'sentences-written' => Snapshots::SentencesWrittenQuery,
-      'student-accounts-created' => Snapshots::StudentAccountsCreatedQuery,
-      'student-learning-hours' => Snapshots::StudentLearningHoursQuery,
-      'teacher-accounts-created' => Snapshots::TeacherAccountsCreatedQuery
-    }
+    QUERIES = ::Snapshots::COUNT_QUERY_MAPPING
 
     def perform(cache_key, query, user_id, timeframe, school_ids, filters, previous_timeframe)
       payload = generate_payload(query, timeframe, school_ids, filters)

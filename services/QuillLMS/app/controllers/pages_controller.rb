@@ -3,9 +3,10 @@
 class PagesController < ApplicationController
   include HTTParty
   include PagesHelper
+
   before_action :determine_js_file, :determine_flag
   before_action :set_defer_js, except: [
-    :play, :locker, :preap_units, :springboard_units, :evidence,
+    :play, :preap_units, :springboard_units, :evidence,
     :connect, :grammar, :diagnostic, :proofreader, :lessons
   ]
   before_action :set_root_url
@@ -463,37 +464,37 @@ class PagesController < ApplicationController
   end
 
   def backpack
-    @style_file = 'staff'
+    @style_file = "#{ApplicationController::STAFF}.scss"
   end
 
   def evidence
     allow_iframe
-    @style_file = ApplicationController::EVIDENCE
+    @style_file = "#{ApplicationController::EVIDENCE}.scss"
   end
 
   def proofreader
     allow_iframe
-    @style_file = ApplicationController::PROOFREADER
+    @style_file = "#{ApplicationController::PROOFREADER}.scss"
   end
 
   def grammar
     allow_iframe
-    @style_file = ApplicationController::GRAMMAR
+    @style_file = "#{ApplicationController::GRAMMAR}.scss"
   end
 
   def lessons
     allow_iframe
-    @style_file = ApplicationController::LESSONS
+    @style_file = "#{ApplicationController::LESSONS}.scss"
   end
 
   def connect
     allow_iframe
-    @style_file = ApplicationController::CONNECT
+    @style_file = "#{ApplicationController::CONNECT}.scss"
   end
 
   def diagnostic
     allow_iframe
-    @style_file = ApplicationController::DIAGNOSTIC
+    @style_file = "#{ApplicationController::DIAGNOSTIC}.scss"
   end
 
   def administrator
@@ -503,7 +504,7 @@ class PagesController < ApplicationController
   def locker
     return redirect_to profile_path if !staff?
 
-    @style_file = 'staff'
+    @style_file = "#{ApplicationController::STAFF}.scss"
   end
 
   def quill_academy
@@ -531,8 +532,8 @@ class PagesController < ApplicationController
     when 'connect_tool', 'grammar_tool', 'diagnostic_tool', 'proofreader_tool', 'home_new', 'evidence_tool', 'lessons_tool', 'ap', 'preap', 'springboard'
       @js_file = 'home'
     when 'premium'
-      @js_file = current_user ? 'app' : 'public'
-    when 'backpack' || 'locker'
+      @js_file = current_user ? 'application' : 'public'
+    when 'backpack', 'locker'
       @js_file = 'staff'
     when ApplicationController::EVIDENCE
       @js_file = ApplicationController::EVIDENCE

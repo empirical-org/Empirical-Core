@@ -1,5 +1,5 @@
 import React from 'react';
-const C = require('../../constants').default;
+import C from '../../constants';
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
 

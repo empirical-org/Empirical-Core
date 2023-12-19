@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import PremiumHub from './PremiumHub';
 import DistrictActivityScoresProgressReport from './DistrictActivityScores';
 import DistrictConceptReportsProgressReport from './DistrictConceptReports';
 import DistrictStandardsReportsProgressReport from './DistrictStandardsReports';
-import SchoolSubscriptionsContainer from './SchoolSubscriptionsContainer';
 import IntegrationsContainer from './IntegrationsContainer';
 import PremiumFilterableReportsContainer from './PremiumFilterableReportsContainer';
+import PremiumHub from './PremiumHub';
+import SchoolSubscriptionsContainer from './SchoolSubscriptionsContainer';
 
 import { requestGet, } from '../../../modules/request/index';
 import { NOT_LISTED, NO_SCHOOL_SELECTED, Spinner } from '../../Shared/index';

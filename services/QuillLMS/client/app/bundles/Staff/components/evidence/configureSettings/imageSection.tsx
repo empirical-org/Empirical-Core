@@ -1,7 +1,10 @@
 import * as React from 'react';
+import { ContentState, EditorState } from 'draft-js';
+import Dropzone from 'react-dropzone';
 
 import { IMAGE_ALT_TEXT, IMAGE_ATTRIBUTION, IMAGE_CAPTION, IMAGE_LINK } from '../../../../../constants/evidence';
-import { Input } from '../../../../Shared';
+import { Input, TextEditor } from '../../../../Shared';
+import getAuthToken from '../../../../Teacher/components/modules/get_auth_token';
 
 export const ImageSection = ({
   activityPassages,
@@ -13,12 +16,37 @@ export const ImageSection = ({
   imageAttributionGuideLink,
   handleSetImageAttribution
 }) => {
+
+  function handleDrop (acceptedFiles) {
+    acceptedFiles.forEach(file => {
+      const data = new FormData()
+      data.append('file', file)
+      fetch(`${process.env.DEFAULT_URL}/cms/images`, {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+          'X-CSRF-Token': getAuthToken()
+        },
+        body: data
+      })
+        .then(response => response.json()) // if the response is a JSON object
+        .then(response => {
+          handleSetImageLink(response.url)
+        }); // Handle the success response object
+    });
+  }
+
   return(
     <React.Fragment>
+      <div className="media-upload-container">
+        <label htmlFor="dropzone-container">Click the square below or drag an image into it to upload an image or video:</label>
+        <div className="dropzone-container"><Dropzone onDrop={handleDrop} /></div>
+      </div>
       <Input
         className="image-link-input"
         error={errors[IMAGE_LINK]}
-        handleChange={handleSetImageLink}
+        handleChange={(e) => handleSetImageLink(e.target.value)}
         label="Image Link"
         value={activityPassages[0].image_link}
       />
@@ -40,11 +68,13 @@ export const ImageSection = ({
       <div className="image-attribution-container">
         <p className={`text-editor-label ${imageAttributionStyle}`} id="image-attribution-label"> Image Attribution</p>
         <a className="data-link image-attribution-guide-link" href={imageAttributionGuideLink} rel="noopener noreferrer" target="_blank">Image Attribution Guide</a>
-        <textarea
-          aria-labelledby="image-attribution-label"
-          className="image-attribution-text-area"
-          onChange={handleSetImageAttribution}
-          value={activityPassages[0].image_attribution}
+        <TextEditor
+          ContentState={ContentState}
+          EditorState={EditorState}
+          handleTextChange={handleSetImageAttribution}
+          key="image-attribution"
+          shouldCheckSpelling={true}
+          text={activityPassages[0].image_attribution}
         />
       </div>
       {errors[IMAGE_ATTRIBUTION] && <p className="error-message">{errors[IMAGE_ATTRIBUTION]}</p>}
