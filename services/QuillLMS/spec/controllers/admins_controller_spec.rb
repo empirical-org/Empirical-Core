@@ -352,4 +352,34 @@ describe AdminsController  do
     end
   end
 
+  describe '#vitally_professional_learning_manager_info' do
+    let(:admin) { create(:teacher) }
+    let(:api_stub) { double }
+    let(:vitally_district) { { 'keyRoles' => [{ 'keyRole' => { 'label' => 'CSM' }, 'vitallyUser' => { 'name' => 'Manager', 'email': 'manager@quill.org' } }] } }
+
+    before do
+      allow(controller).to receive(:current_user).and_return(admin)
+      allow(VitallyIntegration::RestApi).to receive(:new).and_return(api_stub)
+      allow(api_stub).to receive(:get)
+        .with(VitallyIntegration::RestApi::ENDPOINT_ORGANIZATIONS, admin.school.district_id)
+        .and_return(vitally_district)
+    end
+
+    it 'retrieves professional learning manager info and renders it as json' do
+      get :vitally_professional_learning_manager_info
+      expect(response).to be_successful
+      expect(response.body).to eq(vitally_district['keyRoles'].first['vitallyUser'].to_json)
+    end
+
+    context 'when no professional learning manager is found' do
+      let(:vitally_district) { { 'keyRoles' => [] } }
+
+      it 'renders nil' do
+        get :vitally_professional_learning_manager_info
+        expect(response).to be_successful
+        expect(response.body).to eq('null')
+      end
+    end
+  end
+
 end

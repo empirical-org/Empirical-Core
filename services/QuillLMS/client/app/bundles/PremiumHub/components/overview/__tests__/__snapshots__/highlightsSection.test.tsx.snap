@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HighlightsSection it should render 1`] = `
+<DocumentFragment>
+  <section
+    class="snapshot-section-wrapper overview-section-wrapper"
+  >
+    <h2>
+      <img
+        alt=""
+        src="undefined/images/pages/administrator/overview/bulb.svg"
+      />
+      <span>
+        Usage Highlights
+      </span>
+    </h2>
+    <div
+      class="snapshot-section highlights overview-section"
+    >
+      <div
+        class="snapshot-section-content overview-section-content"
+      >
+        <div
+          class="counts"
+        >
+          <section
+            class="snapshot-item snapshot-count medium no-change"
+          >
+            <div
+              class="count-and-label"
+            >
+              <span
+                class="count"
+              >
+                —
+              </span>
+              <span
+                class="snapshot-label"
+              >
+                Sentences written
+                <span
+                  class="label-sub-text"
+                >
+                  This school year
+                </span>
+              </span>
+            </div>
+            <div
+              class="change"
+            >
+              <span />
+            </div>
+          </section>
+          <section
+            class="snapshot-item snapshot-count medium no-change"
+          >
+            <div
+              class="count-and-label"
+            >
+              <span
+                class="count"
+              >
+                —
+              </span>
+              <span
+                class="snapshot-label"
+              >
+                Student learning hours
+                <span
+                  class="label-sub-text"
+                >
+                  This school year
+                </span>
+              </span>
+            </div>
+            <div
+              class="change"
+            >
+              <span />
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;

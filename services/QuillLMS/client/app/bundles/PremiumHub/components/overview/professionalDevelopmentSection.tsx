@@ -10,8 +10,8 @@ import { RESTRICTED, } from '../../shared'
 import { requestGet, } from '../../../../modules/request/index';
 import { Spinner, } from '../../../Shared/index'
 
-const ERIKA_EMAIL = 'Erika@quill.org'
-const SHANNON_EMAIL = 'Shannon@quill.org'
+export const ERIKA_EMAIL = 'Erika@quill.org'
+export const SHANNON_EMAIL = 'Shannon@quill.org'
 
 const EMAIL_TO_IMG = {
   [ERIKA_EMAIL]: <img alt="" src={`${iconLinkBase}/erika_headshot.png`} />,
@@ -33,7 +33,7 @@ const ProfessionalDevelopmentSection = ({ accessType, adminId, }) => {
 
   React.useEffect(() => {
     if (accessType === RESTRICTED) { return }
-    
+
     getProfessionalLearningManagerInformation()
   }, [])
 
