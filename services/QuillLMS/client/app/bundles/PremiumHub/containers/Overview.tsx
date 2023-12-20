@@ -12,11 +12,9 @@ import IntegrationsSection from '../components/overview/integrationsSection'
 import PremiumReportsSection from '../components/overview/premiumReportsSection'
 import { FULL, RESTRICTED_TEXT, } from '../shared'
 
-const DEFAULT_MODEL = { teachers: [] }
-
 const Overview = ({ adminId, accessType, passedModel, }) => {
   const [loading, setLoading] = React.useState(passedModel ? false : true)
-  const [model, setModel] = React.useState(passedModel || DEFAULT_MODEL)
+  const [model, setModel] = React.useState(passedModel || null)
   const [pusherChannel, setPusherChannel] = React.useState(null)
   const [showLoginAsTeacherModal, setShowLoginAsTeacherModal] = React.useState(false)
   const [showSnackbar, setShowSnackbar] = React.useState(false);
@@ -28,40 +26,40 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channel = pusher.subscribe(String(adminId));
     setPusherChannel(channel)
+    bindToAdminUsersChannel()
+    getData()
   }, [])
 
   React.useEffect(() => {
-    getData()
-  }, [pusherChannel])
+    if (model) {
+      setLoading(false)
+    }
+  }, [model])
 
-  function getData(skipLoading = false) {
-    bindToAdminUsersChannel(skipLoading);
+  function getData() {
     requestGet(
       `${process.env.DEFAULT_URL}/admins/${adminId}`,
       (body) => {
-        receiveData(body, skipLoading)
+        receiveData(body)
       }
     );
   }
 
-  function receiveData(data, skipLoading) {
+  function receiveData(data) {
     if (Object.keys(data).length > 1) {
       setModel(data)
       setLoading(false)
-    } else if (!skipLoading) {
-      setModel(data)
-      setLoading(true)
     }
   };
 
-  function bindToAdminUsersChannel(skipLoading) {
+  function bindToAdminUsersChannel() {
     if (!pusherChannel) { return }
 
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
     pusherChannel.bind('admin-users-found', () => {
-      getData(skipLoading)
+      getData()
     });
   };
 
@@ -85,7 +83,7 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
 
     const sortedSchools = model.schools.sort((a, b) => a.name.localeCompare(b.name));
 
-    const associatedSchoolIndex = sortedSchools.findIndex(school => school.id === model.associated_school.id);
+    const associatedSchoolIndex = sortedSchools.findIndex(school => school.id === model.associated_school?.id);
 
     if (associatedSchoolIndex > 0) {
       const [associatedSchool] = sortedSchools.splice(associatedSchoolIndex, 1);
