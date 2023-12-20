@@ -37,8 +37,6 @@ module EmpiricalGrammar
     # config.i18n.default_locale = :de
     config.assets.initialize_on_precompile = false
 
-    config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
-
     # changed config.exceptions_app from what was commented out
     # in order to enable custom controller actions https://mattbrictson.com/dynamic-rails-error-pages
     config.exceptions_app = routes
