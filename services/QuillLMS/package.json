@@ -55,7 +55,7 @@
     "postcss-import": "^15.1.0",
     "postcss-preset-env": "^8.0.1",
     "postcss-scss": "^4.0.6",
-    "quill-marking-logic": "0.15.13",
+    "quill-marking-logic": "0.15.11",
     "react-csv": "^1.1.2",
     "rollup-plugin-friendly-type-imports": "^1.0.3",
     "sass": "^1.58.3",
