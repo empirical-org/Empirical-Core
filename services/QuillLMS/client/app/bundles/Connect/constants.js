@@ -217,7 +217,6 @@ export default {
     'Too Long Hint',
     'Parts of Speech',
     'Spelling Hint',
-    'Quotation Mark Hint'
   ],
 
   // cONCEPTS FEEDBACK ACTIONS
