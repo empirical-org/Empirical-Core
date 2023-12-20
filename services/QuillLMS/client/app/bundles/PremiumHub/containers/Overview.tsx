@@ -26,9 +26,14 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channel = pusher.subscribe(String(adminId));
     setPusherChannel(channel)
+  }, [])
+
+  React.useEffect(() => {
+    if (!pusherChannel) { return }
+    
     bindToAdminUsersChannel()
     getData()
-  }, [])
+  }, [pusherChannel])
 
   React.useEffect(() => {
     if (model) {
