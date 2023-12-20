@@ -1,31 +1,56 @@
-<% content_for :custom_pdf_template do %>
-  <%= stylesheet_link_tag "admin_usage_snapshot_report_pdf", media: "all" %>
-<% end %>
+<%= vite_stylesheet_tag "admin_usage_snapshot_report_pdf.scss", media: "all" %>
 
 <main class="admin-usage-snapshot-report-pdf">
   <img alt="Quill logo" class="quill-logo" src="https://assets.quill.org/images/logos/quill-logo-green.svg" />
   <h1>Usage Snapshot Report</h1>
   <div class="applied-filters">
     <h3>Important Note</h3>
-    <p>These metrics were calculated using the filters you had applied at the time this report was sent.</p>
-    <a href="https://support.quill.org/en/articles/8358350-how-do-i-use-the-usage-snapshot-report">Learn more</a>
+    <p>
+      These metrics were calculated using the filters you had applied at the time this report was sent.
+      <a href="https://support.quill.org/en/articles/8358350-how-do-i-use-the-usage-snapshot-report">Learn more</a>
+    </p>
     <div class="filter-sections">
       <div class="filter-section">
         <h4 class="filter-section-title">Timeframe:</h4>
         <p><%= data[:timeframe] %></p>
       </div>
       <% %i[schools grades teachers classrooms].each do |filter_section| %>
-        <div class="filter-section">
-          <h4 class="filter-section-title"><%= filter_section.capitalize %>:</h4>
-          <% if data[filter_section] %>
-            <% data[filter_section].each do |filter| %>
-              <span class="pill"><%= filter %></span>
-            <% end %>
-          <% else %>
-            <p>All <%= filter_section %> selected</p>
-          <% end %>
-        </div>
+        <%= render 'pdfs/admin_usage_snapshot_report_pdf/filter_section', data: data, filter_section: filter_section %>
       <% end %>
     </div>
+  </div>
+  <div class="sections">
+    <section class="snapshot-section-wrapper">
+      <h2>
+        <img alt="" src="https://assets.quill.org/images/pages/administrator/usage_snapshot_report/bulb.svg">
+        <span>Highlights</span>
+      </h2>
+      <div class="snapshot-section highlights">
+        <div class="snapshot-section-content">
+          <div class="counts">
+            <section class="snapshot-item snapshot-count medium negative">
+              <div class="count-and-label">
+                <span class="count">406</span>
+                <span class="snapshot-label">Sentences written</span>
+              </div>
+              <div class="change">
+                <img alt="Arrow pointing down" class="medium" src="https://assets.quill.org/images/pages/administrator/usage_snapshot_report/arrow_down_icon.svg">
+                <span>42%</span>
+              </div>
+            </section>
+            <section class="snapshot-item snapshot-count medium positive">
+              <div class="count-and-label">
+                <span class="count">7</span>
+                <span class="snapshot-label">Student learning hours</span>
+              </div>
+              <div class="change">
+                <img alt="Arrow pointing up" class="medium" src="https://assets.quill.org/images/pages/administrator/usage_snapshot_report/arrow_up_icon.svg">
+                <span>40%</span>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </main>
