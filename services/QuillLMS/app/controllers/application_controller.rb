@@ -74,10 +74,6 @@ class ApplicationController < ActionController::Base
     [:utf8, :authenticity_token, :commit]
   end
 
-  def model
-    controller_path.classify.constantize
-  end
-
   def route_redirects_to_my_account?(route)
     route&.include?(Teachers::ClassroomManagerController::MY_ACCOUNT)
   end

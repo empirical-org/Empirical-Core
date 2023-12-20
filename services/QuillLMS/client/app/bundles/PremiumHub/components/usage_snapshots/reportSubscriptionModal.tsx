@@ -15,24 +15,44 @@ const ReportSubscriptionModal = ({ cancel, existingFrequency, isOpen, save }) =>
 
   const frequencyOptions = [{ "value": MONTHLY, "label": MONTHLY }, { "value": WEEKLY, "label": WEEKLY }]
 
-  const handleIsSubscribedOptionChange = (option: { target: { value: string } }) => {
-    setIsSubscribed(option.target.value === ON)
-  }
-
   const handleFrequencyOptionChange = (e: { value: string }) => {
     setFrequency(e.value)
   }
 
-  function showIsSubscribedAndFrequency() {
+  const handleIsSubscribedOptionChange = (option: { target: { value: string } }) => {
+    setIsSubscribed(option.target.value === ON)
+  }
+
+  function handleSaveClick() { save(frequency) }
+
+  function renderFrequencyOptions() {
+    const selectedFrequency = frequencyOptions.find(option => frequency === option.value)
+
     return (
-      <div className="is-subscribed-and-frequency">
-        {showIsSubscribedOptions()}
-        {showFrequencyOptions()}
+      <div className="frequency-options">
+        <DropdownInput
+          className={`${isSubscribed ? '' : 'disabled'}`}
+          disabled={!isSubscribed}
+          handleChange={handleFrequencyOptionChange}
+          isSearchable={false}
+          label="Frequency"
+          options={frequencyOptions}
+          value={selectedFrequency}
+        />
       </div>
     )
   }
 
-  function showIsSubscribedOptions() {
+  function renderIsSubscribedAndFrequency() {
+    return (
+      <div className="is-subscribed-and-frequency">
+        {renderIsSubscribedOptions()}
+        {renderFrequencyOptions()}
+      </div>
+    )
+  }
+
+  function renderIsSubscribedOptions() {
     return (
       <div className="is-subscribed-options">
         <h3 className="is-subscribed-label">Email me this report</h3>
@@ -64,38 +84,7 @@ const ReportSubscriptionModal = ({ cancel, existingFrequency, isOpen, save }) =>
     )
   }
 
-  function showFrequencyOptions() {
-    const selectedFrequency = frequencyOptions.find(option => frequency === option.value)
-
-    return (
-      <div className="frequency-options">
-        <DropdownInput
-          className={`${isSubscribed ? '' : 'disabled'}`}
-          disabled={!isSubscribed}
-          handleChange={handleFrequencyOptionChange}
-          isSearchable={false}
-          label="Frequency"
-          options={frequencyOptions}
-          value={selectedFrequency}
-        />
-      </div>
-    )
-  }
-
-  function showTitleAndDescription() {
-    return (
-      <div className="title-and-description">
-        <h2>Subscribe to this report</h2>
-        <p className="description">
-          Keep up to date by having this report delivered to your inbox on a recurring basis. It will use filters
-          currently applied when you subscribe, so please review them before doing so.  You can always change your
-          filters later by turning off the report and re-subscribing.
-        </p>
-      </div>
-    )
-  }
-
-  function showSaveAndCancelButtons() {
+  function renderSaveAndCancelButtons() {
     return (
       <div className="save-and-cancel-buttons">
         <button
@@ -107,7 +96,7 @@ const ReportSubscriptionModal = ({ cancel, existingFrequency, isOpen, save }) =>
         </button>
         <button
           className="quill-button medium primary contained focus-on-light"
-          onClick={save}
+          onClick={handleSaveClick}
           type="button"
         >
           Save
@@ -116,12 +105,25 @@ const ReportSubscriptionModal = ({ cancel, existingFrequency, isOpen, save }) =>
     )
   }
 
+  function renderTitleAndDescription() {
+    return (
+      <div className="title-and-description">
+        <h2>Subscribe to this report(</h2>
+        <p className="description">
+          Keep up to date by having this report delivered to your inbox on a recurring basis. It will use filters
+          currently applied when you subscribe, so please review them before doing so.  You can always change your
+          filters later by turning off the report and re-subscribing.
+        </p>
+      </div>
+    )
+  }
+
   return (
     <div className="manage-report-subscription-modal">
       <div>
-        {showTitleAndDescription()}
-        {showIsSubscribedAndFrequency()}
-        {showSaveAndCancelButtons()}
+        {renderTitleAndDescription()}
+        {renderIsSubscribedAndFrequency()}
+        {renderSaveAndCancelButtons()}
       </div>
     </div>
   );

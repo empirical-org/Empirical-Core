@@ -6,15 +6,15 @@ class AdminUsageSnapshotReportPdfUploader < ApplicationUploader
   fog_authenticated_url_expiration 7.days.to_i
   fog_directory ADMIN_REPORT_FOG_DIRECTORY
 
-  attr_reader :admin_id
+  attr_reader :user_id
 
-  def initialize(admin_id:)
-    @admin_id = admin_id
+  def initialize(user_id:)
+    @user_id = user_id
     super(nil, nil)
   end
 
   def filename
-    "#{FILENAME_PREFIX}_#{@admin_id}_#{date}_#{generate_token}.pdf"
+    "#{FILENAME_PREFIX}_#{@user_id}_#{date}_#{generate_token}.pdf"
   end
 
   def fog_attributes
@@ -26,6 +26,6 @@ class AdminUsageSnapshotReportPdfUploader < ApplicationUploader
   end
 
   private def token_seed
-    "#{Time.current.utc}--#{@admin_id}"
+    "#{Time.current.utc}--#{@user_id}"
   end
 end

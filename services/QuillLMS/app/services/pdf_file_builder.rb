@@ -9,9 +9,9 @@ class PdfFileBuilder < ApplicationService
 
   attr_reader :data, :template
 
-  def initialize(data, template)
-    @template = template
+  def initialize(data:, template:)
     @data = data
+    @template = template
   end
 
   def run

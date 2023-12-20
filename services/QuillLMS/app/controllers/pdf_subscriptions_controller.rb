@@ -2,7 +2,7 @@
 
 class PdfSubscriptionsController < ApplicationController
   def create
-    @pdf_subscription = model.new
+    @pdf_subscription = PdfSubscription.new
 
     if @pdf_subscription.update(pdf_subscription_params)
       render json: @pdf_subscription, status: :created
@@ -14,6 +14,6 @@ class PdfSubscriptionsController < ApplicationController
   private def pdf_subscription_params
     params
       .require(:pdf_subscription)
-      .permit(:admin_report_filter_selection_id, :frequency, :user_id)
+      .permit(:admin_report_filter_selection_id, :frequency)
   end
 end

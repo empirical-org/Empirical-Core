@@ -26,8 +26,7 @@ module Snapshots
       # The response-content-disposition param triggers browser file download instead of screen rendering
       uploaded_file_url = uploader.url(query: {"response-content-disposition" => "attachment;"})
 
-      email = ENV.fetch('TEST_EMAIL_ADDRESS', user.email) # TODO: remove after integration testing
-      PremiumHubUserMailer.admin_premium_download_report_email(user.first_name, uploaded_file_url, email).deliver_now!
+      PremiumHubUserMailer.admin_premium_download_report_email(user.first_name, uploaded_file_url, user.email).deliver_now!
     end
 
     private def generate_payload(query, timeframe, school_ids, user, filters)

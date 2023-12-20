@@ -5,9 +5,11 @@ import SnapshotSection from '../components/usage_snapshots/snapshotSection'
 import { snapshotSections, TAB_NAMES, ALL, SECTION_NAME_TO_ICON_URL, } from '../components/usage_snapshots/shared'
 import { Spinner, DropdownInput, filterIcon, whiteArrowPointingDownIcon, documentFileIcon, whiteEmailIcon } from '../../Shared/index'
 import useWindowSize from '../../Shared/hooks/useWindowSize';
+import { requestPost, } from '../../../modules/request';
 import ReportSubscriptionModal from '../components/usage_snapshots/reportSubscriptionModal';
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 950
+const REPORT_TYPE = 'usage_snapshot_report_pdf'
 
 const Tab = ({ section, setSelectedTab, selectedTab }) => {
   function handleSetSelectedTab() { setSelectedTab(section) }
@@ -36,7 +38,7 @@ export const UsageSnapshotsContainer = ({
   availableTeachers,
   selectedTimeframe,
   handleClickDownloadReport,
-  handleClickSaveReportSubscription,
+  saveFilterSelections,
   openMobileFilterMenu
 }) => {
 
@@ -57,66 +59,25 @@ export const UsageSnapshotsContainer = ({
 
   function handleManageReportSubscriptionSave(frequency) {
     setIsManageSubscriptionReportModalOpen(false);
-    handleClickSaveReportSubscription(createPdfSubscription, frequency);
+    handleClickSaveReportSubscription(frequency);
   }
 
-  function handleClickSaveReportSubscription(successCallback) {
-    const filterSelections = {
-      // existing code for filterSelections...
-    }
-
-    const params = {
-      // existing code for params...
-    }
-
-    requestPost('/admin_report_filter_selections/create_or_update', params, successCallback);
+  function handleClickSaveReportSubscription(frequency) {
+    saveFilterSelections(REPORT_TYPE, (adminFilterSelection: object) => createPdfSubscription(adminFilterSelection, frequency));
   }
 
-  function createPdfSubscription(adminReportFilterSelection) {
+  function createPdfSubscription(adminReportFilterSelection, frequency) {
     if (adminReportFilterSelection && adminReportFilterSelection.id) {
       const pdfSubscriptionParams = {
         pdf_subscription: {
-          admin_report_filter_selection_id: adminReportFilterSelection.id
+          admin_report_filter_selection_id: adminReportFilterSelection.id,
+          frequency
         }
       };
 
-      requestPost('/pdf_subscriptions/create', pdfSubscriptionParams, (response) => {
-        // handle the response from creating PdfSubscription
-      });
+      requestPost('/pdf_subscriptions', pdfSubscriptionParams, () => { })
     }
   }
-unction handleManageReportSubscriptionSave() {
-    setIsManageSubscriptionReportModalOpen(false);
-    handleClickSaveReportSubscription(createPdfSubscription);
-  }
-
-  function handleClickSaveReportSubscription(successCallback) {
-    const filterSelections = {
-      // existing code for filterSelections...
-    }
-
-    const params = {
-      // existing code for params...
-    }
-
-    requestPost('/admin_report_filter_selections/create_or_update', params, successCallback);
-  }
-
-  function createPdfSubscription(adminReportFilterSelection) {
-    if (adminReportFilterSelection && adminReportFilterSelection.id) {
-      const pdfSubscriptionParams = {
-        pdf_subscription: {
-          admin_report_filter_selection_id: adminReportFilterSelection.id
-        }
-      };
-
-      requestPost('/pdf_subscriptions/create', pdfSubscriptionParams, (response) => {
-        // handle the response from creating PdfSubscription
-      });
-    }
-  }
-
-
 
   if (loadingFilters) {
     return <Spinner />

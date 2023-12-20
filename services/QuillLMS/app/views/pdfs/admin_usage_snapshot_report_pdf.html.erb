@@ -8,42 +8,28 @@
   <div class="applied-filters">
     <h3>Important Note</h3>
     <p>These metrics were calculated using the filters you had applied at the time this report was sent.</p>
+    <a href="https://support.quill.org/en/articles/8358350-how-do-i-use-the-usage-snapshot-report">Learn more</a>
     <div class="filter-sections">
       <div class="filter-section">
         <h4 class="filter-section-title">Timeframe:</h4>
-        <p>This school year</p>
+        <p><%= data[:timeframe] %></p>
       </div>
-      <div class="filter-section">
-        <h4 class="filter-section-title">Schools:</h4>
-        <span class="pill">First Assembly School</span>
-        <span class="pill">Second Assembly School</span>
-        <span class="pill">Math And Science College Preparatory</span>
-      </div>
-      <div class="filter-section">
-        <h4 class="filter-section-title">Grades:</h4>
-        <span class="pill">Kindergarten</span>
-        <span class="pill">1st</span>
-        <span class="pill">2nd</span>
-        <span class="pill">4th</span>
-      </div>
-      <div class="filter-section">
-        <h4 class="filter-section-title">Teachers:</h4>
-        <span class="pill">Taylor Alarcon</span>
-        <span class="pill">Briana Alcazar</span>
-        <span class="pill">Cristina Ardon</span>
-        <span class="pill">Linda Barberi</span>
-      </div>
-      <div class="filter-section">
-        <h4 class="filter-section-title">Classrooms:</h4>
-        <span class="pill">1st Period</span>
-        <span class="pill">2nd Period</span>
-        <span class="pill">3rd Period</span>
-        <span class="pill">ESL</span>
-      </div>
+      <% %i[schools grades teachers classrooms].each |filter_section| %>
+        <div class="filter-section">
+          <h4 class="filter-section-title"><%= filter_section.capitalize %>:</h4>
+          <% if data[filter_section] %>
+            <% data[filter_section].each do |filter| %>
+              <span class="pill"><%= filter %></span>
+            <% end %>
+          <% else %>
+            <p>All <%= filter_section %> selected</p>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
 
-  <div class="sections">
+  <%# <div class="sections">
     <section class="snapshot-section-wrapper">
       <h2>
         <img alt="" src="https://assets.quill.org/images/pages/administrator/usage_snapshot_report/bulb.svg">
@@ -448,5 +434,5 @@
         </div>
       </div>
     </section>
-  </div>
+  </div> %>
 </main>

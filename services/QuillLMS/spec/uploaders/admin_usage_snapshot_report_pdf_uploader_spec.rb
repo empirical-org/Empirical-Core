@@ -3,15 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe AdminUsageSnapshotReportPdfUploader do
-  let(:admin_id) { 123 }
-  let(:uploader) { described_class.new(admin_id: admin_id) }
+  let(:user_id) { 123 }
+  let(:uploader) { described_class.new(user_id:) }
 
   it { expect(uploader.fog_attributes).to eq('Content-Type' => 'application/pdf') }
   it { expect(uploader.fog_public).to be false }
 
   describe '#filename' do
     let(:date) { Date.current.strftime('%m-%d-%y') }
-    let(:filename) { "#{described_class::FILENAME_PREFIX}_#{admin_id}_#{date}_#{token}.pdf" }
+    let(:filename) { "#{described_class::FILENAME_PREFIX}_#{user_id}_#{date}_#{token}.pdf" }
     let(:token) { 'abc---123' }
 
     before do
@@ -24,7 +24,7 @@ RSpec.describe AdminUsageSnapshotReportPdfUploader do
 
   describe '#token_seed' do
     let(:utc_string) { '2023-01-01 00:00:00 UTC' }
-    let(:token_seed) { "#{utc_string}--#{admin_id}" }
+    let(:token_seed) { "#{utc_string}--#{user_id}" }
 
     before { allow(Time).to receive(:current).and_return(Time.zone.parse(utc_string)) }
 

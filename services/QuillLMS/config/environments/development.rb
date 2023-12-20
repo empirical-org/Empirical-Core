@@ -56,7 +56,6 @@ EmpiricalGrammar::Application.configure do
   # Image Uploads (see paperclip gem)
   Paperclip.options[:command_path] = "/usr/local/bin/"
 
-
   config.after_initialize do
     Bullet.enable = true
     Bullet.console = true

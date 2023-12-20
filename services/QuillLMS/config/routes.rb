@@ -758,6 +758,8 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  resources :pdf_subscriptions, only: [:create]
+
   other_pages = %w(
     beta
     board

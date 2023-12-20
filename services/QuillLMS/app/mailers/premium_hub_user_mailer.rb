@@ -22,6 +22,10 @@ class PremiumHubUserMailer < UserMailer
     mail to: email, subject: "Your Quill data export is ready"
   end
 
+  def admin_usage_snapshot_report_pdf_email
+    mail to: ENV['ADMIN_USAGE_SNAPSHOT_REPORT_EMAIL'], subject: "Quill Usage Snapshot Report PDF"
+  end
+
   def admin_account_created_email(user, admin_name, school_name, is_reminder)
     @user = user
     @admin_name = admin_name

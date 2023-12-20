@@ -207,7 +207,6 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
       }
     }
 
-
     const val = requestPost('/admin_report_filter_selections/create_or_update', params, successCallback)
   }
 
@@ -304,10 +303,6 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
 
   function handleClickDownloadReport() { window.print() }
 
-  function handleClickSaveReportSubscription() {
-    saveFilterSelections(reportPath() + "_pdf",)
-  }
-
   function renderShowFilterMenuButton() {
     const ariaLabel = showFilters ? 'Close filter menu' : 'Open filter menu'
 
@@ -381,10 +376,10 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     availableTeachers,
     selectedTimeframe,
     handleClickDownloadReport,
-    handleClickSaveReportSubscription,
     openMobileFilterMenu,
     hasAdjustedFiltersFromDefault,
-    passedData: null
+    saveFilterSelections,
+    passedData: null,
   }
 
   if (accessType !== FULL && location.pathname.includes('usage_snapshot_report')) {
