@@ -2,9 +2,6 @@ main {
   .header {
     .buttons-container {
       display: flex;
-      button:first-of-type {
-        margin-right: 8px;
-      }
     }
   }
   .no-diagnostic-data-container {
