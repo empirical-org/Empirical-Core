@@ -1,5 +1,5 @@
 declare function require(name:string);
-import * as moment from 'moment'
+import moment from 'moment'
 import * as React from 'react'
 
 import {
@@ -576,6 +576,10 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       </ul>
     )
   }
+}
+
+ScriptContainer.defaultProps = {
+  saveModel: () => {}
 }
 
 export default ScriptContainer

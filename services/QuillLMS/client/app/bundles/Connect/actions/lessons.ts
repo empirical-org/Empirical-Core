@@ -1,6 +1,6 @@
-const C = require('../constants').default;
 import { pickBy } from 'lodash';
 import { push } from 'react-router-redux';
+import C from '../constants';
 import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api';
 import fillInBlankActions from './fillInBlank';
 import questionActions from './questions';

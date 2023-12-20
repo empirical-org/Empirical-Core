@@ -9,7 +9,7 @@ import {
   ResponseToggleFields,
   hashToCollection
 } from '../../../Shared/index';
-import filterActions from '../../actions/filters';
+import * as filterActions from '../../actions/filters';
 import massEdit from '../../actions/massEdit';
 import questionActions from '../../actions/questions';
 import { submitResponseEdit } from '../../actions/responses';
@@ -25,7 +25,7 @@ import POSMatcher from '../../libs/sentenceFragment.js';
 import POSForResponsesList from './POSForResponsesList.jsx';
 import ResponseList from './responseList.jsx';
 
-const C = require('../../constants').default;
+import C from '../../constants';
 
 const labels = C.ERROR_AUTHORS;
 const qualityLabels = ['Human Optimal', 'Human Sub-Optimal', 'Algorithm Optimal', 'Algorithm Sub-Optimal', 'Unmatched'];

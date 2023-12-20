@@ -1,21 +1,21 @@
-import * as React from 'react'
+import * as _ from 'lodash';
 import moment from 'moment';
-import * as _ from 'lodash'
-import * as Pusher from 'pusher-js';
-import { Routes, Route } from "react-router-dom-v5-compat";
+import Pusher from 'pusher-js';
+import * as React from 'react';
 import { useLocation } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom-v5-compat";
 
 import DataExportContainer from './DataExportContainer';
 import UsageSnapshotsContainer from './UsageSnapshotsContainer';
 import DiagnosticGrowthReportsContainer from './diagnosticGrowthReports';
 
+import { requestPost, } from '../../../modules/request';
+import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual';
+import { Spinner } from '../../Shared/index';
+import CustomDateModal from '../components/usage_snapshots/customDateModal';
+import Filters from '../components/usage_snapshots/filters';
+import { CUSTOM } from '../components/usage_snapshots/shared';
 import { FULL, restrictedPage, } from '../shared';
-import CustomDateModal from '../components/usage_snapshots/customDateModal'
-import Filters from '../components/usage_snapshots/filters'
-import { CUSTOM } from '../components/usage_snapshots/shared'
-import { Spinner } from '../../Shared/index'
-import { requestPost, } from '../../../modules/request'
-import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
 
 const MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS = 1500
 

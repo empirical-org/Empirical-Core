@@ -14,7 +14,7 @@ import quillNormalize from './quillNormalizer';
 import { checkForMissingWords } from './requiredWords';
 import { getOptimalResponses, getTopOptimalResponse } from './sharedResponseFunctions';
 
-const jsDiff = require('diff');
+import * as jsDiff from 'diff';
 
 const ERROR_TYPES = {
   NO_ERROR: 'NO_ERROR',

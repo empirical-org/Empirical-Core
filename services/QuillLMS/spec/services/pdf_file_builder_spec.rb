@@ -5,11 +5,27 @@ require 'rails_helper'
 RSpec.describe PdfFileBuilder do
   subject { described_class.run(data, template) }
 
-  let(:data) { { some_key: 'some_value' } }
-  let(:template) { 'pdf' }
+  let(:application_controller) { double(render_to_string: pdf_string) }
+  let(:data) { 'data' }
+  let(:layout) { 'pdf' }
+  let(:locals) { { data: data } }
   let(:pdf_string) { 'PDF content' }
+  let(:template) { 'pdf' }
 
-  before { allow(Grover).to receive(:new).and_return(double(to_pdf: pdf_string)) }
+  before do
+    allow(ApplicationController)
+      .to receive(:new)
+      .and_return(application_controller)
+
+    allow(application_controller)
+      .to receive(:render_to_string)
+      .with(layout:, locals:, template:)
+      .and_return(pdf_string)
+
+    allow(Grover)
+      .to receive(:new)
+      .and_return(double(to_pdf: pdf_string))
+  end
 
   describe '#run' do
     it { expect(subject).to be_a Tempfile }

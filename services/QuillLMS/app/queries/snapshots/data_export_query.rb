@@ -29,6 +29,15 @@ module Snapshots
       SQL
     end
 
+    def post_query_transform(query_result)
+      return query_result unless user&.time_zone
+      query_result.map do |row|
+        datetime_string_with_timezone = row[:completed_at].in_time_zone(user.time_zone)
+        row.merge(completed_at: datetime_string_with_timezone)
+      end
+
+    end
+
     def from_and_join_clauses
       super + <<-SQL
         JOIN lms.classroom_units

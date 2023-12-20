@@ -2720,11 +2720,11 @@ exports[`SpringBoard component should render when it is not part of the assignme
                       <strong>
                         Quill Instructional Coach:
                       </strong>
-                       You can reach out directly to Sherry Lewkowicz, Quill's coach dedicated to supporting College Board teachers, at 
+                       You can reach out to us at
                       <a
-                        href="mailto:sherry@quill.org"
+                        href="mailto:pd@quill.org"
                       >
-                        sherry@quill.org
+                        pd@quill.org
                       </a>
                       . Be sure to mention the course(s) you teach.
                     </p>
@@ -5528,11 +5528,11 @@ exports[`SpringBoard component should render when it is part of the assignment f
                       <strong>
                         Quill Instructional Coach:
                       </strong>
-                       You can reach out directly to Sherry Lewkowicz, Quill's coach dedicated to supporting College Board teachers, at 
+                       You can reach out to us at
                       <a
-                        href="mailto:sherry@quill.org"
+                        href="mailto:pd@quill.org"
                       >
-                        sherry@quill.org
+                        pd@quill.org
                       </a>
                       . Be sure to mention the course(s) you teach.
                     </p>

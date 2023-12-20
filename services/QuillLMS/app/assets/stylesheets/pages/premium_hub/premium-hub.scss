@@ -469,7 +469,7 @@
     li {
       padding-top: 0 !important;
       padding-bottom: 0 !important;
-      a {
+      a, button {
         display: flex;
         align-items: center;
         .small-diamond-icon {
@@ -501,6 +501,54 @@
       a:hover {
         background-color: rgba(255, 255, 255, 0.50);
         text-decoration: none;
+      }
+      &.premium-reports-tab {
+        position: relative;
+        button {
+          background: transparent;
+          span::after {
+            margin-left: 8px;
+            content: "\f078";
+            font-family: "Font Awesome 5 Pro";
+          }
+          &.open:not(.active) {
+            background-color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            color: $quill-white;
+          }
+        }
+        .premium-reports-nav-dropdown {
+          position: absolute;
+          border-radius: 8px;
+          border: 1px solid $quill-grey-15;
+          background: $quill-white;
+          min-height: min-content;
+          top: 36px;
+          width: 300px;
+          z-index: 1;
+          box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.10);
+          a {
+            color: $quill-black;
+            margin: 8px;
+            display: flex;
+            padding: 20px 8px;
+            justify-content: space-between;
+            .new-tag {
+              color: $quill-white;
+              background-color: $quill-maroon;
+              font-size: 10px;
+              padding: 4px 6px;
+              border-radius: 5px;
+            }
+            &:hover {
+              color: $quill-black;
+              background-color: $quill-green-5;
+            }
+            &:focus, &:hover {
+              text-decoration: none;
+            }
+          }
+        }
       }
     }
   }

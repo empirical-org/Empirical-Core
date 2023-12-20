@@ -38,10 +38,10 @@ const StudentReportBox = ({ questionData, boxNumber, showScore, showDiff, }) => 
     );
   }
 
-  function feedbackOrDirections(directionsOrFeedback, classNameAndText) {
+  function feedbackOrDirections(directionsOrFeedback, classNameAndText, key) {
     if (directionsOrFeedback) {
       return (
-        <tr className={classNameAndText}>
+        <tr className={classNameAndText} key={key || ''}>
           <td>{classNameAndText}</td>
           <td />
           <td>{formatString(directionsOrFeedback)}</td>
@@ -74,10 +74,10 @@ const StudentReportBox = ({ questionData, boxNumber, showScore, showDiff, }) => 
     }
     // sometimes feedback is coming through as a react variable, I've been unable to find the source of it
     if (feedback && typeof feedback === 'string') {
-      feedback = feedbackOrDirections(feedback, 'Feedback')
+      feedback = feedbackOrDirections(feedback, 'Feedback', `${String(feedback)}-${attemptNum}`)
     }
 
-    return <span key={`${String(feedback)}-${attemptNum}`}>{feedback}</span>
+    return feedback
   }
 
   function conceptsByAttempt() {

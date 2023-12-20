@@ -1,5 +1,11 @@
 default:
   open_positions:
-    - category: 'Curriculum'
-      title: 'Social Studies Curriculum Developer'
-      url: 'https://wellfound.com/l/2zzvHp'
+    - category: "Curriculum"
+      title: "Social Studies Curriculum Developer"
+      url: "https://wellfound.com/l/2zzvHp"
+    - category: "Marketing"
+      title: "Director of Marketing"
+      url: "https://wellfound.com/jobs/2869532-director-of-marketing?utm_campaign=startup_share&utm_content=startup_share_module&utm_medium=social&utm_term=quill-org"
+    - category: "Partnerships"
+      title: "Technical Support Associate"
+      url: "https://www.edsurge.com/jobs/technical-support-associate-job-at-quill-org--6f322adb-fc6b-4413-a9ff-d73dbf718e24"

@@ -1,12 +1,7 @@
-import * as React from 'react';
-import moment from 'moment';
 import { render, screen } from "@testing-library/react";
+import * as React from 'react';
 
 import ActivityDetails from '../activity_details';
-
-jest.mock('moment', () => ({
-  default: jest.requireActual('moment')
-}))
 
 describe('ActivityDetails component', () => {
   const baseData: any = { publishDate: '2021-10-17' };

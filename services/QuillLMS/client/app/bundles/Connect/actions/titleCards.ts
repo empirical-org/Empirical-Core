@@ -3,7 +3,7 @@ import lessonActions from '../actions/lessons';
 import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api';
 import { CONNECT_TITLE_CARD_TYPE, TitleCardApi } from '../libs/title_cards_api';
 
-const C = require('../constants').default;
+import C from '../constants';
 
 
 function startListeningToTitleCards() {

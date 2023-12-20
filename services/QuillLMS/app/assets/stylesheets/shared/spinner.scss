@@ -4,7 +4,17 @@
 
   .spinner {
     height: 100px;
+    animation: rotation 2s infinite linear;
       -webkit-animation: rotation 2s infinite linear;
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   @-webkit-keyframes rotation {
@@ -16,6 +26,16 @@
 .assigner-container {
   .assigner {
     -webkit-animation: rotation 2s infinite linear;
+    animation: rotation 2s infinite linear;
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   @-webkit-keyframes rotation {
