@@ -151,8 +151,8 @@ class Classroom < ApplicationRecord
   end
 
   def hide_all_classroom_units
-    ActivitySession.where(classroom_unit: classroom_units).update_all(visible: false)
-    classroom_units.update_all(visible: false)
+    ActivitySession.where(classroom_unit: classroom_units).update_all(visible: false, updated_at: DateTime.current)
+    classroom_units.update_all(visible: false, updated_at: DateTime.current)
     classroom_units.each(&:save_user_pack_sequence_items)
     return if owner.nil?
 
@@ -166,7 +166,7 @@ class Classroom < ApplicationRecord
       AND unit.user_id = #{owner.id}")
 
     units = Unit.where(id: ids)
-    units.update_all(visible: false)
+    units.update_all(visible: false, updated_at: DateTime.current)
     units.each(&:save_user_pack_sequence_items)
   end
 
