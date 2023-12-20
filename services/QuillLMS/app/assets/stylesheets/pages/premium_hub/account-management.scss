@@ -111,6 +111,7 @@
       .data-table-header, .data-table-row td {
         margin-right: 0px !important;
         padding-left: 8px !important;
+        min-height: 78px;
         &.actions-section {
           padding: 0px 18px !important;
           margin-left: 0px;
