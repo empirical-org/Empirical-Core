@@ -955,6 +955,9 @@ EmpiricalGrammar::Application.routes.draw do
   get '/lib/mailer_previews' => "rails/mailers#index"
   get '/lib/mailer_previews/*path' => "rails/mailers#preview"
 
+  # TODO: remove this before we go live
+  get '/pdfz', to: 'pages#pdfz'
+
   get "/donate" => redirect("/about")
   # catch-all 404
   get '*path', to: 'application#routing_error'

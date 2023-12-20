@@ -10,10 +10,6 @@ class AdminUsageSnapshotPdfInputDataBuilder < ApplicationService
   end
 
   def run
-    blah
-  end
-
-  private def blah
     {
       classrooms:,
       grades:,
