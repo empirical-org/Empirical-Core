@@ -13,7 +13,6 @@ describe AdminsController  do
   let(:admin) { create(:teacher) }
   let!(:teacher) { create(:teacher_with_school) }
   let!(:school) { teacher.reload.school }
-  let!(:admin_school) { create(:schools_users, user: admin, school: school) }
   let!(:schools_admins) { create(:schools_admins, school: school, user: admin) }
 
   describe '#show' do
@@ -355,27 +354,92 @@ describe AdminsController  do
 
   describe '#vitally_professional_learning_manager_info' do
     let(:api_stub) { double }
-    let(:vitally_district) { { 'keyRoles' => [{ 'keyRole' => { 'label' => 'CSM' }, 'vitallyUser' => { 'name' => 'Manager', 'email': 'manager@quill.org' } }] } }
+    let(:vitally_district) { { 'keyRoles' => [{ 'keyRole' => { 'label' => 'CSM' }, 'vitallyUser' => { 'name' => 'Manager', 'email' => 'manager@quill.org' } }] } }
+    let!(:admin_for_vitally) { create(:admin) }
 
     before do
-      allow(controller).to receive(:current_user).and_return(admin)
+      allow(controller).to receive(:current_user).and_return(admin_for_vitally)
       allow(VitallyIntegration::RestApi).to receive(:new).and_return(api_stub)
-      allow(api_stub).to receive(:get)
-        .with(VitallyIntegration::RestApi::ENDPOINT_ORGANIZATIONS, admin.reload.school.district_id)
-        .and_return(vitally_district)
     end
 
-    it 'retrieves professional learning manager info and renders it as json' do
-      get :vitally_professional_learning_manager_info, params: { id: admin.id }
-      expect(response).to be_successful
-      expect(response.body).to eq(vitally_district['keyRoles'].first['vitallyUser'].to_json)
+    context 'when the user is associated with a district' do
+      context 'when the user administers a district' do
+        before do
+          allow(api_stub).to receive(:get)
+          .with(VitallyIntegration::RestApi::ENDPOINT_ORGANIZATIONS, anything)
+          .and_return(vitally_district)
+        end
+
+        it 'retrieves professional learning manager info and renders it as json' do
+          create(:district_admin, user: admin_for_vitally)
+          get :vitally_professional_learning_manager_info, params: { id: admin_for_vitally.reload.id }
+          expect(response).to be_successful
+          expect(response.body).to eq(vitally_district['keyRoles'].first['vitallyUser'].to_json)
+        end
+      end
+
+      context 'when the user administers a school' do
+        before do
+          allow(api_stub).to receive(:get)
+          .with(VitallyIntegration::RestApi::ENDPOINT_ORGANIZATIONS, anything)
+          .and_return(vitally_district)
+        end
+
+        it 'retrieves professional learning manager info and renders it as json' do
+          district = create(:district)
+          school = create(:school, district: district)
+          create(:schools_admins, user: admin_for_vitally, school: school)
+          get :vitally_professional_learning_manager_info, params: { id: admin_for_vitally.reload.id }
+          expect(response).to be_successful
+          expect(response.body).to eq(vitally_district['keyRoles'].first['vitallyUser'].to_json)
+        end
+      end
+
+      context 'when the user belongs to a school' do
+        before do
+          allow(api_stub).to receive(:get)
+          .with(VitallyIntegration::RestApi::ENDPOINT_ORGANIZATIONS, anything)
+          .and_return(vitally_district)
+        end
+
+        it 'retrieves professional learning manager info and renders it as json' do
+          district = create(:district)
+          school = create(:school, district_id: district.id)
+          create(:schools_users, user: admin_for_vitally, school: school)
+          get :vitally_professional_learning_manager_info, params: { id: admin_for_vitally.reload.id }
+          expect(response).to be_successful
+          expect(response.body).to eq(vitally_district['keyRoles'].first['vitallyUser'].to_json)
+        end
+      end
+    end
+
+    context 'when no district is associated with the user' do
+      before do
+        school_with_no_district = create(:school, district_id: nil)
+        allow(admin_for_vitally).to receive(:administered_districts).and_return([])
+        allow(admin_for_vitally).to receive(:administered_schools).and_return([school_with_no_district])
+        allow(admin_for_vitally).to receive(:school).and_return(school_with_no_district)
+      end
+
+      it 'renders nil' do
+        get :vitally_professional_learning_manager_info, params: { id: admin_for_vitally.id }
+        expect(response).to be_successful
+        expect(response.body).to eq('null')
+      end
     end
 
     context 'when no professional learning manager is found' do
       let(:vitally_district) { { 'keyRoles' => [] } }
 
+      before do
+        allow(admin_for_vitally).to receive(:administered_districts).and_return([double(id: 1)])
+        allow(api_stub).to receive(:get)
+          .with(VitallyIntegration::RestApi::ENDPOINT_ORGANIZATIONS, anything)
+          .and_return(vitally_district)
+      end
+
       it 'renders nil' do
-        get :vitally_professional_learning_manager_info, params: { id: admin.id }
+        get :vitally_professional_learning_manager_info, params: { id: admin_for_vitally.id }
         expect(response).to be_successful
         expect(response.body).to eq('null')
       end
