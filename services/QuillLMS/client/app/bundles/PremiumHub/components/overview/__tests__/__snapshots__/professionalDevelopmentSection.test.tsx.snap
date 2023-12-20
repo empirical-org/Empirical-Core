@@ -241,7 +241,7 @@ exports[`ProfessionalDevelopmentSection it should render the Erika-related info 
           >
             <a
               class="quill-button contained primary medium focus-on-light"
-              href="mailto:Erika@quill.org"
+              href="mailto:erika@quill.org"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -352,7 +352,7 @@ exports[`ProfessionalDevelopmentSection it should render the Shannon-related inf
           >
             <a
               class="quill-button contained primary medium focus-on-light"
-              href="mailto:Shannon@quill.org"
+              href="mailto:shannon@quill.org"
               rel="noopener noreferrer"
               target="_blank"
             >

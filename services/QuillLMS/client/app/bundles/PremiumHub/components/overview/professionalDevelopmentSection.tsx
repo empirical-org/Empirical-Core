@@ -104,10 +104,10 @@ const ProfessionalDevelopmentSection = ({ accessType, adminId, }) => {
               </div>
               <div className="buttons">
                 <a className="quill-button contained primary medium focus-on-light" href={`mailto:${email}`} rel="noopener noreferrer" target="_blank">Email me</a>
-                <a className="quill-button contained primary medium focus-on-light" href={EMAIL_TO_SCHEDULE_LINK[email]} rel="noopener noreferrer" target="_blank">Schedule a call</a>
+                <a className="quill-button contained primary medium focus-on-light" href={EMAIL_TO_SCHEDULE_LINK[email.toLowerCase()]} rel="noopener noreferrer" target="_blank">Schedule a call</a>
               </div>
             </div>
-            {EMAIL_TO_IMG[email]}
+            {EMAIL_TO_IMG[email.toLowerCase()]}
           </div>
           {quickLinks}
         </div>
