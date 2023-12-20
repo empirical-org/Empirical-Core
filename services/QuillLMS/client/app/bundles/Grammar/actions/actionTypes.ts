@@ -140,8 +140,7 @@ export const ActionTypes = {
     'Whitespace Hint',
     'Spelling Hint',
     'Focus Point Hint',
-    'Incorrect Sequence Hint',
-    'Quotation Mark Hint'
+    'Incorrect Sequence Hint'
   ],
 
   // STATE
