@@ -10,13 +10,6 @@ import {
 
 import { Questions, } from '../questions'
 
-jest.mock('qs', () => ({
-  default: {
-    parse: jest.fn(() => ({}))
-  }
-})
-)
-
 describe('Questions component', () => {
   it('should render when there is no student data', () => {
     const wrapper = mount(<Questions

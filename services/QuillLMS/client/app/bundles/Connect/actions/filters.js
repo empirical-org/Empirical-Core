@@ -1,28 +1,33 @@
-let C = require("../constants").default;
+import C from '../constants';
 
-module.exports = {
-  toggleExpandSingleResponse: function (rkey) {
-    return {type:C.TOGGLE_EXPAND_SINGLE_RESPONSE, rkey, };
-  },
-  collapseAllResponses: function () {
-    return {type:C.COLLAPSE_ALL_RESPONSES, };
-  },
-  expandAllResponses: function (expandedResponses) {
-    return {type:C.EXPAND_ALL_RESPONSES, expandedResponses, };
-  },
-  toggleStatusField: function (status) {
-    return {type:C.TOGGLE_STATUS_FIELD, status, };
-  },
-  toggleResponseSort: function (field) {
-    return {type:C.TOGGLE_RESPONSE_SORT, field, };
-  },
-  toggleExcludeMisspellings: function () {
-    return {type:C.TOGGLE_EXCLUDE_MISSPELLINGS, };
-  },
-  resetAllFields: function () {
-    return {type: C.RESET_ALL_FIELDS, };
-  },
-  deselectAllFields: function() {
-    return {type: C.DESELECT_ALL_FIELDS, };
-  },
-};
+export function toggleExpandSingleResponse(rkey) {
+  return {type:C.TOGGLE_EXPAND_SINGLE_RESPONSE, rkey, };
+}
+
+export function collapseAllResponses() {
+  return {type:C.COLLAPSE_ALL_RESPONSES, };
+}
+
+export function expandAllResponses(expandedResponses) {
+  return {type:C.EXPAND_ALL_RESPONSES, expandedResponses, };
+}
+
+export function toggleStatusField(status) {
+  return {type:C.TOGGLE_STATUS_FIELD, status, };
+}
+
+export function toggleResponseSort(field) {
+  return {type:C.TOGGLE_RESPONSE_SORT, field, };
+}
+
+export function toggleExcludeMisspellings() {
+  return {type:C.TOGGLE_EXCLUDE_MISSPELLINGS, };
+}
+
+export function resetAllFields() {
+  return {type: C.RESET_ALL_FIELDS, };
+}
+
+export function deselectAllFields() {
+  return {type: C.DESELECT_ALL_FIELDS, };
+}

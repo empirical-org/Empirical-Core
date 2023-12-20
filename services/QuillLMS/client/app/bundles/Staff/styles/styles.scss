@@ -48,3 +48,8 @@
 @import './locker/personalLocker.scss';
 @import './locker/organizeLocker.scss';
 @import './locker/lockerTile.scss';
+
+h1, .h1, h2, .h2, h3, .h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}

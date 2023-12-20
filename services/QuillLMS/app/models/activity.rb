@@ -11,6 +11,7 @@
 #  maximum_grade_level        :integer
 #  minimum_grade_level        :integer
 #  name                       :string
+#  question_count             :integer          default(0), not null
 #  repeatable                 :boolean          default(TRUE)
 #  supporting_info            :string
 #  uid                        :string           not null
@@ -70,6 +71,7 @@ class Activity < ApplicationRecord
   has_many :activity_topics, dependent: :destroy
   has_many :topics, through: :activity_topics
 
+  before_validation :populate_question_count
   before_create :flag_as_beta, unless: :flags?
   before_save :set_minimum_and_maximum_grade_levels_to_default_values, unless: :minimum_grade_level
   after_commit :clear_activity_search_cache
@@ -409,4 +411,9 @@ class Activity < ApplicationRecord
     end
     return true
   end
+
+  private def populate_question_count
+    self.question_count = QuestionCounter.run(self)
+  end
+
 end

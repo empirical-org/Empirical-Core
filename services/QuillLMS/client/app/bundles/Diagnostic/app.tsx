@@ -16,7 +16,6 @@ import * as titleCardActions from './actions/titleCards.ts';
 import Home from './components/home';
 import './i18n';
 import quillNormalizer from './libs/quillNormalizer';
-import './styles/style.scss';
 import BackOff from './utils/backOff';
 import createStore from './utils/configureStore';
 
@@ -80,20 +79,14 @@ const route = (
   </CompatRouter>
 );
 
-class App extends React.Component<{}, {}> {
-  componentDidMount() {
-    document.title = 'Quill Diagnostic'
-  }
-
-  public render(): JSX.Element {
-    return (
-      <QueryClientProvider client={queryClient} contextSharing={true}>
-        <Provider store={store}>
-          <HashRouter basename="/">{route}</HashRouter>
-        </Provider>
-      </QueryClientProvider>
-    );
-  }
+const App = () => {
+  return (
+    <QueryClientProvider client={queryClient} contextSharing={true}>
+      <Provider store={store}>
+        <HashRouter basename="/">{route}</HashRouter>
+      </Provider>
+    </QueryClientProvider>
+  );
 }
 
 export default App;

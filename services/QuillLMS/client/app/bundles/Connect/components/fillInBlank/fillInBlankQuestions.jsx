@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ArchivedButton, hashToCollection, } from '../../../Shared/index';

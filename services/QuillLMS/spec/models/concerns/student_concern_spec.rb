@@ -143,6 +143,10 @@ describe 'Student Concern', type: :model do
     it 'should create the necessary UnitActivity records for the new classroom' do
       expect { student1.move_activity_sessions(classroom, classroom2) }.to change(UnitActivity, :count).by(6)
     end
+
+    it 'should update the ActivitySession updated_at value' do
+      expect { student1.move_activity_sessions(classroom, classroom2) }.to change { started.reload.updated_at }
+    end
   end
 
   describe "#move_student_from_one_class_to_another" do

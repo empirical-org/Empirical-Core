@@ -6,7 +6,6 @@ import { requestPost, } from '../../../../modules/request/index';
 import { TextEditor } from '../../../Shared/index';
 import massEdit from '../../actions/massEdit';
 import {
-  massEditDeleteResponses,
   submitMassEditConceptResults,
   submitMassEditFeedback
 } from '../../actions/responses';
