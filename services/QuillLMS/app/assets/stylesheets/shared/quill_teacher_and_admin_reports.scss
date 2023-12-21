@@ -1,0 +1,40 @@
+.teacher-report-container, .admin-report-container {
+  margin-top: 32px;
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    .header-and-tooltip {
+      display: flex;
+      align-items: center;
+      height: max-content;
+      h1 {
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 32px;
+        color: $quill-black;
+      }
+      .quill-tooltip-trigger {
+        margin-left: 8px;
+      }
+    }
+    .csv-and-how-we-grade {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .how-we-grade {
+        font-size: 14px;
+        font-weight: 600;
+        color: $quill-green;
+      }
+    }
+  }
+  .dropdowns-container {
+    display: flex;
+    margin-bottom: 48px;
+    .dropdown-container {
+      width: 100%;
+      max-width: 390px;
+    }
+  }
+}

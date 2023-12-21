@@ -2,6 +2,7 @@ import * as React from 'react';
 import ItemDropdown from '../../Teacher/components/general_components/dropdown_selectors/item_dropdown';
 import CSVDownloadForProgressReport from '../../Teacher/components/progress_reports/csv_download_for_progress_report';
 import ActivityScoresTable from './activity_scores_table';
+import { Tooltip, helpIcon } from '../../Shared';
 
 interface ActivityScoresProps {
   csvData: Object[];
@@ -37,26 +38,21 @@ const ActivityScores: React.SFC<ActivityScoresProps> = ({
   filteredClassroomsData,
 }) => {
   return (
-    <div className="activities-scores-by-classroom progress-reports-2018">
-      <div className="meta-overview flex-row space-between">
-        <div className="header-and-info">
-          <h1>
-            Activity Scores
-          </h1>
-          <p>
-            Each activity takes about 10-20 minutes to complete, and students receive a score out of 100 points based on their performance. Click on a student’s name to see a report and print it as a PDF. You can print this report by downloading a PDF file or export this data by downloading a CSV file.
-          </p>
-          <p><b>These reports are updated nightly.</b></p>
+    <div className="admin-report-container">
+      <div className="header-container">
+        <div className="header-and-tooltip">
+          <h1>Activity Scores</h1>
+          <Tooltip
+            tooltipText="Each activity takes about 10-20 minutes to complete, and students receive a score out of 100 points based on their performance. Click on a student’s name to see a report and print it as a PDF. You can print this report by downloading a PDF file or export this data by downloading a CSV file. <br/><br/> These reports are updated nightly."
+            tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
+          />
         </div>
         <div className="csv-and-how-we-grade">
           <CSVDownloadForProgressReport data={csvData} />
-          <a className="how-we-grade" href="https://support.quill.org/activities-implementation/how-does-grading-work">
-            How We Grade
-            <i className="fas fa-long-arrow-alt-right" />
-          </a>
+          <a className="how-we-grade" href="https://support.quill.org/activities-implementation/how-does-grading-work">How we grade</a>
         </div>
       </div>
-      <div className="dropdown-container" id="flexed">
+      <div className="dropdowns-container">
         <ItemDropdown
           callback={switchSchool}
           className="admin-activity-dropdown"
