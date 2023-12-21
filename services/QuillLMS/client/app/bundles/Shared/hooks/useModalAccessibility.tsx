@@ -3,6 +3,19 @@ import { useEffect, useRef } from 'react';
 import { ESCAPE, TAB } from '../utils/keyNames';
 import { MOUSEDOWN, KEYDOWN, } from '../utils/eventNames'
 
+// this hook traps keyboard focus inside of the modal, preventing keyboard users from inadvertently leaving the modal when they are trying to navigate it, which can be confusing.
+// it also ensures that pressing ESCAPE or clicking outside of the modal will close it.
+
+// it should be used inside of a modal like so:
+// const { modalRef } = useModalAccessibility(handleCloseModal);
+// where handleCloseModal is defined as a prop or inside the modal component,
+// and then the modal element should be passed the following props:
+// aria-labelledby={id of element with modal title}
+// aria-modal="true"
+// ref={modalRef}
+// role="dialog"
+// tabIndex={-1}
+
 const useModalAccessibility = (handleClose) => {
   const modalRef = useRef(null);
 
