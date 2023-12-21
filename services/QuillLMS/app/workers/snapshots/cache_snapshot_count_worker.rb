@@ -18,10 +18,12 @@ module Snapshots
 
     QUERIES = ::Snapshots::COUNT_QUERY_MAPPING
 
-    def perform(cache_key, query, user_id, timeframe, school_ids, filters, previous_timeframe)
+    def perform(cache_key, query, user_id, timeframe, school_ids, filters, previous_timeframe, skip_pusher: false)  # rubocop:disable Metrics/ParameterLists
       payload = generate_payload(query, timeframe, school_ids, filters)
 
       Rails.cache.write(cache_key, payload, expires_in: cache_expiry)
+
+      return if skip_pusher
 
       filter_hash = PayloadHasher.run([
         query,

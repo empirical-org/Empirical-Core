@@ -1,0 +1,22 @@
+<%# <% snapshot_section_names = %i[highlights users] %> %>
+<% snapshot_section_names = %i[users] %>
+
+<% snapshot_section_names.each do |snapshot_section_name| %>
+  <% snapshot_section = snapshot_sections[snapshot_section_name] %>
+  <% size = snapshot_section[:size] %>
+  <section class="snapshot-section-wrapper">
+    <h2>
+      <img alt="" src="<%= snapshot_section[:img_src] %>"/>
+      <span><%= snapshot_section[:title] %></span>
+    </h2>
+    <div class="snapshot-section <%= snapshot_section_name %>">
+      <div class="snapshot-section-content">
+        <% count_items = snapshot_section[:count_items] %>
+        <%= render 'pdfs/admin_usage_snapshot_report_pdf/count_items', count_items:, size: %>
+
+        <% ranking_items = snapshot_section[:ranking_items] %>
+        <%= render 'pdfs/admin_usage_snapshot_report_pdf/ranking_items', ranking_items: %>
+      </div>
+    </div>
+  </section>
+<% end %>

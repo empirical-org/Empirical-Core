@@ -1,0 +1,26 @@
+<% if ranking_items  %>
+  <div class="rankings">
+    <% ranking_items.each do |item| %>
+      <% data_status = item[:data] ? 'has-data' : 'no-data' %>
+      <section class="snapshot-item snapshot-ranking <%= data_status %>">
+        <div>
+          <div class="header">
+            <h3><%= item[:label] %></h3>
+          </div>
+          <table class="table">
+            <tr class="header-row">
+              <% item[:headers].each do |header| %>
+                <th><%= header %></th>
+              <% end %>
+            </tr>
+            <tr class="data-row">
+              <% item[:data].each |row| %>
+              <td><%= row[:name] %></td>
+              <td><%= row[:count] %></td>
+            </tr>
+          </table>
+        </div>
+      </section>
+    <% end %>
+  </div>
+<% end %>

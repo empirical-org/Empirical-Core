@@ -22,7 +22,7 @@ class PagesController < ApplicationController
   OPEN_POSITIONS = Configs[:careers][:open_positions]
 
   def pdfz
-    data = AdminUsageSnapshotPdfInputDataBuilder.run(AdminReportFilterSelection.find(1))
+    data = AdminUsageSnapshotPdfInputDataBuilder.run(AdminReportFilterSelection.last)
     render 'pdfs/admin_usage_snapshot_report_pdf', locals: { data: data }
   end
 
