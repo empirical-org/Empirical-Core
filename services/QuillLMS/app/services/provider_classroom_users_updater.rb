@@ -20,7 +20,7 @@ class ProviderClassroomUsersUpdater < ApplicationService
       .deleted
       .where(classroom_external_id: classroom_external_id)
       .where(user_external_id: user_external_ids)
-      .update_all(deleted_at: nil)
+      .update_all(deleted_at: nil, updated_at: Time.current)
   end
 
   private def update_active_to_deleted
@@ -28,7 +28,7 @@ class ProviderClassroomUsersUpdater < ApplicationService
       .active
       .where(classroom_external_id: classroom_external_id)
       .where.not(user_external_id: user_external_ids)
-      .update_all(deleted_at: Time.current)
+      .update_all(deleted_at: Time.current, updated_at: Time.current)
   end
 
   private def create_new_active
