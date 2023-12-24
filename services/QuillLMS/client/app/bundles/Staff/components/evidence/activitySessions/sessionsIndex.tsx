@@ -118,9 +118,6 @@ const SessionsIndex = ({ match }) => {
     if(!sessionsData) {
       return null;
     }
-    if(pageDropdownOptions) {
-      return pageDropdownOptions;
-    }
     const { activitySessions } = sessionsData
     const { current_page, total_pages } = activitySessions;
     console.log(total_pages)
