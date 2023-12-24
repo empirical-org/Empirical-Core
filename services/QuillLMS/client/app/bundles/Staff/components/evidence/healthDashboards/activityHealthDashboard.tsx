@@ -12,6 +12,7 @@ import { addCommasToThousands, getLinkToActivity, secondsToHumanReadableTime } f
 import { fetchAggregatedActivityHealths } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
 
 const ALL_FLAGS = "All Flags"
+const PRODUCTION_FLAG = "production"
 const NAME_COLUMN = "name"
 const POOR_HEALTH_FLAG_COLUMN = "poor_health_flag"
 
@@ -52,7 +53,7 @@ const TrueFalseFilter = ({ column, setFilter }) => (
 )
 
 export const ActivityHealthDashboard = ({ handleDashboardToggle }) => {
-  const [flag, setFlag] = React.useState<string>(ALL_FLAGS)
+  const [flag, setFlag] = React.useState<string>(PRODUCTION_FLAG)
   const [promptSearchInput, setPromptSearchInput] = React.useState<string>("")
   const [dataToDownload, setDataToDownload] = React.useState<Array<{}>>([])
   const [rows, setRows] = React.useState<Array<{}>>(null)
