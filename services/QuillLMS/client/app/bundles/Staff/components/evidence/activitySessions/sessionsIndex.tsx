@@ -78,7 +78,8 @@ const SessionsIndex = ({ match }) => {
   }, [versionOption]);
 
   React.useEffect(() => {
-    sessionsData && !pageDropdownOptions && getPageDropdownOptions(sessionsData);
+    console.log("Sessions data changed");
+    sessionsData && getPageDropdownOptions(sessionsData);
   }, [sessionsData]);
 
   React.useEffect(() => {
@@ -112,6 +113,7 @@ const SessionsIndex = ({ match }) => {
   }
 
   function getPageDropdownOptions(sessionsData: { activitySessions: ActivitySessionsInterface }) {
+    console.log("getting dropdonw")
     if(!sessionsData) {
       return null;
     }
