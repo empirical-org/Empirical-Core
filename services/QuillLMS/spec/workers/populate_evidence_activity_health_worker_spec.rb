@@ -64,5 +64,23 @@ describe PopulateEvidenceActivityHealthWorker do
       expect(activity_health.so_final_optimal).to eq(0)
       expect(activity_health.avg_completion_time).to eq(400)
     end
+
+    it 'should destroy an existing Evidence Activity Health object for the same Evidence Activity' do
+      existing_activity_health = Evidence::ActivityHealth.create(
+        name: @activity.title,
+        flag: @activity.flag.to_s,
+        version: @activity.version,
+        activity_id: @activity.id,
+        version_plays: 0,
+        total_plays: 0
+      )
+      expect { subject.perform(@activity.id) }.to change { Evidence::ActivityHealth.exists?(existing_activity_health.id) }.to(false)
+      expect(Evidence::ActivityHealth.count).to eq(1)
+      new_activity_health = Evidence::ActivityHealth.first
+      expect(new_activity_health.name).to eq(@activity.title)
+      expect(new_activity_health.flag).to eq(@activity.flag.to_s)
+      expect(new_activity_health.version).to eq(@activity.version)
+      expect(new_activity_health.activity_id).to eq(@activity.id)
+    end
   end
 end
