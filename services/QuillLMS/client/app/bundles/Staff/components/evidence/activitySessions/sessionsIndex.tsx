@@ -78,7 +78,6 @@ const SessionsIndex = ({ match }) => {
   }, [versionOption]);
 
   React.useEffect(() => {
-    console.log("Sessions data changed");
     sessionsData && getPageDropdownOptions(sessionsData);
   }, [sessionsData]);
 
@@ -113,14 +112,11 @@ const SessionsIndex = ({ match }) => {
   }
 
   function getPageDropdownOptions(sessionsData: { activitySessions: ActivitySessionsInterface }) {
-    console.log("getting dropdonw")
-    console.log(sessionsData)
     if(!sessionsData) {
       return null;
     }
     const { activitySessions } = sessionsData
     const { current_page, total_pages } = activitySessions;
-    console.log(total_pages)
     setPageNumber({'value': current_page.toString(), 'label':`Page ${current_page}`})
     const options = [];
     for(let i=1; i <= total_pages; i++) {
