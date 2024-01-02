@@ -944,7 +944,7 @@ class User < ApplicationRecord
   end
 
   private def update_invitee_email_address
-    Invitation.where(invitee_email: email_before_last_save).update_all(invitee_email: email)
+    Invitation.where(invitee_email: email_before_last_save).update_all(invitee_email: email, updated_at: DateTime.current)
   end
 
   private def generate_default_notification_email_frequency

@@ -1238,7 +1238,9 @@ RSpec.describe User, type: :model do
 
     it 'should update invitee email address in invitations table if email changed' do
       new_email = "new-email@fake-email.com"
-      User.find_by_email(old_email).update(email: new_email)
+      expect do
+        User.find_by_email(old_email).update(email: new_email)
+      end.to change { invite_two.reload.updated_at }
       expect(Invitation.where(invitee_email: old_email).count).to be(0)
       expect(Invitation.where(invitee_email: new_email).count).to be(2)
     end

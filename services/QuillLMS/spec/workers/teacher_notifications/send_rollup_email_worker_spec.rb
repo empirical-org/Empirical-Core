@@ -4,6 +4,8 @@ require 'rails_helper'
 
 module TeacherNotifications
   describe SendRollupEmailWorker, type: :worker do
+    subject { TeacherNotifications::SendRollupEmailWorker.new.perform(teacher.id) }
+
     let(:teacher) { create(:teacher) }
     let!(:new_teacher_notification) { create(:teacher_notification_student_completed_all_assigned_activities, user: teacher) }
     let!(:old_teacher_notification) { create(:teacher_notification_student_completed_all_assigned_activities, user: teacher, email_sent: DateTime.current) }
@@ -19,17 +21,17 @@ module TeacherNotifications
 
       expect(TeacherNotifications::RollupMailer).not_to receive(:rollup)
 
-      TeacherNotifications::SendRollupEmailWorker.new.perform(teacher.id)
+      subject
     end
 
     it 'should instantiate and deliver_now! a mailer' do
       expect(rollup_double).to receive(:deliver_now!)
 
-      TeacherNotifications::SendRollupEmailWorker.new.perform(teacher.id)
+      subject
     end
 
     it 'should set email_sent values to all relevant TeacherNotifications' do
-      TeacherNotifications::SendRollupEmailWorker.new.perform(teacher.id)
+      subject
 
       expect(new_teacher_notification.reload.email_sent).to be
     end
@@ -39,7 +41,9 @@ module TeacherNotifications
         .with(teacher, [new_teacher_notification])
         .and_return(rollup_double)
 
-      TeacherNotifications::SendRollupEmailWorker.new.perform(teacher.id)
+      subject
     end
+
+    it { expect { subject }.to change { new_teacher_notification.reload.updated_at } }
   end
 end

@@ -10,7 +10,7 @@ module TeacherNotifications
       return if notifications.empty?
 
       TeacherNotifications::RollupMailer.rollup(user, notifications).deliver_now!
-      notifications.update_all(email_sent: DateTime.current)
+      notifications.update_all(email_sent: DateTime.current, updated_at: DateTime.current)
     end
   end
 end

@@ -137,9 +137,9 @@ module Student
     .where("users.id = ?", id)
     .where("classroom_units.id = ?", classroom_unit_id)
     .where("activity_sessions.visible = true")
-    .order("activity_sessions.is_final_score DESC, activity_sessions.percentage ASC, activity_sessions.started_at")
+    .order("activity_sessions.is_final_score DESC, activity_sessions.percentage DESC, activity_sessions.started_at")
     .offset(1)
-    .update_all(visible: false)
+    .update_all(visible: false, updated_at: DateTime.current)
   end
 
   def merge_student_account(secondary_account, teacher_id=nil)
