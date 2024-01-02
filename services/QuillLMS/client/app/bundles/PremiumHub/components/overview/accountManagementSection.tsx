@@ -3,7 +3,7 @@ import { Link, } from 'react-router-dom';
 
 import { iconLinkBase, ACCOUNT_MANAGEMENT, SECTION_NAME_TO_ICON_URL, } from './shared'
 
-export const LOG_IN_AS_A_TEACHER = "Log in as a teacher"
+export const LOG_IN_AS_A_TEACHER = "Log in as a Teacher"
 
 export const accountManagementTiles = [
   {

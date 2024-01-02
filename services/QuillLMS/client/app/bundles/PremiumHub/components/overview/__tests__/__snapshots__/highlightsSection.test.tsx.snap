@@ -82,6 +82,12 @@ exports[`HighlightsSection it should render 1`] = `
         </div>
       </div>
     </div>
+    <a
+      class="quill-button outlined secondary medium focus-on-light view-all-usage-button"
+      href="/teachers/premium_hub/usage_snapshot_report"
+    >
+      View all usage
+    </a>
   </section>
 </DocumentFragment>
 `;

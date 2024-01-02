@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Link, } from 'react-router-dom';
 
 import { USAGE_HIGHLIGHTS, SECTION_NAME_TO_ICON_URL, } from './shared'
 
@@ -46,6 +47,7 @@ const HighlightsSection = ({ pusherChannel, model, }) => {
           {renderHighlights()}
         </div>
       </div>
+      <Link className="quill-button outlined secondary medium focus-on-light view-all-usage-button" to="/teachers/premium_hub/usage_snapshot_report">View all usage</Link>
     </section>
   )
 }

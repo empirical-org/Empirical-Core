@@ -103,6 +103,12 @@ exports[`Overview container should render with a full access type 1`] = `
             </div>
           </div>
         </div>
+        <a
+          class="quill-button outlined secondary medium focus-on-light view-all-usage-button"
+          href="/teachers/premium_hub/usage_snapshot_report"
+        >
+          View all usage
+        </a>
       </section>
       <section
         class="overview-section-wrapper professional-development"
@@ -236,7 +242,7 @@ exports[`Overview container should render with a full access type 1`] = `
             >
               <div>
                 <h3>
-                  Log in as a teacher
+                  Log in as a Teacher
                 </h3>
                 <p>
                   Access each teacher’s account to assign activities, manage rosters, and view data.
@@ -685,6 +691,12 @@ exports[`Overview container should render with a limited access type 1`] = `
             </div>
           </div>
         </div>
+        <a
+          class="quill-button outlined secondary medium focus-on-light view-all-usage-button"
+          href="/teachers/premium_hub/usage_snapshot_report"
+        >
+          View all usage
+        </a>
       </section>
       <section
         class="overview-section-wrapper professional-development"
@@ -818,7 +830,7 @@ exports[`Overview container should render with a limited access type 1`] = `
             >
               <div>
                 <h3>
-                  Log in as a teacher
+                  Log in as a Teacher
                 </h3>
                 <p>
                   Access each teacher’s account to assign activities, manage rosters, and view data.
@@ -1267,6 +1279,12 @@ exports[`Overview container should render with a restricted access type 1`] = `
             </div>
           </div>
         </div>
+        <a
+          class="quill-button outlined secondary medium focus-on-light view-all-usage-button"
+          href="/teachers/premium_hub/usage_snapshot_report"
+        >
+          View all usage
+        </a>
       </section>
       <section
         class="overview-section-wrapper professional-development"
@@ -1429,7 +1447,7 @@ exports[`Overview container should render with a restricted access type 1`] = `
             >
               <div>
                 <h3>
-                  Log in as a teacher
+                  Log in as a Teacher
                 </h3>
                 <p>
                   Access each teacher’s account to assign activities, manage rosters, and view data.

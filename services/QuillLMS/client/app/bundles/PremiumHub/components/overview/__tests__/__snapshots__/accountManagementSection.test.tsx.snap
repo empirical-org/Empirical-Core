@@ -51,7 +51,7 @@ exports[`AccountManagementSection it should render 1`] = `
         >
           <div>
             <h3>
-              Log in as a teacher
+              Log in as a Teacher
             </h3>
             <p>
               Access each teacher’s account to assign activities, manage rosters, and view data.
