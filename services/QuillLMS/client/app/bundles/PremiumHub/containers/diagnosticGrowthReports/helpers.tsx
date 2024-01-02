@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { getTimeInMinutesAndSeconds } from "../../shared"
 
+// Overview tooltips
 export const diagnosticNameTooltipText = "This report shows all of the diagnostics that have been assigned by teachers connected to your account.<br/><br/>  Each diagnostic offering includes a Pre assessment of each student's writing skills, around 40 practice activities recommended by the diagnostic based on the Pre performance, and a Post diagnostic to measure growth after the practice activities are completed.<br/><br/> Diagnostic will not be displayed in this report until at least one teacher has assigned it within the filters you have selected."
 export const preDiagnosticCompletedTooltipText = "The total number of students who completed the Pre diagnostic of all of the students assigned the Pre diagnostic."
 export const completedActivitiesTooltipText = "The total number of students who have completed the practice activities linked to this diagnostic.<br/><br/> A student is counted once the student has completed at least one practice activity linked to this diagnostic."
@@ -8,7 +9,17 @@ export const averageActivitiesAndTimeSpentTooltipText = "Each diagnostic is link
 export const postDiagnosticCompletedTooltipText = "The total number of students who completed the Post diagnostic of all of the students assigned the Post diagnostic.<br/><br/> Students are not included in this count until their teacher assigns the Post diagnostic to them."
 export const overallSkillGrowthTooltipText = "The average increase in growth scores across all of the skills.<br/><br/> The Performance by Skill report shows the average increase in questions answered correctly for each skill, and the overall growth is the average increase across all skills."
 
+// Skills tooltips
+export const preSkillScoreTooltipText = "The averaged number of questions answered correctly for this skill on the Pre diagnostic.<br/><br/> This is the average score for all of the students selected in the filters."
+export const postSkillScoreTooltipText = "The averaged number of questions answered correctly for this skill on the Post diagnostic.<br/><br/> This is the average score for all of the students selected in the filters."
+export const growthResultsTooltipText = "The increase in the averaged number of questions answered correctly for this skill from the Pre to the Post diagnostic.<br/><br/> This is the average increase for all of the students selected in the filters."
+export const studentsImprovedSkillTooltipText = 'The number of students who improved in the skill by answering more questions correctly on the Post diagnostic than they did on the Pre. This includes students who gained Some Proficiency and Gained Full Proficiency in this skill.<br/><br/> This total count(”of __ students”) includes all students who completed both the Pre and the Post diagnostic and are selected in the filters.'
+export const studentsWithoutImprovementTooltipText = 'The total number of students who did not show improvement in this skill by not answering more questions correctly in the Post than the Pre (and who were not already proficient). Quill provides a recommended activity pack for each skill so that educators can easily assign practice activities so that students can practice this skill.<br/><br/> This total count(”of __ students”) includes all students who completed both the Pre and the Post diagnostic and are selected in the filters.'
+export const studentsMaintainedProficiencyTooltipText = 'The total number of students who answered all questions for this skill correctly on both the Pre and the Post diagnostic.<br/><br/> This total count(”of __ students”) includes all students who completed both the Pre and the Post diagnostic and are selected in the filters.'
+
 const noDataToShow = '--'
+
+// Overview logic
 
 function processAggregateRows(aggregateRowsData, diagnosticId, rowData) {
   // set initial empty value if first pass
@@ -42,21 +53,21 @@ function postDiagnosticCompleted(postStudentsAssigned, postStudentsCompleted) {
   return postStudentsAssigned ? `${postStudentsCompleted || 0} of ${postStudentsAssigned} Students` : noDataToShow
 }
 
-function overallSkillGrowthValue(preScore, postScore) {
+function overallSkillGrowthValue({diagnosticId, preScore, postScore, handleGrowthChipClick}) {
   if (!postScore) {
     return noDataToShow;
   } else if (preScore && postScore && postScore > preScore) {
-    return <p className="emphasized-content">{`+${Math.round((postScore * 100) - (preScore * 100))}%`}</p>;
+    return <button className="interactive-wrapper emphasized-content" onClick={handleGrowthChipClick} value={diagnosticId}>{`+${Math.round((postScore * 100) - (preScore * 100))}%`}</button>
   }
   return 'No Growth';
 }
 
-function createAggregateRowData(aggregateRowsDataForDiagnostic) {
+function createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId, handleGrowthChipClick }) {
   return Object.keys(aggregateRowsDataForDiagnostic).map(key => {
     const data = aggregateRowsDataForDiagnostic[key];
     // we can early return if there are no students assigned to pre diagnostic
     if (!data.pre_students_assigned) { return null }
-    const overallSkillGrowth = overallSkillGrowthValue(data.pre_average_score, data.post_average_score);
+    const overallSkillGrowth = overallSkillGrowthValue({ diagnosticId, preScore: data.pre_average_score, postScore: data.post_average_score, handleGrowthChipClick });
 
     return {
       id: key,
@@ -71,7 +82,7 @@ function createAggregateRowData(aggregateRowsDataForDiagnostic) {
 }
 
 export function aggregateOverviewData(args) {
-  const { preDiagnosticAssignedData, postDiagnosticAssignedData, preDiagnosticCompletedData, postDiagnosticCompletedData, recommendationsData, setAggregatedData, handleSetNoDiagnosticDataAvailable, hasAdjustedFiltersFromDefault, setLoading } = args;
+  const { preDiagnosticAssignedData, postDiagnosticAssignedData, preDiagnosticCompletedData, postDiagnosticCompletedData, recommendationsData, setAggregatedData, handleSetNoDiagnosticDataAvailable, hasAdjustedFiltersFromDefault, setLoading, handleGrowthChipClick } = args;
 
   // if there are no results for the pre diagnostic API and filters are at default, no diagnostics have been assigned
   if (!preDiagnosticAssignedData.length && !hasAdjustedFiltersFromDefault) {
@@ -160,9 +171,62 @@ export function aggregateOverviewData(args) {
     entry.studentsCompletedPractice = studentsCompletedPracticeValue(studentsCompletedPractice)
     entry.averageActivitiesAndTimeSpent = averageActivitiesAndTimeSpentValue(averageActivitiesCount, averageTimespent)
     entry.postDiagnosticCompleted = postDiagnosticCompleted(postStudentsAssigned, postStudentsCompleted)
-    entry.overallSkillGrowth = overallSkillGrowthValue(preDiagnosticScore, postDiagnosticScore)
-    entry.aggregate_rows = createAggregateRowData(aggregateRowsDataForDiagnostic)
+    entry.overallSkillGrowth = overallSkillGrowthValue({diagnosticId: id, preScore: preDiagnosticScore, postScore: postDiagnosticScore, handleGrowthChipClick })
+    entry.aggregate_rows = createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId: id, handleGrowthChipClick})
   })
   setAggregatedData(combinedData);
   setLoading(false);
+}
+
+// Skills logic
+
+function scoreValue(score) {
+  if(!score) { return noDataToShow }
+  return `${Math.round(score)}%`
+}
+
+function proficiencyValue(proficiencyLevelCount, totalStudents) {
+  if(!totalStudents) { return noDataToShow }
+  return `${proficiencyLevelCount} of ${totalStudents}`
+}
+
+function growthResultsValue(preScore, postScore) {
+  if (!postScore) {
+    return noDataToShow;
+  } else if (preScore && postScore && postScore > preScore) {
+    return `+${Math.round(postScore) - Math.round(preScore)}%`
+  }
+  return 'No Gain';
+}
+
+function formatSkillsData(data, isAggregateRowData) {
+  return data.map((entry, i) => {
+    const { aggregate_rows, improved_proficiency, maintained_proficiency, post_score, pre_score, recommended_practice, skill_name, name } = entry
+    const totalStudents = improved_proficiency + maintained_proficiency + recommended_practice
+    return {
+      id: i,
+      name: isAggregateRowData ? name : skill_name,
+      preSkillScore: scoreValue(pre_score),
+      postSkillScore: scoreValue(post_score),
+      growthResults: growthResultsValue(pre_score, post_score),
+      studentsImprovedSkill: proficiencyValue(improved_proficiency, totalStudents),
+      studentsWithoutImprovement: proficiencyValue(recommended_practice, totalStudents),
+      studentsMaintainedProficiency: proficiencyValue(maintained_proficiency, totalStudents),
+      aggregate_rows: isAggregateRowData ? null : formatSkillsData(aggregate_rows, true)
+    }
+  })
+}
+
+export function aggregateSkillsData({
+  skillsData,
+  setAggregatedData,
+  setLoading
+}) {
+  if (!skillsData.length) {
+    setLoading(false)
+    return
+  }
+  const aggregatedData = formatSkillsData(skillsData, false)
+  setAggregatedData(aggregatedData)
+  setLoading(false)
 }
