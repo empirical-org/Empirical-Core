@@ -83,6 +83,10 @@ describe 'Student Concern', type: :model do
   end
 
   describe "#hide_extra_activity_sessions" do
+    it "updates the updated_at value for models that are hidden" do
+        expect { student1.hide_extra_activity_sessions(classroom_unit2.id) }.to change { lower_percentage.reload.updated_at }
+    end
+
     context "there is an activity session with a final score" do
       it "leaves the activity session with a final score" do
         student1.hide_extra_activity_sessions(classroom_unit1.id)
@@ -97,8 +101,10 @@ describe 'Student Concern', type: :model do
 
     context "there are activities with percentages assigned" do
       it "leaves the activity session with the highest percentage" do
-        student1.hide_extra_activity_sessions(classroom_unit2.id)
-        expect(higher_percentage.visible).to be true
+        expect do
+          student1.hide_extra_activity_sessions(classroom_unit2.id)
+        end.to change { lower_percentage.reload.visible }.to(false)
+          .and not_change { higher_percentage.reload.visible }
       end
 
       it "hides all other activity sessions with that user id and classroom unit id" do
