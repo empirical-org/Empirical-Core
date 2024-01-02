@@ -361,6 +361,12 @@
             position: relative;
             margin-right: 8px;
           }
+          .dropdown__single-value {
+            margin-right: 4px;
+            align-items: center;
+            font-size: 14px;
+            justify-content: flex-end;
+          }
           .dropdown__menu {
             margin-top: -20px;
           }

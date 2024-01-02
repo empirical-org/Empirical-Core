@@ -1,11 +1,10 @@
 import * as React from 'react'
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
-import { groupByDropdownOptions, hashPayload } from '../../shared'
+import { SKILL, groupByDropdownOptions, hashPayload } from '../../shared'
 import { requestPost, } from '../../../../modules/request';
 import { aggregateOverviewData, averageActivitiesAndTimeSpentTooltipText, completedActivitiesTooltipText, diagnosticNameTooltipText, overallSkillGrowthTooltipText, postDiagnosticCompletedTooltipText, preDiagnosticCompletedTooltipText } from './helpers';
 
-const QUERY_KEY = 'admin-diagnostic-overview'
 const PUSHER_EVENT_KEY = 'admin-diagnostic-overview-cached';
 const PRE_DIAGNOSTIC_ASSIGNED_QUERYSTRING = 'pre-diagnostic-assigned'
 const POST_DIAGNOSTIC_ASSIGNED_QUERYSTRING = 'post-diagnostic-assigned'
@@ -32,7 +31,7 @@ const headers = [
   {
     name: PRE_DIAGNOSTIC_COMPLETED,
     attribute: 'preDiagnosticCompleted',
-    width: DEFAULT_CELL_WIDTH,
+    width: '196px',
     tooltipName: PRE_DIAGNOSTIC_COMPLETED,
     tooltipDescription: preDiagnosticCompletedTooltipText,
     noTooltip: true,
@@ -90,17 +89,20 @@ export const OverviewSection = ({
   selectedTimeframe,
   pusherChannel,
   hasAdjustedFiltersFromDefault,
-  handleSetNoDiagnosticDataAvailable
+  handleSetNoDiagnosticDataAvailable,
+  handleTabChangeFromDataChip,
+  handleSetSelectedDiagnosticId,
+  passedData
 }) => {
 
   const [groupByValue, setGroupByValue] = React.useState<DropdownObjectInterface>(groupByDropdownOptions[0])
-  const [loading, setLoading] = React.useState<boolean>(true);
+  const [loading, setLoading] = React.useState<boolean>(!passedData);
   const [preDiagnosticAssignedData, setPreDiagnosticAssignedData] = React.useState<any>(null);
   const [postDiagnosticAssignedData, setPostDiagnosticAssignedData] = React.useState<any>(null);
   const [preDiagnosticCompletedData, setPreDiagnosticCompletedData] = React.useState<any>(null);
   const [postDiagnosticCompletedData, setPostDiagnosticCompletedData] = React.useState<any>(null);
   const [recommendationsData, setRecommendationsData] = React.useState<any>(null);
-  const [aggregatedData, setAggregatedData] = React.useState<any>([]);
+  const [aggregatedData, setAggregatedData] = React.useState<any>(passedData || []);
   const [pusherMessage, setPusherMessage] = React.useState<string>(null)
 
   React.useEffect(() => {
@@ -108,13 +110,32 @@ export const OverviewSection = ({
   }, [pusherChannel])
 
   React.useEffect(() => {
-    getData()
+    // this is for testing purposes; this value will always be null in a non-testing environment
+    if(!passedData) {
+      getData()
+    }
   }, [searchCount, groupByValue])
 
   React.useEffect(() => {
     if (!pusherMessage) return
 
-    if (filtersMatchHash(pusherMessage)) getData()
+    switch (pusherMessage) {
+      case getFilterHash(PRE_DIAGNOSTIC_ASSIGNED_QUERYSTRING):
+        getPreDiagnosticAssignedData()
+        break;
+      case getFilterHash(PRE_DIAGNOSTIC_COMPLETED_QUERYSTRING):
+        getPreDiagnosticCompletedData()
+        break;
+      case getFilterHash(POST_DIAGNOSTIC_ASSIGNED_QUERYSTRING):
+        getPostDiagnosticAssignedData()
+        break;
+      case getFilterHash(POST_DIAGNOSTIC_COMPLETED_QUERYSTRING):
+        getPostDiagnosticCompletedData()
+        break;
+      case getFilterHash(RECOMMENDATIONS_QUERYSTRING):
+        getRecommendationsData()
+        break;
+    }
   }, [pusherMessage])
 
   React.useEffect(() => {
@@ -128,7 +149,8 @@ export const OverviewSection = ({
         setAggregatedData,
         hasAdjustedFiltersFromDefault,
         handleSetNoDiagnosticDataAvailable,
-        setLoading
+        setLoading,
+        handleGrowthChipClick
       })
     }
   }, [preDiagnosticAssignedData, postDiagnosticAssignedData, preDiagnosticCompletedData, postDiagnosticCompletedData, recommendationsData])
@@ -163,6 +185,7 @@ export const OverviewSection = ({
   }
 
   function getPreDiagnosticAssignedData () {
+    setPreDiagnosticAssignedData(null)
     const searchParams = getSearchParams(PRE_DIAGNOSTIC_ASSIGNED_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
@@ -176,6 +199,7 @@ export const OverviewSection = ({
   }
 
   function getPostDiagnosticAssignedData() {
+    setPostDiagnosticAssignedData(null)
     const searchParams = getSearchParams(POST_DIAGNOSTIC_ASSIGNED_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
@@ -189,6 +213,7 @@ export const OverviewSection = ({
   }
 
   function getPreDiagnosticCompletedData() {
+    setPreDiagnosticCompletedData(null)
     const searchParams = getSearchParams(PRE_DIAGNOSTIC_COMPLETED_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
@@ -202,6 +227,7 @@ export const OverviewSection = ({
   }
 
   function getPostDiagnosticCompletedData() {
+    setPostDiagnosticCompletedData(null)
     const searchParams = getSearchParams(POST_DIAGNOSTIC_COMPLETED_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
@@ -215,6 +241,7 @@ export const OverviewSection = ({
   }
 
   function getRecommendationsData() {
+    setRecommendationsData(null)
     const searchParams = getSearchParams(RECOMMENDATIONS_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
@@ -227,23 +254,25 @@ export const OverviewSection = ({
     })
   }
 
-  function filtersMatchHash(hashMessage) {
+  function getFilterHash(queryKey) {
     const filterTarget = [].concat(
-      QUERY_KEY,
+      queryKey,
       selectedTimeframe,
       selectedSchoolIds,
       selectedGrades,
       selectedTeacherIds,
-      selectedClassroomIds
+      selectedClassroomIds,
     )
-
-    const filterHash = hashPayload(filterTarget)
-
-    return hashMessage == filterHash
+    return hashPayload(filterTarget)
   }
 
   function handleFilterOptionChange(option) {
     setGroupByValue(option)
+  }
+
+  function handleGrowthChipClick(id: number) {
+    handleSetSelectedDiagnosticId(id)
+    handleTabChangeFromDataChip(SKILL)
   }
 
   function renderContent() {

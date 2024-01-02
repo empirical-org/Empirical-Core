@@ -56,6 +56,7 @@ export const DiagnosticGrowthReportsContainer = ({
 }) => {
 
   const [activeTab, setActiveTab] = React.useState<string>(OVERVIEW)
+  const [selectedDiagnosticId, setSelectedDiagnosticId] = React.useState<number>(null)
   const [noDiagnosticDataAvailable, setNoDiagnosticDataAvailable] = React.useState<boolean>(!!passedData)
 
   const sharedProps = {
@@ -75,8 +76,16 @@ export const DiagnosticGrowthReportsContainer = ({
     setActiveTab(e.currentTarget.value)
   }
 
+  function handleTabChangeFromDataChip(value) {
+    setActiveTab(value)
+  }
+
   function handleSetNoDiagnosticDataAvailable(value: boolean) {
     setNoDiagnosticDataAvailable(value)
+  }
+
+  function handleSetSelectedDiagnosticId(e) {
+    setSelectedDiagnosticId(Number(e.target.value))
   }
 
   function renderButtons() {
@@ -115,8 +124,8 @@ export const DiagnosticGrowthReportsContainer = ({
             Filters
           </button>
         </div>
-        {activeTab === OVERVIEW && <OverviewSection {...sharedProps} />}
-        {activeTab === SKILL && <SkillSection {...sharedProps} />}
+        {activeTab === OVERVIEW && <OverviewSection {...sharedProps} handleSetSelectedDiagnosticId={handleSetSelectedDiagnosticId} handleTabChangeFromDataChip={handleTabChangeFromDataChip} />}
+        {activeTab === SKILL && <SkillSection {...sharedProps} selectedDiagnosticId={selectedDiagnosticId} />}
         {activeTab === STUDENT && <StudentSection {...sharedProps} />}
       </React.Fragment>
     )

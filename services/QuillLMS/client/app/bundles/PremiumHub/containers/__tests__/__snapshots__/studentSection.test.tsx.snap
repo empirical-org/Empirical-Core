@@ -32,7 +32,7 @@ exports[`StudentSection loaded state it should render the expected empty state m
           <div
             class="dropdown__single-value css-1dimb5e-singleValue"
           >
-            Starter Baseline Diagnostic (Pre)
+            Starter Diagnostic
           </div>
           <div
             class="dropdown__input-container css-qbdosj-Input"
@@ -241,7 +241,7 @@ exports[`StudentSection loaded state it should render the expected header compon
           <div
             class="dropdown__single-value css-1dimb5e-singleValue"
           >
-            Starter Baseline Diagnostic (Pre)
+            Starter Diagnostic
           </div>
           <div
             class="dropdown__input-container css-qbdosj-Input"
