@@ -46,7 +46,7 @@ import StudentFeedbackModal from '../../Student/startup/StudentFeedbackModalAppC
 import StudentNavbarItems from '../../Student/startup/StudentNavbarItemsAppClient';
 
 import '../styles/styles.scss';
-
+import '../../../assets/javascripts/clickHandlers.js'
 
 // This is how react_on_rails can see the TeacherApp in the browser.
 
