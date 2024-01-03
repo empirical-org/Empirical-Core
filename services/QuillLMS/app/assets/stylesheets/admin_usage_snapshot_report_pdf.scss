@@ -1,3 +1,5 @@
+@import "variables";
+
 .admin-usage-snapshot-report-pdf {
   font-family: adelle-sans, Arial, sans-serif;
   padding: 0px 64px;
@@ -23,15 +25,15 @@
   .applied-filters {
     padding: 20px;
     border-radius: 8px;
-    border: 1px solid #E8AB88;
-    background-color: #FFF6F1;
+    border: 1px solid $quill-maroon-20;
+    background-color: $quill-maroon-1;
 
     h3 {
-      color: #FFF;
+      color: $quill-white;
       font-size: 9px;
       font-weight: 700;
       text-transform: uppercase;
-      background-color: #C04500;
+      background-color: $quill-maroon;
       width: min-content;
       white-space: nowrap;
       padding: 4px 5px 3px;
@@ -40,7 +42,7 @@
     }
 
     p {
-      color: #5C5C5C;
+      color: $quill-grey-50;
       font-size: 14px;
       margin: 8px 0px 24px;
     }
@@ -54,7 +56,7 @@
     .pill {
       display: block;
       border-radius: 16px;
-      background: #06806b;
+      background: $quill-green;
       padding: 6px 10px;
       color: white;
       margin-bottom: 8px;
@@ -66,13 +68,13 @@
     .filter-section {
       flex: 1;
       border-radius: 8px;
-      border: 1px solid #E8AB88;
-      background: #F6E5DC;
+      border: 1px solid $quill-maroon-20;
+      background: $quill-maroon-5;
       padding: 8px 16px;
 
       .filter-section-title {
         margin-top: 0px;
-        color: #000;
+        color: $quill-black;
         font-size: 14px;
         line-height: 22px;
         margin-bottom: 8px;
@@ -94,7 +96,7 @@
       font-weight: 600;
       font-size: 20px;
       line-height: 32px;
-      color: #373737;
+      color: $quill-grey-90;
       margin-bottom: 16px;
       display: flex;
       align-items: center;
@@ -108,11 +110,11 @@
     .snapshot-section {
       border-radius: 8px;
       padding: 24px;
-      border: 1px solid #e0e0e0;
+      border: 1px solid $quill-grey-5;
 
       .snapshot-item {
-        background-color: #f8f8f8;
-        border: 1px solid #e0e0e0;
+        background-color: $quill-grey-1;
+        border: 1px solid $quill-grey-5;
         border-radius: 8px;
         display: flex;
         justify-content: space-between;
@@ -140,7 +142,7 @@
 
           .snapshot-label {
             font-weight: 600;
-            color: #373737;
+            color: $quill-grey-90;
           }
         }
 
@@ -148,7 +150,7 @@
           font-weight: 700;
           font-size: 20px;
           line-height: 24px;
-          color: #373737;
+          color: $quill-grey-90;
           display: flex;
           align-items: center;
           height: min-content;
@@ -189,7 +191,7 @@
         &.positive,
         &.negative,
         &.no-change {
-          color: #373737;
+          color: $quill-grey-90;
         }
 
         &.positive {
@@ -202,7 +204,7 @@
         }
 
         &.negative .change {
-          color: #c38d33;
+          color: $quill-gold-dark-50;
         }
       }
     }
@@ -226,7 +228,7 @@
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      color: #373737;
+      color: $quill-grey-90;
     }
 
     img {
@@ -254,7 +256,7 @@
       margin-bottom: 0px;
 
       .header-row {
-        border-top: 1px solid #aeaeae;
+        border-top: 1px solid $quill-grey-20;
         display: flex;
         justify-content: space-between;
         padding: 12px 0px;
@@ -263,7 +265,7 @@
           font-weight: 700;
           font-size: 14px;
           line-height: 17px;
-          color: #373737;
+          color: $quill-grey-90;
         }
       }
 
@@ -271,9 +273,9 @@
         padding: 12px 0px;
         display: flex;
         justify-content: space-between;
-        color: #373737;
+        color: $quill-grey-90;
         font-size: 14px;
-        border-top: 1px solid #e0e0e0;
+        border-top: 1px solid $quill-grey-5;
 
         td:first-of-type {
           font-weight: 400;

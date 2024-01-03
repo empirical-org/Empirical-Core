@@ -20,7 +20,7 @@
       }
       .data-table-header {
         font-weight: 700;
-        color: #373737;
+        color: $quill-grey-90;
         margin-right: 8px;
         display: flex;
         justify-content: space-between;
@@ -73,7 +73,7 @@
             }
             &.name-section {
               font-weight: 700;
-              color: #373737;
+              color: $quill-grey-90;
             }
           }
         }
