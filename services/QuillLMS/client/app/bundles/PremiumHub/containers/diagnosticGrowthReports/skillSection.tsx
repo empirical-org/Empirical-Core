@@ -109,7 +109,7 @@ export const SkillSection = ({
   }, [pusherChannel])
 
   React.useEffect(() => {
-    if (!passedData) {
+    if(!passedData) {
       // this is for testing purposes; this value will always be null in a non-testing environment
       getData()
     }
@@ -188,17 +188,17 @@ export const SkillSection = ({
   }
 
   function getInitialDiagnosticType() {
-    if (selectedDiagnosticId) {
+    if(selectedDiagnosticId) {
       return diagnosticTypeDropdownOptions.filter(diagnosticType => diagnosticType.value === selectedDiagnosticId)[0]
     }
     return diagnosticTypeDropdownOptions[0]
   }
 
   function renderContent() {
-    if (loading) {
+    if(loading) {
       return <Spinner />
     }
-    return (
+    return(
       <DataTable
         className="growth-diagnostic-reports-by-skill-table reporting-format"
         emptyStateMessage={noResultsMessage('diagnostic')}
