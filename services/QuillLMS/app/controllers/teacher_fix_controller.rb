@@ -26,7 +26,7 @@ class TeacherFixController < ApplicationController
       Unit.unscoped.where(id: id).first.update_attribute('name', name)
     end
     units = Unit.unscoped.where(id: unit_ids)
-    units.update_all(visible: true)
+    units.update_all(visible: true, updated_at: DateTime.current)
     TeacherFixes::recover_unit_activities_for_units(units)
     classroom_units = ClassroomUnit.where(unit_id: unit_ids)
     TeacherFixes::recover_classroom_units_and_associated_activity_sessions(classroom_units)
@@ -101,7 +101,7 @@ class TeacherFixController < ApplicationController
     account2 = User.find_by_username_or_email(params['account2_identifier'])
     if account1 && account2
       if account1.teacher? && account2.teacher?
-        Unit.unscoped.where(user_id: account1.id).update_all(user_id: account2.id)
+        Unit.unscoped.where(user_id: account1.id).update_all(user_id: account2.id, updated_at: DateTime.current)
         ClassroomsTeacher.where(user_id: account1.id).each do |ct|
           if ClassroomsTeacher.find_by(user_id: account2.id, classroom_id: ct.classroom_id)
             ct.destroy

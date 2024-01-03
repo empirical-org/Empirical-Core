@@ -580,7 +580,7 @@
   .filter-menu-closed {
     main {
       .data-table {
-        max-width: max-content;
+        max-width: $sitewidepagewidth;
       }
     }
   }

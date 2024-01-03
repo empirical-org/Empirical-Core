@@ -48,6 +48,15 @@ describe TeacherFixController do
   end
 
   describe '#unarchive_units' do
+    subject do
+      post :unarchive_units,
+        params: {
+          changed_names: [[unit.id, "new name"]],
+          unit_ids: [unit.id, unit1.id, unit2.id]
+        },
+        as: :json
+    end
+
     let!(:unit) { create(:unit, visible: false) }
     let!(:activity) { create(:classroom_unit, unit_id: unit.id, visible: false) }
     let!(:session) { create(:activity_session, classroom_unit_id: activity.id, visible: false) }
@@ -59,23 +68,13 @@ describe TeacherFixController do
     let!(:session2) { create(:activity_session, classroom_unit_id: activity.id) }
 
     it 'should change the names of given units' do
-      post :unarchive_units,
-        params: {
-          changed_names: [[unit.id, "new name"]],
-          unit_ids: [unit.id, unit1.id, unit2.id]
-        },
-        as: :json
+      subject
 
       expect(unit.reload.name).to eq "new name"
     end
 
     it 'should make all the units visible' do
-      post :unarchive_units,
-        params: {
-          changed_names: [],
-          unit_ids: [unit.id, unit1.id, unit2.id]
-        },
-        as: :json
+      subject
 
       expect(unit.reload.visible).to eq true
       expect(unit1.reload.visible).to eq true
@@ -83,12 +82,7 @@ describe TeacherFixController do
     end
 
     it 'should mark all the activity sessions visible' do
-      post :unarchive_units,
-        params: {
-          changed_names: [],
-          unit_ids: [unit.id, unit1.id, unit2.id]
-        },
-        as: :json
+      subject
 
       expect(activity.reload.visible).to eq true
       expect(activity1.reload.visible).to eq true
@@ -97,6 +91,8 @@ describe TeacherFixController do
       expect(session1.reload.visible).to eq true
       expect(session2.reload.visible).to eq true
     end
+
+    it { expect { subject }.to change { unit.reload.updated_at } }
   end
 
   describe '#recover_classroom_units' do
@@ -256,6 +252,8 @@ describe TeacherFixController do
           expect(unit.reload.user_id).to eq teacher1.id
           expect(classrooms_teacher.reload.user_id).to eq teacher1.id
         end
+
+        it { expect { post :merge_teacher_accounts, params: { account1_identifier: teacher.email, account2_identifier: teacher1.email } }.to change { unit.reload.updated_at } }
       end
 
       context 'when both the accounts are not teachers' do
