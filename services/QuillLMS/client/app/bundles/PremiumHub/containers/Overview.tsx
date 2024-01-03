@@ -12,7 +12,7 @@ import IntegrationsSection from '../components/overview/integrationsSection'
 import PremiumReportsSection from '../components/overview/premiumReportsSection'
 import { FULL, RESTRICTED_TEXT, } from '../shared'
 
-const Overview = ({ adminId, accessType, passedModel, }) => {
+const Overview = ({ adminId, accessType, passedModel, adminInfo, }) => {
   const [loading, setLoading] = React.useState(passedModel ? false : true)
   const [model, setModel] = React.useState(passedModel || null)
   const [pusherChannel, setPusherChannel] = React.useState(null)
@@ -30,7 +30,7 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
 
   React.useEffect(() => {
     if (!pusherChannel) { return }
-    
+
     bindToAdminUsersChannel()
     getData()
   }, [pusherChannel])
@@ -149,8 +149,8 @@ const Overview = ({ adminId, accessType, passedModel, }) => {
           pusherChannel={pusherChannel}
         />
         <ProfessionalDevelopmentSection
-          accessType={accessType}
           adminId={adminId}
+          administersSchoolWithPremium={adminInfo.administers_school_with_premium}
         />
         <AccountManagementSection
           handleClickLogInAsATeacher={handleClickLogInAsATeacher}

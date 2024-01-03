@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ProfessionalDevelopmentSection it should render a loading state when the user has non-restricted access 1`] = `
+exports[`ProfessionalDevelopmentSection it should render a loading state when the user administers a premium school 1`] = `
 <DocumentFragment>
   <section
     class="overview-section-wrapper professional-development"
@@ -88,7 +88,7 @@ exports[`ProfessionalDevelopmentSection it should render a loading state when th
 </DocumentFragment>
 `;
 
-exports[`ProfessionalDevelopmentSection it should render a restricted state when the user has restricted access 1`] = `
+exports[`ProfessionalDevelopmentSection it should render a restricted state when the user does not administer a premium school 1`] = `
 <DocumentFragment>
   <section
     class="overview-section-wrapper professional-development"
@@ -451,15 +451,6 @@ exports[`ProfessionalDevelopmentSection it should render the generic info if the
           <h3>
             Meet your Quill Implementation Team
           </h3>
-          <p
-            class="section-subheader"
-          >
-            <img
-              alt=""
-              src="undefined/images/pages/administrator/overview/black-bulb.svg"
-            />
-            Premium Schools complete three times as many activities as free schools.
-          </p>
           <p>
             We are your main point of contact for Quill questions, onboarding needs, and scheduling of virtual training opportunities. Please feel free to contact us to discuss how we can best support your school’s Quill journey this year.
           </p>
@@ -568,15 +559,6 @@ exports[`ProfessionalDevelopmentSection it should render the generic info if the
           <h3>
             Meet your Quill Implementation Team
           </h3>
-          <p
-            class="section-subheader"
-          >
-            <img
-              alt=""
-              src="undefined/images/pages/administrator/overview/black-bulb.svg"
-            />
-            Premium Schools complete three times as many activities as free schools.
-          </p>
           <p>
             We are your main point of contact for Quill questions, onboarding needs, and scheduling of virtual training opportunities. Please feel free to contact us to discuss how we can best support your school’s Quill journey this year.
           </p>

@@ -711,24 +711,53 @@ exports[`Overview container should render with a limited access type 1`] = `
           </span>
         </h2>
         <div
-          class="overview-section"
+          class="overview-section restricted-access"
         >
           <div
             class="professional-learning-manager"
           >
-            <div
-              class="loading-spinner"
-            >
-              <div
-                class="spinner-container"
+            <div>
+              <h3>
+                Implement literacy with fidelity
+              </h3>
+              <p
+                class="section-subheader"
               >
                 <img
-                  alt="Loading spinner"
-                  class="spinner"
-                  src="https://assets.quill.org/images/icons/loader_still.svg"
+                  alt=""
+                  src="undefined/images/pages/administrator/overview/black-bulb.svg"
                 />
+                Premium Schools complete three times as many activities as free schools.
+              </p>
+              <p>
+                With personalized learning, interactive activities, and immediate feedback, Quill Premium helps teachers foster literacy skills and critical thinking. If you’re interested in Quill Premium for your teachers, our sales team would love to connect with you.
+              </p>
+              <div
+                class="buttons"
+              >
+                <a
+                  class="quill-button contained primary medium focus-on-light"
+                  href="https://calendly.com/alex-quill"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Schedule a call
+                </a>
+                <a
+                  class="quill-button contained primary medium focus-on-light"
+                  href="https://www.quill.org/premium/request-district-quote"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Request a quote
+                </a>
               </div>
             </div>
+            <img
+              alt=""
+              class="photos"
+              src="undefined/images/pages/administrator/overview/alex-and-charlie.png"
+            />
           </div>
           <div
             class="quick-links"
@@ -1299,53 +1328,24 @@ exports[`Overview container should render with a restricted access type 1`] = `
           </span>
         </h2>
         <div
-          class="overview-section restricted-access"
+          class="overview-section"
         >
           <div
             class="professional-learning-manager"
           >
-            <div>
-              <h3>
-                Implement literacy with fidelity
-              </h3>
-              <p
-                class="section-subheader"
+            <div
+              class="loading-spinner"
+            >
+              <div
+                class="spinner-container"
               >
                 <img
-                  alt=""
-                  src="undefined/images/pages/administrator/overview/black-bulb.svg"
+                  alt="Loading spinner"
+                  class="spinner"
+                  src="https://assets.quill.org/images/icons/loader_still.svg"
                 />
-                Premium Schools complete three times as many activities as free schools.
-              </p>
-              <p>
-                With personalized learning, interactive activities, and immediate feedback, Quill Premium helps teachers foster literacy skills and critical thinking. If you’re interested in Quill Premium for your teachers, our sales team would love to connect with you.
-              </p>
-              <div
-                class="buttons"
-              >
-                <a
-                  class="quill-button contained primary medium focus-on-light"
-                  href="https://calendly.com/alex-quill"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Schedule a call
-                </a>
-                <a
-                  class="quill-button contained primary medium focus-on-light"
-                  href="https://www.quill.org/premium/request-district-quote"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Request a quote
-                </a>
               </div>
             </div>
-            <img
-              alt=""
-              class="photos"
-              src="undefined/images/pages/administrator/overview/alex-and-charlie.png"
-            />
           </div>
           <div
             class="quick-links"

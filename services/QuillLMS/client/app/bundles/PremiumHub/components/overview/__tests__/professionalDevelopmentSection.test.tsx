@@ -2,22 +2,21 @@ import * as React from "react";
 import { render, } from "@testing-library/react";
 
 import ProfessionalDevelopmentSection, { ERIKA_EMAIL, SHANNON_EMAIL, } from '../professionalDevelopmentSection'
-import { RESTRICTED, FULL, } from '../../../shared'
 import * as requestsApi from '../../../../../modules/request';
 
 const props = {
-  accessType: FULL,
+  administersSchoolWithPremium: true,
   adminId: 1
 }
 
 describe('ProfessionalDevelopmentSection', () => {
-  test('it should render a loading state when the user has non-restricted access', () => {
+  test('it should render a loading state when the user administers a premium school', () => {
     const { asFragment } = render(<ProfessionalDevelopmentSection {...props} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('it should render a restricted state when the user has restricted access', () => {
-    const { asFragment } = render(<ProfessionalDevelopmentSection {...props} accessType={RESTRICTED} />);
+  test('it should render a restricted state when the user does not administer a premium school', () => {
+    const { asFragment } = render(<ProfessionalDevelopmentSection {...props} administersSchoolWithPremium={false} />);
     expect(asFragment()).toMatchSnapshot();
   });
 

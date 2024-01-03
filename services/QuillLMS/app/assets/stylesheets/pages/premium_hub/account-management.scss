@@ -6,7 +6,7 @@
     margin-top: 32px;
     margin-bottom: 16px;
     h1 {
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 700;
       line-height: normal;
     }
@@ -22,7 +22,7 @@
 
   .create-and-link-accounts-modal {
     .quill-modal {
-      max-height: 100vh;
+      max-height: 90vh;
       overflow: scroll;
     }
     .modal-body {
@@ -71,7 +71,6 @@
   }
 
   .data-table-wrapper {
-    overflow: scroll;
     table.data-table.reporting-format {
       border-radius: 8px 8px 0px 0px;
       overflow: visible;
@@ -140,6 +139,12 @@
         margin: 0px;
         color: $quill-red;
       }
+    }
+  }
+
+  @media (max-width: 1260) {
+    .data-table-wrapper {
+      overflow: scroll;
     }
   }
 

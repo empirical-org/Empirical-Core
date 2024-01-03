@@ -64,6 +64,7 @@ const teachers = [
 const sharedProps = {
   passedModel: { teachers: [], schools: [school], admin_approval_requests: [], name: 'A Teacher', associated_school: school },
   adminId: 7,
+  adminInfo: { administers_school_with_premium: true, }
 }
 
 describe('Overview container', () => {
@@ -73,7 +74,7 @@ describe('Overview container', () => {
   })
 
   test('should render with a limited access type', () => {
-    const { asFragment } = render(<MemoryRouter><Overview {...sharedProps} accessType={LIMITED} /></MemoryRouter>);
+    const { asFragment } = render(<MemoryRouter><Overview {...sharedProps} accessType={LIMITED} adminInfo={{ administers_school_with_premium: false }} /></MemoryRouter>);
     expect(asFragment()).toMatchSnapshot();
   })
 

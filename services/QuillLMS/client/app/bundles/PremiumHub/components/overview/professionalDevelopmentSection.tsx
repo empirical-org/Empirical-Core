@@ -27,12 +27,12 @@ const scarletAndNattalieImg = <img alt="" className="photos" src={`${iconLinkBas
 const alexAndCharlieImg = <img alt="" className="photos" src={`${iconLinkBase}/alex-and-charlie.png`} />
 const blackBulb = <img alt="" src={`${iconLinkBase}/black-bulb.svg`} />
 
-const ProfessionalDevelopmentSection = ({ accessType, adminId, }) => {
+const ProfessionalDevelopmentSection = ({ adminId, administersSchoolWithPremium, }) => {
   const [professionalLearningManagerInformation, setProfessionalLearningManagerInformation] = React.useState(null)
   const [loadingProfessionalLearningManagerInformation, setLoadingProfessionalLearningManagerInformation] = React.useState(true)
 
   React.useEffect(() => {
-    if (accessType === RESTRICTED) { return }
+    if (!administersSchoolWithPremium) { return }
 
     getProfessionalLearningManagerInformation()
   }, [])
@@ -60,7 +60,7 @@ const ProfessionalDevelopmentSection = ({ accessType, adminId, }) => {
       </div>
     )
 
-    if (accessType === RESTRICTED) {
+    if (!administersSchoolWithPremium) {
       return (
         <div className="overview-section restricted-access">
           <div className="professional-learning-manager">
@@ -119,7 +119,6 @@ const ProfessionalDevelopmentSection = ({ accessType, adminId, }) => {
         <div className="professional-learning-manager">
           <div>
             <h3>Meet your Quill Implementation Team</h3>
-            <p className="section-subheader">{blackBulb}Premium Schools complete three times as many activities as free schools.</p>
             <p>We are your main point of contact for Quill questions, onboarding needs, and scheduling of virtual training opportunities. Please feel free to contact us to discuss how we can best support your school’s Quill journey this year.</p>
             <div className="buttons">
               <a className="quill-button contained primary medium focus-on-light" href="mailto:schools@quill.org" rel="noopener noreferrer" target="_blank">Email us</a>
