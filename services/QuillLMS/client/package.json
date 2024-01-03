@@ -139,6 +139,7 @@
     "typescript": "^4.4.3",
     "underscore": "^1.13.1",
     "underscore.string": "^3.3.5",
+    "url": "^0.11.3",
     "url-loader": "^4.1.0",
     "uuid": "^9.0.0",
     "warning": "^3.0.0",
