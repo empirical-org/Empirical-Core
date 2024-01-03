@@ -1,21 +1,32 @@
-<%# <% snapshot_section_names = %i[highlights users] %> %>
-<% snapshot_section_names = %i[users] %>
+<% snapshot_section_names = %i[classrooms] %>
+<% snapshot_item_types = %w[count ranking feedback] %>
 
-<% snapshot_section_names.each do |snapshot_section_name| %>
-  <% snapshot_section = snapshot_sections[snapshot_section_name] %>
-  <% size = snapshot_section[:size] %>
+<% snapshot_sections.each do |snapshot_section| %>
   <section class="snapshot-section-wrapper">
-    <h2>
-      <img alt="" src="<%= snapshot_section[:img_src] %>"/>
-      <span><%= snapshot_section[:title] %></span>
-    </h2>
-    <div class="snapshot-section <%= snapshot_section_name %>">
-      <div class="snapshot-section-content">
-        <% count_items = snapshot_section[:count_items] %>
-        <%= render 'pdfs/admin_usage_snapshot_report_pdf/count_items', count_items:, size: %>
+    <% section_icon_src = section_icon_src(snapshot_section[:className]) %>
 
-        <% ranking_items = snapshot_section[:ranking_items] %>
-        <%= render 'pdfs/admin_usage_snapshot_report_pdf/ranking_items', ranking_items: %>
+    <h2>
+      <% if section_icon_src %>
+        <img src="<%= section_icon_src %>"/>
+      <% end %>
+      <span><%= snapshot_section[:name] %></span>
+    </h2>
+
+    <div class="snapshot-section <%= snapshot_section[:className] %>">
+      <div class="snapshot-section-content">
+        <% snapshot_section[:itemGroupings].each do |item_grouping| %>
+          <% items = item_grouping[:items] %>
+
+          <% if items %>
+            <div class="<%= item_grouping[:className] %>">
+              <% items.each do |item| %>
+                <% next unless item[:type].in?(snapshot_item_types) %>
+
+                <%= render "pdfs/admin_usage_snapshot_report_pdf/snapshot_#{item[:type]}", item: %>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </section>

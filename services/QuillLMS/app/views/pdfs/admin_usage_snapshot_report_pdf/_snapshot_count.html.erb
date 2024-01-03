@@ -1,0 +1,59 @@
+<% change = item[:change] %>
+<% change_direction = item[:change_direction] %>
+<% count = item[:count] %>
+<% label = item[:label] %>
+<% singular_label = item[:singular_label] %>
+<% size = item[:size] %>
+
+<section class="snapshot-item snapshot-count <%= size %> <%= change_direction %>">
+  <div class="count-and-label">
+    <span class="count"><%= count || '-' %></span>
+    <span class="snapshot-label"><%= count == 1 ? singular_label : label %></span>
+  </div>
+  <div class="change">
+    <% change_icon_src = change_icon_src(change) %>
+
+    <% if change_icon_src %>
+      <img class="<%= size %>" src="<%= change_icon_src %>" />
+      <span><%= change&.abs %>%</span>
+    <% end %>
+  </div>
+</section>
+
+
+    <%# const roundedPrevious = Math.round(previous || 0)
+
+    const changeTotal = Math.round(((count - roundedPrevious) / (roundedPrevious || 1)) * 100)
+    setChange(Math.abs(changeTotal))
+    if (changeTotal) {
+      setChangeDirection(changeTotal > 0 ? POSITIVE : NEGATIVE)
+    } else {
+      setChangeDirection(NONE)
+    }
+  }, [count, previous]) %>
+
+<%#
+
+
+
+  let icon
+
+  if (changeDirection === POSITIVE) {
+    icon = size === SMALL ? smallArrowUpIcon : mediumArrowUpIcon
+  } else if (changeDirection === NEGATIVE) {
+    icon = size === SMALL ? smallArrowDownIcon : mediumArrowDownIcon
+  }
+
+  return (
+    <section className={className}>
+      <div className="count-and-label">
+        <span className="count">{count?.toLocaleString() || '—'}</span>
+        <span className="snapshot-label">{count === 1 && singularLabel ? singularLabel : label}</span>
+      </div>
+      <div className="change">
+        {icon}
+        <span>{change === 0 ? null : `${change}%`}</span>
+      </div>
+    </section>
+  )
+} %>
