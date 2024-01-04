@@ -140,4 +140,4 @@ brew install redis
 brew services restart redis
 
 echo 'start server'
-foreman start -f Procfile.static
+foreman start -f Procfile.dev
