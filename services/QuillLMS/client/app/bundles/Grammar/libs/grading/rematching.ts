@@ -1,6 +1,5 @@
 import * as _ from 'underscore';
 
-// const qml = require('quill-marking-logic')
 import { checkGrammarQuestion, ConceptResult } from 'quill-marking-logic';
 import { requestGet, requestPost, requestPut, } from '../../../../modules/request/index';
 import { hashToCollection } from '../../../Shared/index';

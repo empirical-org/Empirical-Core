@@ -10,9 +10,9 @@
     "target": "es5",
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
-
     "skipLibCheck": true,
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "resolveJsonModule": true
   },
   "exclude": [
     "**/*.spec.ts",
@@ -25,4 +25,3 @@
   ],
   "compileOnSave": false
 }
-

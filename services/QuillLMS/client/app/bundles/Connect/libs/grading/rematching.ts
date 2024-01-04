@@ -1,9 +1,7 @@
-declare function require(name:string);
 // import AWS from 'aws-sdk'
 import * as _ from 'underscore';
 import { hashToCollection, } from '../../../Shared/index';
 
-// const qml = require('quill-marking-logic')
 import { ConceptResult, checkDiagnosticQuestion, checkFillInTheBlankQuestion, checkSentenceCombining, checkSentenceFragment } from 'quill-marking-logic';
 import { requestGet, requestPost, requestPut, } from '../../../../modules/request/index';
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel';

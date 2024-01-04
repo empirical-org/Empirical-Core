@@ -1,12 +1,11 @@
 import * as React from 'react';
 import _ from 'underscore';
+import { diffWords, } from 'diff'
 
 import { formatString, formatStringAndAddSpacesAfterPeriods, } from './formatString';
 
 import NumberSuffix from '../../modules/numberSuffixBuilder.js';
 import ScoreColor from '../../modules/score_color.js';
-
-const Diff = require('diff');
 
 const reviseIcon = <img alt="" src={`${process.env.CDN_URL}/images/pages/activity_analysis/revise.svg`} />
 const checkmarkIcon = <img alt="" src={`${process.env.CDN_URL}/images/pages/activity_analysis/checkmark.svg`} />
@@ -130,7 +129,7 @@ const StudentReportBox = ({ questionData, boxNumber, showScore, showDiff, }) => 
   function scoreRow(answer, attemptNum, previousAnswer) {
     let answerString = answer
     if (previousAnswer && showDiff) {
-      const diff = Diff.diffWords(previousAnswer, answer)
+      const diff = diffWords(previousAnswer, answer)
       answerString = diff.map((word) => {
         if (word.removed) { return '' }
         const key = `${attemptNum}-${word.value}`;

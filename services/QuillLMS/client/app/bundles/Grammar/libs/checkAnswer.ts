@@ -1,4 +1,3 @@
-declare function require(name: string);
 import { checkGrammarQuestion } from 'quill-marking-logic';
 import { hashToCollection } from '../../Shared/index';
 
