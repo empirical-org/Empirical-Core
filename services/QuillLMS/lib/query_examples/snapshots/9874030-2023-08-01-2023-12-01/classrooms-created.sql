@@ -1,4 +1,4 @@
-      /* Data Processed By Query: 0.07 GB */
+      /* Data Processed By Query: 0.05 GB */
 
         SELECT COUNT(DISTINCT classrooms.id) AS count
                 FROM lms.schools

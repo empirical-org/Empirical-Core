@@ -1,27 +1,13 @@
-      /* Data Processed By Query: 0.74 GB */
+      /* Data Processed By Query: 2.17 GB */
 
-        SELECT SUM(activities.question_count) AS count
-                FROM lms.schools
-        JOIN lms.schools_users
-          ON schools.id = schools_users.school_id
-        LEFT OUTER JOIN lms.classrooms_teachers
-          ON schools_users.user_id = classrooms_teachers.user_id
-        LEFT OUTER JOIN lms.classrooms
-          ON classrooms_teachers.classroom_id = classrooms.id
-        JOIN lms.classroom_units
-          ON classrooms.id = classroom_units.classroom_id
-        JOIN lms.activity_sessions
-          ON classroom_units.id = activity_sessions.classroom_unit_id
-        JOIN lms.activities
-          ON activity_sessions.activity_id = activities.id
-
+        SELECT SUM(recent_reporting_sessions.question_count) AS count
+        FROM lms.recent_reporting_sessions
                 WHERE
-          activity_sessions.completed_at BETWEEN '2023-08-01 00:00:00' AND '2023-12-01 00:00:00'
-          AND schools.id IN (129107,157509)
+          recent_reporting_sessions.completed_date BETWEEN '2023-08-01 00:00:00' AND '2023-12-01 00:00:00'
+          AND recent_reporting_sessions.school_id IN (129107,157509)
           
           
           
-          AND classrooms_teachers.role = 'owner'
 
         
         

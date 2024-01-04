@@ -1,4 +1,4 @@
-      /* Data Processed By Query: 2.39 GB */
+      /* Data Processed By Query: 11.14 GB */
 
                 SELECT
           activity_sessions.id AS activity_session_id,
