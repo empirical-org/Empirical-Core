@@ -114,8 +114,8 @@ describe ClassroomUnit, type: :model, redis: true do
   end
 
   describe '#hide_all_activity_sessions' do
-    it { expect { classroom_unit.update(visible: false) }.to change { activity_session.reload.visible }.from(true).to(false) }
-    it { expect { classroom_unit.update(visible: false) }.to change { activity_session.reload.updated_at } }
+    it { expect { classroom_unit.send(:hide_all_activity_sessions) }.to change { activity_session.reload.visible }.from(true).to(false) }
+    it { expect { classroom_unit.send(:hide_all_activity_sessions) }.to change { activity_session.reload.updated_at } }
   end
 
   describe '#check_for_assign_on_join_and_update_students_array_if_true callback' do
