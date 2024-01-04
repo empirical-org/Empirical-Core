@@ -137,7 +137,7 @@ exports[`ProfessionalDevelopmentSection it should render a restricted state when
             </a>
             <a
               class="quill-button contained primary medium focus-on-light"
-              href="https://www.quill.org/premium/request-district-quote"
+              href="https://www.quill.org/premium/request-school-quote"
               rel="noopener noreferrer"
               target="_blank"
             >

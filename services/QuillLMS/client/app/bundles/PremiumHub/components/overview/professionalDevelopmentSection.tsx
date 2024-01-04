@@ -70,7 +70,7 @@ const ProfessionalDevelopmentSection = ({ adminId, administersSchoolWithPremium,
               <p>With personalized learning, interactive activities, and immediate feedback, Quill Premium helps teachers foster literacy skills and critical thinking. If you’re interested in Quill Premium for your teachers, our sales team would love to connect with you.</p>
               <div className="buttons">
                 <a className="quill-button contained primary medium focus-on-light" href="https://calendly.com/alex-quill" rel="noopener noreferrer" target="_blank">Schedule a call</a>
-                <a className="quill-button contained primary medium focus-on-light" href="https://www.quill.org/premium/request-district-quote" rel="noopener noreferrer" target="_blank">Request a quote</a>
+                <a className="quill-button contained primary medium focus-on-light" href="https://www.quill.org/premium/request-school-quote" rel="noopener noreferrer" target="_blank">Request a quote</a>
               </div>
             </div>
             {alexAndCharlieImg}
