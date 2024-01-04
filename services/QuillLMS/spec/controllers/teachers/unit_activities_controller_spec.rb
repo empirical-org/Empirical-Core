@@ -16,20 +16,25 @@ describe Teachers::UnitActivitiesController, type: :controller do
   it { should use_before_action :teacher! }
 
   describe '#hide' do
-    let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit) }
-    let!(:activity_session1) { create(:activity_session, classroom_unit: classroom_unit) }
+    subject { put :hide, params: { id: unit_activity.id } }
+
+    let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: unit_activity.activity) }
+    let!(:activity_session1) { create(:activity_session, classroom_unit: classroom_unit, activity: unit_activity.activity) }
 
     it 'should hide the unit and kick off ResetLessonCacheWorker' do
       expect(ResetLessonCacheWorker).to receive_message_chain(:new, :perform).with(no_args).with(teacher.id)
-      put :hide, params: { id: unit_activity.id }
+      subject
       expect(unit_activity.reload.visible).to eq false
     end
 
     it 'should touch the parent unit in order to bubble up cache clearing' do
       allow(UnitActivity).to receive(:find).with(unit_activity.id.to_s).and_return(unit_activity)
       expect_any_instance_of(Unit).to receive(:touch)
-      put :hide, params: { id: unit_activity.id }
+      subject
     end
+
+    it { expect { subject }.to change { unit_activity.reload.updated_at } }
+    it { expect { subject }.to change { activity_session.reload.updated_at } }
   end
 
   describe '#update' do

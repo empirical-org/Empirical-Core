@@ -102,7 +102,7 @@ module Student
 
           ActivitySession
             .where(classroom_unit_id: cu.id, user_id: user_id)
-            .update_all(classroom_unit_id: sibling_cu.id)
+            .update_all(classroom_unit_id: sibling_cu.id, updated_at: DateTime.current)
 
           hide_extra_activity_sessions(cu.id)
           cu.save_user_pack_sequence_items
@@ -122,7 +122,7 @@ module Student
           activity_ids = (activity_sessions.pluck(:activity_id) - unit.unit_activities.pluck(:activity_id)).uniq
           activity_ids.each { |activity_id| UnitActivity.find_or_create_by(unit_id: unit.id, activity_id: activity_id) }
 
-          activity_sessions.update_all(classroom_unit_id: new_cu.id)
+          activity_sessions.update_all(classroom_unit_id: new_cu.id, updated_at: DateTime.current)
 
           hide_extra_activity_sessions(cu.id)
           cu.save_user_pack_sequence_items
@@ -137,9 +137,9 @@ module Student
     .where("users.id = ?", id)
     .where("classroom_units.id = ?", classroom_unit_id)
     .where("activity_sessions.visible = true")
-    .order("activity_sessions.is_final_score DESC, activity_sessions.percentage ASC, activity_sessions.started_at")
+    .order("activity_sessions.is_final_score DESC, activity_sessions.percentage DESC, activity_sessions.started_at")
     .offset(1)
-    .update_all(visible: false)
+    .update_all(visible: false, updated_at: DateTime.current)
   end
 
   def merge_student_account(secondary_account, teacher_id=nil)

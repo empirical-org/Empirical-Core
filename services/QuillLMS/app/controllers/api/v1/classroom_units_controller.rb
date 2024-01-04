@@ -42,7 +42,7 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
       data
     )
 
-    states.update_all(locked: true, pinned: false, completed: true)
+    states.update_all(locked: true, pinned: false, completed: true, updated_at: DateTime.current)
 
     concept_results = concept_result_params[:concept_results].map(&:to_h)
 

@@ -93,6 +93,15 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
   context '#finish_lesson' do
     let(:follow_up_activity) { create(:activity) }
     let(:activity) { create(:activity, follow_up_activity: follow_up_activity) }
+    let(:unit_activity) { UnitActivity.find_by(unit: classroom_unit.unit, activity: activity) }
+    let!(:classroom_unit_activity_state) do
+      create(:classroom_unit_activity_state,
+        classroom_unit: classroom_unit,
+        unit_activity: unit_activity,
+        pinned: true,
+        locked: false
+      )
+    end
 
     it 'does not authenticate a teacher who does not own the classroom activity' do
       session[:user_id] = other_teacher.id
@@ -122,6 +131,21 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
         as: :json
 
       expect(response.status).not_to eq(303)
+    end
+
+    it 'authenticates a teacher who does own the classroom activity' do
+      session[:user_id] = teacher.id
+
+      expect do
+        put :finish_lesson,
+          params: {
+            activity_id: activity.uid,
+            classroom_unit_id: classroom_unit.id,
+            concept_results: [],
+            follow_up: true
+          },
+          as: :json
+      end.to change { classroom_unit_activity_state.reload.updated_at }
     end
 
     it 'sends the appropriate methods to ActivitySession' do

@@ -14,9 +14,9 @@ class Teachers::UnitActivitiesController < ApplicationController
   end
 
   def hide
-    @unit_activities.update_all(visible: false)
+    @unit_activities.update_all(visible: false, updated_at: DateTime.current)
     @unit_activity&.unit&.hide_if_no_visible_unit_activities
-    @activity_sessions.update_all(visible: false)
+    @activity_sessions.update_all(visible: false, updated_at: DateTime.current)
     @unit_activities.each(&:save_user_pack_sequence_items)
     # touch the parent unit in order to clear our caches
     @unit_activity&.unit&.touch

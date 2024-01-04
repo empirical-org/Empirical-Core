@@ -2,26 +2,15 @@
 
 module Snapshots
   class SentencesWrittenQuery < ActivitySessionCountQuery
-    def query
-      <<-SQL
-        SELECT COUNT(*) AS count
-          FROM (#{super})
-      SQL
-    end
-
     def select_clause
-      "SELECT COUNT(*)"
+      "SELECT SUM(activities.question_count) AS count"
     end
 
     def from_and_join_clauses
       super + <<-SQL
-        JOIN special.concept_results
-          ON activity_sessions.id = concept_results.activity_session_id
+        JOIN lms.activities
+          ON activity_sessions.activity_id = activities.id
       SQL
-    end
-
-    def group_by_clause
-      "GROUP BY activity_sessions.id, concept_results.question_number"
     end
   end
 end

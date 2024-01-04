@@ -22,22 +22,15 @@ export const STUDENT = 'student'
 export const DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH = '182px'
 export const groupByDropdownOptions = [{ label: 'Grade', value: 'grade' }, { label: 'Teacher', value: 'teacher' }, { label: 'Classroom', value: 'classroom' }]
 export const diagnosticTypeDropdownOptions = [
-  { label: 'Starter Baseline Diagnostic (Pre)', value: 'Starter Baseline Diagnostic (Pre)' },
-  { label: 'Starter Growth Diagnostic (Post)', value: 'Starter Growth Diagnostic (Post)' },
-  { label: 'Intermediate Baseline Diagnostic (Pre)', value: 'Intermediate Baseline Diagnostic (Pre)' },
-  { label: 'Intermediate Growth Diagnostic (Post)', value: 'Intermediate Growth Diagnostic (Post)' },
-  { label: 'Advanced Baseline Diagnostic (Pre)', value: 'Advanced Baseline Diagnostic (Pre)' },
-  { label: 'Advanced Growth Diagnostic (Post)', value: 'Advanced Growth Diagnostic (Post)' },
-  { label: 'ELL Starter Baseline Diagnostic (Pre)', value: 'ELL Starter Baseline Diagnostic (Pre)' },
-  { label: 'ELL Starter Growth Diagnostic (Post)', value: 'ELL Starter Growth Diagnostic (Post)' },
-  { label: 'ELL Intermediate Baseline Diagnostic (Pre)', value: 'ELL Intermediate Baseline Diagnostic (Pre)' },
-  { label: 'ELL Intermediate Growth Diagnostic (Post)', value: 'ELL Intermediate Growth Diagnostic (Post)' },
-  { label: 'ELL Advanced Baseline Diagnostic (Pre)', value: 'ELL Advanced Baseline Diagnostic (Pre)' },
-  { label: 'ELL Advanced Growth Diagnostic (Post)', value: 'ELL Advanced Growth Diagnostic (Post)' },
-  { label: 'AP Writing Skills Survey', value: 'AP Writing Skills Survey' },
-  { label: 'Pre-AP Writing Skills Survey 1', value: 'Pre-AP Writing Skills Survey 1' },
-  { label: 'Pre-AP Writing Skills Survey 2', value: 'Pre-AP Writing Skills Survey 2' },
-  { label: 'SpringBoard Writing Skills Survey', value: 'SpringBoard Writing Skills Survey' }
+  { label: 'Starter Diagnostic', value: 1663 },
+  { label: 'Intermediate Diagnostic', value: 1668 },
+  { label: 'Advanced Diagnostic', value: 1678 },
+  { label: 'ELL Starter Diagnostic', value: 1161 },
+  { label: 'ELL Intermediate Diagnostic', value: 1568 },
+  { label: 'ELL Advanced Diagnostic', value: 1590 },
+  { label: 'AP Writing Skills Survey', value: 992 },
+  { label: 'Pre-AP Writing Skills Survey', value: 1229 },
+  { label: 'SpringBoard Writing Skills Survey', value: 1432 }
 ]
 
 export const premiumLockImage = <img alt="Gray lock" src={`${process.env.CDN_URL}/images/pages/administrator/premium_lock.svg`} />
