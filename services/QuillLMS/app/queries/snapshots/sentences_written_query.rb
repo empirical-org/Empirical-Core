@@ -1,16 +1,9 @@
 # frozen_string_literal: true
 
 module Snapshots
-  class SentencesWrittenQuery < ActivitySessionCountQuery
+  class SentencesWrittenQuery < ReportingSessionCountQuery
     def select_clause
-      "SELECT SUM(activities.question_count) AS count"
-    end
-
-    def from_and_join_clauses
-      super + <<-SQL
-        JOIN lms.activities
-          ON activity_sessions.activity_id = activities.id
-      SQL
+      "SELECT SUM(recent_reporting_sessions.question_count) AS count"
     end
   end
 end

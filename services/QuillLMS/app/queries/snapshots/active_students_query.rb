@@ -1,13 +1,9 @@
 # frozen_string_literal: true
 
 module Snapshots
-  class ActiveStudentsQuery < ActivitySessionCountQuery
+  class ActiveStudentsQuery < ReportingSessionCountQuery
     def select_clause
-      "SELECT COUNT(DISTINCT activity_sessions.user_id) AS count"
-    end
-
-    def relevant_date_column
-      "activity_sessions.completed_at"
+      "SELECT COUNT(DISTINCT recent_reporting_sessions.student_id) AS count"
     end
   end
 end
