@@ -28,31 +28,31 @@ const teacherColumns = [
     name: 'Name',
     attribute: 'name',
     isSortable: true,
-    width: '370px'
+    width: '394px'
   },
   {
     name: 'Role',
     attribute: 'role',
     isSortable: true,
-    width: '276px'
+    width: '180px'
   },
   {
     name: 'Students',
     attribute: 'number_of_students',
     isSortable: true,
-    width: '156px',
+    width: '180px',
   },
   {
     name: 'Activities Completed',
     attribute: 'number_of_activities_completed',
     isSortable: true,
-    width: '156px',
+    width: '180px',
   },
   {
     name: 'Time Spent',
     attribute: 'time_spent',
     isSortable: true,
-    width: '156px',
+    width: '180px',
   },
   {
     name: 'Actions',
@@ -354,7 +354,7 @@ export const AccountManagement: React.SFC<AccountManagementProps> = ({
   }
 
   return (
-    <div className="white-background-accommodate-footer account-management">
+    <div className="white-background account-management">
       <div className="container">
         <Snackbar text={snackbarText} visible={showSnackbar} />
         {showModal === modalNames.makeAdminModal && (

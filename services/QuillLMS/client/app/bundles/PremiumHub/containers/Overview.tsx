@@ -138,7 +138,7 @@ const Overview = ({ adminId, accessType, passedModel, adminInfo, }) => {
   }
 
   return (
-    <div className="white-background-accommodate-footer premium-hub-overview">
+    <div className="white-background premium-hub-overview">
       <div className="container">
         <Snackbar text={snackbarText} visible={showSnackbar} />
         <h1>Hello, {model.name.split(' ')[0]}!</h1>

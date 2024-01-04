@@ -3,7 +3,7 @@
 exports[`AccountManagement container should render with a full access type 1`] = `
 <DocumentFragment>
   <div
-    class="white-background-accommodate-footer account-management"
+    class="white-background account-management"
   >
     <div
       class="container"
@@ -116,7 +116,7 @@ exports[`AccountManagement container should render with a full access type 1`] =
               <th
                 class="data-table-header undefined sortable"
                 scope="col"
-                style="width: 370px; min-width: 370px; text-align: right;"
+                style="width: 394px; min-width: 394px; text-align: right;"
               >
                 <button
                   class="interactive-wrapper focus-on-light"
@@ -133,7 +133,7 @@ exports[`AccountManagement container should render with a full access type 1`] =
               <th
                 class="data-table-header undefined sortable"
                 scope="col"
-                style="width: 276px; min-width: 276px; text-align: right;"
+                style="width: 180px; min-width: 180px; text-align: right;"
               >
                 <button
                   class="interactive-wrapper focus-on-light"
@@ -156,7 +156,7 @@ exports[`AccountManagement container should render with a full access type 1`] =
               <th
                 class="data-table-header undefined sortable"
                 scope="col"
-                style="width: 156px; min-width: 156px; text-align: right;"
+                style="width: 180px; min-width: 180px; text-align: right;"
               >
                 <button
                   class="interactive-wrapper focus-on-light"
@@ -173,7 +173,7 @@ exports[`AccountManagement container should render with a full access type 1`] =
               <th
                 class="data-table-header undefined sortable"
                 scope="col"
-                style="width: 156px; min-width: 156px; text-align: right;"
+                style="width: 180px; min-width: 180px; text-align: right;"
               >
                 <button
                   class="interactive-wrapper focus-on-light"
@@ -190,7 +190,7 @@ exports[`AccountManagement container should render with a full access type 1`] =
               <th
                 class="data-table-header undefined sortable"
                 scope="col"
-                style="width: 156px; min-width: 156px; text-align: right;"
+                style="width: 180px; min-width: 180px; text-align: right;"
               >
                 <button
                   class="interactive-wrapper focus-on-light"
@@ -238,7 +238,7 @@ exports[`AccountManagement container should render with a full access type 1`] =
 exports[`AccountManagement container should render with a limited access type 1`] = `
 <DocumentFragment>
   <div
-    class="white-background-accommodate-footer account-management"
+    class="white-background account-management"
   >
     <div
       class="container"
@@ -351,7 +351,7 @@ exports[`AccountManagement container should render with a limited access type 1`
               <th
                 class="data-table-header undefined sortable"
                 scope="col"
-                style="width: 370px; min-width: 370px; text-align: right;"
+                style="width: 394px; min-width: 394px; text-align: right;"
               >
                 <button
                   class="interactive-wrapper focus-on-light"
@@ -368,7 +368,7 @@ exports[`AccountManagement container should render with a limited access type 1`
               <th
                 class="data-table-header undefined sortable"
                 scope="col"
-                style="width: 276px; min-width: 276px; text-align: right;"
+                style="width: 180px; min-width: 180px; text-align: right;"
               >
                 <button
                   class="interactive-wrapper focus-on-light"
@@ -391,7 +391,7 @@ exports[`AccountManagement container should render with a limited access type 1`
               <th
                 class="data-table-header undefined sortable"
                 scope="col"
-                style="width: 156px; min-width: 156px; text-align: right;"
+                style="width: 180px; min-width: 180px; text-align: right;"
               >
                 <button
                   class="interactive-wrapper focus-on-light"
@@ -408,7 +408,7 @@ exports[`AccountManagement container should render with a limited access type 1`
               <th
                 class="data-table-header undefined sortable"
                 scope="col"
-                style="width: 156px; min-width: 156px; text-align: right;"
+                style="width: 180px; min-width: 180px; text-align: right;"
               >
                 <button
                   class="interactive-wrapper focus-on-light"
@@ -425,7 +425,7 @@ exports[`AccountManagement container should render with a limited access type 1`
               <th
                 class="data-table-header undefined sortable"
                 scope="col"
-                style="width: 156px; min-width: 156px; text-align: right;"
+                style="width: 180px; min-width: 180px; text-align: right;"
               >
                 <button
                   class="interactive-wrapper focus-on-light"
@@ -473,7 +473,7 @@ exports[`AccountManagement container should render with a limited access type 1`
 exports[`AccountManagement container should render with a restricted access type 1`] = `
 <DocumentFragment>
   <div
-    class="white-background-accommodate-footer account-management"
+    class="white-background account-management"
   >
     <div
       class="container"
