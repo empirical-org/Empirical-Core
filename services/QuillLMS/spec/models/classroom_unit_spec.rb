@@ -114,6 +114,11 @@ describe ClassroomUnit, type: :model, redis: true do
   end
 
   describe '#hide_all_activity_sessions' do
+    before do
+      # try making sure that the gap between initialization and update is treated wide enough to register a difference in updated_at
+      allow(DateTime).to receive(:current).and_return(Time.now + 1.minute)
+    end
+
     it { expect { classroom_unit.send(:hide_all_activity_sessions) }.to change { activity_session.reload.visible }.from(true).to(false) }
     it { expect { classroom_unit.send(:hide_all_activity_sessions) }.to change { activity_session.reload.updated_at } }
   end
