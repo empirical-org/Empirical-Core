@@ -6,7 +6,7 @@ import { USAGE_HIGHLIGHTS, SECTION_NAME_TO_ICON_URL, } from './shared'
 import SnapshotCount from '../usage_snapshots/snapshotCount'
 import { sentencesWrittenSnapshotInfo, studentLearningHoursSnapshotInfo, } from '../usage_snapshots/shared'
 
-const HighlightsSection = ({ pusherChannel, model, }) => {
+const HighlightsSection = ({ pusherChannel, schools, }) => {
   function renderHighlights() {
     const snapshotItems = [sentencesWrittenSnapshotInfo, studentLearningHoursSnapshotInfo].map(item => {
       const { label, size, queryKey, singularLabel, } = item
@@ -17,7 +17,7 @@ const HighlightsSection = ({ pusherChannel, model, }) => {
         pusherChannel,
         singularLabel,
         size,
-        selectedSchoolIds: model.schools.map(s => s.id),
+        selectedSchoolIds: schools.map(s => s.id),
         labelSubText: <span className="label-sub-text">This school year</span>
       }
 

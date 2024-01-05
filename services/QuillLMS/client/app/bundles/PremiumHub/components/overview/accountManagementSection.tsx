@@ -3,6 +3,8 @@ import { Link, } from 'react-router-dom';
 
 import { iconLinkBase, ACCOUNT_MANAGEMENT, SECTION_NAME_TO_ICON_URL, } from './shared'
 
+import { DarkButtonLoadingSpinner, } from '../../../Shared'
+
 export const LOG_IN_AS_A_TEACHER = "Log in as a Teacher"
 
 export const accountManagementTiles = [
@@ -27,7 +29,13 @@ export const accountManagementTiles = [
   }
 ]
 
-const AccountManagementSection = ({ handleClickLogInAsATeacher, }) => {
+const AccountManagementSection = ({ handleClickLogInAsATeacher, loading, }) => {
+  let logInAsTeacherButton = <button className="quill-button focus-on-light outlined secondary medium" onClick={handleClickLogInAsATeacher} type="button">Log in as a teacher</button>
+
+  if (loading) {
+    logInAsTeacherButton = <button className="quill-button focus-on-light outlined secondary medium disabled" disabled={true} type="button">Log in as a teacher <DarkButtonLoadingSpinner /></button>
+  }
+
   const tiles = accountManagementTiles.map(tile => {
     return (
       <div className="tile" key={tile.name}>
@@ -36,7 +44,7 @@ const AccountManagementSection = ({ handleClickLogInAsATeacher, }) => {
           <p>{tile.description}</p>
         </div>
         <div className="link-and-image">
-          {tile.name === LOG_IN_AS_A_TEACHER ? <button className="quill-button focus-on-light outlined secondary medium" onClick={handleClickLogInAsATeacher} type="button">Log in as a teacher</button> : <Link className="quill-button focus-on-light outlined secondary medium" to={tile.link}>{tile.linkText}</Link>}
+          {tile.name === LOG_IN_AS_A_TEACHER ? logInAsTeacherButton : <Link className="quill-button focus-on-light outlined secondary medium" to={tile.link}>{tile.linkText}</Link>}
           <img alt="" src={tile.icon} />
         </div>
       </div>

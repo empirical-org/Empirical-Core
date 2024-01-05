@@ -80,15 +80,15 @@ const Overview = ({ adminId, accessType, passedModel, adminInfo, }) => {
   function closeLogInAsATeacherModal() { setShowLoginAsTeacherModal(false) }
 
   function renderSubheader() {
-    if (model.schools.length === 0) {
+    if (adminInfo.schools.length === 0) {
       return (
         <p className="subheader">Thanks for being an admin. We’re excited to have you on board!</p>
       )
     }
 
-    const sortedSchools = model.schools.sort((a, b) => a.name.localeCompare(b.name));
+    const sortedSchools = adminInfo.schools.sort((a, b) => a.name.localeCompare(b.name));
 
-    const associatedSchoolIndex = sortedSchools.findIndex(school => school.id === model.associated_school?.id);
+    const associatedSchoolIndex = sortedSchools.findIndex(school => school.id === adminInfo.associated_school?.id);
 
     if (associatedSchoolIndex > 0) {
       const [associatedSchool] = sortedSchools.splice(associatedSchoolIndex, 1);
@@ -121,8 +121,8 @@ const Overview = ({ adminId, accessType, passedModel, adminInfo, }) => {
   function renderLogInAsATeacherModal() {
     if (!showLoginAsTeacherModal) { return }
 
-    const schoolOptions = model.schools.map(school => ({ value: school.id, label: school.name, id: school.id }))
-    const teacherOptions = model.teachers.map(teacher => ({ value: teacher.id, label: teacher.name, schoolId: teacher.schools[0].id, id: teacher.id }))
+    const schoolOptions = model.schools.map(school => ({ value: school.id, label: school.name, id: school.id })) || []
+    const teacherOptions = model.teachers.map(teacher => ({ value: teacher.id, label: teacher.name, schoolId: teacher.schools[0].id, id: teacher.id })) || []
 
     return (
       <LogInAsATeacherModal
@@ -133,20 +133,22 @@ const Overview = ({ adminId, accessType, passedModel, adminInfo, }) => {
     )
   }
 
-  if (loading) {
-    return <Spinner />;
+  if (!adminInfo || !Object.keys(adminInfo).length) {
+    return (
+      <Spinner />
+    )
   }
 
   return (
     <div className="white-background premium-hub-overview">
       <div className="container">
         <Snackbar text={snackbarText} visible={showSnackbar} />
-        <h1>Hello, {model.name.split(' ')[0]}!</h1>
+        <h1>Hello{adminInfo.name ? `, ${adminInfo.name.split(' ')[0]}` : ''}!</h1>
         {renderLogInAsATeacherModal()}
         {renderSubheader()}
         <HighlightsSection
-          model={model}
           pusherChannel={pusherChannel}
+          schools={adminInfo?.schools}
         />
         <ProfessionalDevelopmentSection
           adminId={adminId}
@@ -154,6 +156,7 @@ const Overview = ({ adminId, accessType, passedModel, adminInfo, }) => {
         />
         <AccountManagementSection
           handleClickLogInAsATeacher={handleClickLogInAsATeacher}
+          loading={loading}
         />
         <PremiumReportsSection />
         <IntegrationsSection />

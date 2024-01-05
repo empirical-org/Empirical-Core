@@ -196,6 +196,9 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
+      .button-loading-spinner-container {
+        margin-left: 8px;
+      }
     }
   }
 
