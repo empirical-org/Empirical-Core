@@ -6,9 +6,7 @@ import HighlightsSection from '../highlightsSection'
 
 const props = {
   pusherChannel: null,
-  model: {
-    schools: []
-  }
+  schools: []
 }
 
 describe('HighlightsSection', () => {
