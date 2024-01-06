@@ -195,10 +195,10 @@ const SessionsIndex = ({ match }) => {
         <p className="link-info-blurb">Use <a href={metabaseLink}><strong>this Metabase</strong></a> query to display feedback sessions on a single page.</p>
         <p className="link-info-blurb">If you want to look up an individual activity session, plug the activity session ID into this url and it will load: https://www.quill.org/cms/evidence#/activities/<strong>activityID</strong>/<strong>sessionID</strong></p>
         <section className="top-section">
-          <section className="total-container">
+          <div className="total-container">
             <p className="total-label">Total</p>
             <p className="total-value">{total_activity_sessions}</p>
-          </section>
+          </div>
           <DropdownInput
             className="page-number-dropdown"
             handleChange={handlePageChange}
@@ -218,18 +218,18 @@ const SessionsIndex = ({ match }) => {
               options={activitySessionFilterOptions}
               value={filterOption}
             />
-            <section className="responses-for-scoring-container">
-              <section className="label-section">
+            <div className="responses-for-scoring-container">
+              <div className="label-section">
                 <label>Responses for Scoring</label>
                 <Tooltip
                   tooltipText="6+ responses per session OR sessions with 2+ responses for each conjunction"
                   tooltipTriggerText={<img alt={informationIcon.alt} src={informationIcon.src} />}
                 />
-              </section>
+              </div>
               <input checked={responsesForScoring} onChange={handleResponsesForScoringChange} type="checkbox" />
-            </section>
+            </div>
           </section>
-          <section className="bottom-section">
+          <div className="bottom-section">
             <FilterWidget
               endDate={endDate}
               handleFilterClick={handleFilterClick}
@@ -241,7 +241,7 @@ const SessionsIndex = ({ match }) => {
               versionOptions={versionOptions}
             />
             {renderCSVDownloadButton(handleLoadCSVDataClick)}
-          </section>
+          </div>
         </section>
         <ReactTable
           className="activity-sessions-table"
