@@ -29,4 +29,13 @@ class AdminReportFilterSelection < ApplicationRecord
   validates :filter_selections, presence: true
   validates :report, inclusion: { in: REPORTS }
   validates :user_id, presence: true
+
+  def classroom_ids = filter_selections['classrooms']&.pluck('value')
+  def custom_end = filter_selections['custom_end_date'].to_s
+  def custom_start = filter_selections['custom_start_date'].to_s
+  def grades = filter_selections['grades']&.pluck('value')
+  def teacher_ids = filter_selections['teachers']&.pluck('value')
+  def school_ids = filter_selections['schools']&.pluck('value')
+  def timeframe = Snapshots::Timeframes.find_timeframe(timeframe_value)
+  def timeframe_value = filter_selections.dig('timeframe', 'value')
 end
