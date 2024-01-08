@@ -1,5 +1,3 @@
-declare function require(name:string);
-
 import * as React from 'react';
 import { EditorState, ContentState, convertToRaw } from 'draft-js'
 import Editor from '@draft-js-plugins/editor'

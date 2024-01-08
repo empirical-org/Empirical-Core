@@ -1,4 +1,3 @@
-declare function require(name:string);
 import { checkDiagnosticQuestion } from 'quill-marking-logic';
 import * as _ from 'underscore';
 import { hashToCollection } from '../../../Shared/index';

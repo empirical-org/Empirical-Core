@@ -1,4 +1,3 @@
-declare function require(name:string);
 import _ from 'lodash';
 import { v4 as uuid } from 'uuid';
 import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates';
