@@ -20,7 +20,7 @@ const ConceptReports = ({
 }) => (
   <div className="admin-report-container">
     <ReportHeader
-      title="School Concept Reports"
+      headerText="School Concept Reports"
       tooltipText="Each question on Quill targets a specific writing concept. This report shows the number of times the student correctly or incorrectly used the targeted concept to answer the question. You can print this report by downloading a PDF file or export this data by downloading a CSV file. <br/><br/> These reports are updated nightly."
       csvData={csvData}
     />

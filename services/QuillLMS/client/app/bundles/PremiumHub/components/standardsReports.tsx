@@ -15,8 +15,8 @@ export const StandardsReports = ({
     <div className={`admin-report-container standards-reports-by-classroom ${freemiumClass}`}>
       <ReportHeader
         className="admin-standards-report"
+        headerText={header}
         isFreemiumView={isFreemiumView}
-        title={header}
         tooltipText={tooltipText}
         csvData={csvData}
       />

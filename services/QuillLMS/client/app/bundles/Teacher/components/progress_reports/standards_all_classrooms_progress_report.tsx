@@ -255,10 +255,10 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
     return (
       <div className='teacher-report-container standards-all-classrooms progress-reports-2018'>
         <ReportHeader
-          title="Standards Report"
-          tooltipText="Each activity on Quill is aligned to a Common Core standard. This report shows your students' overall progress on each of the standards. You can filter by student on this page to see one student’s progress on all of the standards. You can click on an individual standard to see all of the student results for that standard."
           csvData={this.formatDataForCSV()}
+          headerText="Standards Report"
           key={`data is updating: ${updatingData}`}
+          tooltipText="Each activity on Quill is aligned to a Common Core standard. This report shows your students' overall progress on each of the standards. You can filter by student on this page to see one student’s progress on all of the standards. You can click on an individual standard to see all of the student results for that standard."
         />
         <div className='dropdowns-container standards-all-classrooms-dropdown-container'>
           <ItemDropdown callback={this.switchClassrooms} className="bordered-dropdown dropdown-with-icon" isSearchable={true} items={classrooms} selectedItem={selectedClassroom} />

@@ -3,7 +3,7 @@ import React from 'react'
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 
 import { requestGet, } from '../../../../modules/request/index'
-import { ReactTable, } from '../../../Shared/index'
+import { ReactTable, ReportHeader, } from '../../../Shared/index'
 import userIsPremium from '../modules/user_is_premium'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 
@@ -73,27 +73,25 @@ export default class IndividualStudentConceptReport extends React.Component {
   }
 
   render() {
-    if (this.state.loading || !this.state.reportData) {
+    const { loading, reportData, studentName } = this.state
+
+    if (loading || !reportData) {
       return <LoadingSpinner />
     }
     return (
-      <div className='progress-reports-2018 concept-student-concepts' concept-student-concepts>
-        <div className="meta-overview flex-row space-between">
-          <div className='header-and-info flex-row vertically-centered'>
-            <h1><span>Concept Results:</span> {this.state.studentName}</h1>
-            <p>You can print this report by downloading a PDF file or export this data by downloading a CSV file.</p>
-          </div>
-          <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport data={this.state.reportData} studentName={this.state.studentName} />
-            <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
-          </div>
-        </div>
-        <div className='student-name'>{this.state.studentName}</div>
-        <div key={`concepts-concepts-progress-report-length-${this.state.reportData.length}`}>
+      <div className='teacher-report-container progress-reports-2018 concept-student-concepts'>
+        <ReportHeader
+          csvData={reportData}
+          headerText="Concept Results:"
+          subHeaderElement={<p>{studentName}</p>}
+          tooltipText="You can print this report by downloading a PDF file or export this data by downloading a CSV file."
+        />
+        <div className='student-name'>{studentName}</div>
+        <div key={`concepts-concepts-progress-report-length-${reportData.length}`}>
           <ReactTable
             className='progress-report has-green-arrow'
             columns={this.columns()}
-            data={this.state.reportData}
+            data={reportData}
             defaultSorted={[{
               id: 'total_result_count',
               desc: true

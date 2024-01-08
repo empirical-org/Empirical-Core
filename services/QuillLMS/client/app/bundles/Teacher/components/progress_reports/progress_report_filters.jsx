@@ -7,9 +7,9 @@ export default class ProgressReportFilters extends React.Component {
   activeFilter = (selected, options) => {
     if(!selected || !options) { return ''; }
     if(selected.value !== options[0].value) {
-      return 'actively-selected';
+      return 'actively-selected bordered-dropdown';
     } else {
-      return '';
+      return 'bordered-dropdown';
     }
   };
 

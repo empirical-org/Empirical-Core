@@ -6,16 +6,29 @@
     &.admin-standards-report {
       margin-bottom: 48px;
     }
+    .header-subheader-container {
+      display: flex;
+      align-items: center;
+      p {
+        max-width: 600px;
+      }
+    }
     .header-and-tooltip {
       display: flex;
       align-items: center;
       height: max-content;
+      max-width: 900px;
       h1 {
         font-size: 24px;
         font-style: normal;
         font-weight: 700;
         line-height: 32px;
         color: $quill-black;
+      }
+      h2 {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 32px;
       }
       .quill-tooltip-trigger {
         margin-left: 8px;
@@ -42,11 +55,9 @@
     }
     &.standards-all-classrooms-dropdown-container {
       justify-content: flex-start;
-      // .dropdown-container {
-      //   .dropdown__control:active {
-      //     border-color: $quill-white !important;
-      //   }
-      // }
+      .dropdown-container {
+        margin-bottom: 0px;
+      }
     }
   }
   .dropdown-container {

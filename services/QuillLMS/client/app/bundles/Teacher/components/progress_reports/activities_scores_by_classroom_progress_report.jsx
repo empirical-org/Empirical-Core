@@ -190,7 +190,7 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
       <div className='teacher-report-container activities-scores-by-classroom progress-reports-2018'>
         <ReportHeader
           csvData={this.formatDataForCSV(filteredClassroomsData)}
-          title="Activity Scores"
+          headerText="Activity Scores"
           tooltipText="View the overall average score for each student in an active classroom. Click on a student's name to see a report of each individual activity and print it as a PDF. You can print this report by downloading a PDF file or export this data by downloading a CSV file."
           key={`${selectedClassroom} report button`}
         />

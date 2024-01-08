@@ -1,12 +1,10 @@
 // The progress report showing all students in a given classroom
 // along with their result counts.
 import React from 'react'
-import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 
 import { requestGet, } from '../../../../modules/request/index'
 import { sortTableByLastName } from '../../../../modules/sortingMethods.js'
 import { ReactTable, } from '../../../Shared/index'
-import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import userIsPremium from '../modules/user_is_premium'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 
@@ -102,25 +100,20 @@ export default class extends React.Component {
   };
 
   render() {
-    if (this.state.loading || !this.state.reportData) {
+    const { loading, reportData, filteredReportData } = this.state
+    if (loading || !reportData) {
       return <LoadingSpinner />
     }
     const changeValues = [{key: 'percentage', function: ((num)=>num.toString() + '%')}]
     return (
-      <div className='progress-reports-2018'>
-        <div className="meta-overview flex-row space-between">
-          <div className='header-and-info'>
-            <h1>Concept Results</h1>
-            <p>Each time a student correctly demonstrates a concept or creates an error, Quill generates a concept result. This report provides an aggregate picture of student progress on each concept.</p>
-          </div>
-          <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport data={this.state.filteredReportData} keysToOmit={['concepts_href']} valuesToChange={changeValues} />
-            <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
-          </div>
-          <div className='dropdown-container'>
-            <ItemDropdown callback={this.switchClassrooms} items={this.state.dropdownClassrooms} selectedItem={this.state.selectedClassroom} />
-          </div>
-        </div>
+      <div className='teacher-report-container progress-reports-2018'>
+        <ReportHeader
+          csvData={filteredReportData}
+          headerText="Concept Results"
+          keysToOmit={['concepts_href']}
+          tooltipText="Each time a student correctly demonstrates a concept or creates an error, Quill generates a concept result. This report provides an aggregate picture of student progress on each concept."
+          valuesToChange={changeValues}
+        />
         <div key={`concept-progress-report-length-${this.state.filteredReportData.length}`}>
           <ReactTable
             className='progress-report has-green-arrow'

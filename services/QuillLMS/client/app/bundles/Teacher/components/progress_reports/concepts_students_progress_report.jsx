@@ -181,11 +181,11 @@ export default class ConceptsStudentsProgressReport extends React.Component {
     return (
       <div className='teacher-report-container concepts-overview progress-reports-2018'>
         <ReportHeader
-          title="Concept Results"
-          tooltipText="Each question on Quill targets a specific writing concept. This report shows the number of times the student correctly or incorrectly used the targeted concept to answer the question. You can see a student’s results on each concept by clicking on the student’s name. You can print this report by downloading a PDF file or export this data by downloading a CSV file."
           csvData={filteredReportData}
+          headerText="Concept Results"
           key={`reports are ready ${updatingReportData}`}
           keysToOmit={this.keysToOmit()}
+          tooltipText="Each question on Quill targets a specific writing concept. This report shows the number of times the student correctly or incorrectly used the targeted concept to answer the question. You can see a student’s results on each concept by clicking on the student’s name. You can print this report by downloading a PDF file or export this data by downloading a CSV file."
           valuesToChange={changeValues}
         />
         <div className='dropdown-container'>

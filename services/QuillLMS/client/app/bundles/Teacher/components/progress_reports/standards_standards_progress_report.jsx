@@ -6,7 +6,7 @@ import { NOT_SCORED_DISPLAY_TEXT } from './constants.js'
 
 import { requestGet, } from '../../../../modules/request/index'
 import { sortTableByStandardLevel } from '../../../../modules/sortingMethods.js'
-import { ReactTable, } from '../../../Shared/index'
+import { ReactTable, ReportHeader, } from '../../../Shared/index'
 import { getTimeSpent } from '../../helpers/studentReports'
 import userIsPremium from '../modules/user_is_premium'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
@@ -137,16 +137,12 @@ export default class StandardsProgressReport extends React.Component {
     }
     const filteredData = this.filteredData()
     return (
-      <div className='individual-student progress-reports-2018 '>
-        <div className="meta-overview flex-row space-between">
-          <div className='header-and-info'>
-            <h1><span>Standards Report:</span> {student.name}</h1>
-          </div>
-          <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport className="button-green" data={csvData} />
-            <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
-          </div>
-        </div>
+      <div className='teacher-report-container individual-student progress-reports-2018'>
+        <ReportHeader
+          headerText="Standards Report"
+          csvData={csvData}
+          subHeaderElement={<p>{student.name}</p>}
+        />
         <div key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
           <ReactTable
             className='progress-report has-green-arrow'
