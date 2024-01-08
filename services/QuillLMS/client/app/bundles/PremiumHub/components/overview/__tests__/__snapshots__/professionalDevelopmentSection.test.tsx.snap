@@ -1,0 +1,644 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProfessionalDevelopmentSection it should render a loading state when the user administers a premium school 1`] = `
+<DocumentFragment>
+  <section
+    class="overview-section-wrapper professional-development"
+  >
+    <h2>
+      <img
+        alt=""
+        src="undefined/images/pages/administrator/overview/students.svg"
+      />
+      <span>
+        Professional Development and Support
+      </span>
+    </h2>
+    <div
+      class="overview-section"
+    >
+      <div
+        class="professional-learning-manager"
+      >
+        <div
+          class="loading-spinner"
+        >
+          <div
+            class="spinner-container"
+          >
+            <img
+              alt="Loading spinner"
+              class="spinner"
+              src="https://assets.quill.org/images/icons/loader_still.svg"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="quick-links"
+      >
+        <h3>
+          Quick Links
+        </h3>
+        <a
+          href="https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-premium-hub"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Premium Hub User Guide
+        </a>
+        <a
+          href="https://docsend.com/view/9r6gzp5v8w5ky6w9"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Live Training Guide
+        </a>
+        <a
+          href="/quill_academy"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Quill Academy
+        </a>
+        <a
+          href="/teacher-center"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Teacher Center
+        </a>
+        <a
+          href="mailto:support@quill.org"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Contact Support
+        </a>
+        <a
+          href="https://quillorg.canny.io/admin-feedback"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Request a Feature
+        </a>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`ProfessionalDevelopmentSection it should render a restricted state when the user does not administer a premium school 1`] = `
+<DocumentFragment>
+  <section
+    class="overview-section-wrapper professional-development"
+  >
+    <h2>
+      <img
+        alt=""
+        src="undefined/images/pages/administrator/overview/students.svg"
+      />
+      <span>
+        Professional Development and Support
+      </span>
+    </h2>
+    <div
+      class="overview-section restricted-access"
+    >
+      <div
+        class="professional-learning-manager"
+      >
+        <div>
+          <h3>
+            Implement literacy with fidelity
+          </h3>
+          <p
+            class="section-subheader"
+          >
+            <img
+              alt=""
+              src="undefined/images/pages/administrator/overview/black-bulb.svg"
+            />
+            Premium Schools complete three times as many activities as free schools.
+          </p>
+          <p>
+            With personalized learning, interactive activities, and immediate feedback, Quill Premium helps teachers foster literacy skills and critical thinking. If you’re interested in Quill Premium for your teachers, our sales team would love to connect with you.
+          </p>
+          <div
+            class="buttons"
+          >
+            <a
+              class="quill-button contained primary medium focus-on-light"
+              href="https://calendly.com/alex-quill"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Schedule a call
+            </a>
+            <a
+              class="quill-button contained primary medium focus-on-light"
+              href="https://www.quill.org/premium/request-school-quote"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Request a quote
+            </a>
+          </div>
+        </div>
+        <img
+          alt=""
+          class="photos"
+          src="undefined/images/pages/administrator/overview/alex-and-charlie.png"
+        />
+      </div>
+      <div
+        class="quick-links"
+      >
+        <h3>
+          Quick Links
+        </h3>
+        <a
+          href="https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-premium-hub"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Premium Hub User Guide
+        </a>
+        <a
+          href="https://docsend.com/view/9r6gzp5v8w5ky6w9"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Live Training Guide
+        </a>
+        <a
+          href="/quill_academy"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Quill Academy
+        </a>
+        <a
+          href="/teacher-center"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Teacher Center
+        </a>
+        <a
+          href="mailto:support@quill.org"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Contact Support
+        </a>
+        <a
+          href="https://quillorg.canny.io/admin-feedback"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Request a Feature
+        </a>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`ProfessionalDevelopmentSection it should render the Erika-related info if she is their learning manager 1`] = `
+<DocumentFragment>
+  <section
+    class="overview-section-wrapper professional-development"
+  >
+    <h2>
+      <img
+        alt=""
+        src="undefined/images/pages/administrator/overview/students.svg"
+      />
+      <span>
+        Professional Development and Support
+      </span>
+    </h2>
+    <div
+      class="overview-section assigned-professional-learning-manager"
+    >
+      <div
+        class="professional-learning-manager"
+      >
+        <div
+          class="text-and-buttons"
+        >
+          <div>
+            <h3>
+              Meet your Professional Learning Manager
+            </h3>
+            <p>
+              I am Erika Parker-Havens, your main point of contact for Quill implementation questions and scheduling of virtual professional learning opportunities. Please feel free to contact me to discuss how I can best support your district’s Quill journey this year.
+            </p>
+          </div>
+          <div
+            class="buttons"
+          >
+            <a
+              class="quill-button contained primary medium focus-on-light"
+              href="mailto:erika@quill.org"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Email me
+            </a>
+            <a
+              class="quill-button contained primary medium focus-on-light"
+              href="https://calendly.com/erikaatquill/schedule-quill-pd"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Schedule a call
+            </a>
+          </div>
+        </div>
+        <img
+          alt=""
+          src="undefined/images/pages/administrator/overview/erika_headshot.png"
+        />
+      </div>
+      <div
+        class="quick-links"
+      >
+        <h3>
+          Quick Links
+        </h3>
+        <a
+          href="https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-premium-hub"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Premium Hub User Guide
+        </a>
+        <a
+          href="https://docsend.com/view/9r6gzp5v8w5ky6w9"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Live Training Guide
+        </a>
+        <a
+          href="/quill_academy"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Quill Academy
+        </a>
+        <a
+          href="/teacher-center"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Teacher Center
+        </a>
+        <a
+          href="mailto:support@quill.org"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Contact Support
+        </a>
+        <a
+          href="https://quillorg.canny.io/admin-feedback"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Request a Feature
+        </a>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`ProfessionalDevelopmentSection it should render the Shannon-related info if she is their learning manager 1`] = `
+<DocumentFragment>
+  <section
+    class="overview-section-wrapper professional-development"
+  >
+    <h2>
+      <img
+        alt=""
+        src="undefined/images/pages/administrator/overview/students.svg"
+      />
+      <span>
+        Professional Development and Support
+      </span>
+    </h2>
+    <div
+      class="overview-section assigned-professional-learning-manager"
+    >
+      <div
+        class="professional-learning-manager"
+      >
+        <div
+          class="text-and-buttons"
+        >
+          <div>
+            <h3>
+              Meet your Professional Learning Manager
+            </h3>
+            <p>
+              I am Shannon Browne, your main point of contact for Quill implementation questions and scheduling of virtual professional learning opportunities. Please feel free to contact me to discuss how I can best support your district’s Quill journey this year.
+            </p>
+          </div>
+          <div
+            class="buttons"
+          >
+            <a
+              class="quill-button contained primary medium focus-on-light"
+              href="mailto:shannon@quill.org"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Email me
+            </a>
+            <a
+              class="quill-button contained primary medium focus-on-light"
+              href="https://calendly.com/shannonatquill/discuss-scheduling-quill-pd"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Schedule a call
+            </a>
+          </div>
+        </div>
+        <img
+          alt=""
+          src="undefined/images/pages/administrator/overview/shannon_headshot.png"
+        />
+      </div>
+      <div
+        class="quick-links"
+      >
+        <h3>
+          Quick Links
+        </h3>
+        <a
+          href="https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-premium-hub"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Premium Hub User Guide
+        </a>
+        <a
+          href="https://docsend.com/view/9r6gzp5v8w5ky6w9"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Live Training Guide
+        </a>
+        <a
+          href="/quill_academy"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Quill Academy
+        </a>
+        <a
+          href="/teacher-center"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Teacher Center
+        </a>
+        <a
+          href="mailto:support@quill.org"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Contact Support
+        </a>
+        <a
+          href="https://quillorg.canny.io/admin-feedback"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Request a Feature
+        </a>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`ProfessionalDevelopmentSection it should render the generic info if the learning manager is not Erika or Shannon 1`] = `
+<DocumentFragment>
+  <section
+    class="overview-section-wrapper professional-development"
+  >
+    <h2>
+      <img
+        alt=""
+        src="undefined/images/pages/administrator/overview/students.svg"
+      />
+      <span>
+        Professional Development and Support
+      </span>
+    </h2>
+    <div
+      class="overview-section no-assigned-professional-learning-manager"
+    >
+      <div
+        class="professional-learning-manager"
+      >
+        <div>
+          <h3>
+            Meet your Quill Implementation Team
+          </h3>
+          <p>
+            We are your main point of contact for Quill questions, onboarding needs, and scheduling of virtual training opportunities. Please feel free to contact us to discuss how we can best support your school’s Quill journey this year.
+          </p>
+          <div
+            class="buttons"
+          >
+            <a
+              class="quill-button contained primary medium focus-on-light"
+              href="mailto:schools@quill.org"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Email us
+            </a>
+            <a
+              class="quill-button contained primary medium focus-on-light"
+              href="https://calendly.com/schoolsatquill"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Schedule training
+            </a>
+          </div>
+        </div>
+        <img
+          alt=""
+          class="photos"
+          src="undefined/images/pages/administrator/overview/scarlet-and-nattalie.png"
+        />
+      </div>
+      <div
+        class="quick-links"
+      >
+        <h3>
+          Quick Links
+        </h3>
+        <a
+          href="https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-premium-hub"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Premium Hub User Guide
+        </a>
+        <a
+          href="https://docsend.com/view/9r6gzp5v8w5ky6w9"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Live Training Guide
+        </a>
+        <a
+          href="/quill_academy"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Quill Academy
+        </a>
+        <a
+          href="/teacher-center"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Teacher Center
+        </a>
+        <a
+          href="mailto:support@quill.org"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Contact Support
+        </a>
+        <a
+          href="https://quillorg.canny.io/admin-feedback"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Request a Feature
+        </a>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`ProfessionalDevelopmentSection it should render the generic info if the learning manager is null 1`] = `
+<DocumentFragment>
+  <section
+    class="overview-section-wrapper professional-development"
+  >
+    <h2>
+      <img
+        alt=""
+        src="undefined/images/pages/administrator/overview/students.svg"
+      />
+      <span>
+        Professional Development and Support
+      </span>
+    </h2>
+    <div
+      class="overview-section no-assigned-professional-learning-manager"
+    >
+      <div
+        class="professional-learning-manager"
+      >
+        <div>
+          <h3>
+            Meet your Quill Implementation Team
+          </h3>
+          <p>
+            We are your main point of contact for Quill questions, onboarding needs, and scheduling of virtual training opportunities. Please feel free to contact us to discuss how we can best support your school’s Quill journey this year.
+          </p>
+          <div
+            class="buttons"
+          >
+            <a
+              class="quill-button contained primary medium focus-on-light"
+              href="mailto:schools@quill.org"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Email us
+            </a>
+            <a
+              class="quill-button contained primary medium focus-on-light"
+              href="https://calendly.com/schoolsatquill"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Schedule training
+            </a>
+          </div>
+        </div>
+        <img
+          alt=""
+          class="photos"
+          src="undefined/images/pages/administrator/overview/scarlet-and-nattalie.png"
+        />
+      </div>
+      <div
+        class="quick-links"
+      >
+        <h3>
+          Quick Links
+        </h3>
+        <a
+          href="https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-premium-hub"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Premium Hub User Guide
+        </a>
+        <a
+          href="https://docsend.com/view/9r6gzp5v8w5ky6w9"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Live Training Guide
+        </a>
+        <a
+          href="/quill_academy"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Quill Academy
+        </a>
+        <a
+          href="/teacher-center"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Teacher Center
+        </a>
+        <a
+          href="mailto:support@quill.org"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Contact Support
+        </a>
+        <a
+          href="https://quillorg.canny.io/admin-feedback"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Request a Feature
+        </a>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;

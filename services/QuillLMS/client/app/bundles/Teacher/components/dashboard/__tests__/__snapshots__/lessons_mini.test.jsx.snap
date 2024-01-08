@@ -770,6 +770,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section undefined"
               key="classroom-649-1-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "300px",
@@ -798,6 +800,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section last-row-section"
               key="present-649-1-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "78px",
@@ -827,6 +831,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section undefined"
               key="lesson-563-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "290px",
@@ -840,6 +846,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section undefined"
               key="classroom-563-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "300px",
@@ -868,6 +876,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section last-row-section"
               key="present-563-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "78px",
@@ -897,6 +907,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section undefined"
               key="lesson-829-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "290px",
@@ -910,6 +922,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section undefined"
               key="classroom-829-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "300px",
@@ -938,6 +952,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section last-row-section"
               key="present-829-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "78px",
@@ -1034,6 +1050,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section undefined"
               key="classroom-566-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "300px",
@@ -1062,6 +1080,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section last-row-section"
               key="present-566-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "78px",
@@ -1091,6 +1111,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section undefined"
               key="lesson-568-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "290px",
@@ -1104,6 +1126,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section undefined"
               key="classroom-568-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "300px",
@@ -1132,6 +1156,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section last-row-section"
               key="present-568-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "78px",

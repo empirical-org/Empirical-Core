@@ -1,4 +1,3 @@
-declare function require(name:string);
 import { checkSentenceCombining } from 'quill-marking-logic';
 import * as _ from 'underscore';
 

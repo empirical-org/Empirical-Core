@@ -49,6 +49,17 @@ exports[`AdminSubnav it should render 1`] = `
           <li>
             <a
               class=""
+              href="/teachers/premium_hub/account_management"
+            >
+              Account Management
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
+          <li>
+            <a
+              class=""
               href="/teachers/premium_hub/integrations"
             >
               Integrations
@@ -140,6 +151,17 @@ exports[`AdminSubnav it should render 1`] = `
             href="/teachers/premium_hub/school_subscriptions"
           >
             Subscriptions
+          </a>
+          <div
+            class="checkmark-icon "
+          />
+        </li>
+        <li>
+          <a
+            class=""
+            href="/teachers/premium_hub/account_management"
+          >
+            Account Management
           </a>
           <div
             class="checkmark-icon "

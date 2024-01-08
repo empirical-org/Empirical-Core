@@ -367,6 +367,8 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                 <td
                   className="data-table-row-section undefined"
                   key="name-1432"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "521px",
@@ -386,6 +388,8 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                 <td
                   className="data-table-row-section undefined"
                   key="suggestedGrades-1432"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "117px",
@@ -402,6 +406,8 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                 <td
                   className="data-table-row-section undefined"
                   key="name-897"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "521px",
@@ -421,6 +427,8 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                 <td
                   className="data-table-row-section undefined"
                   key="suggestedGrades-897"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "117px",
@@ -439,6 +447,8 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                 <td
                   className="data-table-row-section undefined"
                   key="name-1001"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "521px",
@@ -458,6 +468,8 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                 <td
                   className="data-table-row-section undefined"
                   key="suggestedGrades-1001"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "117px",
@@ -570,6 +582,8 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                 <td
                   className="data-table-row-section undefined"
                   key="name-1202571"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "521px",
@@ -583,6 +597,8 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                 <td
                   className="data-table-row-section undefined"
                   key="assignedGrade-1202571"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "117px",
@@ -601,6 +617,8 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                 <td
                   className="data-table-row-section undefined"
                   key="name-1202562"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "521px",
@@ -614,6 +632,8 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                 <td
                   className="data-table-row-section undefined"
                   key="assignedGrade-1202562"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "117px",
@@ -643,6 +663,8 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                 <td
                   className="data-table-row-section undefined"
                   key="name-1198446"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "521px",
@@ -656,6 +678,8 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                 <td
                   className="data-table-row-section undefined"
                   key="assignedGrade-1198446"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
                   style={
                     Object {
                       "minWidth": "117px",

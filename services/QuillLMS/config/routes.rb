@@ -26,6 +26,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :admins, only: [:show], format: 'json' do
     member do
       get :admin_info
+      get :vitally_professional_learning_manager_info
     end
   end
 

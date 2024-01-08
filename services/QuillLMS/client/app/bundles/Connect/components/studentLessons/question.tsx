@@ -1,4 +1,3 @@
-declare function require(name:string);
 import { Response } from 'quill-marking-logic';
 import * as React from 'react';
 import * as _ from 'underscore';
