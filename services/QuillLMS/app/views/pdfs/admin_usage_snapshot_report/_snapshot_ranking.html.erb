@@ -12,7 +12,7 @@
       </tr>
       <% item[:data].each do |row| %>
         <tr class="data-row">
-          <td><%== row[:name] || '-' %></td>
+          <td><%== row[:value] || '-' %></td>
           <td><%= row[:count] || '-' %></td>
         </tr>
       <% end %>

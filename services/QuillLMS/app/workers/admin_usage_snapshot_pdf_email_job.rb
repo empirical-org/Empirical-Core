@@ -4,7 +4,7 @@ class AdminUsageSnapshotPdfEmailJob
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW
 
-  PDF_TEMPLATE = 'pdfs/admin_usage_snapshot_report_pdf'
+  PDF_TEMPLATE = 'pdfs/admin_usage_snapshot_report'
 
   attr_reader :pdf_subscription
 
@@ -20,7 +20,7 @@ class AdminUsageSnapshotPdfEmailJob
   end
 
   private def admin_report_filter_selection = pdf_subscription.admin_report_filter_selection
-  private def data = AdminUsageSnapshotPdfInputDataBuilder.run(admin_report_filter_selection)
+  private def data = Pdfs::AdminUsae.run(admin_report_filter_selection)
   private def pdf_file = PdfFileBuilder.run(data, PDF_TEMPLATE)
   private def uploader = @uploader ||= AdminUsageSnapshotReportPdfUploader.new(user_id:)
   private def user = admin_report_filter_selection.user

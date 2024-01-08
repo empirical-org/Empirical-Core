@@ -17,10 +17,16 @@ module Pdfs
 
       def run
         [highlights, users, practice, classrooms, schools].map do |section|
-          section[:itemGroupings].map do |grouping|
-            grouping[:items].map { |item| inject_data(item) }
-          end
+          section.merge(itemGroupings: updated_groupings(section))
         end
+      end
+
+      private def updated_groupings(section)
+        section[:itemGroupings].map { |grouping| grouping.merge(items: updated_items(grouping)) }
+      end
+
+      private def updated_items(grouping)
+        grouping[:items].map { |item| inject_data(item) }
       end
 
       private def inject_data(item)

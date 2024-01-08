@@ -23,7 +23,7 @@ class PagesController < ApplicationController
 
   def pdfz
     data = AdminUsageSnapshotPdfInputDataBuilder.run(AdminReportFilterSelection.last)
-    render 'pdfs/admin_usage_snapshot_report_pdf', locals: { data: data }
+    render 'pdfs/admin_usage_snapshot_report', locals: { data: data }
   end
 
   def home

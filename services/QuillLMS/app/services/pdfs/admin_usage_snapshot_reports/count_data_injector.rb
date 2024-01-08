@@ -18,7 +18,7 @@ module Pdfs
         item.merge(count:, change:)
       end
 
-      private def count = current_results[:count]
+      private def count = current_results[:count]&.round
 
       private def change
         return nil if count.nil?
