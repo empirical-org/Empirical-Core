@@ -2,8 +2,11 @@
 
 module Snapshots
   class SentencesWrittenQuery < ReportingSessionCountQuery
+    # The * 1 does nothing, but for some reason,
+    # BigQuery uses the BI Query Cache with this present
+    # And skips it when it is not
     def select_clause
-      "SELECT SUM(question_count) AS count"
+      "SELECT SUM(question_count * 1) AS count"
     end
   end
 end
