@@ -59,6 +59,22 @@ export const SECTION_NAME_TO_ICON_URL = {
   [SCHOOLS]: `${iconLinkBase}/school.svg`
 }
 
+export const sentencesWrittenSnapshotInfo = {
+  label: 'Sentences written',
+  singularLabel: 'Sentence written',
+  size: MEDIUM,
+  type: COUNT,
+  queryKey: 'sentences-written'
+}
+
+export const studentLearningHoursSnapshotInfo = {
+  label: 'Student learning hours',
+  singularLabel: 'Student learning hour',
+  size: MEDIUM,
+  type: COUNT,
+  queryKey: 'student-learning-hours'
+}
+
 export const snapshotSections = [
   {
     name: HIGHLIGHTS,
@@ -67,20 +83,8 @@ export const snapshotSections = [
       {
         className: "counts",
         items: [
-          {
-            label: 'Sentences written',
-            singularLabel: 'Sentence written',
-            size: MEDIUM,
-            type: COUNT,
-            queryKey: 'sentences-written'
-          },
-          {
-            label: 'Student learning hours',
-            singularLabel: 'Student learning hour',
-            size: MEDIUM,
-            type: COUNT,
-            queryKey: 'student-learning-hours'
-          }
+          sentencesWrittenSnapshotInfo,
+          studentLearningHoursSnapshotInfo
         ]
       }
     ]

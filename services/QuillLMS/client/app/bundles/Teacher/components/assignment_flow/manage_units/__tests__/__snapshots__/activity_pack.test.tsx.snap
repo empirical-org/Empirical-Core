@@ -1557,6 +1557,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td
                         className="data-table-row-section tool-and-name-section"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
                         style={
                           Object {
                             "minWidth": "624px",
@@ -1589,6 +1591,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td
                         className="data-table-row-section datetime-picker"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
                         style={
                           Object {
                             "minWidth": "140px",
@@ -1614,6 +1618,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td
                         className="data-table-row-section datetime-picker"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
                         style={
                           Object {
                             "minWidth": "135px",
@@ -1632,6 +1638,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td
                         className="data-table-row-section undefined"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
                         style={
                           Object {
                             "minWidth": "30px",
@@ -1678,6 +1686,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td
                         className="data-table-row-section tool-and-name-section"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
                         style={
                           Object {
                             "minWidth": "624px",
@@ -1710,6 +1720,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td
                         className="data-table-row-section datetime-picker"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
                         style={
                           Object {
                             "minWidth": "140px",
@@ -1735,6 +1747,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td
                         className="data-table-row-section datetime-picker"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
                         style={
                           Object {
                             "minWidth": "135px",
@@ -1753,6 +1767,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td
                         className="data-table-row-section undefined"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
                         style={
                           Object {
                             "minWidth": "30px",
@@ -1799,6 +1815,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td
                         className="data-table-row-section tool-and-name-section"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
                         style={
                           Object {
                             "minWidth": "624px",
@@ -1831,6 +1849,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td
                         className="data-table-row-section datetime-picker"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
                         style={
                           Object {
                             "minWidth": "140px",
@@ -1856,6 +1876,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td
                         className="data-table-row-section datetime-picker"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
                         style={
                           Object {
                             "minWidth": "135px",
@@ -1874,6 +1896,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td
                         className="data-table-row-section undefined"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
                         style={
                           Object {
                             "minWidth": "30px",
@@ -1920,6 +1944,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td
                         className="data-table-row-section tool-and-name-section"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
                         style={
                           Object {
                             "minWidth": "624px",
@@ -1952,6 +1978,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td
                         className="data-table-row-section datetime-picker"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
                         style={
                           Object {
                             "minWidth": "140px",
@@ -1977,6 +2005,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td
                         className="data-table-row-section datetime-picker"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
                         style={
                           Object {
                             "minWidth": "135px",
@@ -1995,6 +2025,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td
                         className="data-table-row-section undefined"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
                         style={
                           Object {
                             "minWidth": "30px",
@@ -2041,6 +2073,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td
                         className="data-table-row-section tool-and-name-section"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
                         style={
                           Object {
                             "minWidth": "624px",
@@ -2073,6 +2107,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td
                         className="data-table-row-section datetime-picker"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
                         style={
                           Object {
                             "minWidth": "140px",
@@ -2098,6 +2134,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td
                         className="data-table-row-section datetime-picker"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
                         style={
                           Object {
                             "minWidth": "135px",
@@ -2116,6 +2154,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td
                         className="data-table-row-section undefined"
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
                         style={
                           Object {
                             "minWidth": "30px",
@@ -2177,6 +2217,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td
                           className="data-table-row-section tool-and-name-section"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
                           style={
                             Object {
                               "minWidth": "624px",
@@ -2209,6 +2251,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td
                           className="data-table-row-section datetime-picker"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
                           style={
                             Object {
                               "minWidth": "140px",
@@ -2234,6 +2278,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td
                           className="data-table-row-section datetime-picker"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
                           style={
                             Object {
                               "minWidth": "135px",
@@ -2252,6 +2298,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td
                           className="data-table-row-section undefined"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
                           style={
                             Object {
                               "minWidth": "30px",
@@ -2298,6 +2346,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td
                           className="data-table-row-section tool-and-name-section"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
                           style={
                             Object {
                               "minWidth": "624px",
@@ -2330,6 +2380,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td
                           className="data-table-row-section datetime-picker"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
                           style={
                             Object {
                               "minWidth": "140px",
@@ -2355,6 +2407,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td
                           className="data-table-row-section datetime-picker"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
                           style={
                             Object {
                               "minWidth": "135px",
@@ -2373,6 +2427,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td
                           className="data-table-row-section undefined"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
                           style={
                             Object {
                               "minWidth": "30px",
@@ -2419,6 +2475,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td
                           className="data-table-row-section tool-and-name-section"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
                           style={
                             Object {
                               "minWidth": "624px",
@@ -2451,6 +2509,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td
                           className="data-table-row-section datetime-picker"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
                           style={
                             Object {
                               "minWidth": "140px",
@@ -2476,6 +2536,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td
                           className="data-table-row-section datetime-picker"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
                           style={
                             Object {
                               "minWidth": "135px",
@@ -2494,6 +2556,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td
                           className="data-table-row-section undefined"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
                           style={
                             Object {
                               "minWidth": "30px",
@@ -2540,6 +2604,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td
                           className="data-table-row-section tool-and-name-section"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
                           style={
                             Object {
                               "minWidth": "624px",
@@ -2572,6 +2638,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td
                           className="data-table-row-section datetime-picker"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
                           style={
                             Object {
                               "minWidth": "140px",
@@ -2597,6 +2665,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td
                           className="data-table-row-section datetime-picker"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
                           style={
                             Object {
                               "minWidth": "135px",
@@ -2615,6 +2685,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td
                           className="data-table-row-section undefined"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
                           style={
                             Object {
                               "minWidth": "30px",
@@ -2661,6 +2733,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td
                           className="data-table-row-section tool-and-name-section"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
                           style={
                             Object {
                               "minWidth": "624px",
@@ -2693,6 +2767,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td
                           className="data-table-row-section datetime-picker"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
                           style={
                             Object {
                               "minWidth": "140px",
@@ -2718,6 +2794,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td
                           className="data-table-row-section datetime-picker"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
                           style={
                             Object {
                               "minWidth": "135px",
@@ -2736,6 +2814,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td
                           className="data-table-row-section undefined"
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
                           style={
                             Object {
                               "minWidth": "30px",
@@ -2819,6 +2899,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td
                             className="data-table-row-section tool-and-name-section"
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
                             style={
                               Object {
                                 "minWidth": "624px",
@@ -2851,6 +2933,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td
                             className="data-table-row-section datetime-picker"
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
                             style={
                               Object {
                                 "minWidth": "140px",
@@ -2876,6 +2960,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td
                             className="data-table-row-section datetime-picker"
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
                             style={
                               Object {
                                 "minWidth": "135px",
@@ -2894,6 +2980,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td
                             className="data-table-row-section undefined"
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
                             style={
                               Object {
                                 "minWidth": "30px",
@@ -2940,6 +3028,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td
                             className="data-table-row-section tool-and-name-section"
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
                             style={
                               Object {
                                 "minWidth": "624px",
@@ -2972,6 +3062,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td
                             className="data-table-row-section datetime-picker"
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
                             style={
                               Object {
                                 "minWidth": "140px",
@@ -2997,6 +3089,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td
                             className="data-table-row-section datetime-picker"
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
                             style={
                               Object {
                                 "minWidth": "135px",
@@ -3015,6 +3109,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td
                             className="data-table-row-section undefined"
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
                             style={
                               Object {
                                 "minWidth": "30px",
@@ -3061,6 +3157,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td
                             className="data-table-row-section tool-and-name-section"
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
                             style={
                               Object {
                                 "minWidth": "624px",
@@ -3093,6 +3191,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td
                             className="data-table-row-section datetime-picker"
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
                             style={
                               Object {
                                 "minWidth": "140px",
@@ -3118,6 +3218,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td
                             className="data-table-row-section datetime-picker"
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
                             style={
                               Object {
                                 "minWidth": "135px",
@@ -3136,6 +3238,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td
                             className="data-table-row-section undefined"
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
                             style={
                               Object {
                                 "minWidth": "30px",
@@ -3182,6 +3286,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td
                             className="data-table-row-section tool-and-name-section"
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
                             style={
                               Object {
                                 "minWidth": "624px",
@@ -3214,6 +3320,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td
                             className="data-table-row-section datetime-picker"
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
                             style={
                               Object {
                                 "minWidth": "140px",
@@ -3239,6 +3347,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td
                             className="data-table-row-section datetime-picker"
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
                             style={
                               Object {
                                 "minWidth": "135px",
@@ -3257,6 +3367,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td
                             className="data-table-row-section undefined"
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
                             style={
                               Object {
                                 "minWidth": "30px",
@@ -3303,6 +3415,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td
                             className="data-table-row-section tool-and-name-section"
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
                             style={
                               Object {
                                 "minWidth": "624px",
@@ -3335,6 +3449,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td
                             className="data-table-row-section datetime-picker"
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
                             style={
                               Object {
                                 "minWidth": "140px",
@@ -3360,6 +3476,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td
                             className="data-table-row-section datetime-picker"
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
                             style={
                               Object {
                                 "minWidth": "135px",
@@ -3378,6 +3496,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td
                             className="data-table-row-section undefined"
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
                             style={
                               Object {
                                 "minWidth": "30px",
@@ -3435,6 +3555,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "624px",
@@ -3467,6 +3589,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td
                               className="data-table-row-section datetime-picker"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "140px",
@@ -3492,6 +3616,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td
                               className="data-table-row-section datetime-picker"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "135px",
@@ -3510,6 +3636,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td
                               className="data-table-row-section undefined"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "30px",
@@ -3560,6 +3688,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td
                                 className="data-table-row-section tool-and-name-section"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
                                 style={
                                   Object {
                                     "minWidth": "624px",
@@ -3592,6 +3722,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td
                                 className="data-table-row-section datetime-picker"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
                                 style={
                                   Object {
                                     "minWidth": "140px",
@@ -3617,6 +3749,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td
                                 className="data-table-row-section datetime-picker"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
                                 style={
                                   Object {
                                     "minWidth": "135px",
@@ -3635,6 +3769,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td
                                 className="data-table-row-section undefined"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
                                 style={
                                   Object {
                                     "minWidth": "30px",
@@ -3701,6 +3837,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="data-table-row-section tool-and-name-section"
                               key="toolAndNameSection-7543552"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "624px",
@@ -3734,6 +3872,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="data-table-row-section datetime-picker"
                               key="publishDatePicker-7543552"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "140px",
@@ -4456,6 +4596,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="data-table-row-section datetime-picker"
                               key="dueDatePicker-7543552"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "135px",
@@ -5166,6 +5308,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="data-table-row-section undefined"
                               key="shareActivity-7543552"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "30px",
@@ -5221,6 +5365,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "624px",
@@ -5253,6 +5399,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td
                               className="data-table-row-section datetime-picker"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "140px",
@@ -5278,6 +5426,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td
                               className="data-table-row-section datetime-picker"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "135px",
@@ -5296,6 +5446,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td
                               className="data-table-row-section undefined"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "30px",
@@ -5346,6 +5498,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td
                                 className="data-table-row-section tool-and-name-section"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
                                 style={
                                   Object {
                                     "minWidth": "624px",
@@ -5378,6 +5532,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td
                                 className="data-table-row-section datetime-picker"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
                                 style={
                                   Object {
                                     "minWidth": "140px",
@@ -5403,6 +5559,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td
                                 className="data-table-row-section datetime-picker"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
                                 style={
                                   Object {
                                     "minWidth": "135px",
@@ -5421,6 +5579,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td
                                 className="data-table-row-section undefined"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
                                 style={
                                   Object {
                                     "minWidth": "30px",
@@ -5487,6 +5647,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="data-table-row-section tool-and-name-section"
                               key="toolAndNameSection-7543553"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "624px",
@@ -5520,6 +5682,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="data-table-row-section datetime-picker"
                               key="publishDatePicker-7543553"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "140px",
@@ -6225,6 +6389,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="data-table-row-section datetime-picker"
                               key="dueDatePicker-7543553"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "135px",
@@ -6918,6 +7084,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="data-table-row-section undefined"
                               key="shareActivity-7543553"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "30px",
@@ -6973,6 +7141,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "624px",
@@ -7005,6 +7175,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td
                               className="data-table-row-section datetime-picker"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "140px",
@@ -7030,6 +7202,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td
                               className="data-table-row-section datetime-picker"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "135px",
@@ -7048,6 +7222,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td
                               className="data-table-row-section undefined"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "30px",
@@ -7098,6 +7274,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td
                                 className="data-table-row-section tool-and-name-section"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
                                 style={
                                   Object {
                                     "minWidth": "624px",
@@ -7130,6 +7308,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td
                                 className="data-table-row-section datetime-picker"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
                                 style={
                                   Object {
                                     "minWidth": "140px",
@@ -7155,6 +7335,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td
                                 className="data-table-row-section datetime-picker"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
                                 style={
                                   Object {
                                     "minWidth": "135px",
@@ -7173,6 +7355,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td
                                 className="data-table-row-section undefined"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
                                 style={
                                   Object {
                                     "minWidth": "30px",
@@ -7239,6 +7423,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="data-table-row-section tool-and-name-section"
                               key="toolAndNameSection-7543554"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "624px",
@@ -7272,6 +7458,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="data-table-row-section datetime-picker"
                               key="publishDatePicker-7543554"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "140px",
@@ -7977,6 +8165,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="data-table-row-section datetime-picker"
                               key="dueDatePicker-7543554"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "135px",
@@ -8670,6 +8860,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="data-table-row-section undefined"
                               key="shareActivity-7543554"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "30px",
@@ -8725,6 +8917,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "624px",
@@ -8757,6 +8951,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td
                               className="data-table-row-section datetime-picker"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "140px",
@@ -8782,6 +8978,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td
                               className="data-table-row-section datetime-picker"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "135px",
@@ -8800,6 +8998,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td
                               className="data-table-row-section undefined"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "30px",
@@ -8850,6 +9050,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td
                                 className="data-table-row-section tool-and-name-section"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
                                 style={
                                   Object {
                                     "minWidth": "624px",
@@ -8882,6 +9084,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td
                                 className="data-table-row-section datetime-picker"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
                                 style={
                                   Object {
                                     "minWidth": "140px",
@@ -8907,6 +9111,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td
                                 className="data-table-row-section datetime-picker"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
                                 style={
                                   Object {
                                     "minWidth": "135px",
@@ -8925,6 +9131,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td
                                 className="data-table-row-section undefined"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
                                 style={
                                   Object {
                                     "minWidth": "30px",
@@ -8991,6 +9199,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="data-table-row-section tool-and-name-section"
                               key="toolAndNameSection-7543555"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "624px",
@@ -9024,6 +9234,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="data-table-row-section datetime-picker"
                               key="publishDatePicker-7543555"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "140px",
@@ -9729,6 +9941,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="data-table-row-section datetime-picker"
                               key="dueDatePicker-7543555"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "135px",
@@ -10422,6 +10636,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="data-table-row-section undefined"
                               key="shareActivity-7543555"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "30px",
@@ -10477,6 +10693,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "624px",
@@ -10509,6 +10727,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td
                               className="data-table-row-section datetime-picker"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "140px",
@@ -10534,6 +10754,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td
                               className="data-table-row-section datetime-picker"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "135px",
@@ -10552,6 +10774,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td
                               className="data-table-row-section undefined"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "30px",
@@ -10602,6 +10826,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td
                                 className="data-table-row-section tool-and-name-section"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
                                 style={
                                   Object {
                                     "minWidth": "624px",
@@ -10634,6 +10860,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td
                                 className="data-table-row-section datetime-picker"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
                                 style={
                                   Object {
                                     "minWidth": "140px",
@@ -10659,6 +10887,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td
                                 className="data-table-row-section datetime-picker"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
                                 style={
                                   Object {
                                     "minWidth": "135px",
@@ -10677,6 +10907,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td
                                 className="data-table-row-section undefined"
+                                onMouseEnter={[Function]}
+                                onMouseLeave={[Function]}
                                 style={
                                   Object {
                                     "minWidth": "30px",
@@ -10743,6 +10975,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="data-table-row-section tool-and-name-section"
                               key="toolAndNameSection-7543556"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "624px",
@@ -10776,6 +11010,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="data-table-row-section datetime-picker"
                               key="publishDatePicker-7543556"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "140px",
@@ -11481,6 +11717,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="data-table-row-section datetime-picker"
                               key="dueDatePicker-7543556"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "135px",
@@ -12174,6 +12412,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="data-table-row-section undefined"
                               key="shareActivity-7543556"
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
                               style={
                                 Object {
                                   "minWidth": "30px",
@@ -13921,6 +14161,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section tool-and-name-section"
                 key="toolAndNameSection-7543506"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "764px",
@@ -13954,6 +14196,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section datetime-picker"
                 key="publishDatePicker-7543506"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -13967,6 +14211,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section datetime-picker no-right-margin"
                 key="dueDatePicker-7543506"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -13980,6 +14226,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section undefined"
                 key="shareActivity-7543506"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "30px",
@@ -14008,6 +14256,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section tool-and-name-section"
                 key="toolAndNameSection-7543505"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "764px",
@@ -14041,6 +14291,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section datetime-picker"
                 key="publishDatePicker-7543505"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -14054,6 +14306,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section datetime-picker no-right-margin"
                 key="dueDatePicker-7543505"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -14067,6 +14321,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section undefined"
                 key="shareActivity-7543505"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "30px",
@@ -14095,6 +14351,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section tool-and-name-section"
                 key="toolAndNameSection-7543508"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "764px",
@@ -14128,6 +14386,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section datetime-picker"
                 key="publishDatePicker-7543508"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -14141,6 +14401,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section datetime-picker no-right-margin"
                 key="dueDatePicker-7543508"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -14154,6 +14416,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section undefined"
                 key="shareActivity-7543508"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "30px",
@@ -14182,6 +14446,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section tool-and-name-section"
                 key="toolAndNameSection-7543509"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "764px",
@@ -14215,6 +14481,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section datetime-picker"
                 key="publishDatePicker-7543509"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -14228,6 +14496,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section datetime-picker no-right-margin"
                 key="dueDatePicker-7543509"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -14241,6 +14511,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section undefined"
                 key="shareActivity-7543509"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "30px",
@@ -14269,6 +14541,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section tool-and-name-section"
                 key="toolAndNameSection-7543507"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "764px",
@@ -14302,6 +14576,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section datetime-picker"
                 key="publishDatePicker-7543507"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -14315,6 +14591,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section datetime-picker no-right-margin"
                 key="dueDatePicker-7543507"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -14328,6 +14606,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section undefined"
                 key="shareActivity-7543507"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "30px",
@@ -14356,6 +14636,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section tool-and-name-section"
                 key="toolAndNameSection-7543510"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "764px",
@@ -14389,6 +14671,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section datetime-picker"
                 key="publishDatePicker-7543510"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -14402,6 +14686,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section datetime-picker no-right-margin"
                 key="dueDatePicker-7543510"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -14415,6 +14701,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section undefined"
                 key="shareActivity-7543510"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "30px",
@@ -14443,6 +14731,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section tool-and-name-section"
                 key="toolAndNameSection-7543504"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "764px",
@@ -14476,6 +14766,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section datetime-picker"
                 key="publishDatePicker-7543504"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -14489,6 +14781,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section datetime-picker no-right-margin"
                 key="dueDatePicker-7543504"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -14502,6 +14796,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section undefined"
                 key="shareActivity-7543504"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "30px",
@@ -14530,6 +14826,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section tool-and-name-section"
                 key="toolAndNameSection-7543503"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "764px",
@@ -14563,6 +14861,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section datetime-picker"
                 key="publishDatePicker-7543503"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -14576,6 +14876,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section datetime-picker no-right-margin"
                 key="dueDatePicker-7543503"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -14589,6 +14891,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section undefined"
                 key="shareActivity-7543503"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "30px",
@@ -14617,6 +14921,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section tool-and-name-section"
                 key="toolAndNameSection-7543502"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "764px",
@@ -14650,6 +14956,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section datetime-picker"
                 key="publishDatePicker-7543502"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -14663,6 +14971,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section datetime-picker no-right-margin"
                 key="dueDatePicker-7543502"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -14676,6 +14986,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               <td
                 className="data-table-row-section undefined"
                 key="shareActivity-7543502"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "30px",

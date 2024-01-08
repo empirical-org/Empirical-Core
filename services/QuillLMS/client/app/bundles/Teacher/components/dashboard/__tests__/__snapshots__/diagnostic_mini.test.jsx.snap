@@ -402,6 +402,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             <td
               className="data-table-row-section undefined"
               key="diagnostic-447-484134-826269"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "290px",
@@ -482,6 +484,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             <td
               className="data-table-row-section completed-row-section"
               key="completed-447-484134-826269"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "62px",
@@ -495,6 +499,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             <td
               className="data-table-row-section last-row-section"
               key="results-447-484134-826269"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "62px",
@@ -524,6 +530,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             <td
               className="data-table-row-section undefined"
               key="diagnostic-447-484135-826269"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "290px",
@@ -537,6 +545,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             <td
               className="data-table-row-section undefined"
               key="classroom-447-484135-826269"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "290px",
@@ -550,6 +560,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             <td
               className="data-table-row-section completed-row-section"
               key="completed-447-484135-826269"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "62px",
@@ -563,6 +575,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             <td
               className="data-table-row-section last-row-section"
               key="results-447-484135-826269"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "62px",
@@ -592,6 +606,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             <td
               className="data-table-row-section undefined"
               key="diagnostic-849-484134-826268"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "290px",
@@ -672,6 +688,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             <td
               className="data-table-row-section completed-row-section"
               key="completed-849-484134-826268"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "62px",
@@ -685,6 +703,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             <td
               className="data-table-row-section last-row-section"
               key="results-849-484134-826268"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "62px",
@@ -714,6 +734,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             <td
               className="data-table-row-section undefined"
               key="diagnostic-849-484134-826269"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "290px",
@@ -794,6 +816,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             <td
               className="data-table-row-section completed-row-section"
               key="completed-849-484134-826269"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "62px",
@@ -807,6 +831,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             <td
               className="data-table-row-section last-row-section"
               key="results-849-484134-826269"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "62px",
@@ -836,6 +862,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             <td
               className="data-table-row-section undefined"
               key="diagnostic-849-484135-826269"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "290px",
@@ -849,6 +877,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             <td
               className="data-table-row-section undefined"
               key="classroom-849-484135-826269"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "290px",
@@ -862,6 +892,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             <td
               className="data-table-row-section completed-row-section"
               key="completed-849-484135-826269"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "62px",
@@ -875,6 +907,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             <td
               className="data-table-row-section last-row-section"
               key="results-849-484135-826269"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "62px",
