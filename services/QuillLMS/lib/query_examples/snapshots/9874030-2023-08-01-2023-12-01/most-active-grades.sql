@@ -1,7 +1,7 @@
-      /* Data Processed By Query: 2.37 GB */
+      /* Data Processed By Query: 2.51 GB */
 
-                SELECT IFNULL(CAST(recent_reporting_sessions.grade AS STRING), 'No grade set') AS value,
-        SUM(recent_reporting_sessions.activity_count) AS count
+                SELECT IFNULL(CAST(grade AS STRING), 'No grade set') AS value,
+        SUM(activity_count) AS count
 
         FROM lms.recent_reporting_sessions
                 WHERE
@@ -11,6 +11,6 @@
           
           
 
-        GROUP BY recent_reporting_sessions.grade
+        GROUP BY grade
         ORDER BY count DESC
         LIMIT 10

@@ -1,4 +1,4 @@
-      /* Data Processed By Query: 2.17 GB */
+      /* Data Processed By Query: 2.31 GB */
 
         SELECT IFNULL(SUM(recent_reporting_sessions.time_spent), 0) / 3600.0 AS count
         FROM lms.recent_reporting_sessions
