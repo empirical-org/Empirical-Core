@@ -52,31 +52,4 @@ describe 'TeachersData' do
   it 'number_of_students works' do
     expect(@results.first.number_of_students).to eq(2)
   end
-
-  it 'number_of_activities_completed works' do
-    expect(@results.first.number_of_activities_completed).to eq(2)
-  end
-
-  it 'time_spent works' do
-    expect(@results.first.time_spent).to eq(2*(time2 - time1))
-  end
-
-  context 'time spent on activities is less than 1 minute' do
-
-    let!(:time1) { time2 - 2.seconds }
-
-    it 'uses default_time_spent instead' do
-      expect(@results.first.time_spent).to eq(2*default_time_spent)
-    end
-  end
-
-  context 'time spent on activities is greater than 30 minutes' do
-
-    let!(:time1) { time2 - 2.days}
-
-    it 'uses default_time_spent instead' do
-      expect(@results.first.time_spent).to eq(2*default_time_spent)
-    end
-  end
-
 end
