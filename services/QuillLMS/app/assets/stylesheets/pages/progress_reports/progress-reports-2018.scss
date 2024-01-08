@@ -10,7 +10,6 @@
 .progress-reports-2018 {
   max-width: $sitewidepagewidth;
   margin: auto;
-  padding-top: 30px;
 
   &.data-export, &.concept-student-concepts {
     .ReactTable .rt-td.show-overflow {
@@ -53,18 +52,6 @@
     p {
       color: $quill-grey-40;
       margin-bottom: 8px;
-    }
-  }
-
-  .dropdown-container {
-    margin-top: 21px;
-    margin-bottom: 21px;
-    width: 100%;
-  }
-  #flexed {
-    display: flex;
-    .admin-activity-dropdown, .admin-concept-dropdown, .student-reports-class-dropdown {
-      margin-right: 10px;
     }
   }
 

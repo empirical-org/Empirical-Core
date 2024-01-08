@@ -38,6 +38,7 @@ export {
   Input,
   OneThumbSlider,
   Passthrough,
+  ReportHeader,
   ResumeOrBeginButton,
   ScreenreaderInstructions,
   SmartSpinner,

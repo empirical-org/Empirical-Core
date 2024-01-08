@@ -2,7 +2,6 @@ import queryString from 'query-string';
 import * as React from 'react';
 import _ from 'underscore';
 
-import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx';
 import EmptyStateForReport from './empty_state_for_report';
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants';
 
@@ -10,7 +9,7 @@ import { NOT_SCORED_DISPLAY_TEXT } from './constants.js';
 
 import { requestGet, } from '../../../../modules/request/index';
 import { sortTableByStandardLevel } from '../../../../modules/sortingMethods.js';
-import { ReactTable, Tooltip, } from '../../../Shared/index';
+import { ReactTable, ReportHeader, Tooltip, } from '../../../Shared/index';
 import { getTimeSpent } from '../../helpers/studentReports';
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown';
 import userIsPremium from '../modules/user_is_premium';
@@ -254,20 +253,16 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
     }
 
     return (
-      <div className='standards-all-classrooms progress-reports-2018 '>
-        <div className="meta-overview flex-row space-between">
-          <div className='header-and-info'>
-            <h1>Standards Report</h1>
-            <p>Each activity on Quill is aligned to a Common Core standard. This report shows your students’ overall progress on each of the standards. You can filter by student on this page to see one student’s progress on all of the standards. You can click on an individual standard to see all of the student results for that standard.</p>
-          </div>
-          <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport data={this.formatDataForCSV()} key={`data is updating: ${updatingData}`} />
-            <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
-          </div>
-        </div>
-        <div className='standards-all-classrooms-dropdown-container' id="flexed">
-          <ItemDropdown callback={this.switchClassrooms} isSearchable={true} items={classrooms} selectedItem={selectedClassroom} />
-          <ItemDropdown callback={this.goToStudentPage} isSearchable={true} items={_.uniq(students.map(s => s.name))} />
+      <div className='teacher-report-container standards-all-classrooms progress-reports-2018'>
+        <ReportHeader
+          title="Standards Report"
+          tooltipText="Each activity on Quill is aligned to a Common Core standard. This report shows your students' overall progress on each of the standards. You can filter by student on this page to see one student’s progress on all of the standards. You can click on an individual standard to see all of the student results for that standard."
+          csvData={this.formatDataForCSV()}
+          key={`data is updating: ${updatingData}`}
+        />
+        <div className='dropdowns-container standards-all-classrooms-dropdown-container'>
+          <ItemDropdown callback={this.switchClassrooms} className="bordered-dropdown dropdown-with-icon" isSearchable={true} items={classrooms} selectedItem={selectedClassroom} />
+          <ItemDropdown callback={this.goToStudentPage} className="bordered-dropdown dropdown-with-icon" isSearchable={true} items={_.uniq(students.map(s => s.name))} />
         </div>
         {this.tableOrEmptyMessage()}
       </div>

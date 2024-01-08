@@ -33,6 +33,17 @@
     }
   }
 
+  &.bordered-dropdown {
+    .dropdown .dropdown__control {
+      &:not(:active) {
+        padding: 9px 14px;
+        border-style: solid !important;
+        border-radius: 4px !important;
+        border-color: $quill-grey-15;
+      }
+    }
+  }
+
   .dropdown__indicators {
     justify-content: flex-end;
   }

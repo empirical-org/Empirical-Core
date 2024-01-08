@@ -3,6 +3,9 @@
   .header-container {
     display: flex;
     justify-content: space-between;
+    &.admin-standards-report {
+      margin-bottom: 48px;
+    }
     .header-and-tooltip {
       display: flex;
       align-items: center;
@@ -31,10 +34,44 @@
   }
   .dropdowns-container {
     display: flex;
+    justify-content: space-between;
     margin-bottom: 48px;
     .dropdown-container {
       width: 100%;
       max-width: 390px;
+    }
+    &.standards-all-classrooms-dropdown-container {
+      justify-content: flex-start;
+      // .dropdown-container {
+      //   .dropdown__control:active {
+      //     border-color: $quill-white !important;
+      //   }
+      // }
+    }
+  }
+  .dropdown-container {
+    margin-bottom: 48px;
+    .dropdown-container {
+      min-height: 65px;
+      max-width: 240px;
+
+    }
+  }
+  .dropdown-with-icon {
+    .dropdown__single-value::before {
+      content: url('https://assets.quill.org/images/pages/activity_summary/students.svg');
+      position: relative;
+      margin-right: 8px;
+      margin-top: 4px;
+    }
+    .dropdown__single-value {
+      margin-right: 4px;
+      align-items: center;
+      font-size: 14px;
+      justify-content: flex-end;
+    }
+    .dropdown__menu {
+      margin-top: -20px;
     }
   }
 }

@@ -3,13 +3,12 @@
 import queryString from 'query-string';
 import React from 'react';
 
-import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx';
 import EmptyStateForReport from './empty_state_for_report';
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants';
 
 import { requestGet, } from '../../../../modules/request/index';
 import { sortTableByLastName } from '../../../../modules/sortingMethods.js';
-import { ReactTable, } from '../../../Shared/index';
+import { ReactTable, ReportHeader } from '../../../Shared/index';
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown';
 import userIsPremium from '../modules/user_is_premium';
 import LoadingSpinner from '../shared/loading_indicator.jsx';
@@ -180,19 +179,17 @@ export default class ConceptsStudentsProgressReport extends React.Component {
     const selectedClassroom = dropdownClassrooms.find(c => String(c.id) === String(selectedClassroomId))
 
     return (
-      <div className='progress-reports-2018 concepts-overview'>
-        <div className="meta-overview flex-row space-between">
-          <div className='header-and-info'>
-            <h1>Concept Results</h1>
-            <p>Each question on Quill targets a specific writing concept. This report shows the number of times the student correctly or incorrectly used the targeted concept to answer the question. You can see a student’s results on each concept by clicking on the student’s name. You can print this report by downloading a PDF file or export this data by downloading a CSV file.</p>
-          </div>
-          <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport data={filteredReportData} key={`reports are ready ${updatingReportData}`} keysToOmit={this.keysToOmit()} valuesToChange={changeValues} />
-            <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
-          </div>
-          <div className='dropdown-container'>
-            <ItemDropdown callback={this.switchClassrooms} items={dropdownClassrooms} selectedItem={selectedClassroom} />
-          </div>
+      <div className='teacher-report-container concepts-overview progress-reports-2018'>
+        <ReportHeader
+          title="Concept Results"
+          tooltipText="Each question on Quill targets a specific writing concept. This report shows the number of times the student correctly or incorrectly used the targeted concept to answer the question. You can see a student’s results on each concept by clicking on the student’s name. You can print this report by downloading a PDF file or export this data by downloading a CSV file."
+          csvData={filteredReportData}
+          key={`reports are ready ${updatingReportData}`}
+          keysToOmit={this.keysToOmit()}
+          valuesToChange={changeValues}
+        />
+        <div className='dropdown-container'>
+          <ItemDropdown callback={this.switchClassrooms} className="bordered-dropdown dropdown-with-icon" items={dropdownClassrooms} selectedItem={selectedClassroom} />
         </div>
         {this.tableOrEmptyMessage()}
       </div>
