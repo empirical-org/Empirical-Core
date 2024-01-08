@@ -4895,6 +4895,8 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             <td
               className="data-table-row-section undefined"
               key="name-2851870"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "220px",
@@ -4908,6 +4910,8 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             <td
               className="data-table-row-section undefined"
               key="usernameOrEmail-2851870"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "330px",
@@ -4921,6 +4925,8 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             <td
               className="data-table-row-section undefined"
               key="logInMethod-2851870"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "110px",
@@ -4934,6 +4940,8 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             <td
               className="data-table-row-section show-overflow"
               key="lastActive-2851870"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "110px",
@@ -4947,6 +4955,8 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             <td
               className="data-table-row-section left-align"
               key="activities-2851870"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "70px",
@@ -4988,6 +4998,8 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             <td
               className="data-table-row-section undefined"
               key="name-2851866"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "220px",
@@ -5001,6 +5013,8 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             <td
               className="data-table-row-section undefined"
               key="usernameOrEmail-2851866"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "330px",
@@ -5014,6 +5028,8 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             <td
               className="data-table-row-section undefined"
               key="logInMethod-2851866"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "110px",
@@ -5027,6 +5043,8 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             <td
               className="data-table-row-section show-overflow"
               key="lastActive-2851866"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "110px",
@@ -5038,6 +5056,8 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             <td
               className="data-table-row-section left-align"
               key="activities-2851866"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "70px",

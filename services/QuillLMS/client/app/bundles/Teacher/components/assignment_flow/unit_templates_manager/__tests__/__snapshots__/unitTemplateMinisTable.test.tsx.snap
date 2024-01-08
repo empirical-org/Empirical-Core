@@ -331,6 +331,8 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
             <td
               className="data-table-row-section pack-type-section"
               key="packType-3"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "160px",
@@ -350,6 +352,8 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
             <td
               className="data-table-row-section pack-name-section"
               key="packName-3"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "204px",
@@ -396,6 +400,8 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
             <td
               className="data-table-row-section "
               key="tools-3"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "140px",
@@ -422,6 +428,8 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
             <td
               className="data-table-row-section "
               key="gradeLevel-3"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "70px",
@@ -433,6 +441,8 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
             <td
               className="data-table-row-section activities-section"
               key="activities-3"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "50px",
@@ -446,6 +456,8 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
             <td
               className="data-table-row-section "
               key="duration-3"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "150px",

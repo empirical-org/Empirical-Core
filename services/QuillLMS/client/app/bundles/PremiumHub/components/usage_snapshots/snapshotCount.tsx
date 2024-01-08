@@ -4,7 +4,7 @@ import { SMALL, POSITIVE, NEGATIVE, NONE } from './shared'
 
 import { requestPost, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'
-import { hashPayload, selectionsEqual } from '../../shared'
+import { hashPayload } from '../../shared'
 
 const smallArrowUpIcon = <img alt="Arrow pointing up" className="small" src={`${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/arrow_up_icon.svg`} />
 const smallArrowDownIcon = <img alt="Arrow pointing down" className="small" src={`${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/arrow_down_icon.svg`} />
@@ -28,6 +28,7 @@ interface SnapshotCountProps {
   passedChangeDirection?: 'negative'|'positive'|'none';
   singularLabel?: string;
   pusherChannel?: any;
+  labelSubText?: JSX.Element
 }
 
 const PUSHER_CURRENT_EVENT_KEY = 'admin-snapshot-count-cached'
@@ -35,7 +36,7 @@ const PUSHER_PREVIOUS_EVENT_KEY = 'admin-snapshot-previous-count-cached'
 const NOT_APPLICABLE = 'N/A'
 const RETRY_TIMEOUT = 20000
 
-const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, passedCount, passedPrevious, passedChange, passedChangeDirection, singularLabel, pusherChannel, }: SnapshotCountProps) => {
+const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, passedCount, passedPrevious, passedChange, passedChangeDirection, singularLabel, pusherChannel, labelSubText, }: SnapshotCountProps) => {
   const [count, setCount] = React.useState(passedCount || null)
   const [previous, setPrevious] = React.useState(passedPrevious)
   const [change, setChange] = React.useState(passedChange)
@@ -204,7 +205,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
       {loading && <div className="loading-spinner-wrapper"><ButtonLoadingSpinner /></div>}
       <div className="count-and-label">
         <span className="count">{count?.toLocaleString() || '—'}</span>
-        <span className="snapshot-label">{count === 1 && singularLabel ? singularLabel : label}</span>
+        <span className="snapshot-label">{count === 1 && singularLabel ? singularLabel : label}{labelSubText}</span>
       </div>
       <div className="change">
         {icon}
@@ -215,3 +216,12 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
 }
 
 export default SnapshotCount
+
+SnapshotCount.defaultProps = {
+  customTimeframeEnd: null,
+  customTimeframeStart: null,
+  selectedClassroomIds: null,
+  selectedGrades: null,
+  selectedTeacherIds: null,
+  selectedTimeframe: "this-school-year",
+}

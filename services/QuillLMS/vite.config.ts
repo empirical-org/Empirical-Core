@@ -5,7 +5,6 @@ import fs from 'fs/promises';
 import path, { resolve } from 'path';
 import friendlyTypeImports from 'rollup-plugin-friendly-type-imports';
 import { createLogger, defineConfig, loadEnv } from 'vite';
-import requireTransform from 'vite-plugin-require-transform';
 import RubyPlugin from 'vite-plugin-ruby';
 
 const logger = createLogger();
@@ -65,7 +64,6 @@ export default defineConfig(({command, mode}) => {
         'process.env.LESSONS_WEBSOCKETS_URL': JSON.stringify(lessonsWebsocketsUrl),
         'process.env.QUILL_CMS': JSON.stringify(quillCmsUrl)
       }),
-      requireTransform(),
       viteCommonjs(),
       friendlyTypeImports(),
       RubyPlugin(),
@@ -97,4 +95,3 @@ export default defineConfig(({command, mode}) => {
     }
   }
 })
-

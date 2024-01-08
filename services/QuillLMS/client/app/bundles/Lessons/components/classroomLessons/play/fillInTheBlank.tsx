@@ -1,4 +1,3 @@
-declare function require(name:string);
 import { stringNormalize } from 'quill-string-normalizer';
 import * as React from 'react';
 import * as _ from 'underscore';

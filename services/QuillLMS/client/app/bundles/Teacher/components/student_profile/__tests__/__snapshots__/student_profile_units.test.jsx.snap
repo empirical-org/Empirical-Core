@@ -569,6 +569,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -582,6 +584,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -593,6 +597,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -604,6 +610,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -664,6 +672,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -677,6 +687,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -688,6 +700,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -699,6 +713,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -759,6 +775,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -772,6 +790,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -783,6 +803,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -794,6 +816,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -1287,6 +1311,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -1300,6 +1326,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -1311,6 +1339,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -1324,6 +1354,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -1348,6 +1380,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -1361,6 +1395,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -1372,6 +1408,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -1385,6 +1423,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -1409,6 +1449,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -1422,6 +1464,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -1433,6 +1477,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -1446,6 +1492,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -1470,6 +1518,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -1483,6 +1533,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -1494,6 +1546,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -1507,6 +1561,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -1531,6 +1587,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -1544,6 +1602,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -1555,6 +1615,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -1568,6 +1630,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -1592,6 +1656,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -1605,6 +1671,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -1616,6 +1684,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -1629,6 +1699,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -1653,6 +1725,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -1666,6 +1740,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -1677,6 +1753,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -1690,6 +1768,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -1714,6 +1794,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -1727,6 +1809,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -1738,6 +1822,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -1751,6 +1837,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -2347,6 +2435,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -2360,6 +2450,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -2371,6 +2463,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -2382,6 +2476,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -2442,6 +2538,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -2455,6 +2553,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -2466,6 +2566,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -2477,6 +2579,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -2537,6 +2641,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -2550,6 +2656,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -2561,6 +2669,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -2572,6 +2682,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -3065,6 +3177,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -3078,6 +3192,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -3089,6 +3205,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -3102,6 +3220,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -3126,6 +3246,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -3139,6 +3261,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -3150,6 +3274,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -3163,6 +3289,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -3187,6 +3315,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -3200,6 +3330,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -3211,6 +3343,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -3224,6 +3358,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -3248,6 +3384,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -3261,6 +3399,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -3272,6 +3412,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -3285,6 +3427,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -3309,6 +3453,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -3322,6 +3468,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -3333,6 +3481,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -3346,6 +3496,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -3370,6 +3522,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -3383,6 +3537,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -3394,6 +3550,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -3407,6 +3565,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -3431,6 +3591,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -3444,6 +3606,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -3455,6 +3619,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -3468,6 +3634,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -3492,6 +3660,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section name-section"
                     key="name-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -3505,6 +3675,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -3516,6 +3688,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -3529,6 +3703,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -4243,6 +4419,8 @@ exports[`StudentProfileUnits component should render only completed activities i
                   <td
                     className="data-table-row-section name-section"
                     key="name-9"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "474px",
@@ -4256,6 +4434,8 @@ exports[`StudentProfileUnits component should render only completed activities i
                   <td
                     className="data-table-row-section score-section tooltip-section"
                     key="score-9"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "230px",
@@ -4278,6 +4458,8 @@ exports[`StudentProfileUnits component should render only completed activities i
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-9"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -4289,6 +4471,8 @@ exports[`StudentProfileUnits component should render only completed activities i
                   <td
                     className="data-table-row-section completed-due-date-section"
                     key="dueDate-9"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "110px",
@@ -4302,6 +4486,8 @@ exports[`StudentProfileUnits component should render only completed activities i
                   <td
                     className="data-table-row-section completed-date-section"
                     key="completedDate-9"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "110px",
@@ -4313,6 +4499,8 @@ exports[`StudentProfileUnits component should render only completed activities i
                   <td
                     className="data-table-row-section action-button-section tooltip-section"
                     key="actionButton-9"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -4337,6 +4525,8 @@ exports[`StudentProfileUnits component should render only completed activities i
                   <td
                     className="data-table-row-section name-section"
                     key="name-5"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "474px",
@@ -4350,6 +4540,8 @@ exports[`StudentProfileUnits component should render only completed activities i
                   <td
                     className="data-table-row-section score-section tooltip-section"
                     key="score-5"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "230px",
@@ -4372,6 +4564,8 @@ exports[`StudentProfileUnits component should render only completed activities i
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-5"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -4383,6 +4577,8 @@ exports[`StudentProfileUnits component should render only completed activities i
                   <td
                     className="data-table-row-section completed-due-date-section"
                     key="dueDate-5"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "110px",
@@ -4396,6 +4592,8 @@ exports[`StudentProfileUnits component should render only completed activities i
                   <td
                     className="data-table-row-section completed-date-section"
                     key="completedDate-5"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "110px",
@@ -4407,6 +4605,8 @@ exports[`StudentProfileUnits component should render only completed activities i
                   <td
                     className="data-table-row-section action-button-section tooltip-section"
                     key="actionButton-5"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -5134,6 +5334,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section name-section"
                     key="name-40"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -5147,6 +5349,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-40"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -5158,6 +5362,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-40"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -5169,6 +5375,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-40"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -5193,6 +5401,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section name-section"
                     key="name-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -5206,6 +5416,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -5217,6 +5429,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -5228,6 +5442,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -5288,6 +5504,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section name-section"
                     key="name-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -5301,6 +5519,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -5312,6 +5532,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -5323,6 +5545,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -5383,6 +5607,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section name-section"
                     key="name-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -5396,6 +5622,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -5407,6 +5635,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -5418,6 +5648,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -5911,6 +6143,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section name-section"
                     key="name-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -5924,6 +6158,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -5935,6 +6171,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -5948,6 +6186,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -5972,6 +6212,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section name-section"
                     key="name-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -5985,6 +6227,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -5996,6 +6240,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -6009,6 +6255,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -6033,6 +6281,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section name-section"
                     key="name-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -6046,6 +6296,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -6057,6 +6309,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -6070,6 +6324,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -6094,6 +6350,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section name-section"
                     key="name-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -6107,6 +6365,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -6118,6 +6378,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -6131,6 +6393,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -6155,6 +6419,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section name-section"
                     key="name-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -6168,6 +6434,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -6179,6 +6447,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -6192,6 +6462,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -6216,6 +6488,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section name-section"
                     key="name-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -6229,6 +6503,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -6240,6 +6516,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -6253,6 +6531,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -6277,6 +6557,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section name-section"
                     key="name-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -6290,6 +6572,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -6301,6 +6585,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -6314,6 +6600,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -6338,6 +6626,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section name-section"
                     key="name-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -6351,6 +6641,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -6362,6 +6654,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -6375,6 +6669,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -7102,6 +7398,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section name-section"
                     key="name-40"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -7115,6 +7413,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-40"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -7126,6 +7426,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-40"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -7137,6 +7439,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-40"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -7161,6 +7465,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section name-section"
                     key="name-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -7174,6 +7480,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -7185,6 +7493,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -7196,6 +7506,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -7256,6 +7568,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section name-section"
                     key="name-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -7269,6 +7583,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -7280,6 +7596,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -7291,6 +7609,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -7351,6 +7671,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section name-section"
                     key="name-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -7364,6 +7686,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -7375,6 +7699,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -7386,6 +7712,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -7879,6 +8207,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section name-section"
                     key="name-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -7892,6 +8222,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -7903,6 +8235,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -7916,6 +8250,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -7940,6 +8276,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section name-section"
                     key="name-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -7953,6 +8291,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -7964,6 +8304,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -7977,6 +8319,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -8001,6 +8345,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section name-section"
                     key="name-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -8014,6 +8360,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -8025,6 +8373,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -8038,6 +8388,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -8062,6 +8414,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section name-section"
                     key="name-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -8075,6 +8429,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -8086,6 +8442,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -8099,6 +8457,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -8123,6 +8483,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section name-section"
                     key="name-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -8136,6 +8498,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -8147,6 +8511,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -8160,6 +8526,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -8184,6 +8552,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section name-section"
                     key="name-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -8197,6 +8567,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -8208,6 +8580,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -8221,6 +8595,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -8245,6 +8621,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section name-section"
                     key="name-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -8258,6 +8636,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -8269,6 +8649,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -8282,6 +8664,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -8306,6 +8690,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section name-section"
                     key="name-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -8319,6 +8705,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -8330,6 +8718,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -8343,6 +8733,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -9070,6 +9462,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section name-section"
                     key="name-40"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -9083,6 +9477,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-40"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -9094,6 +9490,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-40"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -9105,6 +9503,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-40"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -9129,6 +9529,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section name-section"
                     key="name-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -9142,6 +9544,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -9153,6 +9557,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -9164,6 +9570,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -9224,6 +9632,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section name-section"
                     key="name-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -9237,6 +9647,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -9248,6 +9660,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -9259,6 +9673,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -9319,6 +9735,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section name-section"
                     key="name-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -9332,6 +9750,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -9343,6 +9763,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -9354,6 +9776,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -9847,6 +10271,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section name-section"
                     key="name-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -9860,6 +10286,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -9871,6 +10299,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -9884,6 +10314,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -9908,6 +10340,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section name-section"
                     key="name-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -9921,6 +10355,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -9932,6 +10368,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -9945,6 +10383,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -9969,6 +10409,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section name-section"
                     key="name-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -9982,6 +10424,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -9993,6 +10437,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -10006,6 +10452,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -10030,6 +10478,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section name-section"
                     key="name-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -10043,6 +10493,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -10054,6 +10506,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -10067,6 +10521,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -10091,6 +10547,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section name-section"
                     key="name-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -10104,6 +10562,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -10115,6 +10575,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -10128,6 +10590,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -10152,6 +10616,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section name-section"
                     key="name-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -10165,6 +10631,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -10176,6 +10644,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -10189,6 +10659,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -10213,6 +10685,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section name-section"
                     key="name-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -10226,6 +10700,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -10237,6 +10713,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -10250,6 +10728,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",
@@ -10274,6 +10754,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section name-section"
                     key="name-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "823px",
@@ -10287,6 +10769,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "24px",
@@ -10298,6 +10782,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "100px",
@@ -10311,6 +10797,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
                     style={
                       Object {
                         "minWidth": "88px",

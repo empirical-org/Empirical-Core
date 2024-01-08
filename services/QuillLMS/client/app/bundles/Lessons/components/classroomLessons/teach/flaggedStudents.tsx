@@ -1,6 +1,5 @@
-declare function require(name:string);
-
 import * as React from 'react';
+
 const grayFlag = 'https://assets.quill.org/images/icons/flag_gray.svg'
 const blueFlag = 'https://assets.quill.org/images/icons/flag_blue.svg'
 
