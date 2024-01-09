@@ -18,7 +18,6 @@ describe 'TeachersData' do
 
   let!(:time2) { Time.current }
   let!(:time1) { time2 - (10.minutes) }
-  let!(:default_time_spent) { teachers_data_module::AVERAGE_TIME_SPENT }
 
   let!(:classroom_unit) { create(:classroom_unit, classroom_id: classroom.id,
                                                         unit: unit)}
