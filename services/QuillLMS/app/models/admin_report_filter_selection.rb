@@ -26,6 +26,8 @@ class AdminReportFilterSelection < ApplicationRecord
 
   belongs_to :user
 
+  has_many :pdf_subscriptions, dependent: :destroy
+
   validates :filter_selections, presence: true
   validates :report, inclusion: { in: REPORTS }
   validates :user_id, presence: true

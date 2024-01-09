@@ -5,11 +5,11 @@ import SnapshotSection from '../components/usage_snapshots/snapshotSection'
 import { snapshotSections, TAB_NAMES, ALL, SECTION_NAME_TO_ICON_URL, } from '../components/usage_snapshots/shared'
 import { Spinner, DropdownInput, filterIcon, whiteArrowPointingDownIcon, documentFileIcon, whiteEmailIcon } from '../../Shared/index'
 import useWindowSize from '../../Shared/hooks/useWindowSize';
-import { requestPost, } from '../../../modules/request';
+import { requestDelete, requestGet, requestPost, } from '../../../modules/request';
 import ReportSubscriptionModal from '../components/usage_snapshots/reportSubscriptionModal';
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 950
-const REPORT_TYPE = 'usage_snapshot_report_pdf'
+const PDF_REPORT = 'usage_snapshot_report_pdf'
 
 const Tab = ({ section, setSelectedTab, selectedTab }) => {
   function handleSetSelectedTab() { setSelectedTab(section) }
@@ -43,40 +43,57 @@ export const UsageSnapshotsContainer = ({
 }) => {
 
   const [selectedTab, setSelectedTab] = React.useState(ALL)
-  const [isManageReportSubscriptionModalOpen, setIsManageSubscriptionReportModalOpen] = React.useState(true);
+  // const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = React.useState(false)
+  const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = React.useState(true)
+  const [existingPdfSubscription, setExistingPdfSubscription] = React.useState(null)
+
+  React.useEffect(() => {
+    requestGet(`/pdf_subscriptions/existing?report=${PDF_REPORT}`, (body) => {
+      setExistingPdfSubscription(body)
+    })
+  }, [existingPdfSubscription])
 
   const size = useWindowSize()
 
   function handleSetSelectedTabFromDropdown(option) { setSelectedTab(option.value) }
 
-  function handleClickManageReportSubscription() {
-    setIsManageSubscriptionReportModalOpen(!isManageReportSubscriptionModalOpen);
+  function handleClickSubscribe() {
+    setIsSubscriptionModalOpen(!isSubscriptionModalOpen);
   }
 
-  function handleManageReportSubscriptionCancel() {
-    setIsManageSubscriptionReportModalOpen(false);
+  function handleSubscriptionCancel() {
+    setIsSubscriptionModalOpen(false);
   }
 
-  function handleManageReportSubscriptionSave(frequency) {
-    setIsManageSubscriptionReportModalOpen(false);
-    handleClickSaveReportSubscription(frequency);
+  function handleSubscriptionSave(isSubscribed, frequency) {
+    setIsSubscriptionModalOpen(false);
+    if (isSubscribed) {
+      saveFilterSelections(PDF_REPORT, (adminReportFilterSelection) => {
+        createOrUpdatePdfSubscription(adminReportFilterSelection, frequency)
+      })
+    } else if (existingPdfSubscription) {
+      deletePdfSubscription(existingPdfSubscription.id)
+    }
   }
 
-  function handleClickSaveReportSubscription(frequency) {
-    saveFilterSelections(REPORT_TYPE, (adminFilterSelection: object) => createPdfSubscription(adminFilterSelection, frequency));
-  }
-
-  function createPdfSubscription(adminReportFilterSelection, frequency) {
+  function createOrUpdatePdfSubscription(adminReportFilterSelection, frequency) {
     if (adminReportFilterSelection && adminReportFilterSelection.id) {
       const pdfSubscriptionParams = {
         pdf_subscription: {
           admin_report_filter_selection_id: adminReportFilterSelection.id,
           frequency
         }
-      };
+      }
 
-      requestPost('/pdf_subscriptions', pdfSubscriptionParams, () => { })
+      requestPost('/pdf_subscriptions/create_or_update', pdfSubscriptionParams, (pdfSubscription) => {
+        setExistingPdfSubscription(pdfSubscription)
+      })
     }
+  }
+
+  function deletePdfSubscription(pdfSubscriptionId) {
+    requestDelete(`/pdf_subscriptions/${pdfSubscriptionId}`, {}, null, error => { throw (error) })
+    setExistingPdfSubscription(null)
   }
 
   if (loadingFilters) {
@@ -143,22 +160,24 @@ export const UsageSnapshotsContainer = ({
             <span>Guide</span>
           </a>
         </h1>
-        <button
-          className="quill-button manage-subscription-button contained primary medium focus-on-light"
-          onClick={handleClickManageReportSubscription}
-          type="button"
-        >
-          <img alt={whiteEmailIcon.alt} src={whiteEmailIcon.src} />
-          <span>Subscribe</span>
-        </button>
-        <button
-          className="quill-button download-report-button contained primary medium focus-on-light"
-          onClick={handleClickDownloadReport}
-          type="button"
-        >
-          <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />
-          <span>Download</span>
-        </button>
+        <div className="header-buttons">
+          <button
+            className="quill-button manage-subscription-button contained primary medium focus-on-light"
+            onClick={handleClickSubscribe}
+            type="button"
+          >
+            <img alt={whiteEmailIcon.alt} src={whiteEmailIcon.src} />
+            <span>{existingPdfSubscription ? "Manage Subscription" : "Subscribe"}</span>
+          </button>
+          <button
+            className="quill-button download-report-button contained primary medium focus-on-light"
+            onClick={handleClickDownloadReport}
+            type="button"
+          >
+            <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />
+            <span>Download</span>
+          </button>
+        </div>
       </div>
       <div aria-hidden={true} className="tabs">
         {size.width >= MAX_VIEW_WIDTH_FOR_MOBILE ? tabs : tabDropdown}
@@ -176,15 +195,15 @@ export const UsageSnapshotsContainer = ({
       <div className="sections">
         {snapshotSectionComponents}
       </div>
+      <ReportSubscriptionModal
+        cancel={handleSubscriptionCancel}
+        existingPdfSubscription={existingPdfSubscription}
+        isOpen={isSubscriptionModalOpen}
+        save={handleSubscriptionSave}
+      />
       <div id="bottom-element" />
 
-      <ReportSubscriptionModal
-        cancel={handleManageReportSubscriptionCancel}
-        existingFrequency={null}
-        isOpen={isManageReportSubscriptionModalOpen}
-        save={handleManageReportSubscriptionSave}
-      />
-    </main>
+    </main >
   )
 }
 

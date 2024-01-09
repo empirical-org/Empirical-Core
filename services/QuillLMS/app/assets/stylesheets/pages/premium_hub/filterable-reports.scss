@@ -150,13 +150,20 @@
       max-width: $sitewidepagewidth;
       width: 100%;
     }
-    .download-report-button, .manage-subscription-button {
-      min-width: 132px;
-      img, .button-loading-spinner-container {
-        margin-right: 4px;
-      }
-      .button-loading-spinner-container {
-        width: 24px;
+
+    .header-buttons {
+      display: flex;
+      gap: 8px;
+
+      .download-report-button, .manage-subscription-button {
+        min-width: 132px;
+        padding: 8px 16px;
+        img, .button-loading-spinner-container {
+          margin-right: 4px;
+        }
+        .button-loading-spinner-container {
+          width: 24px;
+        }
       }
     }
     h1 {
@@ -410,6 +417,9 @@
           font-weight: 500;
           line-height: 12px;
           word-wrap: break-word
+        }
+        label {
+          display: block;
         }
       }
     }

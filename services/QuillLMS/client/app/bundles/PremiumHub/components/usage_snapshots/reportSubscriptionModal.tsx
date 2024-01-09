@@ -7,11 +7,11 @@ const WEEKLY = 'Weekly';
 const ON = 'On';
 const OFF = 'Off';
 
-const ReportSubscriptionModal = ({ cancel, existingFrequency, isOpen, save }) => {
+const ReportSubscriptionModal = ({ cancel, existingPdfSubscription, isOpen, save }) => {
   if (!isOpen) return null;
 
-  const [isSubscribed, setIsSubscribed] = React.useState(existingFrequency ? true : false);
-  const [frequency, setFrequency] = React.useState(existingFrequency || MONTHLY);
+  const [isSubscribed, setIsSubscribed] = React.useState(existingPdfSubscription ? true : false);
+  const [frequency, setFrequency] = React.useState(existingPdfSubscription?.frequency || MONTHLY);
 
   const frequencyOptions = [{ "value": MONTHLY, "label": MONTHLY }, { "value": WEEKLY, "label": WEEKLY }]
 
@@ -23,7 +23,7 @@ const ReportSubscriptionModal = ({ cancel, existingFrequency, isOpen, save }) =>
     setIsSubscribed(option.target.value === ON)
   }
 
-  function handleSaveClick() { save(frequency) }
+  function handleSaveClick() { save(isSubscribed, frequency, existingPdfSubscription) }
 
   function renderFrequencyOptions() {
     const selectedFrequency = frequencyOptions.find(option => frequency === option.value)
@@ -108,7 +108,7 @@ const ReportSubscriptionModal = ({ cancel, existingFrequency, isOpen, save }) =>
   function renderTitleAndDescription() {
     return (
       <div className="title-and-description">
-        <h2>Subscribe to this report(</h2>
+        <h2>Subscribe to this report</h2>
         <p className="description">
           Keep up to date by having this report delivered to your inbox on a recurring basis. It will use filters
           currently applied when you subscribe, so please review them before doing so.  You can always change your
@@ -119,11 +119,14 @@ const ReportSubscriptionModal = ({ cancel, existingFrequency, isOpen, save }) =>
   }
 
   return (
-    <div className="manage-report-subscription-modal">
-      <div>
-        {renderTitleAndDescription()}
-        {renderIsSubscribedAndFrequency()}
-        {renderSaveAndCancelButtons()}
+    <div className="modal-container">
+      <div className="modal-background" />
+      <div className="manage-report-subscription-modal quill-modal modal-body">
+        <div>
+          {renderTitleAndDescription()}
+          {renderIsSubscribedAndFrequency()}
+          {renderSaveAndCancelButtons()}
+        </div>
       </div>
     </div>
   );

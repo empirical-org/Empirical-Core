@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AdminReportFilterSelectionsController < ApplicationController
+  before_action :admin!
+
   def show
     admin_report_filter_selection = AdminReportFilterSelection.find_by(report:, user_id:)
     render json: admin_report_filter_selection

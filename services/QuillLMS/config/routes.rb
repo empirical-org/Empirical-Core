@@ -741,8 +741,9 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :admin_report_filter_selections, only: [] do
     collection do
-      post '/show', to: 'admin_report_filter_selections#show'
+      post '/show', to: 'admin_report_filter_selections#show' # POST since filter params can be too long for GET
       post '/create_or_update', to: 'admin_report_filter_selections#create_or_update'
+      post '/delete_by_report', to: 'admin_report_filter_selections#delete_by_report'
     end
   end
 
@@ -758,7 +759,12 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  resources :pdf_subscriptions, only: [:create]
+  resources :pdf_subscriptions, only: [:destroy] do
+    collection do
+      post :create_or_update
+      get :existing
+    end
+  end
 
   other_pages = %w(
     beta
