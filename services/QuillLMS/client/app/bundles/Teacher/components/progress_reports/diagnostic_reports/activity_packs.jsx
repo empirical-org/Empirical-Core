@@ -224,41 +224,50 @@ function ActivityPacks() {
     setSelectedClassroomId(classroom.id)
   };
 
-  function stateBasedComponent() {
+  function renderContent() {
     if (!loaded) {
       return <Spinner />;
     }
 
-    let content;
+    if (!classrooms || classrooms.length === 0) {
+      return <EmptyProgressReport missing="classrooms" />;
+    }
 
-    const allClassroomsClassroom = { name: 'All Classrooms', };
-    const classroomOptions = [allClassroomsClassroom].concat(classrooms);
-    const classroomWithSelectedId = classroomOptions.find(classroom =>
-      classroom && classroom.id === Number(selectedClassroomId)
-    );
-    const selectedClassroom = classroomWithSelectedId || allClassroomsClassroom;
-
-    if (!classrooms || classrooms.filter(Boolean).length === 0) {
-      content = <EmptyProgressReport missing="classrooms" />;
-    } else if (units.length === 0 && selectedClassroomId) {
-      content = (
+    if (units.length === 0 && selectedClassroomId) {
+      return (
         <EmptyProgressReport
           missing="activitiesForSelectedClassroom"
-          onButtonClick={() => {
-            setSelectedClassroomId(null)
-            setLoaded(false)
-            getUnitsForCurrentClass()
-          }}
-        />);
-    } else if (units.length === 0) {
-      content = <EmptyProgressReport missing="activities" />;
-    } else {
-      content = (<Units
-        activityReport={Boolean(true)}
-        data={units}
-        report={Boolean(true)}
-      />);
+          onButtonClick={resetSelectedClassroom}
+        />
+      );
     }
+
+    if (units.length === 0) {
+      return <EmptyProgressReport missing="activities" />;
+    }
+
+    return (
+      <Units
+        activityReport={true}
+        data={units}
+        report={true}
+      />
+    );
+  }
+
+  function resetSelectedClassroom() {
+    setSelectedClassroomId(null);
+    setLoaded(false);
+    getUnitsForCurrentClass();
+  }
+
+  function stateBasedComponent() {
+    const allClassroomsOption = { name: 'All Classrooms' };
+    const classroomOptions = [allClassroomsOption, ...classrooms];
+
+    const selectedClassroom = classroomOptions.find(classroom =>
+      classroom?.id === Number(selectedClassroomId)
+    ) || allClassroomsOption;
 
     return (
       <div className="activity-analysis">
@@ -268,14 +277,14 @@ function ActivityPacks() {
           <p>Select a classroom:</p>
           <ItemDropdown
             callback={switchClassrooms}
-            items={classroomOptions.filter(Boolean)}
+            items={classroomOptions}
             selectedItem={selectedClassroom}
           />
         </div>
-        {content}
+        {renderContent()}
       </div>
     );
-  };
+  }
 
   return (
     <React.Fragment>
