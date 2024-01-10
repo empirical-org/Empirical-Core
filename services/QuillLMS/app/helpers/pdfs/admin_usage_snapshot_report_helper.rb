@@ -24,6 +24,16 @@ module Pdfs
       users: ICONS_SRC[:students]
     }
 
+    NEGATIVE = 'negative'
+    NO_CHANGE = 'no-change'
+    POSITIVE = 'positive'
+
+    def change_direction_class(change)
+      return NO_CHANGE if change.nil? || change.zero?
+
+      change.positive? ? POSITIVE : NEGATIVE
+    end
+
     def change_icon_src(change)
       return if change.nil? || change.zero?
 

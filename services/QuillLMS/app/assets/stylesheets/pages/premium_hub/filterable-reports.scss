@@ -424,6 +424,19 @@
       }
     }
 
+    .frequency-options {
+      .frequency-label {
+        color: #7F7F7F;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 12px;
+        word-wrap: break-word
+      }
+      label {
+        display: block;
+      }
+    }
+
     .save-and-cancel-buttons {
       display: flex;
       gap: 16px;
