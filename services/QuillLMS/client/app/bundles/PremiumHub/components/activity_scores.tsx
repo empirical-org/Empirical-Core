@@ -40,9 +40,9 @@ const ActivityScores: React.SFC<ActivityScoresProps> = ({
   return (
     <div className="admin-report-container">
       <ReportHeader
+        csvData={csvData}
         headerText="Activity Scores"
         tooltipText="Each activity takes about 10-20 minutes to complete, and students receive a score out of 100 points based on their performance. Click on a student’s name to see a report and print it as a PDF. You can print this report by downloading a PDF file or export this data by downloading a CSV file. <br/><br/> These reports are updated nightly."
-        csvData={csvData}
       />
       <div className="dropdowns-container">
         <ItemDropdown

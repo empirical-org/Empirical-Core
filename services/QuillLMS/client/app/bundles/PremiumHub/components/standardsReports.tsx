@@ -15,10 +15,10 @@ export const StandardsReports = ({
     <div className={`admin-report-container standards-reports-by-classroom ${freemiumClass}`}>
       <ReportHeader
         className="admin-standards-report"
+        csvData={csvData}
         headerText={header}
         isFreemiumView={isFreemiumView}
         tooltipText={tooltipText}
-        csvData={csvData}
       />
       <StandardsReportsTable data={filteredStandardsReportsData} isFreemiumView={isFreemiumView} />
     </div>
