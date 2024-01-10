@@ -134,7 +134,7 @@ export default class IndividualStandardsReport extends React.Component {
         <ReportHeader
           csvData={csvData}
           headerText="Standards Report:"
-          subHeaderElement={<p>{standard.name}</p>}
+          subHeaderElement={<p className="report-sub-header">{standard.name}</p>}
           tooltipText="You can print this report by downloading a PDF file or export this data by downloading a CSV file."
         />
         <div className='dropdown-container'>

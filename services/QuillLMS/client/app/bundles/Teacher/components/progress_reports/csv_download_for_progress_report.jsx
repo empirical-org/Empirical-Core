@@ -161,7 +161,7 @@ export class CSVDownloadForProgressReport extends React.Component {
           onClick={this.handleClick}
           style={{display: 'block'}}
         >
-          {buttonCopy || "Download Report"}
+          {buttonCopy || "Download report"}
         </button>
       )
     }

@@ -18,7 +18,7 @@ export default class ProgressReportFilters extends React.Component {
     return (
       <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 classroom-filter" key="classroom-filter">
         <DropdownInput
-          className={this.activeFilter(selectedClassroom, classroomFilters)}
+          className={`${this.activeFilter(selectedClassroom, classroomFilters)} dropdown-with-icon`}
           handleChange={selectClassroom}
           options={classroomFilters}
           value={selectedClassroom}

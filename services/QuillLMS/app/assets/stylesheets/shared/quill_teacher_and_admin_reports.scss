@@ -9,9 +9,13 @@
     .header-subheader-container {
       display: flex;
       align-items: center;
-      p {
-        max-width: 600px;
-      }
+    }
+    .report-sub-header {
+      max-width: 850px;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 32px;
     }
     .header-and-tooltip {
       display: flex;
@@ -33,6 +37,24 @@
       .quill-tooltip-trigger {
         margin-left: 8px;
       }
+      .student-badge {
+        display: flex;
+        padding: 8px 16px 8px 8px;
+        background-color: $quill-grey-1;
+        border: 1px solid $quill-grey-15;
+        border-radius: 8px;
+        margin-top: 8px;
+        img {
+          height: 26px;
+          width: auto;
+          margin-right: 8px;
+        }
+        p {
+          font-size: 24px;
+          font-weight: 700;
+          line-height: 26px;
+        }
+      }
     }
     .csv-and-how-we-grade {
       display: flex;
@@ -48,7 +70,6 @@
   .dropdowns-container {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 48px;
     .dropdown-container {
       width: 100%;
       max-width: 390px;
@@ -60,8 +81,10 @@
       }
     }
   }
+  .input-container .dropdown .dropdown__control--menu-is-open {
+    height: auto;
+  }
   .dropdown-container {
-    margin-bottom: 48px;
     .dropdown-container {
       min-height: 65px;
       max-width: 240px;
@@ -73,7 +96,7 @@
       content: url('https://assets.quill.org/images/pages/activity_summary/students.svg');
       position: relative;
       margin-right: 8px;
-      margin-top: 4px;
+      vertical-align: top;
     }
     .dropdown__single-value {
       margin-right: 4px;
@@ -83,6 +106,74 @@
     }
     .dropdown__menu {
       margin-top: -20px;
+    }
+  }
+  table {
+    margin-top: 48px;
+  }
+}
+
+#student-overview {
+  .student-overview-header-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    .how-we-grade {
+      text-align: center;
+    }
+    .activity-score-student-card-container {
+      display: flex;
+      max-width: 840px;
+      padding: 16px;
+      flex-direction: column;
+      align-items: flex-start;
+      border-radius: 8px;
+      border: 1px solid $quill-grey-15;
+      background: $quill-grey-1;
+      .student-badge {
+        display: flex;
+        margin-bottom: 32px;
+        img {
+          height: 26px;
+          width: auto;
+          margin-right: 10px;
+        }
+        p {
+          font-size: 24px;
+          font-weight: 700;
+          line-height: 26px;
+        }
+      }
+      .student-data-container {
+        display: flex;
+        border-radius: 8px;
+        padding: 16px;
+        border: 1px solid $quill-grey-5;
+        background-color: $quill-white;
+        .data-cell {
+          padding: 0px 32px;
+          &:first-of-type {
+            padding: 0px 32px 0px 0px;
+          }
+          &:not(:last-of-type) {
+            border-right: 1px solid $quill-grey-10;
+          }
+          .cell-value {
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            color: $quill-grey-90;
+          }
+          .cell-label {
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 20px;
+            color: $quill-grey-50;
+          }
+        }
+      }
     }
   }
 }

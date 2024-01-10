@@ -52,7 +52,7 @@ export const ReportHeader = ({ headerText, subHeaderElement, tooltipText, csvDat
     return(
       <div className="csv-and-how-we-grade">
         {button}
-        <a className="how-we-grade" href="https://support.quill.org/activities-implementation/how-does-grading-work">How we grade</a>
+        <a className="how-we-grade focus-on-light" href="https://support.quill.org/activities-implementation/how-does-grading-work">How we grade</a>
       </div>
     )
   }

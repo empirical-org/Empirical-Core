@@ -262,7 +262,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
         />
         <div className='dropdowns-container standards-all-classrooms-dropdown-container'>
           <ItemDropdown callback={this.switchClassrooms} className="bordered-dropdown dropdown-with-icon" isSearchable={true} items={classrooms} selectedItem={selectedClassroom} />
-          <ItemDropdown callback={this.goToStudentPage} className="bordered-dropdown dropdown-with-icon" isSearchable={true} items={_.uniq(students.map(s => s.name))} />
+          <ItemDropdown callback={this.goToStudentPage} className="bordered-dropdown" isSearchable={true} items={_.uniq(students.map(s => s.name))} />
         </div>
         {this.tableOrEmptyMessage()}
       </div>

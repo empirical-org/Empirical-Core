@@ -1,12 +1,10 @@
 import React from 'react'
 
-import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
-
 import { NOT_SCORED_DISPLAY_TEXT } from './constants.js'
 
 import { requestGet, } from '../../../../modules/request/index'
 import { sortTableByStandardLevel } from '../../../../modules/sortingMethods.js'
-import { ReactTable, ReportHeader, } from '../../../Shared/index'
+import { ReactTable, ReportHeader, singleUserIcon, } from '../../../Shared/index'
 import { getTimeSpent } from '../../helpers/studentReports'
 import userIsPremium from '../modules/user_is_premium'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
@@ -136,12 +134,18 @@ export default class StandardsProgressReport extends React.Component {
       return <LoadingSpinner />
     }
     const filteredData = this.filteredData()
+    const subHeaderElement = (
+      <div className="student-badge">
+        <img alt={singleUserIcon.alt} src={singleUserIcon.src} />
+        <p>{student.name}</p>
+      </div>
+    )
     return (
       <div className='teacher-report-container individual-student progress-reports-2018'>
         <ReportHeader
           headerText="Standards Report"
           csvData={csvData}
-          subHeaderElement={<p>{student.name}</p>}
+          subHeaderElement={subHeaderElement}
         />
         <div key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
           <ReactTable

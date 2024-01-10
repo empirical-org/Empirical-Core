@@ -11,6 +11,7 @@ import { requestGet, } from '../../../../modules/request/index';
 import { getTimeSpent } from '../../helpers/studentReports';
 import getParameterByName from '../modules/get_parameter_by_name';
 import LoadingSpinner from '../shared/loading_indicator.jsx';
+import { singleUserIcon } from '../../../Shared/index';
 
 export default class extends React.Component {
   constructor() {
@@ -140,7 +141,7 @@ export default class extends React.Component {
         newRow['Average Score'] = countAndAverage.average;
         csvReportData.push(newRow);
       });
-      downloadReportOrLoadingIndicator = <CSVDownloadForProgressReport data={csvReportData} preserveCasing={true} />;
+      downloadReportOrLoadingIndicator = <CSVDownloadForProgressReport className="quill-button focus-on-light small primary contained" data={csvReportData} preserveCasing={true} />;
     } else {
       downloadReportOrLoadingIndicator = <LoadingSpinner />;
     }
@@ -148,25 +149,40 @@ export default class extends React.Component {
       lastActive = moment(studentData.last_active).format('MM/DD/YYYY');
     }
     return (
-      <table className="overview-header-table">
-        <tbody>
-          <tr className="top">
-            <td className="student-name" colSpan="6">
-              {studentData.name}
-            </td>
-            <td className="csv-link" colSpan="1">
-              {downloadReportOrLoadingIndicator}
-            </td>
-          </tr>
-          <tr className="bottom">
-            {this.grayAndYellowStat('Class', classroomName, "class-column", "1")}
-            {this.grayAndYellowStat('Overall score', countAndAverage.average || '--', "", "2")}
-            {this.grayAndYellowStat('Total time spent', totalTimeSpent || '--', "", "1")}
-            {this.grayAndYellowStat('Activities completed', countAndAverage.count || '--', "", "2")}
-            {this.grayAndYellowStat('Last active', lastActive || '--', 'last-active', "1")}
-          </tr>
-        </tbody>
-      </table>
+      <div className="student-overview-header-container">
+        <div className="activity-score-student-card-container">
+          <div className="student-badge">
+            <img alt={singleUserIcon.alt} src={singleUserIcon.src} />
+            <p>{studentData.name}</p>
+          </div>
+          <div className="student-data-container">
+            <div className="data-cell">
+              <p className="cell-value">{classroomName}</p>
+              <p className="cell-label">Class</p>
+            </div>
+            <div className="data-cell">
+              <p className="cell-value">{countAndAverage.average || '--'}</p>
+              <p className="cell-label">Overall score</p>
+            </div>
+            <div className="data-cell">
+              <p className="cell-value">{totalTimeSpent || '--'}</p>
+              <p className="cell-label">Total time spent</p>
+            </div>
+            <div className="data-cell">
+              <p className="cell-value">{countAndAverage.count || '--'}</p>
+              <p className="cell-label">Activities completed</p>
+            </div>
+            <div className="data-cell">
+              <p className="cell-value">{lastActive || '--'}</p>
+              <p className="cell-label">Last active</p>
+            </div>
+          </div>
+        </div>
+        <div className="csv-and-how-we-grade">
+          {downloadReportOrLoadingIndicator}
+          <a className="how-we-grade focus-on-light" href="https://support.quill.org/activities-implementation/how-does-grading-work">How we grade</a>
+        </div>
+      </div>
     );
   }
 

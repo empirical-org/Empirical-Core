@@ -3,7 +3,7 @@ import React from 'react'
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 
 import { requestGet, } from '../../../../modules/request/index'
-import { ReactTable, ReportHeader, } from '../../../Shared/index'
+import { ReactTable, ReportHeader, singleUserIcon, } from '../../../Shared/index'
 import userIsPremium from '../modules/user_is_premium'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 
@@ -74,16 +74,24 @@ export default class IndividualStudentConceptReport extends React.Component {
 
   render() {
     const { loading, reportData, studentName } = this.state
+    const subHeaderElement = (
+      <div className="student-badge">
+        <img alt={singleUserIcon.alt} src={singleUserIcon.src} />
+        <p>{studentName}</p>
+      </div>
+    )
 
     if (loading || !reportData) {
       return <LoadingSpinner />
     }
+
+
     return (
       <div className='teacher-report-container progress-reports-2018 concept-student-concepts'>
         <ReportHeader
           csvData={reportData}
           headerText="Concept Results:"
-          subHeaderElement={<p>{studentName}</p>}
+          subHeaderElement={subHeaderElement}
           tooltipText="You can print this report by downloading a PDF file or export this data by downloading a CSV file."
         />
         <div className='student-name'>{studentName}</div>

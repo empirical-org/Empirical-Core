@@ -169,7 +169,8 @@ export {
   evidenceHandbookIcon,
   whiteArrowPointingDownIcon,
   filterIcon,
-  documentFileIcon
+  documentFileIcon,
+  singleUserIcon
 } from './images/index'
 
 export {
