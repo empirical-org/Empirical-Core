@@ -1,6 +1,7 @@
+import fetchDefaults from "fetch-defaults";
+
 const mainApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/`;
 const evidenceBaseUrl = `${mainApiBaseUrl}evidence/`;
-const fetchDefaults = require("fetch-defaults");
 
 const headerHash = {
   headers: {

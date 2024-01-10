@@ -10884,6 +10884,8 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                       <td
                                         className="data-table-row-section undefined"
                                         key="name-2851865"
+                                        onMouseEnter={[Function]}
+                                        onMouseLeave={[Function]}
                                         style={
                                           Object {
                                             "minWidth": "370px",
@@ -10897,6 +10899,8 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                       <td
                                         className="data-table-row-section undefined"
                                         key="role-2851865"
+                                        onMouseEnter={[Function]}
+                                        onMouseLeave={[Function]}
                                         style={
                                           Object {
                                             "minWidth": "72px",
@@ -10910,6 +10914,8 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                       <td
                                         className="data-table-row-section undefined"
                                         key="email-2851865"
+                                        onMouseEnter={[Function]}
+                                        onMouseLeave={[Function]}
                                         style={
                                           Object {
                                             "minWidth": "445px",
@@ -10923,6 +10929,8 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                       <td
                                         className="data-table-row-section undefined"
                                         key="status-2851865"
+                                        onMouseEnter={[Function]}
+                                        onMouseLeave={[Function]}
                                         style={
                                           Object {
                                             "minWidth": "52px",

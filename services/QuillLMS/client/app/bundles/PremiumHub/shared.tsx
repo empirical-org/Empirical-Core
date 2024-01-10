@@ -51,6 +51,8 @@ export const restrictedPage = (
   </div>
 )
 
+export const RESTRICTED_TEXT = "Sorry, only verified admins with a subscription to School or District Premium can access this feature."
+
 export function selectionsEqual(firstSelection, secondSelection) {
   return (
     firstSelection == secondSelection || // less strict comparison so that undefined and null are treated as equal

@@ -601,6 +601,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="studentName-33"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "125px",
@@ -614,6 +616,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="activityName-33"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "296px",
@@ -698,6 +702,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section completed-section"
                 key="completed-33"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "84px",
@@ -720,6 +726,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="studentName-32"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "125px",
@@ -871,6 +879,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section completed-section"
                 key="completed-32"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "84px",
@@ -893,6 +903,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="studentName-29"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "125px",
@@ -906,6 +918,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="activityName-29"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "296px",
@@ -990,6 +1004,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section completed-section"
                 key="completed-29"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "84px",
@@ -1012,6 +1028,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="studentName-28"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "125px",
@@ -1025,6 +1043,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="activityName-28"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "296px",
@@ -1109,6 +1129,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section completed-section"
                 key="completed-28"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "84px",
@@ -1131,6 +1153,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="studentName-27"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "125px",
@@ -1144,6 +1168,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="activityName-27"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "296px",
@@ -1228,6 +1254,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section completed-section"
                 key="completed-27"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "84px",
@@ -1250,6 +1278,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="studentName-26"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "125px",
@@ -1263,6 +1293,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="activityName-26"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "296px",
@@ -1347,6 +1379,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section completed-section"
                 key="completed-26"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "84px",
@@ -1369,6 +1403,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="studentName-25"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "125px",
@@ -1382,6 +1418,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="activityName-25"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "296px",
@@ -1466,6 +1504,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section completed-section"
                 key="completed-25"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "84px",
@@ -1488,6 +1528,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="studentName-24"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "125px",
@@ -1501,6 +1543,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="activityName-24"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "296px",
@@ -1586,6 +1630,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section completed-section"
                 key="completed-24"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "84px",
@@ -1608,6 +1654,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="studentName-23"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "125px",
@@ -1621,6 +1669,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="activityName-23"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "296px",
@@ -1706,6 +1756,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section completed-section"
                 key="completed-23"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "84px",
@@ -1728,6 +1780,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="studentName-3"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "125px",
@@ -1741,6 +1795,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="activityName-3"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "296px",
@@ -1826,6 +1882,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section completed-section"
                 key="completed-3"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "84px",
@@ -1848,6 +1906,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="studentName-2"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "125px",
@@ -1861,6 +1921,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section undefined"
                 key="activityName-2"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "296px",
@@ -1946,6 +2008,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               <td
                 className="data-table-row-section completed-section"
                 key="completed-2"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "84px",

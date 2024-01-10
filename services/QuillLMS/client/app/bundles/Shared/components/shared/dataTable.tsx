@@ -66,6 +66,7 @@ interface DataTableState {
   sortAscending?: boolean;
   rowWithActionsOpen?: number|string;
   expandedParentRowIdentifier?: string;
+  hoveredColIndex: null|number;
 }
 
 export class DataTable extends React.Component<DataTableProps, DataTableState> {
@@ -78,7 +79,8 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     this.state = {
       sortAttribute: props.defaultSortAttribute || null,
       sortAscending: props.defaultSortDirection !== descending,
-      expandedParentRowIdentifier: ''
+      expandedParentRowIdentifier: '',
+      hoveredColIndex: null
     }
   }
 
@@ -90,6 +92,14 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleClick, false)
   }
+
+  handleMouseEnter = (colIndex) => {
+    this.setState({ hoveredColIndex: colIndex });
+  };
+
+  handleMouseLeave = () => {
+    this.setState({ hoveredColIndex: null });
+  };
 
   // if there is aggregate row data, we want to automatically expand the first row
   checkForAggregateRowData() {
@@ -359,6 +369,11 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const dataTableRowSectionClassName = `data-table-row-section ${header.rowSectionClassName}`
     const key = `${header.attribute}-${row.id || sectionText}`
 
+    let className = `data-table-row-section ${header.rowSectionClassName}`;
+    if (this.state.hoveredColIndex === i) {
+      className += ' highlight-column'; // Add your highlight class here
+    }
+
     let linkDisplayText
     if (sectionText && sectionText.type === 'a' && sectionText.props.children && sectionText.props.children[1] && sectionText.props.children[1].props) {
       linkDisplayText = sectionText.props.children[1].props.children
@@ -402,16 +417,21 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
         </td>
       )
     } else {
+      // ignoring this linter rule because the interactive effects are only for visual changes (we add a class name)
+      /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
       return (
         <td
-          className={dataTableRowSectionClassName}
+          className={className}
           key={key}
+          onMouseEnter={() => this.handleMouseEnter(i)}
+          onMouseLeave={this.handleMouseLeave}
           style={style as any}
         >
           {aggregateRowButtonOrIcon}
           {sectionText}
         </td>
       )
+      /* eslint-enable jsx-a11y/no-noninteractive-element-interactions */
     }
   }
 

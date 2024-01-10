@@ -114,14 +114,6 @@ module PagesHelper
             img: 'team-rachel-calabrese.webp'
           },
           {
-            name: 'CJ Colicchio',
-            title: 'Social Studies Curriculum Developer',
-            img: 'team-cj-colicchio.webp',
-            srcset: {
-              '2x' => 'team-cj-colicchio.webp'
-            }
-          },
-          {
             name: 'Nattalie Dai',
             title: 'Partnerships Specialist II',
             img: 'team-nattalie-dai.webp'

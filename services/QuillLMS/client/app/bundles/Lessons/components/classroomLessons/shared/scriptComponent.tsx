@@ -1,4 +1,3 @@
-declare function require(name:string);
 import moment from 'moment'
 import * as React from 'react'
 

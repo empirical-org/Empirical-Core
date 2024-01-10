@@ -434,7 +434,7 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
         class="data-table-row  "
       >
         <td
-          class="data-table-row-section undefined"
+          class="data-table-row-section undefined highlight-column"
           style="width: 133px; min-width: 133px; text-align: left;"
         >
           <button
@@ -490,7 +490,7 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
         class="data-table-row  "
       >
         <td
-          class="data-table-row-section undefined"
+          class="data-table-row-section undefined highlight-column"
           style="width: 133px; min-width: 133px; text-align: left;"
         >
           <button
@@ -546,7 +546,7 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
         class="data-table-row  aggregate-row"
       >
         <td
-          class="data-table-row-section undefined"
+          class="data-table-row-section undefined highlight-column"
           style="width: 133px; min-width: 133px; text-align: left;"
         >
           <img
@@ -597,7 +597,7 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
         class="data-table-row  aggregate-row"
       >
         <td
-          class="data-table-row-section undefined"
+          class="data-table-row-section undefined highlight-column"
           style="width: 133px; min-width: 133px; text-align: left;"
         >
           <img

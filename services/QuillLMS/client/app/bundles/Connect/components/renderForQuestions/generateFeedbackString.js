@@ -1,6 +1,6 @@
 import _ from 'underscore';
-let C = require("../../constants").default
 
+import C from "../../constants"
 
 const feedbackStrings = C.FEEDBACK_STRINGS
 

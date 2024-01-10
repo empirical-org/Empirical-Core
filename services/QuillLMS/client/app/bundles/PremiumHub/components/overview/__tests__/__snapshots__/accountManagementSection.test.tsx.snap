@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AccountManagementSection it should render 1`] = `
+<DocumentFragment>
+  <section
+    class="overview-section-wrapper account-management"
+  >
+    <h2>
+      <img
+        alt=""
+        src="undefined/images/pages/administrator/overview/pencil.svg"
+      />
+      <span>
+        Account Management
+      </span>
+    </h2>
+    <div
+      class="overview-section"
+    >
+      <div
+        class="overview-section-content"
+      >
+        <div
+          class="tile"
+        >
+          <div>
+            <h3>
+              Manage Accounts
+            </h3>
+            <p>
+              Create new accounts, manage admins, and more.
+            </p>
+          </div>
+          <div
+            class="link-and-image"
+          >
+            <a
+              class="quill-button focus-on-light outlined secondary medium"
+              href="/teachers/premium_hub/account_management"
+            >
+              Manage accounts
+            </a>
+            <img
+              alt=""
+              src="undefined/images/pages/administrator/overview/manage-accounts.svg"
+            />
+          </div>
+        </div>
+        <div
+          class="tile"
+        >
+          <div>
+            <h3>
+              Log in as a Teacher
+            </h3>
+            <p>
+              Access each teacher’s account to assign activities, manage rosters, and view data.
+            </p>
+          </div>
+          <div
+            class="link-and-image"
+          >
+            <button
+              class="quill-button focus-on-light outlined secondary medium"
+              type="button"
+            >
+              Log in as a teacher
+            </button>
+            <img
+              alt=""
+              src="undefined/images/pages/administrator/overview/log-in-as-a-teacher.svg"
+            />
+          </div>
+        </div>
+        <div
+          class="tile"
+        >
+          <div>
+            <h3>
+              Manage Subscriptions
+            </h3>
+            <p>
+              View subscription history, manage subscriptions, and more.
+            </p>
+          </div>
+          <div
+            class="link-and-image"
+          >
+            <a
+              class="quill-button focus-on-light outlined secondary medium"
+              href="/teachers/premium_hub/school_subscriptions"
+            >
+              Manage subscriptions
+            </a>
+            <img
+              alt=""
+              src="undefined/images/pages/administrator/overview/manage-subscriptions.svg"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;
