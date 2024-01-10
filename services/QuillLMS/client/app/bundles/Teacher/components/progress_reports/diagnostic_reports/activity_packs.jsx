@@ -28,8 +28,16 @@ function ActivityPacks() {
   }, []);
 
   React.useEffect(() => {
-    getUnitsForCurrentClass()
+    if (loaded) {
+      getUnitsForCurrentClass()
+    }
   }, [selectedClassroomId])
+
+  React.useEffect(() => {
+    if (!classrooms.length) { return }
+
+    getUnits();
+  }, [classrooms])
 
   function handlePopState() {
     setLoaded(false);
@@ -68,7 +76,6 @@ function ActivityPacks() {
           setSelectedClassroomId(Number(localStorageSelectedClassroomId));
         }
         setClassrooms(newClassrooms);
-        getUnits();
       } else {
         setLoaded(true);
       }
@@ -88,12 +95,16 @@ function ActivityPacks() {
   };
 
   function getUnitsForCurrentClass(parsedUnits) {
+    const units = parsedUnits || allUnits
     if (selectedClassroomId) {
       const selectedClassroom = classrooms.find(c => c.id === Number(selectedClassroomId));
-      const unitsInCurrentClassroom = parsedUnits.filter(unit => unit.classrooms.find(classroom => selectedClassroom.name === classroom.name));
+
+      if (!selectedClassroom) { return }
+
+      const unitsInCurrentClassroom = units.filter(unit => unit.classrooms.find(classroom => selectedClassroom.name === classroom.name));
       setUnits(unitsInCurrentClassroom);
     } else {
-      setUnits(parsedUnits);
+      setUnits(units);
     }
   }
 
@@ -138,7 +149,7 @@ function ActivityPacks() {
     });
 
     Promise.all(promises).then(() => {
-      setLoaded(true); // Set loading state to true after all promises resolve
+      setLoaded(true);
     });
   };
 
