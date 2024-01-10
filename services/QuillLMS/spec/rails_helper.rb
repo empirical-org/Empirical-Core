@@ -56,7 +56,7 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include ActiveSupport::Testing::TimeHelpers
 
-  # Ensure that if we are running js tests, we are using latest webpack assets
+  # Ensure that if we are running js tests, we are using latest vite assets
   # This will use the defaults of :js and :server_rendering meta tags
   ReactOnRails::TestHelper.configure_rspec_to_compile_assets(config)
 
