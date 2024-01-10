@@ -4,7 +4,7 @@ import React from 'react'
 
 import { requestGet, } from '../../../../modules/request/index'
 import { sortTableByLastName } from '../../../../modules/sortingMethods.js'
-import { ReactTable, } from '../../../Shared/index'
+import { ReactTable, ReportHeader, } from '../../../Shared/index'
 import userIsPremium from '../modules/user_is_premium'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 

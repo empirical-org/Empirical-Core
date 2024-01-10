@@ -143,8 +143,8 @@ export default class StandardsProgressReport extends React.Component {
     return (
       <div className='teacher-report-container individual-student progress-reports-2018'>
         <ReportHeader
-          headerText="Standards Report"
           csvData={csvData}
+          headerText="Standards Report"
           subHeaderElement={subHeaderElement}
         />
         <div key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
