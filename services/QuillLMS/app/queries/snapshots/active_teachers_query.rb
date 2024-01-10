@@ -3,15 +3,13 @@
 module Snapshots
   class ActiveTeachersQuery < CountQuery
     def select_clause
-      "SELECT COUNT(DISTINCT users.id) AS count"
+      "SELECT COUNT(DISTINCT schools_users.user_id) AS count"
     end
 
     def from_and_join_clauses
       super + <<-SQL
-        JOIN lms.users
-          ON schools_users.user_id = users.id
         JOIN lms.user_logins
-          ON users.id = user_logins.user_id
+          ON schools_users.id = user_logins.user_id
       SQL
     end
 
