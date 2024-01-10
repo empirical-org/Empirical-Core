@@ -11,7 +11,7 @@ interface Config {
 export let config: Config;
 
 /**
- * `process.env.RAILS_ENV` definition is driven from webpack
+ *
  *
  * The whole `else` block will be removed in the emitted JavaScript
  *  for a production build
