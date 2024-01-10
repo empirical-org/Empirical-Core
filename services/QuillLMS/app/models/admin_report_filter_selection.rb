@@ -17,6 +17,8 @@
 #  index_admin_report_filter_selections_on_user_id  (user_id)
 #
 class AdminReportFilterSelection < ApplicationRecord
+  GRADE_OPTION_NAMES = SnapshotsController::GRADE_OPTIONS.pluck(:name).sort.freeze
+
   REPORTS = [
     DATA_EXPORT = 'data_export',
     DIAGNOSTIC_GROWTH_REPORT = 'diagnostic_growth_report',
@@ -32,32 +34,20 @@ class AdminReportFilterSelection < ApplicationRecord
   validates :report, inclusion: { in: REPORTS }
   validates :user_id, presence: true
 
-  def classroom_ids = filter_selections['classrooms']&.pluck('value') || all_classrooms.pluck(:id)
+  def classrooms = filter_selections['classrooms']&.pluck('name')
+  def classroom_ids = filter_selections['classrooms']&.pluck('value')
   def custom_end = filter_selections['custom_end_date'].to_s
   def custom_start = filter_selections['custom_start_date'].to_s
-  def grades = filter_selections['grades']&.pluck('value')
-  def teacher_ids = filter_selections['teachers']&.pluck('value') || all_teachers.pluck(:id)
+  def grades = all_grades_selected? ? nil : selected_grades
+  def teachers = filter_selections['teachers']&.pluck('name')
+  def teacher_ids = filter_selections['teachers']&.pluck('value')
+  def schools = filter_selections['schools']&.pluck('name')
   def school_ids = filter_selections['schools']&.pluck('value') || all_schools.pluck(:id)
   def timeframe = Snapshots::Timeframes.find_timeframe(timeframe_value)
+  def timeframe_name = filter_selections.dig('timeframe', 'name')
   def timeframe_value = filter_selections.dig('timeframe', 'value')
 
-  private def all_classrooms
-    Classroom
-      .unscoped
-      .distinct
-      .joins(:classrooms_teachers)
-      .where(classrooms_teachers: { user: all_teachers })
-  end
-
-  private def all_schools
-    School
-      .joins(:schools_admins)
-      .where(schools_admins: { user: user })
-  end
-
-  private def all_teachers
-    User
-      .teachers_in_schools(all_schools.pluck(:id))
-      .where(classrooms_teachers: { role: [nil, ClassroomsTeacher::ROLE_TYPES[:owner]] })
-  end
+  private def all_grades_selected? = selected_grades.sort == GRADE_OPTION_NAMES
+  private def all_schools = School.joins(:schools_admins).where(schools_admins: { user: user })
+  private def selected_grades = filter_selections['grades']&.pluck('name')
 end

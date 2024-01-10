@@ -13,7 +13,7 @@
       <% item[:data].each do |row| %>
         <tr class="data-row">
           <td><%== row[:value] || '-' %></td>
-          <td><%= row[:count] || '-' %></td>
+          <td><%= number_with_delimiter(row[:count]) || '-' %></td>
         </tr>
       <% end %>
     </table>

@@ -31,8 +31,8 @@ module Pdfs
 
       private def inject_data(item)
         return item unless item[:queryKey]
-        return CountDataInjector.run(item:, admin_report_filter_selection:) if item[:type] == COUNT
-        return RankingDataInjector.run(item:, admin_report_filter_selection:) if item[:type] == RANKING
+        return CountDataInjector.run(admin_report_filter_selection:, item:) if item[:type] == COUNT
+        return RankingDataInjector.run(admin_report_filter_selection:, item:) if item[:type] == RANKING
 
         item
       end

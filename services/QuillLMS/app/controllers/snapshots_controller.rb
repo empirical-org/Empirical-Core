@@ -197,8 +197,8 @@ class SnapshotsController < ApplicationController
     return { count: nil } unless timeframe_start && timeframe_end
 
     cache_key = cache_key_for_timeframe(snapshot_params[:timeframe], timeframe_start, timeframe_end)
-    response = Rails.cache.read(cache_key)
 
+    response = Rails.cache.read(cache_key)
     return { results: response } if response
 
     worker.perform_async(cache_key,

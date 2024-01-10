@@ -6,7 +6,7 @@
 
 <section class="snapshot-item snapshot-count <%= size %> <%= change_direction_class(change) %>">
   <div class="count-and-label">
-    <span class="count"><%= count || '-' %></span>
+    <span class="count"><%= number_with_delimiter(count) || '-' %></span>
     <span class="snapshot-label"><%= count == 1 ? singular_label : label %></span>
   </div>
   <div class="change">
@@ -18,41 +18,3 @@
     <% end %>
   </div>
 </section>
-
-
-    <%# const roundedPrevious = Math.round(previous || 0)
-
-    const changeTotal = Math.round(((count - roundedPrevious) / (roundedPrevious || 1)) * 100)
-    setChange(Math.abs(changeTotal))
-    if (changeTotal) {
-      setChangeDirection(changeTotal > 0 ? POSITIVE : NEGATIVE)
-    } else {
-      setChangeDirection(NONE)
-    }
-  }, [count, previous]) %>
-
-<%#
-
-
-
-  let icon
-
-  if (changeDirection === POSITIVE) {
-    icon = size === SMALL ? smallArrowUpIcon : mediumArrowUpIcon
-  } else if (changeDirection === NEGATIVE) {
-    icon = size === SMALL ? smallArrowDownIcon : mediumArrowDownIcon
-  }
-
-  return (
-    <section className={className}>
-      <div className="count-and-label">
-        <span className="count">{count?.toLocaleString() || '—'}</span>
-        <span className="snapshot-label">{count === 1 && singularLabel ? singularLabel : label}</span>
-      </div>
-      <div className="change">
-        {icon}
-        <span>{change === 0 ? null : `${change}%`}</span>
-      </div>
-    </section>
-  )
-} %>

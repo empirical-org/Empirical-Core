@@ -43,8 +43,7 @@ export const UsageSnapshotsContainer = ({
 }) => {
 
   const [selectedTab, setSelectedTab] = React.useState(ALL)
-  // const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = React.useState(false)
-  const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = React.useState(true)
+  const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = React.useState(false)
   const [existingPdfSubscription, setExistingPdfSubscription] = React.useState(null)
 
   React.useEffect(() => {
