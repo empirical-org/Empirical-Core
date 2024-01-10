@@ -46,8 +46,8 @@ function ActivityPacks() {
   };
 
   function handleNavigationClasses() {
-    document.getElementsByClassName('diagnostic-tab')[0].classList.remove('active');
-    document.getElementsByClassName('activity-analysis-tab')[0].classList.add('active');
+    document.getElementsByClassName('diagnostic-tab')[0]?.classList?.remove('active');
+    document.getElementsByClassName('activity-analysis-tab')[0]?.classList?.add('active');
     const mobileActivityAnalysisTab = document.getElementById('mobile-activity-analysis-tab-checkmark')
     const mobileDiagnosticTab = document.getElementById('mobile-diagnostics-tab-checkmark')
     const mobileDropdown = document.getElementById('mobile-subnav-toggle')
