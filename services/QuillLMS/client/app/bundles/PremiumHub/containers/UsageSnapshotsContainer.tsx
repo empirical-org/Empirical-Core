@@ -50,7 +50,7 @@ export const UsageSnapshotsContainer = ({
     requestGet(`/pdf_subscriptions/existing?report=${PDF_REPORT}`, (body) => {
       setExistingPdfSubscription(body)
     })
-  }, [existingPdfSubscription])
+  }, [])
 
   const size = useWindowSize()
 

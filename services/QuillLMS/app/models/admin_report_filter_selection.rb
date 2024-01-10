@@ -39,6 +39,7 @@ class AdminReportFilterSelection < ApplicationRecord
   def custom_end = filter_selections['custom_end_date'].to_s
   def custom_start = filter_selections['custom_start_date'].to_s
   def grades = all_grades_selected? ? nil : selected_grades
+  def grade_values = all_grades_selected? ? nil : selected_grade_values
   def teachers = filter_selections['teachers']&.pluck('name')
   def teacher_ids = filter_selections['teachers']&.pluck('value')
   def schools = filter_selections['schools']&.pluck('name')
@@ -50,4 +51,5 @@ class AdminReportFilterSelection < ApplicationRecord
   private def all_grades_selected? = selected_grades.sort == GRADE_OPTION_NAMES
   private def all_schools = School.joins(:schools_admins).where(schools_admins: { user: user })
   private def selected_grades = filter_selections['grades']&.pluck('name')
+  private def selected_grade_values = filter_selections['grades']&.pluck('value')
 end

@@ -16,7 +16,8 @@ module Pdfs
       end
 
       def run
-        [highlights, users, practice, classrooms, schools].map do |section|
+        # [highlights, users, practice, classrooms, schools].map do |section|
+        [highlights].map do |section|
           section.merge(itemGroupings: updated_groupings(section))
         end
       end

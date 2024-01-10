@@ -10,7 +10,7 @@ module Pdfs
       delegate :classroom_ids,
         :custom_end,
         :custom_start,
-        :grades,
+        :grade_values,
         :school_ids,
         :teacher_ids,
         :timeframe,
@@ -40,7 +40,7 @@ module Pdfs
             timeframe_start,
             timeframe_end,
             school_ids,
-            additional_filters: { grades:, teacher_ids:, classroom_ids: }
+            additional_filters: { grades: grade_values, teacher_ids:, classroom_ids: }
           )
       end
 
@@ -61,7 +61,7 @@ module Pdfs
           user_id,
           { name: timeframe_value, timeframe_end:, timeframe_start: }.stringify_keys,
           school_ids,
-          { grades:, teacher_ids:, classroom_ids: }.stringify_keys,
+          { grades: grade_values, teacher_ids:, classroom_ids: }.stringify_keys,
           nil
         ]
       end
