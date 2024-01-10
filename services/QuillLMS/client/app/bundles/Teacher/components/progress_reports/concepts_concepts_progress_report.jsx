@@ -1,6 +1,5 @@
 // The progress report shows all concepts for a given student.
 import React from 'react'
-import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 
 import { requestGet, } from '../../../../modules/request/index'
 import { ReactTable, ReportHeader, singleUserIcon, } from '../../../Shared/index'

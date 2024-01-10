@@ -1,11 +1,11 @@
-import React from 'react';
+import * as React from 'react';
 
 import ConceptReportsTable from './concept_reports_table';
 
 import { ReportHeader } from '../../Shared';
 import ItemDropdown from '../../Teacher/components/general_components/dropdown_selectors/item_dropdown';
 
-const ConceptReports = ({
+export const ConceptReports = ({
   csvData,
   schoolNames,
   switchSchool,

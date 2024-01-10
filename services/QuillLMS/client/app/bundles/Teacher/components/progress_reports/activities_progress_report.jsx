@@ -14,6 +14,7 @@ import { getTimeSpent } from '../../helpers/studentReports';
 import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin';
 import LoadingSpinner from '../shared/loading_indicator.jsx';
 
+// TODO: refactor this, progress_report and Scorebook files to remove create-react-class package
 
 export default createReactClass({
   displayName: 'activities_progress_report',
