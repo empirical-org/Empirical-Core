@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class PdfSubscriptionsController < ApplicationController
+  around_action :force_writer_db_role, only: [
+    :unsubscribe   # this route is a GET request coming from email link
+  ]
+
   def existing
     @pdf_subscription =
       PdfSubscription
@@ -20,20 +24,16 @@ class PdfSubscriptionsController < ApplicationController
     end
   end
 
-  def unsubscribe
-    @pdf_subscription = PdfSubscription.find_by(token:)
-
-    if @pdf_subscription
-      @pdf_subscription.destroy
-      redirect_to pdf_unsubscribe_url
-    else
-      redirect_to pdf_unsubscribe_failure_url
-    end
-  end
-
   def destroy
     PdfSubscription.find(params[:id])&.destroy
     render json: {}, status: :ok
+  end
+
+  def unsubscribe
+    @pdf_subscription = PdfSubscription.find_by!(token:)
+    @pdf_subscription.destroy
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, flash: { error: 'Subscription not found' }
   end
 
   private def admin_report_filter_selection_id = params[:admin_report_filter_selection_id]
