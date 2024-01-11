@@ -50,7 +50,7 @@ export default class extends React.Component {
     let countForAverage = 0;
     let average;
     reportData.forEach((row) => {
-      if (row.percentage) {
+      if (row.percentage || row.percentage === 0) {
         count += 1;
         if (notLessonsOrDiagnostic(row.activity_classification_id)) {
           cumulativeScore += parseFloat(row.percentage);
