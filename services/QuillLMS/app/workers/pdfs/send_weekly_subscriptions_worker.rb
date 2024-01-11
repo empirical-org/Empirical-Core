@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Pdfs
-  class WeeklySubscriptionsWorker
+  class SendWeeklySubscriptionsWorker
     include Sidekiq::Worker
 
     def perform
