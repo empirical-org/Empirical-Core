@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import PremiumHub from './PremiumHub';
 import Overview from './Overview'
 import DistrictActivityScoresProgressReport from './DistrictActivityScores';
 import DistrictConceptReportsProgressReport from './DistrictConceptReports';
@@ -77,8 +76,8 @@ const PremiumHubContainer = ({ id, history, location, children, user, }) => {
 
     if (accessType() === FULL || accessType() === LOADING) { return <span /> }
 
-    // TODO: update this when the overview page replaces /premium_hub itself instead of /premium_hub/overview
-    if (accessType() === LIMITED && !['integrations', 'overview'].some((path) => location.pathname.includes(path))) {
+    // this checks that the last part of the path (after the final '/') matches the overview page (which is just /teachers/premium_hub) or the integrations page
+    if (accessType() === LIMITED && !['integrations', 'premium_hub'].some((path) => location.pathname.split('/').pop() === path)) {
       return (
         <Banner
           bodyText="Subscribe to School or District Premium to unlock all Premium Hub features. Manage teacher accounts, access teacher reports, and view school-wide student data."
@@ -162,9 +161,8 @@ const PremiumHubContainer = ({ id, history, location, children, user, }) => {
               <Route component={routerProps => <PremiumFilterableReportsContainer adminId={id} {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/diagnostic_growth_report" />
               <Route component={routerProps => <PremiumFilterableReportsContainer adminId={id} {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/usage_snapshot_report" />
               <Route component={routerProps => <PremiumFilterableReportsContainer adminId={id} {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/data_export" />
-              <Route component={routerProps => <Overview adminId={id} {...sharedProps} {...routerProps} />} exact path="/teachers/premium_hub/overview" />
               <Route component={routerProps => <AccountManagement adminId={id} {...sharedProps} {...routerProps} />} exact path="/teachers/premium_hub/account_management" />
-              <Route component={routerProps => <PremiumHub adminId={id} {...sharedProps} {...routerProps} />} exact path="/teachers/premium_hub/" />
+              <Route component={routerProps => <Overview adminId={id} {...sharedProps} {...routerProps} />} exact path="/teachers/premium_hub" />
             </Switch>
           </div>
         </div>

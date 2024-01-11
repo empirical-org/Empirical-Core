@@ -21,8 +21,6 @@ const teachers = [
       }
     ],
     "number_of_students": 0,
-    "number_of_activities_completed": 0,
-    "time_spent": "No time yet",
     "has_valid_subscription": true
   },
   {
@@ -38,8 +36,6 @@ const teachers = [
       }
     ],
     "number_of_students": 0,
-    "number_of_activities_completed": 0,
-    "time_spent": "No time yet",
     "has_valid_subscription": true
   },
   {
@@ -55,8 +51,6 @@ const teachers = [
       }
     ],
     "number_of_students": 0,
-    "number_of_activities_completed": 0,
-    "time_spent": "No time yet",
     "has_valid_subscription": true
   }
 ]
