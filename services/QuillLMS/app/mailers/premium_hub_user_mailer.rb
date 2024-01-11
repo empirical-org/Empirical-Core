@@ -22,7 +22,7 @@ class PremiumHubUserMailer < UserMailer
     mail to: email, subject: "Your Quill data export is ready"
   end
 
-  def admin_usage_snapshot_report_pdf_email(pdf_subscription, download_url)
+  def admin_usage_snapshot_report_pdf_email(download_url:, pdf_subscription:)
     @download_url = download_url
     @frequency = pdf_subscription.frequency
     @token = pdf_subscription.token
