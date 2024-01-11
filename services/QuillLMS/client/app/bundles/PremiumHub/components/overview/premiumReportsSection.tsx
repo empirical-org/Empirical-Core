@@ -3,6 +3,8 @@ import { Link, } from 'react-router-dom';
 
 import { PREMIUM_REPORTS, SECTION_NAME_TO_ICON_URL, iconLinkBase, } from './shared'
 
+const DIAGNOSTIC_GROWTH_REPORT = 'Diagnostic Growth Report'
+
 export const premiumReportTiles = [
   {
     name: 'Usage Snapshot Report',
@@ -12,7 +14,7 @@ export const premiumReportTiles = [
     new: true
   },
   {
-    name: 'Diagnostic Growth Report',
+    name: DIAGNOSTIC_GROWTH_REPORT,
     link: '/teachers/premium_hub/diagnostic_growth_report',
     icon: `${iconLinkBase}/diagnostic-growth-report.svg`,
     description: 'Get a detailed breakdown of Quill’s impact on students’ growth. View data by skill, student, and more.',
@@ -47,6 +49,8 @@ export const premiumReportTiles = [
 
 const PremiumReportsSection = () => {
   const tiles = premiumReportTiles.map(tile => {
+    const buttonClassName = "quill-button focus-on-light outlined secondary medium"
+    const button = tile.name === DIAGNOSTIC_GROWTH_REPORT ? <button className={`${buttonClassName} disabled`} disabled={true} type="button">Coming soon</button> : <Link className={buttonClassName} to={tile.link}>View report</Link>
     return (
       <div className={`tile ${tile.new ? 'new' : ''}`} key={tile.name}>
         <div>
@@ -54,7 +58,7 @@ const PremiumReportsSection = () => {
           <p>{tile.description}</p>
         </div>
         <div className="link-and-image">
-          <Link className="quill-button focus-on-light outlined secondary medium" to={tile.link}>View report</Link>
+          {button}
           <img alt="" src={tile.icon} />
         </div>
       </div>

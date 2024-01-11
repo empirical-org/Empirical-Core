@@ -135,10 +135,13 @@ const SchoolSubscriptionsContainer = ({ location, accessType, }) => {
   return (
     <div className="container gray-background-accommodate-footer">
       <section className="subscriptions school-subscriptions-container">
+        <div className="header">
+          <h1>Subscriptions</h1>
+        </div>
         <DropdownInput
           className="school-dropdown-container"
           handleChange={onSelectedSchoolChange}
-          label="School"
+          isSearchable={true}
           options={schoolsAsOptions}
           value={selectedSchoolOption}
         />
