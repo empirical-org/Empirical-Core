@@ -116,7 +116,7 @@ exports[`AccountManagement container should render with a full access type 1`] =
               <th
                 class="data-table-header undefined sortable"
                 scope="col"
-                style="width: 394px; min-width: 394px; text-align: right;"
+                style="width: 554px; min-width: 554px; text-align: right;"
               >
                 <button
                   class="interactive-wrapper focus-on-light"
@@ -133,7 +133,7 @@ exports[`AccountManagement container should render with a full access type 1`] =
               <th
                 class="data-table-header undefined sortable"
                 scope="col"
-                style="width: 180px; min-width: 180px; text-align: right;"
+                style="width: 280px; min-width: 280px; text-align: right;"
               >
                 <button
                   class="interactive-wrapper focus-on-light"
@@ -156,7 +156,7 @@ exports[`AccountManagement container should render with a full access type 1`] =
               <th
                 class="data-table-header undefined sortable"
                 scope="col"
-                style="width: 180px; min-width: 180px; text-align: right;"
+                style="width: 280px; min-width: 280px; text-align: right;"
               >
                 <button
                   class="interactive-wrapper focus-on-light"
@@ -164,40 +164,6 @@ exports[`AccountManagement container should render with a full access type 1`] =
                 >
                   <span>
                     Students
-                  </span>
-                  <div
-                    class="sort-tooltip-container"
-                  />
-                </button>
-              </th>
-              <th
-                class="data-table-header undefined sortable"
-                scope="col"
-                style="width: 180px; min-width: 180px; text-align: right;"
-              >
-                <button
-                  class="interactive-wrapper focus-on-light"
-                  type="button"
-                >
-                  <span>
-                    Activities Completed
-                  </span>
-                  <div
-                    class="sort-tooltip-container"
-                  />
-                </button>
-              </th>
-              <th
-                class="data-table-header undefined sortable"
-                scope="col"
-                style="width: 180px; min-width: 180px; text-align: right;"
-              >
-                <button
-                  class="interactive-wrapper focus-on-light"
-                  type="button"
-                >
-                  <span>
-                    Time Spent
                   </span>
                   <div
                     class="sort-tooltip-container"
@@ -216,19 +182,6 @@ exports[`AccountManagement container should render with a full access type 1`] =
             class="data-table-body"
           />
         </table>
-        <p
-          class="warning-section"
-        >
-          <span
-            class="warning"
-          >
-            Warning:
-          </span>
-           Any changes you make when you access a teacher account will impact the teacher and student facing dashboards. This list provides you with the ability to sign in to all of the teacher accounts for the schools you have admin access. 
-          <strong>
-            The data above represents usage from this school year, beginning July 1st.
-          </strong>
-        </p>
       </div>
     </div>
   </div>
@@ -351,7 +304,7 @@ exports[`AccountManagement container should render with a limited access type 1`
               <th
                 class="data-table-header undefined sortable"
                 scope="col"
-                style="width: 394px; min-width: 394px; text-align: right;"
+                style="width: 554px; min-width: 554px; text-align: right;"
               >
                 <button
                   class="interactive-wrapper focus-on-light"
@@ -368,7 +321,7 @@ exports[`AccountManagement container should render with a limited access type 1`
               <th
                 class="data-table-header undefined sortable"
                 scope="col"
-                style="width: 180px; min-width: 180px; text-align: right;"
+                style="width: 280px; min-width: 280px; text-align: right;"
               >
                 <button
                   class="interactive-wrapper focus-on-light"
@@ -391,7 +344,7 @@ exports[`AccountManagement container should render with a limited access type 1`
               <th
                 class="data-table-header undefined sortable"
                 scope="col"
-                style="width: 180px; min-width: 180px; text-align: right;"
+                style="width: 280px; min-width: 280px; text-align: right;"
               >
                 <button
                   class="interactive-wrapper focus-on-light"
@@ -399,40 +352,6 @@ exports[`AccountManagement container should render with a limited access type 1`
                 >
                   <span>
                     Students
-                  </span>
-                  <div
-                    class="sort-tooltip-container"
-                  />
-                </button>
-              </th>
-              <th
-                class="data-table-header undefined sortable"
-                scope="col"
-                style="width: 180px; min-width: 180px; text-align: right;"
-              >
-                <button
-                  class="interactive-wrapper focus-on-light"
-                  type="button"
-                >
-                  <span>
-                    Activities Completed
-                  </span>
-                  <div
-                    class="sort-tooltip-container"
-                  />
-                </button>
-              </th>
-              <th
-                class="data-table-header undefined sortable"
-                scope="col"
-                style="width: 180px; min-width: 180px; text-align: right;"
-              >
-                <button
-                  class="interactive-wrapper focus-on-light"
-                  type="button"
-                >
-                  <span>
-                    Time Spent
                   </span>
                   <div
                     class="sort-tooltip-container"
@@ -451,19 +370,6 @@ exports[`AccountManagement container should render with a limited access type 1`
             class="data-table-body"
           />
         </table>
-        <p
-          class="warning-section"
-        >
-          <span
-            class="warning"
-          >
-            Warning:
-          </span>
-           Any changes you make when you access a teacher account will impact the teacher and student facing dashboards. This list provides you with the ability to sign in to all of the teacher accounts for the schools you have admin access. 
-          <strong>
-            The data above represents usage from this school year, beginning July 1st.
-          </strong>
-        </p>
       </div>
     </div>
   </div>

@@ -1,8 +1,5 @@
 default:
   open_positions:
-    - category: "Curriculum"
-      title: "Social Studies Curriculum Developer"
-      url: "https://wellfound.com/l/2zzvHp"
     - category: "Marketing"
       title: "Director of Marketing"
       url: "https://wellfound.com/jobs/2869532-director-of-marketing?utm_campaign=startup_share&utm_content=startup_share_module&utm_medium=social&utm_term=quill-org"
