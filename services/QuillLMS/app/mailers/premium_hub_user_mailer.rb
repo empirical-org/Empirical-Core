@@ -22,9 +22,14 @@ class PremiumHubUserMailer < UserMailer
     mail to: email, subject: "Your Quill data export is ready"
   end
 
-  # TODO: update email with user email before deploy
-  def admin_usage_snapshot_report_pdf_email
-    mail to: ENV['ADMIN_USAGE_SNAPSHOT_REPORT_EMAIL'], subject: "Quill Usage Snapshot Report PDF"
+  def admin_usage_snapshot_report_pdf_email(pdf_subscription, download_url)
+    @download_url = download_url
+    @frequency = pdf_subscription.frequency
+    @token = pdf_subscription.token
+    @user_first_name = pdf_subscription.user.first_name
+
+    mail to: ENV['TEMP_ADMIN_USAGE_SNAPSHOT_REPORT_EMAIL'],
+      subject: "🚀 Your #{@frequency} Quill Admin Usage Snapshot Report is Ready!"
   end
 
   def admin_account_created_email(user, admin_name, school_name, is_reminder)
