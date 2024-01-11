@@ -6,6 +6,7 @@
 #
 #  id                               :bigint           not null, primary key
 #  frequency                        :string           not null
+#  token                            :string           not null
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
 #  admin_report_filter_selection_id :bigint           not null
@@ -21,8 +22,13 @@ class PdfSubscription < ApplicationRecord
     MONTHLY = 'monthly'
   ]
 
-  belongs_to :user
+  before_create :generate_token
+
   belongs_to :admin_report_filter_selection
 
   validates :frequency, presence: true, inclusion: { in: FREQUENCIES }
+
+  def generate_token
+    self.token = SecureRandom.hex
+  end
 end
