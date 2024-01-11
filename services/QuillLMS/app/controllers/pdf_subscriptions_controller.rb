@@ -28,10 +28,13 @@ class PdfSubscriptionsController < ApplicationController
   end
 
   def unsubscribe
-    @pdf_subscription = PdfSubscription.find_by!(token:)
-    @pdf_subscription.destroy
-  rescue ActiveRecord::RecordNotFound
-    redirect_to root_path, flash: { error: 'Subscription not found' }
+    @pdf_subscription = PdfSubscription.find_by(token:)
+
+    if @pdf_subscription
+      pdf_subscription.destroy
+    else
+      redirect_to root_path, flash: { error: 'Subscription not found' }
+    end
   end
 
   private def admin_report_filter_selection_id = params[:admin_report_filter_selection_id]
