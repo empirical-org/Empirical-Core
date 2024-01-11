@@ -6,7 +6,7 @@ import _ from 'underscore';
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx';
 import StudentOveriewTable from './student_overview_table.jsx';
 
-import notLessonsOrDiagnostic from '../../../../modules/activity_classifications.js';
+import shouldCountForScoring from '../../../../modules/activity_classifications.js';
 import { requestGet, } from '../../../../modules/request/index';
 import { getTimeSpent } from '../../helpers/studentReports';
 import getParameterByName from '../modules/get_parameter_by_name';
@@ -50,12 +50,10 @@ export default class extends React.Component {
     let countForAverage = 0;
     let average;
     reportData.forEach((row) => {
-      if (row.percentage || row.percentage === 0) {
-        count += 1;
-        if (notLessonsOrDiagnostic(row.activity_classification_id)) {
-          cumulativeScore += parseFloat(row.percentage);
-          countForAverage += 1;
-        }
+      count += 1;
+      if (shouldCountForScoring(row.activity_classification_id)) {
+        cumulativeScore += parseFloat(row.percentage);
+        countForAverage += 1;
       }
     });
     if (countForAverage > 0) {
@@ -123,7 +121,7 @@ export default class extends React.Component {
       const csvReportData = [];
       reportData.forEach((row) => {
         const newRow = _.omit(row, keysToOmit);
-        if (notLessonsOrDiagnostic(row.activity_classification_id) && row.percentage) {
+        if (shouldCountForScoring(row.activity_classification_id) && row.percentage) {
           newRow.percentage = `${(newRow.percentage * 100).toString()}%`;
         } else if ((row.activity_classification_id === 6 && row.is_a_completed_lesson) || row.percentage) {
           newRow.percentage = 'Completed';
