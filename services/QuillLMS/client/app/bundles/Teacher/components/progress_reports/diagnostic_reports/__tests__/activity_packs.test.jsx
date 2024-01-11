@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { render, waitFor, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-// import { BrowserRouter } from 'react-router-dom';
 
 import ActivityPacks from '../activity_packs';
 import * as requestsApi from '../../../../../../modules/request/index';
@@ -748,7 +747,7 @@ describe('ActivityPacks', () => {
     const { asFragment, queryByAltText, } = render(<ActivityPacks />);
 
     await waitFor(() => expect(queryByAltText('Loading spinner')).toBeNull());
-    
+
     expect(asFragment()).toMatchSnapshot();
   });
 
