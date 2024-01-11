@@ -22,7 +22,7 @@
               <% items.each do |item| %>
                 <% next unless item[:type].in?(snapshot_item_types) %>
 
-                <%= render "pdfs/admin_usage_snapshot_report/snapshot_#{item[:type]}", item: %>
+                <%= render "pdfs/admin_usage_snapshot_reports/snapshot_#{item[:type]}", item: %>
               <% end %>
             </div>
           <% end %>

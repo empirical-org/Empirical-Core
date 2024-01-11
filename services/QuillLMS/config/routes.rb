@@ -743,7 +743,6 @@ EmpiricalGrammar::Application.routes.draw do
     collection do
       post '/show', to: 'admin_report_filter_selections#show' # POST since filter params can be too long for GET
       post '/create_or_update', to: 'admin_report_filter_selections#create_or_update'
-      post '/delete_by_report', to: 'admin_report_filter_selections#delete_by_report'
     end
   end
 

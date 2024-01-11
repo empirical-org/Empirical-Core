@@ -20,6 +20,7 @@ module Snapshots
 
     def perform(cache_key, query, user_id, timeframe, school_ids, filters, previous_timeframe)
       payload = generate_payload(query, timeframe, school_ids, filters)
+
       Rails.cache.write(cache_key, payload, expires_in: cache_expiry)
 
       filter_hash = PayloadHasher.run([
