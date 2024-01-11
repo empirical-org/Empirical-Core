@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class PdfSubscriptionsController < ApplicationController
-  around_action :force_writer_db_role, only: [
-    :unsubscribe   # this route is a GET request coming from email link
-  ]
+  around_action :force_writer_db_role, only: [:unsubscribe]   # GET route coming from email link
 
   def existing
     @pdf_subscription =
