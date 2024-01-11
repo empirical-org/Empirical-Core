@@ -1,0 +1,12 @@
+<p>Dear <%= @user_first_name %>,</p>
+
+Your <%= @frequency %> Quill Admin Usage Snapshot Report is here! 🎉
+
+<p> The CSV data export that you requested on <%= @human_date %> is ready to download. </p>
+
+📊 <a href='https://www.quill.org/teachers/premium_hub'><b>Explore More Admin Reports</b></a>
+
+Best regards,
+The Quill Team
+
+<a href="https://www.quill.org/unsubscribe?token=<%= @token %>" target="_blank">Unsubscribe from this report</a>

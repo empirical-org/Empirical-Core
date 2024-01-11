@@ -22,6 +22,7 @@ class PremiumHubUserMailer < UserMailer
     mail to: email, subject: "Your Quill data export is ready"
   end
 
+  # TODO: update email with user email before deploy
   def admin_usage_snapshot_report_pdf_email
     mail to: ENV['ADMIN_USAGE_SNAPSHOT_REPORT_EMAIL'], subject: "Quill Usage Snapshot Report PDF"
   end

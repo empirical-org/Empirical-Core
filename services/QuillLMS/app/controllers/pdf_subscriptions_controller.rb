@@ -20,6 +20,17 @@ class PdfSubscriptionsController < ApplicationController
     end
   end
 
+  def unsubscribe
+    @pdf_subscription = PdfSubscription.find_by(token:)
+
+    if @pdf_subscription
+      @pdf_subscription.destroy
+      redirect_to pdf_unsubscribe_url
+    else
+      redirect_to pdf_unsubscribe_failure_url
+    end
+  end
+
   def destroy
     PdfSubscription.find(params[:id])&.destroy
     render json: {}, status: :ok
@@ -34,5 +45,6 @@ class PdfSubscriptionsController < ApplicationController
   end
 
   private def report = params[:report]
+  private def token = params[:token]
   private def user_id = current_user.id
 end
