@@ -1,11 +1,24 @@
 <p>Dear <%= @user_first_name %>,</p>
 
-Your <%= @frequency %> Quill Admin Usage Snapshot Report is here! 🎉
+<p>Your <%= @frequency %> Quill Admin Usage Snapshot Report is here! 🎉</p>
 
-📥 <a href="<%= @download_url %>">Download Report</a>
-📊 <a href='https://www.quill.org/teachers/premium_hub'><b>Explore More Admin Reports</b></a>
+<p>
+  📥
+  <a href="<%= @download_url %>" target="_blank">
+    <b>Download Report</b>
+  </a>
+<p>
+  📊
+  <a href="<%= @premium_hub_url %>" target="_blank">
+    <b>Explore More Admin Reports</b>
+  </a>
+</p>
 
-Best regards,
-The Quill Team
+<p>Best regards,</p>
+<p><%= @constants[:signatures][:quill_team]%></p>
 
-<a href="https://www.quill.org/unsubscribe?token=<%= @token %>" target="_blank">Unsubscribe from this report</a>
+<p>
+  <a href=<% @unsubscribe_url %>" target="_blank">
+    Unsubscribe from this report
+  </a>
+</p>
