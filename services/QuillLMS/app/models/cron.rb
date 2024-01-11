@@ -17,11 +17,13 @@ class Cron
 
   # Configured in Heroku Scheduler to run every day at 07:00UTC
   # Which is 02:00 or 03:00 Eastern depending on Daylight Savings
+  # rubocop:disable Metrics/CyclomaticComplexity
   def self.interval_1_day
     run_friday if now.wday == 5
     run_saturday if now.wday == 6
     run_weekday if (1..5).include?(now.wday)
     run_school_year_start if now.month == 7 && now.day == 1
+    run_monthly if now.day == 1
 
     # pass yesterday's date for stats email queries and labels
     date = Time.current.getlocal('-05:00').yesterday
@@ -52,6 +54,7 @@ class Cron
     # Email notifications
     TeacherNotifications::EnqueueUsersForRollupEmailWorker.perform_async(TeacherInfo::DAILY_EMAIL)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   # Configured in Heroku Scheduler to run at XX:20
   def self.run_at_20_minute_mark
@@ -69,6 +72,7 @@ class Cron
 
   def self.run_friday
     TeacherNotifications::EnqueueUsersForRollupEmailWorker.perform_async(TeacherInfo::WEEKLY_EMAIL)
+    Pdfs::WeeklySubscriptionsWorker.perform_async
   end
 
   def self.run_saturday
@@ -76,6 +80,10 @@ class Cron
     UploadLeapReportWorker.perform_async(29_087)
     PopulateAllActivityHealthsWorker.perform_async
     DeleteObsoleteActiveActivitySessionsWorker.perform_async
+  end
+
+  def self.run_monthly
+    Pdfs::MonthlySubscriptionsWorker.perform_async
   end
 
   def self.run_school_year_start

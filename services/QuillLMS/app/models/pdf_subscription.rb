@@ -22,6 +22,9 @@ class PdfSubscription < ApplicationRecord
     MONTHLY = 'Monthly'
   ]
 
+  scope :monthly, -> { where(frequency: MONTHLY) }
+  scope :weekly, -> { where(frequency: WEEKLY) }
+
   before_create :generate_token
 
   belongs_to :admin_report_filter_selection
