@@ -24,7 +24,7 @@ class AdminDiagnosticReportsController < ApplicationController
 
     return render json: { error: 'school_ids are required' }, status: 400 unless school_ids_param_valid?
 
-    return render json: { error: 'unrecognized query type for this endpoint' }, status: 400 unless action_name_and_query_valid?
+    return render json: { error: 'unrecognized query type for this endpoint' }, status: 400 unless WORKERS_FOR_ACTIONS[action_name]::QUERIES.keys.include?(@query)
   end
 
   private def timeframe_param_valid?
@@ -34,11 +34,6 @@ class AdminDiagnosticReportsController < ApplicationController
   private def school_ids_param_valid?
     permitted_params[:school_ids]&.any?
   end
-
-  private def action_name_and_query_valid?
-    WORKERS_FOR_ACTIONS[action_name]::QUERIES.keys.include?(@query)
-  end
-
 
   private def authorize_request
     schools_user_admins = current_user.administered_schools.pluck(:id)
