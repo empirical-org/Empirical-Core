@@ -26,6 +26,10 @@ class AdminReportFilterSelection < ApplicationRecord
     USAGE_SNAPSHOT_REPORT_PDF = 'usage_snapshot_report_pdf'
   ]
 
+  SEGMENT_MAPPING = {
+    USAGE_SNAPSHOT_REPORT_PDF => 'Usage Snapshot'
+  }
+
   belongs_to :user
 
   has_many :pdf_subscriptions, dependent: :destroy
@@ -33,6 +37,14 @@ class AdminReportFilterSelection < ApplicationRecord
   validates :filter_selections, presence: true
   validates :report, inclusion: { in: REPORTS }
   validates :user_id, presence: true
+
+  def self.segment_admin_report_subscriptions
+    joins(:pdf_subscriptions)
+      .pluck(:report)
+      .uniq
+      .map { |report| SEGMENT_MAPPING[report] }
+      .compact
+  end
 
   def classrooms = filter_selections['classrooms']&.pluck('name')
   def classroom_ids = filter_selections['classrooms']&.pluck('value')
