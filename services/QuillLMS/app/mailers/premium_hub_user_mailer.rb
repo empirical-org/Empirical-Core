@@ -27,7 +27,7 @@ class PremiumHubUserMailer < UserMailer
     @frequency = pdf_subscription.frequency
     @premium_hub_url = "#{ENV['DEFAULT_URL']}/teachers/premium_hub"
     @user_first_name = pdf_subscription.user.first_name
-    @unsubscribe_url = "#{ENV['DEFAULT_URL']}/pdf_subscriptions/unsubscribe?token=#{pdf_subscription.token}"
+    @unsubscribe_url = "#{ENV['DEFAULT_URL']}/pdf_subscriptions/unsubscribe/#{pdf_subscription.token}"
 
     mail to: ENV['TEMP_ADMIN_USAGE_SNAPSHOT_REPORT_EMAIL'],
       subject: "🚀 Your #{@frequency} Quill Admin Usage Snapshot Report is Ready!"

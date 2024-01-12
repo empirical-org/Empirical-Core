@@ -762,7 +762,7 @@ EmpiricalGrammar::Application.routes.draw do
     collection do
       post :create_or_update
       get :existing
-      get :unsubscribe
+      get 'unsubscribe/:token', to: 'pdf_subscriptions#unsubscribe'
     end
   end
 

@@ -32,7 +32,7 @@ class PdfSubscriptionsController < ApplicationController
     @pdf_subscription = PdfSubscription.find_by(token:)
 
     if @pdf_subscription
-      pdf_subscription.destroy
+      @pdf_subscription.destroy
     else
       redirect_to root_path, flash: { error: 'Subscription not found' }
     end
