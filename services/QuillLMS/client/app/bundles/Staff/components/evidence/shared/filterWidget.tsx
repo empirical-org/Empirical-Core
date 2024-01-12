@@ -36,7 +36,7 @@ const FilterWidget = ({
           <p className="date-picker-label">End Date:</p>
           <Datetime
             dateFormat='y-MM-D'
-            onChange={onStartDateChange}
+            onChange={onEndDateChange}
             timeFormat='HH:mm'
             value={endDate || new Date()}
           />

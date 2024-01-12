@@ -411,6 +411,9 @@ const RuleAnalysis = ({ match }) => {
         <button className={massMarkButtonClassName} disabled={massMarkButtonDisabled} onClick={massMarkWeak} type="button">Mark All Selected As Weak</button>
         <button className={massMarkButtonClassName} disabled={massMarkButtonDisabled} onClick={massUnmark} type="button">Unmark All Selected</button>
       </div>
+      <div className="stem">
+        <span>Stem: {prompt && prompt.text && <span className="prompt-text" dangerouslySetInnerHTML={{ __html: prompt.text.replace(prompt.conjunction, `<b>${prompt.conjunction}</b>`)}} />}</span>
+      </div>
       <Input
         handleChange={onSearchChange}
         label='Search by text or regex'
