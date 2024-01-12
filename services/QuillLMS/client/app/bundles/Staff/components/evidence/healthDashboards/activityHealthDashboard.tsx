@@ -7,12 +7,11 @@ import { firstBy } from 'thenby';
 
 import { PromptHealthRows } from './promptHealthRow';
 
-import { FlagDropdown, ReactTable, expanderColumn, filterNumbers } from '../../../../Shared/index';
+import { FlagDropdown, ReactTable, expanderColumn, filterNumbers, PRODUCTION_FLAG } from '../../../../Shared/index';
 import { addCommasToThousands, getLinkToActivity, secondsToHumanReadableTime } from "../../../helpers/evidence/miscHelpers";
 import { fetchAggregatedActivityHealths } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
 
 const ALL_FLAGS = "All Flags"
-const PRODUCTION_FLAG = "production"
 const NAME_COLUMN = "name"
 const POOR_HEALTH_FLAG_COLUMN = "poor_health_flag"
 
