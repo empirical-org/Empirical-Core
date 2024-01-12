@@ -4,12 +4,12 @@
 
 <p>
   📥
-  <a clicktracking=off href="<%= @download_url %>" target="_blank">
+  <a clicktracking=off rel="noopener noreferrer" href="<%= @download_url %>" target="_blank">
     <b>Download Report</b>
   </a>
 <p>
   📊
-  <a href="<%= @premium_hub_url %>" target="_blank">
+  <a href="<%= @premium_hub_url %>" rel="noopener noreferrer" target="_blank">
     <b>Explore More Admin Reports</b>
   </a>
 </p>
@@ -18,7 +18,7 @@
 <p><%= @constants[:signatures][:quill_team]%></p>
 
 <p>
-  <a href=<% @unsubscribe_url %>" target="_blank">
+  <a href=<% @unsubscribe_url %>" rel="noopener noreferrer" target="_blank">
     Unsubscribe from this report
   </a>
 </p>
