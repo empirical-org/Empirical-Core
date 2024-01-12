@@ -7,7 +7,7 @@ import { firstBy } from 'thenby';
 
 import { PromptHealthRows } from './promptHealthRow';
 
-import { FlagDropdown, ReactTable, expanderColumn, filterNumbers } from '../../../../Shared/index';
+import { FlagDropdown, ReactTable, expanderColumn, filterNumbers, PRODUCTION_FLAG } from '../../../../Shared/index';
 import { addCommasToThousands, getLinkToActivity, secondsToHumanReadableTime } from "../../../helpers/evidence/miscHelpers";
 import { fetchAggregatedActivityHealths } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
 
@@ -52,7 +52,7 @@ const TrueFalseFilter = ({ column, setFilter }) => (
 )
 
 export const ActivityHealthDashboard = ({ handleDashboardToggle }) => {
-  const [flag, setFlag] = React.useState<string>(ALL_FLAGS)
+  const [flag, setFlag] = React.useState<string>(PRODUCTION_FLAG)
   const [promptSearchInput, setPromptSearchInput] = React.useState<string>("")
   const [dataToDownload, setDataToDownload] = React.useState<Array<{}>>([])
   const [rows, setRows] = React.useState<Array<{}>>(null)
