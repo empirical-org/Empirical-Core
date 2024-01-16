@@ -69,6 +69,14 @@ interface DataTableState {
   hoveredColIndex: null|number;
 }
 
+const TableCellContentWrapper = ({ link, children, }) => {
+  if (link) {
+    return <a className="row-link" href={link}>{children}</a>
+  }
+
+  return <React.Fragment>{children}</React.Fragment>
+}
+
 export class DataTable extends React.Component<DataTableProps, DataTableState> {
   private selectedActions: any  // eslint-disable-line react/sort-comp
   static defaultProps: { averageFontWidth: number }  // eslint-disable-line react/sort-comp
@@ -399,21 +407,25 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     if (!header.noTooltip && (String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
       return (
         <td key={key}>
-          {aggregateRowButtonOrIcon}
-          <Tooltip
-            key={key}
-            tooltipText={rowDisplayText}
-            tooltipTriggerStyle={style}
-            tooltipTriggerText={sectionText}
-            tooltipTriggerTextClass={dataTableRowSectionClassName}
-            tooltipTriggerTextStyle={style}
-          />
+          <TableCellContentWrapper link={row.link}>
+            {aggregateRowButtonOrIcon}
+            <Tooltip
+              key={key}
+              tooltipText={rowDisplayText}
+              tooltipTriggerStyle={style}
+              tooltipTriggerText={sectionText}
+              tooltipTriggerTextClass={dataTableRowSectionClassName}
+              tooltipTriggerTextStyle={style}
+            />
+          </TableCellContentWrapper>
         </td>
       )
     } else if (header.containsOwnTooltip) {
       return (
         <td key={key}>
-          {sectionText}
+          <TableCellContentWrapper link={row.link}>
+            {sectionText}
+          </TableCellContentWrapper>
         </td>
       )
     } else {
@@ -427,8 +439,10 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
           onMouseLeave={this.handleMouseLeave}
           style={style as any}
         >
-          {aggregateRowButtonOrIcon}
-          {sectionText}
+          <TableCellContentWrapper link={row.link}>
+            {aggregateRowButtonOrIcon}
+            {sectionText}
+          </TableCellContentWrapper>
         </td>
       )
       /* eslint-enable jsx-a11y/no-noninteractive-element-interactions */
@@ -454,9 +468,6 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     let rowElement = <tr className={`${rowClassName}${aggregateRowClassName}`} key={String(row.id)}>{rowContent}</tr>
     const aggregateRowIdentifier = `${row[headers[0].attribute]}-${row.id}`
     const showAggregateRows = row.aggregate_rows?.length && expandedParentRowIdentifier === aggregateRowIdentifier
-    if (row.link) {
-      rowElement = <tr key={String(row.id)}><a className={rowClassName} href={row.link}>{rowContent}</a></tr>
-    }
 
     if (showAggregateRows) {
       return(

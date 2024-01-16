@@ -5138,7 +5138,9 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  Bleep Bloop
+                  <TableCellContentWrapper>
+                    Bleep Bloop
+                  </TableCellContentWrapper>
                 </td>
                 <td
                   className="data-table-row-section undefined"
@@ -5152,7 +5154,9 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                       "width": "361px",
                     }
                   }
-                />
+                >
+                  <TableCellContentWrapper />
+                </td>
                 <td
                   className="data-table-row-section view-button-section"
                   key="viewButton-5204398"
@@ -5166,13 +5170,15 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  <button
-                    className="quill-button outlined fun secondary"
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    View
-                  </button>
+                  <TableCellContentWrapper>
+                    <button
+                      className="quill-button outlined fun secondary"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      View
+                    </button>
+                  </TableCellContentWrapper>
                 </td>
               </tr>
             </tbody>
@@ -10537,7 +10543,9 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  Maya Angelou
+                  <TableCellContentWrapper>
+                    Maya Angelou
+                  </TableCellContentWrapper>
                 </td>
                 <td
                   className="data-table-row-section undefined"
@@ -10551,7 +10559,9 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                       "width": "361px",
                     }
                   }
-                />
+                >
+                  <TableCellContentWrapper />
+                </td>
                 <td
                   className="data-table-row-section view-button-section"
                   key="viewButton-5204397"
@@ -10565,13 +10575,15 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  <button
-                    className="quill-button outlined fun secondary"
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    View
-                  </button>
+                  <TableCellContentWrapper>
+                    <button
+                      className="quill-button outlined fun secondary"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      View
+                    </button>
+                  </TableCellContentWrapper>
                 </td>
               </tr>
               <tr
@@ -10591,7 +10603,9 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  James Joyce
+                  <TableCellContentWrapper>
+                    James Joyce
+                  </TableCellContentWrapper>
                 </td>
                 <td
                   className="data-table-row-section undefined"
@@ -10605,7 +10619,9 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                       "width": "361px",
                     }
                   }
-                />
+                >
+                  <TableCellContentWrapper />
+                </td>
                 <td
                   className="data-table-row-section view-button-section"
                   key="viewButton-5204396"
@@ -10619,13 +10635,15 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  <button
-                    className="quill-button outlined fun secondary"
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    View
-                  </button>
+                  <TableCellContentWrapper>
+                    <button
+                      className="quill-button outlined fun secondary"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      View
+                    </button>
+                  </TableCellContentWrapper>
                 </td>
               </tr>
               <tr
@@ -10645,7 +10663,9 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  Harper Lee
+                  <TableCellContentWrapper>
+                    Harper Lee
+                  </TableCellContentWrapper>
                 </td>
                 <td
                   className="data-table-row-section undefined"
@@ -10659,7 +10679,9 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                       "width": "361px",
                     }
                   }
-                />
+                >
+                  <TableCellContentWrapper />
+                </td>
                 <td
                   className="data-table-row-section view-button-section"
                   key="viewButton-5204394"
@@ -10673,13 +10695,15 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  <button
-                    className="quill-button outlined fun secondary"
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    View
-                  </button>
+                  <TableCellContentWrapper>
+                    <button
+                      className="quill-button outlined fun secondary"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      View
+                    </button>
+                  </TableCellContentWrapper>
                 </td>
               </tr>
               <tr
@@ -10699,7 +10723,9 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  William Shakespeare
+                  <TableCellContentWrapper>
+                    William Shakespeare
+                  </TableCellContentWrapper>
                 </td>
                 <td
                   className="data-table-row-section undefined"
@@ -10713,7 +10739,9 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                       "width": "361px",
                     }
                   }
-                />
+                >
+                  <TableCellContentWrapper />
+                </td>
                 <td
                   className="data-table-row-section view-button-section"
                   key="viewButton-5204393"
@@ -10727,13 +10755,15 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 >
-                  <button
-                    className="quill-button outlined fun secondary"
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    View
-                  </button>
+                  <TableCellContentWrapper>
+                    <button
+                      className="quill-button outlined fun secondary"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      View
+                    </button>
+                  </TableCellContentWrapper>
                 </td>
               </tr>
             </tbody>

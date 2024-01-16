@@ -4905,7 +4905,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              Maya Angelou
+              <TableCellContentWrapper>
+                Maya Angelou
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section undefined"
@@ -4920,7 +4922,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              maya_angelou_demo@quill.org
+              <TableCellContentWrapper>
+                maya_angelou_demo@quill.org
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section undefined"
@@ -4935,7 +4939,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              Username
+              <TableCellContentWrapper>
+                Username
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section show-overflow"
@@ -4950,7 +4956,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              Invalid date
+              <TableCellContentWrapper>
+                Invalid date
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section left-align"
@@ -4964,7 +4972,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                   "width": "70px",
                 }
               }
-            />
+            >
+              <TableCellContentWrapper />
+            </td>
             <td
               className="data-table-row-section actions-section"
               key="2851870"
@@ -5008,7 +5018,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              William Shakespeare
+              <TableCellContentWrapper>
+                William Shakespeare
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section undefined"
@@ -5023,7 +5035,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              william.shakespeare.285383@demo-teacher
+              <TableCellContentWrapper>
+                william.shakespeare.285383@demo-teacher
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section undefined"
@@ -5038,7 +5052,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              Username
+              <TableCellContentWrapper>
+                Username
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section show-overflow"
@@ -5052,7 +5068,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                   "width": "110px",
                 }
               }
-            />
+            >
+              <TableCellContentWrapper />
+            </td>
             <td
               className="data-table-row-section left-align"
               key="activities-2851866"
@@ -5065,7 +5083,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                   "width": "70px",
                 }
               }
-            />
+            >
+              <TableCellContentWrapper />
+            </td>
             <td
               className="data-table-row-section actions-section"
               key="2851866"

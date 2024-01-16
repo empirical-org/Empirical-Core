@@ -10894,7 +10894,9 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                           }
                                         }
                                       >
-                                        Demo Teacher
+                                        <TableCellContentWrapper>
+                                          Demo Teacher
+                                        </TableCellContentWrapper>
                                       </td>
                                       <td
                                         className="data-table-row-section undefined"
@@ -10909,7 +10911,9 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                           }
                                         }
                                       >
-                                        Owner
+                                        <TableCellContentWrapper>
+                                          Owner
+                                        </TableCellContentWrapper>
                                       </td>
                                       <td
                                         className="data-table-row-section undefined"
@@ -10924,7 +10928,9 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                           }
                                         }
                                       >
-                                        hello+demoteacher@quill.org
+                                        <TableCellContentWrapper>
+                                          hello+demoteacher@quill.org
+                                        </TableCellContentWrapper>
                                       </td>
                                       <td
                                         className="data-table-row-section undefined"
@@ -10939,7 +10945,9 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                           }
                                         }
                                       >
-                                        Joined
+                                        <TableCellContentWrapper>
+                                          Joined
+                                        </TableCellContentWrapper>
                                       </td>
                                     </tr>
                                   </tbody>

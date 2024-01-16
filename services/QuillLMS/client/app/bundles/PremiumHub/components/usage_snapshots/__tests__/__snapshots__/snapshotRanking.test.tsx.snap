@@ -95,39 +95,41 @@ exports[`SnapshotRanking component when it is coming soon should match snapshot 
               Activities completed
             </th>
           </tr>
-          <tr
-            className="data-row"
-            key="0"
-          >
-            <td>
-              —
-            </td>
-            <td>
-              —
-            </td>
-          </tr>
-          <tr
-            className="data-row"
-            key="1"
-          >
-            <td>
-              —
-            </td>
-            <td>
-              —
-            </td>
-          </tr>
-          <tr
-            className="data-row"
-            key="2"
-          >
-            <td>
-              —
-            </td>
-            <td>
-              —
-            </td>
-          </tr>
+          <tbody>
+            <tr
+              className="data-row"
+              key="0"
+            >
+              <td>
+                —
+              </td>
+              <td>
+                —
+              </td>
+            </tr>
+            <tr
+              className="data-row"
+              key="1"
+            >
+              <td>
+                —
+              </td>
+              <td>
+                —
+              </td>
+            </tr>
+            <tr
+              className="data-row"
+              key="2"
+            >
+              <td>
+                —
+              </td>
+              <td>
+                —
+              </td>
+            </tr>
+          </tbody>
         </table>
       </DataTable>
     </div>
@@ -328,39 +330,41 @@ exports[`SnapshotRanking component when there is data  should match snapshot 1`]
               Activities completed
             </th>
           </tr>
-          <tr
-            className="data-row"
-            key="0"
-          >
-            <td>
-              Comma Before Coordinating Conjunctions
-            </td>
-            <td>
-              3,777
-            </td>
-          </tr>
-          <tr
-            className="data-row"
-            key="1"
-          >
-            <td>
-              Compound Objects
-            </td>
-            <td>
-              3,339
-            </td>
-          </tr>
-          <tr
-            className="data-row"
-            key="2"
-          >
-            <td>
-              Subordinating Conjunction at the Beginning of a Sentence
-            </td>
-            <td>
-              2,232
-            </td>
-          </tr>
+          <tbody>
+            <tr
+              className="data-row"
+              key="0"
+            >
+              <td>
+                Comma Before Coordinating Conjunctions
+              </td>
+              <td>
+                3,777
+              </td>
+            </tr>
+            <tr
+              className="data-row"
+              key="1"
+            >
+              <td>
+                Compound Objects
+              </td>
+              <td>
+                3,339
+              </td>
+            </tr>
+            <tr
+              className="data-row"
+              key="2"
+            >
+              <td>
+                Subordinating Conjunction at the Beginning of a Sentence
+              </td>
+              <td>
+                2,232
+              </td>
+            </tr>
+          </tbody>
         </table>
       </DataTable>
     </div>
@@ -463,39 +467,41 @@ exports[`SnapshotRanking component when there is no data  should match snapshot 
               Activities completed
             </th>
           </tr>
-          <tr
-            className="data-row"
-            key="0"
-          >
-            <td>
-              —
-            </td>
-            <td>
-              —
-            </td>
-          </tr>
-          <tr
-            className="data-row"
-            key="1"
-          >
-            <td>
-              —
-            </td>
-            <td>
-              —
-            </td>
-          </tr>
-          <tr
-            className="data-row"
-            key="2"
-          >
-            <td>
-              —
-            </td>
-            <td>
-              —
-            </td>
-          </tr>
+          <tbody>
+            <tr
+              className="data-row"
+              key="0"
+            >
+              <td>
+                —
+              </td>
+              <td>
+                —
+              </td>
+            </tr>
+            <tr
+              className="data-row"
+              key="1"
+            >
+              <td>
+                —
+              </td>
+              <td>
+                —
+              </td>
+            </tr>
+            <tr
+              className="data-row"
+              key="2"
+            >
+              <td>
+                —
+              </td>
+              <td>
+                —
+              </td>
+            </tr>
+          </tbody>
         </table>
       </DataTable>
     </div>
