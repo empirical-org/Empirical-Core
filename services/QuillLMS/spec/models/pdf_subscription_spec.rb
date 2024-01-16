@@ -4,6 +4,7 @@
 #
 #  id                               :bigint           not null, primary key
 #  frequency                        :string           not null
+#  token                            :string           not null
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
 #  admin_report_filter_selection_id :bigint           not null
@@ -22,4 +23,9 @@ RSpec.describe PdfSubscription, type: :model do
 
   it { should validate_presence_of(:frequency) }
   it { should validate_inclusion_of(:frequency).in_array(described_class::FREQUENCIES) }
+
+  it 'generates a token before creating a subscription' do
+    pdf_subscription = build(:pdf_subscription)
+    expect { pdf_subscription.save }.to change(pdf_subscription, :token).from(nil).to(String)
+  end
 end

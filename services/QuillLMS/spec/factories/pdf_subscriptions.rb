@@ -4,6 +4,7 @@
 #
 #  id                               :bigint           not null, primary key
 #  frequency                        :string           not null
+#  token                            :string           not null
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
 #  admin_report_filter_selection_id :bigint           not null

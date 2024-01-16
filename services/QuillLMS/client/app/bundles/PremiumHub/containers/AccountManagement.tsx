@@ -28,31 +28,19 @@ const teacherColumns = [
     name: 'Name',
     attribute: 'name',
     isSortable: true,
-    width: '394px'
+    width: '554px'
   },
   {
     name: 'Role',
     attribute: 'role',
     isSortable: true,
-    width: '180px'
+    width: '280px'
   },
   {
     name: 'Students',
     attribute: 'number_of_students',
     isSortable: true,
-    width: '180px',
-  },
-  {
-    name: 'Activities Completed',
-    attribute: 'number_of_activities_completed',
-    isSortable: true,
-    width: '180px',
-  },
-  {
-    name: 'Time Spent',
-    attribute: 'time_spent',
-    isSortable: true,
-    width: '180px',
+    width: '280px',
   },
   {
     name: 'Actions',
@@ -338,13 +326,6 @@ export const AccountManagement: React.SFC<AccountManagementProps> = ({
           rows={filteredData}
           showActions={true}
         />
-        <p className="warning-section">
-          <span className="warning">Warning:</span> Any changes you make when you
-          access a teacher account will impact the teacher and student facing
-          dashboards. This list provides you with the ability to sign in to all of the
-          teacher accounts for the schools you have admin access.&nbsp;
-          <strong>The data above represents usage from this school year, beginning July 1st.</strong>
-        </p>
       </div>
     </React.Fragment>
   )
