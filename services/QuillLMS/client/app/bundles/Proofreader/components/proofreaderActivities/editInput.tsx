@@ -3,7 +3,7 @@ import ContentEditable from 'react-contenteditable';
 
 import { WordObject } from '../../interfaces/proofreaderActivities';
 
-type EditInputProps = WordObject & { onWordChange: Function, numberOfResets: number, isFollowedByPunctuation: boolean, underlineErrors: boolean }
+type EditInputProps = WordObject & { onWordChange: Function, numberOfResets: number, underlineErrors: boolean }
 
 export default class EditInput extends React.Component<EditInputProps, {}> {
   handleWordChange = (e: any) => {
@@ -15,7 +15,7 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
   setEditInputRef = node => this.editInput = node
 
   render() {
-    const { currentText, originalText, underlined, wordIndex, paragraphIndex, numberOfResets, isFollowedByPunctuation, underlineErrors} = this.props
+    const { currentText, originalText, underlined, wordIndex, paragraphIndex, numberOfResets, underlineErrors} = this.props
     const beforeElements = []
     const afterElements = []
     let className = 'edit-input'
@@ -26,9 +26,6 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
       beforeElements.push(<span className="sr-only" tabIndex={0}>(underlined text begins here)</span>)
       afterElements.push(<span className="sr-only" tabIndex={0}>(underlined text ends here)</span>)
       /* eslint-enable jsx-a11y/no-noninteractive-tabindex */
-    }
-    if (isFollowedByPunctuation) {
-      className += ' no-right-margin'
     }
     if (currentText.trim() !== originalText) {
       className += ' bolded'
