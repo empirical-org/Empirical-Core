@@ -2,7 +2,6 @@ import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { configure } from 'enzyme';
 import 'whatwg-fetch';
 
-import processEnvMock from './__mocks__/processEnvMock';
 
 configure({ adapter: new Adapter() });
 
@@ -30,6 +29,10 @@ global.IntersectionObserver = class IntersectionObserver {
   }
 };
 
-window.process.env = processEnvMock.env
+window.process.env = {
+  env: {
+    PUSHER_KEY: 'pusher'
+  }
+}
 
 window.scrollTo = jest.fn();

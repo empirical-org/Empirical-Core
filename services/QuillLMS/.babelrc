@@ -1,18 +1,19 @@
 {
   "presets": [
-    ["env", {
-      "modules": false,
-      "targets": {
-        "browsers": "> 1%",
-        "uglify": true
-      },
-      "useBuiltIns": true
-    }]
+    "@babel/preset-react",
+    ["@babel/preset-env",
+      {
+        "targets": {
+          "esmodules": true,
+        }
+      }
+    ]
   ],
-
   "plugins": [
-    "syntax-dynamic-import",
-    "transform-object-rest-spread",
-    ["transform-class-properties", { "spec": true }]
+    ["module-resolver", {
+      "root": ["./client/app"],
+    }],
+    "@babel/plugin-proposal-class-properties"
   ]
+
 }
