@@ -120,8 +120,9 @@
     }
     .activity-score-student-card-container {
       display: flex;
-      max-width: 840px;
+      width: 100%;
       padding: 16px;
+      margin-right: 32px;
       flex-direction: column;
       align-items: flex-start;
       border-radius: 8px;
@@ -129,7 +130,7 @@
       background: $quill-grey-1;
       .student-badge {
         display: flex;
-        margin-bottom: 32px;
+        margin-bottom: 16px;
         img {
           height: 26px;
           width: auto;
@@ -143,14 +144,19 @@
       }
       .student-data-container {
         display: flex;
+        width: 100%;
         border-radius: 8px;
         padding: 16px;
         border: 1px solid $quill-grey-5;
         background-color: $quill-white;
         .data-cell {
           padding: 0px 32px;
+          width: 100%;
           &:first-of-type {
             padding: 0px 32px 0px 0px;
+          }
+          &:not(:first-of-type) {
+            max-width: 130px;
           }
           &:not(:last-of-type) {
             border-right: 1px solid $quill-grey-10;
