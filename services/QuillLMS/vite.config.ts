@@ -39,7 +39,6 @@ export default defineConfig(({command, mode}) => {
       alias: {
         src: resolve(__dirname, 'client', 'app'),
         '@' : path.resolve(__dirname),
-        '@node_modules' : path.resolve(__dirname, 'client/node_modules'),
       }
     },
 

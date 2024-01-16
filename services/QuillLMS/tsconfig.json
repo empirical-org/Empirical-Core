@@ -11,17 +11,20 @@
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
+    "esModuleInterop": true,
     "useDefineForClassFields": false,
     "resolveJsonModule": true
   },
   "exclude": [
     "**/*.spec.ts",
+    "node_modules",
     "client/node_modules",
     "vendor",
     "public",
     "client/**/*.ts",
     "client/**/*.d.ts",
-    "client/**/*.tsx"
+    "client/**/*.tsx",
+    "client/__mocks__/processEnvMock.js"
   ],
   "compileOnSave": false
 }
