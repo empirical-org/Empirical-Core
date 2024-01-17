@@ -26,11 +26,10 @@
 <p>Best regards,</p>
 <p><%= @constants[:signatures][:quill_team]%></p>
 
-<p>unsubsribe url is <%= @unsubscribe_url %></p>
 <p>
   <a
     clicktracking=off
-    href="<% @unsubscribe_url %>"
+    href="<%= @unsubscribe_url %>"
     rel="noopener noreferrer"
     target="_blank"
   >
