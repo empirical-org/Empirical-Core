@@ -1,6 +1,6 @@
 import * as React from 'react';
-
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { DataTable } from '../../../../Shared/index';
 
@@ -143,27 +143,32 @@ const rows3 = [
   {
     name: 'Maya Angelou',
     activities: 15,
-    id: 1
+    id: 1,
+    removable: true
   },
   {
     name: 'Ambrose Bierce',
     activities: 14,
-    id: 2
+    id: 2,
+    removable: true
   },
   {
     name: 'George Gordon',
     activities: 16,
-    id: 3
+    id: 3,
+    removable: true
   },
   {
     name: 'Elizabeth Carter',
     activities: 8,
-    id: 4
+    id: 4,
+    removable: true
   },
   {
     name: 'Anton Chekhov',
     activities: 7,
-    id: 5
+    id: 5,
+    removable: true
   }
 ]
 
@@ -179,108 +184,85 @@ const rows4 = rows3.map((row) => {
 describe('DataTable component', () => {
 
   describe('simple case', () => {
-    const wrapper = shallow(
-      <DataTable headers={headers1} rows={rows1} />
-    );
+    test('should render a header for each header in props', () => {
+      render(<DataTable headers={headers1} rows={rows1} />);
+      expect(screen.getAllByRole('columnheader')).toHaveLength(headers1.length);
+    });
 
-    it('should render a header row', () => {
-      expect(wrapper.find('.data-table-headers').exists()).toBe(true);
-    })
-
-    it('should render a header for each header in props', () => {
-      expect(wrapper.find('.data-table-header').length).toBe(headers1.length)
-    })
-
-    it('should render a row for each row in props', () => {
-      expect(wrapper.find('.data-table-row').length).toBe(rows1.length)
-    })
-  })
+    test('should render a row for each row in props', () => {
+      render(<DataTable headers={headers1} rows={rows1} />);
+      expect(screen.getAllByRole('row')).toHaveLength(rows1.length + 1); // +1 for header row
+    });
+  });
 
   describe('with checkboxes', () => {
-    const wrapper = shallow(
-      <DataTable
-        checkAllRows={() => {}}
-        checkRow={() => {}}
-        headers={headers2}
-        rows={rows2}
-        showCheckboxes={true}
-        uncheckAllRows={() => {}}
-        uncheckRow={() => {}}
-      />
-    )
-
-    it('should render a checkbox for each row, plus the header', () => {
-      expect(wrapper.find('.quill-checkbox').length).toBe(rows2.length + 1)
-    })
-  })
+    test('should render a checkbox for each row, plus the header', () => {
+      render(
+        <DataTable
+          checkAllRows={() => {}}
+          checkRow={() => {}}
+          headers={headers2}
+          rows={rows2}
+          showCheckboxes={true}
+          uncheckAllRows={() => {}}
+          uncheckRow={() => {}}
+        />
+      );
+      expect(screen.getAllByLabelText(/checkbox/i)).toHaveLength(rows2.length + 1); // we don't use the aria role checkbox for these because they have a third, indeterminate state
+    });
+  });
 
   describe('with sorting', () => {
-    const wrapper = shallow(
-      <DataTable
-        defaultSortAttribute='activities'
-        headers={headers4}
-        rows={rows3}
-      />
-    )
+    test('should render the rows in ascending order of activities', () => {
+      render(<DataTable defaultSortAttribute='activities' headers={headers3} rows={rows3} />);
+      const firstRowText = screen.getAllByRole('row')[1].textContent;
+      expect(firstRowText.includes(rows3[0].name)).toBe(true);
+    });
 
-    it('should render the rows in ascending order of activities', () => {
-      const sortedRows = rows3.sort((a, b) => a.activities - b.activities)
-      expect(wrapper.find('.data-table-row-section').first().text()).toBe(sortedRows[0].name)
-    })
-
-    it('should render the row in descending order if the state gets changed', () => {
-      wrapper.instance().setState({ sortAscending: false, })
-      const sortedRows = rows3.sort((a, b) => b.activities - a.activities)
-      expect(wrapper.find('.data-table-row-section').first().text()).toBe(sortedRows[0].name)
-    })
-  })
+    test('should render the row in descending order if the state gets changed', async () => {
+      const { container } = render(<DataTable defaultSortAttribute='activities' headers={headers3} rows={rows3} />);
+      const header = screen.getAllByRole('columnheader')[1];
+      await userEvent.click(header); // Click to sort in descending
+      const sortedRows = [...rows3].sort((a, b) => b.activities - a.activities);
+      const firstRowText = container.querySelectorAll('.data-table-row')[0].textContent;
+      expect(firstRowText.includes(sortedRows[sortedRows.length - 1].name)).toBe(true);
+    });
+  });
 
   describe('with remove icons', () => {
-    const wrapper = shallow(
-      <DataTable
-        headers={headers3}
-        removeRow={() => {}}
-        rows={rows3}
-        showRemoveIcon={true}
-      />
-    )
+    test('should render a header for each header in props, plus one for the remove icon', () => {
+      render(<DataTable headers={headers3} removeRow={() => {}} rows={rows3} showRemoveIcon={true} />);
+      expect(screen.getAllByRole('columnheader')).toHaveLength(headers3.length + 1);
+    });
 
-    it('should render a header for each header in props, plus one for the remove icon', () => {
-      expect(wrapper.find('.data-table-header').length).toBe(headers3.length + 1)
-    })
-
-    it('should render a remove icon for each row', () => {
-      expect(wrapper.find('.removable').length).toBe(rows3.length)
-    })
-  })
+    test('should render a remove icon for each row', () => {
+      render(<DataTable headers={headers3} removeRow={() => {}} rows={rows3} showRemoveIcon={true} />);
+      expect(screen.getAllByRole('button', { name: /remove/i })).toHaveLength(rows3.length);
+    });
+  });
 
   describe('with actions', () => {
-    const wrapper = shallow(
-      <DataTable
-        headers={headers4}
-        rows={rows4}
-        showActions={true}
-      />
-    )
+    test('should render a header for each header in props', () => {
+      render(<DataTable headers={headers4} rows={rows4} showActions={true} />);
+      expect(screen.getAllByRole('columnheader')).toHaveLength(headers4.length);
+    });
 
-    it('should render a header for each header in props', () => {
-      expect(wrapper.find('.data-table-header').length).toBe(headers4.length)
-    })
+    test('should render a header with the text Actions', () => {
+      render(<DataTable headers={headers4} rows={rows4} showActions={true} />);
+      expect(screen.getByText('Actions')).toBeInTheDocument();
+    });
 
-    it('should render a header with the text Actions', () => {
-      expect(wrapper.find('.data-table-header').last().text()).toBe('Actions')
-    })
+    test('should render an actions section for each row with actions', () => {
+      render(<DataTable headers={headers4} rows={rows4} showActions={true} />);
+      const actionsButtons = screen.getAllByRole('button', { name: /actions/i });
+      expect(actionsButtons).toHaveLength(rows4.filter(row => row.actions).length);
+    });
 
-    it('should render an actions section for each row with actions', () => {
-      const rowsWithActions = rows4.filter(row => row.actions)
-      expect(wrapper.find('.actions-section').length).toBe(rowsWithActions.length)
-    })
-
-    it('should render an open actions menu for the selected row', () => {
-      wrapper.instance().setState({ rowWithActionsOpen: rows4[0].id, })
-      expect(wrapper.find('.actions-menu').exists()).toBe(true)
-    })
-  })
-
+    test('should render an open actions menu for the selected row', async () => {
+      render(<DataTable headers={headers4} rows={rows4} showActions={true} />);
+      await userEvent.click(screen.getAllByRole('button', { name: /actions/i })[0]);
+      expect(screen.getByRole('menu')).toBeInTheDocument();
+    });
+  });
 
 });

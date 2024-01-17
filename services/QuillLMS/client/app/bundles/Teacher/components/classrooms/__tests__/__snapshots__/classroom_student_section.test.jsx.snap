@@ -4980,6 +4980,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               key="2851870"
             >
               <button
+                aria-label="Actions"
                 className="quill-button actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
@@ -5091,6 +5092,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               key="2851866"
             >
               <button
+                aria-label="Actions"
                 className="quill-button actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"

@@ -791,6 +791,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               key="649-1-undefined"
             >
               <button
+                aria-label="Actions"
                 className="quill-button actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
@@ -873,6 +874,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               key="563-6-undefined"
             >
               <button
+                aria-label="Actions"
                 className="quill-button actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
@@ -955,6 +957,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               key="829-6-undefined"
             >
               <button
+                aria-label="Actions"
                 className="quill-button actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
@@ -1089,6 +1092,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               key="566-6-undefined"
             >
               <button
+                aria-label="Actions"
                 className="quill-button actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
@@ -1171,6 +1175,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               key="568-6-undefined"
             >
               <button
+                aria-label="Actions"
                 className="quill-button actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"

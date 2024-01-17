@@ -1670,6 +1670,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td>
                         <button
+                          aria-label="Remove"
                           className="removable data-table-row-section focus-on-light"
                           id="remove-button-7543552"
                           onClick={[Function]}
@@ -1807,6 +1808,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td>
                         <button
+                          aria-label="Remove"
                           className="removable data-table-row-section focus-on-light"
                           id="remove-button-7543553"
                           onClick={[Function]}
@@ -1944,6 +1946,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td>
                         <button
+                          aria-label="Remove"
                           className="removable data-table-row-section focus-on-light"
                           id="remove-button-7543554"
                           onClick={[Function]}
@@ -2081,6 +2084,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td>
                         <button
+                          aria-label="Remove"
                           className="removable data-table-row-section focus-on-light"
                           id="remove-button-7543555"
                           onClick={[Function]}
@@ -2218,6 +2222,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       </td>
                       <td>
                         <button
+                          aria-label="Remove"
                           className="removable data-table-row-section focus-on-light"
                           id="remove-button-7543556"
                           onClick={[Function]}
@@ -2370,6 +2375,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td>
                           <button
+                            aria-label="Remove"
                             className="removable data-table-row-section focus-on-light"
                             id="remove-button-7543552"
                             onClick={[Function]}
@@ -2507,6 +2513,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td>
                           <button
+                            aria-label="Remove"
                             className="removable data-table-row-section focus-on-light"
                             id="remove-button-7543553"
                             onClick={[Function]}
@@ -2644,6 +2651,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td>
                           <button
+                            aria-label="Remove"
                             className="removable data-table-row-section focus-on-light"
                             id="remove-button-7543554"
                             onClick={[Function]}
@@ -2781,6 +2789,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td>
                           <button
+                            aria-label="Remove"
                             className="removable data-table-row-section focus-on-light"
                             id="remove-button-7543555"
                             onClick={[Function]}
@@ -2918,6 +2927,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </td>
                         <td>
                           <button
+                            aria-label="Remove"
                             className="removable data-table-row-section focus-on-light"
                             id="remove-button-7543556"
                             onClick={[Function]}
@@ -3092,6 +3102,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td>
                             <button
+                              aria-label="Remove"
                               className="removable data-table-row-section focus-on-light"
                               id="remove-button-7543552"
                               onClick={[Function]}
@@ -3229,6 +3240,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td>
                             <button
+                              aria-label="Remove"
                               className="removable data-table-row-section focus-on-light"
                               id="remove-button-7543553"
                               onClick={[Function]}
@@ -3366,6 +3378,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td>
                             <button
+                              aria-label="Remove"
                               className="removable data-table-row-section focus-on-light"
                               id="remove-button-7543554"
                               onClick={[Function]}
@@ -3503,6 +3516,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td>
                             <button
+                              aria-label="Remove"
                               className="removable data-table-row-section focus-on-light"
                               id="remove-button-7543555"
                               onClick={[Function]}
@@ -3640,6 +3654,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           </td>
                           <td>
                             <button
+                              aria-label="Remove"
                               className="removable data-table-row-section focus-on-light"
                               id="remove-button-7543556"
                               onClick={[Function]}
@@ -3788,6 +3803,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td>
                               <button
+                                aria-label="Remove"
                                 className="removable data-table-row-section focus-on-light"
                                 id="remove-button-7543552"
                                 onClick={[Function]}
@@ -3929,6 +3945,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td>
                                 <button
+                                  aria-label="Remove"
                                   className="removable data-table-row-section focus-on-light"
                                   id="remove-button-7543552"
                                   onClick={[Function]}
@@ -5478,6 +5495,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               key="7543552"
                             >
                               <button
+                                aria-label="Remove"
                                 className="removable data-table-row-section focus-on-light"
                                 id="remove-button-7543552"
                                 onClick={[Function]}
@@ -5622,6 +5640,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td>
                               <button
+                                aria-label="Remove"
                                 className="removable data-table-row-section focus-on-light"
                                 id="remove-button-7543553"
                                 onClick={[Function]}
@@ -5763,6 +5782,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td>
                                 <button
+                                  aria-label="Remove"
                                   className="removable data-table-row-section focus-on-light"
                                   id="remove-button-7543553"
                                   onClick={[Function]}
@@ -7278,6 +7298,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               key="7543553"
                             >
                               <button
+                                aria-label="Remove"
                                 className="removable data-table-row-section focus-on-light"
                                 id="remove-button-7543553"
                                 onClick={[Function]}
@@ -7422,6 +7443,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td>
                               <button
+                                aria-label="Remove"
                                 className="removable data-table-row-section focus-on-light"
                                 id="remove-button-7543554"
                                 onClick={[Function]}
@@ -7563,6 +7585,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td>
                                 <button
+                                  aria-label="Remove"
                                   className="removable data-table-row-section focus-on-light"
                                   id="remove-button-7543554"
                                   onClick={[Function]}
@@ -9078,6 +9101,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               key="7543554"
                             >
                               <button
+                                aria-label="Remove"
                                 className="removable data-table-row-section focus-on-light"
                                 id="remove-button-7543554"
                                 onClick={[Function]}
@@ -9222,6 +9246,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td>
                               <button
+                                aria-label="Remove"
                                 className="removable data-table-row-section focus-on-light"
                                 id="remove-button-7543555"
                                 onClick={[Function]}
@@ -9363,6 +9388,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td>
                                 <button
+                                  aria-label="Remove"
                                   className="removable data-table-row-section focus-on-light"
                                   id="remove-button-7543555"
                                   onClick={[Function]}
@@ -10878,6 +10904,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               key="7543555"
                             >
                               <button
+                                aria-label="Remove"
                                 className="removable data-table-row-section focus-on-light"
                                 id="remove-button-7543555"
                                 onClick={[Function]}
@@ -11022,6 +11049,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             </td>
                             <td>
                               <button
+                                aria-label="Remove"
                                 className="removable data-table-row-section focus-on-light"
                                 id="remove-button-7543556"
                                 onClick={[Function]}
@@ -11163,6 +11191,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </td>
                               <td>
                                 <button
+                                  aria-label="Remove"
                                   className="removable data-table-row-section focus-on-light"
                                   id="remove-button-7543556"
                                   onClick={[Function]}
@@ -12678,6 +12707,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               key="7543556"
                             >
                               <button
+                                aria-label="Remove"
                                 className="removable data-table-row-section focus-on-light"
                                 id="remove-button-7543556"
                                 onClick={[Function]}

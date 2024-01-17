@@ -74,7 +74,7 @@ const TableCellContentWrapper = ({ link, children, }) => {
     return <a className="row-link" href={link}>{children}</a>
   }
 
-  return <React.Fragment>{children}</React.Fragment>
+  return children
 }
 
 export class DataTable extends React.Component<DataTableProps, DataTableState> {
@@ -252,7 +252,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     if (!showRemoveIcon) { return }
 
     if (row.removable) {
-      return <td key={row.id}><button className="removable data-table-row-section focus-on-light" id={`remove-button-${row.id}`} onClick={() => removeRow(row.id)} type="button"><img alt="x" src={removeSrc} /></button></td>
+      return <td key={row.id}><button aria-label="Remove" className="removable data-table-row-section focus-on-light" id={`remove-button-${row.id}`} onClick={() => removeRow(row.id)} type="button"><img alt="x" src={removeSrc} /></button></td>
     }
 
     return <td className='removable data-table-row-section' key={row.id} />
@@ -279,7 +279,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
     return (
       <div className="actions-menu-container" ref={node => this.selectedActions = node}>
-        <div className="actions-menu">
+        <div className="actions-menu" role="menu">
           {rowActions}
         </div>
       </div>
@@ -289,6 +289,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   renderClosedActions(row) {
     return (
       <button
+        aria-label="Actions"
         className="quill-button actions-button focus-on-light"
         onClick={() => this.setState({ rowWithActionsOpen: row.id })}
         type="button"
