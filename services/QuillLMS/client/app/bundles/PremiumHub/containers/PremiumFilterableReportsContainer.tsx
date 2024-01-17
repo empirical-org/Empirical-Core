@@ -191,7 +191,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo }) => 
       schools: unorderedArraysAreEqual(selectedSchools, originalAllSchools) ? null : selectedSchools,
       teachers: unorderedArraysAreEqual(selectedTeachers, originalAllTeachers) ? null : selectedTeachers,
       classrooms: unorderedArraysAreEqual(selectedClassrooms, originalAllClassrooms) ? null : selectedClassrooms,
-      grades: selectedGrades,
+      grades: unorderedArraysAreEqual(selectedGrades, availableGrades) ? null : selectedGrades,
       custom_start_date: customStartDate,
       custom_end_date: customEndDate
     }
