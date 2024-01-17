@@ -251,25 +251,6 @@ a.progress-reports-nav {
 
 .progress-report-filters {
   display: flex;
-  margin: 0px;
-
-  .dropdown__control {
-    background-color: transparent;
-  }
-
-  & > div {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    margin: 0 10px;
-
-    &:first-of-type {
-      margin-left: 0;
-    }
-
-    &:last-of-type {
-      margin-right: 0;
-    }
-  }
 }
 
 .circle {

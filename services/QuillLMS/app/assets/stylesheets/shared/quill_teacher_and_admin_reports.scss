@@ -3,9 +3,6 @@
   .header-container {
     display: flex;
     justify-content: space-between;
-    &.admin-standards-report {
-      margin-bottom: 48px;
-    }
     .header-subheader-container {
       display: flex;
       align-items: center;
@@ -69,10 +66,10 @@
   }
   .dropdowns-container {
     display: flex;
-    justify-content: space-between;
     .dropdown-container {
       width: 100%;
-      max-width: 390px;
+      max-width: 240px;
+      margin-right: 8px;
     }
     &.standards-all-classrooms-dropdown-container {
       justify-content: flex-start;
@@ -85,6 +82,9 @@
     height: auto;
   }
   .dropdown-container {
+    width: 100%;
+    max-width: 240px;
+    margin-right: 8px;
     .dropdown-container {
       min-height: 65px;
       max-width: 240px;
