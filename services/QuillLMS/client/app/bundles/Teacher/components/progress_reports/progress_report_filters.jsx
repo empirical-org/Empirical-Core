@@ -70,7 +70,7 @@ export default class ProgressReportFilters extends React.Component {
     }
 
     return (
-      <div className="activity-page-dropdown-wrapper progress-report-filters">
+      <div className="progress-report-filters">
         {filters}
       </div>
     );
