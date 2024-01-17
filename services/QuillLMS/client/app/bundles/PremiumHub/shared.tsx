@@ -78,11 +78,8 @@ export function hashPayload(payloadArray: Array<any>) {
 export function getTimeInMinutesAndSeconds(seconds) {
   if(!seconds) return NOT_APPLICABLE
 
-  const oneHourInSeconds = 3600
-  const oneDayInSeconds = 86400
-  const oneYearInSeconds = 31536000
-  let numminutes = Math.floor((((seconds % oneYearInSeconds) % oneDayInSeconds) % oneHourInSeconds) / 60).toString();
-  let numseconds = Math.floor((((seconds % oneYearInSeconds) % oneDayInSeconds) % oneHourInSeconds) % 60).toString();
+  let numminutes = Math.floor(seconds / 60).toString();
+  let numseconds = Math.floor(seconds % 60).toString();
 
   if (numminutes.length === 1) numminutes = "0" + numminutes
   if (numseconds.length === 1) numseconds = "0" + numseconds
