@@ -49,7 +49,6 @@ module AdminDiagnosticReports
       end
 
       let(:students_completed_practice_results) { results.first[:students_completed_practice] }
-      let(:students_completed_weight_results) { results.first[:students_completed_weight] }
       let(:average_time_spent_seconds_results) { results.first[:average_time_spent_seconds] }
       let(:average_practice_activities_count_results) { results.first[:average_practice_activities_count] }
 
@@ -107,8 +106,7 @@ module AdminDiagnosticReports
         end
         let(:students_classrooms_count) { students.map(&:classrooms).flatten.length }
 
-        it { expect(students_completed_practice_results).to eq(students.length) }
-        it { expect(students_completed_weight_results).to eq(students_classrooms_count) }
+        it { expect(students_completed_practice_results).to eq(students_classrooms_count) }
         it { expect(average_time_spent_seconds_results).to eq(timespent) }
         it { expect(average_practice_activities_count_results).to eq(activity_sessions.length / students_classrooms_count) }
       end
