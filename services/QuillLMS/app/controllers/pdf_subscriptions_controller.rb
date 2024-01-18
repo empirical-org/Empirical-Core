@@ -16,8 +16,7 @@ class PdfSubscriptionsController < ApplicationController
     @pdf_subscription = PdfSubscription.find_or_initialize_by(admin_report_filter_selection_id:)
 
     if @pdf_subscription.update(pdf_subscription_params)
-      Pdfs::AdminUsageSnapshotEmailJob.perform_async(@pdf_subscription.id) # TODO: remove before launch
-      render json: @pdf_subscription, status: :created
+      render json: @pdf_subscription, status: :ok
     else
       render json: @pdf_subscription.errors, status: :unprocessable_entity
     end
@@ -38,7 +37,7 @@ class PdfSubscriptionsController < ApplicationController
     end
   end
 
-  private def admin_report_filter_selection_id = params[:admin_report_filter_selection_id]
+  private def admin_report_filter_selection_id = pdf_subscription_params[:admin_report_filter_selection_id]
 
   private def pdf_subscription_params
     params
