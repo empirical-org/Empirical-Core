@@ -165,7 +165,7 @@ const mockRecommendationsData = [{
 const mockCombinedData = [{
   aggregate_rows: [
     {
-      averageActivitiesAndTimeSpent: "22 Activities (26:56)",
+      averageActivitiesAndTimeSpent: "22 Activities (206:56)",
       id: "5",
       name: "Grade 5",
       overallSkillGrowth: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>+29%</button>,
@@ -174,7 +174,7 @@ const mockCombinedData = [{
       studentsCompletedPractice: "113 Students"
     },
     {
-      averageActivitiesAndTimeSpent: "12 Activities (25:57)",
+      averageActivitiesAndTimeSpent: "12 Activities (85:57)",
       id: "7",
       name: "Grade 7",
       overallSkillGrowth: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>+19%</button>,
@@ -183,7 +183,7 @@ const mockCombinedData = [{
       studentsCompletedPractice: "46 Students"
     }
   ],
-  averageActivitiesAndTimeSpent: "19 Activities (51:56)",
+  averageActivitiesAndTimeSpent: "19 Activities (171:56)",
   id: 1663,
   name: "Starter Baseline Diagnostic (Pre)",
   overallSkillGrowth: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>+24%</button>,
