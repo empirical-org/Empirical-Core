@@ -73,7 +73,7 @@ function createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId, 
       id: key,
       name: data.name,
       preDiagnosticCompleted: preDiagnosticCompletedValue(data.pre_students_assigned, data.pre_students_completed),
-      studentsCompletedPractice: studentsCompletedPracticeValue(data.students_completed_weight),
+      studentsCompletedPractice: studentsCompletedPracticeValue(data.students_completed_practice),
       averageActivitiesAndTimeSpent: averageActivitiesAndTimeSpentValue(data.average_practice_activities_count, data.average_time_spent_seconds),
       postDiagnosticCompleted: postDiagnosticCompleted(data.post_students_assigned, data.post_students_completed),
       overallSkillGrowth
@@ -145,11 +145,11 @@ export function aggregateOverviewData(args) {
 
   // process data for recommendations API results
   recommendationsData.map(entry => {
-    const { diagnostic_id, aggregate_rows, average_practice_activities_count, average_time_spent_seconds, students_completed_weight } = entry
+    const { diagnostic_id, aggregate_rows, average_practice_activities_count, average_time_spent_seconds, students_completed_practice } = entry
     recommendationsDataHash[diagnostic_id] = {
       average_practice_activities_count,
       average_time_spent_seconds,
-      students_completed_weight
+      students_completed_practice
     }
     processAggregateRows(aggregateRowsData, diagnostic_id, aggregate_rows)
   })
@@ -163,7 +163,7 @@ export function aggregateOverviewData(args) {
     const postStudentsAssigned = postDiagnosticAssignedDataHash[id]?.post_students_assigned
     const postStudentsCompleted = postDiagnosticCompletedDataHash[id]?.post_students_completed
     const postDiagnosticScore = postDiagnosticCompletedDataHash[id]?.post_average_score
-    const studentsCompletedPractice = recommendationsDataHash[id]?.students_completed_weight
+    const studentsCompletedPractice = recommendationsDataHash[id]?.students_completed_practice
     const averageActivitiesCount = recommendationsDataHash[id]?.average_practice_activities_count
     const averageTimespent = recommendationsDataHash[id]?.average_time_spent_seconds
     const aggregateRowsDataForDiagnostic = aggregateRowsData[id]
