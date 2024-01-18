@@ -59,6 +59,15 @@ describe Cms::SchoolAdminsController do
         end
       end
 
+      describe 'when the email is submitted in uppercase' do
+        it 'creates the admin info record as staff approved' do
+          post :create, params: { school_id: school1.id, email: admin1.email.upcase}
+
+          expect(admin1.admin_info.approver_role).to eq(User::STAFF)
+          expect(admin1.admin_info.approval_status).to eq(AdminInfo::APPROVED)
+        end
+      end
+
       it 'creates a new school admin with no linked school and sends the expected email' do
         Sidekiq::Testing.inline! do
           post :create, params: { school_id: school1.id, email: admin1.email}
