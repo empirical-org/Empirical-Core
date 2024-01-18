@@ -275,6 +275,11 @@
         font-size: 14px;
         border-top: 1px solid #e0e0e0;
 
+        td {
+          border-top: none;
+          padding: 0px;
+        }
+
         td:first-of-type {
           font-weight: 400;
           line-height: 16px;
