@@ -4,7 +4,7 @@ class Cms::SchoolAdminsController < Cms::CmsController
   before_action :set_school, only: [:create]
 
   def create
-    user = User.find_by(email: params[:email])
+    user = User.find_by(email: params[:email].downcase)
     if user
       create_admin_user_for_existing_user(user)
     else

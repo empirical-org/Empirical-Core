@@ -1,11 +1,15 @@
 .new-admin-user-container {
   margin-top: 24px;
+  section {
+    border-bottom: none;
+  }
   .instructions {
     max-width: 700px;
     margin: 24px 0;
   }
   .cms-form {
     max-width: 700px;
+    flex-direction: column;
     .name-inputs-container, .buttons-container {
       display: flex;
       .user-details-input {
@@ -26,6 +30,10 @@
           height: 24px;
         }
       }
+    }
+    input {
+      margin-left: 0px;
+      width: 100%
     }
     table {
       overflow: visible;

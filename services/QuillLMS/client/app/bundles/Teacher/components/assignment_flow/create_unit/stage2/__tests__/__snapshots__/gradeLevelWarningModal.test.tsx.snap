@@ -377,13 +377,15 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
-                  <a
-                    href="/activity_sessions/anonymous?activity_id=1432"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    SpringBoard® Writing Skills Survey
-                  </a>
+                  <TableCellContentWrapper>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=1432"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      SpringBoard® Writing Skills Survey
+                    </a>
+                  </TableCellContentWrapper>
                 </td>
                 <td
                   className="data-table-row-section undefined"
@@ -397,7 +399,9 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                       "width": "117px",
                     }
                   }
-                />
+                >
+                  <TableCellContentWrapper />
+                </td>
               </tr>
               <tr
                 className="data-table-row  "
@@ -416,13 +420,15 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
-                  <a
-                    href="/activity_sessions/anonymous?activity_id=897"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    And, Because, Or (Intermediate)
-                  </a>
+                  <TableCellContentWrapper>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=897"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      And, Because, Or (Intermediate)
+                    </a>
+                  </TableCellContentWrapper>
                 </td>
                 <td
                   className="data-table-row-section undefined"
@@ -437,7 +443,9 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
-                  8, 9, 10, 11, 12
+                  <TableCellContentWrapper>
+                    8, 9, 10, 11, 12
+                  </TableCellContentWrapper>
                 </td>
               </tr>
               <tr
@@ -457,13 +465,15 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
-                  <a
-                    href="/activity_sessions/anonymous?activity_id=1001"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    Compound-Complex Sentences (Intermediate)
-                  </a>
+                  <TableCellContentWrapper>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=1001"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Compound-Complex Sentences (Intermediate)
+                    </a>
+                  </TableCellContentWrapper>
                 </td>
                 <td
                   className="data-table-row-section undefined"
@@ -478,7 +488,9 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
-                  10, 11, 12
+                  <TableCellContentWrapper>
+                    10, 11, 12
+                  </TableCellContentWrapper>
                 </td>
               </tr>
             </tbody>
@@ -592,7 +604,9 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
-                  University
+                  <TableCellContentWrapper>
+                    University
+                  </TableCellContentWrapper>
                 </td>
                 <td
                   className="data-table-row-section undefined"
@@ -607,7 +621,9 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
-                  University
+                  <TableCellContentWrapper>
+                    University
+                  </TableCellContentWrapper>
                 </td>
               </tr>
               <tr
@@ -627,7 +643,9 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
-                  Fourth Grade
+                  <TableCellContentWrapper>
+                    Fourth Grade
+                  </TableCellContentWrapper>
                 </td>
                 <td
                   className="data-table-row-section undefined"
@@ -642,18 +660,20 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
-                  <span
-                    className="warning"
-                  >
-                    <img
-                      alt="Warning icon"
-                      src="undefined/images/icons/warning-icon.svg"
-                    />
-                    <span>
-                      Grade 
-                      4
+                  <TableCellContentWrapper>
+                    <span
+                      className="warning"
+                    >
+                      <img
+                        alt="Warning icon"
+                        src="undefined/images/icons/warning-icon.svg"
+                      />
+                      <span>
+                        Grade 
+                        4
+                      </span>
                     </span>
-                  </span>
+                  </TableCellContentWrapper>
                 </td>
               </tr>
               <tr
@@ -673,7 +693,9 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
-                  Test Class
+                  <TableCellContentWrapper>
+                    Test Class
+                  </TableCellContentWrapper>
                 </td>
                 <td
                   className="data-table-row-section undefined"
@@ -688,7 +710,9 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
-                  Grade 12
+                  <TableCellContentWrapper>
+                    Grade 12
+                  </TableCellContentWrapper>
                 </td>
               </tr>
             </tbody>
