@@ -5,8 +5,9 @@ module AdminDiagnosticReports
     def specific_select_clause
       <<-SQL
           COUNT(DISTINCT activity_sessions.user_id) AS students_completed_practice,
-          SAFE_DIVIDE(COUNT(DISTINCT activity_sessions.id), COUNT(DISTINCT activity_sessions.user_id)) AS average_practice_activities_count,
-          SAFE_DIVIDE(SUM(activity_sessions.timespent), COUNT(DISTINCT activity_sessions.user_id)) AS average_time_spent_seconds
+          COUNT(DISTINCT CONCAT(classrooms.id, ':', activity_sessions.user_id)) AS students_completed_weight,
+          SAFE_DIVIDE(COUNT(DISTINCT activity_sessions.id), COUNT(DISTINCT CONCAT(classrooms.id, ':', activity_sessions.user_id))) AS average_practice_activities_count,
+          SAFE_DIVIDE(SUM(activity_sessions.timespent), COUNT(DISTINCT CONCAT(classrooms.id, ':', activity_sessions.user_id))) AS average_time_spent_seconds
       SQL
     end
 
@@ -30,8 +31,9 @@ module AdminDiagnosticReports
     private def rollup_aggregation_hash
       {
         students_completed_practice: sum_aggregate,
-        average_practice_activities_count: average_aggregate(:students_completed_practice),
-        average_time_spent_seconds: average_aggregate(:students_completed_practice)
+        students_completed_weight: sum_aggregate,
+        average_practice_activities_count: average_aggregate(:students_completed_weight),
+        average_time_spent_seconds: average_aggregate(:students_completed_weight)
       }
     end
   end
