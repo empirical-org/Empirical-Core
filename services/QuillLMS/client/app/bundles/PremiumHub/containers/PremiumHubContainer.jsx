@@ -77,10 +77,10 @@ const PremiumHubContainer = ({ id, history, location, children, user, }) => {
     if (accessType() === FULL || accessType() === LOADING) { return <span /> }
 
     // this checks that the last part of the path (after the final '/') matches the overview page (which is just /teachers/premium_hub) or the integrations page
-    const onIntegrationsOrOverviewPage = ['integrations', 'premium_hub'].some((path) => location.pathname.split('/').pop() === path)
+    const onIntegrationsOverviewOrUsageSnapshotPage = ['integrations', 'premium_hub', 'usage_snapshot_report'].some((path) => location.pathname.split('/').pop() === path)
     const onSubscriptionPageWithExpiredPremium = location.pathname.includes('subscriptions') && administers_school_with_current_or_expired_premium
 
-    if (accessType() === LIMITED && !(onIntegrationsOrOverviewPage || onSubscriptionPageWithExpiredPremium)) {
+    if (accessType() === LIMITED && !(onIntegrationsOverviewOrUsageSnapshotPage || onSubscriptionPageWithExpiredPremium)) {
       return (
         <Banner
           bodyText="Subscribe to School or District Premium to unlock all Premium Hub features. Manage teacher accounts, access teacher reports, and view school-wide student data."

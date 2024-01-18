@@ -1,0 +1,7 @@
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="17.5" cy="10" r="7.5" stroke="#C04500" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M32.5 10H73.75V57.5H35" stroke="#C04500" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M56.25 57.5L68.75 77.5" stroke="#C04500" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M50.5509 23.75H13.7509C9.60876 23.75 6.25089 27.1079 6.25089 31.25V73.5388C6.2074 75.5876 7.75951 77.3195 9.80089 77.5C10.8296 77.5549 11.8357 77.1842 12.5828 76.4749C13.3299 75.7656 13.7524 74.7802 13.7509 73.75V52.5H20.0009V73.5388C19.9574 75.5876 21.5095 77.3195 23.5509 77.5C24.5796 77.5549 25.5857 77.1842 26.3328 76.4749C27.0799 75.7656 27.5024 74.7802 27.5009 73.75V31.25L50.5159 30.1538C52.1676 30.112 53.5394 28.8663 53.7396 27.2263C53.8171 26.3328 53.516 25.4478 52.9097 24.7869C52.3035 24.126 51.4477 23.7498 50.5509 23.75Z" stroke="#C04500" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M43.75 10V3.75" stroke="#C04500" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
