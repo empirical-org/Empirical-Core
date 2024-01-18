@@ -140,7 +140,8 @@ const mockRecommendationsData = [{
       name: "Grade 5",
       average_practice_activities_count: 22.460176991150444,
       average_time_spent_seconds: 12416.194690265487,
-      students_completed_practice: 113
+      students_completed_practice: 113,
+      students_completed_weight: 114
     },
     {
       aggregate_id: "7",
@@ -150,7 +151,8 @@ const mockRecommendationsData = [{
       name: "Grade 7",
       average_practice_activities_count: 11.91304347826087,
       average_time_spent_seconds: 5157.673913043478,
-      students_completed_practice: 46
+      students_completed_practice: 46,
+      students_completed_weight: 47
     }
   ],
   diagnostic_id: 1663,
@@ -159,7 +161,8 @@ const mockRecommendationsData = [{
   name: "ROLLUP",
   average_practice_activities_count: 19.40880503144654,
   average_time_spent_seconds: 10316.245283018869,
-  students_completed_practice: 159
+  students_completed_practice: 159,
+  students_completed_weight: 161
 }]
 
 const mockCombinedData = [{
@@ -171,7 +174,7 @@ const mockCombinedData = [{
       overallSkillGrowth: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>+29%</button>,
       postDiagnosticCompleted: "51 of 52 Students",
       preDiagnosticCompleted: <p className="emphasized-content">125 of 163 Students</p>,
-      studentsCompletedPractice: "113 Students"
+      studentsCompletedPractice: "114 Students"
     },
     {
       averageActivitiesAndTimeSpent: "12 Activities (25:57)",
@@ -180,7 +183,7 @@ const mockCombinedData = [{
       overallSkillGrowth: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>+19%</button>,
       postDiagnosticCompleted: "4 of 5 Students",
       preDiagnosticCompleted: <p className="emphasized-content">53 of 52 Students</p>,
-      studentsCompletedPractice: "46 Students"
+      studentsCompletedPractice: "47 Students"
     }
   ],
   averageActivitiesAndTimeSpent: "19 Activities (51:56)",
@@ -189,7 +192,7 @@ const mockCombinedData = [{
   overallSkillGrowth: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>+24%</button>,
   preDiagnosticCompleted: <p className="emphasized-content">178 of 215 Students</p>,
   postDiagnosticCompleted: "55 of 215 Students",
-  studentsCompletedPractice: "159 Students"
+  studentsCompletedPractice: "161 Students"
 }]
 
 describe('#aggregateOverviewData', () => {
