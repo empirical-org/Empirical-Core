@@ -26,6 +26,10 @@ describe PremiumHubUserMailer, type: :mailer do
     end
   end
 
+  describe 'admin_usage_snapshot_report_pdf_email' do
+    # TODO: add spec
+  end
+
   describe 'admin_account_created_email' do
     let(:user) { build(:user) }
     let(:admin_user) { build(:user) }

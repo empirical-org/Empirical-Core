@@ -6,7 +6,7 @@ module Pdfs
 
     def perform
       PdfSubscription.weekly.find_each do |pdf_subscription|
-        Pdfs::AdminUsageSnapshotEmailJob.perform_async(pdf_subscription.id)
+        Pdfs::AdminUsageSnapshotEmailWorker.perform_async(pdf_subscription.id)
       end
     end
   end

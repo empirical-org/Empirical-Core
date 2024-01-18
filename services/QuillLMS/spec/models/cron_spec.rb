@@ -2,7 +2,8 @@
 
 require 'rails_helper'
 
-describe "Cron", type: :model do
+# TODO: add specs for run_monthly and run weekly
+RSpec.describe "Cron", type: :model do
   describe "#interval_10_min" do
     [20, 50].each do |num_minutes|
       it "enqueues ResetGhostInspectorAccountWorker at #{num_minutes} minute marks" do

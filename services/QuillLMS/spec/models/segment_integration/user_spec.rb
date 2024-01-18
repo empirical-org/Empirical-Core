@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 
+# TODO: add specs admin_report_subscriptions
 RSpec.describe SegmentIntegration::User do
   context 'admin' do
     let(:admin) { create(:admin) }
