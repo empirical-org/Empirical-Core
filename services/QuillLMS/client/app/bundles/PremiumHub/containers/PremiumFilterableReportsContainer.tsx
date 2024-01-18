@@ -17,6 +17,7 @@ import CustomDateModal from '../components/usage_snapshots/customDateModal';
 import Filters from '../components/usage_snapshots/filters';
 import { CUSTOM } from '../components/usage_snapshots/shared';
 import { FULL, restrictedPage, } from '../shared';
+import useHideFooter from '../../Shared/hooks/useHideFooter'
 
 const MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS = 1500
 
@@ -69,6 +70,8 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
   const [showFilters, setShowFilters] = React.useState(true)
 
   const location = useLocation();
+
+  useHideFooter()
 
   React.useEffect(() => {
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
