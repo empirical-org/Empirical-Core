@@ -71,7 +71,7 @@ class Cron
 
   def self.run_friday
     TeacherNotifications::EnqueueUsersForRollupEmailWorker.perform_async(TeacherInfo::WEEKLY_EMAIL)
-    Pdfs::WeeklySubscriptionsWorker.perform_async
+    Pdfs::SendWeeklySubscriptionsWorker.perform_async
   end
 
   def self.run_saturday
@@ -82,7 +82,7 @@ class Cron
   end
 
   def self.run_monthly
-    Pdfs::MonthlySubscriptionsWorker.perform_async
+    Pdfs::SendMonthlySubscriptionsWorker.perform_async
   end
 
   def self.run_school_year_start

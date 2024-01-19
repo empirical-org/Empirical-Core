@@ -2,8 +2,7 @@
 
 require 'rails_helper'
 
-# TODO: add specs for run_monthly and run weekly
-RSpec.describe "Cron", type: :model do
+RSpec.describe Cron, type: :model do
   describe "#interval_10_min" do
     [20, 50].each do |num_minutes|
       it "enqueues ResetGhostInspectorAccountWorker at #{num_minutes} minute marks" do
@@ -44,6 +43,13 @@ RSpec.describe "Cron", type: :model do
       Cron.interval_1_day
     end
 
+    it "calls run_friday if now is a Friday" do
+      a_friday = Time.utc(2019, 10, 18)
+      allow(Cron).to receive(:now).and_return(a_friday)
+      expect(Cron).to receive(:run_friday)
+      Cron.interval_1_day
+    end
+
     it "calls run_weekday if now is a weekday" do
       a_thursday = Time.utc(2019, 10, 17)
       allow(Cron).to receive(:now).and_return(a_thursday)
@@ -62,6 +68,13 @@ RSpec.describe "Cron", type: :model do
       july_second = Time.utc(2022, 7, 2)
       allow(Cron).to receive(:now).and_return(july_second)
       expect(Cron).not_to receive(:run_school_year_start)
+      Cron.interval_1_day
+    end
+
+    it "calls run_monthly if now is first day of month" do
+      first_of_month = Time.utc(2024, 0o2, 0o1)
+      allow(Cron).to receive(:now).and_return(first_of_month)
+      expect(Cron).to receive(:run_monthly)
       Cron.interval_1_day
     end
 
@@ -142,6 +155,11 @@ RSpec.describe "Cron", type: :model do
       expect(TeacherNotifications::EnqueueUsersForRollupEmailWorker).to receive(:perform_async).with(TeacherInfo::WEEKLY_EMAIL)
       Cron.run_friday
     end
+
+    it "enqueues Pdfs::SendWeeklySubscriptionsWorker" do
+      expect(Pdfs::SendWeeklySubscriptionsWorker).to receive(:perform_async)
+      Cron.run_friday
+    end
   end
 
   describe "#run_saturday" do
@@ -170,6 +188,13 @@ RSpec.describe "Cron", type: :model do
     it "enqueues PopulateAnnualVitallyWorker" do
       expect(PopulateAnnualVitallyWorker).to receive(:perform_async)
       Cron.run_school_year_start
+    end
+  end
+
+  describe '#run_monthly' do
+    it "enqueues Pdfs::SendMonthlySubscriptionsWorker" do
+      expect(Pdfs::SendMonthlySubscriptionsWorker).to receive(:perform_async)
+      Cron.run_monthly
     end
   end
 end
