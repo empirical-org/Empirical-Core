@@ -57,7 +57,7 @@ RSpec.describe PdfSubscriptionsController, type: :controller do
     it { expect(response).to have_http_status(:ok) }
   end
 
-  describe 'GET #unsubscribe' do
+  describe 'DELETE #unsubscribe' do
     it 'unsubscribes the user from the pdf subscription' do
       get :unsubscribe, params: { token: pdf_subscription.token }
       expect(PdfSubscription.exists?(pdf_subscription.id)).to be_falsey

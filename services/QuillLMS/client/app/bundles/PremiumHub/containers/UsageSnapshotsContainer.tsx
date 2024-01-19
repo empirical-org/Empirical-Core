@@ -166,7 +166,7 @@ export const UsageSnapshotsContainer = ({
             type="button"
           >
             <img alt={whiteEmailIcon.alt} src={whiteEmailIcon.src} />
-            <span>{existingPdfSubscription ? "Manage Subscription" : "Subscribe"}</span>
+            <span>Subscribe</span>
           </button>
           <button
             className="quill-button download-report-button contained primary medium focus-on-light"
