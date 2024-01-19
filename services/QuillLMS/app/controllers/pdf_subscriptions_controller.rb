@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class PdfSubscriptionsController < ApplicationController
-  around_action :force_writer_db_role, only: [:unsubscribe]   # GET route coming from email link
-
   def existing
     @pdf_subscription =
       PdfSubscription
@@ -15,6 +13,8 @@ class PdfSubscriptionsController < ApplicationController
   def create_or_update
     @pdf_subscription = PdfSubscription.find_or_initialize_by(admin_report_filter_selection_id:)
 
+    return render json: {}, status: :unauthorized if @pdf_subscription.user != current_user
+
     if @pdf_subscription.update(pdf_subscription_params)
       render json: @pdf_subscription, status: :ok
     else
@@ -23,15 +23,19 @@ class PdfSubscriptionsController < ApplicationController
   end
 
   def destroy
-    PdfSubscription.find(params[:id])&.destroy
+    @pdf_subscription = PdfSubscription.find_by(id: params[:id])
+
+    return render json: {}, status: :unauthorized if @pdf_subscription&.user != current_user
+
+    @pdf_subscription.destroy
     render json: {}, status: :ok
   end
 
   def unsubscribe
     @pdf_subscription = PdfSubscription.find_by(token:)
 
-    if @pdf_subscription
-      @pdf_subscription.destroy
+    if @pdf_subscription&.destroy
+      render json: {}, status: :ok
     else
       redirect_to root_path, flash: { error: 'Subscription not found' }
     end

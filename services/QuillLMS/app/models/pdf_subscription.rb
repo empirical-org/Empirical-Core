@@ -31,7 +31,7 @@ class PdfSubscription < ApplicationRecord
 
   validates :frequency, presence: true, inclusion: { in: FREQUENCIES }
 
-  delegate :user, to: :admin_report_filter_selection
+  delegate :report, :user, to: :admin_report_filter_selection
 
   def generate_token
     self.token = SecureRandom.hex
