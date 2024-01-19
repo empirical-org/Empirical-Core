@@ -6,7 +6,7 @@ module Snapshots
     let(:report) { 'admin-snapshot' }
     let(:query) { 'active-classrooms' }
     let(:timeframe_value) { 'last-30-days' }
-    let(:timeframe_start) { DateTime.current.end_of_day - 31.days }
+    let(:current_start) { DateTime.current.end_of_day - 31.days }
     let(:current_end) { DateTime.current.end_of_day - 1.day }
     let(:school_ids) { [1,2,3] }
     let(:grades) { ['Kindergarten',1,2,3,4] }
@@ -19,6 +19,10 @@ module Snapshots
         classroom_ids: classroom_ids
       }
     end
+
+    it { expect(timeframe_value.class).to eq String }
+    it { expect(current_start.class).to eq DateTime }
+    it { expect(current_end.class).to eq DateTime }
 
     context '#generate_key' do
       it 'should compile a valid cache key' do
