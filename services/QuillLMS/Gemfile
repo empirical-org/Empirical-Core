@@ -59,13 +59,13 @@ gem 'google-cloud-bigquery', '~> 1.43.0'
 gem 'google-apis-classroom_v1', '~> 0.27.0'
 gem 'faraday_middleware'
 gem 'newrelic_rpm', '~> 9.3.1'
-gem 'stripe', '~> 5.30'
+gem 'stripe', '~> 9.4'
 gem 'prawn'
 gem 'prawn-table'
 gem 'pdf-core'
+gem 'grover'
 gem 'pdf-inspector'
 gem 'ttfunk'
-gem 'scout_apm'
 gem 'rubyzip', '~> 1.3.0'
 gem 'httparty', '~> 0.16'
 gem 'intercom', '~> 3.5.23'
@@ -125,8 +125,9 @@ gem 'slim-rails'
 
 gem 'es5-shim-rails'
 # Use the exact gem version to match npm version of react-on-rails
-gem 'react_on_rails', '= 11.3.0'
-gem 'webpacker'
+gem 'react_on_rails', '= 13.3.3'
+
+gem 'vite_rails', '~> 3.0.14'
 
 # ASSET/UI
 gem 'uglifier', require: false
@@ -167,6 +168,7 @@ group :production, :staging do
   gem 'rails-autoscale-sidekiq'
   gem 'lograge'
   gem "matrix", '~> 0.4.2'
+  gem 'scout_apm'
 end
 
 group :development do
@@ -194,6 +196,10 @@ group :test, :development do
   gem 'rspec-redis_helper'
   gem 'brakeman', '= 4.1.1'
   gem 'memory_profiler'
+  gem 'mini_racer', '= 0.8.0'
+  gem 'rubocop'
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
 end
 
 group :test, :development, :cypress do
@@ -209,6 +215,6 @@ group :test do
   gem 'shoulda-matchers', '~> 4'
   gem 'shoulda-callback-matchers', '~> 1.1.1'
   gem 'super_diff', require: false
-  gem 'vcr'
-  gem 'webmock'
+  gem 'vcr', '~> 6.2.0'
+  gem 'webmock', '~> 3.19'
 end

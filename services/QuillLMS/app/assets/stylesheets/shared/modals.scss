@@ -430,7 +430,7 @@
 }
 
 .quill-modal {
-  border-radius: 6px;
+  border-radius: 16px;
   background-color: $quill-white;
   z-index: 3;
   position: fixed !important;
@@ -647,7 +647,6 @@
     }
   }
 }
-
 
 .rename-class-modal, .rename-activity-pack-modal {
   min-height: 273px;
@@ -924,13 +923,66 @@
 }
 
 .provider-classrooms-empty-modal {
-  height: 449px;
+  height: min-content;
   text-align: center;
-  .title, p {
-    margin-bottom: 48px;
+  max-width: 698px;
+  width: 100%;
+
+  .title {
+    margin-bottom: 32px;
   }
   p {
-    margin-top: 24px;
+    margin: 0px;
+    color: $quill-grey-40;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .explanation {
+    img {
+      margin: 0px auto 32px;
+    }
+    p {
+      max-width: 400px;
+      margin: auto;
+      line-height: 22px;
+    }
+  }
+  .not-seeing-classes-section {
+    margin-top: 32px;
+    border-top: 1px solid $quill-grey-5;
+    padding: 32px 0px;
+    h4 {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 32px;
+      margin-bottom: 16px;
+    }
+    p {
+      margin-top: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    b {
+      color: $quill-grey-90;
+    }
+    a {
+      color: $quill-green;
+    }
+    img {
+      margin-left: 8px;
+    }
+    .quill-tooltip-wrapper {
+      text-align: left;
+      line-height: 22px;
+      width: 400px;
+      br {
+        line-height: 16px;
+      }
+      b {
+        color: $quill-white;
+      }
+    }
   }
 }
 
@@ -1139,6 +1191,8 @@
         margin-bottom: 12px;
         &.grade {
           margin-bottom: 24px;
+          min-height: 74px;
+          justify-content: flex-start;
         }
         &.name {
           min-height: 80px;
@@ -1385,7 +1439,7 @@
   display: flex;
   height: min-content;
   position: absolute;
-  border-radius: 6px;
+  border-radius: 16px;
   z-index: 3;
   top: 150px;
   left: 50%;

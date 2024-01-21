@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { requestPost, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'
-import { selectionsEqual } from '../../shared'
+import { hashPayload, selectionsEqual } from '../../shared'
 
 const expandImg = <img alt="" src={`${process.env.CDN_URL}/images/pages/administrator/expand.svg`} />
 
@@ -22,6 +22,7 @@ interface SnapshotRankingProps {
 }
 
 const PUSHER_EVENT_KEY = 'admin-snapshot-top-x-cached'
+const RETRY_TIMEOUT = 20000
 
 const RankingModal = ({ label, closeModal, headers, data, }) => {
   return (
@@ -63,7 +64,9 @@ const DataTable = ({ headers, data, numberOfRows, }) => {
       <tr className="header-row">
         {headerElements}
       </tr>
-      {rowElements}
+      <tbody>
+        {rowElements}
+      </tbody>
     </table>
   )
 }
@@ -71,7 +74,11 @@ const DataTable = ({ headers, data, numberOfRows, }) => {
 const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, passedData, pusherChannel, }: SnapshotRankingProps) => {
   const [data, setData] = React.useState(null)
   const [loading, setLoading] = React.useState(false)
+  const [retryTimeout, setRetryTimeout] = React.useState(null)
   const [showModal, setShowModal] = React.useState(false)
+  const [pusherMessage, setPusherMessage] = React.useState(null)
+  const [customTimeframeStartString, setCustomTimeframeStartString] = React.useState(null)
+  const [customTimeframeEndString, setCustomTimeframeEndString] = React.useState(null)
 
   React.useEffect(() => {
     initializePusher()
@@ -82,6 +89,24 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
 
     getData()
   }, [searchCount])
+
+  React.useEffect(() => {
+    if (!customTimeframeStart) return
+
+    setCustomTimeframeStartString(customTimeframeStart.toISOString())
+  }, [customTimeframeStart])
+
+  React.useEffect(() => {
+    if (!customTimeframeEnd) return setCustomTimeframeEndString(null)
+
+    setCustomTimeframeEndString(customTimeframeEnd.toISOString())
+  }, [customTimeframeEnd])
+
+  React.useEffect(() => {
+    if (!pusherMessage) return
+
+    if (filtersMatchHash(pusherMessage)) getData()
+  }, [pusherMessage])
 
   function resetToDefault() {
     setData(passedData || null)
@@ -101,32 +126,42 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
 
     requestPost(`/snapshots/top_x`, searchParams, (body) => {
       if (!body.hasOwnProperty('results')) {
+        setRetryTimeout(setTimeout(getData, RETRY_TIMEOUT))
         setLoading(true)
       } else {
+        clearTimeout(retryTimeout)
+
         const { results, } = body
         // We consider `null` to be a lack of data, so if the result is `[]` we need to explicitly `setData(null)`
         const data = results.length > 0 ? results : null
         setData(data)
+
         setLoading(false)
       }
     })
   }
 
+  function filtersMatchHash(hashMessage) {
+    const filterTarget = [].concat(
+      queryKey,
+      selectedTimeframe,
+      customTimeframeStartString,
+      customTimeframeEndString,
+      selectedSchoolIds,
+      selectedGrades,
+      selectedTeacherIds,
+      selectedClassroomIds
+    )
+
+    const filterHash = hashPayload(filterTarget)
+
+    return hashMessage == filterHash
+  }
+
   function initializePusher() {
-    pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
+    pusherChannel?.bind(`${PUSHER_EVENT_KEY}:${queryKey}`, (body) => {
       const { message, } = body
-
-      const queryKeysAreEqual = message.query === queryKey
-
-      const timeframesAreEqual = message.timeframe === selectedTimeframe
-      const schoolIdsAreEqual = selectionsEqual(message.school_ids, selectedSchoolIds)
-      const teacherIdsAreEqual = selectionsEqual(message.teacher_ids, selectedTeacherIds)
-      const classroomIdsAreEqual = selectionsEqual(message.classroom_ids, selectedClassroomIds)
-      const gradesAreEqual =  selectionsEqual(message.grades, selectedGrades?.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
-
-      if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {
-        getData()
-      }
+      setPusherMessage(message)
     });
   };
 

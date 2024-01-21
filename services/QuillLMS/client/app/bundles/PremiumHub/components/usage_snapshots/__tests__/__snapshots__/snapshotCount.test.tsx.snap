@@ -51,7 +51,7 @@ exports[`SnapshotCount component size medium should match snapshot 1`] = `
   size="medium"
 >
   <section
-    className="snapshot-item snapshot-count medium "
+    className="snapshot-item snapshot-count medium no-change"
   >
     <div
       className="count-and-label"
@@ -86,6 +86,7 @@ exports[`SnapshotCount component size medium when there is data with a negative 
   passedChange={50}
   passedChangeDirection="negative"
   passedCount={1000}
+  passedPrevious={2000}
   queryKey="sentences-written"
   searchCount={1}
   selectedClassroomIds={
@@ -171,7 +172,8 @@ exports[`SnapshotCount component size medium when there is data with a positive 
   label="Sentences written"
   passedChange={50}
   passedChangeDirection="positive"
-  passedCount={1000}
+  passedCount={1500}
+  passedPrevious={1000}
   queryKey="sentences-written"
   searchCount={1}
   selectedClassroomIds={
@@ -224,7 +226,7 @@ exports[`SnapshotCount component size medium when there is data with a positive 
       <span
         className="count"
       >
-        1,000
+        1,500
       </span>
       <span
         className="snapshot-label"
@@ -299,7 +301,7 @@ exports[`SnapshotCount component size medium when there is no data  should match
   size="medium"
 >
   <section
-    className="snapshot-item snapshot-count medium "
+    className="snapshot-item snapshot-count medium no-change"
   >
     <div
       className="count-and-label"
@@ -375,7 +377,7 @@ exports[`SnapshotCount component size small when it is coming soon should match 
   size="small"
 >
   <section
-    className="snapshot-item snapshot-count small "
+    className="snapshot-item snapshot-count small no-change"
   >
     <div
       className="count-and-label"
@@ -410,6 +412,7 @@ exports[`SnapshotCount component size small when there is data with a negative t
   passedChange={50}
   passedChangeDirection="negative"
   passedCount={1000}
+  passedPrevious={2000}
   queryKey="sentences-written"
   searchCount={1}
   selectedClassroomIds={
@@ -495,7 +498,8 @@ exports[`SnapshotCount component size small when there is data with a positive t
   label="Sentences written"
   passedChange={50}
   passedChangeDirection="positive"
-  passedCount={1000}
+  passedCount={1500}
+  passedPrevious={1000}
   queryKey="sentences-written"
   searchCount={1}
   selectedClassroomIds={
@@ -548,7 +552,7 @@ exports[`SnapshotCount component size small when there is data with a positive t
       <span
         className="count"
       >
-        1,000
+        1,500
       </span>
       <span
         className="snapshot-label"
@@ -623,7 +627,7 @@ exports[`SnapshotCount component size small when there is no data  should match 
   size="small"
 >
   <section
-    className="snapshot-item snapshot-count small "
+    className="snapshot-item snapshot-count small no-change"
   >
     <div
       className="count-and-label"

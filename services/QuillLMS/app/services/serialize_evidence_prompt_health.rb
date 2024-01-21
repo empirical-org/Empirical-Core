@@ -29,7 +29,7 @@ class SerializeEvidencePromptHealth
       avg_time_spent_per_prompt: nil
     }
 
-    return serialized_data if prompt_feedback_history.empty?
+    return serialized_data if prompt_feedback_history.empty? || prompt_feedback_history[prompt.id].blank?
 
     feedback_history_data = {
       version_responses: prompt_feedback_history[prompt.id]["total_responses"],

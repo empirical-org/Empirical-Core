@@ -119,7 +119,6 @@
 
   .sub-container {
     max-width: $sitewidepagewidth;
-    ;
     margin: 0 auto;
 
     @media (max-width: 1210px) {
@@ -146,314 +145,6 @@
     }
   }
 
-  .add-user {
-    margin-left: 20px;
-  }
-
-  .teacher-account-access-container {
-    .dropdown-container {
-      width: max-content;
-      justify-content: flex-start;
-      min-width: 552px;
-      min-height: 60px !important;
-      margin-top: 32px;
-      font-weight: 700;
-    }
-
-    .dropdown__control {
-      background-color: transparent;
-    }
-
-    .progress-report {
-      max-width: none;
-      width: max-content;
-
-      table {
-        thead {
-          tr {
-            border-bottom: 1px solid $quill-grey-5;
-
-            th {
-              font-size: 12px;
-              color: $quill-grey-50;
-              background-color: $quill-white;
-              border: none;
-            }
-          }
-        }
-
-        tbody {
-          div {
-            tr {
-              padding: 8px 0px;
-
-              td {
-                font-weight: 700;
-                color: $quill-grey-50;
-                padding-left: 14px;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    .warning-section {
-      background-color: $quill-white;
-      padding: 24px 14px;
-      border: 1px solid $quill-grey-5;
-      border-top: none;
-      color: $quill-grey-50;
-      font-size: 16px;
-      margin-bottom: 48px;
-
-      .warning {
-        font-weight: bold;
-        margin: 0px;
-        color: $quill-red;
-      }
-    }
-  }
-
-  .admin-features-container {
-    color: #3b3b3b;
-    margin-top: 22px;
-
-    h2 {
-      margin-bottom: 10px;
-    }
-
-    .features-list {
-      display: flex;
-      margin-top: 70px;
-
-      .feature {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: $quill-white;
-        padding: 32px;
-        border-radius: 16px;
-        flex: 1;
-        text-align: center;
-        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-
-        div {
-          min-height: 138px;
-        }
-
-        &:first-of-type,
-        &:nth-of-type(2) {
-          margin-right: 32px;
-        }
-
-        img {
-          height: 72px;
-          width: auto;
-          margin-bottom: 15px;
-        }
-
-        h3 {
-          font-size: 24px;
-          font-weight: 700;
-          margin-bottom: 16px;
-        }
-
-        p {
-          font-size: 16px;
-          font-weight: 400;
-        }
-
-        a,
-        button {
-          margin-top: 32px;
-          font-weight: 300;
-        }
-
-        // we will display this button once we have a live link
-        .admin-reports-button {
-          visibility: hidden;
-        }
-
-        .contact {
-          margin-top: 15px;
-          align-items: center;
-          display: flex;
-
-          img {
-            margin-bottom: 0px;
-            margin-right: 20px;
-            height: 55px;
-            border-radius: 30px;
-          }
-        }
-      }
-    }
-  }
-
-  .create-new-accounts-container {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 64px;
-
-    .left-section:before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 50%;
-      height: 100%;
-      width: 1px;
-      background: $quill-grey-15;
-    }
-
-    .left-section {
-      grid-column: 1;
-      display: contents;
-      box-sizing: border-box;
-
-      h2 {
-        grid-row: 1;
-        grid-column: 1;
-      }
-
-      .form {
-        grid-row: 2;
-        grid-column: 1;
-        background-color: $quill-white;
-        padding: 24px;
-        border: 1px solid #C0C0C0;
-        border-radius: 12px;
-        margin-top: 32px;
-
-        .first-section {
-          .name-inputs-container {
-            display: flex;
-            margin-bottom: 8px;
-
-            .first-name {
-              margin-right: 8px;
-            }
-          }
-
-          input {
-            width: 100%;
-            font-size: 16px;
-          }
-        }
-
-        .second-section {
-          display: flex;
-          flex-direction: column;
-
-          .input-container {
-            min-height: auto;
-
-            .dropdown {
-              margin: 0;
-
-              .dropdown__control {
-                margin-bottom: 0;
-              }
-            }
-          }
-
-          .school-selector {
-            margin: 40px 0px 24px 0px;
-          }
-
-          .role-selector {
-            margin: 0px 0px 24px;
-            min-height: 46px;
-          }
-
-          .add-teacher-account-button {
-            width: 100%;
-          }
-        }
-
-        .info-section-container {
-          .info-section {
-            font-size: 16px;
-            color: $quill-grey-40;
-
-            span {
-              font-weight: 700;
-            }
-
-            p {
-              font-weight: 400;
-            }
-
-            a {
-              color: $quill-grey-40;
-              font-weight: 700;
-              text-decoration: underline;
-            }
-          }
-
-          .info-section:first-of-type {
-            margin-bottom: 24px;
-          }
-        }
-      }
-    }
-
-    .right-section {
-      grid-column: 2;
-      display: contents;
-      box-sizing: border-box;
-
-      h2,
-      h4 {
-        grid-row: 1;
-        grid-column: 2;
-      }
-
-      .content-section {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        grid-row: 2;
-        grid-column: 2;
-        background-color: $quill-white;
-        padding: 24px;
-        border: 1px solid #C0C0C0;
-        border-radius: 12px;
-        margin-top: 32px;
-
-        .schools-list {
-          .school {
-            display: flex;
-            align-items: center;
-            border: 1px solid #C0C0C0;
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 8px;
-
-            img {
-              width: 21px;
-              height: auto;
-              margin-right: 8px;
-            }
-          }
-        }
-
-        .bottom-section {
-          .need-access-text {
-            font-style: italic;
-            color: #969696;
-
-            a {
-              font-style: normal;
-              font-weight: 700;
-            }
-          }
-        }
-      }
-    }
-  }
-
   .tab-subnavigation-wrapper {
     .active {
       text-decoration: none;
@@ -469,7 +160,7 @@
     li {
       padding-top: 0 !important;
       padding-bottom: 0 !important;
-      a {
+      a, button {
         display: flex;
         align-items: center;
         .small-diamond-icon {
@@ -502,48 +193,60 @@
         background-color: rgba(255, 255, 255, 0.50);
         text-decoration: none;
       }
+      &.premium-reports-tab {
+        position: relative;
+        button {
+          background: transparent;
+          span::after {
+            margin-left: 8px;
+            content: "\f078";
+            font-family: "Font Awesome 5 Pro";
+          }
+          &.open:not(.active) {
+            background-color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            color: $quill-white;
+          }
+        }
+        .premium-reports-nav-dropdown {
+          position: absolute;
+          border-radius: 8px;
+          border: 1px solid $quill-grey-15;
+          background: $quill-white;
+          min-height: min-content;
+          top: 36px;
+          width: 300px;
+          z-index: 2;
+          box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.10);
+          a {
+            color: $quill-black;
+            margin: 8px;
+            display: flex;
+            padding: 20px 8px;
+            justify-content: space-between;
+            .new-tag {
+              color: $quill-white;
+              background-color: $quill-maroon;
+              font-size: 10px;
+              padding: 4px 6px;
+              border-radius: 5px;
+            }
+            &:hover {
+              color: $quill-black;
+              background-color: $quill-green-5;
+            }
+            &:focus, &:hover {
+              text-decoration: none;
+            }
+          }
+        }
+      }
     }
   }
 }
 
 .reports-table-container {
   overflow-x: auto;
-}
-
-@media (max-width: 991px) {
-  .sub-container {
-    .admin-features-container {
-      .features-list {
-        flex-direction: column;
-        align-items: center;
-
-        .feature {
-          margin-right: 0 !important;
-          margin-bottom: 24px;
-          max-width: 500px;
-        }
-      }
-    }
-
-    .create-new-accounts-container {
-      display: flex !important;
-      flex-direction: column;
-
-      .left-section,
-      .right-section {
-        display: flex !important;
-        flex-direction: column;
-      }
-
-      .left-section {
-        margin-bottom: 32px;
-      }
-
-      .left-section:before {
-        position: relative !important;
-      }
-    }
-  }
 }
 
 @media (max-width: 787px) {

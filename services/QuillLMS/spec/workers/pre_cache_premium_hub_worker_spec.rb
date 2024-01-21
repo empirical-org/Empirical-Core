@@ -9,6 +9,7 @@ describe PreCachePremiumHubsWorker, type: :worker do
   let!(:current_admin2) { create(:user, last_sign_in: Time.current) }
   let!(:not_admin) { create(:user, last_sign_in: Time.current) }
   let(:mock_users_worker) {double(:mock_users_worker, perform_async: nil)}
+  let(:mock_snapshot_cache_worker) {double(:mock_snapshot_cache_worker, perform_async: nil)}
 
   before do
     create(:schools_admins, user: old_admin)
@@ -16,6 +17,7 @@ describe PreCachePremiumHubsWorker, type: :worker do
     create(:schools_admins, user: current_admin2)
 
     allow(FindAdminUsersWorker).to receive(:set).with(queue: SidekiqQueue::DEFAULT).and_return(mock_users_worker)
+    allow(CacheAdminSnapshotsWorker).to receive(:set).with(queue: SidekiqQueue::DEFAULT).and_return(mock_snapshot_cache_worker)
   end
 
   it 'enqueues FindAdminUsersWorker for all active admins' do

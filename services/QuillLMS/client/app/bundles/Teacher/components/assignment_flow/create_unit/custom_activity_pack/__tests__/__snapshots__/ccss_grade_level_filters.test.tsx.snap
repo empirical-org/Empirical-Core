@@ -210,6 +210,7 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                       direction="to right"
                       disabled={false}
                       draggableTrack={false}
+                      key="range-ccss-grade-level-slider"
                       max={11}
                       min={1}
                       onChange={[Function]}
@@ -233,108 +234,109 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                             "#dbdbdb",
                           ]
                         }
+                        innerRef={
+                          Object {
+                            "current": <div
+                              class="track"
+                            >
+                              <div
+                                class="mark first-mark"
+                                style="position: absolute;"
+                              >
+                                1
+                              </div>
+                              <div
+                                class="mark"
+                                style="position: absolute;"
+                              >
+                                2
+                              </div>
+                              <div
+                                class="mark"
+                                style="position: absolute;"
+                              >
+                                3
+                              </div>
+                              <div
+                                class="mark"
+                                style="position: absolute;"
+                              >
+                                4
+                              </div>
+                              <div
+                                class="mark"
+                                style="position: absolute;"
+                              >
+                                5
+                              </div>
+                              <div
+                                class="mark"
+                                style="position: absolute;"
+                              >
+                                6
+                              </div>
+                              <div
+                                class="mark"
+                                style="position: absolute;"
+                              >
+                                7
+                              </div>
+                              <div
+                                class="mark"
+                                style="position: absolute;"
+                              >
+                                8
+                              </div>
+                              <div
+                                class="mark"
+                                style="position: absolute;"
+                              >
+                                9
+                              </div>
+                              <div
+                                class="mark"
+                                style="position: absolute;"
+                              >
+                                10
+                              </div>
+                              <div
+                                class="mark last-mark"
+                                style="position: absolute;"
+                              >
+                                11
+                              </div>
+                              <div
+                                aria-valuemax="11"
+                                aria-valuemin="1"
+                                aria-valuenow="1"
+                                class="thumb"
+                                draggable="false"
+                                role="slider"
+                                style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                                tabindex="0"
+                              />
+                              <div
+                                aria-valuemax="11"
+                                aria-valuemin="1"
+                                aria-valuenow="11"
+                                class="thumb"
+                                draggable="false"
+                                role="slider"
+                                style="position: absolute; z-index: 1; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                                tabindex="0"
+                              />
+                            </div>,
+                          }
+                        }
+                        key="track-ccss-grade-level-slider"
                         maxValue={11}
                         minValue={1}
-                        props={
+                        onMouseDown={[Function]}
+                        onTouchStart={[Function]}
+                        style={
                           Object {
-                            "onMouseDown": [Function],
-                            "onTouchStart": [Function],
-                            "ref": Object {
-                              "current": <div
-                                class="track"
-                              >
-                                <div
-                                  class="mark first-mark"
-                                  style="position: absolute;"
-                                >
-                                  1
-                                </div>
-                                <div
-                                  class="mark"
-                                  style="position: absolute;"
-                                >
-                                  2
-                                </div>
-                                <div
-                                  class="mark"
-                                  style="position: absolute;"
-                                >
-                                  3
-                                </div>
-                                <div
-                                  class="mark"
-                                  style="position: absolute;"
-                                >
-                                  4
-                                </div>
-                                <div
-                                  class="mark"
-                                  style="position: absolute;"
-                                >
-                                  5
-                                </div>
-                                <div
-                                  class="mark"
-                                  style="position: absolute;"
-                                >
-                                  6
-                                </div>
-                                <div
-                                  class="mark"
-                                  style="position: absolute;"
-                                >
-                                  7
-                                </div>
-                                <div
-                                  class="mark"
-                                  style="position: absolute;"
-                                >
-                                  8
-                                </div>
-                                <div
-                                  class="mark"
-                                  style="position: absolute;"
-                                >
-                                  9
-                                </div>
-                                <div
-                                  class="mark"
-                                  style="position: absolute;"
-                                >
-                                  10
-                                </div>
-                                <div
-                                  class="mark last-mark"
-                                  style="position: absolute;"
-                                >
-                                  11
-                                </div>
-                                <div
-                                  aria-valuemax="11"
-                                  aria-valuemin="1"
-                                  aria-valuenow="1"
-                                  class="thumb"
-                                  draggable="false"
-                                  role="slider"
-                                  style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                                  tabindex="0"
-                                />
-                                <div
-                                  aria-valuemax="11"
-                                  aria-valuemin="1"
-                                  aria-valuenow="11"
-                                  class="thumb"
-                                  draggable="false"
-                                  role="slider"
-                                  style="position: absolute; z-index: 1; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                                  tabindex="0"
-                                />
-                              </div>,
-                            },
-                            "style": Object {
-                              "cursor": "inherit",
-                              "transform": "scale(1)",
-                            },
+                            "cursor": "inherit",
+                            "transform": "scale(1)",
                           }
                         }
                         values={
@@ -363,8 +365,9 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                               }
                             }
                           >
-                            <Mark
+                            <ForwardRef
                               index={0}
+                              key="mark0"
                               markLabels={
                                 Array [
                                   1,
@@ -380,28 +383,16 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                                   11,
                                 ]
                               }
-                              props={
+                              style={
                                 Object {
-                                  "key": "mark0",
-                                  "ref": Object {
-                                    "current": <div
-                                      class="mark first-mark"
-                                      style="position: absolute;"
-                                    >
-                                      1
-                                    </div>,
-                                  },
-                                  "style": Object {
-                                    "left": "NaNpx",
-                                    "marginTop": "NaNpx",
-                                    "position": "absolute",
-                                  },
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
                                 }
                               }
                             >
                               <div
                                 className="mark first-mark"
-                                key="mark0"
                                 style={
                                   Object {
                                     "left": "NaNpx",
@@ -412,9 +403,10 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                               >
                                 1
                               </div>
-                            </Mark>
-                            <Mark
+                            </ForwardRef>
+                            <ForwardRef
                               index={1}
+                              key="mark1"
                               markLabels={
                                 Array [
                                   1,
@@ -430,28 +422,16 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                                   11,
                                 ]
                               }
-                              props={
+                              style={
                                 Object {
-                                  "key": "mark1",
-                                  "ref": Object {
-                                    "current": <div
-                                      class="mark"
-                                      style="position: absolute;"
-                                    >
-                                      2
-                                    </div>,
-                                  },
-                                  "style": Object {
-                                    "left": "NaNpx",
-                                    "marginTop": "NaNpx",
-                                    "position": "absolute",
-                                  },
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
                                 }
                               }
                             >
                               <div
                                 className="mark"
-                                key="mark1"
                                 style={
                                   Object {
                                     "left": "NaNpx",
@@ -462,9 +442,10 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                               >
                                 2
                               </div>
-                            </Mark>
-                            <Mark
+                            </ForwardRef>
+                            <ForwardRef
                               index={2}
+                              key="mark2"
                               markLabels={
                                 Array [
                                   1,
@@ -480,28 +461,16 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                                   11,
                                 ]
                               }
-                              props={
+                              style={
                                 Object {
-                                  "key": "mark2",
-                                  "ref": Object {
-                                    "current": <div
-                                      class="mark"
-                                      style="position: absolute;"
-                                    >
-                                      3
-                                    </div>,
-                                  },
-                                  "style": Object {
-                                    "left": "NaNpx",
-                                    "marginTop": "NaNpx",
-                                    "position": "absolute",
-                                  },
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
                                 }
                               }
                             >
                               <div
                                 className="mark"
-                                key="mark2"
                                 style={
                                   Object {
                                     "left": "NaNpx",
@@ -512,9 +481,10 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                               >
                                 3
                               </div>
-                            </Mark>
-                            <Mark
+                            </ForwardRef>
+                            <ForwardRef
                               index={3}
+                              key="mark3"
                               markLabels={
                                 Array [
                                   1,
@@ -530,28 +500,16 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                                   11,
                                 ]
                               }
-                              props={
+                              style={
                                 Object {
-                                  "key": "mark3",
-                                  "ref": Object {
-                                    "current": <div
-                                      class="mark"
-                                      style="position: absolute;"
-                                    >
-                                      4
-                                    </div>,
-                                  },
-                                  "style": Object {
-                                    "left": "NaNpx",
-                                    "marginTop": "NaNpx",
-                                    "position": "absolute",
-                                  },
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
                                 }
                               }
                             >
                               <div
                                 className="mark"
-                                key="mark3"
                                 style={
                                   Object {
                                     "left": "NaNpx",
@@ -562,9 +520,10 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                               >
                                 4
                               </div>
-                            </Mark>
-                            <Mark
+                            </ForwardRef>
+                            <ForwardRef
                               index={4}
+                              key="mark4"
                               markLabels={
                                 Array [
                                   1,
@@ -580,28 +539,16 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                                   11,
                                 ]
                               }
-                              props={
+                              style={
                                 Object {
-                                  "key": "mark4",
-                                  "ref": Object {
-                                    "current": <div
-                                      class="mark"
-                                      style="position: absolute;"
-                                    >
-                                      5
-                                    </div>,
-                                  },
-                                  "style": Object {
-                                    "left": "NaNpx",
-                                    "marginTop": "NaNpx",
-                                    "position": "absolute",
-                                  },
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
                                 }
                               }
                             >
                               <div
                                 className="mark"
-                                key="mark4"
                                 style={
                                   Object {
                                     "left": "NaNpx",
@@ -612,9 +559,10 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                               >
                                 5
                               </div>
-                            </Mark>
-                            <Mark
+                            </ForwardRef>
+                            <ForwardRef
                               index={5}
+                              key="mark5"
                               markLabels={
                                 Array [
                                   1,
@@ -630,28 +578,16 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                                   11,
                                 ]
                               }
-                              props={
+                              style={
                                 Object {
-                                  "key": "mark5",
-                                  "ref": Object {
-                                    "current": <div
-                                      class="mark"
-                                      style="position: absolute;"
-                                    >
-                                      6
-                                    </div>,
-                                  },
-                                  "style": Object {
-                                    "left": "NaNpx",
-                                    "marginTop": "NaNpx",
-                                    "position": "absolute",
-                                  },
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
                                 }
                               }
                             >
                               <div
                                 className="mark"
-                                key="mark5"
                                 style={
                                   Object {
                                     "left": "NaNpx",
@@ -662,9 +598,10 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                               >
                                 6
                               </div>
-                            </Mark>
-                            <Mark
+                            </ForwardRef>
+                            <ForwardRef
                               index={6}
+                              key="mark6"
                               markLabels={
                                 Array [
                                   1,
@@ -680,28 +617,16 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                                   11,
                                 ]
                               }
-                              props={
+                              style={
                                 Object {
-                                  "key": "mark6",
-                                  "ref": Object {
-                                    "current": <div
-                                      class="mark"
-                                      style="position: absolute;"
-                                    >
-                                      7
-                                    </div>,
-                                  },
-                                  "style": Object {
-                                    "left": "NaNpx",
-                                    "marginTop": "NaNpx",
-                                    "position": "absolute",
-                                  },
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
                                 }
                               }
                             >
                               <div
                                 className="mark"
-                                key="mark6"
                                 style={
                                   Object {
                                     "left": "NaNpx",
@@ -712,9 +637,10 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                               >
                                 7
                               </div>
-                            </Mark>
-                            <Mark
+                            </ForwardRef>
+                            <ForwardRef
                               index={7}
+                              key="mark7"
                               markLabels={
                                 Array [
                                   1,
@@ -730,28 +656,16 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                                   11,
                                 ]
                               }
-                              props={
+                              style={
                                 Object {
-                                  "key": "mark7",
-                                  "ref": Object {
-                                    "current": <div
-                                      class="mark"
-                                      style="position: absolute;"
-                                    >
-                                      8
-                                    </div>,
-                                  },
-                                  "style": Object {
-                                    "left": "NaNpx",
-                                    "marginTop": "NaNpx",
-                                    "position": "absolute",
-                                  },
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
                                 }
                               }
                             >
                               <div
                                 className="mark"
-                                key="mark7"
                                 style={
                                   Object {
                                     "left": "NaNpx",
@@ -762,9 +676,10 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                               >
                                 8
                               </div>
-                            </Mark>
-                            <Mark
+                            </ForwardRef>
+                            <ForwardRef
                               index={8}
+                              key="mark8"
                               markLabels={
                                 Array [
                                   1,
@@ -780,28 +695,16 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                                   11,
                                 ]
                               }
-                              props={
+                              style={
                                 Object {
-                                  "key": "mark8",
-                                  "ref": Object {
-                                    "current": <div
-                                      class="mark"
-                                      style="position: absolute;"
-                                    >
-                                      9
-                                    </div>,
-                                  },
-                                  "style": Object {
-                                    "left": "NaNpx",
-                                    "marginTop": "NaNpx",
-                                    "position": "absolute",
-                                  },
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
                                 }
                               }
                             >
                               <div
                                 className="mark"
-                                key="mark8"
                                 style={
                                   Object {
                                     "left": "NaNpx",
@@ -812,9 +715,10 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                               >
                                 9
                               </div>
-                            </Mark>
-                            <Mark
+                            </ForwardRef>
+                            <ForwardRef
                               index={9}
+                              key="mark9"
                               markLabels={
                                 Array [
                                   1,
@@ -830,28 +734,16 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                                   11,
                                 ]
                               }
-                              props={
+                              style={
                                 Object {
-                                  "key": "mark9",
-                                  "ref": Object {
-                                    "current": <div
-                                      class="mark"
-                                      style="position: absolute;"
-                                    >
-                                      10
-                                    </div>,
-                                  },
-                                  "style": Object {
-                                    "left": "NaNpx",
-                                    "marginTop": "NaNpx",
-                                    "position": "absolute",
-                                  },
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
                                 }
                               }
                             >
                               <div
                                 className="mark"
-                                key="mark9"
                                 style={
                                   Object {
                                     "left": "NaNpx",
@@ -862,9 +754,10 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                               >
                                 10
                               </div>
-                            </Mark>
-                            <Mark
+                            </ForwardRef>
+                            <ForwardRef
                               index={10}
+                              key="mark10"
                               markLabels={
                                 Array [
                                   1,
@@ -880,28 +773,16 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                                   11,
                                 ]
                               }
-                              props={
+                              style={
                                 Object {
-                                  "key": "mark10",
-                                  "ref": Object {
-                                    "current": <div
-                                      class="mark last-mark"
-                                      style="position: absolute;"
-                                    >
-                                      11
-                                    </div>,
-                                  },
-                                  "style": Object {
-                                    "left": "NaNpx",
-                                    "marginTop": "NaNpx",
-                                    "position": "absolute",
-                                  },
+                                  "left": "NaNpx",
+                                  "marginTop": "NaNpx",
+                                  "position": "absolute",
                                 }
                               }
                             >
                               <div
                                 className="mark last-mark"
-                                key="mark10"
                                 style={
                                   Object {
                                     "left": "NaNpx",
@@ -912,43 +793,29 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                               >
                                 11
                               </div>
-                            </Mark>
-                            <Thumb
-                              props={
+                            </ForwardRef>
+                            <ForwardRef
+                              aria-valuemax={11}
+                              aria-valuemin={1}
+                              aria-valuenow={1}
+                              draggable={false}
+                              key="0"
+                              onKeyDown={[Function]}
+                              onKeyUp={[Function]}
+                              role="slider"
+                              style={
                                 Object {
-                                  "aria-valuemax": 11,
-                                  "aria-valuemin": 1,
-                                  "aria-valuenow": 1,
-                                  "draggable": false,
-                                  "key": 0,
-                                  "onKeyDown": [Function],
-                                  "onKeyUp": [Function],
-                                  "ref": Object {
-                                    "current": <div
-                                      aria-valuemax="11"
-                                      aria-valuemin="1"
-                                      aria-valuenow="1"
-                                      class="thumb"
-                                      draggable="false"
-                                      role="slider"
-                                      style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                                      tabindex="0"
-                                    />,
-                                  },
-                                  "role": "slider",
-                                  "style": Object {
-                                    "MozUserSelect": "none",
-                                    "WebkitUserSelect": "none",
-                                    "cursor": "grab",
-                                    "msUserSelect": "none",
-                                    "position": "absolute",
-                                    "touchAction": "none",
-                                    "userSelect": "none",
-                                    "zIndex": 0,
-                                  },
-                                  "tabIndex": 0,
+                                  "MozUserSelect": "none",
+                                  "WebkitUserSelect": "none",
+                                  "cursor": "grab",
+                                  "msUserSelect": "none",
+                                  "position": "absolute",
+                                  "touchAction": "none",
+                                  "userSelect": "none",
+                                  "zIndex": 0,
                                 }
                               }
+                              tabIndex={0}
                             >
                               <div
                                 aria-valuemax={11}
@@ -956,7 +823,6 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                                 aria-valuenow={1}
                                 className="thumb"
                                 draggable={false}
-                                key="0"
                                 onKeyDown={[Function]}
                                 onKeyUp={[Function]}
                                 role="slider"
@@ -974,43 +840,29 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                                 }
                                 tabIndex={0}
                               />
-                            </Thumb>
-                            <Thumb
-                              props={
+                            </ForwardRef>
+                            <ForwardRef
+                              aria-valuemax={11}
+                              aria-valuemin={1}
+                              aria-valuenow={11}
+                              draggable={false}
+                              key="1"
+                              onKeyDown={[Function]}
+                              onKeyUp={[Function]}
+                              role="slider"
+                              style={
                                 Object {
-                                  "aria-valuemax": 11,
-                                  "aria-valuemin": 1,
-                                  "aria-valuenow": 11,
-                                  "draggable": false,
-                                  "key": 1,
-                                  "onKeyDown": [Function],
-                                  "onKeyUp": [Function],
-                                  "ref": Object {
-                                    "current": <div
-                                      aria-valuemax="11"
-                                      aria-valuemin="1"
-                                      aria-valuenow="11"
-                                      class="thumb"
-                                      draggable="false"
-                                      role="slider"
-                                      style="position: absolute; z-index: 1; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                                      tabindex="0"
-                                    />,
-                                  },
-                                  "role": "slider",
-                                  "style": Object {
-                                    "MozUserSelect": "none",
-                                    "WebkitUserSelect": "none",
-                                    "cursor": "grab",
-                                    "msUserSelect": "none",
-                                    "position": "absolute",
-                                    "touchAction": "none",
-                                    "userSelect": "none",
-                                    "zIndex": 1,
-                                  },
-                                  "tabIndex": 0,
+                                  "MozUserSelect": "none",
+                                  "WebkitUserSelect": "none",
+                                  "cursor": "grab",
+                                  "msUserSelect": "none",
+                                  "position": "absolute",
+                                  "touchAction": "none",
+                                  "userSelect": "none",
+                                  "zIndex": 1,
                                 }
                               }
+                              tabIndex={0}
                             >
                               <div
                                 aria-valuemax={11}
@@ -1018,7 +870,6 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                                 aria-valuenow={11}
                                 className="thumb"
                                 draggable={false}
-                                key="1"
                                 onKeyDown={[Function]}
                                 onKeyUp={[Function]}
                                 role="slider"
@@ -1036,7 +887,7 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                                 }
                                 tabIndex={0}
                               />
-                            </Thumb>
+                            </ForwardRef>
                           </div>
                         </div>
                       </Track>

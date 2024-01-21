@@ -12,7 +12,7 @@ module Snapshots
         end
 
         def select_clause
-          "SELECT DISTINCT classrooms.id"
+          "SELECT classrooms.id"
         end
 
         def relevant_date_column
@@ -24,7 +24,7 @@ module Snapshots
     context 'external_api', :big_query_snapshot do
       include_context 'Snapshots Period CTE'
 
-      let(:cte_records) do
+      let(:base_cte_records) do
         [
           classrooms,
           teachers,
@@ -34,9 +34,23 @@ module Snapshots
         ]
       end
 
+      let(:cte_records) { base_cte_records }
+
       let(:results) { test_period_query.run(**query_args, runner: runner) }
 
       it { expect(results).to match_array(classroom_ids) }
+
+      context 'classroom with co teachers' do
+        let(:coteacher_classrooms_teachers) { classrooms.map { |classroom| create(:classrooms_teacher, classroom: classroom, role: ClassroomsTeacher::ROLE_TYPES[:coteacher]) } }
+        let(:coteachers) { coteacher_classrooms_teachers.map { |ct| ct.user } }
+        let(:coteacher_schools_users) { coteachers.map { |coteacher| create(:schools_users, user: coteacher, school: schools.first)  } }
+
+        let(:teacher_ids) { nil }
+        let(:cte_records) { base_cte_records + [coteacher_classrooms_teachers, coteachers, coteacher_schools_users] }
+
+
+        it { expect(results).to match_array(classroom_ids) }
+      end
 
       context 'filter params' do
         let(:filters) { {} }
@@ -95,8 +109,8 @@ module Snapshots
           let(:timeframe) { Snapshots::Timeframes.calculate_timeframes(Snapshots::Timeframes::DEFAULT_TIMEFRAME) }
           let(:query_args) do
             {
-              timeframe_start: timeframe[2],
-              timeframe_end: timeframe[3],
+              timeframe_start: timeframe[0],
+              timeframe_end: timeframe[1],
               school_ids: school_ids
             }
           end

@@ -104,7 +104,7 @@ export default class ClassReport extends React.Component {
     if (!showInProgressAndUnstartedStudents) { return }
 
     const notCompletedRows = _.map(notCompletedNames, name => <tr className='not-completed-row' key={name}><td>{name}</td><td colSpan='3'>Not Completed</td></tr>)
-    const missedRows = _.map(missedNames, name => <MissedLessonRow name={name} />)
+    const missedRows = _.map(missedNames, name => <MissedLessonRow key={name} name={name} />)
     return (
       <table className='student-report-box sortable-table'>
         <tbody>

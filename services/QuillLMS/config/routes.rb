@@ -26,6 +26,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :admins, only: [:show], format: 'json' do
     member do
       get :admin_info
+      get :vitally_professional_learning_manager_info
     end
   end
 
@@ -214,6 +215,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/premium_hub' => 'teachers#premium_hub'
   get 'teachers/premium_hub/school_subscriptions' => 'teachers#premium_hub', as: :premium_hub_school_subscriptions
   get 'teachers/premium_hub/:tab' => 'teachers#premium_hub'
+  get 'teachers/premium_hub/:tab/:subtab' => 'teachers#premium_hub'
   get 'teachers/admin_dashboard', to: redirect('teachers/premium_hub')
   get 'teachers/admin_dashboard/:tab', to: redirect('teachers/premium_hub/%{tab}')
   post 'teachers/unlink/:teacher_id' => 'teachers#unlink'
@@ -553,7 +555,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/finish_sign_up', to: 'sessions#finish_sign_up'
   post '/session/login_through_ajax', to: 'sessions#login_through_ajax'
   post '/session/set_post_auth_redirect', to: 'sessions#set_post_auth_redirect'
-  resource :session
+  resource :session, only: [:new, :destroy]
 
   resource :account, only: [:new, :create, :edit, :update, :show] do
     post :role, on: :member
@@ -730,8 +732,29 @@ EmpiricalGrammar::Application.routes.draw do
     collection do
       post :count
       post :options
+      post :previous_count
       post :top_x
       post :data_export
+      post :create_csv_report_download
+    end
+  end
+
+  resources :admin_report_filter_selections, only: [] do
+    collection do
+      post '/show', to: 'admin_report_filter_selections#show'
+      post '/create_or_update', to: 'admin_report_filter_selections#create_or_update'
+    end
+  end
+
+  resources :admin_diagnostic_reports, only: [] do
+    collection do
+      post :report
+    end
+  end
+
+  resources :admin_diagnostic_skills, only: [] do
+    collection do
+      post :report
     end
   end
 
@@ -920,7 +943,6 @@ EmpiricalGrammar::Application.routes.draw do
   get 'AP', to: redirect('/ap')
   get 'springboard' => 'pages#springboard'
   get 'request_quote' => 'sales_form_submission#request_quote'
-  get 'request_renewal' => 'sales_form_submission#request_renewal'
 
   get '/404' => 'errors#error404'
   get '/500' => 'errors#error500'

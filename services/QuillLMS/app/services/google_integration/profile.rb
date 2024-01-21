@@ -28,7 +28,7 @@ module GoogleIntegration
     end
 
     def expires_at
-      Time.at(expiration_in_epoch_time) if expiration_in_epoch_time.present?
+      Time.zone.at(expiration_in_epoch_time) if expiration_in_epoch_time.present?
     end
 
     def role

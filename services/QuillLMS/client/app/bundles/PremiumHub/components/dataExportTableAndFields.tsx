@@ -1,9 +1,10 @@
+import moment from 'moment';
 import * as React from 'react';
-import * as moment from 'moment';
 
-import { requestPost, } from '../../../modules/request'
-import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
-import { DataTable, Spinner, informationIcon, smallWhiteCheckIcon } from '../../Shared';
+import { requestPost, } from '../../../modules/request';
+import { DataTable, LightButtonLoadingSpinner, NOT_APPLICABLE, Snackbar, Spinner, Tooltip, defaultSnackbarTimeout, documentFileIcon, filterIcon, helpIcon, noResultsMessage, smallWhiteCheckIcon, whiteArrowPointingDownIcon } from '../../Shared';
+import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
+import { hashPayload, } from '../shared';
 
 const STANDARD_WIDTH = "152px";
 const STUDENT_NAME = "Student Name";
@@ -21,10 +22,13 @@ const STANDARD = "Standard";
 const TIME_SPENT = "Time Spent";
 
 const PUSHER_EVENT_KEY = "data-export-cached";
+const COMPLETED = "Completed"
+const NON_PERCENTAGE_TOOLS = ["Quill Reading for Evidence", "Quill Diagnostic", "Quill Lessons"]
 
 interface DataExportTableAndFieldsProps {
   customTimeframeEnd: string;
   customTimeframeStart: string;
+  openMobileFilterMenu: Function;
   pusherChannel?: any;
   queryKey: string;
   searchCount: number;
@@ -35,7 +39,7 @@ interface DataExportTableAndFieldsProps {
   selectedTimeframe: string;
 }
 
-export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, pusherChannel }: DataExportTableAndFieldsProps) => {
+export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, openMobileFilterMenu, pusherChannel }: DataExportTableAndFieldsProps) => {
   const [showStudentEmail, setShowStudentEmail] = React.useState<boolean>(true);
   const [showSchool, setShowSchool] = React.useState<boolean>(true);
   const [showGrade, setShowGrade] = React.useState<boolean>(true);
@@ -49,7 +53,14 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   const [showStandard, setShowStandard] = React.useState<boolean>(true);
   const [showTimeSpent, setShowTimeSpent] = React.useState<boolean>(true);
   const [loading, setLoading] = React.useState<boolean>(true);
+  const [downloadButtonBusy, setDownloadButtonBusy] = React.useState<boolean>(false);
+  const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
   const [data, setData] = React.useState<any>(null);
+  const [pusherMessage, setPusherMessage] = React.useState<any>(null)
+  const [customTimeframeStartString, setCustomTimeframeStartString] = React.useState(null)
+  const [customTimeframeEndString, setCustomTimeframeEndString] = React.useState(null)
+
+  useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   const fields = {
     [STUDENT_NAME]: {
@@ -123,12 +134,28 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   }, [pusherChannel])
 
   React.useEffect(() => {
-    initializePusher()
     getData()
   }, [searchCount])
 
-  function getData() {
+  React.useEffect(() => {
+    if (!customTimeframeStart) return
 
+    setCustomTimeframeStartString(customTimeframeStart.toISOString())
+  }, [customTimeframeStart])
+
+  React.useEffect(() => {
+    if (!customTimeframeEnd) return setCustomTimeframeEndString(null)
+
+    setCustomTimeframeEndString(customTimeframeEnd.toISOString())
+  }, [customTimeframeEnd])
+
+  React.useEffect(() => {
+    if (!pusherMessage) return
+
+    if (filtersMatchHash(pusherMessage)) getData()
+  }, [pusherMessage])
+
+  function getData() {
     const searchParams = {
       query: queryKey,
       timeframe: selectedTimeframe,
@@ -154,20 +181,49 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
     })
   }
 
+  function createCsvReportDownload() {
+    const buttonDisableTime = 2000
+    const requestParams = {
+      query: 'create_csv_report_download',
+      timeframe: selectedTimeframe,
+      timeframe_custom_start: customTimeframeStart,
+      timeframe_custom_end: customTimeframeEnd,
+      school_ids: selectedSchoolIds,
+      teacher_ids: selectedTeacherIds,
+      classroom_ids: selectedClassroomIds,
+      grades: selectedGrades,
+      headers_to_display: getHeaders().map(header => header.attribute)
+    }
+    setDownloadButtonBusy(true)
+
+    requestPost('/snapshots/create_csv_report_download', requestParams, (body) => {
+      setShowSnackbar(true)
+      setTimeout(() => { setDownloadButtonBusy(false) }, buttonDisableTime);
+    })
+  }
+
+  function filtersMatchHash(hashMessage) {
+    const filterTarget = [].concat(
+      queryKey,
+      selectedTimeframe,
+      customTimeframeStartString,
+      customTimeframeEndString,
+      selectedSchoolIds,
+      selectedGrades,
+      selectedTeacherIds,
+      selectedClassroomIds
+    )
+
+    const filterHash = hashPayload(filterTarget)
+
+    return hashMessage == filterHash
+  }
+
   function initializePusher() {
     pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
       const { message, } = body
 
-      const queryKeysAreEqual = message.query === queryKey
-      const timeframesAreEqual = message.timeframe === selectedTimeframe
-      const schoolIdsAreEqual = unorderedArraysAreEqual(message.school_ids, selectedSchoolIds)
-      const teacherIdsAreEqual = unorderedArraysAreEqual(message.teacher_ids, selectedTeacherIds)
-      const classroomIdsAreEqual = unorderedArraysAreEqual(message.classroom_ids, selectedClassroomIds)
-      const gradesAreEqual = unorderedArraysAreEqual(message.grades, selectedGrades.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
-
-      if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {
-        getData()
-      }
+      setPusherMessage(message)
     });
   };
 
@@ -185,15 +241,23 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   }
 
   function formatData(data) {
-    if(!data) { return null }
+    if (!data) { return null }
 
     return data.map((entry, index) => {
-      const formattedEntry = {...entry}
-      const score = Math.round(parseFloat(entry.score) * 100);
-      const percentage = isNaN(score) || score < 0 ? 'N/A' : score + '%';
+      const formattedEntry = { ...entry }
+      const { score, tool } = entry
+      let percentage
+
+      if (NON_PERCENTAGE_TOOLS.includes(tool)) {
+        percentage = COMPLETED
+      } else if ((isNaN(score) || score < 0) && score !== 0) {
+        percentage = NOT_APPLICABLE
+      } else {
+        percentage = Math.round(parseFloat(score) * 100) + '%'
+      }
 
       formattedEntry.id = index
-      formattedEntry.completed_at = moment(entry.completed_at).format("MM/DD/YYYY");
+      formattedEntry.completed_at = moment(entry.completed_at.substring(0,10)).format("MM/DD/YYYY");
       formattedEntry.timespent = getTimeSpentInMinutes(entry.timespent)
       formattedEntry.score = percentage
       return formattedEntry
@@ -214,14 +278,14 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
       if (i === 0) { return }
 
       let checkbox = (
-        <div className="checkbox-container">
+        <div className="checkbox-container" key={fieldLabel}>
           <button aria-label="Unchecked checkbox" className="quill-checkbox unselected" id={fieldLabel} onClick={toggleCheckbox} type="button" />
           <label htmlFor={fieldLabel}>{fieldLabel}</label>
         </div>
       )
       if (fields[fieldLabel].checked) {
         checkbox = (
-          <div className="checkbox-container">
+          <div className="checkbox-container" key={fieldLabel}>
             <button aria-label="Checked checkbox" className="quill-checkbox selected" id={fieldLabel} onClick={toggleCheckbox} type="button">
               <img alt="Checked checkbox" src={smallWhiteCheckIcon.src} />
             </button>
@@ -241,31 +305,54 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
     })
   }
 
-  return(
-    <div className="data-export-container">
-      <section className="fields-section">
-        <h3>Fields</h3>
-        <div className="fields-container">
-          {renderCheckboxes()}
-        </div>
-      </section>
-      <section className="preview-section">
-        <h3>Preview</h3>
-        <div className="preview-disclaimer-container">
-          <img alt={informationIcon.alt} src={informationIcon.src} />
-          <p>This preview is limited to the first 10 results. Your download will include all activities.</p>
-        </div>
-      </section>
-      {loading && <Spinner />}
-      {!loading && <DataTable
-        className="data-export-table"
-        defaultSortAttribute="completed_at"
-        defaultSortDirection="desc"
-        emptyStateMessage="There are no activities available for the filters selected. Try modifying or removing a filter to see results."
-        headers={getHeaders()}
-        rows={data || []}
-      />}
-    </div>
+  return (
+    <React.Fragment>
+      <div className="header">
+        <Snackbar text="You will receive an email with a download link shortly." visible={showSnackbar} />
+        <h1>
+          <span>Data Export</span>
+          <a href="https://support.quill.org/en/articles/8672493-how-do-i-use-the-admin-data-export" rel="noopener noreferrer" target="_blank">
+            <img alt={documentFileIcon.alt} src={documentFileIcon.src} />
+            <span>Guide</span>
+          </a>
+        </h1>
+        <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={createCsvReportDownload} type="button">
+          {downloadButtonBusy ? <LightButtonLoadingSpinner /> : <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />}
+          <span>Download</span>
+        </button>
+      </div>
+      <div className="filter-button-container">
+        <button className="interactive-wrapper focus-on-light" onClick={openMobileFilterMenu} type="button">
+          <img alt={filterIcon.alt} src={filterIcon.src} />
+          Filters
+        </button>
+      </div>
+
+      <div className="data-export-container">
+        <section className="fields-section">
+          <h3>Fields</h3>
+          <div className="fields-container">
+            {renderCheckboxes()}
+          </div>
+        </section>
+        <section className="preview-section">
+          <h3>Preview</h3>
+          <Tooltip
+            tooltipText="This preview is limited to the first 10 results. Your download will include all activities matching your criteria."
+            tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
+          />
+        </section>
+        {loading && <Spinner />}
+        {!loading && <DataTable
+          className="data-export-table reporting-format"
+          defaultSortAttribute="completed_at"
+          defaultSortDirection="desc"
+          emptyStateMessage={noResultsMessage('activity')}
+          headers={getHeaders()}
+          rows={data || []}
+        />}
+      </div>
+    </React.Fragment>
   )
 }
 

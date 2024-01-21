@@ -11,7 +11,7 @@ import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 
-const C = require('../../constants').default;
+import C from '../../constants';
 
 class PlayDiagnosticQuestion extends React.Component {
   constructor(props) {

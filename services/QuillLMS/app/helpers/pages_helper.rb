@@ -94,6 +94,11 @@ module PagesHelper
             img: 'team-eric-adams.webp'
           },
           {
+            name: 'Leah Allen-Manning',
+            title: 'Content Marketing Partner',
+            img: 'team-leah-allen-manning.webp'
+          },
+          {
             name: 'Devin Kawailani Barricklow',
             title: 'Senior Curriculum Developer',
             img: 'team-devin-barricklow.webp'
@@ -107,14 +112,6 @@ module PagesHelper
             name: 'Rachel Calabrese',
             title: 'Lead Curriculum Developer',
             img: 'team-rachel-calabrese.webp'
-          },
-          {
-            name: 'CJ Colicchio',
-            title: 'Social Studies Curriculum Developer',
-            img: 'team-cj-colicchio.webp',
-            srcset: {
-              '2x' => 'team-cj-colicchio.webp'
-            }
           },
           {
             name: 'Nattalie Dai',
@@ -135,11 +132,6 @@ module PagesHelper
             name: 'Peter Kong',
             title: 'Senior Software Engineer II',
             img: 'team-peter-kong.webp'
-          },
-          {
-            name: 'Sherry Lewkowicz',
-            title: 'Professional Learning Manager',
-            img: 'team-sherry-lewkowicz.webp'
           },
           {
             name: 'Charlie Looper',

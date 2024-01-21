@@ -41,6 +41,7 @@ export default class  DateRangeFilter extends React.Component {
         customInputIcon={<img alt="" src={`${process.env.CDN_URL}/images/pages/activity_summary/calendar.svg`} />}
         daySize={30}
         endDate={this.props.endDate}
+        endDateId="end-date"
         focusedInput={this.state.focusedInput}
         isOutsideRange={day => {return false}}
         navNext="›"
@@ -50,6 +51,7 @@ export default class  DateRangeFilter extends React.Component {
         onFocusChange={focusedInput => this.setState({ focusedInput })}
         renderCalendarInfo={this.renderFilterOptions}
         startDate={this.props.beginDate}
+        startDateId="start-date"
       />
     );
   }

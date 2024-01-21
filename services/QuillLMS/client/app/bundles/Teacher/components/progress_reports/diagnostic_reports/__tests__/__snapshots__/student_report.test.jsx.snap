@@ -5074,6 +5074,7 @@ exports[`StudentReport should render 1`] = `
                 <tbody>
                   <tr
                     className="Directions"
+                    key=""
                   >
                     <td>
                       Directions
@@ -5135,7 +5136,7 @@ exports[`StudentReport should render 1`] = `
                     </td>
                   </tr>
                   <tr
-                    key="empty-rowundefined"
+                    key="empty-row"
                   >
                     <td />
                     <td />
@@ -5163,6 +5164,7 @@ exports[`StudentReport should render 1`] = `
                   </tr>
                   <tr
                     className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-1"
                   >
                     <td>
                       Feedback
@@ -5172,7 +5174,9 @@ exports[`StudentReport should render 1`] = `
                       Proofread your work. Check your ending punctuation.
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="1-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -5207,7 +5211,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="1-1"
                       />
                       <ConceptResult
                         concept={
@@ -5261,8 +5265,14 @@ exports[`StudentReport should render 1`] = `
                           }
                         }
                       >
-                        I wish
-                        <b>
+                        <span
+                          key="2-I wish"
+                        >
+                          I wish
+                        </span>
+                        <b
+                          key="2- I"
+                        >
                            I
                         </b>
                       </span>
@@ -5270,6 +5280,7 @@ exports[`StudentReport should render 1`] = `
                   </tr>
                   <tr
                     className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-2"
                   >
                     <td>
                       Feedback
@@ -5279,7 +5290,9 @@ exports[`StudentReport should render 1`] = `
                       Proofread your work. Check your ending punctuation.
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="2-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -5314,7 +5327,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="2-1"
                       />
                       <ConceptResult
                         concept={
@@ -5368,8 +5381,14 @@ exports[`StudentReport should render 1`] = `
                           }
                         }
                       >
-                        I wish I
-                        <b>
+                        <span
+                          key="3-I wish I"
+                        >
+                          I wish I
+                        </span>
+                        <b
+                          key="3- could"
+                        >
                            could
                         </b>
                       </span>
@@ -5377,6 +5396,7 @@ exports[`StudentReport should render 1`] = `
                   </tr>
                   <tr
                     className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-3"
                   >
                     <td>
                       Feedback
@@ -5386,7 +5406,9 @@ exports[`StudentReport should render 1`] = `
                       Proofread your work. Check your ending punctuation.
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="3-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -5421,7 +5443,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="3-1"
                       />
                       <ConceptResult
                         concept={
@@ -5475,8 +5497,14 @@ exports[`StudentReport should render 1`] = `
                           }
                         }
                       >
-                        I wish I could
-                        <b>
+                        <span
+                          key="4-I wish I could"
+                        >
+                          I wish I could
+                        </span>
+                        <b
+                          key="4- have"
+                        >
                            have
                         </b>
                       </span>
@@ -5484,6 +5512,7 @@ exports[`StudentReport should render 1`] = `
                   </tr>
                   <tr
                     className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-4"
                   >
                     <td>
                       Feedback
@@ -5493,7 +5522,9 @@ exports[`StudentReport should render 1`] = `
                       Proofread your work. Check your ending punctuation.
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="4-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -5528,7 +5559,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="4-1"
                       />
                       <ConceptResult
                         concept={
@@ -5582,14 +5613,22 @@ exports[`StudentReport should render 1`] = `
                           }
                         }
                       >
-                        I wish I could have
-                        <b>
+                        <span
+                          key="5-I wish I could have"
+                        >
+                          I wish I could have
+                        </span>
+                        <b
+                          key="5- three"
+                        >
                            three
                         </b>
                       </span>
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="5-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -5624,7 +5663,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="5-1"
                       />
                       <ConceptResult
                         concept={
@@ -5803,6 +5842,7 @@ exports[`StudentReport should render 1`] = `
                 <tbody>
                   <tr
                     className="Directions"
+                    key=""
                   >
                     <td>
                       Directions
@@ -5864,7 +5904,7 @@ exports[`StudentReport should render 1`] = `
                     </td>
                   </tr>
                   <tr
-                    key="empty-rowundefined"
+                    key="empty-row"
                   >
                     <td />
                     <td />
@@ -5892,6 +5932,7 @@ exports[`StudentReport should render 1`] = `
                   </tr>
                   <tr
                     className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-1"
                   >
                     <td>
                       Feedback
@@ -5901,7 +5942,9 @@ exports[`StudentReport should render 1`] = `
                       Proofread your work. Check your ending punctuation.
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="1-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -5936,7 +5979,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="1-1"
                       />
                       <ConceptResult
                         concept={
@@ -5990,8 +6033,14 @@ exports[`StudentReport should render 1`] = `
                           }
                         }
                       >
-                        We
-                        <b>
+                        <span
+                          key="2-We"
+                        >
+                          We
+                        </span>
+                        <b
+                          key="2- go"
+                        >
                            go
                         </b>
                       </span>
@@ -5999,6 +6048,7 @@ exports[`StudentReport should render 1`] = `
                   </tr>
                   <tr
                     className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-2"
                   >
                     <td>
                       Feedback
@@ -6008,7 +6058,9 @@ exports[`StudentReport should render 1`] = `
                       Proofread your work. Check your ending punctuation.
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="2-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -6043,7 +6095,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="2-1"
                       />
                       <ConceptResult
                         concept={
@@ -6097,8 +6149,14 @@ exports[`StudentReport should render 1`] = `
                           }
                         }
                       >
-                        We go
-                        <b>
+                        <span
+                          key="3-We go"
+                        >
+                          We go
+                        </span>
+                        <b
+                          key="3- apple-picking"
+                        >
                            apple-picking
                         </b>
                       </span>
@@ -6106,6 +6164,7 @@ exports[`StudentReport should render 1`] = `
                   </tr>
                   <tr
                     className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-3"
                   >
                     <td>
                       Feedback
@@ -6115,7 +6174,9 @@ exports[`StudentReport should render 1`] = `
                       Proofread your work. Check your ending punctuation.
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="3-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -6150,7 +6211,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="3-1"
                       />
                       <ConceptResult
                         concept={
@@ -6204,8 +6265,14 @@ exports[`StudentReport should render 1`] = `
                           }
                         }
                       >
-                        We go apple-picking
-                        <b>
+                        <span
+                          key="4-We go apple-picking"
+                        >
+                          We go apple-picking
+                        </span>
+                        <b
+                          key="4- in"
+                        >
                            in
                         </b>
                       </span>
@@ -6213,6 +6280,7 @@ exports[`StudentReport should render 1`] = `
                   </tr>
                   <tr
                     className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-4"
                   >
                     <td>
                       Feedback
@@ -6222,7 +6290,9 @@ exports[`StudentReport should render 1`] = `
                       Proofread your work. Check your ending punctuation.
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="4-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -6257,7 +6327,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="4-1"
                       />
                       <ConceptResult
                         concept={
@@ -6311,14 +6381,22 @@ exports[`StudentReport should render 1`] = `
                           }
                         }
                       >
-                        We go apple-picking in
-                        <b>
+                        <span
+                          key="5-We go apple-picking in"
+                        >
+                          We go apple-picking in
+                        </span>
+                        <b
+                          key="5- the fall; however, this year it was too cold."
+                        >
                            the fall; however, this year it was too cold.
                         </b>
                       </span>
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="5-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -6353,7 +6431,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="5-1"
                       />
                       <ConceptResult
                         concept={
@@ -6452,6 +6530,7 @@ exports[`StudentReport should render 1`] = `
                 <tbody>
                   <tr
                     className="Directions"
+                    key=""
                   >
                     <td>
                       Directions
@@ -6513,7 +6592,7 @@ exports[`StudentReport should render 1`] = `
                     </td>
                   </tr>
                   <tr
-                    key="empty-rowundefined"
+                    key="empty-row"
                   >
                     <td />
                     <td />
@@ -6539,7 +6618,9 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="1-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -6574,7 +6655,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="1-1"
                       />
                       <ConceptResult
                         concept={
@@ -6693,6 +6774,7 @@ exports[`StudentReport should render 1`] = `
                 <tbody>
                   <tr
                     className="Directions"
+                    key=""
                   >
                     <td>
                       Directions
@@ -6754,7 +6836,7 @@ exports[`StudentReport should render 1`] = `
                     </td>
                   </tr>
                   <tr
-                    key="empty-rowundefined"
+                    key="empty-row"
                   >
                     <td />
                     <td />
@@ -6782,6 +6864,7 @@ exports[`StudentReport should render 1`] = `
                   </tr>
                   <tr
                     className="Feedback"
+                    key="Try again! Unfortunately, that answer is not correct.-1"
                   >
                     <td>
                       Feedback
@@ -6791,7 +6874,9 @@ exports[`StudentReport should render 1`] = `
                       Try again! Unfortunately, that answer is not correct.
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="1-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -6826,7 +6911,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="1-1"
                       />
                       <ConceptResult
                         concept={
@@ -6880,14 +6965,22 @@ exports[`StudentReport should render 1`] = `
                           }
                         }
                       >
-                        The weather was bad today.
-                        <b>
+                        <span
+                          key="2-The weather was bad today."
+                        >
+                          The weather was bad today.
+                        </span>
+                        <b
+                          key="2- Still, we had a great time."
+                        >
                            Still, we had a great time.
                         </b>
                       </span>
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="2-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -6922,7 +7015,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="2-1"
                       />
                       <ConceptResult
                         concept={
@@ -7061,6 +7154,7 @@ exports[`StudentReport should render 1`] = `
                 <tbody>
                   <tr
                     className="Directions"
+                    key=""
                   >
                     <td>
                       Directions
@@ -7122,7 +7216,7 @@ exports[`StudentReport should render 1`] = `
                     </td>
                   </tr>
                   <tr
-                    key="empty-rowundefined"
+                    key="empty-row"
                   >
                     <td />
                     <td />
@@ -7150,6 +7244,7 @@ exports[`StudentReport should render 1`] = `
                   </tr>
                   <tr
                     className="Feedback"
+                    key="Try again! Unfortunately, that answer is not correct.-1"
                   >
                     <td>
                       Feedback
@@ -7159,7 +7254,9 @@ exports[`StudentReport should render 1`] = `
                       Try again! Unfortunately, that answer is not correct.
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="1-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -7194,7 +7291,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="1-1"
                       />
                       <ConceptResult
                         concept={
@@ -7248,8 +7345,14 @@ exports[`StudentReport should render 1`] = `
                           }
                         }
                       >
-                        We arrived early.
-                        <b>
+                        <span
+                          key="2-We arrived early."
+                        >
+                          We arrived early.
+                        </span>
+                        <b
+                          key="2- However."
+                        >
                            However.
                         </b>
                       </span>
@@ -7257,6 +7360,7 @@ exports[`StudentReport should render 1`] = `
                   </tr>
                   <tr
                     className="Feedback"
+                    key="Try again! Unfortunately, that answer is not correct.-2"
                   >
                     <td>
                       Feedback
@@ -7266,7 +7370,9 @@ exports[`StudentReport should render 1`] = `
                       Try again! Unfortunately, that answer is not correct.
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="2-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -7301,7 +7407,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="2-1"
                       />
                       <ConceptResult
                         concept={
@@ -7355,15 +7461,27 @@ exports[`StudentReport should render 1`] = `
                           }
                         }
                       >
-                        We arrived early. However
-                        <b>
+                        <span
+                          key="3-We arrived early. However"
+                        >
+                          We arrived early. However
+                        </span>
+                        <b
+                          key="3-, there were no more tickets"
+                        >
                           , there were no more tickets
                         </b>
-                        .
+                        <span
+                          key="3-."
+                        >
+                          .
+                        </span>
                       </span>
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="3-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -7398,7 +7516,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="3-1"
                       />
                       <ConceptResult
                         concept={
@@ -7577,6 +7695,7 @@ exports[`StudentReport should render 1`] = `
                 <tbody>
                   <tr
                     className="Directions"
+                    key=""
                   >
                     <td>
                       Directions
@@ -7638,7 +7757,7 @@ exports[`StudentReport should render 1`] = `
                     </td>
                   </tr>
                   <tr
-                    key="empty-rowundefined"
+                    key="empty-row"
                   >
                     <td />
                     <td />
@@ -7666,6 +7785,7 @@ exports[`StudentReport should render 1`] = `
                   </tr>
                   <tr
                     className="Feedback"
+                    key="Try again! Unfortunately, that answer is not correct.-1"
                   >
                     <td>
                       Feedback
@@ -7675,7 +7795,9 @@ exports[`StudentReport should render 1`] = `
                       Try again! Unfortunately, that answer is not correct.
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="1-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -7710,7 +7832,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="1-1"
                       />
                       <ConceptResult
                         concept={
@@ -7764,16 +7886,27 @@ exports[`StudentReport should render 1`] = `
                           }
                         }
                       >
-                        I think you are correct. However
-                        <b>
+                        <span
+                          key="2-I think you are correct. However"
+                        >
+                          I think you are correct. However
+                        </span>
+                        <b
+                          key="2-, "
+                        >
                           , 
                         </b>
-                        .
+                        <span
+                          key="2-."
+                        >
+                          .
+                        </span>
                       </span>
                     </td>
                   </tr>
                   <tr
                     className="Feedback"
+                    key="<p>Revise your sentence. You don't need to have a space before a period.</p>-2"
                   >
                     <td>
                       Feedback
@@ -7783,7 +7916,9 @@ exports[`StudentReport should render 1`] = `
                       Revise your sentence. You don't need to have a space before a period.
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="2-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -7818,7 +7953,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="2-1"
                       />
                       <ConceptResult
                         concept={
@@ -7872,16 +8007,27 @@ exports[`StudentReport should render 1`] = `
                           }
                         }
                       >
-                        I think you are correct. However, 
-                        <b>
+                        <span
+                          key="3-I think you are correct. However, "
+                        >
+                          I think you are correct. However, 
+                        </span>
+                        <b
+                          key="3-I"
+                        >
                           I
                         </b>
-                        .
+                        <span
+                          key="3-."
+                        >
+                          .
+                        </span>
                       </span>
                     </td>
                   </tr>
                   <tr
                     className="Feedback"
+                    key="Try again! Unfortunately, that answer is not correct.-3"
                   >
                     <td>
                       Feedback
@@ -7891,7 +8037,9 @@ exports[`StudentReport should render 1`] = `
                       Try again! Unfortunately, that answer is not correct.
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="3-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -7926,7 +8074,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="3-1"
                       />
                       <ConceptResult
                         concept={
@@ -7980,8 +8128,14 @@ exports[`StudentReport should render 1`] = `
                           }
                         }
                       >
-                        I think you are correct. However, I
-                        <b>
+                        <span
+                          key="4-I think you are correct. However, I"
+                        >
+                          I think you are correct. However, I
+                        </span>
+                        <b
+                          key="4- am going to look it up just to be sure.."
+                        >
                            am going to look it up just to be sure..
                         </b>
                       </span>
@@ -7989,6 +8143,7 @@ exports[`StudentReport should render 1`] = `
                   </tr>
                   <tr
                     className="Feedback"
+                    key="Proofread your work. Check your punctuation.-4"
                   >
                     <td>
                       Feedback
@@ -7998,7 +8153,9 @@ exports[`StudentReport should render 1`] = `
                       Proofread your work. Check your punctuation.
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="4-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -8033,7 +8190,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="4-1"
                       />
                       <ConceptResult
                         concept={
@@ -8087,14 +8244,22 @@ exports[`StudentReport should render 1`] = `
                           }
                         }
                       >
-                        I think you are correct. However, I am going to look it up just to be sure
-                        <b>
+                        <span
+                          key="5-I think you are correct. However, I am going to look it up just to be sure"
+                        >
+                          I think you are correct. However, I am going to look it up just to be sure
+                        </span>
+                        <b
+                          key="5-."
+                        >
                           .
                         </b>
                       </span>
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="5-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -8129,7 +8294,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="5-1"
                       />
                       <ConceptResult
                         concept={
@@ -8228,6 +8393,7 @@ exports[`StudentReport should render 1`] = `
                 <tbody>
                   <tr
                     className="Directions"
+                    key=""
                   >
                     <td>
                       Directions
@@ -8289,7 +8455,7 @@ exports[`StudentReport should render 1`] = `
                     </td>
                   </tr>
                   <tr
-                    key="empty-rowundefined"
+                    key="empty-row"
                   >
                     <td />
                     <td />
@@ -8315,7 +8481,9 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="1-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -8350,7 +8518,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="1-1"
                       />
                       <ConceptResult
                         concept={
@@ -8509,6 +8677,7 @@ exports[`StudentReport should render 1`] = `
                 <tbody>
                   <tr
                     className="Directions"
+                    key=""
                   >
                     <td>
                       Directions
@@ -8570,7 +8739,7 @@ exports[`StudentReport should render 1`] = `
                     </td>
                   </tr>
                   <tr
-                    key="empty-rowundefined"
+                    key="empty-row"
                   >
                     <td />
                     <td />
@@ -8598,6 +8767,7 @@ exports[`StudentReport should render 1`] = `
                   </tr>
                   <tr
                     className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-1"
                   >
                     <td>
                       Feedback
@@ -8607,7 +8777,9 @@ exports[`StudentReport should render 1`] = `
                       Proofread your work. Check your ending punctuation.
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="1-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -8642,7 +8814,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="1-1"
                       />
                       <ConceptResult
                         concept={
@@ -8696,8 +8868,14 @@ exports[`StudentReport should render 1`] = `
                           }
                         }
                       >
-                        Strawberries
-                        <b>
+                        <span
+                          key="2-Strawberries"
+                        >
+                          Strawberries
+                        </span>
+                        <b
+                          key="2- are"
+                        >
                            are
                         </b>
                       </span>
@@ -8705,6 +8883,7 @@ exports[`StudentReport should render 1`] = `
                   </tr>
                   <tr
                     className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-2"
                   >
                     <td>
                       Feedback
@@ -8714,7 +8893,9 @@ exports[`StudentReport should render 1`] = `
                       Proofread your work. Check your ending punctuation.
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="2-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -8749,7 +8930,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="2-1"
                       />
                       <ConceptResult
                         concept={
@@ -8803,8 +8984,14 @@ exports[`StudentReport should render 1`] = `
                           }
                         }
                       >
-                        Strawberries are
-                        <b>
+                        <span
+                          key="3-Strawberries are"
+                        >
+                          Strawberries are
+                        </span>
+                        <b
+                          key="3- my"
+                        >
                            my
                         </b>
                       </span>
@@ -8812,6 +8999,7 @@ exports[`StudentReport should render 1`] = `
                   </tr>
                   <tr
                     className="Feedback"
+                    key="Proofread your work. Check your ending punctuation.-3"
                   >
                     <td>
                       Feedback
@@ -8821,7 +9009,9 @@ exports[`StudentReport should render 1`] = `
                       Proofread your work. Check your ending punctuation.
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="3-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -8856,7 +9046,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="3-1"
                       />
                       <ConceptResult
                         concept={
@@ -8910,14 +9100,22 @@ exports[`StudentReport should render 1`] = `
                           }
                         }
                       >
-                        Strawberries are my
-                        <b>
+                        <span
+                          key="4-Strawberries are my"
+                        >
+                          Strawberries are my
+                        </span>
+                        <b
+                          key="4- favorite. However, I don't eat them all the time."
+                        >
                            favorite. However, I don't eat them all the time.
                         </b>
                       </span>
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="4-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -8952,7 +9150,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="4-1"
                       />
                       <ConceptResult
                         concept={
@@ -9051,6 +9249,7 @@ exports[`StudentReport should render 1`] = `
                 <tbody>
                   <tr
                     className="Directions"
+                    key=""
                   >
                     <td>
                       Directions
@@ -9112,7 +9311,7 @@ exports[`StudentReport should render 1`] = `
                     </td>
                   </tr>
                   <tr
-                    key="empty-rowundefined"
+                    key="empty-row"
                   >
                     <td />
                     <td />
@@ -9138,7 +9337,9 @@ exports[`StudentReport should render 1`] = `
                       </span>
                     </td>
                   </tr>
-                  <tr>
+                  <tr
+                    key="1-concepts"
+                  >
                     <td />
                     <td />
                     <td
@@ -9173,7 +9374,7 @@ exports[`StudentReport should render 1`] = `
                       </ConceptResult>
                       <div
                         className="concept-result-separator"
-                        key="1"
+                        key="1-1"
                       />
                       <ConceptResult
                         concept={

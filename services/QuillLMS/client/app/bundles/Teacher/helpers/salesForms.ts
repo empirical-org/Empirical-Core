@@ -1,3 +1,5 @@
+import fetchDefaults from 'fetch-defaults'
+
 import { DISTRICT, NUMERICAL_PROPERTIES, PROPERTIES, PROPERTY_LABELS, SCHOOL } from '../../../constants/salesForm';
 import { requestFailed } from "../../Staff/helpers/evidence/routingHelpers";
 
@@ -17,7 +19,6 @@ interface SalesFormSubmission {
   comment?: string
 }
 
-const fetchDefaults = require("fetch-defaults");
 const baseUrl = process.env.DEFAULT_URL;
 const headerHash = {
   headers: {

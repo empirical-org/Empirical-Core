@@ -119,7 +119,7 @@ class ClassroomUnit < ApplicationRecord
   end
 
   private def hide_all_activity_sessions
-    activity_sessions.update_all(visible: false)
+    activity_sessions.update_all(visible: false, updated_at: DateTime.current)
   end
 
   private def hide_appropriate_activity_sessions

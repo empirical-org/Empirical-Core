@@ -1,7 +1,8 @@
 import * as React from 'react';
 
 import { DataTable, Input, } from '../../../Shared/index';
-import ButtonLoadingIndicator from '../shared/button_loading_indicator';
+import { ButtonLoadingSpinner, } from '../../../Shared/index'
+;
 
 import { requestPost } from '../../../../modules/request/index';
 
@@ -202,7 +203,7 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
     const { waiting } = this.state
     let nextButton = <button className={this.footerButtonClass()} onClick={this.createStudents}>Next</button>
     if (waiting) {
-      nextButton = <button className={this.footerButtonClass()}><ButtonLoadingIndicator /></button>
+      nextButton = <button className={this.footerButtonClass()}><ButtonLoadingSpinner /></button>
     }
     return (
       <div className="create-a-class-modal-footer with-back-button">

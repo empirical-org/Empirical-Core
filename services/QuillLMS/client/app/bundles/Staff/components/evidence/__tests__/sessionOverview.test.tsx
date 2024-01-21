@@ -5,7 +5,7 @@ import 'whatwg-fetch';
 
 import SessionOverview from '../activitySessions/sessionOverview';
 
-const sessionData = require('../__mocks__/sessionData.json');
+import sessionData from '../__mocks__/sessionData.json';
 
 const mockProps = {
   match: {

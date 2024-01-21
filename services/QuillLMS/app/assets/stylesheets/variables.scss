@@ -1,6 +1,6 @@
 $sitewidepagewidth: 1200px;
 
-// standardized to Figma Color Palette (https://www.figma.com/file/5TNa9Tn6TNVCmNjzbDTaMI/Quill---Product---Web?type=design&node-id=6417-242132&mode=dev) as of 8/10/23
+// standardized to Figma Color Palette (https://www.figma.com/file/5TNa9Tn6TNVCmNjzbDTaMI/Quill---Product---Web?type=design&node-id=6417-242132&mode=dev) as of 10/25/23
 $quill-black: #000;
 $quill-grey-90: #373737;
 $quill-grey-80: #404040;
@@ -19,6 +19,34 @@ $quill-grey-3: #EBEBEB;
 $quill-grey-2: #F1F1F1;
 $quill-grey-1: #F8F8F8;
 $quill-white: #FFF;
+
+$quill-black-transparent-90: rgba(0, 0, 0, 0.9);
+$quill-black-transparent-80: rgba(0, 0, 0, 0.8);
+$quill-black-transparent-70: rgba(0, 0, 0, 0.7);
+$quill-black-transparent-60: rgba(0, 0, 0, 0.6);
+$quill-black-transparent-50: rgba(0, 0, 0, 0.5);
+$quill-black-transparent-40: rgba(0, 0, 0, 0.4);
+$quill-black-transparent-30: rgba(0, 0, 0, 0.3);
+$quill-black-transparent-20: rgba(0, 0, 0, 0.2);
+$quill-black-transparent-10: rgba(0, 0, 0, 0.1);
+$quill-white-transparent-90: rgba(255, 255, 255, 0.9);
+$quill-white-transparent-80: rgba(255, 255, 255, 0.8);
+$quill-white-transparent-70: rgba(255, 255, 255, 0.7);
+$quill-white-transparent-60: rgba(255, 255, 255, 0.6);
+$quill-white-transparent-50: rgba(255, 255, 255, 0.5);
+$quill-white-transparent-40: rgba(255, 255, 255, 0.4);
+$quill-white-transparent-30: rgba(255, 255, 255, 0.3);
+$quill-white-transparent-20: rgba(255, 255, 255, 0.2);
+$quill-white-transparent-10: rgba(255, 255, 255, 0.1);
+$quill-green-transparent-90: rgba(6, 128, 107, 0.9);
+$quill-green-transparent-80: rgba(6, 128, 107, 0.8);
+$quill-green-transparent-70: rgba(6, 128, 107, 0.7);
+$quill-green-transparent-60: rgba(6, 128, 107, 0.6);
+$quill-green-transparent-50: rgba(6, 128, 107, 0.5);
+$quill-green-transparent-40: rgba(6, 128, 107, 0.4);
+$quill-green-transparent-30: rgba(6, 128, 107, 0.3);
+$quill-green-transparent-20: rgba(6, 128, 107, 0.2);
+$quill-green-transparent-10: rgba(6, 128, 107, 0.1);
 
 $quill-green: #06806B;
 $quill-green-50: #099A81;
@@ -40,6 +68,13 @@ $quill-green-vibrant-20: #B0E185;
 $quill-green-vibrant-10: #EBF8E0;
 $quill-green-vibrant-5: #FAFFF5;
 $quill-green-vibrant-1: #FAFFF6;
+
+$quill-viridian: #235E62;
+$quill-viridian-50: #8CCBCE;
+$quill-viridian-20: #A7DADD;
+$quill-viridian-10: #CAEEF0;
+$quill-viridian-5: #DAF5F6;
+$quill-viridian-1: #F4FDFE;
 
 $quill-teal: #2C7F9B;
 $quill-teal-50: #8DCFE2;
@@ -77,21 +112,21 @@ $quill-red-5: #FEEDEC;
 $quill-red-1: #FFF6F5;
 
 $quill-maroon: #C04500;
-$quill-maroon-50: #E36E2C;
-$quill-maroon-20: #FFB489;
-$quill-maroon-10: #FFDCC8;
-$quill-maroon-5: #FCEAE1;
-$quill-maroon-1: #FDF5F0;
+$quill-maroon-50: #CD703B;
+$quill-maroon-20: #E8AB88;
+$quill-maroon-10: #F1CFBC;
+$quill-maroon-5: #F6E5DC;
+$quill-maroon-1: #FFF6F1;
 
 $quill-gold: #DF9E3D;
-$quill-gold-50: #F8A823;
+$quill-gold-50: #ECB55A;
 $quill-gold-20: #FFD999;
 $quill-gold-10: #FCE3BD;
 $quill-gold-5: #FFEFD6;
 $quill-gold-1: #FFF9EF;
 
 $quill-gold-dark: #9F6405;
-$quill-gold-dark-50: #C97C00;
+$quill-gold-dark-50: #C38D33;
 $quill-gold-dark-20: #E3BB7A;
 $quill-gold-dark-10: #E4D0B0;
 $quill-gold-dark-5: #F6E9D5;

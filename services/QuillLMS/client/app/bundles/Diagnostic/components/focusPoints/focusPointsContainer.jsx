@@ -215,7 +215,7 @@ export class FocusPointsContainer extends Component {
   renderTextInputFields = (sequenceString, key) => {
     let className = `input regex-inline-edit regex-${key}`
     return sequenceString.split(/\|{3}(?!\|)/).map(text => (
-      <input className={className} onChange={(e) => this.handleFocusPointChange(e, key)} style={{ marginBottom: 5, minWidth: `${(text.length + 1) * 8}px`}} type="text" value={text || ''} />
+      <input className={className} key={key} onChange={(e) => this.handleFocusPointChange(e, key)} style={{ marginBottom: 5, minWidth: `${(text.length + 1) * 8}px`}} type="text" value={text || ''} />
     ));
   }
 

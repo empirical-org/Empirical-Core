@@ -21,6 +21,7 @@
       <%= content_tag(:div, "<p>#{value}</p><i class='fas fa-times-circle' aria-hidden='true'></i>".html_safe, {class: "flash #{key}", onClick: "$(this).slideUp(300)"}) %>
     <% end %>
     <%= render partial: 'application/preview_student_banner' %>
+    <%= render partial: 'application/google_integration_change_banner' %>
     <%= render partial: 'application/demo_account_banner' %>
     <%= render partial: 'application/webinar_banner' %>
     <% if ENV['UPGRADE'] && ENV['UPGRADE_END_TIME'] && Time.current < Time.parse(ENV['UPGRADE_END_TIME'])%>
@@ -41,7 +42,7 @@
     <%= render partial: 'pages/shared/footer', media: 'all', 'data-turbolinks-track' => true %>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
     <% if %w(pages subscriptions).include?(controller.controller_name) && %w(index premium).include?(controller.action_name) %>
     <script>var stripePubKey="<%=ENV["STRIPE_PUBLIC_KEY"] %>"</script>
     <script src="https://checkout.stripe.com/checkout.js" >

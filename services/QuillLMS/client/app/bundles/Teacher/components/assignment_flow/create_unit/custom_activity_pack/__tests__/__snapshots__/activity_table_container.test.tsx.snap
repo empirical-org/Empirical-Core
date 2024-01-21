@@ -1876,21 +1876,25 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   Grades: 
                   <span
                     className="grade-level filtered"
+                    key="4 - 5"
                   >
                     4 - 5
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="6 - 7"
                   >
                     6 - 7
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="8 - 9"
                   >
                     8 - 9
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="10 - 12"
                   >
                     10 - 12
                   </span>
@@ -1957,6 +1961,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           >
             <span
               className="attribute-section topic"
+              key="Hernan Cortes & the Aztec Empire"
             >
               <img
                 alt="Globe icon"
@@ -1971,6 +1976,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             </span>
             <span
               className="attribute-section topic"
+              key="Maya, Aztec, & Inca Civilizations"
             >
               <img
                 alt="Globe icon"
@@ -2333,21 +2339,25 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   Grades: 
                   <span
                     className="grade-level filtered"
+                    key="4 - 5"
                   >
                     4 - 5
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="6 - 7"
                   >
                     6 - 7
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="8 - 9"
                   >
                     8 - 9
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="10 - 12"
                   >
                     10 - 12
                   </span>
@@ -2408,6 +2418,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           >
             <span
               className="attribute-section topic"
+              key="Maya, Aztec, & Inca Civilizations"
             >
               <img
                 alt="Globe icon"
@@ -2782,21 +2793,25 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   Grades: 
                   <span
                     className="grade-level filtered"
+                    key="4 - 5"
                   >
                     4 - 5
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="6 - 7"
                   >
                     6 - 7
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="8 - 9"
                   >
                     8 - 9
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="10 - 12"
                   >
                     10 - 12
                   </span>
@@ -2863,6 +2878,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           >
             <span
               className="attribute-section topic"
+              key="Maya, Aztec, & Inca Civilizations"
             >
               <img
                 alt="Globe icon"
@@ -2877,6 +2893,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             </span>
             <span
               className="attribute-section topic"
+              key="Tenochtitlán Origin Myth"
             >
               <img
                 alt="Globe icon"
@@ -3239,21 +3256,25 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   Grades: 
                   <span
                     className="grade-level filtered"
+                    key="4 - 5"
                   >
                     4 - 5
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="6 - 7"
                   >
                     6 - 7
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="8 - 9"
                   >
                     8 - 9
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="10 - 12"
                   >
                     10 - 12
                   </span>
@@ -3314,6 +3335,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           >
             <span
               className="attribute-section topic"
+              key="Maya, Aztec, & Inca Civilizations"
             >
               <img
                 alt="Globe icon"
@@ -3688,21 +3710,25 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   Grades: 
                   <span
                     className="grade-level filtered"
+                    key="4 - 5"
                   >
                     4 - 5
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="6 - 7"
                   >
                     6 - 7
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="8 - 9"
                   >
                     8 - 9
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="10 - 12"
                   >
                     10 - 12
                   </span>
@@ -3769,6 +3795,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           >
             <span
               className="attribute-section topic"
+              key="Hui Zong's Defeat"
             >
               <img
                 alt="Globe icon"
@@ -3783,6 +3810,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             </span>
             <span
               className="attribute-section topic"
+              key="Chinese Dynasties"
             >
               <img
                 alt="Globe icon"
@@ -4145,21 +4173,25 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   Grades: 
                   <span
                     className="grade-level filtered"
+                    key="4 - 5"
                   >
                     4 - 5
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="6 - 7"
                   >
                     6 - 7
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="8 - 9"
                   >
                     8 - 9
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="10 - 12"
                   >
                     10 - 12
                   </span>
@@ -4220,6 +4252,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           >
             <span
               className="attribute-section topic"
+              key="Chinese Dynasties"
             >
               <img
                 alt="Globe icon"
@@ -4576,21 +4609,25 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   Grades: 
                   <span
                     className="grade-level filtered"
+                    key="4 - 5"
                   >
                     4 - 5
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="6 - 7"
                   >
                     6 - 7
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="8 - 9"
                   >
                     8 - 9
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="10 - 12"
                   >
                     10 - 12
                   </span>
@@ -4651,6 +4688,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           >
             <span
               className="attribute-section topic"
+              key="Chinese Dynasties"
             >
               <img
                 alt="Globe icon"
@@ -5007,21 +5045,25 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   Grades: 
                   <span
                     className="grade-level filtered"
+                    key="4 - 5"
                   >
                     4 - 5
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="6 - 7"
                   >
                     6 - 7
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="8 - 9"
                   >
                     8 - 9
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="10 - 12"
                   >
                     10 - 12
                   </span>
@@ -5082,6 +5124,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           >
             <span
               className="attribute-section topic"
+              key="Chinese Dynasties"
             >
               <img
                 alt="Globe icon"
@@ -5456,21 +5499,25 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   Grades: 
                   <span
                     className="grade-level filtered"
+                    key="4 - 5"
                   >
                     4 - 5
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="6 - 7"
                   >
                     6 - 7
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="8 - 9"
                   >
                     8 - 9
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="10 - 12"
                   >
                     10 - 12
                   </span>
@@ -5537,6 +5584,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           >
             <span
               className="attribute-section topic"
+              key="The Age of Exploration"
             >
               <img
                 alt="Globe icon"
@@ -5551,6 +5599,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             </span>
             <span
               className="attribute-section topic"
+              key="Marco Polo"
             >
               <img
                 alt="Globe icon"
@@ -5931,21 +5980,25 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   Grades: 
                   <span
                     className="grade-level filtered"
+                    key="4 - 5"
                   >
                     4 - 5
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="6 - 7"
                   >
                     6 - 7
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="8 - 9"
                   >
                     8 - 9
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="10 - 12"
                   >
                     10 - 12
                   </span>
@@ -6012,6 +6065,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           >
             <span
               className="attribute-section topic"
+              key="The Age of Exploration"
             >
               <img
                 alt="Globe icon"
@@ -6026,6 +6080,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             </span>
             <span
               className="attribute-section topic"
+              key="Hernando de Soto"
             >
               <img
                 alt="Globe icon"
@@ -6406,21 +6461,25 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   Grades: 
                   <span
                     className="grade-level filtered"
+                    key="4 - 5"
                   >
                     4 - 5
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="6 - 7"
                   >
                     6 - 7
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="8 - 9"
                   >
                     8 - 9
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="10 - 12"
                   >
                     10 - 12
                   </span>
@@ -6487,6 +6546,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           >
             <span
               className="attribute-section topic"
+              key="Magellan"
             >
               <img
                 alt="Globe icon"
@@ -6501,6 +6561,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             </span>
             <span
               className="attribute-section topic"
+              key="The Age of Exploration"
             >
               <img
                 alt="Globe icon"
@@ -6863,21 +6924,25 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   Grades: 
                   <span
                     className="grade-level filtered"
+                    key="4 - 5"
                   >
                     4 - 5
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="6 - 7"
                   >
                     6 - 7
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="8 - 9"
                   >
                     8 - 9
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="10 - 12"
                   >
                     10 - 12
                   </span>
@@ -6938,6 +7003,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           >
             <span
               className="attribute-section topic"
+              key="The Age of Exploration"
             >
               <img
                 alt="Globe icon"
@@ -7294,21 +7360,25 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   Grades: 
                   <span
                     className="grade-level filtered"
+                    key="4 - 5"
                   >
                     4 - 5
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="6 - 7"
                   >
                     6 - 7
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="8 - 9"
                   >
                     8 - 9
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="10 - 12"
                   >
                     10 - 12
                   </span>
@@ -7369,6 +7439,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           >
             <span
               className="attribute-section topic"
+              key="The Renaissance"
             >
               <img
                 alt="Globe icon"
@@ -7725,21 +7796,25 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   Grades: 
                   <span
                     className="grade-level filtered"
+                    key="4 - 5"
                   >
                     4 - 5
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="6 - 7"
                   >
                     6 - 7
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="8 - 9"
                   >
                     8 - 9
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="10 - 12"
                   >
                     10 - 12
                   </span>
@@ -7800,6 +7875,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           >
             <span
               className="attribute-section topic"
+              key="The Renaissance"
             >
               <img
                 alt="Globe icon"
@@ -8174,21 +8250,25 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   Grades: 
                   <span
                     className="grade-level filtered"
+                    key="4 - 5"
                   >
                     4 - 5
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="6 - 7"
                   >
                     6 - 7
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="8 - 9"
                   >
                     8 - 9
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="10 - 12"
                   >
                     10 - 12
                   </span>
@@ -8255,6 +8335,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           >
             <span
               className="attribute-section topic"
+              key="The Renaissance"
             >
               <img
                 alt="Globe icon"
@@ -8269,6 +8350,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             </span>
             <span
               className="attribute-section topic"
+              key="The Medici Family"
             >
               <img
                 alt="Globe icon"
@@ -8631,21 +8713,25 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   Grades: 
                   <span
                     className="grade-level filtered"
+                    key="4 - 5"
                   >
                     4 - 5
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="6 - 7"
                   >
                     6 - 7
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="8 - 9"
                   >
                     8 - 9
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="10 - 12"
                   >
                     10 - 12
                   </span>
@@ -8706,6 +8792,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           >
             <span
               className="attribute-section topic"
+              key="The Renaissance"
             >
               <img
                 alt="Globe icon"
@@ -9062,21 +9149,25 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   Grades: 
                   <span
                     className="grade-level filtered"
+                    key="4 - 5"
                   >
                     4 - 5
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="6 - 7"
                   >
                     6 - 7
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="8 - 9"
                   >
                     8 - 9
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="10 - 12"
                   >
                     10 - 12
                   </span>
@@ -9137,6 +9228,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           >
             <span
               className="attribute-section topic"
+              key="The American Revolution"
             >
               <img
                 alt="Globe icon"
@@ -9493,21 +9585,25 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   Grades: 
                   <span
                     className="grade-level filtered"
+                    key="4 - 5"
                   >
                     4 - 5
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="6 - 7"
                   >
                     6 - 7
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="8 - 9"
                   >
                     8 - 9
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="10 - 12"
                   >
                     10 - 12
                   </span>
@@ -9568,6 +9664,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           >
             <span
               className="attribute-section topic"
+              key="The American Revolution"
             >
               <img
                 alt="Globe icon"
@@ -9942,21 +10039,25 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   Grades: 
                   <span
                     className="grade-level filtered"
+                    key="4 - 5"
                   >
                     4 - 5
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="6 - 7"
                   >
                     6 - 7
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="8 - 9"
                   >
                     8 - 9
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="10 - 12"
                   >
                     10 - 12
                   </span>
@@ -10023,6 +10124,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           >
             <span
               className="attribute-section topic"
+              key="The American Revolution"
             >
               <img
                 alt="Globe icon"
@@ -10037,6 +10139,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             </span>
             <span
               className="attribute-section topic"
+              key="The Battle of Bunker Hill"
             >
               <img
                 alt="Globe icon"
@@ -10417,21 +10520,25 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   Grades: 
                   <span
                     className="grade-level filtered"
+                    key="4 - 5"
                   >
                     4 - 5
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="6 - 7"
                   >
                     6 - 7
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="8 - 9"
                   >
                     8 - 9
                   </span>
                   <span
                     className="grade-level filtered"
+                    key="10 - 12"
                   >
                     10 - 12
                   </span>
@@ -10498,6 +10605,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           >
             <span
               className="attribute-section topic"
+              key="The American Revolution"
             >
               <img
                 alt="Globe icon"
@@ -10512,6 +10620,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             </span>
             <span
               className="attribute-section topic"
+              key="The Battle of Saratoga"
             >
               <img
                 alt="Globe icon"
@@ -12028,6 +12137,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <PageButton
             buttonNumber={1}
             currentPage={1}
+            key="1"
             setCurrentPage={[Function]}
           >
             <button
@@ -12041,6 +12151,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <PageButton
             buttonNumber={2}
             currentPage={1}
+            key="2"
             setCurrentPage={[Function]}
           >
             <button

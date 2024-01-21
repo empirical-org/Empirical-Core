@@ -8,8 +8,10 @@ import PasswordWrapper from '../shared/password_wrapper';
 import PasswordInfo from './password_info.jsx';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+const informationSrc = `${process.env.CDN_URL}/images/icons/description-information.svg`
 
 class LoginFormApp extends React.Component {
+
   constructor(props) {
     super(props);
 
@@ -147,6 +149,11 @@ class LoginFormApp extends React.Component {
           <div className="account-container text-center">
             <div className="auth-section">
               <AuthGoogleAccessForm text='Log in with Google' />
+              <div className="google-tbd">
+                <h4><img alt="" src={informationSrc} /> Having trouble logging in with Google?</h4>
+                <p>If you're a Google user, you can also log in using your email address. You just need to create a password.</p>
+                <a className="inline-link" href="/password_reset">Create a password</a>
+              </div>
               <button onClick={this.handleCleverClick} type="button">
                 <img alt="Clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
                 <span>Log in with Clever</span>

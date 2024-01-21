@@ -21,6 +21,7 @@ log/*.log
 tmp
 coverage
 snapshot.dump
+.cache/
 
 # vagrant folder
 .vagrant/
@@ -44,16 +45,9 @@ activity-sessions*.json
 # React on Rails
 npm-debug.log*
 node_modules
-/public/webpack
-/public/webpack-test
 
 # Generated js bundles
-/app/assets/webpack/*
 client/node_modules/*
-app/assets/webpack/app-bundle.js
-app/assets/webpack/server-bundle.js
-app/assets/webpack/vendor-bundle.js
-public/webpack/*
 
 # Byebug command history file
 .byebug_history
@@ -73,4 +67,10 @@ nohup.out
 /cypress/screenshots
 /cypress/videos
 
-**/.DS_Store
+# Vite Ruby
+/public/vite*
+node_modules
+# Vite uses dotenv and suggests to ignore local-only env files. See
+# https://vitejs.dev/guide/env-and-mode.html#env-files
+*.local
+

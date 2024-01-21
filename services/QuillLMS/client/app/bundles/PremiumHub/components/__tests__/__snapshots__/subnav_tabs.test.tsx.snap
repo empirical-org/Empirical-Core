@@ -26,7 +26,7 @@ exports[`AdminSubnav it should render 1`] = `
         >
           <li>
             <a
-              class=" "
+              class=""
               href="/teachers/premium_hub"
             >
               Overview
@@ -37,10 +37,10 @@ exports[`AdminSubnav it should render 1`] = `
           </li>
           <li>
             <a
-              class=" "
+              class=""
               href="/teachers/premium_hub/school_subscriptions"
             >
-              School Subscriptions
+              Subscriptions
             </a>
             <div
               class="checkmark-icon "
@@ -48,10 +48,10 @@ exports[`AdminSubnav it should render 1`] = `
           </li>
           <li>
             <a
-              class=" premium"
-              href="/teachers/premium_hub/district_activity_scores"
+              class=""
+              href="/teachers/premium_hub/account_management"
             >
-              Activity Scores
+              Account Management
             </a>
             <div
               class="checkmark-icon "
@@ -59,29 +59,7 @@ exports[`AdminSubnav it should render 1`] = `
           </li>
           <li>
             <a
-              class=" premium"
-              href="/teachers/premium_hub/district_concept_reports"
-            >
-              Concept Reports
-            </a>
-            <div
-              class="checkmark-icon "
-            />
-          </li>
-          <li>
-            <a
-              class=" premium"
-              href="/teachers/premium_hub/district_standards_reports"
-            >
-              Standards Reports
-            </a>
-            <div
-              class="checkmark-icon "
-            />
-          </li>
-          <li>
-            <a
-              class=" premium"
+              class=""
               href="/teachers/premium_hub/integrations"
             >
               Integrations
@@ -92,10 +70,54 @@ exports[`AdminSubnav it should render 1`] = `
           </li>
           <li>
             <a
-              class=" premium"
+              class=""
+              href="/teachers/premium_hub/district_activity_scores"
+            >
+              Activity Scores Report
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
+          <li>
+            <a
+              class=""
+              href="/teachers/premium_hub/district_concept_reports"
+            >
+              Concepts Report
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
+          <li>
+            <a
+              class=""
+              href="/teachers/premium_hub/district_standards_reports"
+            >
+              Standards Report
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
+          <li>
+            <a
+              class=""
               href="/teachers/premium_hub/usage_snapshot_report"
             >
               Usage Snapshot Report
+            </a>
+            <div
+              class="checkmark-icon "
+            />
+          </li>
+          <li>
+            <a
+              class=""
+              href="/teachers/premium_hub/data_export"
+            >
+              Data Export
             </a>
             <div
               class="checkmark-icon "
@@ -114,7 +136,7 @@ exports[`AdminSubnav it should render 1`] = `
       <ul>
         <li>
           <a
-            class=" "
+            class=""
             href="/teachers/premium_hub"
           >
             Overview
@@ -125,10 +147,10 @@ exports[`AdminSubnav it should render 1`] = `
         </li>
         <li>
           <a
-            class=" "
+            class=""
             href="/teachers/premium_hub/school_subscriptions"
           >
-            School Subscriptions
+            Subscriptions
           </a>
           <div
             class="checkmark-icon "
@@ -136,10 +158,10 @@ exports[`AdminSubnav it should render 1`] = `
         </li>
         <li>
           <a
-            class=" premium"
-            href="/teachers/premium_hub/district_activity_scores"
+            class=""
+            href="/teachers/premium_hub/account_management"
           >
-            Activity Scores
+            Account Management
           </a>
           <div
             class="checkmark-icon "
@@ -147,29 +169,7 @@ exports[`AdminSubnav it should render 1`] = `
         </li>
         <li>
           <a
-            class=" premium"
-            href="/teachers/premium_hub/district_concept_reports"
-          >
-            Concept Reports
-          </a>
-          <div
-            class="checkmark-icon "
-          />
-        </li>
-        <li>
-          <a
-            class=" premium"
-            href="/teachers/premium_hub/district_standards_reports"
-          >
-            Standards Reports
-          </a>
-          <div
-            class="checkmark-icon "
-          />
-        </li>
-        <li>
-          <a
-            class=" premium"
+            class=""
             href="/teachers/premium_hub/integrations"
           >
             Integrations
@@ -178,16 +178,20 @@ exports[`AdminSubnav it should render 1`] = `
             class="checkmark-icon "
           />
         </li>
-        <li>
-          <a
-            class=" premium"
-            href="/teachers/premium_hub/usage_snapshot_report"
+        <li
+          class="premium-reports-tab"
+        >
+          <button
+            aria-controls="premium-reports-nav-dropdown"
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="premium-reports-button focus-on-dark  "
+            type="button"
           >
-            Usage Snapshot Report
-          </a>
-          <div
-            class="checkmark-icon "
-          />
+            <span>
+              Premium Reports
+            </span>
+          </button>
         </li>
       </ul>
     </div>

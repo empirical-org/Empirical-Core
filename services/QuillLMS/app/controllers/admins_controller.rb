@@ -41,6 +41,18 @@ class AdminsController < ApplicationController
     end
   end
 
+  def vitally_professional_learning_manager_info
+    api = VitallyIntegration::RestApi.new
+    district_id = current_user.administered_districts&.first&.id || current_user.administered_schools&.first&.district_id || current_user.school&.district_id
+    if district_id
+      vitally_district = api.get(VitallyIntegration::RestApi::ENDPOINT_ORGANIZATIONS, district_id)
+      key_role = vitally_district['keyRoles'].find { |kr| kr['keyRole']['label'] == 'CSM' }
+      render json: key_role ? key_role['vitallyUser'] : nil
+    else
+      render json: nil
+    end
+  end
+
   def admin_info
     render json: {
       id: current_user.id,
@@ -51,7 +63,8 @@ class AdminsController < ApplicationController
       admin_approval_status: current_user.admin_approval_status,
       admin_sub_role: current_user.admin_sub_role,
       administers_school_with_premium: current_user.administered_schools.any? { |school| school.subscription },
-      associated_school_has_premium: current_user.school.present? && current_user.school.subscription.present?
+      associated_school_has_premium: current_user.school.present? && current_user.school.subscription.present?,
+      schools: current_user.administered_schools
     }
   end
 

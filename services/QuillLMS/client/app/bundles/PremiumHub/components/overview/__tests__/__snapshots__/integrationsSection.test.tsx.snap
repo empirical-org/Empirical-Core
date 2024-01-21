@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IntegrationsSection it should render 1`] = `
+<DocumentFragment>
+  <section
+    class="overview-section-wrapper integrations"
+  >
+    <h2>
+      <img
+        alt=""
+        src="undefined/images/pages/administrator/overview/checkbox-multiple.svg"
+      />
+      <span>
+        Integrations
+      </span>
+    </h2>
+    <div
+      class="overview-section"
+    >
+      <div
+        class="overview-section-content"
+      >
+        <div
+          class="tile"
+        >
+          <div>
+            <h3>
+              Canvas
+            </h3>
+            <p>
+              Make teaching at your school even more effective with our seamless Canvas integration.
+            </p>
+          </div>
+          <div
+            class="link-and-image"
+          >
+            <a
+              class="quill-button focus-on-light outlined secondary medium"
+              href="/teachers/premium_hub/integrations/canvas"
+            >
+              Learn more
+            </a>
+            <img
+              alt=""
+              src="undefined/images/pages/administrator/overview/canvas.svg"
+            />
+          </div>
+        </div>
+        <div
+          class="tile"
+        >
+          <div>
+            <h3>
+              Google Classroom
+            </h3>
+            <p>
+              Make teaching at your school even more effective with our seamless Google Classroom integration.
+            </p>
+          </div>
+          <div
+            class="link-and-image"
+          >
+            <a
+              class="quill-button focus-on-light outlined secondary medium"
+              href="/teachers/premium_hub/integrations/google"
+            >
+              Learn more
+            </a>
+            <img
+              alt=""
+              src="undefined/images/pages/administrator/overview/google-classroom.svg"
+            />
+          </div>
+        </div>
+        <div
+          class="tile"
+        >
+          <div>
+            <h3>
+              Clever
+            </h3>
+            <p>
+              Make teaching at your school even more effective with our seamless Clever integration.
+            </p>
+          </div>
+          <div
+            class="link-and-image"
+          >
+            <a
+              class="quill-button focus-on-light outlined secondary medium"
+              href="/teachers/premium_hub/integrations/clever"
+            >
+              Learn more
+            </a>
+            <img
+              alt=""
+              src="undefined/images/pages/administrator/overview/clever.svg"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;

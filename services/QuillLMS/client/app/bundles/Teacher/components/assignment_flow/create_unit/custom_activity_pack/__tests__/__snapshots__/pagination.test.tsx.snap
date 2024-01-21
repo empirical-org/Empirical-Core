@@ -1449,6 +1449,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <PageButton
         buttonNumber={1}
         currentPage={0}
+        key="1"
         setCurrentPage={[Function]}
       >
         <button
@@ -1462,6 +1463,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <PageButton
         buttonNumber={2}
         currentPage={0}
+        key="2"
         setCurrentPage={[Function]}
       >
         <button

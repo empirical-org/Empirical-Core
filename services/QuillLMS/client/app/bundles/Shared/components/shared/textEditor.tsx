@@ -5,6 +5,7 @@ import {
   EditorState,
   RichUtils,
 } from 'draft-js';
+import { decode } from 'html-entities';
 import * as Immutable from 'immutable';
 import * as React from 'react';
 
@@ -48,7 +49,7 @@ class TextEditor extends React.Component <any, any> {
     }
   }
 
-  componentWillReceiveProps(nextProps: any) {
+  UNSAFE_componentWillReceiveProps(nextProps: any) {
     const { boilerplate, EditorState, handleTextChange, ContentState, } = this.props
     if (nextProps.boilerplate !== boilerplate) {
       this.setState({text: EditorState.createWithContent(ContentState.createFromBlockArray(this.contentState(nextProps.boilerplate)))},
@@ -69,7 +70,7 @@ class TextEditor extends React.Component <any, any> {
       },
       entityToHTML: (entity, originalText) => {
         if (entity.type === LINK) {
-          return <a href={entity.data.url}>{originalText}</a>;
+          return <a href={entity.data.url}>{decode(originalText)}</a>;
         }
         return originalText;
       }

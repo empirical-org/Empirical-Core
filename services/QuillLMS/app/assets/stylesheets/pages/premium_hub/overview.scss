@@ -1,0 +1,224 @@
+#premium-hub .premium-hub-overview {
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: normal;
+    margin-top: 32px;
+    margin-bottom: 8px;
+  }
+
+  .subheader {
+    margin-bottom: 48px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    .quill-tooltip-trigger {
+      text-decoration: underline;
+    }
+  }
+
+  .overview-section-wrapper {
+    border-bottom: none;
+    margin-top: 32px;
+    padding: 0px;
+    h2 {
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 32px;
+      color: $quill-grey-90;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      img {
+        height: 24px;
+        margin-right: 8px;
+      }
+    }
+    .view-all-usage-button {
+      margin-top: 16px;
+    }
+  }
+
+  .overview-section {
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.10);
+    border-radius: 8px;
+    padding: 24px;
+    border: 1px solid $quill-grey-5;
+  }
+
+  .integrations, .premium-reports, .account-management {
+    .overview-section-content {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .professional-development {
+    color: $quill-grey-90;
+
+    .overview-section {
+      display: flex;
+      gap: 16px;
+      @media (max-width: 1189px) {
+        flex-direction: column;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      .quill-button {
+        margin-right: 16px;
+      }
+    }
+
+    .professional-learning-manager, .quick-links {
+      border-radius: 8px;
+      border: 1px solid $quill-grey-5;
+      background: $quill-grey-1;
+      padding: 32px;
+    }
+
+    .professional-learning-manager {
+      display: flex;
+      gap: 16px;
+      justify-content: space-between;
+      width: 100%;
+      .loading-spinner {
+        margin: auto;
+      }
+      .text-and-buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      h3 {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 36px;
+        margin-bottom: 10px;
+      }
+      p {
+        font-size: 16px;
+        line-height: normal;
+        margin-bottom: 32px;
+      }
+      .section-subheader {
+        font-size: 16px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+        img {
+          margin-right: 6px;
+        }
+      }
+    }
+
+    .quick-links {
+      min-width: 260px;
+      h3 {
+        font-size: 20px;
+        font-weight: 700;
+        line-height: normal;
+        margin-bottom: 16px;
+      }
+      a {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 14px;
+        &:not(:last-of-type) {
+          margin-bottom: 10px;
+        }
+        &:hover {
+          text-decoration: none;
+        }
+      }
+      a::after {
+        margin-left: 8px;
+        content: "\f054";
+        font-family: "Font Awesome 5 Pro";
+      }
+    }
+
+    .photos {
+      height: 136;
+      width: 152px;
+      margin-top: -8px;
+    }
+
+    .assigned-professional-learning-manager {
+      img {
+        width: 120px;
+        height: 120px;
+        margin-top: -8px;
+      }
+    }
+  }
+
+  .tile {
+    border-radius: 8px;
+    border: 1px solid $quill-grey-5;
+    padding: 16px;
+    background: $quill-grey-1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 184px;
+    &.new {
+      border: 1px solid $quill-maroon-10;
+      background: $quill-maroon-1;
+    }
+    h3 {
+      color: $quill-grey-90;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: normal;
+      display: flex;
+      justify-content: space-between;
+      .new-tag {
+        color: $quill-white;
+        background-color: $quill-maroon;
+        font-size: 10px;
+        padding: 4px 6px;
+        border-radius: 5px;
+        height: min-content;
+      }
+    }
+    p {
+      color: $quill-grey-90;
+      line-height: normal;
+    }
+    .link-and-image {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      .button-loading-spinner-container {
+        margin-left: 8px;
+      }
+    }
+  }
+
+  .log-in-as-a-teacher-modal {
+    p {
+      margin-bottom: 24px;
+      color: #262626;
+      font-size: 16px;
+      line-height: 22px;
+    }
+    .modal-body {
+      margin-bottom: 32px;
+    }
+    .dropdown {
+      margin-right: 0px;
+    }
+    .dropdown-container {
+      justify-content: flex-start;
+      min-height: 64px;
+      margin-bottom: 24px;
+    }
+  }
+}

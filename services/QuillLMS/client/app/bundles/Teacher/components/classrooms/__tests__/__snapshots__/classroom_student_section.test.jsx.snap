@@ -4798,7 +4798,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              Name
+              <span>
+                Name
+              </span>
             </th>
             <th
               className="data-table-header undefined"
@@ -4812,7 +4814,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              Username/Email
+              <span>
+                Username/Email
+              </span>
             </th>
             <th
               className="data-table-header undefined"
@@ -4826,7 +4830,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              Log-in Method
+              <span>
+                Log-in Method
+              </span>
             </th>
             <th
               className="data-table-header undefined"
@@ -4840,7 +4846,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              Last Active
+              <span>
+                Last Active
+              </span>
             </th>
             <th
               className="data-table-header undefined"
@@ -4854,7 +4862,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              Activities
+              <span>
+                Activities
+              </span>
             </th>
             <th
               className="data-table-header actions-header"
@@ -4885,6 +4895,8 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             <td
               className="data-table-row-section undefined"
               key="name-2851870"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "220px",
@@ -4893,11 +4905,15 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              Maya Angelou
+              <TableCellContentWrapper>
+                Maya Angelou
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section undefined"
               key="usernameOrEmail-2851870"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "330px",
@@ -4906,11 +4922,15 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              maya_angelou_demo@quill.org
+              <TableCellContentWrapper>
+                maya_angelou_demo@quill.org
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section undefined"
               key="logInMethod-2851870"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "110px",
@@ -4919,11 +4939,15 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              Username
+              <TableCellContentWrapper>
+                Username
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section show-overflow"
               key="lastActive-2851870"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "110px",
@@ -4932,11 +4956,15 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              Invalid date
+              <TableCellContentWrapper>
+                Invalid date
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section left-align"
               key="activities-2851870"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "70px",
@@ -4944,12 +4972,15 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                   "width": "70px",
                 }
               }
-            />
+            >
+              <TableCellContentWrapper />
+            </td>
             <td
               className="data-table-row-section actions-section"
               key="2851870"
             >
               <button
+                aria-label="Actions"
                 className="quill-button actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
@@ -4978,6 +5009,8 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             <td
               className="data-table-row-section undefined"
               key="name-2851866"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "220px",
@@ -4986,11 +5019,15 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              William Shakespeare
+              <TableCellContentWrapper>
+                William Shakespeare
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section undefined"
               key="usernameOrEmail-2851866"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "330px",
@@ -4999,11 +5036,15 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              william.shakespeare.285383@demo-teacher
+              <TableCellContentWrapper>
+                william.shakespeare.285383@demo-teacher
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section undefined"
               key="logInMethod-2851866"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "110px",
@@ -5012,11 +5053,15 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              Username
+              <TableCellContentWrapper>
+                Username
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section show-overflow"
               key="lastActive-2851866"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "110px",
@@ -5024,10 +5069,14 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                   "width": "110px",
                 }
               }
-            />
+            >
+              <TableCellContentWrapper />
+            </td>
             <td
               className="data-table-row-section left-align"
               key="activities-2851866"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "70px",
@@ -5035,12 +5084,15 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                   "width": "70px",
                 }
               }
-            />
+            >
+              <TableCellContentWrapper />
+            </td>
             <td
               className="data-table-row-section actions-section"
               key="2851866"
             >
               <button
+                aria-label="Actions"
                 className="quill-button actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"

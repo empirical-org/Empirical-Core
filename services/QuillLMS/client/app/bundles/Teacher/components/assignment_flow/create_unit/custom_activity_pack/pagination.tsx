@@ -42,7 +42,7 @@ const Pagination = ({ activities, currentPage, setCurrentPage, }: PaginationProp
   const pageButtons = []
   let lastWasEllipses = false
   for (let i = 1; i <= numberOfPages; i++) {
-    const pageButton = <PageButton buttonNumber={i} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+    const pageButton = <PageButton buttonNumber={i} currentPage={currentPage} key={i} setCurrentPage={setCurrentPage} />
     const showAllPages = numberOfPages < SHOW_ALL_PAGES_MAX
     const firstOrLastPage = [1, numberOfPages].includes(i)
     const currentPageIsOneOfTheFirstFivePages = ON_MOBILE ? false : currentPage < 5 && i < 6
@@ -52,7 +52,7 @@ const Pagination = ({ activities, currentPage, setCurrentPage, }: PaginationProp
       pageButtons.push(pageButton)
       lastWasEllipses = false
     } else if (!lastWasEllipses) {
-      pageButtons.push(<div className="pagination-button ellipses-button">...</div>)
+      pageButtons.push(<div className="pagination-button ellipses-button" key={i}>...</div>)
       lastWasEllipses = true
     }
   }

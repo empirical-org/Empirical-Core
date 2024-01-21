@@ -6,21 +6,25 @@ module Snapshots
 
     PUSHER_EVENT = 'data-export-cached'
 
-    QUERIES = {
-      'data-export' => Snapshots::DataExportQuery
-    }
+    QUERIES = ::Snapshots::PREMIUM_REPORTS_QUERY_MAPPING
 
-    def perform(cache_key, query, user_id, timeframe, school_ids, filters)
-      payload = generate_payload(query, timeframe, school_ids, filters)
+    def perform(cache_key, query, user_id, timeframe, school_ids, filters, previous_timeframe)
+      user = User.find(user_id)
+      payload = generate_payload(query, timeframe, school_ids, user, filters)
       Rails.cache.write(cache_key, payload.to_a, expires_in: cache_expiry)
 
-      PusherTrigger.run(user_id, PUSHER_EVENT,
-        {
-          query: query,
-          timeframe: timeframe['name'],
-          school_ids: school_ids
-        }.merge(filters)
-      )
+      filter_hash = PayloadHasher.run([
+        query,
+        timeframe['name'],
+        timeframe['custom_start'],
+        timeframe['custom_end'],
+        school_ids,
+        filters['grades'],
+        filters['teacher_ids'],
+        filters['classroom_ids']
+      ].flatten)
+
+      SendPusherMessageWorker.perform_async(user_id, PUSHER_EVENT, filter_hash)
     end
 
     private def cache_expiry
@@ -31,13 +35,14 @@ module Snapshots
       now.end_of_day.to_i - now.to_i
     end
 
-    private def generate_payload(query, timeframe, school_ids, filters)
+    private def generate_payload(query, timeframe, school_ids, user, filters)
       filters_symbolized = filters.symbolize_keys
 
       QUERIES[query].run(**{
-        timeframe_start: DateTime.parse(timeframe['current_start']),
-        timeframe_end: DateTime.parse(timeframe['current_end']),
-        school_ids: school_ids
+        timeframe_start: DateTime.parse(timeframe['timeframe_start']),
+        timeframe_end: DateTime.parse(timeframe['timeframe_end']),
+        school_ids: school_ids,
+        user:
       }.merge(filters_symbolized))
     end
   end

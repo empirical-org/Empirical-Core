@@ -420,7 +420,7 @@ exports[`Results component should render when there are no results 1`] = `
                     >
                       <Tooltip
                         isTabbable={true}
-                        tooltipText="<p>Compound-Complex Sentences<br/><br/>Students who show proficiency in this skill will correctly use and place both a coordinating and subordinating conjunction. Students will choose conjunctions that demonstrate a correct logical relationship between ideas, with ideas in the correct order. Both the subordinating and coordinating conjunctions must be correctly punctuated based on their placement.</p>"
+                        tooltipText="<p>Compound-Complex Sentences<br/><br/>Students who show proficiency in this skill will correctly use and place both a coordinating and subordinating conjunction. Students will choose conjunctions that demonstrate a correct logical relationship between ideas, with ideas in the correct order. Both the subordinating and coordinating conjunctions must be correctly punctuated based on their placement.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                         tooltipTriggerText={
                           <img
                             alt="Question mark icon"
@@ -481,7 +481,7 @@ exports[`Results component should render when there are no results 1`] = `
                     >
                       <Tooltip
                         isTabbable={true}
-                        tooltipText="<p>Appositive Phrases<br/><br/>Students who show proficiency in this skill will choose the correct phrase to add description to a noun. Students will place the appositive phrase correctly, in the middle of the sentence, and punctuate it correctly by adding commas before and after the appositive phrase.</p>"
+                        tooltipText="<p>Appositive Phrases<br/><br/>Students who show proficiency in this skill will choose the correct phrase to add description to a noun. Students will place the appositive phrase correctly, in the middle of the sentence, and punctuate it correctly by adding commas before and after the appositive phrase.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                         tooltipTriggerText={
                           <img
                             alt="Question mark icon"
@@ -542,7 +542,7 @@ exports[`Results component should render when there are no results 1`] = `
                     >
                       <Tooltip
                         isTabbable={true}
-                        tooltipText="<p>Relative Clauses<br/><br/>Students who show proficiency in this skill will choose the correct relative pronoun to add description to a noun. Students will place the relative clause correctly so that it adds necessary description to the noun it is describing. They will also punctuate it correctly.</p>"
+                        tooltipText="<p>Relative Clauses<br/><br/>Students who show proficiency in this skill will choose the correct relative pronoun to add description to a noun. Students will place the relative clause correctly so that it adds necessary description to the noun it is describing. They will also punctuate it correctly.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                         tooltipTriggerText={
                           <img
                             alt="Question mark icon"
@@ -603,7 +603,7 @@ exports[`Results component should render when there are no results 1`] = `
                     >
                       <Tooltip
                         isTabbable={true}
-                        tooltipText="<p>Participal Phrases<br/><br/>Students who show proficiency in this skill will form a participial phrase from a kernel sentence and add it as description to a noun. Students will place it in the correct place—either at the beginning, middle, or end of the sentence—and punctuate it correctly based on its placement.</p>"
+                        tooltipText="<p>Participal Phrases<br/><br/>Students who show proficiency in this skill will form a participial phrase from a kernel sentence and add it as description to a noun. Students will place it in the correct place—either at the beginning, middle, or end of the sentence—and punctuate it correctly based on its placement.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                         tooltipTriggerText={
                           <img
                             alt="Question mark icon"
@@ -664,7 +664,7 @@ exports[`Results component should render when there are no results 1`] = `
                     >
                       <Tooltip
                         isTabbable={true}
-                        tooltipText="<p>Parallel Structure<br/><br/>Students who show proficiency in this skill will write a sentence in which all of the verbs are in the same form. Students can use words like and or also as long as all of the verbs in the sentence are in the same form.</p>"
+                        tooltipText="<p>Parallel Structure<br/><br/>Students who show proficiency in this skill will write a sentence in which all of the verbs are in the same form. Students can use words like and or also as long as all of the verbs in the sentence are in the same form.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                         tooltipTriggerText={
                           <img
                             alt="Question mark icon"
@@ -725,7 +725,7 @@ exports[`Results component should render when there are no results 1`] = `
                     >
                       <Tooltip
                         isTabbable={true}
-                        tooltipText="<p>Advanced Combining<br/><br/>There are many ways for students to show proficiency in this skill. Depending on the prompt, students can form a compound, complex, or compound-complex sentence. When appropriate, they can use semicolons, relative clauses, appositives phrases, conjunctive adverbs, participial phrases, prepositional phrases, and compound predicates. Correct punctuation is required for all of these structures.</p>"
+                        tooltipText="<p>Advanced Combining<br/><br/>There are many ways for students to show proficiency in this skill. Depending on the prompt, students can form a compound, complex, or compound-complex sentence. When appropriate, they can use semicolons, relative clauses, appositives phrases, conjunctive adverbs, participial phrases, prepositional phrases, and compound predicates. Correct punctuation is required for all of these structures.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                         tooltipTriggerText={
                           <img
                             alt="Question mark icon"
@@ -8389,7 +8389,7 @@ exports[`Results component should render when there are results 1`] = `
                     >
                       <Tooltip
                         isTabbable={true}
-                        tooltipText="<p>Capitalization<br/><br/>Students who show proficiency in this skill will use capitalization at the beginning of a sentence and correct capitalization of names, dates, holidays, geographic locations, and the pronoun \\"I.\\"</p>"
+                        tooltipText="<p>Capitalization<br/><br/>Students who show proficiency in this skill will use capitalization at the beginning of a sentence and correct capitalization of names, dates, holidays, geographic locations, and the pronoun \\"I.\\"<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                         tooltipTriggerText={
                           <img
                             alt="Question mark icon"
@@ -8460,7 +8460,7 @@ exports[`Results component should render when there are results 1`] = `
                     >
                       <Tooltip
                         isTabbable={true}
-                        tooltipText="<p>Plural and Possessive Nouns<br/><br/>Students who show proficiency in this skill will make the correct choice between a plural and possessive noun. For possessive nouns, we require correct apostrophe placement.</p>"
+                        tooltipText="<p>Plural and Possessive Nouns<br/><br/>Students who show proficiency in this skill will make the correct choice between a plural and possessive noun. For possessive nouns, we require correct apostrophe placement.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                         tooltipTriggerText={
                           <img
                             alt="Question mark icon"
@@ -8531,7 +8531,7 @@ exports[`Results component should render when there are results 1`] = `
                     >
                       <Tooltip
                         isTabbable={true}
-                        tooltipText="<p>Adjectives and Adverbs<br/><br/>Students who show proficiency in this skill will correctly place single adjectives, adverbs, cumulative adjectives, coordinate adjectives, and adjectives and adverbs together. Students will also make the correct choice between a comparative and superlative adjective and correctly order cumulative adjectives. Students will correctly punctuate by placing a comma between two coordinate adjectives.</p>"
+                        tooltipText="<p>Adjectives and Adverbs<br/><br/>Students who show proficiency in this skill will correctly place single adjectives, adverbs, cumulative adjectives, coordinate adjectives, and adjectives and adverbs together. Students will also make the correct choice between a comparative and superlative adjective and correctly order cumulative adjectives. Students will correctly punctuate by placing a comma between two coordinate adjectives.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                         tooltipTriggerText={
                           <img
                             alt="Question mark icon"
@@ -8602,7 +8602,7 @@ exports[`Results component should render when there are results 1`] = `
                     >
                       <Tooltip
                         isTabbable={true}
-                        tooltipText="<p>Prepositional Phrases<br/><br/>Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.</p>"
+                        tooltipText="<p>Prepositional Phrases<br/><br/>Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                         tooltipTriggerText={
                           <img
                             alt="Question mark icon"
@@ -8673,7 +8673,7 @@ exports[`Results component should render when there are results 1`] = `
                     >
                       <Tooltip
                         isTabbable={true}
-                        tooltipText="<p>Compound Subjects, Objects, and Predicates<br/><br/>Students who show proficiency in this skill will correctly form compound subjects and objects, agree the subject to the verb with a compound subject, and use correct punctuation when listing objects.</p>"
+                        tooltipText="<p>Compound Subjects, Objects, and Predicates<br/><br/>Students who show proficiency in this skill will correctly form compound subjects and objects, agree the subject to the verb with a compound subject, and use correct punctuation when listing objects.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                         tooltipTriggerText={
                           <img
                             alt="Question mark icon"
@@ -8744,7 +8744,7 @@ exports[`Results component should render when there are results 1`] = `
                     >
                       <Tooltip
                         isTabbable={true}
-                        tooltipText="<p>Commonly Confused Words<br/><br/>Students who show proficiency in this skill will make the correct choice between the commonly confused words <i>your</i> and <i>you're</i>, and <i>their</i>, <i>they're</i>, and <i>there</i>.</p>"
+                        tooltipText="<p>Commonly Confused Words<br/><br/>Students who show proficiency in this skill will make the correct choice between the commonly confused words <i>your</i> and <i>you're</i>, and <i>their</i>, <i>they're</i>, and <i>there</i>.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                         tooltipTriggerText={
                           <img
                             alt="Question mark icon"

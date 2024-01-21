@@ -11,9 +11,7 @@ global.scrollTo = jest.fn()
 
 const mockParse = () => ({ uid: activityOne.activity_id })
 jest.mock('query-string', () => ({
-  default: {
-    parse: mockParse
-  }
+  parse: mockParse
 }))
 
 const mockTrackAnalyticsEvent = jest.fn()
@@ -28,6 +26,18 @@ jest.mock('../../../actions/activities', () => ({
   getTopicOptimalInfo: mockGetTopicOptimalInfo
 }))
 
+const mockResponse = jest.fn();
+Object.defineProperty(window, 'location', {
+  value: {
+    hash: {
+      endsWith: mockResponse,
+      includes: mockResponse,
+    },
+    href: '',
+    assign: mockResponse,
+  },
+  writable: true,
+});
 
 import { StudentViewContainer } from '../../../components/studentView/container';
 

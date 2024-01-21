@@ -16,8 +16,6 @@ describe Admin::TeacherSerializer do
         last_sign_in
         schools
         number_of_students
-        number_of_activities_completed
-        time_spent
         has_valid_subscription
         admin_info
       }
@@ -51,8 +49,6 @@ describe Admin::TeacherSerializer do
     it 'returns the expected payload' do
       expect(subject.schools.count).to eq(2)
       expect(subject.number_of_students).to eq(classroom.students.count)
-      expect(subject.number_of_activities_completed).to eq(3)
-      expect(subject.time_spent).to eq("0 hours")
     end
 
     describe 'role value' do

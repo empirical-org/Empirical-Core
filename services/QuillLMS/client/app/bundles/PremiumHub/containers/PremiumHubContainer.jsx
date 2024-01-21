@@ -1,13 +1,14 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import PremiumHub from './PremiumHub';
+import Overview from './Overview'
 import DistrictActivityScoresProgressReport from './DistrictActivityScores';
 import DistrictConceptReportsProgressReport from './DistrictConceptReports';
 import DistrictStandardsReportsProgressReport from './DistrictStandardsReports';
-import SchoolSubscriptionsContainer from './SchoolSubscriptionsContainer';
 import IntegrationsContainer from './IntegrationsContainer';
 import PremiumFilterableReportsContainer from './PremiumFilterableReportsContainer';
+import AccountManagement from './AccountManagement';
+import SchoolSubscriptionsContainer from './SchoolSubscriptionsContainer'
 
 import { requestGet, } from '../../../modules/request/index';
 import { NOT_LISTED, NO_SCHOOL_SELECTED, Spinner } from '../../Shared/index';
@@ -29,7 +30,20 @@ const Banner = ({ bodyText, headerText, buttons, }) => (
   </section>
 )
 
-const PremiumHubContainer = ({ id, location, children, }) => {
+const ScrollToTop = ({ history, children, }) => {
+  React.useEffect(() => {
+    const unlisten = history.listen(() => {
+      window.scrollTo(0, 0);
+    });
+    return () => {
+      unlisten();
+    }
+  }, []);
+
+  return children
+}
+
+const PremiumHubContainer = ({ id, history, location, children, user, }) => {
   const [adminInfo, setAdminInfo] = React.useState({})
   const [loading, setLoading] = React.useState(true)
 
@@ -62,7 +76,8 @@ const PremiumHubContainer = ({ id, location, children, }) => {
 
     if (accessType() === FULL || accessType() === LOADING) { return <span /> }
 
-    if (accessType() === LIMITED) {
+    // this checks that the last part of the path (after the final '/') matches the overview page (which is just /teachers/premium_hub) or the integrations page
+    if (accessType() === LIMITED && !['integrations', 'premium_hub'].some((path) => location.pathname.split('/').pop() === path)) {
       return (
         <Banner
           bodyText="Subscribe to School or District Premium to unlock all Premium Hub features. Manage teacher accounts, access teacher reports, and view school-wide student data."
@@ -124,29 +139,34 @@ const PremiumHubContainer = ({ id, location, children, }) => {
 
   const sharedProps = {
     adminInfo,
-    accessType: accessType()
+    accessType: accessType(),
+    user
   }
 
   return (
     <div className="tab-content">
-      <div className="tab-pane active" id="class-manager">
-        <SubnavTabs path={location} />
-        <div id="premium-hub">
-          {children}
-          {renderBanner()}
-          <Switch>
-            <Route component={routerProps => <ActivityScoresStudentOverview {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_activity_scores/student_overview" />
-            <Route component={routerProps => <DistrictActivityScoresProgressReport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_activity_scores" />
-            <Route component={routerProps => <DistrictConceptReportsProgressReport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_concept_reports" />
-            <Route component={routerProps => <DistrictStandardsReportsProgressReport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_standards_reports" />
-            <Route component={routerProps => <SchoolSubscriptionsContainer {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/school_subscriptions" />
-            <Route component={routerProps => <IntegrationsContainer {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/integrations" />
-            <Route component={routerProps => <PremiumFilterableReportsContainer adminId={id} {...sharedProps} {...routerProps} />} exact path="/teachers/premium_hub/usage_snapshot_report" />
-            <Route component={routerProps => <PremiumFilterableReportsContainer adminId={id} {...sharedProps} {...routerProps} />} exact path="/teachers/premium_hub/data_export" />
-            <Route component={routerProps => <PremiumHub adminId={id} {...sharedProps} {...routerProps} />} exact path="/teachers/premium_hub/" />
-          </Switch>
+      <ScrollToTop history={history}>
+        <div className="tab-pane active" id="class-manager">
+          <SubnavTabs path={location} />
+          <div id="premium-hub">
+            {children}
+            {renderBanner()}
+            <Switch>
+              <Route component={routerProps => <ActivityScoresStudentOverview {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_activity_scores/student_overview" />
+              <Route component={routerProps => <DistrictActivityScoresProgressReport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_activity_scores" />
+              <Route component={routerProps => <DistrictConceptReportsProgressReport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_concept_reports" />
+              <Route component={routerProps => <DistrictStandardsReportsProgressReport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_standards_reports" />
+              <Route component={routerProps => <SchoolSubscriptionsContainer {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/school_subscriptions" />
+              <Route component={routerProps => <IntegrationsContainer {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/integrations" />
+              <Route component={routerProps => <PremiumFilterableReportsContainer adminId={id} {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/diagnostic_growth_report" />
+              <Route component={routerProps => <PremiumFilterableReportsContainer adminId={id} {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/usage_snapshot_report" />
+              <Route component={routerProps => <PremiumFilterableReportsContainer adminId={id} {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/data_export" />
+              <Route component={routerProps => <AccountManagement adminId={id} {...sharedProps} {...routerProps} />} exact path="/teachers/premium_hub/account_management" />
+              <Route component={routerProps => <Overview adminId={id} {...sharedProps} {...routerProps} />} exact path="/teachers/premium_hub" />
+            </Switch>
+          </div>
         </div>
-      </div>
+      </ScrollToTop>
     </div>
   );
 

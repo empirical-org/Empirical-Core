@@ -1,29 +1,39 @@
-import * as React from 'react'
-import queryString from 'query-string';
-import * as _ from 'lodash'
-import * as Pusher from 'pusher-js';
+import * as _ from 'lodash';
+import moment from 'moment';
+import Pusher from 'pusher-js';
+import * as React from 'react';
+import { useLocation } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom-v5-compat";
 
 import DataExportContainer from './DataExportContainer';
 import UsageSnapshotsContainer from './UsageSnapshotsContainer';
+import DiagnosticGrowthReportsContainer from './diagnosticGrowthReports';
 
+import { requestPost, } from '../../../modules/request';
+import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual';
+import { Spinner } from '../../Shared/index';
+import CustomDateModal from '../components/usage_snapshots/customDateModal';
+import Filters from '../components/usage_snapshots/filters';
+import { CUSTOM } from '../components/usage_snapshots/shared';
 import { FULL, restrictedPage, } from '../shared';
-import CustomDateModal from '../components/usage_snapshots/customDateModal'
-import Filters from '../components/usage_snapshots/filters'
-import { CUSTOM } from '../components/usage_snapshots/shared'
-import { Spinner } from '../../Shared/index'
-import { requestPost, } from '../../../modules/request'
-import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
 
 const MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS = 1500
 
-export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, location }) => {
+const sidebarImgSrcStem = `${process.env.CDN_URL}/images/pages/administrator/sidebar`
+const openGreenSidebarIcon = `${sidebarImgSrcStem}/open_sidebar_green.svg`
+const openGraySidebarIcon = `${sidebarImgSrcStem}/open_sidebar_gray.svg`
+const closedGreenSidebarIcon = `${sidebarImgSrcStem}/closed_sidebar_green.svg`
+const closedGraySidebarIcon = `${sidebarImgSrcStem}/closed_sidebar_gray.svg`
+
+export const PremiumFilterableReportsContainer = ({ accessType, adminInfo }) => {
+  const [loadingSavedFilterSelections, setLoadingSavedFilterSelections] = React.useState(true)
   const [loadingFilters, setLoadingFilters] = React.useState(true)
 
-  const [allTimeframes, setAllTimeframes] = React.useState(null)
-  const [allSchools, setAllSchools] = React.useState(null)
-  const [allGrades, setAllGrades] = React.useState(null)
-  const [allTeachers, setAllTeachers] = React.useState(null)
-  const [allClassrooms, setAllClassrooms] = React.useState(null)
+  const [availableTimeframes, setAvailableTimeframes] = React.useState(null)
+  const [availableSchools, setAvailableSchools] = React.useState(null)
+  const [availableGrades, setAvailableGrades] = React.useState(null)
+  const [availableTeachers, setAvailableTeachers] = React.useState(null)
+  const [availableClassrooms, setAvailableClassrooms] = React.useState(null)
 
   const [originalAllSchools, setOriginalAllSchools] = React.useState(null)
   const [originalAllTeachers, setOriginalAllTeachers] = React.useState(null)
@@ -55,13 +65,29 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
 
   const [pusherChannel, setPusherChannel] = React.useState(null)
 
+  const [showFilters, setShowFilters] = React.useState(true)
+
+  const location = useLocation();
+
   React.useEffect(() => {
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channel = pusher.subscribe(String(adminInfo.id));
     setPusherChannel(channel)
 
-    getFilters()
+    getFilterSelections()
   }, [])
+
+  React.useEffect(() => {
+    if (!loadingSavedFilterSelections) {
+      getFilters()
+    }
+  }, [loadingSavedFilterSelections])
+
+  React.useEffect(() => {
+    if (loadingSavedFilterSelections) { return }
+
+    saveFilterSelections()
+  }, [searchCount])
 
   React.useEffect(() => {
     if (loadingFilters) { return }
@@ -74,10 +100,10 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
 
     const newValueForHasAdjustedFiltersFromDefault = (
       !unorderedArraysAreEqual(selectedSchools, originalAllSchools)
-      || !unorderedArraysAreEqual(selectedGrades, allGrades)
+      || !unorderedArraysAreEqual(selectedGrades, availableGrades)
       || !unorderedArraysAreEqual(selectedTeachers, originalAllTeachers)
       || !unorderedArraysAreEqual(selectedClassrooms, originalAllClassrooms)
-      || !_.isEqual(selectedTimeframe, defaultTimeframe(allTimeframes))
+      || !_.isEqual(selectedTimeframe, defaultTimeframe(availableTimeframes))
     )
 
     setHasAdjustedFiltersFromDefault(newValueForHasAdjustedFiltersFromDefault)
@@ -95,7 +121,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
 
     setHasAdjustedFiltersSinceLastSubmission(newValueForHasAdjustedFiltersSinceLastSubmission)
 
-  }, [selectedSchools, selectedGrades, selectedTeachers, selectedClassrooms, selectedTimeframe])
+  }, [selectedSchools, selectedGrades, selectedTeachers, selectedClassrooms, selectedTimeframe, loadingFilters])
 
   React.useEffect(() => {
     if (showCustomDateModal || (customStartDate && customEndDate) || !lastUsedTimeframe) { return }
@@ -106,6 +132,8 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
   function openMobileFilterMenu() { setShowMobileFilterMenu(true) }
 
   function closeMobileFilterMenu() { setShowMobileFilterMenu(false) }
+
+  function toggleFilterMenu() { setShowFilters(!showFilters) }
 
   function handleSetSelectedTimeframe(timeframe) {
     setLastUsedTimeframe(selectedTimeframe)
@@ -123,52 +151,104 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
     return timeframes?.find(timeframe => timeframe.default) || null
   }
 
+  function reportPath() {
+    return location.pathname.slice(location.pathname.lastIndexOf("/") + 1, location.pathname.length)
+  }
+
+  function setSelectedAndLastSubmitted(grades, schools, teachers, classrooms, timeframe, startDate, endDate) {
+    setSelectedGrades(grades)
+    setSelectedSchools(schools)
+    setSelectedTeachers(teachers)
+    setSelectedClassrooms(classrooms)
+    setSelectedTimeframe(timeframe)
+    setCustomStartDate(startDate)
+    setCustomEndDate(endDate)
+
+    setLastSubmittedGrades(grades)
+    setLastSubmittedSchools(schools)
+    setLastSubmittedTeachers(teachers)
+    setLastSubmittedClassrooms(classrooms)
+    setLastSubmittedTimeframe(timeframe)
+    setLastSubmittedCustomStartDate(startDate)
+    setLastSubmittedCustomEndDate(endDate)
+  }
+
+  function getFilterSelections() {
+    requestPost('/admin_report_filter_selections/show', { report: reportPath() }, (selections) => {
+      if (selections) {
+        const { grades, schools, teachers, classrooms, timeframe, custom_start_date, custom_end_date, } = selections.filter_selections
+        const startDate = custom_start_date ? moment(custom_start_date) : null
+        const endDate = custom_end_date ? moment(custom_end_date) : null
+        setSelectedAndLastSubmitted(grades, schools, teachers, classrooms, timeframe, startDate, endDate)
+      }
+      setLoadingSavedFilterSelections(false)
+    })
+  }
+
+  function saveFilterSelections() {
+    const filterSelections = {
+      timeframe: selectedTimeframe,
+      schools: unorderedArraysAreEqual(selectedSchools, originalAllSchools) ? null : selectedSchools,
+      teachers: unorderedArraysAreEqual(selectedTeachers, originalAllTeachers) ? null : selectedTeachers,
+      classrooms: unorderedArraysAreEqual(selectedClassrooms, originalAllClassrooms) ? null : selectedClassrooms,
+      grades: selectedGrades,
+      custom_start_date: customStartDate,
+      custom_end_date: customEndDate
+    }
+
+    const params = {
+      admin_report_filter_selection: {
+        filter_selections: filterSelections,
+        report: reportPath(),
+      }
+    }
+
+    requestPost('/admin_report_filter_selections/create_or_update', params, () => {})
+  }
+
   function getFilters() {
-    const searchParams = {
+    const params = {
       timeframe: selectedTimeframe,
       school_ids: selectedSchools?.map(s => s.id) || null,
       teacher_ids: selectedTeachers?.map(t => t.id) || null,
       classroom_ids: selectedClassrooms?.map(c => c.id) || null,
-      grades: selectedGrades?.map(g => g.value)
+      grades: selectedGrades?.map(g => g.value),
+      report: location.pathname.slice(location.pathname.lastIndexOf("/") , location.pathname.length),
+      is_initial_load: loadingFilters
     }
 
-    const requestUrl = queryString.stringifyUrl({ url: '/snapshots/options', query: searchParams }, { arrayFormat: 'comma' })
-
-    requestPost('/snapshots/options', searchParams, (filterData) => {
+    requestPost('/snapshots/options', params, (filterData) => {
       const timeframeOptions = filterData.timeframes.map(tf => ({ ...tf, label: tf.name }))
       const gradeOptions = filterData.grades.map(grade => ({ ...grade, label: grade.name }))
       const schoolOptions = filterData.schools.map(school => ({ ...school, label: school.name, value: school.id }))
-
       const teacherOptions = filterData.teachers.map(teacher => ({ ...teacher, label: teacher.name, value: teacher.id }))
-
       const classroomOptions = filterData.classrooms.map(classroom => ({ ...classroom, label: classroom.name, value: classroom.id }))
+      const allTeacherOptions = filterData.all_teachers?.map(teacher => ({ ...teacher, label: teacher.name, value: teacher.id }))
+      const allClassroomOptions = filterData.all_classrooms?.map(classroom => ({ ...classroom, label: classroom.name, value: classroom.id }))
+      const allSchoolOptions = filterData.all_schools?.map(school => ({ ...school, label: school.name, value: school.id }))
 
       const timeframe = defaultTimeframe(timeframeOptions)
 
-      if (allGrades?.length !== gradeOptions.length) { setAllGrades(gradeOptions) }
-      if (allTimeframes?.length !== timeframeOptions.length) { setAllTimeframes(timeframeOptions) }
-      if (allSchools?.length !== schoolOptions.length) { setAllSchools(schoolOptions) }
-      if (allTeachers?.length !== teacherOptions.length) { setAllTeachers(teacherOptions) }
-      if (allClassrooms?.length !== classroomOptions.length) { setAllClassrooms(classroomOptions) }
+      if (availableGrades?.length !== gradeOptions.length) { setAvailableGrades(gradeOptions) }
+      if (availableTimeframes?.length !== timeframeOptions.length) { setAvailableTimeframes(timeframeOptions) }
+      if (availableSchools?.length !== schoolOptions.length) { setAvailableSchools(schoolOptions) }
+      if (availableTeachers?.length !== teacherOptions.length) { setAvailableTeachers(teacherOptions) }
+      if (availableClassrooms?.length !== classroomOptions.length) { setAvailableClassrooms(classroomOptions) }
 
       if (loadingFilters) {
-        setSelectedGrades(gradeOptions)
-        setSelectedSchools(schoolOptions)
-        setSelectedTeachers(teacherOptions)
-        setSelectedClassrooms(classroomOptions)
-        setSelectedTimeframe(timeframe)
+        setSelectedAndLastSubmitted(
+          selectedGrades || gradeOptions,
+          selectedSchools || schoolOptions,
+          selectedTeachers || teacherOptions,
+          selectedClassrooms || classroomOptions,
+          selectedTimeframe || timeframe,
+          customStartDate || null,
+          customEndDate || null
+        );
 
-        setLastSubmittedGrades(gradeOptions)
-        setLastSubmittedSchools(schoolOptions)
-        setLastSubmittedTeachers(teacherOptions)
-        setLastSubmittedClassrooms(classroomOptions)
-        setLastSubmittedTimeframe(timeframe)
-
-        setLastUsedTimeframe(timeframe)
-
-        setOriginalAllClassrooms(classroomOptions)
-        setOriginalAllSchools(schoolOptions)
-        setOriginalAllTeachers(teacherOptions)
+        setOriginalAllSchools(allSchoolOptions)
+        setOriginalAllClassrooms(allClassroomOptions)
+        setOriginalAllTeachers(allTeacherOptions)
 
         setLoadingFilters(false)
       }
@@ -176,21 +256,21 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
   }
 
   function clearFilters() {
-    setSelectedGrades(allGrades)
+    setSelectedGrades(availableGrades)
     setSelectedSchools(originalAllSchools)
     setSelectedTeachers(originalAllTeachers)
     setSelectedClassrooms(originalAllClassrooms)
-    setSelectedTimeframe(defaultTimeframe(allTimeframes))
+    setSelectedTimeframe(defaultTimeframe(availableTimeframes))
     setCustomStartDate(null)
     setCustomEndDate(null)
 
     // what follows is basically duplicating the logic in applyFilters, but avoids a race condition where the "lastSubmitted" values get set before the new selected values are set
     setSearchCount(searchCount + 1)
-    setLastSubmittedGrades(allGrades)
+    setLastSubmittedGrades(availableGrades)
     setLastSubmittedSchools(originalAllSchools)
     setLastSubmittedTeachers(originalAllTeachers)
     setLastSubmittedClassrooms(originalAllClassrooms)
-    setLastSubmittedTimeframe(defaultTimeframe(allTimeframes))
+    setLastSubmittedTimeframe(defaultTimeframe(availableTimeframes))
     setLastSubmittedCustomStartDate(null)
     setLastSubmittedCustomEndDate(null)
     setHasAdjustedFiltersSinceLastSubmission(false)
@@ -219,18 +299,41 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
 
   function handleClickDownloadReport() { window.print() }
 
+  function renderShowFilterMenuButton() {
+    const ariaLabel = showFilters ? 'Close filter menu' : 'Open filter menu'
+
+    let imgSrc
+
+    if (showFilters) {
+      imgSrc = hasAdjustedFiltersFromDefault ? openGreenSidebarIcon : openGraySidebarIcon
+    } else {
+      imgSrc = hasAdjustedFiltersFromDefault ? closedGreenSidebarIcon : closedGraySidebarIcon
+    }
+
+    return (
+      <button
+        aria-label={ariaLabel}
+        className={`interactive-wrapper focus-on-light show-filter-menu-button ${hasAdjustedFiltersFromDefault ? 'filters-adjusted' : ''}`}
+        onClick={toggleFilterMenu}
+        type="button"
+      >
+        <img alt="" src={imgSrc} />
+      </button>
+    )
+  }
+
   if (loadingFilters) {
     return <Spinner />
   }
 
-  const allClassroomsToPass = allClassrooms.length > MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS ? [] : allClassrooms
+  const availableClassroomsToPass = availableClassrooms.length > MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS ? [] : availableClassrooms
 
   const filterProps = {
-    allTimeframes,
-    allSchools,
-    allGrades,
-    allTeachers,
-    allClassrooms: allClassroomsToPass,
+    availableTimeframes,
+    availableSchools,
+    availableGrades,
+    availableTeachers,
+    availableClassrooms: availableClassroomsToPass,
     applyFilters,
     clearFilters,
     selectedGrades,
@@ -249,6 +352,8 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
     hasAdjustedFiltersSinceLastSubmission,
     customStartDate,
     customEndDate,
+    showFilterMenuButton: renderShowFilterMenuButton(),
+    reportType: reportPath()
   }
 
   const sharedProps = {
@@ -259,39 +364,54 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, locat
     pusherChannel,
     searchCount,
     selectedClassrooms,
-    allClassrooms: allClassroomsToPass,
+    availableClassrooms: availableClassroomsToPass,
     selectedGrades,
-    allGrades,
+    availableGrades,
     selectedSchools,
     selectedTeachers,
-    allTeachers,
+    availableTeachers,
     selectedTimeframe,
     handleClickDownloadReport,
-    openMobileFilterMenu
+    openMobileFilterMenu,
+    hasAdjustedFiltersFromDefault,
+    passedData: null
   }
-
-  const shouldRenderDataExportContainer = location && location.pathname === '/teachers/premium_hub/data_export'
-  const shouldRenderUsageSnapshotsContainer = location && location.pathname === '/teachers/premium_hub/usage_snapshot_report'
 
   if (accessType !== FULL) {
     return restrictedPage
   }
 
+  let filterMenu
+
+  if (showFilters) {
+    filterMenu = (
+      <React.Fragment>
+        {showCustomDateModal && (
+          <CustomDateModal
+            close={closeCustomDateModal}
+            passedEndDate={customEndDate}
+            passedStartDate={customStartDate}
+            setCustomDates={setCustomDates}
+          />
+        )}
+        <Filters
+          {...filterProps}
+        />
+      </React.Fragment>
+    )
+  }
+
   return (
     <div className="filterable-reports-container white-background">
-      {showCustomDateModal && (
-        <CustomDateModal
-          close={closeCustomDateModal}
-          passedEndDate={customEndDate}
-          passedStartDate={customStartDate}
-          setCustomDates={setCustomDates}
-        />
-      )}
-      <Filters
-        {...filterProps}
-      />
-      {shouldRenderDataExportContainer && <DataExportContainer {...sharedProps} />}
-      {shouldRenderUsageSnapshotsContainer && <UsageSnapshotsContainer {...sharedProps} />}
+      {filterMenu}
+      <div className={showFilters ? 'filter-menu-open' : 'filter-menu-closed'}>
+        {showFilters ? null : renderShowFilterMenuButton()}
+        <Routes>
+          <Route element={<DiagnosticGrowthReportsContainer {...sharedProps} />} path='/teachers/premium_hub/diagnostic_growth_report' />
+          <Route element={<DataExportContainer {...sharedProps} />} path='/teachers/premium_hub/data_export' />
+          <Route element={<UsageSnapshotsContainer {...sharedProps} />} path='/teachers/premium_hub/usage_snapshot_report' />
+        </Routes>
+      </div>
     </div>
   )
 }

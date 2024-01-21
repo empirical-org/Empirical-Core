@@ -276,7 +276,8 @@ CREATE TABLE public.activities (
     standard_id integer,
     raw_score_id integer,
     minimum_grade_level smallint,
-    maximum_grade_level smallint
+    maximum_grade_level smallint,
+    question_count smallint DEFAULT 0 NOT NULL
 );
 
 
@@ -759,6 +760,39 @@ CREATE SEQUENCE public.admin_infos_id_seq
 --
 
 ALTER SEQUENCE public.admin_infos_id_seq OWNED BY public.admin_infos.id;
+
+
+--
+-- Name: admin_report_filter_selections; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_report_filter_selections (
+    id bigint NOT NULL,
+    report character varying NOT NULL,
+    filter_selections jsonb NOT NULL,
+    user_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_report_filter_selections_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.admin_report_filter_selections_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: admin_report_filter_selections_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.admin_report_filter_selections_id_seq OWNED BY public.admin_report_filter_selections.id;
 
 
 --
@@ -3566,6 +3600,39 @@ ALTER SEQUENCE public.partner_contents_id_seq OWNED BY public.partner_contents.i
 
 
 --
+-- Name: pdf_subscriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.pdf_subscriptions (
+    id bigint NOT NULL,
+    frequency character varying NOT NULL,
+    admin_report_filter_selection_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    token character varying NOT NULL
+);
+
+
+--
+-- Name: pdf_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.pdf_subscriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pdf_subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.pdf_subscriptions_id_seq OWNED BY public.pdf_subscriptions.id;
+
+
+--
 -- Name: plans; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5471,6 +5538,13 @@ ALTER TABLE ONLY public.admin_infos ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
+-- Name: admin_report_filter_selections id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_report_filter_selections ALTER COLUMN id SET DEFAULT nextval('public.admin_report_filter_selections_id_seq'::regclass);
+
+
+--
 -- Name: announcements id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6024,6 +6098,13 @@ ALTER TABLE ONLY public.partner_contents ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
+-- Name: pdf_subscriptions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pdf_subscriptions ALTER COLUMN id SET DEFAULT nextval('public.pdf_subscriptions_id_seq'::regclass);
+
+
+--
 -- Name: plans id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6498,6 +6579,14 @@ ALTER TABLE ONLY public.admin_approval_requests
 
 ALTER TABLE ONLY public.admin_infos
     ADD CONSTRAINT admin_infos_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_report_filter_selections admin_report_filter_selections_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_report_filter_selections
+    ADD CONSTRAINT admin_report_filter_selections_pkey PRIMARY KEY (id);
 
 
 --
@@ -7141,6 +7230,14 @@ ALTER TABLE ONLY public.partner_contents
 
 
 --
+-- Name: pdf_subscriptions pdf_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pdf_subscriptions
+    ADD CONSTRAINT pdf_subscriptions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: plans plans_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7771,6 +7868,20 @@ CREATE INDEX index_admin_approval_requests_on_admin_info_id ON public.admin_appr
 --
 
 CREATE INDEX index_admin_infos_on_user_id ON public.admin_infos USING btree (user_id);
+
+
+--
+-- Name: index_admin_report_filter_selections_on_report; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_report_filter_selections_on_report ON public.admin_report_filter_selections USING btree (report);
+
+
+--
+-- Name: index_admin_report_filter_selections_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_report_filter_selections_on_user_id ON public.admin_report_filter_selections USING btree (user_id);
 
 
 --
@@ -8527,6 +8638,20 @@ CREATE INDEX index_partner_contents_on_content_type_and_content_id ON public.par
 --
 
 CREATE INDEX index_partner_contents_on_partner ON public.partner_contents USING btree (partner);
+
+
+--
+-- Name: index_pdf_subscriptions_on_admin_report_filter_selection_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pdf_subscriptions_on_admin_report_filter_selection_id ON public.pdf_subscriptions USING btree (admin_report_filter_selection_id);
+
+
+--
+-- Name: index_pdf_subscriptions_on_frequency; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pdf_subscriptions_on_frequency ON public.pdf_subscriptions USING btree (frequency);
 
 
 --
@@ -10497,6 +10622,12 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230801140455'),
 ('20230801140522'),
 ('20230912150456'),
-('20230929135017');
+('20230929135017'),
+('20231018141022'),
+('20231206143410'),
+('20231207135455'),
+('20231207151344'),
+('20231214182438'),
+('20240111143245');
 
 

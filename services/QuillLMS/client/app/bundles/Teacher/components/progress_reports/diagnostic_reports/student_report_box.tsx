@@ -1,12 +1,11 @@
 import * as React from 'react';
 import _ from 'underscore';
+import { diffWords, } from 'diff'
 
 import { formatString, formatStringAndAddSpacesAfterPeriods, } from './formatString';
 
 import NumberSuffix from '../../modules/numberSuffixBuilder.js';
 import ScoreColor from '../../modules/score_color.js';
-
-const Diff = require('diff');
 
 const reviseIcon = <img alt="" src={`${process.env.CDN_URL}/images/pages/activity_analysis/revise.svg`} />
 const checkmarkIcon = <img alt="" src={`${process.env.CDN_URL}/images/pages/activity_analysis/checkmark.svg`} />
@@ -38,10 +37,10 @@ const StudentReportBox = ({ questionData, boxNumber, showScore, showDiff, }) => 
     );
   }
 
-  function feedbackOrDirections(directionsOrFeedback, classNameAndText) {
+  function feedbackOrDirections(directionsOrFeedback, classNameAndText, key) {
     if (directionsOrFeedback) {
       return (
-        <tr className={classNameAndText}>
+        <tr className={classNameAndText} key={key || ''}>
           <td>{classNameAndText}</td>
           <td />
           <td>{formatString(directionsOrFeedback)}</td>
@@ -50,33 +49,45 @@ const StudentReportBox = ({ questionData, boxNumber, showScore, showDiff, }) => 
     }
   }
 
-  function conceptsByAttempt() {
+  function feedbackRow(attemptNum, conceptsByAttempt) {
     const maxAttemptsIncorrectFeedback = 'Nice effort! You worked hard to make your sentence stronger.'
+
+    let currAttempt = conceptsByAttempt[attemptNum]
+    let nextAttempt = conceptsByAttempt[attemptNum + 1]
+
+    let feedback = false
+
+    if (nextAttempt) {
+      let index = 0;
+      // iterate until we find a next attempt with directions
+      while (!feedback && nextAttempt[index]) {
+        // in some legacy data, we were not storing feedback in lastFeedback, but in directions.
+        // so the second clause accounts for legacy data without lastFeedback fields.
+        feedback = nextAttempt[index].lastFeedback || nextAttempt[index].directions
+        index += 1;
+      }
+    } else if (currAttempt[0].feedback) {
+      // this is the last attempt, so if it was incorrect then we return the default max attempts feedback
+      // that the student saw
+      feedback = currAttempt[0].correct ? currAttempt[0].feedback : maxAttemptsIncorrectFeedback
+    }
+    // sometimes feedback is coming through as a react variable, I've been unable to find the source of it
+    if (feedback && typeof feedback === 'string') {
+      feedback = feedbackOrDirections(feedback, 'Feedback', `${String(feedback)}-${attemptNum}`)
+    }
+
+    return feedback
+  }
+
+  function conceptsByAttempt() {
     const conceptsByAttempt = groupByAttempt();
     let attemptNum = 1;
     let results = [];
     while (conceptsByAttempt[attemptNum]) {
       let currAttempt = conceptsByAttempt[attemptNum]
-      let feedback = false
-      let nextAttempt = conceptsByAttempt[attemptNum + 1]
-      if (nextAttempt) {
-        let index = 0;
-        // iterate until we find a next attempt with directions
-        while (!feedback && nextAttempt[index]) {
-          // in some legacy data, we were not storing feedback in lastFeedback, but in directions.
-          // so the second clause accounts for legacy data without lastFeedback fields.
-          feedback = nextAttempt[index].lastFeedback || nextAttempt[index].directions
-          index += 1;
-        }
-      } else if (currAttempt[0].feedback) {
-        // this is the last attempt, so if it was incorrect then we return the default max attempts feedback
-        // that the student saw
-        feedback = currAttempt[0].correct ? currAttempt[0].feedback : maxAttemptsIncorrectFeedback
-      }
-      // sometimes feedback is coming through as a react variable, I've been unable to find the source of it
-      if (feedback && typeof feedback === 'string') {
-        feedback = feedbackOrDirections(feedback, 'Feedback')
-      }
+
+      const feedback = feedbackRow(attemptNum, conceptsByAttempt)
+
       let score = 0;
 
       const conceptElements = currAttempt.map((concept, i)=>{
@@ -84,13 +95,13 @@ const StudentReportBox = ({ questionData, boxNumber, showScore, showDiff, }) => 
         const conceptResult =  <ConceptResult concept={concept} key={concept.id + attemptNum} />
 
         if (i > 0) {
-          return [<div className="concept-result-separator" key={i} />, conceptResult]
+          return [<div className="concept-result-separator" key={`${attemptNum}-${i}`} />, conceptResult];
         }
 
         return conceptResult
       });
 
-      const concepts = <tr><td /><td /><td className="concept-results-cell">{conceptElements}</td></tr>
+      const concepts = <tr key={`${attemptNum}-concepts`}><td /><td /><td className="concept-results-cell">{conceptElements}</td></tr>
 
       let averageScore = (score/currAttempt.length * 100) || 0;
       const previousAttempt = attemptNum > 1 && conceptsByAttempt[attemptNum - 1][0].answer
@@ -118,10 +129,11 @@ const StudentReportBox = ({ questionData, boxNumber, showScore, showDiff, }) => 
   function scoreRow(answer, attemptNum, previousAnswer) {
     let answerString = answer
     if (previousAnswer && showDiff) {
-      const diff = Diff.diffWords(previousAnswer, answer)
-      answerString = diff.map(word => {
+      const diff = diffWords(previousAnswer, answer)
+      answerString = diff.map((word) => {
         if (word.removed) { return '' }
-        return word.added ? <b>{word.value}</b> : word.value
+        const key = `${attemptNum}-${word.value}`;
+        return word.added ? <b key={key}>{word.value}</b> : <span key={key}>{word.value}</span>
       })
     }
     return (
@@ -183,7 +195,7 @@ const StudentReportBox = ({ questionData, boxNumber, showScore, showDiff, }) => 
               </tr>
               {questionScore()}
               {keyTargetSkill()}
-              {emptyRow()}
+              {emptyRow('')}
               {conceptsByAttempt()}
             </tbody>
           </table>

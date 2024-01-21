@@ -10,6 +10,7 @@ exports[`AppLegend component should render 1`] = `
     <a
       className="icon focus-on-light"
       href="undefined/tools/diagnostic"
+      key="diagnostic"
       rel="noopener noreferrer"
       target="_blank"
     >
@@ -35,6 +36,7 @@ exports[`AppLegend component should render 1`] = `
     <a
       className="icon focus-on-light"
       href="undefined/tools/lessons"
+      key="lessons"
       rel="noopener noreferrer"
       target="_blank"
     >
@@ -60,6 +62,7 @@ exports[`AppLegend component should render 1`] = `
     <a
       className="icon focus-on-light"
       href="undefined/tools/connect"
+      key="connect"
       rel="noopener noreferrer"
       target="_blank"
     >
@@ -85,6 +88,7 @@ exports[`AppLegend component should render 1`] = `
     <a
       className="icon focus-on-light"
       href="undefined/tools/proofreader"
+      key="proofreader"
       rel="noopener noreferrer"
       target="_blank"
     >
@@ -110,6 +114,7 @@ exports[`AppLegend component should render 1`] = `
     <a
       className="icon focus-on-light"
       href="undefined/tools/grammar"
+      key="grammar"
       rel="noopener noreferrer"
       target="_blank"
     >
@@ -135,6 +140,7 @@ exports[`AppLegend component should render 1`] = `
     <a
       className="icon focus-on-light"
       href="undefined/tools/evidence"
+      key="evidence"
       rel="noopener noreferrer"
       target="_blank"
     >

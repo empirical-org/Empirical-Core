@@ -116,6 +116,78 @@ module Evidence
         expect(parent_activity.id).to(eq(new_activity.parent_activity_id))
         expect(new_activity.present?).to(eq(true))
       end
+
+      it 'should create a new default regex rule for the because prompt' do
+        post :create,
+          params: {
+            activity:  {
+              parent_activity_id: activity.parent_activity_id,
+              scored_level:  activity.scored_level,
+              target_level: activity.target_level,
+              title: activity.title,
+              notes: activity.notes,
+              prompts_attributes: [{ text: "meat is bad for you.", conjunction: "because"}]
+            }
+          }
+        parsed_response = JSON.parse(response.body)
+        expect(response.code.to_i).to(eq(201))
+        because_rule = Activity.first.because_prompt.rules.find_by(name: Evidence::Activity::DEFAULT_BECAUSE_RULE_NAME)
+        expect(because_rule).to be
+        expect(because_rule.rule_type).to eq(Evidence::Rule::TYPE_REGEX_ONE)
+        expect(because_rule.concept_uid).to eq(Evidence::Activity::DEFAULT_BECAUSE_RULE_CONCEPT)
+        expect(because_rule.feedbacks.first.text).to eq(Evidence::Activity::DEFAULT_BECAUSE_RULE_FEEDBACK)
+        expect(because_rule.regex_rules.first.regex_text).to eq(Evidence::Activity::DEFAULT_BECAUSE_RULE_REGEX)
+      end
+
+      it 'should create a new default regex rule for the so prompt' do
+        post :create,
+          params: {
+            activity:  {
+              parent_activity_id: activity.parent_activity_id,
+              scored_level:  activity.scored_level,
+              target_level: activity.target_level,
+              title: activity.title,
+              notes: activity.notes,
+              prompts_attributes: [{ text: "meat is bad for you.", conjunction: "so"}]
+            }
+          }
+        parsed_response = JSON.parse(response.body)
+        expect(response.code.to_i).to(eq(201))
+        so_rule = Activity.first.so_prompt.rules.find_by(name: Evidence::Activity::DEFAULT_SO_RULE_NAME)
+        expect(so_rule).to be
+        expect(so_rule.rule_type).to eq(Evidence::Rule::TYPE_REGEX_ONE)
+        expect(so_rule.concept_uid).to eq(Evidence::Activity::DEFAULT_SO_RULE_CONCEPT)
+        expect(so_rule.feedbacks.first.text).to eq(Evidence::Activity::DEFAULT_SO_RULE_FEEDBACK)
+        expect(so_rule.regex_rules.first.regex_text).to eq(Evidence::Activity::DEFAULT_SO_RULE_REGEX)
+        expect(so_rule.hint_id).to eq(Evidence::Activity::DEFAULT_SO_RULE_HINT_ID)
+      end
+
+      it 'should create a new default regex rule for repeating the stem' do
+        post :create,
+          params: {
+            activity:  {
+              parent_activity_id: activity.parent_activity_id,
+              scored_level:  activity.scored_level,
+              target_level: activity.target_level,
+              title: activity.title,
+              notes: activity.notes,
+              prompts_attributes: [
+                { text: "meat is bad for you.", conjunction: "because"},
+                { text: "meat is bad for you.", conjunction: "but"},
+                { text: "meat is bad for you.", conjunction: "so"}
+              ]
+            }
+          }
+        parsed_response = JSON.parse(response.body)
+        expect(response.code.to_i).to(eq(201))
+        activity = Activity.first
+        stem_rule = activity.so_prompt.rules.find_by(name: Evidence::Activity::DEFAULT_REPEAT_STEM_RULE_NAME)
+        expect(stem_rule).to be
+        expect(stem_rule.rule_type).to eq(Evidence::Rule::TYPE_REGEX_ONE)
+        expect(stem_rule.concept_uid).to eq(Evidence::Activity::DEFAULT_REPEAT_STEM_RULE_CONCEPT)
+        expect(stem_rule.regex_rules.first.regex_text).to eq("^#{activity.stem}")
+        expect(stem_rule.prompt_ids).to match_array([activity.because_prompt.id, activity.but_prompt.id, activity.so_prompt.id])
+      end
     end
 
     context 'should show' do
@@ -331,6 +403,16 @@ module Evidence
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(200))
         expect(rule.id).to(eq(parsed_response[0]["id"]))
+      end
+
+      it 'should filter rule by rule_type' do
+        grammar_rule = create(:evidence_rule, :rule_type => (Rule::TYPE_GRAMMAR), :prompts => ([prompt]))
+        automl_rule = create(:evidence_rule, :rule_type => (Rule::TYPE_AUTOML), :prompts => ([prompt]))
+        get(:rules, :params => ({ :id => activity.id, :rule_type => (Rule::TYPE_GRAMMAR) }))
+        parsed_response = JSON.parse(response.body)
+        expect(response.code.to_i).to(eq(200))
+        expect(parsed_response.size).to eq(1)
+        expect(grammar_rule.id).to(eq(parsed_response[0]["id"]))
       end
 
       it 'should return feedbacks and highlights associated with the rules' do

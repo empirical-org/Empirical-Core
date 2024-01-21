@@ -1,5 +1,5 @@
 
-import * as moment from 'moment';
+import moment from 'moment';
 import * as React from 'react';
 import { renderToString } from 'react-dom/server';
 
@@ -89,7 +89,7 @@ export const unitTemplateDataTableFields = [
 export function displayInPacksInfo(unitTemplates) {
   return unitTemplates.map(unitTemplate => {
     const { id, name } = unitTemplate;
-    return <a className="data-link focus-on-light" href={editActivityPackLink(id)} rel="noopener noreferrer" target="_blank">{name}</a>;
+    return <a className="data-link focus-on-light" href={editActivityPackLink(id)} key={id} rel="noopener noreferrer" target="_blank">{name}</a>;
   });
 }
 
@@ -135,7 +135,7 @@ export const validateUnitTemplateForm = ({ activityPackFlag, activityPackName, a
 
 export const renderActivityPackTooltipElement = (data) => {
   if (!data) { return }
-  const { activities } = data;
+  const { activities, } = data;
   const table = (
     <table className="activity-tooltip-table">
       <tbody>
@@ -147,7 +147,7 @@ export const renderActivityPackTooltipElement = (data) => {
         {activities && activities.length && activities.map((activity: Activity) => {
           const { name, readability, classification } = activity
           return(
-            <tr>
+            <tr key={name}>
               <td>{name}</td>
               <td>{classification.name}</td>
               <td>{readability}</td>
@@ -181,17 +181,17 @@ export const renderPreviouslyAssignedActivitiesTooltipElement = (data) => {
           <th>Students</th>
         </tr>
         {data.length && data.map((unit) => {
-          const { name, assigned_date, classrooms, students } = unit;
+          const { name, assigned_date, classrooms, students, } = unit;
           return(
-            <tr>
+            <tr key={name}>
               <td>{name}</td>
               <td>{moment(assigned_date).format("MM/DD/YY")}</td>
-              <td>{classrooms.map(classroom => (<p>{classroom}</p>))}</td>
+              <td>{classrooms.map(classroom => (<p key={classroom}>{classroom}</p>))}</td>
               <td>
-                {students.map(student => {
+                {students.map((student, i) => {
                   const { assigned_student_count, total_student_count } = student;
                   const label = total_student_count === 1 ? 'student' : 'students';
-                  return <p>{`${assigned_student_count}/${total_student_count} ${label}`}</p>
+                  return <p key={i}>{`${assigned_student_count}/${total_student_count} ${label}`}</p>
                 })}
               </td>
             </tr>

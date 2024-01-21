@@ -20,6 +20,9 @@ const moreHorizontalSrc = 'https://assets.quill.org/images/icons/more-horizontal
 const smallWhiteCheckSrc = 'https://assets.quill.org/images/shared/check-small-white.svg'
 const arrowSrc = 'https://assets.quill.org/images/icons/icons-arrow.svg'
 const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
+const toggleArrowExpandedSrc = `${process.env.CDN_URL}/images/icons/data_table/toggle-arrow-expanded.svg`
+const toggleArrowClosedSrc = `${process.env.CDN_URL}/images/icons/data_table/toggle-arrow-closed.svg`
+const aggregateRowArrowSrc = `${process.env.CDN_URL}/images/icons/data_table/aggregate-row-arrow.svg`
 
 interface DataTableRow {
   id: number|string;
@@ -62,6 +65,16 @@ interface DataTableState {
   sortAttribute?: string;
   sortAscending?: boolean;
   rowWithActionsOpen?: number|string;
+  expandedParentRowIdentifier?: string;
+  hoveredColIndex: null|number;
+}
+
+const TableCellContentWrapper = ({ link, children, }) => {
+  if (link) {
+    return <a className="row-link" href={link}>{children}</a>
+  }
+
+  return children
 }
 
 export class DataTable extends React.Component<DataTableProps, DataTableState> {
@@ -73,22 +86,53 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
     this.state = {
       sortAttribute: props.defaultSortAttribute || null,
-      sortAscending: props.defaultSortDirection !== descending
+      sortAscending: props.defaultSortDirection !== descending,
+      expandedParentRowIdentifier: '',
+      hoveredColIndex: null
     }
   }
 
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClick, false)
+    this.checkForAggregateRowData()
   }
 
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleClick, false)
   }
 
+  handleMouseEnter = (colIndex) => {
+    this.setState({ hoveredColIndex: colIndex });
+  };
+
+  handleMouseLeave = () => {
+    this.setState({ hoveredColIndex: null });
+  };
+
+  // if there is aggregate row data, we want to automatically expand the first row
+  checkForAggregateRowData() {
+    const { rows, headers } = this.props
+    if (rows?.length && headers?.length && rows[0].aggregate_rows?.length) {
+      const aggregateRowIdentifier = `${rows[0][headers[0].attribute]}-${rows[0].id}`
+      this.setState({ expandedParentRowIdentifier: aggregateRowIdentifier })
+    }
+  }
+
   handleClick = (e) => {
     if (this.selectedActions && !this.selectedActions.contains(e.target)) {
       this.setState({ rowWithActionsOpen: null })
     }
+  }
+
+  handleHideAggregateRows = (e) => {
+    e.preventDefault()
+    // we only want to show aggregate data for one row at any given time, so we don't need to worry about keeping track of previously expanded rows
+    this.setState({ expandedParentRowIdentifier: '' })
+  }
+
+  handleShowAggregateRows = (e, sectionText) => {
+    e.preventDefault()
+    this.setState({ expandedParentRowIdentifier: sectionText })
   }
 
   attributeAlignment(attributeName): CSS.TextAlignProperty {
@@ -208,7 +252,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     if (!showRemoveIcon) { return }
 
     if (row.removable) {
-      return <td key={row.id}><button className="removable data-table-row-section focus-on-light" id={`remove-button-${row.id}`} onClick={() => removeRow(row.id)} type="button"><img alt="x" src={removeSrc} /></button></td>
+      return <td key={row.id}><button aria-label="Remove" className="removable data-table-row-section focus-on-light" id={`remove-button-${row.id}`} onClick={() => removeRow(row.id)} type="button"><img alt="x" src={removeSrc} /></button></td>
     }
 
     return <td className='removable data-table-row-section' key={row.id} />
@@ -235,7 +279,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
     return (
       <div className="actions-menu-container" ref={node => this.selectedActions = node}>
-        <div className="actions-menu">
+        <div className="actions-menu" role="menu">
           {rowActions}
         </div>
       </div>
@@ -245,6 +289,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   renderClosedActions(row) {
     return (
       <button
+        aria-label="Actions"
         className="quill-button actions-button focus-on-light"
         onClick={() => this.setState({ rowWithActionsOpen: row.id })}
         type="button"
@@ -260,8 +305,8 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const { sortAscending, sortAttribute, } = this.state
     let className = `${dataTableHeaderClassName} ${header.headerClassName}`
     let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
-    let headerContent = header.name
-    let headerTitle = header.name
+    let headerContent = <span>{header.name}</span>
+    let headerTitle = <span>{header.name}</span>
     let headerTooltip = null
     const isMultilineHeader = header.primaryTitle && header.secondaryTitle
 
@@ -323,7 +368,8 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     )
   }
 
-  renderRowSection(row, header) {
+  renderRowSection({row, header, isAggregateRow, i }) {
+    const { expandedParentRowIdentifier } = this.state
     if (header.isActions) { return this.renderActions(row) }
     const { averageFontWidth, } = this.props
     let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
@@ -331,6 +377,11 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const headerWidthNumber = Number(header.width.slice(0, -2))
     const dataTableRowSectionClassName = `data-table-row-section ${header.rowSectionClassName}`
     const key = `${header.attribute}-${row.id || sectionText}`
+
+    let className = `data-table-row-section ${header.rowSectionClassName}`;
+    if (this.state.hoveredColIndex === i) {
+      className += ' highlight-column'; // Add your highlight class here
+    }
 
     let linkDisplayText
     if (sectionText && sectionText.type === 'a' && sectionText.props.children && sectionText.props.children[1] && sectionText.props.children[1].props) {
@@ -340,36 +391,62 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     }
 
     const rowDisplayText = linkDisplayText || sectionText
+    const aggregateRowIdentifier = `${sectionText}-${row.id}`
+    const shouldDisplayAggregateIcon = isAggregateRow && i === 0
+    const shouldDisplayToggleButton = row.aggregate_rows && row.aggregate_rows.length && i === 0
+    const aggregateRowsDisplayed = expandedParentRowIdentifier && expandedParentRowIdentifier === aggregateRowIdentifier
+    let aggregateRowButtonOrIcon
+
+    if (shouldDisplayAggregateIcon) {
+      aggregateRowButtonOrIcon = <img alt="" className="aggregate-row-icon" src={aggregateRowArrowSrc} />
+    } else if (shouldDisplayToggleButton && aggregateRowsDisplayed) {
+      aggregateRowButtonOrIcon = <button aria-label={`hide aggregate row data for ${sectionText}`} className="aggregate-row-toggle interactive-wrapper focus-on-light" onClick={this.handleHideAggregateRows}><img alt="" className="aggregate-row-toggle-icon" src={toggleArrowExpandedSrc} /></button>
+    } else if (shouldDisplayToggleButton) {
+      aggregateRowButtonOrIcon = <button aria-label={`show aggregate row data for ${sectionText}`} className="aggregate-row-toggle interactive-wrapper focus-on-light" onClick={(e) => this.handleShowAggregateRows(e, aggregateRowIdentifier)}><img alt="" className="aggregate-row-toggle-icon" src={toggleArrowClosedSrc} /></button>
+    }
 
     if (!header.noTooltip && (String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
       return (
         <td key={key}>
-          <Tooltip
-            key={key}
-            tooltipText={rowDisplayText}
-            tooltipTriggerStyle={style}
-            tooltipTriggerText={sectionText}
-            tooltipTriggerTextClass={dataTableRowSectionClassName}
-            tooltipTriggerTextStyle={style}
-          />
+          <TableCellContentWrapper link={row.link}>
+            {aggregateRowButtonOrIcon}
+            <Tooltip
+              key={key}
+              tooltipText={rowDisplayText}
+              tooltipTriggerStyle={style}
+              tooltipTriggerText={sectionText}
+              tooltipTriggerTextClass={dataTableRowSectionClassName}
+              tooltipTriggerTextStyle={style}
+            />
+          </TableCellContentWrapper>
         </td>
       )
     } else if (header.containsOwnTooltip) {
       return (
         <td key={key}>
-          {sectionText}
+          <TableCellContentWrapper link={row.link}>
+            {sectionText}
+          </TableCellContentWrapper>
         </td>
       )
     } else {
+      // ignoring this linter rule because the interactive effects are only for visual changes (we add a class name)
+      /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
       return (
         <td
-          className={dataTableRowSectionClassName}
+          className={className}
           key={key}
+          onMouseEnter={() => this.handleMouseEnter(i)}
+          onMouseLeave={this.handleMouseLeave}
           style={style as any}
         >
-          {sectionText}
+          <TableCellContentWrapper link={row.link}>
+            {aggregateRowButtonOrIcon}
+            {sectionText}
+          </TableCellContentWrapper>
         </td>
       )
+      /* eslint-enable jsx-a11y/no-noninteractive-element-interactions */
     }
   }
 
@@ -382,17 +459,29 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     return <td className='reorder-section data-table-row-section'><DragHandle /></td>
   }
 
-  renderRow(row) {
+  renderRow(row, isAggregateRow=false) {
+    const { expandedParentRowIdentifier } = this.state
     const { headers, } = this.props
     const rowClassName = `data-table-row ${row.checked ? 'checked' : ''} ${row.className || ''}`
-    const rowSections = headers.map(header => this.renderRowSection(row, header))
+    const rowSections = headers.map((header, i) => this.renderRowSection({ row, header, isAggregateRow, i }))
     const rowContent = <React.Fragment>{this.renderRowCheckbox(row)}{this.renderRowDragHandle(row)}{rowSections}{this.renderRowRemoveIcon(row)}</React.Fragment>
+    const aggregateRowClassName = isAggregateRow ? 'aggregate-row' : ''
+    let rowElement = <tr className={`${rowClassName}${aggregateRowClassName}`} key={String(row.id)}>{rowContent}</tr>
+    const aggregateRowIdentifier = `${row[headers[0].attribute]}-${row.id}`
+    const showAggregateRows = row.aggregate_rows?.length && expandedParentRowIdentifier === aggregateRowIdentifier
 
-    if (row.link) {
-      return <tr><a className={rowClassName} href={row.link} key={String(row.id)}>{rowContent}</a></tr>
+    if (showAggregateRows) {
+      return(
+        <React.Fragment key={String(row.id)}>
+          {rowElement}
+          {row.aggregate_rows.map(row => {
+            return this.renderRow(row, true)
+          })}
+        </React.Fragment>
+      )
     }
 
-    return <tr className={rowClassName} key={String(row.id)}>{rowContent}</tr>
+    return rowElement
   }
 
   renderRows() {
@@ -420,3 +509,5 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 DataTable.defaultProps = {
   averageFontWidth: 7
 }
+
+export default DataTable

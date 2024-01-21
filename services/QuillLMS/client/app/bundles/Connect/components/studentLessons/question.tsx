@@ -1,4 +1,3 @@
-declare function require(name:string);
 import { Response } from 'quill-marking-logic';
 import * as React from 'react';
 import * as _ from 'underscore';
@@ -15,6 +14,7 @@ import {
   getGradedResponsesWithCallback,
   getMultipleChoiceResponseOptionsWithCallback
 } from '../../actions/responses.js';
+import C from '../../constants';
 import EditCaretPositioning from '../../libs/EditCaretPositioning';
 import Question from '../../libs/question';
 import getResponse from '../renderForQuestions/checkAnswer';
@@ -26,7 +26,6 @@ import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 
 const RenderSentenceFragments = SentenceFragments
-const C = require('../../constants').default;
 
 interface PlayLessonQuestionProps {
   conceptsFeedback: any;
@@ -343,9 +342,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
         if (negativeConceptWithConceptFeedback) {
           return <ConceptExplanation {...conceptsFeedback.data[negativeConceptWithConceptFeedback.conceptUID]} />
         }
-      }
-
-      if (latestAttempt.response.concept_results) {
+      } else if (latestAttempt.response.concept_results) {
         const negativeConcepts = this.getNegativeConceptResultsForResponse(latestAttempt.response.concept_results);
         const negativeConceptWithConceptFeedback = negativeConcepts.find(c => {
           return conceptsFeedback.data[c.conceptUID]

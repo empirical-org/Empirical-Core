@@ -1,8 +1,8 @@
 import { ContentState, EditorState } from 'draft-js';
+import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import SelectSearch from 'react-select-search';
-
 import { SortableList, TextEditor, hashToCollection, } from '../../../Shared/index';
 import { Concept, Concepts } from '../../interfaces/grammarActivities';
 import { Question } from '../../interfaces/questions';

@@ -1,0 +1,263 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivityDetails component should render 1`] = `
+<DocumentFragment>
+  <div
+    class="activity-details no-concept-results"
+  >
+    <div
+      class="activity-detail"
+    >
+      <span />
+      <div
+        class="activity-tooltip-details-section no-border-top"
+      >
+        <p
+          class="header"
+        >
+          Published
+        </p>
+        <p
+          class="description"
+        >
+          October 17, 2021 at 12:00 am
+        </p>
+      </div>
+      <div
+        class="activity-tooltip-details-section no-border-top"
+      >
+        <p
+          class="header"
+        >
+          Due
+        </p>
+        <p
+          class="description"
+        >
+          N/A
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ActivityDetails component should show Objectives section if activity_description present 1`] = `
+<DocumentFragment>
+  <div
+    class="activity-details no-concept-results"
+  >
+    <div
+      class="activity-detail"
+    >
+      <div
+        class="activity-tooltip-details-section no-border-top"
+      >
+        <p
+          class="header"
+        >
+          Objectives
+        </p>
+        <p
+          class="description"
+        >
+          This is a test description
+        </p>
+      </div>
+      <div
+        class="activity-tooltip-details-section no-border-top"
+      >
+        <p
+          class="header"
+        >
+          Published
+        </p>
+        <p
+          class="description"
+        >
+          October 17, 2021 at 12:00 am
+        </p>
+      </div>
+      <div
+        class="activity-tooltip-details-section no-border-top"
+      >
+        <p
+          class="header"
+        >
+          Due
+        </p>
+        <p
+          class="description"
+        >
+          N/A
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ActivityDetails component should show Published if scheduled is false 1`] = `
+<DocumentFragment>
+  <div
+    class="activity-details no-concept-results"
+  >
+    <div
+      class="activity-detail"
+    >
+      <div
+        class="activity-tooltip-details-section no-border-top"
+      >
+        <p
+          class="header"
+        >
+          Objectives
+        </p>
+        <p
+          class="description"
+        >
+          This is a test description
+        </p>
+      </div>
+      <div
+        class="activity-tooltip-details-section no-border-top"
+      >
+        <p
+          class="header"
+        >
+          Published
+        </p>
+        <p
+          class="description"
+        >
+          October 17, 2021 at 12:00 am
+        </p>
+      </div>
+      <div
+        class="activity-tooltip-details-section no-border-top"
+      >
+        <p
+          class="header"
+        >
+          Due
+        </p>
+        <p
+          class="description"
+        >
+          N/A
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ActivityDetails component should show Scheduled For if scheduled is true 1`] = `
+<DocumentFragment>
+  <div
+    class="activity-details no-concept-results"
+  >
+    <div
+      class="activity-detail"
+    >
+      <div
+        class="activity-tooltip-details-section no-border-top"
+      >
+        <p
+          class="header"
+        >
+          Objectives
+        </p>
+        <p
+          class="description"
+        >
+          This is a test description
+        </p>
+      </div>
+      <div
+        class="activity-tooltip-details-section no-border-top"
+      >
+        <p
+          class="header"
+        >
+          Scheduled For
+        </p>
+        <p
+          class="description"
+        >
+          October 17, 2021 at 12:00 am
+        </p>
+      </div>
+      <div
+        class="activity-tooltip-details-section no-border-top"
+      >
+        <p
+          class="header"
+        >
+          Due
+        </p>
+        <p
+          class="description"
+        >
+          N/A
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ActivityDetails component should show due date if dueDate present 1`] = `
+<DocumentFragment>
+  <div
+    class="activity-details no-concept-results"
+  >
+    <div
+      class="activity-detail"
+    >
+      <div
+        class="activity-tooltip-details-section no-border-top"
+      >
+        <p
+          class="header"
+        >
+          Objectives
+        </p>
+        <p
+          class="description"
+        >
+          This is a test description
+        </p>
+      </div>
+      <div
+        class="activity-tooltip-details-section no-border-top"
+      >
+        <p
+          class="header"
+        >
+          Published
+        </p>
+        <p
+          class="description"
+        >
+          October 17, 2021 at 12:00 am
+        </p>
+      </div>
+      <div
+        class="activity-tooltip-details-section no-border-top"
+      >
+        <p
+          class="header"
+        >
+          Due
+        </p>
+        <p
+          class="description"
+        >
+          October 21, 2021 at 12:00 am
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

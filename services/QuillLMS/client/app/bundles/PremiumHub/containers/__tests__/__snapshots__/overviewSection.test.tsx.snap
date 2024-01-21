@@ -1,0 +1,1452 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OverviewSection loaded state clicking toggle button should expand aggregate rows for diagnostic 1`] = `
+<DocumentFragment>
+  <div
+    class="dropdown-container input-container inactive has-text  group-by-dropdown searchable "
+    role="button"
+    tabindex="0"
+  >
+    <label>
+      Group by:
+    </label>
+    <div
+      class="dropdown css-b62m3t-container"
+    >
+      <span
+        class="css-1f43avz-a11yText-A11yText"
+        id="react-select-5-live-region"
+      />
+      <span
+        aria-atomic="false"
+        aria-live="polite"
+        aria-relevant="additions text"
+        class="css-1f43avz-a11yText-A11yText"
+      />
+      <div
+        class="dropdown__control css-13cymwt-control"
+      >
+        <div
+          class="dropdown__value-container dropdown__value-container--has-value css-1fdsijx-ValueContainer"
+        >
+          <div
+            class="dropdown__single-value css-1dimb5e-singleValue"
+          >
+            Grade
+          </div>
+          <div
+            class="dropdown__input-container css-qbdosj-Input"
+            data-value=""
+          >
+            <input
+              aria-autocomplete="list"
+              aria-expanded="false"
+              aria-haspopup="true"
+              autocapitalize="none"
+              autocomplete="off"
+              autocorrect="off"
+              class="dropdown__input"
+              id="react-select-5-input"
+              role="combobox"
+              spellcheck="false"
+              style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+              tabindex="0"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
+        >
+          <span
+            class="dropdown__indicator-separator css-1u9des2-indicatorSeparator"
+          />
+          <div
+            aria-hidden="true"
+            class="dropdown__indicator dropdown__dropdown-indicator css-1xc3v61-indicatorContainer"
+          >
+            <svg
+              aria-hidden="true"
+              class="css-tj5bde-Svg"
+              focusable="false"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <path
+                d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table
+    class="data-table growth-diagnostic-reports-overview-table reporting-format"
+  >
+    <thead>
+      <tr
+        class="data-table-headers"
+      >
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          <span>
+            Diagnostic Name
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 196px; min-width: 196px; text-align: left;"
+        >
+          <span>
+            Pre Diagnostic Completed
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          <span>
+            Completed Activities
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          <div
+            class="multi-line-header"
+          >
+            <p>
+              Average Activities &
+            </p>
+            <p>
+              Time Spent
+            </p>
+          </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          <div
+            class="multi-line-header"
+          >
+            <p>
+              Post Diagnostic
+            </p>
+            <p>
+              Completed
+            </p>
+          </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 106px; min-width: 106px; text-align: left;"
+        >
+          <span>
+            Overall Skill Growth
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="data-table-body"
+    >
+      <tr
+        class="data-table-row  "
+      >
+        <td
+          class="data-table-row-section undefined highlight-column"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          <button
+            aria-label="show aggregate row data for Starter Baseline Diagnostic (Pre)"
+            class="aggregate-row-toggle interactive-wrapper focus-on-light"
+          >
+            <img
+              alt=""
+              class="aggregate-row-toggle-icon"
+              src="undefined/images/icons/data_table/toggle-arrow-closed.svg"
+            />
+          </button>
+          Starter Baseline Diagnostic (Pre)
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 196px; min-width: 196px; text-align: left;"
+        >
+          57 of 65 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          58 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          17 Activities (26:35)
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          27 of 65 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 106px; min-width: 106px; text-align: left;"
+        >
+          <button
+            class="interactive-wrapper emphasized-content"
+          >
+            +20%
+          </button>
+        </td>
+      </tr>
+      <tr
+        class="data-table-row  "
+      >
+        <td
+          class="data-table-row-section undefined highlight-column"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          <button
+            aria-label="hide aggregate row data for Intermediate Baseline Diagnostic (Pre)"
+            class="aggregate-row-toggle interactive-wrapper focus-on-light"
+          >
+            <img
+              alt=""
+              class="aggregate-row-toggle-icon"
+              src="undefined/images/icons/data_table/toggle-arrow-expanded.svg"
+            />
+          </button>
+          Intermediate Baseline Diagnostic (Pre)
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 196px; min-width: 196px; text-align: left;"
+        >
+          40 of 55 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          32 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          10 Activities (16:35)
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          25 of 55 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 106px; min-width: 106px; text-align: left;"
+        >
+          <button
+            class="interactive-wrapper emphasized-content"
+          >
+            +50%
+          </button>
+        </td>
+      </tr>
+      <tr
+        class="data-table-row  aggregate-row"
+      >
+        <td
+          class="data-table-row-section undefined highlight-column"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          <img
+            alt=""
+            class="aggregate-row-icon"
+            src="undefined/images/icons/data_table/aggregate-row-arrow.svg"
+          />
+          Grade 3
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 196px; min-width: 196px; text-align: left;"
+        >
+          15 of 20 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          21 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          3 Activities (16:35)
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          17 of 35 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 106px; min-width: 106px; text-align: left;"
+        >
+          <button
+            class="interactive-wrapper emphasized-content"
+          >
+            +25%
+          </button>
+        </td>
+      </tr>
+      <tr
+        class="data-table-row  aggregate-row"
+      >
+        <td
+          class="data-table-row-section undefined highlight-column"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          <img
+            alt=""
+            class="aggregate-row-icon"
+            src="undefined/images/icons/data_table/aggregate-row-arrow.svg"
+          />
+          Grade 4
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 196px; min-width: 196px; text-align: left;"
+        >
+          20 of 35 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          11 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          7 Activities (16:35)
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          10 of 30 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 106px; min-width: 106px; text-align: left;"
+        >
+          <button
+            class="interactive-wrapper emphasized-content"
+          >
+            +75%
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`OverviewSection loaded state it should render the expected data when data is present 1`] = `
+<DocumentFragment>
+  <div
+    class="dropdown-container input-container inactive has-text  group-by-dropdown searchable "
+    role="button"
+    tabindex="0"
+  >
+    <label>
+      Group by:
+    </label>
+    <div
+      class="dropdown css-b62m3t-container"
+    >
+      <span
+        class="css-1f43avz-a11yText-A11yText"
+        id="react-select-4-live-region"
+      />
+      <span
+        aria-atomic="false"
+        aria-live="polite"
+        aria-relevant="additions text"
+        class="css-1f43avz-a11yText-A11yText"
+      />
+      <div
+        class="dropdown__control css-13cymwt-control"
+      >
+        <div
+          class="dropdown__value-container dropdown__value-container--has-value css-1fdsijx-ValueContainer"
+        >
+          <div
+            class="dropdown__single-value css-1dimb5e-singleValue"
+          >
+            Grade
+          </div>
+          <div
+            class="dropdown__input-container css-qbdosj-Input"
+            data-value=""
+          >
+            <input
+              aria-autocomplete="list"
+              aria-expanded="false"
+              aria-haspopup="true"
+              autocapitalize="none"
+              autocomplete="off"
+              autocorrect="off"
+              class="dropdown__input"
+              id="react-select-4-input"
+              role="combobox"
+              spellcheck="false"
+              style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+              tabindex="0"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
+        >
+          <span
+            class="dropdown__indicator-separator css-1u9des2-indicatorSeparator"
+          />
+          <div
+            aria-hidden="true"
+            class="dropdown__indicator dropdown__dropdown-indicator css-1xc3v61-indicatorContainer"
+          >
+            <svg
+              aria-hidden="true"
+              class="css-tj5bde-Svg"
+              focusable="false"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <path
+                d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table
+    class="data-table growth-diagnostic-reports-overview-table reporting-format"
+  >
+    <thead>
+      <tr
+        class="data-table-headers"
+      >
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          <span>
+            Diagnostic Name
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 196px; min-width: 196px; text-align: left;"
+        >
+          <span>
+            Pre Diagnostic Completed
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          <span>
+            Completed Activities
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          <div
+            class="multi-line-header"
+          >
+            <p>
+              Average Activities &
+            </p>
+            <p>
+              Time Spent
+            </p>
+          </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          <div
+            class="multi-line-header"
+          >
+            <p>
+              Post Diagnostic
+            </p>
+            <p>
+              Completed
+            </p>
+          </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 106px; min-width: 106px; text-align: left;"
+        >
+          <span>
+            Overall Skill Growth
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="data-table-body"
+    >
+      <tr
+        class="data-table-row  "
+      >
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          <button
+            aria-label="hide aggregate row data for Starter Baseline Diagnostic (Pre)"
+            class="aggregate-row-toggle interactive-wrapper focus-on-light"
+          >
+            <img
+              alt=""
+              class="aggregate-row-toggle-icon"
+              src="undefined/images/icons/data_table/toggle-arrow-expanded.svg"
+            />
+          </button>
+          Starter Baseline Diagnostic (Pre)
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 196px; min-width: 196px; text-align: left;"
+        >
+          57 of 65 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          58 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          17 Activities (26:35)
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          27 of 65 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 106px; min-width: 106px; text-align: left;"
+        >
+          <button
+            class="interactive-wrapper emphasized-content"
+          >
+            +20%
+          </button>
+        </td>
+      </tr>
+      <tr
+        class="data-table-row  aggregate-row"
+      >
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          <img
+            alt=""
+            class="aggregate-row-icon"
+            src="undefined/images/icons/data_table/aggregate-row-arrow.svg"
+          />
+          Grade 7
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 196px; min-width: 196px; text-align: left;"
+        >
+          27 of 35 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          50 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          12 Activities (26:35)
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          17 of 35 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 106px; min-width: 106px; text-align: left;"
+        >
+          <button
+            class="interactive-wrapper emphasized-content"
+          >
+            +10%
+          </button>
+        </td>
+      </tr>
+      <tr
+        class="data-table-row  aggregate-row"
+      >
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          <img
+            alt=""
+            class="aggregate-row-icon"
+            src="undefined/images/icons/data_table/aggregate-row-arrow.svg"
+          />
+          Grade 9
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 196px; min-width: 196px; text-align: left;"
+        >
+          30 of 30 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          9 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          23 Activities (26:35)
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          10 of 30 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 106px; min-width: 106px; text-align: left;"
+        >
+          <button
+            class="interactive-wrapper emphasized-content"
+          >
+            +30%
+          </button>
+        </td>
+      </tr>
+      <tr
+        class="data-table-row  "
+      >
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          <button
+            aria-label="show aggregate row data for Intermediate Baseline Diagnostic (Pre)"
+            class="aggregate-row-toggle interactive-wrapper focus-on-light"
+          >
+            <img
+              alt=""
+              class="aggregate-row-toggle-icon"
+              src="undefined/images/icons/data_table/toggle-arrow-closed.svg"
+            />
+          </button>
+          Intermediate Baseline Diagnostic (Pre)
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 196px; min-width: 196px; text-align: left;"
+        >
+          40 of 55 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          32 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          10 Activities (16:35)
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 176px; min-width: 176px; text-align: left;"
+        >
+          25 of 55 Students
+        </td>
+        <td
+          class="data-table-row-section undefined"
+          style="width: 106px; min-width: 106px; text-align: left;"
+        >
+          <button
+            class="interactive-wrapper emphasized-content"
+          >
+            +50%
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`OverviewSection loaded state it should render the expected header components and empty state message 1`] = `
+<DocumentFragment>
+  <div
+    class="dropdown-container input-container inactive has-text  group-by-dropdown searchable "
+    role="button"
+    tabindex="0"
+  >
+    <label>
+      Group by:
+    </label>
+    <div
+      class="dropdown css-b62m3t-container"
+    >
+      <span
+        class="css-1f43avz-a11yText-A11yText"
+        id="react-select-3-live-region"
+      />
+      <span
+        aria-atomic="false"
+        aria-live="polite"
+        aria-relevant="additions text"
+        class="css-1f43avz-a11yText-A11yText"
+      />
+      <div
+        class="dropdown__control css-13cymwt-control"
+      >
+        <div
+          class="dropdown__value-container dropdown__value-container--has-value css-1fdsijx-ValueContainer"
+        >
+          <div
+            class="dropdown__single-value css-1dimb5e-singleValue"
+          >
+            Grade
+          </div>
+          <div
+            class="dropdown__input-container css-qbdosj-Input"
+            data-value=""
+          >
+            <input
+              aria-autocomplete="list"
+              aria-expanded="false"
+              aria-haspopup="true"
+              autocapitalize="none"
+              autocomplete="off"
+              autocorrect="off"
+              class="dropdown__input"
+              id="react-select-3-input"
+              role="combobox"
+              spellcheck="false"
+              style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+              tabindex="0"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
+        >
+          <span
+            class="dropdown__indicator-separator css-1u9des2-indicatorSeparator"
+          />
+          <div
+            aria-hidden="true"
+            class="dropdown__indicator dropdown__dropdown-indicator css-1xc3v61-indicatorContainer"
+          >
+            <svg
+              aria-hidden="true"
+              class="css-tj5bde-Svg"
+              focusable="false"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <path
+                d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p
+    class="empty-state-message"
+  >
+    There is no diagnostic data available for the filters selected. Try modifying or removing a filter to see results.
+  </p>
+  <table
+    class="data-table growth-diagnostic-reports-overview-table reporting-format"
+  >
+    <thead>
+      <tr
+        class="data-table-headers"
+      >
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 176px; min-width: 176px; text-align: right;"
+        >
+          <span>
+            Diagnostic Name
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 196px; min-width: 196px; text-align: right;"
+        >
+          <span>
+            Pre Diagnostic Completed
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 176px; min-width: 176px; text-align: right;"
+        >
+          <span>
+            Completed Activities
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 176px; min-width: 176px; text-align: right;"
+        >
+          <div
+            class="multi-line-header"
+          >
+            <p>
+              Average Activities &
+            </p>
+            <p>
+              Time Spent
+            </p>
+          </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 176px; min-width: 176px; text-align: right;"
+        >
+          <div
+            class="multi-line-header"
+          >
+            <p>
+              Post Diagnostic
+            </p>
+            <p>
+              Completed
+            </p>
+          </div>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+        <th
+          class="data-table-header undefined"
+          scope="col"
+          style="width: 106px; min-width: 106px; text-align: right;"
+        >
+          <span>
+            Overall Skill Growth
+          </span>
+          <span
+            aria-hidden="false"
+            class="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              class="undefined"
+              role="button"
+              tabindex="0"
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              class="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                class="quill-tooltip"
+              />
+            </span>
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="data-table-body"
+    />
+  </table>
+</DocumentFragment>
+`;
+
+exports[`OverviewSection loading state it should render loading spinner 1`] = `
+<DocumentFragment>
+  <div
+    class="dropdown-container input-container inactive has-text  group-by-dropdown searchable "
+    role="button"
+    tabindex="0"
+  >
+    <label>
+      Group by:
+    </label>
+    <div
+      class="dropdown css-b62m3t-container"
+    >
+      <span
+        class="css-1f43avz-a11yText-A11yText"
+        id="react-select-2-live-region"
+      />
+      <span
+        aria-atomic="false"
+        aria-live="polite"
+        aria-relevant="additions text"
+        class="css-1f43avz-a11yText-A11yText"
+      />
+      <div
+        class="dropdown__control css-13cymwt-control"
+      >
+        <div
+          class="dropdown__value-container dropdown__value-container--has-value css-1fdsijx-ValueContainer"
+        >
+          <div
+            class="dropdown__single-value css-1dimb5e-singleValue"
+          >
+            Grade
+          </div>
+          <div
+            class="dropdown__input-container css-qbdosj-Input"
+            data-value=""
+          >
+            <input
+              aria-autocomplete="list"
+              aria-expanded="false"
+              aria-haspopup="true"
+              autocapitalize="none"
+              autocomplete="off"
+              autocorrect="off"
+              class="dropdown__input"
+              id="react-select-2-input"
+              role="combobox"
+              spellcheck="false"
+              style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+              tabindex="0"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
+        >
+          <span
+            class="dropdown__indicator-separator css-1u9des2-indicatorSeparator"
+          />
+          <div
+            aria-hidden="true"
+            class="dropdown__indicator dropdown__dropdown-indicator css-1xc3v61-indicatorContainer"
+          >
+            <svg
+              aria-hidden="true"
+              class="css-tj5bde-Svg"
+              focusable="false"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <path
+                d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="loading-spinner"
+  >
+    <div
+      class="spinner-container"
+    >
+      <img
+        alt="Loading spinner"
+        class="spinner"
+        src="https://assets.quill.org/images/icons/loader_still.svg"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;

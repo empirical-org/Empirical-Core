@@ -169,7 +169,7 @@ exports[`SnapshotSection component when the section is Classrooms should match s
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -241,7 +241,7 @@ exports[`SnapshotSection component when the section is Classrooms should match s
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -314,7 +314,7 @@ exports[`SnapshotSection component when the section is Classrooms should match s
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -386,7 +386,7 @@ exports[`SnapshotSection component when the section is Classrooms should match s
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -507,39 +507,41 @@ exports[`SnapshotSection component when the section is Classrooms should match s
                         Activities completed
                       </th>
                     </tr>
-                    <tr
-                      className="data-row"
-                      key="0"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
-                    <tr
-                      className="data-row"
-                      key="1"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
-                    <tr
-                      className="data-row"
-                      key="2"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
+                    <tbody>
+                      <tr
+                        className="data-row"
+                        key="0"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                      <tr
+                        className="data-row"
+                        key="1"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                      <tr
+                        className="data-row"
+                        key="2"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </DataTable>
               </div>
@@ -695,7 +697,7 @@ exports[`SnapshotSection component when the section is Highlights should match s
             size="medium"
           >
             <section
-              className="snapshot-item snapshot-count medium "
+              className="snapshot-item snapshot-count medium no-change"
             >
               <div
                 className="count-and-label"
@@ -768,7 +770,7 @@ exports[`SnapshotSection component when the section is Highlights should match s
             size="medium"
           >
             <section
-              className="snapshot-item snapshot-count medium "
+              className="snapshot-item snapshot-count medium no-change"
             >
               <div
                 className="count-and-label"
@@ -1043,7 +1045,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -1116,7 +1118,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -1189,7 +1191,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -1262,7 +1264,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -1383,39 +1385,41 @@ exports[`SnapshotSection component when the section is Practice should match sna
                         Activities assigned
                       </th>
                     </tr>
-                    <tr
-                      className="data-row"
-                      key="0"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
-                    <tr
-                      className="data-row"
-                      key="1"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
-                    <tr
-                      className="data-row"
-                      key="2"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
+                    <tbody>
+                      <tr
+                        className="data-row"
+                        key="0"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                      <tr
+                        className="data-row"
+                        key="1"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                      <tr
+                        className="data-row"
+                        key="2"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </DataTable>
               </div>
@@ -1514,39 +1518,41 @@ exports[`SnapshotSection component when the section is Practice should match sna
                         Activities completed
                       </th>
                     </tr>
-                    <tr
-                      className="data-row"
-                      key="0"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
-                    <tr
-                      className="data-row"
-                      key="1"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
-                    <tr
-                      className="data-row"
-                      key="2"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
+                    <tbody>
+                      <tr
+                        className="data-row"
+                        key="0"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                      <tr
+                        className="data-row"
+                        key="1"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                      <tr
+                        className="data-row"
+                        key="2"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </DataTable>
               </div>
@@ -1607,7 +1613,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -1680,7 +1686,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -1753,7 +1759,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -1826,7 +1832,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -1898,7 +1904,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -1921,7 +1927,9 @@ exports[`SnapshotSection component when the section is Practice should match sna
               </div>
             </section>
           </SnapshotCount>
-          <SnapshotFeedback>
+          <SnapshotFeedback
+            key="feedback"
+          >
             <a
               aria-label="Open link to feedback forum in new tab"
               className="focus-on-light snapshot-item snapshot-feedback"
@@ -2043,39 +2051,41 @@ exports[`SnapshotSection component when the section is Practice should match sna
                         Activities completed
                       </th>
                     </tr>
-                    <tr
-                      className="data-row"
-                      key="0"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
-                    <tr
-                      className="data-row"
-                      key="1"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
-                    <tr
-                      className="data-row"
-                      key="2"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
+                    <tbody>
+                      <tr
+                        className="data-row"
+                        key="0"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                      <tr
+                        className="data-row"
+                        key="1"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                      <tr
+                        className="data-row"
+                        key="2"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </DataTable>
               </div>
@@ -2174,39 +2184,41 @@ exports[`SnapshotSection component when the section is Practice should match sna
                         Activities completed
                       </th>
                     </tr>
-                    <tr
-                      className="data-row"
-                      key="0"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
-                    <tr
-                      className="data-row"
-                      key="1"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
-                    <tr
-                      className="data-row"
-                      key="2"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
+                    <tbody>
+                      <tr
+                        className="data-row"
+                        key="0"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                      <tr
+                        className="data-row"
+                        key="1"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                      <tr
+                        className="data-row"
+                        key="2"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </DataTable>
               </div>
@@ -2400,39 +2412,41 @@ exports[`SnapshotSection component when the section is Schools should match snap
                         Activities completed
                       </th>
                     </tr>
-                    <tr
-                      className="data-row"
-                      key="0"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
-                    <tr
-                      className="data-row"
-                      key="1"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
-                    <tr
-                      className="data-row"
-                      key="2"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
+                    <tbody>
+                      <tr
+                        className="data-row"
+                        key="0"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                      <tr
+                        className="data-row"
+                        key="1"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                      <tr
+                        className="data-row"
+                        key="2"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </DataTable>
               </div>
@@ -2616,7 +2630,7 @@ exports[`SnapshotSection component when the section is Users should match snapsh
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -2689,7 +2703,7 @@ exports[`SnapshotSection component when the section is Users should match snapsh
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -2762,7 +2776,7 @@ exports[`SnapshotSection component when the section is Users should match snapsh
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -2835,7 +2849,7 @@ exports[`SnapshotSection component when the section is Users should match snapsh
             size="small"
           >
             <section
-              className="snapshot-item snapshot-count small "
+              className="snapshot-item snapshot-count small no-change"
             >
               <div
                 className="count-and-label"
@@ -2956,39 +2970,41 @@ exports[`SnapshotSection component when the section is Users should match snapsh
                         Activities completed
                       </th>
                     </tr>
-                    <tr
-                      className="data-row"
-                      key="0"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
-                    <tr
-                      className="data-row"
-                      key="1"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
-                    <tr
-                      className="data-row"
-                      key="2"
-                    >
-                      <td>
-                        —
-                      </td>
-                      <td>
-                        —
-                      </td>
-                    </tr>
+                    <tbody>
+                      <tr
+                        className="data-row"
+                        key="0"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                      <tr
+                        className="data-row"
+                        key="1"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                      <tr
+                        className="data-row"
+                        key="2"
+                      >
+                        <td>
+                          —
+                        </td>
+                        <td>
+                          —
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </DataTable>
               </div>

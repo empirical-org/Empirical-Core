@@ -1,4 +1,3 @@
-declare function require(name:string);
 import { checkDiagnosticSentenceFragment, Response } from 'quill-marking-logic';
 import * as React from 'react';
 import { connect } from 'react-redux';

@@ -13,9 +13,9 @@ module CleverIntegration
 
       if teacher.clever_authorized?
         TeacherClassroomsStudentsImporter.run(teacher, selected_classroom_ids)
-        PusherTrigger.run(teacher_id, PUSHER_EVENT, "Clever classroom students imported for #{teacher_id}.")
+        SendPusherMessageWorker.perform_async(teacher_id, PUSHER_EVENT, "Clever classroom students imported for #{teacher_id}.")
       else
-        PusherTrigger.run(teacher_id, PUSHER_FAILED_EVENT, "Reauthorization needed for user #{teacher_id}.")
+        SendPusherMessageWorker.perform_async(teacher_id, PUSHER_FAILED_EVENT, "Reauthorization needed for user #{teacher_id}.")
       end
     rescue => e
       ErrorNotifier.report(e)

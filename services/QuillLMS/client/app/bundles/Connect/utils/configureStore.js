@@ -24,11 +24,6 @@ function getDebugSessionKey() {
 
 export default function configureStore(initialState) {
   const store = finalCreateStore(rootReducer, initialState);
-  if (module.hot) {
-    module.hot.accept('../reducers/combined', () =>
-      store.replaceReducer(require('../reducers/combined')/* .default if you use Babel 6+ */)
-    );
-  }
 
   return store;
 }

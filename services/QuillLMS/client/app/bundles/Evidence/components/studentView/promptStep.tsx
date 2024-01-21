@@ -6,7 +6,7 @@ import Feedback from './feedback'
 
 import EditCaretPositioning from '../../helpers/EditCaretPositioning'
 import { highlightGrammar, highlightSpelling, stripEvidenceHtml } from '../../libs/stringFormatting'
-import ButtonLoadingSpinner from '../shared/buttonLoadingSpinner'
+import { ButtonLoadingSpinner, } from '../../../Shared/index'
 
 interface PromptStepProps {
   currentActivity: object,

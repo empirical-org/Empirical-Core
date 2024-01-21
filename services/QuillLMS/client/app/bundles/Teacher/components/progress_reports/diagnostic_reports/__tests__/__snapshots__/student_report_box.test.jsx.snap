@@ -72,6 +72,7 @@ exports[`StudentReportBox should render 1`] = `
           <tbody>
             <tr
               className="Directions"
+              key=""
             >
               <td>
                 Directions
@@ -133,7 +134,7 @@ exports[`StudentReportBox should render 1`] = `
               </td>
             </tr>
             <tr
-              key="empty-rowundefined"
+              key="empty-row"
             >
               <td />
               <td />
@@ -161,6 +162,7 @@ exports[`StudentReportBox should render 1`] = `
             </tr>
             <tr
               className="Feedback"
+              key="<p>Revise your work. Use one of the joining words from the instructions.</p>-1"
             >
               <td>
                 Feedback
@@ -170,7 +172,9 @@ exports[`StudentReportBox should render 1`] = `
                 Revise your work. Use one of the joining words from the instructions.
               </td>
             </tr>
-            <tr>
+            <tr
+              key="1-concepts"
+            >
               <td />
               <td />
               <td
@@ -228,15 +232,27 @@ exports[`StudentReportBox should render 1`] = `
                     }
                   }
                 >
-                  Tornadoes begin as light grey clouds, 
-                  <b>
+                  <span
+                    key="2-Tornadoes begin as light grey clouds, "
+                  >
+                    Tornadoes begin as light grey clouds, 
+                  </span>
+                  <b
+                    key="2-but"
+                  >
                     but
                   </b>
-                   the clouds eventually turn black.
+                  <span
+                    key="2- the clouds eventually turn black."
+                  >
+                     the clouds eventually turn black.
+                  </span>
                 </span>
               </td>
             </tr>
-            <tr>
+            <tr
+              key="2-concepts"
+            >
               <td />
               <td />
               <td
@@ -271,7 +287,7 @@ exports[`StudentReportBox should render 1`] = `
                 </ConceptResult>
                 <div
                   className="concept-result-separator"
-                  key="1"
+                  key="2-1"
                 />
                 <ConceptResult
                   concept={

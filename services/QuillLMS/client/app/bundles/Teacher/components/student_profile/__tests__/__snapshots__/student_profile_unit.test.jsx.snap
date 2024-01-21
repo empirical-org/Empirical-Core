@@ -416,7 +416,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Activity
+                <span>
+                  Activity
+                </span>
               </th>
               <th
                 className="data-table-header tool-icon-section"
@@ -430,7 +432,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Tool
+                <span>
+                  Tool
+                </span>
               </th>
               <th
                 className="data-table-header due-date-section"
@@ -444,7 +448,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Due date
+                <span>
+                  Due date
+                </span>
               </th>
               <th
                 className="data-table-header action-button-section"
@@ -457,7 +463,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "88px",
                   }
                 }
-              />
+              >
+                <span />
+              </th>
             </tr>
           </thead>
           <tbody
@@ -470,6 +478,8 @@ exports[`StudentProfileUnit component should render 1`] = `
               <td
                 className="data-table-row-section name-section"
                 key="name-1"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "823px",
@@ -478,11 +488,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                The Travels of Marco Polo
+                <TableCellContentWrapper>
+                  The Travels of Marco Polo
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section tool-icon-section"
                 key="tool-1"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "24px",
@@ -490,10 +504,14 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "24px",
                   }
                 }
-              />
+              >
+                <TableCellContentWrapper />
+              </td>
               <td
                 className="data-table-row-section due-date-section"
                 key="dueDate-1"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "100px",
@@ -502,11 +520,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Feb 29, 5am
+                <TableCellContentWrapper>
+                  Feb 29, 5am
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section action-button-section"
                 key="actionButton-1"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "88px",
@@ -515,13 +537,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                <a
-                  aria-label="Start The Travels of Marco Polo"
-                  className="quill-button medium focus-on-light secondary outlined"
-                  href="/activity_sessions/classroom_units/1/activities/608"
-                >
-                  Start
-                </a>
+                <TableCellContentWrapper>
+                  <a
+                    aria-label="Start The Travels of Marco Polo"
+                    className="quill-button medium focus-on-light secondary outlined"
+                    href="/activity_sessions/classroom_units/1/activities/608"
+                  >
+                    Start
+                  </a>
+                </TableCellContentWrapper>
               </td>
             </tr>
             <tr
@@ -531,6 +555,8 @@ exports[`StudentProfileUnit component should render 1`] = `
               <td
                 className="data-table-row-section name-section"
                 key="name-2"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "823px",
@@ -539,11 +565,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Christopher Columbus
+                <TableCellContentWrapper>
+                  Christopher Columbus
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section tool-icon-section"
                 key="tool-2"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "24px",
@@ -551,10 +581,14 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "24px",
                   }
                 }
-              />
+              >
+                <TableCellContentWrapper />
+              </td>
               <td
                 className="data-table-row-section due-date-section"
                 key="dueDate-2"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "100px",
@@ -563,11 +597,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Feb 29, 5am
+                <TableCellContentWrapper>
+                  Feb 29, 5am
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section action-button-section"
                 key="actionButton-2"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "88px",
@@ -576,13 +614,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                <a
-                  aria-label="Start Christopher Columbus"
-                  className="quill-button medium focus-on-light secondary outlined"
-                  href="/activity_sessions/classroom_units/1/activities/607"
-                >
-                  Start
-                </a>
+                <TableCellContentWrapper>
+                  <a
+                    aria-label="Start Christopher Columbus"
+                    className="quill-button medium focus-on-light secondary outlined"
+                    href="/activity_sessions/classroom_units/1/activities/607"
+                  >
+                    Start
+                  </a>
+                </TableCellContentWrapper>
               </td>
             </tr>
             <tr
@@ -592,6 +632,8 @@ exports[`StudentProfileUnit component should render 1`] = `
               <td
                 className="data-table-row-section name-section"
                 key="name-10"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "823px",
@@ -600,11 +642,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                A, An, The
+                <TableCellContentWrapper>
+                  A, An, The
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section tool-icon-section"
                 key="tool-10"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "24px",
@@ -612,10 +658,14 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "24px",
                   }
                 }
-              />
+              >
+                <TableCellContentWrapper />
+              </td>
               <td
                 className="data-table-row-section due-date-section"
                 key="dueDate-10"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "100px",
@@ -624,11 +674,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Feb 29, 5am
+                <TableCellContentWrapper>
+                  Feb 29, 5am
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section action-button-section"
                 key="actionButton-10"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "88px",
@@ -637,13 +691,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                <a
-                  aria-label="Start A, An, The"
-                  className="quill-button medium focus-on-light secondary outlined"
-                  href="/activity_sessions/classroom_units/1/activities/140"
-                >
-                  Start
-                </a>
+                <TableCellContentWrapper>
+                  <a
+                    aria-label="Start A, An, The"
+                    className="quill-button medium focus-on-light secondary outlined"
+                    href="/activity_sessions/classroom_units/1/activities/140"
+                  >
+                    Start
+                  </a>
+                </TableCellContentWrapper>
               </td>
             </tr>
             <tr
@@ -653,6 +709,8 @@ exports[`StudentProfileUnit component should render 1`] = `
               <td
                 className="data-table-row-section name-section"
                 key="name-3"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "823px",
@@ -661,11 +719,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Magellan
+                <TableCellContentWrapper>
+                  Magellan
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section tool-icon-section"
                 key="tool-3"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "24px",
@@ -673,10 +735,14 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "24px",
                   }
                 }
-              />
+              >
+                <TableCellContentWrapper />
+              </td>
               <td
                 className="data-table-row-section due-date-section"
                 key="dueDate-3"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "100px",
@@ -685,11 +751,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Feb 29, 5am
+                <TableCellContentWrapper>
+                  Feb 29, 5am
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section action-button-section"
                 key="actionButton-3"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "88px",
@@ -698,13 +768,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                <a
-                  aria-label="Start Magellan"
-                  className="quill-button medium focus-on-light secondary outlined"
-                  href="/activity_sessions/classroom_units/1/activities/605"
-                >
-                  Start
-                </a>
+                <TableCellContentWrapper>
+                  <a
+                    aria-label="Start Magellan"
+                    className="quill-button medium focus-on-light secondary outlined"
+                    href="/activity_sessions/classroom_units/1/activities/605"
+                  >
+                    Start
+                  </a>
+                </TableCellContentWrapper>
               </td>
             </tr>
             <tr
@@ -714,6 +786,8 @@ exports[`StudentProfileUnit component should render 1`] = `
               <td
                 className="data-table-row-section name-section"
                 key="name-4"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "823px",
@@ -722,11 +796,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Jamestown
+                <TableCellContentWrapper>
+                  Jamestown
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section tool-icon-section"
                 key="tool-4"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "24px",
@@ -734,10 +812,14 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "24px",
                   }
                 }
-              />
+              >
+                <TableCellContentWrapper />
+              </td>
               <td
                 className="data-table-row-section due-date-section"
                 key="dueDate-4"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "100px",
@@ -746,11 +828,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Feb 29, 5am
+                <TableCellContentWrapper>
+                  Feb 29, 5am
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section action-button-section"
                 key="actionButton-4"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "88px",
@@ -759,13 +845,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                <a
-                  aria-label="Start Jamestown"
-                  className="quill-button medium focus-on-light secondary outlined"
-                  href="/activity_sessions/classroom_units/1/activities/606"
-                >
-                  Start
-                </a>
+                <TableCellContentWrapper>
+                  <a
+                    aria-label="Start Jamestown"
+                    className="quill-button medium focus-on-light secondary outlined"
+                    href="/activity_sessions/classroom_units/1/activities/606"
+                  >
+                    Start
+                  </a>
+                </TableCellContentWrapper>
               </td>
             </tr>
             <tr
@@ -775,6 +863,8 @@ exports[`StudentProfileUnit component should render 1`] = `
               <td
                 className="data-table-row-section name-section"
                 key="name-6"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "823px",
@@ -783,11 +873,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Age of Exploration: Sailing with the Stars
+                <TableCellContentWrapper>
+                  Age of Exploration: Sailing with the Stars
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section tool-icon-section"
                 key="tool-6"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "24px",
@@ -795,10 +889,14 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "24px",
                   }
                 }
-              />
+              >
+                <TableCellContentWrapper />
+              </td>
               <td
                 className="data-table-row-section due-date-section"
                 key="dueDate-6"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "100px",
@@ -807,11 +905,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Feb 29, 5am
+                <TableCellContentWrapper>
+                  Feb 29, 5am
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section action-button-section"
                 key="actionButton-6"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "88px",
@@ -820,13 +922,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                <a
-                  aria-label="Start Age of Exploration: Sailing with the Stars"
-                  className="quill-button medium focus-on-light secondary outlined"
-                  href="/activity_sessions/classroom_units/1/activities/503"
-                >
-                  Start
-                </a>
+                <TableCellContentWrapper>
+                  <a
+                    aria-label="Start Age of Exploration: Sailing with the Stars"
+                    className="quill-button medium focus-on-light secondary outlined"
+                    href="/activity_sessions/classroom_units/1/activities/503"
+                  >
+                    Start
+                  </a>
+                </TableCellContentWrapper>
               </td>
             </tr>
             <tr
@@ -836,6 +940,8 @@ exports[`StudentProfileUnit component should render 1`] = `
               <td
                 className="data-table-row-section name-section"
                 key="name-7"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "823px",
@@ -844,11 +950,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Age of Exploration: The Cape of Good Hope
+                <TableCellContentWrapper>
+                  Age of Exploration: The Cape of Good Hope
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section tool-icon-section"
                 key="tool-7"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "24px",
@@ -856,10 +966,14 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "24px",
                   }
                 }
-              />
+              >
+                <TableCellContentWrapper />
+              </td>
               <td
                 className="data-table-row-section due-date-section"
                 key="dueDate-7"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "100px",
@@ -868,11 +982,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Feb 29, 5am
+                <TableCellContentWrapper>
+                  Feb 29, 5am
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section action-button-section"
                 key="actionButton-7"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "88px",
@@ -881,13 +999,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                <a
-                  aria-label="Start Age of Exploration: The Cape of Good Hope"
-                  className="quill-button medium focus-on-light secondary outlined"
-                  href="/activity_sessions/classroom_units/1/activities/504"
-                >
-                  Start
-                </a>
+                <TableCellContentWrapper>
+                  <a
+                    aria-label="Start Age of Exploration: The Cape of Good Hope"
+                    className="quill-button medium focus-on-light secondary outlined"
+                    href="/activity_sessions/classroom_units/1/activities/504"
+                  >
+                    Start
+                  </a>
+                </TableCellContentWrapper>
               </td>
             </tr>
             <tr
@@ -897,6 +1017,8 @@ exports[`StudentProfileUnit component should render 1`] = `
               <td
                 className="data-table-row-section name-section"
                 key="name-8"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "823px",
@@ -905,11 +1027,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Age of Exploration: Roanoke
+                <TableCellContentWrapper>
+                  Age of Exploration: Roanoke
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section tool-icon-section"
                 key="tool-8"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "24px",
@@ -917,10 +1043,14 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "24px",
                   }
                 }
-              />
+              >
+                <TableCellContentWrapper />
+              </td>
               <td
                 className="data-table-row-section due-date-section"
                 key="dueDate-8"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "100px",
@@ -929,11 +1059,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Feb 29, 5am
+                <TableCellContentWrapper>
+                  Feb 29, 5am
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section action-button-section"
                 key="actionButton-8"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "88px",
@@ -942,13 +1076,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                <a
-                  aria-label="Start Age of Exploration: Roanoke"
-                  className="quill-button medium focus-on-light secondary outlined"
-                  href="/activity_sessions/classroom_units/1/activities/517"
-                >
-                  Start
-                </a>
+                <TableCellContentWrapper>
+                  <a
+                    aria-label="Start Age of Exploration: Roanoke"
+                    className="quill-button medium focus-on-light secondary outlined"
+                    href="/activity_sessions/classroom_units/1/activities/517"
+                  >
+                    Start
+                  </a>
+                </TableCellContentWrapper>
               </td>
             </tr>
           </tbody>
@@ -1083,7 +1219,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Activity
+                <span>
+                  Activity
+                </span>
               </th>
               <th
                 className="data-table-header score-section tooltip-section"
@@ -1097,7 +1235,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Score
+                <span>
+                  Score
+                </span>
               </th>
               <th
                 className="data-table-header tool-icon-section"
@@ -1111,7 +1251,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Tool
+                <span>
+                  Tool
+                </span>
               </th>
               <th
                 className="data-table-header completed-due-date-section"
@@ -1125,7 +1267,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Due date
+                <span>
+                  Due date
+                </span>
               </th>
               <th
                 className="data-table-header completed-date-section"
@@ -1139,7 +1283,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Completed date
+                <span>
+                  Completed date
+                </span>
               </th>
               <th
                 className="data-table-header action-button-section tooltip-section"
@@ -1152,7 +1298,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "88px",
                   }
                 }
-              />
+              >
+                <span />
+              </th>
             </tr>
           </thead>
           <tbody
@@ -1165,6 +1313,8 @@ exports[`StudentProfileUnit component should render 1`] = `
               <td
                 className="data-table-row-section name-section"
                 key="name-9"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "474px",
@@ -1173,11 +1323,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                A, An
+                <TableCellContentWrapper>
+                  A, An
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section score-section tooltip-section"
                 key="score-9"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "230px",
@@ -1186,20 +1340,24 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                <div
-                  className="score"
-                >
+                <TableCellContentWrapper>
                   <div
-                    className="frequently-demonstrated-skill"
-                  />
-                  <span>
-                    Frequently demonstrated skill
-                  </span>
-                </div>
+                    className="score"
+                  >
+                    <div
+                      className="frequently-demonstrated-skill"
+                    />
+                    <span>
+                      Frequently demonstrated skill
+                    </span>
+                  </div>
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section tool-icon-section"
                 key="tool-9"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "24px",
@@ -1207,10 +1365,14 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "24px",
                   }
                 }
-              />
+              >
+                <TableCellContentWrapper />
+              </td>
               <td
                 className="data-table-row-section completed-due-date-section"
                 key="dueDate-9"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -1219,11 +1381,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Feb 29, 5am
+                <TableCellContentWrapper>
+                  Feb 29, 5am
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section completed-date-section"
                 key="completedDate-9"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -1231,10 +1397,14 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "110px",
                   }
                 }
-              />
+              >
+                <TableCellContentWrapper />
+              </td>
               <td
                 className="data-table-row-section action-button-section tooltip-section"
                 key="actionButton-9"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "88px",
@@ -1243,13 +1413,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                <a
-                  aria-label="Replay A, An"
-                  className="quill-button medium focus-on-light secondary outlined"
-                  href="/activity_sessions/classroom_units/1/activities/138"
-                >
-                  Replay
-                </a>
+                <TableCellContentWrapper>
+                  <a
+                    aria-label="Replay A, An"
+                    className="quill-button medium focus-on-light secondary outlined"
+                    href="/activity_sessions/classroom_units/1/activities/138"
+                  >
+                    Replay
+                  </a>
+                </TableCellContentWrapper>
               </td>
             </tr>
             <tr
@@ -1259,6 +1431,8 @@ exports[`StudentProfileUnit component should render 1`] = `
               <td
                 className="data-table-row-section name-section"
                 key="name-5"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "474px",
@@ -1267,11 +1441,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Age of Exploration: Spices
+                <TableCellContentWrapper>
+                  Age of Exploration: Spices
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section score-section tooltip-section"
                 key="score-5"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "230px",
@@ -1280,20 +1458,24 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                <div
-                  className="score"
-                >
+                <TableCellContentWrapper>
                   <div
-                    className="sometimes-demonstrated-skill"
-                  />
-                  <span>
-                    Sometimes demonstrated skill
-                  </span>
-                </div>
+                    className="score"
+                  >
+                    <div
+                      className="sometimes-demonstrated-skill"
+                    />
+                    <span>
+                      Sometimes demonstrated skill
+                    </span>
+                  </div>
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section tool-icon-section"
                 key="tool-5"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "24px",
@@ -1301,10 +1483,14 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "24px",
                   }
                 }
-              />
+              >
+                <TableCellContentWrapper />
+              </td>
               <td
                 className="data-table-row-section completed-due-date-section"
                 key="dueDate-5"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -1313,11 +1499,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                Feb 29, 5am
+                <TableCellContentWrapper>
+                  Feb 29, 5am
+                </TableCellContentWrapper>
               </td>
               <td
                 className="data-table-row-section completed-date-section"
                 key="completedDate-5"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "110px",
@@ -1325,10 +1515,14 @@ exports[`StudentProfileUnit component should render 1`] = `
                     "width": "110px",
                   }
                 }
-              />
+              >
+                <TableCellContentWrapper />
+              </td>
               <td
                 className="data-table-row-section action-button-section tooltip-section"
                 key="actionButton-5"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
                 style={
                   Object {
                     "minWidth": "88px",
@@ -1337,13 +1531,15 @@ exports[`StudentProfileUnit component should render 1`] = `
                   }
                 }
               >
-                <a
-                  aria-label="Replay Age of Exploration: Spices"
-                  className="quill-button medium focus-on-light secondary outlined"
-                  href="/activity_sessions/classroom_units/1/activities/516"
-                >
-                  Replay
-                </a>
+                <TableCellContentWrapper>
+                  <a
+                    aria-label="Replay Age of Exploration: Spices"
+                    className="quill-button medium focus-on-light secondary outlined"
+                    href="/activity_sessions/classroom_units/1/activities/516"
+                  >
+                    Replay
+                  </a>
+                </TableCellContentWrapper>
               </td>
             </tr>
           </tbody>

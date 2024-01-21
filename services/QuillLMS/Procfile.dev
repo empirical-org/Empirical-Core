@@ -1,3 +1,15 @@
-web: bin/rails s -p 3000
-client: sh -c 'rm app/assets/webpack/* || true && cd client && npm run build:dev:client'
+# Run Rails without hot reloading (static assets).
+rails: rails s -b 0.0.0.0
 
+worker: bundle exec sidekiq -v -q default -q critical
+reportworker: bundle exec sidekiq -v -q low
+
+redis-sidekiq: redis-server --port 6379
+
+redis-testing: redis-server --port 6378
+
+redis-caching: redis-server --port 7654
+
+# vite opens a lot of files, so we increase the ulimit
+ulimit -n 99999
+vite: bin/vite dev

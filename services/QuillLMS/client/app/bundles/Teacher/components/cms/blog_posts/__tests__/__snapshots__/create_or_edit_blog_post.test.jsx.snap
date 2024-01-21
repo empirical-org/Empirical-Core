@@ -134,7 +134,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
         <input
           onChange={[Function]}
           type="text"
-          value={null}
+          value=""
         />
         <div
           className="short-fields"
@@ -16422,7 +16422,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
           </label>
           <input
             onChange={[Function]}
-            value={null}
+            value=""
           />
         </div>
         <div
@@ -16497,7 +16497,10 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
           >
             Here is the link to your uploaded image or video:
           </label>
-          <input />
+          <input
+            readOnly={true}
+            value=""
+          />
           <a
             className="quill-button fun secondary outlined focus-on-light"
             href="/cms/images"
@@ -33349,7 +33352,10 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
           >
             Here is the link to your uploaded image or video:
           </label>
-          <input />
+          <input
+            readOnly={true}
+            value=""
+          />
           <a
             className="quill-button fun secondary outlined focus-on-light"
             href="/cms/images"

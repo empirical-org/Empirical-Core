@@ -18,5 +18,10 @@ module Snapshots
     def relevant_date_column
       "user_logins.created_at"
     end
+
+    # For this query we want to count all teachers, not just classroom owners
+    def owner_teachers_only_where_clause
+      ""
+    end
   end
 end

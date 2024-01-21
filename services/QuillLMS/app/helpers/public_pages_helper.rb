@@ -143,7 +143,7 @@ module PublicPagesHelper
         answer:
           "<div>
             <p class='college-board-q-and-a-text'>We are here for you! The following resources are available:</p>
-            <p class='college-board-q-and-a-text'><strong>Quill Instructional Coach:</strong> You can reach out directly to Sherry Lewkowicz, Quill&apos;s coach dedicated to supporting College Board teachers, at <a href='mailto:sherry@quill.org'>sherry@quill.org</a>. Be sure to mention the course(s) you teach.</p>
+            <p class='college-board-q-and-a-text'><strong>Quill Instructional Coach:</strong> You can reach out to us at<a href='mailto:pd@quill.org'>pd@quill.org</a>. Be sure to mention the course(s) you teach.</p>
             <p class='college-board-q-and-a-text'><strong><a href='https://www.quill.org/teacher-center' rel='noopener noreferrer' target='_blank'>Teacher Center:</a></strong> The place to go for all things best practice and implementation!</p>
             <p class='college-board-q-and-a-text'><strong>Support:</strong> Having a technical issue? Email <a href='mailto:support@quill.org'>support@quill.org</a> or use the chat in the lower right corner of Quill to connect with a member of the Quill support team.</p>
             <p class='college-board-q-and-a-text'>AP® is a registered trademark of the College Board.</p>
@@ -245,9 +245,10 @@ module PublicPagesHelper
         answer:
           "<div>
             <p class='college-board-q-and-a-text'>We are here for you! The following resources are available:</p>
-            <p class='college-board-q-and-a-text'><strong>Quill Instructional Coach:</strong> You can reach out directly to Sherry Lewkowicz, Quill&apos;s coach dedicated to supporting College Board teachers, at <a href='mailto:sherry@quill.org'>sherry@quill.org</a>. Be sure to mention the course(s) you teach.</p>
+            <p class='college-board-q-and-a-text'><strong>Quill Instructional Coach:</strong> You can reach out to us at<a href='mailto:pd@quill.org'>pd@quill.org</a>. Be sure to mention the course(s) you teach.</p>
             <p class='college-board-q-and-a-text'><strong><a href='https://www.quill.org/teacher-center' rel='noopener noreferrer' target='_blank'>Teacher Center:</a></strong> The place to go for all things best practice and implementation!</p>
             <p class='college-board-q-and-a-text'><strong>Support:</strong> Having a technical issue? Email <a href='mailto:support@quill.org'>support@quill.org</a> or use the chat in the lower right corner of Quill to connect with a member of the Quill support team.</p>
+            <p class='college-board-q-and-a-text'>AP® is a registered trademark of the College Board.</p>
           </div>"
       }
     ]
@@ -340,7 +341,7 @@ module PublicPagesHelper
         answer:
           "<div>
             <p class='college-board-q-and-a-text'>We are here for you! The following resources are available:</p>
-            <p class='college-board-q-and-a-text'><strong>Quill Instructional Coach:</strong> You can reach out directly to Sherry Lewkowicz, Quill&apos;s coach dedicated to supporting College Board teachers, at <a href='mailto:sherry@quill.org'>sherry@quill.org</a>. Be sure to mention the course(s) you teach.</p>
+            <p class='college-board-q-and-a-text'><strong>Quill Instructional Coach:</strong> You can reach out to us at<a href='mailto:pd@quill.org'>pd@quill.org</a>. Be sure to mention the course(s) you teach.</p>
             <p class='college-board-q-and-a-text'><strong><a href='https://www.quill.org/teacher-center' rel='noopener noreferrer' target='_blank'>Teacher Center:</a></strong> The place to go for all things best practice and implementation!</p>
             <p class='college-board-q-and-a-text'><strong>Support:</strong> Having a technical issue? Email <a href='mailto:support@quill.org'>support@quill.org</a> or use the chat in the lower right corner of Quill to connect with a member of the Quill support team.</p>
             <p class='college-board-q-and-a-text'>AP® is a registered trademark of the College Board.</p>
@@ -545,7 +546,7 @@ module PublicPagesHelper
       },
       {
         question: 'Do you accept purchase orders?',
-        answer: "<p>Yes, we accept purchase orders. You may email a purchase order to <a href='mailto: sales@quill.org'>sales@quill.org</a>. <a href='https://drive.google.com/file/d/1YPRiFMOthu3Jomf6IOG7nBQE2gvzbG2l/view'>Access our W-9</a> and reach out with any questions at 510-671-0222.</p>"
+        answer: "<p>We accept purchase orders for school and district subscriptions only. You may email a purchase order to <a href='mailto: sales@quill.org'>sales@quill.org</a>. <a href='https://drive.google.com/file/d/1GPAnfQGMCnuIIk5Ge_CmbjSPTmt5C3zy/view?usp=sharing'>Access our W-9</a> and reach out with any questions at 510-671-0222.</p>"
       },
       {
         question: 'Do you offer financial aid?',
@@ -560,4 +561,3 @@ module PublicPagesHelper
   # rubocop:enable Layout/LineLength
 end
 # rubocop:enable Metrics/ModuleLength
-

@@ -1,8 +1,8 @@
 import qs from 'qs'
 import * as React from 'react'
 
+import { EVIDENCE_HANDBOOK_LINK, evidenceHandbookIcon } from '../../../Shared'
 import { TEACHER_CENTER, TEACHER_CENTER_SLUG, WRITING_FOR_LEARNING } from './blog_post_constants'
-import { evidenceHandbookIcon, EVIDENCE_HANDBOOK_LINK } from '../../../Shared'
 
 const searchTokens = [
   'getting started',

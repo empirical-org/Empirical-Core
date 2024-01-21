@@ -11,6 +11,7 @@
 #  maximum_grade_level        :integer
 #  minimum_grade_level        :integer
 #  name                       :string
+#  question_count             :integer          default(0), not null
 #  repeatable                 :boolean          default(TRUE)
 #  supporting_info            :string
 #  uid                        :string           not null
@@ -52,6 +53,7 @@ FactoryBot.define do
     activity_categories     { create_pair(:activity_category) }
     raw_score               { create(:raw_score) }
     repeatable              { true }
+    question_count          { 10 }
     data                    { { questionType: 'questions', questions: [{ key: 'fake_key' }] } }
 
     factory :diagnostic_activity do

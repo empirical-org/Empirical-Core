@@ -435,23 +435,15 @@
       box-shadow: none;
     }
   }
+  .user-dropdown-button::after {
+    margin-left: 10px;
+    content: "\f078";
+    font-family: "Font Awesome 5 Pro";  /* updated font-family */
+    font-weight: 900; /* regular style/weight */
+  }
   &.dropdown-closed {
-    .user-dropdown-button::after {
-      margin-left: 10px;
-      content: "\f078";
-      font-family: "Font Awesome 5 Pro";  /* updated font-family */
-      font-weight: 900; /* regular style/weight */
-    }
     div {
       display: none;
-    }
-  }
-  &.dropdown-open {
-    .user-dropdown-button::after {
-      margin-left: 10px;
-      content: "\f077";
-      font-family: "Font Awesome 5 Pro";  /* updated font-family */
-      font-weight: 900; /* regular style/weight */
     }
   }
 }
@@ -914,7 +906,7 @@ nav.q-navbar-home {
           }
         }
         h3 {
-          font-size: 16px;
+          font-size: 14px;
           font-weight: 600;
           color: $quill-green;
           margin-top: 0px;

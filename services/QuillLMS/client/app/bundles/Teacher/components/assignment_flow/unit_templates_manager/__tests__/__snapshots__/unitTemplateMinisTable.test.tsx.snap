@@ -183,7 +183,9 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
               onClick={[Function]}
               type="button"
             >
-              Pack type
+              <span>
+                Pack type
+              </span>
               <div
                 className="sort-tooltip-container"
               />
@@ -206,7 +208,9 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
               onClick={[Function]}
               type="button"
             >
-              Pack name
+              <span>
+                Pack name
+              </span>
               <div
                 className="sort-tooltip-container"
               />
@@ -229,7 +233,9 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
               onClick={[Function]}
               type="button"
             >
-              Tools
+              <span>
+                Tools
+              </span>
               <div
                 className="sort-tooltip-container"
               />
@@ -252,7 +258,9 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
               onClick={[Function]}
               type="button"
             >
-              Grade Level
+              <span>
+                Grade Level
+              </span>
               <div
                 className="sort-tooltip-container"
               />
@@ -275,7 +283,9 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
               onClick={[Function]}
               type="button"
             >
-              Activities
+              <span>
+                Activities
+              </span>
               <div
                 className="sort-tooltip-container"
               />
@@ -298,7 +308,9 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
               onClick={[Function]}
               type="button"
             >
-              Duration
+              <span>
+                Duration
+              </span>
               <div
                 className="sort-tooltip-container"
               />
@@ -309,140 +321,204 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
       <tbody
         className="data-table-body"
       >
-        <tr>
-          <a
-            className="data-table-row  "
-            href="/activities/packs/3"
-            key="3"
+        <tr
+          className="data-table-row  "
+          key="3"
+        >
+          <td
+            className="data-table-row-section pack-type-section"
+            key="packType-3"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            style={
+              Object {
+                "minWidth": "160px",
+                "textAlign": "left",
+                "width": "160px",
+              }
+            }
           >
-            <td
-              className="data-table-row-section pack-type-section"
-              key="packType-3"
-              style={
-                Object {
-                  "minWidth": "160px",
-                  "textAlign": "left",
-                  "width": "160px",
-                }
-              }
+            <TableCellContentWrapper
+              link="/activities/packs/3"
             >
-              <p
-                style={
-                  Object {
-                    "color": "",
-                  }
-                }
-              />
-            </td>
-            <td
-              className="data-table-row-section pack-name-section"
-              key="packName-3"
-              style={
-                Object {
-                  "minWidth": "204px",
-                  "textAlign": "left",
-                  "width": "204px",
-                }
-              }
-            >
-              <Tooltip
-                isTabbable={true}
-                tooltipText="<table class=\\"activity-tooltip-table\\"><tbody><tr><th>Activity</th><th>Tool</th><th>Grade Level Range</th></tr><tr><td>Their, They&#x27;re, There</td><td>Quill Grammar</td><td>4th-5th</td></tr></tbody></table>"
-                tooltipTriggerText="Test Activity Pack"
-                tooltipTriggerTextClass="activity-pack-name"
-              >
-                <span
-                  aria-hidden={false}
-                  className="quill-tooltip-trigger "
-                  role="tooltip"
-                >
-                  <span
-                    className="activity-pack-name"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    tabIndex={0}
-                  >
-                    Test Activity Pack
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      className="quill-tooltip"
-                    />
-                  </span>
-                </span>
-              </Tooltip>
-            </td>
-            <td
-              className="data-table-row-section "
-              key="tools-3"
-              style={
-                Object {
-                  "minWidth": "140px",
-                  "textAlign": "left",
-                  "width": "140px",
-                }
-              }
-            >
-              <section
-                className="tools-section"
+              <a
+                className="row-link"
+                href="/activities/packs/3"
               >
                 <p
                   style={
                     Object {
-                      "color": "#9035D6",
+                      "color": "",
                     }
                   }
+                />
+              </a>
+            </TableCellContentWrapper>
+          </td>
+          <td
+            className="data-table-row-section pack-name-section"
+            key="packName-3"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            style={
+              Object {
+                "minWidth": "204px",
+                "textAlign": "left",
+                "width": "204px",
+              }
+            }
+          >
+            <TableCellContentWrapper
+              link="/activities/packs/3"
+            >
+              <a
+                className="row-link"
+                href="/activities/packs/3"
+              >
+                <Tooltip
+                  isTabbable={true}
+                  tooltipText="<table class=\\"activity-tooltip-table\\"><tbody><tr><th>Activity</th><th>Tool</th><th>Grade Level Range</th></tr><tr><td>Their, They&#x27;re, There</td><td>Quill Grammar</td><td>4th-5th</td></tr></tbody></table>"
+                  tooltipTriggerText="Test Activity Pack"
+                  tooltipTriggerTextClass="activity-pack-name"
                 >
-                  Grammar
-                </p>
-              </section>
-            </td>
-            <td
-              className="data-table-row-section "
-              key="gradeLevel-3"
-              style={
-                Object {
-                  "minWidth": "70px",
-                  "textAlign": "right",
-                  "width": "70px",
-                }
+                  <span
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
+                  >
+                    <span
+                      className="activity-pack-name"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      tabIndex={0}
+                    >
+                      Test Activity Pack
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
+                  </span>
+                </Tooltip>
+              </a>
+            </TableCellContentWrapper>
+          </td>
+          <td
+            className="data-table-row-section "
+            key="tools-3"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            style={
+              Object {
+                "minWidth": "140px",
+                "textAlign": "left",
+                "width": "140px",
               }
-            />
-            <td
-              className="data-table-row-section activities-section"
-              key="activities-3"
-              style={
-                Object {
-                  "minWidth": "50px",
-                  "textAlign": "right",
-                  "width": "50px",
-                }
-              }
+            }
+          >
+            <TableCellContentWrapper
+              link="/activities/packs/3"
             >
-              1
-            </td>
-            <td
-              className="data-table-row-section "
-              key="duration-3"
-              style={
-                Object {
-                  "minWidth": "150px",
-                  "textAlign": "left",
-                  "width": "150px",
-                }
+              <a
+                className="row-link"
+                href="/activities/packs/3"
+              >
+                <section
+                  className="tools-section"
+                >
+                  <p
+                    key="Grammar"
+                    style={
+                      Object {
+                        "color": "#9035D6",
+                      }
+                    }
+                  >
+                    Grammar
+                  </p>
+                </section>
+              </a>
+            </TableCellContentWrapper>
+          </td>
+          <td
+            className="data-table-row-section "
+            key="gradeLevel-3"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            style={
+              Object {
+                "minWidth": "70px",
+                "textAlign": "right",
+                "width": "70px",
               }
+            }
+          >
+            <TableCellContentWrapper
+              link="/activities/packs/3"
             >
-              60 mins
-            </td>
-          </a>
+              <a
+                className="row-link"
+                href="/activities/packs/3"
+              />
+            </TableCellContentWrapper>
+          </td>
+          <td
+            className="data-table-row-section activities-section"
+            key="activities-3"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            style={
+              Object {
+                "minWidth": "50px",
+                "textAlign": "right",
+                "width": "50px",
+              }
+            }
+          >
+            <TableCellContentWrapper
+              link="/activities/packs/3"
+            >
+              <a
+                className="row-link"
+                href="/activities/packs/3"
+              >
+                1
+              </a>
+            </TableCellContentWrapper>
+          </td>
+          <td
+            className="data-table-row-section "
+            key="duration-3"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            style={
+              Object {
+                "minWidth": "150px",
+                "textAlign": "left",
+                "width": "150px",
+              }
+            }
+          >
+            <TableCellContentWrapper
+              link="/activities/packs/3"
+            >
+              <a
+                className="row-link"
+                href="/activities/packs/3"
+              >
+                60 mins
+              </a>
+            </TableCellContentWrapper>
+          </td>
         </tr>
       </tbody>
     </table>

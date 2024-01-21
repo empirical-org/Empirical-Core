@@ -5,8 +5,8 @@ import ReactOnRails from 'react-on-rails';
 import DemoAccountBanner from './demoAccountBannerApp';
 import PremiumPricingGuideApp from './premiumPricingGuideApp';
 
-require('../../../assets/styles/home.scss');
-require('../../Home/bootstrap_carousel.js');
-require('../../../assets/javascripts/clickHandlers.js');
+import '../../../assets/javascripts/clickHandlers.js';
+import '../../../assets/styles/home.scss';
+import '../../Home/bootstrap_carousel.js';
 
 ReactOnRails.register({ PremiumPricingGuideApp, DemoAccountBanner });

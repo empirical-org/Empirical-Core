@@ -129,7 +129,7 @@ module TeacherFixes
     ClassroomUnit.where(classroom_id: source_classroom_id).each do |cu|
       existing_cu = ClassroomUnit.find_by(classroom_id: target_classroom_id, unit_id: cu.unit_id)
       if existing_cu
-        cu.activity_sessions.update_all(classroom_unit_id: existing_cu.id)
+        cu.activity_sessions.update_all(classroom_unit_id: existing_cu.id, updated_at: DateTime.current)
         existing_cu.update(assigned_student_ids: cu.assigned_student_ids.concat(existing_cu.assigned_student_ids).uniq)
         existing_cu.assigned_student_ids.each do |student_id|
           student = User.find(student_id)

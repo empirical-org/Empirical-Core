@@ -2,7 +2,7 @@ import * as React from "react";
 import { useQuery } from 'react-query';
 import { Link, withRouter } from 'react-router-dom';
 
-import { DropdownInput, Input, Spinner, TextArea } from '../../../../Shared/index';
+import { DropdownInput, Spinner, TextArea } from '../../../../Shared/index';
 import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { InputEvent } from '../../../interfaces/evidenceInterfaces';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
@@ -89,7 +89,7 @@ const ModelForm = ({ location, history, match }) => {
       <DropdownInput
         handleChange={handleSetName}
         isSearchable={true}
-        label="Name"
+        label="Name (note: if you're not finding a particular name, ensure that endpoint and model name are identical including leading/trailing whitespace)"
         options={nameOptions}
         value={nameOptions.find(opt => opt.value === name)}
       />
@@ -102,7 +102,7 @@ const ModelForm = ({ location, history, match }) => {
       />
       <button className="quill-button fun primary contained" id="add-model-button" onClick={submitModel} type="submit">Submit</button>
       {errors['Model Submission Error'] && <p className="error-message">{errors['Model Submission Error']}</p>}
-    </div>
+    </div >
   );
 }
 

@@ -20,17 +20,16 @@ class DistrictAdmin < ApplicationRecord
   belongs_to :user
   validates :user_id, uniqueness: { scope: :district_id }
 
-  after_create :attach_schools
   after_destroy :detach_schools
 
   def admin
     user
   end
 
-  def attach_schools
+  def attach_schools(school_ids)
     admin
       .schools_admins
-      .create!(unattached_district_schools.map { |school| { school_id: school.id } } )
+      .create!(school_ids&.map { |id| { school_id: id } } )
   end
 
   def detach_schools
@@ -38,6 +37,10 @@ class DistrictAdmin < ApplicationRecord
       .schools_admins
       .where(school: district_schools)
       .destroy_all
+
+    admin
+      .schools_users
+      &.destroy
   end
 
   private def unattached_district_schools

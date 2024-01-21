@@ -4,12 +4,12 @@ class BlockButton extends React.Component {
 
   constructor(props) {
     super(props);
-    this.componentWillMount = this.componentWillMount.bind(this);
+    this.UNSAFE_componentWillMount = this.UNSAFE_componentWillMount.bind(this);
     this.componentWillUnmount = this.componentWillUnmount.bind(this);
   }
 
   // register with store updates to ensure rerender
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.bindToState(this);
   }
 

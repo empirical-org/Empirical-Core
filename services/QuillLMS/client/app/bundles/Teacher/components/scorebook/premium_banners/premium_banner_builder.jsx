@@ -85,23 +85,6 @@ export default class PremiumBannerBuilder extends React.Component {
               {this.stateSpecificComponents()}
             </div>
           </div>
-          <div className='row school-premium-banner'>
-            <div className='container'>
-              <span>
-                <div className='row'>
-                  <div className='col-md-9 col-xs-12 pull-left'>
-                    <h4>Representing a School or District?</h4>
-                    <span>Starting April 1st, when you purchase School or District Premium, you&apos;ll receive Quill Premium for free for the remainder of the school year!</span>
-                  </div>
-                  <div className='col-md-3 col-xs-12 pull-right'>
-                    <div className='premium-button-box text-center'>
-                      <a href='/premium/request-school-quote'><button className='btn-orange' type='button'>Get in touch!</button></a>
-                    </div>
-                  </div>
-                </div>
-              </span>
-            </div>
-          </div>
         </div>
       );
     }

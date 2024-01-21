@@ -1,8 +1,6 @@
-declare function require(name:string);
 import * as _ from 'underscore';
 import { hashToCollection } from '../../../Shared/index';
 
-// const qml = require('quill-marking-logic')
 import { ConceptResult, checkDiagnosticQuestion, checkDiagnosticSentenceFragment, checkFillInTheBlankQuestion } from 'quill-marking-logic';
 import { requestGet, requestPost, requestPut, } from '../../../../modules/request/index';
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel.js';

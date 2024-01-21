@@ -34,7 +34,6 @@ gem 'sinatra', require: false # Used for the web-based queue management interfac
 # MIDDLEWARE
 gem 'rack-cors', '~> 1.1', require: 'rack/cors'
 gem 'rack-attack', '~> 6.5'
-gem 'rails_autoscale_agent', '~> 0.10'
 
 # API
 gem 'active_model_serializers', '~> 0.10'
@@ -69,4 +68,12 @@ group :development, :test do
   gem 'rb-readline'
   gem 'rspec-rails'
   gem 'webmock'
+  gem 'rubocop'
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
+end
+
+group :production, :staging do
+  gem 'judoscale-rails'
+  gem 'judoscale-sidekiq'
 end

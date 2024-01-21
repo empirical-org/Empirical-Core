@@ -4,7 +4,7 @@ import React from 'react';
 import { nonRelevantActivityClassificationIds, } from '../../../../modules/activity_classifications';
 import { requestGet, } from '../../../../modules/request/index';
 import { closedLockIcon, scheduledIcon, } from '../../../Shared/index';
-import ScorebookTooltip from '../modules/componentGenerators/tooltip_title/scorebook_tooltip_title';
+import ScorebookTooltip from './tooltip/scorebook_tooltip';
 import gradeColor from '../modules/grade_color.js';
 
 function skillDescription(grade) {

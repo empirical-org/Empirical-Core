@@ -5,8 +5,8 @@ import { informationIcon } from '../../../Shared/index'
 import { DEFAULT_HIGHLIGHT_PROMPT, } from '../../../Shared/utils/constants'
 
 const READ_PASSAGE_STEP = 1
-const promptDirections = [<li>Use information <b>from the text</b> to finish the sentence.</li>, <li>Put the information in your own words.</li>]
-const highlightDirections = [<li>First, read the highlighting task below.</li>, <li>Then, read the text and highlight sentences to complete the task.</li>, <li className="sr-only">Screenreader users, please use your tab keys to navigate through the passage. Highlightable sentences are toggle-able buttons. Use the Enter key on a focused sentence to add it to your highlights or to remove it once it has already been highlighted.</li>]
+const promptDirections = [<li key='prompt-direction-1'>Use information <b>from the text</b> to finish the sentence.</li>, <li key='prompt-direction-2'>Put the information in your own words.</li>]
+const highlightDirections = [<li key='highlight-direction-1'>First, read the highlighting task below.</li>, <li key='highlight-direction-2'>Then, read the text and highlight sentences to complete the task.</li>, <li className="sr-only" key='highlight-direction-3'>Screenreader users, please use your tab keys to navigate through the passage. Highlightable sentences are toggle-able buttons. Use the Enter key on a focused sentence to add it to your highlights or to remove it once it has already been highlighted.</li>]
 
 const renderDirections = (directionElementsArray: JSX.Element[]) => (
   <section className="directions-section">

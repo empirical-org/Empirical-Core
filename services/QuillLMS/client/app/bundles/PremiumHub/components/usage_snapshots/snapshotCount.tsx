@@ -4,7 +4,7 @@ import { SMALL, POSITIVE, NEGATIVE, NONE } from './shared'
 
 import { requestPost, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'
-import { selectionsEqual } from '../../shared'
+import { hashPayload } from '../../shared'
 
 const smallArrowUpIcon = <img alt="Arrow pointing up" className="small" src={`${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/arrow_up_icon.svg`} />
 const smallArrowDownIcon = <img alt="Arrow pointing down" className="small" src={`${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/arrow_down_icon.svg`} />
@@ -28,27 +28,78 @@ interface SnapshotCountProps {
   passedChangeDirection?: 'negative'|'positive'|'none';
   singularLabel?: string;
   pusherChannel?: any;
+  labelSubText?: JSX.Element
 }
 
-const PUSHER_EVENT_KEY = 'admin-snapshot-count-cached'
+const PUSHER_CURRENT_EVENT_KEY = 'admin-snapshot-count-cached'
+const PUSHER_PREVIOUS_EVENT_KEY = 'admin-snapshot-previous-count-cached'
+const NOT_APPLICABLE = 'N/A'
+const RETRY_TIMEOUT = 20000
 
-const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, passedCount, passedChange, passedChangeDirection, singularLabel, pusherChannel, }: SnapshotCountProps) => {
+const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, passedCount, passedPrevious, passedChange, passedChangeDirection, singularLabel, pusherChannel, labelSubText, }: SnapshotCountProps) => {
   const [count, setCount] = React.useState(passedCount || null)
-  const [change, setChange] = React.useState(passedChange || 0)
+  const [previous, setPrevious] = React.useState(passedPrevious)
+  const [change, setChange] = React.useState(passedChange)
   const [changeDirection, setChangeDirection] = React.useState(passedChangeDirection || null)
   const [loading, setLoading] = React.useState(false)
+  const [currentRetryTimeout, setCurrentRetryTimeout] = React.useState(null)
+  const [previousRetryTimeout, setPreviousRetryTimeout] = React.useState(null)
+  const [pusherCurrentMessage, setPusherCurrentMessage] = React.useState(null)
+  const [pusherPreviousMessage, setPusherPreviousMessage] = React.useState(null)
+  const [customTimeframeStartString, setCustomTimeframeStartString] = React.useState(null)
+  const [customTimeframeEndString, setCustomTimeframeEndString] = React.useState(null)
 
   React.useEffect(() => {
     initializePusher()
   }, [pusherChannel])
 
   React.useEffect(() => {
-    initializePusher()
-
     resetToDefault()
 
-    getData()
+    getCurrentData()
+    getPreviousData()
   }, [searchCount])
+
+  React.useEffect(() => {
+    if (!customTimeframeStart) return setCustomTimeframeStartString(null)
+
+    setCustomTimeframeStartString(customTimeframeStart.toISOString())
+  }, [customTimeframeStart])
+
+  React.useEffect(() => {
+    if (!customTimeframeEnd) return setCustomTimeframeEndString(null)
+
+    setCustomTimeframeEndString(customTimeframeEnd.toISOString())
+  }, [customTimeframeEnd])
+
+  React.useEffect(() => {
+    if (!pusherCurrentMessage) return
+
+    if (filtersMatchHash(pusherCurrentMessage)) getCurrentData()
+  }, [pusherCurrentMessage])
+
+  React.useEffect(() => {
+    if (!pusherPreviousMessage) return
+
+    if (filtersMatchHash(pusherPreviousMessage)) getPreviousData()
+  }, [pusherPreviousMessage])
+
+  React.useEffect(() => {
+    if (!previous || count === NOT_APPLICABLE || count === null) {
+      setChangeDirection(NONE)
+      return
+    }
+
+    const roundedPrevious = Math.round(previous || 0)
+
+    const changeTotal = Math.round(((count - roundedPrevious) / (roundedPrevious || 1)) * 100)
+    setChange(Math.abs(changeTotal))
+    if (changeTotal) {
+      setChangeDirection(changeTotal > 0 ? POSITIVE : NEGATIVE)
+    } else {
+      setChangeDirection(NONE)
+    }
+  }, [count, previous])
 
   function resetToDefault() {
     setCount(passedCount || null)
@@ -56,8 +107,8 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     setChange(passedChange || 0)
   }
 
-  function getData() {
-    const searchParams = {
+  function getSearchParams() {
+    return {
       query: queryKey,
       timeframe: selectedTimeframe,
       timeframe_custom_start: customTimeframeStart,
@@ -67,56 +118,79 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
       classroom_ids: selectedClassroomIds,
       grades: selectedGrades
     }
+  }
 
-    requestPost(`/snapshots/count`, searchParams, (body) => {
+  function getCurrentData() {
+
+    requestPost(`/snapshots/count`, getSearchParams(), (body) => {
       if (!body.hasOwnProperty('results')) {
+        setCurrentRetryTimeout(setTimeout(getCurrentData, RETRY_TIMEOUT))
         setLoading(true)
-      } else {
-        const { results, } = body
-        const { previous, current, } = results
-
-        const roundedCurrent = (current === null) ? 'N/A' : Math.round(current || 0)
-
-        setCount(roundedCurrent)
-
-        if (!previous || current === null) {
-          setChangeDirection(NONE)
-          setLoading(false)
-          return
-        }
-
-        const roundedPrevious = Math.round(previous || 0)
-
-        const changeTotal = Math.round(((roundedCurrent - roundedPrevious) / (roundedPrevious || 1)) * 100)
-        setChange(Math.abs(changeTotal))
-        if (changeTotal) {
-          setChangeDirection(changeTotal > 0 ? POSITIVE : NEGATIVE)
-        } else {
-          setChangeDirection(NONE)
-        }
-        setLoading(false)
+        return
       }
+
+      clearTimeout(currentRetryTimeout)
+
+      const { results, } = body
+      const { count } = results
+
+      setCount((count === null) ? NOT_APPLICABLE : Math.round(count || 0))
+
+      setLoading(false)
     })
   }
 
-  function initializePusher() {
-    pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
-      const { message, } = body
-
-      const queryKeysAreEqual = message.query === queryKey
-      const timeframesAreEqual = message.timeframe === selectedTimeframe
-      const schoolIdsAreEqual = selectionsEqual(message.school_ids, selectedSchoolIds)
-      const teacherIdsAreEqual = selectionsEqual(message.teacher_ids, selectedTeacherIds)
-      const classroomIdsAreEqual = selectionsEqual(message.classroom_ids, selectedClassroomIds)
-      const gradesAreEqual =  selectionsEqual(message.grades, selectedGrades?.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
-
-      if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {
-        getData()
+  function getPreviousData() {
+    requestPost(`/snapshots/count?previous_timeframe=true`, getSearchParams(), (body) => {
+      if (!body.hasOwnProperty('results')) {
+        setPreviousRetryTimeout(setTimeout(getPreviousData, RETRY_TIMEOUT))
+        return
       }
+
+      clearTimeout(previousRetryTimeout)
+
+      const { results, } = body
+      const { count } = results
+
+      setPrevious(Math.round(count || 0))
+    })
+  }
+
+  function filtersMatchHash(hashMessage) {
+    const filterTarget = [].concat(
+      queryKey,
+      selectedTimeframe,
+      customTimeframeStartString,
+      customTimeframeEndString,
+      selectedSchoolIds,
+      selectedGrades,
+      selectedTeacherIds,
+      selectedClassroomIds
+    )
+
+    const filterHash = hashPayload(filterTarget)
+
+    return hashMessage == filterHash
+  }
+
+  function initializePusher() {
+    pusherChannel?.bind(`${PUSHER_CURRENT_EVENT_KEY}:${queryKey}`, (body) => {
+      const { message, } = body
+      setPusherCurrentMessage(message)
+    });
+
+    pusherChannel?.bind(`${PUSHER_PREVIOUS_EVENT_KEY}:${queryKey}`, (body) => {
+      const { message, } = body
+      setPusherPreviousMessage(message)
     });
   };
 
-  const className = `snapshot-item snapshot-count ${size} ${changeDirection || ''}`
+  let className = `snapshot-item snapshot-count ${size}`
+  if (changeDirection === NONE && count !== NOT_APPLICABLE) {
+    className += ' no-change'
+  } else if (changeDirection !== NONE) {
+    className += ` ${changeDirection}`
+  }
 
   let icon
 
@@ -131,7 +205,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
       {loading && <div className="loading-spinner-wrapper"><ButtonLoadingSpinner /></div>}
       <div className="count-and-label">
         <span className="count">{count?.toLocaleString() || '—'}</span>
-        <span className="snapshot-label">{count === 1 && singularLabel ? singularLabel : label}</span>
+        <span className="snapshot-label">{count === 1 && singularLabel ? singularLabel : label}{labelSubText}</span>
       </div>
       <div className="change">
         {icon}
@@ -142,3 +216,12 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
 }
 
 export default SnapshotCount
+
+SnapshotCount.defaultProps = {
+  customTimeframeEnd: null,
+  customTimeframeStart: null,
+  selectedClassroomIds: null,
+  selectedGrades: null,
+  selectedTeacherIds: null,
+  selectedTimeframe: "this-school-year",
+}

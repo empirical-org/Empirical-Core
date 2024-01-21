@@ -9,7 +9,7 @@ export const AppLegend = () => {
   const size = useWindowSize();
   const evidenceDescription = size.width <= SCOREBOOK_MOBILE_BREAKPOINT ? 'Write using evidence' : 'Use a text to write with evidence';
   const diagnostic = (
-    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/diagnostic`} rel="noopener noreferrer" target="_blank">
+    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/diagnostic`} key="diagnostic" rel="noopener noreferrer" target="_blank">
       <img alt="" src={`${baseImageSrc}/diagnostic-grey.svg`} />
       <div className="icons-description-wrapper">
         <p className="title">Quill Diagnostic</p>
@@ -19,7 +19,7 @@ export const AppLegend = () => {
   )
 
   const lessons = (
-    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/lessons`} rel="noopener noreferrer" target="_blank">
+    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/lessons`} key="lessons" rel="noopener noreferrer" target="_blank">
       <img alt="" src={`${baseImageSrc}/lessons-grey.svg`} />
       <div className="icons-description-wrapper">
         <p className="title">Quill Lessons</p>
@@ -29,7 +29,7 @@ export const AppLegend = () => {
   )
 
   const connect = (
-    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/connect`} rel="noopener noreferrer" target="_blank">
+    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/connect`} key="connect" rel="noopener noreferrer" target="_blank">
       <img alt="" src={`${baseImageSrc}/connect-grey.svg`} />
       <div className="icons-description-wrapper">
         <p className="title">Quill Connect</p>
@@ -39,7 +39,7 @@ export const AppLegend = () => {
   )
 
   const proofreader = (
-    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/proofreader`} rel="noopener noreferrer" target="_blank">
+    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/proofreader`} key="proofreader" rel="noopener noreferrer" target="_blank">
       <img alt="" src={`${baseImageSrc}/proofreader-grey.svg`} />
       <div className="icons-description-wrapper">
         <p className="title">Quill Proofreader</p>
@@ -49,7 +49,7 @@ export const AppLegend = () => {
   )
 
   const grammar = (
-    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/grammar`} rel="noopener noreferrer" target="_blank">
+    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/grammar`} key="grammar" rel="noopener noreferrer" target="_blank">
       <img alt="" src={`${baseImageSrc}/grammar-grey.svg`} />
       <div className="icons-description-wrapper">
         <p className="title">Quill Grammar</p>
@@ -59,7 +59,7 @@ export const AppLegend = () => {
   )
 
   const evidence = (
-    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/evidence`} rel="noopener noreferrer" target="_blank">
+    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/evidence`} key="evidence" rel="noopener noreferrer" target="_blank">
       <img alt="" src={`${baseImageSrc}/evidence-grey.svg`} />
       <div className="icons-description-wrapper">
         <p className="title">Quill Reading for Evidence</p>

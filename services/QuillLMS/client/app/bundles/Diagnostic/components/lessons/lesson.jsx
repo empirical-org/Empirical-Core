@@ -51,7 +51,6 @@ class Lesson extends React.Component {
     const { params } = match;
     const { lessonID } = params;
     if (confirm('do you want to do this?')) {
-      // TODO: fix delete lesson action
       dispatch(lessonActions.deleteLesson(lessonID));
     }
   };

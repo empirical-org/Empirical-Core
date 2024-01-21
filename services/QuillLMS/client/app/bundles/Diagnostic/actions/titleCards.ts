@@ -2,7 +2,7 @@ import { push } from 'react-router-redux';
 import { DIAGNOSTIC_TITLE_CARD_TYPE, TitleCardApi } from '../libs/title_cards_api';
 import sessionActions from './sessions';
 
-const C = require('../constants').default;
+import C from '../constants';
 
 
 function startListeningToTitleCards() {
@@ -65,10 +65,6 @@ function submitTitleCardEdit(uid, content) {
 }
 
 export {
-  submitNewTitleCard,
-  loadTitleCards,
-  loadSpecifiedTitleCards,
-  startListeningToTitleCards,
-  submitTitleCardEdit,
+  loadSpecifiedTitleCards, loadTitleCards, startListeningToTitleCards, submitNewTitleCard, submitTitleCardEdit
 };
 

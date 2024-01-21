@@ -1,4 +1,3 @@
-declare function require(name:string);
 import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';

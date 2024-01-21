@@ -1,8 +1,8 @@
-import * as moment from 'moment'
+import moment from 'moment'
 import * as React from 'react'
 import { useState } from 'react'
 
-import { canvasProvider, cleverProvider, classroomProviders, googleProvider, providerConfigLookup } from './providerHelpers'
+import { canvasProvider, classroomProviders, cleverProvider, googleProvider, providerConfigLookup } from './providerHelpers'
 
 import EditStudentAccountModal from './edit_student_account_modal'
 import MergeStudentAccountsModal from './merge_student_accounts_modal'
@@ -497,7 +497,7 @@ const ClassroomStudentSection = ({
       const { name, username, email, id, provider, last_active, number_of_completed_activities, } = student
       const checked = !!selectedStudentIds.includes(id)
       const synced = syncedStatus(student, classroomProvider)
-      const logInMethod = provider ? provider : 'Username'
+      const logInMethod = provider === 'Google' ? 'Google or email' : (provider || 'Username');
 
       return {
         synced,

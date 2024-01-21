@@ -2,15 +2,16 @@
 
 module Snapshots
   class PeriodQuery < ::QuillBigQuery::Query
-    attr_reader :timeframe_start, :timeframe_end, :school_ids, :grades, :teacher_ids, :classroom_ids
+    attr_reader :timeframe_start, :timeframe_end, :school_ids, :grades, :teacher_ids, :classroom_ids, :user
 
-    def initialize(timeframe_start:, timeframe_end:, school_ids:, grades: nil, teacher_ids: nil, classroom_ids: nil, **options)
+    def initialize(timeframe_start:, timeframe_end:, school_ids:, grades: nil, teacher_ids: nil, classroom_ids: nil, user: nil, **options)
       @timeframe_start = timeframe_start
       @timeframe_end = timeframe_end
       @school_ids = school_ids
       @grades = grades
       @teacher_ids = teacher_ids
       @classroom_ids = classroom_ids
+      @user = user
 
       super(**options)
     end
@@ -35,6 +36,7 @@ module Snapshots
           #{grades_where_clause}
           #{teacher_ids_where_clause}
           #{classroom_ids_where_clause}
+          #{owner_teachers_only_where_clause}
       SQL
     end
 
@@ -67,6 +69,10 @@ module Snapshots
       return "" if classroom_ids.blank?
 
       "AND classrooms.id IN (#{classroom_ids.join(',')})"
+    end
+
+    def owner_teachers_only_where_clause
+      "AND classrooms_teachers.role = '#{ClassroomsTeacher::ROLE_TYPES[:owner]}'"
     end
   end
 end

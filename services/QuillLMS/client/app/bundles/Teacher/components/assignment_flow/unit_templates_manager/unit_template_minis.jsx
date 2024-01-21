@@ -1,7 +1,6 @@
-import _l from 'lodash'
+import _ from 'lodash'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import _ from 'underscore'
 
 import UnitTemplateMini from './unit_template_mini'
 import UnitTemplateMinisTable from './unitTemplateMinisTable'
@@ -48,7 +47,7 @@ export default class UnitTemplateMinis extends React.Component {
     if (models && models.length) {
       models.push({id: 'createYourOwn', non_authenticated: non_authenticated, unit_template_category: null });
     }
-    return _l.uniqBy(models, 'id');
+    return _.uniqBy(models, 'id');
   }
 
   generateCategoryOptions(gradeLevel, selectedTypeId) {
@@ -109,13 +108,12 @@ export default class UnitTemplateMinis extends React.Component {
   generateUnitTemplateView = (model, index, type) => {
     const { actions, signedInTeacher, } = this.props
     return (
-      <div className="unit-template-mini-wrapper">
+      <div className="unit-template-mini-wrapper" key={model.id}>
         {type && index === 0 && <p className="pack-type-header">{type}</p>}
         <UnitTemplateMini
           actions={actions}
           data={model}
           index={index}
-          key={model.id}
           signedInTeacher={signedInTeacher}
         />
       </div>

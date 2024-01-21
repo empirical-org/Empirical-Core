@@ -20,6 +20,8 @@ module Evidence
     # POST /activities.json
     def create
       if @activity.save
+        @activity.create_default_regex_rules
+
         changelog_params = {
           action: Evidence.change_log_class::EVIDENCE_ACTIONS[:create],
           changed_record_type: 'Evidence::Activity',
@@ -71,12 +73,13 @@ module Evidence
     end
 
     # GET /activities/1/rules.json
+    # params [:id, :rule_type]
     def rules
       @activity = Evidence::Activity.includes(
         prompts: { rules: [:plagiarism_texts, { feedbacks: :highlights }, :label, :regex_rules, :hint, :prompts]}
       ).find(params[:id])
-      rules = @activity.prompts&.map {|p| p.rules}&.flatten&.uniq
-      render json: rules
+
+      render json: activity_rules_by_rule_type(@activity, rules_params[:rule_type])
     end
 
     # GET /activities/1/change_logs.json
@@ -176,6 +179,10 @@ module Evidence
       params.permit(:id, :nouns, :use_passage, label_configs: {}, activity: {})
     end
 
+    private def rules_params
+      params.permit(:rule_type)
+    end
+
     private def activity_params
       params.require(:activity).permit(
         :title,
@@ -187,6 +194,13 @@ module Evidence
         passages_attributes: [:id, :text, :image_link, :image_alt_text, :image_caption, :image_attribution, :highlight_prompt, :essential_knowledge_text],
         prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :first_strong_example, :second_strong_example]
       )
+    end
+
+    private def activity_rules_by_rule_type(activity, rule_type)
+      rules = activity.prompts&.map do |prompt|
+        rule_type.present? ? prompt.rules.where(rule_type: rule_type) : prompt.rules
+      end
+      rules&.flatten&.uniq
     end
   end
 end

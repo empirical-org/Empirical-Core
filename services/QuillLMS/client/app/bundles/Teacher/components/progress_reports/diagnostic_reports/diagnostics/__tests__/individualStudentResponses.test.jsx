@@ -12,13 +12,6 @@ import {
 
 import { IndividualStudentResponses, } from '../individualStudentResponses'
 
-jest.mock('qs', () => ({
-  default: {
-    parse: jest.fn(() => ({}))
-  }
-})
-)
-
 describe('IndividualStudentResponses component', () => {
   it('should render for a pre-test', () => {
     const wrapper = mount(<IndividualStudentResponses

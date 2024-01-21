@@ -558,10 +558,10 @@ class ResponseComponent extends React.Component {
     //   array = this.getPOSTagsList()
     // }
 
+    let pageNumbers = [1]
+
     if (this.props.filters.numberOfPages) {
-      const pageNumbers = _.range(1, this.props.filters.numberOfPages + 1);
-    } else {
-      const pageNumbers = [1]
+      pageNumbers = _.range(1, this.props.filters.numberOfPages + 1);
     }
 
     let pageNumberStyle = {};

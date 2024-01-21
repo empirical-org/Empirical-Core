@@ -147,7 +147,7 @@ jobs:
           path: /home/circleci/Empirical-Core/services/QuillLMS/tmp/screenshots
   lms_big_query_build:
     working_directory: ~/Empirical-Core
-    parallelism: 1
+    parallelism: 2
     docker:
       - image: cimg/ruby:3.2.0
         environment:
@@ -208,7 +208,8 @@ jobs:
           name: Run tests
           command: |
             cd services/QuillLMS
-            bin/rspec --tag big_query_snapshot
+            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split)
+            bin/rspec ${TESTFILES} --tag big_query_snapshot
           environment:
             SUPPRESS_PUTS: "true"
   lms_node_build:
@@ -380,17 +381,28 @@ jobs:
           name: Run ESlint
           command: |
             npm run eslint
-  rubocop_lint:
+  rubocop_lms_lint:
     working_directory: ~/Empirical-Core
     docker:
       - image: cimg/ruby:3.2.0-node
     steps:
       - checkout
       - run:
-          name: Run Rubocop
+          name: Run Rubocop for LMS
           command: |
-            cd services
-            ./rubocop.sh
+            cd services/QuillLMS
+            ruby ./rubocop.rb
+  rubocop_cms_lint:
+    working_directory: ~/Empirical-Core
+    docker:
+      - image: cimg/ruby:3.2.0-node
+    steps:
+      - checkout
+      - run:
+          name: Run Rubocop for CMS
+          command: |
+            cd services/QuillCMS
+            ruby ./rubocop.rb
 workflows:
   version: 2
   build-test:
@@ -413,5 +425,7 @@ workflows:
     jobs:
       - node_lint:
           <<: *default_filter
-      - rubocop_lint:
+      - rubocop_cms_lint:
+          <<: *default_filter
+      - rubocop_lms_lint:
           <<: *default_filter

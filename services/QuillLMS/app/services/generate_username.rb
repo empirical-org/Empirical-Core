@@ -4,8 +4,8 @@ class GenerateUsername < ApplicationService
   MAX_LOOPS = 1_000
 
   def initialize(first_name, last_name, classcode = nil)
-    @first_name = first_name
-    @last_name = last_name
+    @first_name = first_name&.gsub(' ', '-')
+    @last_name = last_name&.gsub(' ', '-')
     @classcode = classcode
   end
 

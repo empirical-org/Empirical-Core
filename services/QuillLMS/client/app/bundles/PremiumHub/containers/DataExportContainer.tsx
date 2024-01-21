@@ -1,10 +1,8 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { FULL, restrictedPage, mapItemsIfNotAll } from '../shared';
-import { Spinner } from '../../Shared/index'
+import { Spinner } from '../../Shared/index';
 import DataExportTableAndFields from '../components/dataExportTableAndFields';
-
-const filterIconSrc = `${process.env.CDN_URL}/images/icons/icons-filter.svg`
+import { FULL, mapItemsIfNotAll, restrictedPage } from '../shared';
 
 export const DataExportContainer = ({
   accessType,
@@ -14,14 +12,13 @@ export const DataExportContainer = ({
   pusherChannel,
   searchCount,
   selectedClassrooms,
-  allClassrooms,
+  availableClassrooms,
   selectedGrades,
-  allGrades,
+  availableGrades,
   selectedSchools,
   selectedTeachers,
-  allTeachers,
+  availableTeachers,
   selectedTimeframe,
-  handleClickDownloadReport,
   openMobileFilterMenu
 }) => {
 
@@ -34,28 +31,19 @@ export const DataExportContainer = ({
   }
 
   return (
-    <main className="data-export-main">
-      <div className="header">
-        <h1>Data Export</h1>
-        <button className="quill-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">Download Report</button>
-      </div>
-      <div className="filter-button-container">
-        <button className="interactive-wrapper focus-on-light" onClick={openMobileFilterMenu} type="button">
-          <img alt="Filter icon" src={filterIconSrc} />
-          Filters
-        </button>
-      </div>
+    <main>
       <DataExportTableAndFields
         customTimeframeEnd={customEndDate?.toDate()}
         customTimeframeStart={customStartDate?.toDate()}
         key="data-export-table-and-fields"
+        openMobileFilterMenu={openMobileFilterMenu}
         pusherChannel={pusherChannel}
         queryKey="data-export"
         searchCount={searchCount}
-        selectedClassroomIds={mapItemsIfNotAll(selectedClassrooms, allClassrooms)}
-        selectedGrades={mapItemsIfNotAll(selectedGrades, allGrades, 'value')}
+        selectedClassroomIds={mapItemsIfNotAll(selectedClassrooms, availableClassrooms)}
+        selectedGrades={mapItemsIfNotAll(selectedGrades, availableGrades, 'value')}
         selectedSchoolIds={selectedSchools.map(school => school.id)}
-        selectedTeacherIds={mapItemsIfNotAll(selectedTeachers, allTeachers)}
+        selectedTeacherIds={mapItemsIfNotAll(selectedTeachers, availableTeachers)}
         selectedTimeframe={selectedTimeframe.value}
       />
     </main>
