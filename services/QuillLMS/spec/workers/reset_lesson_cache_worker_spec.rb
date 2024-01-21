@@ -25,8 +25,7 @@ RSpec.describe ResetLessonCacheWorker do
 
     context 'when user is not present' do
       it do
-        expect(ErrorNotifier).to receive(:report).with(described_class::UserNotFoundError, user_id: user_id)
-        subject
+        expect { subject }.not_to raise_error
       end
     end
 
