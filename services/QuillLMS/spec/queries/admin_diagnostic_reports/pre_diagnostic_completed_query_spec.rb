@@ -43,6 +43,12 @@ module AdminDiagnosticReports
         it { expect(results).to eq([]) }
       end
 
+      context 'no visible activity sessions' do
+        let(:activity_sessions) { classroom_units.map { |classroom_unit| create(:activity_session, :finished, classroom_unit: classroom_unit, activity: pre_diagnostic, visible: false) } }
+
+        it { expect(results).to eq([]) }
+      end
+
       context 'a mix of finished and unfinished activity sessions' do
         let(:unfinished_activity_session) { create(:activity_session, :unstarted, classroom_unit: classroom_units.first, activity: pre_diagnostic) }
         let(:finished_activity_session) { create(:activity_session, :finished, classroom_unit: classroom_units.last, activity: pre_diagnostic) }

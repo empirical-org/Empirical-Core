@@ -70,6 +70,12 @@ module AdminDiagnosticReports
         it { expect(results).to eq([]) }
       end
 
+      context 'no visible activity sessions' do
+        let(:activity_sessions) { classroom_units.map { |classroom_unit| create(:activity_session, :finished, classroom_unit: classroom_unit, activity: recommended_activity, visible: false) } }
+
+        it { expect(results).to eq([]) }
+      end
+
       context 'a mix of completed and incomplete recommendations' do
         let(:complete_activity_sessions) { [create(:activity_session, :finished, classroom_unit: classroom_units.first, activity: recommended_activity, timespent: timespent)] }
         let(:incomplete_activity_sessions) { [create(:activity_session, :unstarted, classroom_unit: classroom_units.first, activity: recommended_activity, timespent: timespent)] }
