@@ -4,6 +4,8 @@ require 'rails_helper'
 
 module Pdfs
   RSpec.describe SendMonthlySubscriptionsWorker, type: :worker do
+    subject { described_class.new.perform }
+
     let(:num_weekly_subscriptions) { 1 }
     let(:num_monthly_subscriptions) { 2 }
 
@@ -18,7 +20,7 @@ module Pdfs
         .exactly(num_monthly_subscriptions)
         .times
 
-      subject.perform
+      subject
     end
   end
 end
