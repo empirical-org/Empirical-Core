@@ -9,7 +9,7 @@ module Snapshots
     def from_and_join_clauses
       super + <<-SQL
         JOIN lms.user_logins
-          ON schools_users.id = user_logins.user_id
+          ON schools_users.user_id = user_logins.user_id
       SQL
     end
 
