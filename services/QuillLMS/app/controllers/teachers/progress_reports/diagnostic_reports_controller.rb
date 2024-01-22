@@ -62,13 +62,13 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       student_id: student_id
     }
 
-    current_user.classroom_unit_by_ids_cache(
-      classroom_id: classroom_id,
-      unit_id: unit_id,
-      activity_id: activity_id,
-      key: 'diagnostic_reports.individual_student_diagnostic_responses',
-      groups: cache_groups
-    ) do
+    # current_user.classroom_unit_by_ids_cache(
+    #   classroom_id: classroom_id,
+    #   unit_id: unit_id,
+    #   activity_id: activity_id,
+    #   key: 'diagnostic_reports.individual_student_diagnostic_responses',
+    #   groups: cache_groups
+    # ) do
       activity_session = find_activity_session_for_student_activity_and_classroom(student_id, activity_id, classroom_id, unit_id)
 
       if !activity_session
@@ -76,20 +76,25 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       end
 
       student = User.find_by_id(student_id)
+      skill_groups = activity_session.activity.skill_groups
       pre_test = Activity.find_by_follow_up_activity_id(activity_id)
       pre_test_activity_session = pre_test && find_activity_session_for_student_activity_and_classroom(student_id, pre_test.id, classroom_id, nil)
 
       if pre_test && pre_test_activity_session
+        pre_questions = format_concept_results(pre_test_activity_session, pre_test_activity_session.concept_results.order("question_number::int"))
+        post_questions = format_concept_results(activity_session, activity_session.concept_results.order("question_number::int"))
         concept_results = {
-          pre: { questions: format_concept_results(pre_test_activity_session, pre_test_activity_session.concept_results.order("question_number::int")) },
-          post: { questions: format_concept_results(activity_session, activity_session.concept_results.order("question_number::int")) }
+          pre: { questions: pre_questions },
+          post: { questions: post_questions }
         }
+        skill_group_results = GrowthResultsSummary::skill_groups_for_session(skill_groups, activity_session, pre_test_activity_session, student.name)
       else
         concept_results = { questions: format_concept_results(activity_session, activity_session.concept_results.order("question_number::int")) }
+        skill_group_results = ResultsSummary::skill_groups_for_session(skill_groups, activity_session.concept_results, student.name)
       end
-      { concept_results: concept_results, name: student.name }
+      { concept_results: concept_results, skill_group_results: skill_group_results, name: student.name }
     end
-  end
+  # end
 
   def classrooms_with_students
     render json: fetch_classrooms_with_students_cache

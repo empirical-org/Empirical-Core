@@ -14,6 +14,7 @@ export const expandIcon = <img alt="Expand icon" className="expand-icon" src={`$
 export const asteriskIcon = <img alt="Recommended asterisk icon" className="asterisk-icon" src={`${baseDiagnosticImageSrc}/icons-asterisk.svg`} />
 export const recommendedGlyph = <img alt="Recommended glyph" className="recommended-glyph" src={`${baseDiagnosticImageSrc}/recommended_glyph.svg`} />
 export const correctImage = <img alt="Correct check icon" src={`${baseDiagnosticImageSrc}/icons-check-small-green.svg`} />
+export const greenCircleWithCheckIcon = <img alt="Correct check icon" src={`${baseDiagnosticImageSrc}/circle-check-green.svg`} />
 export const informationIcon = <img alt="Information icon" src={`${baseImageSrc}/icons/information.svg`} />
 export const timeRewindIllustration = <img alt="Illustration of a clock with an arrow pointing backwards" src={`${baseDiagnosticImageSrc}/time-rewind.svg`} />
 
@@ -88,8 +89,8 @@ export const PROFICIENCY = 'Full Proficiency'
 const PARTIAL_PROFICIENCY = 'Partial Proficiency'
 const NO_PROFICIENCY = 'No Proficiency'
 const MAINTAINED_PROFICIENCY = 'Maintained Proficiency'
-const GAINED_SOME_PROFICIENCY = 'Gained Some Proficiency'
-const GAINED_PROFICIENCY = 'Gained Full Proficiency'
+export const GAINED_SOME_PROFICIENCY = 'Gained Some Proficiency'
+export const GAINED_PROFICIENCY = 'Gained Full Proficiency'
 
 export const noProficencyExplanation = "The student did not answer any questions for this skill correctly."
 export const prePartialProficiencyExplanation = "The student answered some questions for this skill correctly."

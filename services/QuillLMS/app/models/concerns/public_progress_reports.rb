@@ -239,7 +239,8 @@ module PublicProgressReports
             directions: direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
           }
         },
-        question_number: cr.first.question_number
+        question_number: cr.first.question_number,
+        question_uid: concept_results.first.extra_metadata['question_uid']
       }
       if cr.first.question_score
         hash[:questionScore] = cr.first.question_score

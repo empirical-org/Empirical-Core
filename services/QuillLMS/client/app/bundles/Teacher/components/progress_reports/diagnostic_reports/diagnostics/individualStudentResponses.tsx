@@ -4,13 +4,14 @@ import { withRouter } from 'react-router-dom';
 
 import {
   ConceptResults,
-  SkillResults,
 } from './interfaces';
 import {
   baseDiagnosticImageSrc,
   correctImage,
   fileDocumentIcon,
 } from './shared';
+import GrowthSkillsTable from './growthSkillsTable';
+import SkillsTable from './skillsTable';
 
 import { requestGet } from '../../../../../../modules/request/index';
 import { DataTable, } from '../../../../../Shared/index';
@@ -98,11 +99,11 @@ const Tab = ({ activeTab, label, setPreOrPost, value, }) => {
   return (<button className={`${activeTab === value ? 'active' : ''} focus-on-light tab`} onClick={handleClick} type="button">{label}</button>)
 }
 
-export const IndividualStudentResponses = ({ match, passedConceptResults, passedSkillResults, mobileNavigation, location, }) => {
-  const [loading, setLoading] = React.useState<boolean>(!(passedConceptResults && passedSkillResults));
+export const IndividualStudentResponses = ({ match, passedConceptResults, passedSkillGroupResults, mobileNavigation, location, }) => {
+  const [loading, setLoading] = React.useState<boolean>(!(passedConceptResults && passedSkillGroupResults));
   const [name, setName] = React.useState<string>('')
   const [conceptResults, setConceptResults] = React.useState<ConceptResults>(passedConceptResults || {});
-  const [skillResults, setSkillResults] = React.useState<SkillResults>(passedSkillResults || {});
+  const [skillGroupResults, setSkillGroupResults] = React.useState<Array<any>>(passedSkillGroupResults || {});
   const [preOrPost, setPreOrPost] = React.useState<string>(POST)
 
   const { activityId, classroomId, studentId, } = match.params
@@ -122,7 +123,7 @@ export const IndividualStudentResponses = ({ match, passedConceptResults, passed
     requestGet(`/teachers/progress_reports/individual_student_diagnostic_responses/${studentId}?activity_id=${activityId}&classroom_id=${classroomId}${unitQueryString}`,
       (data) => {
         setConceptResults(data.concept_results);
-        setSkillResults(data.skill_results)
+        setSkillGroupResults(data.skill_group_results)
         setName(data.name)
         setLoading(false)
       }
@@ -130,6 +131,12 @@ export const IndividualStudentResponses = ({ match, passedConceptResults, passed
   }
 
   if (loading) { return <LoadingSpinner /> }
+
+  let skillsSection
+
+  if (skillGroupResults?.length) {
+    skillsSection = <div className="skills-table-container-wrapper">{skillGroupResults[0] && skillGroupResults[0].pre ? <GrowthSkillsTable isExpandable={true} skillGroupResults={skillGroupResults} /> : <SkillsTable isExpandable={true} skillGroupResults={skillGroupResults} />}</div>
+  }
 
   let conceptResultElements
 
@@ -152,6 +159,7 @@ export const IndividualStudentResponses = ({ match, passedConceptResults, passed
         <a className="focus-on-light" href="https://support.quill.org/en/articles/5698167-how-do-i-read-the-student-responses-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
       </header>
       {mobileNavigation}
+      {skillsSection}
       <section className="concept-results-container">{conceptResultElements}</section>
     </main>
   )
