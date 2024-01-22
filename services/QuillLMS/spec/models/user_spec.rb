@@ -2359,9 +2359,30 @@ RSpec.describe User, type: :model do
     end
   end
 
-  # TODO: update spec
   describe '#premium_admin?' do
+    subject { user.premium_admin? }
 
+    context 'user is not an admin' do
+      before { allow(user).to receive(:admin?).and_return(false) }
+
+      it { is_expected.to eq false }
+    end
+
+    context 'user is an admin' do
+      before { allow(user).to receive(:admin?).and_return(true) }
+
+      context 'user does not have premium' do
+        before { allow(user).to receive(:school_or_district_premium?).and_return(false) }
+
+        it { is_expected.to eq false }
+      end
+
+      context 'user has premium' do
+        before { allow(user).to receive(:school_or_district_premium?).and_return(true) }
+
+        it { is_expected.to eq true }
+      end
+    end
   end
 end
 # rubocop:enable Metrics/BlockLength
