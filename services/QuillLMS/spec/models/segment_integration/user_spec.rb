@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 
-# TODO: add specs admin_report_subscriptions
 RSpec.describe SegmentIntegration::User do
   context 'admin' do
     let(:admin) { create(:admin) }
@@ -35,9 +34,10 @@ RSpec.describe SegmentIntegration::User do
     end
 
     describe '#common_params' do
+      subject { admin.segment_user.common_params }
 
-      it 'returns the expected params hash' do
-        params = {
+      let(:common_params) do
+        {
           district: admin.school&.district&.name,
           school_id: admin.school&.id,
           school_name: admin.school&.name,
@@ -53,7 +53,17 @@ RSpec.describe SegmentIntegration::User do
           number_of_schools_administered: schools.count,
           number_of_districts_administered: districts.count
         }.reject {|_,v| v.nil? }
-        expect(admin.segment_user.common_params).to eq params
+      end
+
+      it { is_expected.to eq common_params }
+
+      context 'when the admin is a premium admin' do
+        before { allow(admin).to receive(:premium_admin?).and_return(true) }
+
+        it {
+          binding.pry
+          expect(subject).to eq common_params.merge(admin_report_subscriptions: [])
+        }
       end
     end
 
@@ -178,7 +188,4 @@ RSpec.describe SegmentIntegration::User do
     end
 
   end
-
-
-
 end
