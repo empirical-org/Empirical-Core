@@ -2,21 +2,20 @@
 
 require 'rails_helper'
 
-# TODO
 RSpec.describe Pdfs::SendMonthlySubscriptionsWorker, type: :worker do
   describe '#perform' do
-    let(:monthly_subscription) { create(:pdf_subscription, frequency: PdfSubscription::MONTHLY) }
+    let(:num_weekly_subscriptions) { 1 }
+    let(:num_monthly_subscriptions) { 2 }
 
     before do
-      create_list(:pdf_subscription, 2, frequency: PdfSubscription::MONTHLY)
-      allow(PdfSubscription).to receive(:monthly).and_return(PdfSubscription.monthly)
-      allow(Pdfs::AdminUsageSnapshotEmailWorker).to receive(:perform_async)
+      create_list(:pdf_subscription, num_weekly_subscriptions, frequency: PdfSubscription::WEEKLY)
+      create_list(:pdf_subscription, num_monthly_subscriptions, frequency: PdfSubscription::MONTHLY)
     end
 
     it 'enqueues a job for each monthly subscription' do
-      subject.perform
+      expect(Pdfs::AdminUsageSnapshotEmailWorker).to receive(:perform_async).exactly(num_monthly_subscriptions).times
 
-      expect(Pdfs::AdminUsageSnapshotEmailWorker).to have_received(:perform_async).exactly(PdfSubscription.monthly.count).times
+      subject.perform
     end
   end
 end
