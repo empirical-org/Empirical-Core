@@ -5,6 +5,7 @@
 # Table name: classrooms_teachers
 #
 #  id           :integer          not null, primary key
+#  deleted_at   :datetime
 #  order        :integer
 #  role         :string           not null
 #  created_at   :datetime
@@ -14,10 +15,10 @@
 #
 # Indexes
 #
-#  index_classrooms_teachers_on_classroom_id             (classroom_id)
-#  index_classrooms_teachers_on_role                     (role)
-#  index_classrooms_teachers_on_user_id                  (user_id)
-#  unique_classroom_and_user_ids_on_classrooms_teachers  (user_id,classroom_id) UNIQUE
+#  index_classrooms_teachers_on_classroom_id            (classroom_id)
+#  index_classrooms_teachers_on_role                    (role)
+#  index_classrooms_teachers_on_user_id                 (user_id)
+#  unique_user_class_deleted_at_on_classrooms_teachers  (user_id,classroom_id,deleted_at) UNIQUE
 #
 FactoryBot.define do
   factory :classrooms_teacher do

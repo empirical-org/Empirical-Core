@@ -10,13 +10,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
---
-
--- *not* creating schema, since initdb creates it
-
-
---
 -- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -872,8 +865,8 @@ ALTER SEQUENCE public.app_settings_id_seq OWNED BY public.app_settings.id;
 CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -1228,8 +1221,8 @@ CREATE TABLE public.change_logs (
     id integer NOT NULL,
     explanation text,
     action character varying NOT NULL,
-    changed_record_type character varying NOT NULL,
     changed_record_id integer,
+    changed_record_type character varying NOT NULL,
     user_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -1458,6 +1451,7 @@ CREATE TABLE public.classrooms_teachers (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     "order" integer,
+    deleted_at timestamp without time zone,
     CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
 );
 
@@ -2323,8 +2317,8 @@ CREATE TABLE public.credit_transactions (
     id integer NOT NULL,
     amount integer NOT NULL,
     user_id integer NOT NULL,
-    source_type character varying,
     source_id integer,
+    source_type character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -2835,8 +2829,8 @@ ALTER SEQUENCE public.evidence_text_generations_id_seq OWNED BY public.evidence_
 CREATE TABLE public.feedback_histories (
     id integer NOT NULL,
     feedback_session_uid text,
-    prompt_type character varying,
     prompt_id integer,
+    prompt_type character varying,
     concept_uid text,
     attempt integer NOT NULL,
     entry text NOT NULL,
@@ -7342,14 +7336,6 @@ ALTER TABLE ONLY public.sales_stages
 
 
 --
--- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.schema_migrations
-    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
-
-
---
 -- Name: school_subscriptions school_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9327,13 +9313,6 @@ CREATE UNIQUE INDEX unique_classroom_and_activity_for_cua_state ON public.classr
 
 
 --
--- Name: unique_classroom_and_user_ids_on_classrooms_teachers; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX unique_classroom_and_user_ids_on_classrooms_teachers ON public.classrooms_teachers USING btree (user_id, classroom_id);
-
-
---
 -- Name: unique_index_schools_on_nces_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9373,6 +9352,20 @@ CREATE UNIQUE INDEX unique_index_users_on_google_id ON public.users USING btree 
 --
 
 CREATE UNIQUE INDEX unique_index_users_on_username ON public.users USING btree (username) WHERE ((id > 1641954) AND (username IS NOT NULL) AND ((username)::text <> ''::text));
+
+
+--
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
+
+
+--
+-- Name: unique_user_class_deleted_at_on_classrooms_teachers; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_user_class_deleted_at_on_classrooms_teachers ON public.classrooms_teachers USING btree (user_id, classroom_id, deleted_at);
 
 
 --
@@ -10628,6 +10621,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231207135455'),
 ('20231207151344'),
 ('20231214182438'),
-('20240111143245');
+('20240111143245'),
+('20240122203546');
 
 
