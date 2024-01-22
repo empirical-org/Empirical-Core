@@ -167,7 +167,7 @@ module Teacher
     ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classroom_ids).each do |k,v|
       case k
       when :classrooms_teachers_ids
-        ClassroomsTeacher.where(id: v).map(&:destroy)
+        ClassroomsTeacher.where(id: v).each {|ct| ct.update(deleted_at: Time.now)}
       when :coteacher_classroom_invitations_ids
         CoteacherClassroomInvitation.where(id: v).map(&:destroy)
       end
@@ -306,6 +306,7 @@ module Teacher
         LEFT JOIN classrooms_teachers
           ON classrooms_teachers.classroom_id = classrooms.id
         WHERE classrooms_teachers.user_id = #{id}
+          AND classrooms_teachers.deleted_at IS NOT NULL
           AND classrooms.visible
           AND class_units.visible
           AND acts.visible

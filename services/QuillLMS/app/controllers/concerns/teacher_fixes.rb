@@ -145,7 +145,7 @@ module TeacherFixes
   def self.assign_teachers_to_other_class(source_classroom_id, target_classroom_id)
     ClassroomsTeacher.where(classroom_id: source_classroom_id).each do |ct|
       if ClassroomsTeacher.where(user_id: ct.user_id, classroom_id: target_classroom_id).any?
-        ct.destroy
+        ct.update(deleted_at: Time.now)
       else
         ct.update(classroom_id: target_classroom_id, role: 'coteacher')
       end

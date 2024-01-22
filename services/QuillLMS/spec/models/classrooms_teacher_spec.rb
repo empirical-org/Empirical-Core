@@ -35,6 +35,14 @@ RSpec.describe ClassroomsTeacher, type: :model, redis: true do
   it { is_expected.to callback(:delete_classroom_minis_cache_for_each_teacher_of_this_classroom).before(:destroy) }
   it { is_expected.to callback(:reset_lessons_cache_for_teacher).before(:destroy) }
 
+  describe 'default scope' do
+    it 'should ignore records where deleted_at is not nil' do
+      example_classrooms_teacher_id = create(:classrooms_teacher, deleted_at: Time.now)
+      expect(ClassroomsTeacher.where(id: example_classrooms_teacher_id).count).to eq 0
+      expect(ClassroomsTeacher.unscoped.where(id: example_classrooms_teacher_id).count).to eq 1
+    end
+  end
+
   describe 'teacher' do
     let(:teacher) { create(:classrooms_teacher) }
 

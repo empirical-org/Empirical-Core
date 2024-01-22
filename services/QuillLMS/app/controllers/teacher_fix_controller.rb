@@ -104,7 +104,7 @@ class TeacherFixController < ApplicationController
         Unit.unscoped.where(user_id: account1.id).update_all(user_id: account2.id, updated_at: DateTime.current)
         ClassroomsTeacher.where(user_id: account1.id).each do |ct|
           if ClassroomsTeacher.find_by(user_id: account2.id, classroom_id: ct.classroom_id)
-            ct.destroy
+            ct.update(deleted_at: Time.now)
           else
             ct.update(user_id: account2.id)
           end
