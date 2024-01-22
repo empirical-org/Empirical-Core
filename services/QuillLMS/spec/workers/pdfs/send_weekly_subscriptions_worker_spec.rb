@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe Pdfs::SendWeeklySubscriptionsWorker, type: :worker do
-  describe '#perform' do
+module Pdfs
+  RSpec.describe SendWeeklySubscriptionsWorker, type: :worker do
     let(:num_weekly_subscriptions) { 2 }
     let(:num_monthly_subscriptions) { 1 }
 
