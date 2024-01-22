@@ -18,8 +18,7 @@ module Pdfs
         item.merge(data:)
       end
 
-      private def data = current_results
-      private def current_results = ResultsFetcher.run(admin_report_filter_selection:, query_key:, worker: WORKER)
+      private def data = ResultsFetcher.run(admin_report_filter_selection:, query_key:, worker: WORKER)
       private def query_key = item[:queryKey]
       private def valid_query_key? = Snapshots::TOPX_QUERY_MAPPING.key?(query_key)
     end
