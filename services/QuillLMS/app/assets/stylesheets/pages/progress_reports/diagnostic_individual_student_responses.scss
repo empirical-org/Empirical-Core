@@ -9,9 +9,6 @@
     .skills-table, .growth-skills-table {
       width: 950px;
       max-width: 100%;
-      td {
-        font-size: 14px;
-      }
       &.skills-table {
         .skill-column-header {
           width: 664px;
@@ -22,10 +19,10 @@
       }
       &.growth-skills-table {
         .skill-column-header {
-          width: 546px;
+          width: 450px;
         }
         .summary-header {
-          width: 201px;
+          width: 288px;
         }
       }
     }
