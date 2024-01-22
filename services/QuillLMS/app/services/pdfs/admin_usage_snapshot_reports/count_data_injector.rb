@@ -18,14 +18,11 @@ module Pdfs
         item.merge(count:, change:)
       end
 
-      private def count = current_results[:count]&.round
-
       private def change
-        return nil if count.nil?
-
-        rounded_previous = (previous_results[:count] || 0).round
-        (((count - rounded_previous).to_f / (rounded_previous.nonzero? || 1)) * 100).round
+        CountDataChangeCalculator.run(current_count: count, previous_count: previous_results[:count])
       end
+
+      private def count = current_results[:count]&.round
 
       private def current_results
         @current_results ||= ResultsFetcher.run(admin_report_filter_selection:, query_key:, worker: WORKER)
@@ -38,6 +35,23 @@ module Pdfs
 
       private def query_key = item[:queryKey]
       private def valid_query_key? = Snapshots::COUNT_QUERY_MAPPING.key?(query_key)
+
+      class CountDataChangeCalculator < ApplicationService
+        attr_reader :current_count, :previous_count
+
+        def initialize(current_count:, previous_count:)
+          @current_count = current_count
+          @previous_count = previous_count
+        end
+
+        def run
+          return nil if current_count.nil?
+
+          (((current_count - rounded_previous).to_f / (rounded_previous.nonzero? || 1)) * 100).round
+        end
+
+        private def rounded_previous = (previous_count || 0).round
+      end
     end
   end
 end

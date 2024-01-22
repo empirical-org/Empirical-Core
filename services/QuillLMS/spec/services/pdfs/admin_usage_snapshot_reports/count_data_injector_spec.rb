@@ -5,52 +5,86 @@ require 'rails_helper'
 module Pdfs
   module AdminUsageSnapshotReports
     RSpec.describe CountDataInjector do
-      subject { described_class.run(admin_report_filter_selections:, item:) }
+      subject { described_class.run(admin_report_filter_selection:, item:) }
 
       let(:item) { { queryKey:, type: } }
       let(:type) { 'count' }
-      let(:queryKey) { 'totalStudents' }
-      let(:admin_report_filter_selections) { create(:admin_report_filter_selection, :with_default_filters) }
+      let(:queryKey) { 'query-key' }
+      let(:admin_report_filter_selection) { create(:admin_report_filter_selection, :with_default_filters) }
+      let(:worker) { Snapshots::CacheSnapshotCountWorker }
+      let(:results_fetcher) { Pdfs::AdminUsageSnapshotReports::ResultsFetcher }
+      let(:current_results) { { count: current_count } }
+      let(:previous_results) { { count: previous_count } }
 
-      it { expect(subject).to eq(item) }
+      before do
+        allow(results_fetcher)
+          .to receive(:run)
+          .with(admin_report_filter_selection:, query_key: queryKey, worker:)
+          .and_return(current_results)
+
+        allow(results_fetcher)
+          .to receive(:run)
+          .with(admin_report_filter_selection:, query_key: queryKey, worker:, previous_timeframe: true)
+          .and_return(previous_results)
+
+        allow(Snapshots::COUNT_QUERY_MAPPING)
+          .to receive(:key?)
+          .with(queryKey)
+          .and_return(valid_query_key)
+      end
+
+      context 'with valid query key' do
+        let(:valid_query_key) { true }
+        let(:current_count) { 10 }
+        let(:previous_count) { 5 }
+        let(:change) { 50 }
+        let(:change_calculator) { Pdfs::AdminUsageSnapshotReports::CountDataInjector::CountDataChangeCalculator }
+        let(:count) { current_count }
+
+        before { allow(change_calculator).to receive(:run).and_return(change) }
+
+        it { expect(subject).to eq(item.merge(count:, change:)) }
+      end
+
+      context 'with invalid query key' do
+        let(:valid_query_key) { false }
+        let(:current_count) { 10 }
+        let(:previous_count) { 10 }
+
+        it { is_expected.to eq(item) }
+      end
+    end
+
+    RSpec.describe CountDataInjector::CountDataChangeCalculator do
+      subject { described_class.run(current_count:, previous_count:) }
+
+      context 'when current_count is nil' do
+        let(:current_count) { nil }
+        let(:previous_count) { 100 }
+
+        it { is_expected.to be_nil }
+      end
+
+      context 'when previous_count is 0' do
+        let(:current_count) { 10 }
+        let(:previous_count) { 0 }
+
+        it { is_expected.to eq 1000 }
+      end
+
+      context 'when previous_count is nil' do
+        let(:current_count) { 5 }
+        let(:previous_count) { nil }
+
+        it { is_expected.to eq 500 }
+      end
+
+      context 'normal case' do
+        let(:current_count) { 120 }
+        let(:previous_count) { 100 }
+
+        it { is_expected.to eq 20 }
+      end
     end
   end
 end
-
-# require 'rails_helper'
-
-# RSpec.describe Pdfs::AdminUsageSnapshotReports::CountDataInjector do
-#   let(:admin_report_filter_selection) { create(:admin_report_filter_selection) }
-#   let(:item) { { queryKey: some_query_key } }
-
-#   describe '#run' do
-#     context 'with valid query key' do
-#       let(:some_query_key) { 'valid_key' } # Replace with a valid key from your COUNT_QUERY_MAPPING
-
-#       before do
-#         allow(Snapshots::COUNT_QUERY_MAPPING).to receive(:key?).with(some_query_key).and_return(true)
-#         # Mock ResultsFetcher to return specific current and previous results
-#       end
-
-#       it 'returns item merged with count and change' do
-#         injector = described_class.new(admin_report_filter_selection: admin_report_filter_selection, item: item)
-#         result = injector.run
-#         expect(result).to include(:count, :change)
-#       end
-#     end
-
-#     context 'with invalid query key' do
-#       let(:some_query_key) { 'invalid_key' }
-
-#       it 'returns the original item' do
-#         injector = described_class.new(admin_report_filter_selection: admin_report_filter_selection, item: item)
-#         expect(injector.run).to eq(item)
-#       end
-#     end
-#   end
-
-#   describe 'private methods' do
-#     # You can write tests for the private methods if necessary, though it's typically not recommended
-#     # to directly test private methods. Instead, focus on testing public interfaces.
-#   end
-# end
