@@ -72,7 +72,7 @@ RSpec.describe Cron, type: :model do
     end
 
     it "calls run_monthly if now is first day of month" do
-      first_of_month = Time.utc(2024, 0o2, 0o1)
+      first_of_month = Time.utc(2024, 2, 1)
       allow(Cron).to receive(:now).and_return(first_of_month)
       expect(Cron).to receive(:run_monthly)
       Cron.interval_1_day
