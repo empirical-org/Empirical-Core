@@ -5,47 +5,46 @@ require 'rails_helper'
 module Pdfs
   module AdminUsageSnapshotReports
     RSpec.describe ResultsFetcher do
-      let(:admin_report_filter_selection) { create(:admin_report_filter_selection) }
+      subject { described_class.run(admin_report_filter_selection:, query_key:, worker:, previous_timeframe:) }
+
+      let(:admin_report_filter_selection) { create(:admin_report_filter_selection, :with_default_filters) }
       let(:query_key) { 'some_query_key' }
       let(:worker) { double('worker') }
       let(:previous_timeframe) { false }
+      let(:cache_key) { 'generated_cache_key' }
+      let(:cached_results) { { cached: 'results' } }
 
-      describe '#run' do
-        let(:service) { described_class.new(admin_report_filter_selection: admin_report_filter_selection, query_key: query_key, worker: worker, previous_timeframe: previous_timeframe) }
-        let(:cache_key) { 'generated_cache_key' }
-        let(:timeframes) { ['start_date', 'end_date'] }
+      before { allow(Snapshots::CacheKeys).to receive(:generate_key).and_return(cache_key) }
+
+      context 'when user_id is not present' do
+        before { allow(admin_report_filter_selection).to receive(:user_id).and_return(nil) }
+
+        it { is_expected.to be_nil }
+      end
+
+      context 'when cached results exists' do
+        before do
+          allow(Rails.cache)
+            .to receive(:read)
+            .with(cache_key)
+            .and_return(cached_results)
+            .once
+        end
+
+        it { is_expected.to eq cached_results }
+      end
+
+      context 'when cached results do not exist' do
+        let(:worker_instance) { double('worker_instance') }
 
         before do
-          allow(Snapshots::CacheKeys).to receive(:generate_key).and_return(cache_key)
-          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
-          allow(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
-          allow(worker).to receive(:new).and_return(worker)
-          allow(worker).to receive(:perform)
+          allow(Rails.cache).to receive(:read).with(cache_key).and_return(nil, cached_results)
+          allow(worker).to receive(:new).and_return(worker_instance)
+          allow(worker_instance).to receive(:perform).and_return(true)
         end
 
-        context 'when user_id, timeframe_start, and timeframe_end are present' do
-          it 'runs the query and fetches cached results' do
-            expect(service.run).not_to be_nil
-            expect(worker).to have_received(:perform)
-          end
-        end
-
-        context 'when user_id, timeframe_start, or timeframe_end is missing' do
-          # Adjust the setup to simulate missing values
-          it 'returns nil' do
-            expect(service.run).to be_nil
-          end
-        end
+        it { is_expected.to eq cached_results }
       end
-
-      describe 'cache key generation' do
-        it 'generates a correct cache key' do
-          service = described_class.new(admin_report_filter_selection: admin_report_filter_selection, query_key: query_key, worker: worker, previous_timeframe: previous_timeframe)
-          expect(service.send(:cache_key)).to eq('generated_cache_key')
-        end
-      end
-
-      # Add more tests for other private methods if needed
     end
   end
 end
