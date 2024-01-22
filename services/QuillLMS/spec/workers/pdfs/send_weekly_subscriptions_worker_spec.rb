@@ -13,7 +13,10 @@ RSpec.describe Pdfs::SendWeeklySubscriptionsWorker, type: :worker do
     end
 
     it 'enqueues a job for each weekly subscription' do
-      expect(Pdfs::AdminUsageSnapshotEmailWorker).to receive(:perform_async).exactly(num_weekly_subscriptions).times
+      expect(Pdfs::AdminUsageSnapshotEmailWorker)
+        .to receive(:perform_async)
+        .exactly(num_weekly_subscriptions)
+        .times
 
       subject.perform
     end
