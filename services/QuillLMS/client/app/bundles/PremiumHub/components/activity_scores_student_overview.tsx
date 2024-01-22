@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import StudentOverview from '../../Teacher/components/progress_reports/student_overview';
 
 
-const ActivityScoresStudentOverview = ({ location }) => {
+export const ActivityScoresStudentOverview = ({ location }) => {
   const previous = '/teachers/premium_hub/district_activity_scores';
   const imageSrc = 'https://assets.quill.org/images/icons/chevron-dark-green.svg';
 

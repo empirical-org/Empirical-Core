@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StandardsStandardStudentsProgressReport it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="spinner-container"
+  >
+    <img
+      alt=""
+      class="spinner"
+      src="/images/loader_still.svg"
+    />
+  </div>
+</DocumentFragment>
+`;

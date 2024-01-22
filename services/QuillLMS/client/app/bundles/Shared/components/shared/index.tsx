@@ -61,6 +61,10 @@ export {
 } from './resumeOrBeginButton'
 
 export {
+  ReportHeader
+} from './reportHeader'
+
+export {
   ScreenreaderInstructions
 } from './screenreaderInstructions'
 

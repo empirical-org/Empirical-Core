@@ -111,7 +111,7 @@ export const OverviewSection = ({
 
   React.useEffect(() => {
     // this is for testing purposes; this value will always be null in a non-testing environment
-    if(!passedData) {
+    if (!passedData) {
       getData()
     }
   }, [searchCount, groupByValue])
@@ -184,7 +184,7 @@ export const OverviewSection = ({
     getRecommendationsData()
   }
 
-  function getPreDiagnosticAssignedData () {
+  function getPreDiagnosticAssignedData() {
     setPreDiagnosticAssignedData(null)
     const searchParams = getSearchParams(PRE_DIAGNOSTIC_ASSIGNED_QUERYSTRING)
 
@@ -276,10 +276,10 @@ export const OverviewSection = ({
   }
 
   function renderContent() {
-    if(loading) {
+    if (loading) {
       return <Spinner />
     }
-    return(
+    return (
       <DataTable
         className="growth-diagnostic-reports-overview-table reporting-format"
         emptyStateMessage={noResultsMessage('diagnostic')}

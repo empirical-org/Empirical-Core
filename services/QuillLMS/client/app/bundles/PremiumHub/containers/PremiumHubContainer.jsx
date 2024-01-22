@@ -66,18 +66,21 @@ const PremiumHubContainer = ({ id, history, location, children, user, }) => {
 
     if (admin_approval_status && admin_approval_status !== APPROVED) { return RESTRICTED }
 
-    if (administers_school_with_premium) { return FULL}
+    if (administers_school_with_premium) { return FULL }
 
     return LIMITED
   }
 
   function renderBanner() {
-    const { admin_approval_status, associated_school, } = adminInfo
+    const { admin_approval_status, associated_school, administers_school_with_current_or_expired_premium, } = adminInfo
 
     if (accessType() === FULL || accessType() === LOADING) { return <span /> }
 
     // this checks that the last part of the path (after the final '/') matches the overview page (which is just /teachers/premium_hub) or the integrations page
-    if (accessType() === LIMITED && !['integrations', 'premium_hub'].some((path) => location.pathname.split('/').pop() === path)) {
+    const onIntegrationsOverviewOrUsageSnapshotPage = ['integrations', 'premium_hub', 'usage_snapshot_report'].some((path) => location.pathname.split('/').pop() === path)
+    const onSubscriptionPageWithExpiredPremium = location.pathname.includes('subscriptions') && administers_school_with_current_or_expired_premium
+
+    if (accessType() === LIMITED && !(onIntegrationsOverviewOrUsageSnapshotPage || onSubscriptionPageWithExpiredPremium)) {
       return (
         <Banner
           bodyText="Subscribe to School or District Premium to unlock all Premium Hub features. Manage teacher accounts, access teacher reports, and view school-wide student data."

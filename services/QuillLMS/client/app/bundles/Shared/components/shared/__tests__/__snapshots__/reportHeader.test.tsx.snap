@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReportHeader it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="header-container "
+  >
+    <div
+      class="header-and-tooltip"
+    >
+      <h1>
+        Test Header
+      </h1>
+    </div>
+    <div
+      class="csv-and-how-we-grade"
+    >
+      <button
+        class="quill-button focus-on-light small primary contained"
+        style="display: block;"
+      >
+        Download report
+      </button>
+      <a
+        class="how-we-grade focus-on-light"
+        href="https://support.quill.org/activities-implementation/how-does-grading-work"
+      >
+        How we grade
+      </a>
+    </div>
+  </div>
+</DocumentFragment>
+`;
