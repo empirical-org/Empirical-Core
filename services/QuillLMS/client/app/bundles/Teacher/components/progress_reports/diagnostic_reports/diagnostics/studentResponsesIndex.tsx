@@ -261,7 +261,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
   function renderPreSkillsProficient({ total_correct_questions_count, total_pre_correct_questions_count, skill_groups, total_correct_skill_groups_count, correct_skill_groups_text }) {
     if(total_correct_questions_count === undefined) { return null }
 
-    if(!total_correct_questions_count) { return NOT_AVAILABLE }
+    if(!total_correct_questions_count && total_correct_questions_count !== 0) { return NOT_AVAILABLE }
 
     if (total_pre_correct_questions_count) {
       const countOfPreSkillsProficienct = skill_groups.filter(skillGroup => skillGroup.pre_test_proficiency === PROFICIENCY).length
@@ -288,7 +288,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
 
     if (total_correct_questions_count === undefined) { return diagnosticNotCompletedElement }
 
-    if (!total_correct_questions_count) { return NOT_AVAILABLE }
+    if (!total_correct_questions_count && total_correct_questions_count !== 0) { return NOT_AVAILABLE }
 
     return(
       <div className="skills-correct-element">

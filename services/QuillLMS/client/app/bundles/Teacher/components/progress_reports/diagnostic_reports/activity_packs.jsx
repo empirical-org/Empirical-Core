@@ -10,22 +10,44 @@ import EmptyProgressReport from '../../shared/EmptyProgressReport.jsx';
 import ArticleSpotlight from '../../shared/articleSpotlight';
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../progress_report_constants';
 
-export default class ActivityPacks extends React.Component {
-  constructor(props) {
-    super(props)
+function ActivityPacks() {
+  const [allUnits, setAllUnits] = React.useState([]);
+  const [units, setUnits] = React.useState([]);
+  const [loaded, setLoaded] = React.useState(false);
+  const [selectedClassroomId, setSelectedClassroomId] = React.useState(getParameterByName('classroom_id'));
+  const [classrooms, setClassrooms] = React.useState([]);
 
-    this.state = {
-      allUnits: [],
-      units: [],
-      loaded: false,
-      selectedClassroomId: getParameterByName('classroom_id'),
-      activityWithRecommendationsIds: [],
+  React.useEffect(() => {
+    handleNavigationClasses()
+    getClassrooms();
+    window.onpopstate = handlePopState;
+
+    return () => {
+      window.onpopstate = null;
+    };
+  }, []);
+
+  React.useEffect(() => {
+    if (loaded) {
+      getUnitsForCurrentClass()
     }
-  }
+  }, [selectedClassroomId])
 
-  UNSAFE_componentWillMount() {
-    document.getElementsByClassName('diagnostic-tab')[0].classList.remove('active');
-    document.getElementsByClassName('activity-analysis-tab')[0].classList.add('active');
+  React.useEffect(() => {
+    if (!classrooms.length) { return }
+
+    getUnits();
+  }, [classrooms])
+
+  function handlePopState() {
+    setLoaded(false);
+    setSelectedClassroomId(getParameterByName('classroom_id'));
+    getUnitsForCurrentClass();
+  };
+
+  function handleNavigationClasses() {
+    document.getElementsByClassName('diagnostic-tab')[0]?.classList?.remove('active');
+    document.getElementsByClassName('activity-analysis-tab')[0]?.classList?.add('active');
     const mobileActivityAnalysisTab = document.getElementById('mobile-activity-analysis-tab-checkmark')
     const mobileDiagnosticTab = document.getElementById('mobile-diagnostics-tab-checkmark')
     const mobileDropdown = document.getElementById('mobile-subnav-toggle')
@@ -45,148 +67,53 @@ export default class ActivityPacks extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.getClassrooms();
-    this.getRecommendationIds();
-    window.onpopstate = () => {
-      this.setState({ loaded: false, selectedClassroomId: getParameterByName('classroom_id'), });
-      this.getUnitsForCurrentClass();
-    };
-  }
-
-  getClassrooms = () => {
-    const { selectedClassroomId, } = this.state
-
-    requestGet(
-      `${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`,
-      (body) => {
-        const classrooms = body.classrooms;
-        if (classrooms.length > 0) {
-          const newState = { classrooms, }
-          const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
-          if (!selectedClassroomId && localStorageSelectedClassroomId && classrooms.find(c => Number(c.id) === Number(localStorageSelectedClassroomId))) {
-            newState.selectedClassroomId = Number(localStorageSelectedClassroomId)
-          }
-          this.setState(newState, () => this.getUnits());
-        } else {
-          this.setState({ empty: true, loaded: true, });
+  function getClassrooms() {
+    requestGet(`${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`, (body) => {
+      const newClassrooms = body.classrooms;
+      if (newClassrooms.length > 0) {
+        const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID);
+        if (!selectedClassroomId && localStorageSelectedClassroomId && newClassrooms.find(c => Number(c.id) === Number(localStorageSelectedClassroomId))) {
+          setSelectedClassroomId(Number(localStorageSelectedClassroomId));
         }
+        setClassrooms(newClassrooms);
+      } else {
+        setLoaded(true);
       }
-    )
-  }
-
-  getRecommendationIds = () => {
-    fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/activity_with_recommendations_ids`, {
-      method: 'GET',
-      mode: 'cors',
-      credentials: 'include',
-    }).then((response) => {
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
-      return response.json();
-    }).then((response) => {
-      this.setState({ activityWithRecommendationsIds: response.activityWithRecommendationsIds, });
-    }).catch((error) => {
-      // to do, use Sentry to capture error
     });
-  }
+  };
 
-  getUnits = () => {
+  function getUnits() {
     requestGet(
       `${process.env.DEFAULT_URL}/teachers/units?report=true`,
       (body) => {
-        this.setAllUnits(body);
+        const parsedUnits = parseUnits(body);
+        setAllUnits(parsedUnits)
+        getUnitsForCurrentClass(parsedUnits)
+        populateCompletionAndAverageScore(body, parsedUnits)
       }
     )
-  }
+  };
 
-  getUnitsForCurrentClass = () => {
-    const { selectedClassroomId, allUnits, classrooms, } = this.state
+  function getUnitsForCurrentClass(parsedUnits) {
+    const units = parsedUnits || allUnits
     if (selectedClassroomId) {
       const selectedClassroom = classrooms.find(c => c.id === Number(selectedClassroomId));
-      const unitsInCurrentClassroom = allUnits.filter(unit => unit.classrooms.find(classroom => selectedClassroom.name === classroom.name));
-      this.setState({ units: unitsInCurrentClassroom, });
+
+      if (!selectedClassroom) { return }
+
+      const unitsInCurrentClassroom = units.filter(unit => unit.classrooms.find(classroom => selectedClassroom.name === classroom.name));
+      setUnits(unitsInCurrentClassroom);
     } else {
-      this.setState({ units: allUnits, });
+      setUnits(units);
     }
   }
 
-  setAllUnits = (data) => {
-    this.setState({ allUnits: this.parseUnits(data), }, () => {
-      this.getUnitsForCurrentClass()
-      this.populateCompletionAndAverageScore(data);
-    });
-  }
-
-  addMissingInfo = (data) => {
-    alert('adding missing information');
-  }
-
-  assignedStudentCount(u) {
-    return u.number_of_assigned_students ? u.number_of_assigned_students : u.class_size;
-  }
-
-  classroomActivityData = (u, assignedStudentCount, completedCount, cumulativeScore) => {
-    return {
-      name: u.activity_name,
-      uaId: u.unit_activity_id,
-      cuId: u.classroom_unit_id,
-      activityId: u.activity_id,
-      created_at: u.unit_activity_created_at,
-      activityClassificationId: u.activity_classification_id,
-      classroomId: u.classroom_id,
-      ownedByCurrentUser: u.owned_by_current_user,
-      ownerName: u.owner_name,
-      createdAt: u.ca_created_at,
-      dueDate: u.due_date,
-      numberOfAssignedStudents: assignedStudentCount,
-      cumulativeScore: cumulativeScore || 0,
-      completedCount: completedCount || 0,
-    };
-  }
-
-  generateNewCaUnit = (u) => {
-    const assignedStudentCount = this.assignedStudentCount(u);
-    const classroom = { name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount, cuId: u.classroom_unit_id };
-    const caObj = {
-      classrooms: [classroom],
-      classroomActivities: new Map(),
-      unitId: u.unit_id,
-      unitCreated: u.unit_created_at,
-      unitName: u.unit_name,
-    };
-    caObj.classroomActivities.set(u.activity_id, {
-      name: u.activity_name,
-      activityId: u.activity_id,
-      created_at: u.unit_activity_created_at,
-      uaId: u.unit_activity_id,
-      cuId: u.classroom_unit_id,
-      activityClassificationId: u.activity_classification_id,
-      classroomId: u.classroom_id,
-      ownedByCurrentUser: u.owned_by_current_user,
-      ownerName: u.owner_name,
-      dueDate: u.due_date,
-      numberOfAssignedStudents: assignedStudentCount,
-      completedCount: u.completed_count || 0,
-      cumulativeScore: u.classroom_cumulative_score || 0,
-    });
-    return caObj;
-  }
-
-  orderUnits(units) {
-    const unitsArr = [];
-    Object.keys(units).forEach(unitId => unitsArr.push(units[unitId]));
-    return unitsArr;
-  }
-
-  parseUnits = (data) => {
+  function parseUnits(data) {
     const parsedUnits = {};
     data.forEach((u) => {
-      const assignedStudentCount = this.assignedStudentCount(u);
+      const assignedStudentCount = u.number_of_assigned_students || u.class_size;
       if (!parsedUnits[u.unit_id]) {
-        // if this unit doesn't exist yet, go create it with the info from the first ca
-        parsedUnits[u.unit_id] = this.generateNewCaUnit(u);
+        parsedUnits[u.unit_id] = generateNewCaUnit(u, assignedStudentCount);
       } else {
         const caUnit = parsedUnits[u.unit_id];
         if (caUnit.classrooms.findIndex(c => c.name === u.class_name) === -1) {
@@ -208,69 +135,139 @@ export default class ActivityPacks extends React.Component {
         }
         //completedCount = Number(4); // number of srudents who completed
         //cumulativeScore = Number(332); // cumulative percentage for those //completed --- 83*4
-        caUnit.classroomActivities.set(u.activity_id, this.classroomActivityData(u, assignedStudentCount, completedCount, cumulativeScore));
+        caUnit.classroomActivities.set(u.activity_id, classroomActivityData(u, assignedStudentCount, completedCount, cumulativeScore));
       }
     });
-    return this.orderUnits(parsedUnits);
-  }
+    return Object.values(parsedUnits); // Convert to array as per original structure
+  };
 
-  populateCompletionAndAverageScore = (data) => {
-    const { allUnits, } = this.state
-    const requests = data.map((u) => {
-      return new Promise(resolve => {
-        requestGet(
-          `${process.env.DEFAULT_URL}/teachers/units/score_info_for_activity/${u.activity_id}?classroom_unit_id=${u.classroom_unit_id}`,
-          (body) => {
-            allUnits.forEach((stateUnit) => {
-              const unitActivity = stateUnit.classroomActivities.get(u.activity_id)
-              if (typeof unitActivity != 'undefined' && stateUnit.classrooms.find(c => Number(c.cuId) === Number(u.classroom_unit_id))) {
-                unitActivity.cumulativeScore += body.cumulative_score;
-                unitActivity.completedCount += body.completed_count;
-              }
-            })
-            resolve()
-          }
-        )
-      })
+  function populateCompletionAndAverageScore(data, parsedUnits) {
+    const promises = data.map((u) => {
+      return requestGetScoreInfo(u).then((body) => {
+        updateScoreInfo(u, body, parsedUnits)
+      });
     });
-    Promise.all(requests).then(() => this.setState({ loaded: true }));
-  }
 
-  stateBasedComponent = () => {
-    const { loaded, classrooms, selectedClassroomId, units, activityWithRecommendationsIds, } = this.state
+    Promise.all(promises).then(() => {
+      setLoaded(true);
+    });
+  };
+
+  function requestGetScoreInfo(u) {
+    return new Promise((resolve) => {
+      requestGet(
+        `${process.env.DEFAULT_URL}/teachers/units/score_info_for_activity/${u.activity_id}?classroom_unit_id=${u.classroom_unit_id}`,
+        resolve
+      );
+    });
+  };
+
+  function updateScoreInfo(unitActivityUpdate, scoreInfo, parsedUnits) {
+    const updatedUnits = parsedUnits.map(unit => {
+      if (unit.unitId === unitActivityUpdate.unit_id) {
+        const updatedActivities = new Map(unit.classroomActivities);
+        const activity = updatedActivities.get(unitActivityUpdate.activity_id);
+
+        if (activity) {
+          activity.cumulativeScore += scoreInfo.cumulative_score;
+          activity.completedCount += scoreInfo.completed_count;
+        }
+
+        return { ...unit, classroomActivities: updatedActivities };
+      }
+      return unit;
+    });
+
+    setAllUnits(updatedUnits)
+  };
+
+
+  function generateNewCaUnit(u, assignedStudentCount) {
+    const classroom = {
+      name: u.class_name,
+      totalStudentCount: u.class_size,
+      assignedStudentCount,
+      cuId: u.classroom_unit_id
+    };
+    return {
+      classrooms: [classroom],
+      classroomActivities: new Map().set(u.activity_id, classroomActivityData(u, assignedStudentCount)),
+      unitId: u.unit_id,
+      unitCreated: u.unit_created_at,
+      unitName: u.unit_name,
+    };
+  };
+
+  function classroomActivityData(u, assignedStudentCount, completedCount, cumulativeScore) {
+    return {
+      name: u.activity_name,
+      uaId: u.unit_activity_id,
+      cuId: u.classroom_unit_id,
+      activityId: u.activity_id,
+      created_at: u.unit_activity_created_at,
+      activityClassificationId: u.activity_classification_id,
+      classroomId: u.classroom_id,
+      ownedByCurrentUser: u.owned_by_current_user,
+      ownerName: u.owner_name,
+      createdAt: u.ca_created_at,
+      dueDate: u.due_date,
+      numberOfAssignedStudents: assignedStudentCount,
+      cumulativeScore: cumulativeScore || u.classroom_cumulative_score || 0,
+      completedCount: completedCount || u.completed_count || 0,
+    };
+  };
+
+  function switchClassrooms(classroom) {
+    const path = '/teachers/progress_reports/diagnostic_reports/#/activity_packs';
+    window.history.pushState({}, '', classroom.id ? `${path}?classroom_id=${classroom.id}` : path);
+    window.localStorage.setItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, classroom.id)
+    setSelectedClassroomId(classroom.id)
+  };
+
+  function renderContent() {
     if (!loaded) {
       return <Spinner />;
     }
-    let content;
 
-    const allClassroomsClassroom = { name: 'All Classrooms', };
-    const classroomOptions = [allClassroomsClassroom].concat(classrooms);
-    const classroomWithSelectedId = classroomOptions.find(classroom =>
-      classroom && classroom.id === Number(selectedClassroomId)
-    );
-    const selectedClassroom = classroomWithSelectedId || allClassroomsClassroom;
+    if (!classrooms || classrooms.length === 0) {
+      return <EmptyProgressReport missing="classrooms" />;
+    }
 
-    if (!classrooms || classrooms.filter(Boolean).length === 0) {
-      content = <EmptyProgressReport missing="classrooms" />;
-    } else if (units.length === 0 && selectedClassroomId) {
-      content = (
+    if (units.length === 0 && selectedClassroomId) {
+      return (
         <EmptyProgressReport
           missing="activitiesForSelectedClassroom"
-          onButtonClick={() => {
-            this.setState({ selectedClassroomId: null, loaded: false, });
-            this.getUnitsForCurrentClass();
-          }}
-        />);
-    } else if (units.length === 0) {
-      content = <EmptyProgressReport missing="activities" />;
-    } else {
-      content = (<Units
-        activityReport={Boolean(true)}
-        activityWithRecommendationsIds={activityWithRecommendationsIds}
-        data={units}
-        report={Boolean(true)}
-      />);
+          onButtonClick={resetSelectedClassroom}
+        />
+      );
     }
+
+    if (units.length === 0) {
+      return <EmptyProgressReport missing="activities" />;
+    }
+
+    return (
+      <Units
+        activityReport={true}
+        data={units}
+        report={true}
+      />
+    );
+  }
+
+  function resetSelectedClassroom() {
+    setSelectedClassroomId(null);
+    setLoaded(false);
+    getUnitsForCurrentClass();
+  }
+
+  function stateBasedComponent() {
+    const allClassroomsOption = { name: 'All Classrooms' };
+    const classroomOptions = [allClassroomsOption, ...classrooms];
+
+    const selectedClassroom = classroomOptions.find(classroom =>
+      classroom?.id === Number(selectedClassroomId)
+    ) || allClassroomsOption;
 
     return (
       <div className="activity-analysis">
@@ -279,31 +276,24 @@ export default class ActivityPacks extends React.Component {
         <div className="classroom-selector">
           <p>Select a classroom:</p>
           <ItemDropdown
-            callback={this.switchClassrooms}
-            items={classroomOptions.filter(Boolean)}
+            callback={switchClassrooms}
+            items={classroomOptions}
             selectedItem={selectedClassroom}
           />
         </div>
-        {content}
+        {renderContent()}
       </div>
     );
   }
 
-  switchClassrooms = (classroom) => {
-    const path = '/teachers/progress_reports/diagnostic_reports/#/activity_packs';
-   	window.history.pushState({}, '', classroom.id ? `${path}?classroom_id=${classroom.id}` : path);
-    window.localStorage.setItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, classroom.id)
- 		this.setState({ selectedClassroomId: classroom.id, }, () => this.getUnitsForCurrentClass());
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <div className="container manage-units gray-background-accommodate-footer">
-          {this.stateBasedComponent()}
-        </div>
-        <ArticleSpotlight blogPostId={ACTIVITY_ANALYSIS_FEATURED_BLOG_ID} />
-      </React.Fragment>
-    );
-  }
+  return (
+    <React.Fragment>
+      <div className="container manage-units gray-background-accommodate-footer">
+        {stateBasedComponent()}
+      </div>
+      <ArticleSpotlight blogPostId={ACTIVITY_ANALYSIS_FEATURED_BLOG_ID} />
+    </React.Fragment>
+  );
 }
+
+export default ActivityPacks;

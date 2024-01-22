@@ -36,12 +36,10 @@ export default class Paragraph extends React.Component<ParagraphProps, {}> {
       className += ' no-underline'
     }
     const inputs = words.map((word: WordObject, i: number) => {
-      const isFollowedByPunctuation = words[i + 1] && words[i + 1]['originalText'].match(startsWithPunctuationRegex)
       return (
         <EditInput
           key={word.wordIndex}
           {...word}
-          isFollowedByPunctuation={!!isFollowedByPunctuation}
           numberOfResets={numberOfResets}
           onWordChange={this.handleWordChange}
           underlineErrors={underlineErrors}

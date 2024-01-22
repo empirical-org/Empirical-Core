@@ -412,37 +412,28 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              ELL Diagnostic
+              <TableCellContentWrapper>
+                ELL Diagnostic
+              </TableCellContentWrapper>
             </td>
             <td
               key="classroom-447-484134-826269"
             >
-              <Tooltip
-                isTabbable={true}
-                key="classroom-447-484134-826269"
-                tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "290px",
-                    "textAlign": "left",
-                    "width": "290px",
+              <TableCellContentWrapper>
+                <Tooltip
+                  isTabbable={true}
+                  key="classroom-447-484134-826269"
+                  tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+                  tooltipTriggerStyle={
+                    Object {
+                      "minWidth": "290px",
+                      "textAlign": "left",
+                      "width": "290px",
+                    }
                   }
-                }
-                tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "290px",
-                    "textAlign": "left",
-                    "width": "290px",
-                  }
-                }
-              >
-                <span
-                  aria-hidden={false}
-                  className="quill-tooltip-trigger "
-                  role="tooltip"
-                  style={
+                  tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+                  tooltipTriggerTextClass="data-table-row-section undefined"
+                  tooltipTriggerTextStyle={
                     Object {
                       "minWidth": "290px",
                       "textAlign": "left",
@@ -451,14 +442,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   }
                 >
                   <span
-                    className="data-table-row-section undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
                     style={
                       Object {
                         "minWidth": "290px",
@@ -466,20 +452,38 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                         "width": "290px",
                       }
                     }
-                    tabIndex={0}
-                  >
-                    Quill Classroom Extremely Long So Long SUper Duper
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
                   >
                     <span
-                      aria-live="polite"
-                      className="quill-tooltip"
-                    />
+                      className="data-table-row-section undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "minWidth": "290px",
+                          "textAlign": "left",
+                          "width": "290px",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      Quill Classroom Extremely Long So Long SUper Duper
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
                   </span>
-                </span>
-              </Tooltip>
+                </Tooltip>
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section completed-row-section"
@@ -494,7 +498,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              0 of 5
+              <TableCellContentWrapper>
+                0 of 5
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section last-row-section"
@@ -509,18 +515,20 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              <a
-                className="focus-on-light"
-                href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/summary?unit=826269"
-              >
-                <img
-                  alt="File with a chart icon"
-                  src="undefined/images/icons/icons-file-chart.svg"
-                />
-                <span>
-                  View
-                </span>
-              </a>
+              <TableCellContentWrapper>
+                <a
+                  className="focus-on-light"
+                  href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/summary?unit=826269"
+                >
+                  <img
+                    alt="File with a chart icon"
+                    src="undefined/images/icons/icons-file-chart.svg"
+                  />
+                  <span>
+                    View
+                  </span>
+                </a>
+              </TableCellContentWrapper>
             </td>
           </tr>
           <tr
@@ -540,7 +548,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              ELL Diagnostic
+              <TableCellContentWrapper>
+                ELL Diagnostic
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section undefined"
@@ -555,7 +565,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              A New Class
+              <TableCellContentWrapper>
+                A New Class
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section completed-row-section"
@@ -570,7 +582,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              0 of 0
+              <TableCellContentWrapper>
+                0 of 0
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section last-row-section"
@@ -585,18 +599,20 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              <a
-                className="focus-on-light"
-                href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/summary?unit=826269"
-              >
-                <img
-                  alt="File with a chart icon"
-                  src="undefined/images/icons/icons-file-chart.svg"
-                />
-                <span>
-                  View
-                </span>
-              </a>
+              <TableCellContentWrapper>
+                <a
+                  className="focus-on-light"
+                  href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/summary?unit=826269"
+                >
+                  <img
+                    alt="File with a chart icon"
+                    src="undefined/images/icons/icons-file-chart.svg"
+                  />
+                  <span>
+                    View
+                  </span>
+                </a>
+              </TableCellContentWrapper>
             </td>
           </tr>
           <tr
@@ -616,37 +632,28 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              Starter Diagnostic
+              <TableCellContentWrapper>
+                Starter Diagnostic
+              </TableCellContentWrapper>
             </td>
             <td
               key="classroom-849-484134-826268"
             >
-              <Tooltip
-                isTabbable={true}
-                key="classroom-849-484134-826268"
-                tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "290px",
-                    "textAlign": "left",
-                    "width": "290px",
+              <TableCellContentWrapper>
+                <Tooltip
+                  isTabbable={true}
+                  key="classroom-849-484134-826268"
+                  tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+                  tooltipTriggerStyle={
+                    Object {
+                      "minWidth": "290px",
+                      "textAlign": "left",
+                      "width": "290px",
+                    }
                   }
-                }
-                tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "290px",
-                    "textAlign": "left",
-                    "width": "290px",
-                  }
-                }
-              >
-                <span
-                  aria-hidden={false}
-                  className="quill-tooltip-trigger "
-                  role="tooltip"
-                  style={
+                  tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+                  tooltipTriggerTextClass="data-table-row-section undefined"
+                  tooltipTriggerTextStyle={
                     Object {
                       "minWidth": "290px",
                       "textAlign": "left",
@@ -655,14 +662,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   }
                 >
                   <span
-                    className="data-table-row-section undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
                     style={
                       Object {
                         "minWidth": "290px",
@@ -670,20 +672,38 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                         "width": "290px",
                       }
                     }
-                    tabIndex={0}
-                  >
-                    Quill Classroom Extremely Long So Long SUper Duper
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
                   >
                     <span
-                      aria-live="polite"
-                      className="quill-tooltip"
-                    />
+                      className="data-table-row-section undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "minWidth": "290px",
+                          "textAlign": "left",
+                          "width": "290px",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      Quill Classroom Extremely Long So Long SUper Duper
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
                   </span>
-                </span>
-              </Tooltip>
+                </Tooltip>
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section completed-row-section"
@@ -698,7 +718,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              5 of 5
+              <TableCellContentWrapper>
+                5 of 5
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section last-row-section"
@@ -713,18 +735,20 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              <a
-                className="focus-on-light"
-                href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826268"
-              >
-                <img
-                  alt="File with a chart icon"
-                  src="undefined/images/icons/icons-file-chart.svg"
-                />
-                <span>
-                  View
-                </span>
-              </a>
+              <TableCellContentWrapper>
+                <a
+                  className="focus-on-light"
+                  href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826268"
+                >
+                  <img
+                    alt="File with a chart icon"
+                    src="undefined/images/icons/icons-file-chart.svg"
+                  />
+                  <span>
+                    View
+                  </span>
+                </a>
+              </TableCellContentWrapper>
             </td>
           </tr>
           <tr
@@ -744,37 +768,28 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              Starter Diagnostic
+              <TableCellContentWrapper>
+                Starter Diagnostic
+              </TableCellContentWrapper>
             </td>
             <td
               key="classroom-849-484134-826269"
             >
-              <Tooltip
-                isTabbable={true}
-                key="classroom-849-484134-826269"
-                tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "290px",
-                    "textAlign": "left",
-                    "width": "290px",
+              <TableCellContentWrapper>
+                <Tooltip
+                  isTabbable={true}
+                  key="classroom-849-484134-826269"
+                  tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+                  tooltipTriggerStyle={
+                    Object {
+                      "minWidth": "290px",
+                      "textAlign": "left",
+                      "width": "290px",
+                    }
                   }
-                }
-                tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "290px",
-                    "textAlign": "left",
-                    "width": "290px",
-                  }
-                }
-              >
-                <span
-                  aria-hidden={false}
-                  className="quill-tooltip-trigger "
-                  role="tooltip"
-                  style={
+                  tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+                  tooltipTriggerTextClass="data-table-row-section undefined"
+                  tooltipTriggerTextStyle={
                     Object {
                       "minWidth": "290px",
                       "textAlign": "left",
@@ -783,14 +798,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   }
                 >
                   <span
-                    className="data-table-row-section undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
                     style={
                       Object {
                         "minWidth": "290px",
@@ -798,20 +808,38 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                         "width": "290px",
                       }
                     }
-                    tabIndex={0}
-                  >
-                    Quill Classroom Extremely Long So Long SUper Duper
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
                   >
                     <span
-                      aria-live="polite"
-                      className="quill-tooltip"
-                    />
+                      className="data-table-row-section undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "minWidth": "290px",
+                          "textAlign": "left",
+                          "width": "290px",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      Quill Classroom Extremely Long So Long SUper Duper
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
                   </span>
-                </span>
-              </Tooltip>
+                </Tooltip>
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section completed-row-section"
@@ -826,7 +854,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              0 of 5
+              <TableCellContentWrapper>
+                0 of 5
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section last-row-section"
@@ -841,18 +871,20 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              <a
-                className="focus-on-light"
-                href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826269"
-              >
-                <img
-                  alt="File with a chart icon"
-                  src="undefined/images/icons/icons-file-chart.svg"
-                />
-                <span>
-                  View
-                </span>
-              </a>
+              <TableCellContentWrapper>
+                <a
+                  className="focus-on-light"
+                  href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826269"
+                >
+                  <img
+                    alt="File with a chart icon"
+                    src="undefined/images/icons/icons-file-chart.svg"
+                  />
+                  <span>
+                    View
+                  </span>
+                </a>
+              </TableCellContentWrapper>
             </td>
           </tr>
           <tr
@@ -872,7 +904,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              Starter Diagnostic
+              <TableCellContentWrapper>
+                Starter Diagnostic
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section undefined"
@@ -887,7 +921,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              A New Class
+              <TableCellContentWrapper>
+                A New Class
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section completed-row-section"
@@ -902,7 +938,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              0 of 0
+              <TableCellContentWrapper>
+                0 of 0
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section last-row-section"
@@ -917,18 +955,20 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               }
             >
-              <a
-                className="focus-on-light"
-                href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/summary?unit=826269"
-              >
-                <img
-                  alt="File with a chart icon"
-                  src="undefined/images/icons/icons-file-chart.svg"
-                />
-                <span>
-                  View
-                </span>
-              </a>
+              <TableCellContentWrapper>
+                <a
+                  className="focus-on-light"
+                  href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/summary?unit=826269"
+                >
+                  <img
+                    alt="File with a chart icon"
+                    src="undefined/images/icons/icons-file-chart.svg"
+                  />
+                  <span>
+                    View
+                  </span>
+                </a>
+              </TableCellContentWrapper>
             </td>
           </tr>
         </tbody>

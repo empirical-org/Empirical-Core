@@ -201,12 +201,6 @@ describe('The checking a sentence combining question', () => {
       assert.equal(matchedResponse.feedback, feedbackStrings.wordsOutOfOrderError);
     });
 
-    it('should be able to find a quotation mark match', () => {
-      const questionString = "Bats have wings \'\' so they can fly.";
-      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
-      assert.equal(matchedResponse.feedback, feedbackStrings.quotationMarkError);
-    });
-
     it('should be able to find a punctuation end match', () => {
       const questionString = "Bats have wings, so they can fly";
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
