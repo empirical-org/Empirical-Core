@@ -1,0 +1,182 @@
+.teacher-report-container, .admin-report-container {
+  margin-top: 32px;
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    .header-subheader-container {
+      display: flex;
+      align-items: center;
+    }
+    .report-sub-header {
+      max-width: 850px;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 32px;
+    }
+    .header-and-tooltip {
+      display: flex;
+      align-items: center;
+      height: max-content;
+      max-width: 900px;
+      h1 {
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 32px;
+        color: $quill-black;
+      }
+      h2 {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 32px;
+      }
+      .quill-tooltip-trigger {
+        margin-left: 8px;
+      }
+      .student-badge {
+        display: flex;
+        padding: 8px 16px 8px 8px;
+        background-color: $quill-grey-1;
+        border: 1px solid $quill-grey-15;
+        border-radius: 8px;
+        margin-top: 8px;
+        img {
+          height: 26px;
+          width: auto;
+          margin-right: 8px;
+        }
+        p {
+          font-size: 24px;
+          font-weight: 700;
+          line-height: 26px;
+        }
+      }
+    }
+    .csv-and-how-we-grade {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .how-we-grade {
+        font-size: 14px;
+        font-weight: 600;
+        color: $quill-green;
+      }
+    }
+  }
+  .dropdowns-container {
+    display: flex;
+    .dropdown-container {
+      width: 100%;
+      max-width: 240px;
+      margin-right: 8px;
+    }
+    &.standards-all-classrooms-dropdown-container {
+      justify-content: flex-start;
+      .dropdown-container {
+        margin-bottom: 0px;
+      }
+    }
+  }
+  .input-container .dropdown .dropdown__control--menu-is-open {
+    height: auto;
+  }
+  .dropdown-container {
+    width: 100%;
+    max-width: 240px;
+    margin-right: 8px;
+    .dropdown-container {
+      min-height: 65px;
+      max-width: 240px;
+
+    }
+  }
+  .dropdown-with-icon {
+    .dropdown__single-value::before {
+      content: url('https://assets.quill.org/images/pages/activity_summary/students.svg');
+      position: relative;
+      margin-right: 8px;
+      vertical-align: top;
+    }
+    .dropdown__single-value {
+      margin-right: 4px;
+      align-items: center;
+      font-size: 14px;
+      justify-content: flex-end;
+    }
+  }
+  table {
+    margin-top: 48px;
+  }
+}
+
+#student-overview {
+  .student-overview-header-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    .how-we-grade {
+      text-align: center;
+    }
+    .activity-score-student-card-container {
+      display: flex;
+      width: 100%;
+      padding: 16px;
+      margin-right: 32px;
+      flex-direction: column;
+      align-items: flex-start;
+      border-radius: 8px;
+      border: 1px solid $quill-grey-15;
+      background: $quill-grey-1;
+      .student-badge {
+        display: flex;
+        margin-bottom: 16px;
+        img {
+          height: 26px;
+          width: auto;
+          margin-right: 10px;
+        }
+        p {
+          font-size: 24px;
+          font-weight: 700;
+          line-height: 26px;
+        }
+      }
+      .student-data-container {
+        display: flex;
+        width: 100%;
+        border-radius: 8px;
+        padding: 16px;
+        border: 1px solid $quill-grey-5;
+        background-color: $quill-white;
+        .data-cell {
+          padding: 0px 32px;
+          width: 100%;
+          &:first-of-type {
+            padding: 0px 32px 0px 0px;
+          }
+          &:not(:first-of-type) {
+            max-width: 130px;
+          }
+          &:not(:last-of-type) {
+            border-right: 1px solid $quill-grey-10;
+          }
+          .cell-value {
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            color: $quill-grey-90;
+          }
+          .cell-label {
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 20px;
+            color: $quill-grey-50;
+          }
+        }
+      }
+    }
+  }
+}

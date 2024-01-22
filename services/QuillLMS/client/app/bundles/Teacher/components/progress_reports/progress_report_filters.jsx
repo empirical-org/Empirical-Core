@@ -7,23 +7,22 @@ export default class ProgressReportFilters extends React.Component {
   activeFilter = (selected, options) => {
     if(!selected || !options) { return ''; }
     if(selected.value !== options[0].value) {
-      return 'actively-selected';
+      return 'actively-selected bordered-dropdown';
     } else {
-      return '';
+      return 'bordered-dropdown';
     }
   };
 
   classroomFilter = () => {
     const { selectedClassroom, classroomFilters, selectClassroom, } = this.props
     return (
-      <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 classroom-filter" key="classroom-filter">
-        <DropdownInput
-          className={this.activeFilter(selectedClassroom, classroomFilters)}
-          handleChange={selectClassroom}
-          options={classroomFilters}
-          value={selectedClassroom}
-        />
-      </div>
+      <DropdownInput
+        className={`${this.activeFilter(selectedClassroom, classroomFilters)} dropdown-with-icon`}
+        handleChange={selectClassroom}
+        key="classroom-filter"
+        options={classroomFilters}
+        value={selectedClassroom}
+      />
     );
   };
 
@@ -31,14 +30,13 @@ export default class ProgressReportFilters extends React.Component {
     const { selectedUnit, unitFilters, selectUnit, } = this.props
 
     return (
-      <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 unit-filter" key="unit-filter">
-        <DropdownInput
-          className={this.activeFilter(selectedUnit, unitFilters)}
-          handleChange={selectUnit}
-          options={unitFilters}
-          value={selectedUnit}
-        />
-      </div>
+      <DropdownInput
+        className={this.activeFilter(selectedUnit, unitFilters)}
+        handleChange={selectUnit}
+        key="unit-filter"
+        options={unitFilters}
+        value={selectedUnit}
+      />
     );
   };
 
@@ -46,14 +44,13 @@ export default class ProgressReportFilters extends React.Component {
     const { selectedStudent, studentFilters, selectStudent, } = this.props
 
     return (
-      <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 student-filter" key="student-filter">
-        <DropdownInput
-          className={this.activeFilter(selectedStudent, studentFilters)}
-          handleChange={selectStudent}
-          options={studentFilters}
-          value={selectedStudent}
-        />
-      </div>
+      <DropdownInput
+        className={this.activeFilter(selectedStudent, studentFilters)}
+        handleChange={selectStudent}
+        key="student-filter"
+        options={studentFilters}
+        value={selectedStudent}
+      />
     );
   };
 
@@ -73,7 +70,7 @@ export default class ProgressReportFilters extends React.Component {
     }
 
     return (
-      <div className="row activity-page-dropdown-wrapper progress-report-filters">
+      <div className="progress-report-filters">
         {filters}
       </div>
     );
