@@ -3,7 +3,7 @@
 exports[`Overview container should render with a full access type 1`] = `
 <DocumentFragment>
   <div
-    class="white-background premium-hub-overview"
+    class="white-background-accommodate-footer premium-hub-overview"
   >
     <div
       class="container"
@@ -592,7 +592,7 @@ exports[`Overview container should render with a full access type 1`] = `
 exports[`Overview container should render with a limited access type 1`] = `
 <DocumentFragment>
   <div
-    class="white-background premium-hub-overview"
+    class="white-background-accommodate-footer premium-hub-overview"
   >
     <div
       class="container"
@@ -1210,7 +1210,7 @@ exports[`Overview container should render with a limited access type 1`] = `
 exports[`Overview container should render with a restricted access type 1`] = `
 <DocumentFragment>
   <div
-    class="white-background premium-hub-overview"
+    class="white-background-accommodate-footer premium-hub-overview"
   >
     <div
       class="container"

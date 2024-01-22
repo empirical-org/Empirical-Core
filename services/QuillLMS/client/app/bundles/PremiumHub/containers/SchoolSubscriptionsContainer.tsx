@@ -9,7 +9,7 @@ import SubscriptionStatus from '../../Teacher/components/subscriptions/Subscript
 import { ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES, } from '../../Teacher/components/subscriptions/constants';
 import CurrentSubscription from '../../Teacher/components/subscriptions/current_subscription';
 import SubscriptionHistory from '../../Teacher/components/subscriptions/subscription_history';
-import { FULL, restrictedPage, } from '../shared';
+import { FULL, LOADING, restrictedPage, } from '../shared';
 
 const purchaserNameOrEmail = (subscriptionStatus) => {
   if (!subscriptionStatus) { return }
@@ -23,7 +23,7 @@ const subscriptionType = (subscriptionStatus) => {
   return ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES[subscriptionStatus.account_type]
 }
 
-const SchoolSubscriptionsContainer = ({ location, accessType, }) => {
+const SchoolSubscriptionsContainer = ({ location, accessType, adminInfo, }) => {
   const [currentUserEmail, setCurrentUserEmail] = React.useState('')
   const [schools, setSchools] = React.useState([])
   const [selectedSchoolId, setSelectedSchoolId] = React.useState(Number(qs.parse(location.search.replace('?', '')).school_id))
@@ -119,7 +119,7 @@ const SchoolSubscriptionsContainer = ({ location, accessType, }) => {
 
   function hidePremiumConfirmationModal() { setShowPremiumConfirmationModal(false) }
 
-  if (accessType !== FULL) {
+  if (![FULL, LOADING].includes(accessType) && !adminInfo.administers_school_with_current_or_expired_premium) {
     return restrictedPage
   }
 
