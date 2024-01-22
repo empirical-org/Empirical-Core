@@ -33,11 +33,6 @@ class AdminReportFilterSelectionsController < ApplicationController
       )
   end
 
-  private def report
-    admin_report_filter_selection_params[:report]
-  end
-
-  private def user_id
-    current_user.id
-  end
+  private def report = admin_report_filter_selection_params[:report]
+  private def user_id = current_user.id
 end
