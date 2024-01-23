@@ -93,7 +93,8 @@ module ResultsSummary
         summary: summarize_correct_skills(correct_skill_number, number_incorrect),
         number_correct: correct_skill_number,
         number_incorrect: number_incorrect,
-        id: skill_group.id
+        id: skill_group.id,
+        question_uids: skill_group.questions.pluck(:uid)
       }
     end
   end

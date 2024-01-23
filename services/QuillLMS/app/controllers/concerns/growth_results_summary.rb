@@ -128,7 +128,8 @@ module GrowthResultsSummary
       id: skill_group.id,
       post_correct_skill_ids: post_correct_skills.map { |s| s[:post][:id] },
       pre_correct_skill_ids: pre_correct_skills.map { |s| s[:pre][:id] },
-      skill_ids: skills.map { |s| s[:post] && s[:post][:id] }.compact
+      skill_ids: skills.map { |s| s[:post] && s[:post][:id] }.compact,
+      question_uids: skill_group.questions.pluck(:uid)
     }
   end
   # rubocop:enable Metrics/CyclomaticComplexity
