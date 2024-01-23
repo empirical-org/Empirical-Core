@@ -207,7 +207,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
       }
     }
 
-    const val = requestPost('/admin_report_filter_selections/create_or_update', params, successCallback)
+    requestPost('/admin_report_filter_selections/create_or_update', params, successCallback)
   }
 
   function getFilters() {
