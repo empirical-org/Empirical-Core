@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivityScoresStudentOverview it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="container gray-background-accommodate-footer"
+  >
+    <div
+      class="spinner-container"
+    >
+      <img
+        alt=""
+        class="spinner"
+        src="/images/loader_still.svg"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;

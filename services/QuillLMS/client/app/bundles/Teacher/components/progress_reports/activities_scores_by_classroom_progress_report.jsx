@@ -2,13 +2,12 @@ import moment from 'moment';
 import queryString from 'query-string';
 import React from 'react';
 
-import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx';
 import EmptyStateForReport from './empty_state_for_report';
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants';
 
 import { requestGet, } from '../../../../modules/request/index';
 import { sortTableByLastName, sortTableFromSQLTimeStamp } from '../../../../modules/sortingMethods.js';
-import { ReactTable, Tooltip } from '../../../Shared/index';
+import { ReactTable, Tooltip, ReportHeader } from '../../../Shared/index';
 import { getTimeSpent } from '../../helpers/studentReports';
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown';
 import LoadingSpinner from '../shared/loading_indicator.jsx';
@@ -188,19 +187,15 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
     }
     const filteredClassroomsData = this.filteredClassroomsData()
     return (
-      <div className='activities-scores-by-classroom progress-reports-2018'>
-        <div className="meta-overview flex-row space-between">
-          <div className='header-and-info'>
-            <h1>Activity Scores</h1>
-            <p>View the overall average score for each student in an active classroom. Click on a student’s name to see a report of each individual activity and print it as a PDF. You can print this report by downloading a PDF file or export this data by downloading a CSV file.</p>
-          </div>
-          <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport data={this.formatDataForCSV(filteredClassroomsData)} key={`${selectedClassroom} report button`} />
-            <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
-          </div>
-        </div>
+      <div className='teacher-report-container activities-scores-by-classroom progress-reports-2018'>
+        <ReportHeader
+          csvData={this.formatDataForCSV(filteredClassroomsData)}
+          headerText="Activity Scores"
+          key={`${selectedClassroom} report button`}
+          tooltipText="View the overall average score for each student in an active classroom. Click on a student's name to see a report of each individual activity and print it as a PDF. You can print this report by downloading a PDF file or export this data by downloading a CSV file."
+        />
         <div className='dropdown-container'>
-          <ItemDropdown callback={this.switchClassrooms} items={classroomNames} selectedItem={selectedClassroom} />
+          <ItemDropdown callback={this.switchClassrooms} className="bordered-dropdown dropdown-with-icon" items={classroomNames} selectedItem={selectedClassroom} />
         </div>
         {this.tableOrEmptyMessage(filteredClassroomsData)}
       </div>

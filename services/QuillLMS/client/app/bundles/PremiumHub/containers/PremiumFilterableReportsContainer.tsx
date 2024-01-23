@@ -8,6 +8,7 @@ import { Route, Routes } from "react-router-dom-v5-compat";
 import DataExportContainer from './DataExportContainer';
 import UsageSnapshotsContainer from './UsageSnapshotsContainer';
 import DiagnosticGrowthReportsContainer from './diagnosticGrowthReports';
+import NonPremiumUsageSnapshotReport from './NonPremiumUsageSnapshotReport'
 
 import { requestPost, } from '../../../modules/request';
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual';
@@ -16,6 +17,7 @@ import CustomDateModal from '../components/usage_snapshots/customDateModal';
 import Filters from '../components/usage_snapshots/filters';
 import { CUSTOM } from '../components/usage_snapshots/shared';
 import { FULL, restrictedPage, } from '../shared';
+import useHideFooter from '../../Shared/hooks/useHideFooter'
 
 const MAXIMUM_CLASSROOM_LENGTH_FOR_FILTERS = 1500
 
@@ -25,7 +27,7 @@ const openGraySidebarIcon = `${sidebarImgSrcStem}/open_sidebar_gray.svg`
 const closedGreenSidebarIcon = `${sidebarImgSrcStem}/closed_sidebar_green.svg`
 const closedGraySidebarIcon = `${sidebarImgSrcStem}/closed_sidebar_gray.svg`
 
-export const PremiumFilterableReportsContainer = ({ accessType, adminInfo }) => {
+export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) => {
   const [loadingSavedFilterSelections, setLoadingSavedFilterSelections] = React.useState(true)
   const [loadingFilters, setLoadingFilters] = React.useState(true)
 
@@ -68,6 +70,8 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo }) => 
   const [showFilters, setShowFilters] = React.useState(true)
 
   const location = useLocation();
+
+  useHideFooter()
 
   React.useEffect(() => {
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
@@ -191,7 +195,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo }) => 
       schools: unorderedArraysAreEqual(selectedSchools, originalAllSchools) ? null : selectedSchools,
       teachers: unorderedArraysAreEqual(selectedTeachers, originalAllTeachers) ? null : selectedTeachers,
       classrooms: unorderedArraysAreEqual(selectedClassrooms, originalAllClassrooms) ? null : selectedClassrooms,
-      grades: selectedGrades,
+      grades: unorderedArraysAreEqual(selectedGrades, availableGrades) ? null : selectedGrades,
       custom_start_date: customStartDate,
       custom_end_date: customEndDate
     }
@@ -375,6 +379,10 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo }) => 
     openMobileFilterMenu,
     hasAdjustedFiltersFromDefault,
     passedData: null
+  }
+
+  if (accessType !== FULL && location.pathname.includes('usage_snapshot_report')) {
+    return <NonPremiumUsageSnapshotReport />
   }
 
   if (accessType !== FULL) {

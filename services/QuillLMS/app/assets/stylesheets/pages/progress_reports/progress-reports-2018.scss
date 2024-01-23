@@ -10,7 +10,6 @@
 .progress-reports-2018 {
   max-width: $sitewidepagewidth;
   margin: auto;
-  padding-top: 30px;
 
   &.data-export, &.concept-student-concepts {
     .ReactTable .rt-td.show-overflow {
@@ -53,18 +52,6 @@
     p {
       color: $quill-grey-40;
       margin-bottom: 8px;
-    }
-  }
-
-  .dropdown-container {
-    margin-top: 21px;
-    margin-bottom: 21px;
-    width: 100%;
-  }
-  #flexed {
-    display: flex;
-    .admin-activity-dropdown, .admin-concept-dropdown, .student-reports-class-dropdown {
-      margin-right: 10px;
     }
   }
 
@@ -150,19 +137,9 @@
   }
 }
 
-.individual-standard, .individual-student {
-  padding-top: 30px;
-  .meta-overview {
-    margin-bottom: 20px;
-    align-items: center;
-  }
-  .header-and-info {
-    max-width: 720px;
-    min-width: 575px;
-  }
-}
-
 .navigate-back {
+  display: inline-block;
+  margin-bottom: 8px;
   img {
     height: 12px;
     margin-right: 5px;
@@ -205,12 +182,6 @@
 
 .not-proficient-indicator {
   background-color: #ff4542;
-}
-
-.standards-all-classrooms {
-  .dropdown {
-    margin-right: 20px;
-  }
 }
 
 @media (max-width: 850px) {

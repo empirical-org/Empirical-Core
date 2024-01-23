@@ -250,3 +250,8 @@ export const documentFileIcon = {
   alt: 'Document file with folded corner and two horizontal lines',
   src: `${process.env.CDN_URL}/images/icons/file-document.svg`
 }
+
+export const singleUserIcon = {
+  alt: 'Black silhouette of single user',
+  src: `${process.env.CDN_URL}/images/icons/single-user-icon-black.svg`
+}

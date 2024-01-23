@@ -9,11 +9,12 @@ import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_const
 import ProgressReportFilters from './progress_report_filters.jsx';
 
 import { requestGet, } from '../../../../modules/request/index';
-import { ReactTable, } from '../../../Shared/index';
+import { ReactTable, ReportHeader, } from '../../../Shared/index';
 import { getTimeSpent } from '../../helpers/studentReports';
 import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin';
 import LoadingSpinner from '../shared/loading_indicator.jsx';
 
+// TODO: refactor this, progress_report and Scorebook files to remove create-react-class package
 
 export default createReactClass({
   displayName: 'activities_progress_report',
@@ -297,17 +298,12 @@ export default createReactClass({
 
   render: function() {
     return (
-      <div className='progress-reports-2018 data-export'>
-        <div className='meta-overview flex-row space-between'>
-          <div className='header-and-info'>
-            <h1>Data Export</h1>
-            <p>You can export the data as a CSV file by filtering for the classrooms, activity packs, or students you would like to export and then pressing "Download Report."</p>
-          </div>
-          <div className='csv-and-how-we-grade'>
-            <button className='quill-button medium primary contained focus-on-light' onClick={this.downloadReport} style={{display: 'block'}}>Download Report</button>
-            <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
-          </div>
-        </div>
+      <div className='teacher-report-container progress-reports-2018 data-export'>
+        <ReportHeader
+          downloadReportButton={<button className='quill-button medium primary contained focus-on-light' onClick={this.downloadReport} style={{ display: 'block' }}>Download Report</button>}
+          headerText="Data Export"
+          tooltipText='You can export the data as a CSV file by filtering for the classrooms, activity packs, or students you would like to export and then pressing "Download Report."'
+        />
         {this.renderFiltersAndTable()}
       </div>
     );
