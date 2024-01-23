@@ -74,6 +74,7 @@ module Teacher
           ON classrooms_teachers.user_id = #{id}
           AND classrooms_teachers.role = 'coteacher'
         WHERE users.id = #{id}
+        AND classrooms_teachers.deleted_at IS NULL
       SQL
     ).to_a
 
@@ -107,6 +108,7 @@ module Teacher
           AND classrooms_teachers.role = 'coteacher'
           #{classrooms_teacher_additional_join}
         WHERE users.id = #{id}
+        AND classrooms_teachers.deleted_at IS NULL
       SQL
     )
 
@@ -139,6 +141,7 @@ module Teacher
           ON classroom_units.classroom_id = classrooms_teachers.classroom_id
         WHERE classrooms_teachers.user_id = #{id}
           AND units.id = #{unit_id.to_i}
+          AND classrooms_teachers.deleted_at IS NULL
         LIMIT 1
       SQL
     ).to_a.any?
@@ -226,6 +229,7 @@ module Teacher
         WHERE my_classrooms.user_id = #{id}
           AND coteachers_classrooms.role = 'coteacher'
           AND my_classrooms.role = 'owner'
+          AND classrooms_teachers.deleted_at IS NULL
       SQL
     ).to_a
   end
@@ -288,6 +292,7 @@ module Teacher
           ON classrooms_teachers.classroom_id = classrooms.id
         WHERE classrooms.visible = true
           AND classrooms_teachers.user_id = #{id}
+          AND classrooms_teachers.deleted_at IS NULL
         GROUP BY
           classrooms.name,
           classrooms.id
@@ -306,7 +311,7 @@ module Teacher
         LEFT JOIN classrooms_teachers
           ON classrooms_teachers.classroom_id = classrooms.id
         WHERE classrooms_teachers.user_id = #{id}
-          AND classrooms_teachers.deleted_at IS NOT NULL
+          AND classrooms_teachers.deleted_at IS NULL
           AND classrooms.visible
           AND class_units.visible
           AND acts.visible
@@ -646,6 +651,8 @@ module Teacher
           ON all_affiliated_classrooms.user_id = units.user_id
           AND units.visible = TRUE
         WHERE classrooms_teachers.user_id = #{id}
+          AND classrooms_teachers.deleted_at IS NULL
+          AND all_affiliated_classrooms.deleted_at IS NULL
         ORDER BY units.name ASC
       SQL
     ).to_a
@@ -686,6 +693,7 @@ module Teacher
         JOIN classrooms_teachers
           ON students_classrooms.classroom_id = classrooms_teachers.classroom_id
           AND classrooms_teachers.user_id = #{id}
+          AND classrooms_teachers.deleted_at IS NULL
       SQL
     ).to_a.any?
   end

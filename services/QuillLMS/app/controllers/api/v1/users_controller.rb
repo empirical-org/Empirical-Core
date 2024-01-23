@@ -38,6 +38,8 @@ class Api::V1::UsersController < Api::ApiController
         JOIN classrooms_teachers AS b
           ON a.classroom_id = b.classroom_id
         WHERE b.user_id = #{current_user.id}
+          AND a.deleted_at IS NOT NULL
+          AND b.deleted_at IS NOT NULL
           AND NOT a.user_id = #{current_user.id}
       SQL
     ).to_a

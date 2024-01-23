@@ -23,6 +23,7 @@ class ProgressReports::Standards::Classroom
           JOIN classrooms_teachers
             ON classrooms_teachers.user_id = #{@teacher.id}
            AND classrooms_teachers.classroom_id = classrooms.id
+           AND classrooms_teachers.deleted_at IS NULL
         SQL
       )
       .joins(:students)

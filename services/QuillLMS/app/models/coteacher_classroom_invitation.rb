@@ -44,6 +44,7 @@ class CoteacherClassroomInvitation < ApplicationRecord
           ON classrooms_teachers.classroom_id = #{classroom_id}
           AND classrooms_teachers.user_id = users.id
         WHERE invitations.id = #{invitation_id};
+        AND classrooms_teachers.deleted_at IS NULL
       SQL
     ).to_a
 

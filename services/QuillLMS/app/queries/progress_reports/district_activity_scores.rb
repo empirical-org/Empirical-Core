@@ -56,6 +56,7 @@ class ProgressReports::DistrictActivityScores
       WHERE classroom_units.classroom_id IN (#{classroom_ids_for_admin})
       AND activity_sessions.is_final_score = TRUE
       AND classroom_units.visible = true
+      AND classrooms_teachers.deleted_at IS NULL
       GROUP BY
         classrooms.name,
         students.id,

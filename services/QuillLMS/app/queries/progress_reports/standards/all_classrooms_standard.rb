@@ -60,6 +60,7 @@ class ProgressReports::Standards::AllClassroomsStandard
           HAVING AVG(percentage) >= #{PROFICIENT_THRESHOLD}
         ) AS avg_score_for_standard_by_user
           ON avg_score_for_standard_by_user.standard_id = standards.id
+        WHERE classrooms_teachers.deleted_at IS NULL
         GROUP BY
           standards.id,
           standard_levels.name
@@ -71,7 +72,7 @@ class ProgressReports::Standards::AllClassroomsStandard
   def classroom_joins(classroom_id)
     return if classroom_id
 
-    "JOIN classrooms ON classroom_units.classroom_id = classrooms.id JOIN classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id AND classrooms_teachers.user_id = #{@teacher.id} AND classrooms.visible = true"
+    "JOIN classrooms ON classroom_units.classroom_id = classrooms.id JOIN classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id AND classrooms_teachers.user_id = #{@teacher.id} AND classrooms.visible = true AND "
   end
 
   def classroom_condition(classroom_id)

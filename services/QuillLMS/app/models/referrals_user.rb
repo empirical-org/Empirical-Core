@@ -80,6 +80,7 @@ class ReferralsUser < ApplicationRecord
         JOIN classroom_units
           ON classrooms_teachers.classroom_id = classroom_units.classroom_id
         WHERE referrals_users.activated = false
+        AND classrooms_teachers.deleted_at IS NULL
       SQL
     ).to_a.map(&:values).flatten
 
@@ -105,6 +106,7 @@ class ReferralsUser < ApplicationRecord
         JOIN classroom_units
           ON classrooms_teachers.classroom_id = classroom_units.classroom_id
         WHERE classroom_units.id IN (#{classroom_unit_ids.join(',')})
+        AND classrooms_teachers.deleted_at IS NULL
       SQL
     ).to_a.map(&:values).flatten
   end

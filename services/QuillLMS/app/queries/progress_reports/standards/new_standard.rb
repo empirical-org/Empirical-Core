@@ -54,6 +54,7 @@ class ProgressReports::Standards::NewStandard
           #{student_conditional}
           AND activity_sessions.visible
           AND classroom_units.visible
+          AND classrooms_teachers.deleted_at IS NULL
       ) AS best_activity_sessions
     SQL
   end

@@ -70,7 +70,7 @@ class Classroom < ApplicationRecord
     # ClassroomsTeachers must be called explicitly, because the has_many relationship
     # does not retrieve Classroom.classrooms_teachers when a foreign_key is designated, as above
     # https://github.com/empirical-org/Empirical-Core/pull/8664
-    ClassroomsTeacher.where(classroom_id: id).update(delete_at: Time.now)
+    ClassroomsTeacher.where(classroom_id: id).each { |ct| ct.update(delete_at: Time.now) }
     super
   end
 

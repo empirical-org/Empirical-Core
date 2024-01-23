@@ -208,6 +208,7 @@ class Teachers::UnitsController < ApplicationController
         WHERE classrooms_teachers.user_id = #{current_user.id.to_i}
           AND unit_activities.activity_id = #{ActiveRecord::Base.connection.quote(params[:activity_id])}
           AND classroom_units.visible IS true
+          AND classrooms_teachers.deleted_at IS NULL
       SQL
     ).to_a
   end

@@ -105,6 +105,7 @@ class ProfilesController < ApplicationController
           ON teacher.id = classrooms_teachers.user_id
         WHERE sc.student_id = #{current_user.id}
           AND classrooms.visible = true
+          AND classrooms_teachers.deleted_at IS NULL
           AND sc.visible = true
         ORDER BY sc.created_at DESC
       SQL

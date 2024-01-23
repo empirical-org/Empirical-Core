@@ -48,6 +48,7 @@ private def student_names_and_ids(classroom_id)
         ON students.id = sc.student_id
       WHERE teacher.id = #{current_user.id}
         #{classroom_conditional}
+        AND ct.deleted_at IS NULL
       ORDER BY SUBSTRING(students.name, '([^[:space:]]+)(?:,|$)')
     SQL
   ).to_a

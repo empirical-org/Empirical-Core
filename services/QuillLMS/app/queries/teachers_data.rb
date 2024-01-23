@@ -23,6 +23,7 @@ module TeachersData
       LEFT OUTER JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id AND classrooms.visible = true
       LEFT OUTER JOIN students_classrooms ON classrooms.id = students_classrooms.classroom_id AND students_classrooms.visible = true
       WHERE users.id IN (#{teacher_ids_str})
+        AND classrooms_teachers.deleted_at IS NULL
       GROUP BY users.id"
     )
 
