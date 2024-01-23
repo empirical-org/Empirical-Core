@@ -103,7 +103,7 @@ const Popover = ({ studentResult, skillGroup, closePopover, responsesLink, }: Po
           <button className="interactive-wrapper focus-on-light" onClick={closePopover} type="button">{closeIcon}</button>
         </header>
         <p dangerouslySetInnerHTML={{ __html: skillGroup.description }} />
-        <Link to={responsesLink(studentResult.id)}>{accountCommentIcon}<span>View {studentResult.name}&#39;s responses</span></Link>
+        <Link to={`${responsesLink(studentResult.id)}#${skillGroup.id}`}>{accountCommentIcon}<span>View {studentResult.name}&#39;s responses for {skillGroup.skill_group}</span></Link>
       </section>
     </div>
   )

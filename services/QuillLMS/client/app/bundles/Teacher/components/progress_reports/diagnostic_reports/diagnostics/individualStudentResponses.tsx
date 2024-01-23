@@ -7,7 +7,7 @@ import {
 } from './interfaces';
 import {
   baseDiagnosticImageSrc,
-  correctImage,
+  greenCircleWithCheckIcon,
   fileDocumentIcon,
 } from './shared';
 import GrowthSkillsTable from './growthSkillsTable';
@@ -17,9 +17,9 @@ import { requestGet } from '../../../../../../modules/request/index';
 import { DataTable, } from '../../../../../Shared/index';
 import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
-const incorrectImage = <img alt="Incorrect check icon" src={`${baseDiagnosticImageSrc}/icons-incorrect-small.svg`} />
+const incorrectImage = <img alt="Incorrect check icon" src={`${baseDiagnosticImageSrc}/icons-incorrect-gold.svg`} />
 
-const correctTag = <div className="concept-tag correct-tag">{correctImage}<span>Correct</span></div>
+const correctTag = <div className="concept-tag correct-tag">{greenCircleWithCheckIcon}<span>Correct</span></div>
 const incorrectTag = <div className="concept-tag incorrect-tag">{incorrectImage}<span>Incorrect</span></div>
 
 const PRE = 'pre'
@@ -119,6 +119,24 @@ export const IndividualStudentResponses = ({ match, passedConceptResults, passed
     getData()
   }, [activityId, classroomId, unitId, studentId])
 
+  React.useEffect(() => {
+    if (loading) { return }
+
+    const splitUrl = window.location.href.split('#');
+    const id = splitUrl[splitUrl.length - 1]
+
+    // Check if URL has a hash and the page has fully loaded
+    if (id) {
+      const element = document.getElementById(id);
+
+      // If the element exists, scroll to it
+      if (element) {
+        element.scrollIntoView();
+      }
+    }
+  }, [loading]); // Empty dependency array ensures this runs once after initial render
+
+
   function getData() {
     requestGet(`/teachers/progress_reports/individual_student_diagnostic_responses/${studentId}?activity_id=${activityId}&classroom_id=${classroomId}${unitQueryString}`,
       (data) => {
@@ -138,7 +156,42 @@ export const IndividualStudentResponses = ({ match, passedConceptResults, passed
     skillsSection = <div className="skills-table-container-wrapper">{skillGroupResults[0] && skillGroupResults[0].pre ? <GrowthSkillsTable isExpandable={true} skillGroupResults={skillGroupResults} /> : <SkillsTable isExpandable={true} skillGroupResults={skillGroupResults} />}</div>
   }
 
-  let conceptResultElements
+  const questions = conceptResults.pre ? conceptResults[preOrPost].questions : conceptResults.questions
+
+  // Step 1: Create a mapping of question_uid to question_number
+  const questionNumberMap = questions.reduce((acc, question) => {
+    acc[question.question_uid] = question.question_number;
+    return acc;
+  }, {});
+
+
+  // Step 2: Sort the skill groups based on the minimum question number in each group
+  const sortedSkillGroups = skillGroupResults.sort((a, b) => {
+    const minQuestionNumberA = Math.min(...a.question_uids.map(uid => questionNumberMap[uid]).filter(Boolean));
+    const minQuestionNumberB = Math.min(...b.question_uids.map(uid => questionNumberMap[uid]).filter(Boolean));
+    return minQuestionNumberA - minQuestionNumberB;
+  });
+
+  // Step 3: Map the sorted skill groups to React components
+  const skillGroups = sortedSkillGroups.map(skillGroup => {
+    const questions = conceptResults.questions.filter(q => skillGroup.question_uids.includes(q.question_uid));
+    const percentage = (skillGroup.number_correct / (skillGroup.number_correct + skillGroup.number_incorrect)) * 100;
+
+    return (
+      <section className="skill-group-section" id={skillGroup.id} key={skillGroup.id} >
+        <div className="skill-group-section-header">
+          <h2>
+            <span>{skillGroup.skill_group}</span>
+            <span>{`${Math.round(percentage)}%`}</span>
+          </h2>
+          <p>{skillGroup.number_of_correct_questions_text}</p>
+        </div>
+        {questions.map(question => <QuestionTable key={question.question_number} question={question} />)}
+      </section>
+    );
+  });
+
+  let conceptResultElements = skillGroups
 
   if (conceptResults.pre) {
     conceptResultElements = (<React.Fragment>
@@ -146,10 +199,8 @@ export const IndividualStudentResponses = ({ match, passedConceptResults, passed
         <Tab activeTab={preOrPost} label="Pre responses" setPreOrPost={setPreOrPost} value={PRE} />
         <Tab activeTab={preOrPost} label="Post responses" setPreOrPost={setPreOrPost} value={POST} />
       </div>
-      {conceptResults[preOrPost].questions.map(question => <QuestionTable key={question.question_number} question={question} />)}
+      {skillGroups}
     </React.Fragment>)
-  } else {
-    conceptResultElements = conceptResults.questions.map(question => <QuestionTable key={question.question_number} question={question} />)
   }
 
   return (
