@@ -21,7 +21,7 @@ const googleSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instr
 
 function activeHeaders(hasClassroomProvider: boolean) {
   const name = {
-    width: '220px',
+    width: '205px',
     name: 'Name',
     attribute: 'name'
   }
@@ -33,7 +33,7 @@ function activeHeaders(hasClassroomProvider: boolean) {
   }
 
   const logInMethod = {
-    width: '110px',
+    width: '135px',
     name: 'Log-in Method',
     attribute: 'logInMethod'
   }
@@ -489,6 +489,15 @@ const ClassroomStudentSection = ({
     )
   }
 
+  const logInMethod = ({ email, provider }) => {
+    if (provider === 'Google') { return 'Google or email' }
+    if (provider === 'Clever') { return 'Clever' }
+    if (provider === 'Canvas') { return 'Canvas' }
+    if (email) { return 'Username or email' }
+
+    return 'Username'
+  }
+
   const renderStudentDataTable = () => {
     const { classroomProvider } = classroom
     const hasClassroomProvider = classroomProvider !== undefined
@@ -497,7 +506,6 @@ const ClassroomStudentSection = ({
       const { name, username, email, id, provider, last_active, number_of_completed_activities, } = student
       const checked = !!selectedStudentIds.includes(id)
       const synced = syncedStatus(student, classroomProvider)
-      const logInMethod = provider === 'Google' ? 'Google or email' : (provider || 'Username');
 
       return {
         synced,
@@ -505,7 +513,7 @@ const ClassroomStudentSection = ({
         id,
         usernameOrEmail: email || username,
         checked,
-        logInMethod,
+        logInMethod: logInMethod({ email, provider }),
         lastActive: last_active ? moment(last_active).format('MM/DD/YY HH:mm') : '',
         activities: number_of_completed_activities,
         actions: classroom.visible ? actionsForIndividualStudent(student) : null
