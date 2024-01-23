@@ -56,6 +56,28 @@ RSpec.describe ClassroomsTeacher, type: :model, redis: true do
     it 'should require a classroom_id that is not null' do
       expect{classrooms_teacher_with_null_classroom_id.save}.to raise_error ActiveRecord::StatementInvalid
     end
+
+    it 'should invalidate two undeleted records with the same classroom and teacher' do
+      classroom = create(:classroom)
+      teacher = create(:teacher)
+      create(:classrooms_teacher, user: teacher, classroom: classroom)
+
+      expect do
+        create(:classrooms_teacher, user: teacher, classroom: classroom)
+      end.to raise_error ActiveRecord::RecordInvalid
+    end
+
+    it 'should validate two deleted records with the same classroom and teacher' do
+      classroom = create(:classroom)
+      teacher = create(:teacher)
+      create(:classrooms_teacher, user: teacher, classroom: classroom, deleted_at: Time.now)
+
+      expect do
+        create(:classrooms_teacher, user: teacher, classroom: classroom, deleted_at: Time.now - 1.hour)
+      end.to_not raise_error
+    end
+
+
   end
 
   describe 'callbacks' do

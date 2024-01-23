@@ -24,6 +24,9 @@ class ClassroomsTeacher < ApplicationRecord
   belongs_to :user
   belongs_to :classroom, touch: true
 
+  validates :user_id, uniqueness: { scope: [:classroom_id, :deleted_at], message: "user_id, classroom_id, and deleted_at must be collectively unique"}
+
+
   after_create :delete_classroom_minis_cache_for_each_teacher_of_this_classroom, :reset_lessons_cache_for_teacher
   before_destroy :delete_classroom_minis_cache_for_each_teacher_of_this_classroom, :reset_lessons_cache_for_teacher
 
