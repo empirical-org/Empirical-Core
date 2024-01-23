@@ -3,56 +3,62 @@ import { render, fireEvent, screen, } from '@testing-library/react';
 import ReportSubscriptionModal from '../reportSubscriptionModal';
 
 describe('<ReportSubscriptionModal />', () => {
-  const save = jest.fn();
-  const cancel = jest.fn();
+  const mockSave = jest.fn();
+  const mockCancel = jest.fn();
   const existingPdfSubscription = { frequency: 'Weekly' };
 
-  test('matches the component snapshot', () => {
-    const { asFragment } = render(
+  const renderComponent = (isOpen: boolean, subscription = null) =>
+    render(
       <ReportSubscriptionModal
-        cancel={cancel}
-        existingPdfSubscription={existingPdfSubscription}
-        isOpen={true}
-        save={save}
+        cancel={mockCancel}
+        existingPdfSubscription={subscription}
+        isOpen={isOpen}
+        save={mockSave}
       />
     );
 
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test('matches the component snapshot', () => {
+    const { asFragment } = renderComponent(true, existingPdfSubscription);
     expect(asFragment()).toMatchSnapshot();
   });
 
   test('renders when isOpen is true', () => {
-    render(<ReportSubscriptionModal cancel={cancel} existingPdfSubscription={null} isOpen={true} save={save} />);
+    renderComponent(true)
     expect(screen.getByText('Subscribe to this report')).toBeInTheDocument();
   });
 
   test('does not render when isOpen is false', () => {
-    render(<ReportSubscriptionModal cancel={cancel} existingPdfSubscription={null} isOpen={false} save={save} />);
+    renderComponent(false)
     expect(screen.queryByText('Subscribe to this report')).toBeNull();
   });
 
   test('initial state with existing subscription', () => {
-    render(<ReportSubscriptionModal cancel={cancel} existingPdfSubscription={existingPdfSubscription} isOpen={true} save={save} />);
+    renderComponent(true, existingPdfSubscription)
     expect(screen.getByLabelText('On')).toBeChecked();
     expect(screen.getByText('Weekly')).toBeInTheDocument();
   });
 
   test('sets subscription status to default frequency when clicked', () => {
-    render(<ReportSubscriptionModal cancel={cancel} existingPdfSubscription={null} isOpen={true} save={save} />);
+    renderComponent(true, null)
     fireEvent.click(screen.getByLabelText('On'));
     expect(screen.getByLabelText('On')).toBeChecked();
     expect(screen.getByText('Monthly')).toBeInTheDocument();
   });
 
   test('calls save function with correct arguments on save click', () => {
-    render(<ReportSubscriptionModal cancel={cancel} existingPdfSubscription={existingPdfSubscription} isOpen={true} save={save} />);
+    renderComponent(true, existingPdfSubscription)
     fireEvent.click(screen.getByText('Save'));
-    expect(save).toHaveBeenCalledWith(true, 'Weekly', existingPdfSubscription);
+    expect(mockSave).toHaveBeenCalledWith(true, 'Weekly', existingPdfSubscription);
   });
 
   test('calls cancel function on cancel click', () => {
-    render(<ReportSubscriptionModal cancel={cancel} existingPdfSubscription={existingPdfSubscription} isOpen={true} save={save} />);
+    renderComponent(true, existingPdfSubscription)
     fireEvent.click(screen.getByText('Cancel'));
-    expect(cancel).toHaveBeenCalled();
+    expect(mockCancel).toHaveBeenCalled();
   });
 
 });
