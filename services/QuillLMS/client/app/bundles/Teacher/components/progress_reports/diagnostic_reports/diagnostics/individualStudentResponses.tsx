@@ -9,6 +9,7 @@ import {
   baseDiagnosticImageSrc,
   greenCircleWithCheckIcon,
   fileDocumentIcon,
+  sortSkillGroupsByQuestionNumbers,
 } from './shared';
 import GrowthSkillsTable from './growthSkillsTable';
 import SkillsTable from './skillsTable';
@@ -158,24 +159,12 @@ export const IndividualStudentResponses = ({ match, passedConceptResults, passed
 
   const questions = conceptResults.pre ? conceptResults[preOrPost].questions : conceptResults.questions
 
-  // Step 1: Create a mapping of question_uid to question_number
-  const questionNumberMap = questions.reduce((acc, question) => {
-    acc[question.question_uid] = question.question_number;
-    return acc;
-  }, {});
+  const sortedSkillGroups = sortSkillGroupsByQuestionNumbers(skillGroupResults, questions)
 
-
-  // Step 2: Sort the skill groups based on the minimum question number in each group
-  const sortedSkillGroups = skillGroupResults.sort((a, b) => {
-    const minQuestionNumberA = Math.min(...a.question_uids.map(uid => questionNumberMap[uid]).filter(Boolean));
-    const minQuestionNumberB = Math.min(...b.question_uids.map(uid => questionNumberMap[uid]).filter(Boolean));
-    return minQuestionNumberA - minQuestionNumberB;
-  });
-
-  // Step 3: Map the sorted skill groups to React components
   const skillGroups = sortedSkillGroups.map(skillGroup => {
-    const questions = conceptResults.questions.filter(q => skillGroup.question_uids.includes(q.question_uid));
-    const percentage = (skillGroup.number_correct / (skillGroup.number_correct + skillGroup.number_incorrect)) * 100;
+    const { number_correct, number_incorrect, } = conceptResults.pre ? skillGroup[preOrPost] : skillGroup
+    const filteredQuestions = questions.filter(q => skillGroup.question_uids.includes(q.question_uid));
+    const percentage = (number_correct / (number_correct + number_incorrect)) * 100;
 
     return (
       <section className="skill-group-section" id={skillGroup.id} key={skillGroup.id} >
@@ -184,9 +173,9 @@ export const IndividualStudentResponses = ({ match, passedConceptResults, passed
             <span>{skillGroup.skill_group}</span>
             <span>{`${Math.round(percentage)}%`}</span>
           </h2>
-          <p>{skillGroup.number_of_correct_questions_text}</p>
+          <p>{number_correct} of {number_correct + number_incorrect} Questions Correct</p>
         </div>
-        {questions.map(question => <QuestionTable key={question.question_number} question={question} />)}
+        {filteredQuestions.map(question => <QuestionTable key={question.question_number} question={question} />)}
       </section>
     );
   });

@@ -174,6 +174,10 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     this.setState({ rowWithActionsOpen: null })
   }
 
+  textAlign(header) {
+    return header.textAlign || this.attributeAlignment(header.attribute)
+  }
+
   renderHeaderCheckbox() {
     const { showCheckboxes, rows, uncheckAllRows, checkAllRows } = this.props
 
@@ -303,8 +307,9 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     if (header.isActions) { return this.renderActionsHeader(header, index) }
 
     const { sortAscending, sortAttribute, } = this.state
+
     let className = `${dataTableHeaderClassName} ${header.headerClassName}`
-    let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
+    let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.textAlign(header)}` as CSS.TextAlignProperty }
     let headerContent = <span>{header.name}</span>
     let headerTitle = <span>{header.name}</span>
     let headerTooltip = null
@@ -372,7 +377,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const { expandedParentRowIdentifier } = this.state
     if (header.isActions) { return this.renderActions(row) }
     const { averageFontWidth, } = this.props
-    let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
+    let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.textAlign(header)}` as CSS.TextAlignProperty }
     const sectionText = row[header.attribute]
     const headerWidthNumber = Number(header.width.slice(0, -2))
     const dataTableRowSectionClassName = `data-table-row-section ${header.rowSectionClassName}`
