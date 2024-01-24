@@ -22,12 +22,12 @@ example: `bq ls --format=pretty lms | grep MATERIALIZED VIEW`
 
 ### Drop existing mat view
 
-pattern: `bk rm dataset.asset`<br />
+pattern: `bq rm dataset.asset`<br />
 
-example: `bk rm playground.testview`
+example: `bq rm playground.testview`
 
 ### Create a mat view
 
-pattern: `bq mk --view_udf_resource=/path/to/sqlfile dataset.assetname`<br />
+pattern: `bq query --use_legacy_sql=false <string or path to file>`<br />
 
-example: `bq mk --view_udf_resource=db/external/bigquery/mat_views/testview.sql playground.testview`
+example: `bq query --use_legacy_sql=false "$(cat db/external/bigquery/mat_views/testview.sql)"`
