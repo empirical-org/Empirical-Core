@@ -17,7 +17,8 @@ module GrowthResultsSummary
         description: skill_group.description,
         not_yet_proficient_in_post_test_student_names: [],
         gained_proficiency_in_post_test_student_names: [],
-        proficiency_scores_by_student: {}
+        proficiency_scores_by_student: {},
+        question_uids: skill_group.questions.pluck(:uid)
       }
     end
 

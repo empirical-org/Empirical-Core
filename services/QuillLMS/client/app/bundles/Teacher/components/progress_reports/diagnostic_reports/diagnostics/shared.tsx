@@ -152,3 +152,20 @@ export const releaseMethodToDisplayName = {
   [IMMEDIATE]: 'Immediate',
   [STAGGERED]: 'Staggered'
 }
+
+export function sortSkillGroupsByQuestionNumbers(skillGroups, questions) {
+  // Step 1: Create a mapping of question_uid to question_number
+  const questionNumberMap = questions.reduce((acc, question) => {
+    acc[question.question_uid] = question.question_number;
+    return acc;
+  }, {});
+
+
+  // Step 2: Sort the skill groups based on the minimum question number in each group
+  return skillGroups.sort((a, b) => {
+    const minQuestionNumberA = Math.min(...a.question_uids.map(uid => questionNumberMap[uid]).filter(Boolean));
+    const minQuestionNumberB = Math.min(...b.question_uids.map(uid => questionNumberMap[uid]).filter(Boolean));
+    return minQuestionNumberA - minQuestionNumberB;
+  });
+
+}

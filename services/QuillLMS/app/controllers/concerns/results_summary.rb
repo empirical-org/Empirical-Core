@@ -15,7 +15,8 @@ module ResultsSummary
         name: skill_group.name,
         description: skill_group.description,
         not_yet_proficient_student_names: [],
-        proficiency_scores_by_student: {}
+        proficiency_scores_by_student: {},
+        question_uids: skill_group.questions.pluck(:uid)
       }
     end
 

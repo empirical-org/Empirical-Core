@@ -45,7 +45,7 @@ module PublicProgressReports
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def results_by_question(activity_id)
+  def results_by_question(activity_id, include_skill_group_information=false)
     activity = Activity.includes(:classification).find(activity_id)
     questions = Hash.new{|h,k| h[k]={} }
 
@@ -59,6 +59,7 @@ module PublicProgressReports
       curr_quest[:total] += 1
       curr_quest[:prompt] ||= answer.concept_result_prompt&.text
       curr_quest[:question_number] ||= answer.question_number
+      curr_quest[:question_uid] ||= answer.extra_metadata['question_uid']
       if answer.attempt_number == 1 || !curr_quest[:instructions]
         direct = answer.concept_result_directions&.text || answer.concept_result_instructions&.text || ""
         curr_quest[:instructions] = direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
@@ -67,15 +68,19 @@ module PublicProgressReports
     # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
     # being converted to an array because that is what the diagnostic reports expect
     questions_arr = questions.map do |k,v|
-      {question_id: k,
-       score: activity.is_evidence? ? nil : ((v[:correct].to_f/v[:total]) * 100).round,
-       prompt: v[:prompt],
-       instructions: v[:instructions]}
+      {
+        question_id: k,
+        question_number: v[:question_number],
+        question_uid: v[:question_uid],
+        score: activity.is_evidence? ? nil : ((v[:correct].to_f/v[:total]) * 100).round,
+        prompt: v[:prompt],
+        instructions: v[:instructions]
+     }
     end
 
     return questions_arr unless questions_arr.empty?
 
-    generic_questions_for_report(activity)
+    generic_questions_for_report(activity, include_skill_group_information)
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
@@ -413,7 +418,7 @@ module PublicProgressReports
     hash
   end
 
-  def generic_questions_for_report(activity)
+  def generic_questions_for_report(activity, include_skill_group_information=false)
     question_array = []
     return question_array unless activity.data['questions'].respond_to?(:map)
 
@@ -422,12 +427,19 @@ module PublicProgressReports
     questions.compact.each do |q|
       next if !q.data['prompt']
 
-      question_array.push({
+      formatted_question = {
         question_id: question_array.length + 1,
+        uid: q.uid,
         score: nil,
         prompt: q.data['prompt'],
         instructions: q.data['instructions']
-      })
+      }
+
+      if include_skill_group_information
+        formatted_question[:skill_group] = question.skill_group&.name
+      end
+
+      question_array.push(formatted_question)
     end
     question_array
   end
