@@ -12,7 +12,7 @@ module Pdfs
         @admin_report_filter_selection = admin_report_filter_selection
       end
 
-      def run = { filter_sections:, snapshot_sections:}
+      def run = { filter_sections:, snapshot_sections: }
 
       private def filter_sections = { classrooms:, grades:, schools:, teachers:, timeframe_name: }
       private def snapshot_sections = SnapshotSectionsBuilder.run(admin_report_filter_selection)
