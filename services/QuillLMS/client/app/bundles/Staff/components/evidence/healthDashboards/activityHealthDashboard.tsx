@@ -73,7 +73,7 @@ export const ActivityHealthDashboard = ({ handleDashboardToggle }) => {
 
   React.useEffect(() => {
     if (activityHealthsData && activityHealthsData.activityHealths) {
-      setRows(getFilteredData(activityHealthsData.activityHealths))
+      setRows(activityHealthsData.activityHealths)
     }
   }, [activityHealthsData])
 
