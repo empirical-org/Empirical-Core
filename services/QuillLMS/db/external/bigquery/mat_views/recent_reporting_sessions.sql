@@ -1,7 +1,7 @@
 CREATE MATERIALIZED VIEW analytics-data-stores.lms.recent_reporting_sessions
 OPTIONS (
-  enable_refresh = true, refresh_interval_minutes = 1440,
-  max_staleness = INTERVAL "24" HOUR,
+  enable_refresh = true, refresh_interval_minutes = 60,
+  max_staleness = INTERVAL "1" HOUR,
     allow_non_incremental_definition = true
 )
 AS (
