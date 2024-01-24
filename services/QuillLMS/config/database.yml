@@ -35,6 +35,7 @@ development:
     replica: true
 
   #  For development group use this configuration temporarily for staging database locally
+  #  Please do not commit this configuration uncommented to git
   # primary:
   #   url: <%= ENV['DATABASE_URL'] %>
   # replica:
