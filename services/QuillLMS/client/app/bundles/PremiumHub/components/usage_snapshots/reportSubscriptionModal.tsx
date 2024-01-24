@@ -34,7 +34,7 @@ const ReportSubscriptionModal = ({ cancel, existingPdfSubscription, isOpen, save
           <span>Frequency</span>
         </label>
         <DropdownInput
-          className={`${isSubscribed ? '' : 'disabled'}`}
+          className={isSubscribed ? '' : 'disabled'}
           disabled={!isSubscribed}
           handleChange={handleFrequencyOptionChange}
           isSearchable={false}

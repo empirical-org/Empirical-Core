@@ -3,6 +3,9 @@
 module Pdfs
   module AdminUsageSnapshotReports
     class SnapshotSectionsBuilder < ApplicationService
+      # Try to keep this in sync with the frontend:
+      # client/app/bundles/PremiumHub/components/usage_snapshots/shared.ts
+
       COUNT = 'count'
       FEEDBACK = 'feedback'
       MEDIUM = 'medium'

@@ -22,6 +22,7 @@ class PdfSubscriptionsController < ApplicationController
     end
   end
 
+  # This is used in ReportSubscriptionModal when a turns off a subscription and clicks save
   def destroy
     @pdf_subscription = PdfSubscription.find_by(id: params[:id])
 
@@ -31,6 +32,7 @@ class PdfSubscriptionsController < ApplicationController
     render json: {}, status: :ok
   end
 
+  # This is used by the unsubscribe link in the email
   def unsubscribe
     @pdf_subscription = PdfSubscription.find_by(token:)
 
