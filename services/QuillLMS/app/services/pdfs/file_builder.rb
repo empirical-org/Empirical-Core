@@ -14,6 +14,9 @@ module Pdfs
       @data = data
       @template = template
       @block = block
+
+      # Block is required since tempfile is immediately cleaned up at end of run
+      raise ArgumentError, 'Block is required' unless block_given?
     end
 
     def run

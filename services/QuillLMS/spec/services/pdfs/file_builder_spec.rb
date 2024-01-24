@@ -26,6 +26,8 @@ module Pdfs
         .and_return(double(to_pdf: pdf_string))
     end
 
+    it { expect { described_class.run(data:, template:) }.to raise_error(ArgumentError) }
+
     it 'yields the tempfile to the block' do
       described_class.run(data:, template:) do |tempfile|
         expect(tempfile).to be_a Tempfile
