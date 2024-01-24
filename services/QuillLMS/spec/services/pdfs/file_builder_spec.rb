@@ -4,9 +4,7 @@ require 'rails_helper'
 
 module Pdfs
   RSpec.describe FileBuilder do
-    subject { described_class.run(data:, template:) }
-
-    let(:application_controller) { double(render_to_string: pdf_string) }
+    let(:application_controller) { double(:application_controller) }
     let(:data) { 'data' }
     let(:layout) { 'pdf' }
     let(:locals) { { data: data } }
@@ -28,9 +26,23 @@ module Pdfs
         .and_return(double(to_pdf: pdf_string))
     end
 
-    describe '#run' do
-      it { expect(subject).to be_a Tempfile }
-      it { expect(subject.read).to eq pdf_string }
+    it 'yields the tempfile to the block' do
+      described_class.run(data:, template:) do |tempfile|
+        expect(tempfile).to be_a Tempfile
+        expect(tempfile.read).to eq pdf_string
+      end
+    end
+
+    it 'ensures tempfile is closed and unlinked after the block' do
+      tempfile_path = nil
+
+      described_class.run(data:, template:) do |tempfile|
+        tempfile_path = tempfile.path
+        expect(tempfile).to be_a Tempfile
+        expect(File.exist?(tempfile_path)).to be true
+      end
+
+      expect(File.exist?(tempfile_path)).to be false
     end
   end
 end

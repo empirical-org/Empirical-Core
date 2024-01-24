@@ -8,17 +8,21 @@ module Pdfs
     ENCODING = 'ascii-8bit'
     TEMPFILE_NAME = 'temp.pdf'
 
-    attr_reader :data, :template
+    attr_reader :data, :template, :block
 
-    def initialize(data:, template:)
+    def initialize(data:, template:, &block)
       @data = data
       @template = template
+      @block = block
     end
 
     def run
       tempfile.write(pdf)
       tempfile.rewind
-      tempfile
+      block.call(tempfile)
+    ensure
+      tempfile.close
+      tempfile.unlink
     end
 
     private def html_with_absolute_urls

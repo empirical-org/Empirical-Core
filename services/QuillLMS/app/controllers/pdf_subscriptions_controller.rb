@@ -22,7 +22,7 @@ class PdfSubscriptionsController < ApplicationController
     end
   end
 
-  # This is used in ReportSubscriptionModal when a turns off a subscription and clicks save
+  # This is used in ReportSubscriptionModal when a user turns off a subscription and clicks save
   def destroy
     @pdf_subscription = PdfSubscription.find_by(id: params[:id])
 

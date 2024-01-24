@@ -21,7 +21,7 @@ module Pdfs
 
       return unless user.school_or_district_premium?
 
-      raise CloudUploadError, "Unable to upload PDF for user #{user_id}" unless uploader.store!(pdf_file)
+      upload_pdf
 
       ::PremiumHubUserMailer
         .admin_usage_snapshot_report_pdf_email(pdf_subscription:, download_url:)
@@ -29,7 +29,13 @@ module Pdfs
     end
 
     private def data = ::Pdfs::AdminUsageSnapshotReports::DataAggregator.run(admin_report_filter_selection)
-    private def pdf_file = ::Pdfs::FileBuilder.run(data:, template: PDF_TEMPLATE)
+
+    private def upload_pdf
+      ::Pdfs::FileBuilder.run(data:, template: PDF_TEMPLATE) do |tempfile|
+        raise CloudUploadError, "Unable to upload PDF for user #{user_id}" unless uploader.store!(tempfile)
+      end
+    end
+
     private def uploader = @uploader ||= ::Pdfs::AdminUsageSnapshotReportUploader.new(user_id:)
     private def download_url = uploader.url(query: RESPONSE_CONTENT_DISPOSITION)
     private def user_id = user.id

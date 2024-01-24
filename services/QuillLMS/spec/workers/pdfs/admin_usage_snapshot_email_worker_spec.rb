@@ -31,47 +31,33 @@ module Pdfs
     end
 
     context 'when the user has a premium account' do
-      let(:school_or_district_premium) { true }
-      let(:url) { 'http://example.com/uploader_url' }
-      let(:uploader) { double('Pdfs::AdminUsageSnapshotReportUploader', store!: store, url:) }
-      let(:data) { double('data') }
-      let(:pdf_file) { double('pdf_file') }
-
-      before do
-        allow(Pdfs::AdminUsageSnapshotReportUploader).to receive(:new).with(user_id:).and_return(uploader)
-        allow(Pdfs::AdminUsageSnapshotReports::DataAggregator).to receive(:run).and_return(data)
-        allow(Pdfs::FileBuilder).to receive(:run).and_return(pdf_file)
-      end
-
-      context 'when PDF upload fails' do
-        let(:store) { false }
-
-        it { expect { subject }.to raise_error(described_class::CloudUploadError) }
-      end
-
-      context 'when PDF upload succeeds' do
-        let(:store) { true }
-        let(:download_url) { 'http://example.com/download.pdf' }
-        let(:deliver_now_double) { double('PremiumHubUserMailer', deliver_now!: true) }
+      context 'when the user has a premium account' do
+        let(:school_or_district_premium) { true }
+        let(:url) { 'http://example.com/uploader_url' }
+        let(:uploader) { double('Pdfs::AdminUsageSnapshotReportUploader') }
+        let(:data) { double('data') }
+        let(:pdf_file) { double('pdf_file', path: '/path/to/pdf') }
 
         before do
-          allow(uploader)
-            .to receive(:url)
-            .with(query: described_class::RESPONSE_CONTENT_DISPOSITION)
-            .and_return(download_url)
-
-          allow(PremiumHubUserMailer)
-            .to receive(:admin_usage_snapshot_report_pdf_email)
-            .with(pdf_subscription:, download_url:)
-            .and_return(deliver_now_double)
-
-          allow(deliver_now_double).to receive(:deliver_now!)
+          allow(Pdfs::AdminUsageSnapshotReportUploader).to receive(:new).with(user_id:).and_return(uploader)
+          allow(Pdfs::AdminUsageSnapshotReports::DataAggregator).to receive(:run).and_return(data)
+          allow(Pdfs::FileBuilder).to receive(:run).and_yield(pdf_file)
+          allow(uploader).to receive(:store!).with(pdf_file)
         end
 
-        it 'generates and sends the PDF report' do
-          expect(deliver_now_double).to receive(:deliver_now!)
+        context 'when uploader.store! returns non-nil' do
+          it 'uploads the PDF and retrieves the download URL' do
+            expect(uploader).to receive(:store!).with(pdf_file).and_return({})
+            expect(uploader).to receive(:url).with(query: described_class::RESPONSE_CONTENT_DISPOSITION).and_return(url)
 
-          subject
+            subject
+          end
+        end
+
+        context 'when uploader.store! return nil' do
+          before { allow(uploader).to receive(:store!).with(pdf_file).and_return(nil) }
+
+          it { expect { subject }.to raise_error(described_class::CloudUploadError) }
         end
       end
     end

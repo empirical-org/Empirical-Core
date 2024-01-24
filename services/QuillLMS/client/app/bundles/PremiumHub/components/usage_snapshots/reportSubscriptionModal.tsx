@@ -46,15 +46,6 @@ const ReportSubscriptionModal = ({ cancel, existingPdfSubscription, isOpen, save
     )
   }
 
-  function renderIsSubscribedAndFrequency() {
-    return (
-      <div className="is-subscribed-and-frequency">
-        {renderIsSubscribedOptions()}
-        {renderFrequencyOptions()}
-      </div>
-    )
-  }
-
   function renderIsSubscribedOptions() {
     return (
       <div className="is-subscribed-options">
@@ -84,6 +75,15 @@ const ReportSubscriptionModal = ({ cancel, existingPdfSubscription, isOpen, save
           </label>
         </div>
       </div >
+    )
+  }
+
+  function renderIsSubscribedAndFrequency() {
+    return (
+      <div className="is-subscribed-and-frequency">
+        {renderIsSubscribedOptions()}
+        {renderFrequencyOptions()}
+      </div>
     )
   }
 

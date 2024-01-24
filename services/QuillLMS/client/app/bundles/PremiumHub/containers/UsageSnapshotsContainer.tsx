@@ -76,23 +76,22 @@ export const UsageSnapshotsContainer = ({
   }
 
   function createOrUpdatePdfSubscription(adminReportFilterSelection, frequency) {
-    if (adminReportFilterSelection && adminReportFilterSelection.id) {
-      const pdfSubscriptionParams = {
-        pdf_subscription: {
-          admin_report_filter_selection_id: adminReportFilterSelection.id,
-          frequency
-        }
-      }
+    if (!adminReportFilterSelection?.id) { return }
 
-      requestPost('/pdf_subscriptions/create_or_update', pdfSubscriptionParams, (pdfSubscription) => {
-        setExistingPdfSubscription(pdfSubscription)
-      })
+    const pdfSubscriptionParams = {
+      pdf_subscription: {
+        admin_report_filter_selection_id: adminReportFilterSelection.id,
+        frequency
+      }
     }
+
+    requestPost('/pdf_subscriptions/create_or_update', pdfSubscriptionParams, (pdfSubscription) => {
+      setExistingPdfSubscription(pdfSubscription)
+    })
   }
 
   function deletePdfSubscription(pdfSubscriptionId) {
-    requestDelete(`/pdf_subscriptions/${pdfSubscriptionId}`, {}, null, error => { throw (error) })
-    setExistingPdfSubscription(null)
+    requestDelete(`/pdf_subscriptions/${pdfSubscriptionId}`, {}, () => setExistingPdfSubscription(null), error => { throw (error) })
   }
 
   if (loadingFilters) {

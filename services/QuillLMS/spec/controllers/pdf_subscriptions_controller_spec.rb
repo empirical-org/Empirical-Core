@@ -56,17 +56,16 @@ RSpec.describe PdfSubscriptionsController, type: :controller do
     context 'when updating an existing subscription' do
       let(:old_freq) { PdfSubscription::WEEKLY }
       let(:new_freq) { frequency }
+      let(:pdf_subscription) { create(:pdf_subscription, admin_report_filter_selection_id:, frequency: old_freq) }
 
       context 'when the pdf subscription belongs to the current user' do
         let(:admin_report_filter_selection_id) { create(:admin_report_filter_selection, user:).id }
-        let(:pdf_subscription) { create(:pdf_subscription, admin_report_filter_selection_id:, frequency: old_freq) }
 
         it { expect { subject }.to change { pdf_subscription.reload.frequency }.from(old_freq).to(new_freq) }
       end
 
       context 'when the pdf subscription belongs to a different user' do
         let(:admin_report_filter_selection_id) { create(:admin_report_filter_selection).id }
-        let(:pdf_subscription) { create(:pdf_subscription, admin_report_filter_selection_id:, frequency: old_freq) }
 
         before { subject }
 
