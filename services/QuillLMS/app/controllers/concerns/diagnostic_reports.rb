@@ -34,6 +34,7 @@ module DiagnosticReports
       name: diagnostic_question_skill.name,
       number_correct: number_correct,
       number_incorrect: number_incorrect,
+      question_uid: diagnostic_question_skill.question.uid,
       proficiency_score: calculate_proficiency_score(number_correct, number_incorrect),
       summary: summarize_correct_skills(number_correct, number_incorrect)
     }
