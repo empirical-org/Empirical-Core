@@ -223,7 +223,6 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
         setStudents(data.student_results);
         setLoading(false)
       }
-
     )
   }
 
