@@ -111,7 +111,7 @@ gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 
 # API
 gem 'active_model_serializers', '~> 0.10.13'
-gem 'graphql', '~> 1.11', '>= 1.11.7'
+gem 'graphql'
 
 # UI HELPERS
 gem 'sass'
@@ -132,7 +132,7 @@ gem 'vite_rails', '~> 3.0.14'
 # ASSET/UI
 gem 'uglifier', require: false
 gem 'kaminari', '~> 1.2.1'
-gem 'sprockets-rails', '~> 3.2.2'
+gem 'sprockets-rails', '~> 2.3.3'
 
 # MIDDLEWARE
 gem 'rack-cache', '~> 1.6.1', require: 'rack/cache'
