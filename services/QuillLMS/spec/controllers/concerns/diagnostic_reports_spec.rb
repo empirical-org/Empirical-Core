@@ -18,6 +18,7 @@ describe DiagnosticReports do
         number_correct: 1,
         number_incorrect: 0,
         proficiency_score: 1,
+        question_uid: diagnostic_question_skill.question.uid,
         summary: DiagnosticReports::FULLY_CORRECT
       })
     end
