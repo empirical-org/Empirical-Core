@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PdfSubscriptionsController < ApplicationController
-  def existing
+  def current
     @pdf_subscription =
       PdfSubscription
         .joins(:admin_report_filter_selection)

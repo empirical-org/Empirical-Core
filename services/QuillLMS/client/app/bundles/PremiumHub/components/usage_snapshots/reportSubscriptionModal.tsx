@@ -7,11 +7,11 @@ const WEEKLY = 'Weekly';
 const ON = 'On';
 const OFF = 'Off';
 
-const ReportSubscriptionModal = ({ cancel, existingPdfSubscription, isOpen, save }) => {
+const ReportSubscriptionModal = ({ cancel, currentPdfSubscription, isOpen, save }) => {
   if (!isOpen) return null;
 
-  const [isSubscribed, setIsSubscribed] = React.useState(existingPdfSubscription ? true : false);
-  const [frequency, setFrequency] = React.useState(existingPdfSubscription?.frequency || MONTHLY);
+  const [isSubscribed, setIsSubscribed] = React.useState(currentPdfSubscription ? true : false);
+  const [frequency, setFrequency] = React.useState(currentPdfSubscription?.frequency || MONTHLY);
 
   const frequencyOptions = [{ "value": MONTHLY, "label": MONTHLY }, { "value": WEEKLY, "label": WEEKLY }]
 
@@ -23,7 +23,7 @@ const ReportSubscriptionModal = ({ cancel, existingPdfSubscription, isOpen, save
     setIsSubscribed(option.target.value === ON)
   }
 
-  function handleSaveClick() { save(isSubscribed, frequency, existingPdfSubscription) }
+  function handleSaveClick() { save(isSubscribed, frequency, currentPdfSubscription) }
 
   function renderFrequencyOptions() {
     const selectedFrequency = frequencyOptions.find(option => frequency === option.value)

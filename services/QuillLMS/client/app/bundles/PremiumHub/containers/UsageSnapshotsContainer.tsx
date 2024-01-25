@@ -44,11 +44,11 @@ export const UsageSnapshotsContainer = ({
 
   const [selectedTab, setSelectedTab] = React.useState(ALL)
   const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = React.useState(false)
-  const [existingPdfSubscription, setExistingPdfSubscription] = React.useState(null)
+  const [currentPdfSubscription, setCurrentPdfSubscription] = React.useState(null)
 
   React.useEffect(() => {
-    requestGet(`/pdf_subscriptions/existing?report=${PDF_REPORT}`, (body) => {
-      setExistingPdfSubscription(body)
+    requestGet(`/pdf_subscriptions/current?report=${PDF_REPORT}`, (body) => {
+      setCurrentPdfSubscription(body)
     })
   }, [])
 
@@ -70,8 +70,8 @@ export const UsageSnapshotsContainer = ({
       saveFilterSelections(PDF_REPORT, (adminReportFilterSelection) => {
         createOrUpdatePdfSubscription(adminReportFilterSelection, frequency)
       })
-    } else if (existingPdfSubscription) {
-      deletePdfSubscription(existingPdfSubscription.id)
+    } else if (currentPdfSubscription) {
+      deletePdfSubscription(currentPdfSubscription.id)
     }
   }
 
@@ -86,12 +86,12 @@ export const UsageSnapshotsContainer = ({
     }
 
     requestPost('/pdf_subscriptions/create_or_update', pdfSubscriptionParams, (pdfSubscription) => {
-      setExistingPdfSubscription(pdfSubscription)
+      setCurrentPdfSubscription(pdfSubscription)
     })
   }
 
   function deletePdfSubscription(pdfSubscriptionId) {
-    requestDelete(`/pdf_subscriptions/${pdfSubscriptionId}`, {}, () => setExistingPdfSubscription(null), error => { throw (error) })
+    requestDelete(`/pdf_subscriptions/${pdfSubscriptionId}`, {}, () => setCurrentPdfSubscription(null), error => { throw (error) })
   }
 
   if (loadingFilters) {
@@ -195,7 +195,7 @@ export const UsageSnapshotsContainer = ({
       </div>
       <ReportSubscriptionModal
         cancel={handleSubscriptionCancel}
-        existingPdfSubscription={existingPdfSubscription}
+        currentPdfSubscription={currentPdfSubscription}
         isOpen={isSubscriptionModalOpen}
         save={handleSubscriptionSave}
       />

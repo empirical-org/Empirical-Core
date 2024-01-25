@@ -9,8 +9,8 @@ RSpec.describe PdfSubscriptionsController, type: :controller do
 
   before { allow(controller).to receive(:current_user).and_return(user) }
 
-  describe 'GET #existing' do
-    subject { get :existing, params: { report: report } }
+  describe 'GET #current' do
+    subject { get :current, params: { report: report } }
 
     let(:admin_report_filter_selection) { create(:usage_snapshot_report_pdf_filter_selection, user:) }
     let(:pdf_subscription) { create(:pdf_subscription, admin_report_filter_selection:) }

@@ -5,13 +5,13 @@ import ReportSubscriptionModal from '../reportSubscriptionModal';
 describe('<ReportSubscriptionModal />', () => {
   const mockSave = jest.fn();
   const mockCancel = jest.fn();
-  const existingPdfSubscription = { frequency: 'Weekly' };
+  const currentPdfSubscription = { frequency: 'Weekly' };
 
   const renderComponent = (isOpen: boolean, subscription = null) =>
     render(
       <ReportSubscriptionModal
         cancel={mockCancel}
-        existingPdfSubscription={subscription}
+        currentPdfSubscription={subscription}
         isOpen={isOpen}
         save={mockSave}
       />
@@ -22,7 +22,7 @@ describe('<ReportSubscriptionModal />', () => {
   });
 
   test('matches the component snapshot', () => {
-    const { asFragment } = renderComponent(true, existingPdfSubscription);
+    const { asFragment } = renderComponent(true, currentPdfSubscription);
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -37,7 +37,7 @@ describe('<ReportSubscriptionModal />', () => {
   });
 
   test('initial state with existing subscription', () => {
-    renderComponent(true, existingPdfSubscription)
+    renderComponent(true, currentPdfSubscription)
     expect(screen.getByLabelText('On')).toBeChecked();
     expect(screen.getByText('Weekly')).toBeInTheDocument();
   });
@@ -50,13 +50,13 @@ describe('<ReportSubscriptionModal />', () => {
   });
 
   test('calls save function with correct arguments on save click', () => {
-    renderComponent(true, existingPdfSubscription)
+    renderComponent(true, currentPdfSubscription)
     fireEvent.click(screen.getByText('Save'));
-    expect(mockSave).toHaveBeenCalledWith(true, 'Weekly', existingPdfSubscription);
+    expect(mockSave).toHaveBeenCalledWith(true, 'Weekly', currentPdfSubscription);
   });
 
   test('calls cancel function on cancel click', () => {
-    renderComponent(true, existingPdfSubscription)
+    renderComponent(true, currentPdfSubscription)
     fireEvent.click(screen.getByText('Cancel'));
     expect(mockCancel).toHaveBeenCalled();
   });
