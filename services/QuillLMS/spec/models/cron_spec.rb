@@ -43,6 +43,13 @@ RSpec.describe Cron, type: :model do
       Cron.interval_1_day
     end
 
+    it "calls run_monday if now is a Monday" do
+      a_monday = Time.utc(2019, 10, 14)
+      allow(Cron).to receive(:now).and_return(a_monday)
+      expect(Cron).to receive(:run_monday)
+      Cron.interval_1_day
+    end
+
     it "calls run_friday if now is a Friday" do
       a_friday = Time.utc(2019, 10, 18)
       allow(Cron).to receive(:now).and_return(a_friday)

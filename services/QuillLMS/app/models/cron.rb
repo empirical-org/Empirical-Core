@@ -18,6 +18,7 @@ class Cron
   # Which is 02:00 or 03:00 Eastern depending on Daylight Savings
   # rubocop:disable Metrics/CyclomaticComplexity
   def self.interval_1_day
+    run_monday if now.wday == 1
     run_friday if now.wday == 5
     run_saturday if now.wday == 6
     run_weekday if (1..5).include?(now.wday)
@@ -69,9 +70,12 @@ class Cron
     IdentifyStripeInvoicesWithoutSubscriptionsWorker.perform_async
   end
 
+  def self.run_monday
+    Pdfs::SendWeeklySubscriptionsWorker.perform_async
+  end
+
   def self.run_friday
     TeacherNotifications::EnqueueUsersForRollupEmailWorker.perform_async(TeacherInfo::WEEKLY_EMAIL)
-    Pdfs::SendWeeklySubscriptionsWorker.perform_async
   end
 
   def self.run_saturday
