@@ -255,3 +255,8 @@ export const singleUserIcon = {
   alt: 'Black silhouette of single user',
   src: `${process.env.CDN_URL}/images/icons/single-user-icon-black.svg`
 }
+
+export const whiteEmailIcon = {
+  alt: 'Envelope icon',
+  src: `${process.env.CDN_URL}/images/icons/email-icon-white.svg`
+}

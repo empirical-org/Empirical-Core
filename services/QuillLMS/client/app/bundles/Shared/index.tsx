@@ -170,7 +170,8 @@ export {
   whiteArrowPointingDownIcon,
   filterIcon,
   documentFileIcon,
-  singleUserIcon
+  singleUserIcon,
+  whiteEmailIcon,
 } from './images/index'
 
 export {

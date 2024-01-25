@@ -1,0 +1,22 @@
+<% content_for :custom_pdf_stylesheet do %>
+  <%= vite_stylesheet_tag "admin_usage_snapshot_report_pdf.scss", media: "all" %>
+<% end %>
+
+<% filter_sections = data[:filter_sections] %>
+<% snapshot_sections = data[:snapshot_sections] %>
+
+<main class="admin-usage-snapshot-report-pdf">
+  <img alt="Quill logo" class="quill-logo" src="https://assets.quill.org/images/logos/quill-logo-green.svg" />
+  <h1>Usage Snapshot Report</h1>
+  <div class="applied-filters">
+    <h3>Important Note</h3>
+    <p>
+      These metrics were calculated using the filters you had applied at the time you subscribed to this report.
+      <a href="https://support.quill.org/en/articles/8358350-how-do-i-use-the-usage-snapshot-report">Learn more</a>
+    </p>
+    <%= render 'pdfs/admin_usage_snapshot_reports/filter_sections', filter_sections: %>
+  </div>
+  <div class="sections">
+    <%= render 'pdfs/admin_usage_snapshot_reports/snapshot_sections', snapshot_sections: %>
+  </div>
+</main>

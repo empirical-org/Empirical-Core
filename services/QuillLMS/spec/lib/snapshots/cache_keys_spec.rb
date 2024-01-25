@@ -5,9 +5,9 @@ module Snapshots
     let(:user_id) { 123 }
     let(:report) { 'admin-snapshot' }
     let(:query) { 'active-classrooms' }
-    let(:previous_timeframe_start) { DateTime.current.end_of_day - 61.days }
-    let(:current_timeframe_start) { DateTime.current.end_of_day - 31.days }
-    let(:timeframe_end) { DateTime.current.end_of_day - 1.day }
+    let(:timeframe_value) { 'last-30-days' }
+    let(:current_start) { DateTime.current.end_of_day - 31.days }
+    let(:current_end) { DateTime.current.end_of_day - 1.day }
     let(:school_ids) { [1,2,3] }
     let(:grades) { ['Kindergarten',1,2,3,4] }
     let(:teacher_ids) { [4,5,6] }
@@ -20,20 +20,24 @@ module Snapshots
       }
     end
 
+    it { expect(timeframe_value.class).to eq String }
+    it { expect(current_start.class).to eq DateTime }
+    it { expect(current_end.class).to eq DateTime }
+
     context '#generate_key' do
       it 'should compile a valid cache key' do
         expect(Snapshots::CacheKeys.generate_key(report,
           query,
-          previous_timeframe_start,
-          current_timeframe_start,
-          timeframe_end,
+          timeframe_value,
+          current_start,
+          current_end,
           school_ids)
         ).to eq([
           report,
           query,
-          previous_timeframe_start,
-          current_timeframe_start,
-          timeframe_end,
+          timeframe_value,
+          current_start,
+          current_end,
           "school-ids-#{school_ids.sort.join('-')}"
         ])
 
@@ -42,17 +46,17 @@ module Snapshots
       it 'should compile a valid cache key with additional filters' do
         expect(Snapshots::CacheKeys.generate_key(report,
           query,
-          previous_timeframe_start,
-          current_timeframe_start,
-          timeframe_end,
+          timeframe_value,
+          current_start,
+          current_end,
           school_ids,
           additional_filters: additional_filters)
         ).to eq([
           report,
           query,
-          previous_timeframe_start,
-          current_timeframe_start,
-          timeframe_end,
+          timeframe_value,
+          current_start,
+          current_end,
           "school-ids-#{school_ids.sort.join('-')}",
           "grades-#{grades.map(&:to_s).sort.join('-')}",
           "teacher-ids-#{teacher_ids.sort.join('-')}",
@@ -88,16 +92,16 @@ module Snapshots
       it 'should generate the same cache key when arrays are in different orders' do
         expect(Snapshots::CacheKeys.generate_key(report,
           query,
-          previous_timeframe_start,
-          current_timeframe_start,
-          timeframe_end,
+          timeframe_value,
+          current_start,
+          current_end,
           school_ids,
           additional_filters: additional_filters)
         ).to eq(Snapshots::CacheKeys.generate_key(report,
           query,
-          previous_timeframe_start,
-          current_timeframe_start,
-          timeframe_end,
+          timeframe_value,
+          current_start,
+          current_end,
           school_ids.reverse,
           additional_filters: {
             grades: grades.reverse,
