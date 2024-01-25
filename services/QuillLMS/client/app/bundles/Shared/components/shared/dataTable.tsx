@@ -331,10 +331,10 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
       )
     }
 
-    if(header.tooltipName && header.tooltipDescription) {
+    if(header.tooltipText || (header.tooltipName && header.tooltipDescription)) {
       headerTooltip = (
         <Tooltip
-          tooltipText={`<p>${header.tooltipName}<br/><br/>${header.tooltipDescription}</p>`}
+          tooltipText={header.tooltipText ? header.tooltipText : `<p>${header.tooltipName}<br/><br/>${header.tooltipDescription}</p>`}
           tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
         />
       )

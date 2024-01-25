@@ -193,10 +193,12 @@ export const Questions = ({ passedQuestions, match, mobileNavigation, location, 
         <div className="skill-group-section-header">
           <h2>
             <span>{skillGroup.name}</span>
-            <div>
-              <span>{percentage}%</span>
-              <span className="subheader">Average score</span>
-            </div>
+            {completedStudentCount ? (
+              <div>
+                <span>{percentage}%</span>
+                <span className="subheader">Average score</span>
+              </div>
+            ) : null}
           </h2>
         </div>
         <div className="data-table-container">
