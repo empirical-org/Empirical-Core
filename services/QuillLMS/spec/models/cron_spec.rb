@@ -162,10 +162,12 @@ RSpec.describe Cron, type: :model do
       expect(TeacherNotifications::EnqueueUsersForRollupEmailWorker).to receive(:perform_async).with(TeacherInfo::WEEKLY_EMAIL)
       Cron.run_friday
     end
+  end
 
+  describe "#run_monday" do
     it "enqueues Pdfs::SendWeeklySubscriptionsWorker" do
       expect(Pdfs::SendWeeklySubscriptionsWorker).to receive(:perform_async)
-      Cron.run_friday
+      Cron.run_monday
     end
   end
 
