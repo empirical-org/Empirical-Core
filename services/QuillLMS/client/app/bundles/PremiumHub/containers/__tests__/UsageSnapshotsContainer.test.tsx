@@ -79,5 +79,15 @@ describe('UsageSnapshotsContainer', () => {
       const cancelButton = screen.getByRole("button", { name: "Cancel" });
       expect(cancelButton).toBeInTheDocument();
     });
-  })
+
+    test('snackbar appears with correct message after clicking subscribe', () => {
+      render(<UsageSnapshotsContainer {...props} />);
+      fireEvent.click(screen.getByText('Subscribe'));
+      fireEvent.click(screen.getByLabelText('On'));
+      fireEvent.click(screen.getByText('Save'));
+
+      const snackbar = screen.getByText('Subscription settings saved');
+      expect(snackbar).toBeInTheDocument();
+    });
+  });
 })
