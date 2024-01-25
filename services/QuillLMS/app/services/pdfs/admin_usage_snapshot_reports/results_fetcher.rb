@@ -28,6 +28,7 @@ module Pdfs
       def run
         return nil unless user_id && timeframe_start && timeframe_end
 
+        # Since results are returned, run_query is synchronous
         cached_results || (run_query && cached_results)
       end
 
