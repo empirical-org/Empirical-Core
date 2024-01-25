@@ -1,6 +1,9 @@
 import * as React from 'react'
+import { useEffect, useState } from 'react'
 
 import { FULL, restrictedPage, mapItemsIfNotAll } from '../shared';
+import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
+import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor'
 import SnapshotSection from '../components/usage_snapshots/snapshotSection'
 import { snapshotSections, TAB_NAMES, ALL, SECTION_NAME_TO_ICON_URL, } from '../components/usage_snapshots/shared'
 import { Spinner, DropdownInput, filterIcon, whiteArrowPointingDownIcon, documentFileIcon, whiteEmailIcon } from '../../Shared/index'
@@ -42,17 +45,26 @@ export const UsageSnapshotsContainer = ({
   openMobileFilterMenu
 }) => {
 
-  const [selectedTab, setSelectedTab] = React.useState(ALL)
-  const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = React.useState(false)
-  const [currentPdfSubscription, setCurrentPdfSubscription] = React.useState(null)
+  const [selectedTab, setSelectedTab] = useState(ALL)
+  const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = useState(false)
+  const [currentPdfSubscription, setCurrentPdfSubscription] = useState(null)
+  const [isSnackbarVisible, setIsSnackbarVisible] = useState(false)
+  const [snackbarCopy, setSnackbarCopy] = useState('')
 
-  React.useEffect(() => {
+  useSnackbarMonitor(isSnackbarVisible, setIsSnackbarVisible, defaultSnackbarTimeout)
+
+  useEffect(() => {
     requestGet(`/pdf_subscriptions/current?report=${PDF_REPORT}`, (body) => {
       setCurrentPdfSubscription(body)
     })
   }, [])
 
   const size = useWindowSize()
+
+  const showSnackbar = (snackbarCopy: string) => {
+    setSnackbarCopy(snackbarCopy)
+    setIsSnackbarVisible(true)
+  }
 
   function handleSetSelectedTabFromDropdown(option) { setSelectedTab(option.value) }
 
@@ -73,6 +85,7 @@ export const UsageSnapshotsContainer = ({
     } else if (currentPdfSubscription) {
       deletePdfSubscription(currentPdfSubscription.id)
     }
+    showSnackbar('Subscription settings saved')
   }
 
   function createOrUpdatePdfSubscription(adminReportFilterSelection, frequency) {
@@ -96,6 +109,10 @@ export const UsageSnapshotsContainer = ({
 
   if (loadingFilters) {
     return <Spinner />
+  }
+
+  const renderSnackbar = () => {
+    return <Snackbar text={snackbarCopy} visible={isSnackbarVisible} />
   }
 
   const tabs = TAB_NAMES.map(s => (
@@ -199,6 +216,7 @@ export const UsageSnapshotsContainer = ({
         isOpen={isSubscriptionModalOpen}
         save={handleSubscriptionSave}
       />
+      {renderSnackbar()}
       <div id="bottom-element" />
 
     </main >

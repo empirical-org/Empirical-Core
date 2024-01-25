@@ -1180,6 +1180,9 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
       </section>
     </div>
     <div
+      class="quill-snackbar "
+    />
+    <div
       id="bottom-element"
     />
   </main>
