@@ -342,8 +342,7 @@ GEM
     graphiql-rails (1.9.0)
       railties
       sprockets-rails
-    graphql (2.2.5)
-      racc (~> 1.4)
+    graphql (2.0.27)
     grover (1.1.6)
       combine_pdf (~> 1.0)
       nokogiri (~> 1.0)
@@ -879,7 +878,7 @@ DEPENDENCIES
   google-apis-classroom_v1 (~> 0.27.0)
   google-cloud-bigquery (~> 1.43.0)
   graphiql-rails
-  graphql
+  graphql (~> 2.0.0)
   grover
   haversine
   httparty (~> 0.16)
