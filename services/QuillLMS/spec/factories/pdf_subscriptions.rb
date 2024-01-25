@@ -16,7 +16,10 @@
 #
 FactoryBot.define do
   factory :pdf_subscription do
-    frequency { PdfSubscription::FREQUENCIES.sample }
+    frequency { PdfSubscription::MONTHLY }
     association :admin_report_filter_selection, factory: :usage_snapshot_report_pdf_filter_selection
+
+    trait(:weekly) { frequency { PdfSubscription::WEEKLY } }
+    trait(:monthly) { frequency { PdfSubscription::MONTHLY }}
   end
 end

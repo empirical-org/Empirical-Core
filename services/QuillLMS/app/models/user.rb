@@ -190,6 +190,9 @@ class User < ApplicationRecord
 
   has_many :administered_school_canvas_configs, through: :administered_school_canvas_instances, source: :canvas_config
 
+  has_many :admin_report_filter_selections, dependent: :destroy
+  has_many :pdf_subscriptions, through: :admin_report_filter_selections
+
   accepts_nested_attributes_for :auth_credential, :canvas_accounts
 
   delegate :name, :mail_city, :mail_state,
@@ -828,6 +831,10 @@ class User < ApplicationRecord
 
   def learn_worlds_access_override?
     AppSetting.enabled?(name: AppSetting::LEARN_WORLDS_ACCESS_OVERRIDE, user: self)
+  end
+
+  def premium_admin?
+    admin? && school_or_district_premium?
   end
 
   def school_premium?

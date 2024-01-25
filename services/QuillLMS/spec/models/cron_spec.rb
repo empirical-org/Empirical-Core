@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe "Cron", type: :model do
+RSpec.describe Cron, type: :model do
   describe "#interval_10_min" do
     [20, 50].each do |num_minutes|
       it "enqueues ResetGhostInspectorAccountWorker at #{num_minutes} minute marks" do
@@ -43,6 +43,20 @@ describe "Cron", type: :model do
       Cron.interval_1_day
     end
 
+    it "calls run_monday if now is a Monday" do
+      a_monday = Time.utc(2019, 10, 14)
+      allow(Cron).to receive(:now).and_return(a_monday)
+      expect(Cron).to receive(:run_monday)
+      Cron.interval_1_day
+    end
+
+    it "calls run_friday if now is a Friday" do
+      a_friday = Time.utc(2019, 10, 18)
+      allow(Cron).to receive(:now).and_return(a_friday)
+      expect(Cron).to receive(:run_friday)
+      Cron.interval_1_day
+    end
+
     it "calls run_weekday if now is a weekday" do
       a_thursday = Time.utc(2019, 10, 17)
       allow(Cron).to receive(:now).and_return(a_thursday)
@@ -61,6 +75,13 @@ describe "Cron", type: :model do
       july_second = Time.utc(2022, 7, 2)
       allow(Cron).to receive(:now).and_return(july_second)
       expect(Cron).not_to receive(:run_school_year_start)
+      Cron.interval_1_day
+    end
+
+    it "calls run_monthly if now is first day of month" do
+      first_of_month = Time.utc(2024, 2, 1)
+      allow(Cron).to receive(:now).and_return(first_of_month)
+      expect(Cron).to receive(:run_monthly)
       Cron.interval_1_day
     end
 
@@ -143,6 +164,13 @@ describe "Cron", type: :model do
     end
   end
 
+  describe "#run_monday" do
+    it "enqueues Pdfs::SendWeeklySubscriptionsWorker" do
+      expect(Pdfs::SendWeeklySubscriptionsWorker).to receive(:perform_async)
+      Cron.run_monday
+    end
+  end
+
   describe "#run_saturday" do
     it "enqueues UploadLeapReportWorker on school_id 29087" do
       expect(UploadLeapReportWorker).to receive(:perform_async)
@@ -169,6 +197,13 @@ describe "Cron", type: :model do
     it "enqueues PopulateAnnualVitallyWorker" do
       expect(PopulateAnnualVitallyWorker).to receive(:perform_async)
       Cron.run_school_year_start
+    end
+  end
+
+  describe '#run_monthly' do
+    it "enqueues Pdfs::SendMonthlySubscriptionsWorker" do
+      expect(Pdfs::SendMonthlySubscriptionsWorker).to receive(:perform_async)
+      Cron.run_monthly
     end
   end
 end

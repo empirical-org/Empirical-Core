@@ -1,0 +1,23 @@
+<% filter_section_names = %i[schools grades teachers classrooms] %>
+
+<div class="filter-sections">
+  <div class="filter-section">
+    <h4 class="filter-section-title">Timeframe:</h4>
+    <p><%= filter_sections[:timeframe_name] %></p>
+  </div>
+  <% filter_section_names.each do |filter_section_name| %>
+    <% selections = filter_sections[filter_section_name] %>
+    <div class="filter-section">
+      <h4 class="filter-section-title"><%= filter_section_name.capitalize %>:</h4>
+      <% if selections.nil? %>
+        <p>All <%= filter_section_name %> selected</p>
+      <% elsif selections.empty? %>
+        <p> No <%= filter_section_name %> selected</p>
+      <% else %>
+        <% selections.each do |selection| %>
+          <span class="pill"><%= selection %></span>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

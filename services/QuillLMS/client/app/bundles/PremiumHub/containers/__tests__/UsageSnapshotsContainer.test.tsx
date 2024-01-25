@@ -1,6 +1,5 @@
 import * as React from "react";
-import { render, screen } from "@testing-library/react";
-
+import { render, screen, fireEvent, } from "@testing-library/react";
 import { RESTRICTED, LIMITED, FULL } from "../../shared";
 import UsageSnapshotsContainer from "../UsageSnapshotsContainer";
 
@@ -24,7 +23,8 @@ const props = {
     value: "this-school-year"
   },
   handleClickDownloadReport: jest.fn(),
-  openMobileFilterMenu: jest.fn()
+  openMobileFilterMenu: jest.fn(),
+  saveFilterSelections: jest.fn(),
 }
 
 describe('UsageSnapshotsContainer', () => {
@@ -53,11 +53,31 @@ describe('UsageSnapshotsContainer', () => {
     })
   })
   describe('full state', () => {
+    beforeEach(() => {
+      props.accessType = FULL;
+    });
+
     test('it should render', () => {
-      props.accessType = FULL
       const { asFragment } = render(<UsageSnapshotsContainer {...props} />);
       expect(asFragment()).toMatchSnapshot();
       expect(screen.getByRole('heading', { name: /usage snapshot report/i })).toBeInTheDocument()
     })
+
+    test('it should render with subscription button', () => {
+      render(<UsageSnapshotsContainer {...props} />);
+      expect(screen.getByText('Subscribe')).toBeInTheDocument();
+    });
+
+    test('clicking on subscribe button opens subscription modal', () => {
+      render(<UsageSnapshotsContainer {...props} />);
+      const subscribeButton = screen.getByText('Subscribe');
+      fireEvent.click(subscribeButton);
+
+      const modalTitle = screen.queryByText("Subscribe to this report");
+      expect(modalTitle).toBeInTheDocument();
+
+      const cancelButton = screen.getByRole("button", { name: "Cancel" });
+      expect(cancelButton).toBeInTheDocument();
+    });
   })
 })

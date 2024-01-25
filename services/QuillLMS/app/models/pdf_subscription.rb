@@ -18,15 +18,20 @@
 #
 class PdfSubscription < ApplicationRecord
   FREQUENCIES = [
-    WEEKLY = 'weekly',
-    MONTHLY = 'monthly'
+    WEEKLY = 'Weekly',
+    MONTHLY = 'Monthly'
   ]
+
+  scope :monthly, -> { where(frequency: MONTHLY) }
+  scope :weekly, -> { where(frequency: WEEKLY) }
 
   before_create :generate_token
 
   belongs_to :admin_report_filter_selection
 
   validates :frequency, presence: true, inclusion: { in: FREQUENCIES }
+
+  delegate :report, :user, to: :admin_report_filter_selection
 
   def generate_token
     self.token = SecureRandom.hex

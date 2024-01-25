@@ -1,0 +1,33 @@
+<% snapshot_section_names = %i[highlights, users, practice, classrooms, schools] %>
+<% snapshot_item_types = %w[count ranking feedback] %>
+
+<% snapshot_sections.each do |snapshot_section| %>
+  <section class="snapshot-section-wrapper">
+    <% section_icon_src = section_icon_src(snapshot_section[:className]) %>
+
+    <h2>
+      <% if section_icon_src %>
+        <img src="<%= section_icon_src %>"/>
+      <% end %>
+      <span><%= snapshot_section[:name] %></span>
+    </h2>
+
+    <div class="snapshot-section <%= snapshot_section[:className] %>">
+      <div class="snapshot-section-content">
+        <% snapshot_section[:itemGroupings].each do |item_grouping| %>
+          <% items = item_grouping[:items] %>
+
+          <% if items %>
+            <div class="<%= item_grouping[:className] %>">
+              <% items.each do |item| %>
+                <% next unless item[:type].in?(snapshot_item_types) %>
+
+                <%= render "pdfs/admin_usage_snapshot_reports/snapshot_#{item[:type]}", item: %>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>

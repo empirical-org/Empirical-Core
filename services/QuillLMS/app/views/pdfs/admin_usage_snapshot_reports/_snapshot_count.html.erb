@@ -1,0 +1,20 @@
+<% change = item[:change] %>
+<% count = item[:count] %>
+<% label = item[:label] %>
+<% singular_label = item[:singularLabel] %>
+<% size = item[:size] %>
+
+<section class="snapshot-item snapshot-count <%= size %> <%= change_direction_class(change) %>">
+  <div class="count-and-label">
+    <span class="count"><%= number_with_delimiter(count) || '-' %></span>
+    <span class="snapshot-label"><%= count == 1 ? singular_label : label %></span>
+  </div>
+  <div class="change">
+    <% change_icon_src = change_icon_src(change) %>
+
+    <% if change_icon_src %>
+      <img class="<%= size %>" src="<%= change_icon_src %>" />
+      <span><%= change&.abs %>%</span>
+    <% end %>
+  </div>
+</section>
