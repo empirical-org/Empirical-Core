@@ -357,9 +357,11 @@ export const PromptHealthDashboard = ({ handleDashboardToggle }) => {
           defaultPageSize={(rows && rows.length) || 0}
           filterable
           manualFilters
+          manualPagination
           manualSortBy
           onFiltersChange={handleFiltersChange}
           onSortedChange={handleDataUpdate}
+          showPaginationBottom
         />
       </section>
     </div>

@@ -2,6 +2,7 @@ export interface FeedbackStrings {
   punctuationError: string;
   punctuationEndError: string;
   punctuationAndCaseError: string;
+  quotationMarkError: string;
   typingError: string;
   caseError: string;
   minLengthError: string;
@@ -22,6 +23,9 @@ export const feedbackStrings: FeedbackStrings = {
   punctuationError: 'Proofread your work. Check your punctuation.',
   punctuationEndError: 'Proofread your work. Check your ending punctuation.',
   punctuationAndCaseError: 'Proofread your work. Check your punctuation and capitalization.',
+  quotationMarkError: `It looks like you might have used two apostrophes to make a quotation mark. <br/><br/>
+    Instead of hitting the apostrophe key twice to make a quotation mark, hold down the shift key and hit the apostrophe key once. <br/><br/>
+    <img alt="keyboard with double quote highlighted" src="https://quill-cdn.s3.amazonaws.com/images/illustrations/Illustration+-+Keyboard+(Chromebook).svg">`,
   typingError: 'Proofread your work. Check your spelling.',
   caseError: 'Proofread your work. Check your capitalization.',
   minLengthError: 'Revise your work. Do you have all of the information from the prompt?',
