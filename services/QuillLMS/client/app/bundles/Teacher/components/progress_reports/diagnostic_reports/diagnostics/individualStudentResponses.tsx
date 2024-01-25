@@ -33,7 +33,8 @@ const QuestionTable = ({ question, }) => {
     {
       name: `Question ${question_number}`,
       attribute: 'label',
-      width: '66px'
+      width: '66px',
+      tooltipText: "The questions are grouped into skills for this report. The question number indicates the order in which students complete the questions."
     },
     {
       name: "",

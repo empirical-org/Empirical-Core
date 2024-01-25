@@ -45,7 +45,7 @@ module PublicProgressReports
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def results_by_question(activity_id, include_skill_group_information=false)
+  def results_by_question(activity_id)
     activity = Activity.includes(:classification).find(activity_id)
     questions = Hash.new{|h,k| h[k]={} }
 
@@ -80,7 +80,7 @@ module PublicProgressReports
 
     return questions_arr unless questions_arr.empty?
 
-    generic_questions_for_report(activity, include_skill_group_information)
+    generic_questions_for_report(activity)
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
@@ -418,7 +418,7 @@ module PublicProgressReports
     hash
   end
 
-  def generic_questions_for_report(activity, include_skill_group_information=false)
+  def generic_questions_for_report(activity)
     question_array = []
     return question_array unless activity.data['questions'].respond_to?(:map)
 
@@ -429,7 +429,7 @@ module PublicProgressReports
 
       formatted_question = {
         question_id: question_array.length + 1,
-        uid: q.uid,
+        question_uid: q.uid,
         score: nil,
         prompt: q.data['prompt'],
         instructions: q.data['instructions']

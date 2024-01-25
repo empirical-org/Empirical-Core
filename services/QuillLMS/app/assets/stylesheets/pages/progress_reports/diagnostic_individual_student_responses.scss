@@ -114,6 +114,13 @@
       white-space: nowrap;
       font-weight: 700;
       color: $quill-grey-90;
+      img {
+        margin-left: 4px;
+      }
+      .quill-tooltip-wrapper {
+        left: 0%;
+        transform: none;
+      }
     }
     .data-table-header, .data-table-row-section {
       margin-right: 16px;
