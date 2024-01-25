@@ -70,7 +70,7 @@
       background: #F6E5DC;
       padding: 8px 16px;
 
-      .filter-section-title {
+      .filter-section-name {
         margin-top: 0px;
         color: #000;
         font-size: 14px;
@@ -274,6 +274,11 @@
         color: #373737;
         font-size: 14px;
         border-top: 1px solid #e0e0e0;
+
+        td {
+          border-top: none;
+          padding: 0px;
+        }
 
         td:first-of-type {
           font-weight: 400;

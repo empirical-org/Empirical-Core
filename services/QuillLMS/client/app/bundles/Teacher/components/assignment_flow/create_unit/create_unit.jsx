@@ -451,7 +451,6 @@ export default class CreateUnit extends React.Component {
           history={history}
           location={location}
           referralCode={referralCode}
-          referralCode={referralCode}
           selectedActivities={selectedActivities}
           unitName={name}
         />

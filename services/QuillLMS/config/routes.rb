@@ -741,7 +741,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :admin_report_filter_selections, only: [] do
     collection do
-      post '/show', to: 'admin_report_filter_selections#show'
+      post '/show', to: 'admin_report_filter_selections#show' # POST since filter params can be too long for GET
       post '/create_or_update', to: 'admin_report_filter_selections#create_or_update'
     end
   end
@@ -755,6 +755,14 @@ EmpiricalGrammar::Application.routes.draw do
   resources :admin_diagnostic_skills, only: [] do
     collection do
       post :report
+    end
+  end
+
+  resources :pdf_subscriptions, only: [:destroy] do
+    collection do
+      post :create_or_update
+      get :current
+      delete 'unsubscribe/:token', to: 'pdf_subscriptions#unsubscribe', as: :unsubscribe
     end
   end
 
@@ -956,7 +964,4 @@ EmpiricalGrammar::Application.routes.draw do
   get "/donate" => redirect("/about")
   # catch-all 404
   get '*path', to: 'application#routing_error'
-
-
-
 end

@@ -14,6 +14,7 @@ module AdminDiagnosticReports
       super + <<-SQL
         JOIN lms.activity_sessions
           ON classroom_units.id = activity_sessions.classroom_unit_id
+            AND activity_sessions.visible = true
         JOIN lms.units
           ON classroom_units.unit_id = units.id
         JOIN lms.recommendations

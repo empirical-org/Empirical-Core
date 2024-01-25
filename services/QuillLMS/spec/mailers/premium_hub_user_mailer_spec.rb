@@ -26,6 +26,19 @@ describe PremiumHubUserMailer, type: :mailer do
     end
   end
 
+  describe 'admin_usage_snapshot_report_pdf_email' do
+    let(:pdf_subscription) { create(:pdf_subscription) }
+    let(:user) { pdf_subscription.user }
+    let(:download_url) { 'https://download.url' }
+    let(:unsubscribe_url) { unsubscribe_pdf_subscriptions_url(token: pdf_subscription.token) }
+    let(:mail) { described_class.admin_usage_snapshot_report_pdf_email(download_url:, pdf_subscription:) }
+
+    it { expect(mail.to).to eq [user.email] }
+    it { expect(mail.from).to eq ['hello@quill.org'] }
+    it { expect(mail.body.include?(download_url)).to be true }
+    it { expect(mail.body.include?(unsubscribe_url)).to be true }
+  end
+
   describe 'admin_account_created_email' do
     let(:user) { build(:user) }
     let(:admin_user) { build(:user) }

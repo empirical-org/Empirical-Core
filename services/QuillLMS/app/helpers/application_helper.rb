@@ -65,7 +65,7 @@ module ApplicationHelper
   end
 
   def on_sign_up_or_log_in?
-    %w[account/new /session password_reset sign-up finish_set_up /canvas_integration/lti/sso]
+    %w[account/new /session password_reset sign-up finish_set_up /canvas_integration/lti/sso /pdf_subscriptions/unsubscribe]
       .any? { |str| request.path.include?(str) }
   end
 

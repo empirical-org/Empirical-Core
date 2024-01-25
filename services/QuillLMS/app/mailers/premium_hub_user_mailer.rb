@@ -22,6 +22,17 @@ class PremiumHubUserMailer < UserMailer
     mail to: email, subject: "Your Quill data export is ready"
   end
 
+  def admin_usage_snapshot_report_pdf_email(download_url:, pdf_subscription:)
+    @download_url = download_url
+    @user = pdf_subscription.user
+    @frequency = pdf_subscription.frequency
+    @user_first_name = @user.first_name
+    @premium_hub_url = teachers_premium_hub_url
+    @unsubscribe_url = unsubscribe_pdf_subscriptions_url(token: pdf_subscription.token)
+
+    mail to: @user.email, subject: "🚀 Your #{@frequency} Quill Admin Usage Snapshot Report is Ready!"
+  end
+
   def admin_account_created_email(user, admin_name, school_name, is_reminder)
     @user = user
     @admin_name = admin_name

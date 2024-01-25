@@ -24,18 +24,34 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
           </span>
         </a>
       </h1>
-      <button
-        class="quill-button download-report-button contained primary medium focus-on-light"
-        type="button"
+      <div
+        class="header-buttons"
       >
-        <img
-          alt="White arrow pointing down icon"
-          src="undefined/images/icons/downward-arrow-icon-white.svg"
-        />
-        <span>
-          Download
-        </span>
-      </button>
+        <button
+          class="quill-button manage-subscription-button contained primary medium focus-on-light"
+          type="button"
+        >
+          <img
+            alt="Envelope icon"
+            src="undefined/images/icons/email-icon-white.svg"
+          />
+          <span>
+            Subscribe
+          </span>
+        </button>
+        <button
+          class="quill-button download-report-button contained primary medium focus-on-light"
+          type="button"
+        >
+          <img
+            alt="White arrow pointing down icon"
+            src="undefined/images/icons/downward-arrow-icon-white.svg"
+          />
+          <span>
+            Download
+          </span>
+        </button>
+      </div>
     </div>
     <div
       aria-hidden="true"
@@ -344,6 +360,8 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                           Activities completed
                         </th>
                       </tr>
+                    </tbody>
+                    <tbody>
                       <tr
                         class="data-row"
                       >
@@ -524,6 +542,8 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                           Activities assigned
                         </th>
                       </tr>
+                    </tbody>
+                    <tbody>
                       <tr
                         class="data-row"
                       >
@@ -583,6 +603,8 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                           Activities completed
                         </th>
                       </tr>
+                    </tbody>
+                    <tbody>
                       <tr
                         class="data-row"
                       >
@@ -787,6 +809,8 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                           Activities completed
                         </th>
                       </tr>
+                    </tbody>
+                    <tbody>
                       <tr
                         class="data-row"
                       >
@@ -846,6 +870,8 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                           Activities completed
                         </th>
                       </tr>
+                    </tbody>
+                    <tbody>
                       <tr
                         class="data-row"
                       >
@@ -1026,6 +1052,8 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                           Activities completed
                         </th>
                       </tr>
+                    </tbody>
+                    <tbody>
                       <tr
                         class="data-row"
                       >
@@ -1110,6 +1138,8 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                           Activities completed
                         </th>
                       </tr>
+                    </tbody>
+                    <tbody>
                       <tr
                         class="data-row"
                       >
@@ -1149,6 +1179,9 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
         </div>
       </section>
     </div>
+    <div
+      class="quill-snackbar "
+    />
     <div
       id="bottom-element"
     />

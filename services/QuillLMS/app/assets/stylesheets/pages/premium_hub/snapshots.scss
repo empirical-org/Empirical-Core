@@ -146,6 +146,10 @@
       }
       .data-row {
         border-top: 1px solid $quill-grey-5;
+        td {
+          border-top: none;
+          padding: 0px;
+        }
         td:first-of-type {
           font-weight: 400;
           line-height: 16px;

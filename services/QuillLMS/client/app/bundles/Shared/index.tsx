@@ -38,6 +38,7 @@ export {
   Input,
   OneThumbSlider,
   Passthrough,
+  ReportHeader,
   ResumeOrBeginButton,
   ScreenreaderInstructions,
   SmartSpinner,
@@ -168,7 +169,9 @@ export {
   evidenceHandbookIcon,
   whiteArrowPointingDownIcon,
   filterIcon,
-  documentFileIcon
+  documentFileIcon,
+  singleUserIcon,
+  whiteEmailIcon,
 } from './images/index'
 
 export {

@@ -1,5 +1,8 @@
 import { unorderedArraysAreEqual, } from '../../../../modules/unorderedArraysAreEqual'
 
+// Try to keep this in sync with the backend
+// app/services/pdfs/admin_usage_snapshot_reports/snapshot_sections_builder.rb
+
 // interfaces
 export interface Grade {
   label: string;

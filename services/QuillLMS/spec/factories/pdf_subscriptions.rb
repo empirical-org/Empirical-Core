@@ -4,6 +4,7 @@
 #
 #  id                               :bigint           not null, primary key
 #  frequency                        :string           not null
+#  token                            :string           not null
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
 #  admin_report_filter_selection_id :bigint           not null
@@ -15,7 +16,10 @@
 #
 FactoryBot.define do
   factory :pdf_subscription do
-    frequency { PdfSubscription::FREQUENCIES.sample }
+    frequency { PdfSubscription::MONTHLY }
     association :admin_report_filter_selection, factory: :usage_snapshot_report_pdf_filter_selection
+
+    trait(:weekly) { frequency { PdfSubscription::WEEKLY } }
+    trait(:monthly) { frequency { PdfSubscription::MONTHLY }}
   end
 end

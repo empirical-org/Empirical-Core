@@ -64,7 +64,9 @@ const DataTable = ({ headers, data, numberOfRows, }) => {
       <tr className="header-row">
         {headerElements}
       </tr>
-      {rowElements}
+      <tbody>
+        {rowElements}
+      </tbody>
     </table>
   )
 }
@@ -171,7 +173,7 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
   function closeModal() { setShowModal(false) }
 
   let className = "snapshot-item snapshot-ranking"
-  className+= data ? ' has-data' : ' no-data'
+  className += data ? ' has-data' : ' no-data'
 
   // disabling these rules for the div container because the behavior is handled by the button for keyboard users
   /* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */

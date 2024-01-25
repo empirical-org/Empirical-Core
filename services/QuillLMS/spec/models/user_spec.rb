@@ -90,6 +90,8 @@ RSpec.describe User, type: :model do
   it { should have_many(:canvas_accounts).dependent(:destroy) }
   it { should have_many(:canvas_instances).through(:canvas_accounts) }
   it { should have_one(:auth_credential).dependent(:destroy) }
+  it { should have_many(:admin_report_filter_selections).dependent(:destroy) }
+  it { should have_many(:pdf_subscriptions).through(:admin_report_filter_selections) }
 
   it { should delegate_method(:name).to(:school).with_prefix(:school) }
   it { should delegate_method(:mail_city).to(:school).with_prefix(:school) }
@@ -2354,6 +2356,32 @@ RSpec.describe User, type: :model do
       expect(analytics_instance).to receive(:track_google_student_set_password).with(user, teacher)
       user.password = 'password'
       subject
+    end
+  end
+
+  describe '#premium_admin?' do
+    subject { user.premium_admin? }
+
+    context 'user is not an admin' do
+      before { allow(user).to receive(:admin?).and_return(false) }
+
+      it { is_expected.to eq false }
+    end
+
+    context 'user is an admin' do
+      before { allow(user).to receive(:admin?).and_return(true) }
+
+      context 'user does not have premium' do
+        before { allow(user).to receive(:school_or_district_premium?).and_return(false) }
+
+        it { is_expected.to eq false }
+      end
+
+      context 'user has premium' do
+        before { allow(user).to receive(:school_or_district_premium?).and_return(true) }
+
+        it { is_expected.to eq true }
+      end
     end
   end
 end

@@ -63,6 +63,7 @@ class AdminsController < ApplicationController
       admin_approval_status: current_user.admin_approval_status,
       admin_sub_role: current_user.admin_sub_role,
       administers_school_with_premium: current_user.administered_schools.any? { |school| school.subscription },
+      administers_school_with_current_or_expired_premium: current_user.administered_schools.any? { |school| school.subscriptions.any? },
       associated_school_has_premium: current_user.school.present? && current_user.school.subscription.present?,
       schools: current_user.administered_schools
     }

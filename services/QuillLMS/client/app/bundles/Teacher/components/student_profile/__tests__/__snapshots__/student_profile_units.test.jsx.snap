@@ -579,7 +579,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Lesson 2: Dependent Clause Fragments
+                    <TableCellContentWrapper>
+                      Lesson 2: Dependent Clause Fragments
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -593,7 +595,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
@@ -606,7 +610,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "100px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-41"
@@ -620,49 +626,51 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <Tooltip
-                      isTabbable={true}
-                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
-                      tooltipTriggerText={
-                        <span
-                          className="needs-teacher"
-                        >
-                          Needs teacher
-                        </span>
-                      }
-                    >
-                      <span
-                        aria-hidden={false}
-                        className="quill-tooltip-trigger "
-                        role="tooltip"
-                      >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                    <TableCellContentWrapper>
+                      <Tooltip
+                        isTabbable={true}
+                        tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                        tooltipTriggerText={
                           <span
                             className="needs-teacher"
                           >
                             Needs teacher
                           </span>
-                        </span>
+                        }
+                      >
                         <span
-                          className="quill-tooltip-wrapper"
+                          aria-hidden={false}
+                          className="quill-tooltip-trigger "
+                          role="tooltip"
                         >
                           <span
-                            aria-live="polite"
-                            className="quill-tooltip"
-                          />
+                            className="undefined"
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <span
+                              className="needs-teacher"
+                            >
+                              Needs teacher
+                            </span>
+                          </span>
+                          <span
+                            className="quill-tooltip-wrapper"
+                          >
+                            <span
+                              aria-live="polite"
+                              className="quill-tooltip"
+                            />
+                          </span>
                         </span>
-                      </span>
-                    </Tooltip>
+                      </Tooltip>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -682,7 +690,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Lesson 3: -ing Fragments
+                    <TableCellContentWrapper>
+                      Lesson 3: -ing Fragments
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -696,7 +706,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
@@ -709,7 +721,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "100px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-42"
@@ -723,49 +737,51 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <Tooltip
-                      isTabbable={true}
-                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
-                      tooltipTriggerText={
-                        <span
-                          className="needs-teacher"
-                        >
-                          Needs teacher
-                        </span>
-                      }
-                    >
-                      <span
-                        aria-hidden={false}
-                        className="quill-tooltip-trigger "
-                        role="tooltip"
-                      >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                    <TableCellContentWrapper>
+                      <Tooltip
+                        isTabbable={true}
+                        tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                        tooltipTriggerText={
                           <span
                             className="needs-teacher"
                           >
                             Needs teacher
                           </span>
-                        </span>
+                        }
+                      >
                         <span
-                          className="quill-tooltip-wrapper"
+                          aria-hidden={false}
+                          className="quill-tooltip-trigger "
+                          role="tooltip"
                         >
                           <span
-                            aria-live="polite"
-                            className="quill-tooltip"
-                          />
+                            className="undefined"
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <span
+                              className="needs-teacher"
+                            >
+                              Needs teacher
+                            </span>
+                          </span>
+                          <span
+                            className="quill-tooltip-wrapper"
+                          >
+                            <span
+                              aria-live="polite"
+                              className="quill-tooltip"
+                            />
+                          </span>
                         </span>
-                      </span>
-                    </Tooltip>
+                      </Tooltip>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -785,7 +801,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Lesson 4: Fragments Review
+                    <TableCellContentWrapper>
+                      Lesson 4: Fragments Review
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -799,7 +817,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
@@ -812,7 +832,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "100px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-43"
@@ -826,49 +848,51 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <Tooltip
-                      isTabbable={true}
-                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
-                      tooltipTriggerText={
-                        <span
-                          className="needs-teacher"
-                        >
-                          Needs teacher
-                        </span>
-                      }
-                    >
-                      <span
-                        aria-hidden={false}
-                        className="quill-tooltip-trigger "
-                        role="tooltip"
-                      >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                    <TableCellContentWrapper>
+                      <Tooltip
+                        isTabbable={true}
+                        tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                        tooltipTriggerText={
                           <span
                             className="needs-teacher"
                           >
                             Needs teacher
                           </span>
-                        </span>
+                        }
+                      >
                         <span
-                          className="quill-tooltip-wrapper"
+                          aria-hidden={false}
+                          className="quill-tooltip-trigger "
+                          role="tooltip"
                         >
                           <span
-                            aria-live="polite"
-                            className="quill-tooltip"
-                          />
+                            className="undefined"
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <span
+                              className="needs-teacher"
+                            >
+                              Needs teacher
+                            </span>
+                          </span>
+                          <span
+                            className="quill-tooltip-wrapper"
+                          >
+                            <span
+                              aria-live="polite"
+                              className="quill-tooltip"
+                            />
+                          </span>
                         </span>
-                      </span>
-                    </Tooltip>
+                      </Tooltip>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
               </tbody>
@@ -1321,7 +1345,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    The Travels of Marco Polo
+                    <TableCellContentWrapper>
+                      The Travels of Marco Polo
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -1335,7 +1361,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-1"
@@ -1349,7 +1377,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -1364,13 +1394,15 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <a
-                      aria-label="Start The Travels of Marco Polo"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/608"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start The Travels of Marco Polo"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/608"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -1390,7 +1422,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Christopher Columbus
+                    <TableCellContentWrapper>
+                      Christopher Columbus
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -1404,7 +1438,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-2"
@@ -1418,7 +1454,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -1433,13 +1471,15 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Christopher Columbus"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/607"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Christopher Columbus"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/607"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -1459,7 +1499,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    A, An, The
+                    <TableCellContentWrapper>
+                      A, An, The
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -1473,7 +1515,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-10"
@@ -1487,7 +1531,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -1502,13 +1548,15 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <a
-                      aria-label="Start A, An, The"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/140"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start A, An, The"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/140"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -1528,7 +1576,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Magellan
+                    <TableCellContentWrapper>
+                      Magellan
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -1542,7 +1592,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-3"
@@ -1556,7 +1608,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -1571,13 +1625,15 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Magellan"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/605"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Magellan"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/605"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -1597,7 +1653,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Jamestown
+                    <TableCellContentWrapper>
+                      Jamestown
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -1611,7 +1669,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-4"
@@ -1625,7 +1685,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -1640,13 +1702,15 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Jamestown"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/606"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Jamestown"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/606"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -1666,7 +1730,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Age of Exploration: Sailing with the Stars
+                    <TableCellContentWrapper>
+                      Age of Exploration: Sailing with the Stars
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -1680,7 +1746,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-6"
@@ -1694,7 +1762,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -1709,13 +1779,15 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Age of Exploration: Sailing with the Stars"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/503"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Age of Exploration: Sailing with the Stars"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/503"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -1735,7 +1807,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Age of Exploration: The Cape of Good Hope
+                    <TableCellContentWrapper>
+                      Age of Exploration: The Cape of Good Hope
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -1749,7 +1823,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-7"
@@ -1763,7 +1839,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -1778,13 +1856,15 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Age of Exploration: The Cape of Good Hope"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/504"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Age of Exploration: The Cape of Good Hope"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/504"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -1804,7 +1884,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Age of Exploration: Roanoke
+                    <TableCellContentWrapper>
+                      Age of Exploration: Roanoke
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -1818,7 +1900,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-8"
@@ -1832,7 +1916,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -1847,13 +1933,15 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Age of Exploration: Roanoke"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/517"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Age of Exploration: Roanoke"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/517"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
               </tbody>
@@ -2445,7 +2533,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Lesson 2: Dependent Clause Fragments
+                    <TableCellContentWrapper>
+                      Lesson 2: Dependent Clause Fragments
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -2459,7 +2549,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
@@ -2472,7 +2564,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "100px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-41"
@@ -2486,49 +2580,51 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <Tooltip
-                      isTabbable={true}
-                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
-                      tooltipTriggerText={
-                        <span
-                          className="needs-teacher"
-                        >
-                          Needs teacher
-                        </span>
-                      }
-                    >
-                      <span
-                        aria-hidden={false}
-                        className="quill-tooltip-trigger "
-                        role="tooltip"
-                      >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                    <TableCellContentWrapper>
+                      <Tooltip
+                        isTabbable={true}
+                        tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                        tooltipTriggerText={
                           <span
                             className="needs-teacher"
                           >
                             Needs teacher
                           </span>
-                        </span>
+                        }
+                      >
                         <span
-                          className="quill-tooltip-wrapper"
+                          aria-hidden={false}
+                          className="quill-tooltip-trigger "
+                          role="tooltip"
                         >
                           <span
-                            aria-live="polite"
-                            className="quill-tooltip"
-                          />
+                            className="undefined"
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <span
+                              className="needs-teacher"
+                            >
+                              Needs teacher
+                            </span>
+                          </span>
+                          <span
+                            className="quill-tooltip-wrapper"
+                          >
+                            <span
+                              aria-live="polite"
+                              className="quill-tooltip"
+                            />
+                          </span>
                         </span>
-                      </span>
-                    </Tooltip>
+                      </Tooltip>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -2548,7 +2644,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Lesson 3: -ing Fragments
+                    <TableCellContentWrapper>
+                      Lesson 3: -ing Fragments
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -2562,7 +2660,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
@@ -2575,7 +2675,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "100px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-42"
@@ -2589,49 +2691,51 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <Tooltip
-                      isTabbable={true}
-                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
-                      tooltipTriggerText={
-                        <span
-                          className="needs-teacher"
-                        >
-                          Needs teacher
-                        </span>
-                      }
-                    >
-                      <span
-                        aria-hidden={false}
-                        className="quill-tooltip-trigger "
-                        role="tooltip"
-                      >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                    <TableCellContentWrapper>
+                      <Tooltip
+                        isTabbable={true}
+                        tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                        tooltipTriggerText={
                           <span
                             className="needs-teacher"
                           >
                             Needs teacher
                           </span>
-                        </span>
+                        }
+                      >
                         <span
-                          className="quill-tooltip-wrapper"
+                          aria-hidden={false}
+                          className="quill-tooltip-trigger "
+                          role="tooltip"
                         >
                           <span
-                            aria-live="polite"
-                            className="quill-tooltip"
-                          />
+                            className="undefined"
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <span
+                              className="needs-teacher"
+                            >
+                              Needs teacher
+                            </span>
+                          </span>
+                          <span
+                            className="quill-tooltip-wrapper"
+                          >
+                            <span
+                              aria-live="polite"
+                              className="quill-tooltip"
+                            />
+                          </span>
                         </span>
-                      </span>
-                    </Tooltip>
+                      </Tooltip>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -2651,7 +2755,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Lesson 4: Fragments Review
+                    <TableCellContentWrapper>
+                      Lesson 4: Fragments Review
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -2665,7 +2771,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
@@ -2678,7 +2786,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "100px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-43"
@@ -2692,49 +2802,51 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <Tooltip
-                      isTabbable={true}
-                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
-                      tooltipTriggerText={
-                        <span
-                          className="needs-teacher"
-                        >
-                          Needs teacher
-                        </span>
-                      }
-                    >
-                      <span
-                        aria-hidden={false}
-                        className="quill-tooltip-trigger "
-                        role="tooltip"
-                      >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                    <TableCellContentWrapper>
+                      <Tooltip
+                        isTabbable={true}
+                        tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                        tooltipTriggerText={
                           <span
                             className="needs-teacher"
                           >
                             Needs teacher
                           </span>
-                        </span>
+                        }
+                      >
                         <span
-                          className="quill-tooltip-wrapper"
+                          aria-hidden={false}
+                          className="quill-tooltip-trigger "
+                          role="tooltip"
                         >
                           <span
-                            aria-live="polite"
-                            className="quill-tooltip"
-                          />
+                            className="undefined"
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <span
+                              className="needs-teacher"
+                            >
+                              Needs teacher
+                            </span>
+                          </span>
+                          <span
+                            className="quill-tooltip-wrapper"
+                          >
+                            <span
+                              aria-live="polite"
+                              className="quill-tooltip"
+                            />
+                          </span>
                         </span>
-                      </span>
-                    </Tooltip>
+                      </Tooltip>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
               </tbody>
@@ -3187,7 +3299,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    The Travels of Marco Polo
+                    <TableCellContentWrapper>
+                      The Travels of Marco Polo
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -3201,7 +3315,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-1"
@@ -3215,7 +3331,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -3230,13 +3348,15 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <a
-                      aria-label="Start The Travels of Marco Polo"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/608"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start The Travels of Marco Polo"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/608"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -3256,7 +3376,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Christopher Columbus
+                    <TableCellContentWrapper>
+                      Christopher Columbus
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -3270,7 +3392,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-2"
@@ -3284,7 +3408,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -3299,13 +3425,15 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Christopher Columbus"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/607"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Christopher Columbus"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/607"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -3325,7 +3453,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    A, An, The
+                    <TableCellContentWrapper>
+                      A, An, The
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -3339,7 +3469,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-10"
@@ -3353,7 +3485,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -3368,13 +3502,15 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <a
-                      aria-label="Start A, An, The"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/140"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start A, An, The"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/140"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -3394,7 +3530,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Magellan
+                    <TableCellContentWrapper>
+                      Magellan
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -3408,7 +3546,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-3"
@@ -3422,7 +3562,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -3437,13 +3579,15 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Magellan"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/605"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Magellan"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/605"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -3463,7 +3607,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Jamestown
+                    <TableCellContentWrapper>
+                      Jamestown
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -3477,7 +3623,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-4"
@@ -3491,7 +3639,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -3506,13 +3656,15 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Jamestown"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/606"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Jamestown"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/606"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -3532,7 +3684,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Age of Exploration: Sailing with the Stars
+                    <TableCellContentWrapper>
+                      Age of Exploration: Sailing with the Stars
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -3546,7 +3700,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-6"
@@ -3560,7 +3716,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -3575,13 +3733,15 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Age of Exploration: Sailing with the Stars"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/503"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Age of Exploration: Sailing with the Stars"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/503"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -3601,7 +3761,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Age of Exploration: The Cape of Good Hope
+                    <TableCellContentWrapper>
+                      Age of Exploration: The Cape of Good Hope
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -3615,7 +3777,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-7"
@@ -3629,7 +3793,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -3644,13 +3810,15 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Age of Exploration: The Cape of Good Hope"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/504"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Age of Exploration: The Cape of Good Hope"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/504"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -3670,7 +3838,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Age of Exploration: Roanoke
+                    <TableCellContentWrapper>
+                      Age of Exploration: Roanoke
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -3684,7 +3854,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-8"
@@ -3698,7 +3870,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -3713,13 +3887,15 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Age of Exploration: Roanoke"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/517"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Age of Exploration: Roanoke"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/517"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
               </tbody>
@@ -4429,7 +4605,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    A, An
+                    <TableCellContentWrapper>
+                      A, An
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section score-section tooltip-section"
@@ -4444,16 +4622,18 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    <div
-                      className="score"
-                    >
+                    <TableCellContentWrapper>
                       <div
-                        className="frequently-demonstrated-skill"
-                      />
-                      <span>
-                        Frequently demonstrated skill
-                      </span>
-                    </div>
+                        className="score"
+                      >
+                        <div
+                          className="frequently-demonstrated-skill"
+                        />
+                        <span>
+                          Frequently demonstrated skill
+                        </span>
+                      </div>
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -4467,7 +4647,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section completed-due-date-section"
                     key="dueDate-9"
@@ -4481,7 +4663,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section completed-date-section"
@@ -4495,7 +4679,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                         "width": "110px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section action-button-section tooltip-section"
                     key="actionButton-9"
@@ -4509,13 +4695,15 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    <a
-                      aria-label="Replay A, An"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/138"
-                    >
-                      Replay
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Replay A, An"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/138"
+                      >
+                        Replay
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -4535,7 +4723,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    Age of Exploration: Spices
+                    <TableCellContentWrapper>
+                      Age of Exploration: Spices
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section score-section tooltip-section"
@@ -4550,16 +4740,18 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    <div
-                      className="score"
-                    >
+                    <TableCellContentWrapper>
                       <div
-                        className="sometimes-demonstrated-skill"
-                      />
-                      <span>
-                        Sometimes demonstrated skill
-                      </span>
-                    </div>
+                        className="score"
+                      >
+                        <div
+                          className="sometimes-demonstrated-skill"
+                        />
+                        <span>
+                          Sometimes demonstrated skill
+                        </span>
+                      </div>
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -4573,7 +4765,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section completed-due-date-section"
                     key="dueDate-5"
@@ -4587,7 +4781,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section completed-date-section"
@@ -4601,7 +4797,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                         "width": "110px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section action-button-section tooltip-section"
                     key="actionButton-5"
@@ -4615,13 +4813,15 @@ exports[`StudentProfileUnits component should render only completed activities i
                       }
                     }
                   >
-                    <a
-                      aria-label="Replay Age of Exploration: Spices"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/516"
-                    >
-                      Replay
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Replay Age of Exploration: Spices"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/516"
+                      >
+                        Replay
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
               </tbody>
@@ -5344,7 +5544,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Lesson 1: Missing Subject or Verb Fragments
+                    <TableCellContentWrapper>
+                      Lesson 1: Missing Subject or Verb Fragments
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -5358,7 +5560,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-40"
@@ -5371,7 +5575,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "100px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-40"
@@ -5385,13 +5591,15 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <a
-                      aria-label="Resume Lesson 1: Missing Subject or Verb Fragments"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/10/activities/560"
-                    >
-                      Resume
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Resume Lesson 1: Missing Subject or Verb Fragments"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/10/activities/560"
+                      >
+                        Resume
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -5411,7 +5619,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Lesson 2: Dependent Clause Fragments
+                    <TableCellContentWrapper>
+                      Lesson 2: Dependent Clause Fragments
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -5425,7 +5635,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
@@ -5438,7 +5650,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "100px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-41"
@@ -5452,49 +5666,51 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <Tooltip
-                      isTabbable={true}
-                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
-                      tooltipTriggerText={
-                        <span
-                          className="needs-teacher"
-                        >
-                          Needs teacher
-                        </span>
-                      }
-                    >
-                      <span
-                        aria-hidden={false}
-                        className="quill-tooltip-trigger "
-                        role="tooltip"
-                      >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                    <TableCellContentWrapper>
+                      <Tooltip
+                        isTabbable={true}
+                        tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                        tooltipTriggerText={
                           <span
                             className="needs-teacher"
                           >
                             Needs teacher
                           </span>
-                        </span>
+                        }
+                      >
                         <span
-                          className="quill-tooltip-wrapper"
+                          aria-hidden={false}
+                          className="quill-tooltip-trigger "
+                          role="tooltip"
                         >
                           <span
-                            aria-live="polite"
-                            className="quill-tooltip"
-                          />
+                            className="undefined"
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <span
+                              className="needs-teacher"
+                            >
+                              Needs teacher
+                            </span>
+                          </span>
+                          <span
+                            className="quill-tooltip-wrapper"
+                          >
+                            <span
+                              aria-live="polite"
+                              className="quill-tooltip"
+                            />
+                          </span>
                         </span>
-                      </span>
-                    </Tooltip>
+                      </Tooltip>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -5514,7 +5730,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Lesson 3: -ing Fragments
+                    <TableCellContentWrapper>
+                      Lesson 3: -ing Fragments
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -5528,7 +5746,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
@@ -5541,7 +5761,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "100px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-42"
@@ -5555,49 +5777,51 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <Tooltip
-                      isTabbable={true}
-                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
-                      tooltipTriggerText={
-                        <span
-                          className="needs-teacher"
-                        >
-                          Needs teacher
-                        </span>
-                      }
-                    >
-                      <span
-                        aria-hidden={false}
-                        className="quill-tooltip-trigger "
-                        role="tooltip"
-                      >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                    <TableCellContentWrapper>
+                      <Tooltip
+                        isTabbable={true}
+                        tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                        tooltipTriggerText={
                           <span
                             className="needs-teacher"
                           >
                             Needs teacher
                           </span>
-                        </span>
+                        }
+                      >
                         <span
-                          className="quill-tooltip-wrapper"
+                          aria-hidden={false}
+                          className="quill-tooltip-trigger "
+                          role="tooltip"
                         >
                           <span
-                            aria-live="polite"
-                            className="quill-tooltip"
-                          />
+                            className="undefined"
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <span
+                              className="needs-teacher"
+                            >
+                              Needs teacher
+                            </span>
+                          </span>
+                          <span
+                            className="quill-tooltip-wrapper"
+                          >
+                            <span
+                              aria-live="polite"
+                              className="quill-tooltip"
+                            />
+                          </span>
                         </span>
-                      </span>
-                    </Tooltip>
+                      </Tooltip>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -5617,7 +5841,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Lesson 4: Fragments Review
+                    <TableCellContentWrapper>
+                      Lesson 4: Fragments Review
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -5631,7 +5857,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
@@ -5644,7 +5872,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "100px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-43"
@@ -5658,49 +5888,51 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <Tooltip
-                      isTabbable={true}
-                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
-                      tooltipTriggerText={
-                        <span
-                          className="needs-teacher"
-                        >
-                          Needs teacher
-                        </span>
-                      }
-                    >
-                      <span
-                        aria-hidden={false}
-                        className="quill-tooltip-trigger "
-                        role="tooltip"
-                      >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                    <TableCellContentWrapper>
+                      <Tooltip
+                        isTabbable={true}
+                        tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                        tooltipTriggerText={
                           <span
                             className="needs-teacher"
                           >
                             Needs teacher
                           </span>
-                        </span>
+                        }
+                      >
                         <span
-                          className="quill-tooltip-wrapper"
+                          aria-hidden={false}
+                          className="quill-tooltip-trigger "
+                          role="tooltip"
                         >
                           <span
-                            aria-live="polite"
-                            className="quill-tooltip"
-                          />
+                            className="undefined"
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <span
+                              className="needs-teacher"
+                            >
+                              Needs teacher
+                            </span>
+                          </span>
+                          <span
+                            className="quill-tooltip-wrapper"
+                          >
+                            <span
+                              aria-live="polite"
+                              className="quill-tooltip"
+                            />
+                          </span>
                         </span>
-                      </span>
-                    </Tooltip>
+                      </Tooltip>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
               </tbody>
@@ -6153,7 +6385,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    The Travels of Marco Polo
+                    <TableCellContentWrapper>
+                      The Travels of Marco Polo
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -6167,7 +6401,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-1"
@@ -6181,7 +6417,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -6196,13 +6434,15 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <a
-                      aria-label="Start The Travels of Marco Polo"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/608"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start The Travels of Marco Polo"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/608"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -6222,7 +6462,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Christopher Columbus
+                    <TableCellContentWrapper>
+                      Christopher Columbus
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -6236,7 +6478,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-2"
@@ -6250,7 +6494,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -6265,13 +6511,15 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Christopher Columbus"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/607"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Christopher Columbus"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/607"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -6291,7 +6539,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    A, An, The
+                    <TableCellContentWrapper>
+                      A, An, The
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -6305,7 +6555,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-10"
@@ -6319,7 +6571,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -6334,13 +6588,15 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <a
-                      aria-label="Start A, An, The"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/140"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start A, An, The"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/140"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -6360,7 +6616,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Magellan
+                    <TableCellContentWrapper>
+                      Magellan
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -6374,7 +6632,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-3"
@@ -6388,7 +6648,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -6403,13 +6665,15 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Magellan"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/605"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Magellan"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/605"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -6429,7 +6693,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Jamestown
+                    <TableCellContentWrapper>
+                      Jamestown
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -6443,7 +6709,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-4"
@@ -6457,7 +6725,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -6472,13 +6742,15 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Jamestown"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/606"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Jamestown"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/606"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -6498,7 +6770,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Age of Exploration: Sailing with the Stars
+                    <TableCellContentWrapper>
+                      Age of Exploration: Sailing with the Stars
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -6512,7 +6786,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-6"
@@ -6526,7 +6802,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -6541,13 +6819,15 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Age of Exploration: Sailing with the Stars"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/503"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Age of Exploration: Sailing with the Stars"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/503"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -6567,7 +6847,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Age of Exploration: The Cape of Good Hope
+                    <TableCellContentWrapper>
+                      Age of Exploration: The Cape of Good Hope
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -6581,7 +6863,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-7"
@@ -6595,7 +6879,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -6610,13 +6896,15 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Age of Exploration: The Cape of Good Hope"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/504"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Age of Exploration: The Cape of Good Hope"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/504"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -6636,7 +6924,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Age of Exploration: Roanoke
+                    <TableCellContentWrapper>
+                      Age of Exploration: Roanoke
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -6650,7 +6940,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-8"
@@ -6664,7 +6956,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -6679,13 +6973,15 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Age of Exploration: Roanoke"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/517"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Age of Exploration: Roanoke"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/517"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
               </tbody>
@@ -7408,7 +7704,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Lesson 1: Missing Subject or Verb Fragments
+                    <TableCellContentWrapper>
+                      Lesson 1: Missing Subject or Verb Fragments
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -7422,7 +7720,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-40"
@@ -7435,7 +7735,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "100px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-40"
@@ -7449,13 +7751,15 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <a
-                      aria-label="Resume Lesson 1: Missing Subject or Verb Fragments"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/10/activities/560"
-                    >
-                      Resume
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Resume Lesson 1: Missing Subject or Verb Fragments"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/10/activities/560"
+                      >
+                        Resume
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -7475,7 +7779,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Lesson 2: Dependent Clause Fragments
+                    <TableCellContentWrapper>
+                      Lesson 2: Dependent Clause Fragments
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -7489,7 +7795,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
@@ -7502,7 +7810,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "100px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-41"
@@ -7516,49 +7826,51 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <Tooltip
-                      isTabbable={true}
-                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
-                      tooltipTriggerText={
-                        <span
-                          className="needs-teacher"
-                        >
-                          Needs teacher
-                        </span>
-                      }
-                    >
-                      <span
-                        aria-hidden={false}
-                        className="quill-tooltip-trigger "
-                        role="tooltip"
-                      >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                    <TableCellContentWrapper>
+                      <Tooltip
+                        isTabbable={true}
+                        tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                        tooltipTriggerText={
                           <span
                             className="needs-teacher"
                           >
                             Needs teacher
                           </span>
-                        </span>
+                        }
+                      >
                         <span
-                          className="quill-tooltip-wrapper"
+                          aria-hidden={false}
+                          className="quill-tooltip-trigger "
+                          role="tooltip"
                         >
                           <span
-                            aria-live="polite"
-                            className="quill-tooltip"
-                          />
+                            className="undefined"
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <span
+                              className="needs-teacher"
+                            >
+                              Needs teacher
+                            </span>
+                          </span>
+                          <span
+                            className="quill-tooltip-wrapper"
+                          >
+                            <span
+                              aria-live="polite"
+                              className="quill-tooltip"
+                            />
+                          </span>
                         </span>
-                      </span>
-                    </Tooltip>
+                      </Tooltip>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -7578,7 +7890,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Lesson 3: -ing Fragments
+                    <TableCellContentWrapper>
+                      Lesson 3: -ing Fragments
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -7592,7 +7906,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
@@ -7605,7 +7921,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "100px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-42"
@@ -7619,49 +7937,51 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <Tooltip
-                      isTabbable={true}
-                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
-                      tooltipTriggerText={
-                        <span
-                          className="needs-teacher"
-                        >
-                          Needs teacher
-                        </span>
-                      }
-                    >
-                      <span
-                        aria-hidden={false}
-                        className="quill-tooltip-trigger "
-                        role="tooltip"
-                      >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                    <TableCellContentWrapper>
+                      <Tooltip
+                        isTabbable={true}
+                        tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                        tooltipTriggerText={
                           <span
                             className="needs-teacher"
                           >
                             Needs teacher
                           </span>
-                        </span>
+                        }
+                      >
                         <span
-                          className="quill-tooltip-wrapper"
+                          aria-hidden={false}
+                          className="quill-tooltip-trigger "
+                          role="tooltip"
                         >
                           <span
-                            aria-live="polite"
-                            className="quill-tooltip"
-                          />
+                            className="undefined"
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <span
+                              className="needs-teacher"
+                            >
+                              Needs teacher
+                            </span>
+                          </span>
+                          <span
+                            className="quill-tooltip-wrapper"
+                          >
+                            <span
+                              aria-live="polite"
+                              className="quill-tooltip"
+                            />
+                          </span>
                         </span>
-                      </span>
-                    </Tooltip>
+                      </Tooltip>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -7681,7 +8001,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Lesson 4: Fragments Review
+                    <TableCellContentWrapper>
+                      Lesson 4: Fragments Review
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -7695,7 +8017,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
@@ -7708,7 +8032,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "100px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-43"
@@ -7722,49 +8048,51 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <Tooltip
-                      isTabbable={true}
-                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
-                      tooltipTriggerText={
-                        <span
-                          className="needs-teacher"
-                        >
-                          Needs teacher
-                        </span>
-                      }
-                    >
-                      <span
-                        aria-hidden={false}
-                        className="quill-tooltip-trigger "
-                        role="tooltip"
-                      >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                    <TableCellContentWrapper>
+                      <Tooltip
+                        isTabbable={true}
+                        tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                        tooltipTriggerText={
                           <span
                             className="needs-teacher"
                           >
                             Needs teacher
                           </span>
-                        </span>
+                        }
+                      >
                         <span
-                          className="quill-tooltip-wrapper"
+                          aria-hidden={false}
+                          className="quill-tooltip-trigger "
+                          role="tooltip"
                         >
                           <span
-                            aria-live="polite"
-                            className="quill-tooltip"
-                          />
+                            className="undefined"
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <span
+                              className="needs-teacher"
+                            >
+                              Needs teacher
+                            </span>
+                          </span>
+                          <span
+                            className="quill-tooltip-wrapper"
+                          >
+                            <span
+                              aria-live="polite"
+                              className="quill-tooltip"
+                            />
+                          </span>
                         </span>
-                      </span>
-                    </Tooltip>
+                      </Tooltip>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
               </tbody>
@@ -8217,7 +8545,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    The Travels of Marco Polo
+                    <TableCellContentWrapper>
+                      The Travels of Marco Polo
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -8231,7 +8561,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-1"
@@ -8245,7 +8577,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -8260,13 +8594,15 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <a
-                      aria-label="Start The Travels of Marco Polo"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/608"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start The Travels of Marco Polo"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/608"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -8286,7 +8622,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Christopher Columbus
+                    <TableCellContentWrapper>
+                      Christopher Columbus
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -8300,7 +8638,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-2"
@@ -8314,7 +8654,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -8329,13 +8671,15 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Christopher Columbus"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/607"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Christopher Columbus"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/607"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -8355,7 +8699,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    A, An, The
+                    <TableCellContentWrapper>
+                      A, An, The
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -8369,7 +8715,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-10"
@@ -8383,7 +8731,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -8398,13 +8748,15 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <a
-                      aria-label="Start A, An, The"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/140"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start A, An, The"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/140"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -8424,7 +8776,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Magellan
+                    <TableCellContentWrapper>
+                      Magellan
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -8438,7 +8792,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-3"
@@ -8452,7 +8808,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -8467,13 +8825,15 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Magellan"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/605"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Magellan"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/605"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -8493,7 +8853,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Jamestown
+                    <TableCellContentWrapper>
+                      Jamestown
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -8507,7 +8869,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-4"
@@ -8521,7 +8885,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -8536,13 +8902,15 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Jamestown"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/606"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Jamestown"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/606"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -8562,7 +8930,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Age of Exploration: Sailing with the Stars
+                    <TableCellContentWrapper>
+                      Age of Exploration: Sailing with the Stars
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -8576,7 +8946,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-6"
@@ -8590,7 +8962,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -8605,13 +8979,15 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Age of Exploration: Sailing with the Stars"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/503"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Age of Exploration: Sailing with the Stars"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/503"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -8631,7 +9007,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Age of Exploration: The Cape of Good Hope
+                    <TableCellContentWrapper>
+                      Age of Exploration: The Cape of Good Hope
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -8645,7 +9023,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-7"
@@ -8659,7 +9039,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -8674,13 +9056,15 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Age of Exploration: The Cape of Good Hope"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/504"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Age of Exploration: The Cape of Good Hope"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/504"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -8700,7 +9084,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Age of Exploration: Roanoke
+                    <TableCellContentWrapper>
+                      Age of Exploration: Roanoke
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -8714,7 +9100,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-8"
@@ -8728,7 +9116,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -8743,13 +9133,15 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Age of Exploration: Roanoke"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/517"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Age of Exploration: Roanoke"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/517"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
               </tbody>
@@ -9472,7 +9864,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Lesson 1: Missing Subject or Verb Fragments
+                    <TableCellContentWrapper>
+                      Lesson 1: Missing Subject or Verb Fragments
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -9486,7 +9880,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-40"
@@ -9499,7 +9895,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "100px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-40"
@@ -9513,13 +9911,15 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <a
-                      aria-label="Resume Lesson 1: Missing Subject or Verb Fragments"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/10/activities/560"
-                    >
-                      Resume
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Resume Lesson 1: Missing Subject or Verb Fragments"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/10/activities/560"
+                      >
+                        Resume
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -9539,7 +9939,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Lesson 2: Dependent Clause Fragments
+                    <TableCellContentWrapper>
+                      Lesson 2: Dependent Clause Fragments
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -9553,7 +9955,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
@@ -9566,7 +9970,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "100px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-41"
@@ -9580,49 +9986,51 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <Tooltip
-                      isTabbable={true}
-                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
-                      tooltipTriggerText={
-                        <span
-                          className="needs-teacher"
-                        >
-                          Needs teacher
-                        </span>
-                      }
-                    >
-                      <span
-                        aria-hidden={false}
-                        className="quill-tooltip-trigger "
-                        role="tooltip"
-                      >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                    <TableCellContentWrapper>
+                      <Tooltip
+                        isTabbable={true}
+                        tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                        tooltipTriggerText={
                           <span
                             className="needs-teacher"
                           >
                             Needs teacher
                           </span>
-                        </span>
+                        }
+                      >
                         <span
-                          className="quill-tooltip-wrapper"
+                          aria-hidden={false}
+                          className="quill-tooltip-trigger "
+                          role="tooltip"
                         >
                           <span
-                            aria-live="polite"
-                            className="quill-tooltip"
-                          />
+                            className="undefined"
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <span
+                              className="needs-teacher"
+                            >
+                              Needs teacher
+                            </span>
+                          </span>
+                          <span
+                            className="quill-tooltip-wrapper"
+                          >
+                            <span
+                              aria-live="polite"
+                              className="quill-tooltip"
+                            />
+                          </span>
                         </span>
-                      </span>
-                    </Tooltip>
+                      </Tooltip>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -9642,7 +10050,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Lesson 3: -ing Fragments
+                    <TableCellContentWrapper>
+                      Lesson 3: -ing Fragments
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -9656,7 +10066,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
@@ -9669,7 +10081,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "100px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-42"
@@ -9683,49 +10097,51 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <Tooltip
-                      isTabbable={true}
-                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
-                      tooltipTriggerText={
-                        <span
-                          className="needs-teacher"
-                        >
-                          Needs teacher
-                        </span>
-                      }
-                    >
-                      <span
-                        aria-hidden={false}
-                        className="quill-tooltip-trigger "
-                        role="tooltip"
-                      >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                    <TableCellContentWrapper>
+                      <Tooltip
+                        isTabbable={true}
+                        tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                        tooltipTriggerText={
                           <span
                             className="needs-teacher"
                           >
                             Needs teacher
                           </span>
-                        </span>
+                        }
+                      >
                         <span
-                          className="quill-tooltip-wrapper"
+                          aria-hidden={false}
+                          className="quill-tooltip-trigger "
+                          role="tooltip"
                         >
                           <span
-                            aria-live="polite"
-                            className="quill-tooltip"
-                          />
+                            className="undefined"
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <span
+                              className="needs-teacher"
+                            >
+                              Needs teacher
+                            </span>
+                          </span>
+                          <span
+                            className="quill-tooltip-wrapper"
+                          >
+                            <span
+                              aria-live="polite"
+                              className="quill-tooltip"
+                            />
+                          </span>
                         </span>
-                      </span>
-                    </Tooltip>
+                      </Tooltip>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -9745,7 +10161,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Lesson 4: Fragments Review
+                    <TableCellContentWrapper>
+                      Lesson 4: Fragments Review
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -9759,7 +10177,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
@@ -9772,7 +10192,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "100px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-43"
@@ -9786,49 +10208,51 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <Tooltip
-                      isTabbable={true}
-                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
-                      tooltipTriggerText={
-                        <span
-                          className="needs-teacher"
-                        >
-                          Needs teacher
-                        </span>
-                      }
-                    >
-                      <span
-                        aria-hidden={false}
-                        className="quill-tooltip-trigger "
-                        role="tooltip"
-                      >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                    <TableCellContentWrapper>
+                      <Tooltip
+                        isTabbable={true}
+                        tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                        tooltipTriggerText={
                           <span
                             className="needs-teacher"
                           >
                             Needs teacher
                           </span>
-                        </span>
+                        }
+                      >
                         <span
-                          className="quill-tooltip-wrapper"
+                          aria-hidden={false}
+                          className="quill-tooltip-trigger "
+                          role="tooltip"
                         >
                           <span
-                            aria-live="polite"
-                            className="quill-tooltip"
-                          />
+                            className="undefined"
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <span
+                              className="needs-teacher"
+                            >
+                              Needs teacher
+                            </span>
+                          </span>
+                          <span
+                            className="quill-tooltip-wrapper"
+                          >
+                            <span
+                              aria-live="polite"
+                              className="quill-tooltip"
+                            />
+                          </span>
                         </span>
-                      </span>
-                    </Tooltip>
+                      </Tooltip>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
               </tbody>
@@ -10281,7 +10705,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    The Travels of Marco Polo
+                    <TableCellContentWrapper>
+                      The Travels of Marco Polo
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -10295,7 +10721,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-1"
@@ -10309,7 +10737,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -10324,13 +10754,15 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <a
-                      aria-label="Start The Travels of Marco Polo"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/608"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start The Travels of Marco Polo"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/608"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -10350,7 +10782,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Christopher Columbus
+                    <TableCellContentWrapper>
+                      Christopher Columbus
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -10364,7 +10798,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-2"
@@ -10378,7 +10814,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -10393,13 +10831,15 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Christopher Columbus"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/607"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Christopher Columbus"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/607"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -10419,7 +10859,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    A, An, The
+                    <TableCellContentWrapper>
+                      A, An, The
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -10433,7 +10875,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-10"
@@ -10447,7 +10891,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -10462,13 +10908,15 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <a
-                      aria-label="Start A, An, The"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/140"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start A, An, The"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/140"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -10488,7 +10936,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Magellan
+                    <TableCellContentWrapper>
+                      Magellan
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -10502,7 +10952,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-3"
@@ -10516,7 +10968,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -10531,13 +10985,15 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Magellan"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/605"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Magellan"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/605"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -10557,7 +11013,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Jamestown
+                    <TableCellContentWrapper>
+                      Jamestown
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -10571,7 +11029,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-4"
@@ -10585,7 +11045,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -10600,13 +11062,15 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Jamestown"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/606"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Jamestown"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/606"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -10626,7 +11090,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Age of Exploration: Sailing with the Stars
+                    <TableCellContentWrapper>
+                      Age of Exploration: Sailing with the Stars
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -10640,7 +11106,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-6"
@@ -10654,7 +11122,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -10669,13 +11139,15 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Age of Exploration: Sailing with the Stars"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/503"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Age of Exploration: Sailing with the Stars"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/503"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -10695,7 +11167,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Age of Exploration: The Cape of Good Hope
+                    <TableCellContentWrapper>
+                      Age of Exploration: The Cape of Good Hope
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -10709,7 +11183,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-7"
@@ -10723,7 +11199,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -10738,13 +11216,15 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Age of Exploration: The Cape of Good Hope"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/504"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Age of Exploration: The Cape of Good Hope"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/504"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
                 <tr
@@ -10764,7 +11244,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Age of Exploration: Roanoke
+                    <TableCellContentWrapper>
+                      Age of Exploration: Roanoke
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section tool-icon-section"
@@ -10778,7 +11260,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         "width": "24px",
                       }
                     }
-                  />
+                  >
+                    <TableCellContentWrapper />
+                  </td>
                   <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-8"
@@ -10792,7 +11276,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    Feb 29, 5am
+                    <TableCellContentWrapper>
+                      Feb 29, 5am
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -10807,13 +11293,15 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <a
-                      aria-label="Start Age of Exploration: Roanoke"
-                      className="quill-button medium focus-on-light secondary outlined"
-                      href="/activity_sessions/classroom_units/1/activities/517"
-                    >
-                      Start
-                    </a>
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="Start Age of Exploration: Roanoke"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/classroom_units/1/activities/517"
+                      >
+                        Start
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                 </tr>
               </tbody>

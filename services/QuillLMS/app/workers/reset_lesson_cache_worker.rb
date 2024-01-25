@@ -12,7 +12,7 @@ class ResetLessonCacheWorker
     $redis.del("user_id:#{user_id}_lessons_array")
     user = User.find_by(id: user_id)
 
-    return ErrorNotifier.report(UserNotFoundError.new, user_id: user_id) if user.nil?
+    return if user.nil?
 
     user.set_lessons_cache
   end

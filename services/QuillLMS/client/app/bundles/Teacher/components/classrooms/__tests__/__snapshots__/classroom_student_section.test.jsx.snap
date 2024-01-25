@@ -4672,7 +4672,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
           Object {
             "attribute": "name",
             "name": "Name",
-            "width": "220px",
+            "width": "205px",
           },
           Object {
             "attribute": "usernameOrEmail",
@@ -4682,7 +4682,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
           Object {
             "attribute": "logInMethod",
             "name": "Log-in Method",
-            "width": "110px",
+            "width": "135px",
           },
           Object {
             "attribute": "lastActive",
@@ -4728,7 +4728,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             "checked": false,
             "id": 2851870,
             "lastActive": "Invalid date",
-            "logInMethod": "Username",
+            "logInMethod": "Username or email",
             "name": "Maya Angelou",
             "synced": "",
             "usernameOrEmail": "maya_angelou_demo@quill.org",
@@ -4792,9 +4792,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               scope="col"
               style={
                 Object {
-                  "minWidth": "220px",
+                  "minWidth": "205px",
                   "textAlign": "left",
-                  "width": "220px",
+                  "width": "205px",
                 }
               }
             >
@@ -4824,9 +4824,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               scope="col"
               style={
                 Object {
-                  "minWidth": "110px",
+                  "minWidth": "135px",
                   "textAlign": "left",
-                  "width": "110px",
+                  "width": "135px",
                 }
               }
             >
@@ -4899,13 +4899,15 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "220px",
+                  "minWidth": "205px",
                   "textAlign": "left",
-                  "width": "220px",
+                  "width": "205px",
                 }
               }
             >
-              Maya Angelou
+              <TableCellContentWrapper>
+                Maya Angelou
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section undefined"
@@ -4920,7 +4922,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              maya_angelou_demo@quill.org
+              <TableCellContentWrapper>
+                maya_angelou_demo@quill.org
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section undefined"
@@ -4929,13 +4933,15 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "110px",
+                  "minWidth": "135px",
                   "textAlign": "left",
-                  "width": "110px",
+                  "width": "135px",
                 }
               }
             >
-              Username
+              <TableCellContentWrapper>
+                Username or email
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section show-overflow"
@@ -4950,7 +4956,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              Invalid date
+              <TableCellContentWrapper>
+                Invalid date
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section left-align"
@@ -4964,12 +4972,15 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                   "width": "70px",
                 }
               }
-            />
+            >
+              <TableCellContentWrapper />
+            </td>
             <td
               className="data-table-row-section actions-section"
               key="2851870"
             >
               <button
+                aria-label="Actions"
                 className="quill-button actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
@@ -5002,13 +5013,15 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "220px",
+                  "minWidth": "205px",
                   "textAlign": "left",
-                  "width": "220px",
+                  "width": "205px",
                 }
               }
             >
-              William Shakespeare
+              <TableCellContentWrapper>
+                William Shakespeare
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section undefined"
@@ -5023,7 +5036,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                 }
               }
             >
-              william.shakespeare.285383@demo-teacher
+              <TableCellContentWrapper>
+                william.shakespeare.285383@demo-teacher
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section undefined"
@@ -5032,13 +5047,15 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "110px",
+                  "minWidth": "135px",
                   "textAlign": "left",
-                  "width": "110px",
+                  "width": "135px",
                 }
               }
             >
-              Username
+              <TableCellContentWrapper>
+                Username
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section show-overflow"
@@ -5052,7 +5069,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                   "width": "110px",
                 }
               }
-            />
+            >
+              <TableCellContentWrapper />
+            </td>
             <td
               className="data-table-row-section left-align"
               key="activities-2851866"
@@ -5065,12 +5084,15 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
                   "width": "70px",
                 }
               }
-            />
+            >
+              <TableCellContentWrapper />
+            </td>
             <td
               className="data-table-row-section actions-section"
               key="2851866"
             >
               <button
+                aria-label="Actions"
                 className="quill-button actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"

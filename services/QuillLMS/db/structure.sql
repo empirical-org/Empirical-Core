@@ -3608,7 +3608,8 @@ CREATE TABLE public.pdf_subscriptions (
     frequency character varying NOT NULL,
     admin_report_filter_selection_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    token character varying NOT NULL
 );
 
 
@@ -10626,6 +10627,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231206143410'),
 ('20231207135455'),
 ('20231207151344'),
-('20231214182438');
+('20231214182438'),
+('20240111143245');
 
 
