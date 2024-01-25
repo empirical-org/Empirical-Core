@@ -94,10 +94,15 @@ export default class SubscriptionHistory extends React.Component {
           if (sub.recurring && sub.stripe_subscription_id && sub.de_activated_date === null && !this.isExpired(sub)) {
             const href = `${process.env.DEFAULT_URL}/stripe_integration/subscription_renewals`
             const params = { cancel_at_period_end: true, stripe_subscription_id: sub.stripe_subscription_id }
+            const onSuccess = () => { window.location.reload(); alert('Auto-renewal has been turned off.') }
+            const onFailure = () => { alert('Something went wrong. Please contact engineering.') }
 
             tds.push(
               <td key={`${sub.id}-7-row`}>
-                <button className="quill-button secondary outlined small-button" onClick={() => requestPost(href, params)} >
+                <button
+                  className="quill-button secondary outlined small-button"
+                  onClick={() => requestPost(href, params, onSuccess, onFailure)}
+                >
                   Turn off auto-renewal
                 </button>
               </td>
