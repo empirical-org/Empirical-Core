@@ -13,7 +13,7 @@ export default class SubscriptionHistory extends React.Component {
     const subscriptionHistoryRows = this.subscriptionHistoryRows();
     if (subscriptionHistoryRows.length > 0) {
       return (
-        <table style={{ borderCollapse: 'separate', borderSpacing: '10px' }}>
+        <table>
           <tbody>
             <tr>
               {this.tableHeaders()}
