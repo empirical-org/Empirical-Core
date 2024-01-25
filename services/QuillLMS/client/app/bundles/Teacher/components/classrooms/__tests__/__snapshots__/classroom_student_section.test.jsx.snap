@@ -4672,7 +4672,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
           Object {
             "attribute": "name",
             "name": "Name",
-            "width": "220px",
+            "width": "205px",
           },
           Object {
             "attribute": "usernameOrEmail",
@@ -4682,7 +4682,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
           Object {
             "attribute": "logInMethod",
             "name": "Log-in Method",
-            "width": "110px",
+            "width": "135px",
           },
           Object {
             "attribute": "lastActive",
@@ -4728,7 +4728,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             "checked": false,
             "id": 2851870,
             "lastActive": "Invalid date",
-            "logInMethod": "Username",
+            "logInMethod": "Username or email",
             "name": "Maya Angelou",
             "synced": "",
             "usernameOrEmail": "maya_angelou_demo@quill.org",
@@ -4792,9 +4792,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               scope="col"
               style={
                 Object {
-                  "minWidth": "220px",
+                  "minWidth": "205px",
                   "textAlign": "left",
-                  "width": "220px",
+                  "width": "205px",
                 }
               }
             >
@@ -4824,9 +4824,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               scope="col"
               style={
                 Object {
-                  "minWidth": "110px",
+                  "minWidth": "135px",
                   "textAlign": "left",
-                  "width": "110px",
+                  "width": "135px",
                 }
               }
             >
@@ -4899,9 +4899,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "220px",
+                  "minWidth": "205px",
                   "textAlign": "left",
-                  "width": "220px",
+                  "width": "205px",
                 }
               }
             >
@@ -4933,14 +4933,14 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "110px",
+                  "minWidth": "135px",
                   "textAlign": "left",
-                  "width": "110px",
+                  "width": "135px",
                 }
               }
             >
               <TableCellContentWrapper>
-                Username
+                Username or email
               </TableCellContentWrapper>
             </td>
             <td
@@ -5013,9 +5013,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "220px",
+                  "minWidth": "205px",
                   "textAlign": "left",
-                  "width": "220px",
+                  "width": "205px",
                 }
               }
             >
@@ -5047,9 +5047,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "110px",
+                  "minWidth": "135px",
                   "textAlign": "left",
-                  "width": "110px",
+                  "width": "135px",
                 }
               }
             >
