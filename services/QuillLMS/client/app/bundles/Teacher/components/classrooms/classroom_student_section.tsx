@@ -490,9 +490,9 @@ const ClassroomStudentSection = ({
   }
 
   const logInMethod = ({ email, provider }) => {
-    if (provider === 'Google') { return 'Google or email' }
-    if (provider === 'Clever') { return 'Clever' }
-    if (provider === 'Canvas') { return 'Canvas' }
+    if (provider === googleProvider) { return 'Google or email' }
+    if (provider === cleverProvider) { return 'Clever' }
+    if (provider === canvasProvider) { return 'Canvas' }
     if (email) { return 'Username or email' }
 
     return 'Username'
