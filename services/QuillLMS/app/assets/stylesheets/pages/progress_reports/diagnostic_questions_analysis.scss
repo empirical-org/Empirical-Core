@@ -6,6 +6,7 @@
     max-width: 1014px; // 950px + 32px + 32px to account for padding
     padding-top: 32px;
     .skill-group-section-header {
+      margin-bottom: 8px;
       h2 {
         display: flex;
         justify-content: space-between;
@@ -22,7 +23,6 @@
       .subheader {
         font-size: 12px;
         line-height: 20px;
-        margin-bottom: 8px;
         color: $quill-grey-50;
         font-weight: 400;
       }
