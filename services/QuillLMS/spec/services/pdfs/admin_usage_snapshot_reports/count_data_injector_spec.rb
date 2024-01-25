@@ -33,58 +33,52 @@ module Pdfs
           .and_return(valid_query_key)
       end
 
-      context 'with valid query key' do
-        let(:valid_query_key) { true }
-        let(:current_count) { 10 }
-        let(:previous_count) { 5 }
-        let(:change) { 50 }
-        let(:change_calculator) { Pdfs::AdminUsageSnapshotReports::CountDataInjector::CountDataChangeCalculator }
-        let(:count) { current_count }
-
-        before { allow(change_calculator).to receive(:run).and_return(change) }
-
-        it { expect(subject).to eq(item.merge(count:, change:)) }
-      end
-
       context 'with invalid query key' do
         let(:valid_query_key) { false }
         let(:current_count) { 10 }
         let(:previous_count) { 10 }
 
-        it { is_expected.to eq(item) }
-      end
-    end
-
-    RSpec.describe CountDataInjector::CountDataChangeCalculator do
-      subject { described_class.run(current_count:, previous_count:) }
-
-      context 'when current_count is nil' do
-        let(:current_count) { nil }
-        let(:previous_count) { 100 }
-
-        it { is_expected.to be_nil }
+        it { is_expected.to eq item }
       end
 
-      context 'when previous_count is 0' do
-        let(:current_count) { 10 }
-        let(:previous_count) { 0 }
+      context 'with valid query key' do
+        let(:valid_query_key) { true }
+        let(:count) { current_count }
+        let(:injected_item) { item.merge(count:, change:) }
 
-        it { is_expected.to eq 1000 }
+        context 'when current_count is nil' do
+          let(:current_count) { nil }
+          let(:previous_count) { 100 }
+          let(:change) { nil }
+
+          it { is_expected.to eq injected_item }
+        end
+
+        context 'when previous_count is 0' do
+          let(:current_count) { 10 }
+          let(:previous_count) { 0 }
+          let(:change) { 1000 }
+
+          it { is_expected.to eq injected_item }
+        end
+
+        context 'when previous_count is nil' do
+          let(:current_count) { 5 }
+          let(:previous_count) { nil }
+          let(:change) { 500 }
+
+          it { is_expected.to eq injected_item }
+        end
+
+        context 'both counts are non-zero' do
+          let(:current_count) { 120 }
+          let(:previous_count) { 100 }
+          let(:change) { 20 }
+
+          it { is_expected.to eq injected_item }
+        end
       end
 
-      context 'when previous_count is nil' do
-        let(:current_count) { 5 }
-        let(:previous_count) { nil }
-
-        it { is_expected.to eq 500 }
-      end
-
-      context 'normal case' do
-        let(:current_count) { 120 }
-        let(:previous_count) { 100 }
-
-        it { is_expected.to eq 20 }
-      end
     end
   end
 end
