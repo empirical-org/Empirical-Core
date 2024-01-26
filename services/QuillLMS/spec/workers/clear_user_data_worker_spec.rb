@@ -37,7 +37,11 @@ describe ClearUserDataWorker, type: :worker do
     end
   end
 
-  it { expect { subject }.to change_after_waiting { activity_sessions.first.reload.updated_at } }
+  context 'updated_at check' do
+    before { allow(DateTime).to receive(:current).and_return(1.day.from_now) }
+
+    it { expect { subject }.to change { activity_sessions.first.reload.updated_at } }
+  end
 
   context 'subscriptions' do
     let!(:subscription) { create(:subscription, :recurring, :stripe) }

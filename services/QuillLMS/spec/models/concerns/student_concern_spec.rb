@@ -83,8 +83,12 @@ describe 'Student Concern', type: :model do
   end
 
   describe "#hide_extra_activity_sessions" do
-    it "updates the updated_at value for models that are hidden" do
-      expect { student1.hide_extra_activity_sessions(classroom_unit2.id) }.to change_after_waiting { lower_percentage.reload.updated_at }
+    context 'updated_at check' do
+      before { allow(DateTime).to receive(:current).and_return(1.day.from_now) }
+
+      it "updates the updated_at value for models that are hidden" do
+        expect { student1.hide_extra_activity_sessions(classroom_unit2.id) }.to change { lower_percentage.reload.updated_at }
+      end
     end
 
     context "there is an activity session with a final score" do
@@ -150,8 +154,12 @@ describe 'Student Concern', type: :model do
       expect { student1.move_activity_sessions(classroom, classroom2) }.to change(UnitActivity, :count).by(6)
     end
 
-    it 'should update the ActivitySession updated_at value' do
-      expect { student1.move_activity_sessions(classroom, classroom2) }.to change_after_waiting { started.reload.updated_at }
+    context 'update_all call' do
+      before { allow(DateTime).to receive(:current).and_return(1.day.from_now) }
+
+      it 'should update the ActivitySession updated_at value' do
+        expect { student1.move_activity_sessions(classroom, classroom2) }.to change { started.reload.updated_at }
+      end
     end
   end
 

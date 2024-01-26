@@ -232,9 +232,7 @@ describe Classroom, type: :model do
     it { expect { subject }.to change { unit.reload.visible }.from(true).to(false) }
 
     context 'updated_at checks' do
-      let(:fixed_time) { Time.zone.local(2124, 1, 26, 12, 0, 0) }
-
-      before { allow(DateTime).to receive(:current).and_return(fixed_time) }
+      before { allow(DateTime).to receive(:current).and_return(1.day.from_now) }
 
       it { expect { subject }.to change { classroom_unit.reload.updated_at } }
       it { expect { subject }.to change  { activity_session.reload.updated_at } }

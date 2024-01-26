@@ -26,13 +26,10 @@ RSpec.describe ProviderClassroomUsersUpdater do
     let(:deleted_classroom_user) { create(:google_classroom_user, :deleted, classroom_external_id: classroom_external_id) }
     let(:active_classroom_user) { create(:google_classroom_user, :active, classroom_external_id: classroom_external_id) }
 
-    it do
-      date = Date.parse('2000-01-01')
-      travel_to(date) { subject }
-      expect { subject }
-        .to change_after_waiting { deleted_classroom_user.reload.updated_at }
-        .and change_after_waiting { active_classroom_user.reload.updated_at }
-    end
+    before { allow(DateTime).to receive(:current).and_return(1.day.from_now) }
+
+    it { expect { subject }.to change { deleted_classroom_user.reload.updated_at } }
+    it { expect { subject }.to change { active_classroom_user.reload.updated_at } }
   end
 
   context 'canvas' do
