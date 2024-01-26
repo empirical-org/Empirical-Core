@@ -33,6 +33,7 @@ gem 'rack-attack', '~> 6.3'
 # EMAIL
 gem 'premailer-rails'
 gem 'nokogiri', '>= 1.13.2'
+gem 'grpc', '~> 1.59.0'
 
 # VALIDATIONS
 gem 'validates_email_format_of'
@@ -105,7 +106,6 @@ gem 'turbolinks'
 gem 'jquery-turbolinks'
 gem 'jbuilder'
 gem 'active_link_to'
-gem 'libv8-node'
 
 # METRICS
 gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
