@@ -15,6 +15,6 @@ RSpec::Matchers.define :change_after_waiting do
   end
 
   failure_message do |_actual_block|
-    "expected that the block would change the value, but it remained #{initial_value.inspect}"
+    "expected that the block would change the value, but it remained #{@new_value.inspect}"
   end
 end

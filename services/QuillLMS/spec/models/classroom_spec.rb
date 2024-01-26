@@ -225,13 +225,21 @@ describe Classroom, type: :model do
     let(:unit) { create(:unit, user: owner) }
     let(:classroom_unit) { create(:classroom_unit, unit_id: unit.id, classroom_id: classroom.id ) }
     let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit) }
+    let(:initial_time) { DateTime.current }
 
     it { expect { subject }.to change { classroom_unit.reload.visible }.from(true).to(false) }
-    it { expect { subject }.to change_after_waiting { classroom_unit.reload.updated_at } }
     it { expect { subject }.to change { activity_session.reload.visible }.from(true).to(false) }
-    it { expect { subject }.to change_after_waiting { activity_session.reload.updated_at } }
     it { expect { subject }.to change { unit.reload.visible }.from(true).to(false) }
-    it { expect { subject }.to change_after_waiting { unit.reload.updated_at } }
+
+    context 'updated_at checks' do
+      let(:fixed_time) { Time.zone.local(2124, 1, 26, 12, 0, 0) }
+
+      before { allow(DateTime).to receive(:current).and_return(fixed_time) }
+
+      it { expect { subject }.to change { classroom_unit.reload.updated_at } }
+      it { expect { subject }.to change  { activity_session.reload.updated_at } }
+      it { expect { subject }.to change { unit.reload.updated_at } }
+    end
   end
 
   describe '#with_student_ids' do
