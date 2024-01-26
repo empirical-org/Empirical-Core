@@ -98,6 +98,24 @@ module AdminDiagnosticReports
         it { expect(average_time_spent_seconds_results).to eq(time_spent_results.sum / students.length) }
         it { expect(average_practice_activities_count_results).to eq(activity_sessions.length / students.length) }
       end
+
+      context 'one student in multiple classrooms' do
+        let(:timespent) { 10 }
+        let(:num_classrooms) { 2 }
+        let(:classrooms) { create_list(:classroom, num_classrooms, grade: 9) }
+        let(:student) { create(:student, classrooms: classrooms) }
+        let(:students) { [student] }
+        let(:activity_sessions) do
+          classroom_units.map do |classroom_unit|
+            create(:activity_session, :finished, classroom_unit: classroom_unit, activity: recommended_activity, timespent: timespent, user: student)
+          end
+        end
+        let(:students_classrooms_count) { students.map(&:classrooms).flatten.length }
+
+        it { expect(students_completed_practice_results).to eq(students_classrooms_count) }
+        it { expect(average_time_spent_seconds_results).to eq(timespent) }
+        it { expect(average_practice_activities_count_results).to eq(activity_sessions.length / students_classrooms_count) }
+      end
     end
   end
 end
