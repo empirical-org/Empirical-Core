@@ -105,13 +105,14 @@ gem 'turbolinks'
 gem 'jquery-turbolinks'
 gem 'jbuilder'
 gem 'active_link_to'
+gem 'libv8-node'
 
 # METRICS
 gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 
 # API
 gem 'active_model_serializers', '~> 0.10.13'
-gem 'graphql', '~> 2.0.0'
+gem 'graphql', '~> 1.13.20'
 
 # UI HELPERS
 gem 'sass'
