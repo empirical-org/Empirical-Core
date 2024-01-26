@@ -154,7 +154,7 @@ describe 'Student Concern', type: :model do
       expect { student1.move_activity_sessions(classroom, classroom2) }.to change(UnitActivity, :count).by(6)
     end
 
-    context 'update_all call' do
+    context 'updated_at check' do
       before { allow(DateTime).to receive(:current).and_return(1.day.from_now) }
 
       it 'should update the ActivitySession updated_at value' do

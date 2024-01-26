@@ -225,7 +225,6 @@ describe Classroom, type: :model do
     let(:unit) { create(:unit, user: owner) }
     let(:classroom_unit) { create(:classroom_unit, unit_id: unit.id, classroom_id: classroom.id ) }
     let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit) }
-    let(:initial_time) { DateTime.current }
 
     it { expect { subject }.to change { classroom_unit.reload.visible }.from(true).to(false) }
     it { expect { subject }.to change { activity_session.reload.visible }.from(true).to(false) }
