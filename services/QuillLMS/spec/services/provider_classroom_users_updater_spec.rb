@@ -28,8 +28,8 @@ RSpec.describe ProviderClassroomUsersUpdater do
 
     it do
       expect { subject }
-        .to wait_and_change { deleted_classroom_user.reload.updated_at }
-        .and wait_and_change { active_classroom_user.reload.updated_at }
+        .to change_after_waiting { deleted_classroom_user.reload.updated_at }
+        .and change_after_waiting { active_classroom_user.reload.updated_at }
     end
   end
 

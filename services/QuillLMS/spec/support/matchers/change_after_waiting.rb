@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec::Matchers.define :wait_and_change do
+RSpec::Matchers.define :change_after_waiting do
   supports_block_expectations
 
   chain :by_waiting, :wait_time

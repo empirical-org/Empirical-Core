@@ -227,11 +227,11 @@ describe Classroom, type: :model do
     let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit) }
 
     it { expect { subject }.to change { classroom_unit.reload.visible }.from(true).to(false) }
-    it { expect { subject }.to wait_and_change { classroom_unit.reload.updated_at } }
+    it { expect { subject }.to change_after_waiting { classroom_unit.reload.updated_at } }
     it { expect { subject }.to change { activity_session.reload.visible }.from(true).to(false) }
-    it { expect { subject }.to wait_and_change { activity_session.reload.updated_at } }
+    it { expect { subject }.to change_after_waiting { activity_session.reload.updated_at } }
     it { expect { subject }.to change { unit.reload.visible }.from(true).to(false) }
-    it { expect { subject }.to wait_and_change { unit.reload.updated_at } }
+    it { expect { subject }.to change_after_waiting { unit.reload.updated_at } }
   end
 
   describe '#with_student_ids' do

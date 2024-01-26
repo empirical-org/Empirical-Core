@@ -29,7 +29,7 @@ Lint/AmbiguousBlockAssociation:
   Enabled: true
   AllowedMethods:
     - change
-    - wait_and_change
+    - change_after_waiting
     - not_change
 
 Lint/AssignmentInCondition:
