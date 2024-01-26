@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'hotwater', '0.1.2'
   s.add_dependency 'pragmatic_segmenter', '~> 0.3.23'
   s.add_dependency 'rails', '7.0.6'
-  s.add_dependency 'sprockets-rails', '3.2.2'
+  s.add_dependency 'sprockets-rails', '2.3.3'
 
   # Gems needed for the test environment
   s.add_development_dependency 'factory_bot_rails'

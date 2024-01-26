@@ -33,6 +33,7 @@ gem 'rack-attack', '~> 6.3'
 # EMAIL
 gem 'premailer-rails'
 gem 'nokogiri', '>= 1.13.2'
+gem 'grpc', '~> 1.59.0'
 
 # VALIDATIONS
 gem 'validates_email_format_of'
@@ -111,7 +112,7 @@ gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 
 # API
 gem 'active_model_serializers', '~> 0.10.13'
-gem 'graphql'
+gem 'graphql', '~> 1.13.20'
 
 # UI HELPERS
 gem 'sass'
@@ -132,7 +133,7 @@ gem 'vite_rails', '~> 3.0.14'
 # ASSET/UI
 gem 'uglifier', require: false
 gem 'kaminari', '~> 1.2.1'
-gem 'sprockets-rails', '~> 3.2.2'
+gem 'sprockets-rails', '~> 2.3.3'
 
 # MIDDLEWARE
 gem 'rack-cache', '~> 1.6.1', require: 'rack/cache'
@@ -162,8 +163,6 @@ gem 'awesome_print'
 gem 'capitalize-names', require: 'capitalize_names'
 
 gem 'rexml'
-
-gem 'psych', '< 4'
 
 group :production, :staging do
   gem 'rails-autoscale-web'
