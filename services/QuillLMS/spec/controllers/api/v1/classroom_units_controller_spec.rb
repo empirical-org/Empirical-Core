@@ -133,7 +133,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
       expect(response.status).not_to eq(303)
     end
 
-    it 'authenticates a teacher who does own the classroom activity' do
+    it 'authenticates a teacher who does own the classroom activity and updates update_at' do
       session[:user_id] = teacher.id
 
       expect do
