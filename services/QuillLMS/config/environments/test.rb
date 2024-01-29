@@ -14,6 +14,14 @@ EmpiricalGrammar::Application.configure do
 
   config.logger = ActiveSupport::Logger.new(STDOUT)
   config.logger.level = Logger::WARN
+  if ActiveRecord::Base.logger
+    ActiveRecord::Base.logger.level = Logger::WARN
+  else
+    ActiveRecord::Base.logger = Logger.new(STDOUT)
+    ActiveRecord::Base.logger.level = Logger::WARN
+  end
+
+
 
   # Do not eager load code on boot. This avoids loading your whole application
   # just for the purpose of running a single test. If you are using a tool that
