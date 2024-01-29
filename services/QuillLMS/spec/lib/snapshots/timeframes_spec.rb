@@ -30,14 +30,14 @@ module Snapshots
 
       it do
         expect(described_class.calculate_timeframes('last-30-days')).to eq([
-          end_of_yesterday - 30.days,
+          end_of_yesterday.beginning_of_day - 30.days,
           end_of_yesterday
         ])
       end
 
       it do
         expect(described_class.calculate_timeframes('last-30-days', previous_timeframe: true)).to eq([
-          end_of_yesterday - 60.days,
+          end_of_yesterday.beginning_of_day - 60.days,
           end_of_yesterday - 30.days
         ])
       end
