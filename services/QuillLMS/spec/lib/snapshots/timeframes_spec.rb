@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rails_helper'
+
 module Snapshots
   describe Timeframes do
     context '#frontend_options' do
@@ -70,5 +72,13 @@ module Snapshots
         end
       end
     end
+
+    it_behaves_like 'snapshots timeframe times of day', 'last-30-days'
+    it_behaves_like 'snapshots timeframe times of day', 'last-90-days'
+    it_behaves_like 'snapshots timeframe times of day', 'this-month'
+    it_behaves_like 'snapshots timeframe times of day', 'last-month'
+    it_behaves_like 'snapshots timeframe times of day', 'this-school-year'
+    it_behaves_like 'snapshots timeframe times of day', 'last-school-year'
+    it_behaves_like 'snapshots timeframe times of day', 'all-time'
   end
 end
