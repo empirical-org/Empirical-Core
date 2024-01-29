@@ -148,3 +148,4 @@ class ClassroomUnit < ApplicationRecord
     classroom&.update_columns(updated_at: current_time_from_proper_timezone) unless classroom&.destroyed?
   end
 end
+
