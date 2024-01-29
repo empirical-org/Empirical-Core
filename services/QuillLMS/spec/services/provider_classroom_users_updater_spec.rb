@@ -34,6 +34,7 @@ RSpec.describe ProviderClassroomUsersUpdater do
         puts "before: deleted_classroom_user.updated_at: #{deleted_classroom_user.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
         Rails.logger.info "before: deleted_classroom_user.updated_at: #{deleted_classroom_user.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
         subject
+        sleep 2
         puts "after: deleted_classroom_user.updated_at: #{deleted_classroom_user.reload.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
         Rails.logger.info "after: deleted_classroom_user.updated_at: #{deleted_classroom_user.reload.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
       }.to change { deleted_classroom_user.reload.updated_at }
@@ -44,6 +45,7 @@ RSpec.describe ProviderClassroomUsersUpdater do
         puts "before: active_classroom_user.updated_at: #{active_classroom_user.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
         Rails.logger.info "before: active_classroom_user.updated_at: #{active_classroom_user.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
         subject
+        sleep 2
         puts "after: active_classroom_user.updated_at: #{active_classroom_user.reload.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
         Rails.logger.info "after: active_classroom_user.updated_at: #{active_classroom_user.reload.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
       }.to change { active_classroom_user.reload.updated_at }
