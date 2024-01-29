@@ -27,7 +27,7 @@ RSpec.describe ProviderClassroomUsersUpdater do
     let!(:deleted_classroom_user) { create(:google_classroom_user, :deleted, classroom_external_id:) }
     let!(:active_classroom_user) { create(:google_classroom_user, :active, classroom_external_id:) }
 
-    before { allow(DateTime).to receive(:current).and_return(1.day.from_now) }
+    before { allow(DateTime).to receive(:current).and_return(1.month.from_now) }
 
     it {
       expect {
