@@ -23,7 +23,7 @@ const Overview = ({ adminId, accessType, passedModel, adminInfo, }) => {
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   React.useEffect(() => {
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, cluster: "mt1" });
     const channel = pusher.subscribe(String(adminId));
     setPusherChannel(channel)
   }, [])
