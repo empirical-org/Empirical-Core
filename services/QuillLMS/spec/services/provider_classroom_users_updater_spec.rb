@@ -33,7 +33,7 @@ RSpec.describe ProviderClassroomUsersUpdater do
       expect {
         puts "before: deleted_classroom_user.updated_at: #{deleted_classroom_user.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
         subject
-        sleep 0.1
+        sleep 3
         puts "after: deleted_classroom_user.updated_at: #{deleted_classroom_user.reload.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
       }.to change { deleted_classroom_user.reload.updated_at }
     }
@@ -42,7 +42,7 @@ RSpec.describe ProviderClassroomUsersUpdater do
       expect {
         puts "before: active_classroom_user.updated_at: #{active_classroom_user.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
         subject
-        sleep 0.1
+        sleep 3
         puts "after: active_classroom_user.updated_at: #{active_classroom_user.reload.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
       }.to change { active_classroom_user.reload.updated_at }
     }
