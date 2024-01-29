@@ -103,7 +103,7 @@ class Queries < Thor
     private def make_directory(path)
       directory = Rails.root + path
 
-      Dir.mkdir(directory) unless Dir.exists?(directory)
+      Dir.mkdir(directory) unless Dir.exist?(directory)
 
       directory
     end

@@ -16,6 +16,7 @@ describe QuestionCounter do
     before do
       stub_const("QuestionCounter::DEFAULT", default_size)
     end
+
     let(:activity) { nil }
 
     it { expect(subject).to eq default_size }
@@ -58,7 +59,7 @@ describe QuestionCounter do
     context 'blank question list, use concept list sum of quantity keys' do
       let(:activity) { build(:grammar_activity, data: {questions: [], concepts: concept_list}) }
 
-      it { expect(subject).to eq (concept_quantity1 + concept_quantity2) }
+      it { expect(subject).to eq(concept_quantity1 + concept_quantity2) }
     end
   end
 

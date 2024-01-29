@@ -10,6 +10,47 @@ module AdminDiagnosticReports
       subject { results }
 
       let(:classrooms) { Array.new(num_classrooms) { |i| create(:classroom, grade: i + 1) } }
+      let(:concept_results) do
+        [
+          pre_activity_sessions.map { |activity_session| concept_results_for_activity_session(activity_session, pre_questions, pre_correct_count) },
+          post_activity_sessions.map { |activity_session| concept_results_for_activity_session(activity_session, post_questions, post_correct_count) }
+        ]
+      end
+      let(:diagnostic_id) { pre_diagnostic.id }
+      let(:query_args) do
+        {
+          timeframe_start: timeframe_start,
+          timeframe_end: timeframe_end,
+          school_ids: school_ids,
+          grades: grades,
+          teacher_ids: teacher_ids,
+          classroom_ids: classroom_ids,
+          aggregation: aggregation_arg,
+          diagnostic_id: diagnostic_id
+        }
+      end
+      # Some of our tests include activity_sessions having NULL in its timestamps so we need a version that has timestamps with datetime data in them so that WITH in the CTE understands the data type expected
+      let(:reference_activity_session) { create(:activity_session, :finished) }
+      let(:cte_records) do
+        [
+          classrooms,
+          teachers,
+          students,
+          classrooms_teachers,
+          schools,
+          schools_users,
+          classroom_units,
+          pre_activity_sessions,
+          post_activity_sessions,
+          concept_results,
+          pre_diagnostic,
+          post_diagnostic,
+          reference_activity_session,
+          questions,
+          diagnostic_question_skills,
+          skill_group
+        ]
+      end
       let(:classroom_units) { classrooms.map { |classroom| create(:classroom_unit, classroom: classroom) } }
       let(:post_classroom_units) { classrooms.map { |classroom| create(:classroom_unit, classroom: classroom) } }
       let(:pre_activity_sessions) { classroom_units.map { |classroom_unit| create(:activity_session, :finished, classroom_unit: classroom_unit, activity: pre_diagnostic) } }
@@ -33,51 +74,10 @@ module AdminDiagnosticReports
         ].flatten
       end
 
-      let(:concept_results) do
-        [
-          pre_activity_sessions.map { |activity_session| concept_results_for_activity_session(activity_session, pre_questions, pre_correct_count) },
-          post_activity_sessions.map { |activity_session| concept_results_for_activity_session(activity_session, post_questions, post_correct_count) }
-        ]
-      end
 
-      let(:diagnostic_id) { pre_diagnostic.id }
 
-      let(:query_args) do
-        {
-          timeframe_start: timeframe_start,
-          timeframe_end: timeframe_end,
-          school_ids: school_ids,
-          grades: grades,
-          teacher_ids: teacher_ids,
-          classroom_ids: classroom_ids,
-          aggregation: aggregation_arg,
-          diagnostic_id: diagnostic_id
-        }
-      end
 
-      # Some of our tests include activity_sessions having NULL in its timestamps so we need a version that has timestamps with datetime data in them so that WITH in the CTE understands the data type expected
-      let(:reference_activity_session) { create(:activity_session, :finished) }
 
-      let(:cte_records) do
-        [
-          classrooms,
-          teachers,
-          students,
-          classrooms_teachers,
-          schools,
-          schools_users,
-          classroom_units,
-          pre_activity_sessions,
-          post_activity_sessions,
-          concept_results,
-          pre_diagnostic,
-          post_diagnostic,
-          reference_activity_session,
-          questions,
-          diagnostic_question_skills,
-          skill_group
-        ]
-      end
 
       context 'invalid diagnostic id' do
         let(:diagnostic_id) { 1 }
