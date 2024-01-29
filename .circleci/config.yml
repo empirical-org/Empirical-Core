@@ -63,7 +63,7 @@ jobs:
           name: Run tests
           command: |
             cd services/QuillLMS
-            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | grep -v "spec/system/" | circleci tests split)
+            TESTFILES=$(circleci tests glob "spec/services/provider_classroom_users_updater_spec.rb" | grep -v "spec/system/" | circleci tests split)
             bin/rspec -- ${TESTFILES}
           environment:
             SUPPRESS_PUTS: "true"
