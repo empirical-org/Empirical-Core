@@ -40,7 +40,7 @@ describe ClearUserDataWorker, type: :worker do
   context 'updated_at check' do
     let(:activity_session) { activity_sessions.unscoped.first }
 
-    before { allow(DateTime).to receive(:current).and_return(1.month.from_now) }
+    before { allow(DateTime).to receive(:current).and_return(1.day.from_now) }
 
     it { expect { subject }.to change { activity_session.reload.updated_at } }
   end
