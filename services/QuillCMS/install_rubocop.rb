@@ -18,5 +18,3 @@ gem_names.each do |gem_name|
     puts "Failed to install #{gem_name}#{gem_version ? " (v#{gem_version})" : ''}"
   end
 end
-
-system('bundle exec rubocop')
