@@ -74,11 +74,6 @@ module AdminDiagnosticReports
         ].flatten
       end
 
-
-
-
-
-
       context 'invalid diagnostic id' do
         let(:diagnostic_id) { 1 }
 
