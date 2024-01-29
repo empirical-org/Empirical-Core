@@ -33,7 +33,6 @@ gem 'rack-attack', '~> 6.3'
 # EMAIL
 gem 'premailer-rails'
 gem 'nokogiri', '>= 1.13.2'
-gem 'grpc', '~> 1.59.0'
 
 # VALIDATIONS
 gem 'validates_email_format_of'
@@ -197,7 +196,6 @@ group :test, :development do
   gem 'rspec-redis_helper'
   gem 'brakeman', '= 4.1.1'
   gem 'memory_profiler'
-  gem 'mini_racer', '= 0.8.0'
   gem 'rubocop'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
