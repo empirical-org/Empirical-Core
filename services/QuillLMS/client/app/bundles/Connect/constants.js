@@ -217,6 +217,7 @@ export default {
     'Too Long Hint',
     'Parts of Speech',
     'Spelling Hint',
+    'Quotation Mark Hint',
   ],
 
   // cONCEPTS FEEDBACK ACTIONS
@@ -329,7 +330,7 @@ export default {
     "Fill in the blank with the correct action word.",
     "Fill in the blank with the correct set of words."
   ],
-  
+
   // flags
   PRODUCTION: 'production'
 
