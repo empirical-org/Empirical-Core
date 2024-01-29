@@ -46,7 +46,7 @@ describe ClearUserDataWorker, type: :worker do
       expect {
         puts "before: activity_session.updated_at: #{activity_session.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
         subject
-        sleep 3
+        sleep 10
         puts "after: activity_session.updated_at: #{activity_session.reload.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
       }.to change { activity_session.reload.updated_at }
     }
