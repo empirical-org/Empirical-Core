@@ -38,18 +38,11 @@ describe ClearUserDataWorker, type: :worker do
   end
 
   context 'updated_at check' do
-    let(:activity_session) { activity_sessions.first }
+    let(:activity_session) { activity_sessions.unscoped.first }
 
     before { allow(DateTime).to receive(:current).and_return(1.month.from_now) }
 
-    it {
-      expect {
-        puts "before: activity_session.updated_at: #{activity_session.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
-        subject
-        sleep 10
-        puts "after: activity_session.updated_at: #{activity_session.reload.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
-      }.to change { activity_session.reload.updated_at }
-    }
+    it { expect { subject }.to change { activity_session.reload.updated_at } }
   end
 
   context 'subscriptions' do
