@@ -47,7 +47,7 @@ describe ClearUserDataWorker, type: :worker do
         puts "before: activity_session.updated_at: #{activity_session.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
         Rails.logger.warn "before: activity_session.updated_at: #{activity_session.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
         subject
-        sleep 2
+        # sleep 2
         puts "after: activity_session.updated_at: #{activity_session.reload.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
         Rails.logger.warn "after: activity_session.updated_at: #{activity_session.reload.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
       }.to change { activity_session.reload.updated_at }
