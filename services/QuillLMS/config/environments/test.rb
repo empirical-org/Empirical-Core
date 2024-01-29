@@ -13,8 +13,7 @@ EmpiricalGrammar::Application.configure do
   config.cache_classes = false
 
   config.logger = ActiveSupport::Logger.new(STDOUT)
-  config.logger.level = Logger::DEBUG
-
+  config.logger.level = Logger::WARN
 
   # Do not eager load code on boot. This avoids loading your whole application
   # just for the purpose of running a single test. If you are using a tool that

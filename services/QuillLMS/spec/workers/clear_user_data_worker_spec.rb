@@ -42,6 +42,17 @@ describe ClearUserDataWorker, type: :worker do
 
     before { allow(DateTime).to receive(:current).and_return(1.day.from_now) }
 
+    it {
+      expect {
+        puts "before: activity_session.updated_at: #{activity_session.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
+        Rails.logger.warn "before: activity_session.updated_at: #{activity_session.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
+        subject
+        sleep 2
+        puts "after: activity_session.updated_at: #{activity_session.reload.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
+        Rails.logger.warn "after: activity_session.updated_at: #{activity_session.reload.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
+      }.to change { deleted_classroom_user.reload.updated_at }
+    }
+
     it { expect { subject }.to change { activity_session.reload.updated_at } }
   end
 
