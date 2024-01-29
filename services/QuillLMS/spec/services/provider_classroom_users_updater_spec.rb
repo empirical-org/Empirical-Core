@@ -29,21 +29,8 @@ RSpec.describe ProviderClassroomUsersUpdater do
 
     before { allow(DateTime).to receive(:current).and_return(1.month.from_now) }
 
-    it {
-      expect {
-        puts "before: deleted_classroom_user.updated_at: #{deleted_classroom_user.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
-        subject
-        puts "after: deleted_classroom_user.updated_at: #{deleted_classroom_user.reload.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
-      }.to change { deleted_classroom_user.reload.updated_at }
-    }
-
-    it {
-      expect {
-        puts "before: active_classroom_user.updated_at: #{active_classroom_user.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
-        subject
-        puts "after: active_classroom_user.updated_at: #{active_classroom_user.reload.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
-      }.to change { active_classroom_user.reload.updated_at }
-    }
+    it { expect { subject }.to change { deleted_classroom_user.reload.updated_at } }
+    it { expect { subject }.to change { active_classroom_user.reload.updated_at } }
   end
 
   context 'canvas' do
