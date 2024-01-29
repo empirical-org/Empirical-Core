@@ -50,6 +50,7 @@ describe ClearUserDataWorker, type: :worker do
         sleep 2
         puts "after: activity_session.updated_at: #{activity_session.reload.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
         Rails.logger.warn "after: activity_session.updated_at: #{activity_session.reload.updated_at.strftime('%Y-%m-%d %H:%M:%S.%6N')}"
+        $stdout.flush
       }.to change { activity_session.reload.updated_at }
     }
 
