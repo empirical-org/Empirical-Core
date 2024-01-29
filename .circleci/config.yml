@@ -65,8 +65,8 @@ jobs:
             cd services/QuillLMS
             TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | grep -v "spec/system/" | circleci tests split)
             bin/rspec -- ${TESTFILES}
-          environment:
-            SUPPRESS_PUTS: "true"
+          # environment:
+          #   SUPPRESS_PUTS: "true"
   lms_integration_build:
     working_directory: ~/Empirical-Core
     parallelism: 1
