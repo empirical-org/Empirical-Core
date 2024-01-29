@@ -258,7 +258,7 @@ function initializeSubscription(qid) {
       Pusher.logToConsole = true;
     }
     if (!window.pusher) {
-      window.pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+      window.pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, cluster: process.env.PUSHER_CLUSTER });
     }
     const channel = window.pusher.subscribe(`admin-${qid}`);
     channel.bind('new-response', (data) => {
