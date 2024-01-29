@@ -43,12 +43,14 @@ module Adapters
       def self.format_score(score)
         return 'Completed' unless score.is_a?(Numeric)
         return 'Completed' if score == -1
+
         "#{(score*100).round(0)}%"
       end
 
       def self.format_timespent(timespent)
         return '' unless timespent.is_a?(Numeric)
         return '< 1' if timespent < 60
+
         (timespent / 60)
       end
 
