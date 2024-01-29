@@ -23,8 +23,9 @@ RSpec.describe ProviderClassroomUsersUpdater do
     subject { described_class.run(classroom_external_id, [deleted_classroom_user.user_external_id], GoogleClassroomUser) }
 
     let(:classroom_external_id) { Faker::Number.number}
-    let(:deleted_classroom_user) { create(:google_classroom_user, :deleted, classroom_external_id: classroom_external_id) }
-    let(:active_classroom_user) { create(:google_classroom_user, :active, classroom_external_id: classroom_external_id) }
+
+    let!(:deleted_classroom_user) { create(:google_classroom_user, :deleted, classroom_external_id:) }
+    let!(:active_classroom_user) { create(:google_classroom_user, :active, classroom_external_id:) }
 
     before { allow(DateTime).to receive(:current).and_return(1.day.from_now) }
 
