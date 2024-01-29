@@ -71,6 +71,18 @@ module Snapshots
           ])
         end
       end
+
+      # all time has nil previous timeframe, so testing times of day manually
+      context "'all-time' time of day" do
+        subject { described_class.calculate_timeframes('all-time')}
+
+        context "current start" do
+          it { expect(subject.first).to be_start_of_day }
+        end
+        context "current end" do
+          it { expect(subject.last).to be_end_of_day }
+        end
+      end
     end
 
     it_behaves_like 'snapshots timeframe times of day', 'last-30-days'
@@ -79,6 +91,6 @@ module Snapshots
     it_behaves_like 'snapshots timeframe times of day', 'last-month'
     it_behaves_like 'snapshots timeframe times of day', 'this-school-year'
     it_behaves_like 'snapshots timeframe times of day', 'last-school-year'
-    it_behaves_like 'snapshots timeframe times of day', 'all-time'
+    it_behaves_like 'snapshots timeframe times of day', 'custom', DateTime.yesterday.to_s, (DateTime.yesterday - 2.days).to_s
   end
 end
