@@ -19,7 +19,7 @@ RSpec.describe ProviderClassroomUsersUpdater do
     { user1: { before: DELETED, now: DELETED }, user2: { before: DELETED, now: DELETED } }
   ]
 
-  context 'setting update_at during update_all calls' do
+  context 'setting deleted_at during update_all calls' do
     subject { described_class.run(classroom_external_id, [deleted_classroom_user.user_external_id], GoogleClassroomUser) }
 
     let(:classroom_external_id) { Faker::Number.number}
@@ -29,8 +29,8 @@ RSpec.describe ProviderClassroomUsersUpdater do
 
     before { allow(DateTime).to receive(:current).and_return(1.day.from_now) }
 
-    it { expect { subject }.to change { deleted_classroom_user.reload.updated_at } }
-    it { expect { subject }.to change { active_classroom_user.reload.updated_at } }
+    it { expect { subject }.to change { deleted_classroom_user.reload.deleted_at }.to(nil) }
+    it { expect { subject }.to change { active_classroom_user.reload.deleted_at }.from(nil) }
   end
 
   context 'canvas' do
