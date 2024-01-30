@@ -39,7 +39,7 @@ describe AssignRecommendationsWorker do
   context 'when no classroom is found' do
     before { classroom.update(visible: false) }
 
-    it do
+    it 'does not assign units to the class' do
       expect(Units::AssignmentHelpers).not_to receive(:assign_unit_to_one_class)
       subject
     end
