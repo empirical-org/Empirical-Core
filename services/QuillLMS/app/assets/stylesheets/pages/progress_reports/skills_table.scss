@@ -45,7 +45,13 @@
       th {
         font-weight: 700;
         color: $quill-grey-90;
-        border-radius: 8px 8px 0px 0px;
+        border-radius: 0px;
+        &.skill-column-header {
+          border-radius: 8px 0px 0px 0px;
+        }
+        &.summary-header {
+          border-radius: 0px 8px 0px 0px;
+        }
       }
     }
     .pre-and-post-text {

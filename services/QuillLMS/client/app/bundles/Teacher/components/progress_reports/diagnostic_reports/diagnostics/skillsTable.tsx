@@ -15,8 +15,8 @@ const SkillsTable = ({ skillGroupResults, isExpandable, }: { skillGroupResults: 
   const skillRows = skillGroupResults.sort((a, b) => a.skill_group.localeCompare(b.skill_group)).map(skillGroup => (
     <tr key={skillGroup.skill_group}>
       <td>{skillGroup.skill_group}</td>
-      <td className="center-align">{skillGroup.number_correct}</td>
-      <td className="center-align">{skillGroup.number_incorrect}</td>
+      <td>{skillGroup.number_correct}</td>
+      <td>{skillGroup.number_incorrect}</td>
       <td className={skillGroup.summary === FULLY_CORRECT ? 'fully-correct' : ''}>{skillGroup.summary}</td>
     </tr>)
   )
