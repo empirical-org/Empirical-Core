@@ -427,19 +427,13 @@ module PublicProgressReports
     questions.compact.each do |q|
       next if !q.data['prompt']
 
-      formatted_question = {
+      question_array.push({
         question_id: question_array.length + 1,
         question_uid: q.uid,
         score: nil,
         prompt: q.data['prompt'],
         instructions: q.data['instructions']
-      }
-
-      if include_skill_group_information
-        formatted_question[:skill_group] = question.skill_group&.name
-      end
-
-      question_array.push(formatted_question)
+      })
     end
     question_array
   end

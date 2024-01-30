@@ -62,13 +62,13 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       student_id: student_id
     }
 
-    # current_user.classroom_unit_by_ids_cache(
-    #   classroom_id: classroom_id,
-    #   unit_id: unit_id,
-    #   activity_id: activity_id,
-    #   key: 'diagnostic_reports.individual_student_diagnostic_responses',
-    #   groups: cache_groups
-    # ) do
+    current_user.classroom_unit_by_ids_cache(
+      classroom_id: classroom_id,
+      unit_id: unit_id,
+      activity_id: activity_id,
+      key: 'diagnostic_reports.individual_student_diagnostic_responses',
+      groups: cache_groups
+    ) do
       activity_session = find_activity_session_for_student_activity_and_classroom(student_id, activity_id, classroom_id, unit_id)
 
       if !activity_session
@@ -94,7 +94,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       end
       { concept_results: concept_results, skill_group_results: skill_group_results, name: student.name }
     end
-  # end
+  end
 
   def classrooms_with_students
     render json: fetch_classrooms_with_students_cache
