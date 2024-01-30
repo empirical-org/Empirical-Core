@@ -135,7 +135,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
       name: activityPackName,
       flag: activityPackFlag.value,
       activity_info: activityPackInfo,
-      time: activityPackTime.value,
+      time: activityPackTime?.value,
       unit_template_category_id: activityPackType.value,
       activity_ids: activityPackActivities.map(activity => activity.id),
       image_link: activityPackImageLink
