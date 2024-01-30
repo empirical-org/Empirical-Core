@@ -14,8 +14,6 @@ RSpec.shared_examples 'snapshots period length' do |timeframe_key, length, custo
   end
 
   context "'#{timeframe_key}'" do
-    it do
-      expect(subject).to eq length
-    end
+    it { expect(subject).to eq length}
   end
 end
