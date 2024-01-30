@@ -113,7 +113,7 @@ const DirectionsAndPrompt = ({ directions, prompt, onMobile, }) => {
 }
 
 export const Questions = ({ passedQuestions, match, mobileNavigation, location, passedSkillGroupSummaries}) => {
-  const [loading, setLoading] = React.useState<boolean>(!passedQuestions);
+  const [loading, setLoading] = React.useState<boolean>(!(passedQuestions && passedSkillGroupSummaries));
   const [questions, setQuestions] = React.useState<Question[]>(passedQuestions || []);
   const [skillGroupSummaries, setSkillGroupSummaries] = React.useState<SkillGroupSummary[]>(passedSkillGroupSummaries || []);
   const [completedStudentCount, setCompletedStudentCount] = React.useState(null)
@@ -128,7 +128,10 @@ export const Questions = ({ passedQuestions, match, mobileNavigation, location, 
   }, [])
 
   React.useEffect(() => {
-    setLoading(true)
+    // only false in test environment
+    if (!(passedQuestions && passedSkillGroupSummaries)) {
+      setLoading(true)
+    }
     getQuestions()
     getResults()
   }, [activityId, classroomId, unitId])

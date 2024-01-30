@@ -117,7 +117,10 @@ export const IndividualStudentResponses = ({ match, passedConceptResults, passed
   }, [])
 
   React.useEffect(() => {
-    setLoading(true)
+    // this is only false in a test environment
+    if (!(passedConceptResults && passedSkillGroupResults)) {
+      setLoading(true)
+    }
     getData()
   }, [activityId, classroomId, unitId, studentId])
 
