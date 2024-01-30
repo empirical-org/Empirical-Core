@@ -16,7 +16,7 @@
       border: none;
       text-align: left;
       color: $quill-grey-50;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
       line-height: 1.33;
     }
@@ -24,6 +24,9 @@
       padding: 8px;
       width: min-content;
       background-color: transparent;
+      &:first-of-type {
+        padding-left: 16px;
+      }
     }
     td {
       line-height: 1.33;
@@ -86,6 +89,7 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
+          padding-right: 16px;
         }
       }
       &.no-left-padding {
@@ -97,7 +101,7 @@
     td {
       padding: 0px;
       &:first-of-type {
-        padding: 8px;
+        padding: 16px;
         vertical-align: top;
       }
     }
@@ -115,7 +119,7 @@
         margin-right: 4px;
       }
       span {
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 600;
         font-stretch: normal;
         font-style: normal;

@@ -21,7 +21,7 @@
         }
       }
       .subheader {
-        font-size: 12px;
+        font-size: 13px;
         line-height: 20px;
         color: $quill-grey-50;
         font-weight: 400;
@@ -40,7 +40,11 @@
       .data-table-header {
         color: $quill-grey-90;
         font-weight: 700;
+        font-size: 13px;
       }
+    }
+    .data-table-row, .data-table-headers {
+      padding: 0px 0px 0px 16px;
     }
     &.hide-on-mobile {
       width: 950px;

@@ -88,7 +88,7 @@
         color: $quill-black;
       }
       p {
-        font-size: 12px;
+        font-size: 13px;
         display: flex;
         justify-content: flex-end;
         line-height: 20px;
@@ -113,6 +113,7 @@
       overflow: visible;
       white-space: nowrap;
       font-weight: 700;
+      font-size: 13px;
       color: $quill-grey-90;
       img {
         margin-left: 4px;
@@ -130,19 +131,19 @@
     }
     .data-table-row-section:first-of-type {
       color: $quill-grey-90;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
     }
     .data-table-row-section:last-of-type {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 400;
       line-height: 20px; /* 166.667% */
       color: $quill-grey-50;
     }
     .data-table-row {
       height: 48px;
-      padding: 0px;
-      margin: 0px 16px;
+      padding: 0px 16px;
+      margin: 0px;
       .quill-tooltip-trigger {
         margin-right: 16px;
       }
@@ -171,7 +172,7 @@
       border: solid 1px $quill-grey-5;
       margin-bottom: 16px;
       .header {
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 600;
         line-height: 1.33;
         color: $quill-grey-50;

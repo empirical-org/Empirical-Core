@@ -49,7 +49,7 @@ const desktopHeaders = [
   {
     name: '',
     attribute: 'directionsAndPrompt',
-    width: '630px',
+    width: '644px',
     noTooltip: true,
     rowSectionClassName: 'directions-and-prompt-section',
     headerClassName: 'directions-and-prompt-header'
