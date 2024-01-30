@@ -74,10 +74,10 @@ class Queries < Thor
     timeframe_start = DateTime.parse(start_time)
     timeframe_end = DateTime.parse(end_time)
 
-    output_file = OUTPUT_SNAPSHOTS + 'query_results_' + Time.now.to_fs(:number) + '.csv'
+    output_file = "#{OUTPUT_SNAPSHOTS}query_results_#{Time.current.to_fs(:number)}.csv"
 
     CSV.open(output_file, "wb") do |csv|
-      csv << ['query'].append(*options[:ids])
+      csv << (['query'] + options[:ids])
       SNAPSHOT_PAGE_QUERIES.each do |key, query|
         row = [key]
         options[:ids].each do |user_id|
@@ -103,7 +103,7 @@ class Queries < Thor
     private def make_directory(path)
       directory = Rails.root + path
 
-      Dir.mkdir(directory) unless Dir.exists?(directory)
+      Dir.mkdir(directory) unless Dir.exist?(directory)
 
       directory
     end

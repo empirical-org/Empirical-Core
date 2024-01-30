@@ -1,6 +1,7 @@
 import moment from 'moment';
 import pluralize from 'pluralize';
 import React from 'react';
+import { requestPost } from '../../../../modules/request';
 
 import { ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES } from './constants';
 
@@ -89,6 +90,24 @@ export default class SubscriptionHistory extends React.Component {
 
         if (sub.stripe_invoice_id) {
           tds.push(<td key={key}><a href={href} rel='noopener noreferrer' target='_blank'>View in Stripe</a></td>)
+
+          if (sub.recurring && sub.stripe_subscription_id && sub.de_activated_date === null && !this.isExpired(sub)) {
+            const href = `${process.env.DEFAULT_URL}/stripe_integration/subscription_renewals`
+            const params = { cancel_at_period_end: true, stripe_subscription_id: sub.stripe_subscription_id }
+            const onSuccess = () => { window.location.reload(); alert('Auto-renewal has been turned off.') }
+            const onFailure = () => { alert('Something went wrong. Please contact engineering.') }
+
+            tds.push(
+              <td key={`${sub.id}-7-row`}>
+                <button
+                  className="quill-button secondary outlined small-button"
+                  onClick={() => requestPost(href, params, onSuccess, onFailure)}
+                >
+                  Turn off auto-renewal
+                </button>
+              </td>
+            )
+          }
         } else {
           tds.push(<td key={key}><a href={href}>Edit Subscription</a></td>)
         }
@@ -98,6 +117,12 @@ export default class SubscriptionHistory extends React.Component {
     return rows;
   }
 
+  isExpired(subscription) {
+    const expiration = moment(subscription.expiration);
+    const now = moment();
+    return expiration.isBefore(now);
+  }
+
   tableHeaders() {
     const { view, } = this.props
 
@@ -105,6 +130,7 @@ export default class SubscriptionHistory extends React.Component {
     if (view === 'subscriptionHistory') {
       tableHeaders.push('Link');
     }
+
     return tableHeaders.map((content, i) => <th key={`${i}-table-header`}>{content}</th>);
   }
 
