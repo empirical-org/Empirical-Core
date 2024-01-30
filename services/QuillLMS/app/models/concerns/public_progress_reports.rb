@@ -245,7 +245,7 @@ module PublicProgressReports
           }
         },
         question_number: cr.first.question_number,
-        question_uid: cr.first.extra_metadata['question_uid']
+        question_uid: cr.first.extra_metadata ? cr.first.extra_metadata['question_uid'] : nil
       }
       if cr.first.question_score
         hash[:questionScore] = cr.first.question_score
