@@ -53,7 +53,7 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
 
   private def relevant_stripe_invoices
     @relevant_stripe_invoices ||= [].tap do |invoices|
-      Stripe::Invoice.list(created: { gte: 1.month.ago.to_i }, limit: 100).auto_paging_each do |invoice|
+      Stripe::Invoice.list(created: { gte: INVOICE_START_EPOCH }, limit: 100).auto_paging_each do |invoice|
         invoices << invoice if relevant_stripe_invoice?(invoice)
       end
     end
