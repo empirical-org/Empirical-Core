@@ -94,8 +94,10 @@
         &.contains-skill-gained-tag {
           display: flex;
           align-items: center;
-          justify-content: space-between;
           padding-right: 16px;
+          .column:first-of-type {
+            width: 122px;
+          }
         }
       }
       &.no-left-padding {

@@ -42,7 +42,10 @@ const GrowthSkillsTable = ({ skillGroupResults, isExpandable, }: { skillGroupRes
         <td>
           <div>
             <span>{preSummary}</span>
-            <span className={postSummaryClassName}>{postSummary}{showSkillGainedTag}</span>
+            <span className={postSummaryClassName}>
+              <span className="column">{postSummary}</span>
+              <span className="column">{showSkillGainedTag}</span>
+            </span>
           </div>
         </td>
       </tr>

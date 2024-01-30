@@ -107,25 +107,33 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     class="undefined contains-skill-gained-tag"
                   >
                     <span
-                      class="fully-correct-tag"
+                      class="column"
                     >
-                      <img
-                        alt="Correct check icon"
-                        src="undefined/images/pages/diagnostic_reports/circle-check-green.svg"
-                      />
-                       Fully correct
-                    </span>
-                    <div
-                      class="proficiency-tag proficiency"
-                    >
-                      <img
-                        alt="Filled in circle"
-                        src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-color-proficiency.svg"
-                      />
-                      <span>
-                        Gained Full Proficiency
+                      <span
+                        class="fully-correct-tag"
+                      >
+                        <img
+                          alt="Correct check icon"
+                          src="undefined/images/pages/diagnostic_reports/circle-check-green.svg"
+                        />
+                         Fully correct
                       </span>
-                    </div>
+                    </span>
+                    <span
+                      class="column"
+                    >
+                      <div
+                        class="proficiency-tag proficiency"
+                      >
+                        <img
+                          alt="Filled in circle"
+                          src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-color-proficiency.svg"
+                        />
+                        <span>
+                          Gained Full Proficiency
+                        </span>
+                      </div>
+                    </span>
                   </span>
                 </div>
               </td>
@@ -187,14 +195,21 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     class="undefined"
                   >
                     <span
-                      class="fully-correct-tag"
+                      class="column"
                     >
-                      <img
-                        alt="Correct check icon"
-                        src="undefined/images/pages/diagnostic_reports/circle-check-green.svg"
-                      />
-                       Fully correct
+                      <span
+                        class="fully-correct-tag"
+                      >
+                        <img
+                          alt="Correct check icon"
+                          src="undefined/images/pages/diagnostic_reports/circle-check-green.svg"
+                        />
+                         Fully correct
+                      </span>
                     </span>
+                    <span
+                      class="column"
+                    />
                   </span>
                 </div>
               </td>
@@ -256,14 +271,21 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     class="undefined"
                   >
                     <span
-                      class="fully-correct-tag"
+                      class="column"
                     >
-                      <img
-                        alt="Correct check icon"
-                        src="undefined/images/pages/diagnostic_reports/circle-check-green.svg"
-                      />
-                       Fully correct
+                      <span
+                        class="fully-correct-tag"
+                      >
+                        <img
+                          alt="Correct check icon"
+                          src="undefined/images/pages/diagnostic_reports/circle-check-green.svg"
+                        />
+                         Fully correct
+                      </span>
                     </span>
+                    <span
+                      class="column"
+                    />
                   </span>
                 </div>
               </td>
