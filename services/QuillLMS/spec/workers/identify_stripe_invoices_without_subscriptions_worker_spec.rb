@@ -32,8 +32,24 @@ RSpec.describe IdentifyStripeInvoicesWithoutSubscriptionsWorker do
       subject.perform
     end
 
+    it 'should send an email that does not include invoices that are not of status open or paid' do
+      expect(stripe_invoice).to receive(:status).and_return('void')
+
+      expect(StripeIntegration::Mailer).to receive(:invoices_without_subscriptions).with([]).and_return(mailer_double)
+
+      subject.perform
+    end
+
     it 'should send an email that does not include invoices associated with Quill Subscriptions' do
       create(:subscription, stripe_invoice_id: stripe_invoice_id)
+
+      expect(StripeIntegration::Mailer).to receive(:invoices_without_subscriptions).with([]).and_return(mailer_double)
+
+      subject.perform
+    end
+
+    it 'should send an email that does not include invoices for $0' do
+      expect(stripe_invoice).to receive(:amount_due).and_return(0)
 
       expect(StripeIntegration::Mailer).to receive(:invoices_without_subscriptions).with([]).and_return(mailer_double)
 

@@ -33,19 +33,6 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
     end
   end
 
-  private def relevant_stripe_invoices
-    stripe_invoices.reject do |invoice|
-      invoice_ids_with_subscriptions.include?(invoice.id) || invoice_refunded?(invoice) || charge_failed?(invoice)
-    end
-  end
-
-  private def invoice_ids_with_subscriptions
-    @invoice_ids_with_subscriptions ||=
-      Subscription
-        .where(stripe_invoice_id: stripe_invoice_ids)
-        .pluck(:stripe_invoice_id)
-  end
-
   private def invoice_refunded?(invoice)
     return false unless invoice.charge
 
@@ -53,20 +40,22 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
     charge.amount == charge.amount_refunded
   end
 
-  private def stripe_invoice_ids = stripe_invoices.map(&:id)
+  private def linked_quill_subscription?(stripe_invoice_id) = Subscription.exists?(stripe_invoice_id:)
 
-  private def stripe_invoice_list_params
-    {
-      amount_due: { gt: 0 },
-      created: { gte: INVOICE_START_EPOCH },
-      limit: 100,
-      status: RELEVANT_INVOICE_STATUSES
-    }
+  # The ordering of these conditions is least to most expensive to compute
+  private def relevant_stripe_invoice?(invoice)
+    invoice.amount_due.positive? &&
+    invoice.status.in?(RELEVANT_INVOICE_STATUSES) &&
+    !linked_quill_subscription?(invoice.id) &&
+    !invoice_refunded?(invoice) &&
+    !charge_failed?(invoice)
   end
 
-  private def stripe_invoices
-    @stripe_invoices ||= [].tap do |invoices|
-      Stripe::Invoice.list(**stripe_invoice_list_params).auto_paging_each { |invoice| invoices << invoice }
+  private def relevant_stripe_invoices
+    @relevant_stripe_invoices ||= [].tap do |invoices|
+      Stripe::Invoice.list(created: { gte: 1.month.ago.to_i }, limit: 100).auto_paging_each do |invoice|
+        invoices << invoice if relevant_stripe_invoice?(invoice)
+      end
     end
   end
 end
