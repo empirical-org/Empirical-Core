@@ -36,6 +36,17 @@ describe AssignRecommendationsWorker do
     allow(PusherRecommendationCompleted).to receive(:run)
   end
 
+  context 'when no classroom is found' do
+    before { classroom.update(visible: false) }
+
+    it do
+      expect(Units::AssignmentHelpers).not_to receive(:assign_unit_to_one_class)
+      subject
+    end
+
+    it { expect { subject }.not_to raise_error }
+  end
+
   context 'when no units is found' do
     context 'when unit was not found with the unit template name' do
       it { should_track_that_all_recommendations_are_being_assigned }
@@ -174,4 +185,3 @@ describe AssignRecommendationsWorker do
     subject
   end
 end
-

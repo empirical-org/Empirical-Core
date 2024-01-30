@@ -15,21 +15,23 @@ class AssignRecommendationsWorker
     student_ids = options['student_ids']
     unit_template_id = options['unit_template_id']
 
-    classroom = Classroom.find(classroom_id)
+    classroom = Classroom.find_by(id: classroom_id)
+    return if classroom.nil?
+
     teacher = classroom.owner
 
     Units::AssignmentHelpers.assign_unit_to_one_class(classroom_id, unit_template_id, student_ids, assign_on_join)
 
     unit = Units::AssignmentHelpers.find_unit_from_units(Units::AssignmentHelpers.find_units_from_unit_template_and_teacher(unit_template_id, teacher.id)) if unit.nil?
-    classroom_unit = ClassroomUnit.find_by(unit: unit, classroom_id: classroom_id)
+    classroom_unit = ClassroomUnit.find_by(unit:, classroom_id:)
 
     save_pack_sequence_item(classroom_unit, pack_sequence_id, order)
 
-    release_method = pack_sequence_id.nil? ? :Immediate : :Staggered
-    track_recommendation_assignment(teacher, release_method)
+    track_recommendation_assignment(teacher, pack_sequence_id)
     return unless is_last_recommendation
 
     handle_error_tracking_for_diagnostic_recommendation_assignment_time(teacher.id, lesson)
+
     PusherRecommendationCompleted.run(classroom, unit_template_id, lesson)
     track_assign_all_recommendations(teacher) if assigning_all_recommended_packs
   end
@@ -45,11 +47,13 @@ class AssignRecommendationsWorker
     )
   end
 
-  def track_recommendation_assignment(teacher, release_method)
+  def track_recommendation_assignment(teacher, pack_sequence_id)
+    release_method = pack_sequence_id.nil? ? :Immediate : :Staggered
+
     Analytics::Analyzer.new.track_with_attributes(
       teacher,
       Analytics::SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS,
-      properties: { release_method: release_method }
+      properties: { release_method: }
     )
   end
 
