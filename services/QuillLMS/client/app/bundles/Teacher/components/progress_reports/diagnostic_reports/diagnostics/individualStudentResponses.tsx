@@ -130,16 +130,16 @@ export const IndividualStudentResponses = ({ match, passedConceptResults, passed
     const splitUrl = window.location.href.split('#');
     const id = splitUrl[splitUrl.length - 1]
 
-    // Check if URL has a hash and the page has fully loaded
+    // check if URL has a hash and the page has fully loaded
     if (id) {
       const element = document.getElementById(id);
 
-      // If the element exists, scroll to it
+      // if the element exists, scroll to it
       if (element) {
         element.scrollIntoView();
       }
     }
-  }, [loading]); // Empty dependency array ensures this runs once after initial render
+  }, [loading]);
 
 
   function getData() {
