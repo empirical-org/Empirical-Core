@@ -4,8 +4,7 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
   include Sidekiq::Worker
 
   FAILED_CHARGE = 'failed'
-  # We don't care about invoices created before we began using this workflow
-  INVOICE_START_EPOCH = DateTime.new(2023,1,1).to_i
+  INVOICE_START_EPOCH = DateTime.new(2023,1,1).to_i # Date we began using this workflow
   RELEVANT_INVOICE_STATUSES = ['open', 'paid'].freeze
 
   def perform
@@ -14,7 +13,7 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
       .deliver_now!
   end
 
-  private def failed_charge?(invoice)
+  private def charge_failed?(invoice)
     return false unless invoice.charge
 
     charge = Stripe::Charge.retrieve(invoice.charge)
@@ -35,12 +34,8 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
   end
 
   private def relevant_stripe_invoices
-    stripe_invoices.filter do |invoice|
-      RELEVANT_INVOICE_STATUSES.include?(invoice.status) &&
-        !invoice_ids_with_subscriptions.include?(invoice.id) &&
-        positive_amount?(invoice) &&
-        !invoice_refunded?(invoice) &&
-        !failed_charge?(invoice)
+    stripe_invoices.reject do |invoice|
+      invoice_ids_with_subscriptions.include?(invoice.id) || invoice_refunded?(invoice) || charge_failed?(invoice)
     end
   end
 
@@ -58,19 +53,20 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
     charge.amount == charge.amount_refunded
   end
 
-  private def positive_amount?(invoice)
-    invoice.amount_due > 0
-  end
+  private def stripe_invoice_ids = stripe_invoices.map(&:id)
 
-  private def stripe_invoice_ids
-    stripe_invoices.map(&:id)
+  private def stripe_invoice_list_params
+    {
+      amount_due: { gt: 0 },
+      created: { gte: INVOICE_START_EPOCH },
+      limit: 100,
+      status: RELEVANT_INVOICE_STATUSES
+    }
   end
 
   private def stripe_invoices
     @stripe_invoices ||= [].tap do |invoices|
-      Stripe::Invoice.list({limit: 100, created: {gte: INVOICE_START_EPOCH}}).auto_paging_each do |invoice|
-        invoices.append(invoice)
-      end
+      Stripe::Invoice.list(**stripe_invoice_list_params).auto_paging_each { |invoice| invoices << invoice }
     end
   end
 end
