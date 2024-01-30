@@ -33,12 +33,8 @@ exports[`GrowthSkillsTable component should render when it is expandable 1`] = `
           <td>
             Adjectives and Adverbs
           </td>
-          <td
-            class="center-align"
-          />
-          <td
-            class="center-align"
-          />
+          <td />
+          <td />
           <td
             class=""
           />
@@ -47,12 +43,8 @@ exports[`GrowthSkillsTable component should render when it is expandable 1`] = `
           <td>
             Capitalization
           </td>
-          <td
-            class="center-align"
-          />
-          <td
-            class="center-align"
-          />
+          <td />
+          <td />
           <td
             class=""
           />
@@ -61,12 +53,8 @@ exports[`GrowthSkillsTable component should render when it is expandable 1`] = `
           <td>
             Commonly Confused Words
           </td>
-          <td
-            class="center-align"
-          />
-          <td
-            class="center-align"
-          />
+          <td />
+          <td />
           <td
             class=""
           />
@@ -123,12 +111,8 @@ exports[`GrowthSkillsTable component should render when it is not expandable 1`]
           <td>
             Adjectives and Adverbs
           </td>
-          <td
-            class="center-align"
-          />
-          <td
-            class="center-align"
-          />
+          <td />
+          <td />
           <td
             class=""
           />
@@ -137,12 +121,8 @@ exports[`GrowthSkillsTable component should render when it is not expandable 1`]
           <td>
             Capitalization
           </td>
-          <td
-            class="center-align"
-          />
-          <td
-            class="center-align"
-          />
+          <td />
+          <td />
           <td
             class=""
           />
@@ -151,12 +131,8 @@ exports[`GrowthSkillsTable component should render when it is not expandable 1`]
           <td>
             Commonly Confused Words
           </td>
-          <td
-            class="center-align"
-          />
-          <td
-            class="center-align"
-          />
+          <td />
+          <td />
           <td
             class=""
           />
@@ -165,12 +141,8 @@ exports[`GrowthSkillsTable component should render when it is not expandable 1`]
           <td>
             Compound Subjects, Objects, and Predicates
           </td>
-          <td
-            class="center-align"
-          />
-          <td
-            class="center-align"
-          />
+          <td />
+          <td />
           <td
             class=""
           />
@@ -179,12 +151,8 @@ exports[`GrowthSkillsTable component should render when it is not expandable 1`]
           <td>
             Plural and Possessive Nouns
           </td>
-          <td
-            class="center-align"
-          />
-          <td
-            class="center-align"
-          />
+          <td />
+          <td />
           <td
             class=""
           />
@@ -193,12 +161,8 @@ exports[`GrowthSkillsTable component should render when it is not expandable 1`]
           <td>
             Prepositional Phrases
           </td>
-          <td
-            class="center-align"
-          />
-          <td
-            class="center-align"
-          />
+          <td />
+          <td />
           <td
             class=""
           />
@@ -207,12 +171,8 @@ exports[`GrowthSkillsTable component should render when it is not expandable 1`]
           <td>
             Subject-Verb Agreement
           </td>
-          <td
-            class="center-align"
-          />
-          <td
-            class="center-align"
-          />
+          <td />
+          <td />
           <td
             class=""
           />
