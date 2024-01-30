@@ -42,7 +42,7 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
 
   private def linked_quill_subscription?(stripe_invoice_id) = Subscription.exists?(stripe_invoice_id:)
 
-  # The ordering of these conditions is least to most expensive to compute
+  # These conditions are ordered least to most expensive to compute
   private def relevant_stripe_invoice?(invoice)
     invoice.amount_due.positive? &&
     invoice.status.in?(RELEVANT_INVOICE_STATUSES) &&
