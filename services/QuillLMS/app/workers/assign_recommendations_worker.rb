@@ -21,13 +21,10 @@ class AssignRecommendationsWorker
     teacher = classroom.owner
 
     Units::AssignmentHelpers.assign_unit_to_one_class(classroom_id, unit_template_id, student_ids, assign_on_join)
-
     unit = Units::AssignmentHelpers.find_unit_from_units(Units::AssignmentHelpers.find_units_from_unit_template_and_teacher(unit_template_id, teacher.id)) if unit.nil?
-    classroom_unit = ClassroomUnit.find_by(unit:, classroom_id:)
 
-    save_pack_sequence_item(classroom_unit, pack_sequence_id, order)
-
-    track_recommendation_assignment(teacher, pack_sequence_id)
+    save_pack_sequence_item(classroom:, order:, pack_sequence_id:, unit:)
+    track_recommendation_assignment(teacher:, pack_sequence_id:)
     return unless is_last_recommendation
 
     handle_error_tracking_for_diagnostic_recommendation_assignment_time(teacher.id, lesson)
@@ -36,18 +33,17 @@ class AssignRecommendationsWorker
     track_assign_all_recommendations(teacher) if assigning_all_recommended_packs
   end
 
-  def save_pack_sequence_item(classroom_unit, pack_sequence_id, order)
+  def save_pack_sequence_item(classroom:, order:, pack_sequence_id:, unit:)
+    return if pack_sequence_id.nil?
     return unless PackSequence.exists?(id: pack_sequence_id)
-    return if pack_sequence_id.nil? || classroom_unit.nil?
 
-    PackSequenceItem.find_or_create_by!(
-      classroom_unit: classroom_unit,
-      pack_sequence_id: pack_sequence_id,
-      order: order
-    )
+    classroom_unit = ClassroomUnit.find_by(classroom:, unit:)
+    return if classroom_unit.nil?
+
+    PackSequenceItem.find_or_create_by!(classroom_unit:, pack_sequence_id:, order:)
   end
 
-  def track_recommendation_assignment(teacher, pack_sequence_id)
+  def track_recommendation_assignment(teacher:, pack_sequence_id:)
     release_method = pack_sequence_id.nil? ? :Immediate : :Staggered
 
     Analytics::Analyzer.new.track_with_attributes(

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe AssignRecommendationsWorker do
+RSpec.describe AssignRecommendationsWorker do
   subject { described_class.new.perform(args) }
 
   let(:unit_template) { create(:unit_template) }
