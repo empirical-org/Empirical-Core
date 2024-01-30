@@ -41,9 +41,11 @@ class AdminsController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def vitally_professional_learning_manager_info
     api = VitallyIntegration::RestApi.new
     district_id = current_user.administered_districts&.first&.id || current_user.administered_schools&.first&.district_id || current_user.school&.district_id
+
     if district_id
       vitally_district = api.get(VitallyIntegration::RestApi::ENDPOINT_ORGANIZATIONS, district_id)
       key_role = vitally_district['keyRoles'].find { |kr| kr['keyRole']['label'] == 'CSM' }
@@ -52,6 +54,7 @@ class AdminsController < ApplicationController
       render json: nil
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def admin_info
     render json: {

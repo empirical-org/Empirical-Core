@@ -201,7 +201,7 @@ module AdminDiagnosticReports
     end
 
     def relevant_diagnostic_where_clause
-        "AND activities.id = #{diagnostic_id}"
+      "AND activities.id = #{diagnostic_id}"
     end
 
     def group_by_clause

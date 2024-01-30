@@ -79,9 +79,7 @@ class Response < ApplicationRecord
   end
 
   def conditional_wipe_question_cache
-    unless (saved_changes.keys - ['count', 'child_count', 'first_attempt_count', 'updated_at', 'created_at']).empty?
-      wipe_question_cache
-    end
+    wipe_question_cache unless (saved_changes.keys - ['count', 'child_count', 'first_attempt_count', 'updated_at', 'created_at']).empty?
   end
 
   def wipe_question_cache

@@ -209,15 +209,15 @@ module AdminDiagnosticReports
     end
 
     private def sum_aggregate
-      -> (column) { "SUM(#{column}) AS #{column}" }
+      ->(column) { "SUM(#{column}) AS #{column}" }
     end
 
     private def average_aggregate(weight_column)
-      -> (column) { "SUM(#{weight_column} * #{column}) / SUM(#{weight_column}) AS #{column}" }
+      ->(column) { "SUM(#{weight_column} * #{column}) / SUM(#{weight_column}) AS #{column}" }
     end
 
     private def percentage_aggregate(numerator_column, denominator_column)
-      -> (column) { "SUM(#{numerator_column}) / SUM(#{denominator_column}) * 100 AS #{column}" }
+      ->(column) { "SUM(#{numerator_column}) / SUM(#{denominator_column}) * 100 AS #{column}" }
     end
   end
 end
