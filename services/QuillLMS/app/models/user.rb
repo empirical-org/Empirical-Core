@@ -67,7 +67,7 @@ class User < ApplicationRecord
   include UserFlagset
 
   CHAR_FIELD_MAX_LENGTH = 255
-  STAFF_SESSION_DURATION= 4.hours
+  STAFF_SESSION_DURATION= 12.hours
   USER_INACTIVITY_DURATION = 30.days
   USER_SESSION_DURATION = 30.days
 
