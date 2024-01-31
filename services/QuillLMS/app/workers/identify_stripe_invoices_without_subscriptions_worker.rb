@@ -4,8 +4,7 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
   include Sidekiq::Worker
 
   FAILED_CHARGE = 'failed'
-  # We don't care about invoices created before we began using this workflow
-  INVOICE_START_EPOCH = DateTime.new(2023,1,1).to_i
+  INVOICE_START_EPOCH = DateTime.new(2023,1,1).to_i # Date we began using this workflow
   RELEVANT_INVOICE_STATUSES = ['open', 'paid'].freeze
 
   def perform
@@ -14,7 +13,7 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
       .deliver_now!
   end
 
-  private def failed_charge?(invoice)
+  private def charge_failed?(invoice)
     return false unless invoice.charge
 
     charge = Stripe::Charge.retrieve(invoice.charge)
@@ -34,23 +33,6 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
     end
   end
 
-  private def relevant_stripe_invoices
-    stripe_invoices.filter do |invoice|
-      RELEVANT_INVOICE_STATUSES.include?(invoice.status) &&
-        !invoice_ids_with_subscriptions.include?(invoice.id) &&
-        positive_amount?(invoice) &&
-        !invoice_refunded?(invoice) &&
-        !failed_charge?(invoice)
-    end
-  end
-
-  private def invoice_ids_with_subscriptions
-    @invoice_ids_with_subscriptions ||=
-      Subscription
-        .where(stripe_invoice_id: stripe_invoice_ids)
-        .pluck(:stripe_invoice_id)
-  end
-
   private def invoice_refunded?(invoice)
     return false unless invoice.charge
 
@@ -58,18 +40,21 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
     charge.amount == charge.amount_refunded
   end
 
-  private def positive_amount?(invoice)
-    invoice.amount_due > 0
+  private def linked_quill_subscription?(stripe_invoice_id) = Subscription.exists?(stripe_invoice_id:)
+
+  # These conditions are ordered least to most expensive to compute
+  private def relevant_stripe_invoice?(invoice)
+    invoice.amount_due.positive? &&
+    invoice.status.in?(RELEVANT_INVOICE_STATUSES) &&
+    !linked_quill_subscription?(invoice.id) &&
+    !invoice_refunded?(invoice) &&
+    !charge_failed?(invoice)
   end
 
-  private def stripe_invoice_ids
-    stripe_invoices.map(&:id)
-  end
-
-  private def stripe_invoices
-    @stripe_invoices ||= [].tap do |invoices|
-      Stripe::Invoice.list({limit: 100, created: {gte: INVOICE_START_EPOCH}}).auto_paging_each do |invoice|
-        invoices.append(invoice)
+  private def relevant_stripe_invoices
+    @relevant_stripe_invoices ||= [].tap do |invoices|
+      Stripe::Invoice.list(created: { gte: INVOICE_START_EPOCH }, limit: 100).auto_paging_each do |invoice|
+        invoices << invoice if relevant_stripe_invoice?(invoice)
       end
     end
   end
