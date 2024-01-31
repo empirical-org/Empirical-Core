@@ -19,13 +19,13 @@ module Pdfs
       end
 
       private def change
-        return nil if count.nil?
+        return nil if count.nil? || previous.nil?
 
-        rounded_previous = (previous_results[:count] || 0).round
-        (((count - rounded_previous).to_f / (rounded_previous.nonzero? || 1)) * 100).round
+        (((count - previous).to_f / (previous.nonzero? || 1)) * 100).round
       end
 
       private def count = current_results[:count]&.round
+      private def previous = previous_results[:count]&.round
 
       private def current_results
         @current_results ||= ResultsFetcher.run(admin_report_filter_selection:, query_key:, worker: WORKER)
