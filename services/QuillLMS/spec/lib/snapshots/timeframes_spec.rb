@@ -83,8 +83,6 @@ module Snapshots
           it { expect(subject.last).to be_end_of_day }
         end
       end
-
-
     end
 
     it_behaves_like 'snapshots timeframe times of day', 'last-30-days'

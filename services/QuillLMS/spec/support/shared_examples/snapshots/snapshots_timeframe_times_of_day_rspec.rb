@@ -1,16 +1,6 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
-
-RSpec::Matchers.define :be_start_of_day do
-  match do |actual|
-    actual&.hour == 0 && actual&.minute == 0 && actual&.second == 0
-  end
-end
-
-RSpec::Matchers.define :be_end_of_day do
-  match do |actual|
-    actual&.hour == 23 && actual&.minute == 59 && actual&.second == 59
-  end
-end
 
 RSpec.shared_examples 'snapshots timeframe times of day' do |timeframe_key, custom_start, custom_end|
   let(:now) { DateTime.current.change(usec: 0) }

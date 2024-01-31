@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.shared_examples 'snapshots period length matches previous' do |timeframe_key, custom_start, custom_end|
