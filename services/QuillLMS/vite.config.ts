@@ -27,6 +27,7 @@ export default defineConfig(({command, mode}) => {
 
   const railsEnv = process.env.RAILS_ENV || process.env.NODE_ENV
   const pusherKey = process.env.PUSHER_KEY;
+  const pusherCluster = process.env.PUSHER_CLUSTER;
   const defaultUrl = process.env.DEFAULT_URL || 'http://localhost:3000'
   const cdnUrl = process.env.CDN_URL || 'https://assets.quill.org'
   const grammarUrl = process.env.QUILL_GRAMMAR_URL || 'http://localhost:3000/grammar/#';
@@ -58,6 +59,7 @@ export default defineConfig(({command, mode}) => {
       replace({
         'process.env.RAILS_ENV': JSON.stringify(railsEnv),
         'process.env.PUSHER_KEY': JSON.stringify(pusherKey),
+        'process.env.PUSHER_CLUSTER': JSON.stringify(pusherCluster),
         'process.env.DEFAULT_URL': JSON.stringify(defaultUrl),
         'process.env.CDN_URL': JSON.stringify(cdnUrl),
         'process.env.QUILL_GRAMMAR_URL': JSON.stringify(grammarUrl),

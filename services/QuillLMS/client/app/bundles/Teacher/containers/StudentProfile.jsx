@@ -92,7 +92,7 @@ class StudentProfile extends React.Component {
       if (process.env.RAILS_ENV === 'development') {
         Pusher.logToConsole = true;
       }
-      const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+      const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, cluster: process.env.PUSHER_CLUSTER });
       const channel = pusher.subscribe(classroomId.toString());
       channel.bind('lesson-launched', () => {
         fetchStudentProfile(classroomId);

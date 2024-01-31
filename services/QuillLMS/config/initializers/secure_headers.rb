@@ -118,6 +118,7 @@ SecureHeaders::Configuration.default do |config|
       "https://*.pusher.com",
       "wss://coview.com",
       "wss://*.coview.com",
+      "wss://*.pusher.com",
       "wss://*.pusherapp.com",
       "wss://*.inspectlet.com",
       "https://*.intercom.io",
