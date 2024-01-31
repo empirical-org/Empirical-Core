@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe AssignRecommendationsWorker do
+RSpec.describe AssignRecommendationsWorker do
   subject { described_class.new.perform(args) }
 
   let(:unit_template) { create(:unit_template) }
@@ -34,6 +34,17 @@ describe AssignRecommendationsWorker do
   before do
     allow(Analytics::Analyzer).to receive(:new) { analyzer }
     allow(PusherRecommendationCompleted).to receive(:run)
+  end
+
+  context 'when no classroom is found' do
+    before { classroom.update(visible: false) }
+
+    it 'does not assign units to the class' do
+      expect(Units::AssignmentHelpers).not_to receive(:assign_unit_to_one_class)
+      subject
+    end
+
+    it { expect { subject }.not_to raise_error }
   end
 
   context 'when no units is found' do
@@ -174,4 +185,3 @@ describe AssignRecommendationsWorker do
     subject
   end
 end
-
