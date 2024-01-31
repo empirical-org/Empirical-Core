@@ -58,9 +58,7 @@ module Evidence
       ))
     end
 
-    def active?
-      state == STATE_ACTIVE
-    end
+    def active? = state == STATE_ACTIVE
 
     def activate
       AutomlModel.transaction do
@@ -77,51 +75,39 @@ module Evidence
       false
     end
 
-    def classify_text(text)
-      VertexAI::TextClassifier.run(endpoint_external_id, text)
-    end
+    def classify_text(text) = VertexAI::TextClassifier.run(endpoint_external_id, text)
 
     def older_models
-      @older_models ||= AutomlModel.where(prompt_id: prompt_id).where("created_at < ?", created_at).count
+      @older_models ||=
+        AutomlModel
+          .where(prompt_id: prompt_id)
+          .where("created_at < ?", created_at)
+          .count
     end
 
-    def change_log_name
-      "AutoML Model"
-    end
+    def change_log_name = "AutoML Model"
 
-    def url
-      "evidence/#/activities/#{prompt.activity.id}/semantic-labels/model/#{id}"
-    end
+    def url = "evidence/#/activities/#{prompt.activity.id}/semantic-labels/model/#{id}"
 
-    def evidence_name
-      name
-    end
+    def evidence_name = name
 
-    private def prompt_automl_rules
-      prompt.rules.where(rule_type: Rule::TYPE_AUTOML)
-    end
+    private def prompt_automl_rules = prompt.rules.where(rule_type: Rule::TYPE_AUTOML)
 
-    private def prompt_labels
-      prompt_automl_rules.all.map(&:label)
-    end
+    private def prompt_labels = prompt_automl_rules.all.map(&:label).compact
 
     private def prompt_label_names
       prompt_labels.map(&:name)
     end
 
-    private def labels_have_associated_rules?
-      (labels - prompt_label_names).empty?
-    end
+    private def labels_have_associated_rules? = (labels - prompt_label_names).empty?
+
+    private def log_activation = log_change(@lms_user_id, :activate_automl, self, nil, nil, nil)
 
     private def validate_label_associations
       return unless active?
       return if labels_have_associated_rules?
 
       errors.add(:state, "can't be set to 'active' until all labels have a corresponding rule")
-    end
-
-    private def log_activation
-      log_change(@lms_user_id, :activate_automl, self, nil, nil, nil)
     end
   end
 end
