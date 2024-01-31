@@ -1,7 +1,7 @@
-import { shallow } from 'enzyme';
+import { fireEvent, render } from '@testing-library/react';
 import * as React from 'react';
-
 import { UnitTemplate } from '..';
+import * as unitTemplatesHelpers from '../../../helpers/unitTemplates';
 
 const unitTemplate = {
   id: 86,
@@ -20,14 +20,34 @@ const unitTemplate = {
   image_link: null
 }
 
-describe('UnitTemplate component', () => {
-  it('should match snapshot', () => {
-    const wrapper = shallow(
+describe('<UnitTemplate />', () => {
+  const renderComponent = (unitTemplate) =>
+    render(
       <UnitTemplate
         returnToIndex={() => null}
         unitTemplate={unitTemplate}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test('matches the component snapshot', () => {
+    const { asFragment } = renderComponent(unitTemplate);
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  test('handles null activityPackTime values', () => {
+    jest.spyOn(unitTemplatesHelpers, 'validateUnitTemplateForm').mockImplementation(() => {
+      return []
+    });
+    const {getByText, asFragment} = render(
+      <UnitTemplate
+        returnToIndex={() => null}
+        unitTemplate={{unitTemplate, ...{time: null}}}
+      />
+    )
+    fireEvent.click(getByText(/Save/))
   });
 });
