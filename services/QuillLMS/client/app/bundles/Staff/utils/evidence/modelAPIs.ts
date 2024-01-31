@@ -52,3 +52,10 @@ export const fetchDeployedModelNames = async () => {
   return { error: handleApiError('Failed to fetch deployed model names, please try again.', response), names: names };
 };
 
+export const enableMoreThanTenLabels = async (promptId: string, additionalLabels: string) => {
+  const response = await apiFetch(`automl_models/${promptId}/enable_more_than_ten_labels`, {
+    method: 'PUT',
+    body: JSON.stringify({ additional_labels: additionalLabels })
+  });
+  return { error: handleApiError('Failed to enable additional labels, please try again.', response) };
+}
