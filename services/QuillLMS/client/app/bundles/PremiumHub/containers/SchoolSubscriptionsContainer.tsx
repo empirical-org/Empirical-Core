@@ -94,7 +94,7 @@ const SchoolSubscriptionsContainer = ({ location, accessType, adminInfo, }) => {
   }
 
   function initializePusherForStripePurchaseConfirmation() {
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, cluster: process.env.PUSHER_CLUSTER });
     const channelName = String(stripeInvoiceId)
     const channel = pusher.subscribe(channelName);
 
@@ -107,7 +107,7 @@ const SchoolSubscriptionsContainer = ({ location, accessType, adminInfo, }) => {
   function initializePusherForStripeSubscriptionPaymentMethodUpdating() {
     const { stripe_subscription_id } = selectedSchool.subscription_status
 
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, cluster: process.env.PUSHER_CLUSTER });
     const channelName = String(stripe_subscription_id)
     const channel = pusher.subscribe(channelName);
 
