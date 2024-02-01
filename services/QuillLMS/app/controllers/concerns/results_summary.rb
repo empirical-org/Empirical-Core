@@ -72,8 +72,9 @@ module ResultsSummary
         sum += score
       end / skills.length.to_f
 
-      if @skill_group_summaries
-        skill_group_summary_index = @skill_group_summaries.find_index { |sg| sg[:name] == skill_group.name }
+      skill_group_summary_index = @skill_group_summaries&.find_index { |sg| sg[:name] == skill_group.name }
+
+      if @skill_group_summaries && skill_group_summary_index
         @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name] = average_proficiency_score
         unless proficiency_text == PROFICIENCY
           @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_student_names].push(student_name)
