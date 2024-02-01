@@ -7,6 +7,7 @@ import {
   ResponseSortFields,
   ResponseToggleFields,
   hashToCollection,
+  responsesWithStatus,
 } from '../../../Shared/index';
 import * as filterActions from '../../actions/filters';
 import * as massEdit from '../../actions/massEdit';
@@ -19,7 +20,6 @@ import {
   rematchOne
 } from '../../libs/grading/rematching.ts';
 import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging';
-import respWithStatus from '../../libs/responseTools';
 import POSForResponsesList from './POSForResponsesList';
 import ResponseList from './responseList';
 
@@ -218,7 +218,7 @@ class ResponseComponent extends React.Component {
   }
 
   responsesWithStatus() {
-    const responsesWithStatus = respWithStatus(this.props.filters.responses)
+    const responsesWithStatus = responsesWithStatus(this.props.filters.responses)
     return hashToCollection(responsesWithStatus);
   }
 

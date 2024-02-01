@@ -7,7 +7,7 @@ import {
 import { getOptimalResponses, getSubOptimalResponses } from './sharedResponseFunctions';
 
 import quillNormalize from './quillNormalizer';
-import { sortByLevenshteinAndOptimal } from './responseTools.js';
+import { sortByLevenshteinAndOptimal } from '../../Shared/index';
 
 
 const ERROR_TYPES = {
