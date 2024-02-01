@@ -240,5 +240,74 @@ module Evidence
         expect(AutomlModel.exists?(automl_model.id)).to be false
       end
     end
+
+    describe '#enable_more_than_ten_labels' do
+      subject { put :enable_more_than_ten_labels, params: { prompt_id:, additional_labels: } }
+
+      let!(:prompt_rule1) { create(:evidence_prompts_rule, prompt:, rule: rule1) }
+      let!(:prompt_rule2) { create(:evidence_prompts_rule, prompt:, rule: rule2) }
+      let!(:prompt_rule3) { create(:evidence_prompts_rule, prompt:, rule: rule3) }
+
+      let(:prompt) { create(:evidence_prompt) }
+
+      let(:rule1) { create(:evidence_rule, :active, :type_automl) }
+      let(:rule2) { create(:evidence_rule, :active, :type_automl) }
+      let(:rule3) { create(:evidence_rule, :active, :type_automl) }
+
+      let(:label1) { create(:evidence_label, rule: rule1).name }
+      let(:label2) { create(:evidence_label, rule: rule2).name }
+      let(:label3) { create(:evidence_label, rule: rule3).name }
+
+      let(:automl_model) { create(:evidence_automl_model, prompt:, labels: original_labels) }
+      let(:prompt_id) { automl_model.prompt_id.to_s }
+
+      let(:original_labels) { [label1] }
+      let(:additional_labels) { "#{label2}, #{label3}" }
+      let(:parsed_additional_labels) { additional_labels.split(',').map(&:strip) }
+      let(:updated_labels) { (original_labels + parsed_additional_labels).sort.uniq }
+
+      context 'with non-empty additional_labels' do
+        it { should_update_the_model_labels }
+        it { should_activate_the_model }
+      end
+
+      context 'with duplicate labels in additional_labels' do
+        let(:additional_labels) { "#{label3}, #{label3}" }
+
+        it { should_update_the_model_labels }
+        it { should_activate_the_model }
+      end
+
+      context 'with duplicate labels across original and additional_labels' do
+        let(:additional_labels) { label1 }
+
+        it { expect { subject }.not_to change { automl_model.reload.labels } }
+        it { should_activate_the_model }
+      end
+
+      context 'with invalid prompt_id' do
+        let(:prompt_id) { 'invalid_prompt_id' }
+
+        it 'returns a 404 error' do
+          subject
+          expect(response).to have_http_status(:not_found)
+          expect(parsed_response).to include('error' => match(/Model not found with prompt id/))
+        end
+      end
+
+      def should_activate_the_model
+        expect { subject }
+          .to change { automl_model.reload.state }
+          .from(AutomlModel::STATE_INACTIVE)
+          .to(AutomlModel::STATE_ACTIVE)
+      end
+
+      def should_update_the_model_labels
+        expect { subject }
+          .to change { automl_model.reload.labels }
+          .from(original_labels)
+          .to(updated_labels)
+      end
+    end
   end
 end
