@@ -44,6 +44,7 @@ class AdminReportFilterSelection < ApplicationRecord
       .uniq
       .map { |report| SEGMENT_MAPPING[report] }
       .compact
+      .join(", ")
   end
 
   def classrooms = filter_selections['classrooms']&.pluck('name')
