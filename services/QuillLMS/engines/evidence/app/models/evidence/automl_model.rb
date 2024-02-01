@@ -78,11 +78,7 @@ module Evidence
     def classify_text(text) = VertexAI::TextClassifier.run(endpoint_external_id, text)
 
     def older_models
-      @older_models ||=
-        AutomlModel
-          .where(prompt_id: prompt_id)
-          .where("created_at < ?", created_at)
-          .count
+      @older_models ||= AutomlModel.where(prompt_id: prompt_id).where("created_at < ?", created_at).count
     end
 
     def change_log_name = "AutoML Model"

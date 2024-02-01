@@ -27,7 +27,7 @@ const ModelsTable = ({ activityId, prompt }) => {
   const [isEnableMoreThanTenLabelsModalOpen, setIsEnableMoreThanTenLabelsModalOpen] = useState(false)
 
   function getFormattedRows() {
-    if (modelsData && modelsData.models && modelsData.models.length) {
+    if (modelsData?.models?.length) {
       const formattedRows = modelsData.models.map(model => {
         const { id, created_at, name, older_models, labels, state } = model;
         const viewLink = (
