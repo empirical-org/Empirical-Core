@@ -87,7 +87,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
           pre: { questions: pre_questions },
           post: { questions: post_questions }
         }
-        skill_group_results = GrowthResultsSummar.skill_groups_for_session(skill_groups, activity_session, pre_test_activity_session, student.name)
+        skill_group_results = GrowthResultsSummary.skill_groups_for_session(skill_groups, activity_session, pre_test_activity_session, student.name)
       else
         concept_results = { questions: format_concept_results(activity_session, activity_session.concept_results.order("question_number::int")) }
         skill_group_results = ResultsSummary.skill_groups_for_session(skill_groups, activity_session.concept_results, student.name)
