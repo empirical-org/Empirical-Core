@@ -13,6 +13,7 @@ const EnableMoreThanLabelsModal = ({ cancel, isOpen, save }) => {
     return (
       <Input
         handleChange={e => setAdditionalLabels(e.target.value)}
+        id="additionalLabels"
         label="Additional labels (separated by commas)"
         value={additionalLabels}
       />
