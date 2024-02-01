@@ -53,6 +53,22 @@ module Evidence
       render json: @names
     end
 
+    def enable_more_than_ten_labels
+      prompt_id = params['prompt_id']
+      automl_model = Evidence::AutomlModel.where(prompt_id:).last
+
+      return render json: { error: "Model not found with prompt id #{prompt_id}" }, status: 404 if automl_model.nil?
+
+      parsed_additional_labels = params['additional_labels'].split(',').map(&:strip)
+      labels = (automl_model.labels + parsed_additional_labels).sort.uniq
+
+      Evidence::AutomlModel
+        .where(id: automl_model.id)
+        .update_all(labels:) # update all since AutomlModel labels are readonly
+
+      automl_model.reload.activate
+    end
+
     private def custom_create_attrs
       VertexAI::ParamsBuilder
         .run(@automl_model.name)
@@ -76,5 +92,6 @@ module Evidence
         .require(:automl_model)
         .permit(:name, :notes, :prompt_id)
     end
+
   end
 end
