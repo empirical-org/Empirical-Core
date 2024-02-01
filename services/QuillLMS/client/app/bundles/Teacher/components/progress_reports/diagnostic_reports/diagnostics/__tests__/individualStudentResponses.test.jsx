@@ -1,38 +1,38 @@
-import { mount } from 'enzyme'
-import React from 'react'
+import * as React from 'react';
+import { render, screen } from '@testing-library/react';
 
 import {
   dummyLocationData,
   dummyMatchData,
   individualStudentPostTestConceptResults,
-  individualStudentPostTestSkillResults,
+  individualStudentPostTestSkillGroupResults,
   individualStudentPreTestConceptResults,
-  individualStudentPreTestSkillResults
+  individualStudentPreTestSkillGroupResults
 } from './test_data'
 
 import { IndividualStudentResponses, } from '../individualStudentResponses'
 
 describe('IndividualStudentResponses component', () => {
   it('should render for a pre-test', () => {
-    const wrapper = mount(<IndividualStudentResponses
+    const { asFragment, } = render(<IndividualStudentResponses
       location={dummyLocationData}
       match={dummyMatchData}
       mobileNavigation={<span />}
       passedConceptResults={individualStudentPreTestConceptResults}
-      passedSkillResults={individualStudentPreTestSkillResults}
+      passedSkillGroupResults={individualStudentPreTestSkillGroupResults}
     />)
-    expect(wrapper).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot();
   })
 
   it('should render for a post-test', () => {
-    const wrapper = mount(<IndividualStudentResponses
+    const { asFragment, } = render(<IndividualStudentResponses
       location={dummyLocationData}
       match={dummyMatchData}
       mobileNavigation={<span />}
       passedConceptResults={individualStudentPostTestConceptResults}
-      passedSkillResults={individualStudentPostTestSkillResults}
+      passedSkillGroupResults={individualStudentPostTestSkillGroupResults}
     />)
-    expect(wrapper).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot();
   })
 
 })
