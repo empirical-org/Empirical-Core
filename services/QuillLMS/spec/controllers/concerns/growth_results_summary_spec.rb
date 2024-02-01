@@ -46,7 +46,8 @@ describe GrowthResultsSummary do
                 pre: 0.5,
                 post: 1.0
               }
-            }
+            },
+            question_uids: pre_test_skill_group_activity.skill_group.questions.pluck(:uid),
           }
         ],
         student_results: [
@@ -66,6 +67,7 @@ describe GrowthResultsSummary do
                       number_incorrect: 0,
                       proficiency_score: 1,
                       summary: GrowthResultsSummary::FULLY_CORRECT,
+                      question_uid: diagnostic_question_skill1.question.uid
                     },
                     post: nil
                   },
@@ -77,6 +79,7 @@ describe GrowthResultsSummary do
                       number_incorrect: 0,
                       proficiency_score: 1,
                       summary: GrowthResultsSummary::FULLY_CORRECT,
+                      question_uid: diagnostic_question_skill2.question.uid
                     },
                     pre: nil
                   },
@@ -88,6 +91,7 @@ describe GrowthResultsSummary do
                       number_incorrect: 1,
                       proficiency_score: 0,
                       summary: GrowthResultsSummary::NOT_CORRECT,
+                      question_uid: diagnostic_question_skill3.question.uid
                     },
                     post: nil
                   },
@@ -99,11 +103,23 @@ describe GrowthResultsSummary do
                       number_incorrect: 0,
                       proficiency_score: 1,
                       summary: GrowthResultsSummary::FULLY_CORRECT,
+                      question_uid: diagnostic_question_skill4.question.uid
                     },
                     pre: nil
                   }
                 ],
                 number_of_correct_questions_text: "2 of 2 Questions Correct",
+                pre: {
+                  number_correct: 1,
+                  number_incorrect: 1,
+                  summary: GrowthResultsSummary::PARTIALLY_CORRECT
+                },
+                post: {
+                  number_correct: 2,
+                  number_incorrect: 0,
+                  summary: GrowthResultsSummary::FULLY_CORRECT
+                },
+                question_uids: pre_test_skill_group_activity.skill_group.questions.pluck(:uid),
                 proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
                 pre_test_proficiency: GrowthResultsSummary::PARTIAL_PROFICIENCY,
                 pre_test_proficiency_score: 0.5,
@@ -166,6 +182,7 @@ describe GrowthResultsSummary do
                       number_incorrect: 0,
                       proficiency_score: 1,
                       summary: GrowthResultsSummary::FULLY_CORRECT,
+                      question_uid: diagnostic_question_skill1.question.uid
                     },
                     post: nil
                   },
@@ -177,6 +194,7 @@ describe GrowthResultsSummary do
                       number_incorrect: 0,
                       proficiency_score: 1,
                       summary: GrowthResultsSummary::FULLY_CORRECT,
+                      question_uid: diagnostic_question_skill2.question.uid
                     },
                     pre: nil
                   },
@@ -188,6 +206,7 @@ describe GrowthResultsSummary do
                       number_incorrect: 1,
                       proficiency_score: 0,
                       summary: GrowthResultsSummary::NOT_CORRECT,
+                      question_uid: diagnostic_question_skill3.question.uid
                     },
                     post: nil
                   },
@@ -199,10 +218,22 @@ describe GrowthResultsSummary do
                       number_incorrect: 0,
                       proficiency_score: 1,
                       summary: GrowthResultsSummary::FULLY_CORRECT,
+                      question_uid: diagnostic_question_skill4.question.uid
                     },
                     pre: nil
                   }
                 ],
+                pre: {
+                  number_correct: 1,
+                  number_incorrect: 1,
+                  summary: GrowthResultsSummary::PARTIALLY_CORRECT
+                },
+                post: {
+                  number_correct: 2,
+                  number_incorrect: 0,
+                  summary: GrowthResultsSummary::FULLY_CORRECT
+                },
+                question_uids: pre_test_skill_group_activity.skill_group.questions.pluck(:uid),
                 number_of_correct_questions_text: "2 of 2 Questions Correct",
                 proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
                 pre_test_proficiency: GrowthResultsSummary::PARTIAL_PROFICIENCY,
@@ -281,6 +312,7 @@ describe GrowthResultsSummary do
                 number_incorrect: 0,
                 proficiency_score: 1,
                 summary: GrowthResultsSummary::FULLY_CORRECT,
+                question_uid: diagnostic_question_skill1.question.uid
               },
               post: nil
             },
@@ -292,6 +324,7 @@ describe GrowthResultsSummary do
                 number_incorrect: 0,
                 proficiency_score: 1,
                 summary: GrowthResultsSummary::FULLY_CORRECT,
+                question_uid: diagnostic_question_skill2.question.uid
               },
               pre: nil
             },
@@ -303,6 +336,7 @@ describe GrowthResultsSummary do
                 number_incorrect: 1,
                 proficiency_score: 0,
                 summary: GrowthResultsSummary::NOT_CORRECT,
+                question_uid: diagnostic_question_skill3.question.uid
               },
               post: nil
             },
@@ -314,10 +348,22 @@ describe GrowthResultsSummary do
                 number_incorrect: 0,
                 proficiency_score: 1,
                 summary: GrowthResultsSummary::FULLY_CORRECT,
+                question_uid: diagnostic_question_skill4.question.uid
               },
               pre: nil
             }
           ],
+          pre: {
+            number_correct: 1,
+            number_incorrect: 1,
+            summary: GrowthResultsSummary::PARTIALLY_CORRECT
+          },
+          post: {
+            number_correct: 2,
+            number_incorrect: 0,
+            summary: GrowthResultsSummary::FULLY_CORRECT
+          },
+          question_uids: pre_test_skill_group_activity.skill_group.questions.pluck(:uid),
           number_of_correct_questions_text: "2 of 2 Questions Correct",
           proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
           pre_test_proficiency: GrowthResultsSummary::PARTIAL_PROFICIENCY,

@@ -1,51 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SkillsTable component should render when it is expandable 1`] = `
-<SkillsTable
-  isExpandable={true}
-  skillGroup={
-    Object {
-      "description": "Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.",
-      "id": 66,
-      "number_of_correct_questions_text": "2 of 3 questions correct",
-      "proficiency_text": "Partial proficiency",
-      "skill_group": "Prepositional Phrases",
-      "skills": Array [
-        Object {
-          "id": 128,
-          "number_correct": 1,
-          "number_incorrect": 0,
-          "skill": "Adjectives, Adverbs, & Prepositional Phrases",
-          "summary": "Fully correct",
-        },
-        Object {
-          "id": 127,
-          "number_correct": 1,
-          "number_incorrect": 0,
-          "skill": "Prepositional Phrases",
-          "summary": "Fully correct",
-        },
-        Object {
-          "id": 126,
-          "number_correct": 2,
-          "number_incorrect": 1,
-          "skill": "Subject-Verb Agreement",
-          "summary": "Partially correct",
-        },
-      ],
-    }
-  }
->
+<DocumentFragment>
   <div
-    className="skills-table-container"
+    class="skills-table-container"
   >
     <table
-      className="skills-table contracted"
+      class="skills-table contracted"
     >
       <thead>
         <tr>
           <th
-            className="skill-column-header"
+            class="skill-column-header"
           >
             Skill
           </th>
@@ -56,75 +22,57 @@ exports[`SkillsTable component should render when it is expandable 1`] = `
             Incorrect
           </th>
           <th
-            className="summary-header"
+            class="summary-header"
           >
             Summary
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr
-          key="Adjectives, Adverbs, & Prepositional Phrases"
-        >
+        <tr>
           <td>
-            Adjectives, Adverbs, & Prepositional Phrases
+            Adjectives and Adverbs
           </td>
-          <td
-            className="center-align"
-          >
+          <td>
             1
           </td>
-          <td
-            className="center-align"
-          >
-            0
+          <td>
+            6
           </td>
           <td
-            className="fully-correct"
+            class=""
           >
-            Fully correct
+            Partially correct
           </td>
         </tr>
-        <tr
-          key="Prepositional Phrases"
-        >
+        <tr>
           <td>
-            Prepositional Phrases
+            Capitalization
           </td>
-          <td
-            className="center-align"
-          >
-            1
-          </td>
-          <td
-            className="center-align"
-          >
-            0
-          </td>
-          <td
-            className="fully-correct"
-          >
-            Fully correct
-          </td>
-        </tr>
-        <tr
-          key="Subject-Verb Agreement"
-        >
           <td>
-            Subject-Verb Agreement
-          </td>
-          <td
-            className="center-align"
-          >
             2
           </td>
+          <td>
+            0
+          </td>
           <td
-            className="center-align"
+            class="fully-correct"
           >
+            Fully correct
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Commonly Confused Words
+          </td>
+          <td>
+            1
+          </td>
+          <td>
             1
           </td>
           <td
-            className=""
+            class=""
           >
             Partially correct
           </td>
@@ -132,8 +80,7 @@ exports[`SkillsTable component should render when it is expandable 1`] = `
       </tbody>
     </table>
     <button
-      className="show-more-button"
-      onClick={[Function]}
+      class="show-more-button"
       type="button"
     >
       <span>
@@ -141,60 +88,26 @@ exports[`SkillsTable component should render when it is expandable 1`] = `
       </span>
       <img
         alt="Expand icon"
-        className="expand-icon"
+        class="expand-icon"
         src="undefined/images/icons/expand.svg"
       />
     </button>
   </div>
-</SkillsTable>
+</DocumentFragment>
 `;
 
 exports[`SkillsTable component should render when it is not expandable 1`] = `
-<SkillsTable
-  isExpandable={false}
-  skillGroup={
-    Object {
-      "description": "Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.",
-      "id": 66,
-      "number_of_correct_questions_text": "2 of 3 questions correct",
-      "proficiency_text": "Partial proficiency",
-      "skill_group": "Prepositional Phrases",
-      "skills": Array [
-        Object {
-          "id": 128,
-          "number_correct": 1,
-          "number_incorrect": 0,
-          "skill": "Adjectives, Adverbs, & Prepositional Phrases",
-          "summary": "Fully correct",
-        },
-        Object {
-          "id": 127,
-          "number_correct": 1,
-          "number_incorrect": 0,
-          "skill": "Prepositional Phrases",
-          "summary": "Fully correct",
-        },
-        Object {
-          "id": 126,
-          "number_correct": 2,
-          "number_incorrect": 1,
-          "skill": "Subject-Verb Agreement",
-          "summary": "Partially correct",
-        },
-      ],
-    }
-  }
->
+<DocumentFragment>
   <div
-    className="skills-table-container"
+    class="skills-table-container"
   >
     <table
-      className="skills-table "
+      class="skills-table "
     >
       <thead>
         <tr>
           <th
-            className="skill-column-header"
+            class="skill-column-header"
           >
             Skill
           </th>
@@ -205,81 +118,127 @@ exports[`SkillsTable component should render when it is not expandable 1`] = `
             Incorrect
           </th>
           <th
-            className="summary-header"
+            class="summary-header"
           >
             Summary
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr
-          key="Adjectives, Adverbs, & Prepositional Phrases"
-        >
+        <tr>
           <td>
-            Adjectives, Adverbs, & Prepositional Phrases
+            Adjectives and Adverbs
           </td>
-          <td
-            className="center-align"
-          >
+          <td>
             1
           </td>
+          <td>
+            6
+          </td>
           <td
-            className="center-align"
+            class=""
           >
+            Partially correct
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Capitalization
+          </td>
+          <td>
+            2
+          </td>
+          <td>
             0
           </td>
           <td
-            className="fully-correct"
+            class="fully-correct"
           >
             Fully correct
           </td>
         </tr>
-        <tr
-          key="Prepositional Phrases"
-        >
+        <tr>
+          <td>
+            Commonly Confused Words
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td
+            class=""
+          >
+            Partially correct
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Compound Subjects, Objects, and Predicates
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            3
+          </td>
+          <td
+            class=""
+          >
+            Not correct
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Plural and Possessive Nouns
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td
+            class=""
+          >
+            Partially correct
+          </td>
+        </tr>
+        <tr>
           <td>
             Prepositional Phrases
           </td>
-          <td
-            className="center-align"
-          >
-            1
+          <td>
+            2
           </td>
-          <td
-            className="center-align"
-          >
+          <td>
             0
           </td>
           <td
-            className="fully-correct"
+            class="fully-correct"
           >
             Fully correct
           </td>
         </tr>
-        <tr
-          key="Subject-Verb Agreement"
-        >
+        <tr>
           <td>
             Subject-Verb Agreement
           </td>
-          <td
-            className="center-align"
-          >
-            2
+          <td>
+            3
+          </td>
+          <td>
+            0
           </td>
           <td
-            className="center-align"
+            class="fully-correct"
           >
-            1
-          </td>
-          <td
-            className=""
-          >
-            Partially correct
+            Fully correct
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-</SkillsTable>
+</DocumentFragment>
 `;

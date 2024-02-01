@@ -303,18 +303,21 @@ describe PublicProgressReports, type: :model do
       expected_response = [
         {
           question_id: 1,
+          question_uid: question1.uid,
           score: nil,
           prompt: question1.data['prompt'],
           instructions: question1.data['instructions']
         },
         {
           question_id: 2,
+          question_uid: question2.uid,
           score: nil,
           prompt: question2.data['prompt'],
           instructions: question2.data['instructions']
         },
         {
           question_id: 3,
+          question_uid: question3.uid,
           score: nil,
           prompt: question3.data['prompt'],
           instructions: question3.data['instructions']

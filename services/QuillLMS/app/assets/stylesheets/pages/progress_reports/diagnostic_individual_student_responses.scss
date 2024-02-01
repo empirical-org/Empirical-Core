@@ -9,9 +9,6 @@
     .skills-table, .growth-skills-table {
       width: 950px;
       max-width: 100%;
-      td {
-        font-size: 14px;
-      }
       &.skills-table {
         .skill-column-header {
           width: 664px;
@@ -22,35 +19,38 @@
       }
       &.growth-skills-table {
         .skill-column-header {
-          width: 546px;
+          width: 450px;
         }
         .summary-header {
-          width: 201px;
+          width: 288px;
         }
       }
     }
   }
   .concept-tag {
-    padding: 8px;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: 600;
+    padding: 6px 8px;
+    border-radius: 6px;
+    font-size: 10px;
     width: min-content;
-    line-height: 1;
     display: flex;
     align-items: center;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 12px; /* 120% */
     img {
       margin-right: 4px;
     }
     &.incorrect-tag {
-      color: #995f00;
-      background-color: #fff3e0;
-      width: 83px;
+      color: $quill-gold-dark;
+      border: 1px solid $quill-gold-dark-20;
+      background: $quill-gold-5;
+      width: 71px;
     }
     &.correct-tag {
-      background-color: #e9f4e0;
-      color: #367300;
-      width: 75px;
+      border: 1px solid $quill-green-vibrant-20;
+      background: $quill-green-vibrant-10;
+      color: $quill-green-vibrant;
+      width: 67px;
     }
   }
   .tabs {
@@ -74,6 +74,30 @@
       border-bottom: 2px solid $quill-green;
     }
   }
+
+  .skill-group-section {
+    max-width: 950px;
+    padding-top: 32px;
+    .skill-group-section-header {
+      h2 {
+        display: flex;
+        justify-content: space-between;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: normal;
+        color: $quill-black;
+      }
+      p {
+        font-size: 13px;
+        display: flex;
+        justify-content: flex-end;
+        line-height: 20px;
+        margin-bottom: 8px;
+        color: $quill-grey-50;
+      }
+    }
+  }
+
   .data-table {
     max-width: 950px;
     border-radius: 8px;
@@ -82,11 +106,22 @@
     margin-bottom: 24px;
     .data-table-headers {
       border-radius: 8px 8px 0px 0px;
-      height: 32px;
+      min-height: 32px;
+      background-color: $quill-grey-1;
     }
     .data-table-header {
       overflow: visible;
       white-space: nowrap;
+      font-weight: 700;
+      font-size: 13px;
+      color: $quill-grey-90;
+      img {
+        margin-left: 4px;
+      }
+      .quill-tooltip-wrapper {
+        left: 0%;
+        transform: none;
+      }
     }
     .data-table-header, .data-table-row-section {
       margin-right: 16px;
@@ -94,15 +129,26 @@
         margin-right: 0px;
       }
     }
+    .data-table-row-section:first-of-type {
+      color: $quill-grey-90;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .data-table-row-section:last-of-type {
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 20px; /* 166.667% */
+      color: $quill-grey-50;
+    }
     .data-table-row {
       height: 48px;
-      padding: 0px;
-      margin: 0px 16px;
+      padding: 0px 16px;
+      margin: 0px;
       .quill-tooltip-trigger {
         margin-right: 16px;
       }
       &:hover {
-        background-color: transparent;
+        background-color: transparent !important;
       }
     }
   }
@@ -126,7 +172,7 @@
       border: solid 1px $quill-grey-5;
       margin-bottom: 16px;
       .header {
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 600;
         line-height: 1.33;
         color: $quill-grey-50;

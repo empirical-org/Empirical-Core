@@ -59,6 +59,7 @@ module PublicProgressReports
       curr_quest[:total] += 1
       curr_quest[:prompt] ||= answer.concept_result_prompt&.text
       curr_quest[:question_number] ||= answer.question_number
+      curr_quest[:question_uid] ||= answer.extra_metadata['question_uid']
       if answer.attempt_number == 1 || !curr_quest[:instructions]
         direct = answer.concept_result_directions&.text || answer.concept_result_instructions&.text || ""
         curr_quest[:instructions] = direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
@@ -67,10 +68,14 @@ module PublicProgressReports
     # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
     # being converted to an array because that is what the diagnostic reports expect
     questions_arr = questions.map do |k,v|
-      {question_id: k,
-       score: activity.is_evidence? ? nil : ((v[:correct].to_f/v[:total]) * 100).round,
-       prompt: v[:prompt],
-       instructions: v[:instructions]}
+      {
+        question_id: k,
+        question_number: v[:question_number],
+        question_uid: v[:question_uid],
+        score: activity.is_evidence? ? nil : ((v[:correct].to_f/v[:total]) * 100).round,
+        prompt: v[:prompt],
+        instructions: v[:instructions]
+     }
     end
 
     return questions_arr unless questions_arr.empty?
@@ -239,7 +244,8 @@ module PublicProgressReports
             directions: direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
           }
         },
-        question_number: cr.first.question_number
+        question_number: cr.first.question_number,
+        question_uid: cr.first.extra_metadata ? cr.first.extra_metadata['question_uid'] : nil
       }
       if cr.first.question_score
         hash[:questionScore] = cr.first.question_score
@@ -423,6 +429,7 @@ module PublicProgressReports
 
       question_array.push({
         question_id: question_array.length + 1,
+        question_uid: q.uid,
         score: nil,
         prompt: q.data['prompt'],
         instructions: q.data['instructions']
