@@ -30,7 +30,6 @@ module SegmentIntegration
         school_name: school&.name,
         premium_state: premium_state,
         premium_type: subscription&.account_type,
-        is_admin: admin?,
         minimum_grade_level: teacher_info&.minimum_grade_level,
         maximum_grade_level: teacher_info&.maximum_grade_level,
         subject_areas: teacher_info&.subject_areas_string,
