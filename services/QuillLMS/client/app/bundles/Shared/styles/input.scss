@@ -17,6 +17,9 @@
       margin-bottom: 4px;
     }
   }
+  &.dropdown-container {
+  justify-content: flex-start;
+  }
 
   &.not-editable input {
     cursor: default;
