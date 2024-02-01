@@ -7,10 +7,14 @@ module Snapshots
     context 'external_api', :big_query_snapshot do
       include_context 'Snapshots Activity Session Count CTE'
 
-      let(:concept_results) { activity_sessions.map { |activity_session| create(:concept_result, activity_session: activity_session) } }
-      let(:cte_records) { count_query_cte_records << concept_results }
-
       it { expect(results).to eq(count: activities.sum(&:question_count)) }
+
+      context 'no activity_sessions to count' do
+        # we need a dummy ActivitySession unrelated to the filters so that BigQuery tests can infer the appropriate shape of the data
+        let(:activity_sessions) { [create(:activity_session)] }
+
+        it { expect(results).to eq(count: 0) }
+      end
     end
   end
 end
