@@ -128,17 +128,21 @@ describe RematchResponseWorker do
         create(:response, params)
       end
     end
+    let(:options) { {'fire_pusher_alert' => true, 'question_key' => 'some_question_key'} }
 
-    it 'should update the response based on the lambda payload' do
+    it 'should update the response based on the lambda payload and trigger RematchingFinished worker' do
       stub_request(:post, /#{ENV['REMATCH_LAMBDA_URL']}/)
         .to_return(status: 200, body: sample_lambda_response.to_json, headers: {})
 
-      reference_response_ids = reference_responses.map { |r| r.id }
+      allow(RematchingFinished).to receive(:run)
 
-      expect(subject).to receive(:rematch_response).with(response, sample_payload['type'], sample_payload['question'], reference_responses).and_call_original
-      subject.perform(response.id, sample_payload['type'], sample_payload['question'], reference_response_ids)
+      reference_response_ids = reference_responses.map(&:id)
+
+      subject.perform(response.id, sample_payload['type'], sample_payload['question'], reference_response_ids, options)
       response.reload
-      expect(response.feedback).to eq(sample_lambda_response[:feedback])
+
+      expect(response.feedback).to eq(sample_lambda_response["feedback"])
+      expect(RematchingFinished).to have_received(:run).with('some_question_key')
     end
 
     it 'should raise an Net::HTTPRetriableError on Gateway Timeout' do
