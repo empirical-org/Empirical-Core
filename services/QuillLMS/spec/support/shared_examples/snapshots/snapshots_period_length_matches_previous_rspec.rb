@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.shared_examples 'snapshots period length matches previous' do |timeframe_key, custom_start, custom_end|
   context "'#{timeframe_key}'" do
-    let(:now) { DateTime.current.change(usec: 0) }
+    let(:now) { DateTime.current }
     let(:timeframe) {described_class.calculate_timeframes(timeframe_key, custom_start:, custom_end:)}
     let(:previous_timeframe) {described_class.calculate_timeframes(timeframe_key, custom_start:, custom_end:, previous_timeframe: true)}
     let(:previous_timeframe_length) {(previous_timeframe.last - previous_timeframe.first).to_f.round(6)}

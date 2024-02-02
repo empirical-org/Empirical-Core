@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.shared_examples 'snapshots timeframe times of day' do |timeframe_key, custom_start, custom_end|
   context 'period' do
-    let(:now) { DateTime.current.change(usec: 0) }
+    let(:now) { DateTime.current }
 
     before do
       allow(DateTime).to receive(:current).and_return(now)
