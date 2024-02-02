@@ -16,7 +16,7 @@ class RematchResponsesForQuestionWorker
 
       question_hash = retrieve_question(question_uid)
 
-      schedule_jobs(ungraded, question_type, question_hash, human_graded_ids, machine_graded.length == 0)
+      schedule_jobs(ungraded, question_type, question_hash, human_graded_ids, machine_graded.length.zero?)
       schedule_jobs(machine_graded, question_type, question_hash, human_graded_ids, true)
     end
   end

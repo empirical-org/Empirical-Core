@@ -29,9 +29,9 @@ class RematchResponseWorker
 
     rematch_response(response, question_type, question_hash, reference_responses)
 
-    if options['fire_pusher_alert']
-      RematchingFinished.run(options['question_key'])
-    end
+    return unless options['fire_pusher_alert']
+
+    RematchingFinished.run(options['question_key'])
   end
 
   def rematch_response(response, question_type, question_hash, reference_responses)
@@ -73,5 +73,4 @@ class RematchResponseWorker
 
     JSON.parse(resp.body)
   end
-
 end
