@@ -31,8 +31,8 @@ class RematchResponsesForQuestionWorker
         question_type,
         question_hash,
         human_graded_response_ids,
-        'fire_pusher_alert' => fire_pusher_on_last_job && is_last_worker,
-        'question_key' => question_hash['key']
+        fire_pusher_alert: fire_pusher_on_last_job && is_last_worker,
+        question_key: question_hash['key']
       )
     end
   end
