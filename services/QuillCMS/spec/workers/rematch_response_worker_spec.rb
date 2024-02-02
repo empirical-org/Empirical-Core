@@ -28,6 +28,7 @@ describe RematchResponseWorker do
     "updated_at": "2019-07-09T01:36:54.360Z",
     "spelling_error": false
   }
+
   sample_partial_lambda_response = {
     "feedback": "Revise your work.",
     "spelling_error": false
