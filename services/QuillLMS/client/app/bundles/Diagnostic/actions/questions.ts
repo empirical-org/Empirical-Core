@@ -246,6 +246,8 @@ function searchResponses(qid) {
 }
 
 function initializeSubscription(qid) {
+  console.log('this is getting called')
+  console.log(`admin-${qid}`)
   return (dispatch) => {
     if (process.env.NODE_ENV === 'development') {
       Pusher.logToConsole = true;
@@ -258,6 +260,7 @@ function initializeSubscription(qid) {
       setTimeout(() => dispatch(searchResponses(qid)), 1000);
     });
     channel.bind('rematching-finished', () => {
+      console.log('hello')
       window.alert(`Rematching finished for question ${qid}! Reload the page to see the rematched responses.`)
     })
   };
