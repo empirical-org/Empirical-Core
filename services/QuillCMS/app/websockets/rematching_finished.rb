@@ -1,5 +1,4 @@
 module RematchingFinished
-
   def self.run(question_id)
     pusher_client = Pusher::Client.new(
       app_id: ENV['PUSHER_APP_ID'],
