@@ -218,8 +218,7 @@ class ResponseComponent extends React.Component {
   }
 
   responsesWithStatus() {
-    const responsesWithStatus = responsesWithStatus(this.props.filters.responses)
-    return hashToCollection(responsesWithStatus);
+    return hashToCollection(responsesWithStatus(this.props.filters.responses));
   }
 
   responsesGroupedByStatus() {
