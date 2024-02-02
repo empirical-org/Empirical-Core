@@ -135,8 +135,6 @@ describe RematchResponseWorker do
       stub_request(:post, /#{ENV['REMATCH_LAMBDA_URL']}/)
         .to_return(status: 200, body: sample_lambda_response.to_json, headers: {})
 
-      allow(RematchingFinished).to receive(:run)
-
       reference_response_ids = reference_responses.map(&:id)
 
       expect(RematchingFinished).to receive(:run).with('some_question_key')
@@ -144,7 +142,7 @@ describe RematchResponseWorker do
       subject.perform(response.id, sample_payload['type'], sample_payload['question'], reference_response_ids, options)
       response.reload
 
-      expect(response.feedback).to eq(sample_lambda_response["feedback"])
+      expect(response.feedback).to eq(sample_lambda_response[:feedback])
     end
 
     it 'should raise an Net::HTTPRetriableError on Gateway Timeout' do
