@@ -79,6 +79,7 @@ module Snapshots
         context "current start" do
           it { expect(subject.first).to be_start_of_day }
         end
+
         context "current end" do
           it { expect(subject.last).to be_end_of_day }
         end
