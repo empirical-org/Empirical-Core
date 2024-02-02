@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rails_helper'
+
 module Snapshots
   describe Timeframes do
     context '#frontend_options' do
@@ -28,15 +30,15 @@ module Snapshots
 
       it do
         expect(described_class.calculate_timeframes('last-30-days')).to eq([
-          end_of_yesterday - 30.days,
+          end_of_yesterday.beginning_of_day - 29.days,
           end_of_yesterday
         ])
       end
 
       it do
         expect(described_class.calculate_timeframes('last-30-days', previous_timeframe: true)).to eq([
-          end_of_yesterday - 60.days,
-          end_of_yesterday - 30.days
+          end_of_yesterday.beginning_of_day - 58.days,
+          end_of_yesterday - 29.days
         ])
       end
 
@@ -69,6 +71,41 @@ module Snapshots
           ])
         end
       end
+
+      # all time has nil previous timeframe, so testing times of day manually
+      context "'all-time' time of day" do
+        subject { described_class.calculate_timeframes('all-time')}
+
+        context "current start" do
+          it { expect(subject.first).to be_start_of_day }
+        end
+        context "current end" do
+          it { expect(subject.last).to be_end_of_day }
+        end
+      end
     end
+
+    it_behaves_like 'snapshots timeframe times of day', 'last-30-days'
+    it_behaves_like 'snapshots timeframe times of day', 'last-90-days'
+    it_behaves_like 'snapshots timeframe times of day', 'this-month'
+    it_behaves_like 'snapshots timeframe times of day', 'last-month'
+    it_behaves_like 'snapshots timeframe times of day', 'this-school-year'
+    it_behaves_like 'snapshots timeframe times of day', 'last-school-year'
+    it_behaves_like 'snapshots timeframe times of day', 'custom', DateTime.yesterday.to_s, (DateTime.yesterday - 2.days).to_s
+
+    it_behaves_like 'snapshots period length', 'last-30-days', 30
+    it_behaves_like 'snapshots period length', 'last-90-days', 90
+    it_behaves_like 'snapshots period length', 'this-month', DateTime.current.yesterday.day
+    it_behaves_like 'snapshots period length', 'last-month', Time.days_in_month(DateTime.current.yesterday.prev_month.month)
+    it_behaves_like 'snapshots period length', 'this-school-year', DateTime.current.yesterday.end_of_day - School.school_year_start(DateTime.current)
+    it_behaves_like 'snapshots period length', 'last-school-year', Date.leap?(DateTime.current.prev_year.year) ? 366 : 365
+    it_behaves_like 'snapshots period length', 'custom', 4, (DateTime.current - 3.days).to_s, DateTime.current.to_s
+
+    # last-month and last-school-year may not match the previous period
+    it_behaves_like 'snapshots period length matches previous', 'last-30-days'
+    it_behaves_like 'snapshots period length matches previous', 'last-90-days'
+    it_behaves_like 'snapshots period length matches previous', 'this-month'
+    it_behaves_like 'snapshots period length matches previous', 'this-school-year'
+    it_behaves_like 'snapshots period length matches previous', 'custom', (DateTime.current - 3.days).to_s, DateTime.current.to_s
   end
 end
