@@ -69,4 +69,11 @@ class RematchResponseWorker
 
     JSON.parse(resp.body)
   end
+
+  def on_success(_status, options)
+    if options['fire_pusher_alert']
+      RematchingFinished.run(options['question_key'])
+    end
+  end
+
 end
