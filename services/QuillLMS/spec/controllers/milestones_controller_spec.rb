@@ -101,10 +101,10 @@ describe MilestonesController do
     it 'should update the user milestone timestamp if it does already exist' do
       user_milestone = create(:user_milestone, milestone: milestone, user: user, updated_at: 1.week.ago)
 
-      Timecop.freeze
-
-      post :create_or_touch_dismiss_teacher_info_modal
-      expect(user_milestone.reload.updated_at).to be_within(1.second).of Time.now.utc
+      Timecop.freeze do
+        post :create_or_touch_dismiss_teacher_info_modal
+        expect(user_milestone.reload.updated_at).to be_within(1.second).of Time.now.utc
+      end
     end
   end
 
