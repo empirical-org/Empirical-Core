@@ -10,6 +10,9 @@
 ### Notion Card Links
 (Please provide links to any relevant Notion card(s) relevant to this PR.)
 
+### What have you done to QA this feature?
+(Please describe in detail how you QA'd this feature)
+
 PR Checklist | Your Answer
 ------------ | -------------
 Have you added and/or updated tests? |  (The answer should mostly be 'YES'. If you answer 'NO', please justify.)
