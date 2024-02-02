@@ -9,7 +9,6 @@ RSpec.describe Cron do
         Cron.run
       end
 
-
       it "should run a refresh response view job if the hour is 3AM" do
         allow(Time).to receive(:now).and_return(Time.zone.now.beginning_of_day + 3.hour)
         expect(RefreshAllResponsesViewsWorker).to receive(:perform_async)

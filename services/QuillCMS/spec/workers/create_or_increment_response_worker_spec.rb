@@ -21,7 +21,6 @@ describe CreateOrIncrementResponseWorker do
         subject.perform({ text: response.text, question_uid: response.question_uid })
         expect(response.reload.count).to eq(original_count + 1)
         expect(response.reload.updated_at).to be > original_updated_at
-
       end
 
       it 'should increment the child count of the parent response if there is a parent id' do
