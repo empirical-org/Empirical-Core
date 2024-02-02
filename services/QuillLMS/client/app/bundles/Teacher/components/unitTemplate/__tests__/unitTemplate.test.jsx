@@ -1,7 +1,10 @@
 import { fireEvent, render } from '@testing-library/react';
 import * as React from 'react';
-import { UnitTemplate } from '..';
+
+import * as shared from '../../../../Shared';
 import * as unitTemplatesHelpers from '../../../helpers/unitTemplates';
+
+import { UnitTemplate } from '..';
 
 const unitTemplate = {
   id: 86,
@@ -21,20 +24,24 @@ const unitTemplate = {
 }
 
 describe('<UnitTemplate />', () => {
-  const renderComponent = (unitTemplate) =>
-    render(
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+  const returnToIndexFunction = () => null
+
+  test('matches the component snapshot', () => {
+
+    jest.spyOn(shared, 'TextEditor').mockImplementation(() => {
+      return jest.fn()
+    })
+
+    const { asFragment } = render(
       <UnitTemplate
-        returnToIndex={() => null}
+        returnToIndex={returnToIndexFunction}
         unitTemplate={unitTemplate}
       />
     );
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  test('matches the component snapshot', () => {
-    const { asFragment } = renderComponent(unitTemplate);
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -44,7 +51,7 @@ describe('<UnitTemplate />', () => {
     });
     const {getByText, asFragment} = render(
       <UnitTemplate
-        returnToIndex={() => null}
+        returnToIndex={returnToIndexFunction}
         unitTemplate={{unitTemplate, ...{time: null}}}
       />
     )
