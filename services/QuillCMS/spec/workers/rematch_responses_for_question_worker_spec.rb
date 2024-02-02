@@ -15,8 +15,8 @@ describe RematchResponsesForQuestionWorker do
 
     it 'should load rematch-eligible responses and enqueue them' do
       expect(subject).to receive(:retrieve_question).with(question_uid).and_return(question_hash)
-      expect(RematchResponseWorker).to receive(:perform_async).with(ungraded_response.id, question_type, question_hash, [graded_response.id, graded_response2.id], fire_pusher_alert: false, question_key: question_uid).once
-      expect(RematchResponseWorker).to receive(:perform_async).with(machine_response.id, question_type, question_hash, [graded_response.id, graded_response2.id], fire_pusher_alert: true, question_key: question_uid).once
+      expect(RematchResponseWorker).to receive(:perform_async).with(ungraded_response.id, question_type, question_hash, [graded_response.id, graded_response2.id], 'fire_pusher_alert' => false, 'question_key' => question_uid).once
+      expect(RematchResponseWorker).to receive(:perform_async).with(machine_response.id, question_type, question_hash, [graded_response.id, graded_response2.id], 'fire_pusher_alert' => true, 'question_key' => question_uid).once
 
       subject.perform(question_uid, question_type)
     end

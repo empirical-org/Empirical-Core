@@ -129,7 +129,7 @@ describe RematchResponseWorker do
         create(:response, params)
       end
     end
-    let(:options) { { fire_pusher_alert: true, question_key: 'some_question_key'} }
+    let(:options) { { 'fire_pusher_alert' => true, 'question_key' => 'some_question_key'} }
 
     it 'should update the response based on the lambda payload and trigger RematchingFinished worker' do
       stub_request(:post, /#{ENV['REMATCH_LAMBDA_URL']}/)
