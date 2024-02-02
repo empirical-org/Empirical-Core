@@ -21,13 +21,17 @@ class RematchResponseWorker
 
   class LambdaHTTPError < StandardError; end
 
-  def perform(response_id, question_type, question_hash, reference_response_ids)
+  def perform(response_id, question_type, question_hash, reference_response_ids, options)
     response = Response.find_by(id: response_id)
     return unless response
 
     reference_responses = Response.where(id: reference_response_ids).to_a
 
     rematch_response(response, question_type, question_hash, reference_responses)
+
+    if options['fire_pusher_alert']
+      RematchingFinished.run(options['question_key'])
+    end
   end
 
   def rematch_response(response, question_type, question_hash, reference_responses)
@@ -68,12 +72,6 @@ class RematchResponseWorker
     end
 
     JSON.parse(resp.body)
-  end
-
-  def on_success(_status, options)
-    if options['fire_pusher_alert']
-      RematchingFinished.run(options['question_key'])
-    end
   end
 
 end
