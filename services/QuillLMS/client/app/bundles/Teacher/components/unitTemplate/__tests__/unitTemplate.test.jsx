@@ -45,11 +45,12 @@ describe('<UnitTemplate />', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
+  // Implicitly asserts a lack of errors
   test('handles null activityPackTime values', () => {
     jest.spyOn(unitTemplatesHelpers, 'validateUnitTemplateForm').mockImplementation(() => {
       return []
     });
-    const {getByText, asFragment} = render(
+    const {getByText} = render(
       <UnitTemplate
         returnToIndex={returnToIndexFunction}
         unitTemplate={{unitTemplate, ...{time: null}}}
