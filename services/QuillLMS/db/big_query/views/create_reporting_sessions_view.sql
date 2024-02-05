@@ -1,4 +1,4 @@
-CREATE MATERIALIZED VIEW analytics-data-stores.lms.recent_reporting_sessions as (
+CREATE MATERIALIZED VIEW analytics-data-stores.lms.recent_reporting_sessions_view as (
   SELECT
    activity_sessions.user_id as student_id,
    activity_sessions.activity_id as activity_id,
