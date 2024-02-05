@@ -1,0 +1,50 @@
+export const results = [
+  {
+    student_id: 1,
+    student_name: "Angie Thomas",
+    aggregate_id: null,
+    name: "ROLLUP",
+    group_by: "student",
+    pre_to_post_improved_skill_count: 1,
+    pre_questions_correct: 6,
+    pre_questions_total: 11,
+    pre_questions_percentage: 0.55,
+    post_questions_correct: 7,
+    post_questions_total: 16,
+    post_questions_percentage: 0.44,
+    total_skills: 8,
+    pre_skills_proficient: 2,
+    pre_skills_to_practice: 6,
+    post_skills_to_practice: 4,
+    post_skills_improved: 2,
+    post_skills_maintained: 2,
+    post_skills_improved_or_maintained: 4,
+    total_activities: 11,
+    total_time_spent_seconds: 604,
+    aggregate_rows: [
+      {
+        student_id: 1,
+        student_name: "Angie Thomas",
+        aggregate_id: 1,
+        name: "Compound Sentences",
+        group_by: "student",
+        pre_to_post_improved_skill_count: 1,
+        pre_questions_correct: 2,
+        pre_questions_total: 3,
+        pre_questions_percentage: 0.67,
+        post_questions_correct: 3,
+        post_questions_total: 3,
+        post_questions_percentage: 1.0,
+        total_skills: 1,
+        pre_skills_proficient: 0,
+        pre_skills_to_practice: 1,
+        post_skills_to_practice: 0,
+        post_skills_improved: 1,
+        post_skills_maintained: 0,
+        post_skills_improved_or_maintained: 1,
+        total_activities: 2,
+        total_time_spent_seconds: 137
+      }
+    ]
+  }
+]

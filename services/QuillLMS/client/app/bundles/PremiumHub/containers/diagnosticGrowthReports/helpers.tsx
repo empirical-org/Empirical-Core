@@ -217,6 +217,60 @@ function formatSkillsData(data, isAggregateRowData) {
   })
 }
 
+function getPreToPostImprovedSkillsValue(count) {
+  if(count === 0) { return 'No Improved Skills'}
+  return `+${count} Improved Skill${count === 1 ? '' : 's'}`
+}
+
+function getQuestionsCorrectValue(correctCount, total, percentage) {
+  return(
+    <div>
+      <p>{`${correctCount} of ${total} Questions`}</p>
+      <p>{`(${Math.floor(percentage * 100)}%)`}</p>
+    </div>
+  )
+}
+
+function getPreSkillsProficient(proficientCount, practiceCount, total) {
+  return (
+    <div>
+      <p>{`${proficientCount} of ${total} Skills`}</p>
+      {practiceCount && <p>{`(${practiceCount} Skills to Practice)`}</p>}
+    </div>
+  )
+}
+
+function getTotalActivitiesAndTimespent(totalActivities, timespent) {
+  return `${totalActivities} (${getTimeInMinutesAndSeconds(timespent)})`
+}
+
+function getPostSkillsImprovedOrMaintained(improvedCount, maintainedCount, combinedCount, total) {
+  return (
+    <div>
+      <p>{`${combinedCount} of ${total} Skills`}</p>
+      <p>{`(${improvedCount} Improved, ${maintainedCount} Maintained)`}</p>
+    </div>
+  )
+}
+
+export function formatStudentData(data) {
+  return data.map((entry, i) => {
+    const { student_name, pre_to_post_improved_skill_count, pre_questions_correct, pre_questions_total, pre_questions_percentage, pre_skills_proficient, pre_skills_to_practice, total_skills, total_activities,
+      total_time_spent_seconds, post_questions_correct, post_questions_total, post_questions_percentage, post_skills_improved, post_skills_maintained, post_skills_improved_or_maintained
+    } = entry
+    return {
+      id: i,
+      name: student_name,
+      preToPostImprovedSkills: getPreToPostImprovedSkillsValue(pre_to_post_improved_skill_count),
+      preQuestionsCorrect: getQuestionsCorrectValue(pre_questions_correct, pre_questions_total, pre_questions_percentage),
+      preSkillsProficient: getPreSkillsProficient(pre_skills_proficient, pre_skills_to_practice, total_skills),
+      totalActivitiesAndTimespent: getTotalActivitiesAndTimespent(total_activities, total_time_spent_seconds),
+      postQuestionsCorrect: getQuestionsCorrectValue(post_questions_correct, post_questions_total, post_questions_percentage),
+      postSkillsImprovedOrMaintained: getPostSkillsImprovedOrMaintained(post_skills_improved, post_skills_maintained, post_skills_improved_or_maintained, total_skills)
+    }
+  })
+}
+
 export function aggregateSkillsData({
   skillsData,
   setAggregatedData,
