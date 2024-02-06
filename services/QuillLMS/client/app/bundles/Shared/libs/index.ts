@@ -29,3 +29,8 @@ export { filterNumbers } from './filterFunctions'
 export { redirectToActivity } from './redirectToActivity'
 export { renderNavList } from './navbarHelpers'
 export { noResultsMessage } from './stringManipulationFunctions'
+export {
+  getStatusForResponse,
+  responsesWithStatus,
+  sortByLevenshteinAndOptimal,
+} from './responseTools'

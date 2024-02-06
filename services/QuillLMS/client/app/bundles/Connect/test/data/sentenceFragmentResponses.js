@@ -14,6 +14,7 @@ export const algoOptimalResponse = {
 
 export const ungradedResponse = {
   text: 'I walked to the shop.',
+  optimal: null
 };
 
 export const subOptimalResponse = {
