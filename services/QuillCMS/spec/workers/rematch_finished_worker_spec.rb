@@ -3,6 +3,7 @@ require 'rails_helper'
 require 'webmock/rspec'
 
 describe RematchFinishedWorker do
+  subject { described_class.new }
 
   describe '#perform' do
     let(:question_key) { 'some_question_key' }
