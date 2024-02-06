@@ -44,7 +44,7 @@ describe CreateOrIncrementResponseWorker do
 
     context 'if the response does not already exist' do
       it 'should create a new response' do
-        expect(UpdateIndividualResponseWorker).to receive(:perform_async).never
+        expect(UpdateIndividualResponseWorker).to_not receive(:perform_async)
 
         text = 'Totally different text'
         subject.perform({ text: text })
