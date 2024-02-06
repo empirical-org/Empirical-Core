@@ -31,7 +31,7 @@ class RematchResponseWorker
 
     return unless options['fire_pusher_alert']
 
-    RematchingFinished.run(options['question_key'])
+    RematchFinishedWorker.perform_async(options['question_key'])
   end
 
   def rematch_response(response, question_type, question_hash, reference_responses)
