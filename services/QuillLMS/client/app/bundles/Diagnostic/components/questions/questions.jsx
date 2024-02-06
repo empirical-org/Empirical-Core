@@ -6,12 +6,12 @@ import _ from 'underscore';
 import {
   ArchivedButton,
   Modal,
-  hashToCollection
+  hashToCollection,
+  responsesWithStatus
 } from '../../../Shared/index';
 import actions from '../../actions/questions';
 import { deleteResponse, submitResponseEdit } from '../../actions/responses';
 import Question from '../../libs/question';
-import respWithStatus from '../../libs/responseTools.js';
 import { QuestionListByConcept } from '../shared/questionListByConcept';
 
 function sleep(milliseconds) {
@@ -94,7 +94,7 @@ class Questions extends React.Component {
     let { responses } = this.props;
     const { data } = responses;
     responses = data[questionUID];
-    return hashToCollection(respWithStatus(responses));
+    return hashToCollection(responsesWithStatus(responses));
   };
 
   rematchAllResponses = (question) => {
