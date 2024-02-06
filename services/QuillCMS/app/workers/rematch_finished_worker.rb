@@ -6,5 +6,4 @@ class RematchFinishedWorker
   def perform(question_key)
     RematchingFinished.run(question_key)
   end
-
 end
