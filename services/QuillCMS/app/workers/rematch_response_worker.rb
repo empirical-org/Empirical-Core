@@ -29,7 +29,7 @@ class RematchResponseWorker
 
     rematch_response(response, question_type, question_hash, reference_responses)
 
-    return unless options['fire_pusher_alert']
+    return unless options['fire_pusher_alert'] && options['question_key']
 
     RematchFinishedWorker.perform_async(options['question_key'])
   end
