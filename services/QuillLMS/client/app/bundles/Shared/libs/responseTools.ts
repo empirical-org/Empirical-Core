@@ -1,9 +1,7 @@
 import Levenshtein from 'levenshtein';
-import { Response } from 'quill-marking-logic';
+import _ from 'underscore';
 
-type ResponseWithLevenshtein = Response & { levenshtein: any }
-
-export function getStatusForResponse(response: Response|{} = {}) {
+export function getStatusForResponse(response = {}) {
   if (response.optimal === null && !response.parent_id && !response.author) {
     return 4;
   } else if (response.parent_id || response.author) {
@@ -12,20 +10,17 @@ export function getStatusForResponse(response: Response|{} = {}) {
   return (response.optimal ? 0 : 1);
 }
 
-export default function responsesWithStatus(responses: {[key: string]: Response}|{} = {}) {
-  const responsesWithStatus: {[key: string]: Response} = {}
-  Object.keys(responses).forEach(key => {
-    const value = responses[key]
+export function responsesWithStatus(responses = {}) {
+  return _.mapObject(responses, (value, key) => {
     const statusCode = getStatusForResponse(value);
-    responsesWithStatus[key] = Object.assign({}, value, { statusCode, });
+    return Object.assign({}, value, { statusCode, });
   });
-  return responsesWithStatus
 }
 
-export function sortByLevenshteinAndOptimal(userString: string, responses: ResponseWithLevenshtein[]) {
+export function sortByLevenshteinAndOptimal(userString, responses) {
   responses.forEach((res) => { res.levenshtein = new Levenshtein(res.text, userString).distance; });
   return responses.sort((a, b) => {
-    if ((a.levenshtein - b.levenshtein) !== 0) {
+    if ((a.levenshtein - b.levenshtein) != 0) {
       return a.levenshtein - b.levenshtein;
     }
     // sorts by boolean

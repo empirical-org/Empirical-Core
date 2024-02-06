@@ -1,7 +1,7 @@
 import expect from 'expect';
 import Levenshtein from 'levenshtein';
 import { checkChangeObjectMatch } from '../../libs/algorithms/changeObjects.js';
-import { sortByLevenshteinAndOptimal } from '../../libs/responseTools.js';
+import { sortByLevenshteinAndOptimal } from '../../../Shared/index';
 
 const responses = [
   {

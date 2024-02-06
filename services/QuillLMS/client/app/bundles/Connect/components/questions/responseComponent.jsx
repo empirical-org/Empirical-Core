@@ -7,7 +7,8 @@ import {
   QuestionBar,
   ResponseSortFields,
   ResponseToggleFields,
-  hashToCollection
+  hashToCollection,
+  responsesWithStatus,
 } from '../../../Shared/index';
 import * as filterActions from '../../actions/filters';
 import massEdit from '../../actions/massEdit';
@@ -20,7 +21,6 @@ import {
 } from '../../libs/grading/rematching.ts';
 import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
 import QuestionMatcher from '../../libs/question';
-import respWithStatus from '../../libs/responseTools.js';
 import POSMatcher from '../../libs/sentenceFragment.js';
 import POSForResponsesList from './POSForResponsesList.jsx';
 import ResponseList from './responseList.jsx';
@@ -310,7 +310,7 @@ class ResponseComponent extends React.Component {
   };
 
   responsesWithStatus = () => {
-    return hashToCollection(respWithStatus(this.props.filters.responses));
+    return hashToCollection(responsesWithStatus(this.props.filters.responses));
   };
 
   searchResponses = () => {

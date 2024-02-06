@@ -132,6 +132,9 @@ export const initializeSubscription = (qid: string) => {
     channel.bind('new-response', (data) => {
       setTimeout(() => dispatch(searchResponses(qid)), 1000);
     });
+    channel.bind('rematching-finished', () => {
+      window.alert(`Rematching finished for the Grammar question with uid ${qid}! Reload the page to see the rematched responses.`)
+    })
   };
 }
 

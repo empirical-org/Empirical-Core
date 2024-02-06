@@ -59,7 +59,7 @@ RSpec.describe SegmentIntegration::User do
       context 'when the admin is a premium admin' do
         before { allow(admin).to receive(:premium_admin?).and_return(true) }
 
-        it { is_expected.to eq common_params.merge(admin_report_subscriptions: []) }
+        it { is_expected.to eq common_params.merge(admin_report_subscriptions: '') }
       end
     end
 

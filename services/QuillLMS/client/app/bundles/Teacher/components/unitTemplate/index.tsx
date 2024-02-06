@@ -127,16 +127,17 @@ export const UnitTemplate = ({ unitTemplate }) => {
 
   function handleSaveUnitTemplate() {
     const errors = validateUnitTemplateForm({ activityPackFlag, activityPackName, activityPackType });
+
     if(Object.keys(errors).length) {
       return setErrors(errors);
     }
     setErrors(null);
     const unitTemplateObject = {
       name: activityPackName,
-      flag: activityPackFlag.value,
+      flag: activityPackFlag?.value,
       activity_info: activityPackInfo,
-      time: activityPackTime.value,
-      unit_template_category_id: activityPackType.value,
+      time: activityPackTime?.value,
+      unit_template_category_id: activityPackType?.value,
       activity_ids: activityPackActivities.map(activity => activity.id),
       image_link: activityPackImageLink
     };
