@@ -5,23 +5,24 @@ import { formatStudentData } from './helpers'
 
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
-import { DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH, diagnosticTypeDropdownOptions, hashPayload } from '../../shared'
+import { diagnosticTypeDropdownOptions, hashPayload } from '../../shared'
 
 const QUERY_KEY = "diagnostic-student"
 const PUSHER_EVENT_KEY = "admin-diagnostic-student-cached";
+const DEFAULT_WIDTH = "140px"
 
 const headers = [
   {
     name: 'Student Name',
     attribute: 'name',
-    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
+    width: DEFAULT_WIDTH,
     noTooltip: true,
     isSortable: false
   },
   {
     name: '',
     attribute: 'preToPostImprovedSkills',
-    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
+    width: DEFAULT_WIDTH,
     primaryTitle: 'Pre to Post:',
     secondaryTitle: 'Improved Skills',
     tooltipName: '',
@@ -32,7 +33,7 @@ const headers = [
   {
     name: '',
     attribute: 'preQuestionsCorrect',
-    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
+    width: DEFAULT_WIDTH,
     primaryTitle: 'Pre:',
     secondaryTitle: 'Questions Correct',
     tooltipName: '',
@@ -43,7 +44,7 @@ const headers = [
   {
     name: '',
     attribute: 'preSkillsProficient',
-    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
+    width: '146px',
     primaryTitle: 'Pre:',
     secondaryTitle: 'Skills Proficient',
     tooltipName: '',
@@ -54,7 +55,7 @@ const headers = [
   {
     name: '',
     attribute: 'totalActivitiesAndTimespent',
-    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
+    width: '134px',
     primaryTitle: 'Total Activities &',
     secondaryTitle: 'Time Spent',
     tooltipName: '',
@@ -65,7 +66,7 @@ const headers = [
   {
     name: '',
     attribute: 'postQuestionsCorrect',
-    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
+    width: DEFAULT_WIDTH,
     primaryTitle: 'Post:',
     secondaryTitle: 'Questions Correct',
     tooltipName: '',
@@ -76,7 +77,7 @@ const headers = [
   {
     name: '',
     attribute: 'postSkillsImprovedOrMaintained',
-    width: DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH,
+    width: '186px',
     primaryTitle: 'Post: Skills',
     secondaryTitle: 'Improved Or Maintained',
     tooltipName: '',
@@ -95,13 +96,11 @@ export const StudentSection = ({
   selectedClassroomIds,
   selectedTimeframe,
   pusherChannel,
-  selectedDiagnosticId,
   passedData
 }) => {
-  const [diagnosticTypeValue, setDiagnosticTypeValue] = React.useState<DropdownObjectInterface>(getInitialDiagnosticType())
+  const [diagnosticTypeValue, setDiagnosticTypeValue] = React.useState<DropdownObjectInterface>(diagnosticTypeDropdownOptions[0])
   const [pusherMessage, setPusherMessage] = React.useState<string>(null)
   const [studentData, setStudentData] = React.useState<any>(passedData || []);
-  console.log("🚀 ~ file: studentSection.tsx:103 ~ studentData:", studentData)
   const [loading, setLoading] = React.useState<boolean>(!passedData);
 
   React.useEffect(() => {
@@ -159,13 +158,6 @@ export const StudentSection = ({
 
   function handleDiagnosticTypeOptionChange(option) {
     setDiagnosticTypeValue(option)
-  }
-
-  function getInitialDiagnosticType() {
-    if (selectedDiagnosticId) {
-      return diagnosticTypeDropdownOptions.filter(diagnosticType => diagnosticType.value === selectedDiagnosticId)[0]
-    }
-    return diagnosticTypeDropdownOptions[0]
   }
 
   function renderContent() {
