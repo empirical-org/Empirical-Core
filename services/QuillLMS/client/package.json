@@ -18,6 +18,8 @@
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/preset-env": "^7.22.10",
     "@babel/preset-react": "^7.0.0",
+    "@dnd-kit/core": "^6.1.0",
+    "@dnd-kit/sortable": "^8.0.0",
     "@draft-js-plugins/editor": "^4.1.0",
     "@redux-devtools/core": "^3.11.0",
     "@redux-devtools/log-monitor": "^3.1.0",
