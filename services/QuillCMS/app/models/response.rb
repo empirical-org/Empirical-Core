@@ -4,6 +4,8 @@ class Response < ApplicationRecord
   include Elasticsearch::Model
   include ResponseScopes
   after_create_commit :create_index_in_elastic_search
+  # NB: response.increment!(:count, 1, touch: true) does not call callbacks
+  # so this after_update is rarely called
   after_update_commit :update_index_in_elastic_search
   after_commit :conditional_wipe_question_cache, on: [:create, :update]
   before_destroy :destroy_index_in_elastic_search, :wipe_question_cache

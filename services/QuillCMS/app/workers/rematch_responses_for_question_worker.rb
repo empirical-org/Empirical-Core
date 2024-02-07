@@ -3,7 +3,7 @@ require 'net/http'
 
 class RematchResponsesForQuestionWorker
   include Sidekiq::Worker
-  sidekiq_options retry: 3, queue: SidekiqQueue::LOW
+  sidekiq_options retry: 3, queue: SidekiqQueue::DEFAULT
 
   def perform(question_uid, question_type)
     ActiveRecord::Base.connected_to(role: :reading) do
