@@ -9,14 +9,65 @@ import { TextEditor, hashToCollection, isValidRegex } from '../../../Shared/inde
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import { SortableDraggableList } from '../../../Shared/components/shared';
+import { useState } from 'react';
 
-function createRange(length, initializer) {
-  return [...new Array(length)].map((_, index) => initializer(index));
-}
+const SequenceList = ({match, sequencesSortedByOrder, deleteSequence, saveSequencesAndFeedback, handleNameChange,
+  addNewSequence, renderTextInputFields, handleFeedbackChange, renderConceptResults}) => {
 
+  const components = sequencesSortedByOrder().map((sequence) => {
+    console.log("sequence:", sequence)
+    return (
+      <div className="card is-fullwidth has-bottom-margin" key={sequence.key}>
+        <header className="card-header">
+          <input className="regex-name" onChange={(e) => handleNameChange(e, sequence.key)} placeholder="Name" type="text" value={sequence.name || ''} />
+        </header>
+        <header className="card-header">
+          <p className="card-header-title" style={{ display: 'inline-block', }}>
+            {renderTextInputFields(sequence.text, sequence.key)}
+            <button className="add-regex-button" onClick={(e) => addNewSequence(e, sequence.key)} type="button">+</button>
+          </p>
+          <p className="card-header-icon">
+            {sequence.order}
+          </p>
+        </header>
+        <div className="card-content">
+          <label className="label" htmlFor="feedback" style={{ marginTop: 10, }}>Feedback</label>
+          <TextEditor
+            ContentState={ContentState}
+            EditorState={EditorState}
+            handleTextChange={(e) => handleFeedbackChange(e, sequence.key)}
+            key="feedback"
+            shouldCheckSpelling={true}
+            text={sequence.feedback}
+          />
+          <br />
+          {renderConceptResults(sequence.conceptResults, sequence.key)}
+        </div>
 
-function getMockItems() {
-  return createRange(7, (index) => ({ id: index + 1 }));
+        <footer className="card-footer">
+          <NavLink className="card-footer-item" to={`${match.url}/${sequence.key}/edit`}>Edit</NavLink>
+          <a className="card-footer-item" onClick={() => deleteSequence(sequence.key)}>Delete</a>
+          <a className="card-footer-item" onClick={() => saveSequencesAndFeedback(sequence.key)}>Save</a>
+        </footer>
+      </div>
+    )
+  });
+
+  const [items, setItems] = useState(components);
+
+  return (
+    <SortableDraggableList
+      items={items}
+      onChange={setItems}
+      renderItem={(item) => (
+        <SortableDraggableList.Item id={item.id}>
+          {item.id}
+          <SortableDraggableList.DragHandle />
+        </SortableDraggableList.Item>
+      )}
+    />
+  )
+
 }
 
 class IncorrectSequencesContainer extends Component {
@@ -188,62 +239,6 @@ class IncorrectSequencesContainer extends Component {
     }
   }
 
-  renderSequenceList = () => {
-    const { match } = this.props
-    const items = getMockItems();
-    const setItems = () => ([])
-    return (
-      <SortableDraggableList
-        items={items}
-        onChange={setItems}
-        renderItem={(item) => (
-          <SortableDraggableList.Item id={item.id}>
-            {item.id}
-            <SortableDraggableList.DragHandle />
-          </SortableDraggableList.Item>
-        )}
-      />
-    )
-
-    const components = this.sequencesSortedByOrder().map((sequence) => {
-      return (
-        <div className="card is-fullwidth has-bottom-margin" key={sequence.key}>
-          <header className="card-header">
-            <input className="regex-name" onChange={(e) => this.handleNameChange(e, sequence.key)} placeholder="Name" type="text" value={sequence.name || ''} />
-          </header>
-          <header className="card-header">
-            <p className="card-header-title" style={{ display: 'inline-block', }}>
-              {this.renderTextInputFields(sequence.text, sequence.key)}
-              <button className="add-regex-button" onClick={(e) => this.addNewSequence(e, sequence.key)} type="button">+</button>
-            </p>
-            <p className="card-header-icon">
-              {sequence.order}
-            </p>
-          </header>
-          <div className="card-content">
-            <label className="label" htmlFor="feedback" style={{ marginTop: 10, }}>Feedback</label>
-            <TextEditor
-              ContentState={ContentState}
-              EditorState={EditorState}
-              handleTextChange={(e) => this.handleFeedbackChange(e, sequence.key)}
-              key="feedback"
-              shouldCheckSpelling={true}
-              text={sequence.feedback}
-            />
-            <br />
-            {this.renderConceptResults(sequence.conceptResults, sequence.key)}
-          </div>
-          <footer className="card-footer">
-            <NavLink className="card-footer-item" to={`${match.url}/${sequence.key}/edit`}>Edit</NavLink>
-            <a className="card-footer-item" onClick={() => this.deleteSequence(sequence.key)}>Delete</a>
-            <a className="card-footer-item" onClick={() => this.saveSequencesAndFeedback(sequence.key)}>Save</a>
-          </footer>
-        </div>
-      )
-    });
-    return <SortableList data={_.values(components)} key={_.values(components).length} sortCallback={this.sortCallback} />;
-  }
-
   renderTextInputFields = (sequenceString, key) => {
     const className = `input regex-inline-edit regex-${key}`
     if (sequenceString === '') return this.inputElement(className, '', key)
@@ -260,12 +255,25 @@ class IncorrectSequencesContainer extends Component {
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Incorrect Sequences</h1>
           <a className="button is-outlined is-primary" href={`#${match.url}/new`} rel="noopener noreferrer" style={{ float: 'right', }}>Add Incorrect Sequence</a>
         </div>
-        {this.renderSequenceList()}
+        <SequenceList
+          addNewSequence={this.addNewSequence}
+          deleteSequence={this.deleteSequence}
+          handleFeedbackChange={this.handleFeedbackChange}
+          handleNameChange={this.handleFeedbackChange}
+
+          match={match}
+          renderConceptResults={this.renderConceptResults}
+          renderTextInputFields={this.renderTextInputFields}
+          saveSequencesAndFeedback={this.saveSequencesAndFeedback}
+          sequencesSortedByOrder={this.sequencesSortedByOrder}
+
+
+
+        />
       </div>
     );
   }
 }
-
 function select(props) {
   let mapState
   if (window.location.href.includes('sentence-fragments')) {
