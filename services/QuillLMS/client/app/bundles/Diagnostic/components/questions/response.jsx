@@ -1,116 +1,97 @@
-import { ContentState, EditorState } from 'draft-js';
-import React from 'react';
-import _ from 'underscore';
+import * as React from 'react'
+import * as jsDiff from 'diff'
+
+import { ContentState, EditorState } from 'draft-js'
+import _ from 'underscore'
+
 import {
   Modal,
   TextEditor
-} from '../../../Shared/index';
-import massEdit from '../../actions/massEdit';
-import questionActions from '../../actions/questions';
+} from '../../../Shared/index'
+import massEdit from '../../actions/massEdit'
+import questionActions from '../../actions/questions'
 import {
   deleteResponse,
   getGradedResponsesWithCallback,
   submitResponseEdit,
-} from '../../actions/responses';
-import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
-import C from '../../constants';
-import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx';
-import getBoilerplateFeedback from './boilerplateFeedback.jsx';
-import ResponseList from './responseList.jsx';
+} from '../../actions/responses'
+import sentenceFragmentActions from '../../actions/sentenceFragments.ts'
+import C from '../../constants'
+import { rematchOne } from '../../libs/grading/rematching.ts'
+import { getStatusForResponse } from '../../../Shared/index'
 
-import * as jsDiff from 'diff';
+import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx'
 
-export default class extends React.Component {
-  constructor(props) {
-    super(props);
-    const response = props.response
-    let actions;
-    if (props.mode === 'sentenceFragment') {
-      actions = sentenceFragmentActions;
+import getBoilerplateFeedback from './boilerplateFeedback.jsx'
+import ResponseList from './responseList.jsx'
+
+
+const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded, mode, passedResponse, responses, dispatch, getChildResponses, getResponse, massEdit, question, questionID, readOnly, state, states}) => {
+  const [response, setResponse] = React.useState(passedResponse)
+  const [feedback, setFeedback] = React.useState(passedResponse.feedback || '')
+  const [selectedBoilerplate, setSelectedBoilerplate] = React.useState('')
+  const [selectedBoilerplateCategory, setSelectedBoilerplateCategory] = React.useState(passedResponse.selectedBoilerplateCategory || '')
+  const [selectedConcept, setSelectedConcept] = React.useState(passedResponse.concept || '')
+  const [parent, setParent] = React.useState(null)
+  const [newConceptResult, setNewConceptResult] = React.useState({
+    conceptUID: '',
+    correct: true,
+  })
+
+  let conceptResults = {}
+  if (passedResponse.concept_results) {
+    if (typeof response.concept_results === 'string') {
+      conceptResults = JSON.parse(passedResponse.concept_results)
     } else {
-      actions = questionActions;
+      conceptResults = passedResponse.concept_results
     }
-    let conceptResults = {}
-    if (response.concept_results) {
-      if (typeof response.concept_results === 'string') {
-        conceptResults = JSON.parse(response.concept_results)
-      } else {
-        conceptResults = response.concept_results
-      }
-    }
-
-    this.state = {
-      feedback: response.feedback || '',
-      selectedBoilerplate: '',
-      selectedBoilerplateCategory: response.selectedBoilerplateCategory || '',
-      selectedConcept: response.concept || '',
-      actions,
-      parent: null,
-      newConceptResult: {
-        conceptUID: '',
-        correct: true,
-      },
-      conceptResults
-    };
   }
+  const [conceptResultsState, setConceptResults] = React.useState(conceptResults)
+  const [actions, setActions] = React.useState(mode === 'sentenceFragment' ? sentenceFragmentActions : questionActions)
+  const [statusCode, setStatusCode] = React.useState(getStatusForResponse(passedResponse))
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { response } = nextProps;
+  React.useEffect(() => {
     const { concept_results, } = response;
-    if (!_.isEqual(response, this.props.response)) {
-      let conceptResults = {}
-      if (concept_results) {
-        if (typeof concept_results === 'string') {
-          conceptResults = JSON.parse(concept_results)
-        } else {
-          conceptResults = concept_results
-        }
+    let conceptResults = {}
+    if (concept_results) {
+      if (typeof concept_results === 'string') {
+        conceptResults = JSON.parse(concept_results)
+      } else {
+        conceptResults = concept_results
       }
-      this.setState({conceptResults})
     }
-  }
+    setConceptResults(conceptResults)
+    setStatusCode(getStatusForResponse(response))
+  }, [response])
 
-  deleteResponse = (rid) => {
-    const { dispatch, questionID } = this.props;
+  function deleteResponse(rid) {
     if (window.confirm('Are you sure?')) {
       dispatch(deleteResponse(questionID, rid));
       dispatch(massEdit.removeResponseFromMassEditArray(rid));
     }
   }
 
-  editResponse = (rid) => {
-    const { dispatch, questionID } = this.props
-    const { actions } = this.state
+  function editResponse(rid) {
     dispatch(actions.startResponseEdit(questionID, rid));
   }
 
-  cancelResponseEdit = (rid) => {
-    const { dispatch, questionID } = this.props
-    const { actions } = this.state
+  function cancelResponseEdit(rid) {
     dispatch(actions.cancelResponseEdit(questionID, rid));
   }
 
-  cancelChildResponseView = (rid) => {
-    const { dispatch, questionID } = this.props
-    const { actions } = this.state
+  function cancelChildResponseView(rid) {
     dispatch(actions.cancelChildResponseView(questionID, rid));
   }
 
-  cancelFromResponseView = (rid) => {
-    const { dispatch, questionID } = this.props
-    const { actions } = this.state
+  function cancelFromResponseView(rid) {
     dispatch(actions.cancelFromResponseView(questionID, rid));
   }
 
-  cancelToResponseView = (rid) => {
-    const { dispatch, questionID } = this.props
-    const { actions } = this.state
+  function cancelToResponseView(rid) {
     dispatch(actions.cancelToResponseView(questionID, rid));
   }
 
-  updateResponse = (rid) => {
-    const { dispatch, questionID } = this.props
-    const { conceptResults, feedback } = this.state
+  function updateResponse(rid) {
     const newResp = {
       weak: false,
       feedback,
@@ -122,8 +103,7 @@ export default class extends React.Component {
     dispatch(submitResponseEdit(rid, newResp, questionID));
   };
 
-  unmatchResponse = (rid) => {
-    const { dispatch, question, questionID } = this.props;
+  function unmatchResponse(rid) {
     const { modelConceptUID, conceptID, } = question
     const defaultConceptUID = modelConceptUID || conceptID
     const newResp = {
@@ -137,16 +117,15 @@ export default class extends React.Component {
     dispatch(submitResponseEdit(rid, newResp, questionID));
   };
 
-  getErrorsForAttempt = (attempt) => {
+  function getErrorsForAttempt(attempt) {
     return _.pick(attempt, ...C.ERROR_TYPES);
   };
 
-  rematchResponse = (rid) => {
-    const { getMatchingResponse } = this.props
-    getMatchingResponse(rid);
-  }
+  function rematchResponse() {
+    rematchOne(response, mode, question, questionID, rerenderResponse);
+  };
 
-  applyDiff = (answer = '', response = '') => {
+  function applyDiff(answer = '', response = '') {
     const diff = jsDiff.diffWords(response, answer);
     const spans = diff.map((part) => {
       const fontWeight = part.added ? 'bold' : 'normal';
@@ -160,121 +139,115 @@ export default class extends React.Component {
     return spans;
   };
 
-  handleFeedbackChange = (e) => {
+  function handleFeedbackChange(e) {
     if (e === 'Select specific boilerplate feedback') {
-      this.setState({ feedback: '', });
+      setFeedback('')
     } else {
-      this.setState({ feedback: e, });
+      setFeedback(e)
     }
   };
 
-  deleteConceptResult = (crid) => {
+  function deleteConceptResult(crid) {
     if (confirm('Are you sure?')) {
-      let conceptResults = Object.assign({}, this.state.conceptResults || {});
+      let conceptResults = Object.assign({}, conceptResults || {});
       delete conceptResults[crid];
-      this.setState({conceptResults: conceptResults})
+      setConceptResults(conceptResults)
     }
   };
 
-  chooseBoilerplateCategory = (e) => {
-    this.setState({ selectedBoilerplateCategory: e.target.value, });
+  function chooseBoilerplateCategory(e) {
+    setSelectedBoilerplateCategory(e.target.value)
   };
 
-  chooseSpecificBoilerplateFeedback = (e) => {
-    this.setState({ selectedBoilerplate: e.target.value, });
-  };
+  function chooseSpecificBoilerplateFeedback(e, setSelectedBoilerplate) {
+    setSelectedBoilerplate(e.target.value);
+  }
 
-  boilerplateCategoriesToOptions = () => {
+  function boilerplateCategoriesToOptions(getBoilerplateFeedback) {
     return getBoilerplateFeedback().map(category => (
-      <option className="boilerplate-feedback-dropdown-option">{category.description}</option>
+      <option key={category.id} className="boilerplate-feedback-dropdown-option">{category.description}</option>
     ));
-  };
+  }
 
-  boilerplateSpecificFeedbackToOptions = (selectedCategory) => {
+  function boilerplateSpecificFeedbackToOptions(selectedCategory) {
     return selectedCategory.children.map(childFeedback => (
-      <option className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
+      <option key={childFeedback.id} className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
     ));
-  };
+  }
 
-  addResponseToMassEditArray = (responseKey) => {
-    const { dispatch } = this.props;
+  function addResponseToMassEditArray(responseKey, dispatch, massEdit) {
     dispatch(massEdit.addResponseToMassEditArray(responseKey));
-  };
+  }
 
-  removeResponseFromMassEditArray = (responseKey) => {
-    const { dispatch } = this.props;
+  function removeResponseFromMassEditArray(responseKey, dispatch, massEdit) {
     dispatch(massEdit.removeResponseFromMassEditArray(responseKey));
-  };
+  }
 
-  clearResponsesFromMassEditArray = () => {
-    const { dispatch } = this.props;
+  function clearResponsesFromMassEditArray(dispatch, massEdit) {
     dispatch(massEdit.clearResponsesFromMassEditArray());
-  };
+  }
 
-  onMassSelectCheckboxToggle = (responseKey) => {
-    const { massEdit } = this.props;
+  function onMassSelectCheckboxToggle(responseKey, massEdit, addResponseToMassEditArray, removeResponseFromMassEditArray) {
     const { selectedResponses } = massEdit;
     if (selectedResponses.includes(responseKey)) {
-      this.removeResponseFromMassEditArray(responseKey);
+      removeResponseFromMassEditArray(responseKey);
     } else {
-      this.addResponseToMassEditArray(responseKey);
+      addResponseToMassEditArray(responseKey);
     }
-  };
+  }
 
-  toggleCheckboxCorrect = (key) => {
-    const data = this.state;
-    data.conceptResults[key] = !data.conceptResults[key]
-    this.setState(data);
-  };
+  function toggleCheckboxCorrect(key, conceptResults, setConceptResults) {
+    const updatedResults = { ...conceptResults, [key]: !conceptResults[key] };
+    setConceptResults(updatedResults);
+  }
 
-  handleConceptChange = (e) => {
-    const { conceptResults } = this.state;
-    const { response } = this.props;
-    const { optimal } = response;
-    const concepts = conceptResults;
+  function handleConceptChange(e, conceptResults, setConceptResults, response) {
+    const concepts = { ...conceptResults };
     if (Object.keys(concepts).length === 0 || !concepts.hasOwnProperty(e.value)) {
-      concepts[e.value] = optimal;
-      this.setState({conceptResults: concepts});
+      concepts[e.value] = response.optimal;
+      setConceptResults(concepts);
     }
-  };
+  }
 
-  getParentResponse = (parent_id) => {
+  function getParentResponse(parent_id, questionID, setParent, getGradedResponsesWithCallback) {
     const callback = (responses) => {
-      this.setState({
-        parent: _.filter(responses, (resp) => resp.id === parent_id)[0]
-      })
-    }
-    return getGradedResponsesWithCallback(this.props.questionID, callback);
-  };
+      setParent(responses.find(resp => resp.id === parent_id));
+    };
+    getGradedResponsesWithCallback(questionID, callback);
+  }
 
-  renderConceptResults = (mode) => {
-    const conceptResults = Object.assign({}, this.state.conceptResults)
+  function rerenderResponse(newResponse) {
+    setResponse(newResponse)
+  }
+
+  function renderConceptResults(mode) {
+    const conceptResultsTemp = Object.assign({}, conceptResults)
     let components
-    if (conceptResults) {
+    if (conceptResultsTemp) {
       if (mode === 'Editing') {
-        const conceptResultsPlus = Object.assign(conceptResults, {null: this.props.response.optimal})
+        const conceptResultsPlus = Object.assign(conceptResultsTemp, {null: response.optimal})
         components = Object.keys(conceptResultsPlus).map(uid => {
-          const concept = _.find(this.props.concepts.data['0'], { uid, });
+          const concept = _.find(concepts.data['0'], { uid, });
           return (
             <ConceptSelectorWithCheckbox
-              checked={conceptResults[uid]}
+              checked={conceptResultsTemp[uid]}
               currentConceptUID={uid}
-              deleteConceptResult={() => this.deleteConceptResult(uid)}
-              handleSelectorChange={this.handleConceptChange}
+              deleteConceptResult={() => deleteConceptResult(uid)}
+              handleSelectorChange={handleConceptChange}
               key={uid}
-              onCheckboxChange={() => this.toggleCheckboxCorrect(uid)}
+              onCheckboxChange={() => toggleCheckboxCorrect(uid)}
               selectorDisabled={uid === null || uid === 'null' ? false : true}
             />
           )
         });
       } else {
-        components = Object.keys(conceptResults).map(uid => {
-          const concept = _.find(this.props.concepts.data['0'], { uid, });
+        components = Object.keys(conceptResultsTemp).map(uid => {
+          const concept = _.find(concepts.data['0'], { uid, });
           if (concept) {
           // hacky fix for the problem where concept result uids are being returned with string value 'false' rather than false
             return  (
               <li key={uid}>
-                {concept.displayName} {conceptResults[uid] && conceptResults[uid] !== 'false' ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
+                {concept.displayName} {conceptResultsTemp[uid] && conceptResultsTemp[uid] !== 'false' ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
                 {'\t'}
               </li>
             )
@@ -285,25 +258,25 @@ export default class extends React.Component {
     }
   };
 
-  renderResponseContent = (isEditing, response) => {
+  function renderResponseContent(isEditing, response) {
     let content;
     let parentDetails;
     let childDetails;
     let pathwayDetails;
     let authorDetails;
-    if (!this.props.expanded) {
+    if (!expanded) {
       return;
     }
     if (response.parentID || response.parent_id) {
-      const parent = this.state.parent;
+      const parent = parent;
       if (!parent) {
-        this.getParentResponse(response.parentID || response.parent_id)
+        getParentResponse(response.parentID || response.parent_id)
         parentDetails = [
           (<p>Loading...</p>),
           (<br />)
         ]
       } else {
-        const diffText = this.applyDiff(parent.text, response.text);
+        const diffText = applyDiff(parent.text, response.text);
         parentDetails = [
           (<span><strong>Parent Text:</strong> {parent.text}</span>),
           (<br />),
@@ -322,18 +295,18 @@ export default class extends React.Component {
           {parentDetails}
           <label className="label">Feedback</label>
           <TextEditor
-            boilerplate={this.state.selectedBoilerplate}
+            boilerplate={selectedBoilerplate}
             ContentState={ContentState}
             EditorState={EditorState}
-            handleTextChange={this.handleFeedbackChange}
-            text={this.state.feedback || ''}
+            handleTextChange={handleFeedbackChange}
+            text={feedback || ''}
           />
 
           <br />
 
           <div className="box">
             <label className="label">Concept Results</label>
-            {this.renderConceptResults('Editing')}
+            {renderConceptResults('Editing')}
           </div>
 
           <p className="control">
@@ -352,7 +325,7 @@ export default class extends React.Component {
           <br />
           <label className="label">Concept Results</label>
           <ul>
-            {this.renderConceptResults('Viewing')}
+            {renderConceptResults('Viewing')}
           </ul>
           {authorDetails}
           {childDetails}
@@ -367,26 +340,26 @@ export default class extends React.Component {
     );
   };
 
-  renderResponseFooter = (isEditing, response) => {
-    if (!this.props.readOnly || !this.props.expanded) {
+  function renderResponseFooter(isEditing, response) {
+    if (!readOnly || !expanded) {
       return;
     }
     let buttons;
 
     if (isEditing) {
       buttons = [
-        (<a className="card-footer-item" key="cancel" onClick={() => this.cancelResponseEdit(response.key)} >Cancel</a>),
-        (<a className="card-footer-item" key="unmatch" onClick={() => this.unmatchResponse(response.key)} >Unmatch</a>),
-        (<a className="card-footer-item" key="update" onClick={() => this.updateResponse(response.key)} >Update</a>)
+        (<a className="card-footer-item" key="cancel" onClick={() => cancelResponseEdit(response.key)} >Cancel</a>),
+        (<a className="card-footer-item" key="unmatch" onClick={() => unmatchResponse(response.key)} >Unmatch</a>),
+        (<a className="card-footer-item" key="update" onClick={() => updateResponse(response.key)} >Update</a>)
       ];
     } else {
       buttons = [
-        (<a className="card-footer-item" key="edit" onClick={() => this.editResponse(response.key)} >Edit</a>),
-        (<a className="card-footer-item" key="delete" onClick={() => this.deleteResponse(response.key)} >Delete</a>)
+        (<a className="card-footer-item" key="edit" onClick={() => editResponse(response.key)} >Edit</a>),
+        (<a className="card-footer-item" key="delete" onClick={() => deleteResponse(response.key)} >Delete</a>)
       ];
     }
-    if (this.props.response.statusCode > 1) {
-      buttons = buttons.concat([(<a className="card-footer-item" key="rematch" onClick={() => this.rematchResponse(response.key)} >Rematch</a>)]);
+    if (statusCode > 1) {
+      buttons = buttons.concat([(<a className="card-footer-item" key="rematch" onClick={() => rematchResponse()} >Rematch</a>)]);
     }
     return (
       <footer className="card-footer">
@@ -396,22 +369,23 @@ export default class extends React.Component {
     );
   };
 
-  renderResponseHeader = (response) => {
+  function renderResponseHeader(response) {
     let bgColor;
     let icon;
     const headerCSSClassNames = ['human-optimal-response', 'human-sub-optimal-response', 'algorithm-optimal-response', 'algorithm-sub-optimal-response', 'not-found-response'];
-    bgColor = headerCSSClassNames[response.statusCode];
+    console.log(response);
+    bgColor = headerCSSClassNames[statusCode];
     if (response.weak) {
       icon = '⚠️';
     }
     const authorStyle = { marginLeft: '10px', };
-    const showTag = response.author && (response.statusCode === 2 || response.statusCode === 3)
+    const showTag = response.author && (statusCode === 2 || statusCode === 3)
     const author = showTag ? <span className="tag is-dark" style={authorStyle}>{response.author}</span> : undefined;
-    const checked = this.props.massEdit.selectedResponses.includes(response.id) ? 'checked' : '';
+    const checked = massEdit.selectedResponses.includes(response.id) ? 'checked' : '';
     return (
       <div className={bgColor} style={{ display: 'flex', alignItems: 'center', }}>
-        <input checked={checked} onChange={() => this.onMassSelectCheckboxToggle(response.id)} style={{ marginLeft: '15px', }} type="checkbox" />
-        <header className={`card-content ${this.headerClasses()}`} onClick={() => this.props.expand(response.key)} style={{ flexGrow: '1', }}>
+        <input checked={checked} onChange={() => onMassSelectCheckboxToggle(response.id)} style={{ marginLeft: '15px', }} type="checkbox" />
+        <header className={`card-content ${headerClasses()}`} onClick={() => expand(response.key)} style={{ flexGrow: '1', }}>
           <div className="content">
             <div className="media">
               <div className="media-content">
@@ -434,51 +408,51 @@ export default class extends React.Component {
     );
   };
 
-  cardClasses = () => {
-    if (this.props.expanded) {
+  function cardClasses() {
+    if (expanded) {
       return 'has-bottom-margin has-top-margin';
     }
   };
 
-  headerClasses = () => {
-    if (!this.props.expanded) {
+  function headerClasses() {
+    if (!expanded) {
       return 'unexpanded';
     }
     return 'expanded';
   };
 
-  renderChildResponses = (isViewingChildResponses, key) => {
+  function renderChildResponses(isViewingChildResponses, key) {
     if (isViewingChildResponses) {
       return (
-        <Modal close={() => this.cancelChildResponseView(key)}>
+        <Modal close={() => cancelChildResponseView(key)}>
           <ResponseList
             admin={false}
-            ascending={this.props.ascending}
-            dispatch={this.props.dispatch}
-            expand={this.props.expand}
-            expanded={this.props.allExpanded}
-            getChildResponses={this.props.getChildResponses}
-            getResponse={this.props.getResponse}
-            questionID={this.props.questionID}
-            responses={this.props.getChildResponses(key)}
-            states={this.props.states}
+            ascending={ascending}
+            dispatch={dispatch}
+            expand={expand}
+            expanded={allExpanded}
+            getChildResponses={getChildResponses}
+            getResponse={getResponse}
+            questionID={questionID}
+            responses={getChildResponses(key)}
+            states={states}
           />
         </Modal>
       );
     }
   };
 
-  render() {
-    const { response, state, } = this.props;
-    const isEditing = (state === (`${C.START_RESPONSE_EDIT}_${response.key}`));
-    const isViewingChildResponses = (state === (`${C.START_CHILD_RESPONSE_VIEW}_${response.key}`));
-    return (
-      <div className={`card is-fullwidth ${this.cardClasses()}`}>
-        {this.renderResponseHeader(response)}
-        {this.renderResponseContent(isEditing, response)}
-        {this.renderResponseFooter(isEditing, response)}
-        {this.renderChildResponses(isViewingChildResponses, response.key)}
-      </div>
-    );
-  }
+  const isEditing = (state === (`${C.START_RESPONSE_EDIT}_${response.key}`));
+  const isViewingChildResponses = (state === (`${C.START_CHILD_RESPONSE_VIEW}_${response.key}`));
+
+  return (
+    <div className={`card is-fullwidth ${cardClasses()}`}>
+      {renderResponseHeader(response)}
+      {renderResponseContent(isEditing, response)}
+      {renderResponseFooter(isEditing, response)}
+      {renderChildResponses(isViewingChildResponses, response.key)}
+    </div>
+  )
 }
+
+export default Response

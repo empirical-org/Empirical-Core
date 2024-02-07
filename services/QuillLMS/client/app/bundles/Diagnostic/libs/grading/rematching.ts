@@ -82,7 +82,7 @@ export function rematchOne(response: string, mode: string, question: Question, q
     const matcherFields = getMatcherFields(mode, question, formatGradedResponses(data));
     const promise = rematchResponse(matcher, matcherFields, response);
     if (promise) {
-      promise.then(() => { callback(); });
+      promise.then((result) => { callback(result); });
     }
   });
 }
