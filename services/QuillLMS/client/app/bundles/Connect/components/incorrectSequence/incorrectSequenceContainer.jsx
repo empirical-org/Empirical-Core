@@ -4,9 +4,20 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import _ from 'underscore';
 
-import { SortableList, TextEditor, hashToCollection, isValidRegex } from '../../../Shared/index';
+import { TextEditor, hashToCollection, isValidRegex } from '../../../Shared/index';
+
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
+import { SortableDraggableList } from '../../../Shared/components/shared';
+
+function createRange(length, initializer) {
+  return [...new Array(length)].map((_, index) => initializer(index));
+}
+
+
+function getMockItems() {
+  return createRange(7, (index) => ({ id: index + 1 }));
+}
 
 class IncorrectSequencesContainer extends Component {
   constructor(props) {
@@ -179,6 +190,20 @@ class IncorrectSequencesContainer extends Component {
 
   renderSequenceList = () => {
     const { match } = this.props
+    const items = getMockItems();
+    const setItems = () => ([])
+    return (
+      <SortableDraggableList
+        items={items}
+        onChange={setItems}
+        renderItem={(item) => (
+          <SortableDraggableList.Item id={item.id}>
+            {item.id}
+            <SortableDraggableList.DragHandle />
+          </SortableDraggableList.Item>
+        )}
+      />
+    )
 
     const components = this.sequencesSortedByOrder().map((sequence) => {
       return (

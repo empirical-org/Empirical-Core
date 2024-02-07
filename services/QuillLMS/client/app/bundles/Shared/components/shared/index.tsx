@@ -87,6 +87,10 @@ export {
 } from './sortableList'
 
 export {
+  SortableDraggableList
+} from '../draggable/SortableDraggableList'
+
+export {
   Spinner
 } from './spinner'
 
