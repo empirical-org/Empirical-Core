@@ -12,7 +12,7 @@ exports[`ActivityScores it should render 1`] = `
         class="header-and-tooltip"
       >
         <h1>
-          Activity Scores
+          Activity Scores Report
         </h1>
         <span
           aria-hidden="false"

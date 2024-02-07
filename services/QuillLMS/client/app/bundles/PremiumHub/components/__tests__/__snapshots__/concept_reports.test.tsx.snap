@@ -12,7 +12,7 @@ exports[`ConceptReports it should render 1`] = `
         class="header-and-tooltip"
       >
         <h1>
-          School Concept Reports
+          Concepts Report
         </h1>
         <span
           aria-hidden="false"
