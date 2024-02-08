@@ -1,6 +1,7 @@
 require_relative '../../config/environment'
 
 class Queries < Thor
+  OUTPUT_ADMIN_DIAGNOSTICS = 'lib/query_examples/admin_diagnostics/'
   OUTPUT_SNAPSHOTS = 'lib/query_examples/snapshots/'
   SNAPSHOT_QUERIES = [
     *::Snapshots::TOPX_QUERY_MAPPING,
@@ -90,6 +91,48 @@ class Queries < Thor
     end
   end
 
+  desc 'analyze_diagnostic_queries', 'Benchmark Google BigQuery queries for comparison'
+  def analyze_diagnostic_queries
+    output_directory = make_directory(OUTPUT_ADMIN_DIAGNOSTICS)
+
+    multi_diagnostic_queries = {
+      'post-diagnostic-completed' => ::AdminDiagnosticReports::PostDiagnosticCompletedQuery
+    }
+
+    single_diagnostic_queries = {
+      'diagnostic-skills' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillQuery
+    }
+
+    timeframe_start = DateTime.parse(DEFAULT_START)
+    timeframe_end = DateTime.parse(DEFAULT_END)
+    school_ids = [38811,38804,38801,38800,38779,38784,38780,38773,38765,38764]
+    aggregation = 'classroom'
+
+    multi_diagnostic_args = {
+      timeframe_start:,
+      timeframe_end:,
+      school_ids:,
+      aggregation:
+    }
+    single_diagnostic_args = multi_diagnostic_args.merge({
+      diagnostic_id: 1663 # The starter pre diagnostic
+    })
+
+    multi_diagnostic_queries.each do |key, query|
+      sql = query.new(**multi_diagnostic_args).query
+
+      metadata = query_metadata(sql, dryrun: false)
+      File.write(output_directory + "#{key}.sql", metadata + sql)
+    end
+
+    single_diagnostic_queries.each do |key, query|
+      sql = query.new(**single_diagnostic_args).query
+
+      metadata = query_metadata(sql, dryrun: false)
+      File.write(output_directory + "#{key}.sql", metadata + sql)
+    end
+  end
+
   # put helper methods in this block
   no_commands do
     private def parse_result(result)
@@ -114,15 +157,33 @@ class Queries < Thor
         .pluck(:school_id)
     end
 
-    private def query_metadata(sql)
-      job = Google::Cloud::Bigquery.new.query_job(sql, dryrun: true)
-      bytes = job.gapi.statistics.total_bytes_processed
+    private def query_metadata(sql, dryrun: true)
+      job = Google::Cloud::Bigquery.new.query_job(sql, cache: false, dryrun: dryrun)
+      job.wait_until_done!
+      stats = job.gapi.statistics
+
+      run_time = stats.end_time.to_i - stats.start_time.to_i
+
+      bytes = stats.total_bytes_processed
       gb_processed = (bytes * 1e-9).round(2)
+      total_bytes_billed = stats.query&.total_bytes_billed
+      gb_billed = (total_bytes_billed * 1e-9).round(2)
+      total_slot_ms = stats.query&.total_slot_ms
 
-      <<-STRING
-      /* Data Processed By Query: #{gb_processed} GB */
+      bi_engine_mode = stats.query&.bi_engine_statistics&.acceleration_mode
+      bi_engine_code = stats.query&.bi_engine_statistics&.bi_engine_reasons&.first&.code
+      bi_engine_message = stats.query&.bi_engine_statistics&.bi_engine_reasons&.first&.message
 
-      STRING
+      <<-STATS
+        /*
+           Data Processed By Query: #{gb_processed} GB
+           Bytes Billed For Query:  #{gb_billed} GB
+           Total Query Time:        #{run_time} ms
+           BI Engine Mode Used:     #{bi_engine_mode}
+             BI Engine Code:          #{bi_engine_code}
+             BI Engine Message:       #{bi_engine_message}
+        */
+      STATS
     end
   end
 end
