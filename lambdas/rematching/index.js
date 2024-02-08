@@ -1,6 +1,7 @@
 const { rematchAllQuestionsOfAType, rematchIndividualQuestion } =  require('./rematch')
 
 exports.handler = async (event) => {
+  console.log('event', event)
   console.log('is the problem in here', event.body)
   const body = JSON.parse(event.body);
   const { response, type, question, referenceResponses } = body
