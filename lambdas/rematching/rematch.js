@@ -90,14 +90,11 @@ function hashToCollection(hash) {
 }
 
 function rematchIndividualQuestion(response, type, question, referenceResponses) {
-  console.log('are we getting to here')
   const matcher = getMatcher(type);
   const data = referenceResponses;
   const formattedReferenceResponses = formatGradedResponses(data)
-  console.log('matcher', matcher)
   if (_.values(formattedReferenceResponses).find(resp => resp.optimal)) {
     const matcherFields = getMatcherFields(type, question, formattedReferenceResponses);
-    console.log('matcherFields', matcherFields)
     return rematchResponse(matcher, matcherFields, response)
   }
 }
