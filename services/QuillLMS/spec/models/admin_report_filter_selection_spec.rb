@@ -31,14 +31,14 @@ RSpec.describe AdminReportFilterSelection, type: :model, redis: true do
   describe '.segment_admin_report_subscriptions' do
     subject { described_class.segment_admin_report_subscriptions }
 
-    it { is_expected.to match_array [] }
+    it { is_expected.to eq '' }
 
     context 'when there are pdf subscriptions' do
       let(:usage_snapshot) { described_class::SEGMENT_MAPPING[described_class::USAGE_SNAPSHOT_REPORT_PDF] }
 
       before { create(:pdf_subscription) }
 
-      it { is_expected.to match_array [usage_snapshot] }
+      it { is_expected.to eq usage_snapshot }
 
       context 'when the report type is not mapped to segment' do
         let(:report) { described_class::USAGE_SNAPSHOT_REPORT }
@@ -46,13 +46,13 @@ RSpec.describe AdminReportFilterSelection, type: :model, redis: true do
 
         before { create(:pdf_subscription, admin_report_filter_selection:) }
 
-        it { is_expected.to match_array [usage_snapshot] }
+        it { is_expected.to eq usage_snapshot }
       end
 
       context 'when there are multiple pdf subscriptions' do
         before { create(:pdf_subscription) }
 
-        it { is_expected.to match_array [usage_snapshot] }
+        it { is_expected.to eq usage_snapshot }
       end
     end
   end

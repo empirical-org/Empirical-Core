@@ -127,7 +127,7 @@ describe Cms::RostersController do
           expect(response.status).to eq 200
         end
 
-      it { expect { subject }.to not_change { existing_student.authenticate(new_password) }}
+        it { expect { subject }.to not_change { existing_student.authenticate(new_password) }}
       end
     end
 

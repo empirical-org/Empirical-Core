@@ -453,7 +453,6 @@ RSpec.describe Analytics::SegmentAnalytics do
       analytics.identify(teacher1)
       expect(identify_calls.size).to eq(1)
       expect(track_calls.size).to eq(0)
-      expect(identify_calls[0][:traits][:is_admin]).to eq(false)
       expect(identify_calls[0][:traits][:first_name]).to eq(teacher1.first_name)
       expect(identify_calls[0][:traits][:last_name]).to eq(teacher1.last_name)
       expect(identify_calls[0][:traits][:email]).to eq(teacher1.email)
@@ -462,14 +461,13 @@ RSpec.describe Analytics::SegmentAnalytics do
       expect(identify_calls[0][:traits][:district]).to eq(district.name)
       expect(identify_calls[0][:traits][:flagset]).to eq(teacher1.flagset)
       expect(identify_calls[0][:traits][:role]).to eq(teacher1.role)
-      expect(identify_calls[0][:traits].length).to eq(12)
+      expect(identify_calls[0][:traits].length).to eq(11)
     end
 
     it 'sends events to Intercom when the user is an admin' do
       analytics.identify(teacher2)
       expect(identify_calls.size).to eq(1)
       expect(track_calls.size).to eq(0)
-      expect(identify_calls[0][:traits][:is_admin]).to eq(true)
       expect(identify_calls[0][:traits][:first_name]).to eq(teacher2.first_name)
       expect(identify_calls[0][:traits][:last_name]).to eq(teacher2.last_name)
       expect(identify_calls[0][:traits][:email]).to eq(teacher2.email)
@@ -479,14 +477,14 @@ RSpec.describe Analytics::SegmentAnalytics do
       expect(identify_calls[0][:traits][:flagset]).to eq(teacher2.flagset)
       expect(identify_calls[0][:traits][:role]).to eq(teacher2.role)
       expect(identify_calls[0][:traits][:number_of_schools_administered]).to eq(1)
-      expect(identify_calls[0][:traits].length).to eq(13)
+      expect(identify_calls[0][:traits].length).to eq(12)
     end
 
     it 'omits trait properties that have nil values' do
       analytics.identify(teacher3)
       expect(identify_calls.size).to eq(1)
       expect(track_calls.size).to eq(0)
-      expect(identify_calls[0][:traits].length).to eq(11)
+      expect(identify_calls[0][:traits].length).to eq(10)
     end
   end
 

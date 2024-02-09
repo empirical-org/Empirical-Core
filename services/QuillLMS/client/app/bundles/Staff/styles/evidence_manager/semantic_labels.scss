@@ -74,4 +74,42 @@
       }
     }
   }
+
+  .enable-more-than-ten-labels-modal {
+    min-height: 500px;
+    max-width: 600px;
+    background: $quill-white;
+    border-radius: 6px;
+    border: 1px solid $quill-grey-5;
+    display: inline-flex;
+    padding: 40px 32px;
+
+    .title-and-description {
+      align-items: flex-start;
+      flex-direction: column;
+      display: flex;
+      gap: 8px;
+      justify-content: flex-start;
+
+      .title {
+        color: $quill-black;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 32px;
+      }
+      .description {
+        color: $quill-grey-50;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 22px;
+      }
+    }
+
+    .save-and-cancel-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: flex-end;
+      margin-top: 40px;
+    }
+  }
 }

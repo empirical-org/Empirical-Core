@@ -15,7 +15,8 @@ module ResultsSummary
         name: skill_group.name,
         description: skill_group.description,
         not_yet_proficient_student_names: [],
-        proficiency_scores_by_student: {}
+        proficiency_scores_by_student: {},
+        question_uids: skill_group.questions.pluck(:uid)
       }
     end
 
@@ -56,7 +57,7 @@ module ResultsSummary
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  private def skill_groups_for_session(skill_groups, concept_results, student_name)
+  def skill_groups_for_session(skill_groups, concept_results, student_name)
     skill_groups.map do |skill_group|
       skills = skill_group.diagnostic_question_skills.map do |diagnostic_question_skill|
         data_for_question_by_activity_session(concept_results, diagnostic_question_skill)
@@ -70,12 +71,19 @@ module ResultsSummary
         score = skill[:proficiency_score].is_a?(Integer) ? skill[:proficiency_score] : skill[:proficiency_score].to_i
         sum += score
       end / skills.length.to_f
-      skill_group_summary_index = @skill_group_summaries.find_index { |sg| sg[:name] == skill_group.name }
-      @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name] = average_proficiency_score
-      unless proficiency_text == PROFICIENCY
-        @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_student_names].push(student_name)
-        @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_student_names] = @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_student_names].uniq
+
+      skill_group_summary_index = @skill_group_summaries&.find_index { |sg| sg[:name] == skill_group.name }
+
+      if @skill_group_summaries && skill_group_summary_index
+        @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name] = average_proficiency_score
+        unless proficiency_text == PROFICIENCY
+          @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_student_names].push(student_name)
+          @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_student_names] = @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_student_names].uniq
+        end
       end
+
+      number_incorrect = present_skill_number - correct_skill_number
+
       {
         skill_group: skill_group.name,
         description: skill_group.description,
@@ -84,7 +92,11 @@ module ResultsSummary
         correct_skill_ids: correct_skill_ids,
         number_of_correct_questions_text: "#{correct_skill_number} of #{present_skill_number} Questions Correct",
         proficiency_text: proficiency_text,
-        id: skill_group.id
+        summary: summarize_correct_skills(correct_skill_number, number_incorrect),
+        number_correct: correct_skill_number,
+        number_incorrect: number_incorrect,
+        id: skill_group.id,
+        question_uids: skill_group.questions.pluck(:uid)
       }
     end
   end

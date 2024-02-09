@@ -3,7 +3,7 @@ require 'net/http'
 
 class RematchResponsesForQuestionWorker
   include Sidekiq::Worker
-  sidekiq_options retry: 3, queue: SidekiqQueue::LOW
+  sidekiq_options retry: 3, queue: SidekiqQueue::DEFAULT
 
   def perform(question_uid, question_type)
     ActiveRecord::Base.connected_to(role: :reading) do
@@ -16,19 +16,23 @@ class RematchResponsesForQuestionWorker
 
       question_hash = retrieve_question(question_uid)
 
-      schedule_jobs(ungraded, question_type, question_hash, human_graded_ids)
-      schedule_jobs(machine_graded, question_type, question_hash, human_graded_ids)
+      schedule_jobs(ungraded, question_type, question_hash, human_graded_ids, machine_graded.empty?)
+      schedule_jobs(machine_graded, question_type, question_hash, human_graded_ids, true)
     end
   end
 
-  def schedule_jobs(finder, question_type, question_hash, human_graded_response_ids)
+  def schedule_jobs(finder, question_type, question_hash, human_graded_response_ids, fire_pusher_on_last_job)
     # use find_each to pull these in batches
-    finder.find_each do |response|
+    total_response_count = finder.count
+    finder.find_each.with_index do |response, index|
+      is_last_worker = total_response_count - 1 == index
       RematchResponseWorker.perform_async(
         response.id,
         question_type,
         question_hash,
-        human_graded_response_ids
+        human_graded_response_ids,
+        'fire_pusher_alert' => fire_pusher_on_last_job && is_last_worker,
+        'question_key' => question_hash['key']
       )
     end
   end

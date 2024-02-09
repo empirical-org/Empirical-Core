@@ -1,5 +1,8 @@
-import { shallow } from 'enzyme';
+import { fireEvent, render } from '@testing-library/react';
 import * as React from 'react';
+
+import * as shared from '../../../../Shared';
+import * as unitTemplatesHelpers from '../../../helpers/unitTemplates';
 
 import { UnitTemplate } from '..';
 
@@ -20,14 +23,39 @@ const unitTemplate = {
   image_link: null
 }
 
-describe('UnitTemplate component', () => {
-  it('should match snapshot', () => {
-    const wrapper = shallow(
+describe('<UnitTemplate />', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+  const returnToIndexFunction = () => null
+
+  test('matches the component snapshot', () => {
+
+    jest.spyOn(shared, 'TextEditor').mockImplementation(() => {
+      return jest.fn()
+    })
+
+    const { asFragment } = render(
       <UnitTemplate
-        returnToIndex={() => null}
+        returnToIndex={returnToIndexFunction}
         unitTemplate={unitTemplate}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  // Implicitly asserts a lack of errors
+  test('handles null activityPackTime values', () => {
+    jest.spyOn(unitTemplatesHelpers, 'validateUnitTemplateForm').mockImplementation(() => {
+      return []
+    });
+    const {getByText} = render(
+      <UnitTemplate
+        returnToIndex={returnToIndexFunction}
+        unitTemplate={{unitTemplate, ...{time: null}}}
+      />
+    )
+    fireEvent.click(getByText(/Save/))
   });
 });

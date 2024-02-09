@@ -43,7 +43,6 @@ RSpec.describe SegmentIntegration::User do
           school_name: admin.school&.name,
           premium_state: admin.premium_state,
           premium_type: admin.subscription&.account_type,
-          is_admin: admin.admin?,
           role: admin.role,
           admin_sub_role: admin.admin_sub_role,
           email_verification_status: admin.email_verification_status,
@@ -60,7 +59,7 @@ RSpec.describe SegmentIntegration::User do
       context 'when the admin is a premium admin' do
         before { allow(admin).to receive(:premium_admin?).and_return(true) }
 
-        it { is_expected.to eq common_params.merge(admin_report_subscriptions: []) }
+        it { is_expected.to eq common_params.merge(admin_report_subscriptions: '') }
       end
     end
 
@@ -149,7 +148,6 @@ RSpec.describe SegmentIntegration::User do
           school_name: teacher.school&.name,
           premium_state: teacher.premium_state,
           premium_type: teacher.subscription&.account_type,
-          is_admin: teacher.admin?,
           minimum_grade_level: teacher_info.minimum_grade_level,
           maximum_grade_level: teacher_info.maximum_grade_level,
           subject_areas: teacher_info.subject_areas.map(&:name).join(", "),

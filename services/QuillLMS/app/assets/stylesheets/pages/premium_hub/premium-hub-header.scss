@@ -1,6 +1,5 @@
 #premium-hub-header {
-  background-color: white;
-  border-bottom: 10px solid #00c2a2;
+  background-color: $quill-white;
   .admin-nav-bar {
     max-width: $sitewidepagewidth;
     margin: 0 auto;
@@ -13,10 +12,6 @@
   }
   i, svg {
     margin: 0px 15px;
-    color: $lightgray
-  }
-  hr {
-    border-top-color: $gray;
-    margin: 0px;
+    color: $quill-grey-15
   }
 }

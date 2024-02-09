@@ -42,7 +42,7 @@ module Evidence
     DEFAULT_BECAUSE_RULE_NAME = "Match with \"because of\" responses"
     DEFAULT_BECAUSE_RULE_CONCEPT = "6gQZPREURQQAaSzpIt_EEw"
     DEFAULT_BECAUSE_RULE_FEEDBACK = "Revise your work. Instead of starting your response with the word <i>of</i>, start with a person, place or thing."
-    DEFAULT_BECAUSE_RULE_REGEX = "^of"
+    DEFAULT_BECAUSE_RULE_REGEX = "^of "
 
     DEFAULT_SO_RULE_NAME = "Match with \"so that\" responses"
     DEFAULT_SO_RULE_CONCEPT = "R3sBcYAvoXP2_oNVXiA98g"

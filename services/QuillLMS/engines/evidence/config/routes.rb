@@ -19,6 +19,8 @@ Evidence::Engine.routes.draw do
     collection { get :deployed_model_names }
   end
 
+  put 'automl_models/:prompt_id/enable_more_than_ten_labels' => 'automl_models#enable_more_than_ten_labels'
+
   resource :feedback, only: [:create], controller: :feedback
 
   resources :hints, only: [:index, :show, :create, :update, :destroy]

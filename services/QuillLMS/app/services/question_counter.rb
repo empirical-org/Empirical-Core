@@ -3,16 +3,16 @@
 class QuestionCounter < ApplicationService
   attr_reader :activity, :tool_key
 
-  PROOFREADER_REGEX = ::Regexp.new(/\{(\+|\-)/)
+  PROOFREADER_REGEX = ::Regexp.new(/\{(\+|-)/)
   LESSONS_COUNTS = Configs[:lessons_question_counts]
 
   TOOL_CALCULATORS = {
-    passage:    -> (a) { a.data.dig('passage')&.scan(PROOFREADER_REGEX)&.size },
-    sentence:   -> (a) { grammar_calculator(a) },
-    connect:    -> (a) { question_array_size(a) },
-    diagnostic: -> (a) { question_array_size(a) },
-    lessons:    -> (a) { LESSONS_COUNTS.dig(a.uid) },
-    evidence:   -> (_) { 3 }
+    passage:    ->(a) { a.data['passage']&.scan(PROOFREADER_REGEX)&.size },
+    sentence:   ->(a) { grammar_calculator(a) },
+    connect:    ->(a) { question_array_size(a) },
+    diagnostic: ->(a) { question_array_size(a) },
+    lessons:    ->(a) { LESSONS_COUNTS[a.uid] },
+    evidence:   ->(_) { 3 }
   }
   TOOL_DEFAULTS = {
     passage: 10,
@@ -44,10 +44,10 @@ class QuestionCounter < ApplicationService
   end
 
   def self.question_array_size(activity)
-    activity.data.dig('questions')&.size
+    activity.data['questions']&.size
   end
 
   def self.concepts_sum(activity)
-    activity.data.dig('concepts')&.values&.map(&:values)&.flatten&.sum
+    activity.data['concepts']&.values&.map(&:values)&.flatten&.sum
   end
 end

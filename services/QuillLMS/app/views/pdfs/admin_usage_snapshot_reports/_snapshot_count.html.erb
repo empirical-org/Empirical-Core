@@ -7,7 +7,7 @@
 <section class="snapshot-item snapshot-count <%= size %> <%= change_direction_class(change) %>">
   <div class="count-and-label">
     <span class="count"><%= number_with_delimiter(count) || '-' %></span>
-    <span class="snapshot-label"><%= count == 1 ? singular_label : label %></span>
+    <span class="snapshot-label"><%= count == 1 && singular_label ? singular_label : label %></span>
   </div>
   <div class="change">
     <% change_icon_src = change_icon_src(change) %>

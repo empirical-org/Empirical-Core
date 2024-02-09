@@ -4,9 +4,9 @@ module AdminDiagnosticReports
   class DiagnosticRecommendationsQuery < DiagnosticAggregateQuery
     def specific_select_clause
       <<-SQL
-          COUNT(DISTINCT activity_sessions.user_id) AS students_completed_practice,
-          SAFE_DIVIDE(COUNT(DISTINCT activity_sessions.id), COUNT(DISTINCT activity_sessions.user_id)) AS average_practice_activities_count,
-          SAFE_DIVIDE(SUM(activity_sessions.timespent), COUNT(DISTINCT activity_sessions.user_id)) AS average_time_spent_seconds
+          COUNT(DISTINCT CONCAT(classrooms.id, ':', activity_sessions.user_id)) AS students_completed_practice,
+          SAFE_DIVIDE(COUNT(DISTINCT activity_sessions.id), COUNT(DISTINCT CONCAT(classrooms.id, ':', activity_sessions.user_id))) AS average_practice_activities_count,
+          SAFE_DIVIDE(SUM(activity_sessions.timespent), COUNT(DISTINCT CONCAT(classrooms.id, ':', activity_sessions.user_id))) AS average_time_spent_seconds
       SQL
     end
 

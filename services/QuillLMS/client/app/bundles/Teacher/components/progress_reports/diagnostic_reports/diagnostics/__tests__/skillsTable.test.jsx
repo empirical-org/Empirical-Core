@@ -1,24 +1,44 @@
-import { mount } from 'enzyme'
-import React from 'react'
+import * as React from 'react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-import SkillsTable from '../skillsTable'
+import {
+  individualStudentPreTestSkillGroupResults,
+} from './test_data'
 
-const skillGroup = {"skill_group":"Prepositional Phrases","description":"Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.","skills":[{"id":128,"skill":"Adjectives, Adverbs, & Prepositional Phrases","number_correct":1,"number_incorrect":0,"summary":"Fully correct"},{"id":127,"skill":"Prepositional Phrases","number_correct":1,"number_incorrect":0,"summary":"Fully correct"},{"id":126,"skill":"Subject-Verb Agreement","number_correct":2,"number_incorrect":1,"summary":"Partially correct"}],"number_of_correct_questions_text":"2 of 3 questions correct","proficiency_text":"Partial proficiency","id":66}
+import SkillsTable from '../skillsTable';
 
 describe('SkillsTable component', () => {
-  it('should render when it is not expandable', () => {
-    const wrapper = mount(<SkillsTable
+  test('should render when it is not expandable', () => {
+    const { asFragment } = render(<SkillsTable
       isExpandable={false}
-      skillGroup={skillGroup}
+      skillGroupResults={individualStudentPreTestSkillGroupResults}
     />)
-    expect(wrapper).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot();
   })
 
-  it('should render when it is expandable', () => {
-    const wrapper = mount(<SkillsTable
+  test('should render when it is expandable', () => {
+    const { asFragment } = render(<SkillsTable
       isExpandable={true}
-      skillGroup={skillGroup}
+      skillGroupResults={individualStudentPreTestSkillGroupResults}
     />)
-    expect(wrapper).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot();
   })
+
+  test('should show every row when "Show more" is clicked', async () => {
+    const rowCount = individualStudentPreTestSkillGroupResults.length;
+    const defaultRowCount = 3; // Assuming this is the default row count that is initially displayed
+
+    render(<SkillsTable isExpandable={true} skillGroupResults={individualStudentPreTestSkillGroupResults} />);
+
+    // Check if only the default number of rows are displayed initially
+    expect(screen.getAllByRole('row')).toHaveLength(defaultRowCount + 1); // +1 for the header row
+
+    // Find and click the "Show more" button
+    await userEvent.click(screen.getByText('Show more'));
+
+    // Check if all rows are displayed after clicking the button
+    expect(screen.getAllByRole('row')).toHaveLength(rowCount + 1); // +1 for the header row
+  });
+
 })

@@ -1,26 +1,23 @@
 import * as React from 'react'
 
 import {
-  SkillGroup
-} from './interfaces'
-import {
   FULLY_CORRECT,
   expandIcon
 } from './shared'
 
 const DEFAULT_ROW_COUNT = 3
 
-const SkillsTable = ({ skillGroup, isExpandable, }: { skillGroup: SkillGroup, isExpandable?: boolean }) => {
-  const [isExpanded, setIsExpanded] = React.useState<boolean>(skillGroup.skills.length < DEFAULT_ROW_COUNT)
+const SkillsTable = ({ skillGroupResults, isExpandable, }: { skillGroupResults: Array<any>, isExpandable?: boolean }) => {
+  const [isExpanded, setIsExpanded] = React.useState<boolean>(skillGroupResults.length < DEFAULT_ROW_COUNT)
 
   function expandRows() { setIsExpanded(true) }
 
-  const skillRows = skillGroup.skills.sort((a, b) => a.skill.localeCompare(b.skill)).map(skill => (
-    <tr key={skill.skill}>
-      <td>{skill.skill}</td>
-      <td className="center-align">{skill.number_correct}</td>
-      <td className="center-align">{skill.number_incorrect}</td>
-      <td className={skill.summary === FULLY_CORRECT ? 'fully-correct' : ''}>{skill.summary}</td>
+  const skillRows = skillGroupResults.sort((a, b) => a.skill_group.localeCompare(b.skill_group)).map(skillGroup => (
+    <tr key={skillGroup.skill_group}>
+      <td>{skillGroup.skill_group}</td>
+      <td>{skillGroup.number_correct}</td>
+      <td>{skillGroup.number_incorrect}</td>
+      <td className={skillGroup.summary === FULLY_CORRECT ? 'fully-correct' : ''}>{skillGroup.summary}</td>
     </tr>)
   )
 

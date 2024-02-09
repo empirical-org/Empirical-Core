@@ -38,7 +38,8 @@ describe ResultsSummary do
             proficiency_scores_by_student: {
               student1.name => 0.5,
               student3.name => 1.0
-            }
+            },
+            question_uids: skill_group_activity.skill_group.questions.pluck(:uid),
           }
         ],
         student_results: [
@@ -57,6 +58,7 @@ describe ResultsSummary do
                     number_incorrect: 0,
                     proficiency_score: 1,
                     summary: ResultsSummary::FULLY_CORRECT,
+                    question_uid: diagnostic_question_skill1.question.uid
                   },
                   {
                     id: diagnostic_question_skill2.id,
@@ -65,13 +67,18 @@ describe ResultsSummary do
                     number_incorrect: 1,
                     proficiency_score: 0,
                     summary: ResultsSummary::NOT_CORRECT,
+                    question_uid: diagnostic_question_skill2.question.uid
                   }
                 ],
+                question_uids: skill_group_activity.skill_group.questions.pluck(:uid),
                 skill_ids: [diagnostic_question_skill1.id, diagnostic_question_skill2.id],
                 correct_skill_ids: [diagnostic_question_skill1.id],
                 number_of_correct_questions_text: "1 of 2 Questions Correct",
                 proficiency_text: ResultsSummary::PARTIAL_PROFICIENCY,
-                id: skill_group_activity.skill_group.id
+                id: skill_group_activity.skill_group.id,
+                number_correct: 1,
+                number_incorrect: 1,
+                summary: ResultsSummary::PARTIALLY_CORRECT,
               }
             ],
             total_correct_questions_count: 1,
@@ -98,13 +105,18 @@ describe ResultsSummary do
                     number_incorrect: 0,
                     proficiency_score: 1.0,
                     summary: ResultsSummary::FULLY_CORRECT,
+                    question_uid: diagnostic_question_skill1.question.uid
                   }
                 ],
+                question_uids: skill_group_activity.skill_group.questions.pluck(:uid),
                 skill_ids: [diagnostic_question_skill1.id],
                 correct_skill_ids: [diagnostic_question_skill1.id],
                 number_of_correct_questions_text: "1 of 1 Questions Correct",
                 proficiency_text: ResultsSummary::PROFICIENCY,
-                id: skill_group_activity.skill_group.id
+                id: skill_group_activity.skill_group.id,
+                number_correct: 1,
+                number_incorrect: 0,
+                summary: ResultsSummary::FULLY_CORRECT,
               }
             ],
             total_correct_questions_count: 1,
@@ -149,6 +161,7 @@ describe ResultsSummary do
                     number_incorrect: 0,
                     proficiency_score: 1,
                     summary: ResultsSummary::FULLY_CORRECT,
+                    question_uid: diagnostic_question_skill1.question.uid,
                   },
                   {
                     id: diagnostic_question_skill2.id,
@@ -157,13 +170,18 @@ describe ResultsSummary do
                     number_incorrect: 1,
                     proficiency_score: 0,
                     summary: ResultsSummary::NOT_CORRECT,
+                    question_uid: diagnostic_question_skill2.question.uid,
                   }
                 ],
                 skill_ids: [diagnostic_question_skill1.id, diagnostic_question_skill2.id],
                 correct_skill_ids: [diagnostic_question_skill1.id],
+                number_correct: 1,
+                number_incorrect: 1,
                 number_of_correct_questions_text: "1 of 2 Questions Correct",
                 proficiency_text: ResultsSummary::PARTIAL_PROFICIENCY,
-                id: skill_group_activity.skill_group.id
+                question_uids: skill_group_activity.skill_group.questions.pluck(:uid),
+                id: skill_group_activity.skill_group.id,
+                summary: ResultsSummary::PARTIALLY_CORRECT,
               }
             ],
             total_correct_questions_count: 1,
@@ -202,6 +220,7 @@ describe ResultsSummary do
               number_incorrect: 0,
               proficiency_score: 1,
               summary: ResultsSummary::FULLY_CORRECT,
+              question_uid: diagnostic_question_skill1.question.uid,
             },
             {
               id: diagnostic_question_skill2.id,
@@ -210,13 +229,18 @@ describe ResultsSummary do
               number_incorrect: 1,
               proficiency_score: 0,
               summary: ResultsSummary::NOT_CORRECT,
+              question_uid: diagnostic_question_skill2.question.uid,
             }
           ],
           skill_ids: [diagnostic_question_skill1.id, diagnostic_question_skill2.id],
           correct_skill_ids: [diagnostic_question_skill1.id],
+          number_correct: 1,
+          number_incorrect: 1,
           number_of_correct_questions_text: "1 of 2 Questions Correct",
           proficiency_text: ResultsSummary::PARTIAL_PROFICIENCY,
-          id: skill_group_activity.skill_group.id
+          id: skill_group_activity.skill_group.id,
+          question_uids: skill_group_activity.skill_group.questions.pluck(:uid),
+          summary: ResultsSummary::PARTIALLY_CORRECT
         }
       ]
     end

@@ -1,15 +1,57 @@
 .diagnostic-individual-pack main.questions-index-container {
+  header {
+    margin-bottom: 4px;
+  }
+  .skill-group-section {
+    max-width: 1014px; // 950px + 32px + 32px to account for padding
+    padding-top: 32px;
+    .skill-group-section-header {
+      margin-bottom: 8px;
+      h2 {
+        display: flex;
+        justify-content: space-between;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: normal;
+        color: $quill-black;
+        div {
+          display: flex;
+          align-items: flex-end;
+          flex-direction: column;
+        }
+      }
+      .subheader {
+        font-size: 13px;
+        line-height: 20px;
+        color: $quill-grey-50;
+        font-weight: 400;
+      }
+    }
+  }
+
   .data-table {
     overflow: visible;
     border-radius: 8px;
     border: solid 1px $quill-grey-5;
-    margin-top: 24px;
+    font-size: 13px;
     .data-table-headers {
-      height: 48px;
+      min-height: 32px;
       border-radius: 8px 8px 0px 0px;
+      background-color: $quill-grey-1;
+      .data-table-header {
+        color: $quill-grey-90;
+        font-weight: 700;
+        font-size: 13px;
+      }
+    }
+    .data-table-row, .data-table-headers {
+      padding: 0px 0px 0px 16px;
     }
     &.hide-on-mobile {
       width: 950px;
+      .data-table-header {
+        justify-content: center;
+      }
       .directions {
         border-bottom: 1px solid $quill-grey-5;
       }
@@ -28,7 +70,7 @@
             margin-right: 0px;
           }
           .directions-or-prompt {
-            max-width: 673px;
+            max-width: 550px;
             display: inline-block;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -47,17 +89,17 @@
       height: 100%;
       span {
         height: 100%;
-        padding: 8px 6px 12px 0px;
         width: 100%;
-        text-align: right;
+        text-align: center;
+        padding-top: 8px;
         &.frequently-demonstrated-skill {
-          background-color: #f1f8eb;
+          background-color: $quill-green-vibrant-10;
         }
         &.sometimes-demonstrated-skill {
-          background-color: #FFF5E5;
+          background-color: $quill-gold-1;
         }
         &.rarely-demonstrated-skill {
-          background-color: #FFF0F2;
+          background-color: $quill-red-5;
         }
       }
     }
@@ -71,7 +113,6 @@
     .directions-and-prompt {
       div {
         > span:not(.quill-tooltip-trigger) {
-          font-size: 14px;
           line-height: 1.43;
           color: $quill-grey-50;
           width: 80px;

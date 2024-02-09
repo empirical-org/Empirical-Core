@@ -2,6 +2,7 @@
 
 module SegmentIntegration
   class User < SimpleDelegator
+    # NOTE: Remember to convert array args to comma separated strings for Ortto (Segment can handle arrays)
     def identify_params
       {
         user_id: id,
@@ -30,7 +31,6 @@ module SegmentIntegration
         school_name: school&.name,
         premium_state: premium_state,
         premium_type: subscription&.account_type,
-        is_admin: admin?,
         minimum_grade_level: teacher_info&.minimum_grade_level,
         maximum_grade_level: teacher_info&.maximum_grade_level,
         subject_areas: teacher_info&.subject_areas_string,

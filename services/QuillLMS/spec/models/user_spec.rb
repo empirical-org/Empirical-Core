@@ -1234,15 +1234,17 @@ RSpec.describe User, type: :model do
   end
 
   describe '#update_invitee_email_address' do
+    subject { User.find_by_email(old_email).update(email: new_email) }
+
     let!(:invite_one) { create(:invitation) }
     let!(:old_email) { invite_one.invitee_email }
+    let(:new_email) { 'new-email@fake-email.com' }
     let!(:invite_two) { create(:invitation, invitee_email: old_email) }
 
+    before { allow(DateTime).to receive(:current).and_return(1.day.from_now) }
+
     it 'should update invitee email address in invitations table if email changed' do
-      new_email = "new-email@fake-email.com"
-      expect do
-        User.find_by_email(old_email).update(email: new_email)
-      end.to change { invite_two.reload.updated_at }
+      expect { subject }.to change { invite_two.reload.updated_at }
       expect(Invitation.where(invitee_email: old_email).count).to be(0)
       expect(Invitation.where(invitee_email: new_email).count).to be(2)
     end
