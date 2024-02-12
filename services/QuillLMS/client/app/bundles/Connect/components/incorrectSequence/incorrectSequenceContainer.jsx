@@ -11,60 +11,65 @@ import sentenceFragmentActions from '../../actions/sentenceFragments';
 import { SortableDraggableList } from '../../../Shared/components/shared';
 import { useState } from 'react';
 
-const SequenceList = ({match, sequencesSortedByOrder, deleteSequence, saveSequencesAndFeedback, handleNameChange,
-  addNewSequence, renderTextInputFields, handleFeedbackChange, renderConceptResults}) => {
-
+const SequenceList = ({match, tileState, sequencesSortedByOrder, deleteSequence, saveSequencesAndFeedback, handleNameChange,
+  addNewSequence, renderTextInputFields, handleFeedbackChange, renderConceptResults, updateOrder}) => {
+  console.log("SBO", sequencesSortedByOrder())
   const components = sequencesSortedByOrder().map((sequence) => {
-    console.log("sequence:", sequence)
     return (
-      <div className="card is-fullwidth has-bottom-margin" key={sequence.key}>
-        <header className="card-header">
-          <input className="regex-name" onChange={(e) => handleNameChange(e, sequence.key)} placeholder="Name" type="text" value={sequence.name || ''} />
-        </header>
-        <header className="card-header">
-          <p className="card-header-title" style={{ display: 'inline-block', }}>
-            {renderTextInputFields(sequence.text, sequence.key)}
-            <button className="add-regex-button" onClick={(e) => addNewSequence(e, sequence.key)} type="button">+</button>
-          </p>
-          <p className="card-header-icon">
-            {sequence.order}
-          </p>
-        </header>
-        <div className="card-content">
-          <label className="label" htmlFor="feedback" style={{ marginTop: 10, }}>Feedback</label>
-          <TextEditor
-            ContentState={ContentState}
-            EditorState={EditorState}
-            handleTextChange={(e) => handleFeedbackChange(e, sequence.key)}
-            key="feedback"
-            shouldCheckSpelling={true}
-            text={sequence.feedback}
-          />
-          <br />
-          {renderConceptResults(sequence.conceptResults, sequence.key)}
-        </div>
+      <SortableDraggableList.Item id={sequence.key} >
+        <div className="card is-fullwidth has-bottom-margin" >
+          <header className="card-header">
+            <input className="regex-name" onChange={(e) => handleNameChange(e, sequence.key)} placeholder="Name" type="text" value={sequence.name || ''} />
+          </header>
+          <header className="card-header">
+            <p className="card-header-title" style={{ display: 'inline-block', }}>
+              {renderTextInputFields(sequence.text, sequence.key)}
+              <button className="add-regex-button" onClick={(e) => addNewSequence(e, sequence.key)} type="button">+</button>
+            </p>
+            <p className="card-header-icon">
+              {sequence.order}
+            </p>
+          </header>
+          <div className="card-content">
+            <label className="label" htmlFor="feedback" style={{ marginTop: 10, }}>Feedback</label>
+            <TextEditor
+              ContentState={ContentState}
+              EditorState={EditorState}
+              handleTextChange={(e) => handleFeedbackChange(e, sequence.key)}
+              key="feedback"
+              shouldCheckSpelling={true}
+              text={sequence.feedback}
+            />
+            <br />
+            {renderConceptResults(sequence.conceptResults, sequence.key)}
+          </div>
 
-        <footer className="card-footer">
-          <NavLink className="card-footer-item" to={`${match.url}/${sequence.key}/edit`}>Edit</NavLink>
-          <a className="card-footer-item" onClick={() => deleteSequence(sequence.key)}>Delete</a>
-          <a className="card-footer-item" onClick={() => saveSequencesAndFeedback(sequence.key)}>Save</a>
-        </footer>
-      </div>
+          <footer className="card-footer">
+            <NavLink className="card-footer-item" to={`${match.url}/${sequence.key}/edit`}>Edit</NavLink>
+            <a className="card-footer-item" onClick={() => deleteSequence(sequence.key)}>Delete</a>
+            <a className="card-footer-item" onClick={() => saveSequencesAndFeedback(sequence.key)}>Save</a>
+          </footer>
+        </div>
+        <SortableDraggableList.DragHandle />
+      </SortableDraggableList.Item>
     )
   });
-
+  console.log("components:", components)
   const [items, setItems] = useState(components);
+
+  function onChangeHandler (items) {
+    console.log("onChangeHandler, items: ", items)
+    updateOrder(items.map(x => x.props.id))
+    setItems(items)
+
+
+  }
 
   return (
     <SortableDraggableList
       items={items}
-      onChange={setItems}
-      renderItem={(item) => (
-        <SortableDraggableList.Item id={item.id}>
-          {item.id}
-          <SortableDraggableList.DragHandle />
-        </SortableDraggableList.Item>
-      )}
+      onChange={onChangeHandler}
+      renderItem={(item) => ( item)}
     />
   )
 
@@ -142,21 +147,22 @@ class IncorrectSequencesContainer extends Component {
     const { orderedIds, incorrectSequences } = this.state
     if (orderedIds) {
       const sequencesCollection = hashToCollection(incorrectSequences)
+
       return orderedIds.map(id => sequencesCollection.find(sequence => sequence.key === id))
     } else {
       return hashToCollection(incorrectSequences).sort((a, b) => a.order - b.order);
     }
   }
 
-  sortCallback = sortInfo => {
-    const { actionFile } = this.state
-    const { dispatch, match } = this.props;
-    const { params } = match;
-    const { questionID } = params;
-    const orderedIds = sortInfo.map(item => item.key);
-    this.setState({ orderedIds, });
-    dispatch(actionFile.updateIncorrectSequences(questionID, this.sequencesSortedByOrder()));
-  };
+  // sortCallback = sortInfo => {
+  //   const { actionFile } = this.state
+  //   const { dispatch, match } = this.props;
+  //   const { params } = match;
+  //   const { questionID } = params;
+  //   const orderedIds = sortInfo.map(item => item.key);
+  //   this.setState({ orderedIds, });
+  //   dispatch(actionFile.updateIncorrectSequences(questionID, this.sequencesSortedByOrder()));
+  // };
 
   saveSequencesAndFeedback = (key) => {
     const { actionFile } = this.state
@@ -246,7 +252,11 @@ class IncorrectSequencesContainer extends Component {
       this.inputElement(className, text, key)
     ));
   }
-
+  updateOrder = (orderedIds) => {
+    //this.setState({incorrectSequences: incorrectSequences})
+    console.log("orderedIDs:", orderedIds)
+    this.setState({ orderedIds });
+  }
   render() {
     const { match } = this.props
     return (
@@ -267,7 +277,7 @@ class IncorrectSequencesContainer extends Component {
           saveSequencesAndFeedback={this.saveSequencesAndFeedback}
           sequencesSortedByOrder={this.sequencesSortedByOrder}
 
-
+          updateOrder={this.updateOrder}
 
         />
       </div>
