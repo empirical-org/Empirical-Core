@@ -1,0 +1,4 @@
+default:
+  reporting_sessions:
+    create: 'create_reporting_sessions_view.sql'
+    drop: 'drop_reporting_sessions_view.sql'
