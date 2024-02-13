@@ -11,7 +11,7 @@ module AdminDiagnosticReports
             name,            
             group_by,            
             post_students_completed,            
-            AVG(growth_percentage) AS average_improved_score
+            AVG(growth_percentage) AS overall_skill_growth
           FROM (#{super})
           GROUP BY diagnostic_id, diagnostic_name, aggregate_id, name, group_by, post_students_completed
       SQL
@@ -54,7 +54,7 @@ module AdminDiagnosticReports
     private def rollup_aggregation_hash
       {
         post_students_completed: sum_aggregate,
-        average_improved_score: average_aggregate(:post_students_completed)
+        overall_skill_growth: average_aggregate(:post_students_completed)
       }
     end
   end
