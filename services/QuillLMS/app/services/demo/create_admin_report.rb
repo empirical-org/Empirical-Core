@@ -25,8 +25,8 @@ class Demo::CreateAdminReport
     @data ||= @passed_data || Demo::SessionData.new.admin_demo_data
   end
 
-  private def create_school(school_name)
-    School.create!(name: school_name)
+  private def find_or_create_school(school_name)
+    School.find_or_create_by(name: school_name, mail_street: "#{Time.zone.now.year} Demo School Lane")
   end
 
   private def find_or_create_teacher_data(teacher_name, school, subscription)
@@ -58,7 +58,7 @@ class Demo::CreateAdminReport
 
     data.map do |row|
       # create school data
-      school = create_school(row['School'])
+      school = find_or_create_school(row['School'])
       SchoolsAdmins.find_or_create_by!(school: school, user: admin_teacher)
       SchoolSubscription.find_or_create_by!(subscription: subscription, school: school)
 

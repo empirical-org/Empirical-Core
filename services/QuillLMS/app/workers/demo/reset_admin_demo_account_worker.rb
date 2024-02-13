@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # destroy admin demo account and recreates it from scratch
-class Demo::PopulateAdminDemoAccountWorker
+class Demo::ResetAdminDemoAccountWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW, retry: false
 

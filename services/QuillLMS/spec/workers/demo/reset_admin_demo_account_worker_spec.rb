@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Demo::PopulateAdminDemoAccountWorker, type: :worker do
+describe Demo::ResetAdminDemoAccountWorker, type: :worker do
   let(:worker) { described_class.new }
 
   describe "#perform" do
