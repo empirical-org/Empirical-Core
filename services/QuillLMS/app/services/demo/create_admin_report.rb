@@ -69,7 +69,7 @@ class Demo::CreateAdminReport
       classroom = Classroom.create(name: row['Classroom'])
       all_classrooms.push(classroom)
       ClassroomsTeacher.create(classroom: classroom, user: teacher, role: ClassroomsTeacher::ROLE_TYPES[:owner])
-      student_names = (1..5).to_a.map { |i| "#{Faker::Name.first_name} #{Faker::Name.last_name}" }
+      student_names = (1..25).to_a.map { |i| "#{Faker::Name.first_name} #{Faker::Name.last_name}" }
       Demo::ReportDemoCreator.create_demo_classroom_data(teacher, teacher_demo: false, classroom: classroom, student_names: student_names)
     end
 
