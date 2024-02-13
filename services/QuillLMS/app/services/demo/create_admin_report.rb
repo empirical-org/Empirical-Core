@@ -16,12 +16,17 @@ class Demo::CreateAdminReport
     create_demo
   end
 
+  def reset
+    User.find_by_email(@teacher_email).destroy
+    create_demo
+  end
+
   def data
     @data ||= @passed_data || Demo::SessionData.new.admin_demo_data
   end
 
-  private def find_or_create_school(school_name)
-    School.find_or_create_by(name: school_name)
+  private def create_school(school_name)
+    School.create!(name: school_name)
   end
 
   private def find_or_create_teacher_data(teacher_name, school, subscription)
@@ -53,7 +58,7 @@ class Demo::CreateAdminReport
 
     data.map do |row|
       # create school data
-      school = find_or_create_school(row['School'])
+      school = create_school(row['School'])
       SchoolsAdmins.find_or_create_by!(school: school, user: admin_teacher)
       SchoolSubscription.find_or_create_by!(subscription: subscription, school: school)
 
