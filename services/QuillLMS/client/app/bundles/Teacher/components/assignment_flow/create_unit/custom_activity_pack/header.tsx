@@ -3,7 +3,7 @@ import * as React from 'react';
 import ActivityRow from './activity_row';
 import { Activity } from './interfaces';
 
-import { Snackbar, SortableList, defaultSnackbarTimeout, } from '../../../../../Shared/index';
+import { Snackbar, SortableList, DragHandle, defaultSnackbarTimeout, } from '../../../../../Shared/index';
 
 const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
 
@@ -23,8 +23,6 @@ interface HeaderProps {
   isStaff: boolean,
   gradeLevelFilters: number[]
 }
-
-const DragHandleElement = <div className="focus-on-light" role="button" tabIndex={0}><img alt="Reorder icon" className="reorder-icon" src={reorderSrc} /></div>
 
 const AssignButton = ({ selectedActivities, handleClickContinue, saveButtonEnabled, isStaff, }: AssignButtonProps) => {
   let action = handleClickContinue
@@ -89,6 +87,7 @@ const Header = ({ handleClickContinue, selectedActivities, setSelectedActivities
       // using a div as the outer element instead of a button here because something about default button behavior overrides the keypress handling by sortablehandle
       return (
         <section className={className} id={a.id} key={a.id}>
+          <DragHandle><div className="focus-on-light" role="button" tabIndex={0}><img alt="Reorder icon" className="reorder-icon" src={reorderSrc} /></div></DragHandle>
           <ActivityRow
             activity={a}
             gradeLevelFilters={gradeLevelFilters}
@@ -101,7 +100,7 @@ const Header = ({ handleClickContinue, selectedActivities, setSelectedActivities
         </section>
       )
     })
-    selectedActivitySection = <SortableList data={selectedActivityRows} dragHandleElement={DragHandleElement} helperClass="sortable-selected-activity-row" sortCallback={sortCallback} useDragHandle={true} />
+    selectedActivitySection = <SortableList data={selectedActivityRows} helperClass="dragged-sortable-selected-activity-row" sortCallback={sortCallback} useDragHandle={true} />
   }
 
   return (

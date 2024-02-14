@@ -4,6 +4,43 @@ import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, us
 import { SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
+import { DragHandleProvider, } from '../../hooks/useDragHandle'
+
+class IgnoreInteractiveElementsPointerSensor extends PointerSensor {
+  static activators = [
+    {
+      eventName: 'onPointerDown',
+      handler: ({nativeEvent: event}) => {
+        if (
+          !event.isPrimary ||
+          event.button !== 0 ||
+          isInteractiveElement(event.target)
+        ) {
+          return false;
+        }
+
+        return true;
+      },
+    },
+  ];
+}
+
+function isInteractiveElement(element) {
+  const interactiveElements = [
+    'button',
+    'input',
+    'textarea',
+    'select',
+    'option',
+  ];
+
+  if (interactiveElements.includes(element.tagName.toLowerCase())) {
+    return true;
+  }
+
+  return false;
+}
+
 const dropAnimationConfig: DropAnimation = {
   sideEffects: defaultDropAnimationSideEffects({
     styles: {
@@ -14,20 +51,13 @@ const dropAnimationConfig: DropAnimation = {
   })
 };
 
-const DragHandle = ({ attributes, listeners, children }) => (
-  <div {...attributes} {...listeners} tabIndex={0}>
-    {children}
-  </div>
-);
-
-const SortableOverlay = ({ children }) => {
+const SortableOverlay = ({ children, }) => {
   return (
     <DragOverlay dropAnimation={dropAnimationConfig}>{children}</DragOverlay>
   );
 }
 
-
-const SortableItem = ({ id, value, helperClass, useDragHandle, dragHandleElement, }) => {
+const SortableItem = ({ id, value, helperClass, useDragHandle, }) => {
   const {
     attributes,
     listeners,
@@ -41,11 +71,12 @@ const SortableItem = ({ id, value, helperClass, useDragHandle, dragHandleElement
     transition,
   };
 
-  if (useDragHandle && dragHandleElement) {
+  if (useDragHandle) {
     return (
       <div className={`list-item ${helperClass}`} ref={setNodeRef} style={style}>
-        <DragHandle attributes={attributes} listeners={listeners}>{dragHandleElement}</DragHandle>
-        {value}
+        <DragHandleProvider attributes={attributes} listeners={listeners}>
+          {value}
+        </DragHandleProvider>
       </div>
     )
   }
@@ -62,14 +93,13 @@ interface SortableListProps {
   sortCallback: (items: any[]) => void,
   helperClass?: string,
   useDragHandle?: boolean,
-  dragHandleElement?: JSX.Element
 }
 
-export const SortableList = ({ data, sortCallback, helperClass, useDragHandle, dragHandleElement, }: SortableListProps) => {
-  const [activeItemId, setActiveItemId] = React.useState(null)
+export const SortableList = ({ data, sortCallback, helperClass, useDragHandle, }: SortableListProps) => {
+  const [activeId, setActiveId] = React.useState(null)
 
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(IgnoreInteractiveElementsPointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
@@ -78,77 +108,41 @@ export const SortableList = ({ data, sortCallback, helperClass, useDragHandle, d
   function handleDragEnd(event) {
     const { active, over } = event;
 
-    if (active.id !== over.id) {
+    if (active && over && active.id !== over.id) {
       const oldIndex = data.findIndex(item => String(item.key) === String(active.id));
       const newIndex = data.findIndex(item => String(item.key) === String(over.id));
       const newData = arrayMove(data, oldIndex, newIndex);
       sortCallback(newData);
     }
 
-    setActiveItemId(null)
+    setActiveId(null)
   };
 
   function handleDragStart(event) {
-    console.log('event.active', event.active)
-    setActiveItemId(event.active.id)
+    setActiveId(event.active.id)
   }
 
-  function renderItemById(id) {
+  function renderItemById(id, inOverlay) {
     const item = data.find(item => String(item.key) === String(id))
-    return renderItem(item)
+    return renderItem(item, inOverlay)
   }
 
-  function renderItem(item) {
+  function renderItem(item, applyHelperClass=false) {
     return (
-      <SortableItem dragHandleElement={dragHandleElement} helperClass={helperClass} id={item.key} key={item.key} useDragHandle={useDragHandle} value={item} />
+      <SortableItem helperClass={applyHelperClass ? helperClass: ''} id={item.key} key={item.key} useDragHandle={useDragHandle} value={item} />
     )
   }
 
   return (
-    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
-      <SortableContext items={data.map(item => item.id)} strategy={verticalListSortingStrategy}>
+    <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd} onDragStart={handleDragStart} sensors={sensors}>
+      <SortableContext items={data.map(item => item.key || item.id)} strategy={verticalListSortingStrategy}>
         <div className="list sortable-list">
-          {data.map((value, index) => renderItem(value))}
+          {data.map((item, index) => renderItem(item))}
         </div>
       </SortableContext>
       <SortableOverlay>
-        {activeItemId ? renderItemById(activeItemId) : null}
+        {activeId ? renderItemById(activeId, true) : null}
       </SortableOverlay>
     </DndContext>
   );
 }
-
-
-// import * as React from 'react';
-// import { SortableContainer, SortableElement } from 'react-sortable-hoc';
-//
-// const SortableComponentItem = SortableElement(({value}) => <div className="list-item">{value}</div>);
-//
-// const SortableComponent = SortableContainer(({items}) => {
-//   return (
-//     <div className="list sortable-list">
-//       {items.map((value, index) => (
-//         <SortableComponentItem index={index} key={index} value={value} />
-//       ))}
-//     </div>
-//   );
-// });
-//
-// interface SortableListProps {
-//   sortCallback: (items: any[]) => void,
-//   data: any[],
-//   helperClass?: string,
-//   axis?: any,
-//   useDragHandle?: boolean
-// }
-//
-// export function SortableList({ sortCallback, data, helperClass, axis, useDragHandle, }: SortableListProps) {
-//   function onSortEnd({oldIndex, newIndex}) {
-//     const newArray = arrayMove(data, oldIndex, newIndex)
-//     return sortCallback(newArray)
-//   };
-//
-//   function onSortMove() {}
-//
-//   return <SortableComponent axis={axis || 'y'} distance={2} helperClass={helperClass} items={data} onSortEnd={onSortEnd} onSortMove={onSortMove} useDragHandle={useDragHandle} />;
-// }
