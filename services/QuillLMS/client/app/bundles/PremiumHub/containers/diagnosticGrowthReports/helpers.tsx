@@ -57,7 +57,7 @@ function overallSkillGrowthValue({diagnosticId, overallSkillGrowth, handleGrowth
   if (!overallSkillGrowth) {
     return noDataToShow;
   } else if (overallSkillGrowth > 0) {
-    return <button className="interactive-wrapper emphasized-content" onClick={handleGrowthChipClick} value={diagnosticId}>{overallSkillGrowth * 100}%</button>
+    return <button className="interactive-wrapper emphasized-content" onClick={handleGrowthChipClick} value={diagnosticId}>{Math.round(overallSkillGrowth * 100)}%</button>
   }
   return 'No Growth';
 }
@@ -135,7 +135,7 @@ export function aggregateOverviewData(args) {
 
   // process data for post-diagnostic-completed API results
   postDiagnosticCompletedData.map(entry => {
-    const { diagnostic_id, aggregate_rows, post_average_score, post_students_completed } = entry
+    const { diagnostic_id, aggregate_rows, overall_skill_growth, post_students_completed } = entry
     postDiagnosticCompletedDataHash[diagnostic_id] = {
       overall_skill_growth,
       post_students_completed
@@ -182,7 +182,7 @@ export function aggregateOverviewData(args) {
 
 function scoreValue(score) {
   if(!score) { return noDataToShow }
-  return `${Math.round(score)}%`
+  return `${Math.round(score * 100)}%`
 }
 
 function proficiencyValue(proficiencyLevelCount, totalStudents) {
@@ -190,25 +190,25 @@ function proficiencyValue(proficiencyLevelCount, totalStudents) {
   return `${proficiencyLevelCount} of ${totalStudents}`
 }
 
-function growthResultsValue(growthPercentage) {
-  if (!growthPercentage) {
+function growthResultsValue(preScore, postScore) {
+  if (!postScore) {
     return noDataToShow;
-  } else if (growthPercentage > 0) {
-    return `+${Math.round(growthPercentage)}%`
+  } else if (preScore && postScore&& postScore > preScore) {
+    return `+${Math.round(postScore * 100) - Math.round(preScore * 100)}%`
   }
   return 'No Gain';
 }
 
 function formatSkillsData(data, isAggregateRowData) {
   return data.map((entry, i) => {
-    const { aggregate_rows, improved_proficiency, maintained_proficiency, post_score, pre_score, growth_percentage, recommended_practice, skill_name, name } = entry
+    const { aggregate_rows, improved_proficiency, maintained_proficiency, post_score, pre_score, growth_percentage, recommended_practice, skill_group_name, name } = entry
     const totalStudents = improved_proficiency + maintained_proficiency + recommended_practice
     return {
       id: i,
-      name: isAggregateRowData ? name : skill_name,
+      name: isAggregateRowData ? name : skill_group_name,
       preSkillScore: scoreValue(pre_score),
       postSkillScore: scoreValue(post_score),
-      growthResults: growthResultsValue(growth_percentage),
+      growthResults: growthResultsValue(pre_score, post_score),
       studentsImprovedSkill: proficiencyValue(improved_proficiency, totalStudents),
       studentsWithoutImprovement: proficiencyValue(recommended_practice, totalStudents),
       studentsMaintainedProficiency: proficiencyValue(maintained_proficiency, totalStudents),
