@@ -54,7 +54,7 @@ module AdminDiagnosticReports
     private def rollup_aggregation_hash
       {
         post_students_completed: sum_aggregate,
-        overall_skill_growth: average_aggregate(:post_students_completed)
+        overall_skill_growth: naive_average_aggregate
       }
     end
   end
