@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { SortableHandle, } from 'react-sortable-hoc';
 
 import ActivityRow from './activity_row';
 import { Activity } from './interfaces';
@@ -24,6 +23,8 @@ interface HeaderProps {
   isStaff: boolean,
   gradeLevelFilters: number[]
 }
+
+const DragHandleElement = <div className="focus-on-light" role="button" tabIndex={0}><img alt="Reorder icon" className="reorder-icon" src={reorderSrc} /></div>
 
 const AssignButton = ({ selectedActivities, handleClickContinue, saveButtonEnabled, isStaff, }: AssignButtonProps) => {
   let action = handleClickContinue
@@ -86,10 +87,8 @@ const Header = ({ handleClickContinue, selectedActivities, setSelectedActivities
     const selectedActivityRows = selectedActivities.map((a, i) => {
       const className = `selected-activity-row ${i === selectedActivities.length - 1 && 'is-last'}`
       // using a div as the outer element instead of a button here because something about default button behavior overrides the keypress handling by sortablehandle
-      const DragHandle = SortableHandle(() => <div className="focus-on-light" role="button" tabIndex={0}><img alt="Reorder icon" className="reorder-icon" src={reorderSrc} /></div>);
       return (
-        <section className={className} key={a.id}>
-          <DragHandle />
+        <section className={className} id={a.id} key={a.id}>
           <ActivityRow
             activity={a}
             gradeLevelFilters={gradeLevelFilters}
@@ -102,9 +101,8 @@ const Header = ({ handleClickContinue, selectedActivities, setSelectedActivities
         </section>
       )
     })
-    selectedActivitySection = <SortableList data={selectedActivityRows} helperClass="sortable-selected-activity-row" sortCallback={sortCallback} useDragHandle={true} />
+    selectedActivitySection = <SortableList data={selectedActivityRows} dragHandleElement={DragHandleElement} helperClass="sortable-selected-activity-row" sortCallback={sortCallback} useDragHandle={true} />
   }
-
 
   return (
     <header className={className}>

@@ -116,7 +116,7 @@ class IncorrectSequencesContainer extends React.Component {
     const { orderedIds, incorrectSequences } = this.state
     if (orderedIds) {
       const sequencesCollection = hashToCollection(incorrectSequences)
-      return orderedIds.map(id => sequencesCollection.find(s => s.key === id))
+      return orderedIds.map(id => sequencesCollection.find(s => s.text === id))
     } else {
       return hashToCollection(incorrectSequences).sort((a, b) => a.order - b.order);
     }
@@ -127,8 +127,9 @@ class IncorrectSequencesContainer extends React.Component {
     const { params } = match;
     const { questionID } = params;
     const orderedIds = sortInfo.map(item => item.key);
-    this.setState({ orderedIds, });
-    dispatch(questionActions.updateIncorrectSequences(questionID, this.sequencesSortedByOrder()));
+    this.setState({ orderedIds, }, () => {
+      dispatch(questionActions.updateIncorrectSequences(questionID, this.sequencesSortedByOrder()));
+    });
   }
 
 
@@ -159,7 +160,7 @@ class IncorrectSequencesContainer extends React.Component {
     const components = this.sequencesSortedByOrder().map((seq) => {
       const onClickDelete = () => { this.handleDeleteSequence(seq.key) }
       return (
-        <div className="card is-fullwidth has-bottom-margin" key={seq.key}>
+        <div className="card is-fullwidth has-bottom-margin" id={seq.text} key={seq.text}>
           <header className="card-header">
             <input className="regex-name" onChange={(e) => this.handleNameChange(e, seq.key)} placeholder="Name" type="text" value={seq.name || ''} />
           </header>
