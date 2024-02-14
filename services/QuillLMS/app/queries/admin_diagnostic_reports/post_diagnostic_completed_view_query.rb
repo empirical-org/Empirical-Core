@@ -47,6 +47,10 @@ module AdminDiagnosticReports
       SQL
     end
 
+    def group_by_clause
+      "#{super}, performance.skill_group_name"
+    end
+
     def relevant_date_column
       "performance.pre_activity_session_completed_at"
     end
