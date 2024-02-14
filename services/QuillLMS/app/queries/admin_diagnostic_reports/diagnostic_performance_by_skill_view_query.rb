@@ -72,7 +72,7 @@ module AdminDiagnosticReports
     end
 
     def group_by_clause
-      "GROUP BY aggregate_id, #{aggregate_sort_clause}, student_id, skill_group_name"
+      "GROUP BY aggregate_id, #{aggregate_sort_clause}, skill_group_name"
     end
 
     def relevant_date_column
