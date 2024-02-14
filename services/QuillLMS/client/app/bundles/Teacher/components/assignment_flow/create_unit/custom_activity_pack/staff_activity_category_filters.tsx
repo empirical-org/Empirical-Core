@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { SortableHandle, } from 'react-sortable-hoc';
 
 import { Activity, ActivityCategory, ActivityCategoryEditor } from './interfaces';
 import { ACTIVITY_CATEGORY_FILTERS, AVERAGE_FONT_WIDTH, } from './shared';
 
 import { requestPost, } from '../../../../../../modules/request/index';
-import { Input, Snackbar, SortableList, Tooltip, defaultSnackbarTimeout, } from '../../../../../Shared/index';
+import { Input, Snackbar, SortableList, Tooltip, defaultSnackbarTimeout, DragHandle, } from '../../../../../Shared/index';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
@@ -77,12 +76,10 @@ const StaffActivityCategoryFilterRow = ({
   }
 
   const activityCategoryNameElement = activityCategory.name.length * AVERAGE_FONT_WIDTH >= 160 ? <Tooltip tooltipText={activityCategory.name} tooltipTriggerText={activityCategory.name} tooltipTriggerTextClass="tooltip-trigger-text" /> : <span>{activityCategory.name}</span>
-  // using a div as the outer element instead of a button here because something about default button behavior overrides the keypress handling by sortablehandle
-  const DragHandle = SortableHandle(() => <div className="focus-on-light" role="button" tabIndex={0}><img alt="Reorder icon" className="reorder-icon" src={reorderSrc} /></div>);
 
   if (inEditMode) {
     return (
-      <section key={activityCategory.id}>
+      <section id={activityCategory.id} key={activityCategory.id}>
         <button className="interactive-wrapper" onClick={removeActivityCategory} type="button"><i className="fas fa-minus-circle" /></button>
         <div className="individual-row filter-row activity-category-row">
           <div>
@@ -99,8 +96,8 @@ const StaffActivityCategoryFilterRow = ({
   }
 
   return (
-    <section key={activityCategory.id}>
-      <DragHandle />
+    <section id={activityCategory.id} key={activityCategory.id}>
+      <DragHandle><div className="focus-on-light" role="button" tabIndex={0}><img alt="Reorder icon" className="reorder-icon" src={reorderSrc} /></div></DragHandle>
       <div className="individual-row filter-row activity-category-row">
         <div>
           {checkbox}
