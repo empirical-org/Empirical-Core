@@ -384,7 +384,7 @@ module Demo::ReportDemoCreator
   def self.create_activity_sessions(students, classroom, session_data)
     students.each_with_index do |student, num|
       ACTIVITY_PACKS_TEMPLATES.each do |activity_pack|
-        unit = Unit.where(name: activity_pack[:name]).last
+        unit = Unit.where(name: activity_pack[:name], user: classroom.owner).last
         classroom_unit = ClassroomUnit.find_by(classroom: classroom, unit: unit)
 
         # Calculate the index for activity_sessions using modulo
