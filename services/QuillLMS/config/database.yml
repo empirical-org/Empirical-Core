@@ -29,19 +29,12 @@ development:
   primary:
     <<: *local_shared
     database: emp_gr_development
+    url: <%= ENV['DATABASE_URL']  || 'postgres://127.0.0.1:5432/emp_gr_development' %>
   replica:
     <<: *local_shared
     database: emp_gr_development
+    url: <%= ENV['DATABASE_URL']  || 'postgres://127.0.0.1:5432/emp_gr_development' %>
     replica: true
-
-  #  For development group use this configuration temporarily for staging database locally
-  #  Set in your .env file  DATABASE_URL=postgres://[long address from pg staging db]"
-  #  Please do not commit this configuration below uncommented to git
-  # primary:
-  #   url: <%= ENV['DATABASE_URL'] %>
-  # replica:
-  #   url: <%= ENV['DATABASE_URL'] %>
-  #   replica: true
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
