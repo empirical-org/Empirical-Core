@@ -1,4 +1,4 @@
-# NB: if using create options, include OPTIONS, e.g.
+# NB: if using create options, include OPTIONS(), e.g.
 # create_options: "OPTIONS(enable_refresh = true)"
 default:
   reporting_sessions_view:

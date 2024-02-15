@@ -1,4 +1,4 @@
-### BigQuery Migrations
+### BigQuery Materialized Views
 
 This folder contains BigQuery-specific configurations that we've run on production, e.g. data transformations, materialized views, etc., for documentation purposes. Since these are not run on our Postgres DB (and are not run at all in `development` and `test` environments), we're putting them in folder separate from `migrations`. You should never have to run these queries, but in case you need to debug the reporting queries, this will give you their structure.
 
