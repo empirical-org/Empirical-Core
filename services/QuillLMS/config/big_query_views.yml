@@ -4,4 +4,4 @@ default:
   reporting_sessions_view:
     name: 'lms.recent_reporting_sessions'
     create_sql: 'reporting_sessions_view.sql'
-    create_options: nil
+    create_options: null
