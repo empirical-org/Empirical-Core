@@ -7,12 +7,12 @@ export const preDiagnosticCompletedTooltipText = "The total number of students w
 export const completedActivitiesTooltipText = "The total number of students who have completed the practice activities linked to this diagnostic.<br/><br/> A student is counted once the student has completed at least one practice activity linked to this diagnostic."
 export const averageActivitiesAndTimeSpentTooltipText = "Each diagnostic is linked to recommended practice activities. For the students who have completed activities, this shows the average number of completed activities and the average time spent per student.<br/><br/> This counts the practice activities connected to this particular diagnostic - not the total number of activities that the student has practiced on Quill."
 export const postDiagnosticCompletedTooltipText = "The total number of students who completed the Post diagnostic of all of the students assigned the Post diagnostic.<br/><br/> Students are not included in this count until their teacher assigns the Post diagnostic to them."
-export const overallSkillGrowthTooltipText = "The average increase in growth scores across all of the skills.<br/><br/> The Performance by Skill report shows the average increase in questions answered correctly for each skill, and the overall growth is the average increase across all skills."
+export const overallSkillGrowthTooltipText = "The average increase in growth scores across all of the skills.<br/><br/> The Performance by Skill report shows the average increase in questions answered correctly for each skill, and the overall growth is the average increase across all skills.<br/><br/>The growth score is based on only the students who have completed both the Pre and Post diagnostic. The growth score does not include students who only did the Pre."
 
 // Skills tooltips
 export const preSkillScoreTooltipText = "The averaged number of questions answered correctly for this skill on the Pre diagnostic.<br/><br/> This is the average score for all of the students selected in the filters."
 export const postSkillScoreTooltipText = "The averaged number of questions answered correctly for this skill on the Post diagnostic.<br/><br/> This is the average score for all of the students selected in the filters."
-export const growthResultsTooltipText = "The increase in the averaged number of questions answered correctly for this skill from the Pre to the Post diagnostic.<br/><br/> This is the average increase for all of the students selected in the filters."
+export const growthResultsTooltipText = "The increase in the averaged number of questions answered correctly for this skill from the Pre to the Post diagnostic.<br/><br/> This is the average increase for all of the students selected in the filters.<br/><br/>The growth score is based on only the students who have completed both the Pre and Post diagnostic. The growth score does not include students who only did the Pre."
 export const studentsImprovedSkillTooltipText = 'The number of students who improved in the skill by answering more questions correctly on the Post diagnostic than they did on the Pre. This includes students who gained Some Proficiency and Gained Full Proficiency in this skill.<br/><br/> This total count(”of __ students”) includes all students who completed both the Pre and the Post diagnostic and are selected in the filters.'
 export const studentsWithoutImprovementTooltipText = 'The total number of students who did not show improvement in this skill by not answering more questions correctly in the Post than the Pre (and who were not already proficient). Quill provides a recommended activity pack for each skill so that educators can easily assign practice activities so that students can practice this skill.<br/><br/> This total count(”of __ students”) includes all students who completed both the Pre and the Post diagnostic and are selected in the filters.'
 export const studentsMaintainedProficiencyTooltipText = 'The total number of students who answered all questions for this skill correctly on both the Pre and the Post diagnostic.<br/><br/> This total count(”of __ students”) includes all students who completed both the Pre and the Post diagnostic and are selected in the filters.'
@@ -180,9 +180,9 @@ export function aggregateOverviewData(args) {
 
 // Skills logic
 
-function scoreValue(score) {
+function scoreValue(score, studentCount) {
   if(!score) { return noDataToShow }
-  return `${Math.round(score * 100)}%`
+  return `${Math.round(score * 100)}% (${studentCount})`
 }
 
 function proficiencyValue(proficiencyLevelCount, totalStudents) {
@@ -190,28 +190,27 @@ function proficiencyValue(proficiencyLevelCount, totalStudents) {
   return `${proficiencyLevelCount} of ${totalStudents}`
 }
 
-function growthResultsValue(preScore, postScore) {
-  if (!postScore) {
+function growthResultsValue(score, studentCount) {
+  if (!score) {
     return noDataToShow;
-  } else if (preScore && postScore&& postScore > preScore) {
-    return `+${Math.round(postScore * 100) - Math.round(preScore * 100)}%`
+  } else if (score > 0) {
+    return `+${scoreValue(score, studentCount)}`
   }
   return 'No Gain';
 }
 
 function formatSkillsData(data, isAggregateRowData) {
   return data.map((entry, i) => {
-    const { aggregate_rows, improved_proficiency, maintained_proficiency, post_score, pre_score, growth_percentage, recommended_practice, skill_group_name, name } = entry
-    const totalStudents = improved_proficiency + maintained_proficiency + recommended_practice
+    const { aggregate_rows, growth_percentage, improved_proficiency, maintained_proficiency, post_score, post_students_completed, pre_score, pre_students_completed, recommended_practice, skill_group_name, name } = entry
     return {
       id: i,
       name: isAggregateRowData ? name : skill_group_name,
-      preSkillScore: scoreValue(pre_score),
-      postSkillScore: scoreValue(post_score),
-      growthResults: growthResultsValue(pre_score, post_score),
-      studentsImprovedSkill: proficiencyValue(improved_proficiency, totalStudents),
-      studentsWithoutImprovement: proficiencyValue(recommended_practice, totalStudents),
-      studentsMaintainedProficiency: proficiencyValue(maintained_proficiency, totalStudents),
+      preSkillScore: scoreValue(pre_score, pre_students_completed),
+      postSkillScore: scoreValue(post_score, post_students_completed),
+      growthResults: growthResultsValue(growth_percentage, post_students_completed),
+      studentsImprovedSkill: proficiencyValue(improved_proficiency, post_students_completed),
+      studentsWithoutImprovement: proficiencyValue(recommended_practice, post_students_completed),
+      studentsMaintainedProficiency: proficiencyValue(maintained_proficiency, post_students_completed),
       aggregate_rows: isAggregateRowData ? null : formatSkillsData(aggregate_rows, true)
     }
   })
