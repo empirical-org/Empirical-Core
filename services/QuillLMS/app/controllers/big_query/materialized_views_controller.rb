@@ -3,12 +3,14 @@
 module BigQuery
   class MaterializedViewsController < ApplicationController
     before_action :verify_api_key
-    API_KEY = ENV.fetch('BIGQUERY_INTERNAL_API_KEY')
+    API_KEY = ENV.fetch('BIGQUERY_INTERNAL_API_KEY', '')
 
     class InvalidRequestError < ::StandardError; end
 
     def refresh
       MaterializedViewRefreshWorker.perform_async(query_key)
+
+      render json: {}, status: 200
     end
 
     private def verify_api_key
@@ -19,6 +21,6 @@ module BigQuery
 
     private def refresh_params = params.permit(:api_key, :query_key)
     private def api_key = refresh_params[:api_key]
-    private def query_key = refresh_params[:query_key]
+    private def query_key = refresh_params[:id]
   end
 end

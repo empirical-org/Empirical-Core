@@ -15,17 +15,24 @@ module QuillBigQuery
     def initialize(query_key)
       @query_key = query_key
 
-      raise InvalidQueryKeyError if query_key.not_in?(VALID_KEYS)
+      raise InvalidQueryKeyError unless query_key.in?(VALID_KEYS)
     end
 
     def run
-      QuillBigQuery::WritePermissionsRunner.execute(drop_view)
+      # QuillBigQuery::WritePermissionsRunner.run(drop_view)
 
-      QuillBigQuery::WritePermissionsRunner.execute(create_view)
+      QuillBigQuery::WritePermissionsRunner.run(create_view)
     end
 
+    # Adding a 'SELECT 1;' query since the BigQuery library errors when returning the contents
+    # of a Materialized View, i.e. it runs the 'CREATE' operation successfully,
+    # but the API errors when parsing the Materialized View details to return:
+    # "Google::Apis::ClientError: invalid: Cannot list a table of type MATERIALIZED_VIEW."
     private def create_view
-      "CREATE MATERIALIZED VIEW #{name} #{create_options} AS (#{create_sql})"
+      <<-SQL
+        CREATE MATERIALIZED VIEW #{name} #{create_options} AS (#{create_sql});
+        SELECT 1;
+      SQL
     end
 
     private def drop_view
