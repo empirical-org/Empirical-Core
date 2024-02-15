@@ -30,6 +30,7 @@ module Evidence
       "shogun's",
       'kanaka',
       'kānaka',
+      'kirishitans',
       'worldwatch',
       'wilmut',
       'quokkaselfie',
