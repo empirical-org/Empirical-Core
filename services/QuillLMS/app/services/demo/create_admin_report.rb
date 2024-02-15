@@ -4,7 +4,7 @@ class Demo::CreateAdminReport
 
   NUMBER_OF_CLASSROOMS_TO_DESTROY_SESSIONS_FOR = 20
   RANGE_OF_NUMBER_OF_SESSIONS_TO_DESTROY = 14..28 # 10-20% of 140
-  BATCH_DELAY = 1.min
+  BATCH_DELAY = 1.minute
 
   attr_reader :teacher_email
 
