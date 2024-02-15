@@ -19,9 +19,9 @@ module Pdfs
       end
 
       private def change
-        return nil if count.nil? || previous.nil?
+        return nil if count.nil? || previous.nil? || previous.zero?
 
-        (((count - previous).to_f / (previous.nonzero? || 1)) * 100).round
+        (((count - previous).to_f / previous) * 100).round
       end
 
       private def count = current_results[:count]&.round
