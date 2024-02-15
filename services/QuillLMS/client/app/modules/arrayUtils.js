@@ -1,11 +1,11 @@
 
 // BigQuery does not currently accept DATETIMEs as arguments for JS UDFs
 // So we cast DATETIMES to STRINGS before calling this function
-export function extractDiagnosticMetadataFromActivityArray(activities_array, completed_at_array, scores_array) {
-  function zipAndSort(activities_array, completed_at_array, scores_array) {
+export function extractDiagnosticMetadataFromActivityArray(activity_ids_array, completed_at_array, scores_array) {
+  function zipAndSort(activity_ids_array, completed_at_array, scores_array) {
 
     const zipped = completed_at_array.map(
-      (elem, i) => ({completed_at: elem, score: scores_array[i], activity_id: activities_array[i]})
+      (elem, i) => ({completed_at: elem, score: scores_array[i], activity_id: activity_ids_array[i]})
     )
     return zipped.sort((a,b) => (new Date(a.completed_at) - new Date(b.completed_at)))
   }
@@ -17,8 +17,7 @@ export function extractDiagnosticMetadataFromActivityArray(activities_array, com
     return array.length - 1 - reversedIdx
   }
 
-  const zipped = zipAndSort(activities_array, completed_at_array, scores_array)
-  console.log("zipped:", zipped)
+  const zipped = zipAndSort(activity_ids_array, completed_at_array, scores_array)
   const diagnosticPreActivityIds = "1678 1568 1161 1668 1590 1663".split(' ').map(x => parseInt(x))
   const diagnosticPostActivityIds = "1664 1669 1680".split(' ').map(x => parseInt(x))
 

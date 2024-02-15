@@ -12,10 +12,10 @@ describe('extractDiagnosticMetadataFromActivityArray', () => {
   })
 
   it('should extract correct scores from diagnostics', () => {
-    const activities_array = [1678, 1664];
+    const activity_ids_array = [1678, 1664];
     const completed_at_array = ['2022-01-01T00:00:00Z', '2022-01-02T00:00:00Z'];
     const scores_array = [80, 90];
-    const result = extractDiagnosticMetadataFromActivityArray(activities_array, completed_at_array, scores_array);
+    const result = extractDiagnosticMetadataFromActivityArray(activity_ids_array, completed_at_array, scores_array);
     expect(result).toEqual({
       preTestScore: 80,
       numAssignedRecommendedCompleted: 0,
@@ -24,10 +24,10 @@ describe('extractDiagnosticMetadataFromActivityArray', () => {
   });
 
   it('should extract correct spanned-activity counts', () => {
-    const activities_array = [1678, 3, 4, 1664];
+    const activity_ids_array = [1678, 3, 4, 1664];
     const completed_at_array = ['2022-01-01T00:00:00Z', '2022-01-01T00:01:00Z', '2024-01-01T00:01:00Z',  '2022-01-02T00:00:00Z'];
     const scores_array = [80, 0, 0, 90];
-    const result = extractDiagnosticMetadataFromActivityArray(activities_array, completed_at_array, scores_array);
+    const result = extractDiagnosticMetadataFromActivityArray(activity_ids_array, completed_at_array, scores_array);
     expect(result).toEqual({
       preTestScore: 80,
       numAssignedRecommendedCompleted: 1,
