@@ -49,6 +49,7 @@ module AdminDiagnosticReports
         JOIN lms.active_user_names_view AS teachers ON classrooms_teachers.user_id = teachers.id
         JOIN lms.schools_users ON teachers.id = schools_users.user_id
         JOIN lms.schools ON schools_users.school_id = schools.id
+        JOIN lms.active_user_names_view AS users ON classrooms_teachers.user_id = users.id
       SQL
     end
 
