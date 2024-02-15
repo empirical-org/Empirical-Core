@@ -18,6 +18,7 @@ class Demo::CreateAdminReport
 
   def reset
     User.find_by_email(@teacher_email).destroy
+    School.where(mail_street: school_street).destroy_all
     create_demo
   end
 
@@ -25,8 +26,12 @@ class Demo::CreateAdminReport
     @data ||= @passed_data || Demo::SessionData.new.admin_demo_data
   end
 
+  private def school_street
+    @school_street ||= "#{Time.zone.now.year} Demo School Lane"
+  end
+
   private def find_or_create_school(school_name)
-    School.find_or_create_by(name: school_name, mail_street: "#{Time.zone.now.year} Demo School Lane")
+    School.find_or_create_by(name: school_name, mail_street: school_street)
   end
 
   private def find_or_create_teacher_data(teacher_name, school, subscription)
