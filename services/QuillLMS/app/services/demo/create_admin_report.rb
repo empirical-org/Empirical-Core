@@ -4,12 +4,14 @@ class Demo::CreateAdminReport
 
   NUMBER_OF_CLASSROOMS_TO_DESTROY_SESSIONS_FOR = 20
   RANGE_OF_NUMBER_OF_SESSIONS_TO_DESTROY = 14..28 # 10-20% of 140
+  BATCH_DELAY = 1.min
 
   attr_reader :teacher_email
 
-  def initialize(teacher_email, passed_data=nil)
+  def initialize(teacher_email, passed_data=nil, delay=BATCH_DELAY)
     @teacher_email = teacher_email
     @passed_data = passed_data
+    @delay = delay
   end
 
   def call
@@ -76,6 +78,7 @@ class Demo::CreateAdminReport
       ClassroomsTeacher.create(classroom: classroom, user: teacher, role: ClassroomsTeacher::ROLE_TYPES[:owner])
       student_names = (1..25).to_a.map { |i| "#{Faker::Name.first_name} #{Faker::Name.last_name}" }
       Demo::ReportDemoCreator.create_demo_classroom_data(teacher, teacher_demo: false, classroom: classroom, student_names: student_names)
+      sleep @delay
     end
 
     # delete some activity sessions to make data more varied
