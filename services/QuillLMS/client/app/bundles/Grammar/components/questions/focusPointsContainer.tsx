@@ -139,7 +139,7 @@ export class FocusPointsContainer extends React.Component {
   renderFocusPointsList() {
     const components = this.fPsortedByOrder().map((fp) => {
       return (
-        <div className="card is-fullwidth has-bottom-margin" key={fp.text} id={fp.text}>
+        <div className="card is-fullwidth has-bottom-margin" id={fp.text} key={fp.text}>
           <header className="card-header">
             <input className="regex-name" onChange={(e) => this.handleNameChange(e, fp.key)} placeholder="Name" type="text" value={fp.name || ''} />
           </header>
