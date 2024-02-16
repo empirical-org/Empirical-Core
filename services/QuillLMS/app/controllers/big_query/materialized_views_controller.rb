@@ -8,7 +8,7 @@ module BigQuery
     class InvalidRequestError < ::StandardError; end
 
     def refresh
-      MaterializedViewRefreshWorker.perform_async(query_key)
+      BigQuery::MaterializedViewRefreshWorker.perform_async(query_key)
 
       render json: {}, status: 200
     end
@@ -21,6 +21,6 @@ module BigQuery
 
     private def refresh_params = params.permit(:api_key, :query_key)
     private def api_key = refresh_params[:api_key]
-    private def query_key = refresh_params[:id]
+    private def query_key = refresh_params[:query_key]
   end
 end

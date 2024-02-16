@@ -19,7 +19,7 @@ module QuillBigQuery
     end
 
     def run
-      # QuillBigQuery::WritePermissionsRunner.run(drop_view)
+      QuillBigQuery::WritePermissionsRunner.run(drop_view)
 
       QuillBigQuery::WritePermissionsRunner.run(create_view)
     end
@@ -29,8 +29,8 @@ module QuillBigQuery
     # but the API errors when parsing the Materialized View details to return:
     # "Google::Apis::ClientError: invalid: Cannot list a table of type MATERIALIZED_VIEW."
     private def create_view
-      <<-SQL
-        CREATE MATERIALIZED VIEW #{name} #{create_options} AS (#{create_sql});
+      <<-SQL.squish
+        CREATE MATERIALIZED VIEW #{name} #{create_options} AS (#{create_sql.squish});
         SELECT 1;
       SQL
     end
