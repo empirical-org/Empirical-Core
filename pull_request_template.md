@@ -11,7 +11,7 @@
 (Please provide links to any relevant Notion card(s) relevant to this PR.)
 
 ### What have you done to QA this feature?
-(Provide enough detail that a reviewer could assess whether additional QA should be done.)
+(Provide enough detail that a reviewer could assess whether additional QA should be done. For larger projects, additionally use the Engineer Feature Testing Notion template)
 
 PR Checklist | Your Answer
 ------------ | -------------
