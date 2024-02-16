@@ -3,15 +3,23 @@
 require 'rails_helper'
 
 describe QuillBigQuery::MaterializedViewRefresher do
+  let(:query_key) { 'reporting_sessions_view' }
+
+  describe 'config' do
+    subject {described_class.new(query_key)}
+
+    it 'should find SQL file' do
+      expect { subject.send(:create_sql)}.not_to raise_error
+    end
+  end
 
   describe 'run' do
     let(:report_sessions_sql) {'SELECT 2'}
-    let(:query_key) { 'reporting_sessions_view' }
     let(:drop_sql) {'DROP MATERIALIZED VIEW IF EXISTS lms.recent_reporting_sessions'}
     let(:create_sql) { 'CREATE MATERIALIZED VIEW lms.recent_reporting_sessions AS (SELECT 2); SELECT 1;'}
 
     before do
-      stub_const('QuillBigQuery::MaterializedViewRefresher::QUERY_FOLDER', "#{Rails.root}/spec/fixtures/sql/")
+      stub_const('QuillBigQuery::MaterializedViewRefresher::QUERY_FOLDER', Rails.root.join('spec/fixtures/sql/'))
     end
 
     subject { described_class.run(query_key)}
