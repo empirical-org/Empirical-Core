@@ -4,7 +4,7 @@ module AdminDiagnosticReports
   class PreDiagnosticAssignedQuery < DiagnosticAggregateQuery
     def specific_select_clause
       <<-SQL
-          COUNT(DISTINCT CONCAT(classroom_units.id, ':', assigned_student_id)) AS pre_students_assigned
+          COUNT(DISTINCT CONCAT(classroom_units.classroom_id, ':', assigned_student_id)) AS pre_students_assigned
       SQL
     end
 

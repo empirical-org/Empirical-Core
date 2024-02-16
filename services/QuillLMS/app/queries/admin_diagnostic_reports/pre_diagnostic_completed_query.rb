@@ -10,7 +10,7 @@ module AdminDiagnosticReports
             aggregate_id,
             name,
             group_by,
-            COUNT(DISTINCT activity_session_id) AS pre_students_completed,
+            COUNT(DISTINCT activity_session_user_id) AS pre_students_completed,
             SAFE_DIVIDE(SUM(CAST(optimal AS INT64)), CAST(COUNT(DISTINCT concept_result_id) AS FLOAT64)) AS pre_average_score
           FROM (#{super})
           GROUP BY diagnostic_id, diagnostic_name, aggregate_id, name, group_by
@@ -19,7 +19,7 @@ module AdminDiagnosticReports
 
     def specific_select_clause
       <<-SQL
-        activity_sessions.id AS activity_session_id,
+        MAX(activity_sessions.user_id) AS activity_session_user_id,
         MAX(concept_results.correct) AS optimal,
         MAX(concept_results.id) AS concept_result_id
       SQL
