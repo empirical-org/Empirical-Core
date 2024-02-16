@@ -126,7 +126,7 @@ class ShowAdminEdition extends Component<any, any> {
     const exitSlideIndex = questions.length - 1
     const deleteSlideButton = key === 0 || key === exitSlideIndex ? <span /> : <DeleteSlideButton deleteSlide={this.deleteSlide} slideKey={key} />
     return (
-      <div className="box slide-box" key={key}>
+      <div className="box slide-box" id={key} key={key}>
         <span className="slide-type">{getComponentDisplayName(questions[key].type)}</span>
         <span className="slide-title">{questions[key].data.teach.title}</span>
         {deleteSlideButton}
