@@ -5,12 +5,16 @@ require 'rails_helper'
 describe Demo::ResetAdminDemoAccountWorker, type: :worker do
   let(:worker) { described_class.new }
 
-  describe "#perform" do
-    it "should call reset for the admin demo" do
-      expect(Demo::CreateAdminReport).to receive(:new).with(described_class::ADMIN_DEMO_EMAIL)
-      expect_any_instance_of(Demo::CreateAdminReport).to receive(:reset)
+  let(:admin_report_instance) { instance_double("Demo::CreateAdminReport") }
 
-      worker.perform
-    end
+  before do
+    allow(Demo::CreateAdminReport).to receive(:new).with(described_class::ADMIN_DEMO_EMAIL).and_return(admin_report_instance)
+    allow(admin_report_instance).to receive(:reset)
+  end
+
+  it "calls reset on the Demo::CreateAdminReport instance" do
+    expect(admin_report_instance).to receive(:reset)
+
+    worker.perform
   end
 end
