@@ -14,9 +14,11 @@ describe QuillBigQuery::MaterializedViewRefresher do
   end
 
   describe 'run' do
-    let(:report_sessions_sql) {'SELECT 2'}
+    let(:report_sessions_sql_from_fixture) {'SELECT 2'}
     let(:drop_sql) {'DROP MATERIALIZED VIEW IF EXISTS lms.recent_reporting_sessions'}
-    let(:create_sql) { 'CREATE MATERIALIZED VIEW lms.recent_reporting_sessions AS (SELECT 2); SELECT 1;'}
+    let(:create_sql) do
+      "CREATE MATERIALIZED VIEW lms.recent_reporting_sessions AS (#{report_sessions_sql_from_fixture}); SELECT 1;"
+    end
 
     before do
       stub_const('QuillBigQuery::MaterializedViewRefresher::QUERY_FOLDER', Rails.root.join('spec/fixtures/sql/'))
