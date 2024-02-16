@@ -305,7 +305,7 @@ module Demo::ReportDemoCreator
   end
 
   def self.unit_name(name, is_teacher_demo)
-    is_teacher_demo ? name : "#{name} (Staff Demo)"
+    is_teacher_demo ? name : "#{name} (Demo)"
   end
 
   def self.activity_ids_for_config(template_hash)
