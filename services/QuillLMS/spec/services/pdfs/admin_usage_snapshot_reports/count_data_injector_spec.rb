@@ -57,7 +57,7 @@ module Pdfs
         context 'when previous_count is 0' do
           let(:current_count) { 10 }
           let(:previous_count) { 0 }
-          let(:change) { 1000 }
+          let(:change) { nil }
 
           it { is_expected.to eq injected_item }
         end

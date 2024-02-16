@@ -13,6 +13,9 @@ describe CreateOrIncrementResponseWorker do
   describe '#perform' do
     context 'if the response already exists' do
       it 'should increment the count of the response and set updated at timestamp' do
+        expect(UpdateIndividualResponseWorker).to receive(:perform_async).once.with(response.id)
+        expect(UpdateIndividualResponseWorker).to receive(:perform_async).once.with(response.parent_id)
+
         original_count = response.count
         original_updated_at = response.updated_at
         subject.perform({ text: response.text, question_uid: response.question_uid })
@@ -41,6 +44,8 @@ describe CreateOrIncrementResponseWorker do
 
     context 'if the response does not already exist' do
       it 'should create a new response' do
+        expect(UpdateIndividualResponseWorker).not_to receive(:perform_async)
+
         text = 'Totally different text'
         subject.perform({ text: text })
         expect(Response.find_by(text: 'Totally different text').id).to be

@@ -216,6 +216,7 @@ function getMatcherFields(mode:string, question:Question, responses:{[key:string
   const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints).sort((a, b) => a.order - b.order) : [];
   const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
   const defaultConceptUID = question.modelConceptUID || question.conceptID
+  const { caseInsensitive, } = question
 
   if (mode === 'sentenceFragments') {
     return {
@@ -233,7 +234,7 @@ function getMatcherFields(mode:string, question:Question, responses:{[key:string
   } else if (mode === 'diagnosticQuestions') {
     return [question.key, hashToCollection(responses), defaultConceptUID]
   } else if (mode === 'fillInBlank') {
-    return [question.key, hashToCollection(responses), defaultConceptUID]
+    return [question.key, hashToCollection(responses), caseInsensitive, defaultConceptUID, false]
   } else {
     return [question.key, responseArray, focusPoints, incorrectSequences, defaultConceptUID]
   }
@@ -258,7 +259,7 @@ function getResponseBody(pageNumber) {
 }
 
 function getGradedResponses(questionID) {
-  return requestGet(`${process.env.QUILL_CMS}/questions/${questionID}/responses`);
+  return requestGet(`${process.env.QUILL_CMS}/questions/${questionID}/responses_for_rematching`);
 }
 
 function formatGradedResponses(jsonString):{[key:string]: Response} {

@@ -28,6 +28,7 @@ describe RematchResponseWorker do
     "updated_at": "2019-07-09T01:36:54.360Z",
     "spelling_error": false
   }
+
   sample_partial_lambda_response = {
     "feedback": "Revise your work.",
     "spelling_error": false
@@ -128,16 +129,20 @@ describe RematchResponseWorker do
         create(:response, params)
       end
     end
+    let(:question_key) { 'some_question_key' }
+    let(:options) { { 'fire_pusher_alert' => true, 'question_key' => question_key } }
 
-    it 'should update the response based on the lambda payload' do
+    it 'should update the response based on the lambda payload and trigger RematchingFinished worker' do
       stub_request(:post, /#{ENV['REMATCH_LAMBDA_URL']}/)
         .to_return(status: 200, body: sample_lambda_response.to_json, headers: {})
 
-      reference_response_ids = reference_responses.map { |r| r.id }
+      reference_response_ids = reference_responses.map(&:id)
 
-      expect(subject).to receive(:rematch_response).with(response, sample_payload['type'], sample_payload['question'], reference_responses).and_call_original
-      subject.perform(response.id, sample_payload['type'], sample_payload['question'], reference_response_ids)
+      expect(RematchFinishedWorker).to receive(:perform_async).with(question_key)
+
+      subject.perform(response.id, sample_payload['type'], sample_payload['question'], reference_response_ids, options)
       response.reload
+
       expect(response.feedback).to eq(sample_lambda_response[:feedback])
     end
 

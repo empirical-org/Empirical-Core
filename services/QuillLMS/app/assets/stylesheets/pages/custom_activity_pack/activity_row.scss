@@ -375,11 +375,10 @@
   }
 }
 
-.sortable-selected-activity-row {
+.dragged-sortable-selected-activity-row {
   z-index: 1;
   .selected-activity-row {
     background-color: #e8f7f3;
-    padding: 0px;
     border: 1px solid $quill-grey-5;
   }
   .activity-row {
