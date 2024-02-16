@@ -88,7 +88,7 @@ class LessonForm extends React.Component {
         const prompt = questionobj ? questionobj.prompt : 'Question No Longer Exists';
         const promptOrTitle = question.questionType === 'titleCards' ? questionobj.title : prompt
         return (
-          <p className="sortable-list-item" key={question.key} questionType={question.questionType}>
+          <p className="sortable-list-item" id={question.key} key={question.key} questionType={question.questionType}>
             {promptOrTitle}
             {'\t\t'}
             <button onClick={this.handleChange.bind(null, question.key)}>Delete</button>

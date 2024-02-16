@@ -8,8 +8,7 @@ class Demo::RecreateAccountWorker
   STAFF_DEMO_EMAIL = "hello+demoteacher+staff@quill.org"
 
   def perform
-    Demo::ReportDemoCreator.create_demo(nil, teacher_demo: true)
+    Demo::ReportDemoCreator.create_demo(nil, is_teacher_demo: true)
     Demo::ReportDemoCreator.create_demo(STAFF_DEMO_EMAIL)
   end
 end
-
