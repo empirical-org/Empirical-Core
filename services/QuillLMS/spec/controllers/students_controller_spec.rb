@@ -2,8 +2,7 @@
 
 require 'rails_helper'
 
-
-describe StudentsController do
+RSpec.describe StudentsController do
   let(:user) { create(:student) }
 
   before do
@@ -79,7 +78,7 @@ describe StudentsController do
 
     context 'when angie thomas does not exist' do
       it 'should destroy recreate the demo and redirect to student demo' do
-        expect(Demo::ReportDemoCreator).to receive(:create_demo).with(nil, {:teacher_demo=>true})
+        expect(Demo::ReportDemoCreator).to receive(:create_demo).with(nil, is_teacher_demo: true)
         get :student_demo
         expect(response).to redirect_to "/student_demo"
       end
