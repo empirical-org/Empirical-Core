@@ -61,7 +61,7 @@ const UnitTemplateRow = ({
   const previewLink = `${process.env.DEFAULT_URL}/assign/featured-activity-packs/${unitTemplate.id}`;
 
   return (
-    <div>
+    <div id={unitTemplate.id} key={unitTemplate.id}>
       <tr className="unit-template-row">
         {expandOrCollapseButton()}
         <td className="name-col">{unitTemplate.name}</td>

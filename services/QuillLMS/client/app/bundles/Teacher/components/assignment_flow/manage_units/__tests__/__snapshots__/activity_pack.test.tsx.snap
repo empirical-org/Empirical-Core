@@ -1553,7 +1553,19 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       <td
                         className="reorder-section data-table-row-section"
                       >
-                        <sortableHandle />
+                        <DragHandle>
+                          <div
+                            className="focus-on-light"
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <img
+                              alt="Reorder icon"
+                              className="reorder-icon"
+                              src="undefined/images/icons/reorder.svg"
+                            />
+                          </div>
+                        </DragHandle>
                       </td>
                       <td
                         className="data-table-row-section tool-and-name-section"
@@ -1691,7 +1703,19 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       <td
                         className="reorder-section data-table-row-section"
                       >
-                        <sortableHandle />
+                        <DragHandle>
+                          <div
+                            className="focus-on-light"
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <img
+                              alt="Reorder icon"
+                              className="reorder-icon"
+                              src="undefined/images/icons/reorder.svg"
+                            />
+                          </div>
+                        </DragHandle>
                       </td>
                       <td
                         className="data-table-row-section tool-and-name-section"
@@ -1829,7 +1853,19 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       <td
                         className="reorder-section data-table-row-section"
                       >
-                        <sortableHandle />
+                        <DragHandle>
+                          <div
+                            className="focus-on-light"
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <img
+                              alt="Reorder icon"
+                              className="reorder-icon"
+                              src="undefined/images/icons/reorder.svg"
+                            />
+                          </div>
+                        </DragHandle>
                       </td>
                       <td
                         className="data-table-row-section tool-and-name-section"
@@ -1967,7 +2003,19 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       <td
                         className="reorder-section data-table-row-section"
                       >
-                        <sortableHandle />
+                        <DragHandle>
+                          <div
+                            className="focus-on-light"
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <img
+                              alt="Reorder icon"
+                              className="reorder-icon"
+                              src="undefined/images/icons/reorder.svg"
+                            />
+                          </div>
+                        </DragHandle>
                       </td>
                       <td
                         className="data-table-row-section tool-and-name-section"
@@ -2105,7 +2153,19 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                       <td
                         className="reorder-section data-table-row-section"
                       >
-                        <sortableHandle />
+                        <DragHandle>
+                          <div
+                            className="focus-on-light"
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <img
+                              alt="Reorder icon"
+                              className="reorder-icon"
+                              src="undefined/images/icons/reorder.svg"
+                            />
+                          </div>
+                        </DragHandle>
                       </td>
                       <td
                         className="data-table-row-section tool-and-name-section"
@@ -2242,1442 +2302,49 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               sortCallback={[Function]}
               useDragHandle={true}
             >
-              <sortableList
-                axis="y"
-                disableAutoscroll={false}
-                distance={2}
-                getHelperDimensions={[Function]}
-                helperClass="sortable-data-table-row"
-                hideSortableGhost={true}
-                items={
+              <Memo(DndContext)
+                collisionDetection={[Function]}
+                onDragEnd={[Function]}
+                onDragStart={[Function]}
+                sensors={
                   Array [
-                    <tr
-                      className="data-table-row   show-copy-to-all"
-                    >
-                      <React.Fragment>
-                        <td
-                          className="reorder-section data-table-row-section"
-                        >
-                          <sortableHandle />
-                        </td>
-                        <td
-                          className="data-table-row-section tool-and-name-section"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "minWidth": "624px",
-                              "textAlign": "left",
-                              "width": "624px",
-                            }
-                          }
-                        >
-                          <TableCellContentWrapper>
-                            <div
-                              className="tool-icon-and-name"
-                            >
-                              <span
-                                className="tool-icon-wrapper"
-                              >
-                                <img
-                                  alt="Target representing Quill Connect"
-                                  src="undefined/images/icons/connect-forest-green.svg"
-                                />
-                              </span>
-                              <a
-                                className="interactive-wrapper focus-on-light"
-                                href="/activity_sessions/anonymous?activity_id=438"
-                                id="tool-and-name-section-7543552"
-                                rel="noopener noreferrer"
-                                target="_blank"
-                              >
-                                Adverbs of Manner 1 (Starter)
-                              </a>
-                            </div>
-                          </TableCellContentWrapper>
-                        </td>
-                        <td
-                          className="data-table-row-section datetime-picker"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "minWidth": "140px",
-                              "textAlign": "left",
-                              "width": "140px",
-                            }
-                          }
-                        >
-                          <TableCellContentWrapper>
-                            <DatePickerContainer
-                              closeFunction={[Function]}
-                              defaultText="Right away"
-                              handleClickCopyToAll={[Function]}
-                              icon={
-                                <img
-                                  alt="Checkmark icon"
-                                  className="published-icon"
-                                  src="undefined/images/icons/published.svg"
-                                />
-                              }
-                              initialValue={null}
-                              showCopyToAll={true}
-                            />
-                          </TableCellContentWrapper>
-                        </td>
-                        <td
-                          className="data-table-row-section datetime-picker"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "minWidth": "135px",
-                              "textAlign": "left",
-                              "width": "135px",
-                            }
-                          }
-                        >
-                          <TableCellContentWrapper>
-                            <DatePickerContainer
-                              closeFunction={[Function]}
-                              defaultText="No due date"
-                              handleClickCopyToAll={[Function]}
-                              initialValue={null}
-                              showCopyToAll={true}
-                            />
-                          </TableCellContentWrapper>
-                        </td>
-                        <td
-                          className="data-table-row-section undefined"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "minWidth": "30px",
-                              "textAlign": "left",
-                              "width": "30px",
-                            }
-                          }
-                        >
-                          <TableCellContentWrapper>
-                            <button
-                              className="share-activity-button focus-on-light"
-                              onClick={[Function]}
-                              type="button"
-                              value="row-button"
-                            >
-                              <img
-                                alt="share-arrow"
-                                src="undefined/images/icons/icons-share.svg"
-                              />
-                            </button>
-                          </TableCellContentWrapper>
-                        </td>
-                        <td>
-                          <button
-                            aria-label="Remove"
-                            className="removable data-table-row-section focus-on-light"
-                            id="remove-button-7543552"
-                            onClick={[Function]}
-                            type="button"
-                          >
-                            <img
-                              alt="x"
-                              src="https://assets.quill.org/images/icons/remove.svg"
-                            />
-                          </button>
-                        </td>
-                      </React.Fragment>
-                    </tr>,
-                    <tr
-                      className="data-table-row  "
-                    >
-                      <React.Fragment>
-                        <td
-                          className="reorder-section data-table-row-section"
-                        >
-                          <sortableHandle />
-                        </td>
-                        <td
-                          className="data-table-row-section tool-and-name-section"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "minWidth": "624px",
-                              "textAlign": "left",
-                              "width": "624px",
-                            }
-                          }
-                        >
-                          <TableCellContentWrapper>
-                            <div
-                              className="tool-icon-and-name"
-                            >
-                              <span
-                                className="tool-icon-wrapper"
-                              >
-                                <img
-                                  alt="Target representing Quill Connect"
-                                  src="undefined/images/icons/connect-forest-green.svg"
-                                />
-                              </span>
-                              <a
-                                className="interactive-wrapper focus-on-light"
-                                href="/activity_sessions/anonymous?activity_id=441"
-                                id="tool-and-name-section-7543553"
-                                rel="noopener noreferrer"
-                                target="_blank"
-                              >
-                                Adverbs of Manner (Intermediate)
-                              </a>
-                            </div>
-                          </TableCellContentWrapper>
-                        </td>
-                        <td
-                          className="data-table-row-section datetime-picker"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "minWidth": "140px",
-                              "textAlign": "left",
-                              "width": "140px",
-                            }
-                          }
-                        >
-                          <TableCellContentWrapper>
-                            <DatePickerContainer
-                              closeFunction={[Function]}
-                              defaultText="Right away"
-                              handleClickCopyToAll={[Function]}
-                              icon={
-                                <img
-                                  alt="Checkmark icon"
-                                  className="published-icon"
-                                  src="undefined/images/icons/published.svg"
-                                />
-                              }
-                              initialValue={null}
-                              showCopyToAll={false}
-                            />
-                          </TableCellContentWrapper>
-                        </td>
-                        <td
-                          className="data-table-row-section datetime-picker"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "minWidth": "135px",
-                              "textAlign": "left",
-                              "width": "135px",
-                            }
-                          }
-                        >
-                          <TableCellContentWrapper>
-                            <DatePickerContainer
-                              closeFunction={[Function]}
-                              defaultText="No due date"
-                              handleClickCopyToAll={[Function]}
-                              initialValue={null}
-                              showCopyToAll={false}
-                            />
-                          </TableCellContentWrapper>
-                        </td>
-                        <td
-                          className="data-table-row-section undefined"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "minWidth": "30px",
-                              "textAlign": "left",
-                              "width": "30px",
-                            }
-                          }
-                        >
-                          <TableCellContentWrapper>
-                            <button
-                              className="share-activity-button focus-on-light"
-                              onClick={[Function]}
-                              type="button"
-                              value="row-button"
-                            >
-                              <img
-                                alt="share-arrow"
-                                src="undefined/images/icons/icons-share.svg"
-                              />
-                            </button>
-                          </TableCellContentWrapper>
-                        </td>
-                        <td>
-                          <button
-                            aria-label="Remove"
-                            className="removable data-table-row-section focus-on-light"
-                            id="remove-button-7543553"
-                            onClick={[Function]}
-                            type="button"
-                          >
-                            <img
-                              alt="x"
-                              src="https://assets.quill.org/images/icons/remove.svg"
-                            />
-                          </button>
-                        </td>
-                      </React.Fragment>
-                    </tr>,
-                    <tr
-                      className="data-table-row  "
-                    >
-                      <React.Fragment>
-                        <td
-                          className="reorder-section data-table-row-section"
-                        >
-                          <sortableHandle />
-                        </td>
-                        <td
-                          className="data-table-row-section tool-and-name-section"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "minWidth": "624px",
-                              "textAlign": "left",
-                              "width": "624px",
-                            }
-                          }
-                        >
-                          <TableCellContentWrapper>
-                            <div
-                              className="tool-icon-and-name"
-                            >
-                              <span
-                                className="tool-icon-wrapper"
-                              >
-                                <img
-                                  alt="Target representing Quill Connect"
-                                  src="undefined/images/icons/connect-forest-green.svg"
-                                />
-                              </span>
-                              <a
-                                className="interactive-wrapper focus-on-light"
-                                href="/activity_sessions/anonymous?activity_id=775"
-                                id="tool-and-name-section-7543554"
-                                rel="noopener noreferrer"
-                                target="_blank"
-                              >
-                                Adjectives and Adverbs (Starter)
-                              </a>
-                            </div>
-                          </TableCellContentWrapper>
-                        </td>
-                        <td
-                          className="data-table-row-section datetime-picker"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "minWidth": "140px",
-                              "textAlign": "left",
-                              "width": "140px",
-                            }
-                          }
-                        >
-                          <TableCellContentWrapper>
-                            <DatePickerContainer
-                              closeFunction={[Function]}
-                              defaultText="Right away"
-                              handleClickCopyToAll={[Function]}
-                              icon={
-                                <img
-                                  alt="Checkmark icon"
-                                  className="published-icon"
-                                  src="undefined/images/icons/published.svg"
-                                />
-                              }
-                              initialValue={null}
-                              showCopyToAll={false}
-                            />
-                          </TableCellContentWrapper>
-                        </td>
-                        <td
-                          className="data-table-row-section datetime-picker"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "minWidth": "135px",
-                              "textAlign": "left",
-                              "width": "135px",
-                            }
-                          }
-                        >
-                          <TableCellContentWrapper>
-                            <DatePickerContainer
-                              closeFunction={[Function]}
-                              defaultText="No due date"
-                              handleClickCopyToAll={[Function]}
-                              initialValue={null}
-                              showCopyToAll={false}
-                            />
-                          </TableCellContentWrapper>
-                        </td>
-                        <td
-                          className="data-table-row-section undefined"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "minWidth": "30px",
-                              "textAlign": "left",
-                              "width": "30px",
-                            }
-                          }
-                        >
-                          <TableCellContentWrapper>
-                            <button
-                              className="share-activity-button focus-on-light"
-                              onClick={[Function]}
-                              type="button"
-                              value="row-button"
-                            >
-                              <img
-                                alt="share-arrow"
-                                src="undefined/images/icons/icons-share.svg"
-                              />
-                            </button>
-                          </TableCellContentWrapper>
-                        </td>
-                        <td>
-                          <button
-                            aria-label="Remove"
-                            className="removable data-table-row-section focus-on-light"
-                            id="remove-button-7543554"
-                            onClick={[Function]}
-                            type="button"
-                          >
-                            <img
-                              alt="x"
-                              src="https://assets.quill.org/images/icons/remove.svg"
-                            />
-                          </button>
-                        </td>
-                      </React.Fragment>
-                    </tr>,
-                    <tr
-                      className="data-table-row  "
-                    >
-                      <React.Fragment>
-                        <td
-                          className="reorder-section data-table-row-section"
-                        >
-                          <sortableHandle />
-                        </td>
-                        <td
-                          className="data-table-row-section tool-and-name-section"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "minWidth": "624px",
-                              "textAlign": "left",
-                              "width": "624px",
-                            }
-                          }
-                        >
-                          <TableCellContentWrapper>
-                            <div
-                              className="tool-icon-and-name"
-                            >
-                              <span
-                                className="tool-icon-wrapper"
-                              >
-                                <img
-                                  alt="Target representing Quill Connect"
-                                  src="undefined/images/icons/connect-forest-green.svg"
-                                />
-                              </span>
-                              <a
-                                className="interactive-wrapper focus-on-light"
-                                href="/activity_sessions/anonymous?activity_id=844"
-                                id="tool-and-name-section-7543555"
-                                rel="noopener noreferrer"
-                                target="_blank"
-                              >
-                                Adjectives vs. Adverbs
-                              </a>
-                            </div>
-                          </TableCellContentWrapper>
-                        </td>
-                        <td
-                          className="data-table-row-section datetime-picker"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "minWidth": "140px",
-                              "textAlign": "left",
-                              "width": "140px",
-                            }
-                          }
-                        >
-                          <TableCellContentWrapper>
-                            <DatePickerContainer
-                              closeFunction={[Function]}
-                              defaultText="Right away"
-                              handleClickCopyToAll={[Function]}
-                              icon={
-                                <img
-                                  alt="Checkmark icon"
-                                  className="published-icon"
-                                  src="undefined/images/icons/published.svg"
-                                />
-                              }
-                              initialValue={null}
-                              showCopyToAll={false}
-                            />
-                          </TableCellContentWrapper>
-                        </td>
-                        <td
-                          className="data-table-row-section datetime-picker"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "minWidth": "135px",
-                              "textAlign": "left",
-                              "width": "135px",
-                            }
-                          }
-                        >
-                          <TableCellContentWrapper>
-                            <DatePickerContainer
-                              closeFunction={[Function]}
-                              defaultText="No due date"
-                              handleClickCopyToAll={[Function]}
-                              initialValue={null}
-                              showCopyToAll={false}
-                            />
-                          </TableCellContentWrapper>
-                        </td>
-                        <td
-                          className="data-table-row-section undefined"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "minWidth": "30px",
-                              "textAlign": "left",
-                              "width": "30px",
-                            }
-                          }
-                        >
-                          <TableCellContentWrapper>
-                            <button
-                              className="share-activity-button focus-on-light"
-                              onClick={[Function]}
-                              type="button"
-                              value="row-button"
-                            >
-                              <img
-                                alt="share-arrow"
-                                src="undefined/images/icons/icons-share.svg"
-                              />
-                            </button>
-                          </TableCellContentWrapper>
-                        </td>
-                        <td>
-                          <button
-                            aria-label="Remove"
-                            className="removable data-table-row-section focus-on-light"
-                            id="remove-button-7543555"
-                            onClick={[Function]}
-                            type="button"
-                          >
-                            <img
-                              alt="x"
-                              src="https://assets.quill.org/images/icons/remove.svg"
-                            />
-                          </button>
-                        </td>
-                      </React.Fragment>
-                    </tr>,
-                    <tr
-                      className="data-table-row  "
-                    >
-                      <React.Fragment>
-                        <td
-                          className="reorder-section data-table-row-section"
-                        >
-                          <sortableHandle />
-                        </td>
-                        <td
-                          className="data-table-row-section tool-and-name-section"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "minWidth": "624px",
-                              "textAlign": "left",
-                              "width": "624px",
-                            }
-                          }
-                        >
-                          <TableCellContentWrapper>
-                            <div
-                              className="tool-icon-and-name"
-                            >
-                              <span
-                                className="tool-icon-wrapper"
-                              >
-                                <img
-                                  alt="Target representing Quill Connect"
-                                  src="undefined/images/icons/connect-forest-green.svg"
-                                />
-                              </span>
-                              <a
-                                className="interactive-wrapper focus-on-light"
-                                href="/activity_sessions/anonymous?activity_id=846"
-                                id="tool-and-name-section-7543556"
-                                rel="noopener noreferrer"
-                                target="_blank"
-                              >
-                                Adjectives, Adverbs, and Prepositional Phrases 1
-                              </a>
-                            </div>
-                          </TableCellContentWrapper>
-                        </td>
-                        <td
-                          className="data-table-row-section datetime-picker"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "minWidth": "140px",
-                              "textAlign": "left",
-                              "width": "140px",
-                            }
-                          }
-                        >
-                          <TableCellContentWrapper>
-                            <DatePickerContainer
-                              closeFunction={[Function]}
-                              defaultText="Right away"
-                              handleClickCopyToAll={[Function]}
-                              icon={
-                                <img
-                                  alt="Checkmark icon"
-                                  className="published-icon"
-                                  src="undefined/images/icons/published.svg"
-                                />
-                              }
-                              initialValue={null}
-                              showCopyToAll={false}
-                            />
-                          </TableCellContentWrapper>
-                        </td>
-                        <td
-                          className="data-table-row-section datetime-picker"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "minWidth": "135px",
-                              "textAlign": "left",
-                              "width": "135px",
-                            }
-                          }
-                        >
-                          <TableCellContentWrapper>
-                            <DatePickerContainer
-                              closeFunction={[Function]}
-                              defaultText="No due date"
-                              handleClickCopyToAll={[Function]}
-                              initialValue={null}
-                              showCopyToAll={false}
-                            />
-                          </TableCellContentWrapper>
-                        </td>
-                        <td
-                          className="data-table-row-section undefined"
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "minWidth": "30px",
-                              "textAlign": "left",
-                              "width": "30px",
-                            }
-                          }
-                        >
-                          <TableCellContentWrapper>
-                            <button
-                              className="share-activity-button focus-on-light"
-                              onClick={[Function]}
-                              type="button"
-                              value="row-button"
-                            >
-                              <img
-                                alt="share-arrow"
-                                src="undefined/images/icons/icons-share.svg"
-                              />
-                            </button>
-                          </TableCellContentWrapper>
-                        </td>
-                        <td>
-                          <button
-                            aria-label="Remove"
-                            className="removable data-table-row-section focus-on-light"
-                            id="remove-button-7543556"
-                            onClick={[Function]}
-                            type="button"
-                          >
-                            <img
-                              alt="x"
-                              src="https://assets.quill.org/images/icons/remove.svg"
-                            />
-                          </button>
-                        </td>
-                      </React.Fragment>
-                    </tr>,
+                    Object {
+                      "options": Object {
+                        "activationConstraint": Object {
+                          "distance": 8,
+                        },
+                      },
+                      "sensor": [Function],
+                    },
+                    Object {
+                      "options": Object {
+                        "coordinateGetter": [Function],
+                      },
+                      "sensor": [Function],
+                    },
                   ]
                 }
-                keyCodes={
-                  Object {
-                    "cancel": Array [
-                      27,
-                    ],
-                    "down": Array [
-                      40,
-                      39,
-                    ],
-                    "drop": Array [
-                      32,
-                    ],
-                    "lift": Array [
-                      32,
-                    ],
-                    "up": Array [
-                      38,
-                      37,
-                    ],
-                  }
-                }
-                lockOffset="50%"
-                lockToContainerEdges={false}
-                onSortEnd={[Function]}
-                onSortMove={[Function]}
-                pressDelay={0}
-                pressThreshold={5}
-                shouldCancelStart={[Function]}
-                transitionDuration={300}
-                useDragHandle={true}
-                useWindowAsScrollContainer={false}
               >
-                <Component
+                <SortableContext
                   items={
                     Array [
-                      <tr
-                        className="data-table-row   show-copy-to-all"
-                      >
-                        <React.Fragment>
-                          <td
-                            className="reorder-section data-table-row-section"
-                          >
-                            <sortableHandle />
-                          </td>
-                          <td
-                            className="data-table-row-section tool-and-name-section"
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            style={
-                              Object {
-                                "minWidth": "624px",
-                                "textAlign": "left",
-                                "width": "624px",
-                              }
-                            }
-                          >
-                            <TableCellContentWrapper>
-                              <div
-                                className="tool-icon-and-name"
-                              >
-                                <span
-                                  className="tool-icon-wrapper"
-                                >
-                                  <img
-                                    alt="Target representing Quill Connect"
-                                    src="undefined/images/icons/connect-forest-green.svg"
-                                  />
-                                </span>
-                                <a
-                                  className="interactive-wrapper focus-on-light"
-                                  href="/activity_sessions/anonymous?activity_id=438"
-                                  id="tool-and-name-section-7543552"
-                                  rel="noopener noreferrer"
-                                  target="_blank"
-                                >
-                                  Adverbs of Manner 1 (Starter)
-                                </a>
-                              </div>
-                            </TableCellContentWrapper>
-                          </td>
-                          <td
-                            className="data-table-row-section datetime-picker"
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            style={
-                              Object {
-                                "minWidth": "140px",
-                                "textAlign": "left",
-                                "width": "140px",
-                              }
-                            }
-                          >
-                            <TableCellContentWrapper>
-                              <DatePickerContainer
-                                closeFunction={[Function]}
-                                defaultText="Right away"
-                                handleClickCopyToAll={[Function]}
-                                icon={
-                                  <img
-                                    alt="Checkmark icon"
-                                    className="published-icon"
-                                    src="undefined/images/icons/published.svg"
-                                  />
-                                }
-                                initialValue={null}
-                                showCopyToAll={true}
-                              />
-                            </TableCellContentWrapper>
-                          </td>
-                          <td
-                            className="data-table-row-section datetime-picker"
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            style={
-                              Object {
-                                "minWidth": "135px",
-                                "textAlign": "left",
-                                "width": "135px",
-                              }
-                            }
-                          >
-                            <TableCellContentWrapper>
-                              <DatePickerContainer
-                                closeFunction={[Function]}
-                                defaultText="No due date"
-                                handleClickCopyToAll={[Function]}
-                                initialValue={null}
-                                showCopyToAll={true}
-                              />
-                            </TableCellContentWrapper>
-                          </td>
-                          <td
-                            className="data-table-row-section undefined"
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            style={
-                              Object {
-                                "minWidth": "30px",
-                                "textAlign": "left",
-                                "width": "30px",
-                              }
-                            }
-                          >
-                            <TableCellContentWrapper>
-                              <button
-                                className="share-activity-button focus-on-light"
-                                onClick={[Function]}
-                                type="button"
-                                value="row-button"
-                              >
-                                <img
-                                  alt="share-arrow"
-                                  src="undefined/images/icons/icons-share.svg"
-                                />
-                              </button>
-                            </TableCellContentWrapper>
-                          </td>
-                          <td>
-                            <button
-                              aria-label="Remove"
-                              className="removable data-table-row-section focus-on-light"
-                              id="remove-button-7543552"
-                              onClick={[Function]}
-                              type="button"
-                            >
-                              <img
-                                alt="x"
-                                src="https://assets.quill.org/images/icons/remove.svg"
-                              />
-                            </button>
-                          </td>
-                        </React.Fragment>
-                      </tr>,
-                      <tr
-                        className="data-table-row  "
-                      >
-                        <React.Fragment>
-                          <td
-                            className="reorder-section data-table-row-section"
-                          >
-                            <sortableHandle />
-                          </td>
-                          <td
-                            className="data-table-row-section tool-and-name-section"
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            style={
-                              Object {
-                                "minWidth": "624px",
-                                "textAlign": "left",
-                                "width": "624px",
-                              }
-                            }
-                          >
-                            <TableCellContentWrapper>
-                              <div
-                                className="tool-icon-and-name"
-                              >
-                                <span
-                                  className="tool-icon-wrapper"
-                                >
-                                  <img
-                                    alt="Target representing Quill Connect"
-                                    src="undefined/images/icons/connect-forest-green.svg"
-                                  />
-                                </span>
-                                <a
-                                  className="interactive-wrapper focus-on-light"
-                                  href="/activity_sessions/anonymous?activity_id=441"
-                                  id="tool-and-name-section-7543553"
-                                  rel="noopener noreferrer"
-                                  target="_blank"
-                                >
-                                  Adverbs of Manner (Intermediate)
-                                </a>
-                              </div>
-                            </TableCellContentWrapper>
-                          </td>
-                          <td
-                            className="data-table-row-section datetime-picker"
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            style={
-                              Object {
-                                "minWidth": "140px",
-                                "textAlign": "left",
-                                "width": "140px",
-                              }
-                            }
-                          >
-                            <TableCellContentWrapper>
-                              <DatePickerContainer
-                                closeFunction={[Function]}
-                                defaultText="Right away"
-                                handleClickCopyToAll={[Function]}
-                                icon={
-                                  <img
-                                    alt="Checkmark icon"
-                                    className="published-icon"
-                                    src="undefined/images/icons/published.svg"
-                                  />
-                                }
-                                initialValue={null}
-                                showCopyToAll={false}
-                              />
-                            </TableCellContentWrapper>
-                          </td>
-                          <td
-                            className="data-table-row-section datetime-picker"
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            style={
-                              Object {
-                                "minWidth": "135px",
-                                "textAlign": "left",
-                                "width": "135px",
-                              }
-                            }
-                          >
-                            <TableCellContentWrapper>
-                              <DatePickerContainer
-                                closeFunction={[Function]}
-                                defaultText="No due date"
-                                handleClickCopyToAll={[Function]}
-                                initialValue={null}
-                                showCopyToAll={false}
-                              />
-                            </TableCellContentWrapper>
-                          </td>
-                          <td
-                            className="data-table-row-section undefined"
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            style={
-                              Object {
-                                "minWidth": "30px",
-                                "textAlign": "left",
-                                "width": "30px",
-                              }
-                            }
-                          >
-                            <TableCellContentWrapper>
-                              <button
-                                className="share-activity-button focus-on-light"
-                                onClick={[Function]}
-                                type="button"
-                                value="row-button"
-                              >
-                                <img
-                                  alt="share-arrow"
-                                  src="undefined/images/icons/icons-share.svg"
-                                />
-                              </button>
-                            </TableCellContentWrapper>
-                          </td>
-                          <td>
-                            <button
-                              aria-label="Remove"
-                              className="removable data-table-row-section focus-on-light"
-                              id="remove-button-7543553"
-                              onClick={[Function]}
-                              type="button"
-                            >
-                              <img
-                                alt="x"
-                                src="https://assets.quill.org/images/icons/remove.svg"
-                              />
-                            </button>
-                          </td>
-                        </React.Fragment>
-                      </tr>,
-                      <tr
-                        className="data-table-row  "
-                      >
-                        <React.Fragment>
-                          <td
-                            className="reorder-section data-table-row-section"
-                          >
-                            <sortableHandle />
-                          </td>
-                          <td
-                            className="data-table-row-section tool-and-name-section"
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            style={
-                              Object {
-                                "minWidth": "624px",
-                                "textAlign": "left",
-                                "width": "624px",
-                              }
-                            }
-                          >
-                            <TableCellContentWrapper>
-                              <div
-                                className="tool-icon-and-name"
-                              >
-                                <span
-                                  className="tool-icon-wrapper"
-                                >
-                                  <img
-                                    alt="Target representing Quill Connect"
-                                    src="undefined/images/icons/connect-forest-green.svg"
-                                  />
-                                </span>
-                                <a
-                                  className="interactive-wrapper focus-on-light"
-                                  href="/activity_sessions/anonymous?activity_id=775"
-                                  id="tool-and-name-section-7543554"
-                                  rel="noopener noreferrer"
-                                  target="_blank"
-                                >
-                                  Adjectives and Adverbs (Starter)
-                                </a>
-                              </div>
-                            </TableCellContentWrapper>
-                          </td>
-                          <td
-                            className="data-table-row-section datetime-picker"
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            style={
-                              Object {
-                                "minWidth": "140px",
-                                "textAlign": "left",
-                                "width": "140px",
-                              }
-                            }
-                          >
-                            <TableCellContentWrapper>
-                              <DatePickerContainer
-                                closeFunction={[Function]}
-                                defaultText="Right away"
-                                handleClickCopyToAll={[Function]}
-                                icon={
-                                  <img
-                                    alt="Checkmark icon"
-                                    className="published-icon"
-                                    src="undefined/images/icons/published.svg"
-                                  />
-                                }
-                                initialValue={null}
-                                showCopyToAll={false}
-                              />
-                            </TableCellContentWrapper>
-                          </td>
-                          <td
-                            className="data-table-row-section datetime-picker"
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            style={
-                              Object {
-                                "minWidth": "135px",
-                                "textAlign": "left",
-                                "width": "135px",
-                              }
-                            }
-                          >
-                            <TableCellContentWrapper>
-                              <DatePickerContainer
-                                closeFunction={[Function]}
-                                defaultText="No due date"
-                                handleClickCopyToAll={[Function]}
-                                initialValue={null}
-                                showCopyToAll={false}
-                              />
-                            </TableCellContentWrapper>
-                          </td>
-                          <td
-                            className="data-table-row-section undefined"
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            style={
-                              Object {
-                                "minWidth": "30px",
-                                "textAlign": "left",
-                                "width": "30px",
-                              }
-                            }
-                          >
-                            <TableCellContentWrapper>
-                              <button
-                                className="share-activity-button focus-on-light"
-                                onClick={[Function]}
-                                type="button"
-                                value="row-button"
-                              >
-                                <img
-                                  alt="share-arrow"
-                                  src="undefined/images/icons/icons-share.svg"
-                                />
-                              </button>
-                            </TableCellContentWrapper>
-                          </td>
-                          <td>
-                            <button
-                              aria-label="Remove"
-                              className="removable data-table-row-section focus-on-light"
-                              id="remove-button-7543554"
-                              onClick={[Function]}
-                              type="button"
-                            >
-                              <img
-                                alt="x"
-                                src="https://assets.quill.org/images/icons/remove.svg"
-                              />
-                            </button>
-                          </td>
-                        </React.Fragment>
-                      </tr>,
-                      <tr
-                        className="data-table-row  "
-                      >
-                        <React.Fragment>
-                          <td
-                            className="reorder-section data-table-row-section"
-                          >
-                            <sortableHandle />
-                          </td>
-                          <td
-                            className="data-table-row-section tool-and-name-section"
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            style={
-                              Object {
-                                "minWidth": "624px",
-                                "textAlign": "left",
-                                "width": "624px",
-                              }
-                            }
-                          >
-                            <TableCellContentWrapper>
-                              <div
-                                className="tool-icon-and-name"
-                              >
-                                <span
-                                  className="tool-icon-wrapper"
-                                >
-                                  <img
-                                    alt="Target representing Quill Connect"
-                                    src="undefined/images/icons/connect-forest-green.svg"
-                                  />
-                                </span>
-                                <a
-                                  className="interactive-wrapper focus-on-light"
-                                  href="/activity_sessions/anonymous?activity_id=844"
-                                  id="tool-and-name-section-7543555"
-                                  rel="noopener noreferrer"
-                                  target="_blank"
-                                >
-                                  Adjectives vs. Adverbs
-                                </a>
-                              </div>
-                            </TableCellContentWrapper>
-                          </td>
-                          <td
-                            className="data-table-row-section datetime-picker"
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            style={
-                              Object {
-                                "minWidth": "140px",
-                                "textAlign": "left",
-                                "width": "140px",
-                              }
-                            }
-                          >
-                            <TableCellContentWrapper>
-                              <DatePickerContainer
-                                closeFunction={[Function]}
-                                defaultText="Right away"
-                                handleClickCopyToAll={[Function]}
-                                icon={
-                                  <img
-                                    alt="Checkmark icon"
-                                    className="published-icon"
-                                    src="undefined/images/icons/published.svg"
-                                  />
-                                }
-                                initialValue={null}
-                                showCopyToAll={false}
-                              />
-                            </TableCellContentWrapper>
-                          </td>
-                          <td
-                            className="data-table-row-section datetime-picker"
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            style={
-                              Object {
-                                "minWidth": "135px",
-                                "textAlign": "left",
-                                "width": "135px",
-                              }
-                            }
-                          >
-                            <TableCellContentWrapper>
-                              <DatePickerContainer
-                                closeFunction={[Function]}
-                                defaultText="No due date"
-                                handleClickCopyToAll={[Function]}
-                                initialValue={null}
-                                showCopyToAll={false}
-                              />
-                            </TableCellContentWrapper>
-                          </td>
-                          <td
-                            className="data-table-row-section undefined"
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            style={
-                              Object {
-                                "minWidth": "30px",
-                                "textAlign": "left",
-                                "width": "30px",
-                              }
-                            }
-                          >
-                            <TableCellContentWrapper>
-                              <button
-                                className="share-activity-button focus-on-light"
-                                onClick={[Function]}
-                                type="button"
-                                value="row-button"
-                              >
-                                <img
-                                  alt="share-arrow"
-                                  src="undefined/images/icons/icons-share.svg"
-                                />
-                              </button>
-                            </TableCellContentWrapper>
-                          </td>
-                          <td>
-                            <button
-                              aria-label="Remove"
-                              className="removable data-table-row-section focus-on-light"
-                              id="remove-button-7543555"
-                              onClick={[Function]}
-                              type="button"
-                            >
-                              <img
-                                alt="x"
-                                src="https://assets.quill.org/images/icons/remove.svg"
-                              />
-                            </button>
-                          </td>
-                        </React.Fragment>
-                      </tr>,
-                      <tr
-                        className="data-table-row  "
-                      >
-                        <React.Fragment>
-                          <td
-                            className="reorder-section data-table-row-section"
-                          >
-                            <sortableHandle />
-                          </td>
-                          <td
-                            className="data-table-row-section tool-and-name-section"
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            style={
-                              Object {
-                                "minWidth": "624px",
-                                "textAlign": "left",
-                                "width": "624px",
-                              }
-                            }
-                          >
-                            <TableCellContentWrapper>
-                              <div
-                                className="tool-icon-and-name"
-                              >
-                                <span
-                                  className="tool-icon-wrapper"
-                                >
-                                  <img
-                                    alt="Target representing Quill Connect"
-                                    src="undefined/images/icons/connect-forest-green.svg"
-                                  />
-                                </span>
-                                <a
-                                  className="interactive-wrapper focus-on-light"
-                                  href="/activity_sessions/anonymous?activity_id=846"
-                                  id="tool-and-name-section-7543556"
-                                  rel="noopener noreferrer"
-                                  target="_blank"
-                                >
-                                  Adjectives, Adverbs, and Prepositional Phrases 1
-                                </a>
-                              </div>
-                            </TableCellContentWrapper>
-                          </td>
-                          <td
-                            className="data-table-row-section datetime-picker"
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            style={
-                              Object {
-                                "minWidth": "140px",
-                                "textAlign": "left",
-                                "width": "140px",
-                              }
-                            }
-                          >
-                            <TableCellContentWrapper>
-                              <DatePickerContainer
-                                closeFunction={[Function]}
-                                defaultText="Right away"
-                                handleClickCopyToAll={[Function]}
-                                icon={
-                                  <img
-                                    alt="Checkmark icon"
-                                    className="published-icon"
-                                    src="undefined/images/icons/published.svg"
-                                  />
-                                }
-                                initialValue={null}
-                                showCopyToAll={false}
-                              />
-                            </TableCellContentWrapper>
-                          </td>
-                          <td
-                            className="data-table-row-section datetime-picker"
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            style={
-                              Object {
-                                "minWidth": "135px",
-                                "textAlign": "left",
-                                "width": "135px",
-                              }
-                            }
-                          >
-                            <TableCellContentWrapper>
-                              <DatePickerContainer
-                                closeFunction={[Function]}
-                                defaultText="No due date"
-                                handleClickCopyToAll={[Function]}
-                                initialValue={null}
-                                showCopyToAll={false}
-                              />
-                            </TableCellContentWrapper>
-                          </td>
-                          <td
-                            className="data-table-row-section undefined"
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            style={
-                              Object {
-                                "minWidth": "30px",
-                                "textAlign": "left",
-                                "width": "30px",
-                              }
-                            }
-                          >
-                            <TableCellContentWrapper>
-                              <button
-                                className="share-activity-button focus-on-light"
-                                onClick={[Function]}
-                                type="button"
-                                value="row-button"
-                              >
-                                <img
-                                  alt="share-arrow"
-                                  src="undefined/images/icons/icons-share.svg"
-                                />
-                              </button>
-                            </TableCellContentWrapper>
-                          </td>
-                          <td>
-                            <button
-                              aria-label="Remove"
-                              className="removable data-table-row-section focus-on-light"
-                              id="remove-button-7543556"
-                              onClick={[Function]}
-                              type="button"
-                            >
-                              <img
-                                alt="x"
-                                src="https://assets.quill.org/images/icons/remove.svg"
-                              />
-                            </button>
-                          </td>
-                        </React.Fragment>
-                      </tr>,
+                      "7543552",
+                      "7543553",
+                      "7543554",
+                      "7543555",
+                      "7543556",
                     ]
                   }
+                  strategy={[Function]}
                 >
                   <div
                     className="list sortable-list"
                   >
-                    <sortableElement
-                      collection={0}
-                      index={0}
-                      key="0"
+                    <SortableItem
+                      helperClass=""
+                      id="7543552"
+                      key="7543552"
+                      useDragHandle={true}
                       value={
                         <tr
                           className="data-table-row   show-copy-to-all"
@@ -3686,7 +2353,19 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="reorder-section data-table-row-section"
                             >
-                              <sortableHandle />
+                              <DragHandle>
+                                <div
+                                  className="focus-on-light"
+                                  role="button"
+                                  tabIndex={0}
+                                >
+                                  <img
+                                    alt="Reorder icon"
+                                    className="reorder-icon"
+                                    src="undefined/images/icons/reorder.svg"
+                                  />
+                                </div>
+                              </DragHandle>
                             </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
@@ -3819,150 +2498,32 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </tr>
                       }
                     >
-                      <Component
-                        value={
-                          <tr
-                            className="data-table-row   show-copy-to-all"
-                          >
-                            <React.Fragment>
-                              <td
-                                className="reorder-section data-table-row-section"
-                              >
-                                <sortableHandle />
-                              </td>
-                              <td
-                                className="data-table-row-section tool-and-name-section"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "minWidth": "624px",
-                                    "textAlign": "left",
-                                    "width": "624px",
-                                  }
-                                }
-                              >
-                                <TableCellContentWrapper>
-                                  <div
-                                    className="tool-icon-and-name"
-                                  >
-                                    <span
-                                      className="tool-icon-wrapper"
-                                    >
-                                      <img
-                                        alt="Target representing Quill Connect"
-                                        src="undefined/images/icons/connect-forest-green.svg"
-                                      />
-                                    </span>
-                                    <a
-                                      className="interactive-wrapper focus-on-light"
-                                      href="/activity_sessions/anonymous?activity_id=438"
-                                      id="tool-and-name-section-7543552"
-                                      rel="noopener noreferrer"
-                                      target="_blank"
-                                    >
-                                      Adverbs of Manner 1 (Starter)
-                                    </a>
-                                  </div>
-                                </TableCellContentWrapper>
-                              </td>
-                              <td
-                                className="data-table-row-section datetime-picker"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "minWidth": "140px",
-                                    "textAlign": "left",
-                                    "width": "140px",
-                                  }
-                                }
-                              >
-                                <TableCellContentWrapper>
-                                  <DatePickerContainer
-                                    closeFunction={[Function]}
-                                    defaultText="Right away"
-                                    handleClickCopyToAll={[Function]}
-                                    icon={
-                                      <img
-                                        alt="Checkmark icon"
-                                        className="published-icon"
-                                        src="undefined/images/icons/published.svg"
-                                      />
-                                    }
-                                    initialValue={null}
-                                    showCopyToAll={true}
-                                  />
-                                </TableCellContentWrapper>
-                              </td>
-                              <td
-                                className="data-table-row-section datetime-picker"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "minWidth": "135px",
-                                    "textAlign": "left",
-                                    "width": "135px",
-                                  }
-                                }
-                              >
-                                <TableCellContentWrapper>
-                                  <DatePickerContainer
-                                    closeFunction={[Function]}
-                                    defaultText="No due date"
-                                    handleClickCopyToAll={[Function]}
-                                    initialValue={null}
-                                    showCopyToAll={true}
-                                  />
-                                </TableCellContentWrapper>
-                              </td>
-                              <td
-                                className="data-table-row-section undefined"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "minWidth": "30px",
-                                    "textAlign": "left",
-                                    "width": "30px",
-                                  }
-                                }
-                              >
-                                <TableCellContentWrapper>
-                                  <button
-                                    className="share-activity-button focus-on-light"
-                                    onClick={[Function]}
-                                    type="button"
-                                    value="row-button"
-                                  >
-                                    <img
-                                      alt="share-arrow"
-                                      src="undefined/images/icons/icons-share.svg"
-                                    />
-                                  </button>
-                                </TableCellContentWrapper>
-                              </td>
-                              <td>
-                                <button
-                                  aria-label="Remove"
-                                  className="removable data-table-row-section focus-on-light"
-                                  id="remove-button-7543552"
-                                  onClick={[Function]}
-                                  type="button"
-                                >
-                                  <img
-                                    alt="x"
-                                    src="https://assets.quill.org/images/icons/remove.svg"
-                                  />
-                                </button>
-                              </td>
-                            </React.Fragment>
-                          </tr>
+                      <div
+                        className="list-item "
+                        style={
+                          Object {
+                            "transform": undefined,
+                            "transition": "transform 0ms linear",
+                          }
                         }
                       >
-                        <div
-                          className="list-item"
+                        <DragHandleProvider
+                          attributes={
+                            Object {
+                              "aria-describedby": "DndDescribedBy-0",
+                              "aria-disabled": false,
+                              "aria-pressed": undefined,
+                              "aria-roledescription": "sortable",
+                              "role": "button",
+                              "tabIndex": 0,
+                            }
+                          }
+                          listeners={
+                            Object {
+                              "onKeyDown": [Function],
+                              "onPointerDown": [Function],
+                            }
+                          }
                         >
                           <tr
                             className="data-table-row   show-copy-to-all"
@@ -3971,8 +2532,16 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="reorder-section data-table-row-section"
                             >
-                              <sortableHandle>
-                                <Component>
+                              <DragHandle>
+                                <div
+                                  aria-describedby="DndDescribedBy-0"
+                                  aria-disabled={false}
+                                  aria-roledescription="sortable"
+                                  onKeyDown={[Function]}
+                                  onPointerDown={[Function]}
+                                  role="button"
+                                  tabIndex={0}
+                                >
                                   <div
                                     className="focus-on-light"
                                     role="button"
@@ -3984,8 +2553,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                       src="undefined/images/icons/reorder.svg"
                                     />
                                   </div>
-                                </Component>
-                              </sortableHandle>
+                                </div>
+                              </DragHandle>
                             </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
@@ -5508,13 +4077,14 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </button>
                             </td>
                           </tr>
-                        </div>
-                      </Component>
-                    </sortableElement>
-                    <sortableElement
-                      collection={0}
-                      index={1}
-                      key="1"
+                        </DragHandleProvider>
+                      </div>
+                    </SortableItem>
+                    <SortableItem
+                      helperClass=""
+                      id="7543553"
+                      key="7543553"
+                      useDragHandle={true}
                       value={
                         <tr
                           className="data-table-row  "
@@ -5523,7 +4093,19 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="reorder-section data-table-row-section"
                             >
-                              <sortableHandle />
+                              <DragHandle>
+                                <div
+                                  className="focus-on-light"
+                                  role="button"
+                                  tabIndex={0}
+                                >
+                                  <img
+                                    alt="Reorder icon"
+                                    className="reorder-icon"
+                                    src="undefined/images/icons/reorder.svg"
+                                  />
+                                </div>
+                              </DragHandle>
                             </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
@@ -5656,150 +4238,32 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </tr>
                       }
                     >
-                      <Component
-                        value={
-                          <tr
-                            className="data-table-row  "
-                          >
-                            <React.Fragment>
-                              <td
-                                className="reorder-section data-table-row-section"
-                              >
-                                <sortableHandle />
-                              </td>
-                              <td
-                                className="data-table-row-section tool-and-name-section"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "minWidth": "624px",
-                                    "textAlign": "left",
-                                    "width": "624px",
-                                  }
-                                }
-                              >
-                                <TableCellContentWrapper>
-                                  <div
-                                    className="tool-icon-and-name"
-                                  >
-                                    <span
-                                      className="tool-icon-wrapper"
-                                    >
-                                      <img
-                                        alt="Target representing Quill Connect"
-                                        src="undefined/images/icons/connect-forest-green.svg"
-                                      />
-                                    </span>
-                                    <a
-                                      className="interactive-wrapper focus-on-light"
-                                      href="/activity_sessions/anonymous?activity_id=441"
-                                      id="tool-and-name-section-7543553"
-                                      rel="noopener noreferrer"
-                                      target="_blank"
-                                    >
-                                      Adverbs of Manner (Intermediate)
-                                    </a>
-                                  </div>
-                                </TableCellContentWrapper>
-                              </td>
-                              <td
-                                className="data-table-row-section datetime-picker"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "minWidth": "140px",
-                                    "textAlign": "left",
-                                    "width": "140px",
-                                  }
-                                }
-                              >
-                                <TableCellContentWrapper>
-                                  <DatePickerContainer
-                                    closeFunction={[Function]}
-                                    defaultText="Right away"
-                                    handleClickCopyToAll={[Function]}
-                                    icon={
-                                      <img
-                                        alt="Checkmark icon"
-                                        className="published-icon"
-                                        src="undefined/images/icons/published.svg"
-                                      />
-                                    }
-                                    initialValue={null}
-                                    showCopyToAll={false}
-                                  />
-                                </TableCellContentWrapper>
-                              </td>
-                              <td
-                                className="data-table-row-section datetime-picker"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "minWidth": "135px",
-                                    "textAlign": "left",
-                                    "width": "135px",
-                                  }
-                                }
-                              >
-                                <TableCellContentWrapper>
-                                  <DatePickerContainer
-                                    closeFunction={[Function]}
-                                    defaultText="No due date"
-                                    handleClickCopyToAll={[Function]}
-                                    initialValue={null}
-                                    showCopyToAll={false}
-                                  />
-                                </TableCellContentWrapper>
-                              </td>
-                              <td
-                                className="data-table-row-section undefined"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "minWidth": "30px",
-                                    "textAlign": "left",
-                                    "width": "30px",
-                                  }
-                                }
-                              >
-                                <TableCellContentWrapper>
-                                  <button
-                                    className="share-activity-button focus-on-light"
-                                    onClick={[Function]}
-                                    type="button"
-                                    value="row-button"
-                                  >
-                                    <img
-                                      alt="share-arrow"
-                                      src="undefined/images/icons/icons-share.svg"
-                                    />
-                                  </button>
-                                </TableCellContentWrapper>
-                              </td>
-                              <td>
-                                <button
-                                  aria-label="Remove"
-                                  className="removable data-table-row-section focus-on-light"
-                                  id="remove-button-7543553"
-                                  onClick={[Function]}
-                                  type="button"
-                                >
-                                  <img
-                                    alt="x"
-                                    src="https://assets.quill.org/images/icons/remove.svg"
-                                  />
-                                </button>
-                              </td>
-                            </React.Fragment>
-                          </tr>
+                      <div
+                        className="list-item "
+                        style={
+                          Object {
+                            "transform": undefined,
+                            "transition": "transform 0ms linear",
+                          }
                         }
                       >
-                        <div
-                          className="list-item"
+                        <DragHandleProvider
+                          attributes={
+                            Object {
+                              "aria-describedby": "DndDescribedBy-0",
+                              "aria-disabled": false,
+                              "aria-pressed": undefined,
+                              "aria-roledescription": "sortable",
+                              "role": "button",
+                              "tabIndex": 0,
+                            }
+                          }
+                          listeners={
+                            Object {
+                              "onKeyDown": [Function],
+                              "onPointerDown": [Function],
+                            }
+                          }
                         >
                           <tr
                             className="data-table-row  "
@@ -5808,8 +4272,16 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="reorder-section data-table-row-section"
                             >
-                              <sortableHandle>
-                                <Component>
+                              <DragHandle>
+                                <div
+                                  aria-describedby="DndDescribedBy-0"
+                                  aria-disabled={false}
+                                  aria-roledescription="sortable"
+                                  onKeyDown={[Function]}
+                                  onPointerDown={[Function]}
+                                  role="button"
+                                  tabIndex={0}
+                                >
                                   <div
                                     className="focus-on-light"
                                     role="button"
@@ -5821,8 +4293,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                       src="undefined/images/icons/reorder.svg"
                                     />
                                   </div>
-                                </Component>
-                              </sortableHandle>
+                                </div>
+                              </DragHandle>
                             </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
@@ -7311,13 +5783,14 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </button>
                             </td>
                           </tr>
-                        </div>
-                      </Component>
-                    </sortableElement>
-                    <sortableElement
-                      collection={0}
-                      index={2}
-                      key="2"
+                        </DragHandleProvider>
+                      </div>
+                    </SortableItem>
+                    <SortableItem
+                      helperClass=""
+                      id="7543554"
+                      key="7543554"
+                      useDragHandle={true}
                       value={
                         <tr
                           className="data-table-row  "
@@ -7326,7 +5799,19 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="reorder-section data-table-row-section"
                             >
-                              <sortableHandle />
+                              <DragHandle>
+                                <div
+                                  className="focus-on-light"
+                                  role="button"
+                                  tabIndex={0}
+                                >
+                                  <img
+                                    alt="Reorder icon"
+                                    className="reorder-icon"
+                                    src="undefined/images/icons/reorder.svg"
+                                  />
+                                </div>
+                              </DragHandle>
                             </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
@@ -7459,150 +5944,32 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </tr>
                       }
                     >
-                      <Component
-                        value={
-                          <tr
-                            className="data-table-row  "
-                          >
-                            <React.Fragment>
-                              <td
-                                className="reorder-section data-table-row-section"
-                              >
-                                <sortableHandle />
-                              </td>
-                              <td
-                                className="data-table-row-section tool-and-name-section"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "minWidth": "624px",
-                                    "textAlign": "left",
-                                    "width": "624px",
-                                  }
-                                }
-                              >
-                                <TableCellContentWrapper>
-                                  <div
-                                    className="tool-icon-and-name"
-                                  >
-                                    <span
-                                      className="tool-icon-wrapper"
-                                    >
-                                      <img
-                                        alt="Target representing Quill Connect"
-                                        src="undefined/images/icons/connect-forest-green.svg"
-                                      />
-                                    </span>
-                                    <a
-                                      className="interactive-wrapper focus-on-light"
-                                      href="/activity_sessions/anonymous?activity_id=775"
-                                      id="tool-and-name-section-7543554"
-                                      rel="noopener noreferrer"
-                                      target="_blank"
-                                    >
-                                      Adjectives and Adverbs (Starter)
-                                    </a>
-                                  </div>
-                                </TableCellContentWrapper>
-                              </td>
-                              <td
-                                className="data-table-row-section datetime-picker"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "minWidth": "140px",
-                                    "textAlign": "left",
-                                    "width": "140px",
-                                  }
-                                }
-                              >
-                                <TableCellContentWrapper>
-                                  <DatePickerContainer
-                                    closeFunction={[Function]}
-                                    defaultText="Right away"
-                                    handleClickCopyToAll={[Function]}
-                                    icon={
-                                      <img
-                                        alt="Checkmark icon"
-                                        className="published-icon"
-                                        src="undefined/images/icons/published.svg"
-                                      />
-                                    }
-                                    initialValue={null}
-                                    showCopyToAll={false}
-                                  />
-                                </TableCellContentWrapper>
-                              </td>
-                              <td
-                                className="data-table-row-section datetime-picker"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "minWidth": "135px",
-                                    "textAlign": "left",
-                                    "width": "135px",
-                                  }
-                                }
-                              >
-                                <TableCellContentWrapper>
-                                  <DatePickerContainer
-                                    closeFunction={[Function]}
-                                    defaultText="No due date"
-                                    handleClickCopyToAll={[Function]}
-                                    initialValue={null}
-                                    showCopyToAll={false}
-                                  />
-                                </TableCellContentWrapper>
-                              </td>
-                              <td
-                                className="data-table-row-section undefined"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "minWidth": "30px",
-                                    "textAlign": "left",
-                                    "width": "30px",
-                                  }
-                                }
-                              >
-                                <TableCellContentWrapper>
-                                  <button
-                                    className="share-activity-button focus-on-light"
-                                    onClick={[Function]}
-                                    type="button"
-                                    value="row-button"
-                                  >
-                                    <img
-                                      alt="share-arrow"
-                                      src="undefined/images/icons/icons-share.svg"
-                                    />
-                                  </button>
-                                </TableCellContentWrapper>
-                              </td>
-                              <td>
-                                <button
-                                  aria-label="Remove"
-                                  className="removable data-table-row-section focus-on-light"
-                                  id="remove-button-7543554"
-                                  onClick={[Function]}
-                                  type="button"
-                                >
-                                  <img
-                                    alt="x"
-                                    src="https://assets.quill.org/images/icons/remove.svg"
-                                  />
-                                </button>
-                              </td>
-                            </React.Fragment>
-                          </tr>
+                      <div
+                        className="list-item "
+                        style={
+                          Object {
+                            "transform": undefined,
+                            "transition": "transform 0ms linear",
+                          }
                         }
                       >
-                        <div
-                          className="list-item"
+                        <DragHandleProvider
+                          attributes={
+                            Object {
+                              "aria-describedby": "DndDescribedBy-0",
+                              "aria-disabled": false,
+                              "aria-pressed": undefined,
+                              "aria-roledescription": "sortable",
+                              "role": "button",
+                              "tabIndex": 0,
+                            }
+                          }
+                          listeners={
+                            Object {
+                              "onKeyDown": [Function],
+                              "onPointerDown": [Function],
+                            }
+                          }
                         >
                           <tr
                             className="data-table-row  "
@@ -7611,8 +5978,16 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="reorder-section data-table-row-section"
                             >
-                              <sortableHandle>
-                                <Component>
+                              <DragHandle>
+                                <div
+                                  aria-describedby="DndDescribedBy-0"
+                                  aria-disabled={false}
+                                  aria-roledescription="sortable"
+                                  onKeyDown={[Function]}
+                                  onPointerDown={[Function]}
+                                  role="button"
+                                  tabIndex={0}
+                                >
                                   <div
                                     className="focus-on-light"
                                     role="button"
@@ -7624,8 +5999,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                       src="undefined/images/icons/reorder.svg"
                                     />
                                   </div>
-                                </Component>
-                              </sortableHandle>
+                                </div>
+                              </DragHandle>
                             </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
@@ -9114,13 +7489,14 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </button>
                             </td>
                           </tr>
-                        </div>
-                      </Component>
-                    </sortableElement>
-                    <sortableElement
-                      collection={0}
-                      index={3}
-                      key="3"
+                        </DragHandleProvider>
+                      </div>
+                    </SortableItem>
+                    <SortableItem
+                      helperClass=""
+                      id="7543555"
+                      key="7543555"
+                      useDragHandle={true}
                       value={
                         <tr
                           className="data-table-row  "
@@ -9129,7 +7505,19 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="reorder-section data-table-row-section"
                             >
-                              <sortableHandle />
+                              <DragHandle>
+                                <div
+                                  className="focus-on-light"
+                                  role="button"
+                                  tabIndex={0}
+                                >
+                                  <img
+                                    alt="Reorder icon"
+                                    className="reorder-icon"
+                                    src="undefined/images/icons/reorder.svg"
+                                  />
+                                </div>
+                              </DragHandle>
                             </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
@@ -9262,150 +7650,32 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </tr>
                       }
                     >
-                      <Component
-                        value={
-                          <tr
-                            className="data-table-row  "
-                          >
-                            <React.Fragment>
-                              <td
-                                className="reorder-section data-table-row-section"
-                              >
-                                <sortableHandle />
-                              </td>
-                              <td
-                                className="data-table-row-section tool-and-name-section"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "minWidth": "624px",
-                                    "textAlign": "left",
-                                    "width": "624px",
-                                  }
-                                }
-                              >
-                                <TableCellContentWrapper>
-                                  <div
-                                    className="tool-icon-and-name"
-                                  >
-                                    <span
-                                      className="tool-icon-wrapper"
-                                    >
-                                      <img
-                                        alt="Target representing Quill Connect"
-                                        src="undefined/images/icons/connect-forest-green.svg"
-                                      />
-                                    </span>
-                                    <a
-                                      className="interactive-wrapper focus-on-light"
-                                      href="/activity_sessions/anonymous?activity_id=844"
-                                      id="tool-and-name-section-7543555"
-                                      rel="noopener noreferrer"
-                                      target="_blank"
-                                    >
-                                      Adjectives vs. Adverbs
-                                    </a>
-                                  </div>
-                                </TableCellContentWrapper>
-                              </td>
-                              <td
-                                className="data-table-row-section datetime-picker"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "minWidth": "140px",
-                                    "textAlign": "left",
-                                    "width": "140px",
-                                  }
-                                }
-                              >
-                                <TableCellContentWrapper>
-                                  <DatePickerContainer
-                                    closeFunction={[Function]}
-                                    defaultText="Right away"
-                                    handleClickCopyToAll={[Function]}
-                                    icon={
-                                      <img
-                                        alt="Checkmark icon"
-                                        className="published-icon"
-                                        src="undefined/images/icons/published.svg"
-                                      />
-                                    }
-                                    initialValue={null}
-                                    showCopyToAll={false}
-                                  />
-                                </TableCellContentWrapper>
-                              </td>
-                              <td
-                                className="data-table-row-section datetime-picker"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "minWidth": "135px",
-                                    "textAlign": "left",
-                                    "width": "135px",
-                                  }
-                                }
-                              >
-                                <TableCellContentWrapper>
-                                  <DatePickerContainer
-                                    closeFunction={[Function]}
-                                    defaultText="No due date"
-                                    handleClickCopyToAll={[Function]}
-                                    initialValue={null}
-                                    showCopyToAll={false}
-                                  />
-                                </TableCellContentWrapper>
-                              </td>
-                              <td
-                                className="data-table-row-section undefined"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "minWidth": "30px",
-                                    "textAlign": "left",
-                                    "width": "30px",
-                                  }
-                                }
-                              >
-                                <TableCellContentWrapper>
-                                  <button
-                                    className="share-activity-button focus-on-light"
-                                    onClick={[Function]}
-                                    type="button"
-                                    value="row-button"
-                                  >
-                                    <img
-                                      alt="share-arrow"
-                                      src="undefined/images/icons/icons-share.svg"
-                                    />
-                                  </button>
-                                </TableCellContentWrapper>
-                              </td>
-                              <td>
-                                <button
-                                  aria-label="Remove"
-                                  className="removable data-table-row-section focus-on-light"
-                                  id="remove-button-7543555"
-                                  onClick={[Function]}
-                                  type="button"
-                                >
-                                  <img
-                                    alt="x"
-                                    src="https://assets.quill.org/images/icons/remove.svg"
-                                  />
-                                </button>
-                              </td>
-                            </React.Fragment>
-                          </tr>
+                      <div
+                        className="list-item "
+                        style={
+                          Object {
+                            "transform": undefined,
+                            "transition": "transform 0ms linear",
+                          }
                         }
                       >
-                        <div
-                          className="list-item"
+                        <DragHandleProvider
+                          attributes={
+                            Object {
+                              "aria-describedby": "DndDescribedBy-0",
+                              "aria-disabled": false,
+                              "aria-pressed": undefined,
+                              "aria-roledescription": "sortable",
+                              "role": "button",
+                              "tabIndex": 0,
+                            }
+                          }
+                          listeners={
+                            Object {
+                              "onKeyDown": [Function],
+                              "onPointerDown": [Function],
+                            }
+                          }
                         >
                           <tr
                             className="data-table-row  "
@@ -9414,8 +7684,16 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="reorder-section data-table-row-section"
                             >
-                              <sortableHandle>
-                                <Component>
+                              <DragHandle>
+                                <div
+                                  aria-describedby="DndDescribedBy-0"
+                                  aria-disabled={false}
+                                  aria-roledescription="sortable"
+                                  onKeyDown={[Function]}
+                                  onPointerDown={[Function]}
+                                  role="button"
+                                  tabIndex={0}
+                                >
                                   <div
                                     className="focus-on-light"
                                     role="button"
@@ -9427,8 +7705,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                       src="undefined/images/icons/reorder.svg"
                                     />
                                   </div>
-                                </Component>
-                              </sortableHandle>
+                                </div>
+                              </DragHandle>
                             </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
@@ -10917,13 +9195,14 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </button>
                             </td>
                           </tr>
-                        </div>
-                      </Component>
-                    </sortableElement>
-                    <sortableElement
-                      collection={0}
-                      index={4}
-                      key="4"
+                        </DragHandleProvider>
+                      </div>
+                    </SortableItem>
+                    <SortableItem
+                      helperClass=""
+                      id="7543556"
+                      key="7543556"
+                      useDragHandle={true}
                       value={
                         <tr
                           className="data-table-row  "
@@ -10932,7 +9211,19 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="reorder-section data-table-row-section"
                             >
-                              <sortableHandle />
+                              <DragHandle>
+                                <div
+                                  className="focus-on-light"
+                                  role="button"
+                                  tabIndex={0}
+                                >
+                                  <img
+                                    alt="Reorder icon"
+                                    className="reorder-icon"
+                                    src="undefined/images/icons/reorder.svg"
+                                  />
+                                </div>
+                              </DragHandle>
                             </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
@@ -11065,150 +9356,32 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         </tr>
                       }
                     >
-                      <Component
-                        value={
-                          <tr
-                            className="data-table-row  "
-                          >
-                            <React.Fragment>
-                              <td
-                                className="reorder-section data-table-row-section"
-                              >
-                                <sortableHandle />
-                              </td>
-                              <td
-                                className="data-table-row-section tool-and-name-section"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "minWidth": "624px",
-                                    "textAlign": "left",
-                                    "width": "624px",
-                                  }
-                                }
-                              >
-                                <TableCellContentWrapper>
-                                  <div
-                                    className="tool-icon-and-name"
-                                  >
-                                    <span
-                                      className="tool-icon-wrapper"
-                                    >
-                                      <img
-                                        alt="Target representing Quill Connect"
-                                        src="undefined/images/icons/connect-forest-green.svg"
-                                      />
-                                    </span>
-                                    <a
-                                      className="interactive-wrapper focus-on-light"
-                                      href="/activity_sessions/anonymous?activity_id=846"
-                                      id="tool-and-name-section-7543556"
-                                      rel="noopener noreferrer"
-                                      target="_blank"
-                                    >
-                                      Adjectives, Adverbs, and Prepositional Phrases 1
-                                    </a>
-                                  </div>
-                                </TableCellContentWrapper>
-                              </td>
-                              <td
-                                className="data-table-row-section datetime-picker"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "minWidth": "140px",
-                                    "textAlign": "left",
-                                    "width": "140px",
-                                  }
-                                }
-                              >
-                                <TableCellContentWrapper>
-                                  <DatePickerContainer
-                                    closeFunction={[Function]}
-                                    defaultText="Right away"
-                                    handleClickCopyToAll={[Function]}
-                                    icon={
-                                      <img
-                                        alt="Checkmark icon"
-                                        className="published-icon"
-                                        src="undefined/images/icons/published.svg"
-                                      />
-                                    }
-                                    initialValue={null}
-                                    showCopyToAll={false}
-                                  />
-                                </TableCellContentWrapper>
-                              </td>
-                              <td
-                                className="data-table-row-section datetime-picker"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "minWidth": "135px",
-                                    "textAlign": "left",
-                                    "width": "135px",
-                                  }
-                                }
-                              >
-                                <TableCellContentWrapper>
-                                  <DatePickerContainer
-                                    closeFunction={[Function]}
-                                    defaultText="No due date"
-                                    handleClickCopyToAll={[Function]}
-                                    initialValue={null}
-                                    showCopyToAll={false}
-                                  />
-                                </TableCellContentWrapper>
-                              </td>
-                              <td
-                                className="data-table-row-section undefined"
-                                onMouseEnter={[Function]}
-                                onMouseLeave={[Function]}
-                                style={
-                                  Object {
-                                    "minWidth": "30px",
-                                    "textAlign": "left",
-                                    "width": "30px",
-                                  }
-                                }
-                              >
-                                <TableCellContentWrapper>
-                                  <button
-                                    className="share-activity-button focus-on-light"
-                                    onClick={[Function]}
-                                    type="button"
-                                    value="row-button"
-                                  >
-                                    <img
-                                      alt="share-arrow"
-                                      src="undefined/images/icons/icons-share.svg"
-                                    />
-                                  </button>
-                                </TableCellContentWrapper>
-                              </td>
-                              <td>
-                                <button
-                                  aria-label="Remove"
-                                  className="removable data-table-row-section focus-on-light"
-                                  id="remove-button-7543556"
-                                  onClick={[Function]}
-                                  type="button"
-                                >
-                                  <img
-                                    alt="x"
-                                    src="https://assets.quill.org/images/icons/remove.svg"
-                                  />
-                                </button>
-                              </td>
-                            </React.Fragment>
-                          </tr>
+                      <div
+                        className="list-item "
+                        style={
+                          Object {
+                            "transform": undefined,
+                            "transition": "transform 0ms linear",
+                          }
                         }
                       >
-                        <div
-                          className="list-item"
+                        <DragHandleProvider
+                          attributes={
+                            Object {
+                              "aria-describedby": "DndDescribedBy-0",
+                              "aria-disabled": false,
+                              "aria-pressed": undefined,
+                              "aria-roledescription": "sortable",
+                              "role": "button",
+                              "tabIndex": 0,
+                            }
+                          }
+                          listeners={
+                            Object {
+                              "onKeyDown": [Function],
+                              "onPointerDown": [Function],
+                            }
+                          }
                         >
                           <tr
                             className="data-table-row  "
@@ -11217,8 +9390,16 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <td
                               className="reorder-section data-table-row-section"
                             >
-                              <sortableHandle>
-                                <Component>
+                              <DragHandle>
+                                <div
+                                  aria-describedby="DndDescribedBy-0"
+                                  aria-disabled={false}
+                                  aria-roledescription="sortable"
+                                  onKeyDown={[Function]}
+                                  onPointerDown={[Function]}
+                                  role="button"
+                                  tabIndex={0}
+                                >
                                   <div
                                     className="focus-on-light"
                                     role="button"
@@ -11230,8 +9411,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                       src="undefined/images/icons/reorder.svg"
                                     />
                                   </div>
-                                </Component>
-                              </sortableHandle>
+                                </div>
+                              </DragHandle>
                             </td>
                             <td
                               className="data-table-row-section tool-and-name-section"
@@ -12720,12 +10901,82 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               </button>
                             </td>
                           </tr>
-                        </div>
-                      </Component>
-                    </sortableElement>
+                        </DragHandleProvider>
+                      </div>
+                    </SortableItem>
                   </div>
-                </Component>
-              </sortableList>
+                </SortableContext>
+                <SortableOverlay>
+                  <Memo()
+                    dropAnimation={
+                      Object {
+                        "sideEffects": [Function],
+                      }
+                    }
+                  >
+                    <NullifiedContextProvider>
+                      <AnimationManager
+                        animation={[Function]}
+                      />
+                    </NullifiedContextProvider>
+                  </Memo()>
+                </SortableOverlay>
+                <RestoreFocus
+                  disabled={false}
+                />
+                <Accessibility
+                  hiddenTextDescribedById="DndDescribedBy-0"
+                >
+                  <HiddenText
+                    id="DndDescribedBy-0"
+                    value="
+    To pick up a draggable item, press the space bar.
+    While dragging, use the arrow keys to move the item.
+    Press space again to drop the item in its new position, or press escape to cancel.
+  "
+                  >
+                    <div
+                      id="DndDescribedBy-0"
+                      style={
+                        Object {
+                          "display": "none",
+                        }
+                      }
+                    >
+                      
+    To pick up a draggable item, press the space bar.
+    While dragging, use the arrow keys to move the item.
+    Press space again to drop the item in its new position, or press escape to cancel.
+  
+                    </div>
+                  </HiddenText>
+                  <LiveRegion
+                    announcement=""
+                    id="DndLiveRegion-0"
+                  >
+                    <div
+                      aria-atomic={true}
+                      aria-live="assertive"
+                      id="DndLiveRegion-0"
+                      role="status"
+                      style={
+                        Object {
+                          "border": 0,
+                          "clip": "rect(0 0 0 0)",
+                          "clipPath": "inset(100%)",
+                          "height": 1,
+                          "margin": -1,
+                          "overflow": "hidden",
+                          "padding": 0,
+                          "position": "fixed",
+                          "whiteSpace": "nowrap",
+                          "width": 1,
+                        }
+                      }
+                    />
+                  </LiveRegion>
+                </Accessibility>
+              </Memo(DndContext)>
             </SortableList>
           </tbody>
         </table>
