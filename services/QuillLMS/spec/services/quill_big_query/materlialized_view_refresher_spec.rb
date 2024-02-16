@@ -11,7 +11,7 @@ describe QuillBigQuery::MaterializedViewRefresher do
     let(:create_sql) { 'CREATE MATERIALIZED VIEW lms.recent_reporting_sessions AS (SELECT 2); SELECT 1;'}
 
     before do
-      stub_const('QuillBigQuery::MaterializedViewRefresher::QUERY_FOLDER', Rails.root + 'spec/fixtures/sql/')
+      stub_const('QuillBigQuery::MaterializedViewRefresher::QUERY_FOLDER', "#{Rails.root}spec/fixtures/sql/")
     end
 
     subject { described_class.run(query_key)}

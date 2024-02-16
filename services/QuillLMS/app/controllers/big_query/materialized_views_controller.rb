@@ -14,7 +14,7 @@ module BigQuery
     end
 
     private def verify_api_key
-      return if API_KEY.present? && API_KEY == api_key
+      return if API_KEY.present? && api_key == API_KEY
 
       raise InvalidRequestError
     end

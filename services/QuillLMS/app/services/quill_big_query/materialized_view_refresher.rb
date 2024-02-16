@@ -4,11 +4,9 @@ module QuillBigQuery
   class MaterializedViewRefresher < ApplicationService
     attr_reader :query_key
 
-    QUERY_FOLDER = Rails.root + 'db/big_query/views/'
+    QUERY_FOLDER = "#{Rails.root}db/big_query/views/"
     CONFIG = Configs[:big_query_views]
-    VALID_KEYS = [
-      'reporting_sessions_view'
-    ]
+    VALID_KEYS = Configs[:big_query_views].keys
 
     class InvalidQueryKeyError < StandardError; end
 
