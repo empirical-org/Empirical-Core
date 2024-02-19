@@ -49,10 +49,10 @@ export default class ResponseList extends React.Component {
         key={resp.key}
         massEdit={this.props.massEdit}
         mode={this.props.mode}
+        passedResponse={resp}
         question={this.props.question}
         questionID={this.props.questionID}
         readOnly={this.props.admin}
-        response={resp}
         responses={this.props.responses}
         state={this.props.states[this.props.questionID]}
         states={this.props.states}

@@ -28,10 +28,10 @@ import ResponseList from './responseList.jsx'
 
 const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded, mode, passedResponse, responses, dispatch, getChildResponses, getResponse, massEdit, question, questionID, readOnly, state, states}) => {
   const [response, setResponse] = React.useState(passedResponse)
-  const [feedback, setFeedback] = React.useState(passedResponse.feedback || '')
+  const [feedback, setFeedback] = React.useState(response.feedback || '')
   const [selectedBoilerplate, setSelectedBoilerplate] = React.useState('')
-  const [selectedBoilerplateCategory, setSelectedBoilerplateCategory] = React.useState(passedResponse.selectedBoilerplateCategory || '')
-  const [selectedConcept, setSelectedConcept] = React.useState(passedResponse.concept || '')
+  const [selectedBoilerplateCategory, setSelectedBoilerplateCategory] = React.useState(response.selectedBoilerplateCategory || '')
+  const [selectedConcept, setSelectedConcept] = React.useState(response.concept || '')
   const [parent, setParent] = React.useState(null)
   const [newConceptResult, setNewConceptResult] = React.useState({
     conceptUID: '',
@@ -41,14 +41,14 @@ const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded
   let conceptResults = {}
   if (passedResponse.concept_results) {
     if (typeof response.concept_results === 'string') {
-      conceptResults = JSON.parse(passedResponse.concept_results)
+      conceptResults = JSON.parse(response.concept_results)
     } else {
-      conceptResults = passedResponse.concept_results
+      conceptResults = response.concept_results
     }
   }
   const [conceptResultsState, setConceptResults] = React.useState(conceptResults)
   const [actions, setActions] = React.useState(mode === 'sentenceFragment' ? sentenceFragmentActions : questionActions)
-  const [statusCode, setStatusCode] = React.useState(getStatusForResponse(passedResponse))
+  const [statusCode, setStatusCode] = React.useState(getStatusForResponse(response))
 
   React.useEffect(() => {
     const { concept_results, } = response;
