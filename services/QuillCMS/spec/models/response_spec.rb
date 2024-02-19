@@ -96,4 +96,34 @@ RSpec.describe Response do
     end
   end
 
+  describe '#serialized_for_admin_cms' do
+    let!(:response) { Response.create() }
+
+    it 'returns all desired fields' do
+      serialized_response = response.serialized_for_admin_cms
+
+      expect(serialized_response).to eq({
+        id: response.id,
+        uid: response.uid,
+        question_uid: response.question_uid,
+        parent_id: response.parent_id,
+        parent_uid: response.parent_uid,
+        text: response.text,
+        sortable_text: response.text ? response.text.downcase : '',
+        feedback: response.feedback,
+        count: response.count,
+        child_count: response.child_count,
+        first_attempt_count: response.first_attempt_count,
+        author: response.author,
+        status: response.grade_status,
+        created_at: response.created_at.to_i,
+        key: response.id.to_s,
+        optimal: response.optimal,
+        spelling_error: response.spelling_error,
+        weak: response.weak,
+        concept_results: response.concept_results
+      })
+    end
+  end
+
 end
