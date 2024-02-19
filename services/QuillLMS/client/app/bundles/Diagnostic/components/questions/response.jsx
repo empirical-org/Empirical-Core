@@ -49,6 +49,7 @@ const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded
   const [conceptResultsState, setConceptResults] = React.useState(conceptResults)
   const [actions, setActions] = React.useState(mode === 'sentenceFragment' ? sentenceFragmentActions : questionActions)
   const [statusCode, setStatusCode] = React.useState(getStatusForResponse(response))
+  const newResponseOptimal = React.useRef(null)
 
   React.useEffect(() => {
     const { concept_results, } = response;
@@ -95,7 +96,7 @@ const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded
     const newResp = {
       weak: false,
       feedback,
-      optimal: this.refs.newResponseOptimal.checked,
+      optimal: newResponseOptimal.current.checked,
       author: null,
       parent_id: null,
       concept_results: Object.keys(conceptResults) && Object.keys(conceptResults).length ? conceptResults : null
@@ -201,7 +202,7 @@ const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded
     setConceptResults(updatedResults);
   }
 
-  function handleConceptChange(e, conceptResults, setConceptResults, response) {
+  function handleConceptChange(e) {
     const concepts = { ...conceptResults };
     if (Object.keys(concepts).length === 0 || !concepts.hasOwnProperty(e.value)) {
       concepts[e.value] = response.optimal;
@@ -311,7 +312,7 @@ const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded
 
           <p className="control">
             <label className="checkbox">
-              <input defaultChecked={response.optimal} ref="newResponseOptimal" type="checkbox" />
+              <input defaultChecked={response.optimal} ref={newResponseOptimal} type="checkbox" />
               Optimal?
             </label>
           </p>
