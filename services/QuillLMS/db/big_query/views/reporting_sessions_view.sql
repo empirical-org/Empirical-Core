@@ -34,6 +34,7 @@ GROUP BY
   teacher_id,
   teacher_name,
   classroom_id,
+  classroom_name,
   grade,
   completed_date
 
