@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module BigQuery
+module QuillBigQuery
   class MaterializedViewRefreshWorker
     include Sidekiq::Worker
 

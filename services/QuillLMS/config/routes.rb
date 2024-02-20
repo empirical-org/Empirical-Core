@@ -103,7 +103,7 @@ EmpiricalGrammar::Application.routes.draw do
     post '/webhooks', to: 'webhooks#create'
   end
 
-  namespace :big_query do
+  namespace :quill_big_query do
     post '/refresh', to: 'materialized_views#refresh'
   end
 

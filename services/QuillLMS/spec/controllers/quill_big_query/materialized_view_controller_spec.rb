@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe BigQuery::MaterializedViewsController do
+RSpec.describe QuillBigQuery::MaterializedViewsController do
 
   describe '#refresh' do
     subject { post :refresh, params: params, as: :json }
@@ -12,28 +12,28 @@ RSpec.describe BigQuery::MaterializedViewsController do
     let(:params) { { api_key:, query_key: } }
 
     before do
-      stub_const('BigQuery::MaterializedViewsController::API_KEY', api_key)
+      stub_const('QuillBigQuery::MaterializedViewsController::API_KEY', api_key)
     end
 
     it 'should call for valid API key' do
-      expect(BigQuery::MaterializedViewRefreshWorker).to receive(:perform_async).with(query_key)
+      expect(QuillBigQuery::MaterializedViewRefreshWorker).to receive(:perform_async).with(query_key)
 
       subject
     end
 
     context 'no API_KEY set' do
       before do
-        stub_const('BigQuery::MaterializedViewsController::API_KEY', '')
+        stub_const('QuillBigQuery::MaterializedViewsController::API_KEY', '')
       end
 
-      it { expect {subject}.to raise_error(BigQuery::MaterializedViewsController::InvalidRequestError) }
+      it { expect {subject}.to raise_error(QuillBigQuery::MaterializedViewsController::InvalidRequestError) }
     end
 
     context 'wrong api_key' do
       let(:incorrect_key) { 'incorrect' }
       let(:params) { { api_key: incorrect_key, query_key: } }
 
-      it { expect {subject}.to raise_error(BigQuery::MaterializedViewsController::InvalidRequestError) }
+      it { expect {subject}.to raise_error(QuillBigQuery::MaterializedViewsController::InvalidRequestError) }
     end
   end
 end

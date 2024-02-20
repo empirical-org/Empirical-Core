@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module BigQuery
+module QuillBigQuery
   class MaterializedViewsController < ApplicationController
     protect_from_forgery except: :refresh
     before_action :verify_api_key
@@ -10,7 +10,7 @@ module BigQuery
     class InvalidRequestError < ::StandardError; end
 
     def refresh
-      BigQuery::MaterializedViewRefreshWorker.perform_async(query_key)
+      QuillBigQuery::MaterializedViewRefreshWorker.perform_async(query_key)
 
       render json: {}, status: 200
     end
