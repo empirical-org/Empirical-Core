@@ -2,7 +2,9 @@
 
 module BigQuery
   class MaterializedViewsController < ApplicationController
+    protect_from_forgery except: :refresh
     before_action :verify_api_key
+
     API_KEY = ENV.fetch('BIGQUERY_INTERNAL_API_KEY', '')
 
     class InvalidRequestError < ::StandardError; end
