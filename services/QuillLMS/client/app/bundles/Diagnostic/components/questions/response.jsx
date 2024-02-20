@@ -26,27 +26,25 @@ import ResponseList from './responseList.jsx'
 
 
 const Response = ({allExpanded, ascending, concepts, expand, expanded, mode, passedResponse, responses, dispatch, getChildResponses, getResponse, passedMassEdit, question, questionID, readOnly, state, states}) => {
-  console.log("got new props");
   const [response, setResponse] = React.useState(passedResponse)
-  const [feedback, setFeedback] = React.useState(response.feedback || '')
+  const [feedback, setFeedback] = React.useState(passedResponse.feedback || '')
   const [selectedBoilerplate, setSelectedBoilerplate] = React.useState('')
   const [parent, setParent] = React.useState(null)
 
   let conceptResultsTemp = {}
   if (passedResponse.concept_results) {
-    if (typeof response.concept_results === 'string') {
-      conceptResultsTemp = JSON.parse(response.concept_results)
+    if (typeof passedResponse.concept_results === 'string') {
+      conceptResultsTemp = JSON.parse(passedResponse.concept_results)
     } else {
-      conceptResultsTemp = response.concept_results
+      conceptResultsTemp = passedResponse.concept_results
     }
   }
   const [conceptResults, setConceptResults] = React.useState(conceptResultsTemp)
   const [actions, setActions] = React.useState(mode === 'sentenceFragment' ? sentenceFragmentActions : questionActions)
-  const [statusCode, setStatusCode] = React.useState(getStatusForResponse(response))
+  const [statusCode, setStatusCode] = React.useState(getStatusForResponse(passedResponse))
   const newResponseOptimal = React.useRef(null)
 
   React.useEffect(() => {
-    console.log("response is reloading");
     const { concept_results, } = response;
     let conceptResults = {}
     if (concept_results) {
@@ -59,6 +57,12 @@ const Response = ({allExpanded, ascending, concepts, expand, expanded, mode, pas
     setConceptResults(conceptResults)
     setStatusCode(getStatusForResponse(response))
   }, [response])
+
+  React.useEffect(() => {
+    setResponse(passedResponse)
+    setFeedback(passedResponse.feedback)
+    setStatusCode(getStatusForResponse(passedResponse))
+  }, [passedResponse])
 
   function handleDeleteResponse(rid) {
     if (window.confirm('Are you sure?')) {
@@ -75,6 +79,7 @@ const Response = ({allExpanded, ascending, concepts, expand, expanded, mode, pas
     dispatch(actions.cancelResponseEdit(questionID, rid));
   }
 
+  // TODO: test this
   function cancelChildResponseView(rid) {
     dispatch(actions.cancelChildResponseView(questionID, rid));
   }
@@ -133,9 +138,9 @@ const Response = ({allExpanded, ascending, concepts, expand, expanded, mode, pas
 
   function deleteConceptResult(crid) {
     if (confirm('Are you sure?')) {
-      let conceptResults = Object.assign({}, conceptResults || {});
-      delete conceptResults[crid];
-      setConceptResults(conceptResults)
+      let conceptResultsTemp = Object.assign({}, conceptResults || {});
+      delete conceptResultsTemp[crid];
+      setConceptResults(conceptResultsTemp)
     }
   };
 
@@ -333,7 +338,6 @@ const Response = ({allExpanded, ascending, concepts, expand, expanded, mode, pas
     let bgColor;
     let icon;
     const headerCSSClassNames = ['human-optimal-response', 'human-sub-optimal-response', 'algorithm-optimal-response', 'algorithm-sub-optimal-response', 'not-found-response'];
-    console.log(response);
     bgColor = headerCSSClassNames[statusCode];
     if (response.weak) {
       icon = '⚠️';
