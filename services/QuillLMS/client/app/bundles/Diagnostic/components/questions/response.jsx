@@ -115,7 +115,6 @@ const Response = ({allExpanded, ascending, concepts, expand, expanded, mode, pas
     rematchOne(response, mode, question, questionID, rerenderResponse);
   };
 
-  // TODO: test this
   function applyDiff(answer = '', response = '') {
     const diff = jsDiff.diffWords(response, answer);
     const spans = diff.map((part) => {
@@ -155,7 +154,7 @@ const Response = ({allExpanded, ascending, concepts, expand, expanded, mode, pas
   }
 
   function onMassSelectCheckboxToggle(responseKey) {
-    const { selectedResponses } = massEdit;
+    const { selectedResponses } = passedMassEdit;
     if (selectedResponses.includes(responseKey)) {
       removeResponseFromMassEditArray(responseKey);
     } else {
