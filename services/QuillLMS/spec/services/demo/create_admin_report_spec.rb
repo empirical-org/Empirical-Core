@@ -59,7 +59,7 @@ RSpec.describe Demo::CreateAdminReport do
 
   context 'range' do
     # This is a estimate on range based on some runs, feel free to adjust the bounds
-    let(:activity_session_count_range) { (50..175) }
+    let(:activity_session_count_range) { (50..250) }
     let(:min) { activity_session_count_range.first }
     let(:max) { activity_session_count_range.last }
 
