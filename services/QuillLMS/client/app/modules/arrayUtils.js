@@ -21,12 +21,12 @@ export function extractDiagnosticMetadataFromActivityArray(activity_ids_array, c
   const diagnosticPreActivityIds = "1678 1568 1161 1668 1590 1663".split(' ').map(x => parseInt(x))
   const diagnosticPostActivityIds = "1664 1669 1680".split(' ').map(x => parseInt(x))
 
-  // We currently define 'canonical' tests as those which maximally span a stuent's
+  // We currently define 'canonical' tests as those which maximally span a student's
   // activities, chronologically
-  const canonicalPreTestIdx = zipped.findIndex( elem => diagnosticPreActivityIds.includes(elem.activity_id) )
-  const canonicalPostTestIdx = findLastIndex(zipped, elem => diagnosticPostActivityIds.includes(elem.activity_id) )
+  const canonicalPreTestIdx = zipped.findIndex( elem => diagnosticPreActivityIds.includes(parseInt(elem.activity_id)) )
+  const canonicalPostTestIdx = findLastIndex(zipped, elem => diagnosticPostActivityIds.includes(parseInt(elem.activity_id)) )
 
-  const defaultReturnValue = { preTestScore: -1, numRecsCompleted: 0, postTestScore: -1 }
+  const defaultReturnValue = { preTestScore: -1, numAssignedRecommendedCompleted: 0, postTestScore: -1 }
 
   if ((canonicalPreTestIdx  == -1) ||
       (canonicalPostTestIdx == -1)) {
