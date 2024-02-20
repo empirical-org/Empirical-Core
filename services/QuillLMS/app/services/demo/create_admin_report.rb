@@ -5,12 +5,13 @@ class Demo::CreateAdminReport
   NUMBER_OF_CLASSROOMS_TO_DESTROY_SESSIONS_FOR = 20
   RANGE_OF_NUMBER_OF_SESSIONS_TO_DESTROY = 14..28 # 10-20% of 140
   BATCH_DELAY = 1.minute
+  NUMBER_OF_STUDENTS_PER_CLASSROOM = 25
 
-  attr_reader :teacher_email
+  attr_reader :data, :delay, :teacher_email
 
   def initialize(teacher_email, passed_data=nil, delay=BATCH_DELAY)
     @teacher_email = teacher_email
-    @passed_data = passed_data
+    @data = passed_data || Demo::SessionData.new.admin_demo_data
     @delay = delay
   end
 
@@ -22,10 +23,6 @@ class Demo::CreateAdminReport
     User.find_by_email(@teacher_email).destroy
     School.where(mail_street: school_street).destroy_all
     create_demo
-  end
-
-  def data
-    @data ||= @passed_data || Demo::SessionData.new.admin_demo_data
   end
 
   private def school_street
@@ -76,7 +73,7 @@ class Demo::CreateAdminReport
       classroom = Classroom.create(name: row['Classroom'])
       all_classrooms.push(classroom)
       ClassroomsTeacher.create(classroom: classroom, user: teacher, role: ClassroomsTeacher::ROLE_TYPES[:owner])
-      student_names = (1..25).to_a.map { |i| "#{Faker::Name.first_name} #{Faker::Name.last_name}" }
+      student_names = (1..NUMBER_OF_STUDENTS_PER_CLASSROOM).to_a.map { |i| "#{Faker::Name.first_name} #{Faker::Name.last_name}" }
       Demo::ReportDemoCreator.create_demo_classroom_data(teacher, is_teacher_demo: false, classroom: classroom, student_names: student_names)
       sleep @delay
     end

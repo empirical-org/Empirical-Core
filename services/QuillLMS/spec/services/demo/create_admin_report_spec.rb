@@ -69,7 +69,7 @@ RSpec.describe Demo::CreateAdminReport do
         teacher = User.find_by_name(row['Teacher'])
         expect(classroom).to be
         expect(classroom.owner).to eq(teacher)
-        expect(classroom.students.count).to eq(25)
+        expect(classroom.students.count).to eq(described_class::NUMBER_OF_STUDENTS_PER_CLASSROOM)
         expect(classroom.activity_sessions.count).to be_between(min, max)
       end
     end
