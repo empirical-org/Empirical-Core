@@ -22,22 +22,15 @@ import { getStatusForResponse } from '../../../Shared/index'
 
 import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx'
 
-import getBoilerplateFeedback from './boilerplateFeedback.jsx'
 import ResponseList from './responseList.jsx'
 
 
-const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded, mode, passedResponse, responses, dispatch, getChildResponses, getResponse, passedMassEdit, question, questionID, readOnly, state, states}) => {
+const Response = ({allExpanded, ascending, concepts, expand, expanded, mode, passedResponse, responses, dispatch, getChildResponses, getResponse, passedMassEdit, question, questionID, readOnly, state, states}) => {
   console.log("got new props");
   const [response, setResponse] = React.useState(passedResponse)
   const [feedback, setFeedback] = React.useState(response.feedback || '')
   const [selectedBoilerplate, setSelectedBoilerplate] = React.useState('')
-  const [selectedBoilerplateCategory, setSelectedBoilerplateCategory] = React.useState(response.selectedBoilerplateCategory || '')
-  const [selectedConcept, setSelectedConcept] = React.useState(response.concept || '')
   const [parent, setParent] = React.useState(null)
-  const [newConceptResult, setNewConceptResult] = React.useState({
-    conceptUID: '',
-    correct: true,
-  })
 
   let conceptResultsTemp = {}
   if (passedResponse.concept_results) {
@@ -86,14 +79,6 @@ const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded
     dispatch(actions.cancelChildResponseView(questionID, rid));
   }
 
-  function cancelFromResponseView(rid) {
-    dispatch(actions.cancelFromResponseView(questionID, rid));
-  }
-
-  function cancelToResponseView(rid) {
-    dispatch(actions.cancelToResponseView(questionID, rid));
-  }
-
   function updateResponse(rid) {
     const newResp = {
       weak: false,
@@ -118,10 +103,6 @@ const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded
       concept_results: { [defaultConceptUID]: false, },
     }
     dispatch(submitResponseEdit(rid, newResp, questionID));
-  };
-
-  function getErrorsForAttempt(attempt) {
-    return _.pick(attempt, ...C.ERROR_TYPES);
   };
 
   function rematchResponse() {
@@ -158,26 +139,6 @@ const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded
     }
   };
 
-  function chooseBoilerplateCategory(e) {
-    setSelectedBoilerplateCategory(e.target.value)
-  };
-
-  function chooseSpecificBoilerplateFeedback(e, setSelectedBoilerplate) {
-    setSelectedBoilerplate(e.target.value);
-  }
-
-  function boilerplateCategoriesToOptions() {
-    return getBoilerplateFeedback().map(category => (
-      <option key={category.id} className="boilerplate-feedback-dropdown-option">{category.description}</option>
-    ));
-  }
-
-  function boilerplateSpecificFeedbackToOptions(selectedCategory) {
-    return selectedCategory.children.map(childFeedback => (
-      <option key={childFeedback.id} className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
-    ));
-  }
-
   function addResponseToMassEditArray(responseKey, dispatch, massEdit) {
     dispatch(massEdit.addResponseToMassEditArray(responseKey));
   }
@@ -186,11 +147,7 @@ const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded
     dispatch(massEdit.removeResponseFromMassEditArray(responseKey));
   }
 
-  function clearResponsesFromMassEditArray(dispatch, massEdit) {
-    dispatch(massEdit.clearResponsesFromMassEditArray());
-  }
-
-  function onMassSelectCheckboxToggle(responseKey, massEdit, addResponseToMassEditArray, removeResponseFromMassEditArray) {
+  function onMassSelectCheckboxToggle(responseKey) {
     const { selectedResponses } = massEdit;
     if (selectedResponses.includes(responseKey)) {
       removeResponseFromMassEditArray(responseKey);
@@ -214,7 +171,7 @@ const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded
 
   function getParentResponse(parent_id) {
     const callback = (responses) => {
-      setParent(responses.find(resp => resp.id === parent_id));
+      setParent(_.filter(responses, (resp) => resp.id === parent_id)[0]);
     };
     return getGradedResponsesWithCallback(questionID, callback);
   }
@@ -271,19 +228,19 @@ const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded
       return;
     }
     if (response.parentID || response.parent_id) {
-      const parent = parent;
-      if (!parent) {
+      const responseParent = parent;
+      if (!responseParent) {
         getParentResponse(response.parentID || response.parent_id)
         parentDetails = [
           (<p>Loading...</p>),
           (<br />)
         ]
       } else {
-        const diffText = applyDiff(parent.text, response.text);
+        const diffText = applyDiff(responseParent.text, response.text);
         parentDetails = [
-          (<span><strong>Parent Text:</strong> {parent.text}</span>),
+          (<span><strong>Parent Text:</strong> {responseParent.text}</span>),
           (<br />),
-          (<span><strong>Parent Feedback:</strong> {parent.feedback}</span>),
+          (<span><strong>Parent Feedback:</strong> {responseParent.feedback}</span>),
           (<br />),
           (<span><strong>Differences:</strong> {diffText}</span>),
           (<br />),
