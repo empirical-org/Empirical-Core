@@ -7,6 +7,7 @@ SELECT
  classrooms_teachers.user_id as teacher_id,
  users.name as teacher_name,
  classrooms.id as classroom_id,
+ classrooms.name AS classroom_name,
  classrooms.grade as grade,
  DATETIME_TRUNC(activity_sessions.completed_at, DAY) as completed_date,
  SUM(activity_sessions.timespent) as time_spent,
