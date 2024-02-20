@@ -294,7 +294,7 @@ module Demo::ReportDemoCreator
     ACTIVITY_PACKS_TEMPLATES.map do |activity_pack_template|
       # the following line sets the unit template id to nil for the quill_staff_demo account by request of the partnerships team, because they want to be able to assign the starter baseline recommendations
       # and it ensures the unit template actually exists in our database
-      unit_template_id = teacher.email === STAFF_DEMO_EMAIL ? nil : UnitTemplate.find_by_id(activity_pack_template[:unit_template_id])&.id
+      unit_template_id = teacher.email == STAFF_DEMO_EMAIL ? nil : UnitTemplate.find_by_id(activity_pack_template[:unit_template_id])&.id
       name = unit_name(activity_pack_template[:name], is_teacher_demo)
       unit = Unit.find_or_create_by(name:, user: teacher, unit_template_id:)
       activity_ids = activity_ids_for_config(activity_pack_template)
