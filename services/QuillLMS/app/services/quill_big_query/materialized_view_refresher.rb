@@ -22,20 +22,20 @@ module QuillBigQuery
       QuillBigQuery::WritePermissionsRunner.run(create_view)
     end
 
-    # Adding a 'SELECT 1;' query since the BigQuery library errors when returning the contents
+    # Adding a COUNT query after the creation for 2 reasons: since the
+    # 1) BigQuery library errors when returning the contents
     # of a Materialized View, i.e. it runs the 'CREATE' operation successfully,
     # but the API errors when parsing the Materialized View details to return:
     # "Google::Apis::ClientError: invalid: Cannot list a table of type MATERIALIZED_VIEW."
+    # 2) It seems the view isn't primed until it is queried, so querying it
     private def create_view
       <<-SQL.squish
         CREATE MATERIALIZED VIEW #{name} #{create_options} AS (#{create_sql.squish});
-        SELECT 1;
+        SELECT COUNT(*) FROM #{name};
       SQL
     end
 
-    private def drop_view
-      "DROP MATERIALIZED VIEW IF EXISTS #{name}"
-    end
+    private def drop_view = "DROP MATERIALIZED VIEW IF EXISTS #{name}"
 
     private def config = @config ||= CONFIG[query_key]
     private def name = config[:name]

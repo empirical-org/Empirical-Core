@@ -17,7 +17,7 @@ describe QuillBigQuery::MaterializedViewRefresher do
     let(:report_sessions_sql_from_fixture) {'SELECT 2'}
     let(:drop_sql) {'DROP MATERIALIZED VIEW IF EXISTS lms.recent_reporting_sessions_view'}
     let(:create_sql) do
-      "CREATE MATERIALIZED VIEW lms.recent_reporting_sessions_view AS (#{report_sessions_sql_from_fixture}); SELECT 1;"
+      "CREATE MATERIALIZED VIEW lms.recent_reporting_sessions_view AS (#{report_sessions_sql_from_fixture}); SELECT COUNT(*) FROM lms.recent_reporting_sessions_view;"
     end
 
     before do
