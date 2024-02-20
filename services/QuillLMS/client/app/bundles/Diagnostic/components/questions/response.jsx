@@ -45,6 +45,9 @@ const Response = ({allExpanded, ascending, concepts, expand, expanded, mode, pas
   const newResponseOptimal = React.useRef(null)
 
   React.useEffect(() => {
+    setFeedback(response.feedback)
+    setStatusCode(getStatusForResponse(response))
+
     const { concept_results, } = response;
     let conceptResults = {}
     if (concept_results) {
@@ -60,8 +63,6 @@ const Response = ({allExpanded, ascending, concepts, expand, expanded, mode, pas
 
   React.useEffect(() => {
     setResponse(passedResponse)
-    setFeedback(passedResponse.feedback)
-    setStatusCode(getStatusForResponse(passedResponse))
   }, [passedResponse])
 
   function handleDeleteResponse(rid) {
@@ -114,6 +115,7 @@ const Response = ({allExpanded, ascending, concepts, expand, expanded, mode, pas
     rematchOne(response, mode, question, questionID, rerenderResponse);
   };
 
+  // TODO: test this
   function applyDiff(answer = '', response = '') {
     const diff = jsDiff.diffWords(response, answer);
     const spans = diff.map((part) => {
