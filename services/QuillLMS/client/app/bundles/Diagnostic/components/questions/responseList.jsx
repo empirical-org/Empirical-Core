@@ -47,7 +47,7 @@ export default class ResponseList extends React.Component {
         getMatchingResponse={this.props.getMatchingResponse}
         getResponse={this.props.getResponse}
         key={resp.key}
-        massEdit={this.props.massEdit}
+        passedMassEdit={this.props.massEdit}
         mode={this.props.mode}
         passedResponse={resp}
         question={this.props.question}
@@ -65,6 +65,7 @@ export default class ResponseList extends React.Component {
   }
 
   render() {
+    console.log("rendering gain");
     const responseListItems = this.props.responses.map((resp) => {
       if (resp && resp.statusCode !== 1 && resp.statusCode !== 0 && this.props.selectedIncorrectSequences) {
         const incorrectSequences = this.props.selectedIncorrectSequences.filter(this.isValidAndNotEmptyRegex)

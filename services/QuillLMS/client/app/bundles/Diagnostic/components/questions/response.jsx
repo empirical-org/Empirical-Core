@@ -26,7 +26,8 @@ import getBoilerplateFeedback from './boilerplateFeedback.jsx'
 import ResponseList from './responseList.jsx'
 
 
-const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded, mode, passedResponse, responses, dispatch, getChildResponses, getResponse, massEdit, question, questionID, readOnly, state, states}) => {
+const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded, mode, passedResponse, responses, dispatch, getChildResponses, getResponse, passedMassEdit, question, questionID, readOnly, state, states}) => {
+  console.log("got new props");
   const [response, setResponse] = React.useState(passedResponse)
   const [feedback, setFeedback] = React.useState(response.feedback || '')
   const [selectedBoilerplate, setSelectedBoilerplate] = React.useState('')
@@ -38,20 +39,21 @@ const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded
     correct: true,
   })
 
-  let conceptResults = {}
+  let conceptResultsTemp = {}
   if (passedResponse.concept_results) {
     if (typeof response.concept_results === 'string') {
-      conceptResults = JSON.parse(response.concept_results)
+      conceptResultsTemp = JSON.parse(response.concept_results)
     } else {
-      conceptResults = response.concept_results
+      conceptResultsTemp = response.concept_results
     }
   }
-  const [conceptResultsState, setConceptResults] = React.useState(conceptResults)
+  const [conceptResults, setConceptResults] = React.useState(conceptResultsTemp)
   const [actions, setActions] = React.useState(mode === 'sentenceFragment' ? sentenceFragmentActions : questionActions)
   const [statusCode, setStatusCode] = React.useState(getStatusForResponse(response))
   const newResponseOptimal = React.useRef(null)
 
   React.useEffect(() => {
+    console.log("response is reloading");
     const { concept_results, } = response;
     let conceptResults = {}
     if (concept_results) {
@@ -65,7 +67,7 @@ const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded
     setStatusCode(getStatusForResponse(response))
   }, [response])
 
-  function deleteResponse(rid) {
+  function handleDeleteResponse(rid) {
     if (window.confirm('Are you sure?')) {
       dispatch(deleteResponse(questionID, rid));
       dispatch(massEdit.removeResponseFromMassEditArray(rid));
@@ -164,7 +166,7 @@ const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded
     setSelectedBoilerplate(e.target.value);
   }
 
-  function boilerplateCategoriesToOptions(getBoilerplateFeedback) {
+  function boilerplateCategoriesToOptions() {
     return getBoilerplateFeedback().map(category => (
       <option key={category.id} className="boilerplate-feedback-dropdown-option">{category.description}</option>
     ));
@@ -210,11 +212,11 @@ const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded
     }
   }
 
-  function getParentResponse(parent_id, questionID, setParent, getGradedResponsesWithCallback) {
+  function getParentResponse(parent_id) {
     const callback = (responses) => {
       setParent(responses.find(resp => resp.id === parent_id));
     };
-    getGradedResponsesWithCallback(questionID, callback);
+    return getGradedResponsesWithCallback(questionID, callback);
   }
 
   function rerenderResponse(newResponse) {
@@ -356,7 +358,7 @@ const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded
     } else {
       buttons = [
         (<a className="card-footer-item" key="edit" onClick={() => editResponse(response.key)} >Edit</a>),
-        (<a className="card-footer-item" key="delete" onClick={() => deleteResponse(response.key)} >Delete</a>)
+        (<a className="card-footer-item" key="delete" onClick={() => handleDeleteResponse(response.key)} >Delete</a>)
       ];
     }
     if (statusCode > 1) {
@@ -382,7 +384,7 @@ const Response = ({allExpanded, ascending, concepts, conceptID, expand, expanded
     const authorStyle = { marginLeft: '10px', };
     const showTag = response.author && (statusCode === 2 || statusCode === 3)
     const author = showTag ? <span className="tag is-dark" style={authorStyle}>{response.author}</span> : undefined;
-    const checked = massEdit.selectedResponses.includes(response.id) ? 'checked' : '';
+    const checked = passedMassEdit.selectedResponses.includes(response.id) ? 'checked' : '';
     return (
       <div className={bgColor} style={{ display: 'flex', alignItems: 'center', }}>
         <input checked={checked} onChange={() => onMassSelectCheckboxToggle(response.id)} style={{ marginLeft: '15px', }} type="checkbox" />
