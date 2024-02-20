@@ -5,7 +5,7 @@ require 'rails_helper'
 describe QuillBigQuery::MaterializedViewRefresher do
   let(:query_key) { 'reporting_sessions_view' }
 
-  describe 'config' do
+  describe 'production config without stubs' do
     subject {described_class.new(query_key)}
 
     it 'should find SQL file' do
