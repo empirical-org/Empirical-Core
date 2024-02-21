@@ -91,6 +91,7 @@ class Cron
 
   def self.run_school_year_start
     PopulateAnnualVitallyWorker.perform_async
+    Demo::ResetAdminDemoAccountWorker.perform_async
   end
 
   def self.now
