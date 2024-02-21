@@ -294,7 +294,7 @@ module Demo::ReportDemoCreator
     ACTIVITY_PACKS_TEMPLATES.map do |activity_pack_template|
       # the following line sets the unit template id to nil for the quill_staff_demo account by request of the partnerships team, because they want to be able to assign the starter baseline recommendations
       # and it ensures the unit template actually exists in our database
-      unit_template_id = is_teacher_demo ? UnitTemplate.find_by_id(activity_pack_template[:unit_template_id])&.id : nil
+      unit_template_id = teacher.email == STAFF_DEMO_EMAIL ? nil : UnitTemplate.find_by_id(activity_pack_template[:unit_template_id])&.id
       name = unit_name(activity_pack_template[:name], is_teacher_demo)
       unit = Unit.find_or_create_by(name:, user: teacher, unit_template_id:)
       activity_ids = activity_ids_for_config(activity_pack_template)
@@ -387,10 +387,15 @@ module Demo::ReportDemoCreator
     students.each_with_index do |student, num|
       ACTIVITY_PACKS_TEMPLATES.each do |activity_pack|
         name = unit_name(activity_pack[:name], is_teacher_demo)
-        unit = Unit.where(name:).last
+        unit = Unit.where(name:, user: classroom.owner).last
         classroom_unit = ClassroomUnit.find_by(classroom: classroom, unit: unit)
+
+        # Calculate the index for activity_sessions using modulo
+        # This will cycle through the activity_sessions for more students
+        activity_sessions_index = num % activity_pack[:activity_sessions].length
+
         activity_sessions = activity_pack[:activity_sessions]
-        activity_sessions[num].each do |clone_activity_id, clone_user_id|
+        activity_sessions[activity_sessions_index].each do |clone_activity_id, clone_user_id|
           clone_activity_session(
             student.id,
             classroom_unit.id,

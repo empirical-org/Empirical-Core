@@ -176,11 +176,13 @@ RSpec.describe Demo::ReportDemoCreator do
           .find {|session| session.activity_id == activity_id && session.user_id == user_id}
 
         student = create(:student)
-        classroom = create(:classroom)
+        classroom = create(:classroom, :with_no_teacher)
+        create(:classrooms_teacher, classroom: classroom, user: teacher)
         create(:students_classrooms, student: student, classroom: classroom)
         units = Demo::ReportDemoCreator.create_units(teacher, is_teacher_demo)
 
         Demo::ReportDemoCreator.create_classroom_units(classroom, units)
+
         total_act_sesh_count = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.map {|ap| ap[:activity_sessions][0].keys.count}.sum
 
         expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom, session_data, is_teacher_demo)}
