@@ -758,6 +758,12 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  resources :admin_diagnostic_students, only: [] do
+    collection do
+      post :report
+    end
+  end
+
   resources :pdf_subscriptions, only: [:destroy] do
     collection do
       post :create_or_update
