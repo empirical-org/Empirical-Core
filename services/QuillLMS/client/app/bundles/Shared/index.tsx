@@ -30,6 +30,7 @@ export {
   CarouselAnimation,
   DataTable,
   ProgressBar,
+  DragHandle,
   DropdownInput,
   DropdownInputWithSearchTokens,
   Error,
@@ -115,7 +116,10 @@ export {
   filterNumbers,
   redirectToActivity,
   renderNavList,
-  noResultsMessage
+  noResultsMessage,
+  getStatusForResponse,
+  responsesWithStatus,
+  sortByLevenshteinAndOptimal,
 } from './libs/index'
 
 export {

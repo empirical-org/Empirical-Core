@@ -17,6 +17,10 @@ export {
 } from './card'
 
 export {
+  DragHandle
+} from './dragHandle'
+
+export {
   ExpandableCard
 } from './expandableCard'
 

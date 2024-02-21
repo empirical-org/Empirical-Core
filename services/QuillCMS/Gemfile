@@ -49,7 +49,7 @@ gem 'newrelic_rpm', '~> 9.3.1'
 gem 'rubyzip', '~> 2.3'
 
 # WEBSOCKETS
-gem 'pusher', '~> 1.4.3'
+gem 'pusher', '~> 2.0.3'
 
 # HTTP
 gem 'faraday-httpclient', '~> 2.0', '>= 2.0.1'

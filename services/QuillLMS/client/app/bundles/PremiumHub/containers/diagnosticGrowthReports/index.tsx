@@ -91,10 +91,10 @@ export const DiagnosticGrowthReportsContainer = ({
   function renderButtons() {
     return(
       <div className="tabs-for-pages-container">
-        {reportButtons.map(button => {
+        {reportButtons.map((button, i) => {
           const { tab, displayName, activeIconSrc, inactiveIconSrc } = button
           return (
-            <button className={`interactive-wrapper performance-type-button ${tab} ${tab === activeTab ? 'active' : ''}`} onClick={handleTabChange} value={tab}>
+            <button className={`interactive-wrapper performance-type-button ${tab} ${tab === activeTab ? 'active' : ''}`} key={`${displayName}-${i}`} onClick={handleTabChange} value={tab}>
               <img alt="" src={tab === activeTab ? activeIconSrc : inactiveIconSrc} />
               <span>{displayName}</span>
             </button>

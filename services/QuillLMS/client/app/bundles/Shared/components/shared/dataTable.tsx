@@ -1,8 +1,8 @@
 import * as CSS from 'csstype';
 import * as React from 'react';
-import { SortableHandle, } from 'react-sortable-hoc';
 
 import { SortableList, } from './sortableList';
+import { DragHandle, } from './dragHandle'
 import { Tooltip } from './tooltip';
 import { helpIcon } from '../../images';
 
@@ -460,8 +460,13 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     if (!isReorderable) { return }
 
     // using a div as the outer element instead of a button here because something about default button behavior overrides the keypress handling by sortablehandle
-    const DragHandle = SortableHandle(() => <div className="focus-on-light" role="button" tabIndex={0}><img alt="Reorder icon" className="reorder-icon" src={reorderSrc} /></div>);
-    return <td className='reorder-section data-table-row-section'><DragHandle /></td>
+    return (
+      <td className='reorder-section data-table-row-section'>
+        <DragHandle>
+          <div className="focus-on-light" role="button" tabIndex={0}><img alt="Reorder icon" className="reorder-icon" src={reorderSrc} /></div>
+        </DragHandle>
+      </td>
+    )
   }
 
   renderRow(row, isAggregateRow=false) {

@@ -215,7 +215,7 @@ function getResponseBody(pageNumber: number) {
 }
 
 function getGradedResponses(questionID) {
-  return requestGet(`${process.env.QUILL_CMS}/questions/${questionID}/responses`);
+  return requestGet(`${process.env.QUILL_CMS}/questions/${questionID}/responses_for_rematching`);
 }
 
 function formatGradedResponses(jsonString: string): {[key: string]: Response} {

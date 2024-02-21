@@ -131,7 +131,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
         const prompt = questionObject ? questionObject.prompt : 'Question No Longer Exists';
         const promptOrTitle = questionObject && question.questionType === 'titleCards' ? questionObject.title : prompt
         return (
-          <p className="sortable-list-item" defaultValue={question.questionType} key={question.key}>
+          <p className="sortable-list-item" defaultValue={question.questionType} id={question.key} key={question.key}>
             {promptOrTitle}
             {'\t\t'}
             <DeleteButton onChange={this.handleQuestionChange} questionId={question.key} />
