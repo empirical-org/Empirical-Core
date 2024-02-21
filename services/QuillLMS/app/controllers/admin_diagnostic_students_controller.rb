@@ -6,9 +6,9 @@ class AdminDiagnosticStudentsController < ApplicationController
     "report" => AdminDiagnosticReports::DiagnosticStudentsWorker
   }
 
-  before_action :set_query
   before_action :validate_request, only: :report
   before_action :authorize_request
+  before_action :set_query
 
   def report
     render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
@@ -56,7 +56,7 @@ class AdminDiagnosticStudentsController < ApplicationController
   end
 
   private def query_param_valid?
-    WORKERS_FOR_ACTIONS[action_name]::QUERIES.keys.include?(@query)
+    WORKERS_FOR_ACTIONS[action_name]::QUERIES.keys.include?(permitted_params[:query])
   end
 
   private def authorize_request
@@ -69,7 +69,7 @@ class AdminDiagnosticStudentsController < ApplicationController
   end
 
   private def retrieve_cache_or_enqueue_worker(worker)
-    cache_key = cache_key_for_timeframe(permitted_params[:timeframe], timeframe_start, timeframe_end)
+    cache_key = cache_key_for_timeframe(permitted_params[:timeframe], @timeframe_start, @timeframe_end)
     response = Rails.cache.read(cache_key)
 
     return { results: response } if response
