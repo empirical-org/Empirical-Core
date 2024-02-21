@@ -72,7 +72,7 @@ class Demo::CreateAdminReport
       all_classrooms.push(classroom)
       ClassroomsTeacher.create(classroom: classroom, user: teacher, role: ClassroomsTeacher::ROLE_TYPES[:owner])
       student_names = (1..NUMBER_OF_STUDENTS_PER_CLASSROOM).to_a.map { |i| "#{Faker::Name.first_name} #{Faker::Name.last_name}" }
-      Demo::CreateDemoClassroomDataWorker.perform_async(teacher.id, false, classroom.id, student_names)
+      Demo::ReportDemoCreator.create_demo_classroom_data(teacher, is_teacher_demo: false, classroom: classroom, student_names: student_names)
     end
 
     # delete some activity sessions to make data more varied

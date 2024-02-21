@@ -7,7 +7,7 @@ class Demo::ResetAdminDemoAccountWorker
 
   ADMIN_DEMO_EMAIL = "hello+demoadmin-admindemoschool@quill.org"
 
-  def perform
-    Demo::CreateAdminReport.new(ADMIN_DEMO_EMAIL).reset
+  def perform(email=ADMIN_DEMO_EMAIL)
+    Demo::CreateAdminReport.new(email).reset
   end
 end
