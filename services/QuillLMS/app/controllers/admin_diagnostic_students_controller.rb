@@ -7,16 +7,30 @@ class AdminDiagnosticStudentsController < ApplicationController
   }
 
   before_action :set_query
-  before_action :validate_request
+  before_action :validate_request, only: :report
   before_action :authorize_request
 
   def report
     render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
   end
 
+  def filter_scope
+    school_ids = permitted_params[:school_ids] || current_user.administered_schools.pluck(:id)
+    render json: AdminDiagnosticReports::StudentCountByFilterScopeQuery.run(
+      timeframe_start: @timeframe_start,
+      timeframe_end: @timeframe_end,
+      diagnostic_id: @diagnostic_id,
+      school_ids: school_ids,
+      grades: permitted_params[:grades],
+      teacher_ids: permitted_params[:teacher_ids],
+      classroom_ids: permitted_params[:classroom_ids]
+    )
+  end
+
   private def set_query
     @query = permitted_params[:query]
     @diagnostic_id = permitted_params[:diagnostic_id]
+    @timeframe_start, @timeframe_end = calculate_timeframe_start_and_end
   end
 
   private def validate_request
@@ -48,16 +62,13 @@ class AdminDiagnosticStudentsController < ApplicationController
   private def authorize_request
     schools_user_admins = current_user.administered_schools.pluck(:id)
 
+    return if permitted_params[:school_ids].blank?
     return if permitted_params[:school_ids]&.all? { |param_id| schools_user_admins.include?(param_id.to_i) }
 
     return render json: { error: 'user is not authorized for all specified schools' }, status: 403
   end
 
   private def retrieve_cache_or_enqueue_worker(worker)
-    timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(
-      permitted_params[:timeframe],
-      custom_start: permitted_params[:timeframe_custom_start],
-      custom_end: permitted_params[:timeframe_custom_end])
     cache_key = cache_key_for_timeframe(permitted_params[:timeframe], timeframe_start, timeframe_end)
     response = Rails.cache.read(cache_key)
 
@@ -69,8 +80,8 @@ class AdminDiagnosticStudentsController < ApplicationController
       current_user.id,
       {
         name: permitted_params[:timeframe],
-        timeframe_start: timeframe_start,
-        timeframe_end: timeframe_end
+        timeframe_start: @timeframe_start,
+        timeframe_end: @timeframe_end
       },
       permitted_params[:school_ids],
       {
@@ -80,6 +91,13 @@ class AdminDiagnosticStudentsController < ApplicationController
       })
 
     { message: 'Generating snapshot' }
+  end
+
+  private def calculate_timeframe_start_and_end
+    Snapshots::Timeframes.calculate_timeframes(
+      permitted_params[:timeframe],
+      custom_start: permitted_params[:timeframe_custom_start],
+      custom_end: permitted_params[:timeframe_custom_end])
   end
 
   private def cache_key_for_timeframe(timeframe_name, timeframe_start, timeframe_end)
@@ -103,6 +121,14 @@ class AdminDiagnosticStudentsController < ApplicationController
       :timeframe,
       :timeframe_custom_start,
       :timeframe_custom_end,
+      school_ids: [],
+      grades: [],
+      teacher_ids: [],
+      classroom_ids: [])
+  end
+
+  private def permitted_filter_scope_params
+    params.permit(:timefame,
       school_ids: [],
       grades: [],
       teacher_ids: [],
