@@ -152,7 +152,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
     if (!lastSubmittedResponse || !lastSubmittedResponse.highlight || !lastSubmittedResponse.entry || submittedResponses.length === prompt.max_attempts) { return str }
 
-    const thereAreResponseHighlights = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).length
+    const thereAreResponseHighlights = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE && hl.text.length).length
 
     if (!thereAreResponseHighlights) { return str }
 
