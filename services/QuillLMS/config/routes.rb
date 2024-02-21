@@ -761,6 +761,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :admin_diagnostic_students, only: [] do
     collection do
       post :report
+      post :filter_scope
     end
   end
 
