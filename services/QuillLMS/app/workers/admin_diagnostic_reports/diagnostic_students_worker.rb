@@ -17,7 +17,7 @@ module AdminDiagnosticReports
       'diagnostic-students' => DiagnosticPerformanceByStudentViewQuery
     }
 
-    def perform(cache_key, query, diagnostic_id, user_id, timeframe, school_ids, filters) # rubocop:disable Metrics/ParameterLists
+    def perform(cache_key, query, diagnostic_id, user_id, timeframe, school_ids, filters)
       payload = generate_payload(query, diagnostic_id, timeframe, school_ids, filters)
 
       Rails.cache.write(cache_key, payload, expires_in: cache_expiry)
