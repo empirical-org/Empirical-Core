@@ -6,9 +6,10 @@ import { formatStudentData } from './helpers'
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
 import { diagnosticTypeDropdownOptions, hashPayload } from '../../shared'
+import { requestPost } from '../../../../modules/request'
 
-const QUERY_KEY = "diagnostic-student"
-const PUSHER_EVENT_KEY = "admin-diagnostic-student-cached";
+const QUERY_KEY = "diagnostic-students"
+const PUSHER_EVENT_KEY = "admin-diagnostic-students-cached";
 const DEFAULT_WIDTH = "140px"
 
 const headers = [
@@ -152,8 +153,24 @@ export const StudentSection = ({
 
   function getData() {
     setLoading(true)
-    const formattedData = formatStudentData(results)
-    setStudentData(formattedData)
+    const searchParams = {
+      query: QUERY_KEY,
+      timeframe: selectedTimeframe,
+      school_ids: selectedSchoolIds,
+      teacher_ids: selectedTeacherIds,
+      classroom_ids: selectedClassroomIds,
+      grades: selectedGrades,
+      diagnostic_id: diagnosticTypeValue.value
+    }
+
+    requestPost('/admin_diagnostic_students/report', searchParams, (body) => {
+      if (!body.hasOwnProperty('results')) {
+        return
+      } else {
+        const { results, } = body
+        console.log("🚀 ~ file: studentSection.tsx:173 ~ requestPost ~ results:", results)
+      }
+    })
   }
 
   function handleDiagnosticTypeOptionChange(option) {

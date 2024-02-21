@@ -69,7 +69,7 @@ class AdminDiagnosticStudentsController < ApplicationController
   end
 
   private def retrieve_cache_or_enqueue_worker(worker)
-    cache_key = cache_key_for_timeframe(permitted_params[:timeframe], timeframe_start, timeframe_end)
+    cache_key = cache_key_for_timeframe(permitted_params[:timeframe], @timeframe_start, @timeframe_end)
     response = Rails.cache.read(cache_key)
 
     return { results: response } if response
