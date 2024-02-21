@@ -18,6 +18,10 @@ module QuillBigQuery
 
     def run_query
       post_query_transform(runner.execute(query))
+    rescue Google::Cloud::NotFoundError, Google::Cloud::InvalidArgumentError => e
+      raise unless materialized_views_used.any? { |view_name| e.message.include?(view_name) }
+
+      post_query_transform(runner.execute(query_without_materialized_views))
     end
 
     def query
@@ -49,6 +53,17 @@ module QuillBigQuery
 
     def limit_clause
       ""
+    end
+
+    def materialized_views_used
+      []
+    end
+
+    def query_without_materialized_views
+      materialized_views_used.reduce(query) do |accumulator, view_name|
+        get view from name
+        accumulator.gsub(view_name, "(#{view_sql}) AS #{view_name}")
+      end
     end
   end
 end
