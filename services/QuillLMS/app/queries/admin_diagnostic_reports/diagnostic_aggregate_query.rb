@@ -26,7 +26,7 @@ module AdminDiagnosticReports
     ]
 
     def initialize(aggregation:, **options)
-      raise InvalidAggregationError, "#{aggregation} is not a valid aggregation value." unless AGGREGATION_OPTIONS.include?(aggregation)
+      raise InvalidAggregationError, "#{aggregation} is not a valid aggregation value." unless valid_aggregation_options.include?(aggregation)
 
       @additional_aggregation = aggregation
 
@@ -119,7 +119,8 @@ module AdminDiagnosticReports
       {
         'grade' => "classrooms.grade",
         'classroom' => "classrooms.id",
-        'teacher' => "users.id"
+        'teacher' => "users.id",
+        'student' => "students.id"
       }.fetch(additional_aggregation)
     end
 
@@ -127,7 +128,8 @@ module AdminDiagnosticReports
       {
         'grade' => "classrooms.grade",
         'classroom' => "classrooms.name",
-        'teacher' => "users.name"
+        'teacher' => "users.name",
+        'student' => "students.name"
       }.fetch(additional_aggregation)
     end
 
@@ -190,6 +192,10 @@ module AdminDiagnosticReports
       name.split.last
     end
 
+    private def valid_aggregation_options
+      AGGREGATION_OPTIONS
+    end
+
     private def grade_aggregation?
       additional_aggregation == 'grade'
     end
@@ -208,8 +214,16 @@ module AdminDiagnosticReports
       end.join(", ")
     end
 
+    private def static_string(value)
+      ->(column) { "'#{value}' AS #{column}" }
+    end
+
     private def sum_aggregate
       ->(column) { "SUM(#{column}) AS #{column}" }
+    end
+
+    private def naive_average_aggregate
+      ->(column) { "AVG(#{column}) AS #{column}" }
     end
 
     private def average_aggregate(weight_column)
