@@ -103,6 +103,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
 
   function resetToDefault() {
     setCount(passedCount || null)
+    setPrevious(passedPrevious || null)
     setChangeDirection(passedChangeDirection || null)
     setChange(passedChange || 0)
   }
