@@ -5,7 +5,6 @@ module QuillBigQuery
 
     def initialize(query_key)
       @view = MaterializedView.fetch(query_key)
-      puts @view.class
     end
 
     def run
