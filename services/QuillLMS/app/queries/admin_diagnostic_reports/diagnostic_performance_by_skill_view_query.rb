@@ -53,6 +53,15 @@ module AdminDiagnosticReports
       SQL
     end
 
+    def materialized_views_used
+      [
+        "pre_post_diagnostic_skill_group_performance_view",
+        "active_classroom_stubs_view",
+        "active_classroom_unit_stubs_view",
+        "active_user_names_view"
+      ]
+    end
+
     def rollup_select_columns
       "skill_group_name"
     end

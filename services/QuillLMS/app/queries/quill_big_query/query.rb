@@ -61,8 +61,14 @@ module QuillBigQuery
 
     def query_without_materialized_views
       materialized_views_used.reduce(query) do |accumulator, view_name|
-        get view from name
-        accumulator.gsub(view_name, "(#{view_sql}) AS #{view_name}")
+        view = MaterializedViewDefinitions.fetch(view_name)
+
+        # If there is already an AS clause for this view, keep it
+        return accumulator.gsub(view[:name], "(#{view[:sql]})") if accumulator =~ /#{view[:name]}\s+as\s+[^\s]+/i
+
+        name_without_namespace = view[:name].split(",", 2).second
+
+        accumulator.gsub(view[:name], "(#{view[:sql]}) AS #{name_without_namespace}")
       end
     end
   end
