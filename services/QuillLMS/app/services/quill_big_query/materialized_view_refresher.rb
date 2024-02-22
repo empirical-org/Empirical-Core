@@ -2,18 +2,10 @@
 
 module QuillBigQuery
   class MaterializedViewRefresher < ApplicationService
-    attr_reader :query_key
-
-    QUERY_FOLDER = Rails.root.join('db/big_query/views/')
-    CONFIG = Configs[:big_query_views]
-    VALID_KEYS = Configs[:big_query_views].keys
-
-    class InvalidQueryKeyError < StandardError; end
 
     def initialize(query_key)
-      @query_key = query_key
-
-      raise InvalidQueryKeyError unless query_key.in?(VALID_KEYS)
+      @view = MaterializedView.fetch(query_key)
+      puts @view.class
     end
 
     def run
@@ -37,9 +29,8 @@ module QuillBigQuery
 
     private def drop_view = "DROP MATERIALIZED VIEW IF EXISTS #{name}"
 
-    private def config = @config ||= CONFIG[query_key]
-    private def name = config[:name]
-    private def create_sql = File.read(QUERY_FOLDER + config[:create_sql])
-    private def create_options = config[:create_options]
+    private def name = @view.name
+    private def create_sql = @view.sql
+    private def create_options = @view.create_options
   end
 end

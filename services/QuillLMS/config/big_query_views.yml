@@ -1,7 +1,24 @@
 # NB: if using create options, include OPTIONS(), e.g.
 # create_options: "OPTIONS(enable_refresh = true)"
 default:
+  active_classroom_stubs_view:
+    name: 'lms.active_classroom_stubs_view'
+    create_sql: 'active_classroom_stubs_view.sql'
+    create_options: null
+  active_classroom_unit_stubs_view:
+    name: 'lms.active_classroom_unit_stubs_view'
+    create_sql: 'active_classroom_unit_stubs_view.sql'
+    create_options: null
+  active_user_names_view:
+    name: 'lms.active_user_names_view'
+    create_sql: 'active_user_names_view.sql'
+    create_options: null
+  pre_post_diagnostic_skill_group_performance_view:
+    name: 'lms.pre_post_diagnostic_skill_group_performance_view'
+    create_sql: 'pre_post_diagnostic_skill_group_performance_view.sql'
+    create_options: "OPTIONS(enable_refresh = true, refresh_interval_minutes = 360, max_staleness = INTERVAL '8' HOUR, allow_non_incremental_definition = true)"
   reporting_sessions_view:
     name: 'lms.recent_reporting_sessions_view'
     create_sql: 'reporting_sessions_view.sql'
     create_options: null
+

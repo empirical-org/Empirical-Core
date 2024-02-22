@@ -1,0 +1,1 @@
+SELECT id, name FROM lms.users WHERE updated_at >= '2022-01-01'
