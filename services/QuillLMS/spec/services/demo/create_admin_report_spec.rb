@@ -54,7 +54,7 @@ RSpec.describe Demo::CreateAdminReport do
       school = School.find_by_name(row['School'])
       expect(SchoolsUsers.find_by(school: school, user: teacher)).to be
       expect(UserSubscription.find_by(user: teacher, subscription: subscription)).to be
-      expect(UserLogin.find_by(user: teacher)).to be
+      expect(UserLogin.exists?(user: teacher)).to be true
     end
   end
 
