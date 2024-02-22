@@ -4,7 +4,8 @@ module QuillBigQuery
   class MaterializedViewRefresher < ApplicationService
 
     def initialize(query_key)
-      @config = MaterializedView.fetch(query_key)
+      @view = MaterializedView.fetch(query_key)
+      puts @view.class
     end
 
     def run
@@ -28,8 +29,8 @@ module QuillBigQuery
 
     private def drop_view = "DROP MATERIALIZED VIEW IF EXISTS #{name}"
 
-    private def name = @config[:name]
-    private def create_sql = @config[:sql]
-    private def create_options = @config[:create_options]
+    private def name = @view.name
+    private def create_sql = @view.sql
+    private def create_options = @view.create_options
   end
 end

@@ -19,11 +19,9 @@ describe QuillBigQuery::MaterializedView do
     end
 
     it 'should return the expected payload' do
-      expect(result).to eq({
-        name: 'lms.recent_reporting_sessions_view',
-        sql: "SELECT 2\n",
-        create_options: nil
-      })
+      expect(result.name).to eq('lms.recent_reporting_sessions_view')
+      expect(result.sql).to eq("SELECT 2\n")
+      expect(result.create_options).to be(nil)
     end
 
     context 'unknown key' do

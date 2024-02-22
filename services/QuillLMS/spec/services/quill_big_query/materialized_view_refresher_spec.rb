@@ -12,13 +12,7 @@ describe QuillBigQuery::MaterializedViewRefresher do
     let(:create_sql) do
       "CREATE MATERIALIZED VIEW #{view_name} AS (#{view_sql}); SELECT COUNT(*) FROM #{view_name};"
     end
-    let(:view_definition) do
-      {
-        name: view_name,
-        sql: view_sql,
-        create_options: nil
-      }
-    end
+    let(:view_definition) { QuillBigQuery::MaterializedView.new(name: view_name, sql: view_sql, create_options: nil) }
 
     before do
       allow(QuillBigQuery::MaterializedView).to receive(:fetch).with(query_key).and_return(view_definition)
