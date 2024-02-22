@@ -19,7 +19,7 @@ export function extractDiagnosticMetadataFromActivityArray(activity_ids_array, c
 
   const zipped = zipAndSort(activity_ids_array, completed_at_array, scores_array)
   const diagnosticPreActivityIds = "1678 1568 1161 1668 1590 1663".split(' ').map(x => parseInt(x))
-  const diagnosticPostActivityIds = "1664 1669 1680".split(' ').map(x => parseInt(x))
+  const diagnosticPostActivityIds = "1664 1669 1680 1774 1814 1818".split(' ').map(x => parseInt(x))
 
   // We currently define 'canonical' tests as those which maximally span a student's
   // activities, chronologically
