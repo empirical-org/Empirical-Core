@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe QuillBigQuery::MaterializedViewDefinitions do
+describe QuillBigQuery::MaterializedView do
   let(:query_key) { 'reporting_sessions_view' }
   let(:result) { described_class.fetch(query_key) }
 
@@ -15,7 +15,7 @@ describe QuillBigQuery::MaterializedViewDefinitions do
 
   describe 'fetch' do
     before do
-      stub_const('QuillBigQuery::MaterializedViewDefinitions::QUERY_FOLDER', Rails.root.join('spec/fixtures/sql/'))
+      stub_const('QuillBigQuery::MaterializedView::QUERY_FOLDER', Rails.root.join('spec/fixtures/sql/'))
     end
 
     it 'should return the expected payload' do
@@ -30,7 +30,7 @@ describe QuillBigQuery::MaterializedViewDefinitions do
       let(:query_key) {'some-unknown-key'}
 
       it 'should raise with unknown key' do
-        expect {result}.to raise_error(QuillBigQuery::MaterializedViewDefinitions::InvalidQueryKeyError)
+        expect {result}.to raise_error(QuillBigQuery::MaterializedView::InvalidQueryKeyError)
       end
     end
   end

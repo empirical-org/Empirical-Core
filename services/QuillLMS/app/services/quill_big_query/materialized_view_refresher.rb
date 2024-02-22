@@ -4,7 +4,7 @@ module QuillBigQuery
   class MaterializedViewRefresher < ApplicationService
 
     def initialize(query_key)
-      @config = MaterializedViewDefinitions.fetch(query_key)
+      @config = MaterializedView.fetch(query_key)
     end
 
     def run

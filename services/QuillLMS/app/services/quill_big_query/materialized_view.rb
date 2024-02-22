@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module QuillBigQuery
-  class MaterializedViewDefinitions < ApplicationService
+  class MaterializedView < ApplicationService
     QUERY_FOLDER = Rails.root.join('db/big_query/views/')
     CONFIG = Configs[:big_query_views]
     VALID_KEYS = Configs[:big_query_views].keys

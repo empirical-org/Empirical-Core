@@ -21,7 +21,7 @@ describe QuillBigQuery::MaterializedViewRefresher do
     end
 
     before do
-      allow(QuillBigQuery::MaterializedViewDefinitions).to receive(:fetch).with(query_key).and_return(view_definition)
+      allow(QuillBigQuery::MaterializedView).to receive(:fetch).with(query_key).and_return(view_definition)
     end
 
     subject { described_class.run(query_key)}
