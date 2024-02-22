@@ -372,7 +372,7 @@ module Demo::ReportDemoCreator
 
     return unless session_to_clone
 
-    act_session = ActivitySession.create!(activity_id: clone_activity_id, classroom_unit_id: classroom_unit_id, user_id: student_id, state: 'finished', percentage: session_to_clone.percentage, timespent: session_to_clone.timespent || DEFAULT_TIMESPENT)
+    act_session = create_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone)
     concept_results = session_data.concept_results.select {|cr| cr.activity_session_id == session_to_clone.id }
     concept_results.each do |cr|
       question_type = session_data.concept_result_question_types.first {|qt| qt.id == cr.concept_result_question_type_id}
@@ -383,6 +383,17 @@ module Demo::ReportDemoCreator
         question_type: question_type&.text
       })
     end
+  end
+
+  def self.create_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone)
+    ActivitySession.create!(
+      activity_id: clone_activity_id,
+      classroom_unit_id: classroom_unit_id,
+      user_id: student_id,
+      state: 'finished',
+      percentage: session_to_clone.percentage,
+      timespent: session_to_clone.timespent || DEFAULT_TIMESPENT
+    )
   end
 
   def self.create_activity_sessions(students, classroom, session_data, is_teacher_demo)

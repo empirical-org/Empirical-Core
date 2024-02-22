@@ -6,6 +6,8 @@ class Demo::CreateAdminReport
   RANGE_OF_NUMBER_OF_SESSIONS_TO_DESTROY = 14..28 # 10-20% of 140
   BATCH_DELAY = 1.minute
   NUMBER_OF_STUDENTS_PER_CLASSROOM = 25
+  GRADE_MIN = 5
+  GRADE_MAX = 12
 
   attr_reader :data, :delay, :teacher_email
 
@@ -43,6 +45,7 @@ class Demo::CreateAdminReport
 
     SchoolsUsers.find_or_create_by(school: school, user: user)
     UserSubscription.create!(user_id: user.id, subscription: subscription)
+    user.record_login # necessary to populate the active teachers count for the usage snapshot report
 
     user
   end
@@ -68,10 +71,9 @@ class Demo::CreateAdminReport
 
       # create teacher data
       teacher = find_or_create_teacher_data(row['Teacher'], school, subscription)
-      teacher.record_login # necessary to populate the active teachers count for the usage snapshot report
 
       # create classroom data
-      classroom = Classroom.create(name: row['Classroom'], grade: (5..12).to_a.sample.to_s)
+      classroom = Classroom.create(name: row['Classroom'], grade: (GRADE_MIN..GRADE_MAX).to_a.sample.to_s)
       all_classrooms.push(classroom)
       ClassroomsTeacher.create(classroom: classroom, user: teacher, role: ClassroomsTeacher::ROLE_TYPES[:owner])
       student_names = (1..NUMBER_OF_STUDENTS_PER_CLASSROOM).to_a.map { |i| "#{Faker::Name.first_name} #{Faker::Name.last_name}" }

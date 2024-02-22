@@ -47,13 +47,14 @@ RSpec.describe Demo::CreateAdminReport do
     end
   end
 
-  it 'should create every teacher account from the data hash, associated with the correct school' do
+  it 'should create every teacher account from the data hash, associated with the correct school and with a login record' do
     schools_and_teachers = subject.data.map { |d| { 'School' => d['School'], 'Teacher' => d['Teacher'] } }.uniq
     schools_and_teachers.each do |row|
       teacher = User.find_by_name(row['Teacher'])
       school = School.find_by_name(row['School'])
       expect(SchoolsUsers.find_by(school: school, user: teacher)).to be
       expect(UserSubscription.find_by(user: teacher, subscription: subscription)).to be
+      expect(UserLogin.find_by(user: teacher)).to be
     end
   end
 
@@ -68,6 +69,7 @@ RSpec.describe Demo::CreateAdminReport do
         classroom = Classroom.find_by_name(row['Classroom'])
         teacher = User.find_by_name(row['Teacher'])
         expect(classroom).to be
+        expect(classroom.grade.to_i).to be_between(described_class::GRADE_MIN, described_class::GRADE_MAX)
         expect(classroom.owner).to eq(teacher)
         expect(classroom.students.count).to eq(described_class::NUMBER_OF_STUDENTS_PER_CLASSROOM)
         expect(classroom.activity_sessions.count).to be_between(min, max)
