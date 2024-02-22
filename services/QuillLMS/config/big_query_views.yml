@@ -3,5 +3,5 @@
 default:
   reporting_sessions_view:
     name: 'lms.recent_reporting_sessions_view'
-    create_sql: 'reporting_sessions_view.sql'
+    sql: 'reporting_sessions_view.sql'
     create_options: null
