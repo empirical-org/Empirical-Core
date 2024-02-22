@@ -10,12 +10,12 @@ jobs:
           PG_USER: ubuntu
           RAILS_ENV: test
           RACK_ENV: test
-      - image: postgres:13.7-alpine
+      - image: postgres:15.6-alpine
         environment:
           POSTGRES_DB: quill_test_db
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: password
-      - image: postgres:13.7-alpine
+      - image: postgres:15.6-alpine
         name: test_replica
         environment:
           POSTGRES_DB: quill_test_db
@@ -77,7 +77,7 @@ jobs:
           RACK_ENV: test
           SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub
           DEFAULT_URL: http://localhost:3000
-      - image: postgres:13.7-alpine
+      - image: postgres:15.6-alpine
         environment:
           POSTGRES_DB: quill_test_db
           POSTGRES_USER: ubuntu
@@ -153,12 +153,12 @@ jobs:
           PG_USER: ubuntu
           RAILS_ENV: test
           RACK_ENV: test
-      - image: postgres:13.7-alpine
+      - image: postgres:15.6-alpine
         environment:
           POSTGRES_DB: quill_test_db
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: password
-      - image: postgres:13.7-alpine
+      - image: postgres:15.6-alpine
         name: test_replica
         environment:
           POSTGRES_DB: quill_test_db
@@ -316,7 +316,7 @@ jobs:
           PG_USER: ubuntu
           RAILS_ENV: test
           RACK_ENV: test
-      - image: postgres:13.7-alpine
+      - image: postgres:15.6-alpine
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: quill_evidence_test_db

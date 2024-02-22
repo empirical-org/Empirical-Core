@@ -129,6 +129,11 @@ module PagesHelper
             img: 'team-emilia-friedberg.webp'
           },
           {
+            name: 'Ari Friedman',
+            title: 'Social Studies Curriculum Developer',
+            img: 'team-ari-friedman.webp'
+          },
+          {
             name: 'Peter Kong',
             title: 'Senior Software Engineer II',
             img: 'team-peter-kong.webp'
