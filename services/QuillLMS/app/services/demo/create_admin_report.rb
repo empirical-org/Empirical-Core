@@ -68,9 +68,10 @@ class Demo::CreateAdminReport
 
       # create teacher data
       teacher = find_or_create_teacher_data(row['Teacher'], school, subscription)
+      teacher.record_login # necessary to populate the active teachers count for the usage snapshot report
 
       # create classroom data
-      classroom = Classroom.create(name: row['Classroom'])
+      classroom = Classroom.create(name: row['Classroom'], grade: (5..12).to_a.sample.to_s)
       all_classrooms.push(classroom)
       ClassroomsTeacher.create(classroom: classroom, user: teacher, role: ClassroomsTeacher::ROLE_TYPES[:owner])
       student_names = (1..NUMBER_OF_STUDENTS_PER_CLASSROOM).to_a.map { |i| "#{Faker::Name.first_name} #{Faker::Name.last_name}" }
