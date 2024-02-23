@@ -15,17 +15,46 @@ import {
   getGradedResponsesWithCallback,
   submitResponseEdit,
 } from '../../actions/responses'
-import sentenceFragmentActions from '../../actions/sentenceFragments.ts'
+import sentenceFragmentActions from '../../actions/sentenceFragments'
 import C from '../../constants'
-import { rematchOne } from '../../libs/grading/rematching.ts'
+import { rematchOne } from '../../libs/grading/rematching'
 import { getStatusForResponse } from '../../../Shared/index'
 
 import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx'
 
 import ResponseList from './responseList.jsx'
+import { Question } from '../../libs/grading/rematching'
+
+interface ResponseProps {
+  allExpanded: boolean,
+  ascending: boolean,
+  concepts: Array<Object>,
+  dispatch: Function,
+  expand: Function,
+  expanded: boolean,
+  getChildResponses: Function,
+  getResponse: Function,
+  mode: string,
+  passedMassEdit: Object,
+  passedResponse: Response,
+  question: Question,
+  questionID: string,
+  readOnly: boolean,
+  responses: Array<Object>,
+  state: Object,
+  states: Object,
+}
+
+interface Response {
+  concept_results: Array<Object>,
+  feedback: string,
+  key: string,
+  optimal: boolean,
+  text: string
+}
 
 
-const Response = ({allExpanded, ascending, concepts, expand, expanded, mode, passedResponse, responses, dispatch, getChildResponses, getResponse, passedMassEdit, question, questionID, readOnly, state, states}) => {
+const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded, getChildResponses, getResponse, mode, passedMassEdit, passedResponse, question, questionID, readOnly, responses, state, states}: ResponseProps) => {
   const [response, setResponse] = React.useState(passedResponse)
   const [feedback, setFeedback] = React.useState(passedResponse.feedback || '')
   const [selectedBoilerplate, setSelectedBoilerplate] = React.useState('')
@@ -112,7 +141,7 @@ const Response = ({allExpanded, ascending, concepts, expand, expanded, mode, pas
   };
 
   function rematchResponse() {
-    rematchOne(response, mode, question, questionID, rerenderResponse);
+    rematchOne(response.text, mode, question, questionID, rerenderResponse);
   };
 
   function applyDiff(answer = '', response = '') {
@@ -160,11 +189,6 @@ const Response = ({allExpanded, ascending, concepts, expand, expanded, mode, pas
     } else {
       addResponseToMassEditArray(responseKey);
     }
-  }
-
-  function toggleCheckboxCorrect(key, conceptResults, setConceptResults) {
-    const updatedResults = { ...conceptResults, [key]: !conceptResults[key] };
-    setConceptResults(updatedResults);
   }
 
   function toggleCheckboxCorrect(key) {

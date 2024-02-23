@@ -5,7 +5,7 @@ import { ConceptResult, checkDiagnosticQuestion, checkDiagnosticSentenceFragment
 import { requestGet, requestPost, requestPut, } from '../../../../modules/request/index';
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel.js';
 
-interface Question {
+export interface Question {
   conceptID: string,
   cues: Array<string>,
   flag: string,
