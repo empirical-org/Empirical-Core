@@ -192,7 +192,7 @@ const DiagnosticActivityPacks = ({ classrooms, }) => {
           {classroomElements}
         </div>
       </div>
-      <ArticleSpotlight backgroundColor={GRAY_ARTICLE_FOOTER_BACKGROUND_COLOR} blogPostId={DIAGNOSTICS_FEATURED_BLOG_POST_ID} />
+      <ArticleSpotlight blogPostId={DIAGNOSTICS_FEATURED_BLOG_POST_ID} />
     </React.Fragment>
   )
 }

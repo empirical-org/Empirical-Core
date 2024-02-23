@@ -1,8 +1,8 @@
 .home-footer {
   background-color: #393939;
   padding: 64px 61px;
-  &.white {
-    background-color: $quill-white;
+  &.light-grey {
+    background-color: $quill-grey-1;
     .footer-navigation {
       ul li {
         a,p {
@@ -291,10 +291,10 @@
 }
 
 .white-background-accommodate-footer {
-  padding-bottom: 500px;
+  padding-bottom: 200px;
   background-color: white;
 }
 
 .gray-background-accommodate-footer {
-  padding-bottom: 500px;
+  padding-bottom: 200px;
 }
