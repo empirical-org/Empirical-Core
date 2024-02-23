@@ -94,7 +94,7 @@ const Response = ({allExpanded, ascending, concepts, expand, expanded, mode, pas
       parent_id: null,
       concept_results: Object.keys(conceptResults) && Object.keys(conceptResults).length ? conceptResults : null
     };
-    dispatch(submitResponseEdit(rid, newResp, questionID));
+    dispatch(submitResponseEdit(rid, newResp, questionID, rerenderResponse));
   };
 
   function unmatchResponse(rid) {
@@ -108,7 +108,7 @@ const Response = ({allExpanded, ascending, concepts, expand, expanded, mode, pas
       parent_id: null,
       concept_results: { [defaultConceptUID]: false, },
     }
-    dispatch(submitResponseEdit(rid, newResp, questionID));
+    dispatch(submitResponseEdit(rid, newResp, questionID, rerenderResponse));
   };
 
   function rematchResponse() {
@@ -145,11 +145,11 @@ const Response = ({allExpanded, ascending, concepts, expand, expanded, mode, pas
     }
   };
 
-  function addResponseToMassEditArray(responseKey, dispatch, massEdit) {
+  function addResponseToMassEditArray(responseKey) {
     dispatch(massEdit.addResponseToMassEditArray(responseKey));
   }
 
-  function removeResponseFromMassEditArray(responseKey, dispatch, massEdit) {
+  function removeResponseFromMassEditArray(responseKey) {
     dispatch(massEdit.removeResponseFromMassEditArray(responseKey));
   }
 
@@ -167,6 +167,12 @@ const Response = ({allExpanded, ascending, concepts, expand, expanded, mode, pas
     setConceptResults(updatedResults);
   }
 
+  function toggleCheckboxCorrect(key) {
+    const updatedResults = { ...conceptResults, [key]: !conceptResults[key] };
+    setConceptResults(updatedResults);
+  }
+
+
   function handleConceptChange(e) {
     const concepts = { ...conceptResults };
     if (Object.keys(concepts).length === 0 || !concepts.hasOwnProperty(e.value)) {
@@ -183,6 +189,8 @@ const Response = ({allExpanded, ascending, concepts, expand, expanded, mode, pas
   }
 
   function rerenderResponse(newResponse) {
+    console.log("re rendering");
+    console.log(newResponse);
     setResponse(newResponse)
   }
 
