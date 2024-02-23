@@ -19,6 +19,14 @@ export interface Question {
   modelConceptUID?: string
 }
 
+export interface Response {
+  concept_results: Array<Object>,
+  feedback: string,
+  key: string,
+  optimal: boolean,
+  text: string
+}
+
 interface FocusPoints {
   [key:string]: FocusPoint
 }
@@ -75,7 +83,7 @@ export function rematchAll(mode: string, question: Question, questionID: string,
   });
 }
 
-export function rematchOne(response: string, mode: string, question: Question, questionID: string, callback:Function) {
+export function rematchOne(response: Response, mode: string, question: Question, questionID: string, callback:Function) {
   const matcher = getMatcher(mode);
   getGradedResponses(questionID).then((data) => {
     question.key = questionID

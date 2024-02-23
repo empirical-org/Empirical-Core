@@ -23,7 +23,7 @@ import { getStatusForResponse } from '../../../Shared/index'
 import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx'
 
 import ResponseList from './responseList.jsx'
-import { Question } from '../../libs/grading/rematching'
+import { Question, Response } from '../../libs/grading/rematching'
 
 interface ResponseProps {
   allExpanded: boolean,
@@ -43,14 +43,6 @@ interface ResponseProps {
   responses: Array<Object>,
   state: Object,
   states: Object,
-}
-
-interface Response {
-  concept_results: Array<Object>,
-  feedback: string,
-  key: string,
-  optimal: boolean,
-  text: string
 }
 
 
@@ -141,7 +133,7 @@ const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded,
   };
 
   function rematchResponse() {
-    rematchOne(response.text, mode, question, questionID, rerenderResponse);
+    rematchOne(response, mode, question, questionID, rerenderResponse);
   };
 
   function applyDiff(answer = '', response = '') {
