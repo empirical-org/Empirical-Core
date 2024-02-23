@@ -13,7 +13,7 @@ const KeyMetric = ({ number, label, }) => (
     tooltipText={tooltipCopy}
     tooltipTriggerText={(
       <div className="key-metric">
-        <h4>{addCommasToThousands(number)}</h4>
+        <h4>{number?.toLocaleString()}</h4>
         <span>{label}</span>
       </div>
     )}
