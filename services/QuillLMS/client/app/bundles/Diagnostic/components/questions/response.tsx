@@ -35,7 +35,7 @@ interface ResponseProps {
   getChildResponses: Function,
   getResponse: Function,
   mode: string,
-  passedMassEdit: Object,
+  massEditResponses: Object,
   passedResponse: Response,
   question: Question,
   questionID: string,
@@ -54,7 +54,7 @@ interface Response {
 }
 
 
-const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded, getChildResponses, getResponse, mode, passedMassEdit, passedResponse, question, questionID, readOnly, responses, state, states}: ResponseProps) => {
+const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded, getChildResponses, getResponse, massEditResponses, mode, passedResponse, question, questionID, readOnly, responses, state, states}: ResponseProps) => {
   const [response, setResponse] = React.useState(passedResponse)
   const [feedback, setFeedback] = React.useState(passedResponse.feedback || '')
   const [selectedBoilerplate, setSelectedBoilerplate] = React.useState('')
@@ -183,7 +183,7 @@ const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded,
   }
 
   function onMassSelectCheckboxToggle(responseKey) {
-    const { selectedResponses } = passedMassEdit;
+    const { selectedResponses } = massEditResponses;
     if (selectedResponses.includes(responseKey)) {
       removeResponseFromMassEditArray(responseKey);
     } else {
@@ -378,7 +378,7 @@ const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded,
     const authorStyle = { marginLeft: '10px', };
     const showTag = response.author && (statusCode === 2 || statusCode === 3)
     const author = showTag ? <span className="tag is-dark" style={authorStyle}>{response.author}</span> : undefined;
-    const checked = passedMassEdit.selectedResponses.includes(response.id) ? 'checked' : '';
+    const checked = massEditResponses.selectedResponses.includes(response.id) ? 'checked' : '';
     return (
       <div className={bgColor} style={{ display: 'flex', alignItems: 'center', }}>
         <input checked={checked} onChange={() => onMassSelectCheckboxToggle(response.id)} style={{ marginLeft: '15px', }} type="checkbox" />
