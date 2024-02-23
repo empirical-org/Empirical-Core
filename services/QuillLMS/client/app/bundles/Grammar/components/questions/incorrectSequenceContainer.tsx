@@ -2,6 +2,7 @@ import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
+import { v4 as uuid } from 'uuid';
 
 import { hashToCollection, SortableList, TextEditor } from '../../../Shared/index';
 import * as questionActions from '../../actions/questions';
@@ -12,7 +13,11 @@ class IncorrectSequencesContainer extends React.Component {
     super(props);
 
     const question = this.props.questions.data[this.props.match.params.questionID]
-    this.state = { orderedIds: null, incorrectSequences: question.incorrectSequences }
+    const incorrectSequencesWithUids = question.incorrectSequences.map(is => {
+      is.uid = is.uid || uuid()
+      return is
+    });
+    this.state = { orderedIds: null, incorrectSequences: incorrectSequencesWithUids, }
   }
 
   UNSAFE_componentWillMount() {
@@ -92,6 +97,7 @@ class IncorrectSequencesContainer extends React.Component {
   handleSequenceChange = (e, key) => {
     const { incorrectSequences } = this.state
     const className = `regex-${key}`
+    debugger;
     const value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}`;
     if (value === '') {
       if (!confirm("Deleting this regex will delete the whole incorrect sequence. Are you sure you want that?")) {
@@ -116,7 +122,7 @@ class IncorrectSequencesContainer extends React.Component {
     const { orderedIds, incorrectSequences } = this.state
     if (orderedIds) {
       const sequencesCollection = hashToCollection(incorrectSequences)
-      return orderedIds.map(id => sequencesCollection.find(s => s.text === id))
+      return orderedIds.map(id => sequencesCollection.find(s => s.uid === id))
     } else {
       return hashToCollection(incorrectSequences).sort((a, b) => a.order - b.order);
     }
@@ -160,7 +166,7 @@ class IncorrectSequencesContainer extends React.Component {
     const components = this.sequencesSortedByOrder().map((seq) => {
       const onClickDelete = () => { this.handleDeleteSequence(seq.key) }
       return (
-        <div className="card is-fullwidth has-bottom-margin" id={seq.text} key={seq.text}>
+        <div className="card is-fullwidth has-bottom-margin" id={seq.uid} key={seq.uid}>
           <header className="card-header">
             <input className="regex-name" onChange={(e) => this.handleNameChange(e, seq.key)} placeholder="Name" type="text" value={seq.name || ''} />
           </header>

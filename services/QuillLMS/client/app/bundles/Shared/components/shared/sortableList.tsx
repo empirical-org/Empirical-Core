@@ -5,6 +5,7 @@ import { SortableContext, sortableKeyboardCoordinates, useSortable, verticalList
 import { CSS } from '@dnd-kit/utilities';
 
 import { DragHandleProvider, } from '../../hooks/useDragHandle'
+import { INPUT, TEXTAREA, BUTTON, SELECT, } from '../../utils/tagNames'
 
 const dropAnimationConfig: DropAnimation = {
   sideEffects: defaultDropAnimationSideEffects({
@@ -60,6 +61,28 @@ interface SortableListProps {
   useDragHandle?: boolean,
 }
 
+export class KeyboardSensorThatHandlesElementType extends KeyboardSensor {
+  static activators = [
+    {
+      eventName: 'onKeyDown' as const,
+      handler: ({ nativeEvent: event }: React.KeyboardEvent<Element>) => {
+        return shouldHandleKeyboardEvent(event)
+      }
+    }
+  ]
+}
+
+function shouldHandleKeyboardEvent(event) {
+  const activeElement = document.activeElement;
+  const tagNames = [INPUT, SELECT, TEXTAREA, BUTTON];
+  // Prevent keyboard sensor activation if focused on input, select, textarea, or button
+  if (activeElement && (tagNames.includes(activeElement.tagName) || activeElement.attributes['contenteditable'].value === 'true')) {
+    return false;
+  }
+  return true; // Return true to allow activation in other cases
+}
+
+
 export const SortableList = ({ data, sortCallback, helperClass, useDragHandle, }: SortableListProps) => {
   const [activeId, setActiveId] = React.useState(null)
 
@@ -69,7 +92,7 @@ export const SortableList = ({ data, sortCallback, helperClass, useDragHandle, }
         distance: 8,
       },
     }),
-    useSensor(KeyboardSensor, {
+    useSensor(KeyboardSensorThatHandlesElementType, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   );

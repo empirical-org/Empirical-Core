@@ -2,6 +2,7 @@ import { ContentState, EditorState } from 'draft-js';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
+import { v4 as uuid } from 'uuid';
 
 import { hashToCollection, SortableList, TextEditor } from '../../../Shared/index';
 import questionActions from '../../actions/questions';
@@ -41,13 +42,16 @@ class IncorrectSequencesContainer extends Component {
     const question = this.props[this.state.questionType].data[this.props.match.params.questionID]
     const incorrectSequences = this.getSequences(question)
 
-    if (previousState.incorrectSequences === incorrectSequences) return;
+    if (_.isEqual(previousState.incorrectSequences, incorrectSequences)) return;
 
-    this.setState({ incorrectSequences, });
+    this.setState({ incorrectSequences, orderedIds: null, });
   }
 
   getSequences(question) {
-    return question.incorrectSequences;
+    return question.incorrectSequences.map(is => {
+      is.uid = is.uid || uuid()
+      return is
+    });
   }
 
   deleteSequence = sequenceID => {
@@ -143,7 +147,7 @@ class IncorrectSequencesContainer extends Component {
     const { orderedIds, incorrectSequences } = this.state
     if (orderedIds) {
       const sequencesCollection = hashToCollection(incorrectSequences)
-      return orderedIds.map(id => sequencesCollection.find(s => s.text === id))
+      return orderedIds.map(id => sequencesCollection.find(s => s.uid === id))
     } else {
       return hashToCollection(incorrectSequences).sort((a, b) => a.order - b.order);
     }
@@ -185,7 +189,7 @@ class IncorrectSequencesContainer extends Component {
     const path = url.includes('sentence-fragments') ? 'sentence-fragments' : 'questions'
     const components = this.sequencesSortedByOrder().map((seq) => {
       return (
-        <div className="card is-fullwidth has-bottom-margin" id={seq.text} key={seq.text}>
+        <div className="card is-fullwidth has-bottom-margin" id={seq.uid} key={seq.uid}>
           <header className="card-header">
             <input className="regex-name" onChange={(e) => this.handleNameChange(e, seq.key)} placeholder="Name" type="text" value={seq.name || ''} />
           </header>

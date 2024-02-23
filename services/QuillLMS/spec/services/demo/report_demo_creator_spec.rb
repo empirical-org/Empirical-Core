@@ -197,6 +197,7 @@ RSpec.describe Demo::ReportDemoCreator do
         expect(activity_session.state).to eq('finished')
 
         expect(activity_session.percentage).to eq(session_clone.percentage)
+        expect(activity_session.timespent).to eq(session_clone.timespent || Demo::ReportDemoCreator::DEFAULT_TIMESPENT)
         expect(activity_session.concept_results.first.extra_metadata.keys).to match_array ['question_uid', 'question_concept_uid']
         # Taken from actual concept_result
         expect(activity_session.concept_results.first.answer).to eq('Traveling is easier with a guide than without one.')
