@@ -97,6 +97,13 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   })
 
   React.useEffect(() => {
+    const { activeStep } = session;
+    if (Object.keys(session.submittedResponses).length && getStrippedPassageHighlights({ activities, session, activeStep })) {
+      scrollToHighlight()
+    }
+  }, [session.submittedResponses])
+
+  React.useEffect(() => {
     if(hasStartedReadPassageStep || session.previewSessionStep === READ_AND_HIGHLIGHT) {
       const el = document.getElementById('end-of-passage')
       const observer = new IntersectionObserver(([entry]) => { entry.isIntersecting ? setScrolledToEndOfPassage(entry.isIntersecting) : null; });
@@ -581,7 +588,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   function submitResponseCallback() {
     callSaveActiveActivitySession()
-    scrollToHighlight()
   }
 
   function scrollToStepOnMobile(ref: string) {
