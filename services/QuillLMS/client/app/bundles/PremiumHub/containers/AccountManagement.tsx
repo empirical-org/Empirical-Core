@@ -93,7 +93,7 @@ export const AccountManagement: React.SFC<AccountManagementProps> = ({
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, cluster: process.env.PUSHER_CLUSTER });
+    const pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
     const channel = pusher.subscribe(String(adminId));
     channel.bind('admin-users-found', () => {
       getData(skipLoading)
@@ -292,7 +292,7 @@ export const AccountManagement: React.SFC<AccountManagementProps> = ({
   }
 
 
-  const schoolOptions = model.schools.map(school => ({ value: school.id, label: school.name}))
+  const schoolOptions = model.schools.map(school => ({ value: school.id, label: school.name }))
 
   const filteredData = model.teachers.filter((d: { school: string }) => d.schools.find(s => s.id === selectedSchoolId)).map(user => {
     const relevantSchool = user.schools.find(s => s.id === selectedSchoolId)
