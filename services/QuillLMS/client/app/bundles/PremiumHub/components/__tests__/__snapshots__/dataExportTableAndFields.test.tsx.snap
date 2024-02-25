@@ -27,19 +27,23 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
         </span>
       </a>
     </h1>
-    <button
-      className="quill-button download-report-button contained primary medium focus-on-light"
-      onClick={[Function]}
-      type="button"
+    <div
+      className="header-buttons"
     >
-      <img
-        alt="White arrow pointing down icon"
-        src="undefined/images/icons/downward-arrow-icon-white.svg"
-      />
-      <span>
-        Download
-      </span>
-    </button>
+      <button
+        className="quill-button download-report-button contained primary medium focus-on-light"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt="White arrow pointing down icon"
+          src="undefined/images/icons/downward-arrow-icon-white.svg"
+        />
+        <span>
+          Download
+        </span>
+      </button>
+    </div>
   </div>
   <div
     className="filter-button-container"
