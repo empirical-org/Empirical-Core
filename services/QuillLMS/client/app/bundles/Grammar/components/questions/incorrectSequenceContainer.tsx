@@ -13,11 +13,7 @@ class IncorrectSequencesContainer extends React.Component {
     super(props);
 
     const question = this.props.questions.data[this.props.match.params.questionID]
-    const incorrectSequencesWithUids = question.incorrectSequences.map(is => {
-      is.uid = is.uid || uuid()
-      return is
-    });
-    this.state = { orderedIds: null, incorrectSequences: incorrectSequencesWithUids, }
+    this.state = { orderedIds: null, incorrectSequences: question.incorrectSequences, }
   }
 
   UNSAFE_componentWillMount() {
@@ -122,7 +118,7 @@ class IncorrectSequencesContainer extends React.Component {
     const { orderedIds, incorrectSequences } = this.state
     if (orderedIds) {
       const sequencesCollection = hashToCollection(incorrectSequences)
-      return orderedIds.map(id => sequencesCollection.find(s => s.uid === id))
+      return orderedIds.map(id => sequencesCollection.find(s => s.key === id))
     } else {
       return hashToCollection(incorrectSequences).sort((a, b) => a.order - b.order);
     }
@@ -166,7 +162,7 @@ class IncorrectSequencesContainer extends React.Component {
     const components = this.sequencesSortedByOrder().map((seq) => {
       const onClickDelete = () => { this.handleDeleteSequence(seq.key) }
       return (
-        <div className="card is-fullwidth has-bottom-margin" id={seq.uid} key={seq.uid}>
+        <div className="card is-fullwidth has-bottom-margin" id={seq.key} key={seq.key}>
           <header className="card-header">
             <input className="regex-name" onChange={(e) => this.handleNameChange(e, seq.key)} placeholder="Name" type="text" value={seq.name || ''} />
           </header>
