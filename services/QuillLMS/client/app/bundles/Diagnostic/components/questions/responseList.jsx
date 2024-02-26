@@ -11,7 +11,6 @@ const ResponseList = ({updateResponse, selectedFocusPoints, selectedIncorrectSeq
   const [responses, setResponses] = React.useState(passedResponses);
 
   React.useEffect(() => {
-    console.log("got new props")
     setResponses(passedResponses)
   }, [passedResponses])
 
@@ -74,8 +73,6 @@ const ResponseList = ({updateResponse, selectedFocusPoints, selectedIncorrectSeq
     return string.length && isValidRegex(string)
   }
 
-  console.log("all responses");
-  console.log(responses);
   const responseListItems = responses.map((resp) => {
     if (resp && resp.statusCode !== 1 && resp.statusCode !== 0 && selectedIncorrectSequences) {
       const incorrectSequences = selectedIncorrectSequences.filter(isValidAndNotEmptyRegex)

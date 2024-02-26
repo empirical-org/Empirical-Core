@@ -7,7 +7,6 @@ import {
   ResponseSortFields,
   ResponseToggleFields,
   hashToCollection,
-  responsesWithStatus,
 } from '../../../Shared/index';
 import * as filterActions from '../../actions/filters';
 import massEdit from '../../actions/massEdit';
@@ -84,12 +83,8 @@ class ResponseComponent extends React.Component {
   }
 
   updateResponse = (id, response) => {
-    console.log("old order")
-    console.log(this.state.responses)
     const newResponses = this.state.responses
     newResponses[id] = response
-    console.log("new order")
-    console.log(newResponses)
     this.setState({responses:  newResponses})
   };
 
@@ -222,7 +217,7 @@ class ResponseComponent extends React.Component {
   };
 
   getChildResponses = responseID => {
-    const responses = this.props.responses;
+    const responses = this.state.responses;
     return _.where(responses, { parentID: responseID, });
   };
 
@@ -240,7 +235,6 @@ class ResponseComponent extends React.Component {
     if (this.state.viewingResponses) {
       const { responses } = this.state;
       const { questionID, selectedIncorrectSequences, selectedFocusPoints } = this.props;
-      const responsesSorted = hashToCollection(responses);
       return (
         <ResponseList
           admin={this.props.admin}
@@ -258,7 +252,7 @@ class ResponseComponent extends React.Component {
           mode={this.props.mode}
           question={this.props.question}
           questionID={questionID}
-          passedResponses={responsesSorted}
+          passedResponses={responses}
           selectedFocusPoints={selectedFocusPoints}
           selectedIncorrectSequences={selectedIncorrectSequences}
           states={this.props.states}

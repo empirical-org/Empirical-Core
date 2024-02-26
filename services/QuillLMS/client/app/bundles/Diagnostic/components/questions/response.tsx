@@ -206,9 +206,6 @@ const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded,
   }
 
   function rerenderResponse(newResponse) {
-    console.log("re rendering");
-    console.log(newResponse.id)
-    console.log(newResponse)
     updateParentResponse(newResponse.id, newResponse);
   }
 
