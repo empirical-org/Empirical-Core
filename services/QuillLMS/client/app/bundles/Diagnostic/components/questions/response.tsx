@@ -22,7 +22,7 @@ import { getStatusForResponse } from '../../../Shared/index'
 
 import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx'
 
-import ResponseList from './responseList.jsx'
+import ResponseList from './responseList'
 import { Question, Response } from '../../libs/grading/rematching'
 
 interface ResponseProps {
