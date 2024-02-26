@@ -1,7 +1,9 @@
 import {Response, IncorrectSequence, FocusPoint} from '../../interfaces'
-
 import {conceptResultTemplate} from '../helpers/concept_result_template'
+
 import {exactMatch} from '../matchers/exact_match';
+import {focusPointChecker} from '../matchers/focus_point_match';
+import {incorrectSequenceChecker} from '../matchers/incorrect_sequence_match';
 
 export function checkDiagnosticQuestion(
   question_uid: string,
@@ -23,26 +25,38 @@ export function checkDiagnosticQuestion(
     question_uid,
     count: 1,
     gradeIndex: `nonhuman${question_uid}`,
-    concept_results: defaultConceptUID ? [conceptResultTemplate(defaultConceptUID)] : [],
-    author: null,
+    concept_results: defaultConceptUID ? [conceptResultTemplate(defaultConceptUID)] : []
   };
 
-  const firstPass = checkForMatches(data)
+  const firstPass = checkForMatches(data, firstPassMatchers)
   if (firstPass) {
     const newResponse = Object.assign(responseTemplate, firstPass)
-    if (!newResponse.optimal) {
-      newResponse.concept_results = defaultConceptUID ? [conceptResultTemplate(defaultConceptUID)] : []
-    }
     return newResponse
   }
+
   responseTemplate.gradeIndex = `unmarked${question_uid}`
-  responseTemplate.author = "Incorrect"
   return responseTemplate
 }
 
-function checkForMatches(data) {
-  const {response, responses} = data;
+function* firstPassMatchers(data) {
+  const {response, responses, focusPoints, incorrectSequences} = data;
   const submission = response
+  yield exactMatch(submission, responses)
+  yield focusPointChecker(submission, focusPoints, responses);
+  yield incorrectSequenceChecker(submission, incorrectSequences, responses);
+}
 
-  return exactMatch(submission, responses)
+function checkForMatches(data, matchingFunction: Function) {
+  const gen = matchingFunction(data)
+  let next = gen.next();
+  while (true) {
+    if (next.value || next.done) {
+      break
+    }
+    next = gen.next()
+  }
+  if (next.value) {
+    return next.value
+  }
+
 }
