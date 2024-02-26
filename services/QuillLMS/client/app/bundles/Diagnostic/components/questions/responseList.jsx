@@ -1,104 +1,118 @@
 import { focusPointMatchHelper, incorrectSequenceMatchHelper } from "quill-marking-logic"
 import * as React from 'react'
+import _ from 'underscore'
+
 import { AffectedResponse, isValidRegex } from '../../../Shared/index'
 
 import massEdit from '../../actions/massEdit'
 import Response from './response'
 
-export default class ResponseList extends React.Component {
-  allResponsesChecked = () => {
-    return !this.props.responses.some((r) => {
+const ResponseList = ({updateResponse, selectedFocusPoints, selectedIncorrectSequences, passedResponses, massEdit, dispatch, expanded, conceptID, concepts, conceptsFeedback, expand, getChildResponses, getMatchingResponse, getResponse, mode, question, questionID, admin, states}) => {
+  const [responses, setResponses] = React.useState(passedResponses);
+
+  React.useEffect(() => {
+    console.log("got new props")
+    setResponses(passedResponses)
+  }, [passedResponses])
+
+  function allResponsesChecked() {
+    return !responses.some((r) => {
       return !(
-        this.props.massEdit.selectedResponses.includes(r.key) ||
-        this.props.massEdit.selectedResponses.includes(r.id)
+        massEdit.selectedResponses.includes(r.key) ||
+        massEdit.selectedResponses.includes(r.id)
       )
     })
   };
 
-  addAllResponsesToMassEdit = () => {
-    const keys = this.props.responses.map(r => r.id)
-    this.props.dispatch(massEdit.addResponsesToMassEditArray(keys))
+  function addAllResponsesToMassEdit() {
+    const keys = responses.map(r => r.id)
+    dispatch(massEdit.addResponsesToMassEditArray(keys))
   };
 
-  removeAllResponsesFromMassEdit = () => {
-    const keys = this.props.responses.map(r => r.id)
-    this.props.dispatch(massEdit.removeResponsesFromMassEditArray(keys))
+  function removeAllResponsesFromMassEdit() {
+    const keys = responses.map(r => r.id)
+    dispatch(massEdit.removeResponsesFromMassEditArray(keys))
   };
 
-  addOrRemoveAllResponsesFromMassEdit = () => {
-    if (this.allResponsesChecked()) {
-      this.removeAllResponsesFromMassEdit()
+  function addOrRemoveAllResponsesFromMassEdit() {
+    if (allResponsesChecked()) {
+      removeAllResponsesFromMassEdit()
     } else {
-      this.addAllResponsesToMassEdit()
+      addAllResponsesToMassEdit()
     }
   };
 
-  renderResponse(resp) {
+  function renderResponse(resp) {
     return (
       <Response
-        allExpanded={this.props.expanded}
-        conceptID={this.props.conceptID}
-        concepts={this.props.concepts}
-        conceptsFeedback={this.props.conceptsFeedback}
-        dispatch={this.props.dispatch}
-        expand={this.props.expand}
-        expanded={this.props.expanded[resp.key]}
-        getChildResponses={this.props.getChildResponses}
-        getMatchingResponse={this.props.getMatchingResponse}
-        getResponse={this.props.getResponse}
+        allExpanded={expanded}
+        conceptID={conceptID}
+        concepts={concepts}
+        conceptsFeedback={conceptsFeedback}
+        dispatch={dispatch}
+        expand={expand}
+        expanded={expanded[resp.key]}
+        getChildResponses={getChildResponses}
+        getMatchingResponse={getMatchingResponse}
+        getResponse={getResponse}
         key={resp.key}
-        massEditResponses={this.props.massEdit}
-        mode={this.props.mode}
+        massEditResponses={massEdit}
+        mode={mode}
         passedResponse={resp}
-        question={this.props.question}
-        questionID={this.props.questionID}
-        readOnly={this.props.admin}
-        responses={this.props.responses}
-        state={this.props.states[this.props.questionID]}
-        states={this.props.states}
+        question={question}
+        questionID={questionID}
+        readOnly={admin}
+        responses={responses}
+        state={states[questionID]}
+        states={states}
+        updateParentResponse={(id, response) => updateResponse(id, response)}
       />
     )
   }
 
-  isValidAndNotEmptyRegex = (string) => {
+  function isValidAndNotEmptyRegex(string) {
     return string.length && isValidRegex(string)
   }
 
-  render() {
-    const responseListItems = this.props.responses.map((resp) => {
-      if (resp && resp.statusCode !== 1 && resp.statusCode !== 0 && this.props.selectedIncorrectSequences) {
-        const incorrectSequences = this.props.selectedIncorrectSequences.filter(this.isValidAndNotEmptyRegex)
-        const anyMatches = incorrectSequences.some(inSeq => incorrectSequenceMatchHelper(resp.text, inSeq))
-        if (anyMatches) {
-          return <AffectedResponse key={resp.key}>{this.renderResponse(resp)}</AffectedResponse>
-        }
+  console.log("all responses");
+  console.log(responses);
+  const responseListItems = responses.map((resp) => {
+    if (resp && resp.statusCode !== 1 && resp.statusCode !== 0 && selectedIncorrectSequences) {
+      const incorrectSequences = selectedIncorrectSequences.filter(isValidAndNotEmptyRegex)
+      const anyMatches = incorrectSequences.some(inSeq => incorrectSequenceMatchHelper(resp.text, inSeq))
+      if (anyMatches) {
+        return <AffectedResponse key={resp.key}>{renderResponse(resp)}</AffectedResponse>
       }
-      if (resp && this.props.selectedFocusPoints) {
-        const focusPoints = this.props.selectedFocusPoints.filter(this.isValidAndNotEmptyRegex)
-        const noMatchedFocusPoints = focusPoints.every(fp => !focusPointMatchHelper(resp.text, fp))
-        if (noMatchedFocusPoints) {
-          return <AffectedResponse key={resp.key}>{this.renderResponse(resp)}</AffectedResponse>
-        }
+    }
+    if (resp && selectedFocusPoints) {
+      const focusPoints = selectedFocusPoints.filter(isValidAndNotEmptyRegex)
+      const noMatchedFocusPoints = focusPoints.every(fp => !focusPointMatchHelper(resp.text, fp))
+      if (noMatchedFocusPoints) {
+        return <AffectedResponse key={resp.key}>{renderResponse(resp)}</AffectedResponse>
       }
+    }
 
-      return (this.renderResponse(resp))
-    });
+    return renderResponse(resp)
+  });
 
-    return (
-      <div style={{ marginTop: '20px', }}>
-        <span style={{ paddingLeft: '15px', }}>
-          <input
-            checked={this.allResponsesChecked()}
-            onChange={this.addOrRemoveAllResponsesFromMassEdit}
-            style={{ marginRight: '14px', }}
-            type="checkbox"
-          />
-          Check All Responses On Page
-        </span>
-        <div>
-          {responseListItems}
-        </div>
+
+
+  return (
+    <div style={{ marginTop: '20px', }}>
+      <span style={{ paddingLeft: '15px', }}>
+        <input
+          checked={allResponsesChecked()}
+          onChange={addOrRemoveAllResponsesFromMassEdit}
+          style={{ marginRight: '14px', }}
+          type="checkbox"
+        />
+        Check All Responses On Page
+      </span>
+      <div>
+        {responseListItems}
       </div>
-    );
-  }
+    </div>
+  );
 }
+
+export default ResponseList

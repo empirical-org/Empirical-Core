@@ -56,6 +56,7 @@ class ResponseComponent extends React.Component {
       health: {},
       gradeBreakdown: {},
       enableRematchAllButton: true,
+      responses: this.props.filters.responses
     };
   }
 
@@ -72,6 +73,8 @@ class ResponseComponent extends React.Component {
     } else if (this.props.states[this.props.questionID] === C.SHOULD_RELOAD_RESPONSES && prevProps.states[prevProps.questionID] !== C.SHOULD_RELOAD_RESPONSES) {
       this.props.dispatch(questionActions.clearQuestionState(this.props.questionID));
       this.searchResponses();
+    } else if (!_.isEqual(this.props.filters.responses, prevProps.filters.responses)) {
+      this.setState({responses: this.props.filters.responses})
     }
   }
 
@@ -79,6 +82,16 @@ class ResponseComponent extends React.Component {
     this.props.dispatch(questionActions.removeSubscription(this.props.questionID));
     this.clearResponses();
   }
+
+  updateResponse = (id, response) => {
+    console.log("old order")
+    console.log(this.state.responses)
+    const newResponses = this.state.responses
+    newResponses[id] = response
+    console.log("new order")
+    console.log(newResponses)
+    this.setState({responses:  newResponses})
+  };
 
   getHealth = () => {
     requestGet(
@@ -154,7 +167,7 @@ class ResponseComponent extends React.Component {
   };
 
   rematchResponse = rid => {
-    const response = this.props.filters.responses[rid];
+    const response = this.state.responses[rid];
     const callback = this.searchResponses;
     rematchOne(response, this.props.mode, this.props.question, this.props.questionID, callback);
   };
@@ -175,10 +188,6 @@ class ResponseComponent extends React.Component {
     //   console.log('Rematching: ', resp.key, percentage, '% complete');
     //   this.rematchResponse(resp.key);
     // });
-  };
-
-  responsesWithStatus = () => {
-    return hashToCollection(responsesWithStatus(this.props.filters.responses));
   };
 
   responsesGroupedByStatus = () => {
@@ -209,11 +218,11 @@ class ResponseComponent extends React.Component {
   };
 
   getResponse = responseID => {
-    return this.props.filters.responses[responseID];
+    return this.state.responses[responseID];
   };
 
   getChildResponses = responseID => {
-    const responses = hashToCollection(this.props.responses);
+    const responses = this.props.responses;
     return _.where(responses, { parentID: responseID, });
   };
 
@@ -229,9 +238,9 @@ class ResponseComponent extends React.Component {
 
   renderResponses = () => {
     if (this.state.viewingResponses) {
+      const { responses } = this.state;
       const { questionID, selectedIncorrectSequences, selectedFocusPoints } = this.props;
-      const responsesWStatus = this.responsesWithStatus();
-      const responses = _.sortBy(responsesWStatus, 'sortOrder');
+      const responsesSorted = hashToCollection(responses);
       return (
         <ResponseList
           admin={this.props.admin}
@@ -249,10 +258,11 @@ class ResponseComponent extends React.Component {
           mode={this.props.mode}
           question={this.props.question}
           questionID={questionID}
-          responses={responses}
+          passedResponses={responsesSorted}
           selectedFocusPoints={selectedFocusPoints}
           selectedIncorrectSequences={selectedIncorrectSequences}
           states={this.props.states}
+          updateResponse={this.updateResponse}
         />
       );
     }
