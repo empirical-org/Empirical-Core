@@ -47,7 +47,10 @@ export function studentwiseAggregateUDF(scores, conceptNames, activityIds, compl
 
   if ((canonicalPreTestIdx  == -1) ||
       (canonicalPostTestIdx == -1)) {
-    return defaultReturnValue
+    return {
+      ...defaultReturnValue,
+      ...{ errorMessage: `Bad index(es): canonicalPreTestIdx: ${canonicalPreTestIdx} canonicalPostTestIdx: ${canonicalPostTestIdx}` }
+    }
   }
 
   const canonicalPreTest = zipped[canonicalPreTestIdx]
@@ -56,13 +59,16 @@ export function studentwiseAggregateUDF(scores, conceptNames, activityIds, compl
   if ((!canonicalPreTest?.completedAt) ||
       (!canonicalPostTest?.completedAt) ||
       (canonicalPreTest.completedAt >= canonicalPostTest.completedAt)) {
-    return defaultReturnValue
+    return {
+      ...defaultReturnValue,
+      ...{ errorMessage: `Nonexistent or incorrect sequencing: canonicalPreTest?.completedAt: ${canonicalPreTest?.completedAt} canonicalPostTest?.completedAt: ${canonicalPostTest?.completedAt}`}
+    }
   }
 
   const numAssignedRecommendedCompleted = zipped.slice(canonicalPreTestIdx, canonicalPostTestIdx).length - 1
 
   const skillScoreAssoc = conceptAllowList.reduce(
-    (accum, currentValue) => ({[currentValue]: zipped.find(elem => elem.conceptName == currentValue).score}),
+    (accum, currentValue) => ({[currentValue]: zipped.find(elem => elem.conceptName == currentValue)?.score}),
     {}
   )
 
