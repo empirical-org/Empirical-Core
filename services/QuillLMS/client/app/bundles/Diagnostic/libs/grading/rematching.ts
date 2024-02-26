@@ -20,10 +20,12 @@ export interface Question {
 }
 
 export interface Response {
+  id: number,
   concept_results: Array<Object>,
   feedback: string,
   key: string,
   optimal: boolean,
+  statusCode: number,
   text: string
 }
 
@@ -31,13 +33,14 @@ interface FocusPoints {
   [key:string]: FocusPoint
 }
 
-interface FocusPoint {
+export interface FocusPoint {
   feedback: string,
   text: string,
   order?: string
 }
 
-interface IncorrectSequence {
+export interface IncorrectSequence {
+  caseInsensitive: boolean,
   conceptResults: ConceptResults,
   feedback: string,
   text: string

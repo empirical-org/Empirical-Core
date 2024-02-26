@@ -43,7 +43,7 @@ interface ResponseProps {
   responses: Array<Response>,
   state: Object,
   states: Object,
-  updateResponse: Function,
+  updateParentResponse: Function,
 }
 
 

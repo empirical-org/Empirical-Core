@@ -217,7 +217,7 @@ class ResponseComponent extends React.Component {
   };
 
   getChildResponses = responseID => {
-    const responses = this.state.responses;
+    const responses = hashToCollection(this.props.responses);
     return _.where(responses, { parentID: responseID, });
   };
 
@@ -239,20 +239,16 @@ class ResponseComponent extends React.Component {
         <ResponseList
           admin={this.props.admin}
           ascending={this.props.filters.ascending}
-          conceptID={this.props.question.conceptID}
           concepts={this.props.concepts}
-          conceptsFeedback={this.props.conceptsFeedback}
           dispatch={this.props.dispatch}
           expand={this.expand}
           expanded={this.props.filters.expanded}
           getChildResponses={this.getChildResponses}
-          getMatchingResponse={this.rematchResponse}
           getResponse={this.getResponse}
-          massEdit={this.props.massEdit}
           mode={this.props.mode}
           question={this.props.question}
           questionID={questionID}
-          passedResponses={responses}
+          responses={hashToCollection(responses)}
           selectedFocusPoints={selectedFocusPoints}
           selectedIncorrectSequences={selectedIncorrectSequences}
           states={this.props.states}

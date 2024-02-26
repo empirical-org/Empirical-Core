@@ -2,17 +2,33 @@ import { focusPointMatchHelper, incorrectSequenceMatchHelper } from "quill-marki
 import * as React from 'react'
 import _ from 'underscore'
 
-import { AffectedResponse, isValidRegex } from '../../../Shared/index'
-
-import massEdit from '../../actions/massEdit'
 import Response from './response'
 
-const ResponseList = ({updateResponse, selectedFocusPoints, selectedIncorrectSequences, passedResponses, massEdit, dispatch, expanded, conceptID, concepts, conceptsFeedback, expand, getChildResponses, getMatchingResponse, getResponse, mode, question, questionID, admin, states}) => {
-  const [responses, setResponses] = React.useState(passedResponses);
+import { AffectedResponse, isValidRegex } from '../../../Shared/index'
+import massEdit from '../../actions/massEdit'
+import { Question, FocusPoint, IncorrectSequence } from '../../libs/grading/rematching'
 
-  React.useEffect(() => {
-    setResponses(passedResponses)
-  }, [passedResponses])
+interface ResponseListProps {
+  admin: boolean,
+  ascending: boolean,
+  concepts: Array<Object>,
+  dispatch: Function,
+  expand: Function,
+  expanded: boolean,
+  getChildResponses: Function,
+  getResponse: Function,
+  mode: string,
+  question: Question,
+  questionID: string,
+  responses: Array<Response>,
+  selectedFocusPoints: Array<FocusPoint>,
+  selectedIncorrectSequences: Array<IncorrectSequence>,
+  states: Object,
+  updateResponse: Function,
+}
+
+
+const ResponseList = ({admin, ascending, concepts, dispatch, expand, expanded, getChildResponses, getResponse, mode, question, questionID, responses, selectedFocusPoints, selectedIncorrectSequences, states, updateResponse }: ResponseListProps) => {
 
   function allResponsesChecked() {
     return !responses.some((r) => {
@@ -45,14 +61,12 @@ const ResponseList = ({updateResponse, selectedFocusPoints, selectedIncorrectSeq
     return (
       <Response
         allExpanded={expanded}
-        conceptID={conceptID}
+        ascending={ascending}
         concepts={concepts}
-        conceptsFeedback={conceptsFeedback}
         dispatch={dispatch}
         expand={expand}
         expanded={expanded[resp.key]}
         getChildResponses={getChildResponses}
-        getMatchingResponse={getMatchingResponse}
         getResponse={getResponse}
         key={resp.key}
         massEditResponses={massEdit}
@@ -76,14 +90,14 @@ const ResponseList = ({updateResponse, selectedFocusPoints, selectedIncorrectSeq
   const responseListItems = responses.map((resp) => {
     if (resp && resp.statusCode !== 1 && resp.statusCode !== 0 && selectedIncorrectSequences) {
       const incorrectSequences = selectedIncorrectSequences.filter(isValidAndNotEmptyRegex)
-      const anyMatches = incorrectSequences.some(inSeq => incorrectSequenceMatchHelper(resp.text, inSeq))
+      const anyMatches = incorrectSequences.some(inSeq => incorrectSequenceMatchHelper(resp.text, inSeq.text, inSeq.caseInsensitive))
       if (anyMatches) {
         return <AffectedResponse key={resp.key}>{renderResponse(resp)}</AffectedResponse>
       }
     }
     if (resp && selectedFocusPoints) {
       const focusPoints = selectedFocusPoints.filter(isValidAndNotEmptyRegex)
-      const noMatchedFocusPoints = focusPoints.every(fp => !focusPointMatchHelper(resp.text, fp))
+      const noMatchedFocusPoints = focusPoints.every(fp => !focusPointMatchHelper(resp.text, fp.text))
       if (noMatchedFocusPoints) {
         return <AffectedResponse key={resp.key}>{renderResponse(resp)}</AffectedResponse>
       }
