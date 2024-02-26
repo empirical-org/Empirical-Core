@@ -62,13 +62,20 @@ export const AccountManagement: React.SFC<AccountManagementProps> = ({
   const [showModal, setShowModal] = React.useState(null)
   const [error, setError] = React.useState('')
   const [selectedSchoolId, setSelectedSchoolId] = React.useState(null)
+  const selectedSchoolIdRef = React.useRef(selectedSchoolId);
 
-  React.useEffect(getData, [])
+  React.useEffect(() => {
+    initializePusher(false)
+    getData()
+  }, [])
+
+  React.useEffect(() => {
+    selectedSchoolIdRef.current = selectedSchoolId;
+  }, [selectedSchoolId]);
 
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   function getData(skipLoading = false) {
-    initializePusher(skipLoading);
     requestGet(
       `${process.env.DEFAULT_URL}/admins/${adminId}`,
       (body) => {
@@ -80,8 +87,10 @@ export const AccountManagement: React.SFC<AccountManagementProps> = ({
   function receiveData(data, skipLoading) {
     if (Object.keys(data).length > 1) {
       setModel(data)
-      const defaultSchool = data.schools.find(s => s.id === data.associated_school?.id) || data.schools[0]
-      setSelectedSchoolId(defaultSchool?.id)
+      if (!selectedSchoolIdRef.current) {
+        const defaultSchool = data.schools.find(s => s.id === data.associated_school?.id) || data.schools[0]
+        setSelectedSchoolId(defaultSchool?.id)
+      }
       setLoading(false)
     } else if (!skipLoading) {
       setModel(data)
@@ -131,7 +140,6 @@ export const AccountManagement: React.SFC<AccountManagementProps> = ({
 
   function handleUserAction(link, data) {
     setError('')
-    initializePusher(true)
     requestPost(
       link,
       data,

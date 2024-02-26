@@ -4,24 +4,40 @@ class Demo::CreateAdminReport
 
   NUMBER_OF_CLASSROOMS_TO_DESTROY_SESSIONS_FOR = 20
   RANGE_OF_NUMBER_OF_SESSIONS_TO_DESTROY = 14..28 # 10-20% of 140
+  BATCH_DELAY = 1.minute
+  NUMBER_OF_STUDENTS_PER_CLASSROOM = 25
 
-  attr_reader :teacher_email
+  GRADE_MIN = 5
+  GRADE_MAX = 12
 
-  def initialize(teacher_email, passed_data=nil)
+  GRADES = (GRADE_MIN..GRADE_MAX).to_a
+
+  OWNER_ROLE = ClassroomsTeacher::ROLE_TYPES[:owner]
+
+  attr_reader :data, :delay, :teacher_email
+
+  def initialize(teacher_email, passed_data=nil, delay=BATCH_DELAY)
     @teacher_email = teacher_email
-    @passed_data = passed_data
+    @data = passed_data || Demo::SessionData.new.admin_demo_data
+    @delay = delay
   end
 
   def call
     create_demo
   end
 
-  def data
-    @data ||= @passed_data || Demo::SessionData.new.admin_demo_data
+  def reset
+    User.find_by_email(@teacher_email)&.destroy
+    School.where(mail_street: school_street).destroy_all
+    create_demo
+  end
+
+  private def school_street
+    @school_street ||= "#{Time.zone.now.year} Demo School Lane"
   end
 
   private def find_or_create_school(school_name)
-    School.find_or_create_by(name: school_name)
+    School.find_or_create_by(name: school_name, mail_street: school_street)
   end
 
   private def find_or_create_teacher_data(teacher_name, school, subscription)
@@ -34,6 +50,7 @@ class Demo::CreateAdminReport
 
     SchoolsUsers.find_or_create_by(school: school, user: user)
     UserSubscription.create!(user_id: user.id, subscription: subscription)
+    user.record_login # necessary to populate the active teachers count for the usage snapshot report
 
     user
   end
@@ -61,11 +78,12 @@ class Demo::CreateAdminReport
       teacher = find_or_create_teacher_data(row['Teacher'], school, subscription)
 
       # create classroom data
-      classroom = Classroom.create(name: row['Classroom'])
+      classroom = Classroom.create(name: row['Classroom'], grade: sample_grade)
       all_classrooms.push(classroom)
-      ClassroomsTeacher.create(classroom: classroom, user: teacher, role: ClassroomsTeacher::ROLE_TYPES[:owner])
-      student_names = (1..5).to_a.map { |i| "#{Faker::Name.first_name} #{Faker::Name.last_name}" }
+      ClassroomsTeacher.create(classroom: classroom, user: teacher, role: OWNER_ROLE)
+      student_names = NUMBER_OF_STUDENTS_PER_CLASSROOM.times.map { "#{Faker::Name.first_name} #{Faker::Name.last_name}" }
       Demo::ReportDemoCreator.create_demo_classroom_data(teacher, is_teacher_demo: false, classroom: classroom, student_names: student_names)
+      sleep @delay
     end
 
     # delete some activity sessions to make data more varied
@@ -75,4 +93,7 @@ class Demo::CreateAdminReport
       activity_sessions_for_classroom.sample(number_of_sessions_to_destroy).each { |as| as.destroy }
     end
   end
+
+  private def sample_grade = GRADES.sample.to_s
+
 end

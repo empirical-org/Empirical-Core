@@ -14,6 +14,8 @@ module Demo::ReportDemoCreator
   TAHEREH_ID = 14862323
   KEN_ID = 14862324
 
+  DEFAULT_TIMESPENT = 10.minutes.to_i
+
   # Use report_demo:generate_new_data to generate new data
   ACTIVITY_PACKS_TEMPLATES = [
     {
@@ -294,7 +296,7 @@ module Demo::ReportDemoCreator
     ACTIVITY_PACKS_TEMPLATES.map do |activity_pack_template|
       # the following line sets the unit template id to nil for the quill_staff_demo account by request of the partnerships team, because they want to be able to assign the starter baseline recommendations
       # and it ensures the unit template actually exists in our database
-      unit_template_id = is_teacher_demo ? UnitTemplate.find_by_id(activity_pack_template[:unit_template_id])&.id : nil
+      unit_template_id = teacher.email == STAFF_DEMO_EMAIL ? nil : UnitTemplate.find_by_id(activity_pack_template[:unit_template_id])&.id
       name = unit_name(activity_pack_template[:name], is_teacher_demo)
       unit = Unit.find_or_create_by(name:, user: teacher, unit_template_id:)
       activity_ids = activity_ids_for_config(activity_pack_template)
@@ -370,7 +372,7 @@ module Demo::ReportDemoCreator
 
     return unless session_to_clone
 
-    act_session = ActivitySession.create!(activity_id: clone_activity_id, classroom_unit_id: classroom_unit_id, user_id: student_id, state: 'finished', percentage: session_to_clone.percentage)
+    act_session = create_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone)
     concept_results = session_data.concept_results.select {|cr| cr.activity_session_id == session_to_clone.id }
     concept_results.each do |cr|
       question_type = session_data.concept_result_question_types.first {|qt| qt.id == cr.concept_result_question_type_id}
@@ -383,14 +385,30 @@ module Demo::ReportDemoCreator
     end
   end
 
+  def self.create_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone)
+    ActivitySession.create!(
+      activity_id: clone_activity_id,
+      classroom_unit_id: classroom_unit_id,
+      user_id: student_id,
+      state: 'finished',
+      percentage: session_to_clone.percentage,
+      timespent: session_to_clone.timespent || DEFAULT_TIMESPENT
+    )
+  end
+
   def self.create_activity_sessions(students, classroom, session_data, is_teacher_demo)
     students.each_with_index do |student, num|
       ACTIVITY_PACKS_TEMPLATES.each do |activity_pack|
         name = unit_name(activity_pack[:name], is_teacher_demo)
-        unit = Unit.where(name:).last
+        unit = Unit.where(name:, user: classroom.owner).last
         classroom_unit = ClassroomUnit.find_by(classroom: classroom, unit: unit)
+
+        # Calculate the index for activity_sessions using modulo
+        # This will cycle through the activity_sessions for more students
+        activity_sessions_index = num % activity_pack[:activity_sessions].length
+
         activity_sessions = activity_pack[:activity_sessions]
-        activity_sessions[num].each do |clone_activity_id, clone_user_id|
+        activity_sessions[activity_sessions_index].each do |clone_activity_id, clone_user_id|
           clone_activity_session(
             student.id,
             classroom_unit.id,
