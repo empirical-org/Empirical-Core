@@ -15,7 +15,8 @@ module AdminDiagnosticReports
     end
 
     def from_and_join_clauses
-      super + <<-SQL
+      <<-SQL
+        #{super}
         JOIN lms.users AS students ON activity_sessions.user_id = students.id
       SQL
     end
@@ -44,9 +45,9 @@ module AdminDiagnosticReports
     end
 
     private def post_query_transform(results)
-      results.map do |result|
+      results.to_h do |result|
         [result[:aggregate_id], {completed_activities: result[:average_practice_activities_count], time_spent_seconds: result[:average_time_spent_seconds]}]
-      end.to_h
+      end
     end
 
     private def valid_aggregation_options
