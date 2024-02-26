@@ -223,6 +223,9 @@ function getPreToPostImprovedSkillsValue(count) {
 }
 
 function getQuestionsCorrectValue(correctCount, total, percentage) {
+  if(!correctCount && !total) {
+    return <p>--</p>
+  }
   return(
     <div>
       <p>{`${correctCount} of ${total} Questions`}</p>

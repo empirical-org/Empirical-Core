@@ -1,6 +1,5 @@
 import * as React from 'react'
 
-import { results } from './test_data'
 import { formatStudentData } from './helpers'
 
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
@@ -168,7 +167,8 @@ export const StudentSection = ({
         return
       } else {
         const { results, } = body
-        console.log("🚀 ~ file: studentSection.tsx:173 ~ requestPost ~ results:", results)
+        const formattedData = formatStudentData(results)
+        setStudentData(formattedData)
       }
     })
   }
