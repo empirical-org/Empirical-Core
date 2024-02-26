@@ -52,7 +52,15 @@ class Demo::CreateAdminReport
     UserSubscription.create!(user_id: user.id, subscription: subscription)
     user.record_login # necessary to populate the active teachers count for the usage snapshot report
 
+    create_milestones_and_teacher_info_for_user(user)
+
     user
+  end
+
+  private def create_milestones_and_teacher_info_for_user(user)
+    milestone = Milestone.find_by_name(Milestone::TYPES[:see_welcome_modal])
+    UserMilestone.find_or_create_by(milestone: milestone, user: user)
+    TeacherInfo.create(user: user, minimum_grade_level: 0, maximum_grade_level: 12)
   end
 
   private def create_demo
@@ -65,6 +73,10 @@ class Demo::CreateAdminReport
       password: SecureRandom.urlsafe_base64
     )
     subscription = Subscription.create!(purchaser_id: admin_teacher.id, account_type: Subscription::SCHOOL_DISTRICT_PAID, expiration: Date.current + 100.years)
+    school = find_or_create_school(data[0]['School'])
+    SchoolsUsers.find_or_create_by(school: school, user: admin_teacher)
+
+    create_milestones_and_teacher_info_for_user(admin_teacher)
 
     all_classrooms = []
 
