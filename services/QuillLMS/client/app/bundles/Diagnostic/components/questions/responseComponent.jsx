@@ -21,7 +21,7 @@ import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
 import QuestionMatcher from '../../libs/question';
 import POSMatcher from '../../libs/sentenceFragment.js';
 import POSForResponsesList from './POSForResponsesList.jsx';
-import ResponseList from './responseList.jsx';
+import ResponseList from './responseList.tsx';
 
 import C from '../../constants';
 
@@ -245,6 +245,7 @@ class ResponseComponent extends React.Component {
           expanded={this.props.filters.expanded}
           getChildResponses={this.getChildResponses}
           getResponse={this.getResponse}
+          massEditResponses={this.props.massEdit}
           mode={this.props.mode}
           question={this.props.question}
           questionID={questionID}

@@ -17,6 +17,7 @@ interface ResponseListProps {
   expanded: boolean,
   getChildResponses: Function,
   getResponse: Function,
+  massEditResponses: Object,
   mode: string,
   question: Question,
   questionID: string,
@@ -28,13 +29,13 @@ interface ResponseListProps {
 }
 
 
-const ResponseList = ({admin, ascending, concepts, dispatch, expand, expanded, getChildResponses, getResponse, mode, question, questionID, responses, selectedFocusPoints, selectedIncorrectSequences, states, updateResponse }: ResponseListProps) => {
+const ResponseList = ({admin, ascending, concepts, dispatch, expand, expanded, getChildResponses, getResponse, massEditResponses, mode, question, questionID, responses, selectedFocusPoints, selectedIncorrectSequences, states, updateResponse }: ResponseListProps) => {
 
   function allResponsesChecked() {
     return !responses.some((r) => {
       return !(
-        massEdit.selectedResponses.includes(r.key) ||
-        massEdit.selectedResponses.includes(r.id)
+        massEditResponses.selectedResponses.includes(r.key) ||
+        massEditResponses.selectedResponses.includes(r.id)
       )
     })
   };
@@ -69,7 +70,7 @@ const ResponseList = ({admin, ascending, concepts, dispatch, expand, expanded, g
         getChildResponses={getChildResponses}
         getResponse={getResponse}
         key={resp.key}
-        massEditResponses={massEdit}
+        massEditResponses={massEditResponses}
         mode={mode}
         passedResponse={resp}
         question={question}
@@ -87,7 +88,7 @@ const ResponseList = ({admin, ascending, concepts, dispatch, expand, expanded, g
     return string.length && isValidRegex(string)
   }
 
-  const responseListItems = responses.map((resp) => {
+  const responseListItems = responses && responses.map((resp) => {
     if (resp && resp.statusCode !== 1 && resp.statusCode !== 0 && selectedIncorrectSequences) {
       const incorrectSequences = selectedIncorrectSequences.filter(isValidAndNotEmptyRegex)
       const anyMatches = incorrectSequences.some(inSeq => incorrectSequenceMatchHelper(resp.text, inSeq.text, inSeq.caseInsensitive))
