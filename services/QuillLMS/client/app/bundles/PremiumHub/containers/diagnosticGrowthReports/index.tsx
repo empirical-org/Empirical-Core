@@ -72,6 +72,13 @@ export const DiagnosticGrowthReportsContainer = ({
     passedData: null
   }
 
+  const studentSectionProps = {
+    ...sharedProps,
+    passedRecommendationsData: null,
+    passedStudentData: null,
+    passedFormattedData: null
+  }
+
   function handleTabChange(e) {
     setActiveTab(e.currentTarget.value)
   }
@@ -126,7 +133,7 @@ export const DiagnosticGrowthReportsContainer = ({
         </div>
         {activeTab === OVERVIEW && <OverviewSection {...sharedProps} handleSetSelectedDiagnosticId={handleSetSelectedDiagnosticId} handleTabChangeFromDataChip={handleTabChangeFromDataChip} />}
         {activeTab === SKILL && <SkillSection {...sharedProps} selectedDiagnosticId={selectedDiagnosticId} />}
-        {activeTab === STUDENT && <StudentSection {...sharedProps} />}
+        {activeTab === STUDENT && <StudentSection {...studentSectionProps} />}
       </React.Fragment>
     )
   }

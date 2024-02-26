@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { getTimeInMinutesAndSeconds } from "../../shared"
+import { getTimeSpent } from '../../../Teacher/helpers/studentReports'
 
 // Overview tooltips
 export const diagnosticNameTooltipText = "This report shows all of the diagnostics that have been assigned by teachers connected to your account.<br/><br/>  Each diagnostic offering includes a Pre assessment of each student's writing skills, around 40 practice activities recommended by the diagnostic based on the Pre performance, and a Post diagnostic to measure growth after the practice activities are completed.<br/><br/> Diagnostic will not be displayed in this report until at least one teacher has assigned it within the filters you have selected."
@@ -224,7 +225,7 @@ function getPreToPostImprovedSkillsValue(count) {
 
 function getQuestionsCorrectValue(correctCount, total, percentage) {
   if(!correctCount && !total) {
-    return <p>--</p>
+    return <p>{noDataToShow}</p>
   }
   return(
     <div>
@@ -243,8 +244,13 @@ function getPreSkillsProficient(proficientCount, practiceCount, total) {
   )
 }
 
-function getTotalActivitiesAndTimespent(totalActivities, timespent) {
-  return `${totalActivities} (${getTimeInMinutesAndSeconds(timespent)})`
+function getTotalActivitiesAndTimespent(student_id, recommendationsData) {
+  const data = recommendationsData[student_id]
+  if(!data) {
+    return <p>{noDataToShow}</p>
+  }
+  const { completed_activities, time_spent_seconds } = data
+  return `${completed_activities} (${getTimeSpent(time_spent_seconds)})`
 }
 
 function getPostSkillsImprovedOrMaintained(improvedCount, maintainedCount, combinedCount, total) {
@@ -256,10 +262,10 @@ function getPostSkillsImprovedOrMaintained(improvedCount, maintainedCount, combi
   )
 }
 
-export function formatStudentData(data) {
-  return data.map((entry, i) => {
-    const { student_name, pre_to_post_improved_skill_count, pre_questions_correct, pre_questions_total, pre_questions_percentage, pre_skills_proficient, pre_skills_to_practice, total_skills, total_activities,
-      total_time_spent_seconds, post_questions_correct, post_questions_total, post_questions_percentage, post_skills_improved, post_skills_maintained, post_skills_improved_or_maintained
+export function aggregateStudentData(studentData, recommendationsData) {
+  return studentData.map((entry, i) => {
+    const { student_id, student_name, pre_to_post_improved_skill_count, pre_questions_correct, pre_questions_total, pre_questions_percentage, pre_skills_proficient, pre_skills_to_practice, total_skills,
+      post_questions_correct, post_questions_total, post_questions_percentage, post_skills_improved, post_skills_maintained, post_skills_improved_or_maintained
     } = entry
     return {
       id: i,
@@ -267,7 +273,7 @@ export function formatStudentData(data) {
       preToPostImprovedSkills: getPreToPostImprovedSkillsValue(pre_to_post_improved_skill_count),
       preQuestionsCorrect: getQuestionsCorrectValue(pre_questions_correct, pre_questions_total, pre_questions_percentage),
       preSkillsProficient: getPreSkillsProficient(pre_skills_proficient, pre_skills_to_practice, total_skills),
-      totalActivitiesAndTimespent: getTotalActivitiesAndTimespent(total_activities, total_time_spent_seconds),
+      totalActivitiesAndTimespent: getTotalActivitiesAndTimespent(student_id, recommendationsData),
       postQuestionsCorrect: getQuestionsCorrectValue(post_questions_correct, post_questions_total, post_questions_percentage),
       postSkillsImprovedOrMaintained: getPostSkillsImprovedOrMaintained(post_skills_improved, post_skills_maintained, post_skills_improved_or_maintained, total_skills)
     }

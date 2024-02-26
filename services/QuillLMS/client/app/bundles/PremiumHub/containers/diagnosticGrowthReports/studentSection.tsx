@@ -1,13 +1,14 @@
 import * as React from 'react'
 
-import { formatStudentData } from './helpers'
+import { aggregateStudentData } from './helpers'
 
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
 import { diagnosticTypeDropdownOptions, hashPayload } from '../../shared'
 import { requestPost } from '../../../../modules/request'
 
-const QUERY_KEY = "diagnostic-students"
+const STUDENTS_QUERY_KEY = "diagnostic-students"
+const RECOMMENDATIONS_QUERY_KEY = "student-recommendations"
 const PUSHER_EVENT_KEY = "admin-diagnostic-students-cached";
 const DEFAULT_WIDTH = "140px"
 
@@ -96,35 +97,42 @@ export const StudentSection = ({
   selectedClassroomIds,
   selectedTimeframe,
   pusherChannel,
-  passedData
+  passedRecommendationsData,
+  passedStudentData,
+  passedFormattedData
 }) => {
   const [diagnosticTypeValue, setDiagnosticTypeValue] = React.useState<DropdownObjectInterface>(diagnosticTypeDropdownOptions[0])
   const [pusherMessage, setPusherMessage] = React.useState<string>(null)
-  const [studentData, setStudentData] = React.useState<any>(passedData || []);
-  const [loading, setLoading] = React.useState<boolean>(!passedData);
+  const [recommendationsData, setRecommendationsData] = React.useState<any>(passedRecommendationsData || []);
+  const [studentData, setStudentData] = React.useState<any>(passedStudentData || []);
+  const [formattedData, setFormattedData] = React.useState<any>(passedFormattedData || []);
+  const [loading, setLoading] = React.useState<boolean>(!passedRecommendationsData && !passedStudentData && !passedFormattedData);
 
   React.useEffect(() => {
     initializePusher()
   }, [pusherChannel])
 
   React.useEffect(() => {
-    if (!passedData) {
-      // this is for testing purposes; this value will always be null in a non-testing environment
+    if (!passedRecommendationsData && !passedStudentData && !passedFormattedData) {
+      // this is for testing purposes; these values will always be null in a non-testing environment
       getData()
     }
   }, [searchCount, diagnosticTypeValue])
+
+  React.useEffect(() => {
+    if (studentData?.length && recommendationsData && Object.keys(recommendationsData).length) {
+      const formattedData = aggregateStudentData(studentData, recommendationsData)
+      setFormattedData(formattedData)
+      setLoading(false)
+    }
+  }, [studentData, recommendationsData])
+
 
   React.useEffect(() => {
     if (!pusherMessage) return
 
     if (filtersMatchHash(pusherMessage)) getData()
   }, [pusherMessage])
-
-  React.useEffect(() => {
-    if (studentData) {
-      setLoading(false)
-    }
-  }, [studentData])
 
   function initializePusher() {
     pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
@@ -136,7 +144,7 @@ export const StudentSection = ({
 
   function filtersMatchHash(hashMessage) {
     const filterTarget = [].concat(
-      QUERY_KEY,
+      STUDENTS_QUERY_KEY,
       parseInt(diagnosticTypeValue.value),
       selectedTimeframe,
       selectedSchoolIds,
@@ -151,9 +159,14 @@ export const StudentSection = ({
   }
 
   function getData() {
+    getRecommendationsData()
+    getStudentData()
+  }
+
+  function getRecommendationsData() {
     setLoading(true)
     const searchParams = {
-      query: QUERY_KEY,
+      query: RECOMMENDATIONS_QUERY_KEY,
       timeframe: selectedTimeframe,
       school_ids: selectedSchoolIds,
       teacher_ids: selectedTeacherIds,
@@ -167,8 +180,29 @@ export const StudentSection = ({
         return
       } else {
         const { results, } = body
-        const formattedData = formatStudentData(results)
-        setStudentData(formattedData)
+        setRecommendationsData(results)
+      }
+    })
+  }
+
+  function getStudentData() {
+    setLoading(true)
+    const searchParams = {
+      query: STUDENTS_QUERY_KEY,
+      timeframe: selectedTimeframe,
+      school_ids: selectedSchoolIds,
+      teacher_ids: selectedTeacherIds,
+      classroom_ids: selectedClassroomIds,
+      grades: selectedGrades,
+      diagnostic_id: diagnosticTypeValue.value
+    }
+
+    requestPost('/admin_diagnostic_students/report', searchParams, (body) => {
+      if (!body.hasOwnProperty('results')) {
+        return
+      } else {
+        const { results, } = body
+        setStudentData(results)
       }
     })
   }
@@ -186,7 +220,7 @@ export const StudentSection = ({
         className="growth-diagnostic-reports-by-skill-table reporting-format"
         emptyStateMessage={noResultsMessage('diagnostic')}
         headers={headers}
-        rows={studentData}
+        rows={formattedData}
       />
     )
   }
