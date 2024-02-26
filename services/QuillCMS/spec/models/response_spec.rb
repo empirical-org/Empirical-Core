@@ -98,8 +98,10 @@ RSpec.describe Response do
 
   describe '#serialized_for_admin_cms' do
     let!(:response) { Response.create() }
-    let!(:desired_serialized_response) {
-      {
+
+    it 'returns all desired fields' do
+      serialized_response = response.serialized_for_admin_cms
+      desired_serialized_response = {
         id: response.id,
         uid: response.uid,
         question_uid: response.question_uid,
@@ -120,10 +122,6 @@ RSpec.describe Response do
         weak: response.weak,
         concept_results: response.concept_results
       }
-    }
-
-    it 'returns all desired fields' do
-      serialized_response = response.serialized_for_admin_cms
 
       expect(serialized_response).to eq(desired_serialized_response)
     end
