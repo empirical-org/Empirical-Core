@@ -2,6 +2,8 @@
 # create_options: "OPTIONS(enable_refresh = true)"
 default:
   reporting_sessions_view:
-    name: 'lms.recent_reporting_sessions_view'
+    dataset: 'lms'
+    name: 'recent_reporting_sessions_view'
+    name_fallback: 'recent_reporting_sessions_local'
     sql: 'reporting_sessions_view.sql'
     create_options: null

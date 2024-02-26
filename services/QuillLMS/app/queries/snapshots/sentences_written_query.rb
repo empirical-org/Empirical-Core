@@ -8,12 +8,5 @@ module Snapshots
     def select_clause
       "SELECT IFNULL(SUM(question_count * 1), 0) AS count"
     end
-
-    def from_and_join_clauses
-      super + <<-SQL
-        JOIN lms.activities
-          ON activity_sessions.activity_id = activities.id
-      SQL
-    end
   end
 end

@@ -21,7 +21,7 @@ module Snapshots
     end
 
     private def materialized_view
-      @materialized_view ||= QuillBigQuery::MaterializedView.new(:reporting_sessions_view)
+      @materialized_view ||= QuillBigQuery::MaterializedView.new('reporting_sessions_view')
     end
 
     def from_and_join_clauses
