@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AdminDiagnosticReports
-  class PostDiagnosticCompletedViewQuery < DiagnosticAggregateQuery
+  class PostDiagnosticCompletedViewQuery < DiagnosticAggregateViewQuery
     def root_query
       <<-SQL
         SELECT
@@ -31,20 +31,6 @@ module AdminDiagnosticReports
             - ROUND(SAFE_DIVIDE(SUM(CASE WHEN performance.post_activity_session_id IS NOT NULL THEN performance.pre_questions_correct ELSE NULL END),
               CAST(SUM(CASE WHEN performance.post_activity_session_id IS NOT NULL THEN performance.pre_questions_total ELSE NULL END) AS float64)), 2),
         0) AS growth_percentage
-      SQL
-    end
-
-    def from_and_join_clauses
-      # NOTE: This implementation does not use super, and overrides the base query entirely in order to use materialized views
-      <<-SQL
-        FROM lms.pre_post_diagnostic_skill_group_performance_view AS performance
-        JOIN lms.active_classroom_unit_stubs_view AS classroom_units ON performance.classroom_unit_id = classroom_units.id
-        JOIN lms.active_classroom_stubs_view AS classrooms ON classroom_units.classroom_id = classrooms.id
-        JOIN lms.classrooms_teachers ON classroom_units.classroom_id = classrooms_teachers.classroom_id
-        JOIN lms.schools_users ON classrooms_teachers.user_id = schools_users.user_id
-        JOIN lms.schools ON schools_users.school_id = schools.id
-        JOIN lms.activities ON performance.activity_id = activities.id
-        JOIN lms.active_user_names_view AS users ON classrooms_teachers.user_id = users.id
       SQL
     end
 

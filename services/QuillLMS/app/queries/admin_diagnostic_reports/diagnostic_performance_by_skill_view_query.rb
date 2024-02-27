@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AdminDiagnosticReports
-  class DiagnosticPerformanceBySkillViewQuery < DiagnosticAggregateQuery
+  class DiagnosticPerformanceBySkillViewQuery < DiagnosticAggregateViewQuery
     class InvalidDiagnosticIdError < StandardError; end
 
     attr_reader :diagnostic_id
@@ -40,26 +40,10 @@ module AdminDiagnosticReports
     end
 
     def from_and_join_clauses
-      # NOTE: This implementation does not use super, and overrides the base query entirely in order to use materialized views
       <<-SQL
-        FROM lms.pre_post_diagnostic_skill_group_performance_view AS performance
-        JOIN lms.active_classroom_unit_stubs_view AS classroom_units ON performance.classroom_unit_id = classroom_units.id
-        JOIN lms.active_classroom_stubs_view AS classrooms ON classroom_units.classroom_id = classrooms.id
-        JOIN lms.classrooms_teachers ON classroom_units.classroom_id = classrooms_teachers.classroom_id
-        JOIN lms.schools_users ON classrooms_teachers.user_id = schools_users.user_id
-        JOIN lms.schools ON schools_users.school_id = schools.id
+        #{super}
         JOIN lms.activities ON performance.activity_id = activities.id
-        JOIN lms.active_user_names_view AS users ON classrooms_teachers.user_id = users.id
       SQL
-    end
-
-    def materialized_views_used
-      [
-        "pre_post_diagnostic_skill_group_performance_view",
-        "active_classroom_stubs_view",
-        "active_classroom_unit_stubs_view",
-        "active_user_names_view"
-      ]
     end
 
     def rollup_select_columns
