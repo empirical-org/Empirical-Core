@@ -74,7 +74,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
   useHideFooter()
 
   React.useEffect(() => {
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, cluster: process.env.PUSHER_CLUSTER });
+    const pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
     const channel = pusher.subscribe(String(adminInfo.id));
     setPusherChannel(channel)
 

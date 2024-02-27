@@ -7,7 +7,7 @@ module PusherDistrictStandardsReportsCompleted
         app_id: ENV["PUSHER_APP_ID"],
         key: ENV["PUSHER_KEY"],
         secret: ENV["PUSHER_SECRET"],
-        encrypted: true
+        use_tls: true
     )
     pusher_client.trigger(
       admin_id.to_s,

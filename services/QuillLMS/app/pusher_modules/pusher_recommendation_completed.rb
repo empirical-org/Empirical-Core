@@ -7,7 +7,7 @@ module PusherRecommendationCompleted
         app_id: ENV["PUSHER_APP_ID"],
         key: ENV["PUSHER_KEY"],
         secret: ENV["PUSHER_SECRET"],
-        encrypted: true
+        use_tls: true
     )
     if lesson
       pusher_client.trigger(
