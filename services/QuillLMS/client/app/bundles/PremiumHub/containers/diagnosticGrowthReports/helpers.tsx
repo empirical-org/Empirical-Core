@@ -1,6 +1,9 @@
 import * as React from 'react'
 import { getTimeInMinutesAndSeconds } from "../../shared"
 import { getTimeSpent } from '../../../Teacher/helpers/studentReports'
+import { greenCheckIcon } from '../../../Shared'
+
+const loopSrc = `${process.env.CDN_URL}/images/icons/loop.svg`
 
 // Overview tooltips
 export const diagnosticNameTooltipText = "This report shows all of the diagnostics that have been assigned by teachers connected to your account.<br/><br/>  Each diagnostic offering includes a Pre assessment of each student's writing skills, around 40 practice activities recommended by the diagnostic based on the Pre performance, and a Post diagnostic to measure growth after the practice activities are completed.<br/><br/> Diagnostic will not be displayed in this report until at least one teacher has assigned it within the filters you have selected."
@@ -279,44 +282,44 @@ function getPostSkillsImprovedOrMaintained(improvedCount, maintainedCount, combi
 }
 
 const skillProficientElement = (
-  <div>
-    <p>!</p>
+  <div className="skill-container green">
+    <img alt={greenCheckIcon.alt} src={greenCheckIcon.src} />
     <p>Skill Proficient</p>
   </div>
 )
 
 const skillMaintainedElement = (
-  <div>
-    <p>!</p>
+  <div className="skill-container green">
+    <img alt={greenCheckIcon.alt} src={greenCheckIcon.src} />
     <p>Maintained Skill</p>
   </div>
 )
 
 const skillImprovedElement = (
-  <div>
-    <p>!</p>
+  <div className="skill-container green">
+    <img alt={greenCheckIcon.alt} src={greenCheckIcon.src} />
     <p>Improved Skill</p>
   </div>
 )
 
 const skillToPracticeElement = (
-  <div>
-    <p>x</p>
+  <div className="skill-container yellow">
+    <img alt="revise icon" src={loopSrc} />
     <p>Skill To Practice</p>
   </div>
 )
 
 function renderSkillName(name, improved) {
   return(
-    <td>
-      {name}
-      {!!improved && <p>^</p>}
-    </td>
+    <div className="skill-name-container">
+      <p className="skill-name">{name}</p>
+      {!!improved && <img alt="" src="https://assets.quill.org/images/pages/diagnostic_reports/icons-triangle-up-green.svg"/>}
+    </div>
   )
 }
 
 function renderEmbeddedScore(correctCount, totalCount, percentage) {
-  return <td>{`${correctCount} of ${totalCount} (${Math.floor(percentage * 100)}%)`}</td>
+  return <td>{`${correctCount} of ${totalCount} Questions (${Math.floor(percentage * 100)}%)`}</td>
 }
 
 function renderPostEmbeddedSkillStatus(improved, maintained) {
@@ -348,11 +351,11 @@ function renderEmbeddedTable(aggregate_rows) {
             } = row
             return(
               <tr>
-                {renderSkillName(skill_group_name, post_skills_improved)}
+                <td>{renderSkillName(skill_group_name, post_skills_improved)}</td>
                 {renderEmbeddedScore(pre_questions_correct, pre_questions_total, pre_questions_percentage)}
                 <td>{pre_questions_percentage === 1 ? skillProficientElement : skillToPracticeElement}</td>
                 {renderEmbeddedScore(post_questions_correct, post_questions_total, post_questions_percentage)}
-                {renderPostEmbeddedSkillStatus(post_skills_improved, post_skills_maintained)}
+                <td>{renderPostEmbeddedSkillStatus(post_skills_improved, post_skills_maintained)}</td>
               </tr>
             )
           })}
