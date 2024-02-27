@@ -25,6 +25,7 @@ module AdminDiagnosticReports
         JOIN lms.classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id AND classrooms_teachers.role = 'owner'
         JOIN lms.schools_users ON classrooms_teachers.user_id = schools_users.user_id
         JOIN lms.activities ON performance.activity_id = activities.id
+        JOIN lms.active_user_names_view AS users ON classrooms_teachers.user_id = users.id
       SQL
     end
 
@@ -48,8 +49,9 @@ module AdminDiagnosticReports
 
     def materialized_views_used
       [
-        "pre_post_diagnostic_skill_group_performance_view",
-        "active_classroom_stubs_view"
+        "active_classroom_stubs_view",
+        "active_user_names_view",
+        "pre_post_diagnostic_skill_group_performance_view"
       ]
     end
   end

@@ -39,13 +39,6 @@ module AdminDiagnosticReports
       SQL
     end
 
-    def from_and_join_clauses
-      <<-SQL
-        #{super}
-        JOIN lms.activities ON performance.activity_id = activities.id
-      SQL
-    end
-
     def rollup_select_columns
       "skill_group_name"
     end
@@ -74,7 +67,7 @@ module AdminDiagnosticReports
     end
 
     private def group_sort_by(group)
-      group[:skill_name]
+      group[:skill_group_name]
     end
 
     private def rollup_aggregation_hash

@@ -35,7 +35,7 @@ module AdminDiagnosticReports
     end
 
     def group_by_clause
-      "#{super}, performance.skill_group_name"
+      "#{super}, performance.skill_group_name, performance.classroom_id"
     end
 
     def relevant_date_column
