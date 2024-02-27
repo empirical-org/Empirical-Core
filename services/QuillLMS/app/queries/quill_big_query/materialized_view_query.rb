@@ -16,10 +16,13 @@ module QuillBigQuery
     end
 
     def query_fallback
-      "#{query_fallback_with_clauses} #{query_fallback_body}"
+      <<-SQL.squish
+        #{query_fallback_with_clauses}
+        #{query_fallback_body}
+      SQL
     end
 
-    def query_fallback_with_clauses = materialized_views.map(&:fallback_sql).join(', ')
+    def query_fallback_with_clauses = materialized_views.map(&:fallback_with_clause).join(', ')
 
     private def query_fallback_body
       materialized_views.inject(query) do |query, view|
