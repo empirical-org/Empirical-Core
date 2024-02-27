@@ -14,17 +14,19 @@
   }
 
   .text-and-image {
+    margin-top: 64px !important;
     p:last-of-type {
       margin-bottom: 0px;
     }
   }
 
   .partnerships-container {
+    width: 100%;
     h2 {
       max-width: 752px;
       width: 100%;
       text-align: center;
-      margin: 197px auto 40px !important;
+      margin: 64px auto 40px !important;
     }
     h3 {
       font-size: 16px;
@@ -34,8 +36,26 @@
     }
     .partnerships {
       border-top: 1px solid #d7d7d7;
-      img {
-        padding: 16px 24px 24px 0px;
+      border-bottom: 1px solid #d7d7d7;
+      display: grid;
+      grid-template-columns: auto auto auto;
+      gap: 16px;
+      padding-bottom: 64px;
+    }
+  }
+
+  .guidestar-container {
+    display: flex;
+    align-items: center;
+    margin-top: 32px;
+    img {
+      margin-right: 32px;
+    }
+    p {
+      margin: 0px !important;
+      a, span {
+        font-style: normal;
+        text-decoration: underline;
       }
     }
   }
