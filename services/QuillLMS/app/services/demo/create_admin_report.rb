@@ -2,8 +2,7 @@
 
 class Demo::CreateAdminReport
 
-  NUMBER_OF_CLASSROOMS_TO_DESTROY_SESSIONS_FOR = 20
-  RANGE_OF_NUMBER_OF_SESSIONS_TO_DESTROY = 14..28 # 10-20% of 140
+  RANGE_OF_NUMBER_OF_SESSIONS_TO_DESTROY = 1..20
   BATCH_DELAY = 1.minute
   NUMBER_OF_STUDENTS_PER_CLASSROOM = 25
 
@@ -99,8 +98,8 @@ class Demo::CreateAdminReport
     end
 
     # delete some activity sessions to make data more varied
-    all_classrooms.sample(NUMBER_OF_CLASSROOMS_TO_DESTROY_SESSIONS_FOR).each do |classroom|
-      activity_sessions_for_classroom = ActivitySession.joins(:classroom_unit).where('classroom_units.classroom_id = ?', classroom.id)
+    all_classrooms.each do |classroom|
+      activity_sessions_for_classroom = ActivitySession.joins(:classroom_unit).where('classroom_units.classroom_id = ?', classroom.id).where.not(activity_id: Activity::PRE_TEST_DIAGNOSTIC_IDS)
       number_of_sessions_to_destroy = (RANGE_OF_NUMBER_OF_SESSIONS_TO_DESTROY).to_a.sample
       activity_sessions_for_classroom.sample(number_of_sessions_to_destroy).each { |as| as.destroy }
     end
