@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import NonPremiumReport from './NonPremiumReport'
+
 import { getDistrictStandardsReports } from '../../../actions/district_standards_reports';
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import { getTimeSpent } from '../../Teacher/helpers/studentReports';
@@ -30,7 +32,13 @@ class DistrictStandardsReports extends React.Component {
         </div>
       );
     } else if (accessType !== FULL) {
-      content = restrictedPage
+      content = (
+        <NonPremiumReport
+          bezelPath="standards_report_product_bezel.svg"
+          headerText="Standards Report"
+          subheaderText="View a school’s overall progress on each of the Common Core standards. Included with Quill Premium."
+        />
+      )
     } else if (loading) {
       content = <LoadingSpinner />
     }

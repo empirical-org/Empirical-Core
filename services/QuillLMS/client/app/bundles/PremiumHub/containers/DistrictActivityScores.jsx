@@ -1,5 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
+import NonPremiumReport from './NonPremiumReport'
+
 import {
   getDistrictActivityScores,
   switchClassroom,
@@ -9,7 +12,7 @@ import {
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import { getTimeSpent } from '../../Teacher/helpers/studentReports';
 import ActivityScores from '../components/activity_scores.tsx';
-import { FULL, restrictedPage, } from '../shared';
+import { FULL, } from '../shared';
 
 class DistrictActivityScores extends React.Component {
   componentDidMount() {
@@ -23,7 +26,13 @@ class DistrictActivityScores extends React.Component {
     let content = <ActivityScores {...this.props} />
 
     if (accessType !== FULL) {
-      content = restrictedPage
+      content = (
+        <NonPremiumReport
+          bezelPath="activity_scores_report_product_bezel.svg"
+          headerText="Activity Scores Report"
+          subheaderText="View the overall average score for each student per class. Included with Quill Premium."
+        />
+      )
     } else if (loading) {
       content = <LoadingSpinner />
     }

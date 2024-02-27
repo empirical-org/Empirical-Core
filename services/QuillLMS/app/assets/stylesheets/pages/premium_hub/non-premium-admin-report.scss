@@ -1,4 +1,4 @@
-#premium-hub .non-premium-usage-snapshot-report {
+#premium-hub .non-premium-admin-report {
   padding-top: 64px;
   section {
     padding: 0px;
@@ -11,6 +11,17 @@
   }
   .top-section {
     margin-bottom: 64px;
+    .new-tag {
+      color: $quill-white;
+      background-color: $quill-maroon;
+      font-size: 10px;
+      padding: 4px 6px 3px;
+      border-radius: 5px;
+      display: block;
+      margin: auto;
+      margin-bottom: 4px;
+      width: min-content;
+    }
     h1 {
       line-height: 38px;
       margin-bottom: 8px;
@@ -44,7 +55,7 @@
       display: flex;
       gap: 26px;
       div {
-        padding: 32px;
+        padding: 32px 28px;
         border-radius: 16px;
         border: 1px solid $quill-maroon-10;
         background: $quill-maroon-1;

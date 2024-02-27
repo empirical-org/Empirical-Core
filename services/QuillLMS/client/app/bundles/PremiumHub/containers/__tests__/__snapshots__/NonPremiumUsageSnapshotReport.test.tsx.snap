@@ -6,7 +6,7 @@ exports[`NonPremiumUsageSnapshotReport it should render 1`] = `
     class="white-background-accommodate-footer"
   >
     <div
-      class="container non-premium-usage-snapshot-report"
+      class="container non-premium-admin-report"
     >
       <section
         class="top-section"

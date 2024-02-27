@@ -59,7 +59,7 @@ const NonPremiumReport = ({ showNewTag, headerText, subheaderText, bezelPath, te
 
   return (
     <div className="white-background-accommodate-footer">
-      <div className="container non-premium-usage-snapshot-report">
+      <div className="container non-premium-admin-report">
         <section className="top-section">
           {showNewTag ? <span className="new-tag">NEW</span> : null}
           <h1>{headerText}</h1>
