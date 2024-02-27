@@ -15,7 +15,7 @@ RSpec.describe Demo::CreateAdminReport do
   let(:subscription) { Subscription.find_by(purchaser: admin, account_type: Subscription::SCHOOL_DISTRICT_PAID) }
   let!(:milestone) { create(:see_welcome_modal) }
 
-  subject { described_class.new(teacher_email, passed_data) }
+  subject { described_class.new(teacher_email, passed_data, 0) }
 
   before do
     Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES
@@ -36,7 +36,7 @@ RSpec.describe Demo::CreateAdminReport do
   it 'should create an admin user with the passed email who has purchased a district subscription, has premium, and has the see welcome modal milestone and teacher info' do
     expect(admin).to be
     expect(subscription).to be
-    expect(admin.district_premium?).to be
+    expect(admin.subscription).to be
     expect(UserMilestone.exists?(user: admin, milestone: milestone)).to be true
     expect(TeacherInfo.exists?(user: admin)).to be true
   end
