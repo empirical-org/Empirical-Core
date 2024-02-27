@@ -10,12 +10,12 @@ jobs:
           PG_USER: ubuntu
           RAILS_ENV: test
           RACK_ENV: test
-      - image: postgres:15.6-alpine
+      - image: pgvector/pgvector:pg15
         environment:
           POSTGRES_DB: quill_test_db
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: password
-      - image: postgres:15.6-alpine
+      - image: pgvector/pgvector:pg15
         name: test_replica
         environment:
           POSTGRES_DB: quill_test_db
@@ -78,7 +78,7 @@ jobs:
           RACK_ENV: test
           SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub
           DEFAULT_URL: http://localhost:3000
-      - image: postgres:15.6-alpine
+      - image: pgvector/pgvector:pg15
         environment:
           POSTGRES_DB: quill_test_db
           POSTGRES_USER: ubuntu
@@ -123,6 +123,7 @@ jobs:
             echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
             sudo apt-get update
             sudo apt-get install -y postgresql-client-15
+
       - run:
           name: Copy Config files
           command: |
@@ -155,12 +156,12 @@ jobs:
           PG_USER: ubuntu
           RAILS_ENV: test
           RACK_ENV: test
-      - image: postgres:15.6-alpine
+      - image: pgvector/pgvector:pg15
         environment:
           POSTGRES_DB: quill_test_db
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: password
-      - image: postgres:15.6-alpine
+      - image: pgvector/pgvector:pg15
         name: test_replica
         environment:
           POSTGRES_DB: quill_test_db
@@ -319,12 +320,12 @@ jobs:
           PG_USER: ubuntu
           RAILS_ENV: test
           RACK_ENV: test
-      - image: postgres:15.6-alpine
+      - image: pgvector/pgvector:pg15
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: quill_evidence_test_db
           POSTGRES_PASSWORD: password
-      - image: circleci/redis:6.0.9
+      - image: cimg/redis:6.0.20
     steps:
       - checkout
       - restore_cache:
