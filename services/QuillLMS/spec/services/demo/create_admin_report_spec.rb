@@ -13,6 +13,7 @@ RSpec.describe Demo::CreateAdminReport do
   }
   let(:admin) { User.find_by(email: teacher_email, role: User::ADMIN) }
   let(:subscription) { Subscription.find_by(purchaser: admin, account_type: Subscription::SCHOOL_DISTRICT_PAID) }
+  let!(:milestone) { create(:see_welcome_modal) }
 
   subject { described_class.new(teacher_email, passed_data) }
 
