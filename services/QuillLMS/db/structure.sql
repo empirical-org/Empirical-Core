@@ -80,6 +80,20 @@ COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching
 
 
 --
+-- Name: vector; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS vector WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION vector; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION vector IS 'vector data type and ivfflat and hnsw access methods';
+
+
+--
 -- Name: blog_posts_search_trigger(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -10757,6 +10771,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231207135455'),
 ('20231207151344'),
 ('20231214182438'),
-('20240111143245');
+('20240111143245'),
+('20240221192859');
 
 
