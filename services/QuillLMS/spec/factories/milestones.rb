@@ -73,5 +73,9 @@ FactoryBot.define do
       name { 'Dismiss Unassign Warning Modal' }
     end
 
+    factory :see_welcome_modal do
+      name { 'See Welcome Modal' }
+    end
+
   end
 end

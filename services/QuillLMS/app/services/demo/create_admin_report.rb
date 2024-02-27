@@ -2,8 +2,7 @@
 
 class Demo::CreateAdminReport
 
-  NUMBER_OF_CLASSROOMS_TO_DESTROY_SESSIONS_FOR = 20
-  RANGE_OF_NUMBER_OF_SESSIONS_TO_DESTROY = 14..28 # 10-20% of 140
+  RANGE_OF_NUMBER_OF_SESSIONS_TO_DESTROY = 1..20
   BATCH_DELAY = 1.minute
   NUMBER_OF_STUDENTS_PER_CLASSROOM = 25
 
@@ -52,7 +51,16 @@ class Demo::CreateAdminReport
     UserSubscription.create!(user_id: user.id, subscription: subscription)
     user.record_login # necessary to populate the active teachers count for the usage snapshot report
 
+    create_milestones_and_teacher_info_for_user(user)
+
     user
+  end
+
+  private def create_milestones_and_teacher_info_for_user(user)
+    milestone = Milestone.find_by_name(Milestone::TYPES[:see_welcome_modal])
+    UserMilestone.find_or_create_by(milestone:, user:)
+    teacher_info = TeacherInfo.find_or_create_by(user:)
+    teacher_info.update(minimum_grade_level: 0, maximum_grade_level: 12)
   end
 
   private def create_demo
@@ -65,6 +73,10 @@ class Demo::CreateAdminReport
       password: SecureRandom.urlsafe_base64
     )
     subscription = Subscription.create!(purchaser_id: admin_teacher.id, account_type: Subscription::SCHOOL_DISTRICT_PAID, expiration: Date.current + 100.years)
+    school = find_or_create_school(data[0]['School'])
+    SchoolsUsers.find_or_create_by(school: school, user: admin_teacher)
+
+    create_milestones_and_teacher_info_for_user(admin_teacher)
 
     all_classrooms = []
 
@@ -87,10 +99,13 @@ class Demo::CreateAdminReport
     end
 
     # delete some activity sessions to make data more varied
-    all_classrooms.sample(NUMBER_OF_CLASSROOMS_TO_DESTROY_SESSIONS_FOR).each do |classroom|
-      activity_sessions_for_classroom = ActivitySession.joins(:classroom_unit).where('classroom_units.classroom_id = ?', classroom.id)
-      number_of_sessions_to_destroy = (RANGE_OF_NUMBER_OF_SESSIONS_TO_DESTROY).to_a.sample
-      activity_sessions_for_classroom.sample(number_of_sessions_to_destroy).each { |as| as.destroy }
+    all_classrooms.each do |classroom|
+      ActivitySession
+        .joins(:classroom_unit)
+        .where(classroom_units: {classroom_id: classroom.id})
+        .where.not(activity_id: Activity::PRE_TEST_DIAGNOSTIC_IDS)
+        .sample(rand(RANGE_OF_NUMBER_OF_SESSIONS_TO_DESTROY))
+        .each(&:destroy)
     end
   end
 
