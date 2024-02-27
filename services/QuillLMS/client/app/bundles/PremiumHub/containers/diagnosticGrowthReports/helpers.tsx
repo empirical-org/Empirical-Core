@@ -194,7 +194,7 @@ function growthResultsValue(score, studentCount) {
   if (score && score > 0) {
     return `+${scoreValue(score, studentCount)}`
   }
-  return `No Growth (${studentCount})`;
+  return `No growth (${studentCount})`;
 }
 
 function formatSkillsData(data, isAggregateRowData) {
