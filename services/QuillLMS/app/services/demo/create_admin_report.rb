@@ -59,7 +59,8 @@ class Demo::CreateAdminReport
   private def create_milestones_and_teacher_info_for_user(user)
     milestone = Milestone.find_by_name(Milestone::TYPES[:see_welcome_modal])
     UserMilestone.find_or_create_by(milestone: milestone, user: user)
-    TeacherInfo.create(user: user, minimum_grade_level: 0, maximum_grade_level: 12)
+    teacher_info = TeacherInfo.find_or_create_by(user: user)
+    teacher_info.update(minimum_grade_level: 0, maximum_grade_level: 12)
   end
 
   private def create_demo
