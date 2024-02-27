@@ -34,7 +34,7 @@ class DistrictStandardsReports extends React.Component {
     } else if (accessType !== FULL) {
       content = (
         <NonPremiumReport
-          bezelPath="standards_report_product_bezel2x.png"
+          bezelPath="standards_report_product_bezel_2x.png"
           headerText="Standards Report"
           subheaderText="View a school’s overall progress on each of the Common Core standards. Included with Quill Premium."
         />

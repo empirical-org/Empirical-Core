@@ -386,7 +386,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     if (location.pathname.includes('usage_snapshot_report')) {
       return (
         <NonPremiumReport
-          bezelPath="usage_snapshot_report_product_bezel2x.png"
+          bezelPath="usage_snapshot_report_product_bezel_2x.png"
           headerText="Usage Snapshot Report"
           items={[
             {
@@ -409,7 +409,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
           subheaderText="Key insights to help you succeed. Included with Quill Premium."
           testimonial={{
             attribution: "Shannon Browne, Professional Learning Manager",
-            quote: "&#34;The Usage Snapshot Report completely redefines the way administrators use Quill. It enables them to make faster, more informed decisions that directly benefit their students&#39; success. This report is a game-changer for any administrator seeking to enhance educational outcomes.&#34;",
+            quote: "“The Usage Snapshot Report completely redefines the way administrators use Quill. It enables them to make faster, more informed decisions that directly benefit their students&#39; success. This report is a game-changer for any administrator seeking to enhance educational outcomes.“",
             imgSrc: "overview/shannon_headshot.png"
           }}
         />
@@ -419,7 +419,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     if (location.pathname.includes('diagnostic_growth_report')) {
       return (
         <NonPremiumReport
-          bezelPath="diagnostic_growth_report_product_bezel2x.png"
+          bezelPath="diagnostic_growth_report_product_bezel_2x.png"
           headerText="Diagnostic Growth Report"
           items={[
             {
@@ -442,7 +442,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
           subheaderText="See student growth in a whole new light. Included with Quill Premium."
           testimonial={{
             attribution: "Shannon Browne, Professional Learning Manager",
-            quote: "&#34;The Growth Diagnostic Report packs an extensive amount of crucial data into a simple, flexible interface. It has never been this easy for administrators to get the insights they need into Quill’s impact on student growth and to discover opportunities for improvement.&#34;",
+            quote: "“The Growth Diagnostic Report packs an extensive amount of crucial data into a simple, flexible interface. It has never been this easy for administrators to get the insights they need into Quill’s impact on student growth and to discover opportunities for improvement.“",
             imgSrc: "overview/shannon_headshot.png"
           }}
         />
@@ -452,7 +452,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     if (location.pathname.includes('data_export')) {
       return (
         <NonPremiumReport
-          bezelPath="data_export_product_bezel2x.png"
+          bezelPath="data_export_product_bezel_2x.png"
           headerText="Data Export"
           items={[
             {
@@ -475,7 +475,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
           subheaderText="Unleash the power of your data. Included with Quill Premium."
           testimonial={{
             attribution: "Erika Parker-Havens, Professional Learning Manager",
-            quote: "&#34;The Data Export feature empowers administrators like never before, offering complete transparency and ownership of their data. This gives them the flexibility they need to monitor and improve student outcomes.&#34;",
+            quote: "“The Data Export feature empowers administrators like never before, offering complete transparency and ownership of their data. This gives them the flexibility they need to monitor and improve student outcomes.“",
             imgSrc: "overview/erika_headshot.png"
           }}
         />

@@ -44,7 +44,7 @@ exports[`NonPremiumReport it should render if all optional props are passed in 1
         <img
           alt=""
           class="bezel"
-          src="undefined/images/pages/administrator/non_premium_report_view/usage_snapshot_report_product_bezel2x.png"
+          src="undefined/images/pages/administrator/non_premium_report_view/usage_snapshot_report_product_bezel_2x.png"
         />
       </section>
       <section
@@ -104,7 +104,7 @@ exports[`NonPremiumReport it should render if all optional props are passed in 1
         <p
           class="quote"
         >
-          "The Usage Snapshot Report completely redefines the way administrators use Quill. It enables them to make faster, more informed decisions that directly benefit their students' success. This report is a game-changer for any administrator seeking to enhance educational outcomes."
+          &#34;The Usage Snapshot Report completely redefines the way administrators use Quill. It enables them to make faster, more informed decisions that directly benefit their students&#39; success. This report is a game-changer for any administrator seeking to enhance educational outcomes.&#34;
         </p>
         <p
           class="attribution"
@@ -156,7 +156,7 @@ exports[`NonPremiumReport it should render if only required props are passed in 
         <img
           alt=""
           class="bezel"
-          src="undefined/images/pages/administrator/non_premium_report_view/usage_snapshot_report_product_bezel2x.png"
+          src="undefined/images/pages/administrator/non_premium_report_view/usage_snapshot_report_product_bezel_2x.png"
         />
       </section>
     </div>

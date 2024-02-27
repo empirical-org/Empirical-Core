@@ -52,7 +52,7 @@ exports[`DistrictStandardsReports when the access type is limited renders 1`] = 
       className="container gray-background-accommodate-footer"
     >
       <NonPremiumReport
-        bezelPath="standards_report_product_bezel2x.png"
+        bezelPath="standards_report_product_bezel_2x.png"
         headerText="Standards Report"
         subheaderText="View a school’s overall progress on each of the Common Core standards. Included with Quill Premium."
       >
@@ -93,7 +93,7 @@ exports[`DistrictStandardsReports when the access type is limited renders 1`] = 
               <img
                 alt=""
                 className="bezel"
-                src="undefined/images/pages/administrator/non_premium_report_view/standards_report_product_bezel2x.png"
+                src="undefined/images/pages/administrator/non_premium_report_view/standards_report_product_bezel_2x.png"
               />
             </section>
           </div>
@@ -156,7 +156,7 @@ exports[`DistrictStandardsReports when the access type is restricted renders 1`]
       className="container gray-background-accommodate-footer"
     >
       <NonPremiumReport
-        bezelPath="standards_report_product_bezel2x.png"
+        bezelPath="standards_report_product_bezel_2x.png"
         headerText="Standards Report"
         subheaderText="View a school’s overall progress on each of the Common Core standards. Included with Quill Premium."
       >
@@ -197,7 +197,7 @@ exports[`DistrictStandardsReports when the access type is restricted renders 1`]
               <img
                 alt=""
                 className="bezel"
-                src="undefined/images/pages/administrator/non_premium_report_view/standards_report_product_bezel2x.png"
+                src="undefined/images/pages/administrator/non_premium_report_view/standards_report_product_bezel_2x.png"
               />
             </section>
           </div>

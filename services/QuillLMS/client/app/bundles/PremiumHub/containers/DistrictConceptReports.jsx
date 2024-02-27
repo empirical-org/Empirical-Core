@@ -27,7 +27,7 @@ class DistrictConceptReports extends React.Component {
     if (accessType !== FULL) {
       content = (
         <NonPremiumReport
-          bezelPath="concepts_report_product_bezel2x.png"
+          bezelPath="concepts_report_product_bezel_2x.png"
           headerText="Concepts Report"
           subheaderText="View the number of times a student correctly or incorrectly used a targeted concept. Included with Quill Premium."
         />

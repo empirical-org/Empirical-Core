@@ -32,8 +32,8 @@ const NonPremiumReport = ({ showNewTag, headerText, subheaderText, bezelPath, te
     testimonialElement = (
       <section className="bottom-section testimonial">
         <img alt="" src={`${baseAdminImgSrc}/${testimonial.imgSrc}`} />
-        <p className="quote">&#34;The Usage Snapshot Report completely redefines the way administrators use Quill. It enables them to make faster, more informed decisions that directly benefit their students&#39; success. This report is a game-changer for any administrator seeking to enhance educational outcomes.&#34;</p>
-        <p className="attribution">Shannon Browne, Professional Learning Manager</p>
+        <p className="quote">{testimonial.quote}</p>
+        <p className="attribution">{testimonial.attribution}</p>
       </section>
     )
   }
