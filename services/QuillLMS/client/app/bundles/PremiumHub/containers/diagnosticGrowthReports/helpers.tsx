@@ -191,12 +191,10 @@ function proficiencyValue(proficiencyLevelCount, totalStudents) {
 }
 
 function growthResultsValue(score, studentCount) {
-  if (!score) {
-    return noDataToShow;
-  } else if (score > 0) {
+  if (score && score > 0) {
     return `+${scoreValue(score, studentCount)}`
   }
-  return 'No Gain';
+  return `No Growth (${studentCount})`;
 }
 
 function formatSkillsData(data, isAggregateRowData) {
