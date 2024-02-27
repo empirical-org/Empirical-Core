@@ -74,14 +74,54 @@ exports[`DistrictActivityScores when the access type is limited renders 1`] = `
     <div
       className="container gray-background-accommodate-footer"
     >
-      <div
-        className="restricted-page"
+      <NonPremiumReport
+        bezelPath="activity_scores_report_product_bezel.svg"
+        headerText="Activity Scores Report"
+        subheaderText="View the overall average score for each student per class. Included with Quill Premium."
       >
-        <img
-          alt="Gray lock"
-          src="undefined/images/pages/administrator/premium_lock.svg"
-        />
-      </div>
+        <div
+          className="white-background-accommodate-footer"
+        >
+          <div
+            className="container non-premium-admin-report"
+          >
+            <section
+              className="top-section"
+            >
+              <h1>
+                Activity Scores Report
+              </h1>
+              <p>
+                View the overall average score for each student per class. Included with Quill Premium.
+              </p>
+              <div
+                className="buttons"
+              >
+                <a
+                  className="quill-button contained primary large focus-on-light"
+                  href="https://calendly.com/alex-quill"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Talk to sales
+                </a>
+                <a
+                  className="quill-button contained primary large focus-on-light"
+                  href="/premium"
+                  target="_blank"
+                >
+                  Explore premium
+                </a>
+              </div>
+              <img
+                alt=""
+                className="bezel"
+                src="undefined/images/pages/administrator/non_premium_report_view/activity_scores_report_product_bezel.svg"
+              />
+            </section>
+          </div>
+        </div>
+      </NonPremiumReport>
     </div>
   </DistrictActivityScores>
 </Connect(DistrictActivityScores)>
@@ -161,14 +201,54 @@ exports[`DistrictActivityScores when the access type is restricted renders 1`] =
     <div
       className="container gray-background-accommodate-footer"
     >
-      <div
-        className="restricted-page"
+      <NonPremiumReport
+        bezelPath="activity_scores_report_product_bezel.svg"
+        headerText="Activity Scores Report"
+        subheaderText="View the overall average score for each student per class. Included with Quill Premium."
       >
-        <img
-          alt="Gray lock"
-          src="undefined/images/pages/administrator/premium_lock.svg"
-        />
-      </div>
+        <div
+          className="white-background-accommodate-footer"
+        >
+          <div
+            className="container non-premium-admin-report"
+          >
+            <section
+              className="top-section"
+            >
+              <h1>
+                Activity Scores Report
+              </h1>
+              <p>
+                View the overall average score for each student per class. Included with Quill Premium.
+              </p>
+              <div
+                className="buttons"
+              >
+                <a
+                  className="quill-button contained primary large focus-on-light"
+                  href="https://calendly.com/alex-quill"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Talk to sales
+                </a>
+                <a
+                  className="quill-button contained primary large focus-on-light"
+                  href="/premium"
+                  target="_blank"
+                >
+                  Explore premium
+                </a>
+              </div>
+              <img
+                alt=""
+                className="bezel"
+                src="undefined/images/pages/administrator/non_premium_report_view/activity_scores_report_product_bezel.svg"
+              />
+            </section>
+          </div>
+        </div>
+      </NonPremiumReport>
     </div>
   </DistrictActivityScores>
 </Connect(DistrictActivityScores)>

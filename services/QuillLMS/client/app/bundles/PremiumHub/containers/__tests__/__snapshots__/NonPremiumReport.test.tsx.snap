@@ -1,6 +1,123 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NonPremiumUsageSnapshotReport it should render 1`] = `
+exports[`NonPremiumReport it should render if all optional props are passed in 1`] = `
+<DocumentFragment>
+  <div
+    class="white-background-accommodate-footer"
+  >
+    <div
+      class="container non-premium-admin-report"
+    >
+      <section
+        class="top-section"
+      >
+        <span
+          class="new-tag"
+        >
+          NEW
+        </span>
+        <h1>
+          Usage Snapshot Report
+        </h1>
+        <p>
+          Key insights to help you succeed. Included with Quill Premium.
+        </p>
+        <div
+          class="buttons"
+        >
+          <a
+            class="quill-button contained primary large focus-on-light"
+            href="https://calendly.com/alex-quill"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Talk to sales
+          </a>
+          <a
+            class="quill-button contained primary large focus-on-light"
+            href="/premium"
+            target="_blank"
+          >
+            Explore premium
+          </a>
+        </div>
+        <img
+          alt=""
+          class="bezel"
+          src="undefined/images/pages/administrator/non_premium_report_view/usage_snapshot_product_bezel.svg"
+        />
+      </section>
+      <section
+        class="middle-section"
+      >
+        <h2>
+          Why Quill Admins Love This Report
+        </h2>
+        <div
+          class="items"
+        >
+          <div>
+            <img
+              alt=""
+              src="undefined/images/pages/administrator/non_premium_report_view/student_accounts_orange.svg"
+            />
+            <h3>
+              In-Depth Insights
+            </h3>
+            <p>
+              Unlock 25 key metrics, from active users to most assigned concepts and activities.
+            </p>
+          </div>
+          <div>
+            <img
+              alt=""
+              src="undefined/images/pages/administrator/non_premium_report_view/teacher_at_board_orange.svg"
+            />
+            <h3>
+              Data-Driven Success
+            </h3>
+            <p>
+              Make data-driven decisions and drive educational excellence by harnessing the power of your data.
+            </p>
+          </div>
+          <div>
+            <img
+              alt=""
+              src="undefined/images/pages/administrator/non_premium_report_view/sheets_of_paper_orange.svg"
+            />
+            <h3>
+              Effortless Reporting
+            </h3>
+            <p>
+              Filter by timeframe, school, grade, teacher, or classroom. Download or subscribe to receive by email.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section
+        class="bottom-section testimonial"
+      >
+        <img
+          alt=""
+          src="undefined/images/pages/administrator/overview/shannon_headshot.png"
+        />
+        <p
+          class="quote"
+        >
+          "The Usage Snapshot Report completely redefines the way administrators use Quill. It enables them to make faster, more informed decisions that directly benefit their students' success. This report is a game-changer for any administrator seeking to enhance educational outcomes."
+        </p>
+        <p
+          class="attribution"
+        >
+          Shannon Browne, Professional Learning Manager
+        </p>
+      </section>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`NonPremiumReport it should render if only required props are passed in 1`] = `
 <DocumentFragment>
   <div
     class="white-background-accommodate-footer"
@@ -39,73 +156,8 @@ exports[`NonPremiumUsageSnapshotReport it should render 1`] = `
         <img
           alt=""
           class="bezel"
-          src="undefined/images/pages/administrator/usage_snapshot_report/product_bezel.svg"
+          src="undefined/images/pages/administrator/non_premium_report_view/usage_snapshot_product_bezel.svg"
         />
-      </section>
-      <section
-        class="middle-section"
-      >
-        <h2>
-          Why Quill Admins Love This Report
-        </h2>
-        <div
-          class="items"
-        >
-          <div>
-            <img
-              alt=""
-              src="undefined/images/pages/administrator/usage_snapshot_report/student_accounts_orange.svg"
-            />
-            <h3>
-              In-Depth Insights
-            </h3>
-            <p>
-              Unlock 25 key metrics, from active users to most assigned concepts and activities.
-            </p>
-          </div>
-          <div>
-            <img
-              alt=""
-              src="undefined/images/pages/administrator/usage_snapshot_report/teacher_at_board_orange.svg"
-            />
-            <h3>
-              Data-Driven Success
-            </h3>
-            <p>
-              Make data-driven decisions and drive educational excellence by harnessing the power of your data.
-            </p>
-          </div>
-          <div>
-            <img
-              alt=""
-              src="undefined/images/pages/administrator/usage_snapshot_report/sheets_of_paper_orange.svg"
-            />
-            <h3>
-              Effortless Reporting
-            </h3>
-            <p>
-              Filter by timeframe, school, grade, teacher, or classroom. Download or subscribe to receive by email.
-            </p>
-          </div>
-        </div>
-      </section>
-      <section
-        class="bottom-section testimonial"
-      >
-        <img
-          alt=""
-          src="undefined/images/pages/administrator/overview/shannon_headshot.png"
-        />
-        <p
-          class="quote"
-        >
-          "The Usage Snapshot Report completely redefines the way administrators use Quill. It enables them to make faster, more informed decisions that directly benefit their students' success. This report is a game-changer for any administrator seeking to enhance educational outcomes."
-        </p>
-        <p
-          class="attribution"
-        >
-          Shannon Browne, Professional Learning Manager
-        </p>
       </section>
     </div>
   </div>
