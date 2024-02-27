@@ -386,7 +386,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     if (location.pathname.includes('usage_snapshot_report')) {
       return (
         <NonPremiumReport
-          bezelPath="usage_snapshot_product_bezel.svg"
+          bezelPath="usage_snapshot_report_product_bezel2x.png"
           headerText="Usage Snapshot Report"
           items={[
             {
@@ -419,7 +419,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     if (location.pathname.includes('diagnostic_growth_report')) {
       return (
         <NonPremiumReport
-          bezelPath="diagnostic_growth_report_product_bezel.svg"
+          bezelPath="diagnostic_growth_report_product_bezel2x.png"
           headerText="Diagnostic Growth Report"
           items={[
             {
@@ -452,7 +452,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     if (location.pathname.includes('data_export')) {
       return (
         <NonPremiumReport
-          bezelPath="data_export_product_bezel.svg"
+          bezelPath="data_export_product_bezel2x.png"
           headerText="Data Export"
           items={[
             {

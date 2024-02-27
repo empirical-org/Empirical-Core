@@ -7,7 +7,7 @@ describe('NonPremiumReport', () => {
   test('it should render if all optional props are passed in', () => {
     const { asFragment } = render(
       <NonPremiumReport
-        bezelPath="usage_snapshot_product_bezel.svg"
+        bezelPath="usage_snapshot_report_product_bezel2x.png"
         headerText="Usage Snapshot Report"
         items={[
           {
@@ -41,7 +41,7 @@ describe('NonPremiumReport', () => {
   test('it should render if only required props are passed in', () => {
     const { asFragment } = render(
       <NonPremiumReport
-        bezelPath="usage_snapshot_product_bezel.svg"
+        bezelPath="usage_snapshot_report_product_bezel2x.png"
         headerText="Usage Snapshot Report"
         subheaderText="Key insights to help you succeed. Included with Quill Premium."
       />

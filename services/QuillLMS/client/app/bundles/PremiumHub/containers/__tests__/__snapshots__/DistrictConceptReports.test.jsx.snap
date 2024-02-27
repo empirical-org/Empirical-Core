@@ -74,7 +74,7 @@ exports[`DistrictConceptReports when the access type is limited renders 1`] = `
       className="container gray-background-accommodate-footer"
     >
       <NonPremiumReport
-        bezelPath="concepts_report_product_bezel.svg"
+        bezelPath="concepts_report_product_bezel2x.png"
         headerText="Concepts Report"
         subheaderText="View the number of times a student correctly or incorrectly used a targeted concept. Included with Quill Premium."
       >
@@ -115,7 +115,7 @@ exports[`DistrictConceptReports when the access type is limited renders 1`] = `
               <img
                 alt=""
                 className="bezel"
-                src="undefined/images/pages/administrator/non_premium_report_view/concepts_report_product_bezel.svg"
+                src="undefined/images/pages/administrator/non_premium_report_view/concepts_report_product_bezel2x.png"
               />
             </section>
           </div>
@@ -200,7 +200,7 @@ exports[`DistrictConceptReports when the access type is restricted renders 1`] =
       className="container gray-background-accommodate-footer"
     >
       <NonPremiumReport
-        bezelPath="concepts_report_product_bezel.svg"
+        bezelPath="concepts_report_product_bezel2x.png"
         headerText="Concepts Report"
         subheaderText="View the number of times a student correctly or incorrectly used a targeted concept. Included with Quill Premium."
       >
@@ -241,7 +241,7 @@ exports[`DistrictConceptReports when the access type is restricted renders 1`] =
               <img
                 alt=""
                 className="bezel"
-                src="undefined/images/pages/administrator/non_premium_report_view/concepts_report_product_bezel.svg"
+                src="undefined/images/pages/administrator/non_premium_report_view/concepts_report_product_bezel2x.png"
               />
             </section>
           </div>

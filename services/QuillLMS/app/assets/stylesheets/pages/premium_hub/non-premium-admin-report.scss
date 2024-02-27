@@ -3,6 +3,7 @@
   section {
     padding: 0px;
     border-bottom: none;
+    max-width: 1200px;
   }
   h1, h2 {
     text-align: center;
@@ -14,13 +15,16 @@
     .new-tag {
       color: $quill-white;
       background-color: $quill-maroon;
-      font-size: 10px;
-      padding: 4px 6px 3px;
+      font-size: 14px;
       border-radius: 5px;
-      display: block;
       margin: auto;
       margin-bottom: 4px;
-      width: min-content;
+      line-height: 16.88px;
+      width: 45px;
+      height: 25px;
+      justify-content: center;
+      align-items: center;
+      display: flex;
     }
     h1 {
       line-height: 38px;
@@ -34,7 +38,7 @@
       margin-bottom: 24px;
     }
     img {
-      max-width: 95vw;
+      max-width: 100%;
       margin: auto;
       display: block;
     }

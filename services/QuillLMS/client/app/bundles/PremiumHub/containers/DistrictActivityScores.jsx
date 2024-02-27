@@ -28,7 +28,7 @@ class DistrictActivityScores extends React.Component {
     if (accessType !== FULL) {
       content = (
         <NonPremiumReport
-          bezelPath="activity_scores_report_product_bezel.svg"
+          bezelPath="activity_scores_report_product_bezel2x.png"
           headerText="Activity Scores Report"
           subheaderText="View the overall average score for each student per class. Included with Quill Premium."
         />

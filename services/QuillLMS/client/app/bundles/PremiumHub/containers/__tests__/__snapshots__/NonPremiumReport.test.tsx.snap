@@ -44,7 +44,7 @@ exports[`NonPremiumReport it should render if all optional props are passed in 1
         <img
           alt=""
           class="bezel"
-          src="undefined/images/pages/administrator/non_premium_report_view/usage_snapshot_product_bezel.svg"
+          src="undefined/images/pages/administrator/non_premium_report_view/usage_snapshot_report_product_bezel2x.png"
         />
       </section>
       <section
@@ -156,7 +156,7 @@ exports[`NonPremiumReport it should render if only required props are passed in 
         <img
           alt=""
           class="bezel"
-          src="undefined/images/pages/administrator/non_premium_report_view/usage_snapshot_product_bezel.svg"
+          src="undefined/images/pages/administrator/non_premium_report_view/usage_snapshot_report_product_bezel2x.png"
         />
       </section>
     </div>
