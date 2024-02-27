@@ -10,7 +10,7 @@ import { requestPost } from '../../../../modules/request'
 const STUDENTS_QUERY_KEY = "diagnostic-students"
 const RECOMMENDATIONS_QUERY_KEY = "student-recommendations"
 const PUSHER_EVENT_KEY = "admin-diagnostic-students-cached";
-const DEFAULT_WIDTH = "140px"
+const DEFAULT_WIDTH = "138px"
 
 const headers = [
   {
@@ -45,7 +45,7 @@ const headers = [
   {
     name: '',
     attribute: 'preSkillsProficient',
-    width: '146px',
+    width: '144px',
     primaryTitle: 'Pre:',
     secondaryTitle: 'Skills Proficient',
     tooltipName: '',

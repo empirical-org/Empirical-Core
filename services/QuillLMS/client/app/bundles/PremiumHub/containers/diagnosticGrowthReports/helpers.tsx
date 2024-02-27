@@ -3,7 +3,9 @@ import { getTimeInMinutesAndSeconds } from "../../shared"
 import { getTimeSpent } from '../../../Teacher/helpers/studentReports'
 import { greenCheckIcon } from '../../../Shared'
 
-const loopSrc = `${process.env.CDN_URL}/images/icons/loop.svg`
+const checkSrc = `${process.env.CDN_URL}/images/icons/circle-check-icon-vibrant-green.svg`
+const loopSrc = `${process.env.CDN_URL}/images/icons/revise-icon-grey.svg`
+const triangleSrc = `${process.env.CDN_URL}/images/icons/triangle-up-icon-vibrant-green-50.svg`
 
 // Overview tooltips
 export const diagnosticNameTooltipText = "This report shows all of the diagnostics that have been assigned by teachers connected to your account.<br/><br/>  Each diagnostic offering includes a Pre assessment of each student's writing skills, around 40 practice activities recommended by the diagnostic based on the Pre performance, and a Post diagnostic to measure growth after the practice activities are completed.<br/><br/> Diagnostic will not be displayed in this report until at least one teacher has assigned it within the filters you have selected."
@@ -258,7 +260,7 @@ function getPreSkillsProficient(proficientCount, practiceCount, total) {
   return (
     <div>
       <p>{`${proficientCount} of ${total} Skills`}</p>
-      {practiceCount && <p>{`(${practiceCount} Skills to Practice)`}</p>}
+      {practiceCount ? <p>{`(${practiceCount} Skills to Practice)`}</p> : <p>(No Skills To Practice)</p>}
     </div>
   )
 }
@@ -272,10 +274,13 @@ function getTotalActivitiesAndTimespent(student_id, recommendationsData) {
   return `${completed_activities} (${getTimeSpent(time_spent_seconds)})`
 }
 
-function getPostSkillsImprovedOrMaintained(improvedCount, maintainedCount, combinedCount, total) {
+function getPostSkillsImprovedOrMaintained(improvedCount, maintainedCount, combinedCount, skillsTotal, postQuestionsTotal) {
+  if (postQuestionsTotal === null) {
+    return noDataToShow
+  }
   return (
     <div>
-      <p>{`${combinedCount} of ${total} Skills`}</p>
+      <p>{`${combinedCount} of ${skillsTotal} Skills`}</p>
       <p>{`(${improvedCount} Improved, ${maintainedCount} Maintained)`}</p>
     </div>
   )
@@ -283,21 +288,21 @@ function getPostSkillsImprovedOrMaintained(improvedCount, maintainedCount, combi
 
 const skillProficientElement = (
   <div className="skill-container green">
-    <img alt={greenCheckIcon.alt} src={greenCheckIcon.src} />
+    <img alt="green circle with dark green checkmark" src={checkSrc} />
     <p>Skill Proficient</p>
   </div>
 )
 
 const skillMaintainedElement = (
   <div className="skill-container green">
-    <img alt={greenCheckIcon.alt} src={greenCheckIcon.src} />
+    <img alt="green circle with dark green checkmark" src={checkSrc} />
     <p>Maintained Skill</p>
   </div>
 )
 
 const skillImprovedElement = (
   <div className="skill-container green">
-    <img alt={greenCheckIcon.alt} src={greenCheckIcon.src} />
+    <img alt="green circle with dark green checkmark" src={checkSrc} />
     <p>Improved Skill</p>
   </div>
 )
@@ -313,16 +318,19 @@ function renderSkillName(name, improved) {
   return(
     <div className="skill-name-container">
       <p className="skill-name">{name}</p>
-      {!!improved && <img alt="" src="https://assets.quill.org/images/pages/diagnostic_reports/icons-triangle-up-green.svg"/>}
+      {!!improved && <img alt="bright green upward triangle" src={triangleSrc} />}
     </div>
   )
 }
 
 function renderEmbeddedScore(correctCount, totalCount, percentage) {
+  if(totalCount === null) { return <td>{noDataToShow}</td> }
+
   return <td>{`${correctCount} of ${totalCount} Questions (${Math.floor(percentage * 100)}%)`}</td>
 }
 
-function renderPostEmbeddedSkillStatus(improved, maintained) {
+function renderPostEmbeddedSkillStatus(improved, maintained, total) {
+  if(total === null) { return <td>{noDataToShow}</td> }
   if(improved) { return skillImprovedElement }
   if(maintained) { return skillMaintainedElement }
 
@@ -355,7 +363,7 @@ function renderEmbeddedTable(aggregate_rows) {
                 {renderEmbeddedScore(pre_questions_correct, pre_questions_total, pre_questions_percentage)}
                 <td>{pre_questions_percentage === 1 ? skillProficientElement : skillToPracticeElement}</td>
                 {renderEmbeddedScore(post_questions_correct, post_questions_total, post_questions_percentage)}
-                <td>{renderPostEmbeddedSkillStatus(post_skills_improved, post_skills_maintained)}</td>
+                <td>{renderPostEmbeddedSkillStatus(post_skills_improved, post_skills_maintained, post_questions_total)}</td>
               </tr>
             )
           })}
@@ -378,7 +386,7 @@ export function aggregateStudentData(studentData, recommendationsData) {
       preSkillsProficient: getPreSkillsProficient(pre_skills_proficient, pre_skills_to_practice, total_skills),
       totalActivitiesAndTimespent: getTotalActivitiesAndTimespent(student_id, recommendationsData),
       postQuestionsCorrect: getQuestionsCorrectValue(post_questions_correct, post_questions_total, post_questions_percentage),
-      postSkillsImprovedOrMaintained: getPostSkillsImprovedOrMaintained(post_skills_improved, post_skills_maintained, post_skills_improved_or_maintained, total_skills),
+      postSkillsImprovedOrMaintained: getPostSkillsImprovedOrMaintained(post_skills_improved, post_skills_maintained, post_skills_improved_or_maintained, total_skills, post_questions_total),
       aggregate_rows,
       embeddedTable: renderEmbeddedTable(aggregate_rows)
     }
