@@ -38,9 +38,12 @@ module QuillBigQuery
     def drop_sql = "DROP MATERIALIZED VIEW IF EXISTS #{name}"
     def sql = File.read(QUERY_FOLDER + config[:sql])
 
+    def name = config[:name]
+    def name_with_dataset = "#{dataset}.#{name}"
+    def name_fallback = config[:name_fallback]
+
     private def config = @config ||= CONFIG[query_key]
-    private def name = config[:name]
-    private def name_fallback = config[:name_fallback]
+    private def dataset = config[:dataset]
     private def create_options = config[:create_options]
   end
 end

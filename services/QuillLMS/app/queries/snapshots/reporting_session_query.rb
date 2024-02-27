@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Snapshots
-  class ReportingSessionQuery < ::QuillBigQuery::Query
+  class ReportingSessionQuery < ::QuillBigQuery::MaterializedViewQuery
     attr_reader :timeframe_start, :timeframe_end, :school_ids, :grades, :teacher_ids, :classroom_ids, :user
 
     def initialize(timeframe_start:, timeframe_end:, school_ids:, grades: nil, teacher_ids: nil, classroom_ids: nil, user: nil, **options)
@@ -16,20 +16,17 @@ module Snapshots
       super(**options)
     end
 
-    def with_clauses
-      "WITH recent_reporting_sessions AS (#{materialized_view.sql})"
-    end
+    def materialized_view_keys = ['reporting_sessions_view']
 
-    private def materialized_view
-      @materialized_view ||= QuillBigQuery::MaterializedView.new('reporting_sessions_view')
-    end
+    # only has one mat view
+    private def materialized_view = materialized_views.first
 
     def from_and_join_clauses
-      "FROM recent_reporting_sessions"
+      "FROM #{materialized_view.name_with_dataset}"
     end
 
     def relevant_date_column
-      'recent_reporting_sessions.completed_date'
+      "#{materialized_view.name}.completed_date"
     end
 
     def where_clause
@@ -48,7 +45,7 @@ module Snapshots
     end
 
     def school_ids_where_clause
-      "AND recent_reporting_sessions.school_id IN (#{school_ids.join(',')})"
+      "AND #{materialized_view.name}.school_id IN (#{school_ids.join(',')})"
     end
 
     def grades_where_clause
@@ -56,8 +53,8 @@ module Snapshots
 
       <<-SQL
         AND (
-          recent_reporting_sessions.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')})
-          #{'OR recent_reporting_sessions.grade IS NULL' if grades.include?('null')}
+          #{materialized_view.name}.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')})
+          #{'OR #{materialized_view.name}.grade IS NULL' if grades.include?('null')}
         )
       SQL
     end
@@ -65,13 +62,13 @@ module Snapshots
     def teacher_ids_where_clause
       return "" if teacher_ids.blank?
 
-      "AND recent_reporting_sessions.teacher_id IN (#{teacher_ids.join(',')})"
+      "AND #{materialized_view.name}.teacher_id IN (#{teacher_ids.join(',')})"
     end
 
     def classroom_ids_where_clause
       return "" if classroom_ids.blank?
 
-      "AND recent_reporting_sessions.classroom_id IN (#{classroom_ids.join(',')})"
+      "AND #{materialized_view.name}.classroom_id IN (#{classroom_ids.join(',')})"
     end
   end
 end

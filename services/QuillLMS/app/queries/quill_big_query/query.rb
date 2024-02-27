@@ -4,9 +4,11 @@ module QuillBigQuery
   class Query < ::ApplicationService
     attr_reader :runner
 
-    def initialize(runner: QuillBigQuery::Runner)
+    def initialize(runner: default_runner)
       @runner = runner
     end
+
+    private def default_runner = QuillBigQuery::Runner
 
     def run
       raise NotImplementedError
