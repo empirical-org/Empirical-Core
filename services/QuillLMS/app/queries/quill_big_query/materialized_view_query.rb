@@ -3,12 +3,23 @@
 module QuillBigQuery
   class MaterializedViewQuery < Query
 
-    private def default_runner = QuillBigQuery::MaterializedViewRunner
+    BROKEN_MATERIALIZED_VIEW_ERRORS = [
+      ::Google::Cloud::NotFoundError,
+      ::Google::Cloud::InvalidArgumentError
+    ]
+
+    # private def default_runner = QuillBigQuery::MaterializedViewRunner
 
     def materialized_view_keys = raise NotImplementedError
 
     def run_query
-      post_query_transform(runner.run(query, query_fallback))
+      query_runner(query)
+    rescue *BROKEN_MATERIALIZED_VIEW_ERRORS => e
+      query_runner(query_fallback)
+    end
+
+    private def query_runner(query)
+      post_query_transform(runner.execute(query))
     end
 
     def materialized_views

@@ -19,7 +19,7 @@ module QuillBigQuery
     def run
       run_query(query)
     rescue *BROKEN_MATERIALIZED_VIEW_ERRORS => e
-      run_query(query_fallback)
+      run_query(fallback_query)
     end
 
     def client = @client ||= Google::Cloud::Bigquery.new
