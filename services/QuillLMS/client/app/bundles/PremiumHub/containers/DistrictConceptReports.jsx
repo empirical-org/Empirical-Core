@@ -11,7 +11,7 @@ import {
 } from '../../../actions/district_concept_reports';
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import ConceptReports from '../components/concept_reports';
-import { FULL, restrictedPage, } from '../shared';
+import { FULL, } from '../shared';
 
 class DistrictConceptReports extends React.Component {
   componentDidMount() {

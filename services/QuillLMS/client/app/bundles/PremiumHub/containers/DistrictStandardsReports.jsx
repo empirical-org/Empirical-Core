@@ -7,7 +7,7 @@ import { getDistrictStandardsReports } from '../../../actions/district_standards
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import { getTimeSpent } from '../../Teacher/helpers/studentReports';
 import StandardsReports from '../components/standardsReports';
-import { FULL, LIMITED, restrictedPage } from '../shared';
+import { FULL, LIMITED, } from '../shared';
 
 class DistrictStandardsReports extends React.Component {
   componentDidMount() {
