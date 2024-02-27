@@ -13,8 +13,10 @@ RSpec.describe Demo::CreateAdminReport do
   }
   let(:admin) { User.find_by(email: teacher_email, role: User::ADMIN) }
   let(:subscription) { Subscription.find_by(purchaser: admin, account_type: Subscription::SCHOOL_DISTRICT_PAID) }
+  let!(:milestone) { create(:see_welcome_modal) }
+  let(:delay) { 0 }
 
-  subject { described_class.new(teacher_email, passed_data) }
+  subject { described_class.new(teacher_email, passed_data, delay) }
 
   before do
     Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES
@@ -32,9 +34,12 @@ RSpec.describe Demo::CreateAdminReport do
     subject.call
   end
 
-  it 'should create an admin user with the passed email who has purchased a district subscription' do
+  it 'should create an admin user with the passed email who has purchased a district subscription, has premium, and has the see welcome modal milestone and teacher info' do
     expect(admin).to be
     expect(subscription).to be
+    expect(admin.subscription).to be
+    expect(UserMilestone.exists?(user: admin, milestone: milestone)).to be true
+    expect(TeacherInfo.exists?(user: admin)).to be true
   end
 
   it 'should create the schools from the data hash and make the admin an administrator of them' do
@@ -47,29 +52,33 @@ RSpec.describe Demo::CreateAdminReport do
     end
   end
 
-  it 'should create every teacher account from the data hash, associated with the correct school' do
+  it 'should create every teacher account from the data hash, associated with the correct school, and with a login record, see welcome modal milestone, and teacher info' do
     schools_and_teachers = subject.data.map { |d| { 'School' => d['School'], 'Teacher' => d['Teacher'] } }.uniq
     schools_and_teachers.each do |row|
       teacher = User.find_by_name(row['Teacher'])
       school = School.find_by_name(row['School'])
       expect(SchoolsUsers.find_by(school: school, user: teacher)).to be
       expect(UserSubscription.find_by(user: teacher, subscription: subscription)).to be
+      expect(UserLogin.exists?(user: teacher)).to be true
+      expect(UserMilestone.exists?(user: teacher, milestone: milestone)).to be true
+      expect(TeacherInfo.exists?(user: admin)).to be true
     end
   end
 
   context 'range' do
     # This is a estimate on range based on some runs, feel free to adjust the bounds
-    let(:activity_session_count_range) { (10..35) }
+    let(:activity_session_count_range) { (50..250) }
     let(:min) { activity_session_count_range.first }
     let(:max) { activity_session_count_range.last }
 
-    it "should create every classroom from the data hash, associated with the correct teacher, each with five students" do
+    it "should create every classroom from the data hash, associated with the correct teacher, each with 25 students" do
       subject.data.each do |row|
         classroom = Classroom.find_by_name(row['Classroom'])
         teacher = User.find_by_name(row['Teacher'])
         expect(classroom).to be
+        expect(classroom.grade.to_i).to be_between(described_class::GRADE_MIN, described_class::GRADE_MAX)
         expect(classroom.owner).to eq(teacher)
-        expect(classroom.students.count).to eq(5)
+        expect(classroom.students.count).to eq(described_class::NUMBER_OF_STUDENTS_PER_CLASSROOM)
         expect(classroom.activity_sessions.count).to be_between(min, max)
       end
     end

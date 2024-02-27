@@ -316,10 +316,12 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
             <span>Guide</span>
           </a>
         </h1>
-        <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={createCsvReportDownload} type="button">
-          {downloadButtonBusy ? <LightButtonLoadingSpinner /> : <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />}
-          <span>Download</span>
-        </button>
+        <div className="header-buttons">
+          <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={createCsvReportDownload} type="button">
+            {downloadButtonBusy ? <LightButtonLoadingSpinner /> : <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />}
+            <span>Download</span>
+          </button>
+        </div>
       </div>
       <div className="filter-button-container">
         <button className="interactive-wrapper focus-on-light" onClick={openMobileFilterMenu} type="button">

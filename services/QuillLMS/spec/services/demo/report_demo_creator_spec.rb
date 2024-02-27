@@ -176,11 +176,13 @@ RSpec.describe Demo::ReportDemoCreator do
           .find {|session| session.activity_id == activity_id && session.user_id == user_id}
 
         student = create(:student)
-        classroom = create(:classroom)
+        classroom = create(:classroom, :with_no_teacher)
+        create(:classrooms_teacher, classroom: classroom, user: teacher)
         create(:students_classrooms, student: student, classroom: classroom)
         units = Demo::ReportDemoCreator.create_units(teacher, is_teacher_demo)
 
         Demo::ReportDemoCreator.create_classroom_units(classroom, units)
+
         total_act_sesh_count = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.map {|ap| ap[:activity_sessions][0].keys.count}.sum
 
         expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom, session_data, is_teacher_demo)}
@@ -195,6 +197,7 @@ RSpec.describe Demo::ReportDemoCreator do
         expect(activity_session.state).to eq('finished')
 
         expect(activity_session.percentage).to eq(session_clone.percentage)
+        expect(activity_session.timespent).to eq(session_clone.timespent || Demo::ReportDemoCreator::DEFAULT_TIMESPENT)
         expect(activity_session.concept_results.first.extra_metadata.keys).to match_array ['question_uid', 'question_concept_uid']
         # Taken from actual concept_result
         expect(activity_session.concept_results.first.answer).to eq('Traveling is easier with a guide than without one.')
