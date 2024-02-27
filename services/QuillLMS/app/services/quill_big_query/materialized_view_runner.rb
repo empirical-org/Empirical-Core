@@ -4,22 +4,22 @@
 
 module QuillBigQuery
   class MaterializedViewRunner < ::ApplicationService
-    attr_reader :query, :fallback_query
+    attr_reader :query, :query_fallback
 
     BROKEN_MATERIALIZED_VIEW_ERRORS = [
       ::Google::Cloud::NotFoundError,
       ::Google::Cloud::InvalidArgumentError
     ]
 
-    def initialize(query, fallback_query)
+    def initialize(query, query_fallback)
       @query = query
-      @fallback_query = fallback_query
+      @query_fallback = query_fallback
     end
 
     def run
       run_query(query)
     rescue *BROKEN_MATERIALIZED_VIEW_ERRORS => e
-      run_query(fallback_query)
+      run_query(query_fallback)
     end
 
     def client = @client ||= Google::Cloud::Bigquery.new
