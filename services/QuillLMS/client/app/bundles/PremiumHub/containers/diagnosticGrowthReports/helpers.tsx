@@ -218,6 +218,22 @@ function formatSkillsData(data, isAggregateRowData) {
   })
 }
 
+export function aggregateSkillsData({
+  skillsData,
+  setAggregatedData,
+  setLoading
+}) {
+  if (!skillsData.length) {
+    setLoading(false)
+    return
+  }
+  const aggregatedData = formatSkillsData(skillsData, false)
+  setAggregatedData(aggregatedData)
+  setLoading(false)
+}
+
+// Students logic
+
 function getPreToPostImprovedSkillsValue(count) {
   if(count === 0) { return 'No Improved Skills'}
   return `+${count} Improved Skill${count === 1 ? '' : 's'}`
@@ -262,10 +278,94 @@ function getPostSkillsImprovedOrMaintained(improvedCount, maintainedCount, combi
   )
 }
 
+const skillProficientElement = (
+  <div>
+    <p>!</p>
+    <p>Skill Proficient</p>
+  </div>
+)
+
+const skillMaintainedElement = (
+  <div>
+    <p>!</p>
+    <p>Maintained Skill</p>
+  </div>
+)
+
+const skillImprovedElement = (
+  <div>
+    <p>!</p>
+    <p>Improved Skill</p>
+  </div>
+)
+
+const skillToPracticeElement = (
+  <div>
+    <p>x</p>
+    <p>Skill To Practice</p>
+  </div>
+)
+
+function renderSkillName(name, improved) {
+  return(
+    <td>
+      {name}
+      {!!improved && <p>^</p>}
+    </td>
+  )
+}
+
+function renderEmbeddedScore(correctCount, totalCount, percentage) {
+  return <td>{`${correctCount} of ${totalCount} (${Math.floor(percentage * 100)}%)`}</td>
+}
+
+function renderPostEmbeddedSkillStatus(improved, maintained) {
+  if(improved) { return skillImprovedElement }
+  if(maintained) { return skillMaintainedElement }
+
+  return skillToPracticeElement
+}
+
+function renderEmbeddedTable(aggregate_rows) {
+  if(!aggregate_rows) { return false }
+
+  return(
+    <div className="embedded-table-container">
+      <table className='embedded-student-growth-diagnostic-table'>
+        <thead>
+          <tr>
+            <th>Diagnostic Skills</th>
+            <th>Pre: Questions Correct</th>
+            <th>Pre: Skills Status</th>
+            <th>Post: Questions Correct</th>
+            <th>Post: Skill Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {aggregate_rows.map(row => {
+            const { skill_group_name, pre_questions_correct, pre_questions_percentage, pre_questions_total,
+              post_questions_correct, post_questions_percentage, post_questions_total, post_skills_improved, post_skills_maintained
+            } = row
+            return(
+              <tr>
+                {renderSkillName(skill_group_name, post_skills_improved)}
+                {renderEmbeddedScore(pre_questions_correct, pre_questions_total, pre_questions_percentage)}
+                <td>{pre_questions_percentage === 1 ? skillProficientElement : skillToPracticeElement}</td>
+                {renderEmbeddedScore(post_questions_correct, post_questions_total, post_questions_percentage)}
+                {renderPostEmbeddedSkillStatus(post_skills_improved, post_skills_maintained)}
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
 export function aggregateStudentData(studentData, recommendationsData) {
   return studentData.map((entry, i) => {
     const { student_id, student_name, pre_to_post_improved_skill_count, pre_questions_correct, pre_questions_total, pre_questions_percentage, pre_skills_proficient, pre_skills_to_practice, total_skills,
-      post_questions_correct, post_questions_total, post_questions_percentage, post_skills_improved, post_skills_maintained, post_skills_improved_or_maintained
+      post_questions_correct, post_questions_total, post_questions_percentage, post_skills_improved, post_skills_maintained, post_skills_improved_or_maintained, aggregate_rows
     } = entry
     return {
       id: i,
@@ -275,21 +375,9 @@ export function aggregateStudentData(studentData, recommendationsData) {
       preSkillsProficient: getPreSkillsProficient(pre_skills_proficient, pre_skills_to_practice, total_skills),
       totalActivitiesAndTimespent: getTotalActivitiesAndTimespent(student_id, recommendationsData),
       postQuestionsCorrect: getQuestionsCorrectValue(post_questions_correct, post_questions_total, post_questions_percentage),
-      postSkillsImprovedOrMaintained: getPostSkillsImprovedOrMaintained(post_skills_improved, post_skills_maintained, post_skills_improved_or_maintained, total_skills)
+      postSkillsImprovedOrMaintained: getPostSkillsImprovedOrMaintained(post_skills_improved, post_skills_maintained, post_skills_improved_or_maintained, total_skills),
+      aggregate_rows,
+      embeddedTable: renderEmbeddedTable(aggregate_rows)
     }
   })
-}
-
-export function aggregateSkillsData({
-  skillsData,
-  setAggregatedData,
-  setLoading
-}) {
-  if (!skillsData.length) {
-    setLoading(false)
-    return
-  }
-  const aggregatedData = formatSkillsData(skillsData, false)
-  setAggregatedData(aggregatedData)
-  setLoading(false)
 }

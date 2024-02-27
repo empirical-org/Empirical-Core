@@ -131,7 +131,12 @@ export const StudentSection = ({
   React.useEffect(() => {
     if (!pusherMessage) return
 
-    if (filtersMatchHash(pusherMessage)) getData()
+    if (pusherMessage === getFilterHash(STUDENTS_QUERY_KEY)) {
+      getStudentData()
+    }
+    if(pusherMessage === getFilterHash(RECOMMENDATIONS_QUERY_KEY)) {
+      getRecommendationsData()
+    }
   }, [pusherMessage])
 
   function initializePusher() {
@@ -142,20 +147,16 @@ export const StudentSection = ({
     });
   };
 
-  function filtersMatchHash(hashMessage) {
+  function getFilterHash(queryKey) {
     const filterTarget = [].concat(
-      STUDENTS_QUERY_KEY,
-      parseInt(diagnosticTypeValue.value),
+      queryKey,
       selectedTimeframe,
       selectedSchoolIds,
       selectedGrades,
       selectedTeacherIds,
       selectedClassroomIds,
     )
-
-    const filterHash = hashPayload(filterTarget)
-
-    return hashMessage == filterHash
+    return hashPayload(filterTarget)
   }
 
   function getData() {
@@ -217,7 +218,7 @@ export const StudentSection = ({
     }
     return (
       <DataTable
-        className="growth-diagnostic-reports-by-skill-table reporting-format"
+        className="growth-diagnostic-reports-by-student-table reporting-format"
         emptyStateMessage={noResultsMessage('diagnostic')}
         headers={headers}
         rows={formattedData}
