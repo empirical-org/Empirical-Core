@@ -58,8 +58,8 @@ class Demo::CreateAdminReport
 
   private def create_milestones_and_teacher_info_for_user(user)
     milestone = Milestone.find_by_name(Milestone::TYPES[:see_welcome_modal])
-    UserMilestone.find_or_create_by(milestone: milestone, user: user)
-    teacher_info = TeacherInfo.find_or_create_by(user: user)
+    UserMilestone.find_or_create_by(milestone:, user:)
+    teacher_info = TeacherInfo.find_or_create_by(user:)
     teacher_info.update(minimum_grade_level: 0, maximum_grade_level: 12)
   end
 
@@ -100,9 +100,12 @@ class Demo::CreateAdminReport
 
     # delete some activity sessions to make data more varied
     all_classrooms.each do |classroom|
-      activity_sessions_for_classroom = ActivitySession.joins(:classroom_unit).where('classroom_units.classroom_id = ?', classroom.id).where.not(activity_id: Activity::PRE_TEST_DIAGNOSTIC_IDS)
-      number_of_sessions_to_destroy = (RANGE_OF_NUMBER_OF_SESSIONS_TO_DESTROY).to_a.sample
-      activity_sessions_for_classroom.sample(number_of_sessions_to_destroy).each { |as| as.destroy }
+      ActivitySession
+        .joins(:classroom_unit)
+        .where(classroom_units: {classroom_id: classroom.id})
+        .where.not(activity_id: Activity::PRE_TEST_DIAGNOSTIC_IDS)
+        .sample(rand(RANGE_OF_NUMBER_OF_SESSIONS_TO_DESTROY))
+        .each(&:destroy)
     end
   end
 
