@@ -13,8 +13,10 @@ RSpec.describe Demo::CreateAdminReport do
   }
   let(:admin) { User.find_by(email: teacher_email, role: User::ADMIN) }
   let(:subscription) { Subscription.find_by(purchaser: admin, account_type: Subscription::SCHOOL_DISTRICT_PAID) }
+  let!(:milestone) { create(:see_welcome_modal) }
+  let(:delay) { 0 }
 
-  subject { described_class.new(teacher_email, passed_data) }
+  subject { described_class.new(teacher_email, passed_data, delay) }
 
   before do
     Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES
@@ -32,9 +34,12 @@ RSpec.describe Demo::CreateAdminReport do
     subject.call
   end
 
-  it 'should create an admin user with the passed email who has purchased a district subscription' do
+  it 'should create an admin user with the passed email who has purchased a district subscription, has premium, and has the see welcome modal milestone and teacher info' do
     expect(admin).to be
     expect(subscription).to be
+    expect(admin.subscription).to be
+    expect(UserMilestone.exists?(user: admin, milestone: milestone)).to be true
+    expect(TeacherInfo.exists?(user: admin)).to be true
   end
 
   it 'should create the schools from the data hash and make the admin an administrator of them' do
@@ -47,7 +52,7 @@ RSpec.describe Demo::CreateAdminReport do
     end
   end
 
-  it 'should create every teacher account from the data hash, associated with the correct school and with a login record' do
+  it 'should create every teacher account from the data hash, associated with the correct school, and with a login record, see welcome modal milestone, and teacher info' do
     schools_and_teachers = subject.data.map { |d| { 'School' => d['School'], 'Teacher' => d['Teacher'] } }.uniq
     schools_and_teachers.each do |row|
       teacher = User.find_by_name(row['Teacher'])
@@ -55,6 +60,8 @@ RSpec.describe Demo::CreateAdminReport do
       expect(SchoolsUsers.find_by(school: school, user: teacher)).to be
       expect(UserSubscription.find_by(user: teacher, subscription: subscription)).to be
       expect(UserLogin.exists?(user: teacher)).to be true
+      expect(UserMilestone.exists?(user: teacher, milestone: milestone)).to be true
+      expect(TeacherInfo.exists?(user: admin)).to be true
     end
   end
 
