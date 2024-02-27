@@ -84,7 +84,7 @@ const LessonRecommendation = ({ previouslyAssignedRecommendations, selections, s
   })
 
   return (
-    <section className={`lessons-recommendation ${isExpanded? 'is-expanded' : ''} ${isRecommended && !isAssigned ? 'is-recommended-and-not-assigned' : ''}`}>
+    <section className={`lessons-recommendation ${isExpanded ? 'is-expanded' : ''} ${isRecommended && !isAssigned ? 'is-recommended-and-not-assigned' : ''}`}>
       <div className="top-row">
         <div>
           {isRecommended ? recommendedGlyph : <span className="recommended-glyph-placeholder" />}
@@ -158,7 +158,7 @@ const RecommendationsButtons = ({ className, parentClassName, numberSelected, as
   )
 }
 
-const PostTestAssignmentButton = ({ assigningPostTest, assignedPostTest, assignPostTest, numberSelectedForPostTest, releaseMethod}) => {
+const PostTestAssignmentButton = ({ assigningPostTest, assignedPostTest, assignPostTest, numberSelectedForPostTest, releaseMethod }) => {
   let assignDivClass
   if (releaseMethod) {
     assignDivClass = "larger-assign"
@@ -181,7 +181,7 @@ const PostTestAssignmentButton = ({ assigningPostTest, assignedPostTest, assignP
   )
 }
 
-const IndependentRecommendationsButtons = ({ handleClickAssignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, releaseMethod, setShowReleaseMethodModal,}) => {
+const IndependentRecommendationsButtons = ({ handleClickAssignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, releaseMethod, setShowReleaseMethodModal, }) => {
   function handleClickEditReleaseMethod() { setShowReleaseMethodModal(true) }
 
   function handleSelectAllClick() {
@@ -388,11 +388,11 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     }));
   }
 
-  function initializePusher(isLessons=false) {
+  function initializePusher(isLessons = false) {
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, cluster: process.env.PUSHER_CLUSTER });
+    const pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
     const channel = pusher.subscribe(classroomId);
     if (isLessons) {
       channel.bind('lessons-recommendations-assigned', (data) => {
@@ -425,7 +425,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
 
   function assignLessonsActivityPacks() {
     initializePusher(true)
-    requestPost('/teachers/progress_reports/assign_whole_class_instruction_packs/', { unit_template_ids: lessonsSelections, classroom_id: params.classroomId }, (data) => {}, (data) => {
+    requestPost('/teachers/progress_reports/assign_whole_class_instruction_packs/', { unit_template_ids: lessonsSelections, classroom_id: params.classroomId }, (data) => { }, (data) => {
       alert(TROUBLE_PROCESSING_MESSAGE);
     })
   }
@@ -444,7 +444,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
         ]
       }
     });
-    return { selections: independentSelectionsArr ,};
+    return { selections: independentSelectionsArr, };
   }
 
   function assignIndependentActivityPacks() {
@@ -458,7 +458,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     }
     setIndependentAssigning(true)
     initializePusher()
-    requestPost('/teachers/progress_reports/assign_independent_practice_packs/', dataToPass, (data) => {}, (data) => {
+    requestPost('/teachers/progress_reports/assign_independent_practice_packs/', dataToPass, (data) => { }, (data) => {
       alert(TROUBLE_PROCESSING_MESSAGE);
       setIndependentAssigning(false)
     })
