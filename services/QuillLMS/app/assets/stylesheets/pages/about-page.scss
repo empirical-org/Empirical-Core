@@ -13,6 +13,11 @@
     font-style: italic;
   }
 
+  iframe {
+    height: 393px;
+    width: 700px;
+  }
+
   .text-and-image {
     margin-top: 64px !important;
     p:last-of-type {
@@ -41,6 +46,9 @@
       grid-template-columns: auto auto auto;
       gap: 16px;
       padding-bottom: 64px;
+      img {
+        max-width: 300px;
+      }
     }
   }
 
@@ -48,14 +56,39 @@
     display: flex;
     align-items: center;
     margin-top: 32px;
-    img {
+    .guidestar-link {
+      display: block;
       margin-right: 32px;
+    }
+    img {
+      min-width: 108px;
     }
     p {
       margin: 0px !important;
       a, span {
         font-style: normal;
         text-decoration: underline;
+      }
+    }
+  }
+
+  @media (max-width: 700px) {
+    iframe {
+      width: 313px;
+      height: 176px;
+    }
+    .guidestar-container {
+      flex-direction: column;
+      align-items: center;
+      .guidestar-link {
+        margin-right: 0px;
+        margin-bottom: 16px;
+      }
+    }
+    .partnerships {
+      grid-template-columns: auto !important;
+      img {
+        margin: auto;
       }
     }
   }
