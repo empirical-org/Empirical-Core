@@ -16,10 +16,14 @@ module QuillBigQuery
     end
 
     def refresh!
-      QuillBigQuery::WritePermissionsRunner.run(drop_sql)
-
-      QuillBigQuery::WritePermissionsRunner.run(create_sql)
+      drop!
+      create!
     end
+
+    def drop! = run_query(drop_sql)
+    def create! = run_query(create_sql)
+
+    private def run_query(sql) = QuillBigQuery::WritePermissionsRunner.run(sql)
 
     # Adding a COUNT query after the creation for 2 reasons: since the
     # 1) BigQuery library errors when returning the contents

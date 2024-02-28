@@ -8,6 +8,7 @@ module QuillBigQuery
       ::Google::Cloud::InvalidArgumentError
     ]
 
+    # Array of string keys defined by child
     def materialized_view_keys = raise NotImplementedError
 
     def run_query
