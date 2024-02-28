@@ -28,7 +28,6 @@ module QuillBigQuery
 
     def root_query
       <<-SQL
-        #{with_clauses}
         #{select_clause}
         #{from_and_join_clauses}
         #{where_clause}
@@ -36,10 +35,6 @@ module QuillBigQuery
         #{order_by_clause}
         #{limit_clause}
       SQL
-    end
-
-    def with_clauses
-      ""
     end
 
     def select_clause
