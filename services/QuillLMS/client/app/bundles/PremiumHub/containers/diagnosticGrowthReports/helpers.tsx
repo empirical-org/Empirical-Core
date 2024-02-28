@@ -340,12 +340,12 @@ function renderPostEmbeddedSkillStatus(improved, maintained, total) {
 function renderEmbeddedTable(aggregate_rows) {
   if(!aggregate_rows) { return false }
 
-  // @TODO probably make 'data-table-headers' a constant here and indicate what it's referring to
-  const dataTableHeaders  = document.getElementsByClassName('data-table-headers')[0]
+  // grabbed from the header width of the parent table
+  const parentTableWidth = document.getElementsByClassName('data-table-headers')[0]
 
-  // @TODO CHANGE 800 TO SOMETHING MORE USEFUL
+  // 1188px is the current computed width of the embedded data table
   return(
-    <div className="embedded-table-container" style={{ width: `${dataTableHeaders?.offsetWidth || 800}px`}}>
+    <div className="embedded-table-container" style={{ width: `${parentTableWidth?.offsetWidth || 1188}px`}}>
       <table className='embedded-student-growth-diagnostic-table'>
         <thead>
           <tr>

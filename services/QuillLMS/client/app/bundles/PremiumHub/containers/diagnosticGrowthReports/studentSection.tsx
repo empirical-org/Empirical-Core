@@ -46,7 +46,7 @@ const headers = [
   {
     name: '',
     attribute: 'preSkillsProficient',
-    width: '144px',
+    width: '146px',
     primaryTitle: 'Pre:',
     secondaryTitle: 'Skills Proficient',
     tooltipName: '',
