@@ -2,17 +2,17 @@
 
 module QuillBigQuery
   class MaterializedView
-    attr_reader :query_key
+    attr_reader :view_key
 
     QUERY_FOLDER = Rails.root.join('db/big_query/views/')
     CONFIG = Configs[:big_query_views]
 
     class InvalidQueryKeyError < StandardError; end
 
-    def initialize(query_key)
-      @query_key = query_key
+    def initialize(view_key)
+      @view_key = view_key
 
-      raise InvalidQueryKeyError unless query_key.in?(CONFIG.keys)
+      raise InvalidQueryKeyError unless view_key.in?(CONFIG.keys)
     end
 
     def refresh!
@@ -46,7 +46,7 @@ module QuillBigQuery
     def name_with_dataset = "#{dataset}.#{name}"
     def name_fallback = config[:name_fallback]
 
-    private def config = @config ||= CONFIG[query_key]
+    private def config = @config ||= CONFIG[view_key]
     private def dataset = config[:dataset]
     private def create_options = config[:create_options]
   end
