@@ -6,7 +6,7 @@ module Snapshots
     def select_clause
       <<~SQL
         SELECT school_name AS value,
-        SUM(activity_count) AS count
+        IFNULL(SUM(activity_count),0) AS count
       SQL
     end
 

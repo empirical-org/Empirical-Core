@@ -3,7 +3,7 @@
 module Snapshots
   class ActivitiesCompletedQuery < ReportingSessionCountQuery
     def select_clause
-      "SELECT SUM(activity_count) AS count"
+      "SELECT IFNULL(SUM(activity_count),0) AS count"
     end
   end
 end
