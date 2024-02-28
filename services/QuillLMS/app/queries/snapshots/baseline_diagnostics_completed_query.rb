@@ -5,7 +5,7 @@ module Snapshots
     BASELINE_DIAGNOSTIC_IDS = Activity::PRE_TEST_DIAGNOSTIC_IDS
 
     def select_clause
-      "SELECT SUM(activity_count) AS count"
+      "SELECT IFNULL(SUM(activity_count),0) AS count"
     end
 
     def where_clause
