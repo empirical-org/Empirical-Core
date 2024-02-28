@@ -364,6 +364,9 @@ function renderEmbeddedTable(aggregate_rows) {
             const { skill_group_name, pre_questions_correct, pre_questions_percentage, pre_questions_total,
               post_questions_correct, post_questions_percentage, post_questions_total, post_skills_improved, post_skills_maintained
             } = row
+
+            if(!skill_group_name) { return }
+
             return(
               <tr>
                 <td>{renderSkillName(skill_group_name, post_skills_improved)}</td>
