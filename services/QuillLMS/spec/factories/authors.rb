@@ -6,7 +6,7 @@
 #
 #  id     :integer          not null, primary key
 #  avatar :text
-#  name   :string
+#  name   :string(255)
 #
 FactoryBot.define do
   factory :author do

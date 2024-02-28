@@ -10,12 +10,12 @@ jobs:
           PG_USER: ubuntu
           RAILS_ENV: test
           RACK_ENV: test
-      - image: postgres:15.6-alpine
+      - image: pgvector/pgvector:pg15
         environment:
           POSTGRES_DB: quill_test_db
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: password
-      - image: postgres:15.6-alpine
+      - image: pgvector/pgvector:pg15
         name: test_replica
         environment:
           POSTGRES_DB: quill_test_db
@@ -42,9 +42,10 @@ jobs:
       - run:
           name: Install postgres dependencies
           command: |
-            sudo apt update
-            sudo apt-cache search postgres
-            sudo apt install -y postgresql-client
+            wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+            echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+            sudo apt-get update
+            sudo apt-get install -y postgresql-client-15
       - run:
           name: Copy Config files
           command: |
@@ -77,7 +78,7 @@ jobs:
           RACK_ENV: test
           SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub
           DEFAULT_URL: http://localhost:3000
-      - image: postgres:15.6-alpine
+      - image: pgvector/pgvector:pg15
         environment:
           POSTGRES_DB: quill_test_db
           POSTGRES_USER: ubuntu
@@ -118,9 +119,11 @@ jobs:
       - run:
           name: Install postgres dependencies
           command: |
-            sudo apt update
-            sudo apt-cache search postgres
-            sudo apt install -y postgresql-client
+            wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+            echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+            sudo apt-get update
+            sudo apt-get install -y postgresql-client-15
+
       - run:
           name: Copy Config files
           command: |
@@ -153,12 +156,12 @@ jobs:
           PG_USER: ubuntu
           RAILS_ENV: test
           RACK_ENV: test
-      - image: postgres:15.6-alpine
+      - image: pgvector/pgvector:pg15
         environment:
           POSTGRES_DB: quill_test_db
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: password
-      - image: postgres:15.6-alpine
+      - image: pgvector/pgvector:pg15
         name: test_replica
         environment:
           POSTGRES_DB: quill_test_db
@@ -185,9 +188,10 @@ jobs:
       - run:
           name: Install postgres dependencies
           command: |
-            sudo apt update
-            sudo apt-cache search postgres
-            sudo apt install -y postgresql-client
+            wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+            echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+            sudo apt-get update
+            sudo apt-get install -y postgresql-client-15
       - run:
           name: Copy Config files
           command: |
@@ -212,7 +216,7 @@ jobs:
     working_directory: ~/Empirical-Core
     parallelism: 3
     docker:
-      - image: circleci/node:fermium
+      - image: cimg/node:14.21
     steps:
       - checkout
       - run:
@@ -316,12 +320,12 @@ jobs:
           PG_USER: ubuntu
           RAILS_ENV: test
           RACK_ENV: test
-      - image: postgres:15.6-alpine
+      - image: pgvector/pgvector:pg15
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: quill_evidence_test_db
           POSTGRES_PASSWORD: password
-      - image: circleci/redis:6.0.9
+      - image: cimg/redis:6.0.20
     steps:
       - checkout
       - restore_cache:
@@ -342,9 +346,10 @@ jobs:
       - run:
           name: Install postgres dependencies
           command: |
-            sudo apt update
-            sudo apt-cache search postgres
-            sudo apt install -y postgresql-client
+            wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+            echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+            sudo apt-get update
+            sudo apt-get install -y postgresql-client-15
       - run:
           name: Copy Config files
           command: |
@@ -366,7 +371,7 @@ jobs:
   node_lint:
     working_directory: ~/Empirical-Core
     docker:
-      - image: circleci/node:erbium
+      - image: cimg/node:14.21
     steps:
       - checkout
       - run:

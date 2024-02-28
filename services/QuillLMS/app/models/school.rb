@@ -5,38 +5,38 @@
 # Table name: schools
 #
 #  id                    :integer          not null, primary key
-#  charter               :string
-#  city                  :string
-#  ethnic_group          :string
+#  charter               :string(255)
+#  city                  :string(255)
+#  ethnic_group          :string(255)
 #  free_lunches          :integer
 #  fte_classroom_teacher :integer
 #  latitude              :decimal(9, 6)
 #  longitude             :decimal(9, 6)
 #  lower_grade           :integer
-#  magnet                :string
-#  mail_city             :string
-#  mail_state            :string
-#  mail_street           :string
-#  mail_zipcode          :string
-#  name                  :string
-#  nces_status_code      :string
-#  nces_type_code        :string
-#  phone                 :string
+#  magnet                :string(255)
+#  mail_city             :string(255)
+#  mail_state            :string(255)
+#  mail_street           :string(255)
+#  mail_zipcode          :string(255)
+#  name                  :string(255)
+#  nces_status_code      :string(255)
+#  nces_type_code        :string(255)
+#  phone                 :string(255)
 #  ppin                  :string
 #  school_level          :integer
-#  state                 :string
-#  street                :string
+#  state                 :string(255)
+#  street                :string(255)
 #  total_students        :integer
 #  ulocal                :integer
 #  upper_grade           :integer
-#  zipcode               :string
+#  zipcode               :string(255)
 #  created_at            :datetime
 #  updated_at            :datetime
 #  authorizer_id         :integer
-#  clever_id             :string
+#  clever_id             :string(255)
 #  coordinator_id        :integer
 #  district_id           :bigint
-#  nces_id               :string
+#  nces_id               :string(255)
 #
 # Indexes
 #
