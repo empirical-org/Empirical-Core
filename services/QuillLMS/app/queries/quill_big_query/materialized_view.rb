@@ -29,13 +29,13 @@ module QuillBigQuery
     # 2) It seems the view isn't primed until it is queried, so querying it
     def create_sql
       <<-SQL.squish
-        CREATE MATERIALIZED VIEW #{name} #{create_options} AS (#{sql.squish});
-        SELECT COUNT(*) FROM #{name};
+        CREATE MATERIALIZED VIEW #{name_with_dataset} #{create_options} AS (#{sql.squish});
+        SELECT COUNT(*) FROM #{name_with_dataset};
       SQL
     end
 
     def sql = File.read(QUERY_FOLDER + config[:sql])
-    def drop_sql = "DROP MATERIALIZED VIEW IF EXISTS #{name}"
+    def drop_sql = "DROP MATERIALIZED VIEW IF EXISTS #{name_with_dataset}"
     def fallback_with_clause = "#{name_fallback} AS (#{sql.squish})"
 
     def name = config[:name]

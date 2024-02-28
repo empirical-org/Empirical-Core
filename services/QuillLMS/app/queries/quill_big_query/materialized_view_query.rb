@@ -8,13 +8,11 @@ module QuillBigQuery
       ::Google::Cloud::InvalidArgumentError
     ]
 
-    # private def default_runner = QuillBigQuery::MaterializedViewRunner
-
     def materialized_view_keys = raise NotImplementedError
 
     def run_query
       query_runner(query)
-    rescue *BROKEN_MATERIALIZED_VIEW_ERRORS => e
+    rescue *BROKEN_MATERIALIZED_VIEW_ERRORS
       query_runner(query_fallback)
     end
 
