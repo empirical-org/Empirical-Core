@@ -239,15 +239,20 @@ export function aggregateSkillsData({
 
 // Students logic
 
-function getPreToPostImprovedSkillsValue(count) {
+/*
+  Just a note that to determine if a pre diagnostic has not been completed, we look for a 0 value for pre_questions_total.
+  Similarly, we look for a null value for post_questions_total to determine if a post diagnostic has not been completed yet.
+*/
+
+function getPreToPostImprovedSkillsValue(count, preQuestionsTotal) {
+  if(preQuestionsTotal === 0) { return 'Diagnostic Not Completed'}
   if(count === 0) { return 'No Improved Skills'}
   return `+${count} Improved Skill${count === 1 ? '' : 's'}`
 }
 
-function getQuestionsCorrectValue(correctCount, total, percentage) {
-  if(!correctCount && !total) {
-    return <p>{noDataToShow}</p>
-  }
+function getQuestionsCorrectValue({ correctCount, total, percentage, isPre }) {
+  if(total === 0 && isPre) { return }
+  if(!correctCount && !total) { return <p>{noDataToShow}</p>}
   return(
     <div>
       <p>{`${correctCount} of ${total} Questions`}</p>
@@ -256,16 +261,18 @@ function getQuestionsCorrectValue(correctCount, total, percentage) {
   )
 }
 
-function getPreSkillsProficient(proficientCount, practiceCount, total) {
+function getPreSkillsProficient({ proficientCount, practiceCount, skillsCount, questionsCount }) {
+  if(questionsCount === 0) { return }
   return (
     <div>
-      <p>{`${proficientCount} of ${total} Skills`}</p>
+      <p>{`${proficientCount} of ${skillsCount} Skills`}</p>
       {practiceCount ? <p>{`(${practiceCount} Skills to Practice)`}</p> : <p>(No Skills To Practice)</p>}
     </div>
   )
 }
 
-function getTotalActivitiesAndTimespent(student_id, recommendationsData) {
+function getTotalActivitiesAndTimespent(student_id, recommendationsData, questionsCount) {
+  if(questionsCount === 0) { return }
   const data = recommendationsData[student_id]
   if(!data) {
     return <p>{noDataToShow}</p>
@@ -274,7 +281,8 @@ function getTotalActivitiesAndTimespent(student_id, recommendationsData) {
   return `${completed_activities} (${getTimeSpent(time_spent_seconds)})`
 }
 
-function getPostSkillsImprovedOrMaintained(improvedCount, maintainedCount, combinedCount, skillsTotal, postQuestionsTotal) {
+function getPostSkillsImprovedOrMaintained({ improvedCount, maintainedCount, combinedCount, skillsTotal, preQuestionsTotal, postQuestionsTotal }) {
+  if(preQuestionsTotal === 0) { return }
   if (postQuestionsTotal === null) {
     return noDataToShow
   }
@@ -385,14 +393,15 @@ export function aggregateStudentData(studentData, recommendationsData) {
     return {
       id: i,
       name: student_name,
-      preToPostImprovedSkills: getPreToPostImprovedSkillsValue(pre_to_post_improved_skill_count),
-      preQuestionsCorrect: getQuestionsCorrectValue(pre_questions_correct, pre_questions_total, pre_questions_percentage),
-      preSkillsProficient: getPreSkillsProficient(pre_skills_proficient, pre_skills_to_practice, total_skills),
-      totalActivitiesAndTimespent: getTotalActivitiesAndTimespent(student_id, recommendationsData),
-      postQuestionsCorrect: getQuestionsCorrectValue(post_questions_correct, post_questions_total, post_questions_percentage),
-      postSkillsImprovedOrMaintained: getPostSkillsImprovedOrMaintained(post_skills_improved, post_skills_maintained, post_skills_improved_or_maintained, total_skills, post_questions_total),
-      aggregate_rows,
-      renderEmbeddedTableFunction: renderEmbeddedTable
+      preToPostImprovedSkills: getPreToPostImprovedSkillsValue(pre_to_post_improved_skill_count, pre_questions_total),
+      preQuestionsCorrect: getQuestionsCorrectValue({ correctCount: pre_questions_correct, total: pre_questions_total, percentage: pre_questions_percentage, isPre: true }),
+      preSkillsProficient: getPreSkillsProficient({ proficientCount: pre_skills_proficient, practiceCount: pre_skills_to_practice, skillsCount: total_skills, questionsCount: pre_questions_total }),
+      totalActivitiesAndTimespent: getTotalActivitiesAndTimespent(student_id, recommendationsData, pre_questions_total),
+      postQuestionsCorrect: getQuestionsCorrectValue({ correctCount: post_questions_correct, total: post_questions_total, percentage: post_questions_percentage, isPre: false }),
+      postSkillsImprovedOrMaintained: getPostSkillsImprovedOrMaintained({ improvedCount: post_skills_improved, maintainedCount: post_skills_maintained, combinedCount: post_skills_improved_or_maintained, skillsTotal: total_skills, preQuestionsTotal: pre_questions_total ,postQuestionsTotal: post_questions_total}),
+      // we don't want to render aggregrate data if pre diagnostic has not been completed yet
+      aggregate_rows: pre_questions_total ? aggregate_rows : null,
+      renderEmbeddedTableFunction: pre_questions_total ? renderEmbeddedTable : null
     }
   })
 }
