@@ -5,7 +5,7 @@ then
   exit 1
 fi
 
-[ ! -d '/Applications/Postgres.app' ] && echo 'Please make sure Postgres.app is installed. Use the version "Postgres.app with all currently supported versions" on this page: https://postgresapp.com/downloads.html so that you use Postgres 10. Exiting.' && exit 1
+[ ! -d '/Applications/Postgres.app' ] && echo 'Please make sure Postgres.app is installed. Use the version "Postgres.app with all currently supported versions" on this page: https://postgresapp.com/downloads.html so that you use Postgres 15. Exiting.' && exit 1
 
 postgres_already_running_msg="It looks like you have a non-Postgres.app version \n
 of postgres already running. Try running \n
@@ -31,7 +31,6 @@ brew upgrade
 brew doctor
 
 echo 'Install requirements'
-# TODO, edit script to use version 10.5, this is version 10.6 of Postgres
 brew install redis
 brew install rbenv
 brew install ruby-build
@@ -117,10 +116,10 @@ cp -n .env-sample .env
 
 ### homebrew postgres installation. ###################
 # Uncomment if you don't want to use Postgres.app
-# brew install postgresql@10
-# brew services restart postgresql@10
-# echo 'export PATH="/usr/local/opt/postgresql@10/bin:$PATH"' >> ~/.zprofile
-# export PKG_CONFIG_PATH="/usr/local/opt/postgresql@10/lib/pkgconfig"
+# brew install postgresql@15
+# brew services restart postgresql@15
+# echo 'export PATH="/usr/local/opt/postgresql@15/bin:$PATH"' >> ~/.zprofile
+# export PKG_CONFIG_PATH="/usr/local/opt/postgresql@15/lib/pkgconfig"
 
 # echo 'create the app DB user quill_dev and quill_test'
 # # Ideally, this would be more restrictive (shouldn't need a superuser), but would need some DB edits
