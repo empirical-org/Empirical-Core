@@ -101,7 +101,7 @@ module AdminDiagnosticReports
 
     private def post_process(result)
       # This is an override of the base post_process without a Ruby-based
-      # sorting call since we're using ORDER BY in the SQL
+      # sorting call at the end since we're using ORDER BY in the SQL
       return [] if result.empty?
 
       result.group_by { |row| row[self.class::AGGREGATE_COLUMN] }
