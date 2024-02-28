@@ -96,7 +96,7 @@ module AdminDiagnosticReports
     end
 
     def relevant_date_column
-      "performance.pre_activity_session_completed_at"
+      "performance.pre_assigned_at"
     end
 
     private def post_process(result)

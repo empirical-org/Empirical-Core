@@ -8,7 +8,7 @@ import { diagnosticTypeDropdownOptions, hashPayload } from '../../shared'
 import { requestPost } from '../../../../modules/request'
 
 const STUDENTS_QUERY_KEY = "diagnostic-students"
-const RECOMMENDATIONS_QUERY_KEY = "student-recommendations"
+const RECOMMENDATIONS_QUERY_KEY = "student-recommendation"
 const PUSHER_EVENT_KEY = "admin-diagnostic-students-cached";
 const DEFAULT_WIDTH = "138px"
 const BATCH_SIZE = 50
