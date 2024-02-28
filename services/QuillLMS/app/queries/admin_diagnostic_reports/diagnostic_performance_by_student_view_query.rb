@@ -22,7 +22,7 @@ module AdminDiagnosticReports
 
     def specific_select_clause
       <<-SQL
-        CASE WHEN performance.pre_questions_correct < performance.pre_questions_correct THEN 1 ELSE 0 END AS pre_to_post_improved_skill_count,
+        CASE WHEN performance.pre_questions_correct < performance.post_questions_correct THEN 1 ELSE 0 END AS pre_to_post_improved_skill_count,
         performance.pre_questions_correct AS pre_questions_correct,
         performance.pre_questions_total AS pre_questions_total,
         SAFE_DIVIDE(CAST(performance.pre_questions_correct AS float64), performance.pre_questions_total) AS pre_questions_percentage,
@@ -99,8 +99,14 @@ module AdminDiagnosticReports
       "performance.pre_activity_session_completed_at"
     end
 
-    private def group_sort_by(group)
-      group[:student_name].strip.split(' ', 1).second&.strip
+    private def post_process(result)
+      # This is an override of the base post_process without a Ruby-based
+      # sorting call since we're using ORDER BY in the SQL
+      return [] if result.empty?
+
+      result.group_by { |row| row[self.class::AGGREGATE_COLUMN] }
+        .values
+        .map { |group_rows| build_diagnostic_aggregates(group_rows) }
     end
 
     private def valid_aggregation_options
