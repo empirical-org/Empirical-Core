@@ -224,5 +224,30 @@ main {
       }
     }
   }
+  .load-more-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 48px;
+    p {
+      font-size: 12px;
+    }
+    button {
+      margin-top: 16px;
+      padding: 13px 16px;
+      border-radius: 8px;
+      border: 1px solid $quill-grey-20;
+      background-color: $quill-white;
+      &.disabled {
+        background-color: $quill-grey-2;
+        font-size: 14px;
+        font-weight: 600;
+        color: $quill-black;
+      }
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
 }
 

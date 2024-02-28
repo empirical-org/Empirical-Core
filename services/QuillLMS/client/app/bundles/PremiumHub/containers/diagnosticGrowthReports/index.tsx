@@ -76,7 +76,7 @@ export const DiagnosticGrowthReportsContainer = ({
     ...sharedProps,
     passedRecommendationsData: null,
     passedStudentData: null,
-    passedFormattedData: null
+    passedVisibleData: null
   }
 
   function handleTabChange(e) {

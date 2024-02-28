@@ -11,6 +11,7 @@ const STUDENTS_QUERY_KEY = "diagnostic-students"
 const RECOMMENDATIONS_QUERY_KEY = "student-recommendations"
 const PUSHER_EVENT_KEY = "admin-diagnostic-students-cached";
 const DEFAULT_WIDTH = "138px"
+const BATCH_SIZE = 50
 
 const headers = [
   {
@@ -99,22 +100,24 @@ export const StudentSection = ({
   pusherChannel,
   passedRecommendationsData,
   passedStudentData,
-  passedFormattedData
+  passedVisibleData
 }) => {
   const [diagnosticTypeValue, setDiagnosticTypeValue] = React.useState<DropdownObjectInterface>(diagnosticTypeDropdownOptions[0])
   const [pusherMessage, setPusherMessage] = React.useState<string>(null)
   const [recommendationsData, setRecommendationsData] = React.useState<any>(passedRecommendationsData || []);
   const [studentData, setStudentData] = React.useState<any>(passedStudentData || []);
-  const [formattedData, setFormattedData] = React.useState<any>(passedFormattedData || []);
-  const [loading, setLoading] = React.useState<boolean>(!passedRecommendationsData && !passedStudentData && !passedFormattedData);
+  const [totalStudents, setTotalStudents] = React.useState<number>(null)
+  const [visibleData, setVisibleData] = React.useState<any>(passedVisibleData || []);
+  const [rowsToShow, setRowsToShow] = React.useState<number>(BATCH_SIZE);
+  const [loading, setLoading] = React.useState<boolean>(!passedVisibleData && !passedRecommendationsData && !passedStudentData);
 
   React.useEffect(() => {
     initializePusher()
   }, [pusherChannel])
 
   React.useEffect(() => {
-    if (!passedRecommendationsData && !passedStudentData && !passedFormattedData) {
-      // this is for testing purposes; these values will always be null in a non-testing environment
+    // this is for testing purposes; these values will always be null in a non-testing environment
+    if (!passedRecommendationsData && !passedStudentData && !passedVisibleData) {
       getData()
     }
   }, [searchCount, diagnosticTypeValue])
@@ -122,7 +125,7 @@ export const StudentSection = ({
   React.useEffect(() => {
     if (studentData?.length && recommendationsData && Object.keys(recommendationsData).length) {
       const formattedData = aggregateStudentData(studentData, recommendationsData)
-      setFormattedData(formattedData)
+      updateVisibleData(formattedData);
       setLoading(false)
     }
   }, [studentData, recommendationsData])
@@ -138,6 +141,19 @@ export const StudentSection = ({
       getRecommendationsData()
     }
   }, [pusherMessage])
+
+  React.useEffect(() => {
+    const formattedData = aggregateStudentData(studentData, recommendationsData)
+    updateVisibleData(formattedData);
+  }, [rowsToShow])
+
+  function updateVisibleData(data) {
+    if(!totalStudents) {
+      setTotalStudents(data.length)
+    }
+    const newDataToShow = data.slice(0, rowsToShow);
+    setVisibleData(newDataToShow);
+  }
 
   function initializePusher() {
     pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
@@ -203,6 +219,9 @@ export const StudentSection = ({
         return
       } else {
         const { results, } = body
+        if (rowsToShow > results.length) {
+          setRowsToShow(results.length)
+        }
         setStudentData(results)
       }
     })
@@ -212,17 +231,39 @@ export const StudentSection = ({
     setDiagnosticTypeValue(option)
   }
 
+  function loadMoreRows() {
+    const count = rowsToShow + BATCH_SIZE
+    if(count > studentData.length) {
+      setRowsToShow(studentData.length)
+    } else {
+      setRowsToShow((prevRows) => prevRows + BATCH_SIZE);
+    }
+  };
+
+  function renderButtonContent() {
+    const disabledClass = rowsToShow === studentData.length ? 'disabled' : ''
+    return(
+      <div className="load-more-button-container">
+        <p>Displaying <strong>{`${rowsToShow} of ${studentData.length}`}</strong> students</p>
+        <button className={`interactive-wrapper ${disabledClass}`} onClick={loadMoreRows} disabled={!!disabledClass}>Load More</button>
+      </div>
+    )
+  }
+
   function renderContent() {
     if (loading) {
       return <Spinner />
     }
     return (
-      <DataTable
-        className="growth-diagnostic-reports-by-student-table reporting-format"
-        emptyStateMessage={noResultsMessage('diagnostic')}
-        headers={headers}
-        rows={formattedData}
-      />
+      <div>
+        <DataTable
+          className="growth-diagnostic-reports-by-student-table reporting-format"
+          emptyStateMessage={noResultsMessage('diagnostic')}
+          headers={headers}
+          rows={visibleData}
+        />
+        {renderButtonContent()}
+      </div>
     )
   }
 
