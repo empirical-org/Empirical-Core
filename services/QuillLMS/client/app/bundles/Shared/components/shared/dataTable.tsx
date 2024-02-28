@@ -479,13 +479,13 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     let rowElement = <tr className={`${rowClassName}${aggregateRowClassName}`} key={String(row.id)}>{rowContent}</tr>
     const aggregateRowIdentifier = `${row[headers[0].attribute]}-${row.id}`
     const showAggregateRows = row.aggregate_rows?.length && expandedParentRowIdentifier === aggregateRowIdentifier
-    const showEmbeddedTable = row.embeddedTable && expandedParentRowIdentifier === aggregateRowIdentifier
+    const showEmbeddedTable = row.renderEmbeddedTableFunction && expandedParentRowIdentifier === aggregateRowIdentifier
 
     if (showEmbeddedTable) {
       return(
         <React.Fragment key={String(row.id)}>
           {rowElement}
-          {row.embeddedTable}
+          {row.renderEmbeddedTableFunction(row.aggregate_rows)}
         </React.Fragment>
       )
     }

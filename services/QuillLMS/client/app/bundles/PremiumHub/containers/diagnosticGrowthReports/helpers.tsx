@@ -340,8 +340,12 @@ function renderPostEmbeddedSkillStatus(improved, maintained, total) {
 function renderEmbeddedTable(aggregate_rows) {
   if(!aggregate_rows) { return false }
 
+  // @TODO probably make 'data-table-headers' a constant here and indicate what it's referring to
+  const dataTableHeaders  = document.getElementsByClassName('data-table-headers')[0]
+
+  // @TODO CHANGE 800 TO SOMETHING MORE USEFUL
   return(
-    <div className="embedded-table-container">
+    <div className="embedded-table-container" style={{ width: `${dataTableHeaders?.offsetWidth || 800}px`}}>
       <table className='embedded-student-growth-diagnostic-table'>
         <thead>
           <tr>
@@ -388,7 +392,7 @@ export function aggregateStudentData(studentData, recommendationsData) {
       postQuestionsCorrect: getQuestionsCorrectValue(post_questions_correct, post_questions_total, post_questions_percentage),
       postSkillsImprovedOrMaintained: getPostSkillsImprovedOrMaintained(post_skills_improved, post_skills_maintained, post_skills_improved_or_maintained, total_skills, post_questions_total),
       aggregate_rows,
-      embeddedTable: renderEmbeddedTable(aggregate_rows)
+      renderEmbeddedTableFunction: renderEmbeddedTable
     }
   })
 }
