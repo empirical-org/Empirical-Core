@@ -110,9 +110,9 @@ module AdminDiagnosticReports
 
     def group_by_clause = "GROUP BY performance.activity_id, activities.name, aggregate_id, #{aggregate_sort_clause}"
 
-    def active_classroom_stubs_view = @active_classroom_stubs_view ||= QuillBigQuery::MaterializedView.new('active_classroom_stubs_view')
-    def active_user_names_view = @active_user_names_view ||= QuillBigQuery::MateriazliedView.new('active_user_names_view')
-    def performance_view = @performance_view ||= QuillBigQuery::MaterializedView.new('pre_post_diagnostic_skill_group_performance_view')
+    def active_classroom_stubs_view = materialized_view('active_classroom_stubs_view')
+    def active_user_names_view = materialized_view('active_user_names_view')
+    def performance_view = materialized_view('pre_post_diagnostic_skill_group_performance_view')
 
     def materialized_views = [active_classroom_stubs_view, active_user_names_view, performance_view]
 
