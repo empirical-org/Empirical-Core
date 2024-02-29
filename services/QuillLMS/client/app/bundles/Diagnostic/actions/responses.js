@@ -133,6 +133,8 @@ export function submitResponseEdit(rid, content, qid, callback) {
       { response: rubyConvertedResponse, },
       (body) => {
         callback(body);
+        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+        dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
       },
       (body) => {
         dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${body}`, });

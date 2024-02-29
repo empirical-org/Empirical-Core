@@ -134,7 +134,7 @@ const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded,
   };
 
   function rematchResponse() {
-    rematchOne(response, mode, question, questionID, rerenderResponse);
+    rematchOne(response, mode, question, questionID, rerenderResponse, dispatch);
   };
 
   function applyDiff(answer = '', response = '') {

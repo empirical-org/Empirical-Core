@@ -4,6 +4,7 @@ import { hashToCollection } from '../../../Shared/index';
 import { ConceptResult, checkDiagnosticQuestion, checkDiagnosticSentenceFragment, checkFillInTheBlankQuestion } from 'quill-marking-logic';
 import { requestGet, requestPost, requestPut, } from '../../../../modules/request/index';
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel.js';
+import C from '../../constants'
 
 export interface Question {
   conceptID: string,
@@ -86,14 +87,17 @@ export function rematchAll(mode: string, question: Question, questionID: string,
   });
 }
 
-export function rematchOne(response: Response, mode: string, question: Question, questionID: string, callback:Function) {
+export function rematchOne(response: Response, mode: string, question: Question, questionID: string, callback:Function, dispatch: Function) {
   const matcher = getMatcher(mode);
   getGradedResponses(questionID).then((data) => {
     question.key = questionID
     const matcherFields = getMatcherFields(mode, question, formatGradedResponses(data));
     const promise = rematchResponse(matcher, matcherFields, response);
     if (promise) {
-      promise.then((result) => { callback(result); });
+      promise.then((result) => {
+        dispatch({ type: C.FINISH_QUESTION_EDIT, questionID, });
+        callback(result);
+      });
     }
   });
 }
