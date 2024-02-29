@@ -66,17 +66,28 @@ export class KeyboardSensorThatHandlesElementType extends KeyboardSensor {
     {
       eventName: 'onKeyDown' as const,
       handler: ({ nativeEvent: event }: React.KeyboardEvent<Element>) => {
-        return shouldHandleKeyboardEvent(event)
+        return shouldHandleEvent(event)
       }
     }
   ]
 }
 
-function shouldHandleKeyboardEvent(event) {
+export class PointerSensorThatHandlesElementType extends PointerSensor {
+  static activators = [
+    {
+      eventName: 'onPointerDown' as const,
+      handler: ({ nativeEvent: event }: React.PointerEvent<Element>) => {
+        return shouldHandleEvent(event)
+      }
+    }
+  ]
+}
+
+function shouldHandleEvent(event) {
   const activeElement = document.activeElement;
   const tagNames = [INPUT, SELECT, TEXTAREA, BUTTON];
-  // Prevent keyboard sensor activation if focused on input, select, textarea, or button
-  if (activeElement && (tagNames.includes(activeElement.tagName) || activeElement.attributes['contenteditable'].value === 'true')) {
+  // Prevent sensor activation if focused on input, select, textarea, or button
+  if (activeElement && (tagNames.includes(activeElement.tagName) || activeElement.attributes['contenteditable']?.value === 'true')) {
     return false;
   }
   return true; // Return true to allow activation in other cases
@@ -87,7 +98,7 @@ export const SortableList = ({ data, sortCallback, helperClass, useDragHandle, }
   const [activeId, setActiveId] = React.useState(null)
 
   const sensors = useSensors(
-    useSensor(PointerSensor, {
+    useSensor(PointerSensorThatHandlesElementType, {
       activationConstraint: {
         distance: 8,
       },
