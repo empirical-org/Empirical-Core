@@ -2,23 +2,33 @@
 # create_options: "OPTIONS(enable_refresh = true)"
 default:
   active_classroom_stubs_view:
-    name: 'lms.active_classroom_stubs_view'
+    dataset: 'lms'
+    name: 'active_classroom_stubs_view'
+    fallback_name: 'active_classroom_stubs_local'
     create_sql: 'active_classroom_stubs_view.sql'
     create_options: null
   active_classroom_unit_stubs_view:
-    name: 'lms.active_classroom_unit_stubs_view'
+    dataset: 'lms'
+    name: 'active_classroom_unit_stubs_view'
+    fallback_name: 'active_classroom_unit_stubs_local'
     create_sql: 'active_classroom_unit_stubs_view.sql'
     create_options: null
   active_user_names_view:
-    name: 'lms.active_user_names_view'
+    dataset: 'lms'
+    name: 'active_user_names_view'
+    fallback_name: 'active_user_names_local'
     create_sql: 'active_user_names_view.sql'
     create_options: null
   pre_post_diagnostic_skill_group_performance_view:
-    name: 'lms.pre_post_diagnostic_skill_group_performance_view'
+    dataset: 'lms'
+    name: 'pre_post_diagnostic_skill_group_performance_view'
+    fallback_name: 'pre_post_diagnostic_skill_performance_local'
     create_sql: 'pre_post_diagnostic_skill_group_performance_view.sql'
     create_options: "OPTIONS(enable_refresh = true, refresh_interval_minutes = 360, max_staleness = INTERVAL '8' HOUR, allow_non_incremental_definition = true)"
   reporting_sessions_view:
-    name: 'lms.recent_reporting_sessions_view'
-    create_sql: 'reporting_sessions_view.sql'
+    dataset: 'lms'
+    name: 'recent_reporting_sessions_view'
+    name_fallback: 'recent_reporting_sessions_local'
+    sql: 'reporting_sessions_view.sql'
     create_options: null
 
