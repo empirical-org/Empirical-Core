@@ -17,27 +17,6 @@ CREATE SCHEMA heroku_ext;
 
 
 --
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
---
-
--- *not* creating schema, since initdb creates it
-
-
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
---
 -- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -4860,7 +4839,8 @@ CREATE TABLE public.teacher_infos (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     role_selected_at_signup character varying DEFAULT ''::character varying,
-    notification_email_frequency text
+    notification_email_frequency text,
+    show_students_exact_score boolean DEFAULT true NOT NULL
 );
 
 
@@ -10219,7 +10199,7 @@ ALTER TABLE ONLY public.learn_worlds_account_course_events
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "$user", public, heroku_ext;
+SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20121024193845'),
@@ -10772,6 +10752,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231207151344'),
 ('20231214182438'),
 ('20240111143245'),
-('20240221192859');
+('20240221192859'),
+('20240229153806');
 
 
