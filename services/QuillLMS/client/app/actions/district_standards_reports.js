@@ -23,7 +23,7 @@ export const initializePusherForDistrictStandardsReports = (adminId) => {
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, cluster: process.env.PUSHER_CLUSTER });
+    const pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
     const channel = pusher.subscribe(adminId);
     channel.bind('district-standards-reports-found', () => {
       dispatch(getDistrictStandardsReports())

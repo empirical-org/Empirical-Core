@@ -91,7 +91,7 @@ export class FocusPointsContainer extends Component {
     const { fpOrderedIds, focusPoints } = this.state;
     if (fpOrderedIds) {
       const focusPointsCollection = hashToCollection(focusPoints)
-      return fpOrderedIds.map(id => focusPointsCollection.find(fp => fp.text === id))
+      return fpOrderedIds.map(id => focusPointsCollection.find(fp => fp.key === id))
     } else {
       return hashToCollection(focusPoints).sort((a, b) => a.order - b.order);
     }
@@ -144,7 +144,7 @@ export class FocusPointsContainer extends Component {
       const newFp = {};
       const focusPointsArray = hashToCollection(focusPoints)
       fpOrderedIds.forEach((id, index) => {
-        const fp = Object.assign({}, focusPointsArray.find(fp => fp.text === id));
+        const fp = Object.assign({}, focusPointsArray.find(fp => fp.key === id));
         fp.order = index + 1;
         newFp[id] = fp;
       });
@@ -178,7 +178,7 @@ export class FocusPointsContainer extends Component {
     const components = this.fPsortedByOrder().map((fp) => {
       const { conceptResults, feedback, key, order, text } = fp;
       return (
-        <div className="card is-fullwidth has-bottom-margin" id={text} key={text}>
+        <div className="card is-fullwidth has-bottom-margin" id={key} key={key}>
           <header className="card-header">
             <input className="regex-name" onChange={(e) => this.handleNameChange(e, key)} placeholder="Name" type="text" value={fp.name || ''} />
           </header>

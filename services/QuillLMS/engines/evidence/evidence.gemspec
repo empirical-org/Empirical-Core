@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'google-cloud-ai_platform', '~> 1.0.0'
   s.add_dependency 'hotwater', '0.1.2'
+  s.add_dependency 'neighbor', '~> 0.3.2'
   s.add_dependency 'pragmatic_segmenter', '~> 0.3.23'
   s.add_dependency 'rails', '7.0.6'
   s.add_dependency 'sprockets-rails', '3.2.2'

@@ -19,7 +19,7 @@ import TeacherInfoModal from '../components/dashboard/teacher_info_modal';
 import WelcomeModal from '../components/dashboard/welcome_modal';
 import ArticleSpotlight from '../components/shared/articleSpotlight';
 import DemoOnboardingTour, { DEMO_ONBOARDING_DASHBOARD, } from '../components/shared/demo_onboarding_tour';
-import { GRAY_ARTICLE_FOOTER_BACKGROUND_COLOR, TEACHER_DASHBOARD_FEATURED_BLOG_POST_ID } from '../constants/featuredBlogPost';
+import { TEACHER_DASHBOARD_FEATURED_BLOG_POST_ID } from '../constants/featuredBlogPost';
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 1103
 
@@ -146,7 +146,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSe
           </aside>
         </div>
       </div>
-      <ArticleSpotlight backgroundColor={GRAY_ARTICLE_FOOTER_BACKGROUND_COLOR} blogPostId={TEACHER_DASHBOARD_FEATURED_BLOG_POST_ID} />
+      <ArticleSpotlight blogPostId={TEACHER_DASHBOARD_FEATURED_BLOG_POST_ID} />
     </React.Fragment>
   )
 

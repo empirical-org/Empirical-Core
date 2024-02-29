@@ -14,7 +14,7 @@ import StudentResponsesIndex from './studentResponsesIndex';
 import Summary from './summary';
 
 import { DropdownInput, } from '../../../../../Shared/index';
-import { GRAY_ARTICLE_FOOTER_BACKGROUND_COLOR, RESULTS_AND_RECOMMENDATIONS_FEATURED_BLOG_POST_ID } from '../../../../constants/featuredBlogPost';
+import { RESULTS_AND_RECOMMENDATIONS_FEATURED_BLOG_POST_ID } from '../../../../constants/featuredBlogPost';
 import ArticleSpotlight from '../../../shared/articleSpotlight';
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_report_constants';
 
@@ -255,7 +255,7 @@ const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsS
           </Switch>
         </div>
       </div>
-      <ArticleSpotlight backgroundColor={GRAY_ARTICLE_FOOTER_BACKGROUND_COLOR} blogPostId={RESULTS_AND_RECOMMENDATIONS_FEATURED_BLOG_POST_ID} />
+      <ArticleSpotlight blogPostId={RESULTS_AND_RECOMMENDATIONS_FEATURED_BLOG_POST_ID} />
     </React.Fragment>
   )
 }
