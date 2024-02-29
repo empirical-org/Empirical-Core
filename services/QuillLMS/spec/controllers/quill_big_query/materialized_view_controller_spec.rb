@@ -8,15 +8,15 @@ RSpec.describe QuillBigQuery::MaterializedViewsController do
     subject { post :refresh, params: params, as: :json }
 
     let(:api_key) { '1234' }
-    let(:query_key) {'some_key'}
-    let(:params) { { api_key:, query_key: } }
+    let(:view_key) {'some_key'}
+    let(:params) { { api_key:, view_key: } }
 
     before do
       stub_const('QuillBigQuery::MaterializedViewsController::API_KEY', api_key)
     end
 
     it 'should call for valid API key' do
-      expect(QuillBigQuery::MaterializedViewRefreshWorker).to receive(:perform_async).with(query_key)
+      expect(QuillBigQuery::MaterializedViewRefreshWorker).to receive(:perform_async).with(view_key)
 
       subject
     end
@@ -31,7 +31,7 @@ RSpec.describe QuillBigQuery::MaterializedViewsController do
 
     context 'wrong api_key' do
       let(:incorrect_key) { 'incorrect' }
-      let(:params) { { api_key: incorrect_key, query_key: } }
+      let(:params) { { api_key: incorrect_key, view_key: } }
 
       it { expect {subject}.to raise_error(QuillBigQuery::MaterializedViewsController::InvalidRequestError) }
     end

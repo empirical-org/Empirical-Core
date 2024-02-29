@@ -6,6 +6,10 @@
   align-items: center;
   max-width: 980px;
 
+  iframe {
+    margin-top: 64px;
+  }
+
   h2 {
     font-size: 24px;
     font-weight: bold;
@@ -19,7 +23,7 @@
   }
 
   .header {
-    margin-top: 121px;
+    margin-top: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -5,8 +5,8 @@ module QuillBigQuery
     include Sidekiq::Worker
     sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
 
-    def perform(query_key)
-      QuillBigQuery::MaterializedViewRefresher.run(query_key)
+    def perform(view_key)
+      QuillBigQuery::MaterializedView.new(view_key).refresh!
     end
   end
 end

@@ -4,6 +4,7 @@ PATH
     evidence (0.0.11)
       google-cloud-ai_platform (~> 1.0.0)
       hotwater (= 0.1.2)
+      neighbor (~> 0.3.2)
       pragmatic_segmenter (~> 0.3.23)
       rails (= 7.0.6)
       sprockets-rails (= 3.2.2)
@@ -192,6 +193,8 @@ GEM
     minitest-stub_any_instance (1.0.3)
     multi_json (1.15.0)
     multi_xml (0.6.0)
+    neighbor (0.3.2)
+      activerecord (>= 6.1)
     net-imap (0.3.7)
       date
       net-protocol
