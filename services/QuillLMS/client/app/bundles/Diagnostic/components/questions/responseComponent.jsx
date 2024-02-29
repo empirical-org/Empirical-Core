@@ -67,13 +67,15 @@ class ResponseComponent extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    const { filters } = this.props
+
     if (!_.isEqual(this.props.filters.formattedFilterData, prevProps.filters.formattedFilterData)) {
       this.searchResponses();
     } else if (this.props.states[this.props.questionID] === C.SHOULD_RELOAD_RESPONSES && prevProps.states[prevProps.questionID] !== C.SHOULD_RELOAD_RESPONSES) {
       this.props.dispatch(questionActions.clearQuestionState(this.props.questionID));
       this.searchResponses();
-    } else if (!_.isEqual(this.props.filters.responses, prevProps.filters.responses)) {
-      this.setState({responses: this.props.filters.responses})
+    } else if (!_.isEqual(filters.responses, prevProps.filters.responses)) {
+      this.setState({responses: filters.responses})
     }
   }
 
@@ -83,9 +85,9 @@ class ResponseComponent extends React.Component {
   }
 
   updateResponse = (id, response) => {
-    const newResponses = this.state.responses
-    newResponses[id] = response
-    this.setState({responses:  newResponses})
+    const { responses } = this.state
+    responses[id] = response
+    this.setState({responses:  responses})
   };
 
   getHealth = () => {
@@ -162,7 +164,8 @@ class ResponseComponent extends React.Component {
   };
 
   rematchResponse = rid => {
-    const response = this.state.responses[rid];
+    const { responses } = this.state
+    const response = responses[rid];
     const callback = this.searchResponses;
     rematchOne(response, this.props.mode, this.props.question, this.props.questionID, callback);
   };

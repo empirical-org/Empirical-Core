@@ -52,16 +52,7 @@ const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded,
   const [feedback, setFeedback] = React.useState(passedResponse.feedback || '')
   const [selectedBoilerplate, setSelectedBoilerplate] = React.useState('')
   const [parent, setParent] = React.useState(null)
-
-  let conceptResultsTemp = {}
-  if (passedResponse.concept_results) {
-    if (typeof passedResponse.concept_results === 'string') {
-      conceptResultsTemp = JSON.parse(passedResponse.concept_results)
-    } else {
-      conceptResultsTemp = passedResponse.concept_results
-    }
-  }
-  const [conceptResults, setConceptResults] = React.useState(conceptResultsTemp)
+  const [conceptResults, setConceptResults] = React.useState(extractConceptResultsFromResponse(response))
   const [actions, setActions] = React.useState(mode === 'sentenceFragment' ? sentenceFragmentActions : questionActions)
   const [statusCode, setStatusCode] = React.useState(getStatusForResponse(passedResponse))
   const newResponseOptimal = React.useRef(null)
@@ -69,17 +60,7 @@ const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded,
   React.useEffect(() => {
     setFeedback(response.feedback)
     setStatusCode(getStatusForResponse(response))
-
-    const { concept_results, } = response;
-    let conceptResults = {}
-    if (concept_results) {
-      if (typeof concept_results === 'string') {
-        conceptResults = JSON.parse(concept_results)
-      } else {
-        conceptResults = concept_results
-      }
-    }
-    setConceptResults(conceptResults)
+    setConceptResults(extractConceptResultsFromResponse(response))
     setStatusCode(getStatusForResponse(response))
   }, [response])
 
@@ -87,19 +68,31 @@ const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded,
     setResponse(passedResponse)
   }, [passedResponse])
 
-  function handleDeleteResponse(rid) {
-    if (window.confirm('Are you sure?')) {
-      dispatch(deleteResponse(questionID, rid));
-      dispatch(massEdit.removeResponseFromMassEditArray(rid));
+  function extractConceptResultsFromResponse(response) {
+    const { concept_results, } = response
+
+    if (!concept_results) { return {} }
+
+    if (typeof concept_results === 'string') {
+      return JSON.parse(concept_results)
+    } else {
+      return concept_results
     }
   }
 
-  function editResponse(rid) {
-    dispatch(actions.startResponseEdit(questionID, rid));
+  function handleDeleteResponse() {
+    if (window.confirm('Are you sure?')) {
+      dispatch(deleteResponse(questionID, response.id));
+      dispatch(massEdit.removeResponseFromMassEditArray(response.id));
+    }
   }
 
-  function cancelResponseEdit(rid) {
-    dispatch(actions.cancelResponseEdit(questionID, rid));
+  function editResponse() {
+    dispatch(actions.startResponseEdit(questionID, response.id));
+  }
+
+  function cancelResponseEdit() {
+    dispatch(actions.cancelResponseEdit(questionID, response.id));
   }
 
   // TODO: test this
@@ -107,7 +100,7 @@ const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded,
     dispatch(actions.cancelChildResponseView(questionID, rid));
   }
 
-  function updateResponse(rid) {
+  function updateResponse() {
     const newResp = {
       weak: false,
       feedback,
@@ -116,10 +109,10 @@ const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded,
       parent_id: null,
       concept_results: Object.keys(conceptResults) && Object.keys(conceptResults).length ? conceptResults : null
     };
-    dispatch(submitResponseEdit(rid, newResp, questionID, rerenderResponse));
+    dispatch(submitResponseEdit(response.id, newResp, questionID, rerenderResponse));
   };
 
-  function unmatchResponse(rid) {
+  function unmatchResponse() {
     const { modelConceptUID, conceptID, } = question
     const defaultConceptUID = modelConceptUID || conceptID
     const newResp = {
@@ -130,7 +123,7 @@ const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded,
       parent_id: null,
       concept_results: { [defaultConceptUID]: false, },
     }
-    dispatch(submitResponseEdit(rid, newResp, questionID, rerenderResponse));
+    dispatch(submitResponseEdit(response.id, newResp, questionID, rerenderResponse));
   };
 
   function rematchResponse() {
@@ -175,12 +168,12 @@ const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded,
     dispatch(massEdit.removeResponseFromMassEditArray(responseKey));
   }
 
-  function onMassSelectCheckboxToggle(responseKey) {
+  function onMassSelectCheckboxToggle() {
     const { selectedResponses } = massEditResponses;
-    if (selectedResponses.includes(responseKey)) {
-      removeResponseFromMassEditArray(responseKey);
+    if (selectedResponses.includes(response.id)) {
+      removeResponseFromMassEditArray(response.id);
     } else {
-      addResponseToMassEditArray(responseKey);
+      addResponseToMassEditArray(response.id);
     }
   }
 
@@ -337,18 +330,18 @@ const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded,
 
     if (isEditing) {
       buttons = [
-        (<a className="card-footer-item" key="cancel" onClick={() => cancelResponseEdit(response.key)} >Cancel</a>),
-        (<a className="card-footer-item" key="unmatch" onClick={() => unmatchResponse(response.key)} >Unmatch</a>),
-        (<a className="card-footer-item" key="update" onClick={() => updateResponse(response.key)} >Update</a>)
+        (<a className="card-footer-item" key="cancel" onClick={cancelResponseEdit} >Cancel</a>),
+        (<a className="card-footer-item" key="unmatch" onClick={unmatchResponse} >Unmatch</a>),
+        (<a className="card-footer-item" key="update" onClick={updateResponse} >Update</a>)
       ];
     } else {
       buttons = [
-        (<a className="card-footer-item" key="edit" onClick={() => editResponse(response.key)} >Edit</a>),
-        (<a className="card-footer-item" key="delete" onClick={() => handleDeleteResponse(response.key)} >Delete</a>)
+        (<a className="card-footer-item" key="edit" onClick={editResponse} >Edit</a>),
+        (<a className="card-footer-item" key="delete" onClick={handleDeleteResponse} >Delete</a>)
       ];
     }
     if (statusCode > 1) {
-      buttons = buttons.concat([(<a className="card-footer-item" key="rematch" onClick={() => rematchResponse()} >Rematch</a>)]);
+      buttons = buttons.concat([(<a className="card-footer-item" key="rematch" onClick={rematchResponse} >Rematch</a>)]);
     }
     return (
       <footer className="card-footer">
@@ -372,7 +365,7 @@ const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded,
     const checked = massEditResponses.selectedResponses.includes(response.id) ? 'checked' : '';
     return (
       <div className={bgColor} style={{ display: 'flex', alignItems: 'center', }}>
-        <input checked={checked} onChange={() => onMassSelectCheckboxToggle(response.id)} style={{ marginLeft: '15px', }} type="checkbox" />
+        <input checked={checked} onChange={onMassSelectCheckboxToggle} style={{ marginLeft: '15px', }} type="checkbox" />
         <header className={`card-content ${headerClasses()}`} onClick={() => expand(response.key)} style={{ flexGrow: '1', }}>
           <div className="content">
             <div className="media">

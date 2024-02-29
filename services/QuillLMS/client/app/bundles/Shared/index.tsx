@@ -95,6 +95,7 @@ export {
 export {
   hashToCollection,
   isValidRegex,
+  isValidAndNotEmptyRegex,
   momentFormatConstants,
   copyToClipboard,
   getLatestAttempt,

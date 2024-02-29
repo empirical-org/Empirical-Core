@@ -4,7 +4,7 @@ import _ from 'underscore'
 
 import Response from './response'
 
-import { AffectedResponse, isValidRegex } from '../../../Shared/index'
+import { AffectedResponse, isValidAndNotEmptyRegex } from '../../../Shared/index'
 import massEdit from '../../actions/massEdit'
 import { Question, FocusPoint, IncorrectSequence } from '../../libs/grading/rematching'
 
@@ -82,10 +82,6 @@ const ResponseList = ({admin, ascending, concepts, dispatch, expand, expanded, g
         updateParentResponse={(id, response) => updateResponse(id, response)}
       />
     )
-  }
-
-  function isValidAndNotEmptyRegex(string) {
-    return string.length && isValidRegex(string)
   }
 
   const responseListItems = responses && responses.map((resp) => {
