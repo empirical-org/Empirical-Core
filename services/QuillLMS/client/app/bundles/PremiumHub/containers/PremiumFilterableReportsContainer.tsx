@@ -409,7 +409,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
           subheaderText="Key insights to help you succeed. Included with Quill Premium."
           testimonial={{
             attribution: "Shannon Browne, Professional Learning Manager",
-            quote: "“The Usage Snapshot Report completely redefines the way administrators use Quill. It enables them to make faster, more informed decisions that directly benefit their students&#39; success. This report is a game-changer for any administrator seeking to enhance educational outcomes.“",
+            quote: "“The Usage Snapshot Report completely redefines the way administrators use Quill. It enables them to make faster, more informed decisions that directly benefit their students' success. This report is a game-changer for any administrator seeking to enhance educational outcomes.“",
             imgSrc: "overview/shannon_headshot.png"
           }}
         />

@@ -65,8 +65,8 @@ const NonPremiumReport = ({ showNewTag, headerText, subheaderText, bezelPath, te
           <h1>{headerText}</h1>
           <p>{subheaderText}</p>
           <div className="buttons">
-            <a className="quill-button contained primary large focus-on-light" href="https://calendly.com/alex-quill" rel="noopener noreferrer" target="_blank">Talk to sales</a>
-            <a className="quill-button contained primary large focus-on-light" href="/premium" target="_blank">Explore premium</a>
+            <a className="quill-button contained primary large focus-on-light" href="https://calendly.com/alex-quill" rel="noopener noreferrer" target="_blank">Talk to Sales</a>
+            <a className="quill-button contained primary large focus-on-light" href="/premium" target="_blank">Explore Premium</a>
           </div>
           <img alt="" className="bezel" src={`${nonPremiumReportViewImgSrc}/${bezelPath}`} />
         </section>
