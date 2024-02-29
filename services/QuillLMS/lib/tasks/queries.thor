@@ -17,8 +17,11 @@ class Queries < Thor
       sql = query
         .new(**{timeframe_start:,timeframe_end:,school_ids:})
         .query
-      metadata = query_metadata(sql)
 
+      puts sql
+
+      metadata = query_metadata(sql)
+      puts metadata
 
       File.write(output_directory + "#{key}.sql", metadata + sql)
     end

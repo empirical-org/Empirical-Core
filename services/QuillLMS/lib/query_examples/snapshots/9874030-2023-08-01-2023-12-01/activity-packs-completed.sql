@@ -1,4 +1,4 @@
-      /* Data Processed By Query: 6.47 GB */
+      /* Data Processed By Query: 6.82 GB */
 
         SELECT COUNTIF(activities_completed = activities_in_pack) AS count
           FROM (        SELECT classroom_units.id, activity_sessions.user_id, COUNT(DISTINCT activity_sessions.activity_id) AS activities_completed, COUNT(DISTINCT unit_activities.activity_id) AS activities_in_pack

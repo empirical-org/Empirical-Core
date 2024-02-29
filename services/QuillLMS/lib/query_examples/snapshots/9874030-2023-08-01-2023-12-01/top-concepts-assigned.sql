@@ -1,6 +1,7 @@
-      /* Data Processed By Query: 0.6 GB */
+      /* Data Processed By Query: 0.68 GB */
 
-        SELECT value, SUM(count) AS count
+        SELECT value,
+          IFNULL(SUM(count),0) AS count
           FROM (                SELECT activity_categories.name AS value, COUNT(DISTINCT unit_activities.id) * classroom_units.assigned_student_count AS count
 
                 FROM lms.schools

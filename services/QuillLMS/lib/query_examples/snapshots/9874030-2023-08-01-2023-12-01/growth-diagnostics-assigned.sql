@@ -1,4 +1,4 @@
-      /* Data Processed By Query: 0.51 GB */
+      /* Data Processed By Query: 0.59 GB */
 
         SELECT IFNULL(SUM(students_assigned), 0) AS count
           FROM (        SELECT DISTINCT classroom_units.id, ARRAY_LENGTH(assigned_student_ids) AS students_assigned
@@ -21,7 +21,7 @@
           
           
           AND classrooms_teachers.role = 'owner'
-        AND unit_activities.activity_id IN (1814,1669,1774,1818,1664,1680)
+        AND unit_activities.activity_id IN (1680,1814,1774,1669,1818,1664)
 
         
         

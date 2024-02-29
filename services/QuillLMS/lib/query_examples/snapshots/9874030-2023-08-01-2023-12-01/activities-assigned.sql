@@ -1,4 +1,4 @@
-      /* Data Processed By Query: 0.49 GB */
+      /* Data Processed By Query: 0.57 GB */
 
         SELECT IFNULL(SUM(assigned_count), 0) AS count
           FROM (        SELECT DISTINCT unit_activities.id, ARRAY_LENGTH(classroom_units.assigned_student_ids) AS assigned_count
