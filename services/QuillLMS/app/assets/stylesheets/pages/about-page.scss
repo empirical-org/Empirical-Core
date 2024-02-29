@@ -13,18 +13,25 @@
     font-style: italic;
   }
 
+  iframe {
+    height: 393px;
+    width: 700px;
+  }
+
   .text-and-image {
+    margin-top: 64px !important;
     p:last-of-type {
       margin-bottom: 0px;
     }
   }
 
   .partnerships-container {
+    width: 100%;
     h2 {
       max-width: 752px;
       width: 100%;
       text-align: center;
-      margin: 197px auto 40px !important;
+      margin: 64px auto 40px !important;
     }
     h3 {
       font-size: 16px;
@@ -34,8 +41,54 @@
     }
     .partnerships {
       border-top: 1px solid #d7d7d7;
+      border-bottom: 1px solid #d7d7d7;
+      display: grid;
+      grid-template-columns: auto auto auto;
+      gap: 16px;
+      padding-bottom: 64px;
       img {
-        padding: 16px 24px 24px 0px;
+        max-width: 300px;
+      }
+    }
+  }
+
+  .guidestar-container {
+    display: flex;
+    align-items: center;
+    margin-top: 32px;
+    .guidestar-link {
+      display: block;
+      margin-right: 32px;
+    }
+    img {
+      min-width: 108px;
+    }
+    p {
+      margin: 0px !important;
+      a, span {
+        font-style: normal;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  @media (max-width: 700px) {
+    iframe {
+      width: 313px;
+      height: 176px;
+    }
+    .guidestar-container {
+      flex-direction: column;
+      align-items: center;
+      .guidestar-link {
+        margin-right: 0px;
+        margin-bottom: 16px;
+      }
+    }
+    .partnerships {
+      grid-template-columns: auto !important;
+      img {
+        margin: auto;
       }
     }
   }
