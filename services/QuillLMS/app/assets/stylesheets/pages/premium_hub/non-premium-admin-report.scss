@@ -1,8 +1,9 @@
-#premium-hub .non-premium-usage-snapshot-report {
+#premium-hub .non-premium-admin-report {
   padding-top: 64px;
   section {
     padding: 0px;
     border-bottom: none;
+    max-width: 1200px;
   }
   h1, h2 {
     text-align: center;
@@ -11,6 +12,20 @@
   }
   .top-section {
     margin-bottom: 64px;
+    .new-tag {
+      color: $quill-white;
+      background-color: $quill-maroon;
+      font-size: 14px;
+      border-radius: 5px;
+      margin: auto;
+      margin-bottom: 4px;
+      line-height: 16.88px;
+      width: 45px;
+      height: 25px;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+    }
     h1 {
       line-height: 38px;
       margin-bottom: 8px;
@@ -23,7 +38,7 @@
       margin-bottom: 24px;
     }
     img {
-      max-width: 95vw;
+      max-width: 100%;
       margin: auto;
       display: block;
     }
@@ -44,7 +59,7 @@
       display: flex;
       gap: 26px;
       div {
-        padding: 32px;
+        padding: 32px 28px;
         border-radius: 16px;
         border: 1px solid $quill-maroon-10;
         background: $quill-maroon-1;
