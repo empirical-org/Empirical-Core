@@ -10,7 +10,7 @@ module QuillBigQuery
     class InvalidRequestError < ::StandardError; end
 
     def refresh
-      QuillBigQuery::MaterializedViewRefreshWorker.perform_async(query_key)
+      QuillBigQuery::MaterializedViewRefreshWorker.perform_async(view_key)
 
       render json: {}, status: 200
     end
@@ -21,8 +21,8 @@ module QuillBigQuery
       raise InvalidRequestError
     end
 
-    private def refresh_params = params.permit(:api_key, :query_key)
+    private def refresh_params = params.permit(:api_key, :view_key)
     private def api_key = refresh_params[:api_key]
-    private def query_key = refresh_params[:query_key]
+    private def view_key = refresh_params[:view_key]
   end
 end
