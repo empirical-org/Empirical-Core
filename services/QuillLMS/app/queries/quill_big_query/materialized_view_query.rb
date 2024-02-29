@@ -8,8 +8,13 @@ module QuillBigQuery
       ::Google::Cloud::InvalidArgumentError
     ]
 
-    # Array of string keys defined by child
-    def materialized_view_keys = raise NotImplementedError
+    # Array of uillBigQuery::MaterializedView defined by child
+    def materialized_views = raise NotImplementedError
+
+    def materialized_view(key)
+      @materialized_views ||= {}
+      @materialized_views[key] ||= QuillBigQuery::MaterializedView.new(key)
+    end
 
     def run_query
       query_runner(query)
@@ -19,10 +24,6 @@ module QuillBigQuery
 
     private def query_runner(query)
       post_query_transform(runner.execute(query))
-    end
-
-    def materialized_views
-      @materialized_views ||= materialized_view_keys.map {|key| QuillBigQuery::MaterializedView.new(key)}
     end
 
     def query_fallback

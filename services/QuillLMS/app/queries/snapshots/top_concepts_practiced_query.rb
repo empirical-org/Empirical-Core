@@ -5,7 +5,7 @@ module Snapshots
     def from_and_join_clauses
       super + <<-SQL
         INNER JOIN lms.activity_category_activities
-          ON #{materialized_view.name}.activity_id = activity_category_activities.activity_id
+          ON #{reporting_sessions_view.name}.activity_id = activity_category_activities.activity_id
         INNER JOIN lms.activity_categories
           ON activity_category_activities.activity_category_id = activity_categories.id
       SQL
@@ -14,7 +14,7 @@ module Snapshots
     def select_clause
       <<-SQL
         SELECT activity_categories.name as value,
-        SUM(#{materialized_view.name}.activity_count) AS count
+        SUM(#{reporting_sessions_view.name}.activity_count) AS count
       SQL
     end
 

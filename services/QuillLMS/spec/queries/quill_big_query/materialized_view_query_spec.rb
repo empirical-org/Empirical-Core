@@ -16,7 +16,8 @@ describe QuillBigQuery::MaterializedViewQuery do
 
   let(:klass) do
     Class.new(QuillBigQuery::MaterializedViewQuery) do
-      def materialized_view_keys = ['reporting_sessions_view']
+      def materialized_views = [view]
+      def view = materialized_view('reporting_sessions_view')
       def query = "SELECT 1 FROM lms.recent_reporting_sessions_view"
     end
   end

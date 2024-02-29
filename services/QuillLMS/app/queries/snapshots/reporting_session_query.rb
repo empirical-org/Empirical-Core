@@ -16,17 +16,16 @@ module Snapshots
       super(**options)
     end
 
-    def materialized_view_keys = ['reporting_sessions_view']
+    def materialized_views = [reporting_sessions_view]
 
-    # only has one mat view
-    private def materialized_view = materialized_views.first
+    def reporting_sessions_view = materialized_view('reporting_sessions_view')
 
     def from_and_join_clauses
-      "FROM #{materialized_view.name_with_dataset}"
+      "FROM #{reporting_sessions_view.name_with_dataset}"
     end
 
     def relevant_date_column
-      "#{materialized_view.name}.completed_date"
+      "#{reporting_sessions_view.name}.completed_date"
     end
 
     def where_clause
@@ -45,7 +44,7 @@ module Snapshots
     end
 
     def school_ids_where_clause
-      "AND #{materialized_view.name}.school_id IN (#{school_ids.join(',')})"
+      "AND #{reporting_sessions_view.name}.school_id IN (#{school_ids.join(',')})"
     end
 
     def grades_where_clause
@@ -53,8 +52,8 @@ module Snapshots
 
       <<-SQL
         AND (
-          #{materialized_view.name}.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')})
-          #{'OR #{materialized_view.name}.grade IS NULL' if grades.include?('null')}
+          #{reporting_sessions_view.name}.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')})
+          #{'OR #{reporting_sessions_view.name}.grade IS NULL' if grades.include?('null')}
         )
       SQL
     end
@@ -62,13 +61,13 @@ module Snapshots
     def teacher_ids_where_clause
       return "" if teacher_ids.blank?
 
-      "AND #{materialized_view.name}.teacher_id IN (#{teacher_ids.join(',')})"
+      "AND #{reporting_sessions_view.name}.teacher_id IN (#{teacher_ids.join(',')})"
     end
 
     def classroom_ids_where_clause
       return "" if classroom_ids.blank?
 
-      "AND #{materialized_view.name}.classroom_id IN (#{classroom_ids.join(',')})"
+      "AND #{reporting_sessions_view.name}.classroom_id IN (#{classroom_ids.join(',')})"
     end
   end
 end
