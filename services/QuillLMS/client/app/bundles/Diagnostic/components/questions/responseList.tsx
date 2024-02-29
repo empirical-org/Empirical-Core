@@ -32,8 +32,8 @@ interface ResponseListProps {
 const ResponseList = ({admin, ascending, concepts, dispatch, expand, expanded, getChildResponses, getResponse, massEditResponses, mode, question, questionID, responses, selectedFocusPoints, selectedIncorrectSequences, states, updateResponse }: ResponseListProps) => {
 
   function allResponsesChecked() {
-    return !responses.some((r) => {
-      return !(
+    return responses.every((r) => {
+      return (
         massEditResponses.selectedResponses.includes(r.key) ||
         massEditResponses.selectedResponses.includes(r.id)
       )
