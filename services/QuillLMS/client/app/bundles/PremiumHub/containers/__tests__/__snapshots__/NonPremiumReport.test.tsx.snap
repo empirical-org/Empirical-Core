@@ -31,14 +31,14 @@ exports[`NonPremiumReport it should render if all optional props are passed in 1
             rel="noopener noreferrer"
             target="_blank"
           >
-            Talk to sales
+            Talk to Sales
           </a>
           <a
             class="quill-button contained primary large focus-on-light"
             href="/premium"
             target="_blank"
           >
-            Explore premium
+            Explore Premium
           </a>
         </div>
         <img
@@ -143,14 +143,14 @@ exports[`NonPremiumReport it should render if only required props are passed in 
             rel="noopener noreferrer"
             target="_blank"
           >
-            Talk to sales
+            Talk to Sales
           </a>
           <a
             class="quill-button contained primary large focus-on-light"
             href="/premium"
             target="_blank"
           >
-            Explore premium
+            Explore Premium
           </a>
         </div>
         <img

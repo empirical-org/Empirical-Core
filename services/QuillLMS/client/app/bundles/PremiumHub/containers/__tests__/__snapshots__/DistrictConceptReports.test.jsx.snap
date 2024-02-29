@@ -102,14 +102,14 @@ exports[`DistrictConceptReports when the access type is limited renders 1`] = `
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  Talk to sales
+                  Talk to Sales
                 </a>
                 <a
                   className="quill-button contained primary large focus-on-light"
                   href="/premium"
                   target="_blank"
                 >
-                  Explore premium
+                  Explore Premium
                 </a>
               </div>
               <img
@@ -228,14 +228,14 @@ exports[`DistrictConceptReports when the access type is restricted renders 1`] =
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  Talk to sales
+                  Talk to Sales
                 </a>
                 <a
                   className="quill-button contained primary large focus-on-light"
                   href="/premium"
                   target="_blank"
                 >
-                  Explore premium
+                  Explore Premium
                 </a>
               </div>
               <img
