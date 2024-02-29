@@ -13,10 +13,10 @@ The following use cases highlight the value of materialized views. Materialized 
 ```
 
 Important to know:
-- BigQuery automatically updates materialized views as new data comes in from the underlying tables
-- There are some [restrictions](https://cloud.google.com/bigquery/docs/materialized-views-create#query_limitations) on what the materialized view can contain, e.g. you can't use `OUTER JOINS`.
+- BigQuery, by default, automatically updates "incremental" materialized views as new data comes in from the underlying tables. You can turn this updating off/adjust it using `OPTIONS` in the create statement.
+- There are some [restrictions](https://cloud.google.com/bigquery/docs/materialized-views-create#query_limitations) on what the incremental materialized view can contain, e.g. you can't use `OUTER JOINS`. Non-incremental Mat Views (ones that aren't updated automatically) do not have these restrictions.
 - There are [tips](https://cloud.google.com/bigquery/docs/materialized-views-create#which_materialized_views_to_create) on creating efficient materialized views, e.g. put the largest, most frequently changing table first in the query
-- To minimize devops work, views should be configured to self-refresh whenever possible.
+- To minimize devops work, views should be configured to self-refresh (incremental mat views) whenever possible.
 
 ### How to Create a Materialized View In SQL
 ```SQL
@@ -35,7 +35,11 @@ thor quill_big_query:materialized_views:drop view_key     # Drops a specified Ma
 thor quill_big_query:materialized_views:refresh view_key  # Refreshes (drops and creates) a specified Materialized View
 ```
 ### Migrating to new View Version
-This is something we haven't done yet, so this policy may change, but the easiest way to change/edit a view is to create a new view with a different key, put that in place, point the code to it, and drop the old view, remove the config.
+We haven't done this yet, so this should be a discussion when it comes up, but there are two ways to do this:
+1. Deploy a new view: Deploy the new view config, and put the mat view in place. Then deploy code that points to the new view. Requires 2 deploys, but no query downtime.
+2. Edit an existing view: Deploy code with an updated config at once. Once deploy finishes, refresh materialized view with new sql. Requires 1 deploy, with a small query downtime (between deploy finish and mat view refresh).
+
+
 
 ### CLI
 Google has a CLI to run BQ commands. Here are some example uses
