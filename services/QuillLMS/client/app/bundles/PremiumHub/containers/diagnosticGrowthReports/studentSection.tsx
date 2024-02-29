@@ -134,10 +134,10 @@ export const StudentSection = ({
   React.useEffect(() => {
     if (!pusherMessage) return
 
-    if (pusherMessage === getFilterHash(STUDENTS_QUERY_KEY)) {
+    if (pusherMessage === getFilterHash(STUDENTS_QUERY_KEY, diagnosticTypeValue.value)) {
       getStudentData()
     }
-    if(pusherMessage === getFilterHash(RECOMMENDATIONS_QUERY_KEY)) {
+    if(pusherMessage === getFilterHash(RECOMMENDATIONS_QUERY_KEY, diagnosticTypeValue.value)) {
       getRecommendationsData()
     }
   }, [pusherMessage])
@@ -163,9 +163,9 @@ export const StudentSection = ({
     });
   };
 
-  function getFilterHash(queryKey) {
+  function getFilterHash(queryKey, diagnosticId) {
     const filterTarget = [].concat(
-      queryKey,
+      `${queryKey}-${diagnosticId}`,
       selectedTimeframe,
       selectedSchoolIds,
       selectedGrades,
