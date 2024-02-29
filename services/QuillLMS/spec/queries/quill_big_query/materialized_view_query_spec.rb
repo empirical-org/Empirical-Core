@@ -9,11 +9,7 @@ describe QuillBigQuery::MaterializedViewQuery do
   let(:query_fallback) { "WITH recent_reporting_sessions_local AS (SELECT 2) SELECT 1 FROM recent_reporting_sessions_local"}
   let(:query) {"SELECT 1 FROM lms.recent_reporting_sessions_view"}
   let(:result) {'result'}
-
-  before do
-    stub_const('QuillBigQuery::MaterializedView::QUERY_FOLDER', Rails.root.join('spec/fixtures/sql/'))
-  end
-
+  let(:runner) {double(:execute)}
   let(:klass) do
     Class.new(QuillBigQuery::MaterializedViewQuery) do
       def materialized_views = [view]
@@ -22,7 +18,9 @@ describe QuillBigQuery::MaterializedViewQuery do
     end
   end
 
-  let(:runner) {double(:execute)}
+  before do
+    stub_const('QuillBigQuery::MaterializedView::QUERY_FOLDER', Rails.root.join('spec/fixtures/sql/'))
+  end
 
   subject { klass.new(runner: runner) }
 
