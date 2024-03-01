@@ -1,16 +1,16 @@
-      /* Data Processed By Query: 7.42 GB */
+      /* Data Processed By Query: 6.74 GB */
 
-                SELECT activity_name AS value,
+                SELECT IFNULL(CAST(grade AS STRING), 'No grade set') AS value,
         IFNULL(SUM(activity_count),0) AS count
 
         FROM lms.recent_reporting_sessions_view
                 WHERE
-          recent_reporting_sessions_view.completed_date BETWEEN '2023-08-01 00:00:00' AND '2023-12-01 00:00:00'
+          recent_reporting_sessions_view.completed_date BETWEEN '2023-08-01 00:00:00' AND '2023-11-30 23:59:59'
           AND recent_reporting_sessions_view.school_id IN (129107,157509)
           
           
           
 
-        GROUP BY activity_id, activity_name
+        GROUP BY grade
         ORDER BY count DESC
         LIMIT 10

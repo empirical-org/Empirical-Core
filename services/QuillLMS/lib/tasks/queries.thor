@@ -83,8 +83,8 @@ class Queries < Thor
       'average-active-students-per-classroom'
     ]
 
-    DEFAULT_START = '2023-08-01'
-    DEFAULT_END = '2023-12-01'
+    DEFAULT_START = '2023-08-01 00:00:00'
+    DEFAULT_END = '2023-11-30 23:59:59'
 
     private def snapshot_queries
       [
