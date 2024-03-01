@@ -7,7 +7,7 @@ module Snapshots
     def select_clause
       <<-SQL
         SELECT IFNULL(CAST(grade AS STRING), '#{NULL_GRADE_LABEL}') AS value,
-        IFNULL(SUM(activity_count),0) AS count
+        COUNT(DISTINCT session_id) AS count
       SQL
     end
 

@@ -5,7 +5,7 @@ module Snapshots
     GROWTH_DIAGNOSTIC_IDS = Activity.where(id: Activity::PRE_TEST_DIAGNOSTIC_IDS).pluck(:follow_up_activity_id)
 
     def select_clause
-      "SELECT IFNULL(SUM(activity_count),0) AS count"
+      "SELECT COUNT(DISTINCT session_id) AS count"
     end
 
     def where_clause

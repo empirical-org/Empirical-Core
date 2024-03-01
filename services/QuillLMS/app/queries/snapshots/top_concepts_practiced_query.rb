@@ -14,7 +14,7 @@ module Snapshots
     def select_clause
       <<-SQL
         SELECT activity_categories.name as value,
-        SUM(#{reporting_sessions_view.name}.activity_count) AS count
+        COUNT(DISTINCT #{reporting_sessions_view.name}.session_id) AS count
       SQL
     end
 

@@ -5,7 +5,7 @@ module Snapshots
     def select_clause
       <<-SQL
         SELECT teacher_name AS value,
-        IFNULL(SUM(activity_count),0) AS count
+        COUNT(DISTINCT session_id) AS count
       SQL
     end
 

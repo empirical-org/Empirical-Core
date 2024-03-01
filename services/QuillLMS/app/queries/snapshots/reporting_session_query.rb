@@ -25,7 +25,7 @@ module Snapshots
     end
 
     def relevant_date_column
-      "#{reporting_sessions_view.name}.completed_date"
+      "#{reporting_sessions_view.name}.completed_at"
     end
 
     def where_clause
