@@ -38,6 +38,7 @@ SELECT
             SELECT activity_sessions.user_id AS student_id, classroom_units.classroom_id, activity_sessions.activity_id, MAX(activity_sessions.completed_at) AS completed_at
               FROM lms.activity_sessions
               JOIN lms.classroom_units ON activity_sessions.classroom_unit_id = classroom_units.id
+              WHERE activity_sessions.visible = true
               GROUP BY activity_sessions.user_id, classroom_units.classroom_id, activity_sessions.activity_id
           ) AS most_recent
           JOIN lms.classroom_units ON most_recent.classroom_id = classroom_units.classroom_id
@@ -85,6 +86,7 @@ SELECT
             SELECT activity_sessions.user_id AS student_id, classroom_units.classroom_id, activity_sessions.activity_id, MAX(activity_sessions.completed_at) AS completed_at
               FROM lms.activity_sessions
               JOIN lms.classroom_units ON activity_sessions.classroom_unit_id = classroom_units.id
+              WHERE activity_sessions.visible = true
               GROUP BY activity_sessions.user_id, classroom_units.classroom_id, activity_sessions.activity_id
           ) AS most_recent
           JOIN lms.classroom_units ON most_recent.classroom_id = classroom_units.classroom_id

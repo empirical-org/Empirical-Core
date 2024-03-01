@@ -4,26 +4,26 @@ default:
   active_classroom_stubs_view:
     dataset: 'lms'
     name: 'active_classroom_stubs_view'
-    fallback_name: 'active_classroom_stubs_local'
-    create_sql: 'active_classroom_stubs_view.sql'
+    name_fallback: 'active_classroom_stubs_local'
+    sql: 'active_classroom_stubs_view.sql'
     create_options: null
   active_classroom_unit_stubs_view:
     dataset: 'lms'
     name: 'active_classroom_unit_stubs_view'
-    fallback_name: 'active_classroom_unit_stubs_local'
-    create_sql: 'active_classroom_unit_stubs_view.sql'
+    name_fallback: 'active_classroom_unit_stubs_local'
+    sql: 'active_classroom_unit_stubs_view.sql'
     create_options: null
   active_user_names_view:
     dataset: 'lms'
     name: 'active_user_names_view'
-    fallback_name: 'active_user_names_local'
-    create_sql: 'active_user_names_view.sql'
+    name_fallback: 'active_user_names_local'
+    sql: 'active_user_names_view.sql'
     create_options: null
   pre_post_diagnostic_skill_group_performance_view:
     dataset: 'lms'
     name: 'pre_post_diagnostic_skill_group_performance_view'
-    fallback_name: 'pre_post_diagnostic_skill_performance_local'
-    create_sql: 'pre_post_diagnostic_skill_group_performance_view.sql'
+    name_fallback: 'pre_post_diagnostic_skill_performance_local'
+    sql: 'pre_post_diagnostic_skill_group_performance_view.sql'
     create_options: "OPTIONS(enable_refresh = true, refresh_interval_minutes = 360, max_staleness = INTERVAL '8' HOUR, allow_non_incremental_definition = true)"
   reporting_sessions_view:
     dataset: 'lms'
