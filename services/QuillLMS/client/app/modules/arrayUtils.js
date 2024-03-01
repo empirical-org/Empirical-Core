@@ -135,7 +135,7 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
     { id: 124, name: 'Plural and Possessive Nouns' },
     { id: 125, name: 'Adjectives and Adverbs' },
     { id: 126, name: 'Prepositional Phrases' },
-    { id: 127, name: 'Capitalization' },
+    //{ id: 127, name: 'Capitalization' },
     { id: 128, name: 'Compound Subjects, Objects, and Predicates' },
     { id: 216, name: 'Subject-Verb Agreement' }
   ]
@@ -193,8 +193,10 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
     {}
   )
 
-  return {
-    errorMessage: errorMessageArray.join(' '),
-    ...skillScores
-  }
+  return JSON.stringify(
+    {
+      errorMessage: errorMessageArray.join(' '),
+      ...skillScores
+    }
+  )
 }

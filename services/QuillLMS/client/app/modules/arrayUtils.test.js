@@ -57,11 +57,13 @@ describe('studentwiseSkillGroupUDF', () => {
     const scores = [0.5, 0.6, 0.7, 0.8];
     const skillGroupNames = ['Plural and Possessive Nouns', 'Capitalization', 'Plural and Possessive Nouns', 'Capitalization' ]
     const result = studentwiseSkillGroupUDF(scores, activityIds, completedAts, skillGroupNames);
+    const parsedResult = JSON.parse(result)
 
-    expect(result['Plural and Possessive Nouns_pre']).toEqual(0.5)
-    expect(result['Capitalization_pre']).toEqual(0.6)
-    expect(result['Plural and Possessive Nouns_post']).toEqual(0.7)
-    expect(result['Capitalization_post']).toEqual(0.8)
+    console.log(parsedResult)
+    expect(parsedResult['Plural and Possessive Nouns_pre']).toEqual(0.5)
+    expect(parsedResult['Capitalization_pre']).toEqual(0.6)
+    expect(parsedResult['Plural and Possessive Nouns_post']).toEqual(0.7)
+    expect(parsedResult['Capitalization_post']).toEqual(0.8)
   })
 
 })
