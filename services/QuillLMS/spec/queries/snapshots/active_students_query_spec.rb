@@ -12,7 +12,7 @@ module Snapshots
       it { expect(results).to eq(count: num_active_students) }
 
       context 'filters' do
-        it_behaves_like 'snapshots period query with a timeframe', 2.day.ago.to_date, 1.day.ago.to_date, count: 0
+        it_behaves_like 'snapshots period query with a timeframe', 2.days.ago.to_date, 1.day.ago.to_date, count: 0
         it_behaves_like 'snapshots period query with a different school id', count: 0
       end
     end
