@@ -13,7 +13,7 @@ describe('TeacherStudentDashboardSettings component', () => {
   };
 
   it('should render', () => {
-    const asFragment = mount(<TeacherStudentDashboardSettings {...props} />);
+    const { asFragment, } = render(<TeacherStudentDashboardSettings {...props} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
