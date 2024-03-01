@@ -5,12 +5,12 @@ module AdminDiagnosticReports
     def root_query
       <<-SQL
         SELECT
-            diagnostic_id,            
-            diagnostic_name,            
-            aggregate_id,            
-            name,            
-            group_by,            
-            post_students_completed,            
+            diagnostic_id,
+            diagnostic_name,
+            aggregate_id,
+            name,
+            group_by,
+            post_students_completed,
             AVG(growth_percentage) AS overall_skill_growth
           FROM (#{super})
           GROUP BY diagnostic_id, diagnostic_name, aggregate_id, name, group_by, post_students_completed
