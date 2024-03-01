@@ -672,6 +672,7 @@ class User < ApplicationRecord
     user_attributes[:minimum_grade_level] = teacher_info&.minimum_grade_level
     user_attributes[:maximum_grade_level] = teacher_info&.maximum_grade_level
     user_attributes[:notification_email_frequency] = teacher_info&.notification_email_frequency
+    user_attributes[:show_students_exact_score] = teacher_info&.show_students_exact_score
     user_attributes[:teacher_notification_settings] = teacher_notification_settings_info
     user_attributes[:subject_area_ids] = subject_area_ids
 

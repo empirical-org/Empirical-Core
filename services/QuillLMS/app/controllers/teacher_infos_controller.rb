@@ -4,26 +4,7 @@ class TeacherInfosController < ApplicationController
 
   before_action :set_teacher_info, only: [:update]
 
-  def create
-    role = User::TEACHER_INFO_ROLES.include?(session[:role]) ? session[:role] : ''
-    @teacher_info = TeacherInfo.create!(
-      user: current_user,
-      minimum_grade_level: minimum_grade_level,
-      maximum_grade_level: maximum_grade_level,
-      role_selected_at_signup: role,
-      notification_email_frequency: notification_email_frequency
-    )
-
-    subject_areas = SubjectArea.where(id: subject_area_ids)
-    @teacher_info.subject_areas.push(subject_areas)
-
-    render json: {}, status: 200
-  rescue ActiveRecord::RecordInvalid => e
-    render json: {errors: e}, status: 400
-  end
-
   def update
-
     if minimum_grade_level && maximum_grade_level
       @teacher_info.update!(minimum_grade_level: minimum_grade_level, maximum_grade_level: maximum_grade_level)
     end
@@ -39,11 +20,16 @@ class TeacherInfosController < ApplicationController
       @teacher_info.update!(notification_email_frequency: notification_email_frequency)
     end
 
+    if [true, false].include?(show_students_exact_score)
+      @teacher_info.update!(show_students_exact_score: show_students_exact_score)
+    end
+
     render json: {
       minimum_grade_level: @teacher_info.minimum_grade_level,
       maximum_grade_level: @teacher_info.maximum_grade_level,
       subject_area_ids: @teacher_info.subject_area_ids,
-      notification_email_frequency: @teacher_info.notification_email_frequency
+      notification_email_frequency: @teacher_info.notification_email_frequency,
+      show_students_exact_score: @teacher_info.show_students_exact_score
     }, status: 200
   end
 
@@ -52,7 +38,7 @@ class TeacherInfosController < ApplicationController
   end
 
   private def teacher_info_params
-    params.permit(:minimum_grade_level, :maximum_grade_level, :notification_email_frequency, subject_area_ids: [])
+    params.permit(:minimum_grade_level, :maximum_grade_level, :notification_email_frequency, :show_students_exact_score, subject_area_ids: [])
   end
 
   private def minimum_grade_level
@@ -71,5 +57,8 @@ class TeacherInfosController < ApplicationController
     teacher_info_params[:subject_area_ids]
   end
 
+  private def show_students_exact_score
+    ActiveModel::Type::Boolean.new.cast(teacher_info_params[:show_students_exact_score]) # handles case where true and false are passed as strings
+  end
 
 end

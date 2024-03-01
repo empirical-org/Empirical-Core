@@ -578,6 +578,7 @@ RSpec.describe User, type: :model do
         minimum_grade_level: teacher_info.minimum_grade_level,
         maximum_grade_level: teacher_info.maximum_grade_level,
         subject_area_ids: teacher_info.subject_area_ids,
+        show_students_exact_score: teacher_info.show_students_exact_score,
         notification_email_frequency: TeacherInfo::DAILY_EMAIL,
         teacher_notification_settings: {
           "TeacherNotifications::StudentCompletedDiagnostic" => false,
@@ -597,6 +598,7 @@ RSpec.describe User, type: :model do
         minimum_grade_level: teacher_info.minimum_grade_level,
         maximum_grade_level: teacher_info.maximum_grade_level,
         subject_area_ids: teacher_info.subject_area_ids,
+        show_students_exact_score: teacher_info.show_students_exact_score,
         notification_email_frequency: TeacherInfo::DAILY_EMAIL,
         teacher_notification_settings: {
           "TeacherNotifications::StudentCompletedDiagnostic" => false,
