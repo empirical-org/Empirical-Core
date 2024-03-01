@@ -54,16 +54,15 @@ describe('studentwiseSkillGroupUDF', () => {
   test('should return skillGroup-score pairs', () => {
     const activityIds = ["1663", "1663", "1664", "1664"];
     const completedAts = ['2022-01-01T00:00:00Z', '2022-01-01T00:01:00Z', '2022-01-02T00:00:00Z', '2022-01-02T00:01:00Z'];
-    const scores = [0.5, 0.6, 0.7, 0.8];
+    const scores = [false, false, true, true];
     const skillGroupNames = ['Plural and Possessive Nouns', 'Capitalization', 'Plural and Possessive Nouns', 'Capitalization' ]
     const result = studentwiseSkillGroupUDF(scores, activityIds, completedAts, skillGroupNames);
     const parsedResult = JSON.parse(result)
 
-    console.log(parsedResult)
-    expect(parsedResult['Plural and Possessive Nouns_pre']).toEqual(0.5)
-    expect(parsedResult['Capitalization_pre']).toEqual(0.6)
-    expect(parsedResult['Plural and Possessive Nouns_post']).toEqual(0.7)
-    expect(parsedResult['Capitalization_post']).toEqual(0.8)
+    expect(parsedResult['Plural and Possessive Nouns_pre']).toEqual(0)
+    expect(parsedResult['Capitalization_pre']).toEqual(0)
+    expect(parsedResult['Plural and Possessive Nouns_post']).toEqual(1)
+    expect(parsedResult['Capitalization_post']).toEqual(1)
   })
 
 })

@@ -81,11 +81,13 @@ export function studentwiseAggregateUDF(scores, conceptNames, activityIds, compl
 }
 
 export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skillGroupNames) {
+  function boolToInt(bool) { return bool ? 1 : 0}
+
   function zipAndSort(scores, activityIds, completedAts, skillGroupNames) {
     const zipped = completedAts.map(
       (elem, i) => ({
         completedAt: elem,
-        score: scores[i],
+        score: boolToInt(scores[i]),
         activityId: parseInt(activityIds[i]),
         skillGroupName: skillGroupNames[i]
 
