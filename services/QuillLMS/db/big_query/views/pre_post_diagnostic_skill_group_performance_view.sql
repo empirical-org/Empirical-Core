@@ -32,7 +32,7 @@ SELECT
       JOIN lms.unit_activities ON classroom_units.unit_id = unit_activities.unit_id
       CROSS JOIN UNNEST(classroom_units.assigned_student_ids) AS assigned_student_id
       LEFT OUTER JOIN (
-        -- This sub-select is used to ensure that we only count the most recent completion from a student for a given activity in a given classroom
+        /* This sub-select is used to ensure that we only count the most recent completion from a student for a given activity in a given classroom */
         SELECT activity_sessions.*
           FROM (
             SELECT activity_sessions.user_id AS student_id, classroom_units.classroom_id, activity_sessions.activity_id, MAX(activity_sessions.completed_at) AS completed_at
@@ -80,7 +80,7 @@ SELECT
         classroom_units.classroom_id AS classroom_id,
         activity_sessions.user_id AS student_id
       FROM (
-        -- This sub-select is used to ensure that we only count the most recent completion from a student for a given activity in a given classroom
+        /* This sub-select is used to ensure that we only count the most recent completion from a student for a given activity in a given classroom */
         SELECT activity_sessions.*
           FROM (
             SELECT activity_sessions.user_id AS student_id, classroom_units.classroom_id, activity_sessions.activity_id, MAX(activity_sessions.completed_at) AS completed_at
