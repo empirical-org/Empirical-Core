@@ -19,9 +19,9 @@ module AdminDiagnosticReports
     def specific_select_clause
       <<-SQL
         COUNT(DISTINCT performance.pre_activity_session_id) AS pre_students_completed,
-        COUNT(DISTINCT performance.post_activity_session_id) AS post_students_completed,    
+        COUNT(DISTINCT performance.post_activity_session_id) AS post_students_completed,
         ROUND(SAFE_DIVIDE(SUM(performance.pre_questions_correct), CAST(SUM(performance.pre_questions_total) AS float64)), 2) AS pre_score,
-        ROUND(SAFE_DIVIDE(SUM(performance.post_questions_correct), CAST(SUM(performance.post_questions_total) AS float64)), 2) AS post_score,  
+        ROUND(SAFE_DIVIDE(SUM(performance.post_questions_correct), CAST(SUM(performance.post_questions_total) AS float64)), 2) AS post_score,
         /*
         The value below is used to duplicate growth percentage calculations from teacher reports:
           It is intended to work only when aggregated at the Skill Group level
@@ -34,7 +34,7 @@ module AdminDiagnosticReports
           ROUND(SAFE_DIVIDE(SUM(performance.post_questions_correct), CAST(SUM(performance.post_questions_total) AS float64)), 2)
             - ROUND(SAFE_DIVIDE(SUM(CASE WHEN performance.post_activity_session_id IS NOT NULL THEN performance.pre_questions_correct ELSE NULL END),
                 CAST(SUM(CASE WHEN performance.post_activity_session_id IS NOT NULL THEN performance.pre_questions_total ELSE NULL END) AS float64)), 2),
-        0) AS growth_percentage,     
+        0) AS growth_percentage,
         COUNT(DISTINCT CASE WHEN (pre_questions_correct = pre_questions_total AND post_questions_correct = post_questions_total) THEN performance.student_id ELSE NULL END) AS maintained_proficiency,
         COUNT(DISTINCT CASE WHEN (pre_questions_correct < pre_questions_total AND post_questions_correct > pre_questions_correct) THEN performance.student_id ELSE NULL END) AS improved_proficiency,
         COUNT(DISTINCT CASE WHEN (post_questions_correct < pre_questions_correct OR (pre_questions_correct < pre_questions_total AND post_questions_correct = pre_questions_correct)) THEN performance.student_id ELSE NULL END) AS recommended_practice

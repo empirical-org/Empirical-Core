@@ -10,7 +10,7 @@ module AdminDiagnosticReports
     AGGREGATION_OPTIONS = DiagnosticAggregateQuery::AGGREGATION_OPTIONS
     DIAGNOSTIC_ORDER_BY_ID = DiagnosticAggregateQuery::DIAGNOSTIC_ORDER_BY_ID
 
-    def initialize(timeframe_start:, timeframe_end:, school_ids:, grades: nil, teacher_ids: nil, classroom_ids: nil, user: nil, aggregation:, **options) # rubocop:disable Metrics/ParameterLists
+    def initialize(timeframe_start:, timeframe_end:, school_ids:, aggregation:, grades: nil, teacher_ids: nil, classroom_ids: nil, user: nil, **options) # rubocop:disable Metrics/ParameterLists
       raise InvalidAggregationError, "#{aggregation} is not a valid aggregation value." unless valid_aggregation_options.include?(aggregation)
 
       @timeframe_start = timeframe_start
@@ -100,13 +100,13 @@ module AdminDiagnosticReports
     def specific_select_clause = raise NotImplementedError
 
     def timeframe_where_clause = "#{relevant_date_column} BETWEEN '#{timeframe_start.to_fs(:db)}' AND '#{timeframe_end.to_fs(:db)}'"
-    def classroom_ids_where_clause = ("AND classrooms.id IN (#{classroom_ids.join(',')})" unless classroom_ids.blank?)
-    def grades_where_clause = ("AND (classrooms.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')}) #{grades_where_null_clause})" unless grades.blank?)
+    def classroom_ids_where_clause = ("AND classrooms.id IN (#{classroom_ids.join(',')})" if classroom_ids.present?)
+    def grades_where_clause = ("AND (classrooms.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')}) #{grades_where_null_clause})" if grades.present?)
     def grades_where_null_clause = ("OR classrooms.grade IS NULL" if grades.include?('null'))
     def owner_teachers_only_where_clause = "AND classrooms_teachers.role = '#{ClassroomsTeacher::ROLE_TYPES[:owner]}'"
     def relevant_diagnostic_where_clause = "AND performance.activity_id IN (#{DIAGNOSTIC_ORDER_BY_ID.join(',')})"
     def school_ids_where_clause = "AND schools_users.school_id IN (#{school_ids.join(',')})"
-    def teacher_ids_where_clause = ("AND schools_users.user_id IN (#{teacher_ids.join(',')})" unless teacher_ids.blank?)
+    def teacher_ids_where_clause = ("AND schools_users.user_id IN (#{teacher_ids.join(',')})" if teacher_ids.present?)
 
     def group_by_clause = "GROUP BY performance.activity_id, activities.name, aggregate_id, #{aggregate_sort_clause}"
 
