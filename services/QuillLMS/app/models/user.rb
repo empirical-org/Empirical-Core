@@ -962,7 +962,7 @@ class User < ApplicationRecord
   end
 
   private def generate_default_teacher_info
-    # in addition to setting the notification_email_frequency here, show_students_exact_score is also being set to true automatically on creation 
+    # in addition to setting the notification_email_frequency here, show_students_exact_score is also being set to true automatically on creation
     create_teacher_info(notification_email_frequency: TeacherInfo::DAILY_EMAIL)
   end
 
