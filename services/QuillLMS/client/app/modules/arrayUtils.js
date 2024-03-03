@@ -3,7 +3,7 @@
 // So we cast DATETIMES to STRINGS before calling this function
 
 // (scores Array<FLOAT64>, conceptNames Array<STRING>, activityIds Array<INTEGER>, completedAts Array<STRING>)
-export function studentwiseAggregateUDF(scores, conceptNames, activityIds, completedAts) {
+export function studentwiseCompletedActivitiesUDF(scores, conceptNames, activityIds, completedAts) {
   function zipAndSort(scores, conceptNames, activityIds, completedAts) {
     const zipped = completedAts.map(
       (elem, i) => ({
