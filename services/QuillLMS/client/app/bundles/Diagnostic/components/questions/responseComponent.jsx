@@ -163,13 +163,6 @@ class ResponseComponent extends React.Component {
     return errors;
   };
 
-  rematchResponse = rid => {
-    const { responses } = this.state
-    const response = responses[rid];
-    const callback = this.searchResponses;
-    rematchOne(response, this.props.mode, this.props.question, this.props.questionID, callback);
-  };
-
   rematchAllResponses = () => {
     this.setState({enableRematchAllButton: false});
     const pageNumber = 1;

@@ -18,7 +18,7 @@ import {
 import sentenceFragmentActions from '../../actions/sentenceFragments'
 import C from '../../constants'
 import { rematchOne } from '../../libs/grading/rematching'
-import { getStatusForResponse } from '../../../Shared/index'
+import { getStatusForResponse, extractConceptResultsFromResponse } from '../../../Shared/index'
 
 import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx'
 
@@ -67,18 +67,6 @@ const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded,
   React.useEffect(() => {
     setResponse(passedResponse)
   }, [passedResponse])
-
-  function extractConceptResultsFromResponse(response) {
-    const { concept_results, } = response
-
-    if (!concept_results) { return {} }
-
-    if (typeof concept_results === 'string') {
-      return JSON.parse(concept_results)
-    } else {
-      return concept_results
-    }
-  }
 
   function handleDeleteResponse() {
     if (window.confirm('Are you sure?')) {

@@ -33,4 +33,5 @@ export {
   getStatusForResponse,
   responsesWithStatus,
   sortByLevenshteinAndOptimal,
+  extractConceptResultsFromResponse
 } from './responseTools'

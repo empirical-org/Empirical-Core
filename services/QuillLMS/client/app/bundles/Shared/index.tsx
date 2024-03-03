@@ -120,6 +120,7 @@ export {
   getStatusForResponse,
   responsesWithStatus,
   sortByLevenshteinAndOptimal,
+  extractConceptResultsFromResponse
 } from './libs/index'
 
 export {
