@@ -16,13 +16,9 @@ class TeacherInfosController < ApplicationController
       end
     end
 
-    if notification_email_frequency
-      @teacher_info.update!(notification_email_frequency: notification_email_frequency)
-    end
-
-    if [true, false].include?(show_students_exact_score)
-      @teacher_info.update!(show_students_exact_score: show_students_exact_score)
-    end
+    @teacher_info.update!(notification_email_frequency:) if notification_email_frequency
+    
+    @teacher_info.update!(show_students_exact_score:) if show_students_exact_score.in?([true, false])
 
     render json: {
       minimum_grade_level: @teacher_info.minimum_grade_level,
