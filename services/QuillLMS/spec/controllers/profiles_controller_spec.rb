@@ -280,6 +280,13 @@ describe ProfilesController, type: :controller do
           response_body = JSON.parse(response.body)
           expect(response_body['next_activity_session']).to eq(response_body['scores'].first)
         end
+
+        it 'returns the student metrics' do
+          classroom = student.classrooms.first
+          get :student_profile_data, params: { current_classroom_id: classroom.id }
+          response_body = JSON.parse(response.body)
+          expect(response_body['metrics']).to eq(StudentDashboardMetrics.new(student, classroom.id).run)
+        end
       end
     end
   end

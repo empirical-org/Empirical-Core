@@ -30,7 +30,8 @@ export default (state, action) => {
         scores: action.data.scores,
         student: action.data.student,
         nextActivitySession: action.data.next_activity_session,
-        selectedClassroomId: action.data.classroom_id
+        selectedClassroomId: action.data.classroom_id,
+        metrics: action.data.metrics
       });
     case 'UPDATE_ACTIVE_CLASSWORK_TAB':
       return Object.assign({}, state, { activeClassworkTab: action.activeClassworkTab });

@@ -35,7 +35,7 @@ describe StudentDashboardMetrics do
 
   describe '#run' do
     it 'returns metrics for day, week, month, and year' do
-      metrics = StudentDashboardMetrics.new(student, classroom).run
+      metrics = StudentDashboardMetrics.new(student, classroom.id).run
 
       expect(metrics[:day][:activities_completed]).to eq(1)
       expect(metrics[:day][:timespent]).to eq(today_timespent)
@@ -54,7 +54,7 @@ describe StudentDashboardMetrics do
   describe 'metrics_from_start_date' do
     it 'calculates metrics correctly from a given start date' do
       start_date = 2.days.ago
-      metrics = StudentDashboardMetrics.new(student, classroom).metrics_from_start_date(start_date)
+      metrics = StudentDashboardMetrics.new(student, classroom.id).metrics_from_start_date(start_date)
 
       expect(metrics[:activities_completed]).to eq(2)
       expect(metrics[:timespent]).to eq(today_timespent + yesterday_timespent)
@@ -64,7 +64,7 @@ describe StudentDashboardMetrics do
   describe 'completed_sessions' do
     it 'only includes sessions with completed_at not nil' do
       create(:activity_session, :started, user: student, classroom_unit: classroom_unit)
-      metrics_instance = StudentDashboardMetrics.new(student, classroom)
+      metrics_instance = StudentDashboardMetrics.new(student, classroom.id)
 
       expect(metrics_instance.completed_sessions.count).to eq(activity_sessions.count)
     end

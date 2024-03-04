@@ -15,6 +15,7 @@ import LoadingIndicator from '../components/shared/loading_indicator';
 import StudentProfileClassworkTabs from '../components/student_profile/student_profile_classwork_tabs';
 import StudentProfileHeader from '../components/student_profile/student_profile_header';
 import StudentProfileUnits from '../components/student_profile/student_profile_units.jsx';
+import KeyMetrics from '../components/student_profile/key_metrics'
 
 class StudentProfile extends React.Component {
   componentDidMount() {
@@ -114,6 +115,7 @@ class StudentProfile extends React.Component {
       activeClassworkTab,
       isBeingPreviewed,
       history,
+      metrics,
     } = this.props;
 
     if (loading) { return <LoadingIndicator /> }
@@ -129,6 +131,11 @@ class StudentProfile extends React.Component {
         />
         <div className="header-container">
           <div className="container">
+            <h1>Your progress</h1>
+            <KeyMetrics
+              firstName={student.name.split(' ')[0]}
+              metrics={metrics}
+            />
             <h1>Classwork</h1>
           </div>
         </div>
