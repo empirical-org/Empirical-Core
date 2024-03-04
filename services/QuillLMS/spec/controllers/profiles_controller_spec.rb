@@ -285,7 +285,7 @@ describe ProfilesController, type: :controller do
           classroom = student.classrooms.first
           get :student_profile_data, params: { current_classroom_id: classroom.id }
           response_body = JSON.parse(response.body)
-          expect(response_body['metrics']).to eq(StudentDashboardMetrics.new(student, classroom.id).run)
+          expect(response_body['metrics'].to_json).to eq(StudentDashboardMetrics.new(student, classroom.id).run.to_json)
         end
       end
     end
