@@ -1,4 +1,4 @@
-import { studentwiseCompletedActivitiesUDF, studentwiseSkillGroupUDF } from "./arrayUtils"
+import { studentwiseSkillGroupUDF } from "./BigQueryUDFs"
 
 describe('studentwiseCompletedActivitiesUDF', () => {
 
