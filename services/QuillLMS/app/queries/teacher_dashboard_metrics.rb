@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class TeacherDashboardMetrics
+  include DashboardMetrics
 
   def initialize(user)
     @user = user
@@ -46,26 +47,6 @@ class TeacherDashboardMetrics
 
   private def classroom_ids
     @classroom_ids ||= @user.classrooms_i_teach.map(&:id)
-  end
-
-  private def today
-    @today ||= Date.current
-  end
-
-  private def days_since_last_sunday
-    @days_since_last_sunday ||= today.wday == 0 ? 0 : ((today.wday + 6) % 7) + 1
-  end
-
-  private def last_sunday
-    @last_sunday ||= today - days_since_last_sunday
-  end
-
-  private def july_first_of_this_year
-    @july_first_of_this_year ||= Date.parse("01-07-#{today.year}")
-  end
-
-  private def last_july_first
-    @last_july_first ||= today.month > 7 ? july_first_of_this_year : july_first_of_this_year - 1.year
   end
 
 end
