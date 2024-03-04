@@ -1,4 +1,4 @@
-import { studentwiseSkillGroupUDF } from "./BigQueryUDFs"
+import { percentToTier, studentwiseSkillGroupUDF } from "./BigQueryUDFs"
 
 describe('studentwiseCompletedActivitiesUDF', () => {
 
@@ -75,4 +75,12 @@ describe('studentwiseSkillGroupUDF', () => {
     expect(parsedResult.numAssignedRecommendedCompleted).toEqual(1)
   })
 
+})
+
+describe('percentToTier', () => {
+  it('should output the correct tier', () => {
+    expect(percentToTier(0.0)).toEqual("0%")
+    expect(percentToTier(.3)).toEqual("21-30%")
+    expect(percentToTier(.81)).toEqual("81-90%")
+  })
 })

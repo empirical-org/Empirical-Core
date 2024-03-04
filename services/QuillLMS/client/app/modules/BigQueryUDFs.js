@@ -126,4 +126,28 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
   )
 }
 
-export function
+export function percentToTier(percentage) {
+  const theNumber = percentage * 100
+  if (percentage == 0 ) { return "0%" }
+  if (percentage ==  100 ) { return "100%" }
+
+  const tiers = {
+    "1-10%":    { from: 0, to: 11},
+    "11-20%":   { from: 11, to: 21},
+    "21-30%":   { from: 21, to: 31},
+    "31-40%":   { from: 31, to: 41},
+    "41-50%":   { from: 41, to: 51},
+    "51-60%":   { from: 51, to: 61},
+    "61-70%":   { from: 61, to: 71},
+    "71-80%":   { from: 71, to: 81},
+    "81-90%":   { from: 81, to: 91},
+    "91-99%":   { from: 91, to: 100},
+  }
+
+  for (const [tierName, value] of Object.entries(tiers)) {
+    if (theNumber >= value.from && theNumber < value.to) {
+      return tierName
+    }
+  }
+
+}
