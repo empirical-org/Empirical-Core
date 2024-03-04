@@ -33,7 +33,6 @@ describe TeacherInfo, type: :model, redis: true do
   it {should validate_numericality_of(:maximum_grade_level)}
 
   it {should validate_presence_of(:user_id)}
-  it {should validate_presence_of(:show_students_exact_score)}
 
   it {should validate_inclusion_of(:notification_email_frequency).in_array(TeacherInfo::NOTIFICATION_EMAIL_FREQUENCIES)}
   it {should validate_inclusion_of(:show_students_exact_score).in_array([true, false])}
