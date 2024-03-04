@@ -71,7 +71,7 @@ section.key-metrics, .post-checklist-container main section.key-metrics {
           left: 0px;
         }
         .dropdown__value-container {
-          width: 56px;
+          min-width: 56px;
           justify-content: flex-start;
         }
       }
