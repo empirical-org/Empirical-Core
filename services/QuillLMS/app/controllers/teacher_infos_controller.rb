@@ -17,7 +17,7 @@ class TeacherInfosController < ApplicationController
     end
 
     @teacher_info.update!(notification_email_frequency:) if notification_email_frequency
-    
+
     @teacher_info.update!(show_students_exact_score:) if show_students_exact_score.in?([true, false])
 
     render json: {
