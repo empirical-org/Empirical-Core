@@ -16,7 +16,7 @@ RSpec.shared_examples 'snapshots period length, previous within threshold' do |t
     let(:threshold_to_use) do
       return threshold if february_threshold.nil?
 
-      now.month <= 3 ? february_threshold : threshold
+      now.month.in?([2,3])  ? february_threshold : threshold
     end
 
     before do
