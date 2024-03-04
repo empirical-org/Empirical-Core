@@ -8,11 +8,11 @@ const MONTH = 'month'
 const WEEK = 'week'
 const DAY = 'day'
 
-function appendSIfPlural(number) {
+export function appendSIfPlural(number) {
   return number === 1 ? '' : 's'
 }
 
-function formatTimespent(durationInSeconds) {
+export function formatTimespent(durationInSeconds) {
   const duration = moment.duration(durationInSeconds, 'seconds');
   const days = duration.days();
   const hours = duration.hours();
@@ -23,6 +23,8 @@ function formatTimespent(durationInSeconds) {
   durationString += days ? `${days} day${appendSIfPlural(days)} ` : ''
   durationString += hours ? `${hours} hr${appendSIfPlural(hours)} ` : ''
   durationString += minutes ? `${minutes} min${appendSIfPlural(minutes)} ` : ''
+
+  if (durationString === '') { return '0 mins' }
 
   return durationString
 }
