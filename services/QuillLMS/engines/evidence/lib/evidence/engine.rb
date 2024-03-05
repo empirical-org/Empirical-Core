@@ -15,7 +15,7 @@ module Evidence
     config.generators do |g|
 
       g.orm :active_record
-      g.test_framework :shoulda, fixtures: false
+      g.test_framework :rspec, fixtures: false
       g.fixtures false
 
       g.stylesheets false
@@ -23,8 +23,6 @@ module Evidence
       g.javascript false
       g.assets false
       g.template_engine nil
-
-      g.fallbacks[:shoulda] = :test_unit
     end
 
     if defined?(FactoryBot)
