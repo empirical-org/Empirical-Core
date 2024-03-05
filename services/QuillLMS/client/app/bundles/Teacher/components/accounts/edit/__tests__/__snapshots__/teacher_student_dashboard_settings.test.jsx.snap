@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TeacherStudentDashboardSettings component should render 1`] = `
+<DocumentFragment>
+  <section
+    class="user-account-section student-dashboard-settings-section"
+  >
+    <h1>
+      Student dashboard
+    </h1>
+    <p
+      class="student-dashboard-settings-description"
+    >
+      Control what your classes see on their dashboard. 
+      <a
+        href=""
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Learn more.
+      </a>
+    </p>
+    <form
+      accept-charset="UTF-8"
+    >
+      <div
+        class="fields"
+      >
+        <div
+          class="checkbox-row"
+        >
+          <button
+            aria-label="Unchecked checkbox"
+            class="quill-checkbox unselected"
+            id="show-exact-score-checkbox"
+            type="button"
+          />
+          <label
+            for="show-exact-score-checkbox"
+          >
+            Show exact score for graded activities
+          </label>
+        </div>
+      </div>
+    </form>
+  </section>
+</DocumentFragment>
+`;

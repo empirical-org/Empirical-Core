@@ -248,7 +248,7 @@ class User < ApplicationRecord
   after_save :update_invitee_email_address, if: proc { saved_change_to_email? }
   after_save :check_for_school
   after_create :generate_referrer_id, if: proc { teacher? }
-  after_create :generate_default_notification_email_frequency, if: :teacher?
+  after_create :generate_default_teacher_info, if: :teacher?
   after_create :generate_default_teacher_notification_settings, if: :teacher?
 
   # This is a little weird, but in our current conception, all Admins are Teachers
@@ -672,6 +672,7 @@ class User < ApplicationRecord
     user_attributes[:minimum_grade_level] = teacher_info&.minimum_grade_level
     user_attributes[:maximum_grade_level] = teacher_info&.maximum_grade_level
     user_attributes[:notification_email_frequency] = teacher_info&.notification_email_frequency
+    user_attributes[:show_students_exact_score] = teacher_info&.show_students_exact_score
     user_attributes[:teacher_notification_settings] = teacher_notification_settings_info
     user_attributes[:subject_area_ids] = subject_area_ids
 
@@ -960,7 +961,8 @@ class User < ApplicationRecord
     Invitation.where(invitee_email: email_before_last_save).update_all(invitee_email: email, updated_at: DateTime.current)
   end
 
-  private def generate_default_notification_email_frequency
+  private def generate_default_teacher_info
+    # in addition to setting the notification_email_frequency here, show_students_exact_score is also being set to true automatically on creation
     create_teacher_info(notification_email_frequency: TeacherInfo::DAILY_EMAIL)
   end
 

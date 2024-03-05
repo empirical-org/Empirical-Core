@@ -578,6 +578,7 @@ RSpec.describe User, type: :model do
         minimum_grade_level: teacher_info.minimum_grade_level,
         maximum_grade_level: teacher_info.maximum_grade_level,
         subject_area_ids: teacher_info.subject_area_ids,
+        show_students_exact_score: teacher_info.show_students_exact_score,
         notification_email_frequency: TeacherInfo::DAILY_EMAIL,
         teacher_notification_settings: {
           "TeacherNotifications::StudentCompletedDiagnostic" => false,
@@ -597,6 +598,7 @@ RSpec.describe User, type: :model do
         minimum_grade_level: teacher_info.minimum_grade_level,
         maximum_grade_level: teacher_info.maximum_grade_level,
         subject_area_ids: teacher_info.subject_area_ids,
+        show_students_exact_score: teacher_info.show_students_exact_score,
         notification_email_frequency: TeacherInfo::DAILY_EMAIL,
         teacher_notification_settings: {
           "TeacherNotifications::StudentCompletedDiagnostic" => false,
@@ -1958,25 +1960,25 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#generate_default_notification_email_frequency' do
+  describe '#generate_default_teacher_info' do
     it 'should be called after creation if teacher?' do
       teacher = build(:teacher)
 
-      expect(teacher).to receive(:generate_default_notification_email_frequency)
+      expect(teacher).to receive(:generate_default_teacher_info)
       teacher.save
     end
 
     it 'should not be called after creation if not teacher?' do
       student = build(:student)
 
-      expect(student).not_to receive(:generate_default_notification_email_frequency)
+      expect(student).not_to receive(:generate_default_teacher_info)
       student.save
     end
 
     it 'should not be called on non-create updates' do
       teacher = create(:teacher)
 
-      expect(teacher).not_to receive(:generate_default_notification_email_frequency)
+      expect(teacher).not_to receive(:generate_default_teacher_info)
       teacher.name = 'New Name'
       teacher.save
     end
@@ -2000,7 +2002,7 @@ RSpec.describe User, type: :model do
     it 'should not be called on non-create updates' do
       teacher = create(:teacher)
 
-      expect(teacher).not_to receive(:generate_default_notification_email_frequency)
+      expect(teacher).not_to receive(:generate_default_teacher_info)
       teacher.name = 'New Name'
       teacher.save
     end
