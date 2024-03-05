@@ -105,7 +105,7 @@ class Demo::CreateAdminReport
         .where(classroom_units: {classroom_id: classroom.id})
         .where.not(activity_id: Activity::PRE_TEST_DIAGNOSTIC_IDS)
         .sample(rand(RANGE_OF_NUMBER_OF_SESSIONS_TO_DESTROY))
-        .each(&:destroy)
+        .each(&:delete)
     end
   end
 

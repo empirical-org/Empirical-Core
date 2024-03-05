@@ -9,6 +9,7 @@
 #  minimum_grade_level          :integer
 #  notification_email_frequency :text
 #  role_selected_at_signup      :string           default("")
+#  show_students_exact_score    :boolean          default(TRUE), not null
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
 #  user_id                      :bigint           not null
