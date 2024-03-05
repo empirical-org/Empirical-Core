@@ -16,8 +16,8 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
     return zipped.sort((a,b) => (new Date(a.completedAt) - new Date(b.completedAt)))
   }
 
-  function findLastIndex(array, fn) {
-    const reversedArray = [...array].reverse()
+  function findLastIndex(array, offset, fn) {
+    const reversedArray = [...array.slice(offset+1)].reverse()
     const reversedIdx = reversedArray.findIndex(fn)
     if (reversedIdx === -1) return -1
     return array.length - 1 - reversedIdx
@@ -77,28 +77,63 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
   }
 
   const zipped = zipAndSort(scores, activityIds, completedAts, skillGroupNames)
-  const PRE_DIAGNOSTIC_ACTIVITY_ID = 1663
-  const POST_DIAGNOSTIC_ACTIVITY_ID = 1664
-  const canonicalPreTestIdx = zipped.findIndex( elem => elem.activityId == PRE_DIAGNOSTIC_ACTIVITY_ID )
-  const canonicalPostTestIdx = findLastIndex( zipped, elem => elem.activityId == POST_DIAGNOSTIC_ACTIVITY_ID )
 
-  if ((canonicalPreTestIdx  == -1) ||
-      (canonicalPostTestIdx == -1)) {
+  const prePostDiagnosticActivityIdPairs = {
+    1161: 1774, // ELL Starter
+    1568: 1814, // ELL Intermediate
+    1590: 1818, // ELL Advanced
+    1663: 1664, // Starter
+    1668: 1669, // Intermediate
+    1678: 1680  // Advanced
+  }
+
+  const recommendedActivityCounts = {
+    1161: 5,  // ELL Starter
+    1568: 6,  // ELL Intermediate
+    1590: 5,  // ELL Advanced
+    1663: 10, // Starter
+    1668: 11, // Intermediate
+    1678: 9   // Advanced
+  }
+
+  const canonicalPreTestIdx = zipped.findIndex(
+    elem => Object.keys(prePostDiagnosticActivityIdPairs).map(x => parseInt(x)).includes(elem.activityId)
+  )
+
+  if (canonicalPreTestIdx  == -1) {
     return JSON.stringify({
       ...defaultReturnValue,
-      ...{ errorMessage: `Bad index(es): canonicalPreTestIdx: ${canonicalPreTestIdx} canonicalPostTestIdx: ${canonicalPostTestIdx}` }
+      ...{ errorMessage: `Bad index(es): canonicalPreTestIdx: ${canonicalPreTestIdx}` }
     })
   }
 
   const canonicalPreTest = zipped[canonicalPreTestIdx]
+  const PRE_DIAGNOSTIC_ACTIVITY_ID = canonicalPreTest.activityId
+
+
+  // Once the pre diagnostic activity is known, we want to only look for its post diagnostic sibling
+  const canonicalPostTestIdx = findLastIndex(
+    zipped,
+    canonicalPreTestIdx+1,
+    elem => elem.activityId == prePostDiagnosticActivityIdPairs[PRE_DIAGNOSTIC_ACTIVITY_ID]
+  )
+
+  if (canonicalPostTestIdx == -1) {
+    return JSON.stringify({
+      ...defaultReturnValue,
+      ...{ errorMessage: `Bad index(es): canonicalPostTestIdx: ${canonicalPostTestIdx}` }
+    })
+  }
+
   const canonicalPostTest = zipped[canonicalPostTestIdx]
+  const POST_DIAGNOSTIC_ACTIVITY_ID = canonicalPostTest.activityId
 
   if ((!canonicalPreTest?.completedAt) ||
       (!canonicalPostTest?.completedAt) ||
       (canonicalPreTest.completedAt >= canonicalPostTest.completedAt)) {
     return JSON.stringify({
       ...defaultReturnValue,
-      ...{ errorMessage: `Nonexistent or incorrect sequencing: canonicalPreTest?.completedAt: ${canonicalPreTest?.completedAt} canonicalPostTest?.completedAt: ${canonicalPostTest?.completedAt}`}
+      ...{ errorMessage: `Nonexistent or incorrect activity sequencing: canonicalPreTest?.completedAt: ${canonicalPreTest?.completedAt} canonicalPostTest?.completedAt: ${canonicalPostTest?.completedAt}`}
     })
   }
 
@@ -119,6 +154,7 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
 
   return JSON.stringify(
     {
+      recommendedActivityCount: recommendedActivityCounts[PRE_DIAGNOSTIC_ACTIVITY_ID],
       errorMessage: errorMessageArray.join(' '),
       numAssignedRecommendedCompleted,
       ...skillScores
@@ -126,10 +162,22 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
   )
 }
 
-export function percentToTier(percentage) {
-  const theNumber = percentage * 100
+// params: numAssignedRecommendedCompleted STRING, recommendedActivityCount STRING
+export function tierUDF(numAssignedRecommendedCompleted, recommendedActivityCount) {
+  const completedCount = parseInt(numAssignedRecommendedCompleted)
+  const activityCount = parseInt(recommendedActivityCount)
+
+  if (isNaN(completedCount) ||
+      isNaN(activityCount) ||
+      activityCount < 1 ||
+      completedCount < 0
+  ) {
+    return "-1"
+  }
+  const percentage = completedCount / activityCount * 100
+
   if (percentage == 0 ) { return "0%" }
-  if (percentage ==  100 ) { return "100%" }
+  if (percentage == 100 ) { return "100%" }
 
   const tiers = {
     "1-10%":    { from: 0, to: 11},
@@ -141,13 +189,15 @@ export function percentToTier(percentage) {
     "61-70%":   { from: 61, to: 71},
     "71-80%":   { from: 71, to: 81},
     "81-90%":   { from: 81, to: 91},
-    "91-99%":   { from: 91, to: 100},
+    "91-99%":   { from: 91, to: 100}
   }
 
   for (const [tierName, value] of Object.entries(tiers)) {
-    if (theNumber >= value.from && theNumber < value.to) {
+    if (percentage >= value.from && percentage < value.to) {
       return tierName
     }
   }
 
 }
+
+
