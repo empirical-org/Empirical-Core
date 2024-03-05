@@ -21,7 +21,7 @@ default:
     name: 'pre_post_diagnostic_skill_group_performance_view'
     name_fallback: 'pre_post_diagnostic_skill_performance_local'
     sql: 'pre_post_diagnostic_skill_group_performance_view.sql'
-    create_options: "OPTIONS(enable_refresh = true, refresh_interval_minutes = 360, max_staleness = INTERVAL '8' HOUR, allow_non_incremental_definition = true)"
+    create_options: "OPTIONS(allow_non_incremental_definition = true, enable_refresh = true, max_staleness = INTERVAL '8' HOUR, refresh_interval_minutes = 360)"
   reporting_sessions_view:
     dataset: 'lms'
     name: 'recent_reporting_sessions_view'
