@@ -102,11 +102,14 @@ module Snapshots
     it_behaves_like 'snapshots period length', 'last-school-year', Date.leap?(DateTime.current.prev_year.year) ? 366 : 365
     it_behaves_like 'snapshots period length', 'custom', 4, (DateTime.current - 3.days).to_s, DateTime.current.to_s
 
-    # last-month and last-school-year may not match the previous period
     it_behaves_like 'snapshots period length matches previous', 'last-30-days'
     it_behaves_like 'snapshots period length matches previous', 'last-90-days'
-    it_behaves_like 'snapshots period length matches previous', 'this-month'
-    it_behaves_like 'snapshots period length matches previous', 'this-school-year'
     it_behaves_like 'snapshots period length matches previous', 'custom', (DateTime.current - 3.days).to_s, DateTime.current.to_s
+
+    it_behaves_like 'snapshots period length, previous within threshold', 'this-school-year', 1
+    it_behaves_like 'snapshots period length, previous within threshold', 'last-school-year', 1
+    it_behaves_like 'snapshots period length, previous within threshold', 'this-month', 1, 3
+    it_behaves_like 'snapshots period length, previous within threshold', 'last-month', 1, 3
+
   end
 end
