@@ -216,4 +216,37 @@
       }
     }
   }
+
+  .key-metrics {
+    border-radius: 8px;
+    border: 1px solid #E0E0E0;
+    padding: 20px;
+    margin-top: 16px;
+    header {
+      margin-bottom: 24px;
+    }
+    h2 {
+      font-size: 20px;
+      line-height: 1.3;
+    }
+    .dropdown-container {
+      font-size: 14px;
+    }
+    .key-metric:first-of-type {
+      padding-left: 0px;
+      border-right: 1px solid $quill-grey-5;
+    }
+    .key-metrics-wrapper {
+      margin-bottom: 0px;
+    }
+    .dropdown-container {
+      min-width: 127px;
+    }
+    .input-container .dropdown .dropdown__single-value {
+      font-size: 14px;
+    }
+    .dropdown-container .dropdown .dropdown__menu {
+      width: 142px;
+    }
+  }
 }

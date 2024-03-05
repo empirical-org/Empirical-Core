@@ -37,7 +37,8 @@ class ProfilesController < ApplicationController
         scores: student_profile_data_sql(params[:current_classroom_id]),
         next_activity_session: next_activity_session,
         student: student_data,
-        classroom_id: params[:current_classroom_id]
+        classroom_id: params[:current_classroom_id],
+        metrics: StudentDashboardMetrics.new(current_user, params[:current_classroom_id]).run
       }
     else
       render json: {error: 'Current user has no classrooms'}
