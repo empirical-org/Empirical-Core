@@ -239,6 +239,8 @@ export function tierUDF(numAssignedRecommendedCompleted, recommendedActivityCoun
     }
   }
 
+  return `Invalid return value: ${percentage}`
+
 }
 
 
