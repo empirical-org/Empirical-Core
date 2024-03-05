@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { getTimeInMinutesAndSeconds } from "../../shared"
 import { getTimeSpent } from '../../../Teacher/helpers/studentReports'
-import { greenCheckIcon } from '../../../Shared'
 
 const checkSrc = `${process.env.CDN_URL}/images/icons/circle-check-icon-vibrant-green.svg`
 const loopSrc = `${process.env.CDN_URL}/images/icons/revise-icon-grey.svg`
@@ -23,7 +22,15 @@ export const studentsImprovedSkillTooltipText = 'The number of students who impr
 export const studentsWithoutImprovementTooltipText = 'The total number of students who did not show improvement in this skill by not answering more questions correctly in the Post than the Pre (and who were not already proficient). Quill provides a recommended activity pack for each skill so that educators can easily assign practice activities so that students can practice this skill.<br/><br/> This total count(”of __ students”) includes all students who completed both the Pre and the Post diagnostic and are selected in the filters.'
 export const studentsMaintainedProficiencyTooltipText = 'The total number of students who answered all questions for this skill correctly on both the Pre and the Post diagnostic.<br/><br/> This total count(”of __ students”) includes all students who completed both the Pre and the Post diagnostic and are selected in the filters.'
 
-const noDataToShow = '--'
+// Students tooltips
+export const preToPostImprovedSkillsTooltipText = 'The number of skills the student showed improvement in on the Post diagnostic relative to the Pre diagnostic. A skill is considered improved if the student answered more questions for that skill correctly on the Post diagnostic than they did on the Pre.'
+export const preQuestionsCorrectTooltipText = 'The total number of questions answered correctly on the Pre diagnostic.'
+export const preSkillsProficientTooltipText = 'The number of skills the student demonstrated proficiency in on the Pre diagnostic. A student demonstrates proficiency by answering all questions for that skill correctly. If a student is not fully proficient in a skill, Quill provides a recommended activity pack so that teachers can easily assign practice activities.'
+export const totalActivitiesAndTimespentTooltipText = 'Each diagnostic is linked to practice activities. This is the total number of activities completed that are linked to this particular diagnostic - not the total number of activities that the student has practiced on Quill.'
+export const postQuestionsCorrectTooltipText = 'The total number of questions answered correctly on the Post diagnostic.'
+export const postSkillsImprovedOrMaintainTooltipText = 'The number of skills the student maintained or showed improvement in on the Post diagnostic. A skill is considered “improved” if the student answered more questions for that skill correctly on the Post diagnostic than they did on the Pre. A skill is considered “maintained” if the student answered all questions for the skill correctly on both the Pre and the Post diagnostic.'
+
+const noDataToShow = <p>&mdash;</p>
 
 // Overview logic
 
@@ -244,13 +251,14 @@ export function aggregateSkillsData({
   Similarly, we look for a null value for post_questions_total to determine if a post diagnostic has not been completed yet.
 */
 
-function getPreToPostImprovedSkillsValue(count) {
-  if(count === 0) { return 'No Improved Skills'}
+function getPreToPostImprovedSkillsValue(count, postQuestionsTotal) {
+  if(postQuestionsTotal === null) { return noDataToShow }
+  if(count === 0) { return 'No improved skills'}
   return `+${count} Improved Skill${count === 1 ? '' : 's'}`
 }
 
 function getQuestionsCorrectValue({ correctCount, total, percentage }) {
-  if(!correctCount && !total) { return <p>{noDataToShow}</p>}
+  if (!correctCount && !total) { return noDataToShow }
   return(
     <div>
       <p>{`${correctCount} of ${total} Questions`}</p>
@@ -266,6 +274,13 @@ function getPreSkillsProficient({ proficientCount, practiceCount, skillsCount })
       {practiceCount ? <p>{`(${practiceCount} Skills to Practice)`}</p> : <p>(No Skills To Practice)</p>}
     </div>
   )
+}
+
+function getTotalActivities(student_id, recommendationsData) {
+  const data = recommendationsData[student_id]
+  if(!data) { return 0 }
+  const { completed_activities } = data
+  return completed_activities
 }
 
 function getTotalActivitiesAndTimespent(student_id, recommendationsData) {
@@ -393,12 +408,20 @@ export function aggregateStudentData(studentData, recommendationsData) {
     return {
       id: i,
       name: preCompleted ? student_name : <p className="diagnostic-not-completed">{student_name}</p>,
-      preToPostImprovedSkills: preCompleted ? getPreToPostImprovedSkillsValue(pre_to_post_improved_skill_count) : 'Diagnostic Not Completed',
+      studentName: student_name,
+      preToPostImprovedSkills: preCompleted ? getPreToPostImprovedSkillsValue(pre_to_post_improved_skill_count, post_questions_total) : 'Diagnostic not completed',
+      // we use -1 so that all students who haven't completed a pre diagnostic will be sorted last for this sort attribute
+      improvedSkills: preCompleted ? pre_to_post_improved_skill_count : -1,
       preQuestionsCorrect: preCompleted ? getQuestionsCorrectValue({ correctCount: pre_questions_correct, total: pre_questions_total, percentage: pre_questions_percentage }) : null,
+      preQuestionsCorrectSortValue: preCompleted ? pre_questions_correct : -1,
       preSkillsProficient: preCompleted ? getPreSkillsProficient({ proficientCount: pre_skills_proficient, practiceCount: pre_skills_to_practice, skillsCount: total_skills }) : null,
+      preSkillsProficientSortValue: preCompleted ? pre_skills_proficient : -1,
+      totalActivities: preCompleted ? getTotalActivities(student_id, recommendationsData) : -1,
       totalActivitiesAndTimespent: preCompleted ? getTotalActivitiesAndTimespent(student_id, recommendationsData) : null,
       postQuestionsCorrect: preCompleted ? getQuestionsCorrectValue({ correctCount: post_questions_correct, total: post_questions_total, percentage: post_questions_percentage}) : null,
+      postQuestionsCorrectSortValue: preCompleted ? post_questions_correct : -1,
       postSkillsImprovedOrMaintained: preCompleted ? getPostSkillsImprovedOrMaintained({ improvedCount: post_skills_improved, maintainedCount: post_skills_maintained, combinedCount: post_skills_improved_or_maintained, skillsTotal: total_skills, postQuestionsTotal: post_questions_total}) : null,
+      postSkillsImprovedOrMaintainedSortValue: preCompleted ? post_skills_improved_or_maintained : -1,
       aggregate_rows: preCompleted ? aggregate_rows : null,
       renderEmbeddedTableFunction: preCompleted ? renderEmbeddedTable : null
     }

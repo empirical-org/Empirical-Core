@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { aggregateStudentData } from './helpers'
+import { aggregateStudentData, preToPostImprovedSkillsTooltipText, preQuestionsCorrectTooltipText, preSkillsProficientTooltipText, totalActivitiesAndTimespentTooltipText, postQuestionsCorrectTooltipText, postSkillsImprovedOrMaintainTooltipText } from './helpers'
 
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
@@ -17,75 +17,82 @@ const headers = [
   {
     name: 'Student Name',
     attribute: 'name',
+    sortAttribute: 'studentName',
     width: DEFAULT_WIDTH,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
     name: '',
     attribute: 'preToPostImprovedSkills',
+    sortAttribute: 'improvedSkills',
     width: DEFAULT_WIDTH,
     primaryTitle: 'Pre to Post:',
     secondaryTitle: 'Improved Skills',
-    tooltipName: '',
-    tooltipDescription: '',
+    tooltipName: 'Pre to Post: Improved Skills',
+    tooltipDescription: preToPostImprovedSkillsTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
     name: '',
     attribute: 'preQuestionsCorrect',
+    sortAttribute: 'preQuestionsCorrectSortValue',
     width: DEFAULT_WIDTH,
-    primaryTitle: 'Pre:',
-    secondaryTitle: 'Questions Correct',
-    tooltipName: '',
-    tooltipDescription: '',
+    primaryTitle: 'Pre: Questions',
+    secondaryTitle: 'Correct',
+    tooltipName: 'Pre: Questions Correct',
+    tooltipDescription: preQuestionsCorrectTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
     name: '',
     attribute: 'preSkillsProficient',
+    sortAttribute: 'preSkillsProficientSortValue',
     width: '146px',
-    primaryTitle: 'Pre:',
-    secondaryTitle: 'Skills Proficient',
-    tooltipName: '',
-    tooltipDescription: '',
+    primaryTitle: 'Pre: Skills',
+    secondaryTitle: 'Proficient',
+    tooltipName: 'Pre: Skills Proficient',
+    tooltipDescription: preSkillsProficientTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
     name: '',
     attribute: 'totalActivitiesAndTimespent',
+    sortAttribute: 'totalActivities',
     width: '134px',
-    primaryTitle: 'Total Activities &',
-    secondaryTitle: 'Time Spent',
-    tooltipName: '',
-    tooltipDescription: '',
+    primaryTitle: 'Total Activities',
+    secondaryTitle: '& Time Spent',
+    tooltipName: 'Total Activities & Time Spent',
+    tooltipDescription: totalActivitiesAndTimespentTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
     name: '',
     attribute: 'postQuestionsCorrect',
+    sortAttribute: 'postQuestionsCorrectSortValue',
     width: DEFAULT_WIDTH,
-    primaryTitle: 'Post:',
-    secondaryTitle: 'Questions Correct',
-    tooltipName: '',
-    tooltipDescription: '',
+    primaryTitle: 'Post: Questions',
+    secondaryTitle: 'Correct',
+    tooltipName: 'Post: Questions Correct',
+    tooltipDescription: postQuestionsCorrectTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
     name: '',
     attribute: 'postSkillsImprovedOrMaintained',
+    sortAttribute: 'postSkillsImprovedOrMaintainedSortValue',
     width: '186px',
-    primaryTitle: 'Post: Skills',
-    secondaryTitle: 'Improved Or Maintained',
-    tooltipName: '',
-    tooltipDescription: '',
+    primaryTitle: 'Post: Skills Improved',
+    secondaryTitle: 'Or Maintained',
+    tooltipName: 'Post: Skills Improved Or Maintained',
+    tooltipDescription: postSkillsImprovedOrMaintainTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
 ]
 
@@ -241,11 +248,12 @@ export const StudentSection = ({
   };
 
   function renderButtonContent() {
-    const disabledClass = rowsToShow === studentData.length ? 'disabled' : ''
+    const disabled = rowsToShow === studentData.length
+    const disabledClass = disabled ? 'disabled contained' : 'outlined'
     return(
       <div className="load-more-button-container">
         <p>Displaying <strong>{`${rowsToShow} of ${studentData.length}`}</strong> students</p>
-        <button className={`interactive-wrapper ${disabledClass}`} onClick={loadMoreRows} disabled={!!disabledClass}>Load More</button>
+        <button className={`quill-button small secondary focus-on-light ${disabledClass}`} onClick={loadMoreRows} disabled={disabled}>Load More</button>
       </div>
     )
   }

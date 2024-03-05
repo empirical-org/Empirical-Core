@@ -147,6 +147,29 @@ main {
   }
 
   .growth-diagnostic-reports-by-student-table {
+    thead {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      height: 55px;
+      tr th button {
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        .multi-line-header {
+          font-size: 12px;
+        }
+        .sort-tooltip-container {
+          display: flex;
+          .quill-tooltip-trigger {
+            margin-right: 0px;
+          }
+          .sort-arrow {
+            margin-right: 4px;
+          }
+        }
+      }
+    }
     .data-table-body {
       .data-table-row {
         td {
