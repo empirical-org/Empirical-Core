@@ -262,7 +262,7 @@ function getQuestionsCorrectValue({ correctCount, total, percentage }) {
   return(
     <div>
       <p>{`${correctCount} of ${total} Questions`}</p>
-      <p>{`(${Math.floor(percentage * 100)}%)`}</p>
+      <p>{`(${Math.round(percentage * 100)}%)`}</p>
     </div>
   )
 }
@@ -344,7 +344,7 @@ function renderSkillName(name, improved) {
 function renderEmbeddedScore(correctCount, totalCount, percentage) {
   if(totalCount === null) { return <td>{noDataToShow}</td> }
 
-  return <td>{`${correctCount} of ${totalCount} Questions (${Math.floor(percentage * 100)}%)`}</td>
+  return <td>{`${correctCount} of ${totalCount} Questions (${Math.round(percentage * 100)}%)`}</td>
 }
 
 function renderPostEmbeddedSkillStatus(improved, maintained, total) {

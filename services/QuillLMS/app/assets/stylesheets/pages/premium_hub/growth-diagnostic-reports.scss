@@ -159,6 +159,7 @@ main {
         .multi-line-header {
           font-size: 12px;
         }
+
         .sort-tooltip-container {
           display: flex;
           .quill-tooltip-trigger {
@@ -167,6 +168,9 @@ main {
           .sort-arrow {
             margin-right: 4px;
           }
+        }
+        .quill-tooltip {
+          text-align: left;
         }
       }
     }
