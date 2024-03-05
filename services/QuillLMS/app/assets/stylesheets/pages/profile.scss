@@ -240,10 +240,13 @@
       margin-bottom: 0px;
     }
     .dropdown-container {
-      min-width: 96px;
+      min-width: 127px;
     }
     .input-container .dropdown .dropdown__single-value {
       font-size: 14px;
+    }
+    .dropdown-container .dropdown .dropdown__menu {
+      width: 142px;
     }
   }
 }

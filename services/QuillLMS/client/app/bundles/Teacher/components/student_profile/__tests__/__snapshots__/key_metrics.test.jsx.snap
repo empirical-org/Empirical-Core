@@ -8,7 +8,7 @@ exports[`KeyMetrics component should render 1`] = `
     <header>
       <h2>
         <span>
-          Emilia, here's your summary for this year
+          Emilia, here's your summary for this school year
         </span>
       </h2>
       <div
@@ -39,7 +39,7 @@ exports[`KeyMetrics component should render 1`] = `
               <div
                 class="dropdown__single-value css-1dimb5e-singleValue"
               >
-                This year
+                This school year
               </div>
               <div
                 class="dropdown__input-container css-qbdosj-Input"

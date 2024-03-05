@@ -3,6 +3,8 @@ import moment from 'moment'
 
 import { DropdownInput, } from '../../../Shared/index'
 
+const KEY_METRICS_TIMEFRAME = 'studentKeyMetricsTimeframe'
+
 const YEAR = 'year'
 const MONTH = 'month'
 const WEEK = 'week'
@@ -37,7 +39,11 @@ const KeyMetric = ({ value, label, }) => (
 )
 
 const KeyMetrics = ({ firstName, metrics, }) => {
-  const [selectedTimeframe, setSelectedTimeframe] = React.useState(YEAR)
+  const [selectedTimeframe, setSelectedTimeframe] = React.useState(window.localStorage.getItem(KEY_METRICS_TIMEFRAME) || YEAR)
+
+  React.useEffect(() => {
+    window.localStorage.setItem(KEY_METRICS_TIMEFRAME, selectedTimeframe)
+  }, [selectedTimeframe])
 
   function onChangeSelectedTimeframe(e) { setSelectedTimeframe(e.value) }
 
@@ -45,7 +51,7 @@ const KeyMetrics = ({ firstName, metrics, }) => {
     { label: 'Today', value: DAY },
     { label: 'This week', value: WEEK },
     { label: 'This month', value: MONTH },
-    { label: 'This year', value: YEAR },
+    { label: 'This school year', value: YEAR },
   ]
 
   const selectedTimeframeOption = timeframeOptions.find(opt => opt.value === selectedTimeframe)
