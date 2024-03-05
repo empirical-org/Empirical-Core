@@ -26,13 +26,13 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
   function allArraysEqualLength(...arrayLengths) {
     const firstArrayLength = arrayLengths.pop()
 
-    return arrayLengths.every(x => x == firstArrayLength)
+    return arrayLengths.every(x => x === firstArrayLength)
   }
 
   function getSkillScore(zipped, errorMessageArray, skillGroupName, preOrPost) {
-    if (preOrPost == 'pre') {
-      const row = zipped.filter(x => x.activityId == PRE_DIAGNOSTIC_ACTIVITY_ID).find(
-        x => x.skillGroupName == skillGroupName
+    if (preOrPost === 'pre') {
+      const row = zipped.filter(x => x.activityId === PRE_DIAGNOSTIC_ACTIVITY_ID).find(
+        x => x.skillGroupName === skillGroupName
       )
       if (!row) {
         errorMessageArray.push(`Could not find row with skillGroupName ${skillGroupName}`)
@@ -41,8 +41,8 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
       return row.score
     }
     else {
-      const row = zipped.filter(x => x.activityId == POST_DIAGNOSTIC_ACTIVITY_ID).find(
-        x => x.skillGroupName == skillGroupName
+      const row = zipped.filter(x => x.activityId === POST_DIAGNOSTIC_ACTIVITY_ID).find(
+        x => x.skillGroupName === skillGroupName
       )
       if (!row) {
         errorMessageArray.push(`Could not find row with skillGroupName ${skillGroupName}`)
@@ -54,42 +54,54 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
 
   //source: https://docs.google.com/spreadsheets/d/1JFey0UpMkmPzkQtZKsr_FdXRXnNEDFXZe52H7dUMg9E/edit#gid=0
   const skillGroupsByActivity = {
-    1161: [{ id: 167, name: 'Sentences with To Be' },
-          { id: 168, name: 'Sentences With Have' },
-          { id: 169, name: 'Sentences With Want' },
-          { id: 170, name: 'Listing Adjectives and Nouns' },
-          { id: 171, name: 'Writing Questions' }],
-    1568: [{ id: 172, name: 'Subject-Verb Agreement' },
-          { id: 173, name: 'Possessive Nouns and Pronouns' },
-          { id: 174, name: 'Prepositions' },
-          { id: 175, name: 'Future Tense' },
-          { id: 176, name: 'Articles' },
-          { id: 177, name: 'Writing Questions' }],
-    1590: [{ id: 178, name: 'Regular Past Tense' },
-          { id: 179, name: 'Irregular Past Tense' },
-          { id: 180, name: 'Progressive Tense' },
-          { id: 181, name: 'Phrasal Verbs' },
-          { id: 182, name: 'ELL-Specific Skills' }],
-    1663: [{ id: 123, name: 'Capitalization' },
-          { id: 124, name: 'Plural and Possessive Nouns' },
-          { id: 125, name: 'Adjectives and Adverbs' },
-          { id: 126, name: 'Prepositional Phrases' },
-          { id: 128, name: 'Compound Subjects, Objects, and Predicates' },
-          { id: 216, name: 'Subject-Verb Agreement' }],
-    1668: [{ id: 129, name: 'Compound Subjects, Objects, and Predicates' },
-          { id: 130, name: 'Compound Sentences' },
-          { id: 131, name: 'Complex Sentences' },
-          { id: 132, name: 'Conjunctive Adverbs' },
-          { id: 133, name: 'Parallel Structure' },
-          { id: 134, name: 'Capitalization' },
-          { id: 135, name: 'Subject-Verb Agreement' },
-          { id: 136, name: 'Nouns, Pronouns, and Verbs' }],
-    1678: [{ id: 137, name: 'Compound-Complex Sentences' },
-          { id: 138, name: 'Appositive Phrases' },
-          { id: 139, name: 'Relative Clauses' },
-          { id: 140, name: 'Participial Phrases' },
-          { id: 141, name: 'Parallel Structure' },
-          { id: 142, name: 'Advanced Combining' }]
+    1161: [
+      { id: 167, name: 'Sentences with To Be' },
+      { id: 168, name: 'Sentences With Have' },
+      { id: 169, name: 'Sentences With Want' },
+      { id: 170, name: 'Listing Adjectives and Nouns' },
+      { id: 171, name: 'Writing Questions' }
+    ],
+    1568: [
+      { id: 172, name: 'Subject-Verb Agreement' },
+      { id: 173, name: 'Possessive Nouns and Pronouns' },
+      { id: 174, name: 'Prepositions' },
+      { id: 175, name: 'Future Tense' },
+      { id: 176, name: 'Articles' },
+      { id: 177, name: 'Writing Questions' }
+    ],
+    1590: [
+      { id: 178, name: 'Regular Past Tense' },
+      { id: 179, name: 'Irregular Past Tense' },
+      { id: 180, name: 'Progressive Tense' },
+      { id: 181, name: 'Phrasal Verbs' },
+      { id: 182, name: 'ELL-Specific Skills' }
+    ],
+    1663: [
+      { id: 123, name: 'Capitalization' },
+      { id: 124, name: 'Plural and Possessive Nouns' },
+      { id: 125, name: 'Adjectives and Adverbs' },
+      { id: 126, name: 'Prepositional Phrases' },
+      { id: 128, name: 'Compound Subjects, Objects, and Predicates' },
+      { id: 216, name: 'Subject-Verb Agreement' }
+    ],
+    1668: [
+      { id: 129, name: 'Compound Subjects, Objects, and Predicates' },
+      { id: 130, name: 'Compound Sentences' },
+      { id: 131, name: 'Complex Sentences' },
+      { id: 132, name: 'Conjunctive Adverbs' },
+      { id: 133, name: 'Parallel Structure' },
+      { id: 134, name: 'Capitalization' },
+      { id: 135, name: 'Subject-Verb Agreement' },
+      { id: 136, name: 'Nouns, Pronouns, and Verbs' }
+    ],
+    1678: [
+      { id: 137, name: 'Compound-Complex Sentences' },
+      { id: 138, name: 'Appositive Phrases' },
+      { id: 139, name: 'Relative Clauses' },
+      { id: 140, name: 'Participial Phrases' },
+      { id: 141, name: 'Parallel Structure' },
+      { id: 142, name: 'Advanced Combining' }
+    ]
   }
 
 
@@ -139,7 +151,7 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
     elem => Object.keys(prePostDiagnosticActivityIdPairs).map(x => parseInt(x)).includes(elem.activityId)
   )
 
-  if (canonicalPreTestIdx  == -1) {
+  if (canonicalPreTestIdx  === -1) {
     return JSON.stringify({
       ...defaultReturnValue,
       ...{ errorMessage: `Bad index(es): canonicalPreTestIdx: ${canonicalPreTestIdx}` }
@@ -154,10 +166,10 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
   const canonicalPostTestIdx = findLastIndex(
     zipped,
     canonicalPreTestIdx+1,
-    elem => elem.activityId == prePostDiagnosticActivityIdPairs[PRE_DIAGNOSTIC_ACTIVITY_ID]
+    elem => elem.activityId === prePostDiagnosticActivityIdPairs[PRE_DIAGNOSTIC_ACTIVITY_ID]
   )
 
-  if (canonicalPostTestIdx == -1) {
+  if (canonicalPostTestIdx === -1) {
     return JSON.stringify({
       ...defaultReturnValue,
       ...{ errorMessage: `Bad index(es): canonicalPostTestIdx: ${canonicalPostTestIdx}` }
@@ -215,8 +227,8 @@ export function tierUDF(numAssignedRecommendedCompleted, recommendedActivityCoun
   }
   const percentage = completedCount / activityCount * 100
 
-  if (percentage == 0 ) { return "0%" }
-  if (percentage == 100 ) { return "100%" }
+  if (percentage === 0 ) { return "0%" }
+  if (percentage === 100 ) { return "100%" }
 
   const tiers = {
     "1-10%":    { from: 0, to: 11},
