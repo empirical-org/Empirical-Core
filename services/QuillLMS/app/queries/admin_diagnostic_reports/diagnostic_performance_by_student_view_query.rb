@@ -82,7 +82,7 @@ module AdminDiagnosticReports
 
     def order_by_clause
       <<-SQL
-        ORDER BY TRIM(SUBSTR(TRIM(student_name), STRPOS(student_name, ' ') + 1))
+        ORDER BY TRIM(SUBSTR(TRIM(student_name), STRPOS(student_name, ' ') + 1)), skill_group_name
       SQL
     end
 
