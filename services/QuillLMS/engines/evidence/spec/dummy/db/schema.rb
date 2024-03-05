@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_21_192859) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_05_224710) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "vector"
@@ -241,6 +241,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_21_192859) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["evidence_activity_health_id"], name: "index_evidence_prompt_healths_on_evidence_activity_health_id"
+  end
+
+  create_table "evidence_prompt_responses", force: :cascade do |t|
+    t.text "text", null: false
+    t.vector "embedding", limit: 1536, null: false
+    t.index ["text"], name: "index_evidence_prompt_responses_on_text", unique: true
   end
 
   create_table "evidence_prompt_text_batches", force: :cascade do |t|
