@@ -156,12 +156,12 @@ export const DiagnosticGrowthReportsContainer = ({
             <span>Guide</span>
           </a>
         </h1>
-        <div className="buttons-container">
+        {/* <div className="buttons-container">
           <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">
             <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />
             <span>Download</span>
           </button>
-        </div>
+        </div> */}
       </div>
       {renderContent()}
     </main>

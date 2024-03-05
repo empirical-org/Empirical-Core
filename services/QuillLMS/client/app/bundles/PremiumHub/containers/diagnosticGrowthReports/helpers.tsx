@@ -257,12 +257,12 @@ function getPreToPostImprovedSkillsValue(count, postQuestionsTotal) {
   return `+${count} Improved Skill${count === 1 ? '' : 's'}`
 }
 
-function getQuestionsCorrectValue({ correctCount, total, percentage }) {
+function getQuestionsCorrectValue({ correctCount, total }) {
   if (!correctCount && !total) { return noDataToShow }
   return(
     <div>
       <p>{`${correctCount} of ${total} Questions`}</p>
-      <p>{`(${Math.round(percentage * 100)}%)`}</p>
+      <p>{`(${Math.round((correctCount / total) * 100)}%)`}</p>
     </div>
   )
 }
@@ -341,10 +341,10 @@ function renderSkillName(name, improved) {
   )
 }
 
-function renderEmbeddedScore(correctCount, totalCount, percentage) {
+function renderEmbeddedScore(correctCount, totalCount) {
   if(totalCount === null) { return <td>{noDataToShow}</td> }
 
-  return <td>{`${correctCount} of ${totalCount} Questions (${Math.round(percentage * 100)}%)`}</td>
+  return <td>{`${correctCount} of ${totalCount} Questions (${Math.round((correctCount/totalCount) * 100)}%)`}</td>
 }
 
 function renderPostEmbeddedSkillStatus(improved, maintained, total) {
@@ -377,7 +377,7 @@ function renderEmbeddedTable(aggregate_rows) {
         <tbody>
           {aggregate_rows.map(row => {
             const { skill_group_name, pre_questions_correct, pre_questions_percentage, pre_questions_total,
-              post_questions_correct, post_questions_percentage, post_questions_total, post_skills_improved, post_skills_maintained
+              post_questions_correct, post_questions_total, post_skills_improved, post_skills_maintained
             } = row
 
             if(!skill_group_name) { return }
@@ -385,9 +385,9 @@ function renderEmbeddedTable(aggregate_rows) {
             return(
               <tr>
                 <td>{renderSkillName(skill_group_name, post_skills_improved)}</td>
-                {renderEmbeddedScore(pre_questions_correct, pre_questions_total, pre_questions_percentage)}
-                <td>{pre_questions_percentage === 1 ? skillProficientElement : skillToPracticeElement}</td>
-                {renderEmbeddedScore(post_questions_correct, post_questions_total, post_questions_percentage)}
+                {renderEmbeddedScore(pre_questions_correct, pre_questions_total)}
+                <td>{pre_questions_correct === pre_questions_total ? skillProficientElement : skillToPracticeElement}</td>
+                {renderEmbeddedScore(post_questions_correct, post_questions_total)}
                 <td>{renderPostEmbeddedSkillStatus(post_skills_improved, post_skills_maintained, post_questions_total)}</td>
               </tr>
             )
@@ -400,8 +400,8 @@ function renderEmbeddedTable(aggregate_rows) {
 
 export function aggregateStudentData(studentData, recommendationsData) {
   return studentData.map((entry, i) => {
-    const { student_id, student_name, pre_to_post_improved_skill_count, pre_questions_correct, pre_questions_total, pre_questions_percentage, pre_skills_proficient, pre_skills_to_practice, total_skills,
-      post_questions_correct, post_questions_total, post_questions_percentage, post_skills_improved, post_skills_maintained, post_skills_improved_or_maintained, aggregate_rows
+    const { student_id, student_name, pre_to_post_improved_skill_count, pre_questions_correct, pre_questions_total, pre_skills_proficient, pre_skills_to_practice, total_skills,
+      post_questions_correct, post_questions_total, post_skills_improved, post_skills_maintained, post_skills_improved_or_maintained, aggregate_rows
     } = entry
     // we don't want to render any data except for student name if pre diagnostic has not been completed yet
     const preCompleted = pre_questions_correct !== 0
@@ -412,13 +412,13 @@ export function aggregateStudentData(studentData, recommendationsData) {
       preToPostImprovedSkills: preCompleted ? getPreToPostImprovedSkillsValue(pre_to_post_improved_skill_count, post_questions_total) : 'Diagnostic not completed',
       // we use -1 so that all students who haven't completed a pre diagnostic will be sorted last for this sort attribute
       improvedSkills: preCompleted ? pre_to_post_improved_skill_count : -1,
-      preQuestionsCorrect: preCompleted ? getQuestionsCorrectValue({ correctCount: pre_questions_correct, total: pre_questions_total, percentage: pre_questions_percentage }) : null,
+      preQuestionsCorrect: preCompleted ? getQuestionsCorrectValue({ correctCount: pre_questions_correct, total: pre_questions_total }) : null,
       preQuestionsCorrectSortValue: preCompleted ? pre_questions_correct : -1,
       preSkillsProficient: preCompleted ? getPreSkillsProficient({ proficientCount: pre_skills_proficient, practiceCount: pre_skills_to_practice, skillsCount: total_skills }) : null,
       preSkillsProficientSortValue: preCompleted ? pre_skills_proficient : -1,
       totalActivities: preCompleted ? getTotalActivities(student_id, recommendationsData) : -1,
       totalActivitiesAndTimespent: preCompleted ? getTotalActivitiesAndTimespent(student_id, recommendationsData) : null,
-      postQuestionsCorrect: preCompleted ? getQuestionsCorrectValue({ correctCount: post_questions_correct, total: post_questions_total, percentage: post_questions_percentage}) : null,
+      postQuestionsCorrect: preCompleted ? getQuestionsCorrectValue({ correctCount: post_questions_correct, total: post_questions_total }) : null,
       postQuestionsCorrectSortValue: preCompleted ? post_questions_correct : -1,
       postSkillsImprovedOrMaintained: preCompleted ? getPostSkillsImprovedOrMaintained({ improvedCount: post_skills_improved, maintainedCount: post_skills_maintained, combinedCount: post_skills_improved_or_maintained, skillsTotal: total_skills, postQuestionsTotal: post_questions_total}) : null,
       postSkillsImprovedOrMaintainedSortValue: preCompleted ? post_skills_improved_or_maintained : -1,
