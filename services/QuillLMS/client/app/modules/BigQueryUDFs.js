@@ -52,12 +52,52 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
     }
   }
 
+  //source: https://docs.google.com/spreadsheets/d/1JFey0UpMkmPzkQtZKsr_FdXRXnNEDFXZe52H7dUMg9E/edit#gid=0
+  const skillGroupsByActivity = {
+    1161: [{ id: 167, name: 'Sentences with To Be' },
+          { id: 168, name: 'Sentences With Have' },
+          { id: 169, name: 'Sentences With Want' },
+          { id: 170, name: 'Listing Adjectives and Nouns' },
+          { id: 171, name: 'Writing Questions' }],
+    1568: [{ id: 172, name: 'Subject-Verb Agreement' },
+          { id: 173, name: 'Possessive Nouns and Pronouns' },
+          { id: 174, name: 'Prepositions' },
+          { id: 175, name: 'Future Tense' },
+          { id: 176, name: 'Articles' },
+          { id: 177, name: 'Writing Questions' }],
+    1590: [{ id: 178, name: 'Regular Past Tense' },
+          { id: 179, name: 'Irregular Past Tense' },
+          { id: 180, name: 'Progressive Tense' },
+          { id: 181, name: 'Phrasal Verbs' },
+          { id: 182, name: 'ELL-Specific Skills' }],
+    1663: [{ id: 123, name: 'Capitalization' },
+          { id: 124, name: 'Plural and Possessive Nouns' },
+          { id: 125, name: 'Adjectives and Adverbs' },
+          { id: 126, name: 'Prepositional Phrases' },
+          { id: 128, name: 'Compound Subjects, Objects, and Predicates' },
+          { id: 216, name: 'Subject-Verb Agreement' }],
+    1668: [{ id: 129, name: 'Compound Subjects, Objects, and Predicates' },
+          { id: 130, name: 'Compound Sentences' },
+          { id: 131, name: 'Complex Sentences' },
+          { id: 132, name: 'Conjunctive Adverbs' },
+          { id: 133, name: 'Parallel Structure' },
+          { id: 134, name: 'Capitalization' },
+          { id: 135, name: 'Subject-Verb Agreement' },
+          { id: 136, name: 'Nouns, Pronouns, and Verbs' }],
+    1678: [{ id: 137, name: 'Compound-Complex Sentences' },
+          { id: 138, name: 'Appositive Phrases' },
+          { id: 139, name: 'Relative Clauses' },
+          { id: 140, name: 'Participial Phrases' },
+          { id: 141, name: 'Parallel Structure' },
+          { id: 142, name: 'Advanced Combining' }]
+  }
+
+
   const skillGroupAllowList = [
     { id: 123, name: 'Capitalization' },
     { id: 124, name: 'Plural and Possessive Nouns' },
     { id: 125, name: 'Adjectives and Adverbs' },
     { id: 126, name: 'Prepositional Phrases' },
-    //{ id: 127, name: 'Capitalization' },
     { id: 128, name: 'Compound Subjects, Objects, and Predicates' },
     { id: 216, name: 'Subject-Verb Agreement' }
   ]
@@ -65,8 +105,7 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
   let errorMessageArray = []
 
   const defaultReturnValue = {
-    errorMessage: "Default error message",
-    ...skillGroupAllowList.reduce((accum, elem) => ({[`${elem.name}_pre`]: 0, [`${elem.name}_post`]: 0}), {})
+    errorMessage: "Default error message"
   }
 
   if (!allArraysEqualLength(scores.length, activityIds.length, completedAts.length, skillGroupNames.length)) {
@@ -137,7 +176,7 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
     })
   }
 
-  const skillScores = skillGroupAllowList.reduce(
+  const skillScores = skillGroupsByActivity[PRE_DIAGNOSTIC_ACTIVITY_ID].reduce(
     (accum, currentValue) => {
       const preColumnName = `${currentValue.name}_pre`
       const postColumnName = `${currentValue.name}_post`
