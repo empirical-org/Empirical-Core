@@ -26,10 +26,10 @@ describe StudentDashboardMetrics do
   let!(:classroom_unit) { create(:classroom_unit, classroom: classroom) }
   let!(:activity_sessions) do
     [
-      create(:activity_session, user: student, classroom_unit: classroom_unit, completed_at: Date.current, timespent: today_timespent),
-      create(:activity_session, user: student, classroom_unit: classroom_unit, completed_at: Date.yesterday, timespent: yesterday_timespent),
-      create(:activity_session, user: student, classroom_unit: classroom_unit, completed_at: Date.current.beginning_of_month + 1.hour, timespent: first_of_month_timespent),
-      create(:activity_session, user: student, classroom_unit: classroom_unit, completed_at: last_july_second, timespent: july_second_timespent)
+      create(:activity_session, user: student, classroom_unit:, completed_at: Date.current, timespent: today_timespent),
+      create(:activity_session, user: student, classroom_unit:, completed_at: Date.yesterday, timespent: yesterday_timespent),
+      create(:activity_session, user: student, classroom_unit:, completed_at: Date.current.beginning_of_month + 1.hour, timespent: first_of_month_timespent),
+      create(:activity_session, user: student, classroom_unit:, completed_at: last_july_second, timespent: july_second_timespent)
     ]
   end
 
@@ -63,7 +63,7 @@ describe StudentDashboardMetrics do
 
   describe 'completed_sessions' do
     it 'only includes sessions with completed_at not nil' do
-      create(:activity_session, :started, user: student, classroom_unit: classroom_unit)
+      create(:activity_session, :started, user: student, classroom_unit:)
       metrics_instance = StudentDashboardMetrics.new(student, classroom.id)
 
       expect(metrics_instance.completed_sessions.count).to eq(activity_sessions.count)

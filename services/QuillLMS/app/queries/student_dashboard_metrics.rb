@@ -3,6 +3,8 @@
 class StudentDashboardMetrics
   include DashboardMetrics
 
+  attr_reader :classroom_id, :user
+
   def initialize(user, classroom_id)
     @user = user
     @classroom_id = classroom_id
@@ -13,7 +15,7 @@ class StudentDashboardMetrics
        day: metrics_from_start_date(today),
        week: metrics_from_start_date(last_sunday),
        month: metrics_from_start_date(today.beginning_of_month),
-       year: metrics_from_start_date(last_july_first)
+       year: metrics_from_start_date(school_year_start)
      }
   end
 
@@ -21,17 +23,16 @@ class StudentDashboardMetrics
     completed_sessions_for_timeframe = completed_sessions.where("completed_at >= ?", start_date)
     {
       activities_completed: completed_sessions_for_timeframe.count,
-      timespent: completed_sessions_for_timeframe.pluck(:timespent).sum { |num| num || 0 }
+      timespent: completed_sessions_for_timeframe.pluck(:timespent).compact.sum
     }
   end
 
   def completed_sessions
     @completed_sessions ||= begin
-      classroom_unit_ids = ClassroomUnit.where(classroom_id: @classroom_id).pluck(:id)
-
       ActivitySession
         .unscoped
-        .where(classroom_unit_id: classroom_unit_ids, user_id: @user.id)
+        .joins(:classroom_unit)
+        .where(user:, classroom_unit: {classroom_id:})
         .where.not(completed_at: nil)
     end
   end
