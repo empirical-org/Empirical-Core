@@ -150,30 +150,20 @@ class UnitActivity < ApplicationRecord
           cu.id AS classroom_unit_id,
           COALESCE(cuas.completed, false) AS marked_complete,
           ua.activity_id,
-          MAX(acts.updated_at) AS act_sesh_updated_at,
           ua.order_number,
           ua.due_date #{student_timezone_offset_string} AS due_date,
-          MIN(acts.completed_at) #{student_timezone_offset_string} AS completed_date,
           pre_activity.id AS pre_activity_id,
           cu.created_at AS unit_activity_created_at,
           upsi.status AS user_pack_sequence_item_status,
           COALESCE(cuas.locked, false) AS locked,
           COALESCE(cuas.pinned, false) AS pinned,
-          MAX(acts.percentage) AS max_percentage,
           CASE WHEN unit.open = false THEN true ELSE false END as closed,
-          SUM(CASE WHEN pre_activity_sessions_classroom_units.id > 0 AND pre_activity_sessions.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS completed_pre_activity_session,
-          SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS #{ActivitySession::STATE_FINISHED_KEY},
-          SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_STARTED}' THEN 1 ELSE 0 END) AS resume_link
+          SUM(CASE WHEN pre_activity_sessions_classroom_units.id > 0 AND pre_activity_sessions.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS completed_pre_activity_session
         FROM unit_activities AS ua
         JOIN units AS unit
           ON unit.id = ua.unit_id
         JOIN classroom_units AS cu
           ON unit.id = cu.unit_id
-        LEFT JOIN activity_sessions AS acts
-          ON cu.id = acts.classroom_unit_id
-          AND acts.activity_id = ua.activity_id
-          AND acts.visible = true
-          AND acts.user_id = #{user_id.to_i}
         JOIN activities AS activity
           ON activity.id = ua.activity_id
         LEFT JOIN activities AS pre_activity
@@ -224,13 +214,11 @@ class UnitActivity < ApplicationRecord
           teachers.time_zone,
           psi.id,
           upsi.id,
-          upsi.status,
-          acts.visible
+          upsi.status
         ORDER BY
           pinned DESC,
           locked ASC,
           unit.created_at ASC,
-          max_percentage DESC,
           ua.order_number ASC,
           ua.due_date ASC,
           ua.id ASC
@@ -250,8 +238,6 @@ class UnitActivity < ApplicationRecord
 
       completed_sessions = activity_sessions.where(state: ActivitySession::STATE_FINISHED)
 
-      unit_activity = UnitActivity.find_by(id: ua['id'])
-
       ua['sessions'] = activity_sessions.map { |as| as.format_activity_sessions_for_tooltip(student) }
 
       # MAX(acts.updated_at) AS act_sesh_updated_at,
@@ -263,11 +249,11 @@ class UnitActivity < ApplicationRecord
       # SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS #{ActivitySession::STATE_FINISHED_KEY},
       # SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_STARTED}' THEN 1 ELSE 0 END) AS resume_link
 
-      ua['act_sesh_updated_at1'] = most_recently_updated_session&.updated_at
-      ua['max_percentage1'] = highest_scoring_session&.percentage
-      ua['completed_date1'] = first_completed_session&.completed_at ? first_completed_session.completed_at + student.utc_offset.seconds : nil
-      ua['resume_link1'] = activity_sessions.any? { |as| as.state == ActivitySession::STATE_STARTED }
-      ua["#{ActivitySession::STATE_FINISHED_KEY}1"] = completed_sessions.any?
+      ua['act_sesh_updated_at'] = most_recently_updated_session&.updated_at
+      ua['max_percentage'] = highest_scoring_session&.percentage
+      ua['completed_date'] = first_completed_session&.completed_at ? first_completed_session.completed_at + student.utc_offset.seconds : nil
+      ua['resume_link'] = activity_sessions.any? { |as| as.state == ActivitySession::STATE_STARTED }
+      ua["#{ActivitySession::STATE_FINISHED_KEY}"] = completed_sessions.any?
       ua['completed_attempts'] = completed_sessions.length
 
       ua
