@@ -1,8 +1,4 @@
 import * as React from 'react';
-import { decode } from 'html-entities';
-
-import { LinkListItem } from './linkListItem';
-
 // interface QuestionListProps {
 //   showOnlyArchived: boolean;
 //   questions: Array<any>;
@@ -30,12 +26,9 @@ export class QuestionList extends React.Component<any, {}> {
         )
       }
       return filtered.map((question: any) => (
-        <LinkListItem
-          basePath={this.props.basePath}
-          itemKey={question.key}
-          key={question.key}
-          text={question.prompt ? decode(question.prompt) : decode(question.title)}
-        />
+        <a href={this.props.basePath} key={question.key}>
+          <div dangerouslySetInnerHTML={{ __html: question.prompt ? question.prompt : question.title }} />;
+        </a>
       ));
     }
   }
