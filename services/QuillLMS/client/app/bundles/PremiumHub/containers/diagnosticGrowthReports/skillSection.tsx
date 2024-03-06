@@ -45,7 +45,7 @@ const headers = [
   {
     name: GROWTH_RESULTS,
     attribute: 'growthResults',
-    sortAttribute: 'growthResultsSoreValue',
+    sortAttribute: 'growthResultsSortValue',
     width: '150px',
     tooltipName: GROWTH_RESULTS,
     tooltipDescription: growthResultsTooltipText,

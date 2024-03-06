@@ -66,7 +66,7 @@ const headers = [
   {
     name: '',
     attribute: 'postDiagnosticCompleted',
-    sortAttribute: 'preStudentsCompleted',
+    sortAttribute: 'postStudentsCompleted',
     width: DEFAULT_CELL_WIDTH,
     primaryTitle: 'Post Diagnostic',
     secondaryTitle: 'Completed',

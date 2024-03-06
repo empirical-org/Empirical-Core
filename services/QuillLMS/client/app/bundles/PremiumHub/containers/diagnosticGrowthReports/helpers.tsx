@@ -32,6 +32,21 @@ export const postSkillsImprovedOrMaintainTooltipText = 'The number of skills the
 
 const noDataToShow = <p>&mdash;</p>
 
+// Shared functions
+
+// we use -1 so that null data values will be sorted last for the sort attribute
+function getOverallSkillGrowthSortValue(preDiagnosticScore, postDiagnosticScore) {
+  if ((!preDiagnosticScore && preDiagnosticScore !== 0) || (!postDiagnosticScore && postDiagnosticScore !== 0)) {
+    return -1
+  }
+  return postDiagnosticScore - preDiagnosticScore >= 0 ? postDiagnosticScore - preDiagnosticScore : 0
+}
+
+function getSingleSortValue(value) {
+  if(value === null || value === undefined) { return -1 }
+  return value
+}
+
 // Overview logic
 
 function processAggregateRows(aggregateRowsData, diagnosticId, rowData) {
@@ -181,15 +196,15 @@ export function aggregateOverviewData(args) {
     const averageTimespent = recommendationsDataHash[id]?.average_time_spent_seconds
     const aggregateRowsDataForDiagnostic = aggregateRowsData[id]
     entry.preDiagnosticCompleted = preDiagnosticCompletedValue(preStudentsAssigned, preStudentsCompleted)
-    entry.preStudentsCompleted = preStudentsCompleted
+    entry.preStudentsCompleted = getSingleSortValue(preStudentsCompleted)
     entry.studentsCompletedPractice = studentsCompletedPracticeValue(studentsCompletedPractice)
-    entry.completedPracticeCount = studentsCompletedPractice
+    entry.completedPracticeCount = getSingleSortValue(studentsCompletedPractice)
     entry.averageActivitiesAndTimeSpent = averageActivitiesAndTimeSpentValue(averageActivitiesCount, averageTimespent)
-    entry.averageActivitiesCount = averageActivitiesCount
+    entry.averageActivitiesCount = getSingleSortValue(averageActivitiesCount)
     entry.postDiagnosticCompleted = postDiagnosticCompleted(postStudentsAssigned, postStudentsCompleted)
-    entry.postStudentsCompleted = postStudentsCompleted
+    entry.postStudentsCompleted = getSingleSortValue(postStudentsCompleted)
     entry.overallSkillGrowth = overallSkillGrowthValue({diagnosticId: id, preScore: preDiagnosticScore, postScore: postDiagnosticScore, handleGrowthChipClick })
-    entry.overallSkillGrowthSortValue = postDiagnosticScore - preDiagnosticScore
+    entry.overallSkillGrowthSortValue = getOverallSkillGrowthSortValue(preDiagnosticScore, postDiagnosticScore)
     entry.aggregate_rows = createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId: id, handleGrowthChipClick})
   })
   setAggregatedData(combinedData);
@@ -221,22 +236,21 @@ function formatSkillsData(data, isAggregateRowData) {
   return data.map((entry, i) => {
     const { aggregate_rows, improved_proficiency, maintained_proficiency, post_score, pre_score, recommended_practice, skill_name, name } = entry
     const totalStudents = improved_proficiency + maintained_proficiency + recommended_practice
-    const growthResultsSoreValue = post_score - pre_score >= 0 ? post_score - pre_score : 0
     return {
       id: i,
       name: isAggregateRowData ? name : skill_name,
       preSkillScore: scoreValue(pre_score),
-      pre_score,
+      pre_score: getSingleSortValue(pre_score),
       postSkillScore: scoreValue(post_score),
-      post_score,
+      post_score: getSingleSortValue(post_score),
       growthResults: growthResultsValue(pre_score, post_score),
-      growthResultsSoreValue,
+      growthResultsSortValue: getOverallSkillGrowthSortValue(pre_score, post_score),
       studentsImprovedSkill: proficiencyValue(improved_proficiency, totalStudents),
-      improved_proficiency,
+      improved_proficiency: getSingleSortValue(improved_proficiency),
       studentsWithoutImprovement: proficiencyValue(recommended_practice, totalStudents),
-      recommended_practice,
+      recommended_practice: getSingleSortValue(recommended_practice),
       studentsMaintainedProficiency: proficiencyValue(maintained_proficiency, totalStudents),
-      maintained_proficiency,
+      maintained_proficiency: getSingleSortValue(maintained_proficiency),
       aggregate_rows: isAggregateRowData ? null : formatSkillsData(aggregate_rows, true)
     }
   })
@@ -267,6 +281,12 @@ function getPreToPostImprovedSkillsValue(count, postQuestionsTotal) {
   if(postQuestionsTotal === null) { return noDataToShow }
   if(count === 0) { return 'No improved skills'}
   return `+${count} Improved Skill${count === 1 ? '' : 's'}`
+}
+
+function getPreToPostImprovedSkillsSortValue(preCompleted, count, postQuestionsTotal) {
+  if(!preCompleted) { return -2 }
+  if(postQuestionsTotal === null) { return -1 }
+  return count
 }
 
 function getQuestionsCorrectValue({ correctCount, total }) {
@@ -422,18 +442,17 @@ export function aggregateStudentData(studentData, recommendationsData) {
       name: preCompleted ? student_name : <p className="diagnostic-not-completed">{student_name}</p>,
       studentName: student_name,
       preToPostImprovedSkills: preCompleted ? getPreToPostImprovedSkillsValue(pre_to_post_improved_skill_count, post_questions_total) : 'Diagnostic not completed',
-      // we use -1 so that all students who haven't completed a pre diagnostic will be sorted last for this sort attribute
-      improvedSkills: preCompleted ? pre_to_post_improved_skill_count : -1,
+      improvedSkills: getPreToPostImprovedSkillsSortValue(preCompleted, pre_to_post_improved_skill_count, post_questions_total),
       preQuestionsCorrect: preCompleted ? getQuestionsCorrectValue({ correctCount: pre_questions_correct, total: pre_questions_total }) : null,
-      preQuestionsCorrectSortValue: preCompleted ? pre_questions_correct : -1,
+      preQuestionsCorrectSortValue: getSingleSortValue(pre_questions_correct),
       preSkillsProficient: preCompleted ? getPreSkillsProficient({ proficientCount: pre_skills_proficient, practiceCount: pre_skills_to_practice, skillsCount: total_skills }) : null,
-      preSkillsProficientSortValue: preCompleted ? pre_skills_proficient : -1,
+      preSkillsProficientSortValue: getSingleSortValue(pre_skills_proficient),
       totalActivities: preCompleted ? getTotalActivities(student_id, recommendationsData) : -1,
       totalActivitiesAndTimespent: preCompleted ? getTotalActivitiesAndTimespent(student_id, recommendationsData) : null,
       postQuestionsCorrect: preCompleted ? getQuestionsCorrectValue({ correctCount: post_questions_correct, total: post_questions_total }) : null,
-      postQuestionsCorrectSortValue: preCompleted ? post_questions_correct : -1,
+      postQuestionsCorrectSortValue: getSingleSortValue(post_questions_correct),
       postSkillsImprovedOrMaintained: preCompleted ? getPostSkillsImprovedOrMaintained({ improvedCount: post_skills_improved, maintainedCount: post_skills_maintained, combinedCount: post_skills_improved_or_maintained, skillsTotal: total_skills, postQuestionsTotal: post_questions_total}) : null,
-      postSkillsImprovedOrMaintainedSortValue: preCompleted ? post_skills_improved_or_maintained : -1,
+      postSkillsImprovedOrMaintainedSortValue: getSingleSortValue(post_skills_improved_or_maintained),
       aggregate_rows: preCompleted ? aggregate_rows : null,
       renderEmbeddedTableFunction: preCompleted ? renderEmbeddedTable : null
     }
