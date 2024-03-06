@@ -1,5 +1,5 @@
 export { hashToCollection } from './hashToCollection'
-export { isValidRegex } from './isValidRegex'
+export { isValidRegex, isValidAndNotEmptyRegex } from './isValidRegex'
 export { momentFormatConstants } from './momentFormatConstants'
 export { copyToClipboard } from './copyToClipboard'
 export { getLatestAttempt } from './getLatestAttempt'
@@ -33,4 +33,5 @@ export {
   getStatusForResponse,
   responsesWithStatus,
   sortByLevenshteinAndOptimal,
+  extractConceptResultsFromResponse
 } from './responseTools'

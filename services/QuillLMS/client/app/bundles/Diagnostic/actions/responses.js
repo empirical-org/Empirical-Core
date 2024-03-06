@@ -125,15 +125,16 @@ export function massEditDeleteResponses(ids, qid) {
   };
 }
 
-export function submitResponseEdit(rid, content, qid) {
+export function submitResponseEdit(rid, content, qid, callback) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content, false);
   return (dispatch) => {
     requestPut(
       `${process.env.QUILL_CMS}/responses/${rid}`,
       { response: rubyConvertedResponse, },
       (body) => {
+        callback(body);
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-        dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid, });
+        dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
       },
       (body) => {
         dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${body}`, });
