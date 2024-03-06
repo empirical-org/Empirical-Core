@@ -33,7 +33,7 @@ const Filters = ({
   reportType,
   totalStudentCountForFilters,
   totalStudentMatchesForFilters,
-  studentReportIsLoading
+  displayStudentCountsForFilters
 }) => {
 
   function effectiveSelectedSchools() {
@@ -105,7 +105,7 @@ const Filters = ({
   const isGrowthDiagnosticReport = reportType === DIAGNOSTIC_GROWTH_REPORT_PATH
 
   function renderStudentCount() {
-    if (!isGrowthDiagnosticReport || studentReportIsLoading || (!totalStudentCountForFilters || !totalStudentMatchesForFilters)) { return }
+    if (!isGrowthDiagnosticReport || !displayStudentCountsForFilters || (!totalStudentCountForFilters || !totalStudentMatchesForFilters)) { return }
     const matchText = totalStudentMatchesForFilters === 1 ? 'match' : 'matches'
     const totalText = totalStudentCountForFilters === 1 ? 'student' : 'students'
     return <p className="filters-student-count"><strong>{totalStudentMatchesForFilters}</strong> {matchText} from <strong>{totalStudentCountForFilters}</strong> {totalText}</p>

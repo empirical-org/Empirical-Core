@@ -54,7 +54,7 @@ export const DiagnosticGrowthReportsContainer = ({
   hasAdjustedFiltersFromDefault,
   handleSetTotalStudentCountForFilters,
   handleSetTotalStudentMatchesForFilters,
-  handleSetStudentReportIsLoading,
+  handleSetDisplayStudentCountsForFilters,
   passedData
 }) => {
 
@@ -72,6 +72,7 @@ export const DiagnosticGrowthReportsContainer = ({
     pusherChannel,
     hasAdjustedFiltersFromDefault,
     handleSetNoDiagnosticDataAvailable,
+    handleSetDisplayStudentCountsForFilters,
     passedData: null
   }
 
@@ -79,7 +80,6 @@ export const DiagnosticGrowthReportsContainer = ({
     ...sharedProps,
     handleSetTotalStudentCountForFilters,
     handleSetTotalStudentMatchesForFilters,
-    handleSetStudentReportIsLoading,
     passedRecommendationsData: null,
     passedStudentData: null,
     passedVisibleData: null

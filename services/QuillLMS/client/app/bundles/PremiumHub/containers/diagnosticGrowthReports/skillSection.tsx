@@ -100,6 +100,7 @@ export const SkillSection = ({
   selectedTimeframe,
   pusherChannel,
   selectedDiagnosticId,
+  handleSetDisplayStudentCountsForFilters,
   passedData
 }) => {
 
@@ -109,6 +110,10 @@ export const SkillSection = ({
   const [skillsData, setSkillsData] = React.useState<any>(null);
   const [aggregatedData, setAggregatedData] = React.useState<any>(passedData || []);
   const [loading, setLoading] = React.useState<boolean>(!passedData);
+
+  React.useEffect(() => {
+    handleSetDisplayStudentCountsForFilters(false)
+  }, [])
 
   React.useEffect(() => {
     initializePusher()

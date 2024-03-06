@@ -68,7 +68,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
   const [pusherChannel, setPusherChannel] = React.useState(null)
 
   const [showFilters, setShowFilters] = React.useState(true)
-  const [studentReportIsLoading, setStudentReportIsLoading] = React.useState(true)
+  const [displayStudentCountsForFilters, setDisplayStudentCountsForFilters] = React.useState(false)
   const [totalStudentCountForFilters, setTotalStudentCountForFilters] = React.useState(null)
   const [totalStudentMatchesForFilters, setTotalStudentMatchesForFilters] = React.useState(null)
 
@@ -314,8 +314,8 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     setTotalStudentMatchesForFilters(count)
   }
 
-  function handleSetStudentReportIsLoading(isLoading) {
-    setStudentReportIsLoading(isLoading)
+  function handleSetDisplayStudentCountsForFilters(shouldDisplay) {
+    setDisplayStudentCountsForFilters(shouldDisplay)
   }
 
   function renderShowFilterMenuButton() {
@@ -375,7 +375,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     reportType: reportPath(),
     totalStudentCountForFilters,
     totalStudentMatchesForFilters,
-    studentReportIsLoading
+    displayStudentCountsForFilters
   }
 
   const sharedProps = {
@@ -404,7 +404,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     ...sharedProps,
     handleSetTotalStudentCountForFilters,
     handleSetTotalStudentMatchesForFilters,
-    handleSetStudentReportIsLoading
+    handleSetDisplayStudentCountsForFilters
   }
 
   if (accessType !== FULL) {

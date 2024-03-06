@@ -102,6 +102,7 @@ export const OverviewSection = ({
   handleSetNoDiagnosticDataAvailable,
   handleTabChangeFromDataChip,
   handleSetSelectedDiagnosticId,
+  handleSetDisplayStudentCountsForFilters,
   passedData
 }) => {
 
@@ -114,6 +115,10 @@ export const OverviewSection = ({
   const [recommendationsData, setRecommendationsData] = React.useState<any>(null);
   const [aggregatedData, setAggregatedData] = React.useState<any>(passedData || []);
   const [pusherMessage, setPusherMessage] = React.useState<string>(null)
+
+  React.useEffect(() => {
+    handleSetDisplayStudentCountsForFilters(false)
+  }, [])
 
   React.useEffect(() => {
     initializePusher()

@@ -107,7 +107,7 @@ export const StudentSection = ({
   pusherChannel,
   handleSetTotalStudentCountForFilters,
   handleSetTotalStudentMatchesForFilters,
-  handleSetStudentReportIsLoading,
+  handleSetDisplayStudentCountsForFilters,
   passedRecommendationsData,
   passedStudentData,
   passedVisibleData
@@ -128,7 +128,7 @@ export const StudentSection = ({
   React.useEffect(() => {
     // this is for testing purposes; these values will always be null in a non-testing environment
     if (!passedRecommendationsData && !passedStudentData && !passedVisibleData) {
-      handleSetStudentReportIsLoading(true)
+      handleSetDisplayStudentCountsForFilters(false)
       getData()
     }
   }, [searchCount, diagnosticTypeValue])
@@ -261,7 +261,7 @@ export const StudentSection = ({
         } else {
           handleSetTotalStudentCountForFilters(count)
         }
-        handleSetStudentReportIsLoading(false)
+        handleSetDisplayStudentCountsForFilters(true)
       }
     })
   }
