@@ -253,7 +253,7 @@ export const StudentSection = ({
     return(
       <div className="load-more-button-container">
         <p>Displaying <strong>{`${rowsToShow} of ${studentData.length}`}</strong> students</p>
-        <button className={`quill-button small secondary focus-on-light ${disabledClass}`} onClick={loadMoreRows} disabled={disabled}>Load More</button>
+        <button className={`quill-button small secondary focus-on-light ${disabledClass}`} onClick={loadMoreRows} disabled={disabled}>Load more</button>
       </div>
     )
   }

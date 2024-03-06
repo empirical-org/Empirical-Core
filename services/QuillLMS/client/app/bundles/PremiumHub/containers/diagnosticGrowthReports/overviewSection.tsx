@@ -11,7 +11,7 @@ const POST_DIAGNOSTIC_ASSIGNED_QUERYSTRING = 'post-diagnostic-assigned'
 const PRE_DIAGNOSTIC_COMPLETED_QUERYSTRING = 'pre-diagnostic-completed'
 const POST_DIAGNOSTIC_COMPLETED_QUERYSTRING = 'post-diagnostic-completed'
 const RECOMMENDATIONS_QUERYSTRING = 'recommendations'
-const DEFAULT_CELL_WIDTH = '176px'
+const DEFAULT_CELL_WIDTH = '170px'
 
 const DIAGNOSTIC_NAME = 'Diagnostic Name'
 const PRE_DIAGNOSTIC_COMPLETED = 'Pre Diagnostic Completed'
@@ -22,60 +22,70 @@ const headers = [
   {
     name: DIAGNOSTIC_NAME,
     attribute: 'name',
+    sortAttribute: 'name',
     width: DEFAULT_CELL_WIDTH,
     tooltipName: DIAGNOSTIC_NAME,
     tooltipDescription: diagnosticNameTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
-    name: PRE_DIAGNOSTIC_COMPLETED,
+    name: '',
+    primaryTitle: 'Pre Diagnostic',
+    secondaryTitle: 'Completed',
     attribute: 'preDiagnosticCompleted',
+    sortAttribute: 'preStudentsCompleted',
     width: '196px',
     tooltipName: PRE_DIAGNOSTIC_COMPLETED,
     tooltipDescription: preDiagnosticCompletedTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
     name: COMPLETED_ACTIVITIES,
     attribute: 'studentsCompletedPractice',
-    width: DEFAULT_CELL_WIDTH,
+    sortAttribute: 'completedPracticeCount',
+    width: '180px',
     tooltipName: COMPLETED_ACTIVITIES,
     tooltipDescription: completedActivitiesTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
     name: '',
     attribute: 'averageActivitiesAndTimeSpent',
+    sortAttribute: 'averageActivitiesCount',
     width: DEFAULT_CELL_WIDTH,
     primaryTitle: 'Average Activities &',
     secondaryTitle: 'Time Spent',
     tooltipName: 'Average Activities & Time Spent',
     tooltipDescription: averageActivitiesAndTimeSpentTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
     name: '',
     attribute: 'postDiagnosticCompleted',
+    sortAttribute: 'preStudentsCompleted',
     width: DEFAULT_CELL_WIDTH,
     primaryTitle: 'Post Diagnostic',
     secondaryTitle: 'Completed',
     tooltipName: 'Post Diagnostic Completed',
     tooltipDescription: postDiagnosticCompletedTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
-    name: OVERALL_SKILL_GROWTH,
+    name: '',
+    sortAttribute: 'overallSkillGrowthSortValue',
+    primaryTitle: 'Overall',
+    secondaryTitle: 'Skill Growth',
     attribute: 'overallSkillGrowth',
-    width: '106px',
+    width: DEFAULT_CELL_WIDTH,
     tooltipName: OVERALL_SKILL_GROWTH,
     tooltipDescription: overallSkillGrowthTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   }
 ]
 

@@ -181,10 +181,15 @@ export function aggregateOverviewData(args) {
     const averageTimespent = recommendationsDataHash[id]?.average_time_spent_seconds
     const aggregateRowsDataForDiagnostic = aggregateRowsData[id]
     entry.preDiagnosticCompleted = preDiagnosticCompletedValue(preStudentsAssigned, preStudentsCompleted)
+    entry.preStudentsCompleted = preStudentsCompleted
     entry.studentsCompletedPractice = studentsCompletedPracticeValue(studentsCompletedPractice)
+    entry.completedPracticeCount = studentsCompletedPractice
     entry.averageActivitiesAndTimeSpent = averageActivitiesAndTimeSpentValue(averageActivitiesCount, averageTimespent)
+    entry.averageActivitiesCount = averageActivitiesCount
     entry.postDiagnosticCompleted = postDiagnosticCompleted(postStudentsAssigned, postStudentsCompleted)
+    entry.postStudentsCompleted = postStudentsCompleted
     entry.overallSkillGrowth = overallSkillGrowthValue({diagnosticId: id, preScore: preDiagnosticScore, postScore: postDiagnosticScore, handleGrowthChipClick })
+    entry.overallSkillGrowthSortValue = postDiagnosticScore - preDiagnosticScore
     entry.aggregate_rows = createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId: id, handleGrowthChipClick})
   })
   setAggregatedData(combinedData);
@@ -216,15 +221,22 @@ function formatSkillsData(data, isAggregateRowData) {
   return data.map((entry, i) => {
     const { aggregate_rows, improved_proficiency, maintained_proficiency, post_score, pre_score, recommended_practice, skill_name, name } = entry
     const totalStudents = improved_proficiency + maintained_proficiency + recommended_practice
+    const growthResultsSoreValue = post_score - pre_score >= 0 ? post_score - pre_score : 0
     return {
       id: i,
       name: isAggregateRowData ? name : skill_name,
       preSkillScore: scoreValue(pre_score),
+      pre_score,
       postSkillScore: scoreValue(post_score),
+      post_score,
       growthResults: growthResultsValue(pre_score, post_score),
+      growthResultsSoreValue,
       studentsImprovedSkill: proficiencyValue(improved_proficiency, totalStudents),
+      improved_proficiency,
       studentsWithoutImprovement: proficiencyValue(recommended_practice, totalStudents),
+      recommended_practice,
       studentsMaintainedProficiency: proficiencyValue(maintained_proficiency, totalStudents),
+      maintained_proficiency,
       aggregate_rows: isAggregateRowData ? null : formatSkillsData(aggregate_rows, true)
     }
   })
