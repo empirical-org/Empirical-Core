@@ -68,6 +68,9 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
   const [pusherChannel, setPusherChannel] = React.useState(null)
 
   const [showFilters, setShowFilters] = React.useState(true)
+  const [studentReportIsLoading, setStudentReportIsLoading] = React.useState(true)
+  const [totalStudentCountForFilters, setTotalStudentCountForFilters] = React.useState(null)
+  const [totalStudentMatchesForFilters, setTotalStudentMatchesForFilters] = React.useState(null)
 
   const location = useLocation();
 
@@ -303,6 +306,18 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
 
   function handleClickDownloadReport() { window.print() }
 
+  function handleSetTotalStudentCountForFilters(count) {
+    setTotalStudentCountForFilters(count)
+  }
+
+  function handleSetTotalStudentMatchesForFilters(count) {
+    setTotalStudentMatchesForFilters(count)
+  }
+
+  function handleSetStudentReportIsLoading(isLoading) {
+    setStudentReportIsLoading(isLoading)
+  }
+
   function renderShowFilterMenuButton() {
     const ariaLabel = showFilters ? 'Close filter menu' : 'Open filter menu'
 
@@ -357,7 +372,10 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     customStartDate,
     customEndDate,
     showFilterMenuButton: renderShowFilterMenuButton(),
-    reportType: reportPath()
+    reportType: reportPath(),
+    totalStudentCountForFilters,
+    totalStudentMatchesForFilters,
+    studentReportIsLoading
   }
 
   const sharedProps = {
@@ -380,6 +398,13 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     hasAdjustedFiltersFromDefault,
     saveFilterSelections,
     passedData: null,
+  }
+
+  const growthReportsProps = {
+    ...sharedProps,
+    handleSetTotalStudentCountForFilters,
+    handleSetTotalStudentMatchesForFilters,
+    handleSetStudentReportIsLoading
   }
 
   if (accessType !== FULL) {
@@ -511,7 +536,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
       <div className={showFilters ? 'filter-menu-open' : 'filter-menu-closed'}>
         {showFilters ? null : renderShowFilterMenuButton()}
         <Routes>
-          <Route element={<DiagnosticGrowthReportsContainer {...sharedProps} />} path='/teachers/premium_hub/diagnostic_growth_report' />
+          <Route element={<DiagnosticGrowthReportsContainer {...growthReportsProps} />} path='/teachers/premium_hub/diagnostic_growth_report' />
           <Route element={<DataExportContainer {...sharedProps} />} path='/teachers/premium_hub/data_export' />
           <Route element={<UsageSnapshotsContainer {...sharedProps} />} path='/teachers/premium_hub/usage_snapshot_report' />
         </Routes>

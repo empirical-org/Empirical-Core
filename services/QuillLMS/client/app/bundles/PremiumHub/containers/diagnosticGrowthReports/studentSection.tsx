@@ -105,6 +105,9 @@ export const StudentSection = ({
   selectedClassroomIds,
   selectedTimeframe,
   pusherChannel,
+  handleSetTotalStudentCountForFilters,
+  handleSetTotalStudentMatchesForFilters,
+  handleSetStudentReportIsLoading,
   passedRecommendationsData,
   passedStudentData,
   passedVisibleData
@@ -125,6 +128,7 @@ export const StudentSection = ({
   React.useEffect(() => {
     // this is for testing purposes; these values will always be null in a non-testing environment
     if (!passedRecommendationsData && !passedStudentData && !passedVisibleData) {
+      handleSetStudentReportIsLoading(true)
       getData()
     }
   }, [searchCount, diagnosticTypeValue])
@@ -134,6 +138,9 @@ export const StudentSection = ({
       const formattedData = aggregateStudentData(studentData, recommendationsData)
       updateVisibleData(formattedData);
       setLoading(false)
+      // This API needs to be called once without any filters for the "out of Y" value to be displayed, and once with filters for "X out of" value
+      getStudentCountDataForFilters(false)
+      getStudentCountDataForFilters(true)
     }
   }, [studentData, recommendationsData])
 
@@ -230,6 +237,31 @@ export const StudentSection = ({
           setRowsToShow(results.length)
         }
         setStudentData(results)
+      }
+    })
+  }
+
+  function getStudentCountDataForFilters(withFilters) {
+    const searchParams = {
+      timeframe: selectedTimeframe,
+      school_ids: withFilters ? selectedSchoolIds : null,
+      teacher_ids: withFilters ? selectedTeacherIds : null,
+      classroom_ids: withFilters ? selectedClassroomIds : null,
+      grades: withFilters ? selectedGrades : null,
+      diagnostic_id: diagnosticTypeValue.value
+    }
+
+    requestPost('/admin_diagnostic_students/filter_scope', searchParams, (body) => {
+      if (!body.hasOwnProperty('count')) {
+        return
+      } else {
+        const { count, } = body
+        if(withFilters) {
+          handleSetTotalStudentMatchesForFilters(count)
+        } else {
+          handleSetTotalStudentCountForFilters(count)
+        }
+        handleSetStudentReportIsLoading(false)
       }
     })
   }

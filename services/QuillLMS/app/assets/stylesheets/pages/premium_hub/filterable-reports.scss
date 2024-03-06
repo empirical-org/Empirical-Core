@@ -123,6 +123,11 @@
       display: flex;
       justify-content: flex-end;
     }
+    .filters-student-count {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 12px;
+    }
   }
   .filter-menu-closed, .filter-menu-open {
     width: 100%;

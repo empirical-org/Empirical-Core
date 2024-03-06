@@ -1,7 +1,6 @@
 import * as React from 'react'
 
 import { DropdownInput, DropdownInputWithSearchTokens, Tooltip, helpIcon, } from '../../../Shared/index'
-import useWindowSize from '../../../Shared/hooks/useWindowSize';
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
 const DIAGNOSTIC_GROWTH_REPORT_PATH = 'diagnostic_growth_report'
@@ -31,9 +30,11 @@ const Filters = ({
   customStartDate,
   customEndDate,
   showFilterMenuButton,
-  reportType
+  reportType,
+  totalStudentCountForFilters,
+  totalStudentMatchesForFilters,
+  studentReportIsLoading
 }) => {
-  const size = useWindowSize();
 
   function effectiveSelectedSchools() {
     return selectedSchools.filter(s => availableSchools.find(as => as.id === s.id))
@@ -103,6 +104,13 @@ const Filters = ({
 
   const isGrowthDiagnosticReport = reportType === DIAGNOSTIC_GROWTH_REPORT_PATH
 
+  function renderStudentCount() {
+    if (!isGrowthDiagnosticReport || studentReportIsLoading || (!totalStudentCountForFilters || !totalStudentMatchesForFilters)) { return }
+    const matchText = totalStudentMatchesForFilters === 1 ? 'match' : 'matches'
+    const totalText = totalStudentCountForFilters === 1 ? 'student' : 'students'
+    return <p className="filters-student-count"><strong>{totalStudentMatchesForFilters}</strong> {matchText} from <strong>{totalStudentCountForFilters}</strong> {totalText}</p>
+  }
+
   return (
     <section className={`filter-container ${showMobileFilterMenu ? 'mobile-open' : 'mobile-hidden'} ${hasAdjustedFiltersFromDefault ? 'space-for-buttons' : ''}`} data-testid="filter-menu" >
       <div className="top-section">
@@ -165,6 +173,7 @@ const Filters = ({
             valueToDisplay={effectiveSelectedTeachers()}
           />
           {classroomsFilter}
+          {renderStudentCount()}
         </div>
       </div>
       {renderFilterButtons()}

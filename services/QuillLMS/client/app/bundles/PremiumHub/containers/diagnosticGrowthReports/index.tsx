@@ -52,6 +52,9 @@ export const DiagnosticGrowthReportsContainer = ({
   handleClickDownloadReport,
   openMobileFilterMenu,
   hasAdjustedFiltersFromDefault,
+  handleSetTotalStudentCountForFilters,
+  handleSetTotalStudentMatchesForFilters,
+  handleSetStudentReportIsLoading,
   passedData
 }) => {
 
@@ -74,6 +77,9 @@ export const DiagnosticGrowthReportsContainer = ({
 
   const studentSectionProps = {
     ...sharedProps,
+    handleSetTotalStudentCountForFilters,
+    handleSetTotalStudentMatchesForFilters,
+    handleSetStudentReportIsLoading,
     passedRecommendationsData: null,
     passedStudentData: null,
     passedVisibleData: null
