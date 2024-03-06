@@ -4,13 +4,10 @@
 #
 # Table name: evidence_prompt_responses
 #
-#  id        :integer          not null, primary key
+#  id        :bigint           not null, primary key
 #  embedding :vector(1536)     not null
 #  text      :text             not null
-#
-# Indexes
-#
-#  index_evidence_prompt_responses_on_text  (text) UNIQUE
+#  prompt_id :integer          not null
 #
 
 require 'rails_helper'
@@ -20,6 +17,7 @@ module Evidence
     let(:text) { 'sample text' }
 
     context 'validations' do
+      it { is_expected.to validate_presence_of(:prompt) }
       it { is_expected.to validate_presence_of(:text) }
       it { is_expected.to validate_presence_of(:embedding) }
 

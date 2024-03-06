@@ -2780,6 +2780,7 @@ ALTER SEQUENCE public.evidence_prompt_healths_id_seq OWNED BY public.evidence_pr
 
 CREATE TABLE public.evidence_prompt_responses (
     id bigint NOT NULL,
+    prompt_id integer NOT NULL,
     text text NOT NULL,
     embedding public.vector(1536) NOT NULL
 );
@@ -8521,13 +8522,6 @@ CREATE INDEX index_evidence_hints_on_rule_id ON public.evidence_hints USING btre
 --
 
 CREATE INDEX index_evidence_prompt_healths_on_evidence_activity_health_id ON public.evidence_prompt_healths USING btree (evidence_activity_health_id);
-
-
---
--- Name: index_evidence_prompt_responses_on_text; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_evidence_prompt_responses_on_text ON public.evidence_prompt_responses USING btree (text);
 
 
 --

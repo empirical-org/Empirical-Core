@@ -4,13 +4,10 @@
 #
 # Table name: evidence_prompt_responses
 #
-#  id        :integer          not null, primary key
+#  id        :bigint           not null, primary key
 #  embedding :vector(1536)     not null
 #  text      :text             not null
-#
-# Indexes
-#
-#  index_evidence_prompt_responses_on_text  (text) UNIQUE
+#  prompt_id :integer          not null
 #
 
 require 'neighbor'
@@ -21,10 +18,13 @@ module Evidence
     DIMENSION = 1536
     MODEL = 'text-embedding-3-small'
 
-    validates :text, presence: true, uniqueness: true
-    validates :embedding, presence: true
+    belongs_to :prompt
 
     has_neighbors :embedding
+
+    validates :text, presence: true, uniqueness: true
+    validates :embedding, presence: true
+    validates :prompt, presence: true
 
     before_validation :set_embedding
 
@@ -33,5 +33,5 @@ module Evidence
 
       self.embedding = Evidence::OpenAI::EmbeddingFetcher.run(dimension: DIMENSION, input: text, model: MODEL)
     end
-  end
+   end
 end
