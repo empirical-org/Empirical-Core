@@ -1,9 +1,7 @@
 import _ from 'lodash'
 import * as React from 'react'
-import { decode } from 'html-entities';
 
 import { hashToCollection, } from '../../../Shared/index'
-import { LinkListItem } from './linkListItem'
 
 export class QuestionListByConcept extends React.Component<any, any> {
 
@@ -24,14 +22,10 @@ export class QuestionListByConcept extends React.Component<any, any> {
     }
     return filtered.map((question) => {
       if (question.prompt) {
-        const formattedPrompt = decode(question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, ""))
         return (
-          <LinkListItem
-            basePath={this.props.basePath}
-            itemKey={question.key}
-            key={question.key}
-            text={formattedPrompt}
-          />
+          <a href={'connect#/admin/' + this.props.basePath + '/' + question.key + '/responses'} key={question.key}>
+            <div dangerouslySetInnerHTML={{ __html: question.prompt }} />
+          </a>
         );
       }
     });

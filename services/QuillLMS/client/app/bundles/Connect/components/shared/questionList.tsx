@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { decode } from 'html-entities';
 
-import { LinkListItem } from './linkListItem';
 
 export class QuestionList extends React.Component<any, {}> {
 
@@ -19,12 +17,9 @@ export class QuestionList extends React.Component<any, {}> {
         )
       }
       return filtered.map((question: any) => (
-        <LinkListItem
-          basePath={this.props.basePath}
-          itemKey={question.key}
-          key={question.key}
-          text={question.prompt ? decode(question.prompt) : decode(question.title)}
-        />
+        <a href={'connect#/admin/' + this.props.basePath + '/' + question.key + '/responses'} key={question.key}>
+          <div dangerouslySetInnerHTML={{ __html: question.prompt ? question.prompt : question.title }} />
+        </a>
       ));
     }
   }
