@@ -28,13 +28,12 @@ class StudentProfile extends React.Component {
 
     if (classroomId) {
       handleClassroomClick(classroomId);
-      fetchStudentProfile(classroomId, false);
+      this.getStudentProfileForClassroom(classroomId)
       fetchStudentsClassrooms();
     } else {
       fetchStudentProfile();
       fetchStudentsClassrooms();
     }
-
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -58,20 +57,30 @@ class StudentProfile extends React.Component {
     }
   }
 
+  getStudentProfileForClassroom = (classroomId) => {
+    const {
+      fetchStudentProfile,
+    } = this.props;
+
+    // we run false then true because true loads the completed session data but takes several seconds longer, so it can load in the background since we always load on the to-do activities tab
+    fetchStudentProfile(classroomId, false)
+    fetchStudentProfile(classroomId, true)
+  }
+
   parsedQueryParams = () => {
     const { history, } = this.props
     return qs.parse(history.location.search.replace('?', ''))
   }
 
   handleClassroomTabClick = (classroomId) => {
-    const { loading, handleClassroomClick, fetchStudentProfile, history, } = this.props;
+    const { loading, handleClassroomClick, history, } = this.props;
 
     if (!loading) {
       const newUrl = `/classrooms/${classroomId}`;
       history.push(newUrl);
       handleClassroomClick(classroomId);
-      fetchStudentProfile(classroomId, false);
       updateActiveClassworkTab(TO_DO_ACTIVITIES)
+      this.getStudentProfileForClassroom(classroomId)
     }
   }
 
