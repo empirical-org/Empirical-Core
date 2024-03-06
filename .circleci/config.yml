@@ -367,7 +367,7 @@ jobs:
           name: Run tests
           command: |
             cd services/QuillLMS/engines/evidence
-            bundle exec rspec
+            bin/rspec
   node_lint:
     working_directory: ~/Empirical-Core
     docker:
