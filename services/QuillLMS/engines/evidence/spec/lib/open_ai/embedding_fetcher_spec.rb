@@ -16,20 +16,18 @@ module Evidence
 
       let(:embedding_response_body) do
         {
-          'data' => [
-            {
-              'object'=>'embedding',
-              'index'=>0,
-              'embedding'=> stubbed_embedding
-            }
+          data: [
+            object: 'embedding',
+            index: 0,
+            embedding: stubbed_embedding
           ],
-          'model'=> model,
-          'object'=> 'list',
-          'usage'=> {
-            'prompt_tokens'=> input.split.size,
-            'total_tokens'=> input.split.size
+          model: model,
+          object: 'list',
+          usage: {
+            prompt_tokens: input.split.size,
+            total_tokens: input.split.size
           }
-        }
+        }.deep_stringify_keys
       end
 
       let(:embedding_response) do
