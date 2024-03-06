@@ -41,7 +41,7 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
     return filtered.map((question: Question) => {
       if (question.prompt) {
         return (
-          <a href={this.props.basePath + "/responses"} key={question.key}>
+          <a href={'/admin/' + this.props.basePath + '/' + question.key + '/responses'} key={question.key}>
             <div dangerouslySetInnerHTML={{ __html: question.prompt }} />
           </a>
         );

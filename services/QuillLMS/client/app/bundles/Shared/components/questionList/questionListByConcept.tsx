@@ -29,7 +29,7 @@ class QuestionListByConcept extends React.Component<any, any> {
     return filtered.map((question) => {
       if (question.prompt) {
         return (
-          <a href={this.props.basePath} key={question.key}>
+          <a href={'/admin/' + this.props.basePath + '/' + question.key + '/responses'} key={question.key}>
             <div dangerouslySetInnerHTML={{ __html: question.prompt }} />
           </a>
         );

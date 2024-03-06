@@ -17,7 +17,7 @@ export class QuestionList extends React.Component<any, {}> {
         )
       }
       return filtered.map((question: any) => (
-        <a href={this.props.basePath} key={question.key}>
+        <a href={'/admin/' + this.props.basePath + '/' + question.key + '/responses'} key={question.key}>
           <div dangerouslySetInnerHTML={{ __html: question.prompt ? question.prompt : question.title }} />
         </a>
       ));
