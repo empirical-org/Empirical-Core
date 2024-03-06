@@ -33,5 +33,5 @@ module Evidence
 
       self.embedding = Evidence::OpenAI::EmbeddingFetcher.run(dimension: DIMENSION, input: text, model: MODEL)
     end
-   end
+  end
 end

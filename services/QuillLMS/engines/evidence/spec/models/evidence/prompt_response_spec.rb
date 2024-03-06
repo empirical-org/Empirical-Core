@@ -66,5 +66,31 @@ module Evidence
         end
       end
     end
+
+    context 'benchmarking', :benchmarking do
+      let(:num_iterations) { 1000 }
+      let(:texts) { num_iterations.times.map { Faker::Lorem.sentence } }
+
+      # For comparison, temporarily create a different model with a different dimension and add to klass array
+      [Evidence::PromptResponse].each do |klass|
+        let!(:prompt_responses) { texts.map { |text| create(klass.table_name.singularize.to_sym, text:) } }
+
+        it "checks for performance with #{klass::MODEL} with dimension #{klass::DIMENSION}" do
+          [].tap do |times|
+            prompt_responses.each do |prompt_response|
+              times << Benchmark.realtime { prompt_response.nearest_neighbors(:embedding, distance: :cosine).first(5) }
+            end
+
+            mean_time = times.reduce(:+) / times.size
+            stddev = Math.sqrt(times.map { |time| (time - mean_time)**2 }.reduce(:+) / times.size)
+
+            puts "\nBenchmarking for nearest neighbor cosine similarity"
+            puts "Model: #{klass::MODEL}, Dimension: #{klass::DIMENSION}, num_iterations: #{num_iterations}"
+            puts "Average response time: #{mean_time} seconds"
+            puts "Standard deviation: #{stddev} seconds"
+          end
+        end
+      end
+    end
   end
 end

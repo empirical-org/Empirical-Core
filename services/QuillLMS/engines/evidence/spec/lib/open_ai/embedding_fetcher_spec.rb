@@ -54,6 +54,27 @@ module Evidence
       context 'with a real response', external_api: true do
         it { expect(subject.size).to eq(dimension) }
       end
+
+      context 'benchmarking', :benchmarking, external_api: true do
+        let(:num_iterations) { 1000 }
+        let(:texts) { num_iterations.times.map { Faker::Lorem.sentence } }
+
+        {'text-embedding-3-small' => 1536, 'text-embedding-3-large' => 3072 }.each_pair do |model, dimension|
+          it "checks for performance with #{model} with dimension #{dimension}" do
+            [].tap do |times|
+              texts.each { |text| times << Benchmark.realtime { described_class.run(dimension:, input: text, model:) } }
+
+              mean_time = times.reduce(:+) / times.size
+              stddev = Math.sqrt(times.map { |time| (time - mean_time)**2 }.reduce(:+) / times.size)
+
+              puts "Benchmarking for Third-Party API: OpenAI GPT-3 Embedding Fetcher"
+              puts "\nModel: #{model}, Dimension: #{dimension}, num_iterations: #{num_iterations}"
+              puts "Average response time: #{mean_time} seconds"
+              puts "Standard deviation: #{stddev} seconds"
+            end
+          end
+        end
+      end
     end
   end
 end
