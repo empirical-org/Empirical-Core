@@ -33,12 +33,15 @@ class ProfilesController < ApplicationController
 
   def student_profile_data
     if current_user.classrooms.any?
+      classroom_id = params[:current_classroom_id]
+
       render json: {
-        scores: student_profile_data_sql(params[:current_classroom_id]),
+        scores: student_profile_data_sql(classroom_id),
         next_activity_session: next_activity_session,
         student: student_data,
-        classroom_id: params[:current_classroom_id],
-        metrics: StudentDashboardMetrics.new(current_user, params[:current_classroom_id]).run
+        classroom_id: classroom_id,
+        show_scores: Classroom.find_by_id(classroom_id)&.owner&.teacher_info&.show_students_exact_score,
+        metrics: StudentDashboardMetrics.new(current_user, classroom_id).run
       }
     else
       render json: {error: 'Current user has no classrooms'}

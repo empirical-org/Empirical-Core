@@ -13,7 +13,42 @@ const ORDINAL_NUMBERS = ['Zeroth', 'First', 'Second', 'Third', 'Fourth', 'Fifth'
 const QUILL_DIAGNOSTIC_SCORING_EXPLANATION = "The Quill Diagnostic is meant to diagnose skills to practice. Students are not provided a color-coded score or percentage score. Teachers see only a percentage score without a color."
 const percentageDisplayer = new PercentageDisplayer()
 
-export const ScorebookTooltip = ({ data }) => {
+interface Session {
+  grouped_key_target_skill_concepts: any;
+  percentage: number;
+  number_of_correct_questions: number;
+  number_of_questions: number;
+  completed_at: string;
+  timespent: number;
+}
+
+interface ActivityClassification {
+  id: number;
+}
+
+interface Activity {
+  classification: ActivityClassification;
+  name: string;
+}
+
+interface ScorebookTooltipData {
+  completed_attempts: Number;
+  name: string; // this is the activity name
+  activity_classification_id: Boolean;
+  percentage: number;
+  activity?: Activity;
+  started?: number;
+  sessions?: Array<Session>
+  locked?: Boolean;
+  scheduled?: Boolean;
+  marked_complete?: Boolean;
+}
+
+interface ScorebookTooltipProps {
+  data: ScorebookTooltipData
+}
+
+export const ScorebookTooltip = ({ data }: ScorebookTooltipProps) => {
 
   if (!Object.keys(data).length) { return <span /> }
 

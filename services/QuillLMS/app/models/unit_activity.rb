@@ -128,9 +128,12 @@ class UnitActivity < ApplicationRecord
   def self.get_classroom_user_profile(classroom_id, user_id)
     return [] unless classroom_id && user_id
 
-    student_timezone_offset_string = "+ INTERVAL '#{User.find(user_id).utc_offset || 0}' SECOND"
+    student = User.find(user_id)
+
+    student_timezone_offset_string = "+ INTERVAL '#{student.utc_offset || 0}' SECOND"
 
     # Generate a rich profile of Classroom Activities for a given user in a given classroom
+
     data = RawSqlRunner.execute(
      <<-SQL
         SELECT
@@ -236,5 +239,38 @@ class UnitActivity < ApplicationRecord
 
     # we could also do this with a HAVING clause, but it is pretty difficult to read because the logic for computing those values is complex
     data.filter { |ua| ua['finished'] || !ua['closed'] }
+
+    data.map do |ua|
+      activity_sessions = ActivitySession
+        .includes(:concept_results, :activity, :unit)
+        .where(user_id:, activity_id: ua['activity_id'], classroom_unit_id: ua['classroom_unit_id'])
+      most_recently_updated_session = activity_sessions.order('activity_sessions.updated_at DESC').first
+      highest_scoring_session = activity_sessions.order('percentage DESC').first
+      first_completed_session = activity_sessions.order('completed_at ASC').first
+
+      completed_sessions = activity_sessions.where(state: ActivitySession::STATE_FINISHED)
+
+      unit_activity = UnitActivity.find_by(id: ua['id'])
+
+      ua['sessions'] = activity_sessions.map { |as| as.format_activity_sessions_for_tooltip(student) }
+
+      # MAX(acts.updated_at) AS act_sesh_updated_at,
+      #
+      # MIN(acts.completed_at) #{student_timezone_offset_string} AS completed_date,
+      #
+      # MAX(acts.percentage) AS max_percentage,
+      #
+      # SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS #{ActivitySession::STATE_FINISHED_KEY},
+      # SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_STARTED}' THEN 1 ELSE 0 END) AS resume_link
+
+      ua['act_sesh_updated_at1'] = most_recently_updated_session&.updated_at
+      ua['max_percentage1'] = highest_scoring_session&.percentage
+      ua['completed_date1'] = first_completed_session&.completed_at ? first_completed_session.completed_at + student.utc_offset.seconds : nil
+      ua['resume_link1'] = activity_sessions.any? { |as| as.state == ActivitySession::STATE_STARTED }
+      ua["#{ActivitySession::STATE_FINISHED_KEY}1"] = completed_sessions.any?
+      ua['completed_attempts'] = completed_sessions.length
+
+      ua
+    end
   end
 end

@@ -207,6 +207,17 @@ module PublicProgressReports
     }
   end
 
+  def format_grouped_key_target_skill_concepts(key_target_skill_concepts)
+    key_target_skill_concepts
+      .group_by { |ktsc| ktsc[:name] }
+      .map do |key, key_target_skill_group|
+        {
+          name: key_target_skill_group.first[:name],
+          correct: key_target_skill_group.filter { |ktsc| ktsc[:correct] }.length,
+          incorrect: key_target_skill_group.filter { |ktsc| ktsc[:correct] == false }.length,
+        }
+      end
+  end
 
   def get_time_in_minutes(activity_session)
     return 'Untracked' if !(activity_session.started_at && activity_session.completed_at)

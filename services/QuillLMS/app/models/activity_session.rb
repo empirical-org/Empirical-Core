@@ -40,6 +40,7 @@ class ActivitySession < ApplicationRecord
 
   include Uid
   include Concepts
+  include PublicProgressReports
 
   COMPLETED = 'Completed'
 
@@ -512,6 +513,26 @@ class ActivitySession < ApplicationRecord
 
   def is_evidence?
     classification.key == ActivityClassification::EVIDENCE_KEY
+  end
+
+  def format_activity_sessions_for_tooltip(current_user)
+    questions = concept_results.group_by { |cr| cr.question_number }
+
+    key_target_skill_concepts = questions.map { |key, question| get_key_target_skill_concept_for_question(question, self) }
+
+    correct_key_target_skill_concepts = key_target_skill_concepts.filter { |ktsc| ktsc[:correct] }
+
+    {
+      id:id,
+      percentage:percentage,
+      description:activity.description,
+      due_date: unit_activity.due_date,
+      completed_at:completed_at + current_user.utc_offset.seconds,
+      grouped_key_target_skill_concepts: format_grouped_key_target_skill_concepts(key_target_skill_concepts),
+      number_of_questions: questions.length,
+      number_of_correct_questions: correct_key_target_skill_concepts.length,
+      timespent:timespent
+    }
   end
 
   private def correctly_assigned
