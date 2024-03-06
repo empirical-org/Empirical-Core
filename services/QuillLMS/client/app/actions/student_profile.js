@@ -5,9 +5,13 @@ export const receiveStudentProfile = data => ({
   data
 })
 
-export const fetchStudentProfile = (classroomId) => {
+export const setLoading = () => ({
+  type: 'SET_LOADING'
+})
+
+export const fetchStudentProfile = (classroomId, includeSessionData) => {
   return (dispatch) => {
-    const qs = classroomId ? `?current_classroom_id=${classroomId}` : ''
+    const qs = classroomId ? `?current_classroom_id=${classroomId}&include_session_data=${includeSessionData}` : ''
     requestGet(
       `${process.env.DEFAULT_URL}/student_profile_data${qs}`,
       (body) => {

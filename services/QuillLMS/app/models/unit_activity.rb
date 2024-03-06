@@ -125,7 +125,7 @@ class UnitActivity < ApplicationRecord
     hide_all_activity_sessions
   end
 
-  def self.get_classroom_user_profile(classroom_id, user_id)
+  def self.get_classroom_user_profile(classroom_id, user_id, include_session_data)
     return [] unless classroom_id && user_id
 
     student = User.find(user_id)
@@ -238,7 +238,9 @@ class UnitActivity < ApplicationRecord
 
       completed_sessions = activity_sessions.where(state: ActivitySession::STATE_FINISHED)
 
-      ua['sessions'] = activity_sessions.map { |as| as.format_activity_sessions_for_tooltip(student) }
+      if include_session_data
+        ua['sessions'] = activity_sessions.map { |as| as.format_activity_sessions_for_tooltip(student) }
+      end
 
       # MAX(acts.updated_at) AS act_sesh_updated_at,
       #

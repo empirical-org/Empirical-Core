@@ -33,11 +33,12 @@ class ProfilesController < ApplicationController
 
   def student_profile_data
     classroom_id = params[:current_classroom_id]
+    include_session_data = ActiveModel::Type::Boolean.new.cast(params[:include_session_data])
 
     if current_user.classrooms.any? && classroom_id
       render json: {
-        scores: student_profile_data_sql(classroom_id),
-        next_activity_session: next_activity_session,
+        scores: student_profile_data_sql(classroom_id, include_session_data),
+        # next_activity_session: next_activity_session,
         student: student_data,
         classroom_id: classroom_id,
         show_exact_scores: Classroom.find_by_id(classroom_id)&.owner&.teacher_info&.show_students_exact_score,
@@ -117,10 +118,10 @@ class ProfilesController < ApplicationController
     ).to_a
   end
 
-  protected def student_profile_data_sql(classroom_id=nil)
+  protected def student_profile_data_sql(classroom_id=nil, include_session_data)
     @current_classroom = current_classroom(classroom_id)
     if @current_classroom && current_user
-      @act_sesh_records = UnitActivity.get_classroom_user_profile(@current_classroom.id, current_user.id)
+      @act_sesh_records = UnitActivity.get_classroom_user_profile(@current_classroom.id, current_user.id, include_session_data)
     else
       @act_sesh_records = []
     end
@@ -147,10 +148,8 @@ class ProfilesController < ApplicationController
   end
 
   protected def current_classroom(classroom_id = nil)
-    if classroom_id
-      current_user.classrooms.find_by(id: classroom_id.to_i) if !!classroom_id
-    else
-      current_user.classrooms.last
-    end
+    return if classroom_id.nil?
+
+    current_user.classrooms.find_by(id: classroom_id.to_i) if !!classroom_id
   end
 end

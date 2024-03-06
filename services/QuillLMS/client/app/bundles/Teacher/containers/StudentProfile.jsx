@@ -7,9 +7,10 @@ import {
   fetchStudentProfile,
   fetchStudentsClassrooms,
   handleClassroomClick,
-  updateActiveClassworkTab
+  updateActiveClassworkTab,
+  setLoading,
 } from '../../../actions/student_profile';
-import { TO_DO_ACTIVITIES } from '../../../constants/student_profile';
+import { TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES } from '../../../constants/student_profile';
 import SelectAClassroom from '../../Student/components/selectAClassroom';
 import LoadingIndicator from '../components/shared/loading_indicator';
 import StudentProfileClassworkTabs from '../components/student_profile/student_profile_classwork_tabs';
@@ -27,7 +28,7 @@ class StudentProfile extends React.Component {
 
     if (classroomId) {
       handleClassroomClick(classroomId);
-      fetchStudentProfile(classroomId);
+      fetchStudentProfile(classroomId, false);
       fetchStudentsClassrooms();
     } else {
       fetchStudentProfile();
@@ -69,7 +70,7 @@ class StudentProfile extends React.Component {
       const newUrl = `/classrooms/${classroomId}`;
       history.push(newUrl);
       handleClassroomClick(classroomId);
-      fetchStudentProfile(classroomId);
+      fetchStudentProfile(classroomId, false);
       updateActiveClassworkTab(TO_DO_ACTIVITIES)
     }
   }
@@ -81,8 +82,14 @@ class StudentProfile extends React.Component {
   }
 
   handleClickClassworkTab = (classworkTab) => {
-    const { updateActiveClassworkTab, } = this.props
+    const { updateActiveClassworkTab, classroomId, fetchStudentProfile, scores, setLoading, } = this.props
     updateActiveClassworkTab(classworkTab)
+
+    // this is only necessary to run the first time a student clicks over to the completed activities tab
+    if (scores?.length && !scores[0].sessions && classworkTab === COMPLETED_ACTIVITIES) {
+      setLoading()
+      fetchStudentProfile(classroomId, true);
+    }
   }
 
   initializePusher = (nextProps) => {
@@ -161,10 +168,11 @@ class StudentProfile extends React.Component {
 
 const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => ({
-  fetchStudentProfile: classroomId => dispatch(fetchStudentProfile(classroomId)),
+  fetchStudentProfile: (classroomId, includeSessionData) => dispatch(fetchStudentProfile(classroomId, includeSessionData)),
   fetchStudentsClassrooms: () => dispatch(fetchStudentsClassrooms()),
   handleClassroomClick: classroomId => dispatch(handleClassroomClick(classroomId)),
-  updateActiveClassworkTab: tab => dispatch(updateActiveClassworkTab(tab))
+  updateActiveClassworkTab: tab => dispatch(updateActiveClassworkTab(tab)),
+  setLoading: () => dispatch(setLoading())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentProfile);

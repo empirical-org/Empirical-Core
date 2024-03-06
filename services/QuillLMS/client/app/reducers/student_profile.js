@@ -17,6 +17,10 @@ export default (state, action) => {
   state = state || initialState;
 
   switch(action.type) {
+    case 'SET_LOADING':
+      return Object.assign({}, state, {
+        loading: true,
+      });
     case 'HANDLE_CLASSROOM_CLICK':
       return Object.assign({}, state, {
         loading: true,
