@@ -765,6 +765,37 @@ ALTER SEQUENCE public.evidence_prompt_healths_id_seq OWNED BY public.evidence_pr
 
 
 --
+-- Name: evidence_prompt_responses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_prompt_responses (
+    id bigint NOT NULL,
+    prompt_id integer NOT NULL,
+    text text NOT NULL,
+    embedding public.vector(1536) NOT NULL
+);
+
+
+--
+-- Name: evidence_prompt_responses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_prompt_responses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_prompt_responses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_prompt_responses_id_seq OWNED BY public.evidence_prompt_responses.id;
+
+
+--
 -- Name: evidence_prompt_text_batches; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1044,6 +1075,13 @@ ALTER TABLE ONLY public.evidence_prompt_healths ALTER COLUMN id SET DEFAULT next
 
 
 --
+-- Name: evidence_prompt_responses id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_responses ALTER COLUMN id SET DEFAULT nextval('public.evidence_prompt_responses_id_seq'::regclass);
+
+
+--
 -- Name: evidence_prompt_text_batches id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1237,6 +1275,14 @@ ALTER TABLE ONLY public.evidence_hints
 
 ALTER TABLE ONLY public.evidence_prompt_healths
     ADD CONSTRAINT evidence_prompt_healths_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_prompt_responses evidence_prompt_responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_responses
+    ADD CONSTRAINT evidence_prompt_responses_pkey PRIMARY KEY (id);
 
 
 --
@@ -1526,6 +1572,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230306215326'),
 ('20230306215624'),
 ('20230911142601'),
-('20240221192859');
+('20240221192859'),
+('20240305224710');
 
 
