@@ -33,13 +33,40 @@ module Evidence
     end
 
     context 'with stubbed embedding' do
+      subject { FactoryBot.build(:evidence_prompt_response, text:, embedding: initial_embedding) }
+
       let(:fetcher_class) { Evidence::OpenAI::EmbeddingFetcher }
-      let(:embedding) { Array.new(described_class::DIMENSION) { rand(-1.0..1.0) } }
+      let(:initial_embedding) { nil }
+      let(:embedding) { Array.new(Evidence::PromptResponse::DIMENSION) { rand(-1.0..1.0) } }
 
       before { allow(fetcher_class).to receive(:run).and_return(embedding) }
 
-      it { expect(described_class.create(text:, embedding:)).to be_valid }
-      it { expect(create(:evidence_prompt_response, text:, embedding:)).to be_valid }
+      context 'when text is present and embedding is nil' do
+        it 'sets the embedding' do
+          subject.validate
+          expect(subject.embedding).to eq embedding
+        end
+      end
+
+      context 'when text is present and embedding is already set' do
+        let(:initial_embedding) { embedding }
+
+        it 'does not change the existing embedding' do
+          subject.validate
+          expect(subject.embedding).to eq initial_embedding
+          expect(fetcher_class).not_to receive(:run)
+        end
+      end
+
+      context 'when text is nil' do
+        let(:text) { nil }
+
+        it 'does not set the embedding' do
+          subject.validate
+          expect(subject.embedding).to be_nil
+          expect(fetcher_class).not_to receive(:run)
+        end
+      end
     end
   end
 end

@@ -26,12 +26,12 @@ module Evidence
 
     has_neighbors :embedding
 
-    # before_validation :set_embedding
+    before_validation :set_embedding
 
-    # private def set_embedding
-    #   return if text.blank? || embedding.present?
+    private def set_embedding
+      return if text.blank? || embedding.present?
 
-    #   self.embedding = Evidence::OpenAI::EmbeddingFetcher.run(dimension: DIMENSION, input: text, model: MODEL)
-    # end
+      self.embedding = Evidence::OpenAI::EmbeddingFetcher.run(dimension: DIMENSION, input: text, model: MODEL)
+    end
   end
 end
