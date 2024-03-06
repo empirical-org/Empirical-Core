@@ -379,6 +379,8 @@ RSpec/DescribedClass:
 # Configuration parameters: CountAsOne.
 RSpec/ExampleLength:
   Max: 19
+  Exclude:
+    - 'spec/models/response_spec.rb'
 
 # Offense count: 81
 # This cop supports safe autocorrection (--autocorrect).

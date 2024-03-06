@@ -4,8 +4,9 @@ import { hashToCollection } from '../../../Shared/index';
 import { ConceptResult, checkDiagnosticQuestion, checkDiagnosticSentenceFragment, checkFillInTheBlankQuestion } from 'quill-marking-logic';
 import { requestGet, requestPost, requestPut, } from '../../../../modules/request/index';
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel.js';
+import C from '../../constants'
 
-interface Question {
+export interface Question {
   conceptID: string,
   cues: Array<string>,
   flag: string,
@@ -19,17 +20,28 @@ interface Question {
   modelConceptUID?: string
 }
 
+export interface Response {
+  id: number,
+  concept_results: Array<Object>,
+  feedback: string,
+  key: string,
+  optimal: boolean,
+  statusCode: number,
+  text: string
+}
+
 interface FocusPoints {
   [key:string]: FocusPoint
 }
 
-interface FocusPoint {
+export interface FocusPoint {
   feedback: string,
   text: string,
   order?: string
 }
 
-interface IncorrectSequence {
+export interface IncorrectSequence {
+  caseInsensitive: boolean,
   conceptResults: ConceptResults,
   feedback: string,
   text: string
@@ -75,14 +87,17 @@ export function rematchAll(mode: string, question: Question, questionID: string,
   });
 }
 
-export function rematchOne(response: string, mode: string, question: Question, questionID: string, callback:Function) {
+export function rematchOne(response: Response, mode: string, question: Question, questionID: string, callback:Function, dispatch: Function) {
   const matcher = getMatcher(mode);
   getGradedResponses(questionID).then((data) => {
     question.key = questionID
     const matcherFields = getMatcherFields(mode, question, formatGradedResponses(data));
     const promise = rematchResponse(matcher, matcherFields, response);
     if (promise) {
-      promise.then(() => { callback(); });
+      promise.then((result) => {
+        dispatch({ type: C.FINISH_QUESTION_EDIT, questionID, });
+        callback(result);
+      });
     }
   });
 }

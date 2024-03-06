@@ -7,7 +7,6 @@ import {
   ResponseSortFields,
   ResponseToggleFields,
   hashToCollection,
-  responsesWithStatus,
 } from '../../../Shared/index';
 import * as filterActions from '../../actions/filters';
 import massEdit from '../../actions/massEdit';
@@ -22,7 +21,7 @@ import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
 import QuestionMatcher from '../../libs/question';
 import POSMatcher from '../../libs/sentenceFragment.js';
 import POSForResponsesList from './POSForResponsesList.jsx';
-import ResponseList from './responseList.jsx';
+import ResponseList from './responseList.tsx';
 
 import C from '../../constants';
 
@@ -56,6 +55,7 @@ class ResponseComponent extends React.Component {
       health: {},
       gradeBreakdown: {},
       enableRematchAllButton: true,
+      responses: this.props.filters.responses
     };
   }
 
@@ -67,11 +67,15 @@ class ResponseComponent extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    const { filters } = this.props
+
     if (!_.isEqual(this.props.filters.formattedFilterData, prevProps.filters.formattedFilterData)) {
       this.searchResponses();
     } else if (this.props.states[this.props.questionID] === C.SHOULD_RELOAD_RESPONSES && prevProps.states[prevProps.questionID] !== C.SHOULD_RELOAD_RESPONSES) {
       this.props.dispatch(questionActions.clearQuestionState(this.props.questionID));
       this.searchResponses();
+    } else if (!_.isEqual(filters.responses, prevProps.filters.responses)) {
+      this.setState({responses: filters.responses})
     }
   }
 
@@ -79,6 +83,12 @@ class ResponseComponent extends React.Component {
     this.props.dispatch(questionActions.removeSubscription(this.props.questionID));
     this.clearResponses();
   }
+
+  updateResponse = (id, response) => {
+    const { responses } = this.state
+    responses[id] = response
+    this.setState({responses:  responses})
+  };
 
   getHealth = () => {
     requestGet(
@@ -153,12 +163,6 @@ class ResponseComponent extends React.Component {
     return errors;
   };
 
-  rematchResponse = rid => {
-    const response = this.props.filters.responses[rid];
-    const callback = this.searchResponses;
-    rematchOne(response, this.props.mode, this.props.question, this.props.questionID, callback);
-  };
-
   rematchAllResponses = () => {
     this.setState({enableRematchAllButton: false});
     const pageNumber = 1;
@@ -175,10 +179,6 @@ class ResponseComponent extends React.Component {
     //   console.log('Rematching: ', resp.key, percentage, '% complete');
     //   this.rematchResponse(resp.key);
     // });
-  };
-
-  responsesWithStatus = () => {
-    return hashToCollection(responsesWithStatus(this.props.filters.responses));
   };
 
   responsesGroupedByStatus = () => {
@@ -209,7 +209,7 @@ class ResponseComponent extends React.Component {
   };
 
   getResponse = responseID => {
-    return this.props.filters.responses[responseID];
+    return this.state.responses[responseID];
   };
 
   getChildResponses = responseID => {
@@ -229,30 +229,27 @@ class ResponseComponent extends React.Component {
 
   renderResponses = () => {
     if (this.state.viewingResponses) {
+      const { responses } = this.state;
       const { questionID, selectedIncorrectSequences, selectedFocusPoints } = this.props;
-      const responsesWStatus = this.responsesWithStatus();
-      const responses = _.sortBy(responsesWStatus, 'sortOrder');
       return (
         <ResponseList
           admin={this.props.admin}
           ascending={this.props.filters.ascending}
-          conceptID={this.props.question.conceptID}
           concepts={this.props.concepts}
-          conceptsFeedback={this.props.conceptsFeedback}
           dispatch={this.props.dispatch}
           expand={this.expand}
           expanded={this.props.filters.expanded}
           getChildResponses={this.getChildResponses}
-          getMatchingResponse={this.rematchResponse}
           getResponse={this.getResponse}
-          massEdit={this.props.massEdit}
+          massEditResponses={this.props.massEdit}
           mode={this.props.mode}
           question={this.props.question}
           questionID={questionID}
-          responses={responses}
+          responses={hashToCollection(responses)}
           selectedFocusPoints={selectedFocusPoints}
           selectedIncorrectSequences={selectedIncorrectSequences}
           states={this.props.states}
+          updateResponse={this.updateResponse}
         />
       );
     }
