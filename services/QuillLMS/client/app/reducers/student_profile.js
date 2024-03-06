@@ -10,20 +10,18 @@ const initialState = {
   scores: null,
   student: null,
   nextActivitySession: null,
-  activeClassworkTab: TO_DO_ACTIVITIES
+  activeClassworkTab: TO_DO_ACTIVITIES,
+  loadingExactScoresData: true
 };
 
 export default (state, action) => {
   state = state || initialState;
 
   switch(action.type) {
-    case 'SET_LOADING':
-      return Object.assign({}, state, {
-        loading: true,
-      });
     case 'HANDLE_CLASSROOM_CLICK':
       return Object.assign({}, state, {
         loading: true,
+        loadingExactScoresData: true,
         selectedClassroomId: action.selectedClassroomId
       });
     case 'RECEIVE_STUDENTS_CLASSROOMS':
@@ -38,6 +36,12 @@ export default (state, action) => {
         metrics: action.data.metrics,
         showExactScores: action.data.show_exact_scores
       });
+    case 'RECEIVE_EXACT_SCORES_DATA': {
+      return Object.assign({}, state, {
+        loadingExactScoresData: false,
+        exactScoresData: action.data.exact_scores_data
+      })
+    }
     case 'UPDATE_ACTIVE_CLASSWORK_TAB':
       return Object.assign({}, state, { activeClassworkTab: action.activeClassworkTab });
     default:

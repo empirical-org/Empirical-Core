@@ -33,12 +33,11 @@ class ProfilesController < ApplicationController
 
   def student_profile_data
     classroom_id = params[:current_classroom_id]
-    include_session_data = ActiveModel::Type::Boolean.new.cast(params[:include_session_data])
 
     if current_user.classrooms.any? && classroom_id
       render json: {
-        scores: student_profile_data_sql(classroom_id, include_session_data),
-        # next_activity_session: next_activity_session,
+        scores: student_profile_data_sql(classroom_id),
+        next_activity_session: next_activity_session,
         student: student_data,
         classroom_id: classroom_id,
         show_exact_scores: Classroom.find_by_id(classroom_id)&.owner&.teacher_info&.show_students_exact_score,
@@ -58,6 +57,22 @@ class ProfilesController < ApplicationController
     else
       render json: {error: 'Current user has no classrooms'}
     end
+  end
+
+  def student_exact_scores_data
+    exact_scores_data = params[:data].map do |ua|
+      activity_sessions = ActivitySession
+        .includes(:concept_results, :activity, :unit)
+        .where(user_id: current_user.id, activity_id: ua['activity_id'], classroom_unit_id: ua['classroom_unit_id'])
+      completed_sessions = activity_sessions.where(state: ActivitySession::STATE_FINISHED)
+
+      ua['sessions'] = activity_sessions.map { |as| as.format_activity_sessions_for_tooltip(current_user) }
+      ua['completed_attempts'] = completed_sessions.length
+
+      ua
+    end
+
+    render json: { exact_scores_data: exact_scores_data}
   end
 
   def students_classrooms_json
@@ -118,10 +133,10 @@ class ProfilesController < ApplicationController
     ).to_a
   end
 
-  protected def student_profile_data_sql(classroom_id=nil, include_session_data)
+  protected def student_profile_data_sql(classroom_id=nil)
     @current_classroom = current_classroom(classroom_id)
     if @current_classroom && current_user
-      @act_sesh_records = UnitActivity.get_classroom_user_profile(@current_classroom.id, current_user.id, include_session_data)
+      @act_sesh_records = UnitActivity.get_classroom_user_profile(@current_classroom.id, current_user.id)
     else
       @act_sesh_records = []
     end

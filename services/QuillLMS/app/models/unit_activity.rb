@@ -125,7 +125,7 @@ class UnitActivity < ApplicationRecord
     hide_all_activity_sessions
   end
 
-  def self.get_classroom_user_profile(classroom_id, user_id, include_session_data)
+  def self.get_classroom_user_profile(classroom_id, user_id)
     return [] unless classroom_id && user_id
 
     student = User.find(user_id)
@@ -239,20 +239,5 @@ class UnitActivity < ApplicationRecord
 
     # we could also do this with a HAVING clause, but it is pretty difficult to read because the logic for computing those values is complex
     data.filter { |ua| ua['finished'] || !ua['closed'] }
-
-    return data if !include_session_data
-
-    data.map do |ua|
-      activity_sessions = ActivitySession
-        .includes(:concept_results, :activity, :unit)
-        .where(user_id:, activity_id: ua['activity_id'], classroom_unit_id: ua['classroom_unit_id'])
-      completed_sessions = activity_sessions.where(state: ActivitySession::STATE_FINISHED)
-
-      ua['sessions'] = activity_sessions.map { |as| as.format_activity_sessions_for_tooltip(student) }
-      ua['completed_attempts'] = completed_sessions.length
-
-      ua
-    end
-
   end
 end

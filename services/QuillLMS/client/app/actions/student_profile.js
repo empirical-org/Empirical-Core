@@ -1,25 +1,48 @@
-import { requestGet, } from '../modules/request/index';
+import { requestGet, requestPost, } from '../modules/request/index';
 
 export const receiveStudentProfile = data => ({
   type: 'RECEIVE_STUDENT_PROFILE',
   data
 })
 
-export const setLoading = () => ({
-  type: 'SET_LOADING'
+export const receiveExactScoresData = (data) => ({
+  type: 'RECEIVE_EXACT_SCORES_DATA',
+  data
 })
 
-export const fetchStudentProfile = (classroomId, includeSessionData) => {
+export const fetchStudentProfile = (classroomId) => {
   return (dispatch) => {
-    const qs = classroomId ? `?current_classroom_id=${classroomId}&include_session_data=${includeSessionData}` : ''
+    const qs = classroomId ? `?current_classroom_id=${classroomId}` : ''
     requestGet(
       `${process.env.DEFAULT_URL}/student_profile_data${qs}`,
       (body) => {
         dispatch(receiveStudentProfile(body))
+
+        if (body.show_exact_scores) {
+          dispatch(fetchExactScoresData(body.scores))
+        }
       }
     );
   };
 };
+
+export const fetchExactScoresData = (scores) => {
+  return (dispatch) => {
+    const relevantData = scores.map(score => {
+      const { ua_id, unit_id, activity_id, classroom_unit_id, } = score
+      return { ua_id, unit_id, activity_id, classroom_unit_id }
+    })
+
+    // using requestPost here because params have potential to be very large
+    requestPost(
+      `${process.env.DEFAULT_URL}/student_exact_scores_data`,
+      { data: relevantData },
+      body => {
+        dispatch(receiveExactScoresData(body))
+      }
+    )
+  }
+}
 
 export const receiveStudentsClassrooms = (classrooms) => {
   return {

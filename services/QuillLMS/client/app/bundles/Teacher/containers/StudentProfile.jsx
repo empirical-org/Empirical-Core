@@ -8,7 +8,6 @@ import {
   fetchStudentsClassrooms,
   handleClassroomClick,
   updateActiveClassworkTab,
-  setLoading,
 } from '../../../actions/student_profile';
 import { TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES } from '../../../constants/student_profile';
 import SelectAClassroom from '../../Student/components/selectAClassroom';
@@ -28,7 +27,7 @@ class StudentProfile extends React.Component {
 
     if (classroomId) {
       handleClassroomClick(classroomId);
-      this.getStudentProfileForClassroom(classroomId)
+      fetchStudentProfile(classroomId)
       fetchStudentsClassrooms();
     } else {
       fetchStudentProfile();
@@ -57,16 +56,6 @@ class StudentProfile extends React.Component {
     }
   }
 
-  getStudentProfileForClassroom = (classroomId) => {
-    const {
-      fetchStudentProfile,
-    } = this.props;
-
-    // we run false then true because true loads the completed session data but takes several seconds longer, so it can load in the background since we always load on the to-do activities tab
-    fetchStudentProfile(classroomId, false)
-    fetchStudentProfile(classroomId, true)
-  }
-
   parsedQueryParams = () => {
     const { history, } = this.props
     return qs.parse(history.location.search.replace('?', ''))
@@ -80,7 +69,7 @@ class StudentProfile extends React.Component {
       history.push(newUrl);
       handleClassroomClick(classroomId);
       updateActiveClassworkTab(TO_DO_ACTIVITIES)
-      this.getStudentProfileForClassroom(classroomId)
+      fetchStudentProfile(classroomId)
     }
   }
 
@@ -91,14 +80,8 @@ class StudentProfile extends React.Component {
   }
 
   handleClickClassworkTab = (classworkTab) => {
-    const { updateActiveClassworkTab, classroomId, fetchStudentProfile, scores, setLoading, } = this.props
+    const { updateActiveClassworkTab, } = this.props
     updateActiveClassworkTab(classworkTab)
-
-    // this is only necessary to run the first time a student clicks over to the completed activities tab
-    if (scores?.length && !scores[0].sessions && classworkTab === COMPLETED_ACTIVITIES) {
-      setLoading()
-      fetchStudentProfile(classroomId, true);
-    }
   }
 
   initializePusher = (nextProps) => {
@@ -132,9 +115,13 @@ class StudentProfile extends React.Component {
       isBeingPreviewed,
       history,
       metrics,
+      exactScoresDataLoading,
+      exactScoresData,
     } = this.props;
 
     if (loading) { return <LoadingIndicator /> }
+
+    if (activeClassworkTab === COMPLETED_ACTIVITIES && exactScoresDataLoading)  { return <LoadingIndicator /> }
 
     if (!selectedClassroomId) { return (<SelectAClassroom classrooms={classrooms} isBeingPreviewed={isBeingPreviewed} onClickCard={this.handleClassroomTabClick} />)}
 
@@ -163,6 +150,7 @@ class StudentProfile extends React.Component {
           <StudentProfileUnits
             activeClassworkTab={activeClassworkTab}
             data={scores}
+            exactScoresData={exactScoresData}
             isBeingPreviewed={isBeingPreviewed}
             loading={loading}
             nextActivitySession={nextActivitySession}
@@ -177,11 +165,10 @@ class StudentProfile extends React.Component {
 
 const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => ({
-  fetchStudentProfile: (classroomId, includeSessionData) => dispatch(fetchStudentProfile(classroomId, includeSessionData)),
+  fetchStudentProfile: (classroomId) => dispatch(fetchStudentProfile(classroomId)),
   fetchStudentsClassrooms: () => dispatch(fetchStudentsClassrooms()),
   handleClassroomClick: classroomId => dispatch(handleClassroomClick(classroomId)),
-  updateActiveClassworkTab: tab => dispatch(updateActiveClassworkTab(tab)),
-  setLoading: () => dispatch(setLoading())
+  updateActiveClassworkTab: tab => dispatch(updateActiveClassworkTab(tab))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentProfile);
