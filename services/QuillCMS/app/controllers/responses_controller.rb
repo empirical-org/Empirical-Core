@@ -57,7 +57,7 @@ class ResponsesController < ApplicationController
     new_vals = transformed_new_vals(response_params)
     updated_response = @response.update(new_vals)
     if updated_response
-      render json: @response
+      render json: @response.serialized_for_admin_cms
     else
       render json: @response.errors, status: :unprocessable_entity
     end

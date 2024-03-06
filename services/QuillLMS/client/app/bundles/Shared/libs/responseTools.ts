@@ -28,3 +28,15 @@ export function sortByLevenshteinAndOptimal(userString, responses) {
     return (a.optimal === b.optimal) ? 0 : a.optimal ? -1 : 1;
   });
 }
+
+export function extractConceptResultsFromResponse(response) {
+  const { concept_results, } = response
+
+  if (!concept_results) { return {} }
+
+  if (typeof concept_results === 'string') {
+    return JSON.parse(concept_results)
+  } else {
+    return concept_results
+  }
+}
