@@ -2,6 +2,7 @@ import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { decode } from 'html-entities'
 
 import { FlagDropdown, TextEditor, hashToCollection, } from '../../../Shared/index';
 import * as questionActions from '../../actions/questions';
@@ -67,7 +68,7 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
     const questionsForConcept = this.questionsForConcept()
     const listItems = questionsForConcept.map((question: Question) => {
       const archivedTag = question.flag === 'archived' ? <strong>ARCHIVED - </strong> : ''
-      return <li key={question.key}><Link to={'/admin/questions/' + question.key + '/responses'}>{archivedTag}{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>;
+      return <li key={question.key}><Link to={'/admin/questions/' + question.key + '/responses'}>{archivedTag}{decode(question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, ""))}</Link></li>;
     })
     return (
       <ul>{listItems}</ul>

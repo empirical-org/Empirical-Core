@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { decode } from 'html-entities'
 import _ from 'underscore'
 import { hashToCollection } from '../../../Shared/index'
 import actions from '../../actions/concepts'
@@ -49,7 +50,7 @@ class Concept extends React.Component {
   renderQuestionsForConcept = () => {
     const questionsForConcept = this.questionsForConcept()
     const listItems = questionsForConcept.map((question) => {
-      return <li key={question.key}><Link to={'/admin/questions/' + question.key + '/responses'}>{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>;
+      return <li key={question.key}><Link to={'/admin/questions/' + question.key + '/responses'}>{decode(question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, ""))}</Link></li>;
     })
     return (
       <ul>{listItems}</ul>
