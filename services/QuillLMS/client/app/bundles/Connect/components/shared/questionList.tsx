@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { decode } from 'html-entities';
+
 import { LinkListItem } from './linkListItem';
 
 export class QuestionList extends React.Component<any, {}> {
@@ -21,7 +23,7 @@ export class QuestionList extends React.Component<any, {}> {
           basePath={this.props.basePath}
           itemKey={question.key}
           key={question.key}
-          text={question.prompt ? question.prompt : question.title}
+          text={question.prompt ? decode(question.prompt) : decode(question.title)}
         />
       ));
     }

@@ -1,5 +1,7 @@
 import _ from 'lodash'
 import * as React from 'react'
+import { decode } from 'html-entities';
+
 import { hashToCollection } from '../../../Shared/index'
 import { Concept } from '../../interfaces/concepts'
 import { Question } from '../../interfaces/questions'
@@ -39,7 +41,7 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
     }
     return filtered.map((question: Question) => {
       if (question.prompt) {
-        const formattedPrompt = question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
+        const formattedPrompt = decode(question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, ""))
         return (
           <LinkListItem
             basePath={this.props.basePath}
