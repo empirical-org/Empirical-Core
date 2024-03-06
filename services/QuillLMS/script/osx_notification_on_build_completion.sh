@@ -5,8 +5,14 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-# Set your Heroku app name from the first command line argument
+# Set your Heroku app name
 APP_NAME="$1"
+
+echo "Build is in progress..."
+
+# wait for the build to start;
+# otherwise FOURTH LINE return "succeeded" from a previous build
+sleep 30
 
 # Fetch the latest build status
 FOURTH_LINE=$(heroku builds -a $APP_NAME | sed -n 4p)
@@ -22,8 +28,6 @@ else
   STATUS="unknown"
 fi
 
-# Wait for the build to finish
-echo "Build is in progress..."
 while [ "$STATUS" == "pending" ]; do
   sleep 5
   FOURTH_LINE=$(heroku builds -a $APP_NAME | sed -n 4p)
