@@ -33,7 +33,9 @@ export const Concept = ({ concepts, match, questions, fillInBlank }) => {
       const archivedTag = flag === 'archived' ? <strong>ARCHIVED - </strong> : ''
       return (
         <li key={key}>
-          <Link to={'/admin/questions/' + key + '/responses'}>{archivedTag}{decode(prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, ""))}</Link>
+          <a href={'/connect#/admin/questions/' + key + '/responses'}>
+            <div dangerouslySetInnerHTML={{ __html: archivedTag + prompt }} />
+          </a>
         </li>
       )
     })

@@ -50,7 +50,13 @@ class Concept extends React.Component {
   renderQuestionsForConcept = () => {
     const questionsForConcept = this.questionsForConcept()
     const listItems = questionsForConcept.map((question) => {
-      return <li key={question.key}><Link to={'/admin/questions/' + question.key + '/responses'}>{decode(question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, ""))}</Link></li>;
+      return (
+        <li key={question.key}>
+          <a href={'/diagnostic#/admin/questions/' + question.key + '/responses'}>
+            <div dangerouslySetInnerHTML={{ __html: question.prompt }} />
+          </a>
+        </li>
+      );
     })
     return (
       <ul>{listItems}</ul>

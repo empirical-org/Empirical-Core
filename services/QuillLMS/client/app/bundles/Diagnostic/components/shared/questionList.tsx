@@ -4,7 +4,6 @@ import * as React from 'react';
 export class QuestionList extends React.Component<any, {}> {
 
   renderListItems = () => {
-    console.log(this.props);
     const questions = this.props.questions;
     if (questions.length !== 0) {
       let filtered;

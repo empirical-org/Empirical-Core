@@ -1,7 +1,6 @@
 import * as React from 'react'
 import * as jsDiff from 'diff'
 
-import { decode } from 'html-entities';
 import { ContentState, EditorState } from 'draft-js'
 import _ from 'underscore'
 
@@ -359,7 +358,7 @@ const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded,
           <div className="content">
             <div className="media">
               <div className="media-content">
-                <p><pre dangerouslySetInnerHTML={{ __html: response.text }}></pre> {author}</p>
+                <p><pre dangerouslySetInnerHTML={{ __html: response.text }} /> {author}</p>
               </div>
               <div className="media-right" style={{ textAlign: 'right', }}>
                 <figure className="image is-32x32">
