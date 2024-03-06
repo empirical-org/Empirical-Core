@@ -85,7 +85,7 @@ export default class Subscriptions extends React.Component {
 
   initializePusherForStripePurchaseConfirmation() {
     const { stripeInvoiceId } = this.props
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, cluster: process.env.PUSHER_CLUSTER });
+    const pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
     const channelName = String(stripeInvoiceId)
     const channel = pusher.subscribe(channelName);
 
@@ -99,7 +99,7 @@ export default class Subscriptions extends React.Component {
     const { subscriptionStatus } = this.props
     const { stripe_subscription_id } = subscriptionStatus
 
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, cluster: process.env.PUSHER_CLUSTER });
+    const pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
     const channelName = String(stripe_subscription_id)
     const channel = pusher.subscribe(channelName);
 

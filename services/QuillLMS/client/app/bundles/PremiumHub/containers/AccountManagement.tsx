@@ -62,13 +62,20 @@ export const AccountManagement: React.SFC<AccountManagementProps> = ({
   const [showModal, setShowModal] = React.useState(null)
   const [error, setError] = React.useState('')
   const [selectedSchoolId, setSelectedSchoolId] = React.useState(null)
+  const selectedSchoolIdRef = React.useRef(selectedSchoolId);
 
-  React.useEffect(getData, [])
+  React.useEffect(() => {
+    initializePusher(false)
+    getData()
+  }, [])
+
+  React.useEffect(() => {
+    selectedSchoolIdRef.current = selectedSchoolId;
+  }, [selectedSchoolId]);
 
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   function getData(skipLoading = false) {
-    initializePusher(skipLoading);
     requestGet(
       `${process.env.DEFAULT_URL}/admins/${adminId}`,
       (body) => {
@@ -80,8 +87,10 @@ export const AccountManagement: React.SFC<AccountManagementProps> = ({
   function receiveData(data, skipLoading) {
     if (Object.keys(data).length > 1) {
       setModel(data)
-      const defaultSchool = data.schools.find(s => s.id === data.associated_school?.id) || data.schools[0]
-      setSelectedSchoolId(defaultSchool?.id)
+      if (!selectedSchoolIdRef.current) {
+        const defaultSchool = data.schools.find(s => s.id === data.associated_school?.id) || data.schools[0]
+        setSelectedSchoolId(defaultSchool?.id)
+      }
       setLoading(false)
     } else if (!skipLoading) {
       setModel(data)
@@ -93,7 +102,7 @@ export const AccountManagement: React.SFC<AccountManagementProps> = ({
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, cluster: process.env.PUSHER_CLUSTER });
+    const pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
     const channel = pusher.subscribe(String(adminId));
     channel.bind('admin-users-found', () => {
       getData(skipLoading)
@@ -131,7 +140,6 @@ export const AccountManagement: React.SFC<AccountManagementProps> = ({
 
   function handleUserAction(link, data) {
     setError('')
-    initializePusher(true)
     requestPost(
       link,
       data,
@@ -292,7 +300,7 @@ export const AccountManagement: React.SFC<AccountManagementProps> = ({
   }
 
 
-  const schoolOptions = model.schools.map(school => ({ value: school.id, label: school.name}))
+  const schoolOptions = model.schools.map(school => ({ value: school.id, label: school.name }))
 
   const filteredData = model.teachers.filter((d: { school: string }) => d.schools.find(s => s.id === selectedSchoolId)).map(user => {
     const relevantSchool = user.schools.find(s => s.id === selectedSchoolId)

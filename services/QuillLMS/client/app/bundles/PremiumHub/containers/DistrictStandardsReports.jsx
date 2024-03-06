@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import NonPremiumReport from './NonPremiumReport'
+
 import { getDistrictStandardsReports } from '../../../actions/district_standards_reports';
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import { getTimeSpent } from '../../Teacher/helpers/studentReports';
 import StandardsReports from '../components/standardsReports';
-import { FULL, LIMITED, restrictedPage } from '../shared';
+import { FULL, LIMITED, } from '../shared';
 
 class DistrictStandardsReports extends React.Component {
   componentDidMount() {
@@ -30,7 +32,13 @@ class DistrictStandardsReports extends React.Component {
         </div>
       );
     } else if (accessType !== FULL) {
-      content = restrictedPage
+      content = (
+        <NonPremiumReport
+          bezelPath="standards_report_product_bezel_2x.png"
+          headerText="Standards Report"
+          subheaderText="View a school’s overall progress on each of the Common Core standards. Included with Quill Premium."
+        />
+      )
     } else if (loading) {
       content = <LoadingSpinner />
     }

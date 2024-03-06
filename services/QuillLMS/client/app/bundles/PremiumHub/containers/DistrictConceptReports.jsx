@@ -1,5 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
+import NonPremiumReport from './NonPremiumReport'
+
 import {
   getDistrictConceptReports,
   switchClassroom,
@@ -8,7 +11,7 @@ import {
 } from '../../../actions/district_concept_reports';
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import ConceptReports from '../components/concept_reports';
-import { FULL, restrictedPage, } from '../shared';
+import { FULL, } from '../shared';
 
 class DistrictConceptReports extends React.Component {
   componentDidMount() {
@@ -22,7 +25,13 @@ class DistrictConceptReports extends React.Component {
     let content = <ConceptReports {...this.props} />
 
     if (accessType !== FULL) {
-      content = restrictedPage
+      content = (
+        <NonPremiumReport
+          bezelPath="concepts_report_product_bezel_2x.png"
+          headerText="Concepts Report"
+          subheaderText="View the number of times a student correctly or incorrectly used a targeted concept. Included with Quill Premium."
+        />
+      )
     } else if (loading) {
       content = <LoadingSpinner />
     }

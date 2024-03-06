@@ -5141,7 +5141,6 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
     </div>
   </div>
   <ArticleSpotlight
-    backgroundColor="#F4F4F4"
     blogPostId="564"
   >
     <span />

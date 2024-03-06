@@ -118,17 +118,18 @@ export class FocusPointsContainer extends React.Component {
   }
 
   updatefpOrder() {
-    const { focusPoints } = this.state
-    if (this.state.fpOrderedIds) {
-      const focusPoints = focusPoints;
+    const { focusPoints, fpOrderedIds } = this.state
+    const { dispatch, match, } = this.props
+    if (fpOrderedIds) {
       const newFp = {};
-      this.state.fpOrderedIds.forEach((id, index) => {
-        const fp = Object.assign({}, focusPoints[id]);
+      const focusPointsArray = hashToCollection(focusPoints)
+      fpOrderedIds.forEach((id, index) => {
+        const fp = Object.assign({}, focusPointsArray.find(fp => fp.key === id));
         fp.order = index + 1;
         newFp[id] = fp;
       });
-      this.props.dispatch(questionActions.submitBatchEditedFocusPoint(this.props.match.params.questionID, newFp));
-      this.setState({ focusPoints: newFp})
+      dispatch(questionActions.submitBatchEditedFocusPoint(match.params.questionID, newFp));
+      this.setState({focusPoints: newFp})
       alert('saved!');
     } else {
       alert('no changes to focus points have been made');
@@ -138,7 +139,7 @@ export class FocusPointsContainer extends React.Component {
   renderFocusPointsList() {
     const components = this.fPsortedByOrder().map((fp) => {
       return (
-        <div className="card is-fullwidth has-bottom-margin" key={fp.key}>
+        <div className="card is-fullwidth has-bottom-margin" id={fp.key} key={fp.key}>
           <header className="card-header">
             <input className="regex-name" onChange={(e) => this.handleNameChange(e, fp.key)} placeholder="Name" type="text" value={fp.name || ''} />
           </header>

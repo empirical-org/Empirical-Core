@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { SortableHandle, } from 'react-sortable-hoc'
 
 import pusherInitializer from '../../../../modules/pusherInitializer'
 import useSnackbarMonitor from '../../../Shared/hooks/useSnackbarMonitor'
@@ -24,7 +23,7 @@ import { Snackbar, SortableList, defaultSnackbarTimeout } from '../../../Shared/
 import { MY_CLASSES_FEATURED_BLOG_POST_ID } from '../../constants/featuredBlogPost'
 import ArticleSpotlight from '../shared/articleSpotlight'
 import BulkArchiveClassesBanner from '../shared/bulk_archive_classes_banner'
-import { DarkButtonLoadingSpinner, DropdownInput, } from '../../../Shared/index'
+import { DarkButtonLoadingSpinner, DropdownInput, DragHandle, } from '../../../Shared/index'
 
 import ViewAsStudentModal from '../shared/view_as_student_modal'
 
@@ -118,8 +117,13 @@ const ActiveClassrooms = ({
 
   const getClassroomCardsWithHandle = (classroomCards) => {
     // using a div as the outer element instead of a button here because something about default button behavior overrides the keypress handling by sortablehandle
-    const DragHandle = SortableHandle(() => <div className="focus-on-light" role="button" tabIndex={0}><img alt="Reorder icon" className="reorder-icon" src={reorderSrc} /></div>)
-    const handle = <span className='reorder-classroom-item'><DragHandle /></span>
+    const handle = (
+      <span className='reorder-classroom-item'>
+        <DragHandle>
+          <div className="focus-on-light" role="button" tabIndex={0}><img alt="Reorder icon" className="reorder-icon" src={reorderSrc} /></div>
+        </DragHandle>
+      </span>
+    )
 
     return classroomCards.map(card => {
       return (
@@ -333,9 +337,8 @@ const ActiveClassrooms = ({
 
     return (
       <SortableList
-        axis="y"
         data={rows}
-        helperClass="sortable-classroom"
+        helperClass="dragged-sortable-classroom"
         sortCallback={sortClassrooms}
         useDragHandle={true}
       />

@@ -341,7 +341,7 @@
   }
 }
 
-.sortable-classroom, .classrooms-page .list-item {
+.dragged-sortable-classroom, .classrooms-page .list-item {
   display: flex;
   align-items: baseline;
   width: calc(#{$sitewidepagewidth} + 38px); // to make up for negative margin left below
@@ -532,7 +532,7 @@
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
-  .sortable-classroom, .classrooms-page .list-item {
+  .dragged-sortable-classroom, .classrooms-page .list-item {
     display: flex;
     align-items: baseline;
     width: 762px;
@@ -541,7 +541,7 @@
 }
 
 @media (max-width: 768px) {
-  .sortable-classroom, .classrooms-page .list-item {
+  .dragged-sortable-classroom, .classrooms-page .list-item {
     display: flex;
     align-items: baseline;
     width: auto;

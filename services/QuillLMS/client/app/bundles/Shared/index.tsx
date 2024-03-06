@@ -30,6 +30,7 @@ export {
   CarouselAnimation,
   DataTable,
   ProgressBar,
+  DragHandle,
   DropdownInput,
   DropdownInputWithSearchTokens,
   Error,

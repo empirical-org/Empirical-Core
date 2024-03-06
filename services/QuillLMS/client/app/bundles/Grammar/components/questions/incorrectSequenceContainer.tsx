@@ -2,6 +2,7 @@ import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
+import { v4 as uuid } from 'uuid';
 
 import { hashToCollection, SortableList, TextEditor } from '../../../Shared/index';
 import * as questionActions from '../../actions/questions';
@@ -12,7 +13,7 @@ class IncorrectSequencesContainer extends React.Component {
     super(props);
 
     const question = this.props.questions.data[this.props.match.params.questionID]
-    this.state = { orderedIds: null, incorrectSequences: question.incorrectSequences }
+    this.state = { orderedIds: null, incorrectSequences: question.incorrectSequences, }
   }
 
   UNSAFE_componentWillMount() {
@@ -92,6 +93,7 @@ class IncorrectSequencesContainer extends React.Component {
   handleSequenceChange = (e, key) => {
     const { incorrectSequences } = this.state
     const className = `regex-${key}`
+    debugger;
     const value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}`;
     if (value === '') {
       if (!confirm("Deleting this regex will delete the whole incorrect sequence. Are you sure you want that?")) {
@@ -127,8 +129,9 @@ class IncorrectSequencesContainer extends React.Component {
     const { params } = match;
     const { questionID } = params;
     const orderedIds = sortInfo.map(item => item.key);
-    this.setState({ orderedIds, });
-    dispatch(questionActions.updateIncorrectSequences(questionID, this.sequencesSortedByOrder()));
+    this.setState({ orderedIds, }, () => {
+      dispatch(questionActions.updateIncorrectSequences(questionID, this.sequencesSortedByOrder()));
+    });
   }
 
 
@@ -159,7 +162,7 @@ class IncorrectSequencesContainer extends React.Component {
     const components = this.sequencesSortedByOrder().map((seq) => {
       const onClickDelete = () => { this.handleDeleteSequence(seq.key) }
       return (
-        <div className="card is-fullwidth has-bottom-margin" key={seq.key}>
+        <div className="card is-fullwidth has-bottom-margin" id={seq.key} key={seq.key}>
           <header className="card-header">
             <input className="regex-name" onChange={(e) => this.handleNameChange(e, seq.key)} placeholder="Name" type="text" value={seq.name || ''} />
           </header>

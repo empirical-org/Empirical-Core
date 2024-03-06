@@ -7,11 +7,10 @@ import { requestGet } from '../../../../modules/request';
 
 
 interface ArticleSpotlightProps {
-  backgroundColor?: string,
   blogPostId: string
 }
 
-export const ArticleSpotlight = ({ backgroundColor, blogPostId } : ArticleSpotlightProps ) => {
+export const ArticleSpotlight = ({ blogPostId } : ArticleSpotlightProps ) => {
   const [blogPost, setBlogPost] = React.useState(null);
   const [blogPostAuthor, setBlogPostAuthor] = React.useState(null);
 
@@ -57,10 +56,9 @@ export const ArticleSpotlight = ({ backgroundColor, blogPostId } : ArticleSpotli
   if(!blogPost) { return <span /> }
 
   const teacherCenterBaseUrl = `${process.env.DEFAULT_URL}/teacher-center`;
-  const backgroundColorStyle = backgroundColor ? { backgroundColor: backgroundColor } : {};
 
   return(
-    <div className="article-spotlight-container" style={backgroundColorStyle}>
+    <div className="article-spotlight-container">
       <div className="inner-container">
         <div className="upper-section">
           <section className="header-section">

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import _ from 'underscore';
+import { v4 as uuid } from 'uuid';
 
 import { SortableList, TextEditor, hashToCollection, isValidRegex } from '../../../Shared/index';
 import questionActions from '../../actions/questions';
@@ -37,17 +38,15 @@ class IncorrectSequencesContainer extends Component {
     const incorrectSequences = this.getSequences(question)
 
     if (!_.isEqual(previousState.incorrectSequences, incorrectSequences)) {
-      this.setState({ incorrectSequences, });
+      this.setState({ incorrectSequences, orderedIds: null });
     };
   }
 
   getSequences = (question) => {
-    const sequences = question.incorrectSequences;
-    if(sequences && sequences.length) {
-      return sequences.filter(incorrectSequence => incorrectSequence)
-    } else {
-      return sequences
-    }
+    return hashToCollection(question.incorrectSequences).map(is => {
+      is.uid = is.uid || uuid()
+      return is
+    }).filter(incorrectSequence => incorrectSequence);
   }
 
   deleteConceptResult = (conceptResultKey, sequenceKey) => {
@@ -80,7 +79,7 @@ class IncorrectSequencesContainer extends Component {
     const { orderedIds, incorrectSequences } = this.state
     if (orderedIds) {
       const sequencesCollection = hashToCollection(incorrectSequences)
-      return orderedIds.map(id => sequencesCollection.find(sequence => sequence.key === id))
+      return orderedIds.map(id => sequencesCollection.find(sequence => sequence.uid === id))
     } else {
       return hashToCollection(incorrectSequences).sort((a, b) => a.order - b.order);
     }
@@ -92,8 +91,10 @@ class IncorrectSequencesContainer extends Component {
     const { params } = match;
     const { questionID } = params;
     const orderedIds = sortInfo.map(item => item.key);
-    this.setState({ orderedIds, });
-    dispatch(actionFile.updateIncorrectSequences(questionID, this.sequencesSortedByOrder()));
+    this.setState({ orderedIds, }, () => {
+      const sortedSequences = this.sequencesSortedByOrder()
+      dispatch(actionFile.updateIncorrectSequences(questionID, sortedSequences));
+    });
   };
 
   saveSequencesAndFeedback = (key) => {
@@ -182,7 +183,7 @@ class IncorrectSequencesContainer extends Component {
 
     const components = this.sequencesSortedByOrder().map((sequence) => {
       return (
-        <div className="card is-fullwidth has-bottom-margin" key={sequence.key}>
+        <div className="card is-fullwidth has-bottom-margin" id={sequence.uid} key={sequence.uid} >
           <header className="card-header">
             <input className="regex-name" onChange={(e) => this.handleNameChange(e, sequence.key)} placeholder="Name" type="text" value={sequence.name || ''} />
           </header>

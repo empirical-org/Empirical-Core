@@ -152,6 +152,7 @@ exports[`LessonForm component renderSearchBox renders a SelectSearch component w
             <p
               className="sortable-list-item"
               defaultValue="fillInBlank"
+              id="-KdCgy8wt_rQiYpOURdW"
             >
               What is the best way to cultivate mass?
               		
@@ -177,6 +178,7 @@ exports[`LessonForm component renderSearchBox renders a SelectSearch component w
             <p
               className="sortable-list-item"
               defaultValue="sentenceFragments"
+              id="-KOqLeXEvMjNuE6MGOop"
             >
               How much cheese is too much cheese?
               		
@@ -202,6 +204,7 @@ exports[`LessonForm component renderSearchBox renders a SelectSearch component w
             <p
               className="sortable-list-item"
               defaultValue="fillInBlank"
+              id="-KdChHgbE9377Jgzkoci"
             >
               Do jobs grow on jobbies?
               		

@@ -14,6 +14,8 @@ module Demo::ReportDemoCreator
   TAHEREH_ID = 14862323
   KEN_ID = 14862324
 
+  DEFAULT_TIMESPENT = 10.minutes.to_i
+
   # Use report_demo:generate_new_data to generate new data
   ACTIVITY_PACKS_TEMPLATES = [
     {
@@ -170,42 +172,40 @@ module Demo::ReportDemoCreator
   STUDENT_COUNT = STUDENT_TEMPLATES.count
   UNITS_COUNT = ACTIVITY_PACKS_TEMPLATES.count
 
-  def self.create_demo(email = nil, teacher_demo: false)
+  def self.create_demo(email = nil, is_teacher_demo: false)
     ActiveRecord::Base.transaction do
       teacher = create_teacher(email)
       create_teacher_info(teacher)
       create_subscription(teacher)
-      create_demo_classroom_data(teacher, teacher_demo: teacher_demo)
+      create_demo_classroom_data(teacher, is_teacher_demo:)
     end
   rescue ActiveRecord::RecordInvalid
     # ignore invalid records
   end
 
-  def self.create_demo_classroom_data(teacher, teacher_demo: false, classroom: nil, student_names: nil)
-    units = reset_units(teacher, student_names.nil?)
+  def self.create_demo_classroom_data(teacher, is_teacher_demo: false, classroom: nil, student_names: nil)
+    units = reset_units(teacher, student_names.nil?, is_teacher_demo)
 
     classroom ||= create_classroom(teacher)
 
     student_templates = student_names ? student_names.map { |name| StudentTemplate.new(name: name, email_eligible: false) } : STUDENT_TEMPLATES
 
-    students = create_students(classroom, teacher_demo, student_templates)
+    students = create_students(classroom, is_teacher_demo, student_templates)
 
     classroom_units = create_classroom_units(classroom, units)
 
     session_data = Demo::SessionData.new
 
-    create_activity_sessions(students, classroom, session_data)
+    create_activity_sessions(students, classroom, session_data, is_teacher_demo)
     create_replayed_activity_session(students.first, classroom_units.first, session_data)
 
     TeacherActivityFeedRefillWorker.perform_async(teacher.id)
   end
 
-  def self.reset_units(teacher, destroy_existing_units)
-    if destroy_existing_units
-      teacher.units&.destroy_all
-    end
+  def self.reset_units(teacher, destroy_existing_units, is_teacher_demo)
+    teacher.units&.destroy_all if destroy_existing_units
 
-    create_units(teacher)
+    create_units(teacher, is_teacher_demo)
   end
 
   def self.reset_account(teacher_id)
@@ -229,7 +229,7 @@ module Demo::ReportDemoCreator
       if teacher && demo_classroom_modified?(teacher)
         # mark as invisible and reset class code (since the demo logic uses a specific class code)
         demo_classroom(teacher)&.update(visible: false, code: nil)
-        create_demo_classroom_data(teacher, teacher_demo: true)
+        create_demo_classroom_data(teacher, is_teacher_demo: true)
       end
     end
   rescue ActiveRecord::RecordInvalid
@@ -292,17 +292,22 @@ module Demo::ReportDemoCreator
     teacher.unscoped_classrooms_i_teach.reject {|c| c.code == classcode(teacher.id) }
   end
 
-  def self.create_units(teacher)
-    ACTIVITY_PACKS_TEMPLATES.map do |ap|
+  def self.create_units(teacher, is_teacher_demo)
+    ACTIVITY_PACKS_TEMPLATES.map do |activity_pack_template|
       # the following line sets the unit template id to nil for the quill_staff_demo account by request of the partnerships team, because they want to be able to assign the starter baseline recommendations
       # and it ensures the unit template actually exists in our database
-      unit_template_id = teacher.email == STAFF_DEMO_EMAIL ? nil : UnitTemplate.find_by_id(ap[:unit_template_id])&.id
-      unit = Unit.find_or_create_by(name: ap[:name], user: teacher, unit_template_id: unit_template_id)
-      activity_ids = activity_ids_for_config(ap)
-      activity_ids.each { |act_id| UnitActivity.find_or_create_by(activity_id: act_id, unit: unit) }
+      unit_template_id = teacher.email == STAFF_DEMO_EMAIL ? nil : UnitTemplate.find_by_id(activity_pack_template[:unit_template_id])&.id
+      name = unit_name(activity_pack_template[:name], is_teacher_demo)
+      unit = Unit.find_or_create_by(name:, user: teacher, unit_template_id:)
+      activity_ids = activity_ids_for_config(activity_pack_template)
+      activity_ids.each { |activity_id| UnitActivity.find_or_create_by(activity_id:, unit:) }
 
       unit
     end
+  end
+
+  def self.unit_name(name, is_teacher_demo)
+    is_teacher_demo ? name : "#{name} (Demo)"
   end
 
   def self.activity_ids_for_config(template_hash)
@@ -320,15 +325,15 @@ module Demo::ReportDemoCreator
     Subscription.create_and_attach_subscriber(attributes, teacher)
   end
 
-  def self.create_students(classroom, is_teacher_facing, student_templates)
-    delete_student_email_accounts if is_teacher_facing
+  def self.create_students(classroom, is_teacher_demo, student_templates)
+    delete_student_email_accounts if is_teacher_demo
 
     student_templates.map do |template|
       student = User.create!(
         name: template.name,
         username: template.username(classroom.id),
         role: User::STUDENT,
-        email: is_teacher_facing ? template.email : nil,
+        email: is_teacher_demo ? template.email : nil,
         password: PASSWORD,
         password_confirmation: PASSWORD
       )
@@ -367,7 +372,7 @@ module Demo::ReportDemoCreator
 
     return unless session_to_clone
 
-    act_session = ActivitySession.create!(activity_id: clone_activity_id, classroom_unit_id: classroom_unit_id, user_id: student_id, state: 'finished', percentage: session_to_clone.percentage)
+    act_session = create_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone)
     concept_results = session_data.concept_results.select {|cr| cr.activity_session_id == session_to_clone.id }
     concept_results.each do |cr|
       question_type = session_data.concept_result_question_types.first {|qt| qt.id == cr.concept_result_question_type_id}
@@ -380,13 +385,30 @@ module Demo::ReportDemoCreator
     end
   end
 
-  def self.create_activity_sessions(students, classroom, session_data)
+  def self.create_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone)
+    ActivitySession.create!(
+      activity_id: clone_activity_id,
+      classroom_unit_id: classroom_unit_id,
+      user_id: student_id,
+      state: 'finished',
+      percentage: session_to_clone.percentage,
+      timespent: session_to_clone.timespent || DEFAULT_TIMESPENT
+    )
+  end
+
+  def self.create_activity_sessions(students, classroom, session_data, is_teacher_demo)
     students.each_with_index do |student, num|
       ACTIVITY_PACKS_TEMPLATES.each do |activity_pack|
-        unit = Unit.where(name: activity_pack[:name]).last
+        name = unit_name(activity_pack[:name], is_teacher_demo)
+        unit = Unit.where(name:, user: classroom.owner).last
         classroom_unit = ClassroomUnit.find_by(classroom: classroom, unit: unit)
+
+        # Calculate the index for activity_sessions using modulo
+        # This will cycle through the activity_sessions for more students
+        activity_sessions_index = num % activity_pack[:activity_sessions].length
+
         activity_sessions = activity_pack[:activity_sessions]
-        activity_sessions[num].each do |clone_activity_id, clone_user_id|
+        activity_sessions[activity_sessions_index].each do |clone_activity_id, clone_user_id|
           clone_activity_session(
             student.id,
             classroom_unit.id,

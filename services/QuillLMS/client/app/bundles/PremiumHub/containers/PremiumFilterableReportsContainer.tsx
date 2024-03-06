@@ -8,7 +8,7 @@ import { Route, Routes } from "react-router-dom-v5-compat";
 import DataExportContainer from './DataExportContainer';
 import UsageSnapshotsContainer from './UsageSnapshotsContainer';
 import DiagnosticGrowthReportsContainer from './diagnosticGrowthReports';
-import NonPremiumUsageSnapshotReport from './NonPremiumUsageSnapshotReport'
+import NonPremiumReport from './NonPremiumReport'
 
 import { requestPost, } from '../../../modules/request';
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual';
@@ -74,7 +74,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
   useHideFooter()
 
   React.useEffect(() => {
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, cluster: process.env.PUSHER_CLUSTER });
+    const pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
     const channel = pusher.subscribe(String(adminInfo.id));
     setPusherChannel(channel)
 
@@ -382,11 +382,106 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     passedData: null,
   }
 
-  if (accessType !== FULL && location.pathname.includes('usage_snapshot_report')) {
-    return <NonPremiumUsageSnapshotReport />
-  }
-
   if (accessType !== FULL) {
+    if (location.pathname.includes('usage_snapshot_report')) {
+      return (
+        <NonPremiumReport
+          bezelPath="usage_snapshot_report_product_bezel_2x.png"
+          headerText="Usage Snapshot Report"
+          items={[
+            {
+              imgSrc: 'student_accounts_orange.svg',
+              title: 'In-Depth Insights',
+              body: 'Unlock 25 key metrics, from active users to most assigned concepts and activities.'
+            },
+            {
+              imgSrc: 'teacher_at_board_orange.svg',
+              title: 'Data-Driven Success',
+              body: 'Make data-driven decisions and drive educational excellence by harnessing the power of your data.'
+            },
+            {
+              imgSrc: 'sheets_of_paper_orange.svg',
+              title: 'Effortless Reporting',
+              body: 'Filter by timeframe, school, grade, teacher, or classroom. Download or subscribe to receive by email.'
+            }
+          ]}
+          showNewTag={true}
+          subheaderText="Key insights to help you succeed. Included with Quill Premium."
+          testimonial={{
+            attribution: "Shannon Browne, Professional Learning Manager",
+            quote: "“The Usage Snapshot Report completely redefines the way administrators use Quill. It enables them to make faster, more informed decisions that directly benefit their students' success. This report is a game-changer for any administrator seeking to enhance educational outcomes.“",
+            imgSrc: "overview/shannon_headshot.png"
+          }}
+        />
+      )
+    }
+
+    if (location.pathname.includes('diagnostic_growth_report')) {
+      return (
+        <NonPremiumReport
+          bezelPath="diagnostic_growth_report_product_bezel_2x.png"
+          headerText="Diagnostic Growth Report"
+          items={[
+            {
+              imgSrc: 'student_accounts_orange.svg',
+              title: '360-Degree Insight',
+              body: 'View a high-level performance overview, or drill down by skill or student for deeper insights.'
+            },
+            {
+              imgSrc: 'view_student_orange.svg',
+              title: 'Flexible Data Grouping and Filters',
+              body: 'Group data by grade, classroom, or teacher and apply custom filters to analyze growth at a more granular level.'
+            },
+            {
+              imgSrc: 'diagnostics_all_orange.svg',
+              title: 'Identify Growth Opportunities',
+              body: 'Make data-driven decisions and drive educational excellence by harnessing the power of your data.'
+            }
+          ]}
+          showNewTag={true}
+          subheaderText="See student growth in a whole new light. Included with Quill Premium."
+          testimonial={{
+            attribution: "Shannon Browne, Professional Learning Manager",
+            quote: "“The Growth Diagnostic Report packs an extensive amount of crucial data into a simple, flexible interface. It has never been this easy for administrators to get the insights they need into Quill’s impact on student growth and to discover opportunities for improvement.“",
+            imgSrc: "overview/shannon_headshot.png"
+          }}
+        />
+      )
+    }
+
+    if (location.pathname.includes('data_export')) {
+      return (
+        <NonPremiumReport
+          bezelPath="data_export_product_bezel_2x.png"
+          headerText="Data Export"
+          items={[
+            {
+              imgSrc: 'view_student_orange.svg',
+              title: 'Unparalleled Transparency',
+              body: 'Take full control of your data. Download a personalized spreadsheet containing all activities completed by students.'
+            },
+            {
+              imgSrc: 'teacher_chalkboard_orange.svg',
+              title: 'Maximum Flexibility',
+              body: 'Use the exported data with external tools to create custom reports tailored to your specific needs.'
+            },
+            {
+              imgSrc: 'activity_packs_orange.svg',
+              title: 'Data-Driven Insights',
+              body: 'Make data-driven decisions and drive educational excellence by harnessing the power of your data.'
+            }
+          ]}
+          showNewTag={true}
+          subheaderText="Unleash the power of your data. Included with Quill Premium."
+          testimonial={{
+            attribution: "Erika Parker-Havens, Professional Learning Manager",
+            quote: "“The Data Export feature empowers administrators like never before, offering complete transparency and ownership of their data. This gives them the flexibility they need to monitor and improve student outcomes.“",
+            imgSrc: "overview/erika_headshot.png"
+          }}
+        />
+      )
+    }
+
     return restrictedPage
   }
 
