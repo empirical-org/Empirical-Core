@@ -142,3 +142,13 @@ Rails.application.config.eager_load do
     config.excluded_models.push(*MODELS_TO_EXCLUDE)
   end
 end
+
+# Monkey patch for a known issue: RailsAdmin tries to parse search strings as JSON
+# https://github.com/railsadminteam/rails_admin/issues/2502
+class RailsAdmin::Config::Fields::Types::Json
+  def parse_value(value)
+    value.present? ? JSON.parse(value) : nil
+  rescue JSON::ParserError
+    value
+  end
+end
