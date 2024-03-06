@@ -415,7 +415,7 @@ export default class extends React.Component<ResponseProps, ResponseState> {
           <div className="content">
             <div className="media">
               <div className="media-content">
-                <p><pre>{decode(response.text)}</pre> {author}</p>
+                <p><pre dangerouslySetInnerHTML={{ __html: response.text }}></pre> {author}</p>
               </div>
               <div className="media-right" style={{ textAlign: 'right', }}>
                 <figure className="image is-32x32">
