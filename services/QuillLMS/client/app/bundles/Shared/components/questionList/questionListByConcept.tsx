@@ -1,8 +1,7 @@
 import * as React from 'react'
-import { decode } from 'html-entities';
 
 import { hashToCollection } from '../../libs/hashToCollection'
-import { LinkListItem } from './linkListItem'
+
 
 class QuestionListByConcept extends React.Component<any, any> {
   constructor(props) {
@@ -29,14 +28,10 @@ class QuestionListByConcept extends React.Component<any, any> {
     }
     return filtered.map((question) => {
       if (question.prompt) {
-        const formattedPrompt = decode(question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, ""))
         return (
-          <LinkListItem
-            basePath={this.props.basePath}
-            itemKey={question.key}
-            key={question.key}
-            text={formattedPrompt}
-          />
+          <a href={this.props.basePath} key={question.key}>
+            <div dangerouslySetInnerHTML={{ __html: question.prompt }} />
+          </a>
         );
       }
     });

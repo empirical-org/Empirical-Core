@@ -25,7 +25,7 @@ export class QuestionListByConcept extends React.Component<any, any> {
       if (question.prompt) {
         return (
           <a href={this.props.basePath} key={question.key}>
-            <div dangerouslySetInnerHTML={{ __html: question.prompt  }} />;
+            <div dangerouslySetInnerHTML={{ __html: question.prompt  }} />
           </a>
         );
       }
