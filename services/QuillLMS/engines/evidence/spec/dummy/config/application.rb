@@ -26,6 +26,7 @@ module Dummy
     # config.i18n.default_locale = :de
     config.active_record.legacy_connection_handling = false
 
+    # Allow for postgres vector extension
     config.active_record.schema_format = :sql
   end
 end
