@@ -2775,6 +2775,36 @@ ALTER SEQUENCE public.evidence_prompt_healths_id_seq OWNED BY public.evidence_pr
 
 
 --
+-- Name: evidence_prompt_responses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_prompt_responses (
+    id bigint NOT NULL,
+    text text NOT NULL,
+    embedding public.vector(1536) NOT NULL
+);
+
+
+--
+-- Name: evidence_prompt_responses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_prompt_responses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_prompt_responses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_prompt_responses_id_seq OWNED BY public.evidence_prompt_responses.id;
+
+
+--
 -- Name: evidence_prompt_text_batches; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5990,6 +6020,13 @@ ALTER TABLE ONLY public.evidence_prompt_healths ALTER COLUMN id SET DEFAULT next
 
 
 --
+-- Name: evidence_prompt_responses id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_responses ALTER COLUMN id SET DEFAULT nextval('public.evidence_prompt_responses_id_seq'::regclass);
+
+
+--
 -- Name: evidence_prompt_text_batches id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -7101,6 +7138,14 @@ ALTER TABLE ONLY public.evidence_hints
 
 ALTER TABLE ONLY public.evidence_prompt_healths
     ADD CONSTRAINT evidence_prompt_healths_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_prompt_responses evidence_prompt_responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_responses
+    ADD CONSTRAINT evidence_prompt_responses_pkey PRIMARY KEY (id);
 
 
 --
@@ -8476,6 +8521,13 @@ CREATE INDEX index_evidence_hints_on_rule_id ON public.evidence_hints USING btre
 --
 
 CREATE INDEX index_evidence_prompt_healths_on_evidence_activity_health_id ON public.evidence_prompt_healths USING btree (evidence_activity_health_id);
+
+
+--
+-- Name: index_evidence_prompt_responses_on_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_evidence_prompt_responses_on_text ON public.evidence_prompt_responses USING btree (text);
 
 
 --
@@ -10753,6 +10805,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231214182438'),
 ('20240111143245'),
 ('20240221192859'),
-('20240229153806');
+('20240229153806'),
+('20240306124720');
 
 

@@ -18,7 +18,8 @@ module Evidence
       def cleaned_results
         response
           .parsed_response['data']
-          &.first&.[]('embedding')
+          &.first
+          &.[]('embedding')
       end
 
       def endpoint = ENDPOINT

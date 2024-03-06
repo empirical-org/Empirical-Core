@@ -1,0 +1,61 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+module Evidence
+  module OpenAI
+    RSpec.describe EmbeddingFetcher do
+      subject { described_class.run(dimension:, input:, model:)}
+
+      let(:class_with_embedding) { Evidence::PromptResponse }
+      let(:dimension) { class_with_embedding::DIMENSION }
+      let(:model) { class_with_embedding::MODEL}
+      let(:input) { 'Test input' }
+      let(:stubbed_embedding) { Array.new(3) { rand(-1.0..1.0) } }
+      let(:endpoint) { "#{described_class::BASE_URI}#{described_class::ENDPOINT}" }
+
+      let(:embedding_response_body) do
+        {
+          'data' => [
+            {
+              'object'=>'embedding',
+              'index'=>0,
+              'embedding'=> stubbed_embedding
+            }
+          ],
+          'model'=> model,
+          'object'=> 'list',
+          'usage'=> {
+            'prompt_tokens'=> input.split.size,
+            'total_tokens'=> input.split.size
+          }
+        }
+      end
+
+      let(:embedding_response) do
+        {
+          body: embedding_response_body.to_json,
+          headers: { 'Content-Type' => 'application/json' }
+        }
+      end
+
+      context 'cleaned_results' do
+        it 'correctly parses the embedding from the response' do
+          stub_request(:post, endpoint).to_return(embedding_response)
+          expect(subject).to eq stubbed_embedding
+        end
+      end
+
+      context 'error handling' do
+        it 'returns an empty array when encountering a timeout' do
+          stub_request(:post, endpoint).to_timeout
+          expect(subject).to eq([])
+        end
+      end
+
+      context 'with a real response', external_api: true do
+        it { expect(subject.size).to eq(dimension) }
+      end
+    end
+  end
+end

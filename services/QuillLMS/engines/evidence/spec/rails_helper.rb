@@ -14,6 +14,9 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 require 'shoulda/matchers'
 require 'neighbor'
+require 'faker'
+require 'dotenv'
+Dotenv.load('.env.test')
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -57,6 +60,8 @@ RSpec.configure do |config|
   end
 
   config.filter_run_excluding benchmarking: true
+
+  config.around(:each, :external_api) { |example| with_webmock_disabled { example.run } }
 end
 
 Shoulda::Matchers.configure do |config|
@@ -64,4 +69,10 @@ Shoulda::Matchers.configure do |config|
     with.test_framework :rspec
     with.library :rails
   end
+end
+
+private def with_webmock_disabled
+  WebMock.allow_net_connect!
+  yield
+  WebMock.disable_net_connect!
 end
