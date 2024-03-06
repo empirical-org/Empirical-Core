@@ -42,6 +42,12 @@ class IncorrectSequencesContainer extends Component {
     };
   }
 
+  getSequenceIndexByKey = (key) => {
+    const { incorrectSequences, } = this.state
+
+    return incorrectSequences.findIndex(is => is.key === key)
+  }
+
   getSequences = (question) => {
     return hashToCollection(question.incorrectSequences).map(is => {
       is.uid = is.uid || uuid()
@@ -58,7 +64,7 @@ class IncorrectSequencesContainer extends Component {
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       const data = incorrectSequences[sequenceKey];
       delete data.conceptResults[conceptResultKey];
-      dispatch(submitEditedIncorrectSequence(questionID, data, sequenceKey));
+      dispatch(actionFile.submitEditedIncorrectSequence(questionID, data, data.key));
     }
   }
 
@@ -77,11 +83,13 @@ class IncorrectSequencesContainer extends Component {
 
   sequencesSortedByOrder = () => {
     const { orderedIds, incorrectSequences } = this.state
+    
+    const sequencesCollection = Array.isArray(incorrectSequences) ? incorrectSequences : hashToCollection(incorrectSequences)
+
     if (orderedIds) {
-      const sequencesCollection = hashToCollection(incorrectSequences)
-      return orderedIds.map(id => sequencesCollection.find(sequence => sequence.uid === id))
+      return orderedIds.map(id => sequencesCollection.find(s => s.uid === id))
     } else {
-      return hashToCollection(incorrectSequences).sort((a, b) => a.order - b.order);
+      return sequencesCollection.sort((a, b) => a.order - b.order);
     }
   }
 
@@ -105,10 +113,11 @@ class IncorrectSequencesContainer extends Component {
     const { questionID } = params
     const { incorrectSequences } = this.state
     const filteredSequences = this.removeEmptySequences(incorrectSequences)
-    let data = filteredSequences[key]
+    const index = this.getSequenceIndexByKey(key)
+    let data = filteredSequences[index]
     delete data.conceptResults.null;
     if (data.text === '') {
-      delete filteredSequences[key]
+      delete filteredSequences[index]
       dispatch(deleteIncorrectSequence(questionID, key));
     } else if (data.text.split('|||').some(sequence => !isValidRegex(sequence))) {
       alert('Your regex syntax is invalid. Try again!')
@@ -131,7 +140,7 @@ class IncorrectSequencesContainer extends Component {
     const { incorrectSequences } = this.state
     const className = `regex-${key}`
     const value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}|||`;
-    incorrectSequences[key].text = value;
+    incorrectSequences[this.getSequenceIndexByKey(key)].text = value;
     this.setState({incorrectSequences: incorrectSequences})
   }
 
@@ -144,19 +153,19 @@ class IncorrectSequencesContainer extends Component {
         return
       }
     }
-    incorrectSequences[key].text = value;
+    incorrectSequences[this.getSequenceIndexByKey(key)].text = value;
     this.setState({incorrectSequences: incorrectSequences})
   }
 
   handleNameChange = (e, key) => {
     const { incorrectSequences } = this.state
-    incorrectSequences[key].name = e.target.value
+    incorrectSequences[this.getSequenceIndexByKey(key)].name = e.target.value
     this.setState({incorrectSequences: incorrectSequences})
   }
 
   handleFeedbackChange = (e, key) => {
     const { incorrectSequences } = this.state
-    incorrectSequences[key].feedback = e
+    incorrectSequences[this.getSequenceIndexByKey(key)].feedback = e
     this.setState({incorrectSequences: incorrectSequences})
   }
 
