@@ -8,7 +8,7 @@ fi
 # Set your Heroku app name
 APP_NAME="$1"
 
-echo "Build is in progress..."
+echo "Build is in progress...(ctrl+c to exit monitoring; note that the build will continue)"
 
 # wait for the build to start;
 # otherwise FOURTH LINE return "succeeded" from a previous build
