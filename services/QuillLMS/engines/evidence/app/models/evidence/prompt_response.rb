@@ -22,7 +22,7 @@ module Evidence
 
     has_neighbors :embedding
 
-    validates :text, presence: true, uniqueness: true
+    validates :text, presence: true
     validates :embedding, presence: true
     validates :prompt, presence: true
 
