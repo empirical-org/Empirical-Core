@@ -33,6 +33,7 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
   }
 
   renderQuestionLinks(questions: Question[]): Array<JSX.Element|undefined> {
+    const { basePath } = this.props;
     let filtered;
     if (!this.props.showOnlyArchived) {
       filtered = questions.filter((question) => question.flag !== "archived" )
@@ -42,7 +43,7 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
     return filtered.map((question: Question) => {
       if (question.prompt) {
         return (
-          <Link to={'/admin/questions/' + question.key + '/responses'}>
+          <Link to={'/admin/' + basePath + '/' + question.key + '/responses'}>
             <span dangerouslySetInnerHTML={{ __html: question.prompt }} />
           </Link>
         );

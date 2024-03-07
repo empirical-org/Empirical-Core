@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import * as React from 'react'
+import { Link } from 'react-router-dom';
 
 import { hashToCollection, } from '../../../Shared/index'
 
@@ -14,6 +15,7 @@ export class QuestionListByConcept extends React.Component<any, any> {
   }
 
   renderQuestionLinks = (questions) => {
+    const { basePath } = this.props;
     let filtered;
     if (!this.props.showOnlyArchived) {
       filtered = questions.filter((question) => question.flag !== "archived" )
@@ -23,9 +25,9 @@ export class QuestionListByConcept extends React.Component<any, any> {
     return filtered.map((question) => {
       if (question.prompt) {
         return (
-          <a href={'connect#/admin/' + this.props.basePath + '/' + question.key + '/responses'} key={question.key}>
+          <Link to={'/admin/' + basePath + '/' + question.key + '/responses'}>
             <span dangerouslySetInnerHTML={{ __html: question.prompt }} />
-          </a>
+          </Link>
         );
       }
     });

@@ -14,6 +14,7 @@ export class QuestionList extends React.Component<any, {}> {
   }
 
   renderListItems() {
+    const { basePath } = this.props;
     const questions = this.props.questions;
     if (questions.length !== 0) {
       let filtered;
@@ -27,7 +28,7 @@ export class QuestionList extends React.Component<any, {}> {
         )
       }
       return filtered.map((question: any) => (
-        <Link to={'/admin/questions/' + question.key + '/responses'}>
+        <Link to={'/admin/' + basePath + '/' + question.key + '/responses'}>
           <span dangerouslySetInnerHTML={{ __html: question.prompt ? question.prompt : question.title }} />
         </Link>
       ));
