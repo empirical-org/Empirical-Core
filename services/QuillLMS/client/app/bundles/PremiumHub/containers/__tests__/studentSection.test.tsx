@@ -12,7 +12,8 @@ const props = {
   selectedTimeframe: "This school year",
   pusherChannel: null,
   hasAdjustedFiltersFromDefault: false,
-  handleSetNoDiagnosticDataAvailable: jest.fn()
+  handleSetNoDiagnosticDataAvailable: jest.fn(),
+  handleSetDisplayStudentCountsForFilters: jest.fn()
 }
 
 describe('StudentSection', () => {

@@ -17,6 +17,7 @@ const props = {
   availableTeachers: [],
   selectedTeachers: [],
   handleClickDownloadReport: jest.fn(),
+  handleSetDisplayStudentCountsForFilters: jest.fn(),
   openMobileFilterMenu: jest.fn(),
   hasAdjustedFiltersFromDefault: false,
   passedData: null

@@ -83,129 +83,19 @@ exports[`StudentSection loaded state it should render the expected empty state m
       </div>
     </div>
   </div>
-  <p
-    class="empty-state-message"
+  <div
+    class="loading-spinner"
   >
-    There is no diagnostic data available for the filters selected. Try modifying or removing a filter to see results.
-  </p>
-  <table
-    class="data-table growth-diagnostic-reports-by-skill-table reporting-format"
-  >
-    <thead>
-      <tr
-        class="data-table-headers"
-      >
-        <th
-          class="data-table-header undefined"
-          scope="col"
-          style="width: 182px; min-width: 182px; text-align: right;"
-        >
-          <span>
-            Student Name
-          </span>
-        </th>
-        <th
-          class="data-table-header undefined"
-          scope="col"
-          style="width: 182px; min-width: 182px; text-align: right;"
-        >
-          <div
-            class="multi-line-header"
-          >
-            <p>
-              Pre to Post:
-            </p>
-            <p>
-              Improved Skills
-            </p>
-          </div>
-        </th>
-        <th
-          class="data-table-header undefined"
-          scope="col"
-          style="width: 182px; min-width: 182px; text-align: right;"
-        >
-          <div
-            class="multi-line-header"
-          >
-            <p>
-              Pre:
-            </p>
-            <p>
-              Questions Correct
-            </p>
-          </div>
-        </th>
-        <th
-          class="data-table-header undefined"
-          scope="col"
-          style="width: 182px; min-width: 182px; text-align: right;"
-        >
-          <div
-            class="multi-line-header"
-          >
-            <p>
-              Pre:
-            </p>
-            <p>
-              Skills Proficient
-            </p>
-          </div>
-        </th>
-        <th
-          class="data-table-header undefined"
-          scope="col"
-          style="width: 182px; min-width: 182px; text-align: right;"
-        >
-          <div
-            class="multi-line-header"
-          >
-            <p>
-              Total Activities &
-            </p>
-            <p>
-              Time Spent
-            </p>
-          </div>
-        </th>
-        <th
-          class="data-table-header undefined"
-          scope="col"
-          style="width: 182px; min-width: 182px; text-align: right;"
-        >
-          <div
-            class="multi-line-header"
-          >
-            <p>
-              Post:
-            </p>
-            <p>
-              Questions Correct
-            </p>
-          </div>
-        </th>
-        <th
-          class="data-table-header undefined"
-          scope="col"
-          style="width: 182px; min-width: 182px; text-align: right;"
-        >
-          <div
-            class="multi-line-header"
-          >
-            <p>
-              Post: Skills
-            </p>
-            <p>
-              Improved Or Maintained
-            </p>
-          </div>
-        </th>
-      </tr>
-    </thead>
-    <tbody
-      class="data-table-body"
-    />
-  </table>
+    <div
+      class="spinner-container"
+    >
+      <img
+        alt="Loading spinner"
+        class="spinner"
+        src="https://assets.quill.org/images/icons/loader_still.svg"
+      />
+    </div>
+  </div>
 </DocumentFragment>
 `;
 
@@ -292,128 +182,18 @@ exports[`StudentSection loaded state it should render the expected header compon
       </div>
     </div>
   </div>
-  <p
-    class="empty-state-message"
+  <div
+    class="loading-spinner"
   >
-    There is no diagnostic data available for the filters selected. Try modifying or removing a filter to see results.
-  </p>
-  <table
-    class="data-table growth-diagnostic-reports-by-skill-table reporting-format"
-  >
-    <thead>
-      <tr
-        class="data-table-headers"
-      >
-        <th
-          class="data-table-header undefined"
-          scope="col"
-          style="width: 182px; min-width: 182px; text-align: right;"
-        >
-          <span>
-            Student Name
-          </span>
-        </th>
-        <th
-          class="data-table-header undefined"
-          scope="col"
-          style="width: 182px; min-width: 182px; text-align: right;"
-        >
-          <div
-            class="multi-line-header"
-          >
-            <p>
-              Pre to Post:
-            </p>
-            <p>
-              Improved Skills
-            </p>
-          </div>
-        </th>
-        <th
-          class="data-table-header undefined"
-          scope="col"
-          style="width: 182px; min-width: 182px; text-align: right;"
-        >
-          <div
-            class="multi-line-header"
-          >
-            <p>
-              Pre:
-            </p>
-            <p>
-              Questions Correct
-            </p>
-          </div>
-        </th>
-        <th
-          class="data-table-header undefined"
-          scope="col"
-          style="width: 182px; min-width: 182px; text-align: right;"
-        >
-          <div
-            class="multi-line-header"
-          >
-            <p>
-              Pre:
-            </p>
-            <p>
-              Skills Proficient
-            </p>
-          </div>
-        </th>
-        <th
-          class="data-table-header undefined"
-          scope="col"
-          style="width: 182px; min-width: 182px; text-align: right;"
-        >
-          <div
-            class="multi-line-header"
-          >
-            <p>
-              Total Activities &
-            </p>
-            <p>
-              Time Spent
-            </p>
-          </div>
-        </th>
-        <th
-          class="data-table-header undefined"
-          scope="col"
-          style="width: 182px; min-width: 182px; text-align: right;"
-        >
-          <div
-            class="multi-line-header"
-          >
-            <p>
-              Post:
-            </p>
-            <p>
-              Questions Correct
-            </p>
-          </div>
-        </th>
-        <th
-          class="data-table-header undefined"
-          scope="col"
-          style="width: 182px; min-width: 182px; text-align: right;"
-        >
-          <div
-            class="multi-line-header"
-          >
-            <p>
-              Post: Skills
-            </p>
-            <p>
-              Improved Or Maintained
-            </p>
-          </div>
-        </th>
-      </tr>
-    </thead>
-    <tbody
-      class="data-table-body"
-    />
-  </table>
+    <div
+      class="spinner-container"
+    >
+      <img
+        alt="Loading spinner"
+        class="spinner"
+        src="https://assets.quill.org/images/icons/loader_still.svg"
+      />
+    </div>
+  </div>
 </DocumentFragment>
 `;

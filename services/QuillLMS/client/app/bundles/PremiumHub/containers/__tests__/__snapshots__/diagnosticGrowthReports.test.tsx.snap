@@ -24,22 +24,6 @@ exports[`DiagnosticGrowthReports full state it should render expected messaging 
           </span>
         </a>
       </h1>
-      <div
-        class="buttons-container"
-      >
-        <button
-          class="quill-button download-report-button contained primary medium focus-on-light"
-          type="button"
-        >
-          <img
-            alt="White arrow pointing down icon"
-            src="undefined/images/icons/downward-arrow-icon-white.svg"
-          />
-          <span>
-            Download
-          </span>
-        </button>
-      </div>
     </div>
     <div
       class="no-diagnostic-data-container"
@@ -90,22 +74,6 @@ exports[`DiagnosticGrowthReports full state it should render the expected header
           </span>
         </a>
       </h1>
-      <div
-        class="buttons-container"
-      >
-        <button
-          class="quill-button download-report-button contained primary medium focus-on-light"
-          type="button"
-        >
-          <img
-            alt="White arrow pointing down icon"
-            src="undefined/images/icons/downward-arrow-icon-white.svg"
-          />
-          <span>
-            Download
-          </span>
-        </button>
-      </div>
     </div>
     <div
       class="tabs-for-pages-container"
