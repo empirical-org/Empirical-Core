@@ -58,6 +58,30 @@ class Response < ApplicationRecord
     }
   end
 
+  def serialized_for_admin_cms(options={})
+    {
+      id: id,
+      uid: uid,
+      question_uid: question_uid,
+      parent_id: parent_id,
+      parent_uid: parent_uid,
+      text: text,
+      sortable_text: text ? text.downcase : '',
+      feedback: feedback,
+      count: count,
+      child_count: child_count,
+      first_attempt_count: first_attempt_count,
+      author: author,
+      status: grade_status,
+      created_at: created_at.to_i,
+      key: id.to_s,
+      optimal: optimal,
+      spelling_error: spelling_error,
+      weak: weak,
+      concept_results: concept_results
+    }
+  end
+
   def grade_status
     if optimal.nil? && parent_id.nil?
       4

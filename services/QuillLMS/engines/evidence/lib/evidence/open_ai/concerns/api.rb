@@ -6,11 +6,12 @@ module Evidence
       module Api
         extend ActiveSupport::Concern
 
+        BASE_URI = 'https://api.openai.com/v1'
         TIMEOUT = 5.minutes.to_i
 
         included do
           include HTTParty
-          base_uri 'https://api.openai.com/v1'
+          base_uri BASE_URI
 
           attr_accessor :response
         end
