@@ -115,13 +115,14 @@ class StudentProfile extends React.Component {
       isBeingPreviewed,
       history,
       metrics,
-      exactScoresDataLoading,
+      loadingExactScoresData,
       exactScoresData,
+      showExactScores,
     } = this.props;
 
     if (loading) { return <LoadingIndicator /> }
 
-    if (activeClassworkTab === COMPLETED_ACTIVITIES && exactScoresDataLoading)  { return <LoadingIndicator /> }
+    if (activeClassworkTab === COMPLETED_ACTIVITIES && loadingExactScoresData)  { return <LoadingIndicator /> }
 
     if (!selectedClassroomId) { return (<SelectAClassroom classrooms={classrooms} isBeingPreviewed={isBeingPreviewed} onClickCard={this.handleClassroomTabClick} />)}
 
@@ -155,6 +156,7 @@ class StudentProfile extends React.Component {
             loading={loading}
             nextActivitySession={nextActivitySession}
             selectedUnitId={this.parsedQueryParams().unit_id}
+            showExactScores={showExactScores}
             teacherName={student.classroom.teacher.name}
           />
         </div>

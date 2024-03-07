@@ -148,6 +148,11 @@ exports[`ScorebookTooltip component key target and skills explanation activity h
       >
         This activity has not been completed.
       </p>
+      <p
+        class="tooltip-message"
+      >
+        Clicking on the activity icon loads the report
+      </p>
     </div>
   </div>
 </DocumentFragment>
@@ -300,6 +305,11 @@ exports[`ScorebookTooltip component key target and skills explanation activity h
         class="no-data-message"
       >
         This scheduled activity has not been published.
+      </p>
+      <p
+        class="tooltip-message"
+      >
+        Clicking on the activity icon loads the report
       </p>
     </div>
   </div>
@@ -454,6 +464,11 @@ exports[`ScorebookTooltip component key target and skills explanation activity i
       >
         This activity is set for staggered release and has not been unlocked by this student.
       </p>
+      <p
+        class="tooltip-message"
+      >
+        Clicking on the activity icon loads the report
+      </p>
     </div>
   </div>
 </DocumentFragment>
@@ -606,6 +621,11 @@ exports[`ScorebookTooltip component key target and skills explanation student mi
         class="no-data-message"
       >
         This student has missed this lesson. To make up this material, you can assign this lesson again to the students who missed it.
+      </p>
+      <p
+        class="tooltip-message"
+      >
+        Clicking on the activity icon loads the report
       </p>
     </div>
   </div>

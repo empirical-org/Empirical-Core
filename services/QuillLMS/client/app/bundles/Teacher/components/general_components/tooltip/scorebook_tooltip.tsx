@@ -5,6 +5,7 @@ import ActivityDetails from './activity_details';
 import KeyTargetSkillConcepts from './key_target_skill_concepts';
 import numberSuffixBuilder from '../../modules/numberSuffixBuilder';
 import PercentageDisplayer from '../../modules/percentage_displayer.jsx';
+import { proficiencyCutoffsAsPercentage } from '../../../../../modules/proficiency_cutoffs';
 import ActivityDetailsSection from './activity_details_section';
 import { NOT_APPLICABLE, Spinner } from '../../../../Shared'
 import moment from 'moment';
@@ -34,7 +35,7 @@ interface Activity {
 interface ScorebookTooltipData {
   completed_attempts: Number;
   name: string; // this is the activity name
-  activity_classification_id: Boolean;
+  activity_classification_id: number;
   percentage: number;
   activity?: Activity;
   started?: number;
@@ -46,9 +47,10 @@ interface ScorebookTooltipData {
 
 interface ScorebookTooltipProps {
   data: ScorebookTooltipData
+  inStudentView?: Boolean;
 }
 
-export const ScorebookTooltip = ({ data }: ScorebookTooltipProps) => {
+export const ScorebookTooltip = ({ data, inStudentView, }: ScorebookTooltipProps) => {
 
   if (!Object.keys(data).length) { return <span /> }
 
@@ -126,6 +128,35 @@ export const ScorebookTooltip = ({ data }: ScorebookTooltipProps) => {
     }
   }
 
+  function colorExplanation() {
+    const cutOff = proficiencyCutoffsAsPercentage();
+    const { percentage, } = data
+
+    const scoreForComparison = percentage * 100
+
+    let header = 'Why Red?'
+    let descriptionLineOne = 'Rarely Demonstrated Skill'
+    let descriptionLineTwo = `${cutOff.nearlyProficient - 1} - 0% of prompts exhibit skill`
+
+    if (scoreForComparison >= cutOff.proficient) {
+      header = 'Why Green?'
+      descriptionLineOne = 'Frequently Demonstrated Skill'
+      descriptionLineTwo = `100 - ${cutOff.proficient}% of prompts exhibit skill`
+    } else if (scoreForComparison >= cutOff.nearlyProficient) {
+      header = 'Why Yellow?'
+      descriptionLineOne = 'Sometimes Demonstrated Skill'
+      descriptionLineTwo = `${cutOff.proficient - 1} - ${cutOff.nearlyProficient}% of prompts exhibit skill`
+    }
+
+    const descriptionElement = (
+      <div className="description-block">
+        <p className="description">{descriptionLineOne}</p>
+        <p className="description">{descriptionLineTwo}</p>
+      </div>
+    )
+    return <ActivityDetailsSection description={descriptionElement} header={header} />
+  }
+
   const title = activity ? activity.name : name;
   return (
     <div className="scorebook-tooltip">
@@ -137,6 +168,7 @@ export const ScorebookTooltip = ({ data }: ScorebookTooltipProps) => {
       <div className="main">
         {activityOverview()}
         {keyTargetSkillConceptsOrExplanation()}
+        {inStudentView ? colorExplanation() : <p className="tooltip-message">Clicking on the activity icon loads the report</p>}
       </div>
     </div>
   )

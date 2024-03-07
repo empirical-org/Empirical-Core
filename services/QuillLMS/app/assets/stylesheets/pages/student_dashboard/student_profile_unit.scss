@@ -3,6 +3,9 @@
   border: solid 1px $quill-grey-5;
   background-color: $quill-white;
   margin-bottom: 24px;
+  .score-tooltip-activator {
+    position: relative;
+  }
   &.selected-unit {
     .unit-name-and-staggered-release-status {
       animation: highlight 5s 1;

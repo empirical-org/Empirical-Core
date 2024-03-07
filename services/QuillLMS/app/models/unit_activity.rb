@@ -139,7 +139,7 @@ class UnitActivity < ApplicationRecord
         SELECT
           unit.name,
           activity.name,
-          activity.description,
+          activity.description AS activity_description,
           activity.repeatable,
           activity.activity_classification_id,
           activity_classifications.key AS activity_classification_key,

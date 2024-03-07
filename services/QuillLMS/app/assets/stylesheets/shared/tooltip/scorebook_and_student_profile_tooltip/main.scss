@@ -55,6 +55,7 @@
       justify-content: space-between;
       padding-top: 10px;
       border-top: 1px solid $quill-grey-15;
+      white-space: normal;
       &.no-border-top {
         border-top: none;
         padding-bottom: 0 !important;
