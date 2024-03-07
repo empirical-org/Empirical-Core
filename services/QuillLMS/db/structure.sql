@@ -2814,7 +2814,7 @@ ALTER SEQUENCE public.evidence_prompt_response_feedbacks_id_seq OWNED BY public.
 CREATE TABLE public.evidence_prompt_responses (
     id bigint NOT NULL,
     prompt_id integer NOT NULL,
-    text text NOT NULL,
+    response_text text NOT NULL,
     embedding public.vector(1536) NOT NULL
 );
 
@@ -10849,6 +10849,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240221192859'),
 ('20240229153806'),
 ('20240306124720'),
-('20240307143356');
+('20240307143356'),
+('20240307182109');
 
 

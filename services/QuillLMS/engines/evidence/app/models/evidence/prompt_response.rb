@@ -4,10 +4,10 @@
 #
 # Table name: evidence_prompt_responses
 #
-#  id        :bigint           not null, primary key
-#  embedding :vector(1536)     not null
-#  text      :text             not null
-#  prompt_id :integer          not null
+#  id            :bigint           not null, primary key
+#  embedding     :vector(1536)     not null
+#  response_text :text             not null
+#  prompt_id     :integer          not null
 #
 
 require 'neighbor'
@@ -19,19 +19,22 @@ module Evidence
     MODEL = 'text-embedding-3-small'
 
     belongs_to :prompt
+    has_one :prompt_response_feedback, dependent: :destroy
 
     has_neighbors :embedding
 
-    validates :text, presence: true
+    validates :response_text, presence: true
     validates :embedding, presence: true
     validates :prompt, presence: true
 
     before_validation :set_embedding
 
-    private def set_embedding
-      return if text.blank? || embedding.present?
+    delegate :feedback, to: :prompt_response_feedback, allow_nil: true
 
-      self.embedding = Evidence::OpenAI::EmbeddingFetcher.run(dimension: DIMENSION, input: text, model: MODEL)
+    private def set_embedding
+      return if response_text.blank? || embedding.present?
+
+      self.embedding = Evidence::OpenAI::EmbeddingFetcher.run(dimension: DIMENSION, input: response_text, model: MODEL)
     end
   end
 end

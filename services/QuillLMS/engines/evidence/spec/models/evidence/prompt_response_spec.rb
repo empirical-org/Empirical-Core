@@ -4,10 +4,10 @@
 #
 # Table name: evidence_prompt_responses
 #
-#  id        :bigint           not null, primary key
-#  embedding :vector(1536)     not null
-#  text      :text             not null
-#  prompt_id :integer          not null
+#  id            :bigint           not null, primary key
+#  embedding     :vector(1536)     not null
+#  response_text :text             not null
+#  prompt_id     :integer          not null
 #
 
 require 'rails_helper'
