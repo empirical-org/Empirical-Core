@@ -128,13 +128,13 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
     1678: 1680  // Advanced
   }
 
-  const recommendedActivityCounts = {
-    1161: 5,  // ELL Starter
-    1568: 6,  // ELL Intermediate
-    1590: 5,  // ELL Advanced
-    1663: 10, // Starter
-    1668: 11, // Intermediate
-    1678: 9   // Advanced
+  const recommendedActivities = {
+    1161: [147, 148, 149, 150, 151],  // ELL Starter
+    1568: [250, 251, 252, 253, 254, 255],  // ELL Intermediate
+    1590: [258, 259, 260, 261, 262],  // ELL Advanced
+    1663: [306, 263, 307, 264, 308, 265, 266, 267, 268, 363], // Starter
+    1668: [309, 287, 310, 288, 311, 289, 290, 291, 292, 293, 294], // Intermediate
+    1678: [312, 275, 276, 313, 314, 277, 278, 279, 362]   // Advanced
   }
 
   const canonicalPreTestIdx = zipped.findIndex(
@@ -190,12 +190,14 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
     },
     {}
   )
-
-  const numAssignedRecommendedCompleted = zipped.slice(canonicalPreTestIdx, canonicalPostTestIdx).length - 1
+  const interDiagnosticActivities = zipped.slice(canonicalPreTestIdx + 1, canonicalPostTestIdx)
+  const numAssignedRecommendedCompleted = interDiagnosticActivities.filter(
+    elem => recommendedActivities[PRE_DIAGNOSTIC_ACTIVITY_ID].includes(elem.activityId)
+  ).length
 
   return JSON.stringify(
     {
-      recommendedActivityCount: recommendedActivityCounts[PRE_DIAGNOSTIC_ACTIVITY_ID],
+      recommendedActivityCount: recommendedActivities[PRE_DIAGNOSTIC_ACTIVITY_ID].length,
       errorMessage: errorMessageArray.join(' '),
       numAssignedRecommendedCompleted,
       ...skillScores
@@ -239,8 +241,7 @@ export function tierUDF(numAssignedRecommendedCompleted, recommendedActivityCoun
     }
   }
 
-  return `Invalid return value: ${percentage}`
-
+  return "-1"
 }
 
 
