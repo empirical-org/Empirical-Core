@@ -1,4 +1,4 @@
-      /* Data Processed By Query: 2.39 GB */
+      /* Data Processed By Query: 11.8 GB */
 
                 SELECT
           activity_sessions.id AS activity_session_id,
@@ -43,7 +43,7 @@
           ON activity_sessions.user_id = students.id
 
                 WHERE
-          activity_sessions.completed_at BETWEEN '2023-08-01 00:00:00' AND '2023-12-01 00:00:00'
+          activity_sessions.completed_at BETWEEN '2023-08-01 00:00:00' AND '2023-11-30 23:59:59'
           AND schools.id IN (129107,157509)
           
           
