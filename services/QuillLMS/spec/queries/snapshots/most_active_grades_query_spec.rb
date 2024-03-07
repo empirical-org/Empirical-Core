@@ -34,7 +34,8 @@ module Snapshots
           schools,
           schools_users,
           activities,
-          classroom_units
+          classroom_units,
+          users
         ]
       }
 

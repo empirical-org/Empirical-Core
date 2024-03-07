@@ -1,7 +1,7 @@
-      /* Data Processed By Query: 0.73 GB */
+      /* Data Processed By Query: 0.59 GB */
 
-                SELECT schools.name AS value, COUNT(DISTINCT activity_sessions.id) AS count
-
+        SELECT IFNULL(SUM(students_assigned), 0) AS count
+          FROM (        SELECT DISTINCT classroom_units.id, ARRAY_LENGTH(assigned_student_ids) AS students_assigned
                 FROM lms.schools
         JOIN lms.schools_users
           ON schools.id = schools_users.school_id
@@ -11,17 +11,19 @@
           ON classrooms_teachers.classroom_id = classrooms.id
         JOIN lms.classroom_units
           ON classrooms.id = classroom_units.classroom_id
-        JOIN lms.activity_sessions
-          ON classroom_units.id = activity_sessions.classroom_unit_id
+        JOIN lms.unit_activities
+          ON classroom_units.unit_id = unit_activities.unit_id
 
                 WHERE
-          activity_sessions.completed_at BETWEEN '2023-08-01 00:00:00' AND '2023-12-01 00:00:00'
+          classroom_units.created_at BETWEEN '2023-08-01 00:00:00' AND '2023-11-30 23:59:59'
           AND schools.id IN (129107,157509)
           
           
           
           AND classrooms_teachers.role = 'owner'
+        AND unit_activities.activity_id IN (1680,1814,1774,1669,1818,1664)
 
-        GROUP BY schools.name
-        ORDER BY count DESC
-        LIMIT 10
+        
+        
+        
+)

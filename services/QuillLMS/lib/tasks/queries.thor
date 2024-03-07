@@ -1,27 +1,6 @@
 require_relative '../../config/environment'
 
 class Queries < Thor
-  OUTPUT_SNAPSHOTS = 'lib/query_examples/snapshots/'
-  SNAPSHOT_QUERIES = [
-    *::Snapshots::TOPX_QUERY_MAPPING,
-    *::Snapshots::COUNT_QUERY_MAPPING,
-    *::Snapshots::PREMIUM_REPORTS_QUERY_MAPPING,
-    *::Snapshots::PREMIUM_DOWNLOAD_REPORTS_QUERY_MAPPING
-  ].to_h
-
-  # Averages run differently (.query raises), so skipping for now
-  AVERAGE_SNAPSHOT_QUERIES = [
-    'average-active-classrooms-per-teacher',
-    'average-activities-completed-per-student',
-    'average-active-students-per-classroom'
-  ]
-
-
-  SNAPSHOT_QUERIES_TO_RUN = SNAPSHOT_QUERIES.except(*AVERAGE_SNAPSHOT_QUERIES)
-  SNAPSHOT_PAGE_QUERIES = [*::Snapshots::TOPX_QUERY_MAPPING, *::Snapshots::COUNT_QUERY_MAPPING].to_h
-
-  DEFAULT_START = '2023-08-01'
-  DEFAULT_END = '2023-12-01'
 
   # user_id 9874030 is a test user
   # e.g. bundle exec thor queries:generate_snapshot_sqls 9874030
@@ -34,12 +13,15 @@ class Queries < Thor
     timeframe_end = DateTime.parse(end_time)
     school_ids = school_ids_for_user(user_id)
 
-    SNAPSHOT_QUERIES_TO_RUN.each do |key, query|
+    snapshot_queries_to_run.each do |key, query|
       sql = query
         .new(**{timeframe_start:,timeframe_end:,school_ids:})
         .query
-      metadata = query_metadata(sql)
 
+      puts sql
+
+      metadata = query_metadata(sql)
+      puts metadata
 
       File.write(output_directory + "#{key}.sql", metadata + sql)
     end
@@ -54,7 +36,7 @@ class Queries < Thor
     timeframe_end = DateTime.parse(end_time)
     school_ids = school_ids_for_user(user_id)
 
-    query = SNAPSHOT_QUERIES_TO_RUN[query_key]
+    query = snapshot_queries_to_run[query_key]
 
     sql = query
       .new(**{timeframe_start:,timeframe_end:,school_ids:})
@@ -78,7 +60,7 @@ class Queries < Thor
 
     CSV.open(output_file, "wb") do |csv|
       csv << (['query'] + options[:ids])
-      SNAPSHOT_PAGE_QUERIES.each do |key, query|
+      snapshot_page_queries.each do |key, query|
         row = [key]
         options[:ids].each do |user_id|
           school_ids = school_ids_for_user(user_id)
@@ -92,6 +74,35 @@ class Queries < Thor
 
   # put helper methods in this block
   no_commands do
+    OUTPUT_SNAPSHOTS = 'lib/query_examples/snapshots/'
+
+    # Averages run differently (.query raises), so skipping for now
+    AVERAGE_SNAPSHOT_QUERIES = [
+      'average-active-classrooms-per-teacher',
+      'average-activities-completed-per-student',
+      'average-active-students-per-classroom'
+    ]
+
+    DEFAULT_START = '2023-08-01 00:00:00'
+    DEFAULT_END = '2023-11-30 23:59:59'
+
+    private def snapshot_queries
+      [
+        *::Snapshots::TOPX_QUERY_MAPPING,
+        *::Snapshots::COUNT_QUERY_MAPPING,
+        *::Snapshots::PREMIUM_REPORTS_QUERY_MAPPING,
+        *::Snapshots::PREMIUM_DOWNLOAD_REPORTS_QUERY_MAPPING
+      ].to_h
+    end
+
+    private def snapshot_queries_to_run
+      snapshot_queries.except(*AVERAGE_SNAPSHOT_QUERIES)
+    end
+
+    private def snapshot_page_queries
+      [*::Snapshots::TOPX_QUERY_MAPPING, *::Snapshots::COUNT_QUERY_MAPPING].to_h
+    end
+
     private def parse_result(result)
       if result.is_a?(Array)
         result.map {|h| "#{h[:value]}: #{h[:count]}"}.join(', ')

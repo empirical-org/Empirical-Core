@@ -22,7 +22,9 @@ module Snapshots
           schools_users,
           schools,
           classroom_units,
-          activity_sessions
+          activity_sessions,
+          activities,
+          users
         ]
       end
 
