@@ -24,7 +24,7 @@ export class QuestionListByConcept extends React.Component<any, any> {
       if (question.prompt) {
         return (
           <a href={'connect#/admin/' + this.props.basePath + '/' + question.key + '/responses'} key={question.key}>
-            <div dangerouslySetInnerHTML={{ __html: question.prompt }} />
+            <span dangerouslySetInnerHTML={{ __html: question.prompt }} />
           </a>
         );
       }

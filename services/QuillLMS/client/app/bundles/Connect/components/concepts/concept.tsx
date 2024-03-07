@@ -2,7 +2,6 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import _ from 'underscore'
-import { decode } from 'html-entities'
 
 import { hashToCollection, Spinner } from '../../../Shared/index'
 
@@ -33,9 +32,9 @@ export const Concept = ({ concepts, match, questions, fillInBlank }) => {
       const archivedTag = flag === 'archived' ? <strong>ARCHIVED - </strong> : ''
       return (
         <li key={key}>
-          <a href={'/connect#/admin/questions/' + key + '/responses'}>
-            <div dangerouslySetInnerHTML={{ __html: archivedTag + prompt }} />
-          </a>
+          <Link to={'/admin/questions/' + key + '/responses'}>
+            <span dangerouslySetInnerHTML={{ __html: archivedTag + prompt }} />
+          </Link>
         </li>
       )
     })

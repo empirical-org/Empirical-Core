@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import * as React from 'react'
+import { Link } from 'react-router-dom'
 
 import { hashToCollection } from '../../../Shared/index'
 import { Concept } from '../../interfaces/concepts'
@@ -41,9 +42,9 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
     return filtered.map((question: Question) => {
       if (question.prompt) {
         return (
-          <a href={'/grammar#/admin/' + this.props.basePath + '/' + question.key + '/responses'} key={question.key}>
-            <div dangerouslySetInnerHTML={{ __html: question.prompt }} />
-          </a>
+          <Link to={'/admin/questions/' + question.key + '/responses'}>
+            <span dangerouslySetInnerHTML={{ __html: question.prompt }} />
+          </Link>
         );
       }
     });

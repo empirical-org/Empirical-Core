@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import { Link } from 'react-router-dom';
 
 export class QuestionList extends React.Component<any, {}> {
 
@@ -17,9 +17,9 @@ export class QuestionList extends React.Component<any, {}> {
         )
       }
       return filtered.map((question: any) => (
-        <a href={'connect#/admin/' + this.props.basePath + '/' + question.key + '/responses'} key={question.key}>
-          <div dangerouslySetInnerHTML={{ __html: question.prompt ? question.prompt : question.title }} />
-        </a>
+        <Link to={'/admin/questions/' + question.key + '/responses'}>
+          <span dangerouslySetInnerHTML={{ __html: question.prompt ? question.prompt : question.title }} />
+        </Link>
       ));
     }
   }

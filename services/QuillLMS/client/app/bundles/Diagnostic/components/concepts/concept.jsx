@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { decode } from 'html-entities'
 import _ from 'underscore'
 import { hashToCollection } from '../../../Shared/index'
 import actions from '../../actions/concepts'
@@ -52,9 +51,9 @@ class Concept extends React.Component {
     const listItems = questionsForConcept.map((question) => {
       return (
         <li key={question.key}>
-          <a href={'/diagnostic#/admin/questions/' + question.key + '/responses'}>
-            <div dangerouslySetInnerHTML={{ __html: question.prompt }} />
-          </a>
+          <Link to={'/admin/questions/' + question.key + '/responses'}>
+            <span dangerouslySetInnerHTML={{ __html: question.prompt }} />
+          </Link>
         </li>
       );
     })
