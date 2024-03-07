@@ -80,8 +80,6 @@ export const DiagnosticGrowthReportsContainer = ({
     ...sharedProps,
     handleSetTotalStudentCountForFilters,
     handleSetTotalStudentMatchesForFilters,
-    passedRecommendationsData: null,
-    passedStudentData: null,
     passedVisibleData: null
   }
 

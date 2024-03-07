@@ -89,10 +89,8 @@
         }
       }
     }
-    .filter-buttons {
-      display: flex;
+    .filter-buttons-container {
       padding: 16px 24px;
-      justify-content: space-between;
       bottom: 0;
       width: 301px;
       border-radius: 8px;
@@ -100,13 +98,21 @@
       border-radius: 8px;
       border: 1px solid $quill-green-20;
       background: $quill-green-10;
-      box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
       &.fixed {
         position: fixed;
       }
-      .quill-button {
-        width: 122px;
+      .filters-student-count {
+        text-align: center;
+        margin-bottom: 16px;
+        font-size: 12px;
+      }
+      .filter-buttons {
+        display: flex;
+        justify-content: space-between;
+        .quill-button {
+          width: 122px;
+        }
       }
     }
     .dropdown-input-with-search-tokens-container {
@@ -122,11 +128,6 @@
     .show-filter-menu-button-wrapper {
       display: flex;
       justify-content: flex-end;
-    }
-    .filters-student-count {
-      text-align: center;
-      margin-top: 24px;
-      font-size: 12px;
     }
   }
   .filter-menu-closed, .filter-menu-open {

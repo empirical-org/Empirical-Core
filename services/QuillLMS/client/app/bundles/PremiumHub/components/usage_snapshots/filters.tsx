@@ -36,6 +36,8 @@ const Filters = ({
   displayStudentCountsForFilters
 }) => {
 
+  const isGrowthDiagnosticReport = reportType === DIAGNOSTIC_GROWTH_REPORT_PATH
+
   function effectiveSelectedSchools() {
     return selectedSchools.filter(s => availableSchools.find(as => as.id === s.id))
   }
@@ -48,17 +50,27 @@ const Filters = ({
     return selectedClassrooms.filter(c => availableClassrooms.find(ac => ac.id === c.id))
   }
 
+  function renderStudentCount() {
+    const matchText = totalStudentMatchesForFilters === 1 ? 'match' : 'matches'
+    const totalText = totalStudentCountForFilters === 1 ? 'student' : 'students'
+    return <p className="filters-student-count"><strong>{totalStudentMatchesForFilters}</strong> {matchText} from <strong>{totalStudentCountForFilters}</strong> {totalText}</p>
+  }
+
   function renderFilterButtons() {
     if (!hasAdjustedFiltersFromDefault && !hasAdjustedFiltersSinceLastSubmission) { return null }
 
+    const shouldDisplayStudentCount = isGrowthDiagnosticReport && displayStudentCountsForFilters && totalStudentCountForFilters && totalStudentMatchesForFilters
     let applyClassName = "quill-button small contained primary focus-on-light"
 
     applyClassName += hasAdjustedFiltersSinceLastSubmission ? '' : ' disabled'
 
     return (
-      <div className="filter-buttons fixed">
-        <button className="quill-button small outlined secondary focus-on-light" onClick={clearFilters} type="button">Clear filters</button>
-        <button className={applyClassName} onClick={applyFilters} type="button">Apply filters</button>
+      <div className="filter-buttons-container">
+        {shouldDisplayStudentCount && renderStudentCount()}
+        <div className="filter-buttons">
+          <button className="quill-button small outlined secondary focus-on-light" onClick={clearFilters} type="button">Clear filters</button>
+          <button className={applyClassName} onClick={applyFilters} type="button">Apply filters</button>
+        </div>
       </div>
     )
   }
@@ -100,15 +112,6 @@ const Filters = ({
         valueToDisplay={effectiveSelectedClassrooms()}
       />
     )
-  }
-
-  const isGrowthDiagnosticReport = reportType === DIAGNOSTIC_GROWTH_REPORT_PATH
-
-  function renderStudentCount() {
-    if (!isGrowthDiagnosticReport || !displayStudentCountsForFilters || (!totalStudentCountForFilters || !totalStudentMatchesForFilters)) { return }
-    const matchText = totalStudentMatchesForFilters === 1 ? 'match' : 'matches'
-    const totalText = totalStudentCountForFilters === 1 ? 'student' : 'students'
-    return <p className="filters-student-count"><strong>{totalStudentMatchesForFilters}</strong> {matchText} from <strong>{totalStudentCountForFilters}</strong> {totalText}</p>
   }
 
   return (
@@ -173,7 +176,6 @@ const Filters = ({
             valueToDisplay={effectiveSelectedTeachers()}
           />
           {classroomsFilter}
-          {renderStudentCount()}
         </div>
       </div>
       {renderFilterButtons()}

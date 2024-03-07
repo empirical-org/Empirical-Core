@@ -108,18 +108,16 @@ export const StudentSection = ({
   handleSetTotalStudentCountForFilters,
   handleSetTotalStudentMatchesForFilters,
   handleSetDisplayStudentCountsForFilters,
-  passedRecommendationsData,
-  passedStudentData,
   passedVisibleData
 }) => {
   const [diagnosticTypeValue, setDiagnosticTypeValue] = React.useState<DropdownObjectInterface>(diagnosticTypeDropdownOptions[0])
   const [pusherMessage, setPusherMessage] = React.useState<string>(null)
-  const [recommendationsData, setRecommendationsData] = React.useState<any>(passedRecommendationsData || []);
-  const [studentData, setStudentData] = React.useState<any>(passedStudentData || []);
+  const [recommendationsData, setRecommendationsData] = React.useState<any>([]);
+  const [studentData, setStudentData] = React.useState<any>([]);
   const [totalStudents, setTotalStudents] = React.useState<number>(null)
   const [visibleData, setVisibleData] = React.useState<any>(passedVisibleData || []);
   const [rowsToShow, setRowsToShow] = React.useState<number>(BATCH_SIZE);
-  const [loading, setLoading] = React.useState<boolean>(!passedVisibleData && !passedRecommendationsData && !passedStudentData);
+  const [loading, setLoading] = React.useState<boolean>(!passedVisibleData);
 
   React.useEffect(() => {
     initializePusher()
@@ -127,7 +125,7 @@ export const StudentSection = ({
 
   React.useEffect(() => {
     // this is for testing purposes; these values will always be null in a non-testing environment
-    if (!passedRecommendationsData && !passedStudentData && !passedVisibleData) {
+    if (!passedVisibleData) {
       handleSetDisplayStudentCountsForFilters(false)
       getData()
     }
