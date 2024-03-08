@@ -32,18 +32,15 @@ module Evidence
     before_validation :set_embedding
 
     def closest_prompt_response
-      @closest_prompt_response ||= begin
-        nearest_neighbors(:embedding, distance: DISTANCE_METRIC)
-          .where(prompt_id:)
-          .first
-      end
+      nearest_neighbors(:embedding, distance: DISTANCE_METRIC)
+        .where(prompt_id:)
+        .first
     end
 
     def closest_feedback
-      {
-        distance: closest_prompt_response&.neighbor_distance,
-        feedback: closest_prompt_response&.prompt_response_feedback&.feedback
-      }
+      val = closest_prompt_response
+
+      { distance: val&.neighbor_distance, feedback: val&.prompt_response_feedback&.feedback }
     end
 
     private def set_embedding
