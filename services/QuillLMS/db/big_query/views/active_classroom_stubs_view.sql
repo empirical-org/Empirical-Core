@@ -1,0 +1,1 @@
+SELECT id, name, grade FROM lms.classrooms
