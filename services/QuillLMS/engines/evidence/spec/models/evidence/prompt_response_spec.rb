@@ -15,13 +15,13 @@ require 'rails_helper'
 module Evidence
   RSpec.describe PromptResponse do
     it { is_expected.to validate_presence_of(:prompt) }
-    it { is_expected.to validate_presence_of(:text) }
+    it { is_expected.to validate_presence_of(:response_text) }
     it { is_expected.to validate_presence_of(:embedding) }
 
     context 'with stubbed embedding' do
-      subject { FactoryBot.build(:evidence_prompt_response, text:, embedding: initial_embedding) }
+      subject { FactoryBot.build(:evidence_prompt_response, response_text:, embedding: initial_embedding) }
 
-      let(:text) { 'sample text' }
+      let(:response_text) { 'sample text' }
       let(:initial_embedding) { nil }
       let(:embedding) { Array.new(Evidence::PromptResponse::DIMENSION) { rand(-1.0..1.0) } }
       let(:fetcher_class) { Evidence::OpenAI::EmbeddingFetcher }
@@ -46,7 +46,7 @@ module Evidence
       end
 
       context 'when text is nil' do
-        let(:text) { nil }
+        let(:response_text) { nil }
 
         it 'does not set the embedding' do
           subject.validate
@@ -80,14 +80,12 @@ module Evidence
       end
 
       context 'with one other PromptResponse' do
-        let!(:prompt_response_epsilon) { create(:evidence_prompt_response, prompt:, embedding: embedding_plus_epsilon) }
+        let!(:prompt_response1) { create(:evidence_prompt_response, prompt:, embedding: embedding_plus_epsilon) }
 
         let(:prompt) { create(:evidence_prompt) }
         let(:prompt_response) { create(:evidence_prompt_response, prompt:, embedding:) }
 
-        before { create(:evidence_prompt_response, prompt:, embedding: embedding_plus_epsilon) }
-
-        it { is_expected.to eq prompt_response_epsilon }
+        it { is_expected.to eq prompt_response1 }
       end
 
       context 'with multiple other PromptResponse records' do
@@ -132,11 +130,13 @@ module Evidence
 
     context 'benchmarking', :benchmarking do
       let(:num_iterations) { 1000 }
-      let(:texts) { num_iterations.times.map { Faker::Lorem.sentence } }
+      let(:response_texts) { num_iterations.times.map { Faker::Lorem.sentence } }
 
       # For comparison, temporarily create a different model with a different dimension and add to klass array
       [Evidence::PromptResponse].each do |klass|
-        let!(:prompt_responses) { texts.map { |text| create(klass.table_name.singularize.to_sym, text:) } }
+        let!(:prompt_responses) do
+          response_texts.map { |response_text| create(klass.table_name.singularize.to_sym, response_text:) }
+        end
 
         it "checks for performance with #{klass::MODEL} with dimension #{klass::DIMENSION}" do
           [].tap do |times|
