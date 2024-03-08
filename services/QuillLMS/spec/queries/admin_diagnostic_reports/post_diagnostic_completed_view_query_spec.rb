@@ -25,47 +25,56 @@ module AdminDiagnosticReports
 
       it { expect(results.first[:diagnostic_name]).to eq(pre_diagnostic.name) }
       it { expect(results.first[:aggregate_rows].map { |row| row[:name] }).to match_array(grade_names) }
-      it { expect(results.first[:post_students_completed]).to eq(activity_sessions.length) }
-      it { expect(results.first[:post_average_score]).to eq(1.0) }
+      it { expect(results.first[:post_students_completed]).to eq(post_diagnostic_activity_sessions.length) }
+      it { expect(results.first[:overall_skill_growth]).to eq(0.0) }
 
       context 'no finished activity sessions' do
-        let(:activity_sessions) { classroom_units.map { |classroom_unit| create(:activity_session, :unstarted, classroom_unit: classroom_unit, activity: post_diagnostic) } }
+        let(:pre_diagnostic_activity_sessions) { pre_diagnostic_classroom_units.map { |classroom_unit| create(:activity_session, :unstarted, classroom_unit:, activity: pre_diagnostic) } }
 
         it { expect(results).to eq([]) }
       end
 
       context 'no visible activity sessions' do
-        let(:activity_sessions) { classroom_units.map { |classroom_unit| create(:activity_session, :finished, classroom_unit: classroom_unit, activity: post_diagnostic, visible: false) } }
+        let(:pre_diagnostic_activity_sessions) { pre_diagnostic_classroom_units.map { |classroom_unit| create(:activity_session, :finished, classroom_unit:, activity: pre_diagnostic, visible: false) } }
 
         it { expect(results).to eq([]) }
       end
 
       context 'a mix of finished and unfinished activity sessions' do
-        let(:unfinished_activity_session) { create(:activity_session, :unstarted, classroom_unit: classroom_units.first, activity: post_diagnostic) }
-        let(:finished_activity_session) { create(:activity_session, :finished, classroom_unit: classroom_units.last, activity: post_diagnostic) }
-        let(:activity_sessions) { [unfinished_activity_session, finished_activity_session] }
+        let(:post_diagnostic_activity_sessions) do
+          pre_diagnostic_activity_sessions.map.with_index do |pre_session, i|
+            # alternate between finished and unstarted sessions
+            session_status = (i + 1) % 2 == 0 ? :finished : :unstarted
+            completed_at = (i + 1) % 2 == 0 ? pre_session.completed_at + 1.hour : nil
+            create(:activity_session, :unstarted, user: pre_session.user, activity: post_diagnostic, completed_at:, classroom_unit: post_diagnostic_classroom_units[pre_diagnostic_classroom_units.index(pre_session.classroom_unit)])
+          end
+        end
 
         it { expect(results.first[:post_students_completed]).to eq(1) }
       end
 
-      context 'all concept results are non-optimal' do
-        let(:concept_results) { activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session: activity_session, correct: false, question_number: i + 1) } }
+      context 'none correct to all correct' do
+        let(:pre_diagnostic_concept_results) { pre_diagnostic_activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session:, correct: false, question_number: i + 1, extra_metadata: {question_uid: pre_diagnostic_question.uid}) } }
 
-        it { expect(results.first[:post_average_score]).to eq(0) }
+        it { expect(results.first[:overall_skill_growth]).to eq(1.0) }
       end
 
-      context 'a mix of optimal and non-optimal concept results' do
-        let(:non_optimal_concept_results) { activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session: activity_session, correct: false, question_number: optimal_concept_results.length + i + 1) } }
-        let(:concept_results) { optimal_concept_results + non_optimal_concept_results }
+      context 'all correct to none correct' do
+        let(:post_diagnostic_concept_results) { post_diagnostic_activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session:, correct: false, question_number: i + 1, extra_metadata: {question_uid: post_diagnostic_question.uid}) } }
 
-        it { expect(results.first[:post_average_score]).to eq(0.5) }
+        it { expect(results.first[:overall_skill_growth]).to eq(0.0) }
       end
 
       context 'optimal and non-optimal concept results for the same question number' do
-        let(:non_optimal_concept_results) { optimal_concept_results.map { |cr| create(:concept_result, activity_session: cr.activity_session, correct: false, question_number: cr.question_number) } }
-        let(:concept_results) { optimal_concept_results + non_optimal_concept_results }
+        let(:pre_diagnostic_concept_results) { pre_diagnostic_activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session:, correct: false, question_number: i + 1, extra_metadata: {question_uid: pre_diagnostic_question.uid}) } }
+        let(:post_diagnostic_concept_results) do
+          post_diagnostic_activity_sessions.map.with_index do |activity_session, i|
+            create(:concept_result, activity_session:, correct: false, question_number: i + 1, extra_metadata: {question_uid: post_diagnostic_question.uid})
+            create(:concept_result, activity_session:, correct: true, question_number: i + 1, extra_metadata: {question_uid: post_diagnostic_question.uid})
+          end
+        end
 
-        it { expect(results.first[:post_average_score]).to eq(1.0) }
+        it { expect(results.first[:overall_skill_growth]).to eq(1.0) }
       end
     end
   end
