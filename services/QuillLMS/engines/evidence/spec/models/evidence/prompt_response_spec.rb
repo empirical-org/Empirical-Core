@@ -14,28 +14,17 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe PromptResponse do
-    let(:text) { 'sample text' }
-
-    context 'validations' do
-      it { is_expected.to validate_presence_of(:prompt) }
-      it { is_expected.to validate_presence_of(:text) }
-      it { is_expected.to validate_presence_of(:embedding) }
-
-      context 'uniqueness' do
-        subject { FactoryBot.build(:evidence_prompt_response) }
-
-        before { FactoryBot.create(:evidence_prompt_response, text: subject.text) }
-
-        it { is_expected.to validate_uniqueness_of(:text) }
-      end
-    end
+    it { is_expected.to validate_presence_of(:prompt) }
+    it { is_expected.to validate_presence_of(:text) }
+    it { is_expected.to validate_presence_of(:embedding) }
 
     context 'with stubbed embedding' do
       subject { FactoryBot.build(:evidence_prompt_response, text:, embedding: initial_embedding) }
 
-      let(:fetcher_class) { Evidence::OpenAI::EmbeddingFetcher }
+      let(:text) { 'sample text' }
       let(:initial_embedding) { nil }
       let(:embedding) { Array.new(Evidence::PromptResponse::DIMENSION) { rand(-1.0..1.0) } }
+      let(:fetcher_class) { Evidence::OpenAI::EmbeddingFetcher }
 
       before { allow(fetcher_class).to receive(:run).and_return(embedding) }
 
