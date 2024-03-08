@@ -30,26 +30,13 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
   }
 
   function getSkillScore(zipped, errorMessageArray, skillGroupName, preOrPost) {
-    if (preOrPost === 'pre') {
-      const row = zipped.filter(x => x.activityId === PRE_DIAGNOSTIC_ACTIVITY_ID).find(
-        x => x.skillGroupName === skillGroupName
-      )
-      if (!row) {
-        errorMessageArray.push(`Could not find row with skillGroupName ${skillGroupName}`)
-        return 0
-      }
-      return row.score
+    const activityId = preOrPost === 'pre' ? PRE_DIAGNOSTIC_ACTIVITY_ID : POST_DIAGNOSTIC_ACTIVITY_ID;
+    const row = zipped.find(x => x.activityId === activityId && x.skillGroupName === skillGroupName);
+    if (!row) {
+      errorMessageArray.push(`Could not find row with skillGroupName ${skillGroupName}`)
+      return 0
     }
-    else {
-      const row = zipped.filter(x => x.activityId === POST_DIAGNOSTIC_ACTIVITY_ID).find(
-        x => x.skillGroupName === skillGroupName
-      )
-      if (!row) {
-        errorMessageArray.push(`Could not find row with skillGroupName ${skillGroupName}`)
-        return 0
-      }
-      return row.score
-    }
+    return row.score
   }
 
   //source: https://docs.google.com/spreadsheets/d/1JFey0UpMkmPzkQtZKsr_FdXRXnNEDFXZe52H7dUMg9E/edit#gid=0
