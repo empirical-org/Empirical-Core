@@ -1,14 +1,18 @@
 import * as React from 'react';
+import moment from 'moment';
 
-import { getTimeSpent } from '../../../helpers/studentReports';
 import ActivityDetails from './activity_details';
 import KeyTargetSkillConcepts from './key_target_skill_concepts';
+import ActivityDetailsSection from './activity_details_section';
+
+import { getTimeSpent } from '../../../helpers/studentReports';
 import numberSuffixBuilder from '../../modules/numberSuffixBuilder';
 import PercentageDisplayer from '../../modules/percentage_displayer.jsx';
 import { proficiencyCutoffsAsPercentage } from '../../../../../modules/proficiency_cutoffs';
-import ActivityDetailsSection from './activity_details_section';
 import { NOT_APPLICABLE, Spinner } from '../../../../Shared'
-import moment from 'moment';
+import useWindowSize from '../../../../Shared/hooks/useWindowSize'
+
+const CARET_LEFT = 146 // from the css file here: https://github.com/empirical-org/Empirical-Core/blob/develop/services/QuillLMS/app/assets/stylesheets/shared/tooltip/scorebook_and_student_profile_tooltip/main.scss#L6-L7
 
 const ORDINAL_NUMBERS = ['Zeroth', 'First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh', 'Eighth', 'Ninth', 'Tenth']
 const QUILL_DIAGNOSTIC_SCORING_EXPLANATION = "The Quill Diagnostic is meant to diagnose skills to practice. Students are not provided a color-coded score or percentage score. Teachers see only a percentage score without a color."
@@ -51,8 +55,46 @@ interface ScorebookTooltipProps {
 }
 
 export const ScorebookTooltip = ({ data, inStudentView, }: ScorebookTooltipProps) => {
+  const tooltipRef = React.useRef(null);
+  const [tooltipStyle, setTooltipStyle] = React.useState({});
+  const [caretStyle, setCaretStyle] = React.useState({});
+  const size = useWindowSize()
 
   if (!Object.keys(data).length) { return <span /> }
+
+  React.useEffect(() => {
+    if (tooltipRef.current) {
+      const tooltipRect = tooltipRef.current.getBoundingClientRect();
+      const viewportWidth = size.width;
+
+      let { right, left } = tooltipRect;
+
+      if (left < 0) {
+        setTooltipStyle({
+          left: '0px',
+          right: 'unset'
+        });
+
+        setCaretStyle({
+          left: '16px',
+          right: 'unset'
+        })
+      }
+
+      if (right > viewportWidth) {
+        setTooltipStyle({
+          left: 'unset',
+          right: '0px',
+        });
+
+        setCaretStyle({
+          right: '16px',
+          left: 'unset'
+        })
+      }
+    }
+  }, [size]);
+
 
   const { marked_complete, completed_attempts, locked, scheduled, sessions, started, activity, name } = data
 
@@ -159,9 +201,9 @@ export const ScorebookTooltip = ({ data, inStudentView, }: ScorebookTooltipProps
 
   const title = activity ? activity.name : name;
   return (
-    <div className="scorebook-tooltip">
-      <i className="fas fa-caret-up" />
-      <i className="fas fa-caret-up border-color" />
+    <div className="scorebook-tooltip" ref={tooltipRef} style={tooltipStyle}>
+      <i className="fas fa-caret-up" style={caretStyle} />
+      <i className="fas fa-caret-up border-color" style={caretStyle} />
       <div className="title">
         {title}
       </div>
