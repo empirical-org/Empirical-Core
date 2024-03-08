@@ -18,6 +18,8 @@ module Evidence
     DIMENSION = 1536
     MODEL = 'text-embedding-3-small'
 
+    DISTANCE_METRIC = 'cosine'
+
     belongs_to :prompt
     has_one :prompt_response_feedback, dependent: :destroy
 
@@ -29,7 +31,20 @@ module Evidence
 
     before_validation :set_embedding
 
-    delegate :feedback, to: :prompt_response_feedback, allow_nil: true
+    def closest_prompt_response
+      @closest_prompt_response ||= begin
+        nearest_neighbors(:embedding, distance: DISTANCE_METRIC)
+          .where(prompt_id:)
+          .first
+      end
+    end
+
+    def closest_feedback
+      {
+        distance: closest_prompt_response&.neighbor_distance,
+        feedback: closest_prompt_response&.prompt_response_feedback&.feedback
+      }
+    end
 
     private def set_embedding
       return if response_text.blank? || embedding.present?

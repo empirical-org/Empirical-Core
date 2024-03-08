@@ -12,7 +12,7 @@
 
 FactoryBot.define do
   factory :evidence_prompt_response, class: 'Evidence::PromptResponse' do
-    text { Faker::Lorem.sentence }
+    response_text { Faker::Lorem.sentence }
     embedding { Array.new(Evidence::PromptResponse::DIMENSION) { rand(-1.0..1.0) } }
 
     association :prompt, factory: :evidence_prompt

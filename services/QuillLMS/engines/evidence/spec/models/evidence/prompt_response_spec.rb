@@ -56,6 +56,80 @@ module Evidence
       end
     end
 
+    context '#closest_prompt_response' do
+      subject { prompt_response.closest_prompt_response }
+
+      let(:dimension) { Evidence::PromptResponse::DIMENSION }
+      let(:embedding) { Array.new(dimension) { rand(-1.0..1.0) } }
+      let(:epsilon) { 0.01 }
+      let(:embedding_plus_epsilon) { embedding.map { |value| value + epsilon } }
+      let(:embedding_plus_two_epsilon) { embedding.map { |value| value + (2 * epsilon) } }
+
+      context 'with no other PromptResponse records' do
+        let(:prompt_response) { create(:evidence_prompt_response) }
+
+        it { is_expected.to eq nil }
+      end
+
+      context 'with other PromptResponse records but for different prompt' do
+        let(:prompt_response) { create(:evidence_prompt_response) }
+
+        before { create(:evidence_prompt_response) }
+
+        it { is_expected.to eq nil }
+      end
+
+      context 'with one other PromptResponse' do
+        let!(:prompt_response_epsilon) { create(:evidence_prompt_response, prompt:, embedding: embedding_plus_epsilon) }
+
+        let(:prompt) { create(:evidence_prompt) }
+        let(:prompt_response) { create(:evidence_prompt_response, prompt:, embedding:) }
+
+        before { create(:evidence_prompt_response, prompt:, embedding: embedding_plus_epsilon) }
+
+        it { is_expected.to eq prompt_response_epsilon }
+      end
+
+      context 'with multiple other PromptResponse records' do
+        let!(:prompt_response1) { create(:evidence_prompt_response, prompt:, embedding: embedding_plus_epsilon) }
+        let!(:prompt_response2) { create(:evidence_prompt_response, prompt:, embedding: embedding_plus_two_epsilon) }
+
+        let(:prompt) { create(:evidence_prompt) }
+        let(:prompt_response) { create(:evidence_prompt_response, prompt:, embedding:) }
+
+        it { is_expected.to eq prompt_response1 }
+      end
+    end
+
+    context '#closest_feedback' do
+      subject { prompt_response.closest_feedback }
+
+      let(:prompt) { create(:evidence_prompt) }
+      let(:prompt_response) { create(:evidence_prompt_response, prompt:) }
+
+      context 'when closest_prompt_response' do
+        it { is_expected.to eq(distance: nil, feedback: nil) }
+      end
+
+      context 'with other PromptResponse records' do
+        let!(:existing_prompt_response) { create(:evidence_prompt_response, prompt:) }
+
+        context 'but no corresponding PromptResponseFeedback' do
+          it { expect(subject[:distance]).to be_a(Float) }
+          it { expect(subject[:feedback]).to be_nil }
+        end
+
+        context 'and corresponding PromptResponseFeedback' do
+          let!(:existing_prompt_response_feedback) do
+            create(:evidence_prompt_response_feedback, prompt_response: existing_prompt_response)
+          end
+
+          it { expect(subject[:distance]).to be_a(Float) }
+          it { expect(subject[:feedback]).to eq existing_prompt_response_feedback.feedback }
+        end
+      end
+    end
+
     context 'benchmarking', :benchmarking do
       let(:num_iterations) { 1000 }
       let(:texts) { num_iterations.times.map { Faker::Lorem.sentence } }
