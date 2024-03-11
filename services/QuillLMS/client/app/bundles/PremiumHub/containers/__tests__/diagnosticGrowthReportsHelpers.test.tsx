@@ -109,6 +109,7 @@ const mockPostDiagnosticCompletedData = [{
       group_by: "grade",
       name: "Grade 5",
       post_average_score: 0.6535947712418301,
+      overall_skill_growth: 0.11936507936507935,
       post_students_completed: 51
     },
     {
@@ -118,6 +119,7 @@ const mockPostDiagnosticCompletedData = [{
       group_by: "grade",
       name: "Grade 7",
       post_average_score: 0.7261904761904762,
+      overall_skill_growth: 0.1002217741935484,
       post_students_completed: 4
     }
   ],
@@ -126,6 +128,7 @@ const mockPostDiagnosticCompletedData = [{
   group_by: "grade",
   name: "ROLLUP",
   post_average_score: 0.658874458874459,
+      overall_skill_growth: 0.11802217741935484,
   post_students_completed: 55
 }]
 
@@ -168,7 +171,7 @@ const mockCombinedData = [{
       averageActivitiesAndTimeSpent: "22 Activities (206:56)",
       id: "5",
       name: "Grade 5",
-      overallSkillGrowth: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>+29%</button>,
+      overallSkillGrowth: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>+12%</button>,
       postDiagnosticCompleted: "51 of 52 Students",
       preDiagnosticCompleted: <p className="emphasized-content">125 of 163 Students</p>,
       studentsCompletedPractice: "113 Students"
@@ -177,7 +180,7 @@ const mockCombinedData = [{
       averageActivitiesAndTimeSpent: "12 Activities (85:57)",
       id: "7",
       name: "Grade 7",
-      overallSkillGrowth: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>+19%</button>,
+      overallSkillGrowth: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>+10%</button>,
       postDiagnosticCompleted: "4 of 5 Students",
       preDiagnosticCompleted: <p className="emphasized-content">53 of 52 Students</p>,
       studentsCompletedPractice: "46 Students"
@@ -186,7 +189,7 @@ const mockCombinedData = [{
   averageActivitiesAndTimeSpent: "19 Activities (171:56)",
   id: 1663,
   name: "Starter Baseline Diagnostic (Pre)",
-  overallSkillGrowth: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>+24%</button>,
+  overallSkillGrowth: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>+12%</button>,
   preDiagnosticCompleted: <p className="emphasized-content">178 of 215 Students</p>,
   postDiagnosticCompleted: "55 of 215 Students",
   studentsCompletedPractice: "159 Students"

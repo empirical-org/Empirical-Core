@@ -57,7 +57,7 @@ function overallSkillGrowthValue({diagnosticId, overallSkillGrowth, handleGrowth
   if (!overallSkillGrowth) {
     return noDataToShow;
   } else if (overallSkillGrowth > 0) {
-    return <button className="interactive-wrapper emphasized-content" onClick={handleGrowthChipClick} value={diagnosticId}>{Math.round(overallSkillGrowth * 100)}%</button>
+    return <button className="interactive-wrapper emphasized-content" onClick={handleGrowthChipClick} value={diagnosticId}>{`+${Math.round(overallSkillGrowth * 100)}%`}</button>
   }
   return 'No Growth';
 }
