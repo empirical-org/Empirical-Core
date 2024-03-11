@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ProfilesController < ApplicationController
+  include PublicProgressReports
+
   before_action :signed_in!
 
   def show
@@ -66,7 +68,7 @@ class ProfilesController < ApplicationController
         .where(user_id: current_user.id, activity_id: ua['activity_id'], classroom_unit_id: ua['classroom_unit_id'])
       completed_sessions = activity_sessions.where(state: ActivitySession::STATE_FINISHED)
 
-      ua['sessions'] = activity_sessions.map { |as| as.format_activity_sessions_for_tooltip(current_user) }
+      ua['sessions'] = activity_sessions.map { |as| format_activity_session_for_tooltip(as, current_user) }
       ua['completed_attempts'] = completed_sessions.length
 
       ua

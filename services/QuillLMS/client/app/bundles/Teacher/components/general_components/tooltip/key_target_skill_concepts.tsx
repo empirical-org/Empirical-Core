@@ -28,9 +28,7 @@ export const KeyTargetSkillConcepts = ({ groupedKeyTargetSkillConcepts, }) => {
     </div>
   )
   return(
-    <React.Fragment>
-      {!!groupedKeyTargetSkillConcepts?.length && <ActivityDetailsSection customClass="target-skills-section" description={descriptionElement} header="Target Skills" />}
-    </React.Fragment>
+    !!groupedKeyTargetSkillConcepts?.length ? <ActivityDetailsSection customClass="target-skills-section" description={descriptionElement} header="Target Skills" /> : <span />
   )
 }
 

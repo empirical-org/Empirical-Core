@@ -775,6 +775,7 @@ exports[`ScorebookTooltip component scoring should display a scoring explanation
           </p>
         </div>
       </div>
+      <span />
       <p
         class="tooltip-message"
       >
@@ -914,6 +915,7 @@ exports[`ScorebookTooltip component scoring should display the scoring informati
           </div>
         </div>
       </div>
+      <span />
       <p
         class="tooltip-message"
       >
@@ -1053,6 +1055,7 @@ exports[`ScorebookTooltip component should render 1`] = `
           </div>
         </div>
       </div>
+      <span />
       <p
         class="tooltip-message"
       >

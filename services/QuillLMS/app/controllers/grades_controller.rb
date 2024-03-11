@@ -29,7 +29,7 @@ class GradesController < ApplicationController
       )
       .order(:completed_at)
 
-    activity_sessions.map { |activity_session| activity_session.format_activity_sessions_for_tooltip(current_user) }
+    activity_sessions.map { |activity_session| format_activity_session_for_tooltip(activity_session, current_user) }
   end
 
   private def authorize!
