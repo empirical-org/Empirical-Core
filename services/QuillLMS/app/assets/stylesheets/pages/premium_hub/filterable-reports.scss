@@ -90,9 +90,13 @@
       }
     }
     .filter-buttons-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
       padding: 16px 24px;
       bottom: 0;
       width: 301px;
+      min-height: 104px;
       border-radius: 8px;
       margin: 0px 16px 16px;
       border-radius: 8px;

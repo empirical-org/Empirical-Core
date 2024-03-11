@@ -99,6 +99,7 @@ main {
       height: 55px;
       .data-table-headers {
         padding-right: 10px;
+        min-height: 55px !important;
         th {
           justify-content: space-between;
           font-size: 13px !important;

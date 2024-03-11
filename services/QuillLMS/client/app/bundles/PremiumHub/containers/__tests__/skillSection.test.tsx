@@ -13,7 +13,9 @@ const props = {
   selectedClassroomIds: [],
   selectedTimeframe: "This school year",
   pusherChannel: null,
+  handleSetDisplayStudentCountsForFilters: jest.fn(),
   selectedDiagnosticId: null,
+  selectedGroupByValue: null,
   passedData: null
 }
 

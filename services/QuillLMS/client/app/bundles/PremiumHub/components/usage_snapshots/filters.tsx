@@ -59,7 +59,7 @@ const Filters = ({
   function renderFilterButtons() {
     if (!hasAdjustedFiltersFromDefault && !hasAdjustedFiltersSinceLastSubmission) { return null }
 
-    const shouldDisplayStudentCount = isGrowthDiagnosticReport && displayStudentCountsForFilters && totalStudentCountForFilters && totalStudentMatchesForFilters
+    const shouldDisplayStudentCount = isGrowthDiagnosticReport && !hasAdjustedFiltersSinceLastSubmission && displayStudentCountsForFilters && totalStudentCountForFilters && totalStudentMatchesForFilters
     let applyClassName = "quill-button small contained primary focus-on-light"
 
     applyClassName += hasAdjustedFiltersSinceLastSubmission ? '' : ' disabled'

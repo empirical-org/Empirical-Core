@@ -5,6 +5,7 @@ import { Spinner, whiteArrowPointingDownIcon, filterIcon, documentFileIcon } fro
 import OverviewSection from './overviewSection'
 import SkillSection from './skillSection'
 import StudentSection from './studentSection'
+import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
 
 const barChartGreySrc = `${process.env.CDN_URL}/images/pages/diagnostic_reports/icons-bar-chart.svg`
 const barChartWhiteIconSrc = `${process.env.CDN_URL}/images/icons/white-bar-chart-icon.svg`
@@ -60,6 +61,7 @@ export const DiagnosticGrowthReportsContainer = ({
 
   const [activeTab, setActiveTab] = React.useState<string>(OVERVIEW)
   const [selectedDiagnosticId, setSelectedDiagnosticId] = React.useState<number>(null)
+  const [selectedGroupByValue, setSelectedGroupByValue] = React.useState<DropdownObjectInterface>(null)
   const [noDiagnosticDataAvailable, setNoDiagnosticDataAvailable] = React.useState<boolean>(!!passedData)
 
   const sharedProps = {
@@ -74,6 +76,19 @@ export const DiagnosticGrowthReportsContainer = ({
     handleSetNoDiagnosticDataAvailable,
     handleSetDisplayStudentCountsForFilters,
     passedData: null
+  }
+
+  const overviewProps = {
+    ...sharedProps,
+    handleSetSelectedDiagnosticId,
+    handleTabChangeFromDataChip,
+    handleSetSelectedGroupByValue
+  }
+
+  const skillSectionProps = {
+    ...sharedProps,
+    selectedDiagnosticId,
+    selectedGroupByValue
   }
 
   const studentSectionProps = {
@@ -97,6 +112,10 @@ export const DiagnosticGrowthReportsContainer = ({
 
   function handleSetSelectedDiagnosticId(e) {
     setSelectedDiagnosticId(Number(e.target.value))
+  }
+
+  function handleSetSelectedGroupByValue(value: DropdownObjectInterface) {
+    setSelectedGroupByValue(value)
   }
 
   function renderButtons() {
@@ -135,8 +154,8 @@ export const DiagnosticGrowthReportsContainer = ({
             Filters
           </button>
         </div>
-        {activeTab === OVERVIEW && <OverviewSection {...sharedProps} handleSetSelectedDiagnosticId={handleSetSelectedDiagnosticId} handleTabChangeFromDataChip={handleTabChangeFromDataChip} />}
-        {activeTab === SKILL && <SkillSection {...sharedProps} selectedDiagnosticId={selectedDiagnosticId} />}
+        {activeTab === OVERVIEW && <OverviewSection {...overviewProps} />}
+        {activeTab === SKILL && <SkillSection {...skillSectionProps} />}
         {activeTab === STUDENT && <StudentSection {...studentSectionProps} />}
       </React.Fragment>
     )

@@ -102,6 +102,7 @@ export const OverviewSection = ({
   handleSetNoDiagnosticDataAvailable,
   handleTabChangeFromDataChip,
   handleSetSelectedDiagnosticId,
+  handleSetSelectedGroupByValue,
   handleSetDisplayStudentCountsForFilters,
   passedData
 }) => {
@@ -287,6 +288,7 @@ export const OverviewSection = ({
 
   function handleGrowthChipClick(id: number) {
     handleSetSelectedDiagnosticId(id)
+    handleSetSelectedGroupByValue(groupByValue)
     handleTabChangeFromDataChip(SKILL)
   }
 

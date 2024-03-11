@@ -59,7 +59,7 @@ const headers = [
     width: DEFAULT_CELL_WIDTH,
     primaryTitle: 'Students',
     secondaryTitle: 'Improved Skill',
-    tooltipName: 'Students Improved Skills',
+    tooltipName: 'Students Improved Skill',
     tooltipDescription: studentsImprovedSkillTooltipText,
     noTooltip: true,
     isSortable: true
@@ -100,11 +100,12 @@ export const SkillSection = ({
   selectedTimeframe,
   pusherChannel,
   selectedDiagnosticId,
+  selectedGroupByValue,
   handleSetDisplayStudentCountsForFilters,
   passedData
 }) => {
 
-  const [groupByValue, setGroupByValue] = React.useState<DropdownObjectInterface>(groupByDropdownOptions[0])
+  const [groupByValue, setGroupByValue] = React.useState<DropdownObjectInterface>(selectedGroupByValue || groupByDropdownOptions[0])
   const [diagnosticTypeValue, setDiagnosticTypeValue] = React.useState<DropdownObjectInterface>(getInitialDiagnosticType())
   const [pusherMessage, setPusherMessage] = React.useState<string>(null)
   const [skillsData, setSkillsData] = React.useState<any>(null);
