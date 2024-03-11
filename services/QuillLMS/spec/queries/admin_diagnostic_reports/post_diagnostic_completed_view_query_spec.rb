@@ -44,13 +44,13 @@ module AdminDiagnosticReports
         let(:post_diagnostic_activity_sessions) do
           pre_diagnostic_activity_sessions.map.with_index do |pre_session, i|
             # alternate between finished and unstarted sessions
-            session_status = (i + 1) % 2 == 0 ? :finished : :unstarted
-            completed_at = (i + 1) % 2 == 0 ? pre_session.completed_at + 1.hour : nil
-            create(:activity_session, :unstarted, user: pre_session.user, activity: post_diagnostic, completed_at:, classroom_unit: post_diagnostic_classroom_units[pre_diagnostic_classroom_units.index(pre_session.classroom_unit)])
+            session_status = i.odd? ? :finished : :unstarted
+            completed_at = i.odd? ? pre_session.completed_at + 1.hour : nil
+            create(:activity_session, session_status, user: pre_session.user, activity: post_diagnostic, completed_at:, classroom_unit: post_diagnostic_classroom_units[pre_diagnostic_classroom_units.index(pre_session.classroom_unit)])
           end
         end
 
-        it { expect(results.first[:post_students_completed]).to eq(1) }
+        it { expect(results.first[:post_students_completed]).to eq(post_diagnostic_activity_sessions.length / 2) }
       end
 
       context 'none correct to all correct' do
