@@ -1,11 +1,13 @@
 import _ from 'lodash'
 import * as React from 'react'
+import { Link } from 'react-router-dom'
+
 import { hashToCollection } from '../../../Shared/index'
 import { Concept } from '../../interfaces/concepts'
 import { Question } from '../../interfaces/questions'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
 import { QuestionsReducerState } from '../../reducers/questionsReducer'
-import LinkListItem from '../shared/linkListItem'
+
 
 interface QuestionListByConceptProps {
   concepts: ConceptReducerState;
@@ -31,6 +33,7 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
   }
 
   renderQuestionLinks(questions: Question[]): Array<JSX.Element|undefined> {
+    const { basePath } = this.props;
     let filtered;
     if (!this.props.showOnlyArchived) {
       filtered = questions.filter((question) => question.flag !== "archived" )
@@ -39,15 +42,10 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
     }
     return filtered.map((question: Question) => {
       if (question.prompt) {
-        const formattedPrompt = question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
         return (
-          <LinkListItem
-            basePath={this.props.basePath}
-            itemKey={question.key}
-            key={question.key}
-            subpath="responses"
-            text={formattedPrompt}
-          />
+          <Link to={'/admin/' + basePath + '/' + question.key + '/responses'}>
+            <span dangerouslySetInnerHTML={{ __html: question.prompt }} />
+          </Link>
         );
       }
     });
