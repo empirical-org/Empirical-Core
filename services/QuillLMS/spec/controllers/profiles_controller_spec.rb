@@ -249,6 +249,7 @@ describe ProfilesController, type: :controller do
                 'completed_date' => activity_session&.completed_at,
                 'order_number' => unit_activity.order_number,
                 'due_date' => unit_activity.due_date,
+                'publish_date' => unit_activity.publish_date,
                 'pre_activity_id' => pre_test&.id,
                 'unit_activity_created_at' => classroom_unit.created_at,
                 'user_pack_sequence_item_status' => nil,
