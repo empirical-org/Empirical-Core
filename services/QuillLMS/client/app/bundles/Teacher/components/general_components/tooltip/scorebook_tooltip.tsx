@@ -12,8 +12,6 @@ import { proficiencyCutoffsAsPercentage } from '../../../../../modules/proficien
 import { NOT_APPLICABLE, Spinner } from '../../../../Shared'
 import useWindowSize from '../../../../Shared/hooks/useWindowSize'
 
-const CARET_LEFT = 146 // from the css file here: https://github.com/empirical-org/Empirical-Core/blob/develop/services/QuillLMS/app/assets/stylesheets/shared/tooltip/scorebook_and_student_profile_tooltip/main.scss#L6-L7
-
 const ORDINAL_NUMBERS = ['Zeroth', 'First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh', 'Eighth', 'Ninth', 'Tenth']
 const QUILL_DIAGNOSTIC_SCORING_EXPLANATION = "The Quill Diagnostic is meant to diagnose skills to practice. Students are not provided a color-coded score or percentage score. Teachers see only a percentage score without a color."
 const percentageDisplayer = new PercentageDisplayer()
@@ -63,35 +61,37 @@ export const ScorebookTooltip = ({ data, inStudentView, }: ScorebookTooltipProps
   if (!Object.keys(data).length) { return <span /> }
 
   React.useEffect(() => {
-    if (tooltipRef.current) {
-      const tooltipRect = tooltipRef.current.getBoundingClientRect();
-      const viewportWidth = size.width;
+    // this hook makes sure the tooltip doesn't end up off the screen to the left or the right, and repositions the caret if the tooltip itself has moved
 
-      let { right, left } = tooltipRect;
+    if (!tooltipRef.current) { return }
 
-      if (left < 0) {
-        setTooltipStyle({
-          left: '0px',
-          right: 'unset'
-        });
+    const tooltipRect = tooltipRef.current.getBoundingClientRect();
+    const viewportWidth = size.width;
 
-        setCaretStyle({
-          left: '16px',
-          right: 'unset'
-        })
-      }
+    let { right, left } = tooltipRect;
 
-      if (right > viewportWidth) {
-        setTooltipStyle({
-          left: 'unset',
-          right: '0px',
-        });
+    if (left < 0) {
+      setTooltipStyle({
+        left: '0px',
+        right: 'unset'
+      });
 
-        setCaretStyle({
-          right: '16px',
-          left: 'unset'
-        })
-      }
+      setCaretStyle({
+        left: '16px',
+        right: 'unset'
+      })
+    }
+
+    if (right > viewportWidth) {
+      setTooltipStyle({
+        left: 'unset',
+        right: '0px',
+      });
+
+      setCaretStyle({
+        left: 'unset',
+        right: '16px'
+      })
     }
   }, [size]);
 

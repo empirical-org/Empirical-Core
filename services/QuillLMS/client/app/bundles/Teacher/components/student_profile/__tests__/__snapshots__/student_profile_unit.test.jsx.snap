@@ -1,1552 +1,1500 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`StudentProfileUnit component should render 1`] = `
-<StudentProfileUnit
-  data={
-    Object {
-      "complete": Array [
-        Object {
-          "act_sesh_updated_at": "2020-01-16 18:04:02.957825",
-          "activity_classification_id": 2,
-          "activity_id": 138,
-          "classroom_unit_id": 1,
-          "description": "Write ten sentences using the articles a or an.",
-          "due_date": "2020-02-29 05:00:00",
-          "finished": true,
-          "locked": false,
-          "marked_complete": false,
-          "max_percentage": 1,
-          "name": "A, An",
-          "order_number": 1,
-          "pinned": false,
-          "repeatable": true,
-          "resume_link": 0,
-          "ua_id": 9,
-          "unit_activity_created_at": "2020-01-16 17:57:24.712361",
-          "unit_created_at": "2020-01-16 17:57:24.518561",
-          "unit_id": 7,
-          "unit_name": "History: Age of Exploration",
-        },
-        Object {
-          "act_sesh_updated_at": "2020-01-16 18:07:57.261188",
-          "activity_classification_id": 1,
-          "activity_id": 516,
-          "classroom_unit_id": 1,
-          "description": "Find and correct the 9 errors in this passage.",
-          "due_date": "2020-02-29 05:00:00",
-          "finished": true,
-          "locked": false,
-          "marked_complete": false,
-          "max_percentage": 0.764705882352941,
-          "name": "Age of Exploration: Spices",
-          "order_number": 5,
-          "pinned": false,
-          "repeatable": true,
-          "resume_link": 0,
-          "ua_id": 5,
-          "unit_activity_created_at": "2020-01-16 17:57:24.712361",
-          "unit_created_at": "2020-01-16 17:57:24.518561",
-          "unit_id": 7,
-          "unit_name": "History: Age of Exploration",
-        },
-      ],
-      "incomplete": Array [
-        Object {
-          "act_sesh_updated_at": null,
-          "activity_classification_id": 5,
-          "activity_id": 608,
-          "classroom_unit_id": 1,
-          "description": "",
-          "due_date": "2020-02-29 05:00:00",
-          "finished": false,
-          "locked": false,
-          "marked_complete": false,
-          "max_percentage": null,
-          "name": "The Travels of Marco Polo",
-          "order_number": 1,
-          "pack_sequence_item_status": "unlocked",
-          "pinned": false,
-          "repeatable": true,
-          "resume_link": 0,
-          "ua_id": 1,
-          "unit_activity_created_at": "2020-01-16 17:57:24.712361",
-          "unit_created_at": "2020-01-16 17:57:24.518561",
-          "unit_id": 7,
-          "unit_name": "History: Age of Exploration",
-        },
-        Object {
-          "act_sesh_updated_at": null,
-          "activity_classification_id": 5,
-          "activity_id": 607,
-          "classroom_unit_id": 1,
-          "description": "",
-          "due_date": "2020-02-29 05:00:00",
-          "finished": false,
-          "locked": false,
-          "marked_complete": false,
-          "max_percentage": null,
-          "name": "Christopher Columbus",
-          "order_number": 2,
-          "pack_sequence_item_status": "locked",
-          "pinned": false,
-          "repeatable": true,
-          "resume_link": 0,
-          "ua_id": 2,
-          "unit_activity_created_at": "2020-01-16 17:57:24.712361",
-          "unit_created_at": "2020-01-16 17:57:24.518561",
-          "unit_id": 7,
-          "unit_name": "History: Age of Exploration",
-        },
-        Object {
-          "act_sesh_updated_at": null,
-          "activity_classification_id": 2,
-          "activity_id": 140,
-          "classroom_unit_id": 1,
-          "description": "Write ten sentences using the determiners a, an, or the.",
-          "due_date": "2020-02-29 05:00:00",
-          "finished": false,
-          "locked": false,
-          "marked_complete": false,
-          "max_percentage": null,
-          "name": "A, An, The",
-          "order_number": 2,
-          "pinned": false,
-          "repeatable": true,
-          "resume_link": 0,
-          "ua_id": 10,
-          "unit_activity_created_at": "2020-01-16 17:57:24.712361",
-          "unit_created_at": "2020-01-16 17:57:24.518561",
-          "unit_id": 7,
-          "unit_name": "History: Age of Exploration",
-        },
-        Object {
-          "act_sesh_updated_at": null,
-          "activity_classification_id": 5,
-          "activity_id": 605,
-          "classroom_unit_id": 1,
-          "description": "",
-          "due_date": "2020-02-29 05:00:00",
-          "finished": false,
-          "locked": false,
-          "marked_complete": false,
-          "max_percentage": null,
-          "name": "Magellan",
-          "order_number": 3,
-          "pinned": false,
-          "repeatable": true,
-          "resume_link": 0,
-          "ua_id": 3,
-          "unit_activity_created_at": "2020-01-16 17:57:24.712361",
-          "unit_created_at": "2020-01-16 17:57:24.518561",
-          "unit_id": 7,
-          "unit_name": "History: Age of Exploration",
-        },
-        Object {
-          "act_sesh_updated_at": null,
-          "activity_classification_id": 5,
-          "activity_id": 606,
-          "classroom_unit_id": 1,
-          "description": "",
-          "due_date": "2020-02-29 05:00:00",
-          "finished": false,
-          "locked": false,
-          "marked_complete": false,
-          "max_percentage": null,
-          "name": "Jamestown",
-          "order_number": 4,
-          "pinned": false,
-          "repeatable": true,
-          "resume_link": 0,
-          "ua_id": 4,
-          "unit_activity_created_at": "2020-01-16 17:57:24.712361",
-          "unit_created_at": "2020-01-16 17:57:24.518561",
-          "unit_id": 7,
-          "unit_name": "History: Age of Exploration",
-        },
-        Object {
-          "act_sesh_updated_at": null,
-          "activity_classification_id": 1,
-          "activity_id": 503,
-          "classroom_unit_id": 1,
-          "description": "Find and correct the ten errors in this passage.",
-          "due_date": "2020-02-29 05:00:00",
-          "finished": false,
-          "locked": false,
-          "marked_complete": false,
-          "max_percentage": null,
-          "name": "Age of Exploration: Sailing with the Stars",
-          "order_number": 6,
-          "pinned": false,
-          "repeatable": true,
-          "resume_link": 0,
-          "ua_id": 6,
-          "unit_activity_created_at": "2020-01-16 17:57:24.712361",
-          "unit_created_at": "2020-01-16 17:57:24.518561",
-          "unit_id": 7,
-          "unit_name": "History: Age of Exploration",
-        },
-        Object {
-          "act_sesh_updated_at": null,
-          "activity_classification_id": 1,
-          "activity_id": 504,
-          "classroom_unit_id": 1,
-          "description": "Find and correct the nine errors in this passage.",
-          "due_date": "2020-02-29 05:00:00",
-          "finished": false,
-          "locked": false,
-          "marked_complete": false,
-          "max_percentage": null,
-          "name": "Age of Exploration: The Cape of Good Hope",
-          "order_number": 7,
-          "pinned": false,
-          "repeatable": true,
-          "resume_link": 0,
-          "ua_id": 7,
-          "unit_activity_created_at": "2020-01-16 17:57:24.712361",
-          "unit_created_at": "2020-01-16 17:57:24.518561",
-          "unit_id": 7,
-          "unit_name": "History: Age of Exploration",
-        },
-        Object {
-          "act_sesh_updated_at": null,
-          "activity_classification_id": 1,
-          "activity_id": 517,
-          "classroom_unit_id": 1,
-          "description": "Find and correct the 6 errors in this passage.",
-          "due_date": "2020-02-29 05:00:00",
-          "finished": false,
-          "locked": false,
-          "marked_complete": false,
-          "max_percentage": null,
-          "name": "Age of Exploration: Roanoke",
-          "order_number": 8,
-          "pinned": false,
-          "repeatable": true,
-          "resume_link": 0,
-          "ua_id": 8,
-          "unit_activity_created_at": "2020-01-16 17:57:24.712361",
-          "unit_created_at": "2020-01-16 17:57:24.518561",
-          "unit_id": 7,
-          "unit_name": "History: Age of Exploration",
-        },
-      ],
-    }
-  }
-  unitName="Unit"
->
+exports[`StudentProfileUnit component should render completed activities when showExactScores is false 1`] = `
+<DocumentFragment>
   <div
-    className="student-profile-unit undefined"
+    class="student-profile-unit undefined"
   >
     <div
-      className="unit-name-and-staggered-release-status"
+      class="unit-name-and-staggered-release-status"
     >
       <h2
-        className="unit-name"
+        class="unit-name"
       >
         Unit
       </h2>
       <span />
     </div>
     <div
-      className="activities-container incomplete-activities"
+      class="activities-container completed-activities"
     >
-      <DataTable
-        averageFontWidth={7}
-        headers={
-          Array [
-            Object {
-              "attribute": "name",
-              "headerClassName": "name-section",
-              "name": "Activity",
-              "noTooltip": true,
-              "rowSectionClassName": "name-section",
-              "width": "823px",
-            },
-            Object {
-              "attribute": "tool",
-              "headerClassName": "tool-icon-section",
-              "name": "Tool",
-              "noTooltip": true,
-              "rowSectionClassName": "tool-icon-section",
-              "width": "24px",
-            },
-            Object {
-              "attribute": "dueDate",
-              "headerClassName": "due-date-section",
-              "name": "Due date",
-              "noTooltip": true,
-              "rowSectionClassName": "due-date-section",
-              "width": "100px",
-            },
-            Object {
-              "attribute": "actionButton",
-              "headerClassName": "action-button-section",
-              "name": "",
-              "noTooltip": true,
-              "rowSectionClassName": "action-button-section",
-              "width": "88px",
-            },
-          ]
-        }
-        rows={
-          Array [
-            Object {
-              "actionButton": <a
-                aria-label="Start The Travels of Marco Polo"
-                className="quill-button medium focus-on-light secondary outlined"
-                href="/activity_sessions/classroom_units/1/activities/608"
-              >
-                Start
-              </a>,
-              "dueDate": "Feb 29, 5am",
-              "id": 1,
-              "name": "The Travels of Marco Polo",
-              "tool": undefined,
-            },
-            Object {
-              "actionButton": <a
-                aria-label="Start Christopher Columbus"
-                className="quill-button medium focus-on-light secondary outlined"
-                href="/activity_sessions/classroom_units/1/activities/607"
-              >
-                Start
-              </a>,
-              "dueDate": "Feb 29, 5am",
-              "id": 2,
-              "name": "Christopher Columbus",
-              "tool": undefined,
-            },
-            Object {
-              "actionButton": <a
-                aria-label="Start A, An, The"
-                className="quill-button medium focus-on-light secondary outlined"
-                href="/activity_sessions/classroom_units/1/activities/140"
-              >
-                Start
-              </a>,
-              "dueDate": "Feb 29, 5am",
-              "id": 10,
-              "name": "A, An, The",
-              "tool": undefined,
-            },
-            Object {
-              "actionButton": <a
-                aria-label="Start Magellan"
-                className="quill-button medium focus-on-light secondary outlined"
-                href="/activity_sessions/classroom_units/1/activities/605"
-              >
-                Start
-              </a>,
-              "dueDate": "Feb 29, 5am",
-              "id": 3,
-              "name": "Magellan",
-              "tool": undefined,
-            },
-            Object {
-              "actionButton": <a
-                aria-label="Start Jamestown"
-                className="quill-button medium focus-on-light secondary outlined"
-                href="/activity_sessions/classroom_units/1/activities/606"
-              >
-                Start
-              </a>,
-              "dueDate": "Feb 29, 5am",
-              "id": 4,
-              "name": "Jamestown",
-              "tool": undefined,
-            },
-            Object {
-              "actionButton": <a
-                aria-label="Start Age of Exploration: Sailing with the Stars"
-                className="quill-button medium focus-on-light secondary outlined"
-                href="/activity_sessions/classroom_units/1/activities/503"
-              >
-                Start
-              </a>,
-              "dueDate": "Feb 29, 5am",
-              "id": 6,
-              "name": "Age of Exploration: Sailing with the Stars",
-              "tool": undefined,
-            },
-            Object {
-              "actionButton": <a
-                aria-label="Start Age of Exploration: The Cape of Good Hope"
-                className="quill-button medium focus-on-light secondary outlined"
-                href="/activity_sessions/classroom_units/1/activities/504"
-              >
-                Start
-              </a>,
-              "dueDate": "Feb 29, 5am",
-              "id": 7,
-              "name": "Age of Exploration: The Cape of Good Hope",
-              "tool": undefined,
-            },
-            Object {
-              "actionButton": <a
-                aria-label="Start Age of Exploration: Roanoke"
-                className="quill-button medium focus-on-light secondary outlined"
-                href="/activity_sessions/classroom_units/1/activities/517"
-              >
-                Start
-              </a>,
-              "dueDate": "Feb 29, 5am",
-              "id": 8,
-              "name": "Age of Exploration: Roanoke",
-              "tool": undefined,
-            },
-          ]
-        }
+      <table
+        class="data-table undefined"
       >
-        <table
-          className="data-table undefined"
-        >
-          <thead>
-            <tr
-              className="data-table-headers"
-            >
-              <th
-                className="data-table-header name-section"
-                key="0"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "823px",
-                    "textAlign": "left",
-                    "width": "823px",
-                  }
-                }
-              >
-                <span>
-                  Activity
-                </span>
-              </th>
-              <th
-                className="data-table-header tool-icon-section"
-                key="1"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "24px",
-                    "textAlign": "right",
-                    "width": "24px",
-                  }
-                }
-              >
-                <span>
-                  Tool
-                </span>
-              </th>
-              <th
-                className="data-table-header due-date-section"
-                key="2"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "100px",
-                    "textAlign": "left",
-                    "width": "100px",
-                  }
-                }
-              >
-                <span>
-                  Due date
-                </span>
-              </th>
-              <th
-                className="data-table-header action-button-section"
-                key="3"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "88px",
-                    "textAlign": "left",
-                    "width": "88px",
-                  }
-                }
-              >
-                <span />
-              </th>
-            </tr>
-          </thead>
-          <tbody
-            className="data-table-body"
+        <thead>
+          <tr
+            class="data-table-headers"
           >
-            <tr
-              className="data-table-row  "
-              key="1"
+            <th
+              class="data-table-header name-section"
+              scope="col"
+              style="width: 474px; min-width: 474px; text-align: left;"
             >
-              <td
-                className="data-table-row-section name-section"
-                key="name-1"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "823px",
-                    "textAlign": "left",
-                    "width": "823px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  The Travels of Marco Polo
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section tool-icon-section"
-                key="tool-1"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "24px",
-                    "textAlign": "right",
-                    "width": "24px",
-                  }
-                }
-              >
-                <TableCellContentWrapper />
-              </td>
-              <td
-                className="data-table-row-section due-date-section"
-                key="dueDate-1"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "100px",
-                    "textAlign": "left",
-                    "width": "100px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  Feb 29, 5am
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section action-button-section"
-                key="actionButton-1"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "88px",
-                    "textAlign": "left",
-                    "width": "88px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  <a
-                    aria-label="Start The Travels of Marco Polo"
-                    className="quill-button medium focus-on-light secondary outlined"
-                    href="/activity_sessions/classroom_units/1/activities/608"
-                  >
-                    Start
-                  </a>
-                </TableCellContentWrapper>
-              </td>
-            </tr>
-            <tr
-              className="data-table-row  "
-              key="2"
+              <span>
+                Activity
+              </span>
+            </th>
+            <th
+              class="data-table-header score-section tooltip-section"
+              scope="col"
+              style="width: 230px; min-width: 230px; text-align: left;"
             >
-              <td
-                className="data-table-row-section name-section"
-                key="name-2"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "823px",
-                    "textAlign": "left",
-                    "width": "823px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  Christopher Columbus
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section tool-icon-section"
-                key="tool-2"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "24px",
-                    "textAlign": "right",
-                    "width": "24px",
-                  }
-                }
-              >
-                <TableCellContentWrapper />
-              </td>
-              <td
-                className="data-table-row-section due-date-section"
-                key="dueDate-2"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "100px",
-                    "textAlign": "left",
-                    "width": "100px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  Feb 29, 5am
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section action-button-section"
-                key="actionButton-2"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "88px",
-                    "textAlign": "left",
-                    "width": "88px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  <a
-                    aria-label="Start Christopher Columbus"
-                    className="quill-button medium focus-on-light secondary outlined"
-                    href="/activity_sessions/classroom_units/1/activities/607"
-                  >
-                    Start
-                  </a>
-                </TableCellContentWrapper>
-              </td>
-            </tr>
-            <tr
-              className="data-table-row  "
-              key="10"
+              <span>
+                Score
+              </span>
+            </th>
+            <th
+              class="data-table-header tool-icon-section"
+              scope="col"
+              style="width: 24px; min-width: 24px; text-align: left;"
             >
-              <td
-                className="data-table-row-section name-section"
-                key="name-10"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "823px",
-                    "textAlign": "left",
-                    "width": "823px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  A, An, The
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section tool-icon-section"
-                key="tool-10"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "24px",
-                    "textAlign": "right",
-                    "width": "24px",
-                  }
-                }
-              >
-                <TableCellContentWrapper />
-              </td>
-              <td
-                className="data-table-row-section due-date-section"
-                key="dueDate-10"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "100px",
-                    "textAlign": "left",
-                    "width": "100px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  Feb 29, 5am
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section action-button-section"
-                key="actionButton-10"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "88px",
-                    "textAlign": "left",
-                    "width": "88px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  <a
-                    aria-label="Start A, An, The"
-                    className="quill-button medium focus-on-light secondary outlined"
-                    href="/activity_sessions/classroom_units/1/activities/140"
-                  >
-                    Start
-                  </a>
-                </TableCellContentWrapper>
-              </td>
-            </tr>
-            <tr
-              className="data-table-row  "
-              key="3"
+              <span>
+                Tool
+              </span>
+            </th>
+            <th
+              class="data-table-header completed-due-date-section"
+              scope="col"
+              style="width: 110px; min-width: 110px; text-align: left;"
             >
-              <td
-                className="data-table-row-section name-section"
-                key="name-3"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "823px",
-                    "textAlign": "left",
-                    "width": "823px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  Magellan
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section tool-icon-section"
-                key="tool-3"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "24px",
-                    "textAlign": "right",
-                    "width": "24px",
-                  }
-                }
-              >
-                <TableCellContentWrapper />
-              </td>
-              <td
-                className="data-table-row-section due-date-section"
-                key="dueDate-3"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "100px",
-                    "textAlign": "left",
-                    "width": "100px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  Feb 29, 5am
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section action-button-section"
-                key="actionButton-3"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "88px",
-                    "textAlign": "left",
-                    "width": "88px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  <a
-                    aria-label="Start Magellan"
-                    className="quill-button medium focus-on-light secondary outlined"
-                    href="/activity_sessions/classroom_units/1/activities/605"
-                  >
-                    Start
-                  </a>
-                </TableCellContentWrapper>
-              </td>
-            </tr>
-            <tr
-              className="data-table-row  "
-              key="4"
+              <span>
+                Due date
+              </span>
+            </th>
+            <th
+              class="data-table-header completed-date-section"
+              scope="col"
+              style="width: 110px; min-width: 110px; text-align: left;"
             >
-              <td
-                className="data-table-row-section name-section"
-                key="name-4"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "823px",
-                    "textAlign": "left",
-                    "width": "823px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  Jamestown
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section tool-icon-section"
-                key="tool-4"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "24px",
-                    "textAlign": "right",
-                    "width": "24px",
-                  }
-                }
-              >
-                <TableCellContentWrapper />
-              </td>
-              <td
-                className="data-table-row-section due-date-section"
-                key="dueDate-4"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "100px",
-                    "textAlign": "left",
-                    "width": "100px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  Feb 29, 5am
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section action-button-section"
-                key="actionButton-4"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "88px",
-                    "textAlign": "left",
-                    "width": "88px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  <a
-                    aria-label="Start Jamestown"
-                    className="quill-button medium focus-on-light secondary outlined"
-                    href="/activity_sessions/classroom_units/1/activities/606"
-                  >
-                    Start
-                  </a>
-                </TableCellContentWrapper>
-              </td>
-            </tr>
-            <tr
-              className="data-table-row  "
-              key="6"
+              <span>
+                Completed date
+              </span>
+            </th>
+            <th
+              class="data-table-header action-button-section tooltip-section"
+              scope="col"
+              style="width: 88px; min-width: 88px; text-align: left;"
             >
-              <td
-                className="data-table-row-section name-section"
-                key="name-6"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "823px",
-                    "textAlign": "left",
-                    "width": "823px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  Age of Exploration: Sailing with the Stars
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section tool-icon-section"
-                key="tool-6"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "24px",
-                    "textAlign": "right",
-                    "width": "24px",
-                  }
-                }
-              >
-                <TableCellContentWrapper />
-              </td>
-              <td
-                className="data-table-row-section due-date-section"
-                key="dueDate-6"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "100px",
-                    "textAlign": "left",
-                    "width": "100px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  Feb 29, 5am
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section action-button-section"
-                key="actionButton-6"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "88px",
-                    "textAlign": "left",
-                    "width": "88px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  <a
-                    aria-label="Start Age of Exploration: Sailing with the Stars"
-                    className="quill-button medium focus-on-light secondary outlined"
-                    href="/activity_sessions/classroom_units/1/activities/503"
-                  >
-                    Start
-                  </a>
-                </TableCellContentWrapper>
-              </td>
-            </tr>
-            <tr
-              className="data-table-row  "
-              key="7"
+              <span />
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="data-table-body"
+        >
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
             >
-              <td
-                className="data-table-row-section name-section"
-                key="name-7"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "823px",
-                    "textAlign": "left",
-                    "width": "823px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  Age of Exploration: The Cape of Good Hope
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section tool-icon-section"
-                key="tool-7"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "24px",
-                    "textAlign": "right",
-                    "width": "24px",
-                  }
-                }
-              >
-                <TableCellContentWrapper />
-              </td>
-              <td
-                className="data-table-row-section due-date-section"
-                key="dueDate-7"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "100px",
-                    "textAlign": "left",
-                    "width": "100px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  Feb 29, 5am
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section action-button-section"
-                key="actionButton-7"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "88px",
-                    "textAlign": "left",
-                    "width": "88px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  <a
-                    aria-label="Start Age of Exploration: The Cape of Good Hope"
-                    className="quill-button medium focus-on-light secondary outlined"
-                    href="/activity_sessions/classroom_units/1/activities/504"
-                  >
-                    Start
-                  </a>
-                </TableCellContentWrapper>
-              </td>
-            </tr>
-            <tr
-              className="data-table-row  "
-              key="8"
+              Capitalizing People, Places, & the Pronoun - Mixed Topics
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
             >
-              <td
-                className="data-table-row-section name-section"
-                key="name-8"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "823px",
-                    "textAlign": "left",
-                    "width": "823px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  Age of Exploration: Roanoke
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section tool-icon-section"
-                key="tool-8"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "24px",
-                    "textAlign": "right",
-                    "width": "24px",
-                  }
-                }
-              >
-                <TableCellContentWrapper />
-              </td>
-              <td
-                className="data-table-row-section due-date-section"
-                key="dueDate-8"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "100px",
-                    "textAlign": "left",
-                    "width": "100px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  Feb 29, 5am
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section action-button-section"
-                key="actionButton-8"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "88px",
-                    "textAlign": "left",
-                    "width": "88px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  <a
-                    aria-label="Start Age of Exploration: Roanoke"
-                    className="quill-button medium focus-on-light secondary outlined"
-                    href="/activity_sessions/classroom_units/1/activities/517"
-                  >
-                    Start
-                  </a>
-                </TableCellContentWrapper>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </DataTable>
-    </div>
-    <div
-      className="activities-container completed-activities"
-    >
-      <DataTable
-        averageFontWidth={7}
-        headers={
-          Array [
-            Object {
-              "attribute": "name",
-              "headerClassName": "name-section",
-              "name": "Activity",
-              "noTooltip": true,
-              "rowSectionClassName": "name-section tooltip-section",
-              "width": "474px",
-            },
-            Object {
-              "attribute": "score",
-              "headerClassName": "score-section tooltip-section",
-              "name": "Score",
-              "noTooltip": true,
-              "rowSectionClassName": "score-section tooltip-section",
-              "width": "230px",
-            },
-            Object {
-              "attribute": "tool",
-              "headerClassName": "tool-icon-section",
-              "name": "Tool",
-              "noTooltip": true,
-              "rowSectionClassName": "tool-icon-section tooltip-section",
-              "width": "24px",
-            },
-            Object {
-              "attribute": "dueDate",
-              "headerClassName": "completed-due-date-section",
-              "name": "Due date",
-              "noTooltip": true,
-              "rowSectionClassName": "completed-due-date-section tooltip-section",
-              "width": "110px",
-            },
-            Object {
-              "attribute": "completedDate",
-              "headerClassName": "completed-date-section",
-              "name": "Completed date",
-              "noTooltip": true,
-              "rowSectionClassName": "completed-date-section tooltip-section",
-              "width": "110px",
-            },
-            Object {
-              "attribute": "actionButton",
-              "headerClassName": "action-button-section tooltip-section",
-              "name": "",
-              "noTooltip": true,
-              "rowSectionClassName": "action-button-section tooltip-section",
-              "width": "88px",
-            },
-          ]
-        }
-        rows={
-          Array [
-            Object {
-              "actionButton": <a
-                aria-label="Replay A, An"
-                className="quill-button medium focus-on-light secondary outlined"
-                href="/activity_sessions/classroom_units/1/activities/138"
-              >
-                Replay
-              </a>,
-              "completedDate": null,
-              "dueDate": "Feb 29, 5am",
-              "id": 9,
-              "name": "A, An",
-              "score": <div
-                className="score"
+              <div
+                class="score"
               >
                 <div
-                  className="frequently-demonstrated-skill"
+                  class="frequently-demonstrated-skill"
                 />
                 <span>
                   Frequently demonstrated skill
                 </span>
-              </div>,
-              "tool": undefined,
-            },
-            Object {
-              "actionButton": <a
-                aria-label="Replay Age of Exploration: Spices"
-                className="quill-button medium focus-on-light secondary outlined"
-                href="/activity_sessions/classroom_units/1/activities/516"
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <img
+                alt="Puzzle piece representing Quill Grammar"
+                src="undefined/images/icons/tool-grammar-gray.svg"
+              />
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Mar 27, 5am
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Feb 22, 1:59pm
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Replay Capitalizing People, Places, & the Pronoun - Mixed Topics"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/886"
               >
                 Replay
-              </a>,
-              "completedDate": null,
-              "dueDate": "Feb 29, 5am",
-              "id": 5,
-              "name": "Age of Exploration: Spices",
-              "score": <div
-                className="score"
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              Capitalizing Names of People & the Pronoun  - Mixed Topics
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <div
+                class="score"
               >
                 <div
-                  className="sometimes-demonstrated-skill"
+                  class="frequently-demonstrated-skill"
+                />
+                <span>
+                  Frequently demonstrated skill
+                </span>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <img
+                alt="Puzzle piece representing Quill Grammar"
+                src="undefined/images/icons/tool-grammar-gray.svg"
+              />
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Mar 27, 5am
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Feb 22, 1:59pm
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Replay Capitalizing Names of People & the Pronoun  - Mixed Topics"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/885"
+              >
+                Replay
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              Capitalizing Names of People - Mixed Topics 1
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <div
+                class="score"
+              >
+                <div
+                  class="frequently-demonstrated-skill"
+                />
+                <span>
+                  Frequently demonstrated skill
+                </span>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <img
+                alt="Puzzle piece representing Quill Grammar"
+                src="undefined/images/icons/tool-grammar-gray.svg"
+              />
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Mar 27, 5am
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Feb 22, 1:59pm
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Replay Capitalizing Names of People - Mixed Topics 1"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/804"
+              >
+                Replay
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              Capitalizing Holidays, People, & Places - Mixed Topics
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <div
+                class="score"
+              >
+                <div
+                  class="frequently-demonstrated-skill"
+                />
+                <span>
+                  Frequently demonstrated skill
+                </span>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <img
+                alt="Puzzle piece representing Quill Grammar"
+                src="undefined/images/icons/tool-grammar-gray.svg"
+              />
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Mar 27, 5am
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Feb 22, 1:59pm
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Replay Capitalizing Holidays, People, & Places - Mixed Topics"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/887"
+              >
+                Replay
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              Capitalizing Dates & Holidays - Mixed Topics 1
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <div
+                class="score"
+              >
+                <div
+                  class="sometimes-demonstrated-skill"
                 />
                 <span>
                   Sometimes demonstrated skill
                 </span>
-              </div>,
-              "tool": undefined,
-            },
-          ]
-        }
-      >
-        <table
-          className="data-table undefined"
-        >
-          <thead>
-            <tr
-              className="data-table-headers"
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
             >
-              <th
-                className="data-table-header name-section"
-                key="0"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "474px",
-                    "textAlign": "left",
-                    "width": "474px",
-                  }
-                }
+              <img
+                alt="Puzzle piece representing Quill Grammar"
+                src="undefined/images/icons/tool-grammar-gray.svg"
+              />
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Mar 27, 5am
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Feb 22, 1:59pm
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Replay Capitalizing Dates & Holidays - Mixed Topics 1"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/801"
               >
-                <span>
-                  Activity
-                </span>
-              </th>
-              <th
-                className="data-table-header score-section tooltip-section"
-                key="1"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "230px",
-                    "textAlign": "left",
-                    "width": "230px",
-                  }
-                }
-              >
-                <span>
-                  Score
-                </span>
-              </th>
-              <th
-                className="data-table-header tool-icon-section"
-                key="2"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "24px",
-                    "textAlign": "right",
-                    "width": "24px",
-                  }
-                }
-              >
-                <span>
-                  Tool
-                </span>
-              </th>
-              <th
-                className="data-table-header completed-due-date-section"
-                key="3"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "110px",
-                    "textAlign": "left",
-                    "width": "110px",
-                  }
-                }
-              >
-                <span>
-                  Due date
-                </span>
-              </th>
-              <th
-                className="data-table-header completed-date-section"
-                key="4"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "110px",
-                    "textAlign": "right",
-                    "width": "110px",
-                  }
-                }
-              >
-                <span>
-                  Completed date
-                </span>
-              </th>
-              <th
-                className="data-table-header action-button-section tooltip-section"
-                key="5"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "88px",
-                    "textAlign": "left",
-                    "width": "88px",
-                  }
-                }
-              >
-                <span />
-              </th>
-            </tr>
-          </thead>
-          <tbody
-            className="data-table-body"
+                Replay
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
           >
-            <tr
-              className="data-table-row  "
-              key="9"
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
             >
-              <td
-                className="data-table-row-section name-section tooltip-section"
-                key="name-9"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "474px",
-                    "textAlign": "left",
-                    "width": "474px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  A, An
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section score-section tooltip-section"
-                key="score-9"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "230px",
-                    "textAlign": "left",
-                    "width": "230px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  <div
-                    className="score"
-                  >
-                    <div
-                      className="frequently-demonstrated-skill"
-                    />
-                    <span>
-                      Frequently demonstrated skill
-                    </span>
-                  </div>
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section tool-icon-section tooltip-section"
-                key="tool-9"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "24px",
-                    "textAlign": "right",
-                    "width": "24px",
-                  }
-                }
-              >
-                <TableCellContentWrapper />
-              </td>
-              <td
-                className="data-table-row-section completed-due-date-section tooltip-section"
-                key="dueDate-9"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "110px",
-                    "textAlign": "left",
-                    "width": "110px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  Feb 29, 5am
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section completed-date-section tooltip-section"
-                key="completedDate-9"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "110px",
-                    "textAlign": "right",
-                    "width": "110px",
-                  }
-                }
-              >
-                <TableCellContentWrapper />
-              </td>
-              <td
-                className="data-table-row-section action-button-section tooltip-section"
-                key="actionButton-9"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "88px",
-                    "textAlign": "left",
-                    "width": "88px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  <a
-                    aria-label="Replay A, An"
-                    className="quill-button medium focus-on-light secondary outlined"
-                    href="/activity_sessions/classroom_units/1/activities/138"
-                  >
-                    Replay
-                  </a>
-                </TableCellContentWrapper>
-              </td>
-            </tr>
-            <tr
-              className="data-table-row  "
-              key="5"
+              Capitalizing Geographic Names - Mixed Topics 1
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
             >
-              <td
-                className="data-table-row-section name-section tooltip-section"
-                key="name-5"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "474px",
-                    "textAlign": "left",
-                    "width": "474px",
-                  }
-                }
+              <div
+                class="score"
               >
-                <TableCellContentWrapper>
-                  Age of Exploration: Spices
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section score-section tooltip-section"
-                key="score-5"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "230px",
-                    "textAlign": "left",
-                    "width": "230px",
-                  }
-                }
+                <div
+                  class="sometimes-demonstrated-skill"
+                />
+                <span>
+                  Sometimes demonstrated skill
+                </span>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <img
+                alt="Puzzle piece representing Quill Grammar"
+                src="undefined/images/icons/tool-grammar-gray.svg"
+              />
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Mar 27, 5am
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Feb 22, 1:59pm
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Replay Capitalizing Geographic Names - Mixed Topics 1"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/802"
               >
-                <TableCellContentWrapper>
-                  <div
-                    className="score"
-                  >
-                    <div
-                      className="sometimes-demonstrated-skill"
-                    />
-                    <span>
-                      Sometimes demonstrated skill
-                    </span>
-                  </div>
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section tool-icon-section tooltip-section"
-                key="tool-5"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "24px",
-                    "textAlign": "right",
-                    "width": "24px",
-                  }
-                }
+                Replay
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              Capitalizing Geographic Names & Holidays - Mixed Topics
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <div
+                class="score"
               >
-                <TableCellContentWrapper />
-              </td>
-              <td
-                className="data-table-row-section completed-due-date-section tooltip-section"
-                key="dueDate-5"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "110px",
-                    "textAlign": "left",
-                    "width": "110px",
-                  }
-                }
+                <div
+                  class="rarely-demonstrated-skill"
+                />
+                <span>
+                  Rarely demonstrated skill
+                </span>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <img
+                alt="Puzzle piece representing Quill Grammar"
+                src="undefined/images/icons/tool-grammar-gray.svg"
+              />
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Mar 27, 5am
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Feb 22, 1:59pm
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Replay Capitalizing Geographic Names & Holidays - Mixed Topics"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/181"
               >
-                <TableCellContentWrapper>
-                  Feb 29, 5am
-                </TableCellContentWrapper>
-              </td>
-              <td
-                className="data-table-row-section completed-date-section tooltip-section"
-                key="completedDate-5"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "110px",
-                    "textAlign": "right",
-                    "width": "110px",
-                  }
-                }
-              >
-                <TableCellContentWrapper />
-              </td>
-              <td
-                className="data-table-row-section action-button-section tooltip-section"
-                key="actionButton-5"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "minWidth": "88px",
-                    "textAlign": "left",
-                    "width": "88px",
-                  }
-                }
-              >
-                <TableCellContentWrapper>
-                  <a
-                    aria-label="Replay Age of Exploration: Spices"
-                    className="quill-button medium focus-on-light secondary outlined"
-                    href="/activity_sessions/classroom_units/1/activities/516"
-                  >
-                    Replay
-                  </a>
-                </TableCellContentWrapper>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </DataTable>
+                Replay
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-</StudentProfileUnit>
+</DocumentFragment>
+`;
+
+exports[`StudentProfileUnit component should render completed activities when showExactScores is true 1`] = `
+<DocumentFragment>
+  <div
+    class="student-profile-unit undefined"
+  >
+    <div
+      class="unit-name-and-staggered-release-status"
+    >
+      <h2
+        class="unit-name"
+      >
+        Unit
+      </h2>
+      <span />
+    </div>
+    <div
+      class="activities-container completed-activities"
+    >
+      <table
+        class="data-table undefined"
+      >
+        <thead>
+          <tr
+            class="data-table-headers"
+          >
+            <th
+              class="data-table-header name-section"
+              scope="col"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              <span>
+                Activity
+              </span>
+            </th>
+            <th
+              class="data-table-header score-section tooltip-section"
+              scope="col"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <span>
+                Score
+              </span>
+            </th>
+            <th
+              class="data-table-header tool-icon-section"
+              scope="col"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <span>
+                Tool
+              </span>
+            </th>
+            <th
+              class="data-table-header completed-due-date-section"
+              scope="col"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              <span>
+                Due date
+              </span>
+            </th>
+            <th
+              class="data-table-header completed-date-section"
+              scope="col"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              <span>
+                Completed date
+              </span>
+            </th>
+            <th
+              class="data-table-header action-button-section tooltip-section"
+              scope="col"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <span />
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="data-table-body"
+        >
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Capitalizing People, Places, & the Pronoun - Mixed Topics
+              </div>
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <div
+                  class="score"
+                >
+                  <div
+                    class="frequently-demonstrated-skill"
+                  />
+                  <span>
+                    <span>
+                      10 of 10 (100%)
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <img
+                  alt="Puzzle piece representing Quill Grammar"
+                  src="undefined/images/icons/tool-grammar-gray.svg"
+                />
+              </div>
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Mar 27, 5am
+              </div>
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Feb 22, 1:59pm
+              </div>
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <a
+                  aria-label="Replay Capitalizing People, Places, & the Pronoun - Mixed Topics"
+                  class="quill-button medium focus-on-light secondary outlined"
+                  href="/activity_sessions/classroom_units/8392402/activities/886"
+                >
+                  Replay
+                </a>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Capitalizing Names of People & the Pronoun  - Mixed Topics
+              </div>
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <div
+                  class="score"
+                >
+                  <div
+                    class="frequently-demonstrated-skill"
+                  />
+                  <span>
+                    <span>
+                      10 of 10 (100%)
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <img
+                  alt="Puzzle piece representing Quill Grammar"
+                  src="undefined/images/icons/tool-grammar-gray.svg"
+                />
+              </div>
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Mar 27, 5am
+              </div>
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Feb 22, 1:59pm
+              </div>
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <a
+                  aria-label="Replay Capitalizing Names of People & the Pronoun  - Mixed Topics"
+                  class="quill-button medium focus-on-light secondary outlined"
+                  href="/activity_sessions/classroom_units/8392402/activities/885"
+                >
+                  Replay
+                </a>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Capitalizing Names of People - Mixed Topics 1
+              </div>
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <div
+                  class="score"
+                >
+                  <div
+                    class="frequently-demonstrated-skill"
+                  />
+                  <span>
+                    <span>
+                      10 of 10 (100%)
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <img
+                  alt="Puzzle piece representing Quill Grammar"
+                  src="undefined/images/icons/tool-grammar-gray.svg"
+                />
+              </div>
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Mar 27, 5am
+              </div>
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Feb 22, 1:59pm
+              </div>
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <a
+                  aria-label="Replay Capitalizing Names of People - Mixed Topics 1"
+                  class="quill-button medium focus-on-light secondary outlined"
+                  href="/activity_sessions/classroom_units/8392402/activities/804"
+                >
+                  Replay
+                </a>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Capitalizing Holidays, People, & Places - Mixed Topics
+              </div>
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <div
+                  class="score"
+                >
+                  <div
+                    class="frequently-demonstrated-skill"
+                  />
+                  <span>
+                    <span>
+                      9 of 10 (90%)
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <img
+                  alt="Puzzle piece representing Quill Grammar"
+                  src="undefined/images/icons/tool-grammar-gray.svg"
+                />
+              </div>
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Mar 27, 5am
+              </div>
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Feb 22, 1:59pm
+              </div>
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <a
+                  aria-label="Replay Capitalizing Holidays, People, & Places - Mixed Topics"
+                  class="quill-button medium focus-on-light secondary outlined"
+                  href="/activity_sessions/classroom_units/8392402/activities/887"
+                >
+                  Replay
+                </a>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Capitalizing Dates & Holidays - Mixed Topics 1
+              </div>
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <div
+                  class="score"
+                >
+                  <div
+                    class="sometimes-demonstrated-skill"
+                  />
+                  <span>
+                    <span>
+                      4 of 10 (40%)
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <img
+                  alt="Puzzle piece representing Quill Grammar"
+                  src="undefined/images/icons/tool-grammar-gray.svg"
+                />
+              </div>
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Mar 27, 5am
+              </div>
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Feb 22, 1:59pm
+              </div>
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <a
+                  aria-label="Replay Capitalizing Dates & Holidays - Mixed Topics 1"
+                  class="quill-button medium focus-on-light secondary outlined"
+                  href="/activity_sessions/classroom_units/8392402/activities/801"
+                >
+                  Replay
+                </a>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Capitalizing Geographic Names - Mixed Topics 1
+              </div>
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <div
+                  class="score"
+                >
+                  <div
+                    class="sometimes-demonstrated-skill"
+                  />
+                  <span>
+                    <span>
+                      4 of 10 (40%)
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <img
+                  alt="Puzzle piece representing Quill Grammar"
+                  src="undefined/images/icons/tool-grammar-gray.svg"
+                />
+              </div>
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Mar 27, 5am
+              </div>
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Feb 22, 1:59pm
+              </div>
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <a
+                  aria-label="Replay Capitalizing Geographic Names - Mixed Topics 1"
+                  class="quill-button medium focus-on-light secondary outlined"
+                  href="/activity_sessions/classroom_units/8392402/activities/802"
+                >
+                  Replay
+                </a>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Capitalizing Geographic Names & Holidays - Mixed Topics
+              </div>
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <div
+                  class="score"
+                >
+                  <div
+                    class="rarely-demonstrated-skill"
+                  />
+                  <span>
+                    <span>
+                      2 of 9 (22%)
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <img
+                  alt="Puzzle piece representing Quill Grammar"
+                  src="undefined/images/icons/tool-grammar-gray.svg"
+                />
+              </div>
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Mar 27, 5am
+              </div>
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                Feb 22, 1:59pm
+              </div>
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <div
+                class="score-tooltip-activator"
+              >
+                <a
+                  aria-label="Replay Capitalizing Geographic Names & Holidays - Mixed Topics"
+                  class="quill-button medium focus-on-light secondary outlined"
+                  href="/activity_sessions/classroom_units/8392402/activities/181"
+                >
+                  Replay
+                </a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`StudentProfileUnit component should render incomplete activities 1`] = `
+<DocumentFragment>
+  <div
+    class="student-profile-unit undefined"
+  >
+    <div
+      class="unit-name-and-staggered-release-status"
+    >
+      <h2
+        class="unit-name"
+      >
+        Unit
+      </h2>
+      <span />
+    </div>
+    <div
+      class="activities-container incomplete-activities"
+    >
+      <table
+        class="data-table undefined"
+      >
+        <thead>
+          <tr
+            class="data-table-headers"
+          >
+            <th
+              class="data-table-header name-section"
+              scope="col"
+              style="width: 823px; min-width: 823px; text-align: left;"
+            >
+              <span>
+                Activity
+              </span>
+            </th>
+            <th
+              class="data-table-header tool-icon-section"
+              scope="col"
+              style="width: 24px; min-width: 24px; text-align: right;"
+            >
+              <span>
+                Tool
+              </span>
+            </th>
+            <th
+              class="data-table-header due-date-section"
+              scope="col"
+              style="width: 100px; min-width: 100px; text-align: left;"
+            >
+              <span>
+                Due date
+              </span>
+            </th>
+            <th
+              class="data-table-header action-button-section"
+              scope="col"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <span />
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="data-table-body"
+        >
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section"
+              style="width: 823px; min-width: 823px; text-align: left;"
+            >
+              The Travels of Marco Polo
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section"
+              style="width: 24px; min-width: 24px; text-align: right;"
+            />
+            <td
+              class="data-table-row-section due-date-section"
+              style="width: 100px; min-width: 100px; text-align: left;"
+            >
+              Feb 29, 5am
+            </td>
+            <td
+              class="data-table-row-section action-button-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Start The Travels of Marco Polo"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/1/activities/608"
+              >
+                Start
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section"
+              style="width: 823px; min-width: 823px; text-align: left;"
+            >
+              Christopher Columbus
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section"
+              style="width: 24px; min-width: 24px; text-align: right;"
+            />
+            <td
+              class="data-table-row-section due-date-section"
+              style="width: 100px; min-width: 100px; text-align: left;"
+            >
+              Feb 29, 5am
+            </td>
+            <td
+              class="data-table-row-section action-button-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Start Christopher Columbus"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/1/activities/607"
+              >
+                Start
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section"
+              style="width: 823px; min-width: 823px; text-align: left;"
+            >
+              A, An, The
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section"
+              style="width: 24px; min-width: 24px; text-align: right;"
+            />
+            <td
+              class="data-table-row-section due-date-section"
+              style="width: 100px; min-width: 100px; text-align: left;"
+            >
+              Feb 29, 5am
+            </td>
+            <td
+              class="data-table-row-section action-button-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Start A, An, The"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/1/activities/140"
+              >
+                Start
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section"
+              style="width: 823px; min-width: 823px; text-align: left;"
+            >
+              Magellan
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section"
+              style="width: 24px; min-width: 24px; text-align: right;"
+            />
+            <td
+              class="data-table-row-section due-date-section"
+              style="width: 100px; min-width: 100px; text-align: left;"
+            >
+              Feb 29, 5am
+            </td>
+            <td
+              class="data-table-row-section action-button-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Start Magellan"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/1/activities/605"
+              >
+                Start
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section"
+              style="width: 823px; min-width: 823px; text-align: left;"
+            >
+              Jamestown
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section"
+              style="width: 24px; min-width: 24px; text-align: right;"
+            />
+            <td
+              class="data-table-row-section due-date-section"
+              style="width: 100px; min-width: 100px; text-align: left;"
+            >
+              Feb 29, 5am
+            </td>
+            <td
+              class="data-table-row-section action-button-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Start Jamestown"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/1/activities/606"
+              >
+                Start
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section"
+              style="width: 823px; min-width: 823px; text-align: left;"
+            >
+              Age of Exploration: Sailing with the Stars
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section"
+              style="width: 24px; min-width: 24px; text-align: right;"
+            />
+            <td
+              class="data-table-row-section due-date-section"
+              style="width: 100px; min-width: 100px; text-align: left;"
+            >
+              Feb 29, 5am
+            </td>
+            <td
+              class="data-table-row-section action-button-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Start Age of Exploration: Sailing with the Stars"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/1/activities/503"
+              >
+                Start
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section"
+              style="width: 823px; min-width: 823px; text-align: left;"
+            >
+              Age of Exploration: The Cape of Good Hope
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section"
+              style="width: 24px; min-width: 24px; text-align: right;"
+            />
+            <td
+              class="data-table-row-section due-date-section"
+              style="width: 100px; min-width: 100px; text-align: left;"
+            >
+              Feb 29, 5am
+            </td>
+            <td
+              class="data-table-row-section action-button-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Start Age of Exploration: The Cape of Good Hope"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/1/activities/504"
+              >
+                Start
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section"
+              style="width: 823px; min-width: 823px; text-align: left;"
+            >
+              Age of Exploration: Roanoke
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section"
+              style="width: 24px; min-width: 24px; text-align: right;"
+            />
+            <td
+              class="data-table-row-section due-date-section"
+              style="width: 100px; min-width: 100px; text-align: left;"
+            >
+              Feb 29, 5am
+            </td>
+            <td
+              class="data-table-row-section action-button-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Start Age of Exploration: Roanoke"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/1/activities/517"
+              >
+                Start
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</DocumentFragment>
 `;

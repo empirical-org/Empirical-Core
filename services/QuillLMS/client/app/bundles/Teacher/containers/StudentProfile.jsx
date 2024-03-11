@@ -62,7 +62,7 @@ class StudentProfile extends React.Component {
   }
 
   handleClassroomTabClick = (classroomId) => {
-    const { loading, handleClassroomClick, history, } = this.props;
+    const { loading, handleClassroomClick, history, fetchStudentProfile, } = this.props;
 
     if (!loading) {
       const newUrl = `/classrooms/${classroomId}`;
