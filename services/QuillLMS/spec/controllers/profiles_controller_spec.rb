@@ -289,5 +289,53 @@ describe ProfilesController, type: :controller do
         end
       end
     end
+
+    context 'as a student with activity sessions' do
+      let(:student) { create(:student) }
+      let(:activity) { create(:activity) }
+      let(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id]) }
+      let!(:activity_sessions) do
+        create_list(
+          :activity_session,
+          2,
+          classroom_unit: classroom_unit,
+          activity: activity,
+          user: student,
+          state: 'finished'
+        )
+      end
+      let(:data_param) do
+        [
+          {
+            'activity_id' => activity.id,
+            'classroom_unit_id' => classroom_unit.id
+          }
+        ]
+      end
+
+      before { allow(controller).to receive(:current_user) { student } }
+
+      describe '#student_exact_scores_data' do
+        it 'returns formatted data for activity sessions' do
+          post :student_exact_scores_data, params: { data: data_param }, as: :json
+
+          expect(response).to have_http_status(:ok)
+          json_response = JSON.parse(response.body)
+          expect(json_response['exact_scores_data']).to be_a(Array)
+          expect(json_response['exact_scores_data'].size).to eq(1)
+
+          session_data = json_response['exact_scores_data'].first
+          expect(session_data['sessions']).to be_a(Array)
+          expect(session_data['sessions'].size).to eq(2)
+          expect(session_data['completed_attempts']).to eq(2)
+
+          session_data['sessions'].each do |session|
+            expect(session.keys).to include('percentage', 'id', 'description', 'due_date', 'completed_at')
+          end
+        end
+
+      end
+    end
+
   end
 end
