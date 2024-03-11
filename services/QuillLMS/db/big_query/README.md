@@ -39,8 +39,6 @@ We haven't done this yet, so this should be a discussion when it comes up, but t
 1. Deploy a new view: Deploy the new view config, and put the mat view in place. Then deploy code that points to the new view. Requires 2 deploys, but no query downtime.
 2. Edit an existing view: Deploy code with an updated config at once. Once deploy finishes, refresh materialized view with new sql. Requires 1 deploy, with a small query downtime (between deploy finish and mat view refresh).
 
-
-
 ### CLI
 Google has a CLI to run BQ commands. Here are some example uses
 #### Initial setup

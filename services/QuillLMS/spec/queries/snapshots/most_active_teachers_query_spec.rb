@@ -18,6 +18,8 @@ module Snapshots
         end
       end
 
+      let(:activities) { activity_sessions.flatten.map(&:activity).uniq }
+
       let(:runner_context) {
         [
           classrooms,
@@ -25,7 +27,9 @@ module Snapshots
           classrooms_teachers,
           schools,
           schools_users,
-          classroom_units
+          classroom_units,
+          users,
+          activities
         ]
       }
 

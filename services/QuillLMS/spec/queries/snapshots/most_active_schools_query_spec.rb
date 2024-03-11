@@ -18,6 +18,8 @@ module Snapshots
         end
       end
 
+      let(:activities) { activity_sessions.flatten.map(&:activity).uniq }
+
       let(:runner_context) {
         [
           classrooms,
@@ -25,7 +27,9 @@ module Snapshots
           classrooms_teachers,
           schools,
           schools_users,
-          classroom_units
+          classroom_units,
+          users,
+          activities
         ]
       }
 
@@ -57,7 +61,7 @@ module Snapshots
         # percentage has to be set for CTE to UNION these with items that have percentages set
         let(:unstarted_session) { create(:activity_session, :unstarted, classroom_unit: classroom_units[0], percentage: 0.0) }
         let(:started_session) { create(:activity_session, :started, classroom_unit: classroom_units[0], percentage: 0.0) }
-        let(:completed_session) { create(:activity_session, classroom_unit: classroom_units[0]) }
+        let(:completed_session) { activity_sessions[0].first }
 
         let(:cte_records) { [runner_context, unstarted_session, started_session, completed_session] }
 

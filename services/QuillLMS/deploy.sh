@@ -93,8 +93,7 @@ then
     echo "Deploy screen opened in your browser, you can monitor from there."
 
     if [ "$osx_notification" -eq 1 ]; then
-      ./script/osx_notification_on_build_completion.sh $HEROKU_APP &
-      disown
+      ./script/osx_notification_on_build_completion.sh $HEROKU_APP
     fi
 else
     echo "Ok, we won't deploy. Have a good day!"

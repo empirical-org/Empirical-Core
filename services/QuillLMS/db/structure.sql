@@ -2775,13 +2775,46 @@ ALTER SEQUENCE public.evidence_prompt_healths_id_seq OWNED BY public.evidence_pr
 
 
 --
+-- Name: evidence_prompt_response_feedbacks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_prompt_response_feedbacks (
+    id bigint NOT NULL,
+    prompt_response_id integer NOT NULL,
+    feedback text NOT NULL,
+    metadata jsonb,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_prompt_response_feedbacks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_prompt_response_feedbacks_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_prompt_response_feedbacks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_prompt_response_feedbacks_id_seq OWNED BY public.evidence_prompt_response_feedbacks.id;
+
+
+--
 -- Name: evidence_prompt_responses; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.evidence_prompt_responses (
     id bigint NOT NULL,
     prompt_id integer NOT NULL,
-    text text NOT NULL,
+    response_text text NOT NULL,
     embedding public.vector(1536) NOT NULL
 );
 
@@ -6021,6 +6054,13 @@ ALTER TABLE ONLY public.evidence_prompt_healths ALTER COLUMN id SET DEFAULT next
 
 
 --
+-- Name: evidence_prompt_response_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_response_feedbacks ALTER COLUMN id SET DEFAULT nextval('public.evidence_prompt_response_feedbacks_id_seq'::regclass);
+
+
+--
 -- Name: evidence_prompt_responses id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -7139,6 +7179,14 @@ ALTER TABLE ONLY public.evidence_hints
 
 ALTER TABLE ONLY public.evidence_prompt_healths
     ADD CONSTRAINT evidence_prompt_healths_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_prompt_response_feedbacks evidence_prompt_response_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_response_feedbacks
+    ADD CONSTRAINT evidence_prompt_response_feedbacks_pkey PRIMARY KEY (id);
 
 
 --
@@ -10800,6 +10848,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240111143245'),
 ('20240221192859'),
 ('20240229153806'),
-('20240306124720');
+('20240306124720'),
+('20240307143356'),
+('20240307182109');
 
 
