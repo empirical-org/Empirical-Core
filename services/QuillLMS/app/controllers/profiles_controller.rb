@@ -65,11 +65,15 @@ class ProfilesController < ApplicationController
     exact_scores_data = params[:data].map do |ua|
       activity_sessions = ActivitySession
         .includes(:concept_results, :activity, :unit)
-        .where(user_id: current_user.id, activity_id: ua['activity_id'], classroom_unit_id: ua['classroom_unit_id'])
-      completed_sessions = activity_sessions.where(state: ActivitySession::STATE_FINISHED)
+        .where(
+          user_id: current_user.id,
+          activity_id: ua['activity_id'],
+          classroom_unit_id: ua['classroom_unit_id'],
+          state: ActivitySession::STATE_FINISHED
+        )
 
       ua['sessions'] = activity_sessions.map { |as| format_activity_session_for_tooltip(as, current_user) }
-      ua['completed_attempts'] = completed_sessions.length
+      ua['completed_attempts'] = activity_sessions.length
 
       ua
     end

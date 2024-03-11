@@ -115,8 +115,10 @@ const TooltipWrapper = ({ activity, exactScoresData, children, }) => {
   function handleMouseEnter() { setShowTooltip(true) }
   function handleMouseLeave() { setShowTooltip(false) }
 
-  const relevantExactScore = exactScoresData.find(es => es.ua_id === activity.ua_id && es.classroom_unit_id === activity.classroom_unit_id)
-  const tooltipData = { ...activity, ...relevantExactScore, percentage: activity.max_percentage, }
+  const { ua_id, classroom_unit_id, max_percentage, unit_activity_created_at, publish_date, } = activity
+
+  const relevantExactScore = exactScoresData.find(es => es.ua_id === ua_id && es.classroom_unit_id === classroom_unit_id)
+  const tooltipData = { ...activity, ...relevantExactScore, percentage: max_percentage, unitActivityCreatedAt: unit_activity_created_at, publishDate: publish_date, }
 
   let tooltip
 

@@ -154,6 +154,7 @@ class UnitActivity < ApplicationRecord
           ua.order_number,
           ua.due_date #{student_timezone_offset_string} AS due_date,
           MIN(acts.completed_at) #{student_timezone_offset_string} AS completed_date,
+          ua.publish_date #{student_timezone_offset_string} AS publish_date,
           pre_activity.id AS pre_activity_id,
           cu.created_at AS unit_activity_created_at,
           upsi.status AS user_pack_sequence_item_status,
