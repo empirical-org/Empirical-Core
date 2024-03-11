@@ -128,7 +128,7 @@ const mockPostDiagnosticCompletedData = [{
   group_by: "grade",
   name: "ROLLUP",
   post_average_score: 0.658874458874459,
-      overall_skill_growth: 0.11802217741935484,
+  overall_skill_growth: 0.11802217741935484,
   post_students_completed: 55
 }]
 
