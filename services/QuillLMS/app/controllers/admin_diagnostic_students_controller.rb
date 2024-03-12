@@ -14,21 +14,9 @@ class AdminDiagnosticStudentsController < ApplicationController
     render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
   end
 
-  def filter_scope
-    school_ids = permitted_params[:school_ids] || current_user.administered_schools.pluck(:id)
-    render json: AdminDiagnosticReports::StudentCountByFilterScopeQuery.run(
-      timeframe_start: @timeframe_start,
-      timeframe_end: @timeframe_end,
-      diagnostic_id: @diagnostic_id,
-      school_ids: school_ids,
-      grades: permitted_params[:grades],
-      teacher_ids: permitted_params[:teacher_ids],
-      classroom_ids: permitted_params[:classroom_ids]
-    )
-  end
-
   private def set_query
     @query = permitted_params[:query]
+    @school_ids = permitted_params[:school_ids] || current_user.administered_schools.pluck(:id)
     @diagnostic_id = permitted_params[:diagnostic_id]
     @timeframe_start, @timeframe_end = calculate_timeframe_start_and_end if timeframe_param_valid?
   end
@@ -48,7 +36,7 @@ class AdminDiagnosticStudentsController < ApplicationController
   end
 
   private def school_ids_param_valid?
-    permitted_params[:school_ids]&.any?
+    permitted_params[:school_ids]&.any? || current_user.administered_schools.any?
   end
 
   private def diagnostic_id_param_valid?
@@ -62,8 +50,8 @@ class AdminDiagnosticStudentsController < ApplicationController
   private def authorize_request
     schools_user_admins = current_user.administered_schools.pluck(:id)
 
-    return if permitted_params[:school_ids].blank?
-    return if permitted_params[:school_ids]&.all? { |param_id| schools_user_admins.include?(param_id.to_i) }
+    return if @school_ids.blank?
+    return if @school_ids&.all? { |param_id| schools_user_admins.include?(param_id.to_i) }
 
     return render json: { error: 'user is not authorized for all specified schools' }, status: 403
   end
@@ -83,7 +71,7 @@ class AdminDiagnosticStudentsController < ApplicationController
         timeframe_start: @timeframe_start,
         timeframe_end: @timeframe_end
       },
-      permitted_params[:school_ids],
+      @school_ids,
       {
         grades: permitted_params[:grades],
         teacher_ids: permitted_params[:teacher_ids],
@@ -107,7 +95,7 @@ class AdminDiagnosticStudentsController < ApplicationController
       timeframe_name,
       timeframe_start,
       timeframe_end,
-      permitted_params.fetch(:school_ids, []),
+      @school_ids || [],
       additional_filters: {
         grades: permitted_params.fetch(:grades, []),
         teacher_ids: permitted_params.fetch(:teacher_ids, []),
