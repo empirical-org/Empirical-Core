@@ -1,12 +1,19 @@
 import { tierUDF, studentwiseSkillGroupUDF, findLastIndex, parseElement } from "./BigQueryUDFs"
 
+function zip(scores, activityIds, completedAts, skillGroupNames) {
+  return scores.map((score, idx) => ([score, activityIds[idx], completedAts[idx], skillGroupNames[idx]].join('|')))
+}
+
 describe('studentwiseSkillGroupUDF', () => {
   it('should return skillGroup-score pairs', () => {
     const activityIds = ["1663", "1663", "1664", "1664"];
     const completedAts = ['2022-01-01T00:00:00Z', '2022-01-01T00:01:00Z', '2022-01-02T00:00:00Z', '2022-01-02T00:01:00Z'];
-    const scores = [false, false, true, true];
+    const scores = ["false", "false", "true", "true"];
     const skillGroupNames = ['Plural and Possessive Nouns', 'Capitalization', 'Plural and Possessive Nouns', 'Capitalization' ]
-    const result = studentwiseSkillGroupUDF(scores, activityIds, completedAts, skillGroupNames);
+
+    const zipped = zip(scores, activityIds, completedAts, skillGroupNames)
+
+    const result = studentwiseSkillGroupUDF(zipped);
     const parsedResult = JSON.parse(result)
 
     expect(parsedResult['Plural and Possessive Nouns_pre']).toEqual(0)
@@ -18,10 +25,12 @@ describe('studentwiseSkillGroupUDF', () => {
   it('should extract correct spanned-activity counts', () => {
     const activityIds = ["1663", "306", "4", "1664"];
     const completedAts = ['2022-01-01T00:00:00Z', '2022-01-01T00:01:00Z', '2024-01-01T00:01:00Z',  '2022-01-02T00:00:00Z'];
-    const scores = [false, false, true, true];
+    const scores = ["false", "false", "true", "true"];
     const skillGroupNames = "a b c d".split(' ')
 
-    const result = studentwiseSkillGroupUDF(scores, activityIds, completedAts, skillGroupNames);
+    const zipped = zip(scores, activityIds, completedAts, skillGroupNames)
+
+    const result = studentwiseSkillGroupUDF(zipped);
     const parsedResult = JSON.parse(result)
     expect(parsedResult.numAssignedRecommendedCompleted).toEqual(1)
   })
@@ -30,10 +39,12 @@ describe('studentwiseSkillGroupUDF', () => {
   it('should ignore spanned activities that are not recommended by the pre diagnostic', () => {
     const activityIds = ["1663", "9999", "4", "1664"];
     const completedAts = ['2022-01-01T00:00:00Z', '2022-01-01T00:01:00Z', '2024-01-01T00:01:00Z',  '2022-01-02T00:00:00Z'];
-    const scores = [false, false, true, true];
+    const scores = ["false", "false", "true", "true"];
     const skillGroupNames = "a b c d".split(' ')
 
-    const result = studentwiseSkillGroupUDF(scores, activityIds, completedAts, skillGroupNames);
+    const zipped = zip(scores, activityIds, completedAts, skillGroupNames)
+
+    const result = studentwiseSkillGroupUDF(zipped);
     const parsedResult = JSON.parse(result)
     expect(parsedResult.numAssignedRecommendedCompleted).toEqual(0)
   })
@@ -41,10 +52,12 @@ describe('studentwiseSkillGroupUDF', () => {
   it('should extract the correct rec activity account', () => {
     const activityIds = ["1663", "3", "4", "1664"];
     const completedAts = ['2022-01-01T00:00:00Z', '2022-01-01T00:01:00Z', '2024-01-01T00:01:00Z',  '2022-01-02T00:00:00Z'];
-    const scores = [false, false, true, true];
+    const scores = ["false", "false", "true", "true"];
     const skillGroupNames = "a b c d".split(' ')
 
-    const result = studentwiseSkillGroupUDF(scores, activityIds, completedAts, skillGroupNames);
+    const zipped = zip(scores, activityIds, completedAts, skillGroupNames)
+
+    const result = studentwiseSkillGroupUDF(zipped);
     const parsedResult = JSON.parse(result)
 
     expect(parsedResult.recommendedActivityCount).toEqual(10)
@@ -53,10 +66,12 @@ describe('studentwiseSkillGroupUDF', () => {
   it('should remove commas from skill group names that have commas', () => {
     const activityIds = ["1663", "1664"];
     const completedAts = ['2022-01-01T00:00:00Z', '2022-01-02T00:00:00Z'];
-    const scores = [false, true];
+    const scores = ["false", "true"];
     const skillGroupNames = ['Compound Subjects, Objects, and Predicates', 'Compound Subjects, Objects, and Predicates']
 
-    const result = studentwiseSkillGroupUDF(scores, activityIds, completedAts, skillGroupNames);
+    const zipped = zip(scores, activityIds, completedAts, skillGroupNames)
+
+    const result = studentwiseSkillGroupUDF(zipped);
     const parsedResult = JSON.parse(result)
 
     expect(parsedResult['Compound Subjects Objects and Predicates_pre']).toEqual(0)
@@ -64,11 +79,6 @@ describe('studentwiseSkillGroupUDF', () => {
 
   })
 })
-
-// Mock removeCommas function since it's not defined outside of the UDF context
-function removeCommas(str) {
-  return str.replace(/,/g, '');
-}
 
 describe('parseElement', () => {
   it('should parse elements correctly', () => {
@@ -80,13 +90,13 @@ describe('parseElement', () => {
       skillGroupName: "Subject-Verb Agreement"
     }
 
-    expect(parseElement(inputString, removeCommas)).toEqual(expectedOutput)
+    expect(parseElement(inputString)).toEqual(expectedOutput)
   })
 
   it('should throw error on invalid input', () => {
     const inputString = "bad|input"
 
-    expect(() => (parseElement(inputString, removeCommas))).toThrow(`Invalid element string: ${inputString}`)
+    expect(() => (parseElement(inputString))).toThrow(`Invalid element string: ${inputString}`)
   })
 })
 

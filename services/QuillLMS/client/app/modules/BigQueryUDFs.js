@@ -10,7 +10,12 @@ export function findLastIndex(array, startIndex, fn) {
 }
 
 // example argument: true|1668|2023-10-31 13:37:19.789202|Subject-Verb Agreement
-export function parseElement(e, removeCommas) {
+export function parseElement(e) {
+  function removeCommas(str) {
+    const regExp = /,/g
+    return str.replace(regExp, '')
+  }
+
   const stringAttributes = e.split('|')
   if (stringAttributes.length !== 4) {
     throw new Error(`Invalid element string: ${e}`)
@@ -27,47 +32,37 @@ export function parseElement(e, removeCommas) {
 // BigQuery does not currently accept DATETIMEs as arguments for JS UDFs
 // So we cast DATETIMES to STRINGS before calling this function
 export function studentwiseSkillGroupUDF(elements) {
-  // const zipped = elements.map(
-  //   (e) => {
-  //     return {
-  //       completedAt: elem,
-  //       score: boolToInt(scores[i]),
-  //       activityId: parseInt(activityIds[i]),
-  //       skillGroupName: removeCommas(skillGroupNames[i])
-  //     }
-  //   }
-  // )
-  // function stringBoolToInt(stringBool) { return stringBool === "true" ? 1 : 0}
-
   function removeCommas(str) {
     const regExp = /,/g
     return str.replace(regExp, '')
   }
 
-  function zipAndSort(scores, activityIds, completedAts, skillGroupNames) {
-    const zipped = completedAts.map(
-      (elem, i) => ({
-        completedAt: elem,
-        score: boolToInt(scores[i]),
-        activityId: parseInt(activityIds[i]),
-        skillGroupName: removeCommas(skillGroupNames[i])
+  function parseElement(e) {
+    function removeCommas(str) {
+      const regExp = /,/g
+      return str.replace(regExp, '')
+    }
 
-      })
-    )
-    return zipped.sort((a,b) => (new Date(a.completedAt) - new Date(b.completedAt)))
+    const stringAttributes = e.split('|')
+    if (stringAttributes.length !== 4) {
+      throw new Error(`Invalid element string: ${e}`)
+    }
+
+    return {
+      score: stringAttributes[0] === "true" ? 1 : 0,
+      activityId: parseInt(stringAttributes[1]),
+      completedAt: stringAttributes[2],
+      skillGroupName: removeCommas(stringAttributes[3])
+    }
   }
+
+
 
   function findLastIndex(array, startIndex, fn) {
     const reversedArray = [...array.slice(startIndex)].reverse()
     const reversedIdx = reversedArray.findIndex(fn)
     if (reversedIdx === -1) return -1
     return array.length - 1 - reversedIdx
-  }
-
-  function allArraysEqualLength(...arrayLengths) {
-    const firstArrayLength = arrayLengths.pop()
-
-    return arrayLengths.every(x => x === firstArrayLength)
   }
 
   function getSkillScore(zipped, errorMessageArray, skillGroupName, preOrPost) {
@@ -138,14 +133,6 @@ export function studentwiseSkillGroupUDF(elements) {
     errorMessage: "Default error message"
   }
 
-  if (!allArraysEqualLength(scores.length, activityIds.length, completedAts.length, skillGroupNames.length)) {
-    return JSON.stringify({
-      ...defaultReturnValue,
-      ...{ errorMessage: `Unequal input lengths: ${scores.length} ${activityIds.length} ${completedAts.length} ${skillGroupNames.length}` }
-    })
-  }
-
-
   const prePostDiagnosticActivityIdPairs = {
     1161: 1774, // ELL Starter
     1568: 1814, // ELL Intermediate
@@ -163,6 +150,8 @@ export function studentwiseSkillGroupUDF(elements) {
     1668: [309, 287, 310, 288, 311, 289, 290, 291, 292, 293, 294], // Intermediate
     1678: [312, 275, 276, 313, 314, 277, 278, 279, 362]   // Advanced
   }
+
+  const zipped = elements.map(parseElement).sort((a,b) => (new Date(a.completedAt) - new Date(b.completedAt)))
 
   const canonicalPreTestIdx = zipped.findIndex(
     elem => Object.keys(prePostDiagnosticActivityIdPairs).map(x => parseInt(x)).includes(elem.activityId)
