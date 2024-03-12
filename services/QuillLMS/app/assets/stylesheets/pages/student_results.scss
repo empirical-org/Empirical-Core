@@ -1,44 +1,67 @@
+.results-page-container {
+  width: 100%;
+  border-top: 16px solid $quill-green;
+}
+
 #results-page {
+  max-width: 800px;
+  width: 100%;
+  margin: auto;
+  padding-top: 64px;
+
   .top-section {
     background-color: white;
-    padding: 24px 0px 32px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-bottom: 1px solid $quill-grey-5;
     h1 {
-      font-size: 30px;
-      font-weight: bold;
+      font-size: 32px;
+      font-weight: 700;
       line-height: 1.27;
-      margin: 16px;
+      margin-bottom: 32px;
     }
-    .results-icon-container {
-      width: min-content;
-      padding: 8px;
-      border-radius: 8px;
-      border: solid 1px #c1c1c1;
+    // .results-icon-container {
+    //   width: min-content;
+    //   padding: 8px;
+    //   border-radius: 8px;
+    //   border: solid 1px #c1c1c1;
+    //   display: flex;
+    //   flex-direction: column;
+    //   align-items: center;
+    //   justify-content: center;
+    //
+    //   .icon {
+    //     width: 80px;
+    //     height: 80px;
+    //     border-radius: 8px;
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    //   }
+    //
+    //   span {
+    //     font-size: 16px;
+    //     line-height: normal;
+    //     text-align: center;
+    //     margin-top: 8px;
+    //     color: $quill-black;
+    //   }
+
+    .header-buttons {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-
-      .icon {
-        width: 80px;
-        height: 80px;
+      width: 100%;
+      gap: 16px;
+      a {
+        width: 100%;
         border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      span {
-        font-size: 16px;
-        line-height: normal;
-        text-align: center;
-        margin-top: 8px;
-        color: $quill-black;
       }
     }
+  }
+
+  .activity-results {
+    margin-top: 16px;
+    border: 1px solid $quill-grey-15;
+    border-radius: 8px;
   }
 
   .bottom-section {

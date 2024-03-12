@@ -95,13 +95,15 @@ export default class ResultsPage extends React.Component {
 
   render() {
     return (
-      <div id='results-page'>
-        <ScrollToTop />
-        <div className='top-section'>
-          <h1>Activity Complete!</h1>
-          {this.headerButtons()}
+      <div className="results-page-container">
+        <div id='results-page'>
+          <ScrollToTop />
+          <div className='top-section'>
+            <h1>Activity Complete!</h1>
+            {this.headerButtons()}
+          </div>
+          {this.bottomSection()}
         </div>
-        {this.bottomSection()}
       </div>
     );
   }
