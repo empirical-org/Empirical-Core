@@ -218,6 +218,8 @@ export default {
     'Parts of Speech',
     'Spelling Hint',
     'Quotation Mark Hint',
+    'Words Out of Order Hint',
+    'Spacing After Comma Hint',
   ],
 
   // cONCEPTS FEEDBACK ACTIONS
