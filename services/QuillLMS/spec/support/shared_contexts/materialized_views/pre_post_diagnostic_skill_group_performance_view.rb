@@ -26,18 +26,34 @@ RSpec.shared_context 'Pre Post Diagnostic Skill Group Performance View' do
     end
   end
 
-  let(:classroom_unit_count) { 2 }
-  let(:pre_diagnostic_classroom_units) { create_list(:classroom_unit, classroom_unit_count) }
-  let(:post_diagnostic_classroom_units) { pre_diagnostic_classroom_units.map { |classroom_unit| create(:classroom_unit, classroom: classroom_unit.classroom) } }
+  let(:student_count) { 2 }
+  let(:students) { create_list(:student, student_count) }
+
+  let(:pre_diagnostic_assigned_students) { students }
+  let(:post_diagnostic_assigned_students) { students }
+
+  let(:classroom_unit_count) { 1 }
+
+  let(:pre_diagnostic_units) { create_list(:unit, classroom_unit_count, activities: [pre_diagnostic]) }
+  let(:post_diagnostic_units) { create_list(:unit, classroom_unit_count, activities: [post_diagnostic]) }
+
+  let(:pre_diagnostic_classroom_units) { pre_diagnostic_units.map { |unit| create(:classroom_unit, unit: unit, assigned_student_ids: pre_diagnostic_assigned_students.map(&:id)) } }
+  let(:post_diagnostic_classroom_units) { pre_diagnostic_classroom_units.map { |classroom_unit| create(:classroom_unit, classroom: classroom_unit.classroom, assigned_student_ids: post_diagnostic_assigned_students.map(&:id)) } }
   let(:classroom_units) { [pre_diagnostic_classroom_units, post_diagnostic_classroom_units].flatten }
 
   let(:classrooms) { classroom_units.map(&:classroom).uniq }
 
-  let(:pre_diagnostic_unit_activities) { pre_diagnostic_classroom_units.map { |classroom_unit| create(:unit_activity, unit: classroom_unit.unit, activity: pre_diagnostic) } }
-  let(:post_diagnostic_unit_activities) { post_diagnostic_classroom_units.map { |classroom_unit| create(:unit_activity, unit: classroom_unit.unit, activity: post_diagnostic) } }
+  let(:pre_diagnostic_unit_activities) { pre_diagnostic_units.map(&:unit_activities) }
+  let(:post_diagnostic_unit_activities) { post_diagnostic_units.map(&:unit_activities) }
   let(:unit_activities) { [pre_diagnostic_unit_activities, post_diagnostic_unit_activities].flatten }
 
-  let(:pre_diagnostic_activity_sessions) { pre_diagnostic_classroom_units.map { |classroom_unit| create(:activity_session, :finished, classroom_unit:, activity: pre_diagnostic) } }
+  let(:pre_diagnostic_activity_sessions) do
+    pre_diagnostic_classroom_units.map do |classroom_unit|
+      classroom_unit.assigned_student_ids.map do |user_id|
+        create(:activity_session, :finished, classroom_unit:, user_id:, activity: pre_diagnostic)
+      end
+    end.flatten
+  end
   let(:post_diagnostic_activity_sessions) { pre_diagnostic_activity_sessions.map { |pre_session| create(:activity_session, :finished, user: pre_session.user, activity: post_diagnostic, completed_at: pre_session.completed_at ? pre_session.completed_at + 1.hour : nil, classroom_unit: post_diagnostic_classroom_units[pre_diagnostic_classroom_units.index(pre_session.classroom_unit)]) } }
   let(:activity_sessions) { [pre_diagnostic_activity_sessions, post_diagnostic_activity_sessions].flatten }
 
@@ -48,14 +64,15 @@ RSpec.shared_context 'Pre Post Diagnostic Skill Group Performance View' do
   let(:view_records) do
     [
       activities,
+      activity_sessions,
+      classroom_units,
+      concept_results,
+      diagnostic_question_skills,
       questions,
       skill_groups,
       skill_group_activities,
-      diagnostic_question_skills,
-      classroom_units,
-      unit_activities,
-      activity_sessions,
-      concept_results
+      students,
+      unit_activities
     ]
   end
 end

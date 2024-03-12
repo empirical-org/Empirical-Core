@@ -17,7 +17,7 @@ module AdminDiagnosticReports
     end
 
     def rollup_select_columns
-      "student_id, student_name"
+      "student_id, student_name, pre_activity_session_completed_at, post_activity_session_completed_at, classroom_id"
     end
 
     def specific_select_clause
@@ -51,6 +51,9 @@ module AdminDiagnosticReports
         SELECT
           students.id AS student_id,
           students.name AS student_name,
+          performance.pre_activity_session_completed_at,
+          performance.post_activity_session_completed_at,
+          performance.classroom_id,
           #{aggregate_by_clause} AS aggregate_id,
           #{aggregate_sort_clause} AS name,
           '#{additional_aggregation}' AS group_by,
@@ -73,6 +76,9 @@ module AdminDiagnosticReports
         aggregate_id,
         #{aggregate_sort_clause},
         student_id,
+        pre_activity_session_completed_at,
+        post_activity_session_completed_at,
+        performance.classroom_id,
         performance.pre_questions_correct,
         performance.pre_questions_total,
         performance.post_questions_correct,
@@ -82,7 +88,7 @@ module AdminDiagnosticReports
 
     def order_by_clause
       <<-SQL
-        ORDER BY TRIM(SUBSTR(TRIM(student_name), STRPOS(student_name, ' ') + 1)), skill_group_name
+        ORDER BY TRIM(SUBSTR(TRIM(student_name), STRPOS(student_name, ' ') + 1)), student_name, student_id, skill_group_name
       SQL
     end
 
@@ -101,7 +107,7 @@ module AdminDiagnosticReports
       # sorting call at the end since we're using ORDER BY in the SQL
       return [] if result.empty?
 
-      result.group_by { |row| row[self.class::AGGREGATE_COLUMN] }
+      result.group_by { |row| "#{row[:classroom_id]}:#{row[self.class::AGGREGATE_COLUMN]}" }
         .values
         .map { |group_rows| build_diagnostic_aggregates(group_rows) }
     end
