@@ -62,16 +62,16 @@ module AdminDiagnosticReports
 
           it { expect(count).to eq(classroom_unit_in_filter.assigned_student_ids.length) }
         end
-  
+
         context 'filter by teacher_ids' do
           let(:teacher_ids) { [classroom_unit_in_filter.classroom.teachers.first.id] }
-  
+
           it { expect(count).to eq(classroom_unit_in_filter.assigned_student_ids.length) }
         end
-  
+
         context 'filter by classroom_ids' do
           let(:classroom_ids) { [classroom_unit_in_filter.classroom.id] }
-  
+
           it { expect(count).to eq(classroom_unit_in_filter.assigned_student_ids.length) }
         end
       end

@@ -119,7 +119,7 @@ module AdminDiagnosticReports
               ]
             end
             let(:expected_student_ids) { (students.map(&:id) * 2).sort }
-            
+
             it { expect(results.map{|r| r[:student_id]}).to eq(expected_student_ids) }
           end
         end
