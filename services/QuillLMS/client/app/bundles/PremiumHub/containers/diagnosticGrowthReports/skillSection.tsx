@@ -101,7 +101,7 @@ export const SkillSection = ({
   pusherChannel,
   selectedDiagnosticId,
   selectedGroupByValue,
-  handleSetDisplayStudentCountsForFilters,
+  handleSetDiagnosticIdForStudentCount,
   passedData
 }) => {
 
@@ -113,7 +113,7 @@ export const SkillSection = ({
   const [loading, setLoading] = React.useState<boolean>(!passedData);
 
   React.useEffect(() => {
-    handleSetDisplayStudentCountsForFilters(false)
+    handleSetDiagnosticIdForStudentCount(null)
   }, [])
 
   React.useEffect(() => {

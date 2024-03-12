@@ -12,9 +12,7 @@ const props = {
   selectedClassroomIds: [],
   selectedTimeframe: "This school year",
   pusherChannel: null,
-  handleSetTotalStudentCountForFilters: jest.fn(),
-  handleSetTotalStudentMatchesForFilters: jest.fn(),
-  handleSetDisplayStudentCountsForFilters: jest.fn(),
+  handleSetDiagnosticIdForStudentCount: jest.fn(),
   passedVisibleData: null
 }
 

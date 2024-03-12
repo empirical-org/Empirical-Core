@@ -105,15 +105,13 @@ export const StudentSection = ({
   selectedClassroomIds,
   selectedTimeframe,
   pusherChannel,
-  handleSetTotalStudentCountForFilters,
-  handleSetTotalStudentMatchesForFilters,
-  handleSetDisplayStudentCountsForFilters,
+  handleSetDiagnosticIdForStudentCount,
   passedVisibleData
 }) => {
   const [diagnosticTypeValue, setDiagnosticTypeValue] = React.useState<DropdownObjectInterface>(diagnosticTypeDropdownOptions[0])
   const [pusherMessage, setPusherMessage] = React.useState<string>(null)
-  const [recommendationsData, setRecommendationsData] = React.useState<any>([]);
-  const [studentData, setStudentData] = React.useState<any>([]);
+  const [recommendationsData, setRecommendationsData] = React.useState<any>(null);
+  const [studentData, setStudentData] = React.useState<any>(null);
   const [totalStudents, setTotalStudents] = React.useState<number>(null)
   const [visibleData, setVisibleData] = React.useState<any>(passedVisibleData || []);
   const [rowsToShow, setRowsToShow] = React.useState<number>(BATCH_SIZE);
@@ -126,20 +124,18 @@ export const StudentSection = ({
   React.useEffect(() => {
     // this is for testing purposes; these values will always be null in a non-testing environment
     if (!passedVisibleData) {
-      handleSetDisplayStudentCountsForFilters(false)
+      handleSetDiagnosticIdForStudentCount(Number(diagnosticTypeValue.value))
+      resetToDefault()
       getData()
     }
   }, [searchCount, diagnosticTypeValue])
 
   React.useEffect(() => {
-    if (studentData?.length && recommendationsData && Object.keys(recommendationsData).length) {
       const formattedData = aggregateStudentData(studentData, recommendationsData)
-      updateVisibleData(formattedData);
-      setLoading(false)
-      // This API needs to be called once without any filters for the "out of Y" value to be displayed, and once with filters for "X out of" value
-      getStudentCountDataForFilters(false)
-      getStudentCountDataForFilters(true)
-    }
+      if(formattedData) {
+        updateVisibleData(formattedData);
+        setLoading(false)
+      }
   }, [studentData, recommendationsData])
 
 
@@ -156,8 +152,18 @@ export const StudentSection = ({
 
   React.useEffect(() => {
     const formattedData = aggregateStudentData(studentData, recommendationsData)
-    updateVisibleData(formattedData);
+    if(formattedData) {
+      updateVisibleData(formattedData);
+    }
   }, [rowsToShow])
+
+  function resetToDefault() {
+    setRecommendationsData(null)
+    setStudentData(null)
+    setVisibleData(passedVisibleData || [])
+    setRowsToShow(BATCH_SIZE)
+    setLoading(!passedVisibleData)
+  }
 
   function updateVisibleData(data) {
     if(!totalStudents) {
@@ -235,31 +241,6 @@ export const StudentSection = ({
           setRowsToShow(results.length)
         }
         setStudentData(results)
-      }
-    })
-  }
-
-  function getStudentCountDataForFilters(withFilters) {
-    const searchParams = {
-      timeframe: selectedTimeframe,
-      school_ids: withFilters ? selectedSchoolIds : null,
-      teacher_ids: withFilters ? selectedTeacherIds : null,
-      classroom_ids: withFilters ? selectedClassroomIds : null,
-      grades: withFilters ? selectedGrades : null,
-      diagnostic_id: diagnosticTypeValue.value
-    }
-
-    requestPost('/admin_diagnostic_students/filter_scope', searchParams, (body) => {
-      if (!body.hasOwnProperty('count')) {
-        return
-      } else {
-        const { count, } = body
-        if(withFilters) {
-          handleSetTotalStudentMatchesForFilters(count)
-        } else {
-          handleSetTotalStudentCountForFilters(count)
-        }
-        handleSetDisplayStudentCountsForFilters(true)
       }
     })
   }

@@ -103,7 +103,7 @@ export const OverviewSection = ({
   handleTabChangeFromDataChip,
   handleSetSelectedDiagnosticId,
   handleSetSelectedGroupByValue,
-  handleSetDisplayStudentCountsForFilters,
+  handleSetDiagnosticIdForStudentCount,
   passedData
 }) => {
 
@@ -118,7 +118,7 @@ export const OverviewSection = ({
   const [pusherMessage, setPusherMessage] = React.useState<string>(null)
 
   React.useEffect(() => {
-    handleSetDisplayStudentCountsForFilters(false)
+    handleSetDiagnosticIdForStudentCount(null)
   }, [])
 
   React.useEffect(() => {

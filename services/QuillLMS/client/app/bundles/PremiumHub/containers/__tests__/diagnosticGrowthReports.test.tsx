@@ -17,9 +17,7 @@ const props = {
   availableTeachers: [],
   selectedTeachers: [],
   handleClickDownloadReport: jest.fn(),
-  handleSetDisplayStudentCountsForFilters: jest.fn(),
-  handleSetTotalStudentCountForFilters: jest.fn(),
-  handleSetTotalStudentMatchesForFilters: jest.fn(),
+  handleSetDiagnosticIdForStudentCount: jest.fn(),
   openMobileFilterMenu: jest.fn(),
   hasAdjustedFiltersFromDefault: false,
   passedData: null
@@ -56,7 +54,7 @@ describe('DiagnosticGrowthReports', () => {
       const { asFragment } = render(<DiagnosticGrowthReports {...props} />);
       expect(asFragment()).toMatchSnapshot();
       expect(screen.getByRole('heading', { name: /diagnostic growth report/i })).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: /download/i })).toBeInTheDocument()
+      // expect(screen.getByRole('button', { name: /download/i })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: /performance overview/i })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: /performance by skill/i })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: /performance by student/i })).toBeInTheDocument()

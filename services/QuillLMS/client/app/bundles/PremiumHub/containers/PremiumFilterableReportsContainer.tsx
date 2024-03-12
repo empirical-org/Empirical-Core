@@ -68,9 +68,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
   const [pusherChannel, setPusherChannel] = React.useState(null)
 
   const [showFilters, setShowFilters] = React.useState(true)
-  const [displayStudentCountsForFilters, setDisplayStudentCountsForFilters] = React.useState(false)
-  const [totalStudentCountForFilters, setTotalStudentCountForFilters] = React.useState(null)
-  const [totalStudentMatchesForFilters, setTotalStudentMatchesForFilters] = React.useState(null)
+  const [diagnosticIdForStudentCount, setDiagnosticIdForStudentCount] = React.useState(null)
 
   const location = useLocation();
 
@@ -306,16 +304,8 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
 
   function handleClickDownloadReport() { window.print() }
 
-  function handleSetTotalStudentCountForFilters(count) {
-    setTotalStudentCountForFilters(count)
-  }
-
-  function handleSetTotalStudentMatchesForFilters(count) {
-    setTotalStudentMatchesForFilters(count)
-  }
-
-  function handleSetDisplayStudentCountsForFilters(shouldDisplay) {
-    setDisplayStudentCountsForFilters(shouldDisplay)
+  function handleSetDiagnosticIdForStudentCount(id) {
+    setDiagnosticIdForStudentCount(id)
   }
 
   function renderShowFilterMenuButton() {
@@ -373,9 +363,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     customEndDate,
     showFilterMenuButton: renderShowFilterMenuButton(),
     reportType: reportPath(),
-    totalStudentCountForFilters,
-    totalStudentMatchesForFilters,
-    displayStudentCountsForFilters
+    diagnosticIdForStudentCount
   }
 
   const sharedProps = {
@@ -402,9 +390,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
 
   const growthReportsProps = {
     ...sharedProps,
-    handleSetTotalStudentCountForFilters,
-    handleSetTotalStudentMatchesForFilters,
-    handleSetDisplayStudentCountsForFilters
+    handleSetDiagnosticIdForStudentCount
   }
 
   if (accessType !== FULL) {

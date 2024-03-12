@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import { DropdownInput, DropdownInputWithSearchTokens, Tooltip, helpIcon, } from '../../../Shared/index'
+import { requestPost } from '../../../../modules/request'
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
 const DIAGNOSTIC_GROWTH_REPORT_PATH = 'diagnostic_growth_report'
@@ -31,12 +32,63 @@ const Filters = ({
   customEndDate,
   showFilterMenuButton,
   reportType,
-  totalStudentCountForFilters,
-  totalStudentMatchesForFilters,
-  displayStudentCountsForFilters
+  diagnosticIdForStudentCount
 }) => {
 
   const isGrowthDiagnosticReport = reportType === DIAGNOSTIC_GROWTH_REPORT_PATH
+
+  const [loadingStudentCount, setLoadingStudentCount] = React.useState<boolean>(true)
+  const [totalStudentCountForFilters, setTotalStudentCountForFilters] = React.useState<Number>(null)
+  const [totalStudentMatchesForFilters, setTotalStudentMatchesForFilters] = React.useState<Number>(null)
+
+  React.useEffect(() => {
+    if (isGrowthDiagnosticReport && diagnosticIdForStudentCount && !totalStudentCountForFilters && !totalStudentMatchesForFilters) {
+      getStudentCountData()
+    }
+  }, [diagnosticIdForStudentCount])
+
+  React.useEffect(() => {
+    if (totalStudentCountForFilters && totalStudentMatchesForFilters) {
+      setLoadingStudentCount(false)
+    }
+  }, [totalStudentCountForFilters, totalStudentMatchesForFilters])
+
+  React.useEffect(() => {
+    if (!diagnosticIdForStudentCount || (isGrowthDiagnosticReport && diagnosticIdForStudentCount && hasAdjustedFiltersSinceLastSubmission)) {
+      setTotalStudentMatchesForFilters(null)
+      setTotalStudentCountForFilters(null)
+    }
+  }, [hasAdjustedFiltersSinceLastSubmission, diagnosticIdForStudentCount])
+
+  function getStudentCountData() {
+    setLoadingStudentCount(true)
+    getStudentCountDataForFilters(false)
+    getStudentCountDataForFilters(true)
+  }
+
+  function getStudentCountDataForFilters(withFilters) {
+    const searchParams = {
+      timeframe: selectedTimeframe.value,
+      school_ids: withFilters ? selectedSchools.map(s => s.id) : null,
+      teacher_ids: withFilters ? selectedTeachers.map(t => t.id) : null,
+      classroom_ids: withFilters ? selectedClassrooms.map(c => c.id) : null,
+      grades: withFilters ? selectedGrades : null,
+      diagnostic_id: diagnosticIdForStudentCount
+    }
+
+    requestPost('/admin_diagnostic_students/filter_scope', searchParams, (body) => {
+      if (!body.hasOwnProperty('count')) {
+        return
+      } else {
+        const { count, } = body
+        if (withFilters) {
+          setTotalStudentMatchesForFilters(count)
+        } else {
+          setTotalStudentCountForFilters(count)
+        }
+      }
+    })
+  }
 
   function effectiveSelectedSchools() {
     return selectedSchools.filter(s => availableSchools.find(as => as.id === s.id))
@@ -56,10 +108,17 @@ const Filters = ({
     return <p className="filters-student-count"><strong>{totalStudentMatchesForFilters}</strong> {matchText} from <strong>{totalStudentCountForFilters}</strong> {totalText}</p>
   }
 
+  function handleApplyFilters() {
+    if(isGrowthDiagnosticReport && diagnosticIdForStudentCount) {
+      getStudentCountData()
+    }
+    applyFilters()
+  }
+
   function renderFilterButtons() {
     if (!hasAdjustedFiltersFromDefault && !hasAdjustedFiltersSinceLastSubmission) { return null }
 
-    const shouldDisplayStudentCount = isGrowthDiagnosticReport && !hasAdjustedFiltersSinceLastSubmission && displayStudentCountsForFilters && totalStudentCountForFilters && totalStudentMatchesForFilters
+    const shouldDisplayStudentCount = isGrowthDiagnosticReport && !loadingStudentCount && totalStudentCountForFilters && totalStudentMatchesForFilters
     let applyClassName = "quill-button small contained primary focus-on-light"
 
     applyClassName += hasAdjustedFiltersSinceLastSubmission ? '' : ' disabled'
@@ -69,7 +128,7 @@ const Filters = ({
         {shouldDisplayStudentCount && renderStudentCount()}
         <div className="filter-buttons">
           <button className="quill-button small outlined secondary focus-on-light" onClick={clearFilters} type="button">Clear filters</button>
-          <button className={applyClassName} onClick={applyFilters} type="button">Apply filters</button>
+          <button className={applyClassName} onClick={handleApplyFilters} type="button">Apply filters</button>
         </div>
       </div>
     )

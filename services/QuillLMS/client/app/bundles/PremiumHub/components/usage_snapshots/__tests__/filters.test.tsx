@@ -27,7 +27,8 @@ describe('Filters component', () => {
     setSelectedClassrooms: jest.fn(),
     setSelectedSchools: jest.fn(),
     closeMobileFilterMenu: jest.fn(),
-    showMobileFilterMenu: jest.fn()
+    showMobileFilterMenu: jest.fn(),
+    diagnosticIdForStudentCount: null
   }
 
   describe ('when no filters have been adjusted', () => {

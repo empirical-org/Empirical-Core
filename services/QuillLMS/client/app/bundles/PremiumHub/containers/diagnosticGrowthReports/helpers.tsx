@@ -432,6 +432,7 @@ function renderEmbeddedTable(aggregate_rows) {
 }
 
 export function aggregateStudentData(studentData, recommendationsData) {
+  if(!studentData) { return null }
   return studentData.map((entry, i) => {
     const { student_id, student_name, pre_to_post_improved_skill_count, pre_questions_correct, pre_questions_total, pre_skills_proficient, pre_skills_to_practice, total_skills,
       post_questions_correct, post_questions_total, post_skills_improved, post_skills_maintained, post_skills_improved_or_maintained, aggregate_rows
