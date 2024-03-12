@@ -29,13 +29,25 @@ module AdminDiagnosticReports
       it { expect(results.first[:overall_skill_growth]).to eq(0.0) }
 
       context 'no finished activity sessions' do
-        let(:pre_diagnostic_activity_sessions) { pre_diagnostic_classroom_units.map { |classroom_unit| create(:activity_session, :unstarted, classroom_unit:, activity: pre_diagnostic) } }
+        let(:pre_diagnostic_activity_sessions) do
+          pre_diagnostic_classroom_units.map do |classroom_unit|
+            classroom_unit.assigned_student_ids.map do |user_id|
+              create(:activity_session, :unstarted, classroom_unit:, user_id:, activity: pre_diagnostic)
+            end
+          end.flatten
+        end
 
         it { expect(results).to eq([]) }
       end
 
       context 'no visible activity sessions' do
-        let(:pre_diagnostic_activity_sessions) { pre_diagnostic_classroom_units.map { |classroom_unit| create(:activity_session, :finished, classroom_unit:, activity: pre_diagnostic, visible: false) } }
+        let(:pre_diagnostic_activity_sessions) do
+          pre_diagnostic_classroom_units.map do |classroom_unit|
+            classroom_unit.assigned_student_ids.map do |user_id|
+              create(:activity_session, :finished, classroom_unit:, user_id:, activity: pre_diagnostic, visible: false)
+            end
+          end.flatten
+        end
 
         it { expect(results).to eq([]) }
       end
