@@ -4,7 +4,8 @@ module Snapshots
   class TopConceptsAssignedQuery < TopXQuery
     def query
       <<-SQL
-        SELECT value, SUM(count) AS count
+        SELECT value,
+          IFNULL(SUM(count),0) AS count
           FROM (#{super})
           GROUP BY value
           ORDER BY count DESC

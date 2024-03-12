@@ -67,7 +67,13 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
     const questionsForConcept = this.questionsForConcept()
     const listItems = questionsForConcept.map((question: Question) => {
       const archivedTag = question.flag === 'archived' ? <strong>ARCHIVED - </strong> : ''
-      return <li key={question.key}><Link to={'/admin/questions/' + question.key + '/responses'}>{archivedTag}{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>;
+      return (
+        <li key={question.key}>
+          <Link to={'/admin/questions/' + question.key + '/responses'}>
+            <span dangerouslySetInnerHTML={{ __html: question.prompt }} />
+          </Link>
+        </li>
+      );
     })
     return (
       <ul>{listItems}</ul>

@@ -14,7 +14,9 @@ module Snapshots
           teachers,
           classroom_units,
           activity_sessions,
-          user_logins
+          user_logins,
+          users,
+          activities
         ]
       end
 

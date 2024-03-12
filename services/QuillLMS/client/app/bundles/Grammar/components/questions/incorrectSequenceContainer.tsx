@@ -93,7 +93,6 @@ class IncorrectSequencesContainer extends React.Component {
   handleSequenceChange = (e, key) => {
     const { incorrectSequences } = this.state
     const className = `regex-${key}`
-    debugger;
     const value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}`;
     if (value === '') {
       if (!confirm("Deleting this regex will delete the whole incorrect sequence. Are you sure you want that?")) {
