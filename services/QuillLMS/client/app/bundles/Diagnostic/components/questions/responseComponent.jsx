@@ -69,7 +69,12 @@ class ResponseComponent extends React.Component {
   componentDidUpdate(prevProps) {
     const { filters } = this.props
 
-    if (!_.isEqual(this.props.filters.formattedFilterData, prevProps.filters.formattedFilterData)) {
+    // remove text field when comparing, since sometimes the text search can change without necessarilly requiring
+    // a new search (e.e.g when admin is typing)
+    const { ["text"]: unused, ...prevFiltersWithoutText } = prevProps.filters.formattedFilterData;
+    const { ["text"]: unused2, ...currFiltersWithoutText } = this.props.filters.formattedFilterData;
+
+    if (!_.isEqual(prevFiltersWithoutText, currFiltersWithoutText)) {
       this.searchResponses();
     } else if (this.props.states[this.props.questionID] === C.SHOULD_RELOAD_RESPONSES && prevProps.states[prevProps.questionID] !== C.SHOULD_RELOAD_RESPONSES) {
       this.props.dispatch(questionActions.clearQuestionState(this.props.questionID));
@@ -269,8 +274,8 @@ class ResponseComponent extends React.Component {
     );
   };
 
-  toggleField = status => {
-    this.props.dispatch(filterActions.toggleStatusField(status));
+  toggleFieldAndResetPage = status => {
+    this.props.dispatch(filterActions.toggleStatusFieldAndResetPage(status));
   };
 
   toggleExcludeMisspellings = () => {
@@ -300,7 +305,7 @@ class ResponseComponent extends React.Component {
         resetFields={this.resetFields}
         resetPageNumber={this.resetPageNumber}
         toggleExcludeMisspellings={this.toggleExcludeMisspellings}
-        toggleField={this.toggleField}
+        toggleFieldAndResetPage={this.toggleFieldAndResetPage}
         visibleStatuses={visibleStatuses}
       />
     );
@@ -451,7 +456,7 @@ class ResponseComponent extends React.Component {
     const { dispatch, questionID } = this.props;
     const { stringFilter } = this.refs;
     const { value } = stringFilter;
-    dispatch(questionActions.updateStringFilter(value, questionID));
+    dispatch(questionActions.updateStringFilter(value));
   }
 
   handleSearchEnter = (e) => {
@@ -469,7 +474,7 @@ class ResponseComponent extends React.Component {
   };
 
   updatePageNumber = pageNumber => {
-    this.props.dispatch(questionActions.updatePageNumber(pageNumber, this.props.questionID));
+    this.props.dispatch(questionActions.updatePageNumber(pageNumber));
   };
 
   incrementPageNumber = () => {
