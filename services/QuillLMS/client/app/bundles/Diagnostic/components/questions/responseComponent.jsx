@@ -72,7 +72,7 @@ class ResponseComponent extends React.Component {
     // remove text field when comparing, since sometimes the text search can change without necessarilly requiring
     // a new search (e.e.g when admin is typing)
     const { ["text"]: unused, ...prevFiltersWithoutText } = prevProps.filters.formattedFilterData;
-    const { ["text"]: unused2, ...currFiltersWithoutText } = this.props.filters.formattedFilterData;
+    const { ["text"]: unused2, ...currFiltersWithoutText } = filters.formattedFilterData;
 
     if (!_.isEqual(prevFiltersWithoutText, currFiltersWithoutText)) {
       this.searchResponses();

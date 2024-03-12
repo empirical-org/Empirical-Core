@@ -217,6 +217,7 @@ function getFormattedSearchData(state) {
 }
 
 function searchResponses(qid) {
+  console.log("conduction a search");
   return (dispatch, getState) => {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
@@ -251,7 +252,7 @@ function initializeSubscription(qid) {
       Pusher.logToConsole = true;
     }
     if (!window.pusher) {
-      window.pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
+      window.pusher = new Pusher(process.env.PUSHER_KEY, { cluster: 'us2' });
     }
     const channel = window.pusher.subscribe(`admin-${qid}`);
     channel.bind('new-response', (data) => {

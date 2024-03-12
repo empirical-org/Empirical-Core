@@ -50,6 +50,8 @@ const initialState = {
         status: [],
       },
       excludeMisspellings: false,
+      text: "",
+      pageNumber: 1,
     }
   },
 }
@@ -59,6 +61,8 @@ function getFormattedFilterData(state: any) {
     filters: getFilters(state),
     sort: getSort(state),
     excludeMisspellings: state.excludeMisspellings,
+    text: state.stringFilter,
+    pageNumber: state.responsePageNumber,
   };
 }
 
@@ -117,6 +121,12 @@ export default function(currentState: any, action: any) {
       newState.visibleStatuses[action.status] = !currentState.visibleStatuses[action.status];
       newState.formattedFilterData = getFormattedFilterData(newState)
       return newState;
+    case ActionTypes.TOGGLE_STATUS_FIELD_AND_RESET_PAGE:
+      newState = _.cloneDeep(currentState);
+      newState.visibleStatuses[action.status] = !currentState.visibleStatuses[action.status];
+      newState.responsePageNumber = 1;
+      newState.formattedFilterData = getFormattedFilterData(newState)
+      return newState;
     case ActionTypes.TOGGLE_RESPONSE_SORT:
       newState = _.cloneDeep(currentState);
       if (currentState.sorting === action.field) {
@@ -155,6 +165,7 @@ export default function(currentState: any, action: any) {
     case ActionTypes.SET_RESPONSE_PAGE_NUMBER:
       newState = _.cloneDeep(currentState);
       newState.responsePageNumber = action.pageNumber
+      newState.formattedFilterData = getFormattedFilterData(newState)
       return newState;
     case ActionTypes.SET_RESPONSE_STRING_FILTER:
       newState = _.cloneDeep(currentState);
