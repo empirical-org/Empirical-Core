@@ -1,4 +1,4 @@
-import { tierUDF, studentwiseSkillGroupUDF, findLastIndex } from "./BigQueryUDFs"
+import { tierUDF, studentwiseSkillGroupUDF, findLastIndex, parseElement } from "./BigQueryUDFs"
 
 describe('studentwiseSkillGroupUDF', () => {
   it('should return skillGroup-score pairs', () => {
@@ -62,6 +62,31 @@ describe('studentwiseSkillGroupUDF', () => {
     expect(parsedResult['Compound Subjects Objects and Predicates_pre']).toEqual(0)
     expect(parsedResult['Compound Subjects Objects and Predicates_post']).toEqual(1)
 
+  })
+})
+
+// Mock removeCommas function since it's not defined outside of the UDF context
+function removeCommas(str) {
+  return str.replace(/,/g, '');
+}
+
+describe('parseElement', () => {
+  it('should parse elements correctly', () => {
+    const inputString = "true|1668|2023-10-31 13:37:19.789202|Subject-Verb Agreement"
+    const expectedOutput = {
+      score: 1,
+      activityId: 1668,
+      completedAt: "2023-10-31 13:37:19.789202",
+      skillGroupName: "Subject-Verb Agreement"
+    }
+
+    expect(parseElement(inputString, removeCommas)).toEqual(expectedOutput)
+  })
+
+  it('should throw error on invalid input', () => {
+    const inputString = "bad|input"
+
+    expect(() => (parseElement(inputString, removeCommas))).toThrow(`Invalid element string: ${inputString}`)
   })
 })
 

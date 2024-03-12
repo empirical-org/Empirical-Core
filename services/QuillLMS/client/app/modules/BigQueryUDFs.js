@@ -9,10 +9,35 @@ export function findLastIndex(array, startIndex, fn) {
   return array.length - 1 - reversedIdx
 }
 
+// example argument: true|1668|2023-10-31 13:37:19.789202|Subject-Verb Agreement
+export function parseElement(e, removeCommas) {
+  const stringAttributes = e.split('|')
+  if (stringAttributes.length !== 4) {
+    throw new Error(`Invalid element string: ${e}`)
+  }
+
+  return {
+    score: stringAttributes[0] === "true" ? 1 : 0,
+    activityId: parseInt(stringAttributes[1]),
+    completedAt: stringAttributes[2],
+    skillGroupName: removeCommas(stringAttributes[3])
+  }
+}
+
 // BigQuery does not currently accept DATETIMEs as arguments for JS UDFs
 // So we cast DATETIMES to STRINGS before calling this function
-export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skillGroupNames) {
-  function boolToInt(bool) { return bool ? 1 : 0}
+export function studentwiseSkillGroupUDF(elements) {
+  // const zipped = elements.map(
+  //   (e) => {
+  //     return {
+  //       completedAt: elem,
+  //       score: boolToInt(scores[i]),
+  //       activityId: parseInt(activityIds[i]),
+  //       skillGroupName: removeCommas(skillGroupNames[i])
+  //     }
+  //   }
+  // )
+  // function stringBoolToInt(stringBool) { return stringBool === "true" ? 1 : 0}
 
   function removeCommas(str) {
     const regExp = /,/g
@@ -120,7 +145,6 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
     })
   }
 
-  const zipped = zipAndSort(scores, activityIds, completedAts, skillGroupNames)
 
   const prePostDiagnosticActivityIdPairs = {
     1161: 1774, // ELL Starter
