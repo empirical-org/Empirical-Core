@@ -115,7 +115,7 @@ module AdminDiagnosticReports
               # Have to specify these because username and email are constructed based on name if one is not explicitly provided
               [
                 create(:student, name: "John Smith", username: "johnsmith1", email: "johnsmith1@example.com"),
-                create(:student, name: "John Smith", username: "johnsmith2", email: "johnsmith2@example.com"),
+                create(:student, name: "John Smith", username: "johnsmith2", email: "johnsmith2@example.com")
               ]
             end
             let(:expected_student_ids) { (students.map(&:id) * 2).sort }
