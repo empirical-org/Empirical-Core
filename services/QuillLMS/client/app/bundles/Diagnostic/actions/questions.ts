@@ -217,7 +217,6 @@ function getFormattedSearchData(state) {
 }
 
 function searchResponses(qid) {
-  console.log("conduction a search");
   return (dispatch, getState) => {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
