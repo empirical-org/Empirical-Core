@@ -201,6 +201,6 @@ class Queries < Thor
         */
       STATS
     end
-    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/CyclomaticComplexity
   end
 end
