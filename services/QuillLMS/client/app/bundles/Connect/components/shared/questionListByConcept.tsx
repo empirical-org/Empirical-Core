@@ -1,7 +1,8 @@
 import _ from 'lodash'
 import * as React from 'react'
+import { Link } from 'react-router-dom';
+
 import { hashToCollection, } from '../../../Shared/index'
-import { LinkListItem } from './linkListItem'
 
 export class QuestionListByConcept extends React.Component<any, any> {
 
@@ -14,6 +15,7 @@ export class QuestionListByConcept extends React.Component<any, any> {
   }
 
   renderQuestionLinks = (questions) => {
+    const { basePath } = this.props;
     let filtered;
     if (!this.props.showOnlyArchived) {
       filtered = questions.filter((question) => question.flag !== "archived" )
@@ -22,14 +24,10 @@ export class QuestionListByConcept extends React.Component<any, any> {
     }
     return filtered.map((question) => {
       if (question.prompt) {
-        const formattedPrompt = question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
         return (
-          <LinkListItem
-            basePath={this.props.basePath}
-            itemKey={question.key}
-            key={question.key}
-            text={formattedPrompt}
-          />
+          <Link to={'/admin/' + basePath + '/' + question.key + '/responses'}>
+            <span dangerouslySetInnerHTML={{ __html: question.prompt }} />
+          </Link>
         );
       }
     });

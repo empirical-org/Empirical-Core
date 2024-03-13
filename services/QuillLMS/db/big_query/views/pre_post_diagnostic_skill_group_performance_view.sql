@@ -45,8 +45,9 @@ SELECT
             AND classroom_units.id = activity_sessions.classroom_unit_id
             AND most_recent.activity_id = activity_sessions.activity_id
             AND most_recent.completed_at = activity_sessions.completed_at
-      ) AS activity_sessions ON activity_sessions.classroom_unit_id = classroom_units.id AND activity_sessions.user_id = CAST(assigned_student_id AS int64) AND activity_sessions.visible = true 
-      LEFT OUTER JOIN special.concept_results AS concept_results          ON activity_sessions.id = concept_results.activity_session_id    
+      ) AS activity_sessions ON activity_sessions.classroom_unit_id = classroom_units.id AND activity_sessions.user_id = CAST(assigned_student_id AS int64) AND activity_sessions.visible = true
+      LEFT OUTER JOIN special.concept_results AS concept_results          ON activity_sessions.id = concept_results.activity_session_id
+
       LEFT OUTER JOIN lms.questions ON STRING(PARSE_JSON(concept_results.extra_metadata).question_uid) = questions.uid
       LEFT OUTER JOIN lms.diagnostic_question_skills ON questions.id = diagnostic_question_skills.question_id
       LEFT OUTER JOIN lms.skill_group_activities ON activity_sessions.activity_id = skill_group_activities.activity_id
@@ -92,9 +93,9 @@ SELECT
             AND classroom_units.id = activity_sessions.classroom_unit_id
             AND most_recent.activity_id = activity_sessions.activity_id
             AND most_recent.completed_at = activity_sessions.completed_at
-      ) AS activity_sessions 
+      ) AS activity_sessions
       JOIN lms.classroom_units ON activity_sessions.classroom_unit_id = classroom_units.id
-      JOIN special.concept_results AS concept_results          ON activity_sessions.id = concept_results.activity_session_id    
+      JOIN special.concept_results AS concept_results          ON activity_sessions.id = concept_results.activity_session_id
       JOIN lms.questions ON STRING(PARSE_JSON(concept_results.extra_metadata).question_uid) = questions.uid
       JOIN lms.diagnostic_question_skills ON questions.id = diagnostic_question_skills.question_id
       JOIN lms.skill_group_activities ON activity_sessions.activity_id = skill_group_activities.activity_id
@@ -102,7 +103,7 @@ SELECT
         ON diagnostic_question_skills.skill_group_id = skill_groups.id
           AND skill_group_activities.skill_group_id = skill_groups.id
       WHERE activity_sessions.completed_at >= '2023-07-01 00:00:00'
-        AND activity_sessions.activity_id IN (1664, 1680, 1669, 1774, 1814, 1818) 
+        AND activity_sessions.activity_id IN (1664, 1680, 1669, 1774, 1814, 1818)
         AND activity_sessions.visible = true
       GROUP BY activity_session_id,
         activity_session_completed_at,
@@ -110,7 +111,7 @@ SELECT
         skill_group_id,
         student_id,
         classroom_id
-  ) AS post 
+  ) AS post
     ON activities.follow_up_activity_id = post.activity_id
       AND pre.student_id = post.student_id
       AND pre.skill_group_id = post.skill_group_id

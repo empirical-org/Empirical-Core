@@ -94,12 +94,18 @@ GEM
     date (3.3.3)
     diff-lcs (1.5.0)
     docile (1.4.0)
+    dotenv (2.7.6)
+    dotenv-rails (2.7.6)
+      dotenv (= 2.7.6)
+      railties (>= 3.2)
     erubi (1.12.0)
     factory_bot (4.8.2)
       activesupport (>= 3.0.0)
     factory_bot_rails (4.8.2)
       factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
+    faker (3.2.0)
+      i18n (>= 1.8.11, < 2)
     faraday (2.7.11)
       base64
       faraday-net_http (>= 2.0, < 3.1)
@@ -340,8 +346,10 @@ PLATFORMS
 DEPENDENCIES
   annotate
   byebug
+  dotenv-rails (= 2.7.6)
   evidence!
   factory_bot_rails (~> 4.8.2)
+  faker (= 3.2.0)
   hotwater
   httparty
   m (~> 1.5.0)

@@ -3,6 +3,16 @@
 current_branch=`git rev-parse --abbrev-ref HEAD`
 app_name="QuillLMS"
 
+osx_notification=0
+
+for arg in "$@"; do
+  case $arg in
+    --osx-notification)
+      osx_notification=1
+      ;;
+  esac
+done
+
 case $1 in
   prod)
     DEPLOY_GIT_BRANCH=deploy-lms-prod
@@ -81,6 +91,10 @@ then
     open "https://dashboard.heroku.com/apps/$HEROKU_APP/activity"
     open $URL
     echo "Deploy screen opened in your browser, you can monitor from there."
+
+    if [ "$osx_notification" -eq 1 ]; then
+      ./script/osx_notification_on_build_completion.sh $HEROKU_APP
+    fi
 else
     echo "Ok, we won't deploy. Have a good day!"
 fi
