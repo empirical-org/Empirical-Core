@@ -466,7 +466,7 @@ module Evidence
           let(:label_config1_blank) {{'label' => label1, 'examples' => [example1, example2, ' ', "\n", '']}}
           let(:label_configs_with_blanks) {{'so' => [label_config1_blank, label_config2], 'because' => [label_config2]}}
 
-          it "should call background worker" do
+          it "should call background worker with no blank examples" do
             expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs, true)
             post :seed_data, params: { id: activity.id, nouns: "", label_configs: label_configs_with_blanks }
 
