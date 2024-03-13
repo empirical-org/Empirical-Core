@@ -37,12 +37,13 @@ const Filters = ({
 
   const isGrowthDiagnosticReport = reportType === DIAGNOSTIC_GROWTH_REPORT_PATH
 
+  const [applyFilterButtonClicked, setApplyFilterButtonClicked] = React.useState<boolean>(false)
   const [loadingStudentCount, setLoadingStudentCount] = React.useState<boolean>(true)
   const [totalStudentCountForFilters, setTotalStudentCountForFilters] = React.useState<Number>(null)
   const [totalStudentMatchesForFilters, setTotalStudentMatchesForFilters] = React.useState<Number>(null)
 
   React.useEffect(() => {
-    if (isGrowthDiagnosticReport && diagnosticIdForStudentCount && !totalStudentCountForFilters && !totalStudentMatchesForFilters) {
+    if (isGrowthDiagnosticReport && diagnosticIdForStudentCount && hasAdjustedFiltersFromDefault && !totalStudentCountForFilters && !totalStudentMatchesForFilters) {
       getStudentCountData()
     }
   }, [diagnosticIdForStudentCount])
@@ -50,17 +51,22 @@ const Filters = ({
   React.useEffect(() => {
     if (totalStudentCountForFilters && totalStudentMatchesForFilters) {
       setLoadingStudentCount(false)
+      setApplyFilterButtonClicked(true)
     }
   }, [totalStudentCountForFilters, totalStudentMatchesForFilters])
 
   React.useEffect(() => {
-    if (!diagnosticIdForStudentCount || (isGrowthDiagnosticReport && diagnosticIdForStudentCount && hasAdjustedFiltersSinceLastSubmission)) {
-      setTotalStudentMatchesForFilters(null)
-      setTotalStudentCountForFilters(null)
-    }
-  }, [hasAdjustedFiltersSinceLastSubmission, diagnosticIdForStudentCount])
+    setApplyFilterButtonClicked(false)
+    resetCounts()
+  }, [diagnosticIdForStudentCount])
+
+  function resetCounts() {
+    setTotalStudentMatchesForFilters(null)
+    setTotalStudentCountForFilters(null)
+  }
 
   function getStudentCountData() {
+    resetCounts()
     setLoadingStudentCount(true)
     getStudentCountDataForFilters(false)
     getStudentCountDataForFilters(true)
@@ -115,6 +121,14 @@ const Filters = ({
     applyFilters()
   }
 
+  function handleClearFilters() {
+    if (isGrowthDiagnosticReport) {
+      resetCounts()
+      setApplyFilterButtonClicked(false)
+    }
+    clearFilters()
+  }
+
   function renderFilterButtons() {
     if (!hasAdjustedFiltersFromDefault && !hasAdjustedFiltersSinceLastSubmission) { return null }
 
@@ -124,10 +138,10 @@ const Filters = ({
     applyClassName += hasAdjustedFiltersSinceLastSubmission ? '' : ' disabled'
 
     return (
-      <div className="filter-buttons-container">
+      <div className={`filter-buttons-container ${applyFilterButtonClicked ? 'with-count' : ''}`}>
         {shouldDisplayStudentCount && renderStudentCount()}
         <div className="filter-buttons">
-          <button className="quill-button small outlined secondary focus-on-light" onClick={clearFilters} type="button">Clear filters</button>
+          <button className="quill-button small outlined secondary focus-on-light" onClick={handleClearFilters} type="button">Clear filters</button>
           <button className={applyClassName} onClick={handleApplyFilters} type="button">Apply filters</button>
         </div>
       </div>
