@@ -463,7 +463,7 @@ module Evidence
         end
 
         context 'blank example' do
-          let(:label_config1_blank) {{'label' => label1, 'examples' => [example1, example2, ' ', "\n", '', ]}}
+          let(:label_config1_blank) {{'label' => label1, 'examples' => [example1, example2, ' ', "\n", '']}}
           let(:label_configs_with_blanks) {{'so' => [label_config1_blank, label_config2], 'because' => [label_config2]}}
 
           it "should call background worker" do
