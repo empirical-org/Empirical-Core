@@ -174,6 +174,7 @@ class Queries < Thor
         .pluck(:school_id)
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     private def query_metadata(sql, dryrun: true)
       job = Google::Cloud::Bigquery.new.query_job(sql, cache: false, dryrun: dryrun)
       job.wait_until_done!
@@ -203,5 +204,6 @@ class Queries < Thor
         */
       STATS
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
   end
 end
