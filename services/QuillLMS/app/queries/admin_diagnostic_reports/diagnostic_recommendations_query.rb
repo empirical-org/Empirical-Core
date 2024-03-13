@@ -21,6 +21,13 @@ module AdminDiagnosticReports
           ON units.unit_template_id = recommendations.unit_template_id
         JOIN lms.activities
           ON recommendations.activity_id = activities.id
+        JOIN lms.activity_sessions AS pre_diagnostic_session
+          ON activities.id = pre_diagnostic_session.activity_id
+            AND activity_sessions.user_id = pre_diagnostic_session.user_id
+            AND activity_sessions.completed_at > pre_diagnostic_session.completed_at
+        JOIN lms.classroom_units AS pre_diagnostic_classroom_unit
+          ON pre_diagnostic_session.classroom_unit_id = pre_diagnostic_classroom_unit.id
+            AND classroom_units.classroom_id = pre_diagnostic_classroom_unit.classroom_id
       SQL
     end
 
