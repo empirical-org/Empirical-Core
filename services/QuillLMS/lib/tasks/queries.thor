@@ -106,7 +106,9 @@ class Queries < Thor
     }
 
     student_diagnostic_queries = {
-      'diagnostic-students-view' => ::AdminDiagnosticReports::DiagnosticPerformanceByStudentViewQuery
+      'diagnostic-students-view' => ::AdminDiagnosticReports::DiagnosticPerformanceByStudentViewQuery,
+      'student-recommendation' => ::AdminDiagnosticReports::DiagnosticRecommendationsByStudentQuery,
+      'filter-scope' => ::AdminDiagnosticReports::StudentCountByFilterScopeQuery
     }
 
     timeframe_start = DateTime.parse(DEFAULT_START)

@@ -48,7 +48,7 @@ module AdminDiagnosticReports
       # NOTE: This implementation does not use super, and overrides the base query entirely in order to use materialized views
       <<-SQL
         FROM lms.pre_post_diagnostic_skill_group_performance_view AS performance
-        JOIN lms.classrooms ON performance.classroom_id = classrooms.id
+        JOIN lms.active_classroom_stubs_view AS classrooms ON performance.classroom_id = classrooms.id
         JOIN lms.classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id AND classrooms_teachers.role = 'owner'
         JOIN lms.schools_users ON classrooms_teachers.user_id = schools_users.user_id
         JOIN lms.schools ON schools_users.school_id = schools.id
@@ -81,8 +81,9 @@ module AdminDiagnosticReports
       "performance.pre_assigned_at"
     end
 
+    def active_classroom_stubs_view = materialized_view('active_classroom_stubs_view')
     def performance_view = materialized_view('pre_post_diagnostic_skill_group_performance_view')
 
-    def materialized_views = [performance_view]
+    def materialized_views = [active_classroom_stubs_view, performance_view]
   end
 end
