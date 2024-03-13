@@ -97,8 +97,8 @@ class Queries < Thor
 
     multi_diagnostic_queries = {
       'recommendations' => ::AdminDiagnosticReports::DiagnosticRecommendationsQuery
-    #  'post-diagnostic-completed' => ::AdminDiagnosticReports::PostDiagnosticCompletedQuery,
-    #  'post-diagnostic-completed-view' => ::AdminDiagnosticReports::PostDiagnosticCompletedViewQuery
+      #  'post-diagnostic-completed' => ::AdminDiagnosticReports::PostDiagnosticCompletedQuery,
+      #  'post-diagnostic-completed-view' => ::AdminDiagnosticReports::PostDiagnosticCompletedViewQuery
     }
 
     #single_diagnostic_queries = {
