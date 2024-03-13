@@ -1,7 +1,23 @@
+
+// Note: Some functions, like this one, are copied out of their
+// BigQuery UDFs for isolated testing. In the future, we can
+// avoid this by developing a custom JS build process for BigQuery UDFs
+export function findLastIndex(array, startIndex, fn) {
+  const reversedArray = [...array.slice(startIndex)].reverse()
+  const reversedIdx = reversedArray.findIndex(fn)
+  if (reversedIdx === -1) return -1
+  return array.length - 1 - reversedIdx
+}
+
 // BigQuery does not currently accept DATETIMEs as arguments for JS UDFs
 // So we cast DATETIMES to STRINGS before calling this function
 export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skillGroupNames) {
   function boolToInt(bool) { return bool ? 1 : 0}
+
+  function removeCommas(str) {
+    const regExp = /,/g
+    return str.replace(regExp, '')
+  }
 
   function zipAndSort(scores, activityIds, completedAts, skillGroupNames) {
     const zipped = completedAts.map(
@@ -9,15 +25,15 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
         completedAt: elem,
         score: boolToInt(scores[i]),
         activityId: parseInt(activityIds[i]),
-        skillGroupName: skillGroupNames[i]
+        skillGroupName: removeCommas(skillGroupNames[i])
 
       })
     )
     return zipped.sort((a,b) => (new Date(a.completedAt) - new Date(b.completedAt)))
   }
 
-  function findLastIndex(array, offset, fn) {
-    const reversedArray = [...array.slice(offset+1)].reverse()
+  function findLastIndex(array, startIndex, fn) {
+    const reversedArray = [...array.slice(startIndex)].reverse()
     const reversedIdx = reversedArray.findIndex(fn)
     if (reversedIdx === -1) return -1
     return array.length - 1 - reversedIdx
@@ -167,11 +183,12 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
 
   const skillScores = skillGroupsByActivity[PRE_DIAGNOSTIC_ACTIVITY_ID].reduce(
     (accum, currentValue) => {
-      const preColumnName = `${currentValue.name}_pre`
-      const postColumnName = `${currentValue.name}_post`
+      const formattedName = removeCommas(currentValue.name)
+      const preColumnName = `${formattedName}_pre`
+      const postColumnName = `${formattedName}_post`
       return {
-        [preColumnName]: getSkillScore(zipped, errorMessageArray, currentValue.name, 'pre'),
-        [postColumnName]: getSkillScore(zipped, errorMessageArray, currentValue.name, 'post'),
+        [preColumnName]: getSkillScore(zipped, errorMessageArray, formattedName, 'pre'),
+        [postColumnName]: getSkillScore(zipped, errorMessageArray, formattedName, 'post'),
         ...accum
       }
     },
