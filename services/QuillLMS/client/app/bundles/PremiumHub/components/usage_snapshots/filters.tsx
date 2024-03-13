@@ -138,7 +138,7 @@ const Filters = ({
     applyClassName += hasAdjustedFiltersSinceLastSubmission ? '' : ' disabled'
 
     return (
-      <div className={`filter-buttons-container ${applyFilterButtonClicked ? 'with-count' : ''}`}>
+      <div className={`filter-buttons-container fixed ${applyFilterButtonClicked ? 'with-count ' : ''}`}>
         {shouldDisplayStudentCount && renderStudentCount()}
         <div className="filter-buttons">
           <button className="quill-button small outlined secondary focus-on-light" onClick={handleClearFilters} type="button">Clear filters</button>
