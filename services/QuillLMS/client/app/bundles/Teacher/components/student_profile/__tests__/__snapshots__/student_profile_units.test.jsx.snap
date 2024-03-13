@@ -4384,7 +4384,8 @@ exports[`StudentProfileUnits component should render only completed activities i
                   "attribute": "name",
                   "headerClassName": "name-section",
                   "name": "Activity",
-                  "rowSectionClassName": "name-section",
+                  "noTooltip": true,
+                  "rowSectionClassName": "name-section tooltip-section",
                   "width": "474px",
                 },
                 Object {
@@ -4400,7 +4401,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   "headerClassName": "tool-icon-section",
                   "name": "Tool",
                   "noTooltip": true,
-                  "rowSectionClassName": "tool-icon-section",
+                  "rowSectionClassName": "tool-icon-section tooltip-section",
                   "width": "24px",
                 },
                 Object {
@@ -4408,7 +4409,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   "headerClassName": "completed-due-date-section",
                   "name": "Due date",
                   "noTooltip": true,
-                  "rowSectionClassName": "completed-due-date-section",
+                  "rowSectionClassName": "completed-due-date-section tooltip-section",
                   "width": "110px",
                 },
                 Object {
@@ -4416,7 +4417,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   "headerClassName": "completed-date-section",
                   "name": "Completed date",
                   "noTooltip": true,
-                  "rowSectionClassName": "completed-date-section",
+                  "rowSectionClassName": "completed-date-section tooltip-section",
                   "width": "110px",
                 },
                 Object {
@@ -4593,7 +4594,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   key="9"
                 >
                   <td
-                    className="data-table-row-section name-section"
+                    className="data-table-row-section name-section tooltip-section"
                     key="name-9"
                     onMouseEnter={[Function]}
                     onMouseLeave={[Function]}
@@ -4636,7 +4637,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                     </TableCellContentWrapper>
                   </td>
                   <td
-                    className="data-table-row-section tool-icon-section"
+                    className="data-table-row-section tool-icon-section tooltip-section"
                     key="tool-9"
                     onMouseEnter={[Function]}
                     onMouseLeave={[Function]}
@@ -4651,7 +4652,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                     <TableCellContentWrapper />
                   </td>
                   <td
-                    className="data-table-row-section completed-due-date-section"
+                    className="data-table-row-section completed-due-date-section tooltip-section"
                     key="dueDate-9"
                     onMouseEnter={[Function]}
                     onMouseLeave={[Function]}
@@ -4668,7 +4669,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                     </TableCellContentWrapper>
                   </td>
                   <td
-                    className="data-table-row-section completed-date-section"
+                    className="data-table-row-section completed-date-section tooltip-section"
                     key="completedDate-9"
                     onMouseEnter={[Function]}
                     onMouseLeave={[Function]}
@@ -4711,7 +4712,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   key="5"
                 >
                   <td
-                    className="data-table-row-section name-section"
+                    className="data-table-row-section name-section tooltip-section"
                     key="name-5"
                     onMouseEnter={[Function]}
                     onMouseLeave={[Function]}
@@ -4754,7 +4755,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                     </TableCellContentWrapper>
                   </td>
                   <td
-                    className="data-table-row-section tool-icon-section"
+                    className="data-table-row-section tool-icon-section tooltip-section"
                     key="tool-5"
                     onMouseEnter={[Function]}
                     onMouseLeave={[Function]}
@@ -4769,7 +4770,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                     <TableCellContentWrapper />
                   </td>
                   <td
-                    className="data-table-row-section completed-due-date-section"
+                    className="data-table-row-section completed-due-date-section tooltip-section"
                     key="dueDate-5"
                     onMouseEnter={[Function]}
                     onMouseLeave={[Function]}
@@ -4786,7 +4787,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                     </TableCellContentWrapper>
                   </td>
                   <td
-                    className="data-table-row-section completed-date-section"
+                    className="data-table-row-section completed-date-section tooltip-section"
                     key="completedDate-5"
                     onMouseEnter={[Function]}
                     onMouseLeave={[Function]}

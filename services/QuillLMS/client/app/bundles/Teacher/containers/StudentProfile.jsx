@@ -7,9 +7,9 @@ import {
   fetchStudentProfile,
   fetchStudentsClassrooms,
   handleClassroomClick,
-  updateActiveClassworkTab
+  updateActiveClassworkTab,
 } from '../../../actions/student_profile';
-import { TO_DO_ACTIVITIES } from '../../../constants/student_profile';
+import { TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES } from '../../../constants/student_profile';
 import SelectAClassroom from '../../Student/components/selectAClassroom';
 import LoadingIndicator from '../components/shared/loading_indicator';
 import StudentProfileClassworkTabs from '../components/student_profile/student_profile_classwork_tabs';
@@ -27,13 +27,12 @@ class StudentProfile extends React.Component {
 
     if (classroomId) {
       handleClassroomClick(classroomId);
-      fetchStudentProfile(classroomId);
+      fetchStudentProfile(classroomId)
       fetchStudentsClassrooms();
     } else {
       fetchStudentProfile();
       fetchStudentsClassrooms();
     }
-
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -63,14 +62,14 @@ class StudentProfile extends React.Component {
   }
 
   handleClassroomTabClick = (classroomId) => {
-    const { loading, handleClassroomClick, fetchStudentProfile, history, } = this.props;
+    const { loading, handleClassroomClick, history, fetchStudentProfile, } = this.props;
 
     if (!loading) {
       const newUrl = `/classrooms/${classroomId}`;
       history.push(newUrl);
       handleClassroomClick(classroomId);
-      fetchStudentProfile(classroomId);
       updateActiveClassworkTab(TO_DO_ACTIVITIES)
+      fetchStudentProfile(classroomId)
     }
   }
 
@@ -116,9 +115,14 @@ class StudentProfile extends React.Component {
       isBeingPreviewed,
       history,
       metrics,
+      loadingExactScoresData,
+      exactScoresData,
+      showExactScores,
     } = this.props;
 
     if (loading) { return <LoadingIndicator /> }
+
+    if (activeClassworkTab === COMPLETED_ACTIVITIES && loadingExactScoresData)  { return <LoadingIndicator /> }
 
     if (!selectedClassroomId) { return (<SelectAClassroom classrooms={classrooms} isBeingPreviewed={isBeingPreviewed} onClickCard={this.handleClassroomTabClick} />)}
 
@@ -147,10 +151,12 @@ class StudentProfile extends React.Component {
           <StudentProfileUnits
             activeClassworkTab={activeClassworkTab}
             data={scores}
+            exactScoresData={exactScoresData}
             isBeingPreviewed={isBeingPreviewed}
             loading={loading}
             nextActivitySession={nextActivitySession}
             selectedUnitId={this.parsedQueryParams().unit_id}
+            showExactScores={showExactScores}
             teacherName={student.classroom.teacher.name}
           />
         </div>
@@ -161,7 +167,7 @@ class StudentProfile extends React.Component {
 
 const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => ({
-  fetchStudentProfile: classroomId => dispatch(fetchStudentProfile(classroomId)),
+  fetchStudentProfile: (classroomId) => dispatch(fetchStudentProfile(classroomId)),
   fetchStudentsClassrooms: () => dispatch(fetchStudentsClassrooms()),
   handleClassroomClick: classroomId => dispatch(handleClassroomClick(classroomId)),
   updateActiveClassworkTab: tab => dispatch(updateActiveClassworkTab(tab))

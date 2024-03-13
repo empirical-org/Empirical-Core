@@ -57,10 +57,5 @@ exports[`KeyTargetSkillConcepts component should render 1`] = `
       </div>
     </div>
   </div>
-  <p
-    class="tooltip-message"
-  >
-    Clicking on the activity icon loads the report
-  </p>
 </DocumentFragment>
 `;

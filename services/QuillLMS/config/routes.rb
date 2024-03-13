@@ -164,6 +164,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'students_classrooms_json' => 'profiles#students_classrooms_json'
   get 'student_profile_data' => 'profiles#student_profile_data'
+  post 'student_exact_scores_data' => 'profiles#student_exact_scores_data'
   get 'student_mobile_profile_data/:current_classroom_id' => 'profiles#mobile_profile_data'
 
   resources :activities, only: [] do

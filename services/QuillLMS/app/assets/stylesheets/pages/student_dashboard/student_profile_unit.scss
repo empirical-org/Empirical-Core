@@ -3,6 +3,9 @@
   border: solid 1px $quill-grey-5;
   background-color: $quill-white;
   margin-bottom: 24px;
+  .score-tooltip-activator {
+    position: relative;
+  }
   &.selected-unit {
     .unit-name-and-staggered-release-status {
       animation: highlight 5s 1;
@@ -103,7 +106,7 @@
     }
 
     @media (max-width: 1200px) {
-      .tool-icon-section, .completed-due-date-section {
+      .tool-icon-section, .completed-due-date-section, .completed-date-section {
         display: none;
       }
       .name-section {
@@ -120,12 +123,13 @@
       }
       .data-table-headers, .data-table-header, .data-table-row, .data-table-row-section {
         min-width: auto !important;
+        width: auto !important;
       }
       .data-table-row {
         flex-wrap: wrap;
       }
     }
-    @media (max-width: 682px) {
+    @media (max-width: 850px) {
       .name-section {
         white-space: normal;
       }
@@ -149,13 +153,18 @@
       .score-section {
         flex: 1;
         overflow: visible;
+        margin-right: 0px;
+        .quill-tooltip-trigger {
+          margin-right: 0px;
+        }
         .score {
-          position: relative;
+          flex-direction: column;
+          align-items: flex-start;
+          div {
+            margin-bottom: 8px;
+          }
           span {
-            position: absolute;
-            top: 32px;
-            max-width: 80px;
-            white-space: normal
+            white-space: normal;
           }
         }
       }

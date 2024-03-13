@@ -40,6 +40,7 @@ class ActivitySession < ApplicationRecord
 
   include Uid
   include Concepts
+  include PublicProgressReports
 
   COMPLETED = 'Completed'
 
