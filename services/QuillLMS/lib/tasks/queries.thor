@@ -96,18 +96,19 @@ class Queries < Thor
     output_directory = make_directory(OUTPUT_ADMIN_DIAGNOSTICS)
 
     multi_diagnostic_queries = {
-      'post-diagnostic-completed' => ::AdminDiagnosticReports::PostDiagnosticCompletedQuery,
-      'post-diagnostic-completed-view' => ::AdminDiagnosticReports::PostDiagnosticCompletedViewQuery
+      'recommendations' => ::AdminDiagnosticReports::DiagnosticRecommendationsQuery
+    #  'post-diagnostic-completed' => ::AdminDiagnosticReports::PostDiagnosticCompletedQuery,
+    #  'post-diagnostic-completed-view' => ::AdminDiagnosticReports::PostDiagnosticCompletedViewQuery
     }
 
-    single_diagnostic_queries = {
-      'diagnostic-skills' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillQuery,
-      'diagnostic-skills-view' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillViewQuery
-    }
+    #single_diagnostic_queries = {
+    #  'diagnostic-skills' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillQuery,
+    #  'diagnostic-skills-view' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillViewQuery
+    #}
 
-    student_diagnostic_queries = {
-      'diagnostic-students-view' => ::AdminDiagnosticReports::DiagnosticPerformanceByStudentViewQuery
-    }
+    #student_diagnostic_queries = {
+    #  'diagnostic-students-view' => ::AdminDiagnosticReports::DiagnosticPerformanceByStudentViewQuery
+    #}
 
     timeframe_start = DateTime.parse(DEFAULT_START)
     timeframe_end = DateTime.parse(DEFAULT_END)
@@ -132,19 +133,19 @@ class Queries < Thor
       File.write(output_directory + "#{key}.sql", metadata + sql)
     end
 
-    single_diagnostic_queries.each do |key, query|
-      sql = query.new(**single_diagnostic_args).query
+    #single_diagnostic_queries.each do |key, query|
+    #  sql = query.new(**single_diagnostic_args).query
 
-      metadata = query_metadata(sql, dryrun: false)
-      File.write(output_directory + "#{key}.sql", metadata + sql)
-    end
+    #  metadata = query_metadata(sql, dryrun: false)
+    #  File.write(output_directory + "#{key}.sql", metadata + sql)
+    #end
 
-    student_diagnostic_queries.each do |key, query|
-      sql = query.new(**student_diagnostic_args).query
+    #student_diagnostic_queries.each do |key, query|
+    #  sql = query.new(**student_diagnostic_args).query
 
-      metadata = query_metadata(sql, dryrun: false)
-      File.write(output_directory + "#{key}.sql", metadata + sql)
-    end
+    #  metadata = query_metadata(sql, dryrun: false)
+    #  File.write(output_directory + "#{key}.sql", metadata + sql)
+    #end
   end
 
   # put helper methods in this block
@@ -171,6 +172,7 @@ class Queries < Thor
         .pluck(:school_id)
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     private def query_metadata(sql, dryrun: true)
       job = Google::Cloud::Bigquery.new.query_job(sql, cache: false, dryrun: dryrun)
       job.wait_until_done!
@@ -200,5 +202,6 @@ class Queries < Thor
         */
       STATS
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
   end
 end
