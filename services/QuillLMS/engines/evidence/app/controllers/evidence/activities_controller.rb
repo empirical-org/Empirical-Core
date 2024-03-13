@@ -91,8 +91,6 @@ module Evidence
       render json: @activity&.activity_versions
     end
 
-    EXAMPLES_KEY = Evidence::Synthetic::SeedDataGenerator::EXAMPLES_KEY
-
     # params [:id, nouns:, label_configs]
     def seed_data
       nouns_array = seed_data_params[:nouns]
@@ -101,11 +99,13 @@ module Evidence
         .map(&:strip)
         .uniq
 
+      label_configs = clean_label_configs(label_configs_param)
+
       use_passage_param = ActiveModel::Type::Boolean.new.cast(seed_data_params[:use_passage])
       # default to true for missing param
       use_passage = use_passage_param.nil? ? true : use_passage_param
 
-      Evidence::ActivitySeedDataWorker.perform_async(@activity.id, nouns_array, label_configs_param, use_passage)
+      Evidence::ActivitySeedDataWorker.perform_async(@activity.id, nouns_array, label_configs, use_passage)
 
       head :no_content
     end
@@ -175,6 +175,8 @@ module Evidence
       params.require(:note)
     end
 
+    private def label_configs_param = seed_data_params[:label_configs]&.to_h || {}
+
     private def seed_data_params
       params.permit(:id, :nouns, :use_passage, label_configs: {}, activity: {})
     end
@@ -196,15 +198,14 @@ module Evidence
       )
     end
 
-    private def label_configs_param
-      (seed_data_params[:label_configs]&.to_h || {})
-        .transform_values do |configs|
-          configs.map do |config|
-            config.transform_values do |value|
-              value.is_a?(Array) ? value.map(&:squish).uniq.compact_blank : value
-            end
+    private def clean_label_configs(configs_hash)
+      configs_hash.transform_values do |configs|
+        configs.map do |config|
+          config.transform_values do |value|
+            value.is_a?(Array) ? value.map(&:squish).uniq.compact_blank : value
           end
         end
+      end
     end
 
     private def activity_rules_by_rule_type(activity, rule_type)
