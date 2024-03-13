@@ -1,38 +1,78 @@
 # frozen_string_literal: true
 
 module AdminDiagnosticReports
-  class DiagnosticRecommendationsQuery < DiagnosticAggregateQuery
+  class DiagnosticRecommendationsQuery < DiagnosticAggregateViewQuery
+    def select_clause
+      <<-SQL
+        SELECT
+          activity_id AS diagnostic_id,
+          activity_name AS diagnostic_name,
+          #{aggregate_by_clause} AS aggregate_id,
+          #{aggregate_sort_clause} AS name,
+          '#{additional_aggregation}' AS group_by,
+          #{specific_select_clause}
+      SQL
+    end
+
     def specific_select_clause
       <<-SQL
-          COUNT(DISTINCT CONCAT(classrooms.id, ':', activity_sessions.user_id)) AS students_completed_practice,
-          SAFE_DIVIDE(COUNT(DISTINCT activity_sessions.id), COUNT(DISTINCT CONCAT(classrooms.id, ':', activity_sessions.user_id))) AS average_practice_activities_count,
-          SAFE_DIVIDE(SUM(activity_sessions.timespent), COUNT(DISTINCT CONCAT(classrooms.id, ':', activity_sessions.user_id))) AS average_time_spent_seconds
+          COUNT(DISTINCT CONCAT(classroom_id, ':', user_id)) AS students_completed_practice,
+          SAFE_DIVIDE(SUM(completed_activities), COUNT(DISTINCT CONCAT(classroom_id, ':', user_id))) AS average_practice_activities_count,
+          SAFE_DIVIDE(SUM(time_spent_seconds), COUNT(DISTINCT CONCAT(classroom_id, ':', user_id))) AS average_time_spent_seconds
       SQL
     end
 
     def from_and_join_clauses
-      super + <<-SQL
-        JOIN lms.activity_sessions
-          ON classroom_units.id = activity_sessions.classroom_unit_id
-            AND activity_sessions.visible = true
-        JOIN lms.units
-          ON classroom_units.unit_id = units.id
-        JOIN lms.recommendations
-          ON units.unit_template_id = recommendations.unit_template_id
-        JOIN lms.activities
-          ON recommendations.activity_id = activities.id
-        JOIN lms.activity_sessions AS pre_diagnostic_session
-          ON activities.id = pre_diagnostic_session.activity_id
-            AND activity_sessions.user_id = pre_diagnostic_session.user_id
-            AND activity_sessions.completed_at > pre_diagnostic_session.completed_at
-        JOIN lms.classroom_units AS pre_diagnostic_classroom_unit
-          ON pre_diagnostic_session.classroom_unit_id = pre_diagnostic_classroom_unit.id
-            AND classroom_units.classroom_id = pre_diagnostic_classroom_unit.classroom_id
+      <<-SQL
+        FROM lms.recommendation_count_rollup_view
       SQL
     end
 
+    def where_clause
+      <<-SQL
+        WHERE
+          #{timeframe_where_clause}
+          #{classroom_ids_where_clause}
+          #{grades_where_clause}
+          #{relevant_diagnostic_where_clause}
+          #{school_ids_where_clause}
+          #{teacher_ids_where_clause}
+      SQL
+    end
+
+    def classroom_ids_where_clause = ("AND classroom_id IN (#{classroom_ids.join(',')})" if classroom_ids.present?)
+    def grades_where_clause = ("AND (grade IN (#{grades.map { |g| "'#{g}'" }.join(',')}) #{grades_where_null_clause})" if grades.present?)
+    def grades_where_null_clause = ("OR grade IS NULL" if grades.include?('null'))
+    def relevant_diagnostic_where_clause = "AND activity_id IN (#{DIAGNOSTIC_ORDER_BY_ID.join(',')})"
+    def school_ids_where_clause = "AND school_id IN (#{school_ids.join(',')})"
+    def teacher_ids_where_clause = ("AND teacher_id IN (#{teacher_ids.join(',')})" if teacher_ids.present?)
+
+    def group_by_clause = "GROUP BY activity_id, activity_name, aggregate_id, #{aggregate_sort_clause}"
+
     def relevant_date_column
-      "activity_sessions.completed_at"
+      "pre_diagnostic_completed_at"
+    end
+
+    def recommendation_view = materialized_view('recommendation_count_rollup_view')
+
+    def materialized_views = [recommendation_view]
+
+    def aggregate_by_clause
+      {
+        'grade' => "grade",
+        'classroom' => "classroom_id",
+        'teacher' => "teacher_id",
+        'student' => "CONCAT(classroom_id, ':', user_id)"
+      }.fetch(additional_aggregation)
+    end
+
+    def aggregate_sort_clause
+      {
+        'grade' => "grade",
+        'classroom' => "classroom_name",
+        'teacher' => "teacher_name",
+        'student' => "user_id"
+      }.fetch(additional_aggregation)
     end
 
     private def rollup_aggregation_hash
