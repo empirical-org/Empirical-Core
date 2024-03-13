@@ -91,6 +91,8 @@ module Evidence
       render json: @activity&.activity_versions
     end
 
+    EXAMPLES_KEY = Evidence::Synthetic::SeedDataGenerator::EXAMPLES_KEY
+
     # params [:id, nouns:, label_configs]
     def seed_data
       nouns_array = seed_data_params[:nouns]
@@ -100,12 +102,20 @@ module Evidence
         .uniq
 
       label_configs = seed_data_params[:label_configs]&.to_h || {}
+      # remove blank examples from configs
+      clean_label_configs = label_configs.transform_values do |v|
+        v.map do |config|
+          config.transform_values do |v|
+            v.is_a?(Array) ? v.map(&:squish).uniq.compact_blank : v
+          end
+        end
+      end
 
       use_passage_param = ActiveModel::Type::Boolean.new.cast(seed_data_params[:use_passage])
       # default to true for missing param
       use_passage = use_passage_param.nil? ? true : use_passage_param
 
-      Evidence::ActivitySeedDataWorker.perform_async(@activity.id, nouns_array, label_configs, use_passage)
+      Evidence::ActivitySeedDataWorker.perform_async(@activity.id, nouns_array, clean_label_configs, use_passage)
 
       head :no_content
     end
