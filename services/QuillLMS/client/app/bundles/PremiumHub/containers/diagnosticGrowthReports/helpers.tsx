@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { getTimeInMinutesAndSeconds } from "../../shared"
 import { getTimeSpent } from '../../../Teacher/helpers/studentReports'
+import moment from 'moment'
 
 const checkSrc = `${process.env.CDN_URL}/images/icons/circle-check-icon-vibrant-green.svg`
 const loopSrc = `${process.env.CDN_URL}/images/icons/revise-icon-grey.svg`
@@ -278,6 +279,29 @@ export function aggregateSkillsData({
   Similarly, we look for a null value for post_questions_total to determine if a post diagnostic has not been completed yet.
 */
 
+function getStudentNameValue({ name, preCompleted, previousRecord, nextRecord, preCompletedAt, postCompletedAt }) {
+  const nameMatchesPreviousRecord = previousRecord && previousRecord.student_name === name
+  const nameMatchesNextRecord = nextRecord && nextRecord.student_name === name
+  const className = preCompleted ? '' : 'diagnostic-not-completed'
+  let date
+
+  if(preCompletedAt && postCompletedAt) {
+    date = `(${moment(preCompletedAt).format('MM/YY')} - ${moment(postCompletedAt).format('MM/YY')})`
+  } else if(preCompletedAt) {
+    date = `(${moment(preCompletedAt).format('MM/YY') })`
+  }
+  if ((nameMatchesPreviousRecord || nameMatchesNextRecord) && date) {
+    return(
+      <div className={`name-with-date className`}>
+        <p>{name}</p>
+        <p>{date}</p>
+      </div>
+    )
+  } else {
+    return <p className={className}>{name}</p>
+  }
+}
+
 function getPreToPostImprovedSkillsValue(count, postQuestionsTotal) {
   if(postQuestionsTotal === null) { return noDataToShow }
   if(count === 0) { return 'No improved skills'}
@@ -435,13 +459,16 @@ export function aggregateStudentData(studentData, recommendationsData) {
   if(!studentData) { return null }
   return studentData.map((entry, i) => {
     const { student_id, student_name, pre_to_post_improved_skill_count, pre_questions_correct, pre_questions_total, pre_skills_proficient, pre_skills_to_practice, total_skills,
-      post_questions_correct, post_questions_total, post_skills_improved, post_skills_maintained, post_skills_improved_or_maintained, aggregate_rows
+      post_questions_correct, post_questions_total, post_skills_improved, post_skills_maintained, post_skills_improved_or_maintained, pre_activity_session_completed_at, post_activity_session_completed_at, aggregate_rows
     } = entry
     // we don't want to render any data except for student name if pre diagnostic has not been completed yet
     const preCompleted = pre_questions_correct !== 0
+    const previousRecord = i > 0 ? studentData[i - 1] : null
+    const nextRecord = i < studentData.length - 1 ? studentData[i + 1] : null
     return {
       id: i,
-      name: preCompleted ? student_name : <p className="diagnostic-not-completed">{student_name}</p>,
+      // name: preCompleted ? student_name : <p className="diagnostic-not-completed">{student_name}</p>,
+      name: getStudentNameValue({ name: student_name, preCompleted, previousRecord, nextRecord, preCompletedAt: pre_activity_session_completed_at, postCompletedAt: post_activity_session_completed_at }),
       studentName: student_name,
       preToPostImprovedSkills: preCompleted ? getPreToPostImprovedSkillsValue(pre_to_post_improved_skill_count, post_questions_total) : 'Diagnostic not completed',
       improvedSkills: getPreToPostImprovedSkillsSortValue(preCompleted, pre_to_post_improved_skill_count, post_questions_total),
