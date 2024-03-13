@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module AdminDiagnosticReports
-  class StudentCountByFilterScopeQuery < ::Snapshots::CountQuery
+  class StudentCountByFilterScopeQuery < ::QuillBigQuery::MaterializedViewQuery
     class InvalidDiagnosticIdError < StandardError; end
 
-    attr_reader :diagnostic_id
+    attr_reader :timeframe_start, :timeframe_end, :school_ids, :grades, :teacher_ids, :classroom_ids, :user, :additional_aggregation, :diagnostic_id
 
     DIAGNOSTIC_ORDER_BY_ID = [
       1663, # Starter Baseline Diagnostic (Pre)
@@ -19,12 +19,25 @@ module AdminDiagnosticReports
       1432  # SpringBoard Writing Skills Survey
     ]
 
-    def initialize(diagnostic_id:, **options)
+    def initialize(timeframe_start:, timeframe_end:, diagnostic_id:, school_ids:, grades: nil, teacher_ids: nil, classroom_ids: nil, user: nil, **options) # rubocop:disable Metrics/ParameterLists
       raise InvalidDiagnosticIdError, "#{diagnostic_id} is not a valid diagnostic_id value." unless DIAGNOSTIC_ORDER_BY_ID.include?(diagnostic_id.to_i)
 
+      @timeframe_start = timeframe_start
+      @timeframe_end = timeframe_end
+      @school_ids = school_ids
+      @grades = grades
+      @teacher_ids = teacher_ids
+      @classroom_ids = classroom_ids
+      @user = user
       @diagnostic_id = diagnostic_id
 
       super(**options)
+    end
+
+    def run
+      {
+        count: run_query.first[:count]
+      }
     end
 
     def select_clause
@@ -44,13 +57,32 @@ module AdminDiagnosticReports
 
     def where_clause
       <<-SQL
-        #{super}
+        WHERE #{timeframe_where_clause}
+          #{classroom_ids_where_clause}
+          #{grades_where_clause}
+          #{owner_teachers_only_where_clause}
+          #{relevant_diagnostic_where_clause}
+          #{school_ids_where_clause}
+          #{teacher_ids_where_clause}
           AND performance.activity_id = #{diagnostic_id}
       SQL
     end
 
+    def timeframe_where_clause = "#{relevant_date_column} BETWEEN '#{timeframe_start.to_fs(:db)}' AND '#{timeframe_end.to_fs(:db)}'"
+    def classroom_ids_where_clause = ("AND classrooms.id IN (#{classroom_ids.join(',')})" if classroom_ids.present?)
+    def grades_where_clause = ("AND (classrooms.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')}) #{grades_where_null_clause})" if grades.present?)
+    def grades_where_null_clause = ("OR classrooms.grade IS NULL" if grades.include?('null'))
+    def owner_teachers_only_where_clause = "AND classrooms_teachers.role = '#{ClassroomsTeacher::ROLE_TYPES[:owner]}'"
+    def relevant_diagnostic_where_clause = "AND performance.activity_id IN (#{DIAGNOSTIC_ORDER_BY_ID.join(',')})"
+    def school_ids_where_clause = "AND schools_users.school_id IN (#{school_ids.join(',')})"
+    def teacher_ids_where_clause = ("AND schools_users.user_id IN (#{teacher_ids.join(',')})" if teacher_ids.present?)
+
     def relevant_date_column
       "performance.pre_assigned_at"
     end
+
+    def performance_view = materialized_view('pre_post_diagnostic_skill_group_performance_view')
+
+    def materialized_views = [performance_view]
   end
 end

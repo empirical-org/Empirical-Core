@@ -15,7 +15,8 @@ module AdminDiagnosticReports
 
     QUERIES = {
       'diagnostic-students' => DiagnosticPerformanceByStudentViewQuery,
-      'student-recommendation' => DiagnosticRecommendationsByStudentQuery
+      'student-recommendation' => DiagnosticRecommendationsByStudentQuery,
+      'filter-scope' => StudentCountByFilterScopeQuery
     }
 
     def perform(cache_key, query, diagnostic_id, user_id, timeframe, school_ids, filters)

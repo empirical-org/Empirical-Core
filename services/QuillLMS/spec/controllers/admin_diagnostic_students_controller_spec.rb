@@ -10,58 +10,6 @@ describe AdminDiagnosticStudentsController, type: :controller do
     allow(controller).to receive(:current_user).and_return(user)
   end
 
-  context "#filter_scope" do
-    subject { post :filter_scope, params: { diagnostic_id:, timeframe:, school_ids:, grades:, teacher_ids:, classroom_ids: } }
-
-    let(:diagnostic_id) { "1663" }
-    let(:timeframe) { 'this-school-year' }
-    let(:timeframe_start) { DateTime.current - 1.day }
-    let(:timeframe_end) { timeframe_start + 2.days }
-    let(:school_ids) { nil }
-    let(:school_ids_arg) { school_ids }
-    let(:grades) { nil }
-    let(:teacher_ids) { nil }
-    let(:classroom_ids) { nil }
-    let(:expected_query_args) do
-      {
-        timeframe_start:,
-        timeframe_end:,
-        school_ids: school_ids_arg,
-        diagnostic_id:,
-        grades:,
-        teacher_ids:,
-        classroom_ids:
-      }
-    end
-
-    before do
-      allow(Snapshots::Timeframes).to receive(:calculate_timeframes).with(timeframe, {custom_start: nil, custom_end: nil}).and_return([timeframe_start, timeframe_end])
-    end
-
-    context 'no params passed' do
-      let(:school_ids_arg) { user.administered_schools.pluck(:id) }
-
-      it do
-        expect(AdminDiagnosticReports::StudentCountByFilterScopeQuery).to receive(:run).with(expected_query_args)
-
-        subject
-      end
-    end
-
-    context 'filter params passed' do
-      let(:school_ids) { user.administered_schools.map { |s| s.id.to_s } }
-      let(:grades) { ["9"] }
-      let(:teacher_ids) { [user.id.to_s] }
-      let(:classroom_ids) { ["5"] }
-
-      it do
-        expect(AdminDiagnosticReports::StudentCountByFilterScopeQuery).to receive(:run).with(expected_query_args)
-
-        subject
-      end
-    end
-  end
-
   context "#actions" do
     let(:cache_key) { 'CACHE_KEY' }
     let(:timeframe_name) { 'last-30-days' }
@@ -169,24 +117,6 @@ describe AdminDiagnosticStudentsController, type: :controller do
 
             expect(response.status).to eq(400)
             expect(json_response['error']).to eq('timeframe must be present and valid')
-          end
-        end
-
-        it 'should 400 if the school_ids param is not provided' do
-          controller_actions.each do |action, query_name|
-            post action, params: { query: query_name, timeframe: timeframe_name }
-
-            expect(response.status).to eq(400)
-            expect(json_response['error']).to eq('school_ids are required')
-          end
-        end
-
-        it 'should 400 if the school_ids param is empty' do
-          controller_actions.each do |action, query_name|
-            post action, params: { query: query_name, timeframe: timeframe_name, school_ids: [] }
-
-            expect(response.status).to eq(400)
-            expect(json_response['error']).to eq('school_ids are required')
           end
         end
 

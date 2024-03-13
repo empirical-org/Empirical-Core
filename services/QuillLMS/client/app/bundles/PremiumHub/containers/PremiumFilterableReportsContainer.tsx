@@ -363,7 +363,8 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     customEndDate,
     showFilterMenuButton: renderShowFilterMenuButton(),
     reportType: reportPath(),
-    diagnosticIdForStudentCount
+    diagnosticIdForStudentCount,
+    pusherChannel
   }
 
   const sharedProps = {

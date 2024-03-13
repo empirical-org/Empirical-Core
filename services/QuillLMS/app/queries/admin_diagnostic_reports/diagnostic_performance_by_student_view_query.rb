@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AdminDiagnosticReports
-  class DiagnosticPerformanceByStudentViewQuery < DiagnosticAggregateQuery
+  class DiagnosticPerformanceByStudentViewQuery < DiagnosticAggregateViewQuery
     class InvalidDiagnosticIdError < StandardError; end
 
     attr_reader :diagnostic_id
@@ -17,7 +17,7 @@ module AdminDiagnosticReports
     end
 
     def rollup_select_columns
-      "student_id, student_name"
+      "student_id, student_name, pre_activity_session_completed_at, post_activity_session_completed_at, classroom_id"
     end
 
     def specific_select_clause
@@ -40,16 +40,9 @@ module AdminDiagnosticReports
     end
 
     def from_and_join_clauses
-      # NOTE: This implementation does not use super, and overrides the base query entirely in order to use materialized views
       <<-SQL
-        FROM lms.pre_post_diagnostic_skill_group_performance_view AS performance
+        #{super}
         JOIN lms.active_user_names_view AS students ON performance.student_id = students.id
-        JOIN lms.active_classroom_stubs_view AS classrooms ON performance.classroom_id = classrooms.id
-        JOIN lms.classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id AND classrooms_teachers.role = 'owner'
-        JOIN lms.active_user_names_view AS teachers ON classrooms_teachers.user_id = teachers.id
-        JOIN lms.schools_users ON teachers.id = schools_users.user_id
-        JOIN lms.schools ON schools_users.school_id = schools.id
-        JOIN lms.active_user_names_view AS users ON classrooms_teachers.user_id = users.id
       SQL
     end
 
@@ -58,12 +51,19 @@ module AdminDiagnosticReports
         SELECT
           students.id AS student_id,
           students.name AS student_name,
+          performance.pre_activity_session_completed_at,
+          performance.post_activity_session_completed_at,
+          performance.classroom_id,
           #{aggregate_by_clause} AS aggregate_id,
           #{aggregate_sort_clause} AS name,
           '#{additional_aggregation}' AS group_by,
           performance.skill_group_name AS skill_group_name,
           #{specific_select_clause}
       SQL
+    end
+
+    def materialized_views_used
+      super + [active_user_names_view]
     end
 
     def relevant_diagnostic_where_clause
@@ -76,6 +76,9 @@ module AdminDiagnosticReports
         aggregate_id,
         #{aggregate_sort_clause},
         student_id,
+        pre_activity_session_completed_at,
+        post_activity_session_completed_at,
+        performance.classroom_id,
         performance.pre_questions_correct,
         performance.pre_questions_total,
         performance.post_questions_correct,
@@ -85,7 +88,7 @@ module AdminDiagnosticReports
 
     def order_by_clause
       <<-SQL
-        ORDER BY TRIM(SUBSTR(TRIM(student_name), STRPOS(student_name, ' ') + 1)), skill_group_name
+        ORDER BY TRIM(SUBSTR(TRIM(student_name), STRPOS(student_name, ' ') + 1)), student_name, student_id, skill_group_name
       SQL
     end
 
@@ -104,7 +107,7 @@ module AdminDiagnosticReports
       # sorting call at the end since we're using ORDER BY in the SQL
       return [] if result.empty?
 
-      result.group_by { |row| row[self.class::AGGREGATE_COLUMN] }
+      result.group_by { |row| "#{row[:classroom_id]}:#{row[self.class::AGGREGATE_COLUMN]}" }
         .values
         .map { |group_rows| build_diagnostic_aggregates(group_rows) }
     end

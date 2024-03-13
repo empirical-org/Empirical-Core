@@ -2,9 +2,12 @@ import * as React from 'react'
 
 import { DropdownInput, DropdownInputWithSearchTokens, Tooltip, helpIcon, } from '../../../Shared/index'
 import { requestPost } from '../../../../modules/request'
+import { hashPayload } from '../../shared'
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
 const DIAGNOSTIC_GROWTH_REPORT_PATH = 'diagnostic_growth_report'
+const PUSHER_EVENT_KEY = "admin-diagnostic-students-cached";
+const FILTER_SCOPE_QUERY_KEY = 'filter-scope'
 
 const Filters = ({
   availableTimeframes,
@@ -32,15 +35,32 @@ const Filters = ({
   customEndDate,
   showFilterMenuButton,
   reportType,
-  diagnosticIdForStudentCount
+  diagnosticIdForStudentCount,
+  pusherChannel
 }) => {
 
   const isGrowthDiagnosticReport = reportType === DIAGNOSTIC_GROWTH_REPORT_PATH
 
+  const [pusherMessage, setPusherMessage] = React.useState<string>(null)
   const [applyFilterButtonClicked, setApplyFilterButtonClicked] = React.useState<boolean>(false)
   const [loadingStudentCount, setLoadingStudentCount] = React.useState<boolean>(true)
   const [totalStudentCountForFilters, setTotalStudentCountForFilters] = React.useState<Number>(null)
   const [totalStudentMatchesForFilters, setTotalStudentMatchesForFilters] = React.useState<Number>(null)
+
+  React.useEffect(() => {
+    initializePusher()
+  }, [pusherChannel])
+
+  React.useEffect(() => {
+    if (!pusherMessage) return
+
+    if (pusherMessage === getFilterHash({ key: FILTER_SCOPE_QUERY_KEY, id: diagnosticIdForStudentCount, withFilters: false })) {
+      getStudentCountData()
+    }
+    if (pusherMessage === getFilterHash({ key: FILTER_SCOPE_QUERY_KEY, id: diagnosticIdForStudentCount, withFilters: true })) {
+      getStudentCountData()
+    }
+  }, [pusherMessage])
 
   React.useEffect(() => {
     if (isGrowthDiagnosticReport && diagnosticIdForStudentCount && hasAdjustedFiltersFromDefault && !totalStudentCountForFilters && !totalStudentMatchesForFilters) {
@@ -60,6 +80,26 @@ const Filters = ({
     resetCounts()
   }, [diagnosticIdForStudentCount])
 
+  function initializePusher() {
+    pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
+      const { message, } = body
+
+      setPusherMessage(message)
+    });
+  };
+
+  function getFilterHash({ key, id, withFilters }) {
+    const filterTarget = [].concat(
+      `${key}-${id}`,
+      selectedTimeframe,
+      withFilters ? selectedSchools.map(s => s.id) : null,
+      withFilters ? selectedGrades : null,
+      withFilters ? selectedTeachers.map(t => t.id) : null,
+      withFilters ? selectedClassrooms.map(c => c.id) : null,
+    )
+    return hashPayload(filterTarget)
+  }
+
   function resetCounts() {
     setTotalStudentMatchesForFilters(null)
     setTotalStudentCountForFilters(null)
@@ -74,6 +114,7 @@ const Filters = ({
 
   function getStudentCountDataForFilters(withFilters) {
     const searchParams = {
+      query: FILTER_SCOPE_QUERY_KEY,
       timeframe: selectedTimeframe.value,
       school_ids: withFilters ? selectedSchools.map(s => s.id) : null,
       teacher_ids: withFilters ? selectedTeachers.map(t => t.id) : null,
@@ -82,11 +123,12 @@ const Filters = ({
       diagnostic_id: diagnosticIdForStudentCount
     }
 
-    requestPost('/admin_diagnostic_students/filter_scope', searchParams, (body) => {
-      if (!body.hasOwnProperty('count')) {
+    requestPost('/admin_diagnostic_students/report', searchParams, (body) => {
+      if (!body.hasOwnProperty('results')) {
         return
       } else {
-        const { count, } = body
+        const { results } = body
+        const { count } = results
         if (withFilters) {
           setTotalStudentMatchesForFilters(count)
         } else {

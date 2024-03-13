@@ -1,6 +1,28 @@
 require_relative '../../config/environment'
 
 class Queries < Thor
+  OUTPUT_ADMIN_DIAGNOSTICS = 'lib/query_examples/admin_diagnostics/'
+  OUTPUT_SNAPSHOTS = 'lib/query_examples/snapshots/'
+  SNAPSHOT_QUERIES = [
+    *::Snapshots::TOPX_QUERY_MAPPING,
+    *::Snapshots::COUNT_QUERY_MAPPING,
+    *::Snapshots::PREMIUM_REPORTS_QUERY_MAPPING,
+    *::Snapshots::PREMIUM_DOWNLOAD_REPORTS_QUERY_MAPPING
+  ].to_h
+
+  # Averages run differently (.query raises), so skipping for now
+  AVERAGE_SNAPSHOT_QUERIES = [
+    'average-active-classrooms-per-teacher',
+    'average-activities-completed-per-student',
+    'average-active-students-per-classroom'
+  ]
+
+
+  SNAPSHOT_QUERIES_TO_RUN = SNAPSHOT_QUERIES.except(*AVERAGE_SNAPSHOT_QUERIES)
+  SNAPSHOT_PAGE_QUERIES = [*::Snapshots::TOPX_QUERY_MAPPING, *::Snapshots::COUNT_QUERY_MAPPING].to_h
+
+  DEFAULT_START = '2023-08-01'
+  DEFAULT_END = '2023-12-01'
 
   # user_id 9874030 is a test user
   # e.g. bundle exec thor queries:generate_snapshot_sqls 9874030
@@ -13,15 +35,12 @@ class Queries < Thor
     timeframe_end = DateTime.parse(end_time)
     school_ids = school_ids_for_user(user_id)
 
-    snapshot_queries_to_run.each do |key, query|
+    SNAPSHOT_QUERIES_TO_RUN.each do |key, query|
       sql = query
         .new(**{timeframe_start:,timeframe_end:,school_ids:})
         .query
-
-      puts sql
-
       metadata = query_metadata(sql)
-      puts metadata
+
 
       File.write(output_directory + "#{key}.sql", metadata + sql)
     end
@@ -36,7 +55,7 @@ class Queries < Thor
     timeframe_end = DateTime.parse(end_time)
     school_ids = school_ids_for_user(user_id)
 
-    query = snapshot_queries_to_run[query_key]
+    query = SNAPSHOT_QUERIES_TO_RUN[query_key]
 
     sql = query
       .new(**{timeframe_start:,timeframe_end:,school_ids:})
@@ -60,7 +79,7 @@ class Queries < Thor
 
     CSV.open(output_file, "wb") do |csv|
       csv << (['query'] + options[:ids])
-      snapshot_page_queries.each do |key, query|
+      SNAPSHOT_PAGE_QUERIES.each do |key, query|
         row = [key]
         options[:ids].each do |user_id|
           school_ids = school_ids_for_user(user_id)
@@ -72,37 +91,64 @@ class Queries < Thor
     end
   end
 
+  desc 'analyze_diagnostic_queries', 'Benchmark Google BigQuery queries for comparison'
+  def analyze_diagnostic_queries
+    output_directory = make_directory(OUTPUT_ADMIN_DIAGNOSTICS)
+
+    multi_diagnostic_queries = {
+      'post-diagnostic-completed' => ::AdminDiagnosticReports::PostDiagnosticCompletedQuery,
+      'post-diagnostic-completed-view' => ::AdminDiagnosticReports::PostDiagnosticCompletedViewQuery
+    }
+
+    single_diagnostic_queries = {
+      'diagnostic-skills' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillQuery,
+      'diagnostic-skills-view' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillViewQuery
+    }
+
+    student_diagnostic_queries = {
+      'diagnostic-students-view' => ::AdminDiagnosticReports::DiagnosticPerformanceByStudentViewQuery
+    }
+
+    timeframe_start = DateTime.parse(DEFAULT_START)
+    timeframe_end = DateTime.parse(DEFAULT_END)
+    school_ids = [38811,38804,38801,38800,38779,38784,38780,38773,38765,38764]
+    aggregation = 'classroom'
+
+    multi_diagnostic_args = {
+      timeframe_start:,
+      timeframe_end:,
+      school_ids:,
+      aggregation:
+    }
+    single_diagnostic_args = multi_diagnostic_args.merge({
+      diagnostic_id: 1663 # The starter pre diagnostic
+    })
+    student_diagnostic_args = single_diagnostic_args.except(:aggregation)
+
+    multi_diagnostic_queries.each do |key, query|
+      sql = query.new(**multi_diagnostic_args).query
+
+      metadata = query_metadata(sql, dryrun: false)
+      File.write(output_directory + "#{key}.sql", metadata + sql)
+    end
+
+    single_diagnostic_queries.each do |key, query|
+      sql = query.new(**single_diagnostic_args).query
+
+      metadata = query_metadata(sql, dryrun: false)
+      File.write(output_directory + "#{key}.sql", metadata + sql)
+    end
+
+    student_diagnostic_queries.each do |key, query|
+      sql = query.new(**student_diagnostic_args).query
+
+      metadata = query_metadata(sql, dryrun: false)
+      File.write(output_directory + "#{key}.sql", metadata + sql)
+    end
+  end
+
   # put helper methods in this block
   no_commands do
-    OUTPUT_SNAPSHOTS = 'lib/query_examples/snapshots/'
-
-    # Averages run differently (.query raises), so skipping for now
-    AVERAGE_SNAPSHOT_QUERIES = [
-      'average-active-classrooms-per-teacher',
-      'average-activities-completed-per-student',
-      'average-active-students-per-classroom'
-    ]
-
-    DEFAULT_START = '2023-08-01 00:00:00'
-    DEFAULT_END = '2023-11-30 23:59:59'
-
-    private def snapshot_queries
-      [
-        *::Snapshots::TOPX_QUERY_MAPPING,
-        *::Snapshots::COUNT_QUERY_MAPPING,
-        *::Snapshots::PREMIUM_REPORTS_QUERY_MAPPING,
-        *::Snapshots::PREMIUM_DOWNLOAD_REPORTS_QUERY_MAPPING
-      ].to_h
-    end
-
-    private def snapshot_queries_to_run
-      snapshot_queries.except(*AVERAGE_SNAPSHOT_QUERIES)
-    end
-
-    private def snapshot_page_queries
-      [*::Snapshots::TOPX_QUERY_MAPPING, *::Snapshots::COUNT_QUERY_MAPPING].to_h
-    end
-
     private def parse_result(result)
       if result.is_a?(Array)
         result.map {|h| "#{h[:value]}: #{h[:count]}"}.join(', ')
@@ -125,15 +171,36 @@ class Queries < Thor
         .pluck(:school_id)
     end
 
-    private def query_metadata(sql)
-      job = Google::Cloud::Bigquery.new.query_job(sql, dryrun: true)
-      bytes = job.gapi.statistics.total_bytes_processed
+    # rubocop:disable Metrics/CyclomaticComplexity
+    private def query_metadata(sql, dryrun: true)
+      job = Google::Cloud::Bigquery.new.query_job(sql, cache: false, dryrun: dryrun)
+      job.wait_until_done!
+      stats = job.gapi.statistics
+
+      run_time = stats.end_time.to_i - stats.start_time.to_i
+
+      bytes = stats.total_bytes_processed
       gb_processed = (bytes * 1e-9).round(2)
+      total_bytes_billed = stats.query&.total_bytes_billed
+      gb_billed = (total_bytes_billed * 1e-9).round(2)
+      total_slot_ms = stats.query&.total_slot_ms
 
-      <<-STRING
-      /* Data Processed By Query: #{gb_processed} GB */
+      bi_engine_mode = stats.query&.bi_engine_statistics&.acceleration_mode
+      bi_engine_code = stats.query&.bi_engine_statistics&.bi_engine_reasons&.first&.code
+      bi_engine_message = stats.query&.bi_engine_statistics&.bi_engine_reasons&.first&.message
 
-      STRING
+      <<-STATS
+        /*
+           Data Processed By Query: #{gb_processed} GB
+           Bytes Billed For Query:  #{gb_billed} GB
+           Total Query Time:        #{run_time} ms
+           Total Slot Time:         #{total_slot_ms} ms
+           BI Engine Mode Used:     #{bi_engine_mode}
+             BI Engine Code:          #{bi_engine_code}
+             BI Engine Message:       #{bi_engine_message}
+        */
+      STATS
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
   end
 end
