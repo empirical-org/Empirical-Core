@@ -73,23 +73,30 @@ class Queries < Thor
     end
   end
 
-  desc 'analyze_diagnostic_queries', 'Benchmark Google BigQuery queries for comparison'
+  # bundle exec thor queries:analyze_diagnostic_queries --dryrun=false
+  desc 'analyze_diagnostic_queries --dryrun=true/false', 'Benchmark Google BigQuery queries for comparison'
   method_option :dryrun, type: :boolean, default: true
   def analyze_diagnostic_queries
     dryrun = options[:dryrun]
-    debugger
+
     multi_queries = {
-      'post-diagnostic-completed' => ::AdminDiagnosticReports::PostDiagnosticCompletedQuery,
       'post-diagnostic-completed-view' => ::AdminDiagnosticReports::PostDiagnosticCompletedViewQuery
     }
 
     single_queries = {
       'diagnostic-skills' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillQuery,
-      'diagnostic-skills-view' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillViewQuery
+      # 'diagnostic-skills-view' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillViewQuery
     }
 
     student_queries = {
-      'diagnostic-students-view' => ::AdminDiagnosticReports::DiagnosticPerformanceByStudentViewQuery
+      # 'diagnostic-students-view' => ::AdminDiagnosticReports::DiagnosticPerformanceByStudentViewQuery
+    }
+
+    multi_queries2 = {
+      'pre-diagnostic-assigned' => ::AdminDiagnosticReports::PreDiagnosticAssignedQuery,
+      'pre-diagnostic-completed' => ::AdminDiagnosticReports::PreDiagnosticCompletedQuery,
+      'recommendations' => ::AdminDiagnosticReports::DiagnosticRecommendationsQuery,
+      'post-diagnostic-assigned' => ::AdminDiagnosticReports::PostDiagnosticAssignedQuery
     }
 
     timeframe_start = DateTime.parse(DEFAULT_START)
@@ -111,6 +118,7 @@ class Queries < Thor
     multi_queries.each {|key, query| run_admin_query(key, query, multi_args, dryrun) }
     single_queries.each {|key, query| run_admin_query(key, query, single_args, dryrun) }
     student_queries.each {|key, query| run_admin_query(key, query, student_args, dryrun) }
+    multi_queries2.each {|key, query| run_admin_query(key, query, multi_args, dryrun) }
   end
 
   # put helper methods in this block
