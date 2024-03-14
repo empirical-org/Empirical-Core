@@ -26,15 +26,9 @@ class ActivitySessionsController < ApplicationController
 
   def result
     allow_iframe
-    if session[:partner_session]
-      @partner_name = session[:partner_session]["partner_name"]
-      @partner_session_id = session[:partner_session]["session_id"]
-    end
-    if @partner_name && @partner_session_id
-      @activity_url = @activity_session.activity.anonymous_module_url.to_s
-      @results_url = url_for(action: 'result', uid: @activity_session.uid)
-      AmplifyReportActivityWorker.perform_async(@partner_session_id, @activity_session.activity.name, @activity_session.activity.description, @activity_session.percentage, @activity_url, @results_url)
-    end
+
+    set_variables_and_kick_off_worker_for_partner_session if session[:partner_session]
+
     @activity = @activity_session
     @classroom_id = @activity_session&.classroom_unit&.classroom_id
 
@@ -45,19 +39,19 @@ class ActivitySessionsController < ApplicationController
     @number_of_questions = questions.length
     @number_of_correct_questions = correct_key_target_skill_concepts.length
     @grouped_key_target_skill_concepts = format_grouped_key_target_skill_concepts(key_target_skill_concepts)
+    
     @title = 'Classwork'
   end
 
-  private def format_grouped_key_target_skill_concepts(key_target_skill_concepts)
-    key_target_skill_concepts
-      .group_by { |ktsc| ktsc[:name] }
-      .map do |key, key_target_skill_group|
-        {
-          name: key_target_skill_group.first[:name],
-          correct: key_target_skill_group.filter { |ktsc| ktsc[:correct] }.length,
-          incorrect: key_target_skill_group.filter { |ktsc| ktsc[:correct] == false }.length,
-        }
-      end
+  private def set_variables_and_kick_off_worker_for_partner_session
+    @partner_name = session[:partner_session]["partner_name"]
+    @partner_session_id = session[:partner_session]["session_id"]
+
+    if @partner_name && @partner_session_id
+      @activity_url = @activity_session.activity.anonymous_module_url.to_s
+      @results_url = url_for(action: 'result', uid: @activity_session.uid)
+      AmplifyReportActivityWorker.perform_async(@partner_session_id, @activity_session.activity.name, @activity_session.activity.description, @activity_session.percentage, @activity_url, @results_url)
+    end
   end
 
   def anonymous
