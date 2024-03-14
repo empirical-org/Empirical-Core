@@ -4,7 +4,7 @@ import * as React from 'react';
 import ScorebookTooltip from '../scorebook_tooltip';
 
 describe('ScorebookTooltip component', () => {
-  const mockProps = {
+  const mockData = {
     activity_classification_id: 2,
     activity_description: "Students rewrite sentences, adding the correct capitalization.",
     completed_attempts: 1,
@@ -35,13 +35,15 @@ describe('ScorebookTooltip component', () => {
     ],
     started: 0
   }
+
   it('should render', () => {
-    const { asFragment } = render(<ScorebookTooltip data={mockProps} />);
+    const { asFragment } = render(<ScorebookTooltip data={mockData} />);
     expect(asFragment()).toMatchSnapshot();
   })
+
   describe('scoring', () => {
     it('should display the scoring information for each session', () => {
-      const { asFragment } = render(<ScorebookTooltip data={mockProps} />);
+      const { asFragment } = render(<ScorebookTooltip data={mockData} />);
       expect(asFragment()).toMatchSnapshot();
       expect(screen.getByText(/1st score/i)).toBeInTheDocument()
       expect(screen.getByText(/December 12, 2021/i)).toBeInTheDocument()
@@ -51,40 +53,59 @@ describe('ScorebookTooltip component', () => {
       expect(screen.getByText(/4 min/i)).toBeInTheDocument()
     })
     it('should display a scoring explanation if it is a Diagnostic activity', () => {
-      mockProps.activity_classification_id = 4
-      const { asFragment } = render(<ScorebookTooltip data={mockProps} />);
+      mockData.activity_classification_id = 4
+      const { asFragment } = render(<ScorebookTooltip data={mockData} />);
       expect(asFragment()).toMatchSnapshot();
       expect(screen.getByText(/The Quill Diagnostic is meant to diagnose skills to practice. Students are not provided a color-coded score or percentage score. Teachers see only a percentage score without a color./i)).toBeInTheDocument()
     })
   })
+
   describe('key target and skills explanation', () => {
     it('student missed the lesson', () => {
-      mockProps.marked_complete = true
-      mockProps.completed_attempts = 0
-      const { asFragment } = render(<ScorebookTooltip data={mockProps} />);
+      mockData.marked_complete = true
+      mockData.completed_attempts = 0
+      const { asFragment } = render(<ScorebookTooltip data={mockData} />);
       expect(asFragment()).toMatchSnapshot();
       expect(screen.getByText(/This student has missed this lesson. To make up this material, you can assign this lesson again to the students who missed it./i)).toBeInTheDocument()
     })
     it('activity has not been published', () => {
-      mockProps.scheduled = true
-      mockProps.completed_attempts = null
-      const { asFragment } = render(<ScorebookTooltip data={mockProps} />);
+      mockData.scheduled = true
+      mockData.completed_attempts = null
+      const { asFragment } = render(<ScorebookTooltip data={mockData} />);
       expect(asFragment()).toMatchSnapshot();
       expect(screen.getByText(/This scheduled activity has not been published./i)).toBeInTheDocument()
     })
     it('activity is locked', () => {
-      mockProps.scheduled = false
-      mockProps.locked = true
-      const { asFragment } = render(<ScorebookTooltip data={mockProps} />);
+      mockData.scheduled = false
+      mockData.locked = true
+      const { asFragment } = render(<ScorebookTooltip data={mockData} />);
       expect(asFragment()).toMatchSnapshot();
       expect(screen.getByText(/This activity is set for staggered release and has not been unlocked by this student./i)).toBeInTheDocument()
     })
     it('activity has not been completed', () => {
-      mockProps.locked = false
-      mockProps.completed_attempts = null
-      const { asFragment } = render(<ScorebookTooltip data={mockProps} />);
+      mockData.locked = false
+      mockData.completed_attempts = null
+      const { asFragment } = render(<ScorebookTooltip data={mockData} />);
       expect(asFragment()).toMatchSnapshot();
       expect(screen.getByText(/This activity has not been completed./i)).toBeInTheDocument()
     })
+  })
+
+  describe('in student view', () => {
+    it('should render if the percentage is below the nearly proficient threshold ', () => {
+      const { asFragment } = render(<ScorebookTooltip data={{ ...mockData, percentage: 0 }} inStudentView={true} />);
+      expect(asFragment()).toMatchSnapshot();
+    })
+
+    it('should render if the percentage is between the nearly proficient threshold and the proficient threshold ', () => {
+      const { asFragment } = render(<ScorebookTooltip data={{ ...mockData, percentage: 0.5 }} inStudentView={true} />);
+      expect(asFragment()).toMatchSnapshot();
+    })
+
+    it('should render if the percentage is above the proficient threshold ', () => {
+      const { asFragment } = render(<ScorebookTooltip data={{ ...mockData, percentage: 0.9 }} inStudentView={true} />);
+      expect(asFragment()).toMatchSnapshot();
+    })
+
   })
 });

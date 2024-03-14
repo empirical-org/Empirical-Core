@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ProfilesController < ApplicationController
+  include PublicProgressReports
+
   before_action :signed_in!
 
   def show
@@ -32,14 +34,19 @@ class ProfilesController < ApplicationController
   end
 
   def student_profile_data
-    if current_user.classrooms.any?
+    classroom_id = params[:current_classroom_id]
+
+    if current_user.classrooms.any? && classroom_id
       render json: {
-        scores: student_profile_data_sql(params[:current_classroom_id]),
+        scores: student_profile_data_sql(classroom_id),
         next_activity_session: next_activity_session,
         student: student_data,
-        classroom_id: params[:current_classroom_id],
-        metrics: StudentDashboardMetrics.new(current_user, params[:current_classroom_id]).run
+        classroom_id: classroom_id,
+        show_exact_scores: Classroom.find_by_id(classroom_id)&.owner&.teacher_info&.show_students_exact_score,
+        metrics: StudentDashboardMetrics.new(current_user, classroom_id).run
       }
+    elsif current_user.classrooms.any?
+      render json: {}
     else
       render json: {error: 'Current user has no classrooms'}
     end
@@ -52,6 +59,26 @@ class ProfilesController < ApplicationController
     else
       render json: {error: 'Current user has no classrooms'}
     end
+  end
+
+  def student_exact_scores_data
+    exact_scores_data = params[:data].map do |ua|
+      activity_sessions = ActivitySession
+        .includes(:concept_results, :activity, :unit)
+        .where(
+          user_id: current_user.id,
+          activity_id: ua['activity_id'],
+          classroom_unit_id: ua['classroom_unit_id'],
+          state: ActivitySession::STATE_FINISHED
+        )
+
+      ua['sessions'] = activity_sessions.map { |as| format_activity_session_for_tooltip(as, current_user) }
+      ua['completed_attempts'] = activity_sessions.length
+
+      ua
+    end
+
+    render json: { exact_scores_data: exact_scores_data}
   end
 
   def students_classrooms_json
@@ -142,10 +169,8 @@ class ProfilesController < ApplicationController
   end
 
   protected def current_classroom(classroom_id = nil)
-    if classroom_id
-      current_user.classrooms.find_by(id: classroom_id.to_i) if !!classroom_id
-    else
-      current_user.classrooms.last
-    end
+    return if classroom_id.nil?
+
+    current_user.classrooms.find_by(id: classroom_id.to_i) if !!classroom_id
   end
 end

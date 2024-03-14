@@ -1,4 +1,4 @@
-import { tierUDF, studentwiseSkillGroupUDF } from "./BigQueryUDFs"
+import { tierUDF, studentwiseSkillGroupUDF, findLastIndex } from "./BigQueryUDFs"
 
 describe('studentwiseSkillGroupUDF', () => {
   it('should return skillGroup-score pairs', () => {
@@ -50,6 +50,39 @@ describe('studentwiseSkillGroupUDF', () => {
     expect(parsedResult.recommendedActivityCount).toEqual(10)
   })
 
+  it('should remove commas from skill group names that have commas', () => {
+    const activityIds = ["1663", "1664"];
+    const completedAts = ['2022-01-01T00:00:00Z', '2022-01-02T00:00:00Z'];
+    const scores = [false, true];
+    const skillGroupNames = ['Compound Subjects, Objects, and Predicates', 'Compound Subjects, Objects, and Predicates']
+
+    const result = studentwiseSkillGroupUDF(scores, activityIds, completedAts, skillGroupNames);
+    const parsedResult = JSON.parse(result)
+
+    expect(parsedResult['Compound Subjects Objects and Predicates_pre']).toEqual(0)
+    expect(parsedResult['Compound Subjects Objects and Predicates_post']).toEqual(1)
+
+  })
+})
+
+describe('findLastIndex', () => {
+  it('should return the correct index', () => {
+    const finderFn = (x) => x == 4
+    const arr = [2, 4, 6, 4]
+    expect(findLastIndex(arr, 0, finderFn)).toEqual(3)
+  })
+
+  it('should return the correct index, with 2-element array', () => {
+    const finderFn = (x) => x == 4
+    const arr = [2, 4]
+    expect(findLastIndex(arr, 0, finderFn)).toEqual(1)
+  })
+
+  it('should return the correct index, with 1-element array', () => {
+    const finderFn = (x) => x == 4
+    const arr = [2, 4]
+    expect(findLastIndex(arr, 1, finderFn)).toEqual(1)
+  })
 })
 
 describe('tierUDF', () => {
