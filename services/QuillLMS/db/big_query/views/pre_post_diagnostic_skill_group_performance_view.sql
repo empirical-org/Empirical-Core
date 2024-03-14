@@ -1,5 +1,6 @@
 SELECT
     pre.assigned_at AS pre_assigned_at,
+    post.assigned_at AS post_assigned_at,
     pre.activity_session_id AS pre_activity_session_id,
     pre.activity_session_completed_at AS pre_activity_session_completed_at,
     post.activity_session_id AS post_activity_session_id,
@@ -70,6 +71,7 @@ SELECT
   JOIN lms.activities ON pre.activity_id = activities.id
   LEFT OUTER JOIN (
     SELECT
+        classroom_units.created_at AS assigned_at,
         activity_sessions.id AS activity_session_id,
         activity_sessions.completed_at AS activity_session_completed_at,
         activity_sessions.activity_id AS activity_id,
@@ -104,7 +106,8 @@ SELECT
       WHERE activity_sessions.completed_at >= '2023-07-01 00:00:00'
         AND activity_sessions.activity_id IN (1664, 1680, 1669, 1774, 1814, 1818)
         AND activity_sessions.visible = true
-      GROUP BY activity_session_id,
+      GROUP BY assigned_at,
+        activity_session_id,
         activity_session_completed_at,
         activity_id,
         skill_group_id,

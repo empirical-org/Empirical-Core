@@ -17,7 +17,7 @@ module AdminDiagnosticReports
       'pre-diagnostic-assigned' => PreDiagnosticAssignedQuery,
       'pre-diagnostic-completed' => PreDiagnosticCompletedQuery,
       'recommendations' => DiagnosticRecommendationsQuery,
-      'post-diagnostic-assigned' => PostDiagnosticAssignedQuery,
+      'post-diagnostic-assigned' => PostDiagnosticAssignedViewQuery,
       'post-diagnostic-completed' => PostDiagnosticCompletedViewQuery
     }
 
