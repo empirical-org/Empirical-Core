@@ -30,20 +30,20 @@ export default class ResultsPage extends React.Component {
   }
 
   bottomSection = () => {
-    const { activityName, showExactScore, numberOfCorrectQuestions, numberOfQuestions, activityType, groupedKeyTargetSkillConcepts, percentage, } = this.props
+    const { activityName, showExactScore, numberOfCorrectQuestions, numberOfQuestions, activityType, percentage, groupedKeyTargetSkillConcepts, } = this.props
 
     const proficientSkills = []
-    const keepPractingSkills = []
+    const keepPracticingSkills = []
 
     const cutOff = proficiencyCutoffsAsPercentage();
 
     groupedKeyTargetSkillConcepts.forEach(groupedKeyTargetSkillConcept => {
       const { correct, incorrect, name } = groupedKeyTargetSkillConcept
       const numberOfQuestionsForSkill = correct + incorrect
-      const percentage = (correct / numberOfQuestionsForSkill) * 100
+      const percentage = Math.round((correct / numberOfQuestionsForSkill) * 100)
 
       const targetSkillData = {
-        numberOfQuestionsCorrect: correct,
+        numberOfCorrectQuestions: correct,
         numberOfQuestions: numberOfQuestionsForSkill,
         percentage,
         name
@@ -63,12 +63,12 @@ export default class ResultsPage extends React.Component {
         <div className="activity-name-and-overall-score">
           <div>
             <h2>{activityName}</h2>
-            {showExactScore && <p>Total Score: {numberOfCorrectQuestions} out of {numberOfQuestions} target skills correct</p>}
+            {showExactScore && <p>Total Score: {numberOfCorrectQuestions} of {numberOfQuestions} target skills correct ({Math.round(percentage * 100)}%)</p>}
           </div>
           <ResultsIcon activityType={activityType} percentage={percentage} />
         </div>
         {this.renderResultsSection('Proficient', proficientSkills)}
-        {this.renderResultsSection('Keep Practicing', keepPractingSkills)}
+        {this.renderResultsSection('Keep Practicing', keepPracticingSkills)}
       </div>
     )
   }

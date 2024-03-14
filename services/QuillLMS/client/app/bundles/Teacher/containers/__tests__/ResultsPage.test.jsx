@@ -5,6 +5,25 @@ import ResultsPage from '../ResultsPage.jsx';
 
 import ResultsIcon from '../../components/activities/results_page/results_icon.jsx';
 
+const groupedKeyTargetSkillConcepts = [
+  {
+    name: 'Capitalizing Geographic Names',
+    correct: 5,
+    incorrect: 0
+  },
+  {
+    name: 'Capitalizing Dates',
+    correct: 2,
+    incorrect: 3
+  },
+  {
+    name: 'Capitalizing Holidays',
+    correct: 1,
+    incorrect: 2
+  }
+]
+
+
 describe('ResultsPage container', () => {
 
   const integrationPartnerName = 'Integration Partner'
@@ -20,12 +39,7 @@ describe('ResultsPage container', () => {
     activityName: 'Cool Activity',
     activityType: 'type',
     percentage: 0.76,
-    resultCategoryNames,
-    results: {
-      'Sometimes demonstrated skill': ['Parallel Structure'],
-      'Rarely demonstrated skill': ['Punctuation'],
-      'Frequently demonstrated skill': ['Regular Past Participles', 'Commas in Lists', 'Capitalize Geographic Names']
-    }
+    groupedKeyTargetSkillConcepts,
   }
 
   const wrapperNotAnonymous = mount(<ResultsPage {...sharedProps} />);

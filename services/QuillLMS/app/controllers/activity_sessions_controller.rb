@@ -36,13 +36,7 @@ class ActivitySessionsController < ApplicationController
       AmplifyReportActivityWorker.perform_async(@partner_session_id, @activity_session.activity.name, @activity_session.activity.description, @activity_session.percentage, @activity_url, @results_url)
     end
     @activity = @activity_session
-    @results  = @activity_session.parse_for_results
     @classroom_id = @activity_session&.classroom_unit&.classroom_id
-    @result_category_names = {
-      FREQUENTLY_DEMONSTRATED_SKILL: ActivitySession::FREQUENTLY_DEMONSTRATED_SKILL,
-      SOMETIMES_DEMONSTRATED_SKILL: ActivitySession::SOMETIMES_DEMONSTRATED_SKILL,
-      RARELY_DEMONSTRATED_SKILL: ActivitySession::RARELY_DEMONSTRATED_SKILL
-    }
 
     questions = @activity_session.concept_results.group_by { |cr| cr.question_number }
     key_target_skill_concepts = questions.map { |key, question| get_key_target_skill_concept_for_question(question, @activity_session) }
