@@ -115,7 +115,7 @@ arison'
       metadata = query_metadata(sql, dryrun: false)
       File.write(output_directory + "#{key}.sql", metadata + sql)
     end
- 
+
     single_diagnostic_queries.each do |key, query|
       sql = query.new(**single_diagnostic_args).query
 
