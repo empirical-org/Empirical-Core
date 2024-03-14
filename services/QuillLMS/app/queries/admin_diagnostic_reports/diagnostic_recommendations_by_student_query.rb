@@ -14,6 +14,13 @@ module AdminDiagnosticReports
       super(aggregation: 'student', **options)
     end
 
+    def materialized_views = [recommendation_activity_session_stubs_view, active_classroom_stubs_view, active_classroom_unit_stubs_view, active_user_names_view]
+
+    def active_classroom_stubs_view = materialized_view('active_classroom_stubs_view')
+    def active_classroom_unit_stubs_view = materialized_view('active_classroom_unit_stubs_view')
+    def active_user_names_view = materialized_view('active_user_names_view')
+    def recommendation_activity_session_stubs_view = materialized_view('recommendation_activity_session_stubs_view')
+
     def select_clause
       <<-SQL
         SELECT students.id AS student_id,
@@ -43,19 +50,12 @@ module AdminDiagnosticReports
       SQL
     end
 
-    def group_by_clause
-      "GROUP BY students.id, students.name"
-    end
+    def group_by_clause = "GROUP BY students.id, students.name"
+    def order_by_clause = "ORDER BY TRIM(SUBSTR(TRIM(students.name), STRPOS(students.name, ' ') + 1))"
+    def limit_clause = "LIMIT 500"
 
     def relevant_date_column = "activity_sessions.completed_at"
     def relevant_diagnostic_where_clause = "AND recommendations.activity_id = #{diagnostic_id}"
-
-    def active_classroom_stubs_view = materialized_view('active_classroom_stubs_view')
-    def active_classroom_unit_stubs_view = materialized_view('active_classroom_unit_stubs_view')
-    def active_user_names_view = materialized_view('active_user_names_view')
-    def recommendation_activity_session_stubs_view = materialized_view('recommendation_activity_session_stubs_view')
-
-    def materialized_views = [recommendation_activity_session_stubs_view, active_classroom_stubs_view, active_classroom_unit_stubs_view, active_user_names_view]
 
     private def rollup_aggregation_hash
       {
@@ -72,30 +72,13 @@ module AdminDiagnosticReports
       SQL
     end
 
-    def order_by_clause
-      <<-SQL
-        ORDER BY TRIM(SUBSTR(TRIM(students.name), STRPOS(students.name, ' ') + 1))
-      SQL
-    end
-
-    def limit_clause
-      <<-SQL
-        LIMIT 500
-      SQL
-    end
-
     private def post_query_transform(results)
       results.to_h do |result|
         [result[:student_id], {completed_activities: result[:completed_activities], time_spent_seconds: result[:time_spent_seconds]}]
       end
     end
 
-    private def valid_aggregation_options
-      ['student']
-    end
-
-    private def post_process(result)
-      result
-    end
+    private def valid_aggregation_options = ['student']
+    private def post_process(result) = result
   end
 end

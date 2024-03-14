@@ -16,9 +16,7 @@ module AdminDiagnosticReports
       super(aggregation: 'student', **options)
     end
 
-    def rollup_select_columns
-      "student_id, student_name, pre_activity_session_completed_at, post_activity_session_completed_at, classroom_id"
-    end
+    def rollup_select_columns = "student_id, student_name, pre_activity_session_completed_at, post_activity_session_completed_at, classroom_id"
 
     def specific_select_clause
       <<-SQL
@@ -62,13 +60,7 @@ module AdminDiagnosticReports
       SQL
     end
 
-    def materialized_views_used
-      super + [active_user_names_view]
-    end
-
-    def relevant_diagnostic_where_clause
-      "AND performance.activity_id = #{diagnostic_id}"
-    end
+    def relevant_diagnostic_where_clause = "AND performance.activity_id = #{diagnostic_id}"
 
     def group_by_clause
       <<-SQL
@@ -86,21 +78,10 @@ module AdminDiagnosticReports
       SQL
     end
 
-    def order_by_clause
-      <<-SQL
-        ORDER BY TRIM(SUBSTR(TRIM(student_name), STRPOS(student_name, ' ') + 1)), student_name, student_id, skill_group_name
-      SQL
-    end
+    def order_by_clause = "ORDER BY TRIM(SUBSTR(TRIM(student_name), STRPOS(student_name, ' ') + 1)), student_name, student_id, skill_group_name"
+    def limit_clause = " LIMIT 5000"
 
-    def limit_clause
-      <<-SQL
-        LIMIT 5000
-      SQL
-    end
-
-    def relevant_date_column
-      "performance.pre_assigned_at"
-    end
+    def relevant_date_column = "performance.pre_assigned_at"
 
     private def post_process(result)
       # This is an override of the base post_process without a Ruby-based
@@ -112,9 +93,7 @@ module AdminDiagnosticReports
         .map { |group_rows| build_diagnostic_aggregates(group_rows) }
     end
 
-    private def valid_aggregation_options
-      ['student']
-    end
+    private def valid_aggregation_options = ['student']
 
     private def rollup_aggregation_hash
       {

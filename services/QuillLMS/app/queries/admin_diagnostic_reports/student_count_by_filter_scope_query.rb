@@ -34,15 +34,14 @@ module AdminDiagnosticReports
       super(**options)
     end
 
-    def run
-      {
-        count: run_query.first[:count]
-      }
-    end
+    def materialized_views = [active_classroom_stubs_view, performance_view]
 
-    def select_clause
-      "SELECT COUNT(DISTINCT student_id) AS count"
-    end
+    def active_classroom_stubs_view = materialized_view('active_classroom_stubs_view')
+    def performance_view = materialized_view('pre_post_diagnostic_skill_group_performance_view')
+
+    def run = {count: run_query.first[:count]}
+
+    def select_clause = "SELECT COUNT(DISTINCT student_id) AS count"
 
     def from_and_join_clauses
       # NOTE: This implementation does not use super, and overrides the base query entirely in order to use materialized views
@@ -77,13 +76,6 @@ module AdminDiagnosticReports
     def school_ids_where_clause = "AND schools_users.school_id IN (#{school_ids.join(',')})"
     def teacher_ids_where_clause = ("AND schools_users.user_id IN (#{teacher_ids.join(',')})" if teacher_ids.present?)
 
-    def relevant_date_column
-      "performance.pre_assigned_at"
-    end
-
-    def active_classroom_stubs_view = materialized_view('active_classroom_stubs_view')
-    def performance_view = materialized_view('pre_post_diagnostic_skill_group_performance_view')
-
-    def materialized_views = [active_classroom_stubs_view, performance_view]
+    def relevant_date_column = "performance.pre_assigned_at"
   end
 end
