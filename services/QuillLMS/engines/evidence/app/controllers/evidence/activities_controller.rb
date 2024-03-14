@@ -99,7 +99,7 @@ module Evidence
         .map(&:strip)
         .uniq
 
-      label_configs = seed_data_params[:label_configs]&.to_h || {}
+      label_configs = clean_label_configs(label_configs_param)
 
       use_passage_param = ActiveModel::Type::Boolean.new.cast(seed_data_params[:use_passage])
       # default to true for missing param
@@ -175,6 +175,8 @@ module Evidence
       params.require(:note)
     end
 
+    private def label_configs_param = seed_data_params[:label_configs]&.to_h || {}
+
     private def seed_data_params
       params.permit(:id, :nouns, :use_passage, label_configs: {}, activity: {})
     end
@@ -194,6 +196,16 @@ module Evidence
         passages_attributes: [:id, :text, :image_link, :image_alt_text, :image_caption, :image_attribution, :highlight_prompt, :essential_knowledge_text],
         prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :first_strong_example, :second_strong_example]
       )
+    end
+
+    private def clean_label_configs(configs_hash)
+      configs_hash.transform_values do |configs|
+        configs.map do |config|
+          config.transform_values do |value|
+            value.is_a?(Array) ? value.map(&:squish).uniq.compact_blank : value
+          end
+        end
+      end
     end
 
     private def activity_rules_by_rule_type(activity, rule_type)

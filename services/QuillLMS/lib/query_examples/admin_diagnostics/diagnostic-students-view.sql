@@ -1,8 +1,8 @@
         /*
            Data Processed By Query: 1.5 GB
            Bytes Billed For Query:  0.0 GB
-           Total Query Time:        7521 ms
-           Total Slot Time:         113397 ms
+           Total Query Time:        4030 ms
+           Total Slot Time:         56024 ms
            BI Engine Mode Used:     FULL_INPUT
              BI Engine Code:          
              BI Engine Message:       
@@ -43,7 +43,7 @@
         JOIN lms.active_user_names_view AS students ON performance.student_id = students.id
 
                 WHERE
-          performance.pre_assigned_at BETWEEN '2023-08-01 00:00:00' AND '2023-12-01 00:00:00'
+          performance.pre_assigned_at BETWEEN '2023-08-01 00:00:00' AND '2023-11-30 23:59:59'
           
           
           AND classrooms_teachers.role = 'owner'
