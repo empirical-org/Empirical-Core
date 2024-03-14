@@ -49,12 +49,13 @@ module AdminDiagnosticReports
       end
 
       context 'specified filters' do
+        let(:classroom_count) { 2 }
         let(:student_in_filter) { create(:student) }
         let(:student_not_in_filter) { create(:student) }
         let(:students) { [student_in_filter, student_not_in_filter] }
 
-        let(:classroom_unit_in_filter) { create(:classroom_unit, unit: pre_diagnostic_units.first, assigned_student_ids: [student_in_filter.id]) }
-        let(:classroom_unit_not_in_filter) { create(:classroom_unit, unit: pre_diagnostic_units.first, assigned_student_ids: [student_not_in_filter.id]) }
+        let(:classroom_unit_in_filter) { create(:classroom_unit, classroom: classrooms.first, unit: pre_diagnostic_units.first, assigned_student_ids: [student_in_filter.id]) }
+        let(:classroom_unit_not_in_filter) { create(:classroom_unit, classroom: classrooms.second, unit: pre_diagnostic_units.first, assigned_student_ids: [student_not_in_filter.id]) }
         let(:pre_diagnostic_classroom_units) { [classroom_unit_in_filter, classroom_unit_not_in_filter] }
 
         context 'filter by grades' do
