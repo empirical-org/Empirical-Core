@@ -38,8 +38,6 @@ module AdminDiagnosticReports
         ]
       end
 
-      before { puts results.as_json }
-
       context 'base case: students finished both pre and post' do
         it { expect(results.map{|r| r[:student_id]}).to include(*students.map(&:id)) }
         it { expect(results.map{|r| r[:pre_questions_total]}).to eq([1] * students.length) }

@@ -33,7 +33,7 @@ RSpec.shared_context 'Pre Post Diagnostic Skill Group Performance View' do
   let(:post_diagnostic_assigned_students) { students }
 
   let(:classroom_count) { 1 }
-  let(:units_per_classroom) { 2 }
+  let(:units_per_classroom) { 1 }
 
   let(:available_grades) { ['Kindergarten', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', 'University'] }
 
@@ -49,6 +49,7 @@ RSpec.shared_context 'Pre Post Diagnostic Skill Group Performance View' do
       units_per_classroom.times.map { create_list(:unit, classroom_count, activities: [post_diagnostic]) }
     end.flatten
   end
+  let(:units) { [pre_diagnostic_units, post_diagnostic_units] }
 
   let(:pre_diagnostic_classroom_units) { pre_diagnostic_units.map.with_index { |unit, i| create(:classroom_unit, classroom: classrooms[i % classrooms.length], unit: unit, assigned_student_ids: pre_diagnostic_assigned_students.map(&:id)) } }
   let(:post_diagnostic_classroom_units) { pre_diagnostic_classroom_units.map.with_index { |classroom_unit, i| create(:classroom_unit, classroom: classroom_unit.classroom, unit: post_diagnostic_units[i], assigned_student_ids: post_diagnostic_assigned_students.map(&:id)) } }
@@ -83,7 +84,8 @@ RSpec.shared_context 'Pre Post Diagnostic Skill Group Performance View' do
       skill_groups,
       skill_group_activities,
       students,
-      unit_activities
+      unit_activities,
+      units
     ]
   end
 end
