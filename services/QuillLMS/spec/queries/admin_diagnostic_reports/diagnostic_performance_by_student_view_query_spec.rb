@@ -70,9 +70,20 @@ module AdminDiagnosticReports
         let(:classrooms) { [create(:classroom)] }
         let(:pre_diagnostic_classroom_units) { pre_diagnostic_units.map.with_index { |unit, i| create(:classroom_unit, classroom: classrooms.first, unit: unit, assigned_student_ids: pre_diagnostic_assigned_students.map(&:id)) } }
 
-        it { puts results.as_json;expect(results.map{|r| r[:student_id]}).to include(*students.map(&:id)) }
-        it { puts results.as_json;expect(results.map{|r| r[:pre_questions_total]}).to eq([1] * students.length) }
-        it { puts results.as_json;expect(results.map{|r| r[:post_questions_total]}).to eq([1] * students.length) }
+        it do
+          puts results.as_json
+          expect(results.map{|r| r[:student_id]}).to include(*students.map(&:id))
+        end
+
+        it do
+          puts results.as_json
+          expect(results.map{|r| r[:pre_questions_total]}).to eq([1] * students.length)
+        end
+
+        it do
+          puts results.as_json
+          expect(results.map{|r| r[:post_questions_total]}).to eq([1] * students.length)
+        end
       end
 
       context 'student completed two sets of diagnostics in different classrooms' do
