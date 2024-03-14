@@ -66,7 +66,7 @@ module AdminDiagnosticReports
       end
 
       context 'student completed two sets of diagnostics in the same classroom' do
-        let(:classroom_unit_count) { 2 }
+        let(:classroom_count) { 2 }
         let(:classrooms) { [create(:classroom)] }
         let(:pre_diagnostic_classroom_units) { pre_diagnostic_units.map.with_index { |unit, i| create(:classroom_unit, classroom: classrooms.first, unit: unit, assigned_student_ids: pre_diagnostic_assigned_students.map(&:id)) } }
 
@@ -87,9 +87,9 @@ module AdminDiagnosticReports
       end
 
       context 'student completed two sets of diagnostics in different classrooms' do
-        let(:classroom_unit_count) { 2 }
+        let(:classroom_count) { 2 }
 
-        it { expect(results.length).to eq(students.length * classroom_unit_count) }
+        it { expect(results.length).to eq(students.length * classroom_count) }
         it { expect(results.map{|r| r[:pre_questions_total]}).to eq([1] * students.length * 2) }
         it { expect(results.map{|r| r[:post_questions_total]}).to eq([1] * students.length * 2) }
 
@@ -121,7 +121,7 @@ module AdminDiagnosticReports
           it { expect(results.map{|r| r[:student_name]}).to eq(sorted_student_names) }
 
           context 'with identical names where at least one is repeated' do
-            let(:classroom_unit_count) { 2 }
+            let(:classroom_count) { 2 }
             let(:students) do
               # Have to specify these because username and email are constructed based on name if one is not explicitly provided
               [
