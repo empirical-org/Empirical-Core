@@ -119,7 +119,7 @@ const Filters = ({
       school_ids: withFilters ? selectedSchools.map(s => s.id) : null,
       teacher_ids: withFilters ? selectedTeachers.map(t => t.id) : null,
       classroom_ids: withFilters ? selectedClassrooms.map(c => c.id) : null,
-      grades: withFilters ? selectedGrades : null,
+      grades: withFilters ? selectedGrades.map(g => g.value) : null,
       diagnostic_id: diagnosticIdForStudentCount
     }
 
