@@ -74,12 +74,12 @@ SELECT
         classroom_units.created_at AS assigned_at,
         activity_sessions.id AS activity_session_id,
         activity_sessions.completed_at AS activity_session_completed_at,
-        activity_sessions.activity_id AS activity_id,
+        unit_activities.activity_id AS activity_id,
         skill_groups.id AS skill_group_id,
         COUNT(CASE WHEN concept_results.correct = true THEN concept_results.question_number ELSE NULL END) AS questions_correct,
         COUNT(DISTINCT concept_results.question_number) AS questions_total,
         classroom_units.classroom_id AS classroom_id,
-        activity_sessions.user_id AS student_id
+        CAST(assigned_student_id AS int64) AS student_id
       FROM lms.classroom_units
       JOIN lms.unit_activities ON classroom_units.unit_id = unit_activities.unit_id
       CROSS JOIN UNNEST(classroom_units.assigned_student_ids) AS assigned_student_id
@@ -120,7 +120,7 @@ SELECT
   ) AS post
     ON activities.follow_up_activity_id = post.activity_id
       AND pre.student_id = post.student_id
-      AND pre.skill_group_id = post.skill_group_id
+      AND (pre.skill_group_id = post.skill_group_id OR post.skill_group_id IS NULL)
       AND pre.classroom_id = post.classroom_id
   WHERE pre.assigned_at >= '2023-07-01 00:00:00'
     AND pre.activity_id IN (1663,1668,1678,1161,1568,1590,992,1229,1230,1432)
