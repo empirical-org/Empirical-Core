@@ -4,6 +4,7 @@ Rails.autoloaders.each do |autoloader|
   autoloader.inflector = Zeitwerk::Inflector.new
   autoloader.inflector.inflect(
     'auto_ml' => 'AutoML',
+    'gen_ai' => 'GenAI',
     'html_tag_remover' => 'HTMLTagRemover',
     'open_ai' => 'OpenAI',
     'vertex_ai' => 'VertexAI'
