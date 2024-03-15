@@ -25,10 +25,9 @@ module AdminDiagnosticReports
       super(**options)
     end
 
-    def materialized_views = [active_classroom_stubs_view, active_user_names_view, performance_view]
+    def materialized_views = [filter_view, performance_view]
 
-    def active_classroom_stubs_view = materialized_view('active_classroom_stubs_view')
-    def active_user_names_view = materialized_view('active_user_names_view')
+    def filter_view = materialized_view('school_classroom_teachers_view')
     def performance_view = materialized_view('pre_post_diagnostic_skill_group_performance_view')
 
     def run
@@ -70,7 +69,7 @@ module AdminDiagnosticReports
       <<-SQL
         SELECT
           performance.activity_id AS diagnostic_id,
-          activities.name AS diagnostic_name,
+          performance.activity_name AS diagnostic_name,
           #{aggregate_by_clause} AS aggregate_id,
           #{aggregate_sort_clause} AS name,
           '#{additional_aggregation}' AS group_by,
@@ -81,11 +80,7 @@ module AdminDiagnosticReports
     def from_and_join_clauses
       <<-SQL
         FROM lms.pre_post_diagnostic_skill_group_performance_view AS performance
-        JOIN lms.active_classroom_stubs_view AS classrooms ON performance.classroom_id = classrooms.id
-        JOIN lms.classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id AND classrooms_teachers.role = 'owner'
-        JOIN lms.schools_users ON classrooms_teachers.user_id = schools_users.user_id
-        JOIN lms.activities ON performance.activity_id = activities.id
-        JOIN lms.active_user_names_view AS users ON classrooms_teachers.user_id = users.id
+        JOIN lms.school_classroom_teachers_view AS filter ON performance.classroom_id = filter.classroom_id
       SQL
     end
 
@@ -95,7 +90,6 @@ module AdminDiagnosticReports
           #{timeframe_where_clause}
           #{classroom_ids_where_clause}
           #{grades_where_clause}
-          #{owner_teachers_only_where_clause}
           #{relevant_diagnostic_where_clause}
           #{school_ids_where_clause}
           #{teacher_ids_where_clause}
@@ -106,31 +100,28 @@ module AdminDiagnosticReports
     def specific_select_clause = raise NotImplementedError
 
     def timeframe_where_clause = "#{relevant_date_column} BETWEEN '#{timeframe_start.to_fs(:db)}' AND '#{timeframe_end.to_fs(:db)}'"
-    def classroom_ids_where_clause = ("AND classrooms.id IN (#{classroom_ids.join(',')})" if classroom_ids.present?)
-    def grades_where_clause = ("AND (classrooms.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')}) #{grades_where_null_clause})" if grades.present?)
-    def grades_where_null_clause = ("OR classrooms.grade IS NULL" if grades.include?('null'))
-    def owner_teachers_only_where_clause = "AND classrooms_teachers.role = '#{ClassroomsTeacher::ROLE_TYPES[:owner]}'"
+    def classroom_ids_where_clause = ("AND filter.classroom_id IN (#{classroom_ids.join(',')})" if classroom_ids.present?)
+    def grades_where_clause = ("AND (filter.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')}) #{grades_where_null_clause})" if grades.present?)
+    def grades_where_null_clause = ("OR filter.grade IS NULL" if grades.include?('null'))
     def relevant_diagnostic_where_clause = "AND performance.activity_id IN (#{DIAGNOSTIC_ORDER_BY_ID.join(',')})"
-    def school_ids_where_clause = "AND schools_users.school_id IN (#{school_ids.join(',')})"
-    def teacher_ids_where_clause = ("AND schools_users.user_id IN (#{teacher_ids.join(',')})" if teacher_ids.present?)
+    def school_ids_where_clause = "AND filter.school_id IN (#{school_ids.join(',')})"
+    def teacher_ids_where_clause = ("AND filter.teacher_id IN (#{teacher_ids.join(',')})" if teacher_ids.present?)
 
-    def group_by_clause = "GROUP BY performance.activity_id, activities.name, aggregate_id, #{aggregate_sort_clause}"
+    def group_by_clause = "GROUP BY performance.activity_id, performance.activity_name, aggregate_id, #{aggregate_sort_clause}"
 
     def aggregate_by_clause
       {
-        'grade' => "classrooms.grade",
-        'classroom' => "classrooms.id",
-        'teacher' => "users.id",
-        'student' => "students.id"
+        'grade' => "filter.grade",
+        'classroom' => "filter.classroom_id",
+        'teacher' => "filter.teacher_id",
       }.fetch(additional_aggregation)
     end
 
     def aggregate_sort_clause
       {
-        'grade' => "classrooms.grade",
-        'classroom' => "classrooms.name",
-        'teacher' => "users.name",
-        'student' => "students.name"
+        'grade' => "filter.grade",
+        'classroom' => "filter.classroom_name",
+        'teacher' => "filter.teacher_name",
       }.fetch(additional_aggregation)
     end
 
