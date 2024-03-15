@@ -39,19 +39,8 @@ class ActivitySessionsController < ApplicationController
     @number_of_questions = questions.length
     @number_of_correct_questions = correct_key_target_skill_concepts.length
     @grouped_key_target_skill_concepts = format_grouped_key_target_skill_concepts(key_target_skill_concepts)
-    
+
     @title = 'Classwork'
-  end
-
-  private def set_variables_and_kick_off_worker_for_partner_session
-    @partner_name = session[:partner_session]["partner_name"]
-    @partner_session_id = session[:partner_session]["session_id"]
-
-    if @partner_name && @partner_session_id
-      @activity_url = @activity_session.activity.anonymous_module_url.to_s
-      @results_url = url_for(action: 'result', uid: @activity_session.uid)
-      AmplifyReportActivityWorker.perform_async(@partner_session_id, @activity_session.activity.name, @activity_session.activity.description, @activity_session.percentage, @activity_url, @results_url)
-    end
   end
 
   def anonymous
@@ -63,6 +52,17 @@ class ActivitySessionsController < ApplicationController
   def activity_session_from_classroom_unit_and_activity
     started_activity_session_id = ActivitySession.find_or_create_started_activity_session(current_user.id, params[:classroom_unit_id], params[:activity_id])&.id
     redirect_to "/activity_sessions/#{started_activity_session_id}/play"
+  end
+
+  private def set_variables_and_kick_off_worker_for_partner_session
+    @partner_name = session[:partner_session]["partner_name"]
+    @partner_session_id = session[:partner_session]["session_id"]
+
+    return unless @partner_name && @partner_session_id
+
+    @activity_url = @activity_session.activity.anonymous_module_url.to_s
+    @results_url = url_for(action: 'result', uid: @activity_session.uid)
+    AmplifyReportActivityWorker.perform_async(@partner_session_id, @activity_session.activity.name, @activity_session.activity.description, @activity_session.percentage, @activity_url, @results_url)
   end
 
   private def activity_session_from_id
