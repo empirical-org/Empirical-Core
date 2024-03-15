@@ -2,15 +2,9 @@
 
 module AdminDiagnosticReports
   class PostDiagnosticAssignedViewQuery < DiagnosticAggregateViewQuery
-    def specific_select_clause
-      <<-SQL
-        COUNT(post_assigned_at) AS post_students_assigned
-      SQL
-    end
+    def specific_select_clause = "COUNT(DISTINCT CONCAT(performance.classroom_unit_id, ':', performance.student_id)) AS post_students_assigned"
 
-    def relevant_date_column
-      "performance.post_assigned_at"
-    end
+    def relevant_date_column = "performance.post_assigned_at"
 
     private def rollup_aggregation_hash
       {
