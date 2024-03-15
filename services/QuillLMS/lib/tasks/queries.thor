@@ -86,7 +86,8 @@ class Queries < Thor
       'pre-diagnostic-completed-view' => ::AdminDiagnosticReports::PreDiagnosticCompletedViewQuery,
       #'recommendations' => ::AdminDiagnosticReports::DiagnosticRecommendationsQuery,
       'post-diagnostic-assigned' => ::AdminDiagnosticReports::PostDiagnosticAssignedQuery,
-      'post-diagnostic-assigned-view' => ::AdminDiagnosticReports::PostDiagnosticAssignedViewQuery
+      'post-diagnostic-assigned-view' => ::AdminDiagnosticReports::PostDiagnosticAssignedViewQuery,
+      'post-diagnostic-completed-view' => ::AdminDiagnosticReports::PostDiagnosticCompletedViewQuery
     }
 
     single_queries = {
@@ -117,7 +118,6 @@ class Queries < Thor
     multi_queries.each {|key, query| run_admin_query(key, query, multi_args, dryrun) }
     single_queries.each {|key, query| run_admin_query(key, query, single_args, dryrun) }
     student_queries.each {|key, query| run_admin_query(key, query, student_args, dryrun) }
-    multi_queries2.each {|key, query| run_admin_query(key, query, multi_args, dryrun) }
   end
 
   # put helper methods in this block
