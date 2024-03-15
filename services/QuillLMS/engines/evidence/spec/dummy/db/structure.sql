@@ -897,6 +897,38 @@ ALTER SEQUENCE public.evidence_prompt_texts_id_seq OWNED BY public.evidence_prom
 
 
 --
+-- Name: evidence_research_gen_ai_llm_configs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_llm_configs (
+    id bigint NOT NULL,
+    vendor character varying,
+    version character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_llm_configs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_llm_configs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_llm_configs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_llm_configs_id_seq OWNED BY public.evidence_research_gen_ai_llm_configs.id;
+
+
+--
 -- Name: evidence_text_generations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1136,6 +1168,13 @@ ALTER TABLE ONLY public.evidence_prompt_texts ALTER COLUMN id SET DEFAULT nextva
 
 
 --
+-- Name: evidence_research_gen_ai_llm_configs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_llm_configs ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_llm_configs_id_seq'::regclass);
+
+
+--
 -- Name: evidence_text_generations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1347,6 +1386,14 @@ ALTER TABLE ONLY public.evidence_prompt_text_batches
 
 ALTER TABLE ONLY public.evidence_prompt_texts
     ADD CONSTRAINT evidence_prompt_texts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_llm_configs evidence_research_gen_ai_llm_configs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_llm_configs
+    ADD CONSTRAINT evidence_research_gen_ai_llm_configs_pkey PRIMARY KEY (id);
 
 
 --
@@ -1623,6 +1670,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240221192859'),
 ('20240305224710'),
 ('20240307142932'),
-('20240307165408');
+('20240307165408'),
+('20240315140702');
 
 
