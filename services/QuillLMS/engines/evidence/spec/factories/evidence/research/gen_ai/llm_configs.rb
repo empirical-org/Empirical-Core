@@ -2,11 +2,11 @@
 
 # == Schema Information
 #
-# Table name: comprehension_prompts_rules
+# Table name: evidence_research_gen_ai_llm_configs
 #
-#  id         :integer          not null, primary key
-#  prompt_id  :integer          not null
-#  rule_id    :integer          not null
+#  id         :bigint           not null, primary key
+#  vendor     :string           not null
+#  version    :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

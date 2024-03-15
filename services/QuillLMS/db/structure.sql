@@ -2912,8 +2912,8 @@ ALTER SEQUENCE public.evidence_prompt_texts_id_seq OWNED BY public.evidence_prom
 
 CREATE TABLE public.evidence_research_gen_ai_llm_configs (
     id bigint NOT NULL,
-    vendor character varying,
-    version character varying,
+    vendor character varying NOT NULL,
+    version character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );

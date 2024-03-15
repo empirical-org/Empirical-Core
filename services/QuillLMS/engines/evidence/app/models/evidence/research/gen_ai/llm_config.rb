@@ -5,8 +5,8 @@
 # Table name: evidence_research_gen_ai_llm_configs
 #
 #  id         :bigint           not null, primary key
-#  vendor     :string
-#  version    :string
+#  vendor     :string           not null
+#  version    :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
