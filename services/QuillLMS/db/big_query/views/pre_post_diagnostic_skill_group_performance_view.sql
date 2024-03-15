@@ -80,7 +80,10 @@ SELECT
         COUNT(DISTINCT concept_results.question_number) AS questions_total,
         classroom_units.classroom_id AS classroom_id,
         activity_sessions.user_id AS student_id
-      FROM (
+      FROM lms.classroom_units
+      JOIN lms.unit_activities ON classroom_units.unit_id = unit_activities.unit_id
+      CROSS JOIN UNNEST(classroom_units.assigned_student_ids) AS assigned_student_id
+      LEFT OUTER JOIN (
         /* This sub-select is used to ensure that we only count the most recent completion from a student for a given activity in a given classroom */
         SELECT activity_sessions.*
           FROM (
@@ -94,18 +97,19 @@ SELECT
             AND classroom_units.id = activity_sessions.classroom_unit_id
             AND most_recent.activity_id = activity_sessions.activity_id
             AND most_recent.completed_at = activity_sessions.completed_at
-      ) AS activity_sessions
-      JOIN lms.classroom_units ON activity_sessions.classroom_unit_id = classroom_units.id
-      JOIN special.concept_results AS concept_results          ON activity_sessions.id = concept_results.activity_session_id
-      JOIN lms.questions ON STRING(PARSE_JSON(concept_results.extra_metadata).question_uid) = questions.uid
-      JOIN lms.diagnostic_question_skills ON questions.id = diagnostic_question_skills.question_id
-      JOIN lms.skill_group_activities ON activity_sessions.activity_id = skill_group_activities.activity_id
-      JOIN lms.skill_groups
+      ) AS activity_sessions ON activity_sessions.classroom_unit_id = classroom_units.id AND activity_sessions.user_id = CAST(assigned_student_id AS int64) AND activity_sessions.visible = true
+      LEFT OUTER JOIN special.concept_results AS concept_results          ON activity_sessions.id = concept_results.activity_session_id
+      LEFT OUTER JOIN lms.questions ON STRING(PARSE_JSON(concept_results.extra_metadata).question_uid) = questions.uid
+      LEFT OUTER JOIN lms.diagnostic_question_skills ON questions.id = diagnostic_question_skills.question_id
+      LEFT OUTER JOIN lms.skill_group_activities ON activity_sessions.activity_id = skill_group_activities.activity_id
+      LEFT OUTER JOIN lms.skill_groups
         ON diagnostic_question_skills.skill_group_id = skill_groups.id
           AND skill_group_activities.skill_group_id = skill_groups.id
-      WHERE activity_sessions.completed_at >= '2023-07-01 00:00:00'
-        AND activity_sessions.activity_id IN (1664, 1680, 1669, 1774, 1814, 1818)
-        AND activity_sessions.visible = true
+      WHERE classroom_units.created_at >= '2023-07-01 00:00:00'
+        AND unit_activities.activity_id IN (1664, 1680, 1669, 1774, 1814, 1818)
+        AND classroom_units.visible = true
+        AND (diagnostic_question_skills.skill_group_id = skill_group_activities.skill_group_id
+          OR activity_sessions.id IS NULL)
       GROUP BY assigned_at,
         activity_session_id,
         activity_session_completed_at,

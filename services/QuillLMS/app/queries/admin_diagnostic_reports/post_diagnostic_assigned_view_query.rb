@@ -4,7 +4,7 @@ module AdminDiagnosticReports
   class PostDiagnosticAssignedViewQuery < DiagnosticAggregateViewQuery
     def specific_select_clause
       <<-SQL
-          COUNT(post_assigned_at) AS post_students_assigned
+        COUNT(post_assigned_at) AS post_students_assigned
       SQL
     end
 
