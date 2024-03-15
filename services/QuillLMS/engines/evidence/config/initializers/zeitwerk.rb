@@ -7,6 +7,7 @@ Rails.autoloaders.each do |autoloader|
     'gen_ai' => 'GenAI',
     'html_tag_remover' => 'HTMLTagRemover',
     'llm_config' => 'LLMConfig',
+    'llm_prompt_template' => 'LLMPromptTemplate',
     'open_ai' => 'OpenAI',
     'vertex_ai' => 'VertexAI'
   )
