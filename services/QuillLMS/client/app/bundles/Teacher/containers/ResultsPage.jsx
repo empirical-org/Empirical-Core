@@ -11,7 +11,7 @@ export default class ResultsPage extends React.Component {
 
     if (!targetSkills.length) { return }
 
-    const targetSkillElements = targetSkills.sort((a, b) => (a.percentage > b.percentage) ? 1 : -1).map(targetSkill => {
+    const targetSkillElements = targetSkills.sort((a, b) => (a.percentage > b.percentage) ? -1 : 1).map(targetSkill => {
       const { name, numberOfQuestions, numberOfCorrectQuestions, percentage, } = targetSkill
       return (
         <div className="target-skill" key={name}>
@@ -80,7 +80,7 @@ export default class ResultsPage extends React.Component {
       const link = `/${integrationPartnerName}?session_id=${integrationPartnerSessionId}`;
       return (<a className={primaryButtonClassName} href={link}>Back to activity list</a>)
     } else if (anonymous) {
-      return (<a className={primaryButtonClassName} href='/account/new'>Sign up</a>)
+      return (<a className={primaryButtonClassName} href='/session/new'>Log in</a>)
     }
 
     const dashboardLink = classroomId ? `/classrooms/${classroomId}` : '/'

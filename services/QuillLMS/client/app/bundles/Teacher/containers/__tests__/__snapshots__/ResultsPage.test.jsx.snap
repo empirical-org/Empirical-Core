@@ -81,7 +81,7 @@ exports[`ResultsPage container renders correctly when showExactScore is false 1`
             class="target-skill"
           >
             <span>
-              Capitalizing Holidays
+              Capitalizing Dates
             </span>
             <span />
           </div>
@@ -89,7 +89,7 @@ exports[`ResultsPage container renders correctly when showExactScore is false 1`
             class="target-skill"
           >
             <span>
-              Capitalizing Dates
+              Capitalizing Holidays
             </span>
             <span />
           </div>
@@ -186,20 +186,20 @@ exports[`ResultsPage container renders correctly when showExactScore is true 1`]
             class="target-skill"
           >
             <span>
-              Capitalizing Holidays
+              Capitalizing Dates
             </span>
             <span>
-              1 of 3 correct (33%)
+              2 of 5 correct (40%)
             </span>
           </div>
           <div
             class="target-skill"
           >
             <span>
-              Capitalizing Dates
+              Capitalizing Holidays
             </span>
             <span>
-              2 of 5 correct (40%)
+              1 of 3 correct (33%)
             </span>
           </div>
         </div>

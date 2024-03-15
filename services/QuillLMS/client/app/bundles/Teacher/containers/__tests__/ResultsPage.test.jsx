@@ -46,9 +46,9 @@ describe('ResultsPage container', () => {
     expect(asFragment()).toMatchSnapshot()
   });
 
-  test('renders sign up button for anonymous', () => {
+  test('renders log in button for anonymous', () => {
     render(<ResultsPage {...sharedProps} anonymous={true} />);
-    expect(screen.getByRole('link', { name: 'Sign up' })).toHaveAttribute('href', '/account/new');
+    expect(screen.getByRole('link', { name: 'Log in' })).toHaveAttribute('href', '/session/new');
   });
 
   test('renders back to activity list button for integration partner', () => {
