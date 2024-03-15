@@ -13,6 +13,8 @@ module Evidence
   module Research
     module GenAI
       class Passage < ApplicationRecord
+        has_many :passage_prompts, class_name: 'Evidence::Research::GenAI::PassagePrompt'
+
         validates :contents, presence: true
       end
     end
