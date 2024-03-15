@@ -80,23 +80,22 @@ class Queries < Thor
     dryrun = options[:dryrun]
 
     multi_queries = {
-      'post-diagnostic-completed-view' => ::AdminDiagnosticReports::PostDiagnosticCompletedViewQuery
+      'pre-diagnostic-assigned' => ::AdminDiagnosticReports::PreDiagnosticAssignedQuery,
+      'pre-diagnostic-assigned-view' => ::AdminDiagnosticReports::PreDiagnosticAssignedViewQuery,
+      'pre-diagnostic-completed' => ::AdminDiagnosticReports::PreDiagnosticCompletedQuery,
+      'pre-diagnostic-completed-view' => ::AdminDiagnosticReports::PreDiagnosticCompletedViewQuery,
+      #'recommendations' => ::AdminDiagnosticReports::DiagnosticRecommendationsQuery,
+      'post-diagnostic-assigned' => ::AdminDiagnosticReports::PostDiagnosticAssignedQuery,
+      'post-diagnostic-assigned-view' => ::AdminDiagnosticReports::PostDiagnosticAssignedViewQuery
     }
 
     single_queries = {
-      'diagnostic-skills' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillQuery,
+      #'diagnostic-skills' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillQuery,
       # 'diagnostic-skills-view' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillViewQuery
     }
 
     student_queries = {
       # 'diagnostic-students-view' => ::AdminDiagnosticReports::DiagnosticPerformanceByStudentViewQuery
-    }
-
-    multi_queries2 = {
-      'pre-diagnostic-assigned' => ::AdminDiagnosticReports::PreDiagnosticAssignedQuery,
-      'pre-diagnostic-completed' => ::AdminDiagnosticReports::PreDiagnosticCompletedQuery,
-      'recommendations' => ::AdminDiagnosticReports::DiagnosticRecommendationsQuery,
-      'post-diagnostic-assigned' => ::AdminDiagnosticReports::PostDiagnosticAssignedQuery
     }
 
     timeframe_start = DateTime.parse(DEFAULT_START)

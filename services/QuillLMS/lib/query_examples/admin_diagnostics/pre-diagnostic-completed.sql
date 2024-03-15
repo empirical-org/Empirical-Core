@@ -1,8 +1,8 @@
         /*
-           Data Processed By Query: 20.84 GB
-           Bytes Billed For Query:  20.84 GB
-           Total Query Time:        7240 ms
-           Total Slot Time:         7084919 ms
+           Data Processed By Query: 20.85 GB
+           Bytes Billed For Query:  20.85 GB
+           Total Query Time:        6216 ms
+           Total Slot Time:         6081869 ms
            BI Engine Mode Used:     BI_ENGINE_DISABLED
              BI Engine Code:          INPUT_TOO_LARGE
              BI Engine Message:       Input table special.concept_results has 5907 files, which exceeds the limit of 5000 files.
