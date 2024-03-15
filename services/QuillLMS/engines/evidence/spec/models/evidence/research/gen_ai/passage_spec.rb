@@ -17,8 +17,9 @@ module Evidence
     module GenAI
       RSpec.describe Passage, type: :model do
         it { should validate_presence_of(:contents) }
+        it { should have_many(:passage_prompts).class_name('Evidence::Research::GenAI::PassagePrompt') }
 
-        it { expect(build(:evidence_research_gen_ai_passage)).to be_valid}
+        it { expect(build(:evidence_research_gen_ai_passage)).to be_valid }
       end
     end
   end
