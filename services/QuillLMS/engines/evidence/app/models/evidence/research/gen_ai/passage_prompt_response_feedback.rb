@@ -16,6 +16,7 @@ module Evidence
     module GenAI
       class PassagePromptResponseFeedback < ApplicationRecord
         belongs_to :passage_prompt, class_name: 'Evidence::Research::GenAI::PassagePrompt'
+        has_many :passage_prompt_response_exemplars, class_name: 'Evidence::Research::GenAI::PassagePromptResponseExemplar'
 
         validates :feedback, presence: true
       end
