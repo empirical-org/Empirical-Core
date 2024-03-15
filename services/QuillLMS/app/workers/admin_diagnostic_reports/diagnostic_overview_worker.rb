@@ -15,7 +15,7 @@ module AdminDiagnosticReports
 
     QUERIES = {
       'pre-diagnostic-assigned' => PreDiagnosticAssignedViewQuery,
-      'pre-diagnostic-completed' => PreDiagnosticCompletedQuery,
+      'pre-diagnostic-completed' => PreDiagnosticCompletedViewQuery,
       'recommendations' => DiagnosticRecommendationsQuery,
       'post-diagnostic-assigned' => PostDiagnosticAssignedViewQuery,
       'post-diagnostic-completed' => PostDiagnosticCompletedViewQuery
