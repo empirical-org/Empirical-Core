@@ -1,8 +1,8 @@
         /*
            Data Processed By Query: 0.44 GB
            Bytes Billed For Query:  0.0 GB
-           Total Query Time:        2993 ms
-           Total Slot Time:         34381 ms
+           Total Query Time:        2356 ms
+           Total Slot Time:         18635 ms
            BI Engine Mode Used:     FULL_INPUT
              BI Engine Code:          
              BI Engine Message:       
@@ -13,7 +13,7 @@
           classrooms.id AS aggregate_id,
           classrooms.name AS name,
           'classroom' AS group_by,
-                    COUNT(post_assigned_at) AS post_students_assigned
+                  COUNT(post_assigned_at) AS post_students_assigned
 
 
                 FROM lms.pre_post_diagnostic_skill_group_performance_view AS performance
