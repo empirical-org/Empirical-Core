@@ -5,8 +5,8 @@
 # Table name: evidence_research_gen_ai_passages
 #
 #  id            :bigint           not null, primary key
-#  abridged_text :text
-#  full_text     :text
+#  abridged_text :text             not null
+#  full_text     :text             not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #

@@ -3008,8 +3008,8 @@ ALTER SEQUENCE public.evidence_research_gen_ai_llm_prompts_id_seq OWNED BY publi
 
 CREATE TABLE public.evidence_research_gen_ai_passages (
     id bigint NOT NULL,
-    full_text text,
-    abridged_text text,
+    full_text text NOT NULL,
+    abridged_text text NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
