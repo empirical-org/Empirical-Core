@@ -103,7 +103,6 @@ module Staff
         let(:so_rule2) { create(:evidence_rule, name: 'so_rule2', rule_type: 'autoML') }
         let(:so_rule3) { create(:evidence_rule, name: 'so_rule3', rule_type: 'autoML') }
         let(:so_rule4) { create(:evidence_rule, name: 'so_rule4', rule_type: 'autoML') }
-
         let(:evidence_rules) { [so_rule1, so_rule2, so_rule3, so_rule4] }
 
         let(:evidence_prompts_rules) do
@@ -117,9 +116,9 @@ module Staff
 
         let(:feedback_histories) do
           [
-            create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: "2021-04-07T19:02:54.814Z", feedback_session_uid: "def"),
-            create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: "2021-05-07T19:02:54.814Z", feedback_session_uid: "ghi"),
-            create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: "2021-06-07T19:02:54.814Z", feedback_session_uid: "abc")
+            create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: "2021-04-07T19:02:54", feedback_session_uid: "def"),
+            create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: "2021-05-07T19:02:54", feedback_session_uid: "ghi"),
+            create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: "2021-06-07T19:02:54", feedback_session_uid: "abc")
           ]
         end
 
@@ -145,15 +144,14 @@ module Staff
           {
             conjunction: 'so',
             activity_id: evidence_activities.first.id,
-            start_date: "2021-03-06T19:02:54.814Z",
-            end_date: "2021-04-10T19:02:54.814Z"
+            start_date: "2021-03-06T19:02:54",
+            end_date: "2021-04-10T19:02:54"
           }
         end
 
         it 'should aggregate feedbacks for a given rule'  do
-
-          puts results
-          binding.pry
+          expect(results.count).to eq 1
+          expect(results.first[:rule_type]).to eq 'autoML'
         end
 
         xit { expect(results.count).to eq 10 }

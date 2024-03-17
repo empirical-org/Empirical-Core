@@ -2,7 +2,7 @@
 
 module Staff
   class RulesAnalysisQuery < ::QuillBigQuery::Query
-    attr_reader :activity_id, :conjunction
+    attr_reader :activity_id, :conjunction, :start_date, :end_date, :activity_version
 
     def run
       run_query
@@ -11,6 +11,9 @@ module Staff
     def initialize(activity_id:, conjunction:, start_date: nil, end_date: nil, activity_version: nil, **options)
       @activity_id = activity_id
       @conjunction = conjunction
+      @start_date = start_date
+      @end_date = end_date
+      @activity_version = activity_version
       super(**options)
     end
 
@@ -43,17 +46,16 @@ module Staff
       SQL
     end
 
-    # TODO: implement
     def start_date_where_clause
-      ""
+      start_date ? "AND feedback_histories.time >= '#{start_date}'" : ""
     end
 
     def end_date_where_clause
-      ""
+      end_date ? "AND feedback_histories.time <= '#{end_date}'" : ""
     end
 
     def activity_version_where_clause
-      ""
+      activity_version ? "feedback_histories.activity_version = #{activity_version}" : ""
     end
 
     #def post_query_transform
@@ -68,8 +70,7 @@ module Staff
       <<-SQL
         WHERE
           ((feedback_histories.used = TRUE OR feedback_histories.id IS NULL))
-          AND (prompts.conjunction = '#{conjunction}'
-          AND activity_id = #{activity_id})
+          AND (prompts.conjunction = '#{conjunction}' AND activity_id = #{activity_id} )
           #{start_date_where_clause}
           #{end_date_where_clause}
           #{activity_version_where_clause}
