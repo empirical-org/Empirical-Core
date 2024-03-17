@@ -4,6 +4,10 @@ module Staff
   class RulesAnalysisQuery < ::QuillBigQuery::Query
     attr_reader :activity_id, :conjunction
 
+    def run
+      run_query
+    end
+
     def initialize(activity_id:, conjunction:, start_date: nil, end_date: nil, activity_version: nil, **options)
       @activity_id = activity_id
       @conjunction = conjunction
@@ -20,7 +24,7 @@ module Staff
         comprehension_rules.name AS rule_name,
         comprehension_rules.note AS rule_note,
         count(DISTINCT feedback_histories.id) AS total_responses,
-        avg(DISTINCT CAST((feedback_histories.metadata->>'api')::json->>'confidence' AS float8)) AS avg_confidence,
+        avg(DISTINCT CAST(JSON_VALUE(metadata, '$.api.confidence') AS FLOAT64)) AS avg_confidence,
         count(DISTINCT CASE WHEN feedback_history_ratings.rating = true THEN feedback_history_ratings.id END) AS total_strong,
         count(DISTINCT CASE WHEN feedback_history_ratings.rating = false THEN feedback_history_ratings.id END) AS total_weak,
         count(DISTINCT CASE WHEN feedback_history_flags.flag = 'repeated-consecutive' THEN feedback_history_flags.id END) AS repeated_consecutive,
@@ -52,6 +56,8 @@ module Staff
       ""
     end
 
+    #def post_query_transform
+
     def group_by_clause
       <<-SQL
         GROUP BY comprehension_rules.id, rules_uid, activity_id, rule_type, rule_suborder, rule_name, rule_note
@@ -62,12 +68,13 @@ module Staff
       <<-SQL
         WHERE
           ((feedback_histories.used = TRUE OR feedback_histories.id IS NULL))
-          AND (prompts.conjunction = #{conjunction} AND activity_id = #{activity_id})
+          AND (prompts.conjunction = '#{conjunction}'
+          AND activity_id = #{activity_id})
           #{start_date_where_clause}
           #{end_date_where_clause}
           #{activity_version_where_clause}
       SQL
     end
 
-
+  end
 end
