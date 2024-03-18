@@ -1,8 +1,8 @@
         /*
-           Data Processed By Query: 1.5 GB
-           Bytes Billed For Query:  0.0 GB
-           Total Query Time:        4030 ms
-           Total Slot Time:         56024 ms
+           Data Processed By Query: 1.73 GB
+           Bytes Billed For Query:  0.19 GB
+           Total Query Time:        1915 ms
+           Total Slot Time:         2377 ms
            BI Engine Mode Used:     FULL_INPUT
              BI Engine Code:          
              BI Engine Message:       
@@ -13,7 +13,7 @@
           performance.pre_activity_session_completed_at,
           performance.post_activity_session_completed_at,
           performance.classroom_id,
-          CONCAT(classrooms.id, ':', students.id) AS aggregate_id,
+          students.id AS aggregate_id,
           students.name AS name,
           'student' AS group_by,
           performance.skill_group_name AS skill_group_name,
@@ -34,11 +34,7 @@
 
 
                         FROM lms.pre_post_diagnostic_skill_group_performance_view AS performance
-        JOIN lms.active_classroom_stubs_view AS classrooms ON performance.classroom_id = classrooms.id
-        JOIN lms.classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id AND classrooms_teachers.role = 'owner'
-        JOIN lms.schools_users ON classrooms_teachers.user_id = schools_users.user_id
-        JOIN lms.activities ON performance.activity_id = activities.id
-        JOIN lms.active_user_names_view AS users ON classrooms_teachers.user_id = users.id
+        JOIN lms.school_classroom_teachers_view AS filter ON performance.classroom_id = filter.classroom_id
 
         JOIN lms.active_user_names_view AS students ON performance.student_id = students.id
 
@@ -46,9 +42,8 @@
           performance.pre_assigned_at BETWEEN '2023-08-01 00:00:00' AND '2023-11-30 23:59:59'
           
           
-          AND classrooms_teachers.role = 'owner'
           AND performance.activity_id = 1663
-          AND schools_users.school_id IN (38811,38804,38801,38800,38779,38784,38780,38773,38765,38764)
+          AND filter.school_id IN (38811,38804,38801,38800,38779,38784,38780,38773,38765,38764)
           
 
               GROUP BY skill_group_name,
@@ -63,10 +58,8 @@
         performance.post_questions_correct,
         performance.post_questions_total
 
-                ORDER BY TRIM(SUBSTR(TRIM(student_name), STRPOS(student_name, ' ') + 1)), student_name, student_id, skill_group_name
-
-                LIMIT 5000
-
+        ORDER BY TRIM(SUBSTR(TRIM(student_name), STRPOS(student_name, ' ') + 1)), student_name, student_id, skill_group_name
+         LIMIT 5000
 )
                 SELECT
           student_id, student_name, pre_activity_session_completed_at, post_activity_session_completed_at, classroom_id,

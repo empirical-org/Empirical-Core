@@ -14,63 +14,49 @@ module AdminDiagnosticReports
       super(aggregation: 'student', **options)
     end
 
-    def materialized_views = [recommendation_activity_session_stubs_view, active_classroom_stubs_view, active_classroom_unit_stubs_view, active_user_names_view]
+    def materialized_views = [recommendation_count_rollup_view, active_user_names_view]
 
-    def active_classroom_stubs_view = materialized_view('active_classroom_stubs_view')
-    def active_classroom_unit_stubs_view = materialized_view('active_classroom_unit_stubs_view')
     def active_user_names_view = materialized_view('active_user_names_view')
-    def recommendation_activity_session_stubs_view = materialized_view('recommendation_activity_session_stubs_view')
+    def recommendation_count_rollup_view = materialized_view('recommendation_count_rollup_view')
 
     def select_clause
       <<-SQL
-        SELECT students.id AS student_id,
-          COUNT(DISTINCT activity_sessions.id) AS completed_activities,
-          SUM(activity_sessions.timespent) AS time_spent_seconds
+        SELECT user_id AS student_id,
+          completed_activities,
+          time_spent_seconds
       SQL
     end
 
     def from_and_join_clauses
       <<-SQL
-        FROM lms.active_classroom_stubs_view AS classrooms
-        JOIN lms.classrooms_teachers
-          ON classrooms.id = classrooms_teachers.classroom_id
-            AND classrooms_teachers.role = 'owner'
-        JOIN lms.schools_users
-          ON classrooms_teachers.user_id = schools_users.user_id
-        JOIN lms.active_classroom_unit_stubs_view AS classroom_units
-          ON classrooms.id = classroom_units.classroom_id
-        JOIN lms.recommendation_activity_session_stubs_view AS activity_sessions
-          ON classroom_units.id = activity_sessions.classroom_unit_id
-        JOIN lms.units
-          ON classroom_units.unit_id = units.id
-        JOIN lms.recommendations
-          ON units.unit_template_id = recommendations.unit_template_id
+        FROM lms.recommendation_count_rollup_view
         JOIN lms.active_user_names_view AS students
-          ON activity_sessions.user_id = students.id
+          ON recommendation_count_rollup_view.user_id = students.id
       SQL
     end
 
-    def group_by_clause = "GROUP BY students.id, students.name"
+    def where_clause
+      <<-SQL
+        #{super}
+        #{relevant_diagnostic_where_clause}
+      SQL
+    end
+
+    def classroom_ids_where_clause = ("AND classroom_id IN (#{classroom_ids.join(',')})" if classroom_ids.present?)
+    def grades_where_clause = ("AND (grade IN (#{grades.map { |g| "'#{g}'" }.join(',')}) #{grades_where_null_clause})" if grades.present?)
+    def grades_where_null_clause = ("OR grade IS NULL" if grades.include?('null'))
+    def relevant_diagnostic_where_clause = "AND activity_id IN (#{DIAGNOSTIC_ORDER_BY_ID.join(',')})"
+    def school_ids_where_clause = "AND school_id IN (#{school_ids.join(',')})"
+    def teacher_ids_where_clause = ("AND teacher_id IN (#{teacher_ids.join(',')})" if teacher_ids.present?)
+    def relevant_diagnostic_where_clause = "AND activity_id = #{diagnostic_id}"
+
+    def group_by_clause = ""
     def order_by_clause = "ORDER BY TRIM(SUBSTR(TRIM(students.name), STRPOS(students.name, ' ') + 1))"
     def limit_clause = "LIMIT 500"
 
-    def relevant_date_column = "activity_sessions.completed_at"
-    def relevant_diagnostic_where_clause = "AND recommendations.activity_id = #{diagnostic_id}"
+    def relevant_date_column = "pre_diagnostic_completed_at"
 
-    private def rollup_aggregation_hash
-      {
-        students_completed_practice: sum_aggregate,
-        average_practice_activities_count: average_aggregate(:students_completed_practice),
-        average_time_spent_seconds: average_aggregate(:students_completed_practice)
-      }
-    end
-
-    def contextual_query
-      <<-SQL
-        SELECT *
-          FROM aggregate_rows
-      SQL
-    end
+    def query = root_query
 
     private def post_query_transform(results)
       results.to_h do |result|

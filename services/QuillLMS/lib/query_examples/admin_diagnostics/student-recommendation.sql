@@ -1,48 +1,30 @@
         /*
-           Data Processed By Query: 1.12 GB
-           Bytes Billed For Query:  1.12 GB
-           Total Query Time:        4430 ms
-           Total Slot Time:         155348 ms
-           BI Engine Mode Used:     BI_ENGINE_DISABLED
-             BI Engine Code:          INPUT_TOO_LARGE
-             BI Engine Message:       Cannot broadcast table lms.recommendation_activity_session_stubs_view: number of files 28 > supported limit of 20.
+           Data Processed By Query: 0.22 GB
+           Bytes Billed For Query:  0.0 GB
+           Total Query Time:        970 ms
+           Total Slot Time:         524 ms
+           BI Engine Mode Used:     FULL_INPUT
+             BI Engine Code:          
+             BI Engine Message:       
         */
-        WITH aggregate_rows AS (                SELECT students.id AS student_id,
-          COUNT(DISTINCT activity_sessions.id) AS completed_activities,
-          SUM(activity_sessions.timespent) AS time_spent_seconds
+                SELECT user_id AS student_id,
+          completed_activities,
+          time_spent_seconds
 
-                FROM lms.active_classroom_stubs_view AS classrooms
-        JOIN lms.classrooms_teachers
-          ON classrooms.id = classrooms_teachers.classroom_id
-            AND classrooms_teachers.role = 'owner'
-        JOIN lms.schools_users
-          ON classrooms_teachers.user_id = schools_users.user_id
-        JOIN lms.active_classroom_unit_stubs_view AS classroom_units
-          ON classrooms.id = classroom_units.classroom_id
-        JOIN lms.recommendation_activity_session_stubs_view AS activity_sessions
-          ON classroom_units.id = activity_sessions.classroom_unit_id
-        JOIN lms.units
-          ON classroom_units.unit_id = units.id
-        JOIN lms.recommendations
-          ON units.unit_template_id = recommendations.unit_template_id
+                FROM lms.recommendation_count_rollup_view
         JOIN lms.active_user_names_view AS students
-          ON activity_sessions.user_id = students.id
+          ON recommendation_count_rollup_view.user_id = students.id
 
-                WHERE
-          activity_sessions.completed_at BETWEEN '2023-08-01 00:00:00' AND '2023-12-01 00:00:00'
+                        WHERE
+          pre_diagnostic_completed_at BETWEEN '2023-08-01 00:00:00' AND '2023-11-30 23:59:59'
           
           
-          AND classrooms_teachers.role = 'owner'
-          AND recommendations.activity_id = 1663
-          AND schools_users.school_id IN (38811,38804,38801,38800,38779,38784,38780,38773,38765,38764)
+          AND activity_id = 1663
+          AND school_id IN (38811,38804,38801,38800,38779,38784,38780,38773,38765,38764)
           
 
-        GROUP BY students.id, students.name
-                ORDER BY TRIM(SUBSTR(TRIM(students.name), STRPOS(students.name, ' ') + 1))
+        AND activity_id = 1663
 
-                LIMIT 500
-
-)
-                SELECT *
-          FROM aggregate_rows
-
+        
+        ORDER BY TRIM(SUBSTR(TRIM(students.name), STRPOS(students.name, ' ') + 1))
+        LIMIT 500
