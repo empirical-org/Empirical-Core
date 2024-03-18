@@ -106,16 +106,18 @@ export const StudentSection = ({
   selectedTimeframe,
   pusherChannel,
   handleSetDiagnosticIdForStudentCount,
+  passedStudentData,
+  passedRecommendationsData,
   passedVisibleData
 }) => {
   const [diagnosticTypeValue, setDiagnosticTypeValue] = React.useState<DropdownObjectInterface>(diagnosticTypeDropdownOptions[0])
   const [pusherMessage, setPusherMessage] = React.useState<string>(null)
-  const [recommendationsData, setRecommendationsData] = React.useState<any>(null);
-  const [studentData, setStudentData] = React.useState<any>(null);
+  const [recommendationsData, setRecommendationsData] = React.useState<any>(passedRecommendationsData || null);
+  const [studentData, setStudentData] = React.useState<any>(passedStudentData || null);
   const [totalStudents, setTotalStudents] = React.useState<number>(null)
   const [visibleData, setVisibleData] = React.useState<any>(passedVisibleData || []);
   const [rowsToShow, setRowsToShow] = React.useState<number>(BATCH_SIZE);
-  const [loading, setLoading] = React.useState<boolean>(!passedVisibleData);
+  const [loading, setLoading] = React.useState<boolean>(!passedStudentData && !passedRecommendationsData && !passedVisibleData);
 
   React.useEffect(() => {
     initializePusher()

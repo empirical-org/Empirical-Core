@@ -91,6 +91,8 @@ export const DiagnosticGrowthReportsContainer = ({
 
   const studentSectionProps = {
     ...sharedProps,
+    passedStudentData: null,
+    passedRecommendationsData: null,
     passedVisibleData: null
   }
 
@@ -170,7 +172,7 @@ export const DiagnosticGrowthReportsContainer = ({
       <div className="header">
         <h1>
           <span>Diagnostic Growth Report</span>
-          <a href="" rel="noopener noreferrer" target="_blank">
+          <a href="https://support.quill.org/en/articles/9084379-how-do-i-navigate-the-diagnostic-growth-report-in-the-premium-hub" rel="noopener noreferrer" target="_blank">
             <img alt={documentFileIcon.alt} src={documentFileIcon.src} />
             <span>Guide</span>
           </a>

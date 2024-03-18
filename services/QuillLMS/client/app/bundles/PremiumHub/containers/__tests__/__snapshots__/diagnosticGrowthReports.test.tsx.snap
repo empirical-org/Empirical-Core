@@ -11,7 +11,7 @@ exports[`DiagnosticGrowthReports full state it should render expected messaging 
           Diagnostic Growth Report
         </span>
         <a
-          href=""
+          href="https://support.quill.org/en/articles/9084379-how-do-i-navigate-the-diagnostic-growth-report-in-the-premium-hub"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -61,7 +61,7 @@ exports[`DiagnosticGrowthReports full state it should render the expected header
           Diagnostic Growth Report
         </span>
         <a
-          href=""
+          href="https://support.quill.org/en/articles/9084379-how-do-i-navigate-the-diagnostic-growth-report-in-the-premium-hub"
           rel="noopener noreferrer"
           target="_blank"
         >

@@ -38,7 +38,6 @@ const Filters = ({
   diagnosticIdForStudentCount,
   pusherChannel
 }) => {
-  console.log("🚀 ~ file: filters.tsx:41 ~ diagnosticIdForStudentCount:", diagnosticIdForStudentCount)
 
   const isGrowthDiagnosticReport = reportType === DIAGNOSTIC_GROWTH_REPORT_PATH
 

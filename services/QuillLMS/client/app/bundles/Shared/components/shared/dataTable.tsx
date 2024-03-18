@@ -395,6 +395,13 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
       linkDisplayText = sectionText.props.children
     }
 
+    let labelText
+    if(sectionText?.props?.children) {
+      labelText = sectionText.props.children
+    } else if(typeof sectionText === 'string') {
+      labelText = sectionText
+    }
+
     const rowDisplayText = linkDisplayText || sectionText
     const aggregateRowIdentifier = `${sectionText}-${row.id}`
     const shouldDisplayAggregateIcon = isAggregateRow && i === 0
@@ -405,9 +412,9 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     if (shouldDisplayAggregateIcon) {
       aggregateRowButtonOrIcon = <img alt="" className="aggregate-row-icon" src={aggregateRowArrowSrc} />
     } else if (shouldDisplayToggleButton && aggregateRowsDisplayed) {
-      aggregateRowButtonOrIcon = <button aria-label={`hide aggregate row data for ${sectionText}`} className="aggregate-row-toggle interactive-wrapper focus-on-light" onClick={this.handleHideAggregateRows}><img alt="" className="aggregate-row-toggle-icon" src={toggleArrowExpandedSrc} /></button>
+      aggregateRowButtonOrIcon = <button aria-label={`hide aggregate row data for ${labelText}`} className="aggregate-row-toggle interactive-wrapper focus-on-light" onClick={this.handleHideAggregateRows}><img alt="" className="aggregate-row-toggle-icon" src={toggleArrowExpandedSrc} /></button>
     } else if (shouldDisplayToggleButton) {
-      aggregateRowButtonOrIcon = <button aria-label={`show aggregate row data for ${sectionText}`} className="aggregate-row-toggle interactive-wrapper focus-on-light" onClick={(e) => this.handleShowAggregateRows(e, aggregateRowIdentifier)}><img alt="" className="aggregate-row-toggle-icon" src={toggleArrowClosedSrc} /></button>
+      aggregateRowButtonOrIcon = <button aria-label={`show aggregate row data for ${labelText}`} className="aggregate-row-toggle interactive-wrapper focus-on-light" onClick={(e) => this.handleShowAggregateRows(e, aggregateRowIdentifier)}><img alt="" className="aggregate-row-toggle-icon" src={toggleArrowClosedSrc} /></button>
     }
 
     if (!header.noTooltip && (String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
