@@ -264,9 +264,14 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         window.pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
       }
       const channel = window.pusher.subscribe(activitySessionUid);
+      
       channel.bind('concept-results-saved', () => {
         document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${activitySessionUid}`;
         this.setState({ saved: true, });
+      });
+
+      channel.bind('concept-results-partially-saved', () => {
+        document.location.href = process.env.DEFAULT_URL;
       });
     }
 

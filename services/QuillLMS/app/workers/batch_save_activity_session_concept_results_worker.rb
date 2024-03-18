@@ -14,15 +14,19 @@ class BatchSaveActivitySessionConceptResultsWorker
     end
   end
 
-  def on_success(_status, options)
-    PusherTrigger.run(options['activity_session_uid'], 'concept-results-saved', "Concept results saved for activity session with uid: #{options['activity_session_uid']}")
+  def on_complete(status, options)
+    if status.failures == 0
+      PusherTrigger.run(options['activity_session_uid'], 'concept-results-saved', "Concept results saved for activity session with uid: #{options['activity_session_uid']}")
+    else
+      PusherTrigger.run(options['activity_session_uid'], 'concept-results-partially-saved', "Concept results partially saved for activity session with uid: #{options['activity_session_uid']}, #{status.total - status.failures} succeeded, #{status.failures} failed")
+    end
   end
 
   private def batch_runner(activity_session_uid, &save_concept_results)
     batch = Sidekiq::Batch.new
     batch.description = 'Saving Concept Results for Activity Session'
     batch.callback_queue = SidekiqQueue::CRITICAL
-    batch.on(:success, self.class, activity_session_uid: activity_session_uid)
+    batch.on(:complete, self.class, activity_session_uid: activity_session_uid)
     batch.jobs { save_concept_results.call }
   end
 

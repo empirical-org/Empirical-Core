@@ -312,6 +312,10 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       channel.bind('concept-results-saved', () => {
         document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${activitySessionUid}`;
       });
+
+      channel.bind('concept-results-partially-saved', () => {
+        document.location.href = process.env.DEFAULT_URL;
+      });
     }
 
     handleCheckWorkClickSession = (sessionID: string, results: ConceptResultObject[], score: number, data) => {
