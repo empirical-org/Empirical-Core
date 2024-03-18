@@ -16,6 +16,10 @@ export const toggleStatusField = (status: string) => {
   return {type: ActionTypes.TOGGLE_STATUS_FIELD, status, };
 }
 
+export function toggleStatusFieldAndResetPage(status) {
+  return {type: ActionTypes.TOGGLE_STATUS_FIELD_AND_RESET_PAGE, status, };
+}
+
 export const toggleResponseSort = (field: string) => {
   return {type: ActionTypes.TOGGLE_RESPONSE_SORT, field, };
 }
