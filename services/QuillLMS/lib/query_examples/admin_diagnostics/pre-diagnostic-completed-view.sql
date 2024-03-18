@@ -1,11 +1,11 @@
         /*
-           Data Processed By Query: 1.65 GB
-           Bytes Billed For Query:  1.65 GB
-           Total Query Time:        2022 ms
-           Total Slot Time:         146885 ms
-           BI Engine Mode Used:     BI_ENGINE_DISABLED
-             BI Engine Code:          INPUT_TOO_LARGE
-             BI Engine Message:       Cannot broadcast table analytics-data-stores.lms.classrooms: number of files 247 > supported limit of 20.
+           Data Processed By Query: 1.7 GB
+           Bytes Billed For Query:  0.23 GB
+           Total Query Time:        1620 ms
+           Total Slot Time:         5669 ms
+           BI Engine Mode Used:     FULL_INPUT
+             BI Engine Code:          
+             BI Engine Message:       
         */
         WITH aggregate_rows AS (        SELECT
             diagnostic_id,
