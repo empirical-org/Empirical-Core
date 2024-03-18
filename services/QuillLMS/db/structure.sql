@@ -2940,6 +2940,41 @@ ALTER SEQUENCE public.evidence_research_gen_ai_example_prompt_response_feedbac_i
 
 
 --
+-- Name: evidence_research_gen_ai_experiments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_experiments (
+    id bigint NOT NULL,
+    passage_prompt_id integer NOT NULL,
+    llm_config_id integer NOT NULL,
+    llm_prompt_id integer NOT NULL,
+    status character varying NOT NULL,
+    results jsonb,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_experiments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_experiments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_experiments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_experiments_id_seq OWNED BY public.evidence_research_gen_ai_experiments.id;
+
+
+--
 -- Name: evidence_research_gen_ai_llm_configs; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6348,6 +6383,13 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_example_prompt_response_feedbac
 
 
 --
+-- Name: evidence_research_gen_ai_experiments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_experiments ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_experiments_id_seq'::regclass);
+
+
+--
 -- Name: evidence_research_gen_ai_llm_configs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -7534,6 +7576,14 @@ ALTER TABLE ONLY public.evidence_prompt_texts
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_example_prompt_response_feedbacks
     ADD CONSTRAINT evidence_research_gen_ai_example_prompt_response_feedbacks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_experiments evidence_research_gen_ai_experiments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_experiments
+    ADD CONSTRAINT evidence_research_gen_ai_experiments_pkey PRIMARY KEY (id);
 
 
 --
@@ -11237,6 +11287,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240315191827'),
 ('20240318141154'),
 ('20240318142126'),
-('20240318143324');
+('20240318143324'),
+('20240318144601');
 
 
