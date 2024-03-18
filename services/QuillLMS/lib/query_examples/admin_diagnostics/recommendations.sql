@@ -1,8 +1,8 @@
         /*
            Data Processed By Query: 0.12 GB
            Bytes Billed For Query:  0.0 GB
-           Total Query Time:        813 ms
-           Total Slot Time:         705 ms
+           Total Query Time:        811 ms
+           Total Slot Time:         505 ms
            BI Engine Mode Used:     FULL_INPUT
              BI Engine Code:          
              BI Engine Message:       
@@ -21,7 +21,7 @@
                 FROM lms.recommendation_count_rollup_view
 
                 WHERE
-          pre_diagnostic_completed_at BETWEEN '2023-08-01 00:00:00' AND '2023-12-01 00:00:00'
+          pre_diagnostic_completed_at BETWEEN '2023-08-01 00:00:00' AND '2023-11-30 23:59:59'
           
           
           AND activity_id IN (1663,1668,1678,1161,1568,1590,992,1229,1230,1432)

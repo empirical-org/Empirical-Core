@@ -84,7 +84,7 @@ class Queries < Thor
       'pre-diagnostic-assigned-view' => ::AdminDiagnosticReports::PreDiagnosticAssignedViewQuery,
       'pre-diagnostic-completed' => ::AdminDiagnosticReports::PreDiagnosticCompletedQuery,
       'pre-diagnostic-completed-view' => ::AdminDiagnosticReports::PreDiagnosticCompletedViewQuery,
-      #'recommendations' => ::AdminDiagnosticReports::DiagnosticRecommendationsQuery,
+      'recommendations' => ::AdminDiagnosticReports::DiagnosticRecommendationsQuery,
       'post-diagnostic-assigned' => ::AdminDiagnosticReports::PostDiagnosticAssignedQuery,
       'post-diagnostic-assigned-view' => ::AdminDiagnosticReports::PostDiagnosticAssignedViewQuery,
       'post-diagnostic-completed-view' => ::AdminDiagnosticReports::PostDiagnosticCompletedViewQuery
