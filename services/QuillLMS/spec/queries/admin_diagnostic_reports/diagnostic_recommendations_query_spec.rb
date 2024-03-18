@@ -26,6 +26,15 @@ module AdminDiagnosticReports
       let(:students) { activity_sessions.map(&:user) }
       let(:grade_names) { classrooms.map(&:grade).uniq.map { |g| g.to_i > 0 ? "Grade #{g}" : g } }
 
+      let(:pre_diagnostic_classroom_units) { classrooms.map { |classroom| create(:classroom_unit, classroom:, assigned_student_ids: students.pluck(:id)) } }
+      let(:pre_diagnostic_activity_sessions) do
+        pre_diagnostic_classroom_units.map do |classroom_unit|
+          students.map do |student|
+            create(:activity_session, :finished, user: student, classroom_unit: classroom_unit, activity: pre_diagnostic, completed_at: DateTime.current - 1.day)
+          end
+        end
+      end
+
       # Some of our tests include activity_sessions having NULL in its timestamps so we need a version that has timestamps with datetime data in them so that WITH in the CTE understands the data type expected
       let(:reference_activity_session) { create(:activity_session, :finished) }
 
@@ -44,6 +53,8 @@ module AdminDiagnosticReports
           recommendations,
           activity_sessions,
           students,
+          pre_diagnostic_classroom_units,
+          pre_diagnostic_activity_sessions,
           reference_activity_session
         ]
       end
@@ -115,6 +126,12 @@ module AdminDiagnosticReports
         it { expect(students_completed_practice_results).to eq(students_classrooms_count) }
         it { expect(average_time_spent_seconds_results).to eq(timespent) }
         it { expect(average_practice_activities_count_results).to eq(activity_sessions.length / students_classrooms_count) }
+      end
+
+      context 'student who has been assigned recommendation activities indepenedently via the library, but has not done the pre diagnostic' do
+        let(:pre_diagnostic_activity_sessions) { [] }
+
+        it { expect(results).to eq([]) }
       end
     end
   end

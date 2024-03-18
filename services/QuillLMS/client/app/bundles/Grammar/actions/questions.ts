@@ -323,10 +323,9 @@ export const startResponseEdit = (qid: string, rid: string) => {
   return { type: ActionTypes.START_RESPONSE_EDIT, qid, rid, };
 }
 
-export const updatePageNumber = (pageNumber: Number, qid: string) => {
+export const updatePageNumber = (pageNumber: Number) => {
   return (dispatch: Function) => {
     dispatch(setPageNumber(pageNumber));
-    dispatch(searchResponses(qid));
   };
 }
 

@@ -77,9 +77,15 @@ arison'
   def analyze_diagnostic_queries
     output_directory = make_directory(OUTPUT_ADMIN_DIAGNOSTICS)
 
-    multi_diagnostic_queries = {
-      # 'post-diagnostic-completed' => ::AdminDiagnosticReports::PostDiagnosticCopleted Query,
-      # 'post-diagnostic-completed-view' => ::AdminDiagnosticReports::PostDiagnosicCompletedViewQuery
+    multi_queries = {
+      'pre-diagnostic-assigned' => ::AdminDiagnosticReports::PreDiagnosticAssignedQuery,
+      'pre-diagnostic-assigned-view' => ::AdminDiagnosticReports::PreDiagnosticAssignedViewQuery,
+      'pre-diagnostic-completed' => ::AdminDiagnosticReports::PreDiagnosticCompletedQuery,
+      'pre-diagnostic-completed-view' => ::AdminDiagnosticReports::PreDiagnosticCompletedViewQuery,
+      'recommendations' => ::AdminDiagnosticReports::DiagnosticRecommendationsQuery,
+      'post-diagnostic-assigned' => ::AdminDiagnosticReports::PostDiagnosticAssignedQuery,
+      'post-diagnostic-assigned-view' => ::AdminDiagnosticReports::PostDiagnosticAssignedViewQuery,
+      'post-diagnostic-completed-view' => ::AdminDiagnosticReports::PostDiagnosticCompletedViewQuery
     }
 
     single_diagnostic_queries = {
@@ -89,8 +95,8 @@ arison'
 
     student_diagnostic_queries = {
        'diagnostic-students-view' => ::AdminDiagnosticReports::DiagnosticPerformanceByStudentViewQuery,
-      # 'student-recommendation' => ::AdminDiagnosticReports::DiagnosticRecommendtionsByStudentQuery,
-      # 'filter-scope' => ::AdminDiagnosticReports::StudentCountByFilterScopeQuer
+       'student-recommendation' => ::AdminDiagnosticReports::DiagnosticRecommendtionsByStudentQuery,
+       'filter-scope' => ::AdminDiagnosticReports::StudentCountByFilterScopeQuer
     }
 
     timeframe_start = DateTime.parse(DEFAULT_START)
@@ -109,26 +115,9 @@ arison'
     })
     student_diagnostic_args = single_diagnostic_args.except(:aggregation)
 
-    multi_diagnostic_queries.each do |key, query|
-      sql = query.new(**multi_diagnostic_args).query
-
-      metadata = query_metadata(sql, dryrun: false)
-      File.write(output_directory + "#{key}.sql", metadata + sql)
-    end
-
-    single_diagnostic_queries.each do |key, query|
-      sql = query.new(**single_diagnostic_args).query
-
-      metadata = query_metadata(sql, dryrun: false)
-      File.write(output_directory + "#{key}.sql", metadata + sql)
-    end
-
-    student_diagnostic_queries.each do |key, query|
-      sql = query.new(**student_diagnostic_args).query
-
-      metadata = query_metadata(sql, dryrun: false)
-      File.write(output_directory + "#{key}.sql", metadata + sql)
-    end
+    #multi_queries.each {|key, query| run_admin_query(key, query, multi_args, dryrun) }
+    #single_queries.each {|key, query| run_admin_query(key, query, single_args, dryrun) }
+    student_queries.each {|key, query| run_admin_query(key, query, student_args, dryrun) }
   end
 
   # put helper methods in this block
