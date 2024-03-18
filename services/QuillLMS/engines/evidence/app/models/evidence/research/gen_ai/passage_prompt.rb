@@ -23,6 +23,7 @@ module Evidence
         ].freeze
 
         belongs_to :passage, class_name: 'Evidence::Research::GenAI::Passage'
+        has_many :passage_prompt_responses, class_name: 'Evidence::Research::GenAI::PassagePromptResponse'
 
         validates :prompt, presence: true
         validates :conjunction, presence: true, inclusion: { in: CONJUNCTIONS }

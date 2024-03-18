@@ -993,6 +993,38 @@ ALTER SEQUENCE public.evidence_research_gen_ai_llm_prompts_id_seq OWNED BY publi
 
 
 --
+-- Name: evidence_research_gen_ai_passage_prompt_responses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_passage_prompt_responses (
+    id bigint NOT NULL,
+    passage_prompt_id integer NOT NULL,
+    response text NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_passage_prompt_responses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_passage_prompt_responses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_passage_prompt_responses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_passage_prompt_responses_id_seq OWNED BY public.evidence_research_gen_ai_passage_prompt_responses.id;
+
+
+--
 -- Name: evidence_research_gen_ai_passage_prompts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1318,6 +1350,13 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_llm_prompts ALTER COLUMN id SET
 
 
 --
+-- Name: evidence_research_gen_ai_passage_prompt_responses id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_passage_prompt_responses ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_passage_prompt_responses_id_seq'::regclass);
+
+
+--
 -- Name: evidence_research_gen_ai_passage_prompts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1567,6 +1606,14 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_llm_prompt_templates
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_llm_prompts
     ADD CONSTRAINT evidence_research_gen_ai_llm_prompts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_passage_prompt_responses evidence_research_gen_ai_passage_prompt_responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_passage_prompt_responses
+    ADD CONSTRAINT evidence_research_gen_ai_passage_prompt_responses_pkey PRIMARY KEY (id);
 
 
 --
@@ -1864,6 +1911,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240315141841'),
 ('20240315180944'),
 ('20240315184312'),
-('20240315191401');
+('20240315191401'),
+('20240318140506');
 
 
