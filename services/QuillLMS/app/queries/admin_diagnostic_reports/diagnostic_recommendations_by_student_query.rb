@@ -45,7 +45,6 @@ module AdminDiagnosticReports
     def classroom_ids_where_clause = ("AND classroom_id IN (#{classroom_ids.join(',')})" if classroom_ids.present?)
     def grades_where_clause = ("AND (grade IN (#{grades.map { |g| "'#{g}'" }.join(',')}) #{grades_where_null_clause})" if grades.present?)
     def grades_where_null_clause = ("OR grade IS NULL" if grades.include?('null'))
-    def relevant_diagnostic_where_clause = "AND activity_id IN (#{DIAGNOSTIC_ORDER_BY_ID.join(',')})"
     def school_ids_where_clause = "AND school_id IN (#{school_ids.join(',')})"
     def teacher_ids_where_clause = ("AND teacher_id IN (#{teacher_ids.join(',')})" if teacher_ids.present?)
     def relevant_diagnostic_where_clause = "AND activity_id = #{diagnostic_id}"
