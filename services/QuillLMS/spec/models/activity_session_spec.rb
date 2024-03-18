@@ -501,51 +501,6 @@ end
     end
   end
 
-  describe '#parse_for_results' do
-    let!(:activity_session) { create(:activity_session) }
-    let!(:frequently_demonstrated_skill_concept) { create(:concept)}
-    let!(:frequently_demonstrated_skill_concept_result) { create(:concept_result, concept: frequently_demonstrated_skill_concept, activity_session: activity_session, correct: true)}
-    let!(:sometimes_demonstrated_skill_concept) { create(:concept)}
-    let!(:sometimes_demonstrated_skill_concept_result_positive) { create(:concept_result, concept: sometimes_demonstrated_skill_concept, activity_session: activity_session, correct: true)}
-    let!(:sometimes_demonstrated_skill_concept_result_negative) { create(:concept_result, concept: sometimes_demonstrated_skill_concept, activity_session: activity_session, correct: false)}
-    let!(:rarely_demonstrated_skill_concept) { create(:concept)}
-    let!(:rarely_demonstrated_skill_concept_result) { create(:concept_result, concept: rarely_demonstrated_skill_concept, activity_session: activity_session, correct: false)}
-    let!(:ignored_concept) { create(:concept, uid: ActivitySession::CONCEPT_UIDS_TO_EXCLUDE_FROM_REPORT[0])}
-    let!(:ignored_concept_result) { create(:concept_result, concept: ignored_concept, activity_session: activity_session, correct: false)}
-
-    it 'should return an object with concept results organized by category' do
-      expect(activity_session.parse_for_results[ActivitySession::FREQUENTLY_DEMONSTRATED_SKILL]).to be_present
-      expect(activity_session.parse_for_results[ActivitySession::SOMETIMES_DEMONSTRATED_SKILL]).to be_present
-      expect(activity_session.parse_for_results[ActivitySession::RARELY_DEMONSTRATED_SKILL]).to be_present
-    end
-
-    it 'should return concept results that averaged 82% or higher in the FREQUENTLY DEMONSTRATED SKILL category' do
-      expect(activity_session.parse_for_results[ActivitySession::FREQUENTLY_DEMONSTRATED_SKILL]).to include(frequently_demonstrated_skill_concept.name)
-    end
-
-    it 'should return concept results that averaged 32% or higher in the SOMETIMES DEMONSTRATED SKILL category' do
-      expect(activity_session.parse_for_results[ActivitySession::SOMETIMES_DEMONSTRATED_SKILL]).to include(sometimes_demonstrated_skill_concept.name)
-    end
-
-    it 'should return concept results that averaged below 31 in the RARELY DEMONSTRATED SKILL category' do
-      expect(activity_session.parse_for_results[ActivitySession::RARELY_DEMONSTRATED_SKILL]).to include(rarely_demonstrated_skill_concept.name)
-    end
-
-    it 'should not return the ignored concept result in any category if there are fewer than four concept results for it' do
-      expect(activity_session.parse_for_results[ActivitySession::FREQUENTLY_DEMONSTRATED_SKILL]).not_to include(ignored_concept.name)
-      expect(activity_session.parse_for_results[ActivitySession::SOMETIMES_DEMONSTRATED_SKILL]).not_to include(ignored_concept.name)
-      expect(activity_session.parse_for_results[ActivitySession::RARELY_DEMONSTRATED_SKILL]).not_to include(ignored_concept.name)
-    end
-
-    it 'should return the ignored concept result if there are at least four concept results for it' do
-      3.times do |i|
-        ignored_concept_result.id = nil
-        ConceptResult.create(ignored_concept_result.attributes)
-      end
-      expect(activity_session.parse_for_results[ActivitySession::RARELY_DEMONSTRATED_SKILL]).to include(ignored_concept.name)
-    end
-  end
-
   describe "#activity_uid" do
 
     it "must return an uid when activity is present" do

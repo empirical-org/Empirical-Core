@@ -324,38 +324,6 @@ class ActivitySession < ApplicationRecord
     percentage
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  def parse_for_results
-    concept_results_by_concept = concept_results.group_by { |c| c.concept_id }
-
-    results = {
-      FREQUENTLY_DEMONSTRATED_SKILL => [],
-      SOMETIMES_DEMONSTRATED_SKILL => [],
-      RARELY_DEMONSTRATED_SKILL => []
-    }
-
-    concept_results_by_concept.each do |concept_id, arr|
-      concept = Concept.find_by_id(concept_id)
-      if CONCEPT_UIDS_TO_EXCLUDE_FROM_REPORT.include?(concept.uid) && arr.length < 4
-        next
-      end
-
-      number_correct = arr.inject(0) { |sum, cr| sum + (cr.correct ? 1 : 0) }
-      average_correct = number_correct.to_f / arr.length
-
-      if average_correct >= ProficiencyEvaluator.proficiency_cutoff
-        results[FREQUENTLY_DEMONSTRATED_SKILL].push(concept.name)
-      elsif average_correct >= ProficiencyEvaluator.nearly_proficient_cutoff
-        results[SOMETIMES_DEMONSTRATED_SKILL].push(concept.name)
-      else
-        results[RARELY_DEMONSTRATED_SKILL].push(concept.name)
-      end
-    end
-
-    results
-  end
-  # rubocop:enable Metrics/CyclomaticComplexity
-
   alias owner user
 
   # TODO: legacy fix
