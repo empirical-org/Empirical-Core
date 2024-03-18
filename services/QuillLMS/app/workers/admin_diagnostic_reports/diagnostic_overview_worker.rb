@@ -18,7 +18,7 @@ module AdminDiagnosticReports
       'pre-diagnostic-completed' => PreDiagnosticCompletedQuery,
       'recommendations' => DiagnosticRecommendationsQuery,
       'post-diagnostic-assigned' => PostDiagnosticAssignedQuery,
-      'post-diagnostic-completed' => PostDiagnosticCompletedQuery
+      'post-diagnostic-completed' => PostDiagnosticCompletedViewQuery
     }
 
     def perform(cache_key, query, aggregation, user_id, timeframe, school_ids, filters)

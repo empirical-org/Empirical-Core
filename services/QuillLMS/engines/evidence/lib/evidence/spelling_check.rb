@@ -36,7 +36,9 @@ module Evidence
       'quokkaselfie',
       'quokkaselfies',
       'mestres',
-      'villages'
+      'villages',
+      'jacobo',
+      "d'état"
     ].concat(
       # britishisms
       [
@@ -182,6 +184,9 @@ module Evidence
         'recognise',
         'recognised',
         'recognising',
+        'revolutionise',
+        'revolutionised',
+        'revolutionising',
         'routeing',
         'rumour',
         'sabre',
@@ -212,6 +217,7 @@ module Evidence
         'travelled',
         'traveller ',
         'travelling',
+        'unrealised',
         'unshakeable',
         'utilise',
         'utilised',

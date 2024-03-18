@@ -162,7 +162,7 @@ module Evidence
         return unless label_configs.present?
 
         label_configs.each do |label_config|
-          label_config[EXAMPLES_KEY].map(&:strip).uniq.compact.each.with_index do |example, index|
+          label_config[EXAMPLES_KEY].map(&:strip).uniq.compact_blank.each.with_index do |example, index|
             prompt = Evidence::OpenAI::PARAPHRASE_INSTRUCTION + example
             generator = Evidence::TextGeneration.create(
               type: Evidence::TextGeneration::TYPE_LABEL_EXAMPLE,
