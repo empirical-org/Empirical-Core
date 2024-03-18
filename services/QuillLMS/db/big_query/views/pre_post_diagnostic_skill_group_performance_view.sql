@@ -5,10 +5,10 @@ SELECT
     pre.activity_session_completed_at AS pre_activity_session_completed_at,
     post.activity_session_id AS post_activity_session_id,
     post.activity_session_completed_at AS post_activity_session_completed_at,
-    pre.skill_group_id AS skill_group_id,
-    pre.skill_group_name AS skill_group_name,
-    pre.student_id AS student_id,
-    pre.classroom_id AS classroom_id,
+    IFNULL(pre.skill_group_id, post.skill_group_id) AS skill_group_id,
+    IFNULL(pre.skill_group_name, post.skill_group_name) AS skill_group_name,
+    IFNULL(pre.student_id, post.student_id) AS student_id,
+    IFNULL(pre.classroom_id, post.classroom_id) AS classroom_id,
     IFNULL(pre.activity_id, post.pre_activity_id) AS activity_id,
     pre.classroom_unit_id AS pre_classroom_unit_id,
     post.classroom_unit_id AS post_classroom_unit_id,
@@ -83,6 +83,7 @@ SELECT
         activities.id AS pre_activity_id,
         activities.name AS pre_activity_name,
         skill_groups.id AS skill_group_id,
+        skill_groups.name AS skill_group_name,
         COUNT(CASE WHEN concept_results.correct = true THEN concept_results.question_number ELSE NULL END) AS questions_correct,
         COUNT(DISTINCT concept_results.question_number) AS questions_total,
         classroom_units.classroom_id AS classroom_id,
@@ -126,12 +127,13 @@ SELECT
         pre_activity_id,
         pre_activity_name,
         skill_group_id,
+        skill_group_name,
         student_id,
         classroom_unit_id,
         classroom_id
   ) AS post
     ON pre.activity_id = post.pre_activity_id
       AND pre.student_id = post.student_id
-      AND (pre.skill_group_id = post.skill_group_id OR post.skill_group_id IS NULL)
+      AND pre.skill_group_id = post.skill_group_id
       AND pre.classroom_id = post.classroom_id
-  WHERE (pre.assigned_at >= '2023-07-01 00:00:00' OR post.assigned_at >= '2023-07-01')
+  WHERE (pre.assigned_at >= '2023-07-01 00:00:00' OR post.assigned_at >= '2023-07-01 00:00:00')
