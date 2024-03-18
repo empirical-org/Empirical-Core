@@ -37,7 +37,7 @@ module QuillBigQuery
     private def query_fallback_with_clauses = materialized_views.map(&:fallback_with_clause).join(', ')
 
     private def query_fallback_body
-      materialized_views.inject(query) do |query, view|
+      materialized_views.inject(query.gsub("WITH ", ", ")) do |query, view|
         query
           .gsub(view.name_with_dataset, view.name_fallback)
           .gsub(view.name, view.name_fallback)
