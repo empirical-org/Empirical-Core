@@ -1,8 +1,8 @@
         /*
-           Data Processed By Query: 2.03 GB
+           Data Processed By Query: 1.7 GB
            Bytes Billed For Query:  0.23 GB
-           Total Query Time:        1676 ms
-           Total Slot Time:         3161 ms
+           Total Query Time:        1620 ms
+           Total Slot Time:         5669 ms
            BI Engine Mode Used:     FULL_INPUT
              BI Engine Code:          
              BI Engine Message:       
@@ -13,20 +13,17 @@
             aggregate_id,
             name,
             group_by,
-            post_students_completed,
-            AVG(growth_percentage) AS overall_skill_growth
+            COUNT(DISTINCT activity_session_id) AS pre_students_completed,
+            SAFE_DIVIDE(SUM(pre_questions_correct), CAST(SUM(pre_questions_total) AS FLOAT64)) AS pre_average_score
           FROM (                SELECT
           performance.activity_id AS diagnostic_id,
           performance.activity_name AS diagnostic_name,
           filter.classroom_id AS aggregate_id,
           filter.classroom_name AS name,
           'classroom' AS group_by,
-                  COUNT(DISTINCT performance.post_activity_session_id) AS post_students_completed,
-        GREATEST(
-         ROUND(SAFE_DIVIDE(SUM(performance.post_questions_correct), CAST(SUM(performance.post_questions_total) AS float64)), 2)
-            - ROUND(SAFE_DIVIDE(SUM(CASE WHEN performance.post_activity_session_id IS NOT NULL THEN performance.pre_questions_correct ELSE NULL END),
-              CAST(SUM(CASE WHEN performance.post_activity_session_id IS NOT NULL THEN performance.pre_questions_total ELSE NULL END) AS float64)), 2),
-        0) AS growth_percentage
+                  performance.pre_activity_session_id AS activity_session_id,
+        SUM(performance.pre_questions_correct) AS pre_questions_correct,
+        SUM(performance.pre_questions_total) AS pre_questions_total
 
 
                 FROM lms.pre_post_diagnostic_skill_group_performance_view AS performance
@@ -40,18 +37,18 @@
           AND filter.school_id IN (38811,38804,38801,38800,38779,38784,38780,38773,38765,38764)
           
 
-        GROUP BY performance.activity_id, performance.activity_name, aggregate_id, filter.classroom_name, performance.skill_group_name, performance.classroom_id
+        GROUP BY performance.activity_id, performance.activity_name, aggregate_id, filter.classroom_name, activity_session_id
         
         
 )
-          GROUP BY diagnostic_id, diagnostic_name, aggregate_id, name, group_by, post_students_completed
+          GROUP BY diagnostic_id, diagnostic_name, aggregate_id, name, group_by
 )
                 SELECT
           diagnostic_id, diagnostic_name,
           NULL as aggregate_id,
           'ROLLUP' AS name,
           group_by,
-          SUM(post_students_completed) AS post_students_completed, SUM(post_students_completed * overall_skill_growth) / SUM(post_students_completed) AS overall_skill_growth
+          SUM(pre_students_completed) AS pre_students_completed, SUM(pre_students_completed * pre_average_score) / SUM(pre_students_completed) AS pre_average_score
         FROM aggregate_rows
         GROUP BY diagnostic_id, diagnostic_name, group_by
         UNION ALL
