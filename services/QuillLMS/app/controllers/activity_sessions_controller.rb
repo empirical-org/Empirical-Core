@@ -27,7 +27,7 @@ class ActivitySessionsController < ApplicationController
   def result
     allow_iframe
 
-    set_variables_and_kick_off_worker_for_partner_session if session[:partner_session]
+    run_partner_session_worker
 
     @activity = @activity_session
     @classroom_id = @activity_session&.classroom_unit&.classroom_id
@@ -54,15 +54,24 @@ class ActivitySessionsController < ApplicationController
     redirect_to "/activity_sessions/#{started_activity_session_id}/play"
   end
 
-  private def set_variables_and_kick_off_worker_for_partner_session
-    @partner_name = session[:partner_session]["partner_name"]
-    @partner_session_id = session[:partner_session]["session_id"]
+  private def partner_session? = session[:partner_session].present? && partner_name && partner_session_id
+  private def partner_name = session[:partner_session]["partner_name"]
+  private def partner_session_id = session[:partner_session]["session_id"]
 
-    return unless @partner_name && @partner_session_id
+  private def run_partner_session_worker
+    return unless partner_session?
 
-    @activity_url = @activity_session.activity.anonymous_module_url.to_s
-    @results_url = url_for(action: 'result', uid: @activity_session.uid)
-    AmplifyReportActivityWorker.perform_async(@partner_session_id, @activity_session.activity.name, @activity_session.activity.description, @activity_session.percentage, @activity_url, @results_url)
+    activity_url = @activity_session.activity.anonymous_module_url.to_s
+    results_url = url_for(action: 'result', uid: @activity_session.uid)
+
+    AmplifyReportActivityWorker.perform_async(
+      partner_session_id,
+      @activity_session.activity.name,
+      @activity_session.activity.description,
+      @activity_session.percentage,
+      activity_url,
+      results_url
+    )
   end
 
   private def activity_session_from_id
@@ -139,15 +148,7 @@ class ActivitySessionsController < ApplicationController
     if current_user.classrooms.exclude?(@classroom_unit.classroom) then auth_failed(hard: false) end
   end
 
-  private def determine_layout
-    return unless session[:partner_session]
-
-    @partner_name = session[:partner_session]["partner_name"]
-    @partner_session_id = session[:partner_session]["session_id"]
-    return unless  @partner_name && @partner_session_id
-
-    "integrations"
-  end
+  private def determine_layout = "integrations" if partner_session?
 
   private def allow_iframe
     response.headers.delete "X-Frame-Options"
