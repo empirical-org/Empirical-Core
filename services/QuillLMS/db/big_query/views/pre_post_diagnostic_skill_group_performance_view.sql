@@ -52,7 +52,7 @@ SELECT
       LEFT OUTER JOIN lms.skill_group_activities ON activity_sessions.activity_id = skill_group_activities.activity_id
       LEFT OUTER JOIN lms.skill_groups
         ON diagnostic_question_skills.skill_group_id = skill_groups.id
-      WHERE classroom_units.created_at BETWEEN '2023-07-01 00:00:00' AND '2024-02-16 23:59:59'
+      WHERE classroom_units.created_at >= '2023-07-01 00:00:00'
         AND unit_activities.activity_id IN (NULL, 1663,1668,1678,1161,1568,1590,992,1229,1230,1432)
         AND classroom_units.visible = true
         AND (diagnostic_question_skills.skill_group_id = skill_group_activities.skill_group_id
@@ -101,7 +101,7 @@ SELECT
       JOIN lms.skill_groups
         ON diagnostic_question_skills.skill_group_id = skill_groups.id
           AND skill_group_activities.skill_group_id = skill_groups.id
-      WHERE activity_sessions.completed_at BETWEEN '2023-07-01 00:00:00' AND '2024-02-16 23:59:59'
+      WHERE activity_sessions.completed_at >= '2023-07-01 00:00:00'
         AND activity_sessions.activity_id IN (1664, 1680, 1669, 1774, 1814, 1818)
         AND activity_sessions.visible = true
       GROUP BY activity_session_id,
@@ -115,5 +115,5 @@ SELECT
       AND pre.student_id = post.student_id
       AND pre.skill_group_id = post.skill_group_id
       AND pre.classroom_id = post.classroom_id
-  WHERE pre.assigned_at BETWEEN '2023-07-01 00:00:00' AND '2024-02-16 23:59:59'
+  WHERE pre.assigned_at >= '2023-07-01 00:00:00'
     AND pre.activity_id IN (1663,1668,1678,1161,1568,1590,992,1229,1230,1432)
