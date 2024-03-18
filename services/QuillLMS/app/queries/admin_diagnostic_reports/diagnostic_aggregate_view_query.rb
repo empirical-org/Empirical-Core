@@ -121,7 +121,7 @@ module AdminDiagnosticReports
         'grade' => "classrooms.grade",
         'classroom' => "classrooms.id",
         'teacher' => "users.id",
-        'student' => "students.id"
+        'student' => "CONCAT(classrooms.id, ':', students.id)"
       }.fetch(additional_aggregation)
     end
 
