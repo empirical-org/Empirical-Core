@@ -282,9 +282,9 @@ function getStudentNameValue({ name, preCompleted, previousRecord, nextRecord, p
   let date
 
   if(preCompletedAt && postCompletedAt) {
-    date = `(${moment(preCompletedAt).format('MM/YY')} - ${moment(postCompletedAt).format('MM/YY')})`
+    date = `(${moment(preCompletedAt).format('MM/DD')} - ${moment(postCompletedAt).format('MM/DD')})`
   } else if(preCompletedAt) {
-    date = `(${moment(preCompletedAt).format('MM/YY') })`
+    date = `(${moment(preCompletedAt).format('MM/DD') })`
   }
   if ((nameMatchesPreviousRecord || nameMatchesNextRecord) && date) {
     return(
