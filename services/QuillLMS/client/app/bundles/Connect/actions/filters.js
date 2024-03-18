@@ -16,6 +16,10 @@ export function toggleStatusField(status) {
   return {type:C.TOGGLE_STATUS_FIELD, status, };
 }
 
+export function toggleStatusFieldAndResetPage(status) {
+  return {type:C.TOGGLE_STATUS_FIELD_AND_RESET_PAGE, status, };
+}
+
 export function toggleResponseSort(field) {
   return {type:C.TOGGLE_RESPONSE_SORT, field, };
 }
