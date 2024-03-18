@@ -38,6 +38,7 @@ const Filters = ({
   diagnosticIdForStudentCount,
   pusherChannel
 }) => {
+  console.log("🚀 ~ file: filters.tsx:41 ~ diagnosticIdForStudentCount:", diagnosticIdForStudentCount)
 
   const isGrowthDiagnosticReport = reportType === DIAGNOSTIC_GROWTH_REPORT_PATH
 
@@ -90,10 +91,11 @@ const Filters = ({
 
   function getFilterHash({ key, id, withFilters }) {
     const filterTarget = [].concat(
-      `${key}-${id}`,
-      selectedTimeframe,
+      key,
+      id,
+      selectedTimeframe.value,
       withFilters ? selectedSchools.map(s => s.id) : null,
-      withFilters ? selectedGrades : null,
+      withFilters ? selectedGrades.map(g => g.value) : null,
       withFilters ? selectedTeachers.map(t => t.id) : null,
       withFilters ? selectedClassrooms.map(c => c.id) : null,
     )

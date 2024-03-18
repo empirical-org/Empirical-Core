@@ -236,7 +236,7 @@ function formatSkillsData(data, isAggregateRowData) {
     const { aggregate_rows, growth_percentage, improved_proficiency, maintained_proficiency, post_score, post_students_completed, pre_score, pre_students_completed, recommended_practice, skill_group_name, name } = entry
     return {
       id: i,
-      name: skill_group_name,
+      name: isAggregateRowData ? name : skill_group_name,
       preSkillScore: scoreValue(pre_score, pre_students_completed),
       pre_score: getSingleSortValue(pre_score),
       postSkillScore: scoreValue(post_score, post_students_completed),
@@ -463,7 +463,6 @@ export function aggregateStudentData(studentData, recommendationsData) {
     const nextRecord = i < studentData.length - 1 ? studentData[i + 1] : null
     return {
       id: i,
-      // name: preCompleted ? student_name : <p className="diagnostic-not-completed">{student_name}</p>,
       name: getStudentNameValue({ name: student_name, preCompleted, previousRecord, nextRecord, preCompletedAt: pre_activity_session_completed_at, postCompletedAt: post_activity_session_completed_at }),
       studentName: student_name,
       preToPostImprovedSkills: preCompleted ? getPreToPostImprovedSkillsValue(pre_to_post_improved_skill_count, post_questions_total) : 'Diagnostic not completed',

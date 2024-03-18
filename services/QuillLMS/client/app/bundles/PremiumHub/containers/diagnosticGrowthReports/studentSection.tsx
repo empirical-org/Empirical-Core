@@ -185,7 +185,8 @@ export const StudentSection = ({
 
   function getFilterHash(queryKey, diagnosticId) {
     const filterTarget = [].concat(
-      `${queryKey}-${diagnosticId}`,
+      queryKey,
+      parseInt(diagnosticId),
       selectedTimeframe,
       selectedSchoolIds,
       selectedGrades,
