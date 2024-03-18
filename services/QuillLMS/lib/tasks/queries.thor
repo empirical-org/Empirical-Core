@@ -116,8 +116,8 @@ class Queries < Thor
     student_args = single_args.except(:aggregation)
 
     multi_queries.each {|key, query| run_admin_query(key, query, multi_args, dryrun) }
-   # single_queries.each {|key, query| run_admin_query(key, query, single_args, dryrun) }
-   # student_queries.each {|key, query| run_admin_query(key, query, student_args, dryrun) }
+    #single_queries.each {|key, query| run_admin_query(key, query, single_args, dryrun) }
+    #student_queries.each {|key, query| run_admin_query(key, query, student_args, dryrun) }
   end
 
   # put helper methods in this block
