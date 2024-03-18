@@ -113,7 +113,7 @@ module AdminDiagnosticReports
       {
         'grade' => "filter.grade",
         'classroom' => "filter.classroom_id",
-        'teacher' => "filter.teacher_id",
+        'teacher' => "filter.teacher_id"
       }.fetch(additional_aggregation)
     end
 
@@ -121,7 +121,7 @@ module AdminDiagnosticReports
       {
         'grade' => "filter.grade",
         'classroom' => "filter.classroom_name",
-        'teacher' => "filter.teacher_name",
+        'teacher' => "filter.teacher_name"
       }.fetch(additional_aggregation)
     end
 
