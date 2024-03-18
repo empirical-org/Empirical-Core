@@ -1,6 +1,7 @@
 require_relative '../../config/environment'
 
 class Queries < Thor
+  OUTPUT_ADMIN_DIAGNOSTICS = 'lib/query_examples/admin_diagnostics/'
 
   # user_id 9874030 is a test user
   # e.g. bundle exec thor queries:generate_snapshot_sqls 9874030
@@ -72,31 +73,30 @@ class Queries < Thor
     end
   end
 
-  desc 'analyze_diagnostic_queries', 'Benchmark Google BigQuery queries for com
-arison'
+  # bundle exec thor queries:analyze_diagnostic_queries --dryrun=false
+  desc 'analyze_diagnostic_queries --dryrun=true/false', 'Benchmark Google BigQuery queries for comparison'
+  method_option :dryrun, type: :boolean, default: true
   def analyze_diagnostic_queries
-    output_directory = make_directory(OUTPUT_ADMIN_DIAGNOSTICS)
+    dryrun = options[:dryrun]
 
     multi_queries = {
-      'pre-diagnostic-assigned' => ::AdminDiagnosticReports::PreDiagnosticAssignedQuery,
-      'pre-diagnostic-assigned-view' => ::AdminDiagnosticReports::PreDiagnosticAssignedViewQuery,
-      'pre-diagnostic-completed' => ::AdminDiagnosticReports::PreDiagnosticCompletedQuery,
-      'pre-diagnostic-completed-view' => ::AdminDiagnosticReports::PreDiagnosticCompletedViewQuery,
-      'recommendations' => ::AdminDiagnosticReports::DiagnosticRecommendationsQuery,
-      'post-diagnostic-assigned' => ::AdminDiagnosticReports::PostDiagnosticAssignedQuery,
-      'post-diagnostic-assigned-view' => ::AdminDiagnosticReports::PostDiagnosticAssignedViewQuery,
       'post-diagnostic-completed-view' => ::AdminDiagnosticReports::PostDiagnosticCompletedViewQuery
     }
 
-    single_diagnostic_queries = {
-      # 'diagnostic-skills' => ::AdminDiagnosticReports::DiagnosticPerformanceBySillQuery,
-      #'diagnostic-skills-view' => ::AdminDiagnosticReports::DiagnosticPerformaneBySkillViewQuery
+    single_queries = {
+      'diagnostic-skills' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillQuery,
+      # 'diagnostic-skills-view' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillViewQuery
     }
 
-    student_diagnostic_queries = {
-       'diagnostic-students-view' => ::AdminDiagnosticReports::DiagnosticPerformanceByStudentViewQuery,
-       'student-recommendation' => ::AdminDiagnosticReports::DiagnosticRecommendtionsByStudentQuery,
-       'filter-scope' => ::AdminDiagnosticReports::StudentCountByFilterScopeQuer
+    student_queries = {
+      # 'diagnostic-students-view' => ::AdminDiagnosticReports::DiagnosticPerformanceByStudentViewQuery
+    }
+
+    multi_queries2 = {
+      'pre-diagnostic-assigned' => ::AdminDiagnosticReports::PreDiagnosticAssignedQuery,
+      'pre-diagnostic-completed' => ::AdminDiagnosticReports::PreDiagnosticCompletedQuery,
+      'recommendations' => ::AdminDiagnosticReports::DiagnosticRecommendationsQuery,
+      'post-diagnostic-assigned' => ::AdminDiagnosticReports::PostDiagnosticAssignedQuery
     }
 
     timeframe_start = DateTime.parse(DEFAULT_START)
@@ -104,26 +104,26 @@ arison'
     school_ids = [38811,38804,38801,38800,38779,38784,38780,38773,38765,38764]
     aggregation = 'classroom'
 
-    multi_diagnostic_args = {
+    multi_args = {
       timeframe_start:,
       timeframe_end:,
       school_ids:,
       aggregation:
     }
-    single_diagnostic_args = multi_diagnostic_args.merge({
+    single_args = multi_args.merge({
       diagnostic_id: 1663 # The starter pre diagnostic
     })
-    student_diagnostic_args = single_diagnostic_args.except(:aggregation)
+    student_args = single_args.except(:aggregation)
 
-    #multi_queries.each {|key, query| run_admin_query(key, query, multi_args, dryrun) }
-    #single_queries.each {|key, query| run_admin_query(key, query, single_args, dryrun) }
+    multi_queries.each {|key, query| run_admin_query(key, query, multi_args, dryrun) }
+    single_queries.each {|key, query| run_admin_query(key, query, single_args, dryrun) }
     student_queries.each {|key, query| run_admin_query(key, query, student_args, dryrun) }
+    multi_queries2.each {|key, query| run_admin_query(key, query, multi_args, dryrun) }
   end
 
   # put helper methods in this block
   no_commands do
     OUTPUT_SNAPSHOTS = 'lib/query_examples/snapshots/'
-    OUTPUT_ADMIN_DIAGNOSTICS = 'lib/query_examples/admin_diagnostics/'
 
     # Averages run differently (.query raises), so skipping for now
     AVERAGE_SNAPSHOT_QUERIES = [
@@ -150,6 +150,14 @@ arison'
 
     private def snapshot_page_queries
       [*::Snapshots::TOPX_QUERY_MAPPING, *::Snapshots::COUNT_QUERY_MAPPING].to_h
+    end
+
+    private def run_admin_query(name, query, args, dryrun)
+      output_directory = make_directory(OUTPUT_ADMIN_DIAGNOSTICS)
+      sql = query.new(**args).query
+
+      metadata = query_metadata(sql, dryrun:)
+      File.write(output_directory + "#{name}.sql", metadata + sql)
     end
 
     private def parse_result(result)
@@ -189,7 +197,7 @@ arison'
       total_slot_ms = stats.query&.total_slot_ms
 
       bi_engine_mode = stats.query&.bi_engine_statistics&.acceleration_mode
-      bi_engine_code = stats.query&.bi_engine_statistics&.bi_engine_reasons&.frst&.code
+      bi_engine_code = stats.query&.bi_engine_statistics&.bi_engine_reasons&.first&.code
       bi_engine_message = stats.query&.bi_engine_statistics&.bi_engine_reasons&.first&.message
 
       <<-STATS
