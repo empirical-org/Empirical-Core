@@ -131,11 +131,13 @@ export const StudentSection = ({
   }, [searchCount, diagnosticTypeValue])
 
   React.useEffect(() => {
+    if (studentData && recommendationsData) {
       const formattedData = aggregateStudentData(studentData, recommendationsData)
       if(formattedData) {
         updateVisibleData(formattedData);
         setLoading(false)
       }
+    }
   }, [studentData, recommendationsData])
 
 
