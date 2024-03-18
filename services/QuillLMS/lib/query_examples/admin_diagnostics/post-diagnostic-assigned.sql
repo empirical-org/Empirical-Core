@@ -1,11 +1,11 @@
         /*
            Data Processed By Query: 0.78 GB
            Bytes Billed For Query:  0.78 GB
-           Total Query Time:        2509 ms
-           Total Slot Time:         192071 ms
+           Total Query Time:        1256 ms
+           Total Slot Time:         184464 ms
            BI Engine Mode Used:     BI_ENGINE_DISABLED
              BI Engine Code:          INPUT_TOO_LARGE
-             BI Engine Message:       Cannot broadcast table lms.classrooms: number of files 241 > supported limit of 20.
+             BI Engine Message:       Cannot broadcast table lms.classrooms: number of files 247 > supported limit of 20.
         */
         WITH aggregate_rows AS (                SELECT
           activities.id AS diagnostic_id,

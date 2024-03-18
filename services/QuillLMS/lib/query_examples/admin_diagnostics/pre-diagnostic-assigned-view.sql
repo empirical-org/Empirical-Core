@@ -1,11 +1,11 @@
         /*
-           Data Processed By Query: 1.58 GB
-           Bytes Billed For Query:  0.23 GB
-           Total Query Time:        1167 ms
-           Total Slot Time:         3196 ms
-           BI Engine Mode Used:     FULL_INPUT
-             BI Engine Code:          
-             BI Engine Message:       
+           Data Processed By Query: 1.54 GB
+           Bytes Billed For Query:  1.54 GB
+           Total Query Time:        1967 ms
+           Total Slot Time:         134234 ms
+           BI Engine Mode Used:     BI_ENGINE_DISABLED
+             BI Engine Code:          INPUT_TOO_LARGE
+             BI Engine Message:       Cannot broadcast table analytics-data-stores.lms.classrooms: number of files 247 > supported limit of 20.
         */
         WITH aggregate_rows AS (                SELECT
           performance.activity_id AS diagnostic_id,
@@ -13,7 +13,7 @@
           filter.classroom_id AS aggregate_id,
           filter.classroom_name AS name,
           'classroom' AS group_by,
-          COUNT(DISTINCT CONCAT(performance.classroom_unit_id, ':', performance.student_id)) AS pre_students_assigned
+          COUNT(DISTINCT CONCAT(performance.pre_classroom_unit_id, ':', performance.student_id)) AS pre_students_assigned
 
                 FROM lms.pre_post_diagnostic_skill_group_performance_view AS performance
         JOIN lms.school_classroom_teachers_view AS filter ON performance.classroom_id = filter.classroom_id

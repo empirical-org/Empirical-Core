@@ -45,6 +45,7 @@ module AdminDiagnosticReports
 
       context 'no students assigned to classroom_unit' do
         let(:pre_diagnostic_assigned_students) { [] }
+        let(:post_diagnostic_assigned_students) { [] }
 
         it { expect(results).to eq([]) }
       end
