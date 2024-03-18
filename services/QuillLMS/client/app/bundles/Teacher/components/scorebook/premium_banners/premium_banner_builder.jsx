@@ -34,7 +34,7 @@ export default class PremiumBannerBuilder extends React.Component {
   stateSpecificComponents = () => {
     const { has_premium, first_day_of_premium_or_trial, trial_days_remaining, last_subscription_was_trial, } = this.state
 
-    const { originPage, upgradeToPremiumNowButton } = this.props
+    const { originPage, upgradeToPremiumNow } = this.props
     if (has_premium === 'none'){
       return(<FreeTrialBanner status={has_premium} />);
     }
@@ -49,7 +49,7 @@ export default class PremiumBannerBuilder extends React.Component {
             lastSubscriptionWasTrial={last_subscription_was_trial}
             originPage={originPage}
             status={has_premium}
-            upgradeToPremiumNowButton={upgradeToPremiumNowButton}
+            upgradeToPremiumNow={upgradeToPremiumNow}
           />
         </span>
       );
@@ -59,28 +59,15 @@ export default class PremiumBannerBuilder extends React.Component {
     }
   };
 
-  stateSpecificBackGroundColor = () => {
-    const { daysLeft, } = this.props
-    if (daysLeft === 30){
-      return('#d0ffc6');
-    } else {
-      return('#ffe7c0');
-    }
-  };
-
   hasPremium = () => {
     const { has_premium, first_day_of_premium_or_trial, } = this.state
-    let color = this.stateSpecificBackGroundColor();
-    let divStyle = {
-      backgroundColor: color
-    };
     if ((has_premium === null) || (has_premium === 'school') || ((has_premium === 'paid') && (first_day_of_premium_or_trial === false))) {
       return (<span />);
     } else
     {
       return (
         <div>
-          <div id='premium-banner' style={divStyle}>
+          <div id='premium-banner'>
             <div className='container'>
               {this.stateSpecificComponents()}
             </div>

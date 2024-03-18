@@ -1,4 +1,7 @@
 import React from 'react';
+import { PostNavigationBanner } from '../../../../Shared';
+
+
 export default class extends React.Component {
   stateSpecificComponents = () => {
     if (this.props.status == 'trial') {
@@ -9,18 +12,25 @@ export default class extends React.Component {
   };
 
   render() {
+    const { stats } = this.props
+
+    const headerText = stats == 'trial' ? "Success! You started your 30 day trial" : "Success! You now have Premium"
     return (
-      <div className='row new-sign-up-banner'>
-        <div className='col-md-9 col-xs-12 pull-left'>
-          {this.stateSpecificComponents()}
-          <span>Now let’s save time grading and gain actionable insights.</span>
-        </div>
-        <div className='col-md-3 col-xs-12 pull-right'>
-          <div className='premium-button-box text-center'>
-            <a href='/teachers/progress_reports/concepts/students'><button className='button-green' type='button'>Check out Your Premium Student Results</button></a>
-          </div>
-        </div>
-      </div>
+      <PostNavigationBanner
+        bannerStyle="gold"
+        bodyText={"Now let’s save time grading and gain actionable insights."}
+        buttons={[
+          {
+            href: "/teachers/progress_reports/concepts/students",
+            standardButtonStyle: true,
+            text: "Check out Your Premium Student Results",
+            target: ""
+          }
+        ]}
+        icon={{ alt: "", src: "" }}
+        primaryHeaderText={headerText}
+        tagText=""
+      />
     );
   }
 }

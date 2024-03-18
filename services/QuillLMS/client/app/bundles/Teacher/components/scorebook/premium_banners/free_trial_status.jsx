@@ -1,30 +1,46 @@
 import * as React from 'react';
+import { PostNavigationBanner } from '../../../../Shared';
 
-const FreeTrialStatus = ({ status, originPage, upgradeToPremiumNowButton, lastSubscriptionWasTrial, data, }) => {
-  const stateSpecificComponents = () => {
-    if (status == 'trial') {
-      return <h4>You have {data} days left in your trial.</h4>
-    } else if (status == 'locked') {
-      return <h4>Your Premium {lastSubscriptionWasTrial ? 'Trial' : 'Subscription'} Has Expired</h4>
+
+const FreeTrialStatus = ({ status, originPage, upgradeToPremiumNow, lastSubscriptionWasTrial, data, }) => {
+
+  const headerText = status == 'trial' ? `You have ${data} days left in your trial.` : `Your Premium ${lastSubscriptionWasTrial ? 'Trial' : 'Subscription'} Has Expired`
+
+  const upgradeButton = () => {
+    if (originPage == 'premium') {
+      return {
+        onClick: upgradeToPremiumNow,
+        standardButtonStyle: true,
+        text: "Upgrade to Premium Now",
+        target: ""
+      }
+    } else {
+      return {
+        href: "/premium",
+        standardButtonStyle: true,
+        text: "Upgrade to Premium Now",
+        target: ""
+      }
     }
-  };
-
-  const premiumButton = (originPage === 'premium')
-    ? upgradeToPremiumNowButton()
-    : <a href='/premium'><button className='btn-orange' type='button'>Upgrade to Premium Now</button></a>
+  }
 
   return (
-    <div className='row'>
-      <div className='col-md-9 col-xs-12 pull-left'>
-        {stateSpecificComponents()}
-        <span>Getting value out of Premium? <a href='/premium'>Check out our pricing plans.</a></span>
-      </div>
-      <div className='col-md-3 col-xs-12 pull-right'>
-        <div className='premium-button-box text-center'>
-          {premiumButton}
-        </div>
-      </div>
-    </div>
+    <PostNavigationBanner
+      bannerStyle="gold"
+      bodyText="Getting value out of Premium?"
+      buttons={[
+        upgradeButton(),
+        {
+          href: "/premium",
+          standardButtonStyle: false,
+          text: "Check out our pricing plans.",
+          target: ""
+        }
+      ]}
+      icon={{ alt: "", src: "" }}
+      primaryHeaderText={headerText}
+      tagText=""
+    />
   );
 }
 
