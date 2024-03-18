@@ -148,7 +148,9 @@ class ActivitySessionsController < ApplicationController
     if current_user.classrooms.exclude?(@classroom_unit.classroom) then auth_failed(hard: false) end
   end
 
-  private def determine_layout = "integrations" if partner_session?
+  def determine_layout
+    "integrations" if partner_session?
+  end
 
   private def allow_iframe
     response.headers.delete "X-Frame-Options"
