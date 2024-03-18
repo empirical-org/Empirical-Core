@@ -34,15 +34,24 @@ describe ActivitySessionsController, type: :controller do
   end
 
   describe '#result' do
+    let(:student_user) { create(:user) }
+    let(:activity_session_with_results) { create(:activity_session_without_concept_results, user: student_user) }
+    let(:concept) { create(:concept_with_grandparent) }
+    let!(:incorrect_concept_result) { create(:concept_result, activity_session: activity_session_with_results, correct: false, concept_id: concept.id, question_score: 0, question_number: 1, extra_metadata: { question_concept_uid: concept.uid }) }
+    let!(:correct_concept_result) { create(:concept_result, activity_session: activity_session_with_results, correct: true, concept_id: concept.id, question_score: 1, question_number: 2, extra_metadata: { question_concept_uid: concept.uid }) }
+    let!(:classrooms_teacher) { create(:classrooms_teacher, classroom: activity_session_with_results.classroom_unit.classroom) }
+
     it 'should set the activity results classroom_id' do
-      get :result, params: { uid: activity_session.uid }
-      expect(assigns(:activity)).to eq activity_session
-      expect(assigns(:results)).to eq activity_session.parse_for_results
-      expect(assigns(:classroom_id)).to eq activity_session.classroom_unit.classroom_id
+      get :result, params: { uid: activity_session_with_results.uid }
+      expect(assigns(:activity)).to eq activity_session_with_results
+      expect(assigns(:classroom_id)).to eq activity_session_with_results.classroom_unit.classroom_id
+      expect(assigns(:grouped_key_target_skill_concepts)).to eq [{ name: concept.parent.name, correct: 1, incorrect: 1 }]
+      expect(assigns(:number_of_questions)).to eq 2
+      expect(assigns(:number_of_correct_questions)).to eq 1
     end
 
     it 'should allow iFrames for this endpoint' do
-      get :result, params: { uid: activity_session.uid }
+      get :result, params: { uid: activity_session_with_results.uid }
       expect(response.headers).not_to include('X-Frame-Options')
     end
 

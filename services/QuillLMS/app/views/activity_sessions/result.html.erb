@@ -8,5 +8,9 @@
   integrationPartnerSessionId: @partner_session_id,
   classroomUnitId: @activity_session.classroom_unit_id,
   activityId: @activity_session.activity_id,
-  resultCategoryNames: @result_category_names
+  resultCategoryNames: @result_category_names,
+  showExactScore: @activity_session&.classroom_unit&.classroom&.owner&.teacher_info&.show_students_exact_score,
+  numberOfQuestions: @number_of_questions,
+  numberOfCorrectQuestions: @number_of_correct_questions,
+  groupedKeyTargetSkillConcepts: @grouped_key_target_skill_concepts
 }) %>

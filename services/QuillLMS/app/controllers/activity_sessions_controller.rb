@@ -2,6 +2,7 @@
 
 class ActivitySessionsController < ApplicationController
   include HTTParty
+  include PublicProgressReports
 
   layout :determine_layout
 
@@ -25,23 +26,20 @@ class ActivitySessionsController < ApplicationController
 
   def result
     allow_iframe
-    if session[:partner_session]
-      @partner_name = session[:partner_session]["partner_name"]
-      @partner_session_id = session[:partner_session]["session_id"]
-    end
-    if @partner_name && @partner_session_id
-      @activity_url = @activity_session.activity.anonymous_module_url.to_s
-      @results_url = url_for(action: 'result', uid: @activity_session.uid)
-      AmplifyReportActivityWorker.perform_async(@partner_session_id, @activity_session.activity.name, @activity_session.activity.description, @activity_session.percentage, @activity_url, @results_url)
-    end
+
+    run_partner_session_worker
+
     @activity = @activity_session
-    @results  = @activity_session.parse_for_results
     @classroom_id = @activity_session&.classroom_unit&.classroom_id
-    @result_category_names = {
-      FREQUENTLY_DEMONSTRATED_SKILL: ActivitySession::FREQUENTLY_DEMONSTRATED_SKILL,
-      SOMETIMES_DEMONSTRATED_SKILL: ActivitySession::SOMETIMES_DEMONSTRATED_SKILL,
-      RARELY_DEMONSTRATED_SKILL: ActivitySession::RARELY_DEMONSTRATED_SKILL
-    }
+
+    questions = @activity_session.concept_results.group_by { |cr| cr.question_number }
+    key_target_skill_concepts = questions.map { |key, question| get_key_target_skill_concept_for_question(question, @activity_session) }
+    correct_key_target_skill_concepts = key_target_skill_concepts.filter { |ktsc| ktsc[:correct] }
+
+    @number_of_questions = questions.length
+    @number_of_correct_questions = correct_key_target_skill_concepts.length
+    @grouped_key_target_skill_concepts = format_grouped_key_target_skill_concepts(key_target_skill_concepts)
+
     @title = 'Classwork'
   end
 
@@ -54,6 +52,26 @@ class ActivitySessionsController < ApplicationController
   def activity_session_from_classroom_unit_and_activity
     started_activity_session_id = ActivitySession.find_or_create_started_activity_session(current_user.id, params[:classroom_unit_id], params[:activity_id])&.id
     redirect_to "/activity_sessions/#{started_activity_session_id}/play"
+  end
+
+  private def partner_session? = session[:partner_session].present? && partner_name && partner_session_id
+  private def partner_name = session[:partner_session]["partner_name"]
+  private def partner_session_id = session[:partner_session]["session_id"]
+
+  private def run_partner_session_worker
+    return unless partner_session?
+
+    activity_url = @activity_session.activity.anonymous_module_url.to_s
+    results_url = url_for(action: 'result', uid: @activity_session.uid)
+
+    AmplifyReportActivityWorker.perform_async(
+      partner_session_id,
+      @activity_session.activity.name,
+      @activity_session.activity.description,
+      @activity_session.percentage,
+      activity_url,
+      results_url
+    )
   end
 
   private def activity_session_from_id
@@ -130,14 +148,8 @@ class ActivitySessionsController < ApplicationController
     if current_user.classrooms.exclude?(@classroom_unit.classroom) then auth_failed(hard: false) end
   end
 
-  private def determine_layout
-    return unless session[:partner_session]
-
-    @partner_name = session[:partner_session]["partner_name"]
-    @partner_session_id = session[:partner_session]["session_id"]
-    return unless  @partner_name && @partner_session_id
-
-    "integrations"
+  def determine_layout
+    "integrations" if partner_session?
   end
 
   private def allow_iframe
