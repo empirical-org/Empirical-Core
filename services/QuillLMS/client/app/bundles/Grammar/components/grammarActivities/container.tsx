@@ -3,6 +3,7 @@ import { Response } from 'quill-marking-logic';
 import * as React from "react";
 import { connect } from "react-redux";
 import * as Redux from "redux";
+import Pusher from 'pusher-js';
 
 import Intro from './intro';
 import QuestionComponent from './question';
@@ -255,7 +256,23 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       }
     }
 
+    initializeSubscription(activitySessionUid) {
+      if (process.env.NODE_ENV === 'development') {
+        Pusher.logToConsole = true;
+      }
+      if (!window.pusher) {
+        window.pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
+      }
+      const channel = window.pusher.subscribe(activitySessionUid);
+      channel.bind('concept-results-saved', () => {
+        document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${activitySessionUid}`;
+        this.setState({ saved: true, });
+      });
+    }
+
     finishActivitySession = (sessionID: string, results: FormattedConceptResult[], score: number, data) => {
+      this.initializeSubscription(sessionID)
+
       requestPut(
         `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
         {
@@ -265,8 +282,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
           data
         },
         (body) => {
-          document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
-          this.setState({ saved: true, });
+          // not doing anything here because Pusher should handle the redirect once the concept results are saved
         },
         (body) => {
           this.setState({
@@ -292,7 +308,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         },
         (body) => {
           if (!showTurkCode && !previewMode) {
-            document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
+            this.initializeSubscription(body.activity_session.uid)
           }
         }
       )

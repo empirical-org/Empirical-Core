@@ -83,23 +83,14 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   private def handle_concept_results
     return if !@concept_results
 
-    @concept_results
-      .map { |cr| concept_results_hash(cr) }
-      .reject(&:empty?)
-      .each { |crh| SaveActivitySessionConceptResultsWorker.perform_async(crh) }
+    BatchSaveActivitySessionConceptResultsWorker.perform_async(@concept_results, @activity_session.id, @activity_session.uid)
+
   end
 
   private def send_teacher_notifications
     return unless @activity_session.completed_at.present?
 
     TeacherNotifications::FanoutSendNotificationsWorker.perform_async(@activity_session.id)
-  end
-
-  private def concept_results_hash(concept_result)
-    concept = Concept.find_by(uid: concept_result["concept_uid"])
-    return {} if concept.blank?
-
-    concept_result.merge(concept_id: concept.id, activity_session_id: @activity_session.id)
   end
 
   private def find_activity_session

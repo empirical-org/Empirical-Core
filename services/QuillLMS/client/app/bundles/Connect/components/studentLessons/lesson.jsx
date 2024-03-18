@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import Pusher from 'pusher-js';
 
 import PlayFillInTheBlankQuestion from './fillInBlank.tsx';
 import Finished from './finished.jsx';
@@ -211,6 +212,21 @@ export class Lesson extends React.Component {
     return question;
   }
 
+  initializeSubscription(activitySessionUid) {
+    if (process.env.NODE_ENV === 'development') {
+      Pusher.logToConsole = true;
+    }
+    if (!window.pusher) {
+      window.pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
+    }
+    const channel = window.pusher.subscribe(activitySessionUid);
+    channel.bind('concept-results-saved', () => {
+      document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${activitySessionUid}`;
+      this.setState({ saved: true, });
+    });
+  }
+
+
   createAnonActivitySession = (lessonID, results, score, data) => {
     requestPost(
       `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
@@ -222,13 +238,14 @@ export class Lesson extends React.Component {
         data
       },
       (body) => {
-        document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
-        this.setState({ saved: true, });
+        this.initializeSubscription(body.activity_session.uid)
       }
     )
   }
 
   finishActivitySession = (sessionID, results, score, data) => {
+    this.initializeSubscription(sessionID)
+
     requestPut(
       `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
       {
@@ -238,8 +255,7 @@ export class Lesson extends React.Component {
         data
       },
       (body) => {
-        document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${sessionID}`;
-        this.setState({ saved: true, });
+        // doing nothing here because the Pusher subscription should handle a redirect once concept results are saved
       },
       (body) => {
         this.setState({
