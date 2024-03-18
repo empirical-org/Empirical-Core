@@ -19,11 +19,7 @@
       </div>
     </footer>
   <% else %>
-    <% if request.path.include?('premium_hub') %>
-      <div class="premium-footer-container">
-        <%= react_component('PremiumFooterApp') unless request.path.include?('premium_hub') %>
-      </div>
-    <% end %>
+    <%= render partial: 'application/premium_footer' unless request.path.include?('premium_hub') %>
     <footer class="<%=footer_class%>">
       <div class="footer-navigation">
         <%= render partial: 'pages/shared/list_of_links_with_header', locals: { header_text: "TEACHER DASHBOARD", links_array: teacher_dashboard_links } if current_user %>
