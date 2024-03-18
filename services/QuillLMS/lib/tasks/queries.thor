@@ -1,6 +1,7 @@
 require_relative '../../config/environment'
 
 class Queries < Thor
+  OUTPUT_ADMIN_DIAGNOSTICS = 'lib/query_examples/admin_diagnostics/'
 
   # user_id 9874030 is a test user
   # e.g. bundle exec thor queries:generate_snapshot_sqls 9874030
@@ -72,6 +73,54 @@ class Queries < Thor
     end
   end
 
+  # bundle exec thor queries:analyze_diagnostic_queries --dryrun=false
+  desc 'analyze_diagnostic_queries --dryrun=true/false', 'Benchmark Google BigQuery queries for comparison'
+  method_option :dryrun, type: :boolean, default: true
+  def analyze_diagnostic_queries
+    dryrun = options[:dryrun]
+
+    multi_queries = {
+      'post-diagnostic-completed-view' => ::AdminDiagnosticReports::PostDiagnosticCompletedViewQuery
+    }
+
+    single_queries = {
+      'diagnostic-skills' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillQuery,
+      # 'diagnostic-skills-view' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillViewQuery
+    }
+
+    student_queries = {
+      # 'diagnostic-students-view' => ::AdminDiagnosticReports::DiagnosticPerformanceByStudentViewQuery
+    }
+
+    multi_queries2 = {
+      'pre-diagnostic-assigned' => ::AdminDiagnosticReports::PreDiagnosticAssignedQuery,
+      'pre-diagnostic-completed' => ::AdminDiagnosticReports::PreDiagnosticCompletedQuery,
+      'recommendations' => ::AdminDiagnosticReports::DiagnosticRecommendationsQuery,
+      'post-diagnostic-assigned' => ::AdminDiagnosticReports::PostDiagnosticAssignedQuery
+    }
+
+    timeframe_start = DateTime.parse(DEFAULT_START)
+    timeframe_end = DateTime.parse(DEFAULT_END)
+    school_ids = [38811,38804,38801,38800,38779,38784,38780,38773,38765,38764]
+    aggregation = 'classroom'
+
+    multi_args = {
+      timeframe_start:,
+      timeframe_end:,
+      school_ids:,
+      aggregation:
+    }
+    single_args = multi_args.merge({
+      diagnostic_id: 1663 # The starter pre diagnostic
+    })
+    student_args = single_args.except(:aggregation)
+
+    multi_queries.each {|key, query| run_admin_query(key, query, multi_args, dryrun) }
+    single_queries.each {|key, query| run_admin_query(key, query, single_args, dryrun) }
+    student_queries.each {|key, query| run_admin_query(key, query, student_args, dryrun) }
+    multi_queries2.each {|key, query| run_admin_query(key, query, multi_args, dryrun) }
+  end
+
   # put helper methods in this block
   no_commands do
     OUTPUT_SNAPSHOTS = 'lib/query_examples/snapshots/'
@@ -103,6 +152,14 @@ class Queries < Thor
       [*::Snapshots::TOPX_QUERY_MAPPING, *::Snapshots::COUNT_QUERY_MAPPING].to_h
     end
 
+    private def run_admin_query(name, query, args, dryrun)
+      output_directory = make_directory(OUTPUT_ADMIN_DIAGNOSTICS)
+      sql = query.new(**args).query
+
+      metadata = query_metadata(sql, dryrun:)
+      File.write(output_directory + "#{name}.sql", metadata + sql)
+    end
+
     private def parse_result(result)
       if result.is_a?(Array)
         result.map {|h| "#{h[:value]}: #{h[:count]}"}.join(', ')
@@ -125,15 +182,36 @@ class Queries < Thor
         .pluck(:school_id)
     end
 
-    private def query_metadata(sql)
-      job = Google::Cloud::Bigquery.new.query_job(sql, dryrun: true)
-      bytes = job.gapi.statistics.total_bytes_processed
+    # rubocop:disable Metrics/CyclomaticComplexity
+    private def query_metadata(sql, dryrun: true)
+      job = Google::Cloud::Bigquery.new.query_job(sql, cache: false, dryrun: dryrun)
+      job.wait_until_done!
+      stats = job.gapi.statistics
+
+      run_time = stats.end_time.to_i - stats.start_time.to_i
+
+      bytes = stats.total_bytes_processed
       gb_processed = (bytes * 1e-9).round(2)
+      total_bytes_billed = stats.query&.total_bytes_billed
+      gb_billed = (total_bytes_billed * 1e-9).round(2)
+      total_slot_ms = stats.query&.total_slot_ms
 
-      <<-STRING
-      /* Data Processed By Query: #{gb_processed} GB */
+      bi_engine_mode = stats.query&.bi_engine_statistics&.acceleration_mode
+      bi_engine_code = stats.query&.bi_engine_statistics&.bi_engine_reasons&.first&.code
+      bi_engine_message = stats.query&.bi_engine_statistics&.bi_engine_reasons&.first&.message
 
-      STRING
+      <<-STATS
+        /*
+           Data Processed By Query: #{gb_processed} GB
+           Bytes Billed For Query:  #{gb_billed} GB
+           Total Query Time:        #{run_time} ms
+           Total Slot Time:         #{total_slot_ms} ms
+           BI Engine Mode Used:     #{bi_engine_mode}
+             BI Engine Code:          #{bi_engine_code}
+             BI Engine Message:       #{bi_engine_message}
+        */
+      STATS
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
   end
 end
