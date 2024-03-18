@@ -1,8 +1,8 @@
         /*
            Data Processed By Query: 0.12 GB
            Bytes Billed For Query:  0.0 GB
-           Total Query Time:        811 ms
-           Total Slot Time:         505 ms
+           Total Query Time:        620 ms
+           Total Slot Time:         382 ms
            BI Engine Mode Used:     FULL_INPUT
              BI Engine Code:          
              BI Engine Message:       
