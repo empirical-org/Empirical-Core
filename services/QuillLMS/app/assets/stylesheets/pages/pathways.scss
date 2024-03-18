@@ -1,5 +1,6 @@
 .pathways-page {
   max-width: 950px;
+  a
   .header {
     max-width: 656px;
     h1 {
@@ -29,9 +30,6 @@
         font-size: 16px;
       }
     }
-    a:hover {
-      text-decoration: none;
-    }
   }
   .text-section {
     max-width: 656px;
@@ -45,9 +43,9 @@
     p {
       font-size: 16px;
       line-height: 1.5;
-      a {
-        text-decoration: underline;
-      }
+    }
+    a {
+      text-decoration: underline;
     }
     .quote-container {
       display: flex;
@@ -63,6 +61,10 @@
   }
   #last-text-section {
     margin-bottom: 0px;
+  }
+
+  img {
+    max-width: 100%;
   }
 }
 
