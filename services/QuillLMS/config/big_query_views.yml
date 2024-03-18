@@ -33,3 +33,8 @@ default:
     name: 'recent_reporting_sessions_view'
     name_fallback: 'recent_reporting_sessions_local'
     sql: 'reporting_sessions_view.sql'
+  school_classroom_teachers_view:
+    dataset: 'lms'
+    name: 'school_classroom_teachers_view'
+    name_fallback: 'school_classroom_teachers_local'
+    sql: 'school_classroom_teachers_view.sql'

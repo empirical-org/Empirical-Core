@@ -61,8 +61,7 @@ module AdminDiagnosticReports
       {
         'grade' => "grade",
         'classroom' => "classroom_id",
-        'teacher' => "teacher_id",
-        'student' => "CONCAT(classroom_id, ':', user_id)"
+        'teacher' => "teacher_id"
       }.fetch(additional_aggregation)
     end
 
@@ -70,8 +69,7 @@ module AdminDiagnosticReports
       {
         'grade' => "grade",
         'classroom' => "classroom_name",
-        'teacher' => "teacher_name",
-        'student' => "user_id"
+        'teacher' => "teacher_name"
       }.fetch(additional_aggregation)
     end
 
