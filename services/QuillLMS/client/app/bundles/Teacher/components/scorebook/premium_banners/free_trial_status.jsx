@@ -1,13 +1,14 @@
 import * as React from 'react';
+
 import { PostNavigationBanner } from '../../../../Shared';
 
 
 const FreeTrialStatus = ({ status, originPage, upgradeToPremiumNow, lastSubscriptionWasTrial, data, }) => {
 
-  const headerText = status == 'trial' ? `You have ${data} days left in your trial.` : `Your Premium ${lastSubscriptionWasTrial ? 'Trial' : 'Subscription'} Has Expired`
+  const headerText = status === 'trial' ? `You have ${data} days left in your trial.` : `Your Premium ${lastSubscriptionWasTrial ? 'Trial' : 'Subscription'} Has Expired`
 
   const upgradeButton = () => {
-    if (originPage == 'premium') {
+    if (originPage === 'premium') {
       return {
         onClick: upgradeToPremiumNow,
         standardButtonStyle: true,
@@ -37,7 +38,7 @@ const FreeTrialStatus = ({ status, originPage, upgradeToPremiumNow, lastSubscrip
           target: ""
         }
       ]}
-      icon={{ alt: "", src: "" }}
+      icon={{ alt: "an orange jewel representing quill premium", src: `${process.env.CDN_URL}/images/icons/premium.svg` }}
       primaryHeaderText={headerText}
       tagText=""
     />

@@ -21,6 +21,7 @@ import ExpandableUnitSection from './ExpandableUnitClient';
 import ForgotPasswordApp from './ForgotPasswordAppClient';
 import LessonPlannerApp from './LessonPlannerAppClient';
 import PreApApp from './PreApAppClient';
+import PremiumFooterApp from './PremiumFooterAppClient';
 import PremiumHubApp from './PremiumHubAppClient';
 import PremiumPricingGuideApp from './PremiumPricingGuideAppClient';
 import PressApp from './PressAppClient';
@@ -56,6 +57,7 @@ ReactOnRails.register({
   LessonPlannerApp,
   TeacherAccountApp,
   ScorebookApp,
+  PremiumFooterApp,
   PremiumPricingGuideApp,
   ProgressReportApp,
   ResultsPageApp,

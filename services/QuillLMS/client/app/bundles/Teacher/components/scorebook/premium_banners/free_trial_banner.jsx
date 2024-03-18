@@ -1,7 +1,9 @@
 import React from 'react';
-import { requestPost } from '../../../../../modules/request/index';
+
 import NewSignUpBanner from './new_signup_banner.jsx';
+
 import { PostNavigationBanner } from '../../../../Shared';
+import { requestPost } from '../../../../../modules/request/index';
 
 
 export default class FreeTrialBanner extends React.Component {
@@ -41,7 +43,7 @@ export default class FreeTrialBanner extends React.Component {
             target: ""
           }
         ]}
-        icon={{ alt: "", src: "" }}
+        icon={{ alt: "an orange jewel representing quill premium", src: `${process.env.CDN_URL}/images/icons/premium.svg` }}
         primaryHeaderText="Try Premium for Free"
         tagText=""
       />
