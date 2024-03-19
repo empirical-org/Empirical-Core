@@ -21,7 +21,6 @@ import ExpandableUnitSection from './ExpandableUnitClient';
 import ForgotPasswordApp from './ForgotPasswordAppClient';
 import LessonPlannerApp from './LessonPlannerAppClient';
 import PreApApp from './PreApAppClient';
-import PremiumFooterApp from './PremiumFooterAppClient';
 import PremiumHubApp from './PremiumHubAppClient';
 import PremiumPricingGuideApp from './PremiumPricingGuideAppClient';
 import PressApp from './PressAppClient';
@@ -45,6 +44,7 @@ import UnitTemplateCategoriesApp from './UnitTemplateCategoriesAppClient';
 import UploadRostersApp from '../../Staff/startup/UploadRostersAppClient';
 import StudentFeedbackModal from '../../Student/startup/StudentFeedbackModalAppClient';
 import StudentNavbarItems from '../../Student/startup/StudentNavbarItemsAppClient';
+import PremiumFooterApp from '../../Footer/startup/PremiumFooterAppClient.jsx';
 
 import '../styles/styles.scss';
 import '../../../assets/javascripts/clickHandlers.js'

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PostNavigationBanner } from '../../Shared';
+import { PostNavigationBanner } from '../../Shared/index';
 
 
 const PremiumFooterAppClient = () => {

@@ -3,7 +3,7 @@ import 'lazysizes';
 import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 import ReactOnRails from 'react-on-rails';
 
-import PremiumFooterApp from '../../Teacher/startup/PremiumFooterAppClient.jsx';
+import PremiumFooterApp from '../../Footer/startup/PremiumFooterAppClient.jsx';
 import '../../../assets/javascripts/clickHandlers';
 import '../../../assets/styles/home.scss';
 import './bootstrap_carousel.js';
