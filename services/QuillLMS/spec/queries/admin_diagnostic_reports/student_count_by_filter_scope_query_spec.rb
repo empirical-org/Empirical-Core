@@ -40,6 +40,12 @@ module AdminDiagnosticReports
 
       let(:count) { results[:count] }
 
+      context 'students have results from multiple classrooms' do
+        let(:classroom_count) { 2 }
+
+        it { expect(count).to eq(students.count * 2) }
+      end
+
       context 'filter by school_ids only' do
         let(:grades) { nil }
         let(:teacher_ids) { nil }
