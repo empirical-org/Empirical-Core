@@ -7,6 +7,7 @@ import {
   ResponseSortFields,
   ResponseToggleFields,
   hashToCollection,
+  responsesWithStatus,
 } from '../../../Shared/index';
 import * as filterActions from '../../actions/filters';
 import massEdit from '../../actions/massEdit';
@@ -194,6 +195,12 @@ class ResponseComponent extends React.Component {
     return _.mapObject(this.responsesGroupedByStatus(), (val, key) => _.reduce(val, (memo, resp) => memo + (resp.count || 0), 0));
   };
 
+  responsesWithStatus = () => {
+    const { filters } = this.props
+
+    return hashToCollection(responsesWithStatus(filters.responses));
+  };
+
   formatForQuestionBar = () => {
     // {"human_optimal":153,"human_suboptimal":140,"algo_optimal":0,"algo_suboptimal":8780,"unmatched":28820}
     const totalResponseCount = this.state.health.total_number_of_attempts;
@@ -236,6 +243,7 @@ class ResponseComponent extends React.Component {
     if (this.state.viewingResponses) {
       const { responses } = this.state;
       const { questionID, selectedIncorrectSequences, selectedFocusPoints } = this.props;
+      const sortedResponses = _.sortBy(hashToCollection(responses), 'sortOrder')
       return (
         <ResponseList
           admin={this.props.admin}
@@ -250,7 +258,7 @@ class ResponseComponent extends React.Component {
           mode={this.props.mode}
           question={this.props.question}
           questionID={questionID}
-          responses={hashToCollection(responses)}
+          responses={sortedResponses}
           selectedFocusPoints={selectedFocusPoints}
           selectedIncorrectSequences={selectedIncorrectSequences}
           states={this.props.states}
