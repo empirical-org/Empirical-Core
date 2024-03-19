@@ -34,23 +34,20 @@ module AdminDiagnosticReports
       super(**options)
     end
 
-    def materialized_views = [active_classroom_stubs_view, performance_view]
+    def materialized_views = [filter_view, performance_view]
 
-    def active_classroom_stubs_view = materialized_view('active_classroom_stubs_view')
+    def filter_view = materialized_view('school_classroom_teachers_view')
     def performance_view = materialized_view('pre_post_diagnostic_skill_group_performance_view')
 
     def run = {count: run_query.first[:count]}
 
-    def select_clause = "SELECT COUNT(DISTINCT student_id) AS count"
+    def select_clause = "SELECT COUNT(DISTINCT CONCAT(performance.classroom_id, ':', performance.student_id)) AS count"
 
     def from_and_join_clauses
       # NOTE: This implementation does not use super, and overrides the base query entirely in order to use materialized views
       <<-SQL
         FROM lms.pre_post_diagnostic_skill_group_performance_view AS performance
-        JOIN lms.active_classroom_stubs_view AS classrooms ON performance.classroom_id = classrooms.id
-        JOIN lms.classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id AND classrooms_teachers.role = 'owner'
-        JOIN lms.schools_users ON classrooms_teachers.user_id = schools_users.user_id
-        JOIN lms.schools ON schools_users.school_id = schools.id
+        JOIN lms.school_classroom_teachers_view AS filter ON performance.classroom_id = filter.classroom_id
       SQL
     end
 
@@ -59,7 +56,6 @@ module AdminDiagnosticReports
         WHERE #{timeframe_where_clause}
           #{classroom_ids_where_clause}
           #{grades_where_clause}
-          #{owner_teachers_only_where_clause}
           #{relevant_diagnostic_where_clause}
           #{school_ids_where_clause}
           #{teacher_ids_where_clause}
@@ -69,12 +65,12 @@ module AdminDiagnosticReports
 
     def timeframe_where_clause = "#{relevant_date_column} BETWEEN '#{timeframe_start.to_fs(:db)}' AND '#{timeframe_end.to_fs(:db)}'"
     def classroom_ids_where_clause = ("AND classrooms.id IN (#{classroom_ids.join(',')})" if classroom_ids.present?)
-    def grades_where_clause = ("AND (classrooms.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')}) #{grades_where_null_clause})" if grades.present?)
-    def grades_where_null_clause = ("OR classrooms.grade IS NULL" if grades.include?('null'))
-    def owner_teachers_only_where_clause = "AND classrooms_teachers.role = '#{ClassroomsTeacher::ROLE_TYPES[:owner]}'"
+    def classroom_ids_where_clause = ("AND filter.classroom_id IN (#{classroom_ids.join(',')})" if classroom_ids.present?)
+    def grades_where_clause = ("AND (filter.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')}) #{grades_where_null_clause})" if grades.present?)
+    def grades_where_null_clause = ("OR filter.grade IS NULL" if grades.include?('null'))
     def relevant_diagnostic_where_clause = "AND performance.activity_id IN (#{DIAGNOSTIC_ORDER_BY_ID.join(',')})"
-    def school_ids_where_clause = "AND schools_users.school_id IN (#{school_ids.join(',')})"
-    def teacher_ids_where_clause = ("AND schools_users.user_id IN (#{teacher_ids.join(',')})" if teacher_ids.present?)
+    def school_ids_where_clause = "AND filter.school_id IN (#{school_ids.join(',')})"
+    def teacher_ids_where_clause = ("AND filter.teacher_id IN (#{teacher_ids.join(',')})" if teacher_ids.present?)
 
     def relevant_date_column = "performance.pre_assigned_at"
   end
