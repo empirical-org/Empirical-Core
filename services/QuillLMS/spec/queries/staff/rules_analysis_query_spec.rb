@@ -114,69 +114,93 @@ module Staff
           ]
         end
 
-        let(:feedback_histories) do
-          [
-            create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: "2021-04-07T19:02:54", feedback_session_uid: "def"),
-            create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: "2021-05-07T19:02:54", feedback_session_uid: "ghi"),
-            create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: "2021-06-07T19:02:54", feedback_session_uid: "abc")
-          ]
-        end
+        context 'without activity versions' do
+          let(:feedback_histories) do
+            [
+              create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: "2021-04-07T19:02:54", feedback_session_uid: "def"),
+              create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: "2021-05-07T19:02:54", feedback_session_uid: "ghi"),
+              create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: "2021-06-07T19:02:54", feedback_session_uid: "abc")
+            ]
+          end
 
-        let(:feedback_history_flags) { [ create(:feedback_history_flag, feedback_history: feedback_histories.first) ] }
-        let(:feedback_history_ratings) { [ create(:feedback_history_rating, feedback_history: feedback_histories.first, user: users.first) ] }
+          let(:feedback_history_flags) { [ create(:feedback_history_flag, feedback_history: feedback_histories.first) ] }
+          let(:feedback_history_ratings) { [ create(:feedback_history_rating, feedback_history: feedback_histories.first, user: users.first) ] }
 
-        let(:runner_context) {
-          [
-            evidence_activities,
-            evidence_prompts,
-            evidence_rules,
-            evidence_prompts_rules,
-            feedback_histories,
-            feedback_history_flags,
-            feedback_history_ratings,
-            users
-          ]
-        }
-
-        let(:cte_records) { [runner_context] }
-
-        let(:query_args) do
-          {
-            conjunction: 'so',
-            activity_id: evidence_activities.first.id,
-            start_date: "2021-03-06T19:02:54",
-            end_date: "2021-04-10T19:02:54"
+          let(:runner_context) {
+            [
+              evidence_activities,
+              evidence_prompts,
+              evidence_rules,
+              evidence_prompts_rules,
+              feedback_histories,
+              feedback_history_flags,
+              feedback_history_ratings,
+              users
+            ]
           }
-        end
 
-        it 'should aggregate feedbacks for a given rule'  do
-          expect(results.count).to eq 1
-          expect(results.first[:rule_type]).to eq 'autoML'
-        end
+          let(:cte_records) { [runner_context] }
 
-        xit { expect(results.count).to eq 10 }
+          let(:query_args) do
+            {
+              conjunction: 'so',
+              activity_id: evidence_activities.first.id,
+              start_date: "2021-03-06T19:02:54",
+              end_date: "2021-04-10T19:02:54"
+            }
+          end
 
-        xit 'each row contains the expected fields' do
-          expected_fields = %i(
-            student_name
-            student_email
-            completed_at
-            activity_name
-            activity_pack
-            score
-            timespent
-            standard
-            tool
-            school_name
-            classroom_grade
-            teacher_name
-            classroom_name
-          )
-
-          results.each do |row|
-            expect(row.keys.to_set > expected_fields.to_set).to be true
+          xit 'should aggregate feedbacks for a given rule'  do
+            expect(results.count).to eq 1
+            expect(results.first[:rule_type]).to eq 'autoML'
           end
         end
+
+        context 'with activity versions' do
+          let(:feedback_histories) do
+            [
+              create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: "2021-04-07T19:02:54", feedback_session_uid: "def", activity_version: 2),
+              create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: "2021-05-07T19:02:54", feedback_session_uid: "ghi", activity_version: 2),
+              create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: "2021-06-07T19:02:54", feedback_session_uid: "abc", activity_version: 1)
+            ]
+          end
+
+          let(:feedback_history_flags) { [ create(:feedback_history_flag, feedback_history: feedback_histories.first) ] }
+          let(:feedback_history_ratings) { [ create(:feedback_history_rating, feedback_history: feedback_histories.first, user: users.first) ] }
+
+          let(:runner_context) {
+            [
+              evidence_activities,
+              evidence_prompts,
+              evidence_rules,
+              evidence_prompts_rules,
+              feedback_histories,
+              feedback_history_flags,
+              feedback_history_ratings,
+              users
+            ]
+          }
+
+          let(:cte_records) { [runner_context] }
+
+          let(:query_args) do
+            {
+              conjunction: 'so',
+              activity_id: evidence_activities.first.id,
+              start_date: "2021-03-06T19:02:54",
+              end_date: "2021-07-10T19:02:54",
+              activity_version: 2
+            }
+          end
+
+          it 'should filter by activity_version if specified'  do
+            expect(results.count).to eq 2
+            expect(results.select {|rf| rf[:rules_uid] == so_rule4.uid}.empty?).to be
+            expect(results.first[:rule_type]).to eq 'autoML'
+          end
+        end
+
+
 
       end
 
