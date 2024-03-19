@@ -1,18 +1,24 @@
-        /*
-           Data Processed By Query: 1.64 GB
-           Bytes Billed For Query:  0.23 GB
-           Total Query Time:        1733 ms
-           Total Slot Time:         2349 ms
-           BI Engine Mode Used:     FULL_INPUT
-             BI Engine Code:          
-             BI Engine Message:       
-        */
-        WITH aggregate_rows AS (                SELECT
-          skill_group_name,
-          filter.classroom_id AS aggregate_id,
-          filter.classroom_name AS name,
-          'classroom' AS group_by,
-                  COUNT(DISTINCT performance.pre_activity_session_id) AS pre_students_completed,
+# frozen_string_literal: true
+
+module AdminDiagnosticReports
+  class DiagnosticPerformanceBySkillViewQuery < DiagnosticAggregateViewQuery
+    class InvalidDiagnosticIdError < StandardError; end
+
+    attr_reader :diagnostic_id
+
+    AGGREGATE_COLUMN = :skill_group_name
+
+    def initialize(diagnostic_id:, **options)
+      raise InvalidDiagnosticIdError, "#{diagnostic_id} is not a valid diagnostic_id value." unless DIAGNOSTIC_ORDER_BY_ID.include?(diagnostic_id.to_i)
+
+      @diagnostic_id = diagnostic_id
+
+      super(**options)
+    end
+
+    def specific_select_clause
+      <<-SQL
+        COUNT(DISTINCT performance.pre_activity_session_id) AS pre_students_completed,
         COUNT(DISTINCT performance.post_activity_session_id) AS post_students_completed,
         ROUND(SAFE_DIVIDE(SUM(performance.pre_questions_correct), CAST(SUM(performance.pre_questions_total) AS float64)), 2) AS pre_score,
         ROUND(SAFE_DIVIDE(SUM(performance.post_questions_correct), CAST(SUM(performance.post_questions_total) AS float64)), 2) AS post_score,
@@ -32,32 +38,40 @@
         COUNT(DISTINCT CASE WHEN (pre_questions_correct = pre_questions_total AND post_questions_correct = post_questions_total) THEN performance.student_id ELSE NULL END) AS maintained_proficiency,
         COUNT(DISTINCT CASE WHEN (pre_questions_correct < pre_questions_total AND post_questions_correct > pre_questions_correct) THEN performance.student_id ELSE NULL END) AS improved_proficiency,
         COUNT(DISTINCT CASE WHEN (post_questions_correct < pre_questions_correct OR (pre_questions_correct < pre_questions_total AND post_questions_correct = pre_questions_correct)) THEN performance.student_id ELSE NULL END) AS recommended_practice
+      SQL
+    end
 
+    def rollup_select_columns = "skill_group_name"
 
-                FROM lms.pre_post_diagnostic_skill_group_performance_view AS performance
-        JOIN lms.school_classroom_teachers_view AS filter ON performance.classroom_id = filter.classroom_id
-
-                WHERE
-          performance.pre_activity_session_completed_at BETWEEN '2023-08-01 00:00:00' AND '2023-11-30 23:59:59'
-          
-          
-          AND performance.activity_id = 1663
-          AND filter.school_id IN (38811,38804,38801,38800,38779,38784,38780,38773,38765,38764)
-          
-
-        GROUP BY aggregate_id, filter.classroom_name, skill_group_name
-        
-        
-)
-                SELECT
+    def select_clause
+      <<-SQL
+        SELECT
           skill_group_name,
-          NULL as aggregate_id,
-          'ROLLUP' AS name,
-          group_by,
-          SUM(pre_students_completed) AS pre_students_completed, SUM(post_students_completed) AS post_students_completed, SUM(pre_students_completed * pre_score) / SUM(pre_students_completed) AS pre_score, SUM(post_students_completed * post_score) / SUM(post_students_completed) AS post_score, SUM(post_students_completed * growth_percentage) / SUM(post_students_completed) AS growth_percentage, SUM(maintained_proficiency) AS maintained_proficiency, SUM(improved_proficiency) AS improved_proficiency, SUM(recommended_practice) AS recommended_practice
-        FROM aggregate_rows
-        GROUP BY skill_group_name, group_by
-        UNION ALL
-        SELECT *
-          FROM aggregate_rows
+          #{aggregate_by_clause} AS aggregate_id,
+          #{aggregate_sort_clause} AS name,
+          '#{additional_aggregation}' AS group_by,
+          #{specific_select_clause}
+      SQL
+    end
 
+    def relevant_diagnostic_where_clause = "AND performance.activity_id = #{diagnostic_id}"
+    def relevant_date_column = "performance.pre_activity_session_completed_at"
+
+    def group_by_clause = "GROUP BY aggregate_id, #{aggregate_sort_clause}, skill_group_name"
+
+    private def group_sort_by(group) = group[:skill_group_name]
+
+    private def rollup_aggregation_hash
+      {
+        pre_students_completed: sum_aggregate,
+        post_students_completed: sum_aggregate,
+        pre_score: average_aggregate(:pre_students_completed),
+        post_score: average_aggregate(:post_students_completed),
+        growth_percentage: average_aggregate(:post_students_completed),
+        maintained_proficiency: sum_aggregate,
+        improved_proficiency: sum_aggregate,
+        recommended_practice: sum_aggregate
+      }
+    end
+  end
+end
