@@ -92,6 +92,10 @@ module Staff
       #end
 
       context 'without post query transforms' do
+        before do
+          described_class.class_eval { def post_query_transform(x) = x }
+        end
+
         let(:users) { [create(:user)] }
         let(:evidence_activities) { [create(:evidence_activity, title: 'Title 1', parent_activity_id: 1, target_level: 1, notes: 'an_activity_1') ] }
 
@@ -150,7 +154,7 @@ module Staff
             }
           end
 
-          xit 'should aggregate feedbacks for a given rule'  do
+          it 'should aggregate feedbacks for a given rule'  do
             expect(results.count).to eq 1
             expect(results.first[:rule_type]).to eq 'autoML'
           end
@@ -200,10 +204,7 @@ module Staff
           end
         end
 
-
-
       end
-
 
     end
   end
