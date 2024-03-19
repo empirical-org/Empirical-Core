@@ -11,7 +11,6 @@ import AccountManagement from './AccountManagement';
 import SchoolSubscriptionsContainer from './SchoolSubscriptionsContainer'
 
 import { requestGet, } from '../../../modules/request/index';
-import { PostNavigationBanner } from '../../Shared/index';
 import { NOT_LISTED, NO_SCHOOL_SELECTED, PostNavigationBanner, Spinner } from '../../Shared/index';
 import ActivityScoresStudentOverview from '../components/activity_scores_student_overview.tsx';
 import SubnavTabs from '../components/subnav_tabs.tsx';
