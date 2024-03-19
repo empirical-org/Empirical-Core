@@ -271,17 +271,15 @@ function removeSubscription(qid) {
   };
 }
 
-function updatePageNumber(pageNumber, qid) {
+function updatePageNumber(pageNumber) {
   return (dispatch) => {
     dispatch(setPageNumber(pageNumber));
-    dispatch(searchResponses(qid));
   };
 }
 
-function updateStringFilter(stringFilter, qid) {
+function updateStringFilter(stringFilter) {
   return (dispatch) => {
     dispatch(setStringFilter(stringFilter));
-    stringFilter === '' && dispatch(searchResponses(qid));
   };
 }
 
