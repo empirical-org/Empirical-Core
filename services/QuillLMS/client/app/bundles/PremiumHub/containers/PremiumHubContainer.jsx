@@ -17,19 +17,6 @@ import ActivityScoresStudentOverview from '../components/activity_scores_student
 import SubnavTabs from '../components/subnav_tabs.tsx';
 import { APPROVED, DENIED, FULL, LIMITED, LOADING, PENDING, RESTRICTED, SKIPPED } from '../shared';
 
-const BANNER_BUTTON_CLASS_NAME = "quill-button small secondary outlined focus-on-light"
-
-const Banner = ({ bodyText, headerText, buttons, }) => (
-  <section className="admin-banner">
-    <div className="banner-content">
-      <div>
-        <h3>{headerText}</h3>
-        <p>{bodyText}</p>
-      </div>
-      {buttons}
-    </div>
-  </section>
-)
 
 const ScrollToTop = ({ history, children, }) => {
   React.useEffect(() => {
