@@ -11,7 +11,8 @@ import AccountManagement from './AccountManagement';
 import SchoolSubscriptionsContainer from './SchoolSubscriptionsContainer'
 
 import { requestGet, } from '../../../modules/request/index';
-import { NOT_LISTED, NO_SCHOOL_SELECTED, Spinner } from '../../Shared/index';
+import { PostNavigationBanner } from '../../Shared/index';
+import { NOT_LISTED, NO_SCHOOL_SELECTED, PostNavigationBanner, Spinner } from '../../Shared/index';
 import ActivityScoresStudentOverview from '../components/activity_scores_student_overview.tsx';
 import SubnavTabs from '../components/subnav_tabs.tsx';
 import { APPROVED, DENIED, FULL, LIMITED, LOADING, PENDING, RESTRICTED, SKIPPED } from '../shared';
@@ -81,55 +82,106 @@ const PremiumHubContainer = ({ id, history, location, children, user, }) => {
 
     if (accessType() === LIMITED && onPageThatShouldShowBanner && !onSubscriptionPageWithExpiredPremium) {
       return (
-        <Banner
+        <PostNavigationBanner
+          bannerStyle="gold"
           bodyText="Subscribe to School or District Premium to unlock all Premium Hub features. Manage teacher accounts, access teacher reports, and view school-wide student data."
-          buttons={(
-            <div className="banner-buttons">
-              <a className={BANNER_BUTTON_CLASS_NAME} href="https://calendly.com/alex-quill" rel="noopener noreferrer" target="_blank">Talk to sales</a>
-              <a className={BANNER_BUTTON_CLASS_NAME} href="/premium" target="_blank">Explore premium</a>
-            </div>
-          )}
-          headerText="Unlock with Quill Premium"
+          buttons={[
+            {
+              href: "https://calendly.com/alex-quill",
+              standardButtonStyle: true,
+              text: "Contact sales",
+              target: "_blank"
+            },
+            {
+              href: "/premium",
+              standardButtonStyle: true,
+              text: "Explore Premium",
+              target: "_blank"
+            }
+          ]}
+          icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/banners/large-school-campus-gold.svg" }}
+          primaryHeaderText="Unlock with Quill Premium"
+          tagText=""
         />
       )
     }
 
     if (!associated_school || [NOT_LISTED, NO_SCHOOL_SELECTED].includes(associated_school.name)) {
       return (
-        <Banner
+        <PostNavigationBanner
+          bannerStyle="gold"
           bodyText="Please select a school to use the Premium Hub."
-          buttons={<a className={BANNER_BUTTON_CLASS_NAME} href="/teachers/my_account">Select school</a>}
-          headerText="Action required"
+          buttons={[
+            {
+              href: "/teachers/my_account",
+              standardButtonStyle: true,
+              text: "Select school",
+              target: ""
+            }
+          ]}
+          icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/banners/large-school-campus-gold.svg" }}
+          primaryHeaderText="Action required"
+          tagText=""
         />
       )
     }
 
     if (admin_approval_status === DENIED) {
       return (
-        <Banner
+        <PostNavigationBanner
+          bannerStyle="gold"
           bodyText={`Sorry, we couldn’t verify you as an admin of ${associated_school?.name}. If you need help, contact support.`}
-          buttons={<a className={BANNER_BUTTON_CLASS_NAME} href="mailto:hello@quill.org">Contact us</a>}
-          headerText="We couldn't verify you"
+          buttons={[
+            {
+              href: "mailto:hello@quill.org",
+              standardButtonStyle: true,
+              text: "Contact us",
+              target: "_blank"
+            }
+          ]}
+          icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/banners/large-school-campus-gold.svg" }}
+          primaryHeaderText="We couldn't verify you"
+          tagText=""
         />
       )
     }
 
     if (admin_approval_status === PENDING) {
       return (
-        <Banner
+        <PostNavigationBanner
+          bannerStyle="gold"
           bodyText="Your verification request is pending approval. Once approved, you will be able to use the Premium Hub. If you need help in the meantime, contact us."
-          buttons={<a className={BANNER_BUTTON_CLASS_NAME} href="mailto:hello@quill.org">Contact us</a>}
-          headerText="We’re reviewing your request"
+          buttons={[
+            {
+              href: "mailto:hello@quill.org",
+              standardButtonStyle: true,
+              text: "Contact us",
+              target: ""
+            }
+          ]}
+          icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/banners/large-school-campus-gold.svg" }}
+          primaryHeaderText="We're reviewing your request"
+          tagText=""
         />
       )
     }
 
     if (admin_approval_status === SKIPPED) {
       return (
-        <Banner
+        <PostNavigationBanner
+          bannerStyle="gold"
           bodyText={`Please verify your connection to ${associated_school?.name} to use the Premium Hub.`}
-          buttons={<a className={BANNER_BUTTON_CLASS_NAME} href="/sign-up/verify-school">Begin verification</a>}
-          headerText="Action required"
+          buttons={[
+            {
+              href: "/sign-up/verify-school",
+              standardButtonStyle: true,
+              text: "Begin verification",
+              target: ""
+            }
+          ]}
+          icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/banners/large-school-campus-gold.svg" }}
+          primaryHeaderText="Action required"
+          tagText=""
         />
       )
     }
