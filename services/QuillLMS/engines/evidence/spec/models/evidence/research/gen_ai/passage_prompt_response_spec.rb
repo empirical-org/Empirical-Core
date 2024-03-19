@@ -17,8 +17,10 @@ module Evidence
   module Research
     module GenAI
       RSpec.describe PassagePromptResponse, type: :model do
-        it { should belong_to(:passage_prompt)}
         it { should validate_presence_of(:response) }
+
+        it { should belong_to(:passage_prompt)}
+        it { should have_many(:example_prompt_response_feedbacks).class_name('Evidence::Research::GenAI::ExamplePromptResponseFeedback') }
 
         it { expect(build(:evidence_research_gen_ai_passage_prompt_response)).to be_valid }
       end
