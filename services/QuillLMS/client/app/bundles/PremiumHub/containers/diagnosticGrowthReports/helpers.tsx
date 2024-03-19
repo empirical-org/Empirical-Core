@@ -288,7 +288,7 @@ function getStudentNameValue({ name, preCompleted, previousRecord, nextRecord, p
   }
   if ((nameMatchesPreviousRecord || nameMatchesNextRecord) && date) {
     return(
-      <div className={`name-with-date className`}>
+      <div className="name-with-date">
         <p>{name}</p>
         <p>{date}</p>
       </div>
