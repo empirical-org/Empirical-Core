@@ -105,22 +105,21 @@ describe('SkillSection', () => {
     test('it should render the expected header components', () => {
       props.passedData = []
       const { asFragment } = render(<SkillSection {...props} />);
+      const skillButtonHeader = screen.getAllByRole('button', { name: /skill/i })[0]
 
       expect(asFragment()).toMatchSnapshot();
 
-      expect(screen.getByRole('button', { name: /skill/i })).toBeInTheDocument()
+      expect(skillButtonHeader).toBeInTheDocument()
 
-      expect(screen.getByRole('columnheader', { name: /pre skill score/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /post skill score/i })).toBeInTheDocument()
 
-      expect(screen.getByRole('columnheader', { name: /post skill score/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /growth results/i })).toBeInTheDocument()
 
-      expect(screen.getByRole('columnheader', { name: /growth results/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /students improved skill/i })).toBeInTheDocument()
 
-      expect(screen.getByRole('columnheader', { name: /students improved skill/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /students without improvement/i })).toBeInTheDocument()
 
-      expect(screen.getByRole('columnheader', { name: /students without improvement/i })).toBeInTheDocument()
-
-      expect(screen.getByRole('columnheader', { name: /students maintained proficiency/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /students maintained proficiency/i })).toBeInTheDocument()
 
       expect(screen.getByText(/there is no diagnostic data available for the filters selected\. try modifying or removing a filter to see results\./i)).toBeInTheDocument()
     })
