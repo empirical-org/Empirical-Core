@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { aggregateStudentData, preToPostImprovedSkillsTooltipText, preQuestionsCorrectTooltipText, preSkillsProficientTooltipText, totalActivitiesAndTimespentTooltipText, postQuestionsCorrectTooltipText, postSkillsImprovedOrMaintainTooltipText } from './helpers'
+import { aggregateStudentData, preToPostImprovedSkillsTooltipText, preQuestionsCorrectTooltipText, preSkillsProficientTooltipText, totalActivitiesAndTimespentTooltipText, postQuestionsCorrectTooltipText, postSkillsImprovedOrMaintainTooltipText, studentNameTooltipText } from './helpers'
 
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
@@ -18,6 +18,8 @@ const headers = [
     name: 'Student Name',
     attribute: 'name',
     sortAttribute: 'studentName',
+    tooltipName: 'Student Name',
+    tooltipDescription: studentNameTooltipText,
     width: DEFAULT_WIDTH,
     noTooltip: true,
     isSortable: true

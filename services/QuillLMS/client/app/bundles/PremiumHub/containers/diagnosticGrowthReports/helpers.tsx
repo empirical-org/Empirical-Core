@@ -24,6 +24,7 @@ export const studentsWithoutImprovementTooltipText = 'The total number of studen
 export const studentsMaintainedProficiencyTooltipText = 'The total number of students who answered all questions for this skill correctly on both the Pre and the Post diagnostic.<br/><br/> This total count(”of __ students”) includes all students who completed both the Pre and the Post diagnostic and are selected in the filters.'
 
 // Students tooltips
+export const studentNameTooltipText = 'If a student has completed the same diagnostic twice in one school year, the dates of each diagnostic are listed.'
 export const preToPostImprovedSkillsTooltipText = 'The number of skills the student showed improvement in on the Post diagnostic relative to the Pre diagnostic. A skill is considered improved if the student answered more questions for that skill correctly on the Post diagnostic than they did on the Pre.'
 export const preQuestionsCorrectTooltipText = 'The total number of questions answered correctly on the Pre diagnostic.'
 export const preSkillsProficientTooltipText = 'The number of skills the student demonstrated proficiency in on the Pre diagnostic. A student demonstrates proficiency by answering all questions for that skill correctly. If a student is not fully proficient in a skill, Quill provides a recommended activity pack so that teachers can easily assign practice activities.'
