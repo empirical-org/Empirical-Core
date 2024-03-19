@@ -14,7 +14,7 @@ module AdminDiagnosticReports
     end
 
     QUERIES = {
-      'diagnostic-skills' => DiagnosticPerformanceBySkillQuery
+      'diagnostic-skills' => DiagnosticPerformanceBySkillViewQuery
     }
 
     def perform(cache_key, query, aggregation, diagnostic_id, user_id, timeframe, school_ids, filters) # rubocop:disable Metrics/ParameterLists
