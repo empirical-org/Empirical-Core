@@ -34,7 +34,7 @@ module AdminDiagnosticReports
       it { expect(results.first[:pre_students_assigned]).to eq(students.length) }
 
       context 'student assigned to multiple instances of the same diagnostic' do
-        let(:units_per_classroom) { 2 }
+        let(:classroom_count) { 2 }
 
         it { expect(results.first[:pre_students_assigned]).to eq(students.length * 2) }
       end
