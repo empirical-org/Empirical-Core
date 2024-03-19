@@ -55,10 +55,31 @@ module Staff
     end
 
     def activity_version_where_clause
-      activity_version ? "feedback_histories.activity_version = #{activity_version}" : ""
+      activity_version ? "AND feedback_histories.activity_version = #{activity_version}" : ""
     end
 
-    #def post_query_transform
+    def post_query_transform(query_result)
+      rules_with_feedbacks = Evidence::Rule.where(id: query_result.pluck(:id)).includes(:feedbacks)
+      query_result.map do |r|
+        first_feedback, second_feedback = rules_with_feedbacks.find{|x| x.id == r[:id]}&.feedbacks&.sort_by(&:order)
+        {
+            rule_uid: r[:rules_uid],
+            api_name: r[:rule_type],
+            rule_order: r[:rule_suborder],
+            first_feedback: first_feedback&.text || '',
+            second_feedback: second_feedback&.text || '',
+            rule_note: r[:rule_note],
+            rule_name: r[:rule_name],
+            avg_confidence: r[:avg_confidence] ? (r[:avg_confidence] * 100).round : nil,
+            total_responses: r[:total_responses],
+            strong_responses: r[:total_strong],
+            weak_responses: r[:total_weak],
+            repeated_consecutive_responses: r[:repeated_consecutive],
+            repeated_non_consecutive_responses: r[:repeated_non_consecutive],
+        }
+      end
+
+    end
 
     def group_by_clause
       <<-SQL
