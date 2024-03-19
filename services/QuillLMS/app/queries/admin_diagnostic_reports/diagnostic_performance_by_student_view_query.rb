@@ -83,6 +83,9 @@ module AdminDiagnosticReports
 
     def relevant_date_column = "performance.pre_assigned_at"
 
+    def aggregate_by_clause = "CONCAT(performance.classroom_id, ' ', performance.student_id)"
+    def aggregate_sort_clause = "students.name"
+
     private def post_process(result)
       # This is an override of the base post_process without a Ruby-based
       # sorting call at the end since we're using ORDER BY in the SQL
