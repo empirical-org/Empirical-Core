@@ -127,8 +127,6 @@ class StudentProfile extends React.Component {
 
     if (loading) { return <LoadingIndicator /> }
 
-    if (activeClassworkTab === COMPLETED_ACTIVITIES && exactScoresDataPending)  { return <LoadingIndicator /> }
-
     if (!selectedClassroomId) { return (<SelectAClassroom classrooms={classrooms} isBeingPreviewed={isBeingPreviewed} onClickCard={this.handleClassroomTabClick} />)}
 
     return (
@@ -157,6 +155,7 @@ class StudentProfile extends React.Component {
             activeClassworkTab={activeClassworkTab}
             data={scores}
             exactScoresData={exactScoresData}
+            exactScoresDataPending={exactScoresDataPending}
             isBeingPreviewed={isBeingPreviewed}
             loading={loading}
             nextActivitySession={nextActivitySession}

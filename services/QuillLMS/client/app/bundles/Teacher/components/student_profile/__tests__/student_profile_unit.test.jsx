@@ -30,11 +30,25 @@ describe('StudentProfileUnit component', () => {
     expect(asFragment()).toMatchSnapshot()
   });
 
-  it('should render completed activities when showExactScores is true', () => {
+  it('should render completed activities when showExactScores is true but the data is pending', () => {
     const { asFragment, } = render(
       <StudentProfileUnit
         data={completeCategorizedActivities}
         exactScoresData={exactScoresData}
+        exactScoresDataPending={true}
+        showExactScores={true}
+        unitName="Unit"
+      />
+    );
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  it('should render completed activities when showExactScores is true and the data is present', () => {
+    const { asFragment, } = render(
+      <StudentProfileUnit
+        data={completeCategorizedActivities}
+        exactScoresData={exactScoresData}
+        exactScoresDataPending={false}
         showExactScores={true}
         unitName="Unit"
       />

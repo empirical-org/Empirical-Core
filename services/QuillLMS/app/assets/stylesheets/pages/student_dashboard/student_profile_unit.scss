@@ -80,6 +80,9 @@
     .score {
       display: flex;
       align-items: center;
+      .button-loading-spinner {
+        margin-right: 8px;
+      }
       div {
         display: inline-block;
         width: 24px;
