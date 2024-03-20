@@ -33,10 +33,16 @@ module AdminDiagnosticReports
       it { expect(results.first[:aggregate_rows].map { |row| row[:name] }).to match_array(grade_names) }
       it { expect(results.first[:pre_students_assigned]).to eq(students.length) }
 
-      context 'student assigned to multiple instances of the same diagnostic' do
-        let(:units_per_classroom) { 2 }
+      context 'student assigned to multiple instances of the same diagnostic in different classrooms' do
+        let(:classroom_count) { 2 }
 
         it { expect(results.first[:pre_students_assigned]).to eq(students.length * 2) }
+      end
+
+      context 'student assigned to multiple instances of the same diagnostics in the same classroom' do
+        let(:units_per_classroom) { 2 }
+
+        it { expect(results.first[:pre_students_assigned]).to eq(students.length) }
       end
 
       context 'no relevant classroom_units' do

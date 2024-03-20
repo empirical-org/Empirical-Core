@@ -88,6 +88,13 @@ module AdminDiagnosticReports
 
         it { expect(results.first[:overall_skill_growth]).to eq(1.0) }
       end
+
+      context 'multiple concept results for a single question' do
+        # We want to make sure that having extra concept results for a question doesn't double-count that question for scoring purposes
+        let(:post_diagnostic_concept_results) { post_diagnostic_activity_sessions.map.with_index { |activity_session, i| create_list(:concept_result, 2, activity_session:, question_number: i + 1, extra_metadata: {question_uid: post_diagnostic_question.uid}) } }
+
+        it { expect(results.first[:overall_skill_growth]).to eq(0.0) }
+      end
     end
   end
 end
