@@ -153,8 +153,9 @@ export const fetchChangeLogs = async ({ queryKey, }) => {
 }
 
 export const fetchActivityVersions = async ({ queryKey, }) => {
-  const [key, activityId]: [string, string] = queryKey
-  const response = await apiFetch(`activities/${activityId}/activity_versions`);
+  const [key, activityId, ignoreCount]: [string, string, boolean] = queryKey
+  const ignoreCountParamString = ignoreCount ? "?ignore_count=true" : ''
+  const response = await apiFetch(`activities/${activityId}/activity_versions${ignoreCountParamString}`);
   const changeLogs = await response.json();
 
   return {
