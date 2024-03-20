@@ -27,9 +27,7 @@ describe BatchSaveActivitySessionConceptResultsWorker, type: :worker do
     let(:options) { { 'activity_session_uid' => activity_session_uid } }
     let(:activity_session) {create(:activity_session, uid: activity_session_uid)}
     let(:user_id) { activity_session.user_id }
-    let(:activity_id) { activity_session.activity_id }
-    let(:classroom_unit_id) {activity_session.classroom_unit_id}
-    let(:cache_key) {"#{Student::EXACT_SCORES_CACHE_KEY}/#{user_id}/#{activity_id}/#{classroom_unit_id}"}
+    let(:cache_key) { User.student_scores_cache_key(user_id)}
 
     context 'when all jobs succeed' do
       let(:status) { double('status', failures: 0, total: 2) }
