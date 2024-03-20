@@ -6,7 +6,7 @@ import { PostNavigationBanner } from '../../Shared/index';
 const PremiumFooterAppClient = () => {
   return(
     <PostNavigationBanner
-      bannerStyle="gold"
+      bannerStyle="premium"
       bodyText="Premium subscriptions for schools and districts interested in priority technical support, additional reporting, and support from Quill's professional learning team--plus an option for individual teachers"
       buttons={[
         {

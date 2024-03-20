@@ -20,7 +20,7 @@ export default class NewSignUpBanner extends React.Component {
     const headerText = stats === 'trial' ? "Success! You started your 30 day trial" : "Success! You now have Premium"
     return (
       <PostNavigationBanner
-        bannerStyle="gold"
+        bannerStyle="premium"
         bodyText="Now let’s save time grading and gain actionable insights."
         buttons={[
           {

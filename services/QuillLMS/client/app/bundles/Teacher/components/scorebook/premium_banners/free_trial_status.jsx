@@ -27,7 +27,7 @@ const FreeTrialStatus = ({ status, originPage, upgradeToPremiumNow, lastSubscrip
 
   return (
     <PostNavigationBanner
-      bannerStyle="gold"
+      bannerStyle="premium"
       bodyText="Getting value out of Premium?"
       buttons={[
         upgradeButton(),

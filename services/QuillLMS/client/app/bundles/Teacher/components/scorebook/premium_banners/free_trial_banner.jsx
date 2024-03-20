@@ -27,7 +27,7 @@ export default class FreeTrialBanner extends React.Component {
     }
     return (
       <PostNavigationBanner
-        bannerStyle="gold"
+        bannerStyle="premium"
         bodyText="Unlock your Premium trial to save time grading and gain actionable insights."
         buttons={[
           {
