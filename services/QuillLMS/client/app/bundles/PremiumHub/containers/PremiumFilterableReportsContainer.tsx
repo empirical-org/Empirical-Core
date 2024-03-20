@@ -68,6 +68,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
   const [pusherChannel, setPusherChannel] = React.useState(null)
 
   const [showFilters, setShowFilters] = React.useState(true)
+  const [diagnosticIdForStudentCount, setDiagnosticIdForStudentCount] = React.useState(null)
 
   const location = useLocation();
 
@@ -303,6 +304,10 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
 
   function handleClickDownloadReport() { window.print() }
 
+  function handleSetDiagnosticIdForStudentCount(id) {
+    setDiagnosticIdForStudentCount(id)
+  }
+
   function renderShowFilterMenuButton() {
     const ariaLabel = showFilters ? 'Close filter menu' : 'Open filter menu'
 
@@ -357,7 +362,9 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     customStartDate,
     customEndDate,
     showFilterMenuButton: renderShowFilterMenuButton(),
-    reportType: reportPath()
+    reportType: reportPath(),
+    diagnosticIdForStudentCount,
+    pusherChannel
   }
 
   const sharedProps = {
@@ -380,6 +387,11 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     hasAdjustedFiltersFromDefault,
     saveFilterSelections,
     passedData: null,
+  }
+
+  const growthReportsProps = {
+    ...sharedProps,
+    handleSetDiagnosticIdForStudentCount
   }
 
   if (accessType !== FULL) {
@@ -511,7 +523,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
       <div className={showFilters ? 'filter-menu-open' : 'filter-menu-closed'}>
         {showFilters ? null : renderShowFilterMenuButton()}
         <Routes>
-          <Route element={<DiagnosticGrowthReportsContainer {...sharedProps} />} path='/teachers/premium_hub/diagnostic_growth_report' />
+          <Route element={<DiagnosticGrowthReportsContainer {...growthReportsProps} />} path='/teachers/premium_hub/diagnostic_growth_report' />
           <Route element={<DataExportContainer {...sharedProps} />} path='/teachers/premium_hub/data_export' />
           <Route element={<UsageSnapshotsContainer {...sharedProps} />} path='/teachers/premium_hub/usage_snapshot_report' />
         </Routes>

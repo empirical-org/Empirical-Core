@@ -5,6 +5,7 @@ import { Spinner, whiteArrowPointingDownIcon, filterIcon, documentFileIcon } fro
 import OverviewSection from './overviewSection'
 import SkillSection from './skillSection'
 import StudentSection from './studentSection'
+import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
 
 const barChartGreySrc = `${process.env.CDN_URL}/images/pages/diagnostic_reports/icons-bar-chart.svg`
 const barChartWhiteIconSrc = `${process.env.CDN_URL}/images/icons/white-bar-chart-icon.svg`
@@ -52,11 +53,13 @@ export const DiagnosticGrowthReportsContainer = ({
   handleClickDownloadReport,
   openMobileFilterMenu,
   hasAdjustedFiltersFromDefault,
+  handleSetDiagnosticIdForStudentCount,
   passedData
 }) => {
 
   const [activeTab, setActiveTab] = React.useState<string>(OVERVIEW)
   const [selectedDiagnosticId, setSelectedDiagnosticId] = React.useState<number>(null)
+  const [selectedGroupByValue, setSelectedGroupByValue] = React.useState<DropdownObjectInterface>(null)
   const [noDiagnosticDataAvailable, setNoDiagnosticDataAvailable] = React.useState<boolean>(!!passedData)
 
   const sharedProps = {
@@ -69,7 +72,28 @@ export const DiagnosticGrowthReportsContainer = ({
     pusherChannel,
     hasAdjustedFiltersFromDefault,
     handleSetNoDiagnosticDataAvailable,
+    handleSetDiagnosticIdForStudentCount,
     passedData: null
+  }
+
+  const overviewProps = {
+    ...sharedProps,
+    handleSetSelectedDiagnosticId,
+    handleTabChangeFromDataChip,
+    handleSetSelectedGroupByValue
+  }
+
+  const skillSectionProps = {
+    ...sharedProps,
+    selectedDiagnosticId,
+    selectedGroupByValue
+  }
+
+  const studentSectionProps = {
+    ...sharedProps,
+    passedStudentData: null,
+    passedRecommendationsData: null,
+    passedVisibleData: null
   }
 
   function handleTabChange(e) {
@@ -88,13 +112,17 @@ export const DiagnosticGrowthReportsContainer = ({
     setSelectedDiagnosticId(Number(e.target.value))
   }
 
+  function handleSetSelectedGroupByValue(value: DropdownObjectInterface) {
+    setSelectedGroupByValue(value)
+  }
+
   function renderButtons() {
     return(
       <div className="tabs-for-pages-container">
-        {reportButtons.map(button => {
+        {reportButtons.map((button, i) => {
           const { tab, displayName, activeIconSrc, inactiveIconSrc } = button
           return (
-            <button className={`interactive-wrapper performance-type-button ${tab} ${tab === activeTab ? 'active' : ''}`} onClick={handleTabChange} value={tab}>
+            <button className={`interactive-wrapper performance-type-button ${tab} ${tab === activeTab ? 'active' : ''}`} key={`${displayName}-${i}`} onClick={handleTabChange} value={tab}>
               <img alt="" src={tab === activeTab ? activeIconSrc : inactiveIconSrc} />
               <span>{displayName}</span>
             </button>
@@ -124,9 +152,9 @@ export const DiagnosticGrowthReportsContainer = ({
             Filters
           </button>
         </div>
-        {activeTab === OVERVIEW && <OverviewSection {...sharedProps} handleSetSelectedDiagnosticId={handleSetSelectedDiagnosticId} handleTabChangeFromDataChip={handleTabChangeFromDataChip} />}
-        {activeTab === SKILL && <SkillSection {...sharedProps} selectedDiagnosticId={selectedDiagnosticId} />}
-        {activeTab === STUDENT && <StudentSection {...sharedProps} />}
+        {activeTab === OVERVIEW && <OverviewSection {...overviewProps} />}
+        {activeTab === SKILL && <SkillSection {...skillSectionProps} />}
+        {activeTab === STUDENT && <StudentSection {...studentSectionProps} />}
       </React.Fragment>
     )
   }
@@ -139,22 +167,23 @@ export const DiagnosticGrowthReportsContainer = ({
     return restrictedPage
   }
 
+  // TODO: uncomment button code once CSV download feature is ready
   return (
     <main>
       <div className="header">
         <h1>
           <span>Diagnostic Growth Report</span>
-          <a href="" rel="noopener noreferrer" target="_blank">
+          <a href="https://support.quill.org/en/articles/9084379-how-do-i-navigate-the-diagnostic-growth-report-in-the-premium-hub" rel="noopener noreferrer" target="_blank">
             <img alt={documentFileIcon.alt} src={documentFileIcon.src} />
             <span>Guide</span>
           </a>
         </h1>
-        <div className="buttons-container">
+        {/* <div className="buttons-container">
           <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">
             <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />
             <span>Download</span>
           </button>
-        </div>
+        </div> */}
       </div>
       {renderContent()}
     </main>

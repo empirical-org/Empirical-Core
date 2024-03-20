@@ -14,73 +14,79 @@ const headers = [
   {
     name: 'Skill',
     attribute: 'name',
-    width: '133px',
+    width: '132px',
     noTooltip: true,
     isSortable: true
   },
   {
     name: '',
     attribute: 'preSkillScore',
-    width: DEFAULT_CELL_WIDTH,
+    sortAttribute: 'pre_score',
+    width: '132px',
     primaryTitle: 'Pre',
     secondaryTitle: 'Skill Score',
     tooltipName: 'Pre Skill Score',
     tooltipDescription: preSkillScoreTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
     name: '',
     attribute: 'postSkillScore',
-    width: DEFAULT_CELL_WIDTH,
+    sortAttribute: 'post_score',
+    width: '132px',
     primaryTitle: 'Post',
     secondaryTitle: 'Skill Score',
     tooltipName: 'Post Skill Score',
     tooltipDescription: postSkillScoreTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
     name: GROWTH_RESULTS,
     attribute: 'growthResults',
-    width: DEFAULT_CELL_WIDTH,
+    sortAttribute: 'growthResultsSortValue',
+    width: '150px',
     tooltipName: GROWTH_RESULTS,
     tooltipDescription: growthResultsTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
     name: '',
     attribute: 'studentsImprovedSkill',
+    sortAttribute: 'improved_proficiency',
     width: DEFAULT_CELL_WIDTH,
     primaryTitle: 'Students',
     secondaryTitle: 'Improved Skill',
-    tooltipName: 'Students Improved Skills',
+    tooltipName: 'Students Improved Skill',
     tooltipDescription: studentsImprovedSkillTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
     name: '',
     attribute: 'studentsWithoutImprovement',
+    sortAttribute: 'recommended_practice',
     width: '160px',
-    primaryTitle: 'Students',
-    secondaryTitle: 'Without Improvement',
+    primaryTitle: 'Students Without',
+    secondaryTitle: 'Improvement',
     tooltipName: 'Students Without Improvement',
     tooltipDescription: studentsWithoutImprovementTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
     name: '',
     attribute: 'studentsMaintainedProficiency',
-    width: '154px',
+    sortAttribute: 'maintained_proficiency',
+    width: '168px',
     primaryTitle: 'Students Maintained',
     secondaryTitle: 'Proficiency',
     tooltipName: 'Students Maintained Proficiency',
     tooltipDescription: studentsMaintainedProficiencyTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
 ]
 
@@ -94,15 +100,21 @@ export const SkillSection = ({
   selectedTimeframe,
   pusherChannel,
   selectedDiagnosticId,
+  selectedGroupByValue,
+  handleSetDiagnosticIdForStudentCount,
   passedData
 }) => {
 
-  const [groupByValue, setGroupByValue] = React.useState<DropdownObjectInterface>(groupByDropdownOptions[0])
+  const [groupByValue, setGroupByValue] = React.useState<DropdownObjectInterface>(selectedGroupByValue || groupByDropdownOptions[0])
   const [diagnosticTypeValue, setDiagnosticTypeValue] = React.useState<DropdownObjectInterface>(getInitialDiagnosticType())
   const [pusherMessage, setPusherMessage] = React.useState<string>(null)
   const [skillsData, setSkillsData] = React.useState<any>(null);
   const [aggregatedData, setAggregatedData] = React.useState<any>(passedData || []);
   const [loading, setLoading] = React.useState<boolean>(!passedData);
+
+  React.useEffect(() => {
+    handleSetDiagnosticIdForStudentCount(null)
+  }, [])
 
   React.useEffect(() => {
     initializePusher()
@@ -153,12 +165,9 @@ export const SkillSection = ({
     }
 
     requestPost('/admin_diagnostic_skills/report', searchParams, (body) => {
-      if (!body.hasOwnProperty('results')) {
-        return
-      } else {
-        const { results, } = body
-        setSkillsData(results)
-      }
+      if (!body.hasOwnProperty('results')) { return }
+      const { results, } = body
+      setSkillsData(results)
     })
   }
 

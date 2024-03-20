@@ -16,7 +16,9 @@ const props = {
   hasAdjustedFiltersFromDefault: false,
   handleSetNoDiagnosticDataAvailable: jest.fn(),
   handleTabChangeFromDataChip: jest.fn(),
+  handleSetDiagnosticIdForStudentCount: jest.fn(),
   handleSetSelectedDiagnosticId: jest.fn(),
+  handleSetSelectedGroupByValue: jest.fn(),
   passedData: null
 }
 
