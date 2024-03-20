@@ -1,95 +1,109 @@
 import React from 'react'
+
 import ResultsIcon from '../components/activities/results_page/results_icon.jsx'
 import activityLaunchLink from '../components/modules/generate_activity_launch_link'
 import ScrollToTop from '../components/shared/scroll_to_top'
+import { proficiencyCutoffsAsPercentage } from '../../../modules/proficiency_cutoffs';
 
 export default class ResultsPage extends React.Component {
-  bottomSection = () => {
-    const { activityName, } = this.props
+  renderResultsSection = (sectionHeader, targetSkills) => {
+    const { showExactScore, } = this.props
+
+    if (!targetSkills.length) { return }
+
+    const targetSkillElements = targetSkills.sort((a, b) => (a.percentage > b.percentage) ? -1 : 1).map(targetSkill => {
+      const { name, numberOfQuestions, numberOfCorrectQuestions, percentage, } = targetSkill
+      return (
+        <div className="target-skill" key={name}>
+          <span>{name}</span>
+          {showExactScore ? <span>{numberOfCorrectQuestions} of {numberOfQuestions} correct ({percentage}%)</span> : <span />}
+        </div>
+      )
+    })
+
     return (
-      <div className="bottom-section">
-        <h2>Results for {activityName}</h2>
-        {this.resultsSection()}
-        {this.replayButtonSection()}
+      <div className="results-section">
+        <h2>{sectionHeader}</h2>
+        {targetSkillElements}
       </div>
     )
   }
 
-  headerButton = () => {
-    const { integrationPartnerName, integrationPartnerSessionId, anonymous, classroomId, } = this.props
-    const buttonClassName = 'quill-button primary contained large focus-on-light'
+  bottomSection = () => {
+    const { activityName, showExactScore, numberOfCorrectQuestions, numberOfQuestions, activityType, percentage, groupedKeyTargetSkillConcepts, } = this.props
+
+    const proficientSkills = []
+    const keepPracticingSkills = []
+
+    const cutOff = proficiencyCutoffsAsPercentage();
+
+    groupedKeyTargetSkillConcepts.forEach(groupedKeyTargetSkillConcept => {
+      const { correct, incorrect, name } = groupedKeyTargetSkillConcept
+      const numberOfQuestionsForSkill = correct + incorrect
+      const percentage = Math.round((correct / numberOfQuestionsForSkill) * 100)
+
+      const targetSkillData = {
+        numberOfCorrectQuestions: correct,
+        numberOfQuestions: numberOfQuestionsForSkill,
+        percentage,
+        name
+      }
+
+      if (percentage > cutOff.proficient) {
+        proficientSkills.push(targetSkillData)
+      } else {
+        keepPracticingSkills.push(targetSkillData)
+      }
+    })
+
+
+
+    return (
+      <div className="activity-results">
+        <div className="activity-name-and-overall-score">
+          <div>
+            <h2>{activityName}</h2>
+            {showExactScore && <p>Total Score: {numberOfCorrectQuestions} of {numberOfQuestions} target skills correct ({Math.round(percentage * 100)}%)</p>}
+          </div>
+          <ResultsIcon activityType={activityType} percentage={percentage} />
+        </div>
+        {this.renderResultsSection('Proficient', proficientSkills)}
+        {this.renderResultsSection('Keep Practicing', keepPracticingSkills)}
+      </div>
+    )
+  }
+
+  headerButtons = () => {
+    const { integrationPartnerName, integrationPartnerSessionId, anonymous, classroomId, classroomUnitId, activityId, } = this.props
+    const primaryButtonClassName = 'quill-button primary contained large focus-on-light'
     if (integrationPartnerName && integrationPartnerSessionId) {
       const link = `/${integrationPartnerName}?session_id=${integrationPartnerSessionId}`;
-      return (<a className={buttonClassName} href={link}>Back to activity list</a>)
+      return (<a className={primaryButtonClassName} href={link}>Back to activity list</a>)
     } else if (anonymous) {
-      return (<a className={buttonClassName} href='/account/new'>Sign up</a>)
+      return (<a className={primaryButtonClassName} href='/session/new'>Log in</a>)
     }
 
-    const link = classroomId ? `/classrooms/${classroomId}` : '/'
-    return <a className={buttonClassName} href={link}>Back to your dashboard</a>
-  }
-
-  replayButtonSection = () => {
-    const { percentage, anonymous, integrationPartnerName, classroomUnitId, activityId, } = this.props
-    if (percentage >= 0.8 || anonymous || integrationPartnerName) { return }
+    const dashboardLink = classroomId ? `/classrooms/${classroomId}` : '/'
 
     return (
-      <div className="replay-button-container">
-        <p>All writers revise their work. Try this activity again.</p>
-        <a className="quill-button primary outlined large focus-on-light" href={activityLaunchLink(classroomUnitId, activityId)}>Replay</a>
-      </div>
-    )
-  }
-
-  resultSectionDescription = category => {
-    const { resultCategoryNames, } = this.props
-    switch(category) {
-      case resultCategoryNames.FREQUENTLY_DEMONSTRATED_SKILL:
-        return 'Concepts you have mastered. Good work!'
-      case resultCategoryNames.SOMETIMES_DEMONSTRATED_SKILL:
-        return 'Concepts you have almost mastered. Keep practicing!'
-      default:
-        return 'Concepts you have not mastered yet. Try again!'
-    }
-  }
-
-  resultsSection = () => {
-    const { results, } = this.props
-    const resultSections = Object.keys(results).map(category => this.renderResultSection(category, results[category]))
-    return (
-      <div className="results-container">
-        {resultSections}
-      </div>
-    )
-  }
-
-  renderResultSection = (category, concepts) => {
-    if (!concepts.length) { return }
-
-    const results = concepts.map(c => <li key={c}>{c}</li>)
-
-    return (
-      <div className="result-section" key={category}>
-        <h2>{this.resultSectionDescription(category)}</h2>
-        <ul>{results}</ul>
+      <div className="header-buttons">
+        <a className={primaryButtonClassName} href={dashboardLink}>Return to dashboard</a>
+        <a className='quill-button secondary outlined large focus-on-light' href={`/activity_sessions/classroom_units/${classroomUnitId}/activities/${activityId}`}>Replay activity</a>
       </div>
     )
   }
 
   render() {
-    const { activityType, percentage, } = this.props
     return (
-      <div id='results-page'>
-        <ScrollToTop />
-        <div className='top-section'>
-          <ResultsIcon
-            activityType={activityType}
-            percentage={percentage}
-          />
-          <h1>Activity Complete!</h1>
-          {this.headerButton()}
+      <div className="results-page-container">
+        <div id='results-page'>
+          <ScrollToTop />
+          <div className='top-section'>
+            <h1>Activity Complete!</h1>
+            {this.headerButtons()}
+          </div>
+          {this.bottomSection()}
         </div>
-        {this.bottomSection()}
       </div>
     );
   }

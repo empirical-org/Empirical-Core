@@ -38,6 +38,7 @@ class TeacherInfo < ApplicationRecord
 
   validates :minimum_grade_level, numericality: { in: 0..12 }, :allow_nil => true
   validates :maximum_grade_level, numericality: { in: 0..12 }, :allow_nil => true
+  validates :show_students_exact_score, inclusion: [true, false]
   validates :user_id, presence: true, uniqueness: true
 
   validates :notification_email_frequency, inclusion: {in: NOTIFICATION_EMAIL_FREQUENCIES}, allow_blank: true

@@ -9,6 +9,7 @@ import TeacherGradeLevels from '../components/accounts/edit/teacher_grade_levels
 import TeacherLinkedAccounts from '../components/accounts/edit/teacher_linked_accounts';
 import TeacherSubjectAreas from '../components/accounts/edit/teacher_subject_areas';
 import TeacherPasswordAccountInfo from '../components/accounts/edit/update_password';
+import TeacherStudentDashboardSettings from '../components/accounts/edit/teacher_student_dashboard_settings'
 
 function gradeLevelToOption(gradeLevel) {
   return gradeLevel ? { value: gradeLevel, label: gradeLevel, } : null
@@ -19,6 +20,7 @@ const GRADE_LEVEL = 'gradeLevel'
 const SUBJECT_AREAS = 'subjectAreas'
 const GENERAL = 'general'
 const EMAIL_NOTIFICATIONS = 'emailNotifications'
+const STUDENT_DASHBOARD_SETTINGS = 'studentDashboardSettings'
 
 export default class TeacherAccount extends React.Component {
   constructor(props) {
@@ -38,6 +40,7 @@ export default class TeacherAccount extends React.Component {
       minimum_grade_level,
       maximum_grade_level,
       subject_area_ids,
+      show_students_exact_score,
     } = props.accountInfo
     this.state = {
       activeSection: null,
@@ -57,10 +60,11 @@ export default class TeacherAccount extends React.Component {
       minimumGradeLevel: minimum_grade_level,
       maximumGradeLevel: maximum_grade_level,
       selectedSubjectAreaIds: subject_area_ids,
+      showStudentsExactScore: show_students_exact_score,
       snackbarCopy: '',
       showSnackbar: false,
       errors: {},
-      timesSubmitted: 0
+      timesSubmitted: 0,
     }
   }
 
@@ -129,7 +133,8 @@ export default class TeacherAccount extends React.Component {
           minimum_grade_level,
           maximum_grade_level,
           subject_area_ids,
-          notification_email_frequency
+          notification_email_frequency,
+          show_students_exact_score,
         } = body
 
         this.setState({
@@ -138,6 +143,7 @@ export default class TeacherAccount extends React.Component {
           selectedSubjectAreaIds: subject_area_ids,
           notificationEmailFrequency: notification_email_frequency,
           tempNotificationEmailFrequency: notification_email_frequency,
+          showStudentsExactScore: show_students_exact_score,
           snackbarCopy,
           errors: {}
         }, () => {
@@ -234,6 +240,7 @@ export default class TeacherAccount extends React.Component {
       minimumGradeLevel,
       maximumGradeLevel,
       selectedSubjectAreaIds,
+      showStudentsExactScore,
     } = this.state
 
     const { accountInfo, alternativeSchools, alternativeSchoolsNameMap, cleverLink, showDismissSchoolSelectionReminderCheckbox, subjectAreas, } = this.props
@@ -305,6 +312,13 @@ export default class TeacherAccount extends React.Component {
           deactivateSection={() => this.deactivateSection(SUBJECT_AREAS)}
           passedSelectedSubjectAreaIds={selectedSubjectAreaIds}
           subjectAreas={subjectAreas}
+          updateTeacherInfo={this.updateTeacherInfo}
+        />
+        <TeacherStudentDashboardSettings
+          activateSection={() => this.activateSection(STUDENT_DASHBOARD_SETTINGS)}
+          active={activeSection === STUDENT_DASHBOARD_SETTINGS}
+          deactivateSection={() => this.deactivateSection(STUDENT_DASHBOARD_SETTINGS)}
+          passedShowStudentsExactScore={showStudentsExactScore}
           updateTeacherInfo={this.updateTeacherInfo}
         />
         <TeacherDangerZone

@@ -1,4 +1,4 @@
-.post-checklist-container main section.key-metrics {
+section.key-metrics, .post-checklist-container main section.key-metrics {
   header {
     justify-content: space-between;
     display: flex;
@@ -36,12 +36,8 @@
     display: flex;
     width: 100%;
     margin: 16px 0px 20px;
-    .quill-tooltip-trigger {
-      &:first-of-type {
-        .key-metric {
-          border-right: 1px solid $quill-grey-5;
-        }
-      }
+    .quill-tooltip-trigger:first-of-type .key-metric {
+      border-right: 1px solid $quill-grey-5;
     }
     .key-metric {
       min-width: 236px;
@@ -75,7 +71,7 @@
           left: 0px;
         }
         .dropdown__value-container {
-          width: 56px;
+          min-width: 56px;
           justify-content: flex-start;
         }
       }
