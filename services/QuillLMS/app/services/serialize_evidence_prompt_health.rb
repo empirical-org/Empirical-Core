@@ -51,7 +51,7 @@ class SerializeEvidencePromptHealth
 
   private def rule_feedback_histories
     @rule_feedback_histories ||=
-      Staff::RulesAnalysisQuery.run(**{
+      RuleFeedbackHistory.generate_report(**{
         activity_id: prompt.activity.id,
         activity_version: prompt.activity.version,
         conjunction: prompt.conjunction
