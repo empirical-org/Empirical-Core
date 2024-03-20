@@ -1,21 +1,100 @@
 import * as React from 'react';
+import moment from 'moment';
 
-import { getTimeSpent } from '../../../helpers/studentReports';
 import ActivityDetails from './activity_details';
 import KeyTargetSkillConcepts from './key_target_skill_concepts';
+import ActivityDetailsSection from './activity_details_section';
+
+import { getTimeSpent } from '../../../helpers/studentReports';
 import numberSuffixBuilder from '../../modules/numberSuffixBuilder';
 import PercentageDisplayer from '../../modules/percentage_displayer.jsx';
-import ActivityDetailsSection from './activity_details_section';
+import { proficiencyCutoffsAsPercentage } from '../../../../../modules/proficiency_cutoffs';
 import { NOT_APPLICABLE, Spinner } from '../../../../Shared'
-import moment from 'moment';
+import useWindowSize from '../../../../Shared/hooks/useWindowSize'
 
 const ORDINAL_NUMBERS = ['Zeroth', 'First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh', 'Eighth', 'Ninth', 'Tenth']
 const QUILL_DIAGNOSTIC_SCORING_EXPLANATION = "The Quill Diagnostic is meant to diagnose skills to practice. Students are not provided a color-coded score or percentage score. Teachers see only a percentage score without a color."
 const percentageDisplayer = new PercentageDisplayer()
 
-export const ScorebookTooltip = ({ data }) => {
+interface Session {
+  grouped_key_target_skill_concepts: any;
+  percentage: number;
+  number_of_correct_questions: number;
+  number_of_questions: number;
+  completed_at: string;
+  timespent: number;
+}
+
+interface ActivityClassification {
+  id: number;
+}
+
+interface Activity {
+  classification: ActivityClassification;
+  name: string;
+}
+
+interface ScorebookTooltipData {
+  completed_attempts: Number;
+  name: string; // this is the activity name
+  activity_classification_id: number;
+  percentage: number;
+  activity?: Activity;
+  started?: number;
+  sessions?: Array<Session>
+  locked?: Boolean;
+  scheduled?: Boolean;
+  marked_complete?: Boolean;
+}
+
+interface ScorebookTooltipProps {
+  data: ScorebookTooltipData
+  inStudentView?: Boolean;
+}
+
+export const ScorebookTooltip = ({ data, inStudentView, }: ScorebookTooltipProps) => {
+  const tooltipRef = React.useRef(null);
+  const [tooltipStyle, setTooltipStyle] = React.useState({});
+  const [caretStyle, setCaretStyle] = React.useState({});
+  const size = useWindowSize()
 
   if (!Object.keys(data).length) { return <span /> }
+
+  React.useEffect(() => {
+    // this hook makes sure the tooltip doesn't end up off the screen to the left or the right, and repositions the caret if the tooltip itself has moved
+
+    if (!tooltipRef.current) { return }
+
+    const tooltipRect = tooltipRef.current.getBoundingClientRect();
+    const viewportWidth = size.width;
+
+    let { right, left } = tooltipRect;
+
+    if (left < 0) {
+      setTooltipStyle({
+        left: '0px',
+        right: 'unset'
+      });
+
+      setCaretStyle({
+        left: '16px',
+        right: 'unset'
+      })
+    }
+
+    if (right > viewportWidth) {
+      setTooltipStyle({
+        left: 'unset',
+        right: '0px',
+      });
+
+      setCaretStyle({
+        left: 'unset',
+        right: '16px'
+      })
+    }
+  }, [size]);
+
 
   const { marked_complete, completed_attempts, locked, scheduled, sessions, started, activity, name } = data
 
@@ -91,17 +170,47 @@ export const ScorebookTooltip = ({ data }) => {
     }
   }
 
+  function colorExplanation() {
+    const cutOff = proficiencyCutoffsAsPercentage();
+    const { percentage, } = data
+
+    const scoreForComparison = percentage * 100
+
+    let header = 'Why Red?'
+    let descriptionLineOne = 'Rarely Demonstrated Skill'
+    let descriptionLineTwo = `${cutOff.nearlyProficient - 1} - 0% of prompts exhibit skill`
+
+    if (scoreForComparison >= cutOff.proficient) {
+      header = 'Why Green?'
+      descriptionLineOne = 'Frequently Demonstrated Skill'
+      descriptionLineTwo = `100 - ${cutOff.proficient}% of prompts exhibit skill`
+    } else if (scoreForComparison >= cutOff.nearlyProficient) {
+      header = 'Why Yellow?'
+      descriptionLineOne = 'Sometimes Demonstrated Skill'
+      descriptionLineTwo = `${cutOff.proficient - 1} - ${cutOff.nearlyProficient}% of prompts exhibit skill`
+    }
+
+    const descriptionElement = (
+      <div className="description-block">
+        <p className="description">{descriptionLineOne}</p>
+        <p className="description">{descriptionLineTwo}</p>
+      </div>
+    )
+    return <ActivityDetailsSection description={descriptionElement} header={header} />
+  }
+
   const title = activity ? activity.name : name;
   return (
-    <div className="scorebook-tooltip">
-      <i className="fas fa-caret-up" />
-      <i className="fas fa-caret-up border-color" />
+    <div className="scorebook-tooltip" ref={tooltipRef} style={tooltipStyle}>
+      <i className="fas fa-caret-up" style={caretStyle} />
+      <i className="fas fa-caret-up border-color" style={caretStyle} />
       <div className="title">
         {title}
       </div>
       <div className="main">
         {activityOverview()}
         {keyTargetSkillConceptsOrExplanation()}
+        {inStudentView ? colorExplanation() : <p className="tooltip-message">Clicking on the activity icon loads the report</p>}
       </div>
     </div>
   )

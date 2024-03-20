@@ -10,6 +10,7 @@ import {
 } from '../../../Shared/index';
 import { formatDateTimeForDisplay, } from '../../helpers/unitActivityDates';
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
+import ScorebookTooltip from '../general_components/tooltip/scorebook_tooltip'
 
 const diagnosticSrc = `${process.env.CDN_URL}/images/icons/tool-diagnostic-gray.svg`
 const connectSrc = `${process.env.CDN_URL}/images/icons/tool-connect-gray.svg`
@@ -67,8 +68,9 @@ const completeHeaders = [
     width: '474px',
     name: 'Activity',
     attribute: 'name',
+    noTooltip: true,
     headerClassName: 'name-section',
-    rowSectionClassName: 'name-section'
+    rowSectionClassName: 'name-section tooltip-section'
   }, {
     width: '230px',
     name: 'Score',
@@ -82,21 +84,21 @@ const completeHeaders = [
     attribute: 'tool',
     noTooltip: true,
     headerClassName: 'tool-icon-section',
-    rowSectionClassName: 'tool-icon-section'
+    rowSectionClassName: 'tool-icon-section tooltip-section'
   }, {
     width: '110px',
     name: 'Due date',
     attribute: 'dueDate',
     noTooltip: true,
     headerClassName: 'completed-due-date-section',
-    rowSectionClassName: 'completed-due-date-section'
+    rowSectionClassName: 'completed-due-date-section tooltip-section'
   }, {
     width: '110px',
     name: 'Completed date',
     attribute: 'completedDate',
     noTooltip: true,
     headerClassName: 'completed-date-section',
-    rowSectionClassName: 'completed-date-section'
+    rowSectionClassName: 'completed-date-section tooltip-section'
   }, {
     width: '88px',
     name: '',
@@ -106,6 +108,37 @@ const completeHeaders = [
     rowSectionClassName: 'action-button-section tooltip-section'
   }
 ]
+
+const TooltipWrapper = ({ activity, exactScoresData, children, }) => {
+  const [showTooltip, setShowTooltip] = React.useState(false)
+
+  function handleMouseEnter() { setShowTooltip(true) }
+  function handleMouseLeave() { setShowTooltip(false) }
+
+  const { ua_id, classroom_unit_id, max_percentage, unit_activity_created_at, publish_date, } = activity
+
+  const relevantExactScore = exactScoresData.find(es => es.ua_id === ua_id && es.classroom_unit_id === classroom_unit_id)
+  const tooltipData = { ...activity, ...relevantExactScore, percentage: max_percentage, unitActivityCreatedAt: unit_activity_created_at, publishDate: publish_date, }
+
+  let tooltip
+
+  if (showTooltip) {
+    tooltip = (
+      <ScorebookTooltip data={tooltipData} inStudentView={true} />
+    )
+  }
+
+  return (
+    <div
+      className="score-tooltip-activator"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {children}
+      {tooltip}
+    </div>
+  )
+}
 
 export default class StudentProfileUnit extends React.Component {
   actionButton = (act, nextActivitySession) => {
@@ -174,8 +207,10 @@ export default class StudentProfileUnit extends React.Component {
   }
 
   score = (act) => {
-    const { activity_classification_key, max_percentage, } = act
+    const { exactScoresData, showExactScores, } = this.props
+    const { activity_classification_key, max_percentage, ua_id, classroom_unit_id, } = act
     const maxPercentage = Number(max_percentage)
+
     if (UNGRADED_ACTIVITY_CLASSIFICATIONS.includes(activity_classification_key)) {
       return (
         <Tooltip
@@ -190,15 +225,30 @@ export default class StudentProfileUnit extends React.Component {
       )
     }
 
+    let exactScoreCopy
+
+    if (showExactScores) {
+      const relevantExactScore = exactScoresData.find(es => es.ua_id === ua_id && es.classroom_unit_id === classroom_unit_id)
+      const bestSession = relevantExactScore.sessions.reduce(
+        (a, b) => {
+          return a.percentage < b.percentage ? a : b
+        }
+      )
+      const { number_of_questions, number_of_correct_questions, percentage, } = bestSession
+
+      exactScoreCopy = (<span>{number_of_correct_questions} of {number_of_questions} ({percentage * 100}%)</span>)
+    }
+
     if (maxPercentage >= FREQUENTLY_DEMONSTRATED_SKILL_CUTOFF) {
-      return (<div className="score"><div className="frequently-demonstrated-skill" /><span>Frequently demonstrated skill</span></div>)
+      return (<div className="score"><div className="frequently-demonstrated-skill" /><span>{exactScoreCopy || 'Frequently demonstrated skill'}</span></div>)
     }
 
     if (maxPercentage >= SOMETIMES_DEMONSTRATED_SKILL_CUTOFF) {
-      return (<div className="score"><div className="sometimes-demonstrated-skill" /><span>Sometimes demonstrated skill</span></div>)
+      return (<div className="score"><div className="sometimes-demonstrated-skill" /><span>{exactScoreCopy || 'Sometimes demonstrated skill'}</span></div>)
     }
 
-    return (<div className="score"><div className="rarely-demonstrated-skill" /><span>Rarely demonstrated skill</span></div>)
+    return (<div className="score"><div className="rarely-demonstrated-skill" /><span>{exactScoreCopy || 'Rarely demonstrated skill'}</span></div>)
+
   }
 
   toolIcon = (key) => {
@@ -221,11 +271,25 @@ export default class StudentProfileUnit extends React.Component {
   }
 
   renderCompletedActivities = () => {
-    const { data, nextActivitySession, } = this.props
+    const { data, nextActivitySession, showExactScores, exactScoresData, } = this.props
     if (!(data.complete && data.complete.length)) { return null}
 
     const rows = data.complete.map(act => {
       const { name, activity_classification_key, ua_id, due_date, completed_date, } = act
+
+      if (showExactScores && !UNGRADED_ACTIVITY_CLASSIFICATIONS.includes(activity_classification_key)) {
+        return {
+          name: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{name}</TooltipWrapper>,
+          score: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{this.score(act)}</TooltipWrapper>,
+          tool: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{this.toolIcon(activity_classification_key)}</TooltipWrapper>,
+          actionButton: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{this.actionButton(act, nextActivitySession)}</TooltipWrapper>,
+          dueDate: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{due_date ? formatDateTimeForDisplay(moment.utc(due_date)) : null}</TooltipWrapper>,
+          completedDate: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{completed_date ? formatDateTimeForDisplay(moment.utc(completed_date)) : null}</TooltipWrapper>,
+          id: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{ua_id}</TooltipWrapper>
+        }
+
+      }
+
       return {
         name,
         score: this.score(act),

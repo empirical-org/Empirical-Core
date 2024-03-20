@@ -47,9 +47,7 @@
   .dropdown-toggle.btn.btn-default {
     width: 300px;
   }
-  .error {
 
-  }
   .gray-text {
     color: #969696;
     .row {
@@ -130,28 +128,6 @@
     color: $quillforestgreen;
     margin-left: 3px;
   }
-  // .modal-dialog {
-  //   .modal-header {
-  //     min-height: 59px;
-  //   }
-  //   .account-form {
-  //     margin-bottom: 50px;
-  //   }
-  //   .close {
-  //     background-color: black;
-  //   }
-  //   .form-label, #zip{
-  //     float: none;
-  //     height: inherit;
-  //   line-height: inherit;
-  //   }
-  //   .row {
-  //     padding: 0px;
-  //   }
-  //   #select_school {
-  //     width: 50%;
-  //   }
-  // }
 }
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
@@ -164,38 +140,6 @@
   }
 }
 
-// @media (max-width: 767px) {
-//   #my-account {
-//     .form-row {
-//       display: flex;
-//       align-items: center;
-//       &.email-row {
-//         position: relative;
-//       }
-//       .form-button {
-//         margin-left: 4%;
-//       }
-//     }
-//     .form-label {
-//       width: 110% !important;
-//     }
-//     .form-input {
-//       input {
-//         margin-left: -125%;
-//         width: 225%;
-//         height: 40px;
-//         border-radius: 3px;
-//         background-color: $quill-white;
-//         border: solid 1px #e9e9e9;
-//         &.inactive {
-//           width: 100%;
-//           background-color: #F7F5F5;
-//           border: dashed 1px #969696;
-//         }
-//       }
-//     }
-//   }
-// }
 
 @media (max-width: 767px) {
   #my-account {
@@ -351,14 +295,13 @@
 
   .checkbox-row {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: 12px;
     span {
       line-height: 1.57;
     }
   }
   .quill-checkbox {
-    margin-top: 2px;
     margin-right: 24px;
   }
   @media (max-width: 580px) {
@@ -465,6 +408,12 @@
   background-color: $quill-black;
 }
 
+.subject-area-section {
+  .subject-area-row span {
+    color: $quill-grey-40;
+  }
+}
+
 .unlink-modal, .delete-account-modal {
   width: 560px;
   border-radius: 6px;
@@ -556,6 +505,41 @@
   .text {
     color: #646464;
     margin: 0px 30px 40px 0px;
+  }
+}
+
+.student-dashboard-settings-section {
+  padding-bottom: 40px;
+  h1 {
+    margin-bottom: 8px;
+  }
+  p {
+    margin-bottom: 32px;
+    color: $quill-grey-40;
+    a {
+      color: $quill-green;
+      font-weight: 600;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+  label {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    color: $quill-grey-40;
+    margin-bottom: 0px;
+  }
+  .checkbox-row {
+    margin-bottom: 0px;
+  }
+  form {
+    margin-bottom: 0px;
+  }
+  .button-section {
+    padding-bottom: 0px;
   }
 }
 

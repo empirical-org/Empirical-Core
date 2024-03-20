@@ -68,6 +68,7 @@ module AdminDiagnosticReports
         aggregate_id,
         #{aggregate_sort_clause},
         student_id,
+        student_name,
         pre_activity_session_completed_at,
         post_activity_session_completed_at,
         performance.classroom_id,
@@ -83,7 +84,11 @@ module AdminDiagnosticReports
 
     def relevant_date_column = "performance.pre_assigned_at"
 
+<<<<<<< HEAD
     def aggregate_by_clause = "CONCAT(performance.classroom_id, ' ', performance.student_id)"
+=======
+    def aggregate_by_clause = "CONCAT(performance.classroom_id, ':', performance.student_id)"
+>>>>>>> 829d954940c932b3bad94f38091d3df433b98849
     def aggregate_sort_clause = "students.name"
 
     private def post_process(result)

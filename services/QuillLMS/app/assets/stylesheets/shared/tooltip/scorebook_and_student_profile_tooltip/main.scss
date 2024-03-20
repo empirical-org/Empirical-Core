@@ -3,7 +3,7 @@
   i, svg {
     position: absolute;
     top: -20px;
-    left: 146px;
+    left: 188px;
     font-size: 34px;
     color: $quill-white;
     &.border-color {
@@ -55,6 +55,7 @@
       justify-content: space-between;
       padding-top: 10px;
       border-top: 1px solid $quill-grey-15;
+      white-space: normal;
       &.no-border-top {
         border-top: none;
         padding-bottom: 0 !important;
