@@ -1,13 +1,11 @@
 import * as React from 'react'
 
 import { DropdownInput, DropdownInputWithSearchTokens, Tooltip, helpIcon, } from '../../../Shared/index'
-import { requestPost } from '../../../../modules/request'
-import { hashPayload } from '../../shared'
+import FilterScope from '../filterScope'
+import { FETCH_ACTION, RESET_ACTION } from '../../shared'
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
 const DIAGNOSTIC_GROWTH_REPORT_PATH = 'diagnostic_growth_report'
-const PUSHER_EVENT_KEY = "admin-diagnostic-students-cached";
-const FILTER_SCOPE_QUERY_KEY = 'filter-scope'
 
 const Filters = ({
   availableTimeframes,
@@ -41,100 +39,11 @@ const Filters = ({
 
   const isGrowthDiagnosticReport = reportType === DIAGNOSTIC_GROWTH_REPORT_PATH
 
-  const [pusherMessage, setPusherMessage] = React.useState<string>(null)
+  /* this is a piece of state needed for a UI specification requested by PS and Jack where the filter buttons
+     container will expand in height only for the Student section of the Growth Reports
+  */
   const [applyFilterButtonClicked, setApplyFilterButtonClicked] = React.useState<boolean>(false)
-  const [loadingStudentCount, setLoadingStudentCount] = React.useState<boolean>(true)
-  const [totalStudentCountForFilters, setTotalStudentCountForFilters] = React.useState<Number>(null)
-  const [totalStudentMatchesForFilters, setTotalStudentMatchesForFilters] = React.useState<Number>(null)
-
-  React.useEffect(() => {
-    initializePusher()
-  }, [pusherChannel])
-
-  React.useEffect(() => {
-    if (!pusherMessage) return
-
-    if (pusherMessage === getFilterHash({ key: FILTER_SCOPE_QUERY_KEY, id: diagnosticIdForStudentCount, withFilters: false })) {
-      getStudentCountData()
-    }
-    if (pusherMessage === getFilterHash({ key: FILTER_SCOPE_QUERY_KEY, id: diagnosticIdForStudentCount, withFilters: true })) {
-      getStudentCountData()
-    }
-  }, [pusherMessage])
-
-  React.useEffect(() => {
-    if (isGrowthDiagnosticReport && diagnosticIdForStudentCount && hasAdjustedFiltersFromDefault && !totalStudentCountForFilters && !totalStudentMatchesForFilters) {
-      getStudentCountData()
-    }
-  }, [diagnosticIdForStudentCount])
-
-  React.useEffect(() => {
-    if (totalStudentCountForFilters && totalStudentMatchesForFilters) {
-      setLoadingStudentCount(false)
-      setApplyFilterButtonClicked(true)
-    }
-  }, [totalStudentCountForFilters, totalStudentMatchesForFilters])
-
-  React.useEffect(() => {
-    setApplyFilterButtonClicked(false)
-    resetCounts()
-  }, [diagnosticIdForStudentCount])
-
-  function initializePusher() {
-    pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
-      const { message, } = body
-
-      setPusherMessage(message)
-    });
-  };
-
-  function getFilterHash({ key, id, withFilters }) {
-    const filterTarget = [].concat(
-      key,
-      id,
-      selectedTimeframe.value,
-      withFilters ? selectedSchools.map(s => s.id) : null,
-      withFilters ? selectedGrades.map(g => g.value) : null,
-      withFilters ? selectedTeachers.map(t => t.id) : null,
-      withFilters ? selectedClassrooms.map(c => c.id) : null,
-    )
-    return hashPayload(filterTarget)
-  }
-
-  function resetCounts() {
-    setTotalStudentMatchesForFilters(null)
-    setTotalStudentCountForFilters(null)
-  }
-
-  function getStudentCountData() {
-    resetCounts()
-    setLoadingStudentCount(true)
-    getStudentCountDataForFilters(false)
-    getStudentCountDataForFilters(true)
-  }
-
-  function getStudentCountDataForFilters(withFilters) {
-    const searchParams = {
-      query: FILTER_SCOPE_QUERY_KEY,
-      timeframe: selectedTimeframe.value,
-      school_ids: withFilters ? selectedSchools.map(s => s.id) : null,
-      teacher_ids: withFilters ? selectedTeachers.map(t => t.id) : null,
-      classroom_ids: withFilters ? selectedClassrooms.map(c => c.id) : null,
-      grades: withFilters ? selectedGrades.map(g => g.value) : null,
-      diagnostic_id: diagnosticIdForStudentCount
-    }
-
-    requestPost('/admin_diagnostic_students/report', searchParams, (body) => {
-      if (!body.hasOwnProperty('results')) { return }
-      const { results } = body
-      const { count } = results
-      if (withFilters) {
-        setTotalStudentMatchesForFilters(count)
-      } else {
-        setTotalStudentCountForFilters(count)
-      }
-    })
-  }
+  const [filterScopeAction, setFilterScopeAction] = React.useState<string>('')
 
   function effectiveSelectedSchools() {
     return selectedSchools.filter(s => availableSchools.find(as => as.id === s.id))
@@ -148,38 +57,58 @@ const Filters = ({
     return selectedClassrooms.filter(c => availableClassrooms.find(ac => ac.id === c.id))
   }
 
-  function renderStudentCount() {
-    const matchText = totalStudentMatchesForFilters === 1 ? 'match' : 'matches'
-    const totalText = totalStudentCountForFilters === 1 ? 'student' : 'students'
-    return <p className="filters-student-count"><strong>{totalStudentMatchesForFilters}</strong> {matchText} from <strong>{totalStudentCountForFilters}</strong> {totalText}</p>
+  function handleSetFilterScopeAction(value: string) {
+    setFilterScopeAction(value)
+  }
+
+  function handleSetApplyFilterButtonClicked(value: boolean) {
+    setApplyFilterButtonClicked(value)
   }
 
   function handleApplyFilters() {
     if(isGrowthDiagnosticReport && diagnosticIdForStudentCount) {
-      getStudentCountData()
+      setFilterScopeAction(FETCH_ACTION)
     }
     applyFilters()
   }
 
   function handleClearFilters() {
     if (isGrowthDiagnosticReport) {
-      resetCounts()
       setApplyFilterButtonClicked(false)
+      setFilterScopeAction(RESET_ACTION)
     }
     clearFilters()
+  }
+
+  function renderFilterScope() {
+    if(!isGrowthDiagnosticReport) { return }
+    return(
+      <FilterScope
+        selectedGrades={selectedGrades}
+        hasAdjustedFiltersFromDefault={hasAdjustedFiltersFromDefault}
+        selectedTimeframe={selectedTimeframe}
+        selectedSchools={selectedSchools}
+        selectedTeachers={selectedTeachers}
+        selectedClassrooms={selectedClassrooms}
+        diagnosticIdForStudentCount={diagnosticIdForStudentCount}
+        pusherChannel={pusherChannel}
+        filterScopeAction={filterScopeAction}
+        handleSetApplyFilterButtonClicked={handleSetApplyFilterButtonClicked}
+        handleSetFilterScopeAction={handleSetFilterScopeAction}
+      />
+    )
   }
 
   function renderFilterButtons() {
     if (!hasAdjustedFiltersFromDefault && !hasAdjustedFiltersSinceLastSubmission) { return null }
 
-    const shouldDisplayStudentCount = isGrowthDiagnosticReport && !loadingStudentCount && totalStudentCountForFilters && totalStudentMatchesForFilters
     let applyClassName = "quill-button small contained primary focus-on-light"
 
     applyClassName += hasAdjustedFiltersSinceLastSubmission ? '' : ' disabled'
 
     return (
       <div className={`filter-buttons-container fixed ${applyFilterButtonClicked ? 'with-count ' : ''}`}>
-        {shouldDisplayStudentCount && renderStudentCount()}
+        {renderFilterScope()}
         <div className="filter-buttons">
           <button className="quill-button small outlined secondary focus-on-light" onClick={handleClearFilters} type="button">Clear filters</button>
           <button className={applyClassName} onClick={handleApplyFilters} type="button">Apply filters</button>
