@@ -5,6 +5,7 @@
   margin-bottom: 24px;
   .score-tooltip-activator {
     position: relative;
+    white-space: normal;
   }
   &.selected-unit {
     .unit-name-and-staggered-release-status {
@@ -56,7 +57,9 @@
         cursor: text;
       }
       .data-table-row {
-        height: 72px;
+        min-height: 72px;
+        height: min-content;
+        padding: 18px 0px;
         &:hover {
           background-color: transparent;
         }
@@ -80,6 +83,9 @@
     .score {
       display: flex;
       align-items: center;
+      .button-loading-spinner {
+        margin-right: 8px;
+      }
       div {
         display: inline-block;
         width: 24px;

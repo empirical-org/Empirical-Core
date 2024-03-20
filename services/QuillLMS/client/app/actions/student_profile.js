@@ -17,10 +17,6 @@ export const fetchStudentProfile = (classroomId) => {
       `${process.env.DEFAULT_URL}/student_profile_data${qs}`,
       (body) => {
         dispatch(receiveStudentProfile(body))
-
-        if (body.show_exact_scores) {
-          dispatch(fetchExactScoresData(body.scores))
-        }
       }
     );
   };

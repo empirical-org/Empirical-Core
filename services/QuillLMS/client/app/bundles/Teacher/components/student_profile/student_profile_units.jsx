@@ -94,7 +94,7 @@ export default class StudentProfileUnits extends React.Component {
   }
 
   renderContent = () => {
-    const { loading, nextActivitySession, isBeingPreviewed, selectedUnitId, exactScoresData, showExactScores, } = this.props
+    const { loading, nextActivitySession, isBeingPreviewed, selectedUnitId, exactScoresData, showExactScores, exactScoresDataPending, } = this.props
     if (loading) { return <LoadingIndicator /> }
 
     const content = this.displayedUnits().map(unit => {
@@ -103,6 +103,7 @@ export default class StudentProfileUnits extends React.Component {
         <StudentProfileUnit
           data={unit}
           exactScoresData={exactScoresData}
+          exactScoresDataPending={exactScoresDataPending}
           id={unit_id}
           isBeingPreviewed={isBeingPreviewed}
           isSelectedUnit={String(unit_id) === selectedUnitId}

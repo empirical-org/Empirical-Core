@@ -11,7 +11,7 @@ const initialState = {
   student: null,
   nextActivitySession: null,
   activeClassworkTab: TO_DO_ACTIVITIES,
-  loadingExactScoresData: false
+  exactScoresDataPending: false
 };
 
 export default (state, action) => {
@@ -21,7 +21,7 @@ export default (state, action) => {
     case 'HANDLE_CLASSROOM_CLICK':
       return Object.assign({}, state, {
         loading: true,
-        loadingExactScoresData: false,
+        exactScoresDataPending: false,
         selectedClassroomId: action.selectedClassroomId
       });
     case 'RECEIVE_STUDENTS_CLASSROOMS':
@@ -35,11 +35,11 @@ export default (state, action) => {
         selectedClassroomId: action.data.classroom_id,
         metrics: action.data.metrics,
         showExactScores: action.data.show_exact_scores,
-        loadingExactScoresData: action.data.show_exact_scores // if this value is true, we set off another request to get this data, so it is now loading
+        exactScoresDataPending: action.data.show_exact_scores // if this value is true, when we switch to the completed tab we will fire a request to get the relevant data
       });
     case 'RECEIVE_EXACT_SCORES_DATA': {
       return Object.assign({}, state, {
-        loadingExactScoresData: false,
+        exactScoresDataPending: false,
         exactScoresData: action.data.exact_scores_data
       })
     }
