@@ -91,216 +91,284 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
         class="data-table-headers"
       >
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
-          <span>
-            Diagnostic Name
-          </span>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
-            >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
+            <span>
+              Diagnostic Name
             </span>
-            <span
-              class="quill-tooltip-wrapper"
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 196px; min-width: 196px; text-align: left;"
+          style="width: 190px; min-width: 190px; text-align: left;"
         >
-          <span>
-            Pre Diagnostic Completed
-          </span>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Pre Diagnostic
+              </p>
+              <p>
+                Completed
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 180px; min-width: 180px; text-align: left;"
         >
-          <span>
-            Completed Activities
-          </span>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
-            >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
+            <span>
+              Completed Activities
             </span>
-            <span
-              class="quill-tooltip-wrapper"
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
-          <div
-            class="multi-line-header"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <p>
-              Average Activities &
-            </p>
-            <p>
-              Time Spent
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Average Activities &
+              </p>
+              <p>
+                Time Spent
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
-          <div
-            class="multi-line-header"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <p>
-              Post Diagnostic
-            </p>
-            <p>
-              Completed
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Post Diagnostic
+              </p>
+              <p>
+                Completed
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 106px; min-width: 106px; text-align: left;"
+          style="width: 164px; min-width: 164px; text-align: left;"
         >
-          <span>
-            Overall Skill Growth
-          </span>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Overall
+              </p>
+              <p>
+                Skill Growth
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
       </tr>
     </thead>
@@ -312,7 +380,7 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
       >
         <td
           class="data-table-row-section undefined highlight-column"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           <button
             aria-label="show aggregate row data for Starter Baseline Diagnostic (Pre)"
@@ -328,31 +396,31 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 196px; min-width: 196px; text-align: left;"
+          style="width: 190px; min-width: 190px; text-align: left;"
         >
           57 of 65 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 180px; min-width: 180px; text-align: left;"
         >
           58 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           17 Activities (26:35)
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           27 of 65 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 106px; min-width: 106px; text-align: left;"
+          style="width: 164px; min-width: 164px; text-align: left;"
         >
           <button
             class="interactive-wrapper emphasized-content"
@@ -366,7 +434,7 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
       >
         <td
           class="data-table-row-section undefined highlight-column"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           <button
             aria-label="hide aggregate row data for Intermediate Baseline Diagnostic (Pre)"
@@ -382,31 +450,31 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 196px; min-width: 196px; text-align: left;"
+          style="width: 190px; min-width: 190px; text-align: left;"
         >
           40 of 55 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 180px; min-width: 180px; text-align: left;"
         >
           32 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           10 Activities (16:35)
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           25 of 55 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 106px; min-width: 106px; text-align: left;"
+          style="width: 164px; min-width: 164px; text-align: left;"
         >
           <button
             class="interactive-wrapper emphasized-content"
@@ -420,7 +488,7 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
       >
         <td
           class="data-table-row-section undefined highlight-column"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           <img
             alt=""
@@ -431,31 +499,31 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 196px; min-width: 196px; text-align: left;"
+          style="width: 190px; min-width: 190px; text-align: left;"
         >
           15 of 20 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 180px; min-width: 180px; text-align: left;"
         >
           21 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           3 Activities (16:35)
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           17 of 35 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 106px; min-width: 106px; text-align: left;"
+          style="width: 164px; min-width: 164px; text-align: left;"
         >
           <button
             class="interactive-wrapper emphasized-content"
@@ -469,7 +537,7 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
       >
         <td
           class="data-table-row-section undefined highlight-column"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           <img
             alt=""
@@ -480,31 +548,31 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 196px; min-width: 196px; text-align: left;"
+          style="width: 190px; min-width: 190px; text-align: left;"
         >
           20 of 35 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 180px; min-width: 180px; text-align: left;"
         >
           11 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           7 Activities (16:35)
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           10 of 30 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 106px; min-width: 106px; text-align: left;"
+          style="width: 164px; min-width: 164px; text-align: left;"
         >
           <button
             class="interactive-wrapper emphasized-content"
@@ -609,216 +677,284 @@ exports[`OverviewSection loaded state it should render the expected data when da
         class="data-table-headers"
       >
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
-          <span>
-            Diagnostic Name
-          </span>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
-            >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
+            <span>
+              Diagnostic Name
             </span>
-            <span
-              class="quill-tooltip-wrapper"
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 196px; min-width: 196px; text-align: left;"
+          style="width: 190px; min-width: 190px; text-align: left;"
         >
-          <span>
-            Pre Diagnostic Completed
-          </span>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Pre Diagnostic
+              </p>
+              <p>
+                Completed
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 180px; min-width: 180px; text-align: left;"
         >
-          <span>
-            Completed Activities
-          </span>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
-            >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
+            <span>
+              Completed Activities
             </span>
-            <span
-              class="quill-tooltip-wrapper"
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
-          <div
-            class="multi-line-header"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <p>
-              Average Activities &
-            </p>
-            <p>
-              Time Spent
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Average Activities &
+              </p>
+              <p>
+                Time Spent
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
-          <div
-            class="multi-line-header"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <p>
-              Post Diagnostic
-            </p>
-            <p>
-              Completed
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Post Diagnostic
+              </p>
+              <p>
+                Completed
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 106px; min-width: 106px; text-align: left;"
+          style="width: 164px; min-width: 164px; text-align: left;"
         >
-          <span>
-            Overall Skill Growth
-          </span>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Overall
+              </p>
+              <p>
+                Skill Growth
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
       </tr>
     </thead>
@@ -830,7 +966,7 @@ exports[`OverviewSection loaded state it should render the expected data when da
       >
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           <button
             aria-label="hide aggregate row data for Starter Baseline Diagnostic (Pre)"
@@ -846,31 +982,31 @@ exports[`OverviewSection loaded state it should render the expected data when da
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 196px; min-width: 196px; text-align: left;"
+          style="width: 190px; min-width: 190px; text-align: left;"
         >
           57 of 65 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 180px; min-width: 180px; text-align: left;"
         >
           58 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           17 Activities (26:35)
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           27 of 65 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 106px; min-width: 106px; text-align: left;"
+          style="width: 164px; min-width: 164px; text-align: left;"
         >
           <button
             class="interactive-wrapper emphasized-content"
@@ -884,7 +1020,7 @@ exports[`OverviewSection loaded state it should render the expected data when da
       >
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           <img
             alt=""
@@ -895,31 +1031,31 @@ exports[`OverviewSection loaded state it should render the expected data when da
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 196px; min-width: 196px; text-align: left;"
+          style="width: 190px; min-width: 190px; text-align: left;"
         >
           27 of 35 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 180px; min-width: 180px; text-align: left;"
         >
           50 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           12 Activities (26:35)
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           17 of 35 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 106px; min-width: 106px; text-align: left;"
+          style="width: 164px; min-width: 164px; text-align: left;"
         >
           <button
             class="interactive-wrapper emphasized-content"
@@ -933,7 +1069,7 @@ exports[`OverviewSection loaded state it should render the expected data when da
       >
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           <img
             alt=""
@@ -944,31 +1080,31 @@ exports[`OverviewSection loaded state it should render the expected data when da
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 196px; min-width: 196px; text-align: left;"
+          style="width: 190px; min-width: 190px; text-align: left;"
         >
           30 of 30 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 180px; min-width: 180px; text-align: left;"
         >
           9 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           23 Activities (26:35)
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           10 of 30 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 106px; min-width: 106px; text-align: left;"
+          style="width: 164px; min-width: 164px; text-align: left;"
         >
           <button
             class="interactive-wrapper emphasized-content"
@@ -982,7 +1118,7 @@ exports[`OverviewSection loaded state it should render the expected data when da
       >
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           <button
             aria-label="show aggregate row data for Intermediate Baseline Diagnostic (Pre)"
@@ -998,31 +1134,31 @@ exports[`OverviewSection loaded state it should render the expected data when da
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 196px; min-width: 196px; text-align: left;"
+          style="width: 190px; min-width: 190px; text-align: left;"
         >
           40 of 55 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 180px; min-width: 180px; text-align: left;"
         >
           32 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           10 Activities (16:35)
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 176px; min-width: 176px; text-align: left;"
+          style="width: 170px; min-width: 170px; text-align: left;"
         >
           25 of 55 Students
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 106px; min-width: 106px; text-align: left;"
+          style="width: 164px; min-width: 164px; text-align: left;"
         >
           <button
             class="interactive-wrapper emphasized-content"
@@ -1132,216 +1268,284 @@ exports[`OverviewSection loaded state it should render the expected header compo
         class="data-table-headers"
       >
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 176px; min-width: 176px; text-align: right;"
+          style="width: 170px; min-width: 170px; text-align: right;"
         >
-          <span>
-            Diagnostic Name
-          </span>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
-            >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
+            <span>
+              Diagnostic Name
             </span>
-            <span
-              class="quill-tooltip-wrapper"
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 196px; min-width: 196px; text-align: right;"
+          style="width: 190px; min-width: 190px; text-align: right;"
         >
-          <span>
-            Pre Diagnostic Completed
-          </span>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Pre Diagnostic
+              </p>
+              <p>
+                Completed
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 176px; min-width: 176px; text-align: right;"
+          style="width: 180px; min-width: 180px; text-align: right;"
         >
-          <span>
-            Completed Activities
-          </span>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
-            >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
+            <span>
+              Completed Activities
             </span>
-            <span
-              class="quill-tooltip-wrapper"
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 176px; min-width: 176px; text-align: right;"
+          style="width: 170px; min-width: 170px; text-align: right;"
         >
-          <div
-            class="multi-line-header"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <p>
-              Average Activities &
-            </p>
-            <p>
-              Time Spent
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Average Activities &
+              </p>
+              <p>
+                Time Spent
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 176px; min-width: 176px; text-align: right;"
+          style="width: 170px; min-width: 170px; text-align: right;"
         >
-          <div
-            class="multi-line-header"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <p>
-              Post Diagnostic
-            </p>
-            <p>
-              Completed
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Post Diagnostic
+              </p>
+              <p>
+                Completed
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 106px; min-width: 106px; text-align: right;"
+          style="width: 164px; min-width: 164px; text-align: right;"
         >
-          <span>
-            Overall Skill Growth
-          </span>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Overall
+              </p>
+              <p>
+                Skill Growth
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
       </tr>
     </thead>

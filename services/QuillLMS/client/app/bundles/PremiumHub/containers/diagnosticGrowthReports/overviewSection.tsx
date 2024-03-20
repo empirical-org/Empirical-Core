@@ -11,7 +11,7 @@ const POST_DIAGNOSTIC_ASSIGNED_QUERYSTRING = 'post-diagnostic-assigned'
 const PRE_DIAGNOSTIC_COMPLETED_QUERYSTRING = 'pre-diagnostic-completed'
 const POST_DIAGNOSTIC_COMPLETED_QUERYSTRING = 'post-diagnostic-completed'
 const RECOMMENDATIONS_QUERYSTRING = 'recommendations'
-const DEFAULT_CELL_WIDTH = '176px'
+const DEFAULT_CELL_WIDTH = '170px'
 
 const DIAGNOSTIC_NAME = 'Diagnostic Name'
 const PRE_DIAGNOSTIC_COMPLETED = 'Pre Diagnostic Completed'
@@ -22,60 +22,70 @@ const headers = [
   {
     name: DIAGNOSTIC_NAME,
     attribute: 'name',
+    sortAttribute: 'name',
     width: DEFAULT_CELL_WIDTH,
     tooltipName: DIAGNOSTIC_NAME,
     tooltipDescription: diagnosticNameTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
-    name: PRE_DIAGNOSTIC_COMPLETED,
+    name: '',
+    primaryTitle: 'Pre Diagnostic',
+    secondaryTitle: 'Completed',
     attribute: 'preDiagnosticCompleted',
-    width: '196px',
+    sortAttribute: 'preStudentsCompleted',
+    width: '190px',
     tooltipName: PRE_DIAGNOSTIC_COMPLETED,
     tooltipDescription: preDiagnosticCompletedTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
     name: COMPLETED_ACTIVITIES,
     attribute: 'studentsCompletedPractice',
-    width: DEFAULT_CELL_WIDTH,
+    sortAttribute: 'completedPracticeCount',
+    width: '180px',
     tooltipName: COMPLETED_ACTIVITIES,
     tooltipDescription: completedActivitiesTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
     name: '',
     attribute: 'averageActivitiesAndTimeSpent',
+    sortAttribute: 'averageActivitiesCount',
     width: DEFAULT_CELL_WIDTH,
     primaryTitle: 'Average Activities &',
     secondaryTitle: 'Time Spent',
     tooltipName: 'Average Activities & Time Spent',
     tooltipDescription: averageActivitiesAndTimeSpentTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
     name: '',
     attribute: 'postDiagnosticCompleted',
+    sortAttribute: 'postStudentsCompleted',
     width: DEFAULT_CELL_WIDTH,
     primaryTitle: 'Post Diagnostic',
     secondaryTitle: 'Completed',
     tooltipName: 'Post Diagnostic Completed',
     tooltipDescription: postDiagnosticCompletedTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   },
   {
-    name: OVERALL_SKILL_GROWTH,
+    name: '',
+    sortAttribute: 'overallSkillGrowthSortValue',
+    primaryTitle: 'Overall',
+    secondaryTitle: 'Skill Growth',
     attribute: 'overallSkillGrowth',
-    width: '106px',
+    width: '164px',
     tooltipName: OVERALL_SKILL_GROWTH,
     tooltipDescription: overallSkillGrowthTooltipText,
     noTooltip: true,
-    isSortable: false
+    isSortable: true
   }
 ]
 
@@ -92,6 +102,8 @@ export const OverviewSection = ({
   handleSetNoDiagnosticDataAvailable,
   handleTabChangeFromDataChip,
   handleSetSelectedDiagnosticId,
+  handleSetSelectedGroupByValue,
+  handleSetDiagnosticIdForStudentCount,
   passedData
 }) => {
 
@@ -104,6 +116,10 @@ export const OverviewSection = ({
   const [recommendationsData, setRecommendationsData] = React.useState<any>(null);
   const [aggregatedData, setAggregatedData] = React.useState<any>(passedData || []);
   const [pusherMessage, setPusherMessage] = React.useState<string>(null)
+
+  React.useEffect(() => {
+    handleSetDiagnosticIdForStudentCount(null)
+  }, [])
 
   React.useEffect(() => {
     initializePusher()
@@ -189,12 +205,9 @@ export const OverviewSection = ({
     const searchParams = getSearchParams(PRE_DIAGNOSTIC_ASSIGNED_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
-      if (!body.hasOwnProperty('results')) {
-        return
-      } else {
-        const { results, } = body
-        setPreDiagnosticAssignedData(results)
-      }
+      if (!body.hasOwnProperty('results')) { return }
+      const { results, } = body
+      setPreDiagnosticAssignedData(results)
     })
   }
 
@@ -203,12 +216,9 @@ export const OverviewSection = ({
     const searchParams = getSearchParams(POST_DIAGNOSTIC_ASSIGNED_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
-      if (!body.hasOwnProperty('results')) {
-        return
-      } else {
-        const { results, } = body
-        setPostDiagnosticAssignedData(results)
-      }
+      if (!body.hasOwnProperty('results')) { return }
+      const { results, } = body
+      setPostDiagnosticAssignedData(results)
     })
   }
 
@@ -217,12 +227,9 @@ export const OverviewSection = ({
     const searchParams = getSearchParams(PRE_DIAGNOSTIC_COMPLETED_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
-      if (!body.hasOwnProperty('results')) {
-        return
-      } else {
-        const { results, } = body
-        setPreDiagnosticCompletedData(results)
-      }
+      if (!body.hasOwnProperty('results')) { return }
+      const { results, } = body
+      setPreDiagnosticCompletedData(results)
     })
   }
 
@@ -231,12 +238,9 @@ export const OverviewSection = ({
     const searchParams = getSearchParams(POST_DIAGNOSTIC_COMPLETED_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
-      if (!body.hasOwnProperty('results')) {
-        return
-      } else {
-        const { results, } = body
-        setPostDiagnosticCompletedData(results)
-      }
+      if (!body.hasOwnProperty('results')) { return }
+      const { results, } = body
+      setPostDiagnosticCompletedData(results)
     })
   }
 
@@ -245,12 +249,9 @@ export const OverviewSection = ({
     const searchParams = getSearchParams(RECOMMENDATIONS_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
-      if (!body.hasOwnProperty('results')) {
-        return
-      } else {
-        const { results, } = body
-        setRecommendationsData(results)
-      }
+      if (!body.hasOwnProperty('results')) { return }
+      const { results, } = body
+      setRecommendationsData(results)
     })
   }
 
@@ -272,6 +273,7 @@ export const OverviewSection = ({
 
   function handleGrowthChipClick(id: number) {
     handleSetSelectedDiagnosticId(id)
+    handleSetSelectedGroupByValue(groupByValue)
     handleTabChangeFromDataChip(SKILL)
   }
 

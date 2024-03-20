@@ -178,7 +178,7 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
         <th
           class="data-table-header undefined sortable"
           scope="col"
-          style="width: 133px; min-width: 133px; text-align: left;"
+          style="width: 132px; min-width: 132px; text-align: left;"
         >
           <button
             class="interactive-wrapper focus-on-light"
@@ -193,237 +193,291 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
           </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 142px; min-width: 142px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
-          <div
-            class="multi-line-header"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <p>
-              Pre
-            </p>
-            <p>
-              Skill Score
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Pre
+              </p>
+              <p>
+                Skill Score
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 142px; min-width: 142px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
-          <div
-            class="multi-line-header"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <p>
-              Post
-            </p>
-            <p>
-              Skill Score
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Post
+              </p>
+              <p>
+                Skill Score
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
+          scope="col"
+          style="width: 150px; min-width: 150px; text-align: left;"
+        >
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
+          >
+            <span>
+              Growth Results
+            </span>
+            <div
+              class="sort-tooltip-container"
+            >
+              <span
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
+        </th>
+        <th
+          class="data-table-header undefined sortable"
           scope="col"
           style="width: 142px; min-width: 142px; text-align: left;"
         >
-          <span>
-            Growth Results
-          </span>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Students
+              </p>
+              <p>
+                Improved Skill
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
-          scope="col"
-          style="width: 142px; min-width: 142px; text-align: left;"
-        >
-          <div
-            class="multi-line-header"
-          >
-            <p>
-              Students
-            </p>
-            <p>
-              Improved Skill
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
-            >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
-            >
-              <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
-        </th>
-        <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
           style="width: 160px; min-width: 160px; text-align: left;"
         >
-          <div
-            class="multi-line-header"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <p>
-              Students
-            </p>
-            <p>
-              Without Improvement
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Students Without
+              </p>
+              <p>
+                Improvement
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 154px; min-width: 154px; text-align: left;"
+          style="width: 168px; min-width: 168px; text-align: left;"
         >
-          <div
-            class="multi-line-header"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <p>
-              Students Maintained
-            </p>
-            <p>
-              Proficiency
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Students Maintained
+              </p>
+              <p>
+                Proficiency
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
       </tr>
     </thead>
@@ -435,7 +489,7 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
       >
         <td
           class="data-table-row-section undefined highlight-column"
-          style="width: 133px; min-width: 133px; text-align: left;"
+          style="width: 132px; min-width: 132px; text-align: left;"
         >
           <button
             aria-label="show aggregate row data for Adjectives and Adverbs"
@@ -451,19 +505,19 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
           39%
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
           73%
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: left;"
+          style="width: 150px; min-width: 150px; text-align: left;"
         >
           +34%
         </td>
@@ -481,7 +535,7 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 154px; min-width: 154px; text-align: left;"
+          style="width: 168px; min-width: 168px; text-align: left;"
         >
           4 of 47
         </td>
@@ -491,7 +545,7 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
       >
         <td
           class="data-table-row-section undefined highlight-column"
-          style="width: 133px; min-width: 133px; text-align: left;"
+          style="width: 132px; min-width: 132px; text-align: left;"
         >
           <button
             aria-label="hide aggregate row data for Capitalization"
@@ -507,19 +561,19 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
           48%
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
           66%
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: left;"
+          style="width: 150px; min-width: 150px; text-align: left;"
         >
           +18%
         </td>
@@ -537,7 +591,7 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 154px; min-width: 154px; text-align: left;"
+          style="width: 168px; min-width: 168px; text-align: left;"
         >
           14 of 46
         </td>
@@ -547,7 +601,7 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
       >
         <td
           class="data-table-row-section undefined highlight-column"
-          style="width: 133px; min-width: 133px; text-align: left;"
+          style="width: 132px; min-width: 132px; text-align: left;"
         >
           <img
             alt=""
@@ -558,19 +612,19 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
           32%
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
           25%
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: left;"
+          style="width: 150px; min-width: 150px; text-align: left;"
         >
           No Gain
         </td>
@@ -588,7 +642,7 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 154px; min-width: 154px; text-align: left;"
+          style="width: 168px; min-width: 168px; text-align: left;"
         >
           9 of 21
         </td>
@@ -598,7 +652,7 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
       >
         <td
           class="data-table-row-section undefined highlight-column"
-          style="width: 133px; min-width: 133px; text-align: left;"
+          style="width: 132px; min-width: 132px; text-align: left;"
         >
           <img
             alt=""
@@ -609,19 +663,19 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
           40%
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
           63%
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: left;"
+          style="width: 150px; min-width: 150px; text-align: left;"
         >
           +23%
         </td>
@@ -639,7 +693,7 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 154px; min-width: 154px; text-align: left;"
+          style="width: 168px; min-width: 168px; text-align: left;"
         >
           8 of 35
         </td>
@@ -827,7 +881,7 @@ exports[`SkillSection loaded state it should render the expected data when data 
         <th
           class="data-table-header undefined sortable"
           scope="col"
-          style="width: 133px; min-width: 133px; text-align: left;"
+          style="width: 132px; min-width: 132px; text-align: left;"
         >
           <button
             class="interactive-wrapper focus-on-light"
@@ -842,237 +896,291 @@ exports[`SkillSection loaded state it should render the expected data when data 
           </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 142px; min-width: 142px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
-          <div
-            class="multi-line-header"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <p>
-              Pre
-            </p>
-            <p>
-              Skill Score
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Pre
+              </p>
+              <p>
+                Skill Score
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 142px; min-width: 142px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
-          <div
-            class="multi-line-header"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <p>
-              Post
-            </p>
-            <p>
-              Skill Score
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Post
+              </p>
+              <p>
+                Skill Score
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
+          scope="col"
+          style="width: 150px; min-width: 150px; text-align: left;"
+        >
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
+          >
+            <span>
+              Growth Results
+            </span>
+            <div
+              class="sort-tooltip-container"
+            >
+              <span
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
+        </th>
+        <th
+          class="data-table-header undefined sortable"
           scope="col"
           style="width: 142px; min-width: 142px; text-align: left;"
         >
-          <span>
-            Growth Results
-          </span>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Students
+              </p>
+              <p>
+                Improved Skill
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
-          scope="col"
-          style="width: 142px; min-width: 142px; text-align: left;"
-        >
-          <div
-            class="multi-line-header"
-          >
-            <p>
-              Students
-            </p>
-            <p>
-              Improved Skill
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
-            >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
-            >
-              <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
-        </th>
-        <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
           style="width: 160px; min-width: 160px; text-align: left;"
         >
-          <div
-            class="multi-line-header"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <p>
-              Students
-            </p>
-            <p>
-              Without Improvement
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Students Without
+              </p>
+              <p>
+                Improvement
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 154px; min-width: 154px; text-align: left;"
+          style="width: 168px; min-width: 168px; text-align: left;"
         >
-          <div
-            class="multi-line-header"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <p>
-              Students Maintained
-            </p>
-            <p>
-              Proficiency
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Students Maintained
+              </p>
+              <p>
+                Proficiency
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
       </tr>
     </thead>
@@ -1084,7 +1192,7 @@ exports[`SkillSection loaded state it should render the expected data when data 
       >
         <td
           class="data-table-row-section undefined"
-          style="width: 133px; min-width: 133px; text-align: left;"
+          style="width: 132px; min-width: 132px; text-align: left;"
         >
           <button
             aria-label="hide aggregate row data for Adjectives and Adverbs"
@@ -1100,19 +1208,19 @@ exports[`SkillSection loaded state it should render the expected data when data 
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
           39%
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
           73%
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: left;"
+          style="width: 150px; min-width: 150px; text-align: left;"
         >
           +34%
         </td>
@@ -1130,7 +1238,7 @@ exports[`SkillSection loaded state it should render the expected data when data 
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 154px; min-width: 154px; text-align: left;"
+          style="width: 168px; min-width: 168px; text-align: left;"
         >
           4 of 47
         </td>
@@ -1140,7 +1248,7 @@ exports[`SkillSection loaded state it should render the expected data when data 
       >
         <td
           class="data-table-row-section undefined"
-          style="width: 133px; min-width: 133px; text-align: left;"
+          style="width: 132px; min-width: 132px; text-align: left;"
         >
           <img
             alt=""
@@ -1151,19 +1259,19 @@ exports[`SkillSection loaded state it should render the expected data when data 
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
           27%
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
           93%
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: left;"
+          style="width: 150px; min-width: 150px; text-align: left;"
         >
           +66%
         </td>
@@ -1181,7 +1289,7 @@ exports[`SkillSection loaded state it should render the expected data when data 
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 154px; min-width: 154px; text-align: left;"
+          style="width: 168px; min-width: 168px; text-align: left;"
         >
           2 of 3
         </td>
@@ -1191,7 +1299,7 @@ exports[`SkillSection loaded state it should render the expected data when data 
       >
         <td
           class="data-table-row-section undefined"
-          style="width: 133px; min-width: 133px; text-align: left;"
+          style="width: 132px; min-width: 132px; text-align: left;"
         >
           <img
             alt=""
@@ -1202,19 +1310,19 @@ exports[`SkillSection loaded state it should render the expected data when data 
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
           29%
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
           71%
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: left;"
+          style="width: 150px; min-width: 150px; text-align: left;"
         >
           +42%
         </td>
@@ -1232,7 +1340,7 @@ exports[`SkillSection loaded state it should render the expected data when data 
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 154px; min-width: 154px; text-align: left;"
+          style="width: 168px; min-width: 168px; text-align: left;"
         >
           7 of 41
         </td>
@@ -1242,7 +1350,7 @@ exports[`SkillSection loaded state it should render the expected data when data 
       >
         <td
           class="data-table-row-section undefined"
-          style="width: 133px; min-width: 133px; text-align: left;"
+          style="width: 132px; min-width: 132px; text-align: left;"
         >
           <button
             aria-label="show aggregate row data for Capitalization"
@@ -1258,19 +1366,19 @@ exports[`SkillSection loaded state it should render the expected data when data 
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
           48%
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
           66%
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 142px; min-width: 142px; text-align: left;"
+          style="width: 150px; min-width: 150px; text-align: left;"
         >
           +18%
         </td>
@@ -1288,7 +1396,7 @@ exports[`SkillSection loaded state it should render the expected data when data 
         </td>
         <td
           class="data-table-row-section undefined"
-          style="width: 154px; min-width: 154px; text-align: left;"
+          style="width: 168px; min-width: 168px; text-align: left;"
         >
           14 of 46
         </td>
@@ -1481,7 +1589,7 @@ exports[`SkillSection loaded state it should render the expected header componen
         <th
           class="data-table-header undefined sortable"
           scope="col"
-          style="width: 133px; min-width: 133px; text-align: right;"
+          style="width: 132px; min-width: 132px; text-align: right;"
         >
           <button
             class="interactive-wrapper focus-on-light"
@@ -1496,237 +1604,291 @@ exports[`SkillSection loaded state it should render the expected header componen
           </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
+          scope="col"
+          style="width: 132px; min-width: 132px; text-align: right;"
+        >
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
+          >
+            <div
+              class="multi-line-header"
+            >
+              <p>
+                Pre
+              </p>
+              <p>
+                Skill Score
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
+            >
+              <span
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
+        </th>
+        <th
+          class="data-table-header undefined sortable"
+          scope="col"
+          style="width: 132px; min-width: 132px; text-align: right;"
+        >
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
+          >
+            <div
+              class="multi-line-header"
+            >
+              <p>
+                Post
+              </p>
+              <p>
+                Skill Score
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
+            >
+              <span
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
+        </th>
+        <th
+          class="data-table-header undefined sortable"
+          scope="col"
+          style="width: 150px; min-width: 150px; text-align: right;"
+        >
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
+          >
+            <span>
+              Growth Results
+            </span>
+            <div
+              class="sort-tooltip-container"
+            >
+              <span
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
+        </th>
+        <th
+          class="data-table-header undefined sortable"
           scope="col"
           style="width: 142px; min-width: 142px; text-align: right;"
         >
-          <div
-            class="multi-line-header"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <p>
-              Pre
-            </p>
-            <p>
-              Skill Score
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Students
+              </p>
+              <p>
+                Improved Skill
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
-          scope="col"
-          style="width: 142px; min-width: 142px; text-align: right;"
-        >
-          <div
-            class="multi-line-header"
-          >
-            <p>
-              Post
-            </p>
-            <p>
-              Skill Score
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
-            >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
-            >
-              <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
-        </th>
-        <th
-          class="data-table-header undefined"
-          scope="col"
-          style="width: 142px; min-width: 142px; text-align: right;"
-        >
-          <span>
-            Growth Results
-          </span>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
-            >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
-            >
-              <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
-        </th>
-        <th
-          class="data-table-header undefined"
-          scope="col"
-          style="width: 142px; min-width: 142px; text-align: right;"
-        >
-          <div
-            class="multi-line-header"
-          >
-            <p>
-              Students
-            </p>
-            <p>
-              Improved Skill
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
-            >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
-            >
-              <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
-        </th>
-        <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
           style="width: 160px; min-width: 160px; text-align: right;"
         >
-          <div
-            class="multi-line-header"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <p>
-              Students
-            </p>
-            <p>
-              Without Improvement
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Students Without
+              </p>
+              <p>
+                Improvement
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
         <th
-          class="data-table-header undefined"
+          class="data-table-header undefined sortable"
           scope="col"
-          style="width: 154px; min-width: 154px; text-align: right;"
+          style="width: 168px; min-width: 168px; text-align: right;"
         >
-          <div
-            class="multi-line-header"
+          <button
+            class="interactive-wrapper focus-on-light"
+            type="button"
           >
-            <p>
-              Students Maintained
-            </p>
-            <p>
-              Proficiency
-            </p>
-          </div>
-          <span
-            aria-hidden="false"
-            class="quill-tooltip-trigger "
-            role="tooltip"
-          >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
+            <div
+              class="multi-line-header"
             >
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help.svg"
-              />
-            </span>
-            <span
-              class="quill-tooltip-wrapper"
+              <p>
+                Students Maintained
+              </p>
+              <p>
+                Proficiency
+              </p>
+            </div>
+            <div
+              class="sort-tooltip-container"
             >
               <span
-                aria-live="polite"
-                class="quill-tooltip"
-              />
-            </span>
-          </span>
+                aria-hidden="false"
+                class="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  class="undefined"
+                  role="button"
+                  tabindex="0"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </span>
+                <span
+                  class="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    class="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </div>
+          </button>
         </th>
       </tr>
     </thead>

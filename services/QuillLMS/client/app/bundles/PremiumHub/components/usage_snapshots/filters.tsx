@@ -1,7 +1,8 @@
 import * as React from 'react'
 
 import { DropdownInput, DropdownInputWithSearchTokens, Tooltip, helpIcon, } from '../../../Shared/index'
-import useWindowSize from '../../../Shared/hooks/useWindowSize';
+import FilterScope from '../filterScope'
+import { FETCH_ACTION, RESET_ACTION } from '../../shared'
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
 const DIAGNOSTIC_GROWTH_REPORT_PATH = 'diagnostic_growth_report'
@@ -31,9 +32,18 @@ const Filters = ({
   customStartDate,
   customEndDate,
   showFilterMenuButton,
-  reportType
+  reportType,
+  diagnosticIdForStudentCount,
+  pusherChannel
 }) => {
-  const size = useWindowSize();
+
+  const isGrowthDiagnosticReport = reportType === DIAGNOSTIC_GROWTH_REPORT_PATH
+
+  /* this is a piece of state needed for a UI specification requested by PS and Jack where the filter buttons
+     container will expand in height only for the Student section of the Growth Reports
+  */
+  const [applyFilterButtonClicked, setApplyFilterButtonClicked] = React.useState<boolean>(false)
+  const [filterScopeAction, setFilterScopeAction] = React.useState<string>('')
 
   function effectiveSelectedSchools() {
     return selectedSchools.filter(s => availableSchools.find(as => as.id === s.id))
@@ -47,6 +57,48 @@ const Filters = ({
     return selectedClassrooms.filter(c => availableClassrooms.find(ac => ac.id === c.id))
   }
 
+  function handleSetFilterScopeAction(value: string) {
+    setFilterScopeAction(value)
+  }
+
+  function handleSetApplyFilterButtonClicked(value: boolean) {
+    setApplyFilterButtonClicked(value)
+  }
+
+  function handleApplyFilters() {
+    if(isGrowthDiagnosticReport && diagnosticIdForStudentCount) {
+      setFilterScopeAction(FETCH_ACTION)
+    }
+    applyFilters()
+  }
+
+  function handleClearFilters() {
+    if (isGrowthDiagnosticReport) {
+      setApplyFilterButtonClicked(false)
+      setFilterScopeAction(RESET_ACTION)
+    }
+    clearFilters()
+  }
+
+  function renderFilterScope() {
+    if(!isGrowthDiagnosticReport) { return }
+    return(
+      <FilterScope
+        diagnosticIdForStudentCount={diagnosticIdForStudentCount}
+        filterScopeAction={filterScopeAction}
+        handleSetApplyFilterButtonClicked={handleSetApplyFilterButtonClicked}
+        handleSetFilterScopeAction={handleSetFilterScopeAction}
+        hasAdjustedFiltersFromDefault={hasAdjustedFiltersFromDefault}
+        pusherChannel={pusherChannel}
+        selectedClassrooms={selectedClassrooms}
+        selectedGrades={selectedGrades}
+        selectedSchools={selectedSchools}
+        selectedTeachers={selectedTeachers}
+        selectedTimeframe={selectedTimeframe}
+      />
+    )
+  }
+
   function renderFilterButtons() {
     if (!hasAdjustedFiltersFromDefault && !hasAdjustedFiltersSinceLastSubmission) { return null }
 
@@ -55,9 +107,12 @@ const Filters = ({
     applyClassName += hasAdjustedFiltersSinceLastSubmission ? '' : ' disabled'
 
     return (
-      <div className="filter-buttons fixed">
-        <button className="quill-button small outlined secondary focus-on-light" onClick={clearFilters} type="button">Clear filters</button>
-        <button className={applyClassName} onClick={applyFilters} type="button">Apply filters</button>
+      <div className={`filter-buttons-container fixed ${applyFilterButtonClicked ? 'with-count ' : ''}`}>
+        {renderFilterScope()}
+        <div className="filter-buttons">
+          <button className="quill-button small outlined secondary focus-on-light" onClick={handleClearFilters} type="button">Clear filters</button>
+          <button className={applyClassName} onClick={handleApplyFilters} type="button">Apply filters</button>
+        </div>
       </div>
     )
   }
@@ -100,8 +155,6 @@ const Filters = ({
       />
     )
   }
-
-  const isGrowthDiagnosticReport = reportType === DIAGNOSTIC_GROWTH_REPORT_PATH
 
   return (
     <section className={`filter-container ${showMobileFilterMenu ? 'mobile-open' : 'mobile-hidden'} ${hasAdjustedFiltersFromDefault ? 'space-for-buttons' : ''}`} data-testid="filter-menu" >

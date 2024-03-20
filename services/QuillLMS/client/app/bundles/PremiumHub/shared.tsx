@@ -19,6 +19,9 @@ export const OVERVIEW = 'overview'
 export const SKILL = 'skill'
 export const STUDENT = 'student'
 
+export const FETCH_ACTION = 'fetch'
+export const RESET_ACTION = 'reset'
+
 export const DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH = '182px'
 export const groupByDropdownOptions = [{ label: 'Grade', value: 'grade' }, { label: 'Teacher', value: 'teacher' }, { label: 'Classroom', value: 'classroom' }]
 export const diagnosticTypeDropdownOptions = [
