@@ -3,6 +3,8 @@
 module Student
   extend ActiveSupport::Concern
 
+  EXACT_SCORES_CACHE_KEY = 'student_exact_scores'
+
   included do
     #TODO: move these relationships into the users model
 

@@ -15,11 +15,25 @@ class BatchSaveActivitySessionConceptResultsWorker
   end
 
   def on_complete(status, options)
+    activity_session_uid = options['activity_session_uid']
+
+    delete_student_score_cache(activity_session_uid)
+
     if status.failures == 0
-      PusherTrigger.run(options['activity_session_uid'], 'concept-results-saved', "Concept results saved for activity session with uid: #{options['activity_session_uid']}")
+      PusherTrigger.run(activity_session_uid, 'concept-results-saved', "Concept results saved for activity session with uid: #{options['activity_session_uid']}")
     else
-      PusherTrigger.run(options['activity_session_uid'], 'concept-results-partially-saved', "Concept results partially saved for activity session with uid: #{options['activity_session_uid']}, #{status.total - status.failures} succeeded, #{status.failures} failed")
+      PusherTrigger.run(activity_session_uid, 'concept-results-partially-saved', "Concept results partially saved for activity session with uid: #{options['activity_session_uid']}, #{status.total - status.failures} succeeded, #{status.failures} failed")
     end
+  end
+
+  private def delete_student_score_cache(activity_session_uid)
+    session = ActivitySession.find_by(uid: activity_session_uid)
+
+    return unless session
+
+    cache_key = "#{Student::EXACT_SCORES_CACHE_KEY}/#{session.user_id}/#{session.activity_id}/#{session.classroom_unit_id}"
+
+    Rails.cache.delete(cache_key)
   end
 
   private def batch_runner(activity_session_uid, &save_concept_results)
