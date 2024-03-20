@@ -22,6 +22,8 @@ module Evidence
         validates :contents, presence: true
 
         attr_readonly :name, :contents
+
+        def to_s = name
       end
     end
   end

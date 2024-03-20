@@ -18,6 +18,7 @@ module Evidence
     module GenAI
       RSpec.describe PassagePromptResponse, type: :model do
         it { should validate_presence_of(:response) }
+        it { should validate_presence_of(:passage_prompt_id)}
         it { should belong_to(:passage_prompt)}
         it { should have_readonly_attribute(:response) }
         it { should have_readonly_attribute(:passage_prompt_id) }

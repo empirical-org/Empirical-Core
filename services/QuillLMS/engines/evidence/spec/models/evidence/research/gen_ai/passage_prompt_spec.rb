@@ -21,8 +21,9 @@ module Evidence
       RSpec.describe PassagePrompt, type: :model do
         it { should validate_presence_of(:prompt) }
         it { should validate_presence_of(:conjunction) }
-        it { should validate_inclusion_of(:conjunction).in_array(described_class::CONJUNCTIONS)}
         it { should validate_presence_of(:instructions) }
+        it { should validate_presence_of(:passage_id) }
+        it { should validate_inclusion_of(:conjunction).in_array(described_class::CONJUNCTIONS)}
         it { should have_readonly_attribute(:prompt) }
         it { should have_readonly_attribute(:conjunction) }
         it { should have_readonly_attribute(:instructions) }

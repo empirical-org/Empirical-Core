@@ -1,0 +1,29 @@
+<h1>New Passage Prompt</h1>
+
+<%= form_for @passage_prompt do |f| %>
+  <%= render 'errors', object: @passage_prompt %>
+
+  <div class="field-spacing">
+    <%= f.label :passage_id, "Passage:" %>
+    <%= f.collection_select :passage, @passages, :id, :to_s, { required: true } %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :conjunction, "Conjunction:" %>
+    <%= select_tag :conjunction, options_for_select(@conjunctions), { required: true } %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :prompt %><br>
+    <%= f.text_field :prompt, size: 100, required: true %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :instructions %><br>
+    <%= f.text_area :instructions, cols: 100, rows: 50, required: true %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Create" %>
+  </div>
+<% end %>

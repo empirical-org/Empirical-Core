@@ -18,6 +18,8 @@ module Evidence
         validates :contents, presence: true
 
         attr_readonly :description, :contents
+
+        def to_s = description
       end
     end
   end

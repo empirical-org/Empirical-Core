@@ -20,6 +20,8 @@ module Evidence
 
         attr_readonly :prompt, :llm_prompt_template_id
 
+        delegate :description, to: :llm_prompt_template
+
         def feedback_prompt(response) = "#{prompt}\n\nResponse: #{response}\nFeedback:"
         def evaluation_prompt(response) = "#{prompt}\n\nResponse: #{response}\nParaphrase:"
       end

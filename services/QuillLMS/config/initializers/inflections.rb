@@ -19,5 +19,7 @@
 
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'criterion', 'criteria'
+  inflect.acronym 'AI'
+  inflect.acronym 'LLM'
   inflect.acronym 'SSO'
 end

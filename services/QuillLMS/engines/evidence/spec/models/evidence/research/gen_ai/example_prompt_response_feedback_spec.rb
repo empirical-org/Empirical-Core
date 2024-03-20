@@ -20,6 +20,7 @@ module Evidence
       RSpec.describe ExamplePromptResponseFeedback, type: :model do
         it { should validate_presence_of(:feedback) }
         it { should validate_presence_of(:label) }
+        it { should validate_presence_of(:passage_prompt_response_id)}
 
         it { should have_readonly_attribute(:feedback) }
         it { should have_readonly_attribute(:label) }

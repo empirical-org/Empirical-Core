@@ -33,6 +33,10 @@ module Evidence
         validates :instructions, presence: true
 
         attr_readonly :prompt, :conjunction, :instructions, :passage_id
+
+        delegate :name, to: :passage
+
+        def to_s = "##{name} - #{conjunction}"
       end
     end
   end
