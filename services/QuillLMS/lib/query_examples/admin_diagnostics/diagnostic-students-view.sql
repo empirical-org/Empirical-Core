@@ -4,8 +4,8 @@
            Total Query Time:        1915 ms
            Total Slot Time:         2377 ms
            BI Engine Mode Used:     FULL_INPUT
-             BI Engine Code:
-             BI Engine Message:
+             BI Engine Code:          
+             BI Engine Message:       
         */
         WITH aggregate_rows AS (                SELECT
           students.id AS student_id,
@@ -40,11 +40,11 @@
 
                 WHERE
           performance.pre_assigned_at BETWEEN '2023-08-01 00:00:00' AND '2023-11-30 23:59:59'
-
-
+          
+          
           AND performance.activity_id = 1663
           AND filter.school_id IN (38811,38804,38801,38800,38779,38784,38780,38773,38765,38764)
-
+          
 
               GROUP BY skill_group_name,
         aggregate_id,

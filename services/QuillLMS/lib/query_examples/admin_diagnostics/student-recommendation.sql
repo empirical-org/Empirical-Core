@@ -4,8 +4,8 @@
            Total Query Time:        970 ms
            Total Slot Time:         524 ms
            BI Engine Mode Used:     FULL_INPUT
-             BI Engine Code:
-             BI Engine Message:
+             BI Engine Code:          
+             BI Engine Message:       
         */
                 SELECT user_id AS student_id,
           completed_activities,
@@ -17,14 +17,14 @@
 
                         WHERE
           pre_diagnostic_completed_at BETWEEN '2023-08-01 00:00:00' AND '2023-11-30 23:59:59'
-
-
+          
+          
           AND activity_id = 1663
           AND school_id IN (38811,38804,38801,38800,38779,38784,38780,38773,38765,38764)
-
+          
 
         AND activity_id = 1663
 
-
+        
         ORDER BY TRIM(SUBSTR(TRIM(students.name), STRPOS(students.name, ' ') + 1))
         LIMIT 500
