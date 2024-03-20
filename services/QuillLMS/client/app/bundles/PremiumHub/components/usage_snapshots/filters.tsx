@@ -84,17 +84,17 @@ const Filters = ({
     if(!isGrowthDiagnosticReport) { return }
     return(
       <FilterScope
-        selectedGrades={selectedGrades}
-        hasAdjustedFiltersFromDefault={hasAdjustedFiltersFromDefault}
-        selectedTimeframe={selectedTimeframe}
-        selectedSchools={selectedSchools}
-        selectedTeachers={selectedTeachers}
-        selectedClassrooms={selectedClassrooms}
         diagnosticIdForStudentCount={diagnosticIdForStudentCount}
-        pusherChannel={pusherChannel}
         filterScopeAction={filterScopeAction}
         handleSetApplyFilterButtonClicked={handleSetApplyFilterButtonClicked}
         handleSetFilterScopeAction={handleSetFilterScopeAction}
+        hasAdjustedFiltersFromDefault={hasAdjustedFiltersFromDefault}
+        pusherChannel={pusherChannel}
+        selectedClassrooms={selectedClassrooms}
+        selectedGrades={selectedGrades}
+        selectedSchools={selectedSchools}
+        selectedTeachers={selectedTeachers}
+        selectedTimeframe={selectedTimeframe}
       />
     )
   }
