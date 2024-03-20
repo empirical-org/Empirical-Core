@@ -21,6 +21,8 @@ module Evidence
         validates :vendor, presence: true
         validates :version, presence: true
 
+        attr_readonly :vendor, :version
+
         def llm_client
           case vendor
           when GOOGLE then Evidence::Gemini::Completion

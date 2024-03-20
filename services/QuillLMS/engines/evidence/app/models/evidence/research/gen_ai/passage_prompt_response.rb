@@ -26,6 +26,8 @@ module Evidence
           dependent: :destroy
 
         validates :response, presence: true
+
+        attr_readonly :response, :passage_prompt_id
       end
     end
   end

@@ -21,6 +21,10 @@ module Evidence
         it { should validate_presence_of(:feedback) }
         it { should validate_presence_of(:label) }
 
+        it { should have_readonly_attribute(:feedback) }
+        it { should have_readonly_attribute(:label) }
+        it { should have_readonly_attribute(:passage_prompt_response_id) }
+
         it { should belong_to(:passage_prompt_response) }
 
         it { expect(build(:evidence_research_gen_ai_example_prompt_response_feedback)).to be_valid}

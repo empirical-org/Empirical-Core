@@ -18,6 +18,8 @@ module Evidence
 
         validates :prompt, presence: true
 
+        attr_readonly :prompt, :llm_prompt_template_id
+
         def feedback_prompt(response) = "#{prompt}\n\nResponse: #{response}\nFeedback:"
         def evaluation_prompt(response) = "#{prompt}\n\nResponse: #{response}\nParaphrase:"
       end

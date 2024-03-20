@@ -18,6 +18,8 @@ module Evidence
       RSpec.describe LLMPromptTemplate, type: :model do
         it { should validate_presence_of(:description) }
         it { should validate_presence_of(:contents) }
+        it { should have_readonly_attribute(:description) }
+        it { should have_readonly_attribute(:contents) }
 
         it { expect(FactoryBot.build(:evidence_research_gen_ai_llm_prompt_template)).to be_valid }
       end
