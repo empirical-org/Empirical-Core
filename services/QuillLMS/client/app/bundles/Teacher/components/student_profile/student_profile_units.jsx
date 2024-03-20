@@ -94,7 +94,7 @@ export default class StudentProfileUnits extends React.Component {
   }
 
   renderContent = () => {
-    const { loading, nextActivitySession, isBeingPreviewed, selectedUnitId, } = this.props
+    const { loading, nextActivitySession, isBeingPreviewed, selectedUnitId, exactScoresData, showExactScores, } = this.props
     if (loading) { return <LoadingIndicator /> }
 
     const content = this.displayedUnits().map(unit => {
@@ -102,12 +102,14 @@ export default class StudentProfileUnits extends React.Component {
       return (
         <StudentProfileUnit
           data={unit}
+          exactScoresData={exactScoresData}
           id={unit_id}
           isBeingPreviewed={isBeingPreviewed}
           isSelectedUnit={String(unit_id) === selectedUnitId}
           key={unit_id}
           nextActivitySession={nextActivitySession}
           onShowPreviewModal={this.handleShowPreviewModal}
+          showExactScores={showExactScores}
           staggeredReleaseStatus={user_pack_sequence_item_status}
           unitName={unit_name}
         />
