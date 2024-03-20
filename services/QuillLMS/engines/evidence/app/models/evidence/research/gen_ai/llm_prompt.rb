@@ -17,6 +17,9 @@ module Evidence
         belongs_to :llm_prompt_template, class_name: 'Evidence::Research::GenAI::LLMPromptTemplate'
 
         validates :prompt, presence: true
+
+        def feedback_prompt(response) = "#{prompt}\n\nResponse: #{response}\nFeedback:"
+        def evaluation_prompt(response) = "#{prompt}\n\nResponse: #{response}\nParaphrase:"
       end
     end
   end

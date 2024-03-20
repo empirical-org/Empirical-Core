@@ -938,10 +938,11 @@ CREATE TABLE public.evidence_research_gen_ai_experiments (
     passage_prompt_id integer NOT NULL,
     llm_config_id integer NOT NULL,
     llm_prompt_id integer NOT NULL,
-    status character varying NOT NULL,
+    status character varying DEFAULT 'pending'::character varying NOT NULL,
     results jsonb,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    experiment_errors text[]
 );
 
 
@@ -2063,6 +2064,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240318141942'),
 ('20240318143146'),
 ('20240318144447'),
-('20240318155008');
+('20240318155008'),
+('20240320142817'),
+('20240320152621');
 
 

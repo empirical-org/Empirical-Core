@@ -14,8 +14,19 @@ module Evidence
   module Research
     module GenAI
       class LLMConfig < ApplicationRecord
+        VENDORS = [
+          GOOGLE = 'google'
+        ]
+
         validates :vendor, presence: true
         validates :version, presence: true
+
+        def llm_client
+          case vendor
+          when GOOGLE then Evidence::Gemini::Completion
+          else raise UnsupportedVendorError
+          end
+        end
       end
     end
   end

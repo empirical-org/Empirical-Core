@@ -33,7 +33,6 @@ module Evidence
       rescue => e
         binding.pry
       end
-
     end
   end
 end

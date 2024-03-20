@@ -59,8 +59,8 @@ module Evidence
         private def timeout = TIMEOUT
 
         private def post_with_backoff(retries: 0)
-          puts "retries: #{retries}"
           response = self.class.post(endpoint, body:, headers:, timeout:)
+
           raise "ServiceUnavailable" if response.code == 503
 
           response
@@ -68,8 +68,8 @@ module Evidence
           puts "Error: #{e.message}"
           raise "Max retries reached. Last error: #{e.message}" unless retries < MAX_RETRIES
 
-          puts retries
           retries += 1
+          puts "retries: #{retries}"
           sleep 2**retries
           retry
         end
