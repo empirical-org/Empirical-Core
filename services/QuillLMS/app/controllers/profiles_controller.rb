@@ -62,7 +62,7 @@ class ProfilesController < ApplicationController
   end
 
   def student_exact_scores_data
-    exact_scores_data = params[:data].map do |ua|
+    exact_scores_data = student_scores_params[:data].map do |ua|
       student_exact_scores(current_user, ua)
     end
 
@@ -90,7 +90,6 @@ class ProfilesController < ApplicationController
   private def student_exact_scores(user, unit_activity_params)
     activity_id = unit_activity_params['activity_id']
     classroom_unit_id = unit_activity_params['classroom_unit_id']
-    ua_id = unit_activity_params['ua_id']
 
     user_id = user.id
     cache_key = "#{Student::EXACT_SCORES_CACHE_KEY}/#{user_id}/#{activity_id}/#{classroom_unit_id}"
@@ -105,15 +104,15 @@ class ProfilesController < ApplicationController
           state: ActivitySession::STATE_FINISHED
         )
 
-      {
+      unit_activity_params.to_h.merge({
         'sessions' => activity_sessions.map { |as| format_activity_session_for_tooltip(as, user) },
-        'completed_attempts' => activity_sessions.length,
-        'activity_id' => activity_id,
-        'classroom_unit_id' => classroom_unit_id,
-        'ua_id' => ua_id
-      }
+        'completed_attempts' => activity_sessions.length
+      })
     end
   end
+
+  # permit all params for now for caching purposes
+  private def student_scores_params = params.permit!
 
   protected def user_params
     params.require(:user).permit(:classcode, :email, :name, :username, :password)
