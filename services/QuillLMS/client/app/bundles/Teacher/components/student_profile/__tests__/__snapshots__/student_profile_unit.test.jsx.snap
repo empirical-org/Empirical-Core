@@ -648,17 +648,13 @@ exports[`StudentProfileUnit component should render completed activities when sh
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"
             >
-              <div
-                class="score-tooltip-activator"
+              <a
+                aria-label="Replay Capitalizing People, Places, & the Pronoun - Mixed Topics"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/886"
               >
-                <a
-                  aria-label="Replay Capitalizing People, Places, & the Pronoun - Mixed Topics"
-                  class="quill-button medium focus-on-light secondary outlined"
-                  href="/activity_sessions/classroom_units/8392402/activities/886"
-                >
-                  Replay
-                </a>
-              </div>
+                Replay
+              </a>
             </td>
           </tr>
           <tr
@@ -732,17 +728,13 @@ exports[`StudentProfileUnit component should render completed activities when sh
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"
             >
-              <div
-                class="score-tooltip-activator"
+              <a
+                aria-label="Replay Capitalizing Names of People & the Pronoun  - Mixed Topics"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/885"
               >
-                <a
-                  aria-label="Replay Capitalizing Names of People & the Pronoun  - Mixed Topics"
-                  class="quill-button medium focus-on-light secondary outlined"
-                  href="/activity_sessions/classroom_units/8392402/activities/885"
-                >
-                  Replay
-                </a>
-              </div>
+                Replay
+              </a>
             </td>
           </tr>
           <tr
@@ -816,17 +808,13 @@ exports[`StudentProfileUnit component should render completed activities when sh
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"
             >
-              <div
-                class="score-tooltip-activator"
+              <a
+                aria-label="Replay Capitalizing Names of People - Mixed Topics 1"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/804"
               >
-                <a
-                  aria-label="Replay Capitalizing Names of People - Mixed Topics 1"
-                  class="quill-button medium focus-on-light secondary outlined"
-                  href="/activity_sessions/classroom_units/8392402/activities/804"
-                >
-                  Replay
-                </a>
-              </div>
+                Replay
+              </a>
             </td>
           </tr>
           <tr
@@ -900,17 +888,13 @@ exports[`StudentProfileUnit component should render completed activities when sh
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"
             >
-              <div
-                class="score-tooltip-activator"
+              <a
+                aria-label="Replay Capitalizing Holidays, People, & Places - Mixed Topics"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/887"
               >
-                <a
-                  aria-label="Replay Capitalizing Holidays, People, & Places - Mixed Topics"
-                  class="quill-button medium focus-on-light secondary outlined"
-                  href="/activity_sessions/classroom_units/8392402/activities/887"
-                >
-                  Replay
-                </a>
-              </div>
+                Replay
+              </a>
             </td>
           </tr>
           <tr
@@ -984,17 +968,13 @@ exports[`StudentProfileUnit component should render completed activities when sh
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"
             >
-              <div
-                class="score-tooltip-activator"
+              <a
+                aria-label="Replay Capitalizing Dates & Holidays - Mixed Topics 1"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/801"
               >
-                <a
-                  aria-label="Replay Capitalizing Dates & Holidays - Mixed Topics 1"
-                  class="quill-button medium focus-on-light secondary outlined"
-                  href="/activity_sessions/classroom_units/8392402/activities/801"
-                >
-                  Replay
-                </a>
-              </div>
+                Replay
+              </a>
             </td>
           </tr>
           <tr
@@ -1068,17 +1048,13 @@ exports[`StudentProfileUnit component should render completed activities when sh
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"
             >
-              <div
-                class="score-tooltip-activator"
+              <a
+                aria-label="Replay Capitalizing Geographic Names - Mixed Topics 1"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/802"
               >
-                <a
-                  aria-label="Replay Capitalizing Geographic Names - Mixed Topics 1"
-                  class="quill-button medium focus-on-light secondary outlined"
-                  href="/activity_sessions/classroom_units/8392402/activities/802"
-                >
-                  Replay
-                </a>
-              </div>
+                Replay
+              </a>
             </td>
           </tr>
           <tr
@@ -1152,17 +1128,13 @@ exports[`StudentProfileUnit component should render completed activities when sh
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"
             >
-              <div
-                class="score-tooltip-activator"
+              <a
+                aria-label="Replay Capitalizing Geographic Names & Holidays - Mixed Topics"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/181"
               >
-                <a
-                  aria-label="Replay Capitalizing Geographic Names & Holidays - Mixed Topics"
-                  class="quill-button medium focus-on-light secondary outlined"
-                  href="/activity_sessions/classroom_units/8392402/activities/181"
-                >
-                  Replay
-                </a>
-              </div>
+                Replay
+              </a>
             </td>
           </tr>
         </tbody>
