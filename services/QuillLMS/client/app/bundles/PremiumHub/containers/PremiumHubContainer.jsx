@@ -69,7 +69,7 @@ const PremiumHubContainer = ({ id, history, location, children, user, }) => {
     if (accessType() === LIMITED && onPageThatShouldShowBanner && !onSubscriptionPageWithExpiredPremium) {
       return (
         <PostNavigationBanner
-          bannerStyle="gold"
+          bannerStyle="premium"
           bodyText="Subscribe to School or District Premium to unlock all Premium Hub features. Manage teacher accounts, access teacher reports, and view school-wide student data."
           buttons={[
             {
@@ -95,7 +95,7 @@ const PremiumHubContainer = ({ id, history, location, children, user, }) => {
     if (!associated_school || [NOT_LISTED, NO_SCHOOL_SELECTED].includes(associated_school.name)) {
       return (
         <PostNavigationBanner
-          bannerStyle="gold"
+          bannerStyle="premium"
           bodyText="Please select a school to use the Premium Hub."
           buttons={[
             {
@@ -115,7 +115,7 @@ const PremiumHubContainer = ({ id, history, location, children, user, }) => {
     if (admin_approval_status === DENIED) {
       return (
         <PostNavigationBanner
-          bannerStyle="gold"
+          bannerStyle="premium"
           bodyText={`Sorry, we couldn’t verify you as an admin of ${associated_school?.name}. If you need help, contact support.`}
           buttons={[
             {
@@ -135,7 +135,7 @@ const PremiumHubContainer = ({ id, history, location, children, user, }) => {
     if (admin_approval_status === PENDING) {
       return (
         <PostNavigationBanner
-          bannerStyle="gold"
+          bannerStyle="premium"
           bodyText="Your verification request is pending approval. Once approved, you will be able to use the Premium Hub. If you need help in the meantime, contact us."
           buttons={[
             {
@@ -155,7 +155,7 @@ const PremiumHubContainer = ({ id, history, location, children, user, }) => {
     if (admin_approval_status === SKIPPED) {
       return (
         <PostNavigationBanner
-          bannerStyle="gold"
+          bannerStyle="premium"
           bodyText={`Please verify your connection to ${associated_school?.name} to use the Premium Hub.`}
           buttons={[
             {
