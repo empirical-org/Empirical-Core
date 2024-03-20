@@ -495,7 +495,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
 </DocumentFragment>
 `;
 
-exports[`StudentProfileUnit component should render completed activities when showExactScores is true 1`] = `
+exports[`StudentProfileUnit component should render completed activities when showExactScores is true and the data is present 1`] = `
 <DocumentFragment>
   <div
     class="student-profile-unit undefined"
@@ -1123,6 +1123,578 @@ exports[`StudentProfileUnit component should render completed activities when sh
               >
                 Feb 22, 1:59pm
               </div>
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Replay Capitalizing Geographic Names & Holidays - Mixed Topics"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/181"
+              >
+                Replay
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`StudentProfileUnit component should render completed activities when showExactScores is true but the data is pending 1`] = `
+<DocumentFragment>
+  <div
+    class="student-profile-unit undefined"
+  >
+    <div
+      class="unit-name-and-staggered-release-status"
+    >
+      <h2
+        class="unit-name"
+      >
+        Unit
+      </h2>
+      <span />
+    </div>
+    <div
+      class="activities-container completed-activities"
+    >
+      <table
+        class="data-table undefined"
+      >
+        <thead>
+          <tr
+            class="data-table-headers"
+          >
+            <th
+              class="data-table-header name-section"
+              scope="col"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              <span>
+                Activity
+              </span>
+            </th>
+            <th
+              class="data-table-header score-section tooltip-section"
+              scope="col"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <span>
+                Score
+              </span>
+            </th>
+            <th
+              class="data-table-header tool-icon-section"
+              scope="col"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <span>
+                Tool
+              </span>
+            </th>
+            <th
+              class="data-table-header completed-due-date-section"
+              scope="col"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              <span>
+                Due date
+              </span>
+            </th>
+            <th
+              class="data-table-header completed-date-section"
+              scope="col"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              <span>
+                Completed date
+              </span>
+            </th>
+            <th
+              class="data-table-header action-button-section tooltip-section"
+              scope="col"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <span />
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="data-table-body"
+        >
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              Capitalizing People, Places, & the Pronoun - Mixed Topics
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <div
+                class="score"
+              >
+                <div
+                  class="frequently-demonstrated-skill"
+                />
+                <span>
+                  <span>
+                    <span
+                      class="button-loading-spinner-container"
+                    >
+                      <img
+                        alt="spinning circle to indicate loading"
+                        class="button-loading-spinner"
+                        src="undefined/images/shared/indeterminate_spinner_dark@2x.png"
+                      />
+                    </span>
+                     (100%)
+                  </span>
+                </span>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <img
+                alt="Puzzle piece representing Quill Grammar"
+                src="undefined/images/icons/tool-grammar-gray.svg"
+              />
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Mar 27, 5am
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Feb 22, 1:59pm
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Replay Capitalizing People, Places, & the Pronoun - Mixed Topics"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/886"
+              >
+                Replay
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              Capitalizing Names of People & the Pronoun  - Mixed Topics
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <div
+                class="score"
+              >
+                <div
+                  class="frequently-demonstrated-skill"
+                />
+                <span>
+                  <span>
+                    <span
+                      class="button-loading-spinner-container"
+                    >
+                      <img
+                        alt="spinning circle to indicate loading"
+                        class="button-loading-spinner"
+                        src="undefined/images/shared/indeterminate_spinner_dark@2x.png"
+                      />
+                    </span>
+                     (100%)
+                  </span>
+                </span>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <img
+                alt="Puzzle piece representing Quill Grammar"
+                src="undefined/images/icons/tool-grammar-gray.svg"
+              />
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Mar 27, 5am
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Feb 22, 1:59pm
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Replay Capitalizing Names of People & the Pronoun  - Mixed Topics"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/885"
+              >
+                Replay
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              Capitalizing Names of People - Mixed Topics 1
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <div
+                class="score"
+              >
+                <div
+                  class="frequently-demonstrated-skill"
+                />
+                <span>
+                  <span>
+                    <span
+                      class="button-loading-spinner-container"
+                    >
+                      <img
+                        alt="spinning circle to indicate loading"
+                        class="button-loading-spinner"
+                        src="undefined/images/shared/indeterminate_spinner_dark@2x.png"
+                      />
+                    </span>
+                     (100%)
+                  </span>
+                </span>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <img
+                alt="Puzzle piece representing Quill Grammar"
+                src="undefined/images/icons/tool-grammar-gray.svg"
+              />
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Mar 27, 5am
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Feb 22, 1:59pm
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Replay Capitalizing Names of People - Mixed Topics 1"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/804"
+              >
+                Replay
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              Capitalizing Holidays, People, & Places - Mixed Topics
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <div
+                class="score"
+              >
+                <div
+                  class="frequently-demonstrated-skill"
+                />
+                <span>
+                  <span>
+                    <span
+                      class="button-loading-spinner-container"
+                    >
+                      <img
+                        alt="spinning circle to indicate loading"
+                        class="button-loading-spinner"
+                        src="undefined/images/shared/indeterminate_spinner_dark@2x.png"
+                      />
+                    </span>
+                     (90%)
+                  </span>
+                </span>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <img
+                alt="Puzzle piece representing Quill Grammar"
+                src="undefined/images/icons/tool-grammar-gray.svg"
+              />
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Mar 27, 5am
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Feb 22, 1:59pm
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Replay Capitalizing Holidays, People, & Places - Mixed Topics"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/887"
+              >
+                Replay
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              Capitalizing Dates & Holidays - Mixed Topics 1
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <div
+                class="score"
+              >
+                <div
+                  class="sometimes-demonstrated-skill"
+                />
+                <span>
+                  <span>
+                    <span
+                      class="button-loading-spinner-container"
+                    >
+                      <img
+                        alt="spinning circle to indicate loading"
+                        class="button-loading-spinner"
+                        src="undefined/images/shared/indeterminate_spinner_dark@2x.png"
+                      />
+                    </span>
+                     (40%)
+                  </span>
+                </span>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <img
+                alt="Puzzle piece representing Quill Grammar"
+                src="undefined/images/icons/tool-grammar-gray.svg"
+              />
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Mar 27, 5am
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Feb 22, 1:59pm
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Replay Capitalizing Dates & Holidays - Mixed Topics 1"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/801"
+              >
+                Replay
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              Capitalizing Geographic Names - Mixed Topics 1
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <div
+                class="score"
+              >
+                <div
+                  class="sometimes-demonstrated-skill"
+                />
+                <span>
+                  <span>
+                    <span
+                      class="button-loading-spinner-container"
+                    >
+                      <img
+                        alt="spinning circle to indicate loading"
+                        class="button-loading-spinner"
+                        src="undefined/images/shared/indeterminate_spinner_dark@2x.png"
+                      />
+                    </span>
+                     (40%)
+                  </span>
+                </span>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <img
+                alt="Puzzle piece representing Quill Grammar"
+                src="undefined/images/icons/tool-grammar-gray.svg"
+              />
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Mar 27, 5am
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Feb 22, 1:59pm
+            </td>
+            <td
+              class="data-table-row-section action-button-section tooltip-section"
+              style="width: 88px; min-width: 88px; text-align: left;"
+            >
+              <a
+                aria-label="Replay Capitalizing Geographic Names - Mixed Topics 1"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/8392402/activities/802"
+              >
+                Replay
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="data-table-row  "
+          >
+            <td
+              class="data-table-row-section name-section tooltip-section"
+              style="width: 474px; min-width: 474px; text-align: left;"
+            >
+              Capitalizing Geographic Names & Holidays - Mixed Topics
+            </td>
+            <td
+              class="data-table-row-section score-section tooltip-section"
+              style="width: 230px; min-width: 230px; text-align: left;"
+            >
+              <div
+                class="score"
+              >
+                <div
+                  class="rarely-demonstrated-skill"
+                />
+                <span>
+                  <span>
+                    <span
+                      class="button-loading-spinner-container"
+                    >
+                      <img
+                        alt="spinning circle to indicate loading"
+                        class="button-loading-spinner"
+                        src="undefined/images/shared/indeterminate_spinner_dark@2x.png"
+                      />
+                    </span>
+                     (22%)
+                  </span>
+                </span>
+              </div>
+            </td>
+            <td
+              class="data-table-row-section tool-icon-section tooltip-section"
+              style="width: 24px; min-width: 24px; text-align: left;"
+            >
+              <img
+                alt="Puzzle piece representing Quill Grammar"
+                src="undefined/images/icons/tool-grammar-gray.svg"
+              />
+            </td>
+            <td
+              class="data-table-row-section completed-due-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Mar 27, 5am
+            </td>
+            <td
+              class="data-table-row-section completed-date-section tooltip-section"
+              style="width: 110px; min-width: 110px; text-align: left;"
+            >
+              Feb 22, 1:59pm
             </td>
             <td
               class="data-table-row-section action-button-section tooltip-section"
