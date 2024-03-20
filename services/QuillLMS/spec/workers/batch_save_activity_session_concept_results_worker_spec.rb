@@ -23,12 +23,19 @@ describe BatchSaveActivitySessionConceptResultsWorker, type: :worker do
   end
 
   describe '#on_complete' do
+    let(:activity_session_uid) { 'unique_id' }
+    let(:options) { { 'activity_session_uid' => activity_session_uid } }
+    let(:activity_session) {create(:activity_session, uid: activity_session_uid)}
+    let(:user_id) { activity_session.user_id }
+    let(:activity_id) { activity_session.activity_id }
+    let(:classroom_unit_id) {activity_session.classroom_unit_id}
+    let(:cache_key) {"#{Student::EXACT_SCORES_CACHE_KEY}/#{user_id}/#{activity_id}/#{classroom_unit_id}"}
+
     context 'when all jobs succeed' do
-      let(:activity_session_uid) { 'unique_id' }
-      let(:options) { { 'activity_session_uid' => activity_session_uid } }
       let(:status) { double('status', failures: 0, total: 2) }
 
       it 'triggers Pusher event for success' do
+        expect(Rails.cache).to receive(:delete).with(cache_key).once
         expect(PusherTrigger).to receive(:run).with(
           activity_session_uid,
           'concept-results-saved',
@@ -39,11 +46,10 @@ describe BatchSaveActivitySessionConceptResultsWorker, type: :worker do
     end
 
     context 'when some jobs fail' do
-      let(:activity_session_uid) { 'unique_id' }
-      let(:options) { { 'activity_session_uid' => activity_session_uid } }
       let(:status) { double('status', failures: 1, total: 2) }
 
       it 'triggers Pusher event for partial success' do
+        expect(Rails.cache).to receive(:delete).with(cache_key).once
         expect(PusherTrigger).to receive(:run).with(
           activity_session_uid,
           'concept-results-partially-saved',

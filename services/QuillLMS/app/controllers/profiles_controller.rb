@@ -63,22 +63,10 @@ class ProfilesController < ApplicationController
 
   def student_exact_scores_data
     exact_scores_data = params[:data].map do |ua|
-      activity_sessions = ActivitySession
-        .includes(:concept_results, :activity, :unit)
-        .where(
-          user_id: current_user.id,
-          activity_id: ua['activity_id'],
-          classroom_unit_id: ua['classroom_unit_id'],
-          state: ActivitySession::STATE_FINISHED
-        )
-
-      ua['sessions'] = activity_sessions.map { |as| format_activity_session_for_tooltip(as, current_user) }
-      ua['completed_attempts'] = activity_sessions.length
-
-      ua
+      student_exact_scores(current_user, ua)
     end
 
-    render json: { exact_scores_data: exact_scores_data}
+    render json: { exact_scores_data:}
   end
 
   def students_classrooms_json
@@ -97,6 +85,34 @@ class ProfilesController < ApplicationController
 
   def staff
     render :staff
+  end
+
+  private def student_exact_scores(user, unit_activity_params)
+    activity_id = unit_activity_params['activity_id']
+    classroom_unit_id = unit_activity_params['classroom_unit_id']
+    ua_id = unit_activity_params['ua_id']
+
+    user_id = user.id
+    cache_key = "#{Student::EXACT_SCORES_CACHE_KEY}/#{user_id}/#{activity_id}/#{classroom_unit_id}"
+
+    Rails.cache.fetch(cache_key, expires_in: 8.hours) do
+      activity_sessions = ActivitySession
+        .includes(:concept_results, :activity, :unit)
+        .where(
+          user_id:,
+          activity_id:,
+          classroom_unit_id:,
+          state: ActivitySession::STATE_FINISHED
+        )
+
+      {
+        'sessions' => activity_sessions.map { |as| format_activity_session_for_tooltip(as, user) },
+        'completed_attempts' => activity_sessions.length,
+        'activity_id' => activity_id,
+        'classroom_unit_id' => classroom_unit_id,
+        'ua_id' => ua_id
+      }
+    end
   end
 
   protected def user_params
