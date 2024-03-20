@@ -93,7 +93,6 @@ class ProfilesController < ApplicationController
     activity_id = unit_activity_params['activity_id']
     classroom_unit_id = unit_activity_params['classroom_unit_id']
     ua_id = unit_activity_params['ua_id']
-
     user_id = user.id
 
     activity_sessions = ActivitySession
@@ -112,7 +111,6 @@ class ProfilesController < ApplicationController
       'classroom_unit_id' => classroom_unit_id,
       'ua_id' => ua_id
     }
-
   end
 
   protected def user_params
