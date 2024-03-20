@@ -236,7 +236,7 @@ export default class StudentProfileUnit extends React.Component {
       )
       const { number_of_questions, number_of_correct_questions, percentage, } = bestSession
 
-      exactScoreCopy = (<span>{number_of_correct_questions} of {number_of_questions} ({percentage * 100}%)</span>)
+      exactScoreCopy = (<span>{number_of_correct_questions} of {number_of_questions} ({Math.round(percentage * 100)}%)</span>)
     }
 
     if (maxPercentage >= FREQUENTLY_DEMONSTRATED_SKILL_CUTOFF) {
@@ -282,7 +282,7 @@ export default class StudentProfileUnit extends React.Component {
           name: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{name}</TooltipWrapper>,
           score: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{this.score(act)}</TooltipWrapper>,
           tool: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{this.toolIcon(activity_classification_key)}</TooltipWrapper>,
-          actionButton: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{this.actionButton(act, nextActivitySession)}</TooltipWrapper>,
+          actionButton: this.actionButton(act, nextActivitySession),
           dueDate: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{due_date ? formatDateTimeForDisplay(moment.utc(due_date)) : null}</TooltipWrapper>,
           completedDate: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{completed_date ? formatDateTimeForDisplay(moment.utc(completed_date)) : null}</TooltipWrapper>,
           id: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{ua_id}</TooltipWrapper>
