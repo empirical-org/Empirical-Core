@@ -84,7 +84,7 @@ SELECT
         activities.name AS pre_activity_name,
         skill_groups.id AS skill_group_id,
         skill_groups.name AS skill_group_name,
-        COUNT(CASE WHEN concept_results.correct = true THEN concept_results.question_number ELSE NULL END) AS questions_correct,
+        COUNT(DISTINCT CASE WHEN concept_results.correct = true THEN concept_results.question_number ELSE NULL END) AS questions_correct,
         COUNT(DISTINCT concept_results.question_number) AS questions_total,
         classroom_units.classroom_id AS classroom_id,
         CAST(assigned_student_id AS int64) AS student_id,
