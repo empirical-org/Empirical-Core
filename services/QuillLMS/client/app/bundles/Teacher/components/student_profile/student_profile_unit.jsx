@@ -234,7 +234,7 @@ export default class StudentProfileUnit extends React.Component {
       const relevantExactScore = exactScoresData.find(es => es.ua_id === ua_id && es.classroom_unit_id === classroom_unit_id)
       const bestSession = relevantExactScore.sessions.reduce(
         (a, b) => {
-          return a.percentage < b.percentage ? a : b
+          return a.percentage > b.percentage ? a : b
         }
       )
       const { number_of_questions, number_of_correct_questions, percentage, } = bestSession
