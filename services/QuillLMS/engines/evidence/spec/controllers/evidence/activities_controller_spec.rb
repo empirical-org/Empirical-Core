@@ -26,7 +26,7 @@ module Evidence
         it 'should call ChangeLog#activity_versions with ignore_count: false' do
           allow(controller).to receive(:set_activity).and_return(nil)
           controller.instance_variable_set(:@activity, activity)
-          expect(activity).to receive(:activity_versions).with(nil)
+          expect(activity).to receive(:activity_versions).with(ignore_count: nil)
 
           get :activity_versions, params: { id: activity.id }
         end
@@ -36,7 +36,7 @@ module Evidence
         it 'should call ChangeLog#activity_versions with ignore_count: true' do
           allow(controller).to receive(:set_activity).and_return(nil)
           controller.instance_variable_set(:@activity, activity)
-          expect(activity).to receive(:activity_versions).with("true")
+          expect(activity).to receive(:activity_versions).with(ignore_count: "true")
 
           get :activity_versions, params: { id: activity.id, ignore_count: true }
         end

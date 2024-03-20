@@ -58,6 +58,7 @@ module Staff
       activity_version ? "AND feedback_histories.activity_version = #{activity_version}" : ""
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     def post_query_transform(query_result)
       rules_with_feedbacks = Evidence::Rule.where(id: query_result.pluck(:id)).includes(:feedbacks)
       query_result.map do |r|
@@ -78,6 +79,7 @@ module Staff
             repeated_non_consecutive_responses: r[:repeated_non_consecutive],
         }
       end
+      # rubocop:enable Metrics/CyclomaticComplexity
 
     end
 

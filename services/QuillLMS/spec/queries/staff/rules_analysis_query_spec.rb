@@ -29,7 +29,7 @@ module Staff
             :repeated_consecutive => 1,
             :repeated_non_consecutive => 0
           }
-       ]
+      ]
 
         expected = [{
           rule_uid: "0effa491-f9c7-482c-bce4-3982c5644259",
@@ -56,11 +56,11 @@ module Staff
     context 'big_query_snapshot', :big_query_snapshot do
       context 'without post query transforms' do
         before do
-          described_class.class_eval { def post_query_transform(x) = x }
+          described_class.class_eval { def post_query_transform(data) = data }
         end
 
         let(:users) { [create(:user)] }
-        let(:evidence_activities) { [create(:evidence_activity, title: 'Title 1', parent_activity_id: 1, target_level: 1, notes: 'an_activity_1') ] }
+        let(:evidence_activities) { [create(:evidence_activity, title: 'Title 1', parent_activity_id: 1, target_level: 1, notes: 'an_activity_1')] }
 
         let(:so_prompt1) { create(:evidence_prompt, activity: evidence_activities.first, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback') }
         let(:because_prompt1) { create(:evidence_prompt, activity: evidence_activities.first, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback') }
@@ -78,7 +78,7 @@ module Staff
             create(:evidence_prompts_rule, prompt: so_prompt1, rule: so_rule2),
             create(:evidence_prompts_rule, prompt: so_prompt1, rule: so_rule3),
             create(:evidence_prompts_rule, prompt: so_prompt1, rule: so_rule4)
-          ]
+         ]
         end
 
         context 'without activity versions' do
@@ -87,11 +87,11 @@ module Staff
               create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: "2021-04-07T19:02:54", feedback_session_uid: "def"),
               create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: "2021-05-07T19:02:54", feedback_session_uid: "ghi"),
               create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: "2021-06-07T19:02:54", feedback_session_uid: "abc")
-            ]
+           ]
           end
 
-          let(:feedback_history_flags) { [ create(:feedback_history_flag, feedback_history: feedback_histories.first) ] }
-          let(:feedback_history_ratings) { [ create(:feedback_history_rating, feedback_history: feedback_histories.first, user: users.first) ] }
+          let(:feedback_history_flags) { [create(:feedback_history_flag, feedback_history: feedback_histories.first)] }
+          let(:feedback_history_ratings) { [create(:feedback_history_rating, feedback_history: feedback_histories.first, user: users.first)] }
 
           let(:runner_context) {
             [
@@ -103,7 +103,7 @@ module Staff
               feedback_history_flags,
               feedback_history_ratings,
               users
-            ]
+           ]
           }
 
           let(:cte_records) { [runner_context] }
@@ -129,11 +129,11 @@ module Staff
               create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: "2021-04-07T19:02:54", feedback_session_uid: "def", activity_version: 2),
               create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: "2021-05-07T19:02:54", feedback_session_uid: "ghi", activity_version: 2),
               create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: "2021-06-07T19:02:54", feedback_session_uid: "abc", activity_version: 1)
-            ]
+           ]
           end
 
-          let(:feedback_history_flags) { [ create(:feedback_history_flag, feedback_history: feedback_histories.first) ] }
-          let(:feedback_history_ratings) { [ create(:feedback_history_rating, feedback_history: feedback_histories.first, user: users.first) ] }
+          let(:feedback_history_flags) { [create(:feedback_history_flag, feedback_history: feedback_histories.first)] }
+          let(:feedback_history_ratings) { [create(:feedback_history_rating, feedback_history: feedback_histories.first, user: users.first)] }
 
           let(:runner_context) {
             [
@@ -145,7 +145,7 @@ module Staff
               feedback_history_flags,
               feedback_history_ratings,
               users
-            ]
+           ]
           }
 
           let(:cte_records) { [runner_context] }
