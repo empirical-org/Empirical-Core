@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import {
   fetchStudentProfile,
   fetchStudentsClassrooms,
+  fetchExactScoresData,
   handleClassroomClick,
   updateActiveClassworkTab,
 } from '../../../actions/student_profile';
@@ -80,8 +81,12 @@ class StudentProfile extends React.Component {
   }
 
   handleClickClassworkTab = (classworkTab) => {
-    const { updateActiveClassworkTab, } = this.props
+    const { updateActiveClassworkTab, exactScoresDataPending, fetchExactScoresData, scores, } = this.props
     updateActiveClassworkTab(classworkTab)
+
+    if (classworkTab === COMPLETED_ACTIVITIES && exactScoresDataPending) {
+      fetchExactScoresData(scores)
+    }
   }
 
   initializePusher = (nextProps) => {
@@ -115,14 +120,14 @@ class StudentProfile extends React.Component {
       isBeingPreviewed,
       history,
       metrics,
-      loadingExactScoresData,
+      exactScoresDataPending,
       exactScoresData,
       showExactScores,
     } = this.props;
 
     if (loading) { return <LoadingIndicator /> }
 
-    if (activeClassworkTab === COMPLETED_ACTIVITIES && loadingExactScoresData)  { return <LoadingIndicator /> }
+    if (activeClassworkTab === COMPLETED_ACTIVITIES && exactScoresDataPending)  { return <LoadingIndicator /> }
 
     if (!selectedClassroomId) { return (<SelectAClassroom classrooms={classrooms} isBeingPreviewed={isBeingPreviewed} onClickCard={this.handleClassroomTabClick} />)}
 
@@ -169,8 +174,9 @@ const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => ({
   fetchStudentProfile: (classroomId) => dispatch(fetchStudentProfile(classroomId)),
   fetchStudentsClassrooms: () => dispatch(fetchStudentsClassrooms()),
+  fetchExactScoresData: scores => dispatch(fetchExactScoresData(scores)),
   handleClassroomClick: classroomId => dispatch(handleClassroomClick(classroomId)),
-  updateActiveClassworkTab: tab => dispatch(updateActiveClassworkTab(tab))
+  updateActiveClassworkTab: tab => dispatch(updateActiveClassworkTab(tab)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentProfile);
