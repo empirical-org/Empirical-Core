@@ -86,8 +86,8 @@
     }
   }
   &.gold {
-    background-color: $quill-gold-dark-1;
-    border: 1px solid $quill-gold;
+    background-color: $quill-gold-1;
+    border: 1px solid $quill-gold-dark-10;
     .tag, .quill-button {
       background-color: $quill-gold-dark-50 !important;
     }
@@ -95,7 +95,7 @@
       background-color: $quill-gold-dark-20 !important;
     }
     .secondary-header {
-      color: $quill-gold-dark-50;
+      color: $quill-gold-dark;
     }
   }
   &.viridian {
