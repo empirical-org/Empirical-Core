@@ -87,14 +87,14 @@ const ResponseList = ({admin, ascending, concepts, dispatch, expand, expanded, g
   const responseListItems = responses && responses.map((resp) => {
     if (resp && resp.statusCode !== 1 && resp.statusCode !== 0 && selectedIncorrectSequences) {
       const incorrectSequences = selectedIncorrectSequences.filter(isValidAndNotEmptyRegex)
-      const anyMatches = incorrectSequences.some(inSeq => incorrectSequenceMatchHelper(resp.text, inSeq.text, inSeq.caseInsensitive))
+      const anyMatches = incorrectSequences.some(inSeq => incorrectSequenceMatchHelper(resp.text, inSeq))
       if (anyMatches) {
         return <AffectedResponse key={resp.key}>{renderResponse(resp)}</AffectedResponse>
       }
     }
     if (resp && selectedFocusPoints) {
       const focusPoints = selectedFocusPoints.filter(isValidAndNotEmptyRegex)
-      const noMatchedFocusPoints = focusPoints.every(fp => !focusPointMatchHelper(resp.text, fp.text))
+      const noMatchedFocusPoints = focusPoints.every(fp => !focusPointMatchHelper(resp.text, fp))
       if (noMatchedFocusPoints) {
         return <AffectedResponse key={resp.key}>{renderResponse(resp)}</AffectedResponse>
       }
