@@ -167,6 +167,7 @@ export const DiagnosticGrowthReportsContainer = ({
     return restrictedPage
   }
 
+  // TODO: uncomment button code once CSV download feature is ready
   return (
     <main>
       <div className="header">

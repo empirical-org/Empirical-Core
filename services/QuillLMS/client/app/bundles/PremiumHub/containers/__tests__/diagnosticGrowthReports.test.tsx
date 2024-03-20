@@ -54,6 +54,7 @@ describe('DiagnosticGrowthReports', () => {
       const { asFragment } = render(<DiagnosticGrowthReports {...props} />);
       expect(asFragment()).toMatchSnapshot();
       expect(screen.getByRole('heading', { name: /diagnostic growth report/i })).toBeInTheDocument()
+      // TODO: uncomment once CSV download feature is active
       // expect(screen.getByRole('button', { name: /download/i })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: /performance overview/i })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: /performance by skill/i })).toBeInTheDocument()

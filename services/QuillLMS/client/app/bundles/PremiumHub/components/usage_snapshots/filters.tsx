@@ -125,16 +125,13 @@ const Filters = ({
     }
 
     requestPost('/admin_diagnostic_students/report', searchParams, (body) => {
-      if (!body.hasOwnProperty('results')) {
-        return
+      if (!body.hasOwnProperty('results')) { return }
+      const { results } = body
+      const { count } = results
+      if (withFilters) {
+        setTotalStudentMatchesForFilters(count)
       } else {
-        const { results } = body
-        const { count } = results
-        if (withFilters) {
-          setTotalStudentMatchesForFilters(count)
-        } else {
-          setTotalStudentCountForFilters(count)
-        }
+        setTotalStudentCountForFilters(count)
       }
     })
   }

@@ -205,12 +205,9 @@ export const OverviewSection = ({
     const searchParams = getSearchParams(PRE_DIAGNOSTIC_ASSIGNED_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
-      if (!body.hasOwnProperty('results')) {
-        return
-      } else {
-        const { results, } = body
-        setPreDiagnosticAssignedData(results)
-      }
+      if (!body.hasOwnProperty('results')) { return }
+      const { results, } = body
+      setPreDiagnosticAssignedData(results)
     })
   }
 
@@ -219,12 +216,9 @@ export const OverviewSection = ({
     const searchParams = getSearchParams(POST_DIAGNOSTIC_ASSIGNED_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
-      if (!body.hasOwnProperty('results')) {
-        return
-      } else {
-        const { results, } = body
-        setPostDiagnosticAssignedData(results)
-      }
+      if (!body.hasOwnProperty('results')) { return }
+      const { results, } = body
+      setPostDiagnosticAssignedData(results)
     })
   }
 
@@ -233,12 +227,9 @@ export const OverviewSection = ({
     const searchParams = getSearchParams(PRE_DIAGNOSTIC_COMPLETED_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
-      if (!body.hasOwnProperty('results')) {
-        return
-      } else {
-        const { results, } = body
-        setPreDiagnosticCompletedData(results)
-      }
+      if (!body.hasOwnProperty('results')) { return }
+      const { results, } = body
+      setPreDiagnosticCompletedData(results)
     })
   }
 
@@ -247,12 +238,9 @@ export const OverviewSection = ({
     const searchParams = getSearchParams(POST_DIAGNOSTIC_COMPLETED_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
-      if (!body.hasOwnProperty('results')) {
-        return
-      } else {
-        const { results, } = body
-        setPostDiagnosticCompletedData(results)
-      }
+      if (!body.hasOwnProperty('results')) { return }
+      const { results, } = body
+      setPostDiagnosticCompletedData(results)
     })
   }
 
@@ -261,12 +249,9 @@ export const OverviewSection = ({
     const searchParams = getSearchParams(RECOMMENDATIONS_QUERYSTRING)
 
     requestPost('/admin_diagnostic_reports/report', searchParams, (body) => {
-      if (!body.hasOwnProperty('results')) {
-        return
-      } else {
-        const { results, } = body
-        setRecommendationsData(results)
-      }
+      if (!body.hasOwnProperty('results')) { return }
+      const { results, } = body
+      setRecommendationsData(results)
     })
   }
 

@@ -165,12 +165,9 @@ export const SkillSection = ({
     }
 
     requestPost('/admin_diagnostic_skills/report', searchParams, (body) => {
-      if (!body.hasOwnProperty('results')) {
-        return
-      } else {
-        const { results, } = body
-        setSkillsData(results)
-      }
+      if (!body.hasOwnProperty('results')) { return }
+      const { results, } = body
+      setSkillsData(results)
     })
   }
 

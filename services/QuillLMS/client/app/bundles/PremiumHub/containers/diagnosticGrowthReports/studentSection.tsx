@@ -135,13 +135,14 @@ export const StudentSection = ({
   }, [searchCount, diagnosticTypeValue])
 
   React.useEffect(() => {
-    if (studentData && recommendationsData) {
-      const formattedData = aggregateStudentData(studentData, recommendationsData)
-      if(formattedData) {
-        updateVisibleData(formattedData);
-        setLoading(false)
-      }
-    }
+    if(!studentData || !recommendationsData) { return }
+
+    const formattedData = aggregateStudentData(studentData, recommendationsData)
+
+    if(!formattedData) { return}
+
+    updateVisibleData(formattedData);
+    setLoading(false)
   }, [studentData, recommendationsData])
 
 
@@ -218,12 +219,9 @@ export const StudentSection = ({
     }
 
     requestPost('/admin_diagnostic_students/report', searchParams, (body) => {
-      if (!body.hasOwnProperty('results')) {
-        return
-      } else {
-        const { results, } = body
-        setRecommendationsData(results)
-      }
+      if (!body.hasOwnProperty('results')) { return }
+      const { results, } = body
+      setRecommendationsData(results)
     })
   }
 
@@ -240,15 +238,12 @@ export const StudentSection = ({
     }
 
     requestPost('/admin_diagnostic_students/report', searchParams, (body) => {
-      if (!body.hasOwnProperty('results')) {
-        return
-      } else {
-        const { results, } = body
-        if (rowsToShow > results.length) {
-          setRowsToShow(results.length)
-        }
-        setStudentData(results)
+      if (!body.hasOwnProperty('results')) { return }
+      const { results, } = body
+      if (rowsToShow > results.length) {
+        setRowsToShow(results.length)
       }
+      setStudentData(results)
     })
   }
 
