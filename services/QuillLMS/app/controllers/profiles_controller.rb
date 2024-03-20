@@ -63,7 +63,7 @@ class ProfilesController < ApplicationController
 
   def student_exact_scores_data
     exact_scores_data = params[:data].map do |ua|
-      student_exact_scores(current_user, ua['activity_id'], ua['classroom_unit_id'])
+      student_exact_scores(current_user, ua)
     end
 
     render json: { exact_scores_data:}
@@ -87,7 +87,11 @@ class ProfilesController < ApplicationController
     render :staff
   end
 
-  private def student_exact_scores(user, activity_id, classroom_unit_id)
+  private def student_exact_scores(user, unit_activity_params)
+    activity_id = unit_activity_params['activity_id']
+    classroom_unit_id = unit_activity_params['classroom_unit_id']
+    ua_id = unit_activity_params['ua_id']
+
     user_id = user.id
     cache_key = "#{Student::EXACT_SCORES_CACHE_KEY}/#{user_id}/#{activity_id}/#{classroom_unit_id}"
 
@@ -105,7 +109,8 @@ class ProfilesController < ApplicationController
         'sessions' => activity_sessions.map { |as| format_activity_session_for_tooltip(as, user) },
         'completed_attempts' => activity_sessions.length,
         'activity_id' => activity_id,
-        'classroom_unit_id' => classroom_unit_id
+        'classroom_unit_id' => classroom_unit_id,
+        'ua_id' => ua_id
       }
     end
   end
