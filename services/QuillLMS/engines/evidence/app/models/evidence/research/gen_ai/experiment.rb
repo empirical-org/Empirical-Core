@@ -50,6 +50,7 @@ module Evidence
           failed!
         end
 
+        # TODO: limit should be abstracted out for real experiments
         private def create_llm_prompt_responses_feedbacks
           passage_prompt_responses.limit(3).each do |passage_prompt_response|
             LLMPromptResponseFeedback.save_llm_feedback!(passage_prompt_response:, llm_prompt:, llm_client:)

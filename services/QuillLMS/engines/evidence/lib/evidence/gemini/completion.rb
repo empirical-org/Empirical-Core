@@ -24,6 +24,7 @@ module Evidence
         }
       end
 
+      # TODO: - Remove binding.pry before this is added to production
       private def cleaned_results
         response
           .parsed_response['candidates']

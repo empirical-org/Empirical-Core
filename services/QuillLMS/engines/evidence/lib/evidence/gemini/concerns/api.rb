@@ -58,6 +58,7 @@ module Evidence
 
         private def timeout = TIMEOUT
 
+        # TODO: remove puts statements once this is stable
         private def post_with_backoff(retries: 0)
           response = self.class.post(endpoint, body:, headers:, timeout:)
 
