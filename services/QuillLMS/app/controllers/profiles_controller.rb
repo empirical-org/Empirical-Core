@@ -62,7 +62,9 @@ class ProfilesController < ApplicationController
   end
 
   def student_exact_scores_data
-    exact_scores_data = exact_scores_data_all(current_user, params[:data], params[:classroom_id])
+    exact_scores_data = Rails.cache.fetch(student_score_cache_key, expires_in: 8.hours) do
+      exact_scores_data_all(current_user, params[:data], params[:classroom_id])
+    end
 
     render json: { exact_scores_data:}
   end
@@ -89,29 +91,27 @@ class ProfilesController < ApplicationController
   CLASSROOM_UNIT_ID = 'classroom_unit_id'
   UA_ID = 'ua_id'
 
+  private def student_score_cache_key = User.student_scores_cache_key(current_user.id, params[:classroom_id])
+
   private def exact_scores_data_all(user, data, classroom_id)
-    cache_key = User.student_scores_cache_key(user.id, classroom_id)
+    user_id = user.id
+    classroom_unit_id = data.map{|h| h[CLASSROOM_UNIT_ID]}
+    activity_id = data.map{|h| h[ACTIVITY_ID]}
 
-    Rails.cache.fetch(cache_key, expires_in: 8.hours) do
-      user_id = current_user.id
-      classroom_unit_id = data.map{|h| h[CLASSROOM_UNIT_ID]}
-      activity_id = data.map{|h| h[ACTIVITY_ID]}
+    activity_sessions_grouped = ActivitySession
+      .includes(:concept_results, :activity, :unit)
+      .where(
+        user_id:,
+        activity_id:,
+        classroom_unit_id:,
+        state: ActivitySession::STATE_FINISHED
+      )
+      .group_by {|as| [as.activity_id, as.classroom_unit_id]}
 
-      activity_sessions_grouped = ActivitySession
-        .includes(:concept_results, :activity, :unit)
-        .where(
-          user_id:,
-          activity_id:,
-          classroom_unit_id:,
-          state: ActivitySession::STATE_FINISHED
-        )
-        .group_by {|as| [as.activity_id, as.classroom_unit_id]}
-
-      data.map do |ua|
-        key = [ua[ACTIVITY_ID]&.to_i, ua[CLASSROOM_UNIT_ID]&.to_i]
-        activity_sessions = activity_sessions_grouped[key]
-        student_exact_scores(user, ua, activity_sessions)
-      end
+    data.map do |ua|
+      key = [ua[ACTIVITY_ID]&.to_i, ua[CLASSROOM_UNIT_ID]&.to_i]
+      activity_sessions = activity_sessions_grouped[key]
+      student_exact_scores(user, ua, activity_sessions)
     end
   end
 
