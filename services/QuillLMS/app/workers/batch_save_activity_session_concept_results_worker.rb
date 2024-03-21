@@ -31,7 +31,9 @@ class BatchSaveActivitySessionConceptResultsWorker
 
     return unless session&.user_id
 
-    cache_key = User.student_scores_cache_key(session.user_id)
+    classroom_id = session.classroom_unit&.classroom_id
+
+    cache_key = User.student_scores_cache_key(session.user_id, classroom_id)
 
     Rails.cache.delete(cache_key)
   end

@@ -62,11 +62,7 @@ class ProfilesController < ApplicationController
   end
 
   def student_exact_scores_data
-    cache_key = User.student_scores_cache_key(current_user.id)
-
-    exact_scores_data = Rails.cache.fetch(cache_key, expires_in: 8.hours) do
-      params[:data].map {|ua| student_exact_scores(current_user, ua)}
-    end
+    exact_scores_data = exact_scores_data_all(current_user, params[:data], params[:classroom_id])
 
     render json: { exact_scores_data:}
   end
@@ -89,27 +85,43 @@ class ProfilesController < ApplicationController
     render :staff
   end
 
-  private def student_exact_scores(user, unit_activity_params)
-    activity_id = unit_activity_params['activity_id']
-    classroom_unit_id = unit_activity_params['classroom_unit_id']
-    ua_id = unit_activity_params['ua_id']
-    user_id = user.id
+  ACTIVITY_ID = 'activity_id'
+  CLASSROOM_UNIT_ID = 'classroom_unit_id'
+  UA_ID = 'ua_id'
 
-    activity_sessions = ActivitySession
-      .includes(:concept_results, :activity, :unit)
-      .where(
-        user_id:,
-        activity_id:,
-        classroom_unit_id:,
-        state: ActivitySession::STATE_FINISHED
-      )
+  private def exact_scores_data_all(user, data, classroom_id)
+    cache_key = User.student_scores_cache_key(user.id, classroom_id)
 
+    Rails.cache.fetch(cache_key, expires_in: 8.hours) do
+      user_id = current_user.id
+      classroom_unit_id = data.map{|h| h[CLASSROOM_UNIT_ID]}
+      activity_id = data.map{|h| h[ACTIVITY_ID]}
+
+      activity_sessions_grouped = ActivitySession
+        .includes(:concept_results, :activity, :unit)
+        .where(
+          user_id:,
+          activity_id:,
+          classroom_unit_id:,
+          state: ActivitySession::STATE_FINISHED
+        )
+        .group_by {|as| [as.activity_id, as.classroom_unit_id]}
+
+      data.map do |ua|
+        key = [ua[ACTIVITY_ID]&.to_i, ua[CLASSROOM_UNIT_ID]&.to_i]
+        activity_sessions = activity_sessions_grouped[key]
+        student_exact_scores(user, ua, activity_sessions)
+      end
+    end
+  end
+
+  private def student_exact_scores(user, unit_activity_params, activity_sessions)
     {
       'sessions' => activity_sessions.map { |as| format_activity_session_for_tooltip(as, user) },
       'completed_attempts' => activity_sessions.length,
-      'activity_id' => activity_id,
-      'classroom_unit_id' => classroom_unit_id,
-      'ua_id' => ua_id
+      ACTIVITY_ID => unit_activity_params[ACTIVITY_ID],
+      CLASSROOM_UNIT_ID => unit_activity_params[CLASSROOM_UNIT_ID],
+      UA_ID => unit_activity_params[UA_ID]
     }
   end
 

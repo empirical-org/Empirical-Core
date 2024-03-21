@@ -81,11 +81,11 @@ class StudentProfile extends React.Component {
   }
 
   handleClickClassworkTab = (classworkTab) => {
-    const { updateActiveClassworkTab, exactScoresDataPending, fetchExactScoresData, scores, } = this.props
+    const { updateActiveClassworkTab, exactScoresDataPending, fetchExactScoresData, scores, classroomId, } = this.props
     updateActiveClassworkTab(classworkTab)
 
     if (classworkTab === COMPLETED_ACTIVITIES && exactScoresDataPending) {
-      fetchExactScoresData(scores)
+      fetchExactScoresData(scores, classroomId)
     }
   }
 

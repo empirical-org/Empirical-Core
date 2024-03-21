@@ -6,7 +6,7 @@ module Student
   EXACT_SCORES_CACHE_KEY = 'student_exact_scores_by_student'
 
   class_methods do
-    def student_scores_cache_key(user_id) = "#{EXACT_SCORES_CACHE_KEY}/#{user_id}"
+    def student_scores_cache_key(user_id, classroom_id) = "#{EXACT_SCORES_CACHE_KEY}/#{user_id}/#{classroom_id}"
   end
 
   included do
