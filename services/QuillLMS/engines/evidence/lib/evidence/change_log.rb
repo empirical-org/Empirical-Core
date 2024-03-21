@@ -59,7 +59,7 @@ module Evidence
       Evidence.change_log_class.create(change_log)
     end
 
-    def activity_versions(ignore_count: false)
+    def activity_versions(include_count: true)
       Evidence.change_log_class.where(changed_record_id: id, changed_attribute: 'version', changed_record_type: 'Evidence::Activity').map do |row|
         next_new_value = row.new_value.to_i + 1
         next_version = next_change_log(id, next_new_value)
@@ -70,7 +70,7 @@ module Evidence
           new_value: row.new_value,
         }
 
-        ignore_count ? version_data : version_data.merge(session_count: session_count(row, id))
+        include_count ? version_data.merge(session_count: session_count(row, id)) : version_data
       end
     end
 

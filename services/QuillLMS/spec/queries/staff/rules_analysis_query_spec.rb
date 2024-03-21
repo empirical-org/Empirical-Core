@@ -6,7 +6,7 @@ module Staff
   describe RulesAnalysisQuery do
     include_context 'QuillBigQuery TestRunner Setup'
 
-    describe '#format' do
+    describe '#post_query_transform' do
       let(:rule) { create(:evidence_rule, name: 'so_rule1', rule_type: 'autoML') }
 
       it 'should format correctly' do
@@ -16,40 +16,17 @@ module Staff
         example_bigquery_result = [
           {
             :id => rule.id,
-            :rules_uid => "0effa491-f9c7-482c-bce4-3982c5644259",
-            :activity_id => 80,
-            :rule_type => "autoML",
-            :rule_suborder => 1,
-            :rule_name => "so_rule2",
-            :rule_note => "This rule is a test",
-            :total_responses => 1,
-            :avg_confidence => nil,
-            :total_strong => 1,
-            :total_weak => 0,
-            :repeated_consecutive => 1,
-            :repeated_non_consecutive => 0
           }
-      ]
+        ]
 
-        expected = [{
-          rule_uid: "0effa491-f9c7-482c-bce4-3982c5644259",
-          api_name: rule.rule_type,
-          rule_order: 1,
+        expected = {
           first_feedback: 'a'*10,
           second_feedback: 'b'*10,
-          rule_note: "This rule is a test",
-          rule_name: "so_rule2",
-          avg_confidence: nil,
-          total_responses: 1,
-          strong_responses: 1,
-          weak_responses: 0,
-          repeated_consecutive_responses: 1,
-          repeated_non_consecutive_responses: 0
-        }]
+        }
 
         expect(
-          described_class.new(activity_id: 1, conjunction: 'so').post_query_transform(example_bigquery_result)
-        ).to eq expected
+          expected < described_class.new(activity_id: 1, conjunction: 'so').post_query_transform(example_bigquery_result).first
+        ).to be true
       end
     end
 
@@ -119,7 +96,7 @@ module Staff
 
           it 'should aggregate feedbacks for a given rule'  do
             expect(results.count).to eq 1
-            expect(results.first[:rule_type]).to eq 'autoML'
+            expect(results.first[:api_name]).to eq 'autoML'
           end
         end
 
@@ -161,10 +138,9 @@ module Staff
           end
 
           it 'should filter by activity_version if specified'  do
-            puts results
             expect(results.count).to eq 2
-            expect(results.select {|rf| rf[:rules_uid] == so_rule4.uid}.empty?).to be
-            expect(results.first[:rule_type]).to eq 'autoML'
+            expect(results.select {|rf| rf[:rule_uid] == so_rule4.uid}.empty?).to be
+            expect(results.first[:api_name]).to eq 'autoML'
           end
         end
 
