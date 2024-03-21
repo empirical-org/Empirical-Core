@@ -321,7 +321,7 @@ class FeedbackHistory < ApplicationRecord
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def self.get_total_count(activity_id: nil, start_date: nil, end_date: nil, filter_type: nil, responses_for_scoring: false, activity_version: nil)
-    query = FeedbackHistory
+    query = FeedbackHistory.select(:feedback_session_uid)
       .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
       .joins("LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id")
       .group(:feedback_session_uid, :activity_id)
@@ -331,7 +331,8 @@ class FeedbackHistory < ApplicationRecord
     query = FeedbackHistory.apply_activity_session_filter(query, filter_type) if filter_type
     query = query.having(FeedbackHistory.responses_for_scoring) if responses_for_scoring
     query = query.where("feedback_histories.activity_version = ?", activity_version) if activity_version
-    query.count
+    result = ActiveRecord::Base.connection.execute("SELECT COUNT(*) from (#{query.to_sql}) as nickname")
+    result.first.dig('count')
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
