@@ -1167,7 +1167,8 @@ CREATE TABLE public.evidence_research_gen_ai_passages (
     id bigint NOT NULL,
     contents text NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    name character varying NOT NULL
 );
 
 
@@ -2061,6 +2062,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240318140506'),
 ('20240318141942'),
 ('20240318143146'),
-('20240318144447');
+('20240318144447'),
+('20240318155008');
 
 

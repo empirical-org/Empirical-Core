@@ -18,10 +18,12 @@ module Evidence
           class_name: 'Evidence::Research::GenAI::PassagePrompt'
 
         has_many :example_prompt_response_feedbacks,
-          class_name: 'Evidence::Research::GenAI::ExamplePromptResponseFeedback'
+          class_name: 'Evidence::Research::GenAI::ExamplePromptResponseFeedback',
+          dependent: :destroy
 
         has_many :llm_prompt_response_feedbacks,
-          class_name: 'Evidence::Research::GenAI::LLMPromptResponseFeedback'
+          class_name: 'Evidence::Research::GenAI::LLMPromptResponseFeedback',
+          dependent: :destroy
 
         validates :response, presence: true
       end

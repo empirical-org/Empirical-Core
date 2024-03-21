@@ -20,8 +20,18 @@ module Evidence
         it { should validate_presence_of(:response) }
 
         it { should belong_to(:passage_prompt)}
-        it { should have_many(:example_prompt_response_feedbacks).class_name('Evidence::Research::GenAI::ExamplePromptResponseFeedback') }
-        it { should have_many(:llm_prompt_response_feedbacks).class_name('Evidence::Research::GenAI::LLMPromptResponseFeedback') }
+
+        it do
+          expect(subject).to have_many(:example_prompt_response_feedbacks)
+          .class_name('Evidence::Research::GenAI::ExamplePromptResponseFeedback')
+          .dependent(:destroy)
+        end
+
+        it do
+          expect(subject).to have_many(:llm_prompt_response_feedbacks)
+            .class_name('Evidence::Research::GenAI::LLMPromptResponseFeedback')
+            .dependent(:destroy)
+        end
 
         it { expect(build(:evidence_research_gen_ai_passage_prompt_response)).to be_valid }
       end

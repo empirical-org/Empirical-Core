@@ -6,6 +6,7 @@
 #
 #  id         :bigint           not null, primary key
 #  contents   :text             not null
+#  name       :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -13,8 +14,11 @@ module Evidence
   module Research
     module GenAI
       class Passage < ApplicationRecord
-        has_many :passage_prompts, class_name: 'Evidence::Research::GenAI::PassagePrompt'
+        has_many :passage_prompts,
+          class_name: 'Evidence::Research::GenAI::PassagePrompt',
+          dependent: :destroy
 
+        validates :name, presence: true
         validates :contents, presence: true
       end
     end
