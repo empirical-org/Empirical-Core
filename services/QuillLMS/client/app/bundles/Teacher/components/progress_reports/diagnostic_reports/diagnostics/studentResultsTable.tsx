@@ -184,7 +184,9 @@ const StudentResultsTable = ({ isPreTest, skillGroupSummaries, studentResults, o
     onScroll()
   }, [size])
 
-  const handleScroll = React.useCallback(({ top, bottom, left, right, }) => {
+  const handleScroll = React.useCallback(() => {
+    const { top, bottom, left, } = tableRef.current.getBoundingClientRect()
+
     if (top <= 0 && bottom > 92) {
       setStickyTableStyle(oldStickyTableStyle => ({ ...oldStickyTableStyle, left: left + paddingLeft() }))
       !isSticky && setIsSticky(true);
@@ -196,7 +198,7 @@ const StudentResultsTable = ({ isPreTest, skillGroupSummaries, studentResults, o
 
   const onScroll = () => {
     if (tableRef && tableRef.current) {
-      handleScroll(tableRef.current.getBoundingClientRect());
+      handleScroll();
     }
   }
 
