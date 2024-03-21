@@ -10,10 +10,14 @@ end
 module Evidence
   class Engine < ::Rails::Engine
     config.eager_load_paths << "#{config.root}/lib"
+
+    initializer "evidence.add_autoload_paths", before: :set_autoload_paths do |app|
+      app.config.autoload_paths += Dir["#{app.root}/app/lib/**/"]
+    end
+
     isolate_namespace Evidence
 
     config.generators do |g|
-
       g.orm :active_record
       g.test_framework :rspec, fixtures: false
       g.fixtures false
