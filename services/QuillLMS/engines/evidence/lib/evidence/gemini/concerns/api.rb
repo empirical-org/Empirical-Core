@@ -6,6 +6,7 @@ module Evidence
       module Api
         extend ActiveSupport::Concern
 
+        class FinishReasonOtherError < StandardError; end
         class ServiceUnavailableError < StandardError; end
 
         BASE_URI = Evidence::Gemini::BASE_URI
