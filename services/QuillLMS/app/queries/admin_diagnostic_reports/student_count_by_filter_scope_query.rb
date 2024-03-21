@@ -6,18 +6,7 @@ module AdminDiagnosticReports
 
     attr_reader :timeframe_start, :timeframe_end, :school_ids, :grades, :teacher_ids, :classroom_ids, :user, :additional_aggregation, :diagnostic_id
 
-    DIAGNOSTIC_ORDER_BY_ID = [
-      1663, # Starter Baseline Diagnostic (Pre)
-      1668, # Intermediate Baseline Diagnostic (Pre)
-      1678, # Advanced Baseline Diagnostic (Pre)
-      1161, # ELL Starter Baseline Diagnostic (Pre)
-      1568, # ELL Intermediate Baseline Diagnostic (Pre)
-      1590, # ELL Advanced Baseline Diagnostic (Pre)
-      992,  # AP Writing Skills Survey
-      1229, #  Pre-AP Writing Skills Survey 1
-      1230, # Pre-AP Writing Skills Survey 2
-      1432  # SpringBoard Writing Skills Survey
-    ]
+    DIAGNOSTIC_ORDER_BY_ID = DiagnosticAggregateQuery::DIAGNOSTIC_ORDER_BY_ID
 
     def initialize(timeframe_start:, timeframe_end:, diagnostic_id:, school_ids:, grades: nil, teacher_ids: nil, classroom_ids: nil, user: nil, **options) # rubocop:disable Metrics/ParameterLists
       raise InvalidDiagnosticIdError, "#{diagnostic_id} is not a valid diagnostic_id value." unless DIAGNOSTIC_ORDER_BY_ID.include?(diagnostic_id.to_i)
