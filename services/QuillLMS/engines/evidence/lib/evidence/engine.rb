@@ -12,6 +12,19 @@ module Evidence
     config.eager_load_paths << "#{config.root}/lib"
     isolate_namespace Evidence
 
+    config.generators do |g|
+
+      g.orm :active_record
+      g.test_framework :rspec, fixtures: false
+      g.fixtures false
+
+      g.stylesheets false
+      g.helper false
+      g.javascript false
+      g.assets false
+      g.template_engine nil
+    end
+
     if defined?(FactoryBot)
       initializer "evidence.factories", after: "factory_bot.set_factory_paths" do
         FactoryBot.definition_file_paths << File.expand_path('../../../spec/factories/evidence', __FILE__)
