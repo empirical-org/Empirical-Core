@@ -61,9 +61,17 @@ module Staff
     def post_query_transform(query_result)
       rules_with_feedbacks = Evidence::Rule.where(id: query_result.pluck(:id)).includes(:feedbacks)
       query_result.map do |row|
-        first_feedback, second_feedback = rules_with_feedbacks.find{|x| x.id == row[:id]}&.feedbacks&.sort_by(&:order)&.map {|f| f&.text || ''}
+        rule = rules_with_feedbacks.find{|x| x.id == row[:id]}
+        first_feedback, second_feedback = find_and_format_feedbacks(rule)
         row.merge(first_feedback:, second_feedback:)
       end
+    end
+
+    def find_and_format_feedbacks(rule_with_feedbacks)
+      feedbacks = rule_with_feedbacks&.feedbacks
+      return [] unless feedbacks
+
+      feedbacks.sort_by(&:order).map {|f| f&.text || ''}
     end
 
     def group_by_clause
