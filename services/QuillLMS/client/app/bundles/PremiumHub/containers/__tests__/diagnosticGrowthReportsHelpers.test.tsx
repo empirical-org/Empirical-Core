@@ -12,7 +12,8 @@ const mockArgs = {
   handleSetNoDiagnosticDataAvailable: jest.fn(),
   hasAdjustedFiltersFromDefault: false,
   setLoading: jest.fn(),
-  handleGrowthChipClick: jest.fn()
+  handleGrowthChipClick: jest.fn(),
+  handlePreDiagnosticChipClick: jest.fn()
 }
 
 const mockPreDiagnosticAssignedData = [{
@@ -173,7 +174,7 @@ const mockCombinedData = [{
       name: "Grade 5",
       overallSkillGrowth: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>+12%</button>,
       postDiagnosticCompleted: "51 of 52 Students",
-      preDiagnosticCompleted: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>125 of 163 Students</button>,
+      preDiagnosticCompleted: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handlePreDiagnosticChipClick} value={1663}>125 of 163 Students</button>,
       studentsCompletedPractice: "113 Students"
     },
     {
@@ -182,7 +183,7 @@ const mockCombinedData = [{
       name: "Grade 7",
       overallSkillGrowth: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>+10%</button>,
       postDiagnosticCompleted: "4 of 5 Students",
-      preDiagnosticCompleted: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>53 of 52 Students</button>,
+      preDiagnosticCompleted: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handlePreDiagnosticChipClick} value={1663}>53 of 52 Students</button>,
       studentsCompletedPractice: "46 Students"
     }
   ],
@@ -193,7 +194,7 @@ const mockCombinedData = [{
   name: "Starter Baseline Diagnostic (Pre)",
   overallSkillGrowth: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>+12%</button>,
   overallSkillGrowthSortValue: 0.11802217741935483,
-  preDiagnosticCompleted: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>178 of 215 Students</button>,
+  preDiagnosticCompleted: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handlePreDiagnosticChipClick} value={1663}>178 of 215 Students</button>,
   postDiagnosticCompleted: "55 of 215 Students",
   postStudentsCompleted: 55,
   preStudentsCompleted: 178,
