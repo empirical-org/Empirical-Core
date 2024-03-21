@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
-import { SKILL, groupByDropdownOptions, hashPayload } from '../../shared'
+import { SKILL, STUDENT, groupByDropdownOptions, hashPayload } from '../../shared'
 import { requestPost, } from '../../../../modules/request';
 import { aggregateOverviewData, averageActivitiesAndTimeSpentTooltipText, completedActivitiesTooltipText, diagnosticNameTooltipText, overallSkillGrowthTooltipText, postDiagnosticCompletedTooltipText, preDiagnosticCompletedTooltipText } from './helpers';
 
@@ -166,7 +166,8 @@ export const OverviewSection = ({
         hasAdjustedFiltersFromDefault,
         handleSetNoDiagnosticDataAvailable,
         setLoading,
-        handleGrowthChipClick
+        handleGrowthChipClick,
+        handlePreDiagnosticChipClick
       })
     }
   }, [preDiagnosticAssignedData, postDiagnosticAssignedData, preDiagnosticCompletedData, postDiagnosticCompletedData, recommendationsData])
@@ -269,6 +270,11 @@ export const OverviewSection = ({
 
   function handleFilterOptionChange(option) {
     setGroupByValue(option)
+  }
+
+  function handlePreDiagnosticChipClick(id: number) {
+    handleSetSelectedDiagnosticId(id)
+    handleTabChangeFromDataChip(STUDENT)
   }
 
   function handleGrowthChipClick(id: number) {
