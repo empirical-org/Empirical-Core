@@ -67,9 +67,9 @@ function processAggregateRows(aggregateRowsData, diagnosticId, rowData) {
   });
 }
 
-function preDiagnosticCompletedValue({ diagnosticId, preStudentsAssigned, preStudentsCompleted, handleGrowthChipClick }) {
+function preDiagnosticCompletedValue({ diagnosticId, preStudentsAssigned, preStudentsCompleted, handlePreDiagnosticChipClick }) {
   if(!preStudentsAssigned) { return noDataToShow }
-  return <button className="interactive-wrapper emphasized-content" onClick={handleGrowthChipClick} value={diagnosticId}>{`${preStudentsCompleted || 0} of ${preStudentsAssigned} Students`}</button>
+  return <button className="interactive-wrapper emphasized-content" onClick={handlePreDiagnosticChipClick} value={diagnosticId}>{`${preStudentsCompleted || 0} of ${preStudentsAssigned} Students`}</button>
 }
 
 function studentsCompletedPracticeValue(studentsCompletedPractice) {
@@ -93,7 +93,7 @@ function overallSkillGrowthValue({diagnosticId, overallSkillGrowth, handleGrowth
   return 'No Growth';
 }
 
-function createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId, handleGrowthChipClick }) {
+function createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId, handleGrowthChipClick, handlePreDiagnosticChipClick }) {
   return Object.keys(aggregateRowsDataForDiagnostic).map(key => {
     const data = aggregateRowsDataForDiagnostic[key];
     // we can early return if there are no students assigned to pre diagnostic
@@ -103,7 +103,7 @@ function createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId, 
     return {
       id: key,
       name: data.name,
-      preDiagnosticCompleted: preDiagnosticCompletedValue({ diagnosticId, preStudentsAssigned: data.pre_students_assigned, preStudentsCompleted: data.pre_students_completed, handleGrowthChipClick }),
+      preDiagnosticCompleted: preDiagnosticCompletedValue({ diagnosticId, preStudentsAssigned: data.pre_students_assigned, preStudentsCompleted: data.pre_students_completed, handlePreDiagnosticChipClick }),
       studentsCompletedPractice: studentsCompletedPracticeValue(data.students_completed_practice),
       averageActivitiesAndTimeSpent: averageActivitiesAndTimeSpentValue(data.average_practice_activities_count, data.average_time_spent_seconds),
       postDiagnosticCompleted: postDiagnosticCompleted(data.post_students_assigned, data.post_students_completed),
@@ -113,7 +113,7 @@ function createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId, 
 }
 
 export function aggregateOverviewData(args) {
-  const { preDiagnosticAssignedData, postDiagnosticAssignedData, preDiagnosticCompletedData, postDiagnosticCompletedData, recommendationsData, setAggregatedData, handleSetNoDiagnosticDataAvailable, hasAdjustedFiltersFromDefault, setLoading, handleGrowthChipClick } = args;
+  const { preDiagnosticAssignedData, postDiagnosticAssignedData, preDiagnosticCompletedData, postDiagnosticCompletedData, recommendationsData, setAggregatedData, handleSetNoDiagnosticDataAvailable, hasAdjustedFiltersFromDefault, setLoading, handleGrowthChipClick, handlePreDiagnosticChipClick } = args;
 
   // if there are no results for the pre diagnostic API and filters are at default, no diagnostics have been assigned
   if (!preDiagnosticAssignedData.length && !hasAdjustedFiltersFromDefault) {
@@ -197,7 +197,7 @@ export function aggregateOverviewData(args) {
     const averageActivitiesCount = recommendationsDataHash[id]?.average_practice_activities_count
     const averageTimespent = recommendationsDataHash[id]?.average_time_spent_seconds
     const aggregateRowsDataForDiagnostic = aggregateRowsData[id]
-    entry.preDiagnosticCompleted = preDiagnosticCompletedValue({ diagnosticId: id, preStudentsAssigned, preStudentsCompleted, handleGrowthChipClick })
+    entry.preDiagnosticCompleted = preDiagnosticCompletedValue({ diagnosticId: id, preStudentsAssigned, preStudentsCompleted, handlePreDiagnosticChipClick })
     entry.preStudentsCompleted = getSingleSortValue(preStudentsCompleted)
     entry.studentsCompletedPractice = studentsCompletedPracticeValue(studentsCompletedPractice)
     entry.completedPracticeCount = getSingleSortValue(studentsCompletedPractice)
@@ -207,7 +207,7 @@ export function aggregateOverviewData(args) {
     entry.postStudentsCompleted = getSingleSortValue(postStudentsCompleted)
     entry.overallSkillGrowthSortValue = getSingleSortValue(overallSkillGrowth)
     entry.overallSkillGrowth = overallSkillGrowthValue({diagnosticId: id, overallSkillGrowth, handleGrowthChipClick })
-    entry.aggregate_rows = createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId: id, handleGrowthChipClick})
+    entry.aggregate_rows = createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId: id, handleGrowthChipClick, handlePreDiagnosticChipClick })
   })
   setAggregatedData(combinedData);
   setLoading(false);
