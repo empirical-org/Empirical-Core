@@ -54,7 +54,7 @@ const SessionsIndex = ({ match }) => {
   });
 
   const { data: activityVersionData } = useQuery({
-    queryKey: [`change-logs-for-activity-versions-${activityId}`, activityId],
+    queryKey: [`change-logs-for-activity-versions-${activityId}`, activityId, { ignoreCount: true }],
     queryFn: fetchActivityVersions
   });
 
