@@ -331,7 +331,8 @@ class FeedbackHistory < ApplicationRecord
     query = FeedbackHistory.apply_activity_session_filter(query, filter_type) if filter_type
     query = query.having(FeedbackHistory.responses_for_scoring) if responses_for_scoring
     query = query.where("feedback_histories.activity_version = ?", activity_version) if activity_version
-    query.length
+    result = ActiveRecord::Base.connection.execute("SELECT COUNT(*) from (#{query.to_sql}) as nickname")
+    result.first.dig('count')
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
