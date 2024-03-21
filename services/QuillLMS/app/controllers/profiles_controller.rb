@@ -99,7 +99,7 @@ class ProfilesController < ApplicationController
     activity_id = data.map{|h| h[ACTIVITY_ID]}
 
     activity_sessions_grouped = ActivitySession
-      .includes(:concept_results, :activity, :unit)
+      .includes(:unit, concept_results: :concept, activity: :classification)
       .where(
         user_id:,
         activity_id:,
