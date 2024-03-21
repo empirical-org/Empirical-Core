@@ -360,13 +360,12 @@ exports[`Overview container should render with a full access type 1`] = `
               <div
                 class="link-and-image"
               >
-                <button
-                  class="quill-button focus-on-light outlined secondary medium disabled"
-                  disabled=""
-                  type="button"
+                <a
+                  class="quill-button focus-on-light outlined secondary medium"
+                  href="/teachers/premium_hub/diagnostic_growth_report"
                 >
-                  Coming soon
-                </button>
+                  View report
+                </a>
                 <img
                   alt=""
                   src="undefined/images/pages/administrator/overview/diagnostic-growth-report.svg"
@@ -978,13 +977,12 @@ exports[`Overview container should render with a limited access type 1`] = `
               <div
                 class="link-and-image"
               >
-                <button
-                  class="quill-button focus-on-light outlined secondary medium disabled"
-                  disabled=""
-                  type="button"
+                <a
+                  class="quill-button focus-on-light outlined secondary medium"
+                  href="/teachers/premium_hub/diagnostic_growth_report"
                 >
-                  Coming soon
-                </button>
+                  View report
+                </a>
                 <img
                   alt=""
                   src="undefined/images/pages/administrator/overview/diagnostic-growth-report.svg"
@@ -1567,13 +1565,12 @@ exports[`Overview container should render with a restricted access type 1`] = `
               <div
                 class="link-and-image"
               >
-                <button
-                  class="quill-button focus-on-light outlined secondary medium disabled"
-                  disabled=""
-                  type="button"
+                <a
+                  class="quill-button focus-on-light outlined secondary medium"
+                  href="/teachers/premium_hub/diagnostic_growth_report"
                 >
-                  Coming soon
-                </button>
+                  View report
+                </a>
                 <img
                   alt=""
                   src="undefined/images/pages/administrator/overview/diagnostic-growth-report.svg"
