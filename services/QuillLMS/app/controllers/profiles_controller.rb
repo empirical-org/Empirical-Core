@@ -110,7 +110,7 @@ class ProfilesController < ApplicationController
 
     data.map do |ua|
       key = [ua[ACTIVITY_ID]&.to_i, ua[CLASSROOM_UNIT_ID]&.to_i]
-      activity_sessions = activity_sessions_grouped[key]
+      activity_sessions = activity_sessions_grouped[key] || []
       student_exact_scores(user, ua, activity_sessions)
     end
   end
