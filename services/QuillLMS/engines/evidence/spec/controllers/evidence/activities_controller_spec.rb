@@ -19,6 +19,31 @@ module Evidence
       end
     end
 
+    context '#activity_versions' do
+      let(:activity) { create(:evidence_activity) }
+
+      context 'include_count param is falsy' do
+        it 'should call ChangeLog#activity_versions with include_count: falsy' do
+          allow(controller).to receive(:set_activity).and_return(nil)
+          controller.instance_variable_set(:@activity, activity)
+          expect(activity).to receive(:activity_versions).with(include_count: nil)
+
+          get :activity_versions, params: { id: activity.id }
+        end
+      end
+
+      context 'include_count param is truthy' do
+        it 'should call ChangeLog#activity_versions with include_count: true' do
+          allow(controller).to receive(:set_activity).and_return(nil)
+          controller.instance_variable_set(:@activity, activity)
+          expect(activity).to receive(:activity_versions).with(include_count: "true")
+
+          get :activity_versions, params: { id: activity.id, include_count: true }
+        end
+      end
+
+    end
+
     context 'should index' do
       it 'should return successfully - no activities' do
         get(:index)

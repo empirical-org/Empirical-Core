@@ -88,7 +88,7 @@ module Evidence
     end
 
     def activity_versions
-      render json: @activity&.activity_versions
+      render json: @activity&.activity_versions(include_count: params[:include_count])
     end
 
     # params [:id, nouns:, label_configs]
