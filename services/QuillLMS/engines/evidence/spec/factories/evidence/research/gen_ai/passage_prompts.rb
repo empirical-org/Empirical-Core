@@ -4,13 +4,14 @@
 #
 # Table name: evidence_research_gen_ai_passage_prompts
 #
-#  id           :bigint           not null, primary key
-#  conjunction  :string           not null
-#  instructions :text             not null
-#  prompt       :text             not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  passage_id   :integer          not null
+#  id               :bigint           not null, primary key
+#  conjunction      :string           not null
+#  instructions     :text             not null
+#  prompt           :text             not null
+#  relevant_passage :text             not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  passage_id       :integer          not null
 #
 
 module Evidence
@@ -22,6 +23,7 @@ module Evidence
           passage { association :evidence_research_gen_ai_passage }
           conjunction { PassagePrompt::CONJUNCTIONS.sample }
           instructions { 'These are the instructions' }
+          relevant_passage { 'This is the relevant passage' }
         end
       end
     end

@@ -1137,7 +1137,8 @@ CREATE TABLE public.evidence_research_gen_ai_passage_prompts (
     instructions text NOT NULL,
     conjunction character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    relevant_passage text NOT NULL
 );
 
 
@@ -2066,6 +2067,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240318144447'),
 ('20240318155008'),
 ('20240320142817'),
-('20240320152621');
+('20240320152621'),
+('20240322130607');
 
 
