@@ -173,7 +173,7 @@ const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => ({
   fetchStudentProfile: (classroomId) => dispatch(fetchStudentProfile(classroomId)),
   fetchStudentsClassrooms: () => dispatch(fetchStudentsClassrooms()),
-  fetchExactScoresData: scores => dispatch(fetchExactScoresData(scores)),
+  fetchExactScoresData: (scores, classroomId) => dispatch(fetchExactScoresData(scores, classroomId)),
   handleClassroomClick: classroomId => dispatch(handleClassroomClick(classroomId)),
   updateActiveClassworkTab: tab => dispatch(updateActiveClassworkTab(tab)),
 });
