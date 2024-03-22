@@ -906,7 +906,8 @@ CREATE TABLE public.evidence_research_gen_ai_example_prompt_response_feedbacks (
     feedback text NOT NULL,
     label character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    evaluation text
 );
 
 
@@ -2068,6 +2069,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240318155008'),
 ('20240320142817'),
 ('20240320152621'),
-('20240322130607');
+('20240322130607'),
+('20240322131358');
 
 

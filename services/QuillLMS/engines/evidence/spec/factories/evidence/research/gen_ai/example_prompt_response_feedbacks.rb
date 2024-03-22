@@ -5,13 +5,13 @@
 # Table name: evidence_research_gen_ai_example_prompt_response_feedbacks
 #
 #  id                         :bigint           not null, primary key
+#  evaluation                 :text
 #  feedback                   :text             not null
 #  label                      :string           not null
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #  passage_prompt_response_id :integer          not null
 #
-
 module Evidence
   module Research
     module GenAI
