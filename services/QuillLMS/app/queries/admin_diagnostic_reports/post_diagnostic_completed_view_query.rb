@@ -29,10 +29,8 @@ module AdminDiagnosticReports
         COUNT(DISTINCT performance.post_activity_session_id) AS post_students_completed,
         GREATEST(
           ROUND(
-            SAFE_DIVIDE(
-              SUM(performance.post_questions_correct), CAST(SUM(performance.post_questions_total) AS float64))
-                - SAFE_DIVIDE(SUM(CASE WHEN performance.post_activity_session_id IS NOT NULL THEN performance.pre_questions_correct ELSE NULL END),
-              CAST(SUM(CASE WHEN performance.post_activity_session_id IS NOT NULL THEN performance.pre_questions_total ELSE NULL END) AS float64)
+            SAFE_DIVIDE(SUM(performance.post_questions_correct), CAST(SUM(performance.post_questions_total) AS float64))
+              - SAFE_DIVIDE(SUM(CASE WHEN performance.post_activity_session_id IS NOT NULL THEN performance.pre_questions_correct ELSE NULL END), CAST(SUM(CASE WHEN performance.post_activity_session_id IS NOT NULL THEN performance.pre_questions_total ELSE NULL END) AS float64)
             ),
           2),
         0) AS growth_percentage
