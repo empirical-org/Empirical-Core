@@ -17,6 +17,7 @@ module Evidence
         belongs_to :llm_prompt_template, class_name: 'Evidence::Research::GenAI::LLMPromptTemplate'
 
         validates :prompt, presence: true
+        validates :llm_prompt_template_id, presence: true
 
         attr_readonly :prompt, :llm_prompt_template_id
 

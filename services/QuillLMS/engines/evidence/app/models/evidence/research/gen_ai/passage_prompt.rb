@@ -31,6 +31,7 @@ module Evidence
         validates :prompt, presence: true
         validates :conjunction, presence: true, inclusion: { in: CONJUNCTIONS }
         validates :instructions, presence: true
+        validates :passage_id, presence: true
 
         attr_readonly :prompt, :conjunction, :instructions, :passage_id
 
