@@ -12,6 +12,7 @@ module Evidence
           @examples_path = examples_path
         end
 
+        # rubocop:disable Metrics/CyclomaticComplexity
         def run
           passage_prompts.each do |passage_prompt|
             conjunction = passage_prompt.conjunction
@@ -32,17 +33,20 @@ module Evidence
                   response = example['text']
                   label = example['label']
                   feedback = data['feedback'][conjunction][label]
+                  example_index = data['examples'][conjunction][label]&.index(response)
+                  evaluation = example_index ? data.dig('evaluation',conjunction,label,example_index) : nil
 
                   passage_prompt
                     .passage_prompt_responses
                     .find_or_create_by!(response:)
                     .example_prompt_response_feedbacks
-                    .find_or_create_by!(label:, feedback:)
+                    .find_or_create_by!(label:, feedback:, evaluation:)
                 end
               end
             end
           end
         end
+        # rubocop:enable Metrics/CyclomaticComplexity
 
         private def data = @data ||= JSON.parse(input_file)
 
@@ -58,7 +62,12 @@ module Evidence
           @passage_prompts ||= data['prompts'].map do |conjunction, prompt|
             passage
               .passage_prompts
-              .find_or_create_by!(conjunction:, prompt:, instructions: data['instructions'][conjunction])
+              .find_or_create_by!(
+                conjunction:,
+                instructions: data['instructions'][conjunction],
+                prompt:,
+                relevant_passage: data['plagiarism'][conjunction]
+              )
           end
         end
       end
