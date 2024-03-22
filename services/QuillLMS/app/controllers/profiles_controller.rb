@@ -3,6 +3,10 @@
 class ProfilesController < ApplicationController
   include PublicProgressReports
 
+  ACTIVITY_ID = 'activity_id'
+  CLASSROOM_UNIT_ID = 'classroom_unit_id'
+  UA_ID = 'ua_id'
+
   before_action :signed_in!
 
   def show
@@ -86,10 +90,6 @@ class ProfilesController < ApplicationController
   def staff
     render :staff
   end
-
-  ACTIVITY_ID = 'activity_id'
-  CLASSROOM_UNIT_ID = 'classroom_unit_id'
-  UA_ID = 'ua_id'
 
   private def student_score_cache_key = User.student_scores_cache_key(current_user.id, params[:classroom_id])
 
