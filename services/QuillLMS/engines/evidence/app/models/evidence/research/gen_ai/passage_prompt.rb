@@ -37,6 +37,8 @@ module Evidence
           class_name: 'Evidence::Research::GenAI::LLMPromptResponseFeedback',
           through: :passage_prompt_responses
 
+        has_many :experiments, dependent: :destroy
+
         validates :prompt, presence: true
         validates :conjunction, presence: true, inclusion: { in: CONJUNCTIONS }
         validates :instructions, presence: true

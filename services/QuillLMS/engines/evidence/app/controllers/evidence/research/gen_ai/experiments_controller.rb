@@ -4,7 +4,7 @@ module Evidence
   module Research
     module GenAI
       class ExperimentsController < ApplicationController
-        def index = @experiments = Experiment.all
+        def index =  @experiments = Experiment.all.order(created_at: :asc)
 
         def new
           @experiment = Experiment.new
@@ -15,7 +15,7 @@ module Evidence
 
         def create
           @experiment = Experiment.new(experiment_params)
-          @experiment.llm_prompt = LLMPromptBuilder.run(llm_prompt_template_id:, passage_prompt_id:)
+          @experiment.llm_prompt = LLMPrompt.create_from_template!(llm_prompt_template_id:, passage_prompt_id:)
 
           if @experiment.save
             RunExperimentWorker.perform_async(@experiment.id)

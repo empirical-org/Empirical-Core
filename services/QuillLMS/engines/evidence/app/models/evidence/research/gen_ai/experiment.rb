@@ -57,7 +57,7 @@ module Evidence
 
         # TODO: limit should be abstracted out for real experiments
         private def create_llm_prompt_responses_feedbacks
-          passage_prompt_responses.limit(3).each do |passage_prompt_response|
+          passage_prompt_responses.each do |passage_prompt_response|
             feedback = llm_client.run(prompt: llm_prompt.feedback_prompt(passage_prompt_response.response))
             LLMPromptResponseFeedback.create!(feedback:, passage_prompt_response:)
           end
