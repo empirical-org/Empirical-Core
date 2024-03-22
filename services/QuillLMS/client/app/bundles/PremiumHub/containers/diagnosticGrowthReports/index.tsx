@@ -91,6 +91,7 @@ export const DiagnosticGrowthReportsContainer = ({
 
   const studentSectionProps = {
     ...sharedProps,
+    selectedDiagnosticId,
     passedStudentData: null,
     passedRecommendationsData: null,
     passedVisibleData: null
