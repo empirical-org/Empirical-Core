@@ -3,6 +3,7 @@ rails: rails s -b 0.0.0.0
 
 worker: bundle exec sidekiq -v -q default -q critical
 reportworker: bundle exec sidekiq -v -q low
+experimentworker: bundle exec sidekiq -C config/sidekiq_experiment.yml
 
 redis-sidekiq: redis-server --port 6379
 
