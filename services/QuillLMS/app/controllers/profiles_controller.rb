@@ -94,25 +94,25 @@ class ProfilesController < ApplicationController
   private def student_score_cache_key = User.student_scores_cache_key(current_user.id, params[:classroom_id])
 
   private def exact_scores_data_all(user, data, classroom_id)
-    user_id = user.id
-    classroom_unit_id = data.map{|h| h[CLASSROOM_UNIT_ID]}
-    activity_id = data.map{|h| h[ACTIVITY_ID]}
+    activity_sessions_grouped = student_activity_sessions_grouped(user.id, data)
 
-    activity_sessions_grouped = ActivitySession
+    data.map do |user_activity|
+      key = [user_activity[ACTIVITY_ID]&.to_i, user_activity[CLASSROOM_UNIT_ID]&.to_i]
+      activity_sessions = activity_sessions_grouped[key] || []
+      student_exact_scores(user, user_activity, activity_sessions)
+    end
+  end
+
+  private def student_activity_sessions_grouped(user_id, data)
+    ActivitySession
       .includes(:unit, concept_results: :concept, activity: :classification)
       .where(
-        user_id:,
-        activity_id:,
-        classroom_unit_id:,
+        user_id: user_id,
+        activity_id: data.map{|h| h[ACTIVITY_ID]},
+        classroom_unit_id: data.map{|h| h[CLASSROOM_UNIT_ID]},
         state: ActivitySession::STATE_FINISHED
       )
       .group_by {|as| [as.activity_id, as.classroom_unit_id]}
-
-    data.map do |ua|
-      key = [ua[ACTIVITY_ID]&.to_i, ua[CLASSROOM_UNIT_ID]&.to_i]
-      activity_sessions = activity_sessions_grouped[key] || []
-      student_exact_scores(user, ua, activity_sessions)
-    end
   end
 
   private def student_exact_scores(user, unit_activity_params, activity_sessions)
