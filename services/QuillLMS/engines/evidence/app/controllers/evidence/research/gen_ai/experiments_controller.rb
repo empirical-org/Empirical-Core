@@ -18,7 +18,7 @@ module Evidence
           @experiment.llm_prompt = LLMPromptBuilder.run(llm_prompt_template_id:, passage_prompt_id:)
 
           if @experiment.save
-            # RunExperimentWorker.perform_async(@experiment.id)
+            RunExperimentWorker.perform_async(@experiment.id)
             redirect_to @experiment
           else
             render :new
@@ -33,8 +33,8 @@ module Evidence
             .permit(:llm_config_id, :llm_prompt_template_id, :passage_prompt_id)
         end
 
-        private def llm_prompt_template_id = experiment_params[:llm_prompt_template_id]
-        private def passage_prompt_id = experiment_params[:passage_prompt_id]
+        private def llm_prompt_template_id = experiment_params[:llm_prompt_template_id].to_i
+        private def passage_prompt_id = experiment_params[:passage_prompt_id].to_i
       end
     end
   end
