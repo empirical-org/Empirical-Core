@@ -10,7 +10,7 @@ module AdminDiagnosticReports
             aggregate_id,
             name,
             group_by,
-            COUNT(DISTINCT activity_session_id) AS post_students_completed,
+            CAST(SUM(post_students_completed) / COUNT(DISTINCT skill_group_id) AS int64) AS post_students_completed,
             AVG(growth_percentage) AS overall_skill_growth
           FROM (#{super})
           GROUP BY diagnostic_id, diagnostic_name, aggregate_id, name, group_by
@@ -25,7 +25,8 @@ module AdminDiagnosticReports
       #   NULL values are ignored when executing aggregate queries such as SUM, so rows from `performance` that have NULL "post" data will be excluded from the aggregation
       #   We subtract the pre-Diagnostic average from the post-Diagnostic average, and then use GREATEST to treat cases where post-Diagnostic scores are worse as if they were equal instead
       <<-SQL
-        performance.post_activity_session_id AS activity_session_id,
+        performance.skill_group_id,
+        COUNT(DISTINCT performance.post_activity_session_id) AS post_students_completed,
         GREATEST(
           ROUND(SAFE_DIVIDE(SUM(performance.post_questions_correct), CAST(SUM(performance.post_questions_total) AS float64)), 2)
             - ROUND(SAFE_DIVIDE(SUM(CASE WHEN performance.post_activity_session_id IS NOT NULL THEN performance.pre_questions_correct ELSE NULL END),
@@ -35,7 +36,7 @@ module AdminDiagnosticReports
     end
 
     def group_by_clause
-      "#{super}, activity_session_id"
+      "#{super}, performance.skill_group_id, performance.classroom_id"
     end
 
     def relevant_date_column
