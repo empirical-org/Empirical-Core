@@ -10,10 +10,10 @@ end
 module Evidence
   class Engine < ::Rails::Engine
     config.eager_load_paths << "#{config.root}/lib"
-
     isolate_namespace Evidence
 
     config.generators do |g|
+
       g.orm :active_record
       g.test_framework :rspec, fixtures: false
       g.fixtures false
