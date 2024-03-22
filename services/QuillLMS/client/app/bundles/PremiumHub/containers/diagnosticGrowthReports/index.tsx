@@ -109,6 +109,9 @@ export const DiagnosticGrowthReportsContainer = ({
   }
 
   function handleSetSelectedDiagnosticId(e) {
+    console.log('handleSetSelectedDiagnosticId')
+    console.log(e)
+    console.log(e.target.value)
     setSelectedDiagnosticId(Number(e.target.value))
   }
 
