@@ -493,6 +493,7 @@ class ResponseComponent extends React.Component {
 
   updatePageNumber = pageNumber => {
     this.props.dispatch(questionActions.updatePageNumber(pageNumber));
+    this.searchResponses();
   };
 
   incrementPageNumber = () => {
