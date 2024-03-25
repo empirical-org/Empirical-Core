@@ -77,7 +77,6 @@ class ResponseComponent extends React.Component {
       this.searchResponses();
     } else if (!_.isEqual(filters.responses, prevProps.filters.responses)) {
       this.setState({responses: filters.responses})
-      this.setState({isLoadingResponses: false})
     }
   }
 
@@ -118,13 +117,17 @@ class ResponseComponent extends React.Component {
     this.props.dispatch(questionActions.updateResponses({ responses: [], numberOfResponses: 0, numberOfPages: 1, responsePageNumber: 1, }));
   };
 
+  setResponsesLoaded = () => {
+    this.setState({isLoadingResponses: false})
+  }
+
   searchResponses = () => {
     const { dispatch, questionID } = this.props;
 
     this.setState({isLoadingResponses: true})
 
     dispatch(questionActions.incrementRequestCount())
-    dispatch(questionActions.searchResponses(questionID));
+    dispatch(questionActions.searchResponses(questionID, this.setResponsesLoaded));
   }
 
   getTotalAttempts = () => {
