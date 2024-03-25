@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateEvidenceResearchGenAiLlmPromptTemplates < ActiveRecord::Migration[7.0]
+class CreateEvidenceResearchGenAILLMPromptTemplates < ActiveRecord::Migration[7.0]
   def change
     create_table :evidence_research_gen_ai_llm_prompt_templates do |t|
       t.text :description, null: false

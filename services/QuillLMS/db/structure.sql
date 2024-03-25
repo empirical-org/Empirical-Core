@@ -2915,9 +2915,9 @@ CREATE TABLE public.evidence_research_gen_ai_example_prompt_response_feedbacks (
     passage_prompt_response_id integer NOT NULL,
     feedback text NOT NULL,
     label character varying NOT NULL,
+    evaluation text,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    evaluation text
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -2950,10 +2950,10 @@ CREATE TABLE public.evidence_research_gen_ai_experiments (
     llm_config_id integer NOT NULL,
     llm_prompt_id integer NOT NULL,
     status character varying DEFAULT 'pending'::character varying NOT NULL,
+    experiment_errors text[] DEFAULT '{}'::text[] NOT NULL,
     results jsonb,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    experiment_errors text[]
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -3147,9 +3147,9 @@ CREATE TABLE public.evidence_research_gen_ai_passage_prompts (
     prompt text NOT NULL,
     instructions text NOT NULL,
     conjunction character varying NOT NULL,
+    relevant_passage text NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    relevant_passage text NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -3179,9 +3179,9 @@ ALTER SEQUENCE public.evidence_research_gen_ai_passage_prompts_id_seq OWNED BY p
 CREATE TABLE public.evidence_research_gen_ai_passages (
     id bigint NOT NULL,
     contents text NOT NULL,
+    name character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    name character varying NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -11292,11 +11292,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240318141154'),
 ('20240318142126'),
 ('20240318143324'),
-('20240318144601'),
-('20240318155131'),
-('20240320143135'),
-('20240320154448'),
-('20240322130924'),
-('20240322131504');
+('20240318144601');
 
 

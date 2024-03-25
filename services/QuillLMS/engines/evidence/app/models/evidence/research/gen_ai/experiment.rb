@@ -5,7 +5,7 @@
 # Table name: evidence_research_gen_ai_experiments
 #
 #  id                :bigint           not null, primary key
-#  experiment_errors :text             is an Array
+#  experiment_errors :text             default([]), not null, is an Array
 #  results           :jsonb
 #  status            :string           default("pending"), not null
 #  created_at        :datetime         not null
