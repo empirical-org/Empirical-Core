@@ -75,7 +75,7 @@ const TeacherStudentDashboardSettings = ({ activateSection, active, deactivateSe
   return (
     <section className="user-account-section student-dashboard-settings-section">
       <h1>Student dashboard</h1>
-      <p className="student-dashboard-settings-description">Control what your classes see on their dashboard. <a href="" rel="noopener noreferrer" target="_blank">Learn more.</a></p>
+      <p className="student-dashboard-settings-description">Control what your classes see on their dashboard. <a href="https://support.quill.org/en/articles/9034576-how-do-students-see-their-scores-and-time-spent" rel="noopener noreferrer" target="_blank">Learn more.</a></p>
       <form acceptCharset="UTF-8" onSubmit={handleSubmit} >
         <div className="fields" onClick={activateSection} onKeyDown={activateSection}>
           {renderCheckbox()}
