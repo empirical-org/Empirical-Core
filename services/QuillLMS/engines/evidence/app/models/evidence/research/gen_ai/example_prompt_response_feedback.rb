@@ -22,6 +22,10 @@ module Evidence
         validates :passage_prompt_response_id, presence: true
 
         attr_readonly :feedback, :label, :passage_prompt_response_id
+
+        delegate :response, to: :passage_prompt_response
+
+        def response_and_feedback = "Response: #{response}\nFeedback: #{feedback}"
       end
     end
   end
