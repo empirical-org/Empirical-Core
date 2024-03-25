@@ -5,6 +5,8 @@ module Evidence
     class Completion < Evidence::ApplicationService
       include Evidence::Gemini::Concerns::Api
 
+      class CleanedResultsError < StandardError; end
+
       attr_accessor :prompt
 
       def initialize(prompt:)
@@ -24,7 +26,6 @@ module Evidence
         }
       end
 
-      # TODO: - Remove binding.pry before this is added to production
       private def cleaned_results
         response
           .parsed_response['candidates']
@@ -32,7 +33,7 @@ module Evidence
           .dig('content', 'parts')
           .first['text']
       rescue => e
-        binding.pry
+        raise CleanedResultsError, e.message
       end
     end
   end

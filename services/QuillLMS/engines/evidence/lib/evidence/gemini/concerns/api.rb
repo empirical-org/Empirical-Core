@@ -59,7 +59,6 @@ module Evidence
 
         private def timeout = TIMEOUT
 
-        # TODO: remove puts statements once this is stable
         private def post_with_backoff(retries: 0)
           response = self.class.post(endpoint, body:, headers:, timeout:)
 
@@ -67,11 +66,9 @@ module Evidence
 
           response
         rescue => e
-          puts "Error: #{e.message}"
           raise "Max retries reached. Last error: #{e.message}" unless retries < MAX_RETRIES
 
           retries += 1
-          puts "retries: #{retries}"
           sleep 2**retries
           retry
         end
