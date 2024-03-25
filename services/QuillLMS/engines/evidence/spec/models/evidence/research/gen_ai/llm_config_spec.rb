@@ -19,6 +19,8 @@ module Evidence
       RSpec.describe LLMConfig, type: :model do
         it { should validate_presence_of(:vendor) }
         it { should validate_presence_of(:version) }
+        it { should have_readonly_attribute(:vendor) }
+        it { should have_readonly_attribute(:version) }
 
         it { expect(FactoryBot.build(:evidence_research_gen_ai_llm_config)).to be_valid }
       end

@@ -16,6 +16,8 @@ module Evidence
       class LLMPromptTemplate < ApplicationRecord
         validates :description, presence: true
         validates :contents, presence: true
+
+        attr_readonly :description, :contents
       end
     end
   end

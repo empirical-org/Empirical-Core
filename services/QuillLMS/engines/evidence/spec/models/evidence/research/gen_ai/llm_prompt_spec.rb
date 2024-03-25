@@ -18,6 +18,8 @@ module Evidence
       RSpec.describe LLMPrompt, type: :model do
         it { should validate_presence_of(:prompt) }
         it { should belong_to(:llm_prompt_template) }
+        it { should have_readonly_attribute(:prompt) }
+        it { should have_readonly_attribute(:llm_prompt_template_id) }
 
         it { expect(build(:evidence_research_gen_ai_llm_prompt)).to be_valid }
       end

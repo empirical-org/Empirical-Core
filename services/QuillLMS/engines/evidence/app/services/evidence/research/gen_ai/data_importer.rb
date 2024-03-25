@@ -1,4 +1,4 @@
-# frozen_s
+# frozen_string_literal: true
 
 module Evidence
   module Research

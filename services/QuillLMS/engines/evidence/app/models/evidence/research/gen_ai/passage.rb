@@ -20,6 +20,8 @@ module Evidence
 
         validates :name, presence: true
         validates :contents, presence: true
+
+        attr_readonly :name, :contents
       end
     end
   end

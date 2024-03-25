@@ -19,6 +19,10 @@ module Evidence
     module GenAI
       RSpec.describe LLMPromptResponseFeedback, type: :model do
         it { should validate_presence_of(:feedback) }
+        it { should have_readonly_attribute(:feedback) }
+        it { should have_readonly_attribute(:label) }
+        it { should have_readonly_attribute(:passage_prompt_response_id) }
+
         it { should belong_to(:passage_prompt_response).class_name('Evidence::Research::GenAI::PassagePromptResponse')}
 
         it { expect(build(:evidence_research_gen_ai_llm_prompt_response_feedback)).to be_valid}
