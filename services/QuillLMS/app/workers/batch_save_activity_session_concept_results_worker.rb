@@ -29,9 +29,11 @@ class BatchSaveActivitySessionConceptResultsWorker
   private def delete_student_score_cache(activity_session_uid)
     session = ActivitySession.find_by(uid: activity_session_uid)
 
-    return unless session
+    return unless session&.user_id
 
-    cache_key = "#{Student::EXACT_SCORES_CACHE_KEY}/#{session.user_id}/#{session.activity_id}/#{session.classroom_unit_id}"
+    classroom_id = session.classroom_unit&.classroom_id
+
+    cache_key = User.student_scores_cache_key(session.user_id, classroom_id)
 
     Rails.cache.delete(cache_key)
   end

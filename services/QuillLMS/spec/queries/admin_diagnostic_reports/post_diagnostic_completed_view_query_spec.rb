@@ -115,6 +115,8 @@ module AdminDiagnosticReports
           it { expect(aggregate_row_results.map{|r| r[:aggregate_id]}).to match_array(classrooms.map(&:id)) }
         end
       end
+
+      #TODO: Write specs to cover the edge case in https://github.com/empirical-org/Empirical-Core/pull/11662
     end
   end
 end

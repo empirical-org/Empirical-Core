@@ -22,7 +22,7 @@ export const fetchStudentProfile = (classroomId) => {
   };
 };
 
-export const fetchExactScoresData = (scores) => {
+export const fetchExactScoresData = (scores, classroomId) => {
   return (dispatch) => {
     const relevantData = scores.map(score => {
       const { ua_id, unit_id, activity_id, classroom_unit_id, } = score
@@ -32,7 +32,7 @@ export const fetchExactScoresData = (scores) => {
     // using requestPost here because params have potential to be very large
     requestPost(
       `${process.env.DEFAULT_URL}/student_exact_scores_data`,
-      { data: relevantData },
+      { data: relevantData, classroom_id: classroomId },
       body => {
         dispatch(receiveExactScoresData(body))
       }
