@@ -21,11 +21,21 @@ module Evidence
   module Research
     module GenAI
       RSpec.describe Experiment, type: :model do
+        it { should validate_presence_of(:status) }
+        it { should validate_presence_of(:llm_config_id) }
+        it { should validate_presence_of(:llm_prompt_id) }
+        it { should validate_presence_of(:passage_prompt_id) }
+        it { should validate_inclusion_of(:status).in_array(described_class::STATUSES) }
+
         it { belong_to(:llm_config).class_name('Evidence::Research::GenAI::LLMConfig') }
         it { belong_to(:llm_prompt).class_name('Evidence::Research::GenAI::LLMPrompt') }
         it { belong_to(:passage_prompt).class_name('Evidence::Research::GenAI::PassagePrompt') }
 
-        it { should validate_presence_of(:status) }
+        it do
+          have_many(:passage_prompt_responses)
+            .class_name('Evidence::Research::GenAI::PassagePromptResponse')
+            .through(:passage_prompt)
+        end
 
         it { expect(build(:evidence_research_gen_ai_experiment)).to be_valid }
       end

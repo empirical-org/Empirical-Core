@@ -33,9 +33,14 @@ module Evidence
           class_name: 'Evidence::Research::GenAI::PassagePromptResponse',
           through: :passage_prompt
 
+        validates :llm_config_id, :llm_prompt_id, :passage_prompt_id, presence: true
         validates :status, presence: true, inclusion: { in: STATUSES }
 
+        delegate :conjunction, :name, to: :passage_prompt
         delegate :llm_client, to: :llm_config
+        delegate :vendor, :version, to: :llm_config
+
+        attr_accessor :llm_prompt_template_id
 
         def completed! = update!(status: COMPLETED)
         def running! = update!(status: RUNNING)

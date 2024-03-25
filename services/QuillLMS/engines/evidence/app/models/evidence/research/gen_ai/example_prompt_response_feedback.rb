@@ -19,6 +19,7 @@ module Evidence
 
         validates :feedback, presence: true
         validates :label, presence: true
+        validates :passage_prompt_response_id, presence: true
 
         attr_readonly :feedback, :label, :passage_prompt_response_id
       end

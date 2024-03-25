@@ -17,6 +17,7 @@ module Evidence
       class LLMPromptResponseFeedback < ApplicationRecord
         belongs_to :passage_prompt_response, class_name: 'Evidence::Research::GenAI::PassagePromptResponse'
         validates :feedback, presence: true
+        validates :passage_prompt_response_id, presence: true
         attr_readonly :feedback, :label, :passage_prompt_response_id
       end
     end

@@ -14,6 +14,8 @@ module Evidence
   module Research
     module GenAI
       class LLMConfig < ApplicationRecord
+        class UnsupportedVendorError < StandardError; end
+
         VENDORS = [
           GOOGLE = 'google'
         ]
@@ -24,6 +26,8 @@ module Evidence
         attr_readonly :vendor, :version
 
         def llm_client = VENDOR_MAP.fetch(vendor) { raise UnsupportedVendorError }
+
+        def to_s = "#{vendor}: #{version}"
       end
     end
   end

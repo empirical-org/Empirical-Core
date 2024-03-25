@@ -1,0 +1,32 @@
+<div>
+  <h2>Experiment</h2>
+
+  <h3>Passage</h3>
+  <p><%= @experiment.passage_prompt %></p>
+
+  <h3>LLM</h3>
+  <p><%= @experiment.llm_config %></p>
+
+  <h3>LLM Prompt</h3>
+  <p><%= @experiment.llm_prompt.description %></p>
+  <p><%= simple_format(@experiment.llm_prompt.prompt) %></p>
+
+  <h3>Results</h3>
+  <p><%= @experiment.results ? @experiment.results.to_json : 'No results yet' %></p>
+
+  <h3>Status</h3>
+  <p><%= @experiment.status.capitalize %></p>
+
+  <% if @experiment.experiment_errors&.any? %>
+  <h3>Experiment Errors</h3>
+    <ul>
+      <% @experiment.experiment_errors.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <h3>Created At</h3>
+  <p><%= @experiment.created_at.strftime("%B %d, %Y %H:%M") %></p>
+</div>
+<%= link_to 'Back', research_gen_ai_experiments_path %>
