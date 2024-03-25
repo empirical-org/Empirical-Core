@@ -35,6 +35,7 @@
     top: 0;
     padding: 0px;
     position: sticky;
+    z-index: 3;
     .dropdowns {
       border-radius: 8px;
       border: 1px solid $quill-grey-5;
