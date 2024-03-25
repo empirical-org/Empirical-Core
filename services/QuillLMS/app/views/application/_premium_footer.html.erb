@@ -1,5 +1,3 @@
-<script> const global = globalThis; </script>
-
 <% if !current_user || (current_user.teacher? && !current_user.is_premium?) %>
   <div class="premium-footer-container">
     <%= react_component('PremiumFooterApp') %>
