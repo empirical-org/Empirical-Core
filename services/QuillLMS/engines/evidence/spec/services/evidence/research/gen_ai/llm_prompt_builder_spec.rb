@@ -20,13 +20,13 @@ module Evidence
         context 'nil llm_prompt_template_id' do
           let(:llm_prompt_template_id) { nil }
 
-          it { expect { subject.run }.to raise_error described_class::InvalidLLMPromptTemplateIdError }
+          it { expect { subject.run }.to raise_error ActiveModel::ValidationError }
         end
 
         context 'nil passage_prompt_id' do
           let(:passage_prompt_id) { nil }
 
-          it { expect { subject.run }.to raise_error described_class::InvalidPassagePromptIdError }
+          it { expect { subject.run }.to raise_error ActiveModel::ValidationError }
         end
 
         context 'contents with no substitutions' do
