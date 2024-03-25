@@ -23,12 +23,7 @@ module Evidence
 
         attr_readonly :vendor, :version
 
-        def llm_client
-          case vendor
-          when GOOGLE then Evidence::Gemini::Completion
-          else raise UnsupportedVendorError
-          end
-        end
+        def llm_client = VENDOR_MAP.fetch(vendor) { raise UnsupportedVendorError }
       end
     end
   end
