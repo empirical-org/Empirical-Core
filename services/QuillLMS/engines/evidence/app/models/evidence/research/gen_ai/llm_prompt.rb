@@ -23,6 +23,13 @@ module Evidence
 
         delegate :description, to: :llm_prompt_template
 
+        def self.create_from_template!(llm_prompt_template_id:, passage_prompt_id:)
+          create!(
+            llm_prompt_template_id:,
+            prompt: LLMPromptBuilder.run(llm_prompt_template_id:, passage_prompt_id:)
+           )
+        end
+
         def feedback_prompt(response) = "#{prompt}\n\nResponse: #{response}\nFeedback:"
         def evaluation_prompt(response) = "#{prompt}\n\nResponse: #{response}\nParaphrase:"
       end

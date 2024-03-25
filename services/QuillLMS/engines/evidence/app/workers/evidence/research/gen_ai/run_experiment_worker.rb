@@ -5,7 +5,7 @@ module Evidence
     module GenAI
       class RunExperimentWorker
         include Evidence.sidekiq_module
-        sidekiq_options retry: 0
+        sidekiq_options retry: 0, queue: 'experiment'
 
         def perform(experiment_id)
           Experiment.find(experiment_id).run

@@ -4,13 +4,14 @@
 #
 # Table name: evidence_research_gen_ai_passage_prompts
 #
-#  id           :bigint           not null, primary key
-#  conjunction  :string           not null
-#  instructions :text             not null
-#  prompt       :text             not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  passage_id   :integer          not null
+#  id               :bigint           not null, primary key
+#  conjunction      :string           not null
+#  instructions     :text             not null
+#  prompt           :text             not null
+#  relevant_passage :text             not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  passage_id       :integer          not null
 #
 
 require 'rails_helper'
@@ -22,6 +23,7 @@ module Evidence
         it { should validate_presence_of(:prompt) }
         it { should validate_presence_of(:conjunction) }
         it { should validate_presence_of(:instructions) }
+        it { should validate_presence_of(:relevant_passage) }
         it { should validate_presence_of(:passage_id) }
         it { should validate_inclusion_of(:conjunction).in_array(described_class::CONJUNCTIONS)}
         it { should have_readonly_attribute(:prompt) }
