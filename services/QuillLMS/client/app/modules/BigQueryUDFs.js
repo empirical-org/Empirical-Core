@@ -217,6 +217,7 @@ export function studentwiseSkillGroupUDF(elements) {
       recommendedActivityCount: recommendedActivities[PRE_DIAGNOSTIC_ACTIVITY_ID].length,
       errorMessage: errorMessageArray.join(' '),
       numAssignedRecommendedCompleted,
+      diagnostic_pre_id: PRE_DIAGNOSTIC_ACTIVITY_ID,
       ...skillScores
     }
   )
