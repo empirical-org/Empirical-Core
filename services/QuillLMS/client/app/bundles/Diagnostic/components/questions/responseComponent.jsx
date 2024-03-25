@@ -6,6 +6,7 @@ import {
   QuestionBar,
   ResponseSortFields,
   ResponseToggleFields,
+  Spinner,
   hashToCollection,
   responsesWithStatus,
 } from '../../../Shared/index';
@@ -56,7 +57,8 @@ class ResponseComponent extends React.Component {
       health: {},
       gradeBreakdown: {},
       enableRematchAllButton: true,
-      responses: this.props.filters.responses
+      responses: this.props.filters.responses,
+      isLoadingResponses: false
     };
   }
 
@@ -75,6 +77,7 @@ class ResponseComponent extends React.Component {
       this.searchResponses();
     } else if (!_.isEqual(filters.responses, prevProps.filters.responses)) {
       this.setState({responses: filters.responses})
+      this.setState({isLoadingResponses: false})
     }
   }
 
@@ -117,6 +120,9 @@ class ResponseComponent extends React.Component {
 
   searchResponses = () => {
     const { dispatch, questionID } = this.props;
+
+    this.setState({isLoadingResponses: true})
+
     dispatch(questionActions.incrementRequestCount())
     dispatch(questionActions.searchResponses(questionID));
   }
@@ -233,7 +239,17 @@ class ResponseComponent extends React.Component {
   };
 
   renderResponses = () => {
+    const { isLoadingResponses } = this.state
+
     if (this.state.viewingResponses) {
+      if (isLoadingResponses) {
+        return (
+          <div className="loading-spinner-container">
+            <Spinner />
+          </div>
+        );
+      }
+
       const { responses } = this.state;
       const { questionID, selectedIncorrectSequences, selectedFocusPoints } = this.props;
       const sortedResponses = _.sortBy(hashToCollection(responses), 'sortOrder')
@@ -575,7 +591,7 @@ class ResponseComponent extends React.Component {
 
   renderShowResultsButton = () => {
     return (
-      <div className="title">
+      <div className="show-results-container">
         <a className="button is-outlined is-primary search" onClick={this.showResults}>Show Results</a>
       </div>
     );
@@ -596,37 +612,38 @@ class ResponseComponent extends React.Component {
         <h4 className="title is-5" >
           Overview - Total Attempts: <strong>{this.getTotalAttempts()}</strong> | Unique Responses: <strong>{this.getResponseCount()}</strong> | Percentage of weak responses: <strong>{this.getPercentageWeakResponses()}%</strong>
         </h4>
-        <div className="tabs is-toggle is-fullwidth">
-          {this.renderStatusToggleMenu()}
-        </div>
-        <div className="columns">
-          <div className="column">
-            <div className="tabs is-toggle is-fullwidth">
-              {this.renderSortingFields()}
-            </div>
+        <div className="filters-and-sorting-container">
+          <div className="tabs is-toggle is-fullwidth">
+            {this.renderStatusToggleMenu()}
           </div>
-          <div className="column">
-            <div className="columns">
-              <div className="column">
-                {this.renderExpandCollapseAll()}
+          <div className="columns">
+            <div className="column">
+              <div className="tabs is-toggle is-fullwidth">
+                {this.renderSortingFields()}
               </div>
-              {this.renderResetAllFiltersButton()}
-              {this.renderDeselectAllFiltersButton()}
-              {showPosOrUniqueButton}
+            </div>
+            <div className="column">
+              <div className="columns">
+                <div className="column">
+                  {this.renderExpandCollapseAll()}
+                </div>
+                {this.renderResetAllFiltersButton()}
+                {this.renderDeselectAllFiltersButton()}
+                {showPosOrUniqueButton}
+              </div>
             </div>
           </div>
-        </div>
-        <div className="search-container">
-          <input
-            className="input"
-            onChange={this.handleStringFiltering}
-            onKeyPress={this.handleSearchEnter}
-            placeholder="Enter a search term or /regular expression/"
-            ref="stringFilter"
-            type="text"
-            value={stringFilter}
-          />
-          <button className="button is-outlined is-primary search" onClick={this.searchResponses} type="submit">Search</button>
+          <div className="search-container">
+            <input
+              className="input"
+              onChange={this.handleStringFiltering}
+              onKeyPress={this.handleSearchEnter}
+              placeholder="Enter a search term or /regular expression/"
+              ref="stringFilter"
+              type="text"
+              value={stringFilter}
+            />
+          </div>
         </div>
         {this.renderShowResultsButton()}
         {this.renderDisplayingMessage()}
