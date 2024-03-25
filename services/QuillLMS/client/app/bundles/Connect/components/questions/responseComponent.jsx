@@ -62,15 +62,9 @@ class ResponseComponent extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { filters, states, questionID, dispatch, } = this.props
-    // remove text field when comparing, since sometimes the text search can change without necessarilly requiring
-    // a new search (e.g when admin is typing)
-    const { ["text"]: unused, ...prevFiltersWithoutText } = prevProps.filters.formattedFilterData;
-    const { ["text"]: unused2, ...currFiltersWithoutText } = filters.formattedFilterData;
+    const { states, questionID, dispatch, } = this.props
 
-    if (!_.isEqual(prevFiltersWithoutText, currFiltersWithoutText)) {
-      this.searchResponses();
-    } else if (states[questionID] === C.SHOULD_RELOAD_RESPONSES && prevProps.states[prevProps.questionID] !== C.SHOULD_RELOAD_RESPONSES) {
+    if (states[questionID] === C.SHOULD_RELOAD_RESPONSES && prevProps.states[prevProps.questionID] !== C.SHOULD_RELOAD_RESPONSES) {
       dispatch(questionActions.clearQuestionState(questionID));
       this.searchResponses();
     } else if (prevProps.questionID !== questionID) {
@@ -566,6 +560,19 @@ class ResponseComponent extends React.Component {
     );
   };
 
+  showResults = () => {
+    console.log("show results");
+    this.searchResponses();
+  }
+
+  renderShowResultsButton = () => {
+    return (
+      <div className="title">
+        <a className="button is-outlined is-primary search" onClick={this.showResults}>Show Results</a>
+      </div>
+    );
+  }
+
   render() {
     const { filters, mode } = this.props;
     const { responses, stringFilter } = filters;
@@ -613,6 +620,7 @@ class ResponseComponent extends React.Component {
           />
           <button className="button is-outlined is-primary search" onClick={this.searchResponses} type="submit">Search</button>
         </div>
+        {this.renderShowResultsButton()}
         {this.renderDisplayingMessage()}
         {this.renderPageNumbers()}
         {this.renderResponses()}

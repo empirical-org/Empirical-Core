@@ -110,12 +110,7 @@ class ResponseComponent extends React.Component {
   componentDidUpdate(prevProps) {
     // remove text field when comparing, since sometimes the text search can change without necessarilly requiring
     // a new search (e.g when admin is typing)
-    const { ["text"]: unused, ...prevFiltersWithoutText } = prevProps.filters.formattedFilterData;
-    const { ["text"]: unused2, ...currFiltersWithoutText } = this.props.filters.formattedFilterData;
-
-    if (!_.isEqual(prevFiltersWithoutText, currFiltersWithoutText)) {
-      this.searchResponses();
-    } else if (this.props.states && this.props.states[this.props.questionID] === ActionTypes.SHOULD_RELOAD_RESPONSES && prevProps.states[prevProps.questionID] !== ActionTypes.SHOULD_RELOAD_RESPONSES) {
+    if (this.props.states && this.props.states[this.props.questionID] === ActionTypes.SHOULD_RELOAD_RESPONSES && prevProps.states[prevProps.questionID] !== ActionTypes.SHOULD_RELOAD_RESPONSES) {
       this.props.dispatch(questionActions.clearQuestionState(this.props.questionID));
       this.searchResponses();
     }
@@ -612,6 +607,19 @@ class ResponseComponent extends React.Component {
     );
   }
 
+  showResults = () => {
+    console.log("show results");
+    this.searchResponses();
+  }
+
+  renderShowResultsButton = () => {
+    return (
+      <div className="title">
+        <a className="button is-outlined is-primary search" onClick={this.showResults}>Show Results</a>
+      </div>
+    );
+  }
+
   render() {
     const questionBar = this.props.filters.responses && Object.keys(this.props.filters.responses).length > 0
       ? <QuestionBar data={_.values(this.formatForQuestionBar())} />
@@ -645,6 +653,7 @@ class ResponseComponent extends React.Component {
           </div>
         </div>
         <input className="input" onChange={this.handleStringFiltering} placeholder="Enter a search term or /regular expression/" ref="stringFilter" type="text" value={this.props.filters.stringFilter} />
+        {this.renderShowResultsButton()}
         {this.renderDisplayingMessage()}
         {this.renderPageNumbers()}
         {this.renderResponses()}
