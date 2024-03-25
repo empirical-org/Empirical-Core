@@ -13,7 +13,7 @@ exports[`TeacherStudentDashboardSettings component should render 1`] = `
     >
       Control what your classes see on their dashboard. 
       <a
-        href=""
+        href="https://support.quill.org/en/articles/9034576-how-do-students-see-their-scores-and-time-spent"
         rel="noopener noreferrer"
         target="_blank"
       >
