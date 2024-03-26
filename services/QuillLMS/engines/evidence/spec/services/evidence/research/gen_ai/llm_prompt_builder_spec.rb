@@ -12,7 +12,8 @@ module Evidence
         let(:llm_prompt_template_id) { create(:evidence_research_gen_ai_llm_prompt_template, contents:).id }
         let(:instructions) { 'These are the instructions' }
         let(:prompt) { 'this is a prompt because' }
-        let(:passage_prompt) { create(:evidence_research_gen_ai_passage_prompt, prompt:, instructions:) }
+        let(:relevant_passage) { 'this is a relevant passage' }
+        let(:passage_prompt) { create(:evidence_research_gen_ai_passage_prompt, prompt:, instructions:, relevant_passage:) }
         let(:passage_prompt_id) { passage_prompt.id }
 
         def delimit(placeholder) = "#{described_class::DELIMITER}#{placeholder}#{described_class::DELIMITER}"
@@ -45,6 +46,13 @@ module Evidence
             let(:instructions) { 'these are the instructions' }
 
             it { is_expected.to eq instructions }
+          end
+
+          context 'relevant_passage' do
+            let(:contents)  { delimit('relevant_passage') }
+            let(:relevant_passage) { 'this is a relevant passage' }
+
+            it { is_expected.to eq relevant_passage }
           end
 
           context 'examples' do

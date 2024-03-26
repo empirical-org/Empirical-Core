@@ -30,15 +30,15 @@ module Evidence
                 example = JSON.parse(line)
                 response = example['text']
                 label = example['label']
-                feedback = data['feedback'][conjunction][label]
+                text = data['feedback'][conjunction][label]
                 example_index = data['examples'][conjunction][label]&.index(response)
-                evaluation = example_index ? data.dig('evaluation',conjunction,label,example_index) : nil
+                paraphrase = example_index ? data.dig('evaluation',conjunction,label,example_index) : nil
 
                 passage_prompt
                   .passage_prompt_responses
                   .find_or_create_by!(response:)
-                  .example_prompt_response_feedbacks
-                  .find_or_create_by!(label:, feedback:, evaluation:)
+                  .example_feedbacks
+                  .find_or_create_by!(label:, text:, paraphrase:)
               end
             end
           end
