@@ -50,7 +50,7 @@ SELECT
             AND classroom_units.id = activity_sessions.classroom_unit_id
             AND most_recent.activity_id = activity_sessions.activity_id
             AND most_recent.completed_at = activity_sessions.completed_at
-      ) AS activity_sessions ON activity_sessions.classroom_unit_id = classroom_units.id AND activity_sessions.user_id = CAST(assigned_student_id AS int64) AND activity_sessions.visible = true
+      ) AS activity_sessions ON activity_sessions.classroom_unit_id = classroom_units.id AND activity_sessions.user_id = CAST(assigned_student_id AS int64) AND activity_sessions.activity_id = activities.id AND activity_sessions.visible = true
       LEFT OUTER JOIN special.concept_results AS concept_results          ON activity_sessions.id = concept_results.activity_session_id
         AND concept_results.attempt_number IS NULL
       LEFT OUTER JOIN lms.questions ON STRING(PARSE_JSON(concept_results.extra_metadata).question_uid) = questions.uid
@@ -108,7 +108,7 @@ SELECT
             AND classroom_units.id = activity_sessions.classroom_unit_id
             AND most_recent.activity_id = activity_sessions.activity_id
             AND most_recent.completed_at = activity_sessions.completed_at
-      ) AS activity_sessions ON activity_sessions.classroom_unit_id = classroom_units.id AND activity_sessions.user_id = CAST(assigned_student_id AS int64) AND activity_sessions.visible = true
+      ) AS activity_sessions ON activity_sessions.classroom_unit_id = classroom_units.id AND activity_sessions.user_id = CAST(assigned_student_id AS int64) AND activity_sessions.activity_id = activities.follow_up_activity_id AND activity_sessions.visible = true
       LEFT OUTER JOIN special.concept_results AS concept_results          ON activity_sessions.id = concept_results.activity_session_id
         AND concept_results.attempt_number IS NULL
       LEFT OUTER JOIN lms.questions ON STRING(PARSE_JSON(concept_results.extra_metadata).question_uid) = questions.uid

@@ -7,6 +7,7 @@ module AdminDiagnosticReports
     include_context 'Admin Diagnostic Aggregate CTE'
 
     # TODO: Update these to set up the pre-conditions properly with the Pre Post view context, with the same expectations for tests
+    # TODO: A specific case that's not currently written up that we need to address is when a teacher has two different Diagnostics in the same ClassroomUnit.  We want to make sure that the data doesn't get contaminated with over-eager joins in this case
     #context 'big_query_snapshot', :big_query_snapshot do
     #  subject { results }
 
