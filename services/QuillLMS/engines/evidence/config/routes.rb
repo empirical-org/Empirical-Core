@@ -40,4 +40,13 @@ Evidence::Engine.routes.draw do
   resources :activity_healths, only: [:index]
 
   resources :prompt_healths, only: [:index]
+
+  namespace :research do
+    namespace :gen_ai do
+      resources :experiments, only: [:new, :create, :show, :index]
+      resources :llm_configs, only: [:new, :create, :show, :index]
+      resources :llm_prompt_templates, only: [:new, :create, :show, :index]
+      resources :passage_prompts, only: [:new, :create, :show, :index]
+    end
+  end
 end

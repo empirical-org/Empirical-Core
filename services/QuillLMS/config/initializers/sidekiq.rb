@@ -32,4 +32,8 @@ module SidekiqQueue
   # Giving them their own queue lets us turn migrations entirely off rather
   # than risking normal workers getting tied up on complex migration work
   MIGRATION = 'migration'
+  # Experiment jobs are those hitting a rate limited API
+  # Giving them their own queue to isolate them from other jobs
+  # and to allow for easy throttling
+  EXPERIMENT = 'experiment'
 end
