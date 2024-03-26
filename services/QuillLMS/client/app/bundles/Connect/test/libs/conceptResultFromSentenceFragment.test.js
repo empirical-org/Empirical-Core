@@ -71,7 +71,8 @@ describe('Getting concept results from an answered sf object', () => {
           attemptNumber: 1,
           answer: 'I am listening to music on the ride home.',
           question_uid: '-KOqKBMgXHF2dNMM8jhg',
-          question_concept_uid: undefined
+          question_concept_uid: undefined,
+          cues: undefined
         }
       }
     ]
@@ -103,7 +104,8 @@ describe('Getting concept results from an answered sf object', () => {
           attemptNumber: 1,
           answer: 'I am listening to music on the ride home.',
           question_uid: '-KOqKBMgXHF2dNMM8jhg',
-          question_concept_uid: undefined
+          question_concept_uid: undefined,
+          cues: undefined
         }
       }
     ]
@@ -179,7 +181,8 @@ describe('Getting concept results from an answered sf object', () => {
           attemptNumber: 1,
           answer: 'I am listening to music on the ride home.',
           question_uid: undefined,
-          question_concept_uid: undefined
+          question_concept_uid: undefined,
+          cues: undefined
         }
       }
     ]
