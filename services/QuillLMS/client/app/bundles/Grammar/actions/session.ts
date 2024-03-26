@@ -174,12 +174,19 @@ const handleProofreaderSession = (proofreaderSession, state) => {
     // that all gets processed by the normal `setSessionReducerToSavedSession` function and we don't need to set new ones
     if (!proofreaderSession || !proofreaderSession.conceptResults || proofreaderSession.answeredQuestions || state.session.proofreaderSession) { return }
 
-    const concepts: { [key: string]: { quantity: 1|2|3 } } = {}
-    const incorrectConcepts = proofreaderSession.conceptResults.filter(cr => cr.metadata.correct === 0)
+    const concepts: { [key: string]: any } = {}
+    proofreaderSession.conceptResults.map(cr => {
+      const { metadata, concept_uid } = cr
+      const { correct } = metadata
+      if (correct === 0 && !concepts[concept_uid]) {
+        concepts[concept_uid] = true
+      }
+    })
+    const incorrectConceptUIDs = Object.keys(concepts)
     let quantity = 3
-    if (incorrectConcepts.length > 9) {
+    if (incorrectConceptUIDs.length > 9) {
       quantity = 1
-    } else if (incorrectConcepts.length > 4) {
+    } else if (incorrectConceptUIDs.length > 4) {
       quantity = 2
     }
     proofreaderSession.conceptResults.forEach(cr => {
@@ -187,6 +194,7 @@ const handleProofreaderSession = (proofreaderSession, state) => {
         concepts[cr.concept_uid] = { quantity }
       }
     })
+    debugger
     dispatch(saveProofreaderSessionToReducer(proofreaderSession))
     dispatch(getQuestionsForConcepts(concepts, 'production'))
   }
