@@ -2907,25 +2907,25 @@ ALTER SEQUENCE public.evidence_prompt_texts_id_seq OWNED BY public.evidence_prom
 
 
 --
--- Name: evidence_research_gen_ai_example_prompt_response_feedbacks; Type: TABLE; Schema: public; Owner: -
+-- Name: evidence_research_gen_ai_example_feedbacks; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.evidence_research_gen_ai_example_prompt_response_feedbacks (
+CREATE TABLE public.evidence_research_gen_ai_example_feedbacks (
     id bigint NOT NULL,
     passage_prompt_response_id integer NOT NULL,
-    feedback text NOT NULL,
+    text text NOT NULL,
     label character varying NOT NULL,
-    evaluation text,
+    paraphrase text,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
 
 
 --
--- Name: evidence_research_gen_ai_example_prompt_response_feedbac_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: evidence_research_gen_ai_example_feedbacks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.evidence_research_gen_ai_example_prompt_response_feedbac_id_seq
+CREATE SEQUENCE public.evidence_research_gen_ai_example_feedbacks_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2934,10 +2934,10 @@ CREATE SEQUENCE public.evidence_research_gen_ai_example_prompt_response_feedbac_
 
 
 --
--- Name: evidence_research_gen_ai_example_prompt_response_feedbac_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: evidence_research_gen_ai_example_feedbacks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.evidence_research_gen_ai_example_prompt_response_feedbac_id_seq OWNED BY public.evidence_research_gen_ai_example_prompt_response_feedbacks.id;
+ALTER SEQUENCE public.evidence_research_gen_ai_example_feedbacks_id_seq OWNED BY public.evidence_research_gen_ai_example_feedbacks.id;
 
 
 --
@@ -3009,13 +3009,13 @@ ALTER SEQUENCE public.evidence_research_gen_ai_llm_configs_id_seq OWNED BY publi
 
 
 --
--- Name: evidence_research_gen_ai_llm_prompt_response_feedbacks; Type: TABLE; Schema: public; Owner: -
+-- Name: evidence_research_gen_ai_llm_feedbacks; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.evidence_research_gen_ai_llm_prompt_response_feedbacks (
+CREATE TABLE public.evidence_research_gen_ai_llm_feedbacks (
     id bigint NOT NULL,
     passage_prompt_response_id integer NOT NULL,
-    feedback text NOT NULL,
+    text text NOT NULL,
     label character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -3023,10 +3023,10 @@ CREATE TABLE public.evidence_research_gen_ai_llm_prompt_response_feedbacks (
 
 
 --
--- Name: evidence_research_gen_ai_llm_prompt_response_feedbacks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: evidence_research_gen_ai_llm_feedbacks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.evidence_research_gen_ai_llm_prompt_response_feedbacks_id_seq
+CREATE SEQUENCE public.evidence_research_gen_ai_llm_feedbacks_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3035,10 +3035,10 @@ CREATE SEQUENCE public.evidence_research_gen_ai_llm_prompt_response_feedbacks_id
 
 
 --
--- Name: evidence_research_gen_ai_llm_prompt_response_feedbacks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: evidence_research_gen_ai_llm_feedbacks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.evidence_research_gen_ai_llm_prompt_response_feedbacks_id_seq OWNED BY public.evidence_research_gen_ai_llm_prompt_response_feedbacks.id;
+ALTER SEQUENCE public.evidence_research_gen_ai_llm_feedbacks_id_seq OWNED BY public.evidence_research_gen_ai_llm_feedbacks.id;
 
 
 --
@@ -6380,10 +6380,10 @@ ALTER TABLE ONLY public.evidence_prompt_texts ALTER COLUMN id SET DEFAULT nextva
 
 
 --
--- Name: evidence_research_gen_ai_example_prompt_response_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: evidence_research_gen_ai_example_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.evidence_research_gen_ai_example_prompt_response_feedbacks ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_example_prompt_response_feedbac_id_seq'::regclass);
+ALTER TABLE ONLY public.evidence_research_gen_ai_example_feedbacks ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_example_feedbacks_id_seq'::regclass);
 
 
 --
@@ -6401,10 +6401,10 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_llm_configs ALTER COLUMN id SET
 
 
 --
--- Name: evidence_research_gen_ai_llm_prompt_response_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: evidence_research_gen_ai_llm_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.evidence_research_gen_ai_llm_prompt_response_feedbacks ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_llm_prompt_response_feedbacks_id_seq'::regclass);
+ALTER TABLE ONLY public.evidence_research_gen_ai_llm_feedbacks ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_llm_feedbacks_id_seq'::regclass);
 
 
 --
@@ -7575,11 +7575,11 @@ ALTER TABLE ONLY public.evidence_prompt_texts
 
 
 --
--- Name: evidence_research_gen_ai_example_prompt_response_feedbacks evidence_research_gen_ai_example_prompt_response_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: evidence_research_gen_ai_example_feedbacks evidence_research_gen_ai_example_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.evidence_research_gen_ai_example_prompt_response_feedbacks
-    ADD CONSTRAINT evidence_research_gen_ai_example_prompt_response_feedbacks_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.evidence_research_gen_ai_example_feedbacks
+    ADD CONSTRAINT evidence_research_gen_ai_example_feedbacks_pkey PRIMARY KEY (id);
 
 
 --
@@ -7599,11 +7599,11 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_llm_configs
 
 
 --
--- Name: evidence_research_gen_ai_llm_prompt_response_feedbacks evidence_research_gen_ai_llm_prompt_response_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: evidence_research_gen_ai_llm_feedbacks evidence_research_gen_ai_llm_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.evidence_research_gen_ai_llm_prompt_response_feedbacks
-    ADD CONSTRAINT evidence_research_gen_ai_llm_prompt_response_feedbacks_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.evidence_research_gen_ai_llm_feedbacks
+    ADD CONSTRAINT evidence_research_gen_ai_llm_feedbacks_pkey PRIMARY KEY (id);
 
 
 --

@@ -23,6 +23,7 @@ module Evidence
         SUBSTITUTIONS = {
           "prompt" => ->(builder, _) { builder.passage_prompt.prompt },
           "instructions" => ->(builder, _) { builder.passage_prompt.instructions },
+          "relevant_passage" => ->(builder, _) { builder.passage_prompt.relevant_passage },
           "examples" => ->(builder, limit) { builder.examples(limit) },
         }.freeze
 
@@ -50,7 +51,7 @@ module Evidence
 
         def examples(limit)
           passage_prompt
-            .example_prompt_response_feedbacks
+            .example_feedbacks
             .limit(limit)
             .map(&:response_and_feedback)
             .join("\n")

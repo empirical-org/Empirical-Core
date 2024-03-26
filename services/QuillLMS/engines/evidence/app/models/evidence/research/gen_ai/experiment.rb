@@ -47,7 +47,8 @@ module Evidence
         def failed! = update!(status: FAILED)
 
         def run
-          running!
+          return unless pending?
+
           create_llm_prompt_responses_feedbacks
           completed!
         rescue StandardError => e

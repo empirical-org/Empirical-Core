@@ -25,19 +25,10 @@ module Evidence
 
         belongs_to :passage, class_name: 'Evidence::Research::GenAI::Passage'
 
-        has_many :passage_prompt_responses,
-          class_name: 'Evidence::Research::GenAI::PassagePromptResponse',
-          dependent: :destroy
-
-        has_many :example_prompt_response_feedbacks,
-          class_name: 'Evidence::Research::GenAI::ExamplePromptResponseFeedback',
-          through: :passage_prompt_responses
-
-        has_many :llm_prompt_response_feedbacks,
-          class_name: 'Evidence::Research::GenAI::LLMPromptResponseFeedback',
-          through: :passage_prompt_responses
-
         has_many :experiments, dependent: :destroy
+        has_many :passage_prompt_responses, class_name: 'Evidence::Research::GenAI::PassagePromptResponse', dependent: :destroy
+        has_many :example_feedbacks, class_name: 'Evidence::Research::GenAI::ExampleFeedback', through: :passage_prompt_responses
+        has_many :llm_feedbacks, class_name: 'Evidence::Research::GenAI::LLMPromptFeedback', through: :passage_prompt_responses
 
         validates :prompt, presence: true
         validates :conjunction, presence: true, inclusion: { in: CONJUNCTIONS }
@@ -49,7 +40,7 @@ module Evidence
 
         delegate :name, to: :passage
 
-        def to_s = "##{name} - #{conjunction}"
+        def to_s = "#{name} - #{conjunction}"
       end
     end
   end

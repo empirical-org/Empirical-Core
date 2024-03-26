@@ -1,6 +1,6 @@
 # Generative AI Experiments
 ## 1. Data Importing
-`Passage`, `PassagePrompt`, `PassagePromptResponse` and `ExamplePromptResponseFeedback` records are imported with the following structure
+`Passage`, `PassagePrompt`, `PassagePromptResponse` and `ExampleFeedback` records are imported with the following structure
 
 ```mermaid
 classDiagram
@@ -17,14 +17,14 @@ classDiagram
     class PassagePromptResponse {
          response
     }
-    class ExamplePromptResponseFeedback {
+    class ExampleFeedback {
+         text
          evaluation
-         feedback
          label
     }
     Passage --|> PassagePrompt
     PassagePrompt --|> PassagePromptResponse
-    PassagePromptResponse --|> ExamplePromptResponseFeedback
+    PassagePromptResponse --|> ExampleFeedback
 ```
 
 ## 2. Experiment Configuration
@@ -56,18 +56,18 @@ classDiagram
 ```
 
 ## 3. Experiment Ouptut
-As the `Experiment` is run, the LLM returns feedback relevant to the `PassagePromptResponse` which is stored as `LLMPromptResponseFeedback`.   These results are compared with ExamplePromptResponseFeedback and evaluated.
+As the `Experiment` is run, the LLM returns feedback relevant to the `PassagePromptResponse` which is stored as `LLMFeedback`.   These results are compared with `ExampleFeedback` and evaluated.
 
 ```mermaid
 classDiagram
     class PassagePromptResponse {
     }
-    class ExamplePromptResponseFeedback {
+    class ExampleFeedback {
     }
-    class LLMPromptResponseFeedback {
+    class LLMFeedback {
         feedback
         label
     }
-    PassagePromptResponse --|> ExamplePromptResponseFeedback
-    PassagePromptResponse --|> LLMPromptResponseFeedback
+    PassagePromptResponse --|> ExampleFeedback
+    PassagePromptResponse --|> LLMFeedback
 ```

@@ -14,16 +14,10 @@ module Evidence
   module Research
     module GenAI
       class PassagePromptResponse < ApplicationRecord
-        belongs_to :passage_prompt,
-          class_name: 'Evidence::Research::GenAI::PassagePrompt'
+        belongs_to :passage_prompt, class_name: 'Evidence::Research::GenAI::PassagePrompt'
 
-        has_many :example_prompt_response_feedbacks,
-          class_name: 'Evidence::Research::GenAI::ExamplePromptResponseFeedback',
-          dependent: :destroy
-
-        has_many :llm_prompt_response_feedbacks,
-          class_name: 'Evidence::Research::GenAI::LLMPromptResponseFeedback',
-          dependent: :destroy
+        has_many :example_feedbacks, class_name: 'Evidence::Research::GenAI::ExampleFeedback', dependent: :destroy
+        has_many :llm_feedbacks, class_name: 'Evidence::Research::GenAI::LLMFeedback', dependent: :destroy
 
         validates :response, presence: true
         validates :passage_prompt_id, presence: true

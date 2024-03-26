@@ -13,7 +13,7 @@ module Evidence
         @prompt = prompt
       end
 
-      # https://aistudio.google.com/app/apikey
+      # From curl request body structure: https://aistudio.google.com/app/apikey
       def request_body
         {
           "contents" => [
