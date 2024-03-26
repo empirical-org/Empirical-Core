@@ -26,10 +26,7 @@ export const DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH = '182px'
 export const groupByDropdownOptions = [{ label: 'Grade', value: 'grade' }, { label: 'Teacher', value: 'teacher' }, { label: 'Classroom', value: 'classroom' }]
 export const diagnosticTypeDropdownOptions = [
   { label: 'Starter Diagnostic', value: 1663 },
-  { label: 'Intermediate Diagnostic', value: 1668 },
-  { label: 'ELL Starter Diagnostic', value: 1161 },
-  { label: 'ELL Intermediate Diagnostic', value: 1568 },
-  { label: 'ELL Advanced Diagnostic', value: 1590 }
+  { label: 'Intermediate Diagnostic', value: 1668 }
 ]
 
 export const premiumLockImage = <img alt="Gray lock" src={`${process.env.CDN_URL}/images/pages/administrator/premium_lock.svg`} />

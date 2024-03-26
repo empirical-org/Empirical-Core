@@ -14,10 +14,7 @@ module AdminDiagnosticReports
     ]
     DIAGNOSTIC_ORDER_BY_ID = [
       1663, # Starter Baseline Diagnostic (Pre)
-      1668, # Intermediate Baseline Diagnostic (Pre)
-      1161, # ELL Starter Baseline Diagnostic (Pre)
-      1568, # ELL Intermediate Baseline Diagnostic (Pre)
-      1590 # ELL Advanced Baseline Diagnostic (Pre)
+      1668 # Intermediate Baseline Diagnostic (Pre)
     ]
 
     def initialize(aggregation:, **options)
