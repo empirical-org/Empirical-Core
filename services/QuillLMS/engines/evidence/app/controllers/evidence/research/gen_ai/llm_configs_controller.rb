@@ -12,7 +12,7 @@ module Evidence
           @llm_config = LLMConfig.new(llm_config_params)
 
           if @llm_config.save
-            redirect_to @llm_config
+            redirect_to research_gen_ai_experiments_path
           else
             render :new
           end
