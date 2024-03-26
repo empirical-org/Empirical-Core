@@ -25,7 +25,7 @@ module Evidence
 
         attr_readonly :vendor, :version
 
-        def llm_client = VENDOR_MAP.fetch(vendor) { raise UnsupportedVendorError }
+        def llm_client = VENDORS.fetch(vendor) { raise UnsupportedVendorError }
 
         def to_s = "#{vendor}: #{version}"
       end
