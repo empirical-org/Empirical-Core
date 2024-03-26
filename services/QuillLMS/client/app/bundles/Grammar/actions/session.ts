@@ -166,7 +166,7 @@ export const startListeningToFollowUpQuestionsForProofreaderSession = (proofread
   }
 }
 
-const handleProofreaderSession = (proofreaderSession, state) => {
+export const handleProofreaderSession = (proofreaderSession, state) => {
   return dispatch => {
 
     // if there is no proofreader session or concept results for that session, we can't do anything here
@@ -194,7 +194,7 @@ const handleProofreaderSession = (proofreaderSession, state) => {
         concepts[cr.concept_uid] = { quantity }
       }
     })
-    debugger
+
     dispatch(saveProofreaderSessionToReducer(proofreaderSession))
     dispatch(getQuestionsForConcepts(concepts, 'production'))
   }

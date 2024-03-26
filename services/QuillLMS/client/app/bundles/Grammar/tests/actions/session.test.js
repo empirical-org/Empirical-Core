@@ -1,15 +1,24 @@
 import 'whatwg-fetch';
-import {
-  allQuestions,
-  denormalizeSession,
-  normalizeSession,
-  populateQuestions
-} from '../../actions/session';
+
 import {
   denormalizedSession,
   mockQuestions,
   normalizedSession,
+  mockProofreaderSession1,
+  mockProofreaderSession2,
+  mockProofreaderSession3,
 } from './session.data';
+
+import {
+  allQuestions,
+  denormalizeSession,
+  normalizeSession,
+  populateQuestions,
+  handleProofreaderSession,
+  getQuestionsForConcepts
+} from '../../actions/session';
+import * as sessionActions from '../../actions/session'
+import { mockDispatch } from '../__mocks__/dispatch'
 
 // Populate our question cache to use in denormalization
 populateQuestions(mockQuestions);
@@ -76,3 +85,63 @@ describe("populate questions", () => {
     expect(allQuestions['failKey']).toEqual(undefined);
   })
 });
+
+describe("handleProofreaderSession", () => {
+  describe("no data", () => {
+    it("should not have been dispatched", () => {
+      handleProofreaderSession(null, { session: { proofreaderSession: null }})(mockDispatch)
+      expect(mockDispatch).not.toHaveBeenCalled()
+    })
+  })
+  describe("with data", () => {
+    jest.spyOn(sessionActions, 'getQuestionsForConcepts').mockImplementation(() => {
+      return {}
+    });
+    describe("4 or less incorrect concepts", () => {
+      it("should return hash with concept uids and quantity of 3", () => {
+
+        const mockState = { session: { proofreaderSession: null } }
+        const concepts = {
+          "R3sBcYAvoXP2_oNVXiA98g": { "quantity": 3 },
+          "hJKqVOkQQQgfEsmzOWC1xw": { "quantity": 3 },
+          "tSSLMHqX0q-9mKTJHSyung": { "quantity": 3 }
+        }
+        handleProofreaderSession(mockProofreaderSession1, mockState)(mockDispatch)
+        expect(getQuestionsForConcepts).toHaveBeenCalledWith(concepts, 'production')
+      })
+    })
+    describe("between 5 and 9 incorrect concepts", () => {
+      it("should return hash with concept uids and quantity of 2", () => {
+        const mockState = { session: { proofreaderSession: null } }
+        const concepts = {
+          "R3sBcYAvoXP2_oNVXiA98g": { "quantity": 2 },
+          "asdh783hjadkjasku3jhas": { "quantity": 2 },
+          "hJKqVOkQQQgfEsmzOWC1xw": { "quantity": 2 },
+          "i8s7u34nksjhdninsdlkji": { "quantity": 2 },
+          "tSSLMHqX0q-9mKTJHSyung": { "quantity": 2 }
+        }
+        handleProofreaderSession(mockProofreaderSession2, mockState)(mockDispatch)
+        expect(getQuestionsForConcepts).toHaveBeenCalledWith(concepts, 'production')
+      })
+    })
+    describe("10 or more incorrect concepts", () => {
+      it("should return hash with concept uids and quantity of 2", () => {
+        const mockState = { session: { proofreaderSession: null } }
+        const concepts = {
+          "87iyhbnsdii4nskdh8ikhn": { "quantity": 1 },
+          "9823haksjdaksjd983jkha": { "quantity": 1 },
+          "R3sBcYAvoXP2_oNVXiA98g": { "quantity": 1 },
+          "ais87h43kjasdkhj8hkass": { "quantity": 1 },
+          "asdh783hjadkjasku3jhas": { "quantity": 1 },
+          "ash983hjashnbasdh934hn": { "quantity": 1 },
+          "hJKqVOkQQQgfEsmzOWC1xw": { "quantity": 1 },
+          "tSSLMHqX0q-9mKTJHSyasd": { "quantity": 1 },
+          "tSSLMHqX0q-9mKTJHSyung": { "quantity": 1 },
+          "znbxi7erhbsj7n3unsdujn": { "quantity": 1 }
+        }
+        handleProofreaderSession(mockProofreaderSession3, mockState)(mockDispatch)
+        expect(getQuestionsForConcepts).toHaveBeenCalledWith(concepts, 'production')
+      })
+    })
+  })
+})
