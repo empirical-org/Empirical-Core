@@ -4,6 +4,8 @@ module AdminDiagnosticReports
   class DiagnosticOverviewWorker
     include Sidekiq::Worker
 
+    sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
+
     PUSHER_EVENT = 'admin-diagnostic-overview-cached'
     TOO_SLOW_THRESHOLD = 20
 
