@@ -66,23 +66,23 @@ module AdminDiagnosticReports
       end
 
       context 'none correct to all correct' do
-        let(:pre_diagnostic_concept_results) { pre_diagnostic_activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session:, correct: false, question_number: i + 1, extra_metadata: {question_uid: pre_diagnostic_question.uid}) } }
+        let(:pre_diagnostic_concept_results) { pre_diagnostic_activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session:, correct: false, question_number: i + 1, attempt_number: nil, extra_metadata: {question_uid: pre_diagnostic_question.uid}) } }
 
         it { expect(results.first[:overall_skill_growth]).to eq(1.0) }
       end
 
       context 'all correct to none correct' do
-        let(:post_diagnostic_concept_results) { post_diagnostic_activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session:, correct: false, question_number: i + 1, extra_metadata: {question_uid: post_diagnostic_question.uid}) } }
+        let(:post_diagnostic_concept_results) { post_diagnostic_activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session:, correct: false, question_number: i + 1, attempt_number: nil, extra_metadata: {question_uid: post_diagnostic_question.uid}) } }
 
         it { expect(results.first[:overall_skill_growth]).to eq(0.0) }
       end
 
       context 'optimal and non-optimal concept results for the same question number' do
-        let(:pre_diagnostic_concept_results) { pre_diagnostic_activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session:, correct: false, question_number: i + 1, extra_metadata: {question_uid: pre_diagnostic_question.uid}) } }
+        let(:pre_diagnostic_concept_results) { pre_diagnostic_activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session:, correct: false, question_number: i + 1, attempt_number: nil, extra_metadata: {question_uid: pre_diagnostic_question.uid}) } }
         let(:post_diagnostic_concept_results) do
           post_diagnostic_activity_sessions.map.with_index do |activity_session, i|
-            create(:concept_result, activity_session:, correct: false, question_number: i + 1, extra_metadata: {question_uid: post_diagnostic_question.uid})
-            create(:concept_result, activity_session:, correct: true, question_number: i + 1, extra_metadata: {question_uid: post_diagnostic_question.uid})
+            create(:concept_result, activity_session:, correct: false, question_number: i + 1, attempt_number: nil, extra_metadata: {question_uid: post_diagnostic_question.uid})
+            create(:concept_result, activity_session:, correct: true, question_number: i + 1, attempt_number: nil, extra_metadata: {question_uid: post_diagnostic_question.uid})
           end
         end
 
@@ -91,7 +91,7 @@ module AdminDiagnosticReports
 
       context 'multiple concept results for a single question' do
         # We want to make sure that having extra concept results for a question doesn't double-count that question for scoring purposes
-        let(:post_diagnostic_concept_results) { post_diagnostic_activity_sessions.map.with_index { |activity_session, i| create_list(:concept_result, 2, activity_session:, question_number: i + 1, extra_metadata: {question_uid: post_diagnostic_question.uid}) } }
+        let(:post_diagnostic_concept_results) { post_diagnostic_activity_sessions.map.with_index { |activity_session, i| create_list(:concept_result, 2, activity_session:, question_number: i + 1, attempt_number: nil, extra_metadata: {question_uid: post_diagnostic_question.uid}) } }
 
         it { expect(results.first[:overall_skill_growth]).to eq(0.0) }
       end
@@ -117,6 +117,7 @@ module AdminDiagnosticReports
       end
 
       #TODO: Write specs to cover the edge case in https://github.com/empirical-org/Empirical-Core/pull/11662
+      #TODO: Write specs to cover rounding order for growth score aggregation, the Teacher report averages all skills, then rounds the value to the nearest whole percentage
     end
   end
 end
