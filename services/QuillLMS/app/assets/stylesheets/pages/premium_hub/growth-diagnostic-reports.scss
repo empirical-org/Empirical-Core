@@ -309,3 +309,21 @@ main {
   }
 }
 
+ @media (max-width: 725px) {
+  main {
+    .tabs-for-pages-container {
+      flex-direction: column;
+      gap: 8px;
+      .performance-type-button {
+        border-radius: 8px;
+        max-width: 250px;
+        width: 100% !important;
+        border: 1px solid $quill-grey-10;
+        &.actice {
+          border: 1px solid $quill-green;
+        }
+      }
+    }
+  }
+ }
+

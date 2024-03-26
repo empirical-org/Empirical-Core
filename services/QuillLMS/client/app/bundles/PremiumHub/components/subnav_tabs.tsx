@@ -54,6 +54,10 @@ const mobileTabs = {
     label: USAGE_SNAPSHOT_REPORT,
     url: '/teachers/premium_hub/usage_snapshot_report'
   },
+  [DIAGNOSTIC_GROWTH_REPORT]: {
+    label: DIAGNOSTIC_GROWTH_REPORT,
+    url: '/teachers/premium_hub/diagnostic_growth_report',
+  },
   [DATA_EXPORT]: {
     label: DATA_EXPORT,
     url: '/teachers/premium_hub/data_export'
@@ -66,12 +70,11 @@ const premiumReportDropdownItems = [
     url: '/teachers/premium_hub/usage_snapshot_report',
     new: true
   },
-  // TODO: uncomment the following two when the reports are ready for public access
-  // {
-  //   label: DIAGNOSTIC_GROWTH_REPORT,
-  //   url: '/teachers/premium_hub/diagnostic_growth_report',
-  //   new: true
-  // },
+  {
+    label: DIAGNOSTIC_GROWTH_REPORT,
+    url: '/teachers/premium_hub/diagnostic_growth_report',
+    new: true
+  },
   {
     label: DATA_EXPORT,
     url: '/teachers/premium_hub/data_export',
@@ -90,14 +93,6 @@ const premiumReportDropdownItems = [
     url: '/teachers/premium_hub/district_standards_reports'
   },
 ]
-
-const tabs = {
-  ...baseTabs,
-  [DIAGNOSTIC_GROWTH_REPORT]: {
-    label: DIAGNOSTIC_GROWTH_REPORT,
-    url: '/teachers/premium_hub/diagnostic_growth_report'
-  }
-}
 
 const PremiumReportsDropdown = ({ activeTab }) => {
   const dropdownId = "premium-reports-nav-dropdown"
@@ -197,7 +192,7 @@ export const AdminSubnav = ({ path }) => {
   function determineActiveTab() {
     const { pathname } = path;
 
-    const reportPaths = ['/district_activity_scores', '/district_concept_reports', '/district_standards_reports', '/usage_snapshot_report', '/data_export']
+    const reportPaths = ['/district_activity_scores', '/district_concept_reports', '/district_standards_reports', '/usage_snapshot_report', '/data_export', '/diagnostic_growth_report']
 
     if (reportPaths.find(path => pathname.includes(path))) {
       setActiveTab(PREMIUM_REPORTS)
@@ -205,8 +200,6 @@ export const AdminSubnav = ({ path }) => {
       setActiveTab(SUBSCRIPTIONS)
     } else if (pathname.includes('/account_management')) {
       setActiveTab(ACCOUNT_MANAGEMENT)
-    } else if (pathname.includes('/diagnostic_growth_report')) {
-      setActiveTab(DIAGNOSTIC_GROWTH_REPORT)
     } else if (pathname.includes('/integrations')) {
       setActiveTab(INTEGRATIONS)
     } else if (pathname.includes('/premium_hub')) {
@@ -224,8 +217,6 @@ export const AdminSubnav = ({ path }) => {
 
   const dropdownClass = dropdownOpen ? 'open' : '';
 
-  const tabsToShow = window.location.href.includes('diagnostic_growth_report') ? tabs : baseTabs
-
   return(
     <React.Fragment>
       <div className="tab-subnavigation-wrapper mobile class-subnav premium-hub-subnav red">
@@ -241,7 +232,7 @@ export const AdminSubnav = ({ path }) => {
       </div >
       <div className="tab-subnavigation-wrapper desktop class-subnav premium-hub-subnav">
         <div className="container">
-          {renderNavList({ tabs: tabsToShow, handleLinkClick: handleLinkClick, activeTab, childElement: <PremiumReportsDropdown activeTab={activeTab} /> })}
+          {renderNavList({ tabs: baseTabs, handleLinkClick: handleLinkClick, activeTab, childElement: <PremiumReportsDropdown activeTab={activeTab} /> })}
         </div>
       </div>
     </React.Fragment>
