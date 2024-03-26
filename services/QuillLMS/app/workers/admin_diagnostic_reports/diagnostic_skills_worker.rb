@@ -4,6 +4,8 @@ module AdminDiagnosticReports
   class DiagnosticSkillsWorker
     include Sidekiq::Worker
 
+    sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
+
     PUSHER_EVENT = 'admin-diagnostic-skills-cached'
     TOO_SLOW_THRESHOLD = 20
 
