@@ -228,7 +228,7 @@ export class ELLStudentDiagnostic extends React.Component {
       `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
       {
         state: 'finished',
-        activity_uid: lessonID,
+        activity_uid: diagnosticID,
         concept_results: results,
         percentage: score,
         data
