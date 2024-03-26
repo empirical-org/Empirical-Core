@@ -4,6 +4,8 @@ module Evidence
   module Research
     module GenAI
       class DataImporter < ApplicationService
+        TARGET_NUM_EXAMPLES = 100
+
         attr_reader :file_path, :file_name, :examples_path
 
         def initialize(file_path:, file_name:, examples_path:)
@@ -19,15 +21,17 @@ module Evidence
             training_file_name = data['files'][conjunction]['train'].split('/').last
             validation_file_name = data['files'][conjunction]['validation'].split('/').last
 
+            # Training and validation files are artifacts from a previous classification model
+            # Here there are both drawn from to populate example feedbacks
             [training_file_name, validation_file_name].each do |examples_file_name|
-              break if passage_prompt.passage_prompt_responses.count >= 100
+              break if passage_prompt.passage_prompt_responses.count >= TARGET_NUM_EXAMPLES
 
               examples_file_abs_path = File.join(examples_path, examples_file_name)
               next unless File.exist?(examples_file_abs_path)
 
               File.open(examples_file_abs_path, 'r') do |file|
                 file.each_line do |line|
-                  break if passage_prompt.passage_prompt_responses.count >= 100
+                  break if passage_prompt.passage_prompt_responses.count >= TARGET_NUM_EXAMPLES
 
                   example = JSON.parse(line)
                   response = example['text']

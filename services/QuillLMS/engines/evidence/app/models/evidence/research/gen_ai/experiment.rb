@@ -42,18 +42,15 @@ module Evidence
 
         attr_accessor :llm_prompt_template_id
 
-        def completed! = update!(status: COMPLETED)
-        def running! = update!(status: RUNNING)
-        def failed! = update!(status: FAILED)
-
         def run
-          return unless pending?
+          return unless status == PENDING
 
+          update!(status: RUNNING)
           create_llm_prompt_responses_feedbacks
-          completed!
+          update!(status: COMPLETED)
         rescue StandardError => e
           experiment_errors << e.message
-          failed!
+          update!(status: FAILED)
         end
 
         private def create_llm_prompt_responses_feedbacks
