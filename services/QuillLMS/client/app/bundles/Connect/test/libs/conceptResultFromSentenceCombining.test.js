@@ -14,7 +14,7 @@ describe("Getting concept results from an answered SC object", () => {
     answer: "Marcella wore a sweater since it was snowing.",
     question_uid: question.key,
     question_concept_uid: question.conceptID,
-    cues: ['after', 'even though', 'since']
+    cues: question.cues
   }
 
   it("should have the correct score and concept uids", () => {

@@ -50,7 +50,8 @@ describe('Getting concept results from an answered SC object',
               attemptNumber: 1,
               answer: 'I am listening to music on the ride home.',
               question_uid: '-KOqKBMgXHF2dNMM8jhg',
-              question_concept_uid: undefined
+              question_concept_uid: undefined,
+              cues: undefined,
             }
           }
         ]
@@ -72,7 +73,8 @@ describe('Getting concept results from an answered SC object',
             answer: 'Marcella wore a sweater since it was snowing.',
             attemptNumber: 1,
             question_uid: question.data.key,
-            question_concept_uid: question.data.conceptID
+            question_concept_uid: question.data.conceptID,
+            cues: question.data.cues
           }
         },
         {
@@ -85,7 +87,8 @@ describe('Getting concept results from an answered SC object',
             answer: 'Marcella wore a sweater since it was snowing.',
             attemptNumber: 2,
             question_uid: question.data.key,
-            question_concept_uid: question.data.conceptID
+            question_concept_uid: question.data.conceptID,
+            cues: question.data.cues
           }
         }
       ];
@@ -129,7 +132,8 @@ describe('Getting concept results from an answered SC object',
               attemptNumber: 1,
               answer: 'I am listening to music on the ride home.',
               question_uid: '-KOqKBMgXHF2dNMM8jhg',
-              question_concept_uid: undefined
+              question_concept_uid: undefined,
+              cues: undefined,
             }
           }
         ],
@@ -168,7 +172,8 @@ describe('Getting concept results from an answered SC object',
               answer: 'Marcella wore a sweater since it was snowing.',
               attemptNumber: 1,
               question_uid: '-KP-Mm-zR8JQcT62iUHW',
-              question_concept_uid: '-KP-Jqv3V5eGauVBB7tU'
+              question_concept_uid: '-KP-Jqv3V5eGauVBB7tU',
+              cues: ['after', 'even though', 'since']
             }
           },
           {
@@ -181,7 +186,8 @@ describe('Getting concept results from an answered SC object',
               answer: 'Marcella wore a sweater since it was snowing.',
               attemptNumber: 2,
               question_uid: '-KP-Mm-zR8JQcT62iUHW',
-              question_concept_uid: '-KP-Jqv3V5eGauVBB7tU'
+              question_concept_uid: '-KP-Jqv3V5eGauVBB7tU',
+              cues: ['after', 'even though', 'since']
             }
           }
         ]
@@ -230,6 +236,7 @@ describe('Getting concept results from an answered SC object',
                 answer: 'I am listening to music on the ride home.',
                 question_uid: '-KOqKBMgXHF2dNMM8jhg',
                 question_concept_uid: undefined,
+                cues: undefined,
                 questionNumber: 1
               }
             }
@@ -272,6 +279,7 @@ describe('Getting concept results from an answered SC object',
                 attemptNumber: 1,
                 question_uid: '-KP-Mm-zR8JQcT62iUHW',
                 question_concept_uid: '-KP-Jqv3V5eGauVBB7tU',
+                cues: ['after', 'even though', 'since'],
                 questionNumber: 3
               }
             },
@@ -286,6 +294,7 @@ describe('Getting concept results from an answered SC object',
                 attemptNumber: 2,
                 question_uid: '-KP-Mm-zR8JQcT62iUHW',
                 question_concept_uid: '-KP-Jqv3V5eGauVBB7tU',
+                cues: ['after', 'even though', 'since'],
                 questionNumber: 3
               }
             }
@@ -334,6 +343,7 @@ describe('Getting concept results from an answered SC object',
             answer: 'I am listening to music on the ride home.',
             question_uid: '-KOqKBMgXHF2dNMM8jhg',
             question_concept_uid: undefined,
+            cues: undefined,
             questionNumber: 1
           }
         },
@@ -372,6 +382,7 @@ describe('Getting concept results from an answered SC object',
             attemptNumber: 1,
             question_uid: '-KP-Mm-zR8JQcT62iUHW',
             question_concept_uid: '-KP-Jqv3V5eGauVBB7tU',
+            cues: ['after', 'even though', 'since'],
             questionNumber: 3
           }
         },
@@ -386,6 +397,7 @@ describe('Getting concept results from an answered SC object',
             attemptNumber: 2,
             question_uid: '-KP-Mm-zR8JQcT62iUHW',
             question_concept_uid: '-KP-Jqv3V5eGauVBB7tU',
+            cues: ['after', 'even though', 'since'],
             questionNumber: 3
           }
         }

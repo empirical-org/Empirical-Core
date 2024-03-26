@@ -31,7 +31,8 @@ export function getConceptResultsForSentenceCombining(question) {
       answer,
       attemptNumber: i + 1,
       question_uid: question.key,
-      question_concept_uid: question.conceptID
+      question_concept_uid: question.conceptID,
+      cues: question.cues?.filter(Boolean)
     },
   }));
 }
