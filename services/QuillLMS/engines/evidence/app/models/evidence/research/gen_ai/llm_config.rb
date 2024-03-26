@@ -16,16 +16,18 @@ module Evidence
       class LLMConfig < ApplicationRecord
         class UnsupportedVendorError < StandardError; end
 
-        VENDORS = [
-          GOOGLE = 'google'
-        ]
+        GOOGLE = 'google'
+
+        VENDOR_MAP = {
+          GOOGLE => Evidence::Gemini::Completion
+        }.freeze
 
         validates :vendor, presence: true
         validates :version, presence: true
 
         attr_readonly :vendor, :version
 
-        def llm_client = VENDORS.fetch(vendor) { raise UnsupportedVendorError }
+        def llm_client = VENDOR_MAP.fetch(vendor) { raise UnsupportedVendorError }
 
         def to_s = "#{vendor}: #{version}"
       end
