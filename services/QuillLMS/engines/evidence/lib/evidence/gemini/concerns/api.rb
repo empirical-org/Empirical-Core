@@ -12,8 +12,9 @@ module Evidence
         BASE_URI = Evidence::Gemini::BASE_URI
         BLOCK_NONE = "BLOCK_NONE"
 
-        MAX_RETRIES = 5
+        MAX_RETRIES = 10
         MAX_ATTEMPTS = 5
+        MAX_SLEEP_FOR_BACKOFF = 60.seconds
 
         SAFETY_SETTING_CATEGORIES = %w[
           HARM_CATEGORY_HARASSMENT
@@ -69,7 +70,7 @@ module Evidence
           raise "Max retries reached. Last error: #{e.message}" unless retries < MAX_RETRIES
 
           retries += 1
-          sleep 2**retries
+          sleep [2**retries, MAX_SLEEP_FOR_BACKOFF].min
           retry
         end
       end

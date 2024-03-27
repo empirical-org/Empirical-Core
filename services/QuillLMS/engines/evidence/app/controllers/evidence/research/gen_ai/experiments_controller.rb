@@ -4,7 +4,7 @@ module Evidence
   module Research
     module GenAI
       class ExperimentsController < ApplicationController
-        def index =  @experiments = Experiment.all.order(created_at: :asc)
+        def index =  @experiments = Experiment.all.order(created_at: :desc)
 
         def new
           @experiment = Experiment.new

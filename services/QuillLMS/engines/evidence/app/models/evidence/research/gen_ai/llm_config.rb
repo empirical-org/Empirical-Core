@@ -16,9 +16,11 @@ module Evidence
       class LLMConfig < ApplicationRecord
         class UnsupportedVendorError < StandardError; end
 
-        VENDORS = [
-          GOOGLE = 'google'
-        ]
+        GOOGLE = 'google'
+
+        VENDOR_MAP = {
+          GOOGLE => Evidence::Gemini::Completion
+        }.freeze
 
         validates :vendor, presence: true
         validates :version, presence: true
