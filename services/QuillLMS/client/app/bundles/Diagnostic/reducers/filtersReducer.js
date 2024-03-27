@@ -158,6 +158,8 @@ export default function (currentState, action) {
       return newState;
     case C.UPDATE_SEARCHED_RESPONSES:
       newState = _.cloneDeep(currentState);
+      console.log("update searched");
+      console.log(action.data.responses);
       newState.responses = action.data.responses
       newState.numberOfPages = action.data.numberOfPages
       newState.numberOfResponses = action.data.numberOfResponses

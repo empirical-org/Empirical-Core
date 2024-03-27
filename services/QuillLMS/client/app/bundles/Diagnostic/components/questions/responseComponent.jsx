@@ -242,17 +242,17 @@ class ResponseComponent extends React.Component {
   };
 
   renderResponses = () => {
-    const { isLoadingResponses } = this.state
+    const { isLoadingResponses, viewingResponses } = this.state
 
-    if (this.state.viewingResponses) {
-      if (isLoadingResponses) {
-        return (
-          <div className="loading-spinner-container">
-            <Spinner />
-          </div>
-        );
-      }
+    if (isLoadingResponses && viewingResponses) {
+      return (
+        <div className="loading-spinner-container">
+          <Spinner />
+        </div>
+      );
+    }
 
+    if (viewingResponses) {
       const { responses } = this.state;
       const { questionID, selectedIncorrectSequences, selectedFocusPoints } = this.props;
       const sortedResponses = _.sortBy(hashToCollection(responses), 'sortOrder')
@@ -295,7 +295,6 @@ class ResponseComponent extends React.Component {
   };
 
   toggleFieldAndResetPage = status => {
-    console.log("toggle field here");
     this.props.dispatch(filterActions.toggleStatusFieldAndResetPage(status));
   };
 
@@ -589,7 +588,6 @@ class ResponseComponent extends React.Component {
   };
 
   showResults = () => {
-    console.log("show results");
     this.searchResponses();
   }
 
