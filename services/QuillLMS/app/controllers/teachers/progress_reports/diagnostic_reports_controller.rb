@@ -149,7 +149,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     render json: { student_ids: assigned_student_ids_for_classroom_and_units(classroom, units) }
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   def redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit
     params.permit(:unit_id, :activity_id)
     unit_id = params[:unit_id]
@@ -168,7 +167,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       render json: { url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students" }
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   def assign_post_test
     Units::AssignmentHelpers.assign_unit_to_one_class(params[:classroom_id], params[:unit_template_id], params[:student_ids], false)
