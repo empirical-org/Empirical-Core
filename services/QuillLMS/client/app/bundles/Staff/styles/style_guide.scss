@@ -214,18 +214,21 @@
     quill-green: $quill-green,
     quill-green-50: $quill-green-50,
     quill-green-20: $quill-green-20,
+    quill-green-15: $quill-green-15,
     quill-green-10: $quill-green-10,
     quill-green-5: $quill-green-5,
     quill-green-1: $quill-green-1,
     quill-green-warm: $quill-green-warm,
     quill-green-warm-50: $quill-green-warm-50,
     quill-green-warm-20: $quill-green-warm-20,
+    quill-green-warm-15: $quill-green-warm-15,
     quill-green-warm-10: $quill-green-warm-10,
     quill-green-warm-5: $quill-green-warm-5,
     quill-green-warm-1: $quill-green-warm-1,
     quill-green-vibrant: $quill-green-vibrant,
     quill-green-vibrant-50: $quill-green-vibrant-50,
     quill-green-vibrant-20: $quill-green-vibrant-20,
+    quill-green-vibrant-15: $quill-green-vibrant-15,
     quill-green-vibrant-10: $quill-green-vibrant-10,
     quill-green-vibrant-5: $quill-green-vibrant-5,
     quill-green-vibrant-1: $quill-green-vibrant-1,
@@ -282,7 +285,13 @@
     quill-gold-dark-20: $quill-gold-dark-20,
     quill-gold-dark-10: $quill-gold-dark-10,
     quill-gold-dark-5: $quill-gold-dark-5,
-    quill-gold-dark-1: $quill-gold-dark-1
+    quill-gold-dark-1: $quill-gold-dark-1,
+    quill-yellow: $quill-yellow,
+    quill-yellow-50: $quill-yellow-50,
+    quill-yellow-20: $quill-yellow-20,
+    quill-yellow-10: $quill-yellow-10,
+    quill-yellow-5: $quill-yellow-5,
+    quill-yellow-1: $quill-yellow-1
   );
 
   @each $name, $color in $colors {
