@@ -12,7 +12,7 @@ module Evidence
           @llm_prompt_template = LLMPromptTemplate.new(llm_prompt_template_params)
 
           if @llm_prompt_template.save
-            redirect_to @llm_prompt_template
+            redirect_to new_research_gen_ai_experiment_path
           else
             render :new
           end

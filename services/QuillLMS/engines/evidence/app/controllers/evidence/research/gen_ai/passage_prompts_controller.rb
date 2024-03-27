@@ -14,7 +14,7 @@ module Evidence
           @passage_prompt = PassagePrompt.new(passage_prompt_params)
 
           if @passage_prompt.save
-            redirect_to @passage_prompt
+            redirect_to new_research_gen_ai_experiment_path
           else
             render :new
           end

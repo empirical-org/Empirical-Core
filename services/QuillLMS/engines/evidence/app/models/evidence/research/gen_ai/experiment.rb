@@ -42,21 +42,21 @@ module Evidence
 
         attr_accessor :llm_prompt_template_id
 
-        def run
+        def run(limit: nil)
           return unless status == PENDING
 
           update!(status: RUNNING)
-          create_llm_prompt_responses_feedbacks
+          create_llm_prompt_responses_feedbacks(limit:)
           update!(status: COMPLETED)
         rescue StandardError => e
           experiment_errors << e.message
           update!(status: FAILED)
         end
 
-        private def create_llm_prompt_responses_feedbacks
-          passage_prompt_responses.each do |passage_prompt_response|
+        private def create_llm_prompt_responses_feedbacks(limit:)
+          passage_prompt_responses.limit(limit).each do |passage_prompt_response|
             feedback = llm_client.run(prompt: llm_prompt.feedback_prompt(passage_prompt_response.response))
-            LLMPromptResponseFeedback.create!(feedback:, passage_prompt_response:)
+            LLMFeedback.create!(text: feedback, passage_prompt_response:)
           end
         end
       end
