@@ -30,7 +30,8 @@ export function getConceptResultsForSentenceCombining(question) {
       prompt,
       answer,
       question_uid: question.key,
-      question_concept_uid: question.conceptID
+      question_concept_uid: question.conceptID,
+      cues: question.cues?.filter(Boolean)
     },
   }));
 }

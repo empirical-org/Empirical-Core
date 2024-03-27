@@ -24,7 +24,8 @@ describe('Getting concept results from an answered SC object', () => {
             attemptNumber: 1,
             answer: 'As soon as a coconut is brown it is mature.',
             question_uid: '-KQS0lZJ8RqWddG8qTeN',
-            question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ'
+            question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+            cues: ['as soon as'],
           }
         },
         {
@@ -38,7 +39,8 @@ describe('Getting concept results from an answered SC object', () => {
             attemptNumber: 2,
             answer: 'As soon as a coconut is brown. it is mature.',
             question_uid: '-KQS0lZJ8RqWddG8qTeN',
-            question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ'
+            question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+            cues: ['as soon as'],
           }
         },
         {
@@ -52,7 +54,8 @@ describe('Getting concept results from an answered SC object', () => {
             attemptNumber: 3,
             answer: 'As soon as a coconut is brown, it is mature.',
             question_uid: '-KQS0lZJ8RqWddG8qTeN',
-            question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ'
+            question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+            cues: ['as soon as'],
           }
         },
         {
@@ -66,7 +69,8 @@ describe('Getting concept results from an answered SC object', () => {
             attemptNumber: 3,
             answer: 'As soon as a coconut is brown, it is mature.',
             question_uid: '-KQS0lZJ8RqWddG8qTeN',
-            question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ'
+            question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+            cues: ['as soon as'],
           }
         },
         {
@@ -80,7 +84,8 @@ describe('Getting concept results from an answered SC object', () => {
             attemptNumber: 3,
             answer: 'As soon as a coconut is brown, it is mature.',
             question_uid: '-KQS0lZJ8RqWddG8qTeN',
-            question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ'
+            question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+            cues: ['as soon as'],
           }
         }
       ],
@@ -95,7 +100,8 @@ describe('Getting concept results from an answered SC object', () => {
             attemptNumber: 1,
             answer: 'Until a coconut ripens, it is filled with water.',
             question_uid: '-KQS0vv8HESue3PrD8UV',
-            question_concept_uid: '555cYi-MZKeyAV-98U4DyA'
+            question_concept_uid: '555cYi-MZKeyAV-98U4DyA',
+            cues: ['until'],
           }
         },
         {
@@ -108,7 +114,8 @@ describe('Getting concept results from an answered SC object', () => {
             attemptNumber: 1,
             answer: 'Until a coconut ripens, it is filled with water.',
             question_uid: '-KQS0vv8HESue3PrD8UV',
-            question_concept_uid: '555cYi-MZKeyAV-98U4DyA'
+            question_concept_uid: '555cYi-MZKeyAV-98U4DyA',
+            cues: ['until'],
           }
         },
         {
@@ -121,7 +128,8 @@ describe('Getting concept results from an answered SC object', () => {
             attemptNumber: 1,
             answer: 'Until a coconut ripens, it is filled with water.',
             question_uid: '-KQS0vv8HESue3PrD8UV',
-            question_concept_uid: '555cYi-MZKeyAV-98U4DyA'
+            question_concept_uid: '555cYi-MZKeyAV-98U4DyA',
+            cues: ['until'],
           }
         }
       ],
@@ -136,7 +144,8 @@ describe('Getting concept results from an answered SC object', () => {
             attemptNumber: 1,
             answer: 'The weather is cold, so coconut trees palms grow as soon as it is warm.',
             question_uid: '-KQS0ZUV9IZiMiPmuZdB',
-            question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ'
+            question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+            cues: ['as soon as']
           }
         },
         {
@@ -150,7 +159,8 @@ describe('Getting concept results from an answered SC object', () => {
             attemptNumber: 2,
             answer: 'The weather is cold, so coconut trees palms grow as soon as it is warm again.',
             question_uid: '-KQS0ZUV9IZiMiPmuZdB',
-            question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ'
+            question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+            cues: ['as soon as']
           }
         },
         {
@@ -164,7 +174,8 @@ describe('Getting concept results from an answered SC object', () => {
             attemptNumber: 3,
             answer: 'The weather is freezing, so coconut trees palms grow as soon as it is warm again.',
             question_uid: '-KQS0ZUV9IZiMiPmuZdB',
-            question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ'
+            question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+            cues: ['as soon as']
           }
         },
         {
@@ -178,7 +189,8 @@ describe('Getting concept results from an answered SC object', () => {
             attemptNumber: 4,
             answer: 'The weather is really freezing, so coconut trees palms grow as soon as it is warm again.',
             question_uid: '-KQS0ZUV9IZiMiPmuZdB',
-            question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ'
+            question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+            cues: ['as soon as']
           }
         },
         {
@@ -192,7 +204,8 @@ describe('Getting concept results from an answered SC object', () => {
             attemptNumber: 5,
             answer: 'The weather is really cold, so coconut trees palms grow as soon as it is warm again.',
             question_uid: '-KQS0ZUV9IZiMiPmuZdB',
-            question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ'
+            question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+            cues: ['as soon as']
           }
         }
       ]
@@ -216,6 +229,7 @@ describe('Getting concept results from an answered SC object', () => {
             answer: 'As soon as a coconut is brown it is mature.',
             question_uid: '-KQS0lZJ8RqWddG8qTeN',
             question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+            cues: ['as soon as'],
             questionNumber: 1,
             questionScore: 1
           }
@@ -232,6 +246,7 @@ describe('Getting concept results from an answered SC object', () => {
             answer: 'As soon as a coconut is brown. it is mature.',
             question_uid: '-KQS0lZJ8RqWddG8qTeN',
             question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+            cues: ['as soon as'],
             questionNumber: 1,
             questionScore: 1
           }
@@ -248,6 +263,7 @@ describe('Getting concept results from an answered SC object', () => {
             answer: 'As soon as a coconut is brown, it is mature.',
             question_uid: '-KQS0lZJ8RqWddG8qTeN',
             question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+            cues: ['as soon as'],
             questionNumber: 1,
             questionScore: 1
           }
@@ -264,6 +280,7 @@ describe('Getting concept results from an answered SC object', () => {
             answer: 'As soon as a coconut is brown, it is mature.',
             question_uid: '-KQS0lZJ8RqWddG8qTeN',
             question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+            cues: ['as soon as'],
             questionNumber: 1,
             questionScore: 1
           }
@@ -280,6 +297,7 @@ describe('Getting concept results from an answered SC object', () => {
             answer: 'As soon as a coconut is brown, it is mature.',
             question_uid: '-KQS0lZJ8RqWddG8qTeN',
             question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+            cues: ['as soon as'],
             questionNumber: 1,
             questionScore: 1
           }
@@ -297,6 +315,7 @@ describe('Getting concept results from an answered SC object', () => {
             answer: 'Until a coconut ripens, it is filled with water.',
             question_uid: '-KQS0vv8HESue3PrD8UV',
             question_concept_uid: '555cYi-MZKeyAV-98U4DyA',
+            cues: ['until'],
             questionNumber: 2,
             questionScore: 1
           }
@@ -312,6 +331,7 @@ describe('Getting concept results from an answered SC object', () => {
             answer: 'Until a coconut ripens, it is filled with water.',
             question_uid: '-KQS0vv8HESue3PrD8UV',
             question_concept_uid: '555cYi-MZKeyAV-98U4DyA',
+            cues: ['until'],
             questionNumber: 2,
             questionScore: 1
           }
@@ -327,6 +347,7 @@ describe('Getting concept results from an answered SC object', () => {
             answer: 'Until a coconut ripens, it is filled with water.',
             question_uid: '-KQS0vv8HESue3PrD8UV',
             question_concept_uid: '555cYi-MZKeyAV-98U4DyA',
+            cues: ['until'],
             questionNumber: 2,
             questionScore: 1
           }
@@ -344,6 +365,7 @@ describe('Getting concept results from an answered SC object', () => {
             answer: 'The weather is cold, so coconut trees palms grow as soon as it is warm.',
             question_uid: '-KQS0ZUV9IZiMiPmuZdB',
             question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+            cues: ['as soon as'],
             questionNumber: 3,
             questionScore: 0
           }
@@ -360,6 +382,7 @@ describe('Getting concept results from an answered SC object', () => {
             answer: 'The weather is cold, so coconut trees palms grow as soon as it is warm again.',
             question_uid: '-KQS0ZUV9IZiMiPmuZdB',
             question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+            cues: ['as soon as'],
             questionNumber: 3,
             questionScore: 0
           }
@@ -376,6 +399,7 @@ describe('Getting concept results from an answered SC object', () => {
             answer: 'The weather is freezing, so coconut trees palms grow as soon as it is warm again.',
             question_uid: '-KQS0ZUV9IZiMiPmuZdB',
             question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+            cues: ['as soon as'],
             questionNumber: 3,
             questionScore: 0
           }
@@ -392,6 +416,7 @@ describe('Getting concept results from an answered SC object', () => {
             answer: 'The weather is really freezing, so coconut trees palms grow as soon as it is warm again.',
             question_uid: '-KQS0ZUV9IZiMiPmuZdB',
             question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+            cues: ['as soon as'],
             questionNumber: 3,
             questionScore: 0
           }
@@ -408,6 +433,7 @@ describe('Getting concept results from an answered SC object', () => {
             answer: 'The weather is really cold, so coconut trees palms grow as soon as it is warm again.',
             question_uid: '-KQS0ZUV9IZiMiPmuZdB',
             question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+            cues: ['as soon as'],
             questionNumber: 3,
             questionScore: 0
           }
@@ -431,6 +457,7 @@ describe('Getting concept results from an answered SC object', () => {
           answer: 'As soon as a coconut is brown it is mature.',
           question_uid: '-KQS0lZJ8RqWddG8qTeN',
           question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+          cues: ['as soon as'],
           questionNumber: 1,
           questionScore: 1
         }
@@ -447,6 +474,7 @@ describe('Getting concept results from an answered SC object', () => {
           answer: 'As soon as a coconut is brown. it is mature.',
           question_uid: '-KQS0lZJ8RqWddG8qTeN',
           question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+          cues: ['as soon as'],
           questionNumber: 1,
           questionScore: 1
         }
@@ -463,6 +491,7 @@ describe('Getting concept results from an answered SC object', () => {
           answer: 'As soon as a coconut is brown, it is mature.',
           question_uid: '-KQS0lZJ8RqWddG8qTeN',
           question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+          cues: ['as soon as'],
           questionNumber: 1,
           questionScore: 1
         }
@@ -479,6 +508,7 @@ describe('Getting concept results from an answered SC object', () => {
           answer: 'As soon as a coconut is brown, it is mature.',
           question_uid: '-KQS0lZJ8RqWddG8qTeN',
           question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+          cues: ['as soon as'],
           questionNumber: 1,
           questionScore: 1
         }
@@ -495,6 +525,7 @@ describe('Getting concept results from an answered SC object', () => {
           answer: 'As soon as a coconut is brown, it is mature.',
           question_uid: '-KQS0lZJ8RqWddG8qTeN',
           question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+          cues: ['as soon as'],
           questionNumber: 1,
           questionScore: 1
         }
@@ -510,6 +541,7 @@ describe('Getting concept results from an answered SC object', () => {
           answer: 'Until a coconut ripens, it is filled with water.',
           question_uid: '-KQS0vv8HESue3PrD8UV',
           question_concept_uid: '555cYi-MZKeyAV-98U4DyA',
+          cues: ['until'],
           questionNumber: 2,
           questionScore: 1
         }
@@ -525,6 +557,7 @@ describe('Getting concept results from an answered SC object', () => {
           answer: 'Until a coconut ripens, it is filled with water.',
           question_uid: '-KQS0vv8HESue3PrD8UV',
           question_concept_uid: '555cYi-MZKeyAV-98U4DyA',
+          cues: ['until'],
           questionNumber: 2,
           questionScore: 1
         }
@@ -540,6 +573,7 @@ describe('Getting concept results from an answered SC object', () => {
           answer: 'Until a coconut ripens, it is filled with water.',
           question_uid: '-KQS0vv8HESue3PrD8UV',
           question_concept_uid: '555cYi-MZKeyAV-98U4DyA',
+          cues: ['until'],
           questionNumber: 2,
           questionScore: 1
         }
@@ -555,6 +589,7 @@ describe('Getting concept results from an answered SC object', () => {
           answer: 'The weather is cold, so coconut trees palms grow as soon as it is warm.',
           question_uid: '-KQS0ZUV9IZiMiPmuZdB',
           question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+          cues: ['as soon as'],
           questionNumber: 3,
           questionScore: 0
         }
@@ -571,6 +606,7 @@ describe('Getting concept results from an answered SC object', () => {
           answer: 'The weather is cold, so coconut trees palms grow as soon as it is warm again.',
           question_uid: '-KQS0ZUV9IZiMiPmuZdB',
           question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+          cues: ['as soon as'],
           questionNumber: 3,
           questionScore: 0
         }
@@ -587,6 +623,7 @@ describe('Getting concept results from an answered SC object', () => {
           answer: 'The weather is freezing, so coconut trees palms grow as soon as it is warm again.',
           question_uid: '-KQS0ZUV9IZiMiPmuZdB',
           question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+          cues: ['as soon as'],
           questionNumber: 3,
           questionScore: 0
         }
@@ -603,6 +640,7 @@ describe('Getting concept results from an answered SC object', () => {
           answer: 'The weather is really freezing, so coconut trees palms grow as soon as it is warm again.',
           question_uid: '-KQS0ZUV9IZiMiPmuZdB',
           question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+          cues: ['as soon as'],
           questionNumber: 3,
           questionScore: 0
         }
@@ -619,6 +657,7 @@ describe('Getting concept results from an answered SC object', () => {
           answer: 'The weather is really cold, so coconut trees palms grow as soon as it is warm again.',
           question_uid: '-KQS0ZUV9IZiMiPmuZdB',
           question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
+          cues: ['as soon as'],
           questionNumber: 3,
           questionScore: 0
         }

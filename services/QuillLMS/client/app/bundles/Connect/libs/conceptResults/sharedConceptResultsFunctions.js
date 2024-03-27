@@ -48,6 +48,7 @@ export function getConceptResultsForAttempt(question, attemptIndex, question_typ
       answer,
       question_uid:  question.key,
       question_concept_uid: question.conceptID,
+      cues: question.cues?.filter(Boolean),
     } : {
       correct: conceptResult.correct ? 1 : 0,
       directions,
@@ -56,6 +57,7 @@ export function getConceptResultsForAttempt(question, attemptIndex, question_typ
       answer,
       question_uid:  question.key,
       question_concept_uid: question.conceptID,
-    },
+      cues: question.cues?.filter(Boolean),
+    }
   }));
 }

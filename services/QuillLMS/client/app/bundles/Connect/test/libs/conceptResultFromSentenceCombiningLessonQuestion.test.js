@@ -18,7 +18,8 @@ describe('Getting concept results from an answered SC object', () => {
         directions: 'Combine the sentences into one sentence. Use the joining word. (Until)',
         prompt: 'A coconut ripens. \nIt is filled with water.',
         question_uid: question.key,
-        question_concept_uid: question.conceptID
+        question_concept_uid: question.conceptID,
+        cues: ['until']
       },
       question_type: 'sentence-combining',
     },
@@ -31,7 +32,8 @@ describe('Getting concept results from an answered SC object', () => {
         directions: 'Combine the sentences into one sentence. Use the joining word. (Until)',
         prompt: 'A coconut ripens. \nIt is filled with water.',
         question_uid: question.key,
-        question_concept_uid: question.conceptID
+        question_concept_uid: question.conceptID,
+        cues: ['until']
       },
       question_type: 'sentence-combining',
     },
@@ -44,7 +46,8 @@ describe('Getting concept results from an answered SC object', () => {
         directions: 'Combine the sentences into one sentence. Use the joining word. (Until)',
         prompt: 'A coconut ripens. \nIt is filled with water.',
         question_uid: question.key,
-        question_concept_uid: question.conceptID
+        question_concept_uid: question.conceptID,
+        cues: ['until']
       },
       question_type: 'sentence-combining',
     }];
@@ -65,7 +68,8 @@ describe('Getting concept results from an answered SC object', () => {
         directions: 'Combine the sentences into one sentence. Use the joining word. (Until)',
         prompt: 'A coconut ripens. \nIt is filled with water.',
         question_uid: question.key,
-        question_concept_uid: question.conceptID
+        question_concept_uid: question.conceptID,
+        cues: ['until']
       },
       question_type: 'sentence-combining',
     },
@@ -78,7 +82,8 @@ describe('Getting concept results from an answered SC object', () => {
         directions: 'Combine the sentences into one sentence. Use the joining word. (Until)',
         prompt: 'A coconut ripens. \nIt is filled with water.',
         question_uid: question.key,
-        question_concept_uid: question.conceptID
+        question_concept_uid: question.conceptID,
+        cues: ['until']
       },
       question_type: 'sentence-combining',
     },
@@ -91,7 +96,8 @@ describe('Getting concept results from an answered SC object', () => {
         directions: 'Combine the sentences into one sentence. Use the joining word. (Until)',
         prompt: 'A coconut ripens. \nIt is filled with water.',
         question_uid: question.key,
-        question_concept_uid: question.conceptID
+        question_concept_uid: question.conceptID,
+        cues: ['until']
       },
       question_type: 'sentence-combining',
     }];
@@ -112,7 +118,8 @@ describe('Getting concept results from an answered SC object', () => {
           directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
           prompt: 'A coconut is mature.\nIt is brown.',
           question_uid: question.key,
-          question_concept_uid: question.conceptID
+          question_concept_uid: question.conceptID,
+          cues: ['as soon as']
         },
         question_type: 'sentence-combining',
       }, {
@@ -125,7 +132,8 @@ describe('Getting concept results from an answered SC object', () => {
           directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
           prompt: 'A coconut is mature.\nIt is brown.',
           question_uid: question.key,
-          question_concept_uid: question.conceptID
+          question_concept_uid: question.conceptID,
+          cues: ['as soon as']
         },
         question_type: 'sentence-combining',
       }, {
@@ -138,7 +146,8 @@ describe('Getting concept results from an answered SC object', () => {
           directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
           prompt: 'A coconut is mature.\nIt is brown.',
           question_uid: question.key,
-          question_concept_uid: question.conceptID
+          question_concept_uid: question.conceptID,
+          cues: ['as soon as']
         },
         question_type: 'sentence-combining',
       }, {
@@ -151,7 +160,8 @@ describe('Getting concept results from an answered SC object', () => {
           directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
           prompt: 'A coconut is mature.\nIt is brown.',
           question_uid: question.key,
-          question_concept_uid: question.conceptID
+          question_concept_uid: question.conceptID,
+          cues: ['as soon as']
         },
         question_type: 'sentence-combining',
       },
@@ -165,7 +175,8 @@ describe('Getting concept results from an answered SC object', () => {
           directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
           prompt: 'A coconut is mature.\nIt is brown.',
           question_uid: question.key,
-          question_concept_uid: question.conceptID
+          question_concept_uid: question.conceptID,
+          cues: ['as soon as']
         },
         question_type: 'sentence-combining',
       }
@@ -186,7 +197,8 @@ describe('Getting concept results from an answered SC object', () => {
         directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
         prompt: 'The weather is warm.\nCoconut palms grow.',
         question_uid: question.key,
-        question_concept_uid: question.conceptID
+        question_concept_uid: question.conceptID,
+        cues: ['as soon as']
       },
       question_type: 'sentence-combining',
     }, {
@@ -199,7 +211,8 @@ describe('Getting concept results from an answered SC object', () => {
         directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
         prompt: 'The weather is warm.\nCoconut palms grow.',
         question_uid: question.key,
-        question_concept_uid: question.conceptID
+        question_concept_uid: question.conceptID,
+        cues: ['as soon as']
       },
       question_type: 'sentence-combining',
     }, {
@@ -212,7 +225,8 @@ describe('Getting concept results from an answered SC object', () => {
         directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
         prompt: 'The weather is warm.\nCoconut palms grow.',
         question_uid: question.key,
-        question_concept_uid: question.conceptID
+        question_concept_uid: question.conceptID,
+        cues: ['as soon as']
       },
       question_type: 'sentence-combining',
     }, {
@@ -225,7 +239,8 @@ describe('Getting concept results from an answered SC object', () => {
         directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
         prompt: 'The weather is warm.\nCoconut palms grow.',
         question_uid: question.key,
-        question_concept_uid: question.conceptID
+        question_concept_uid: question.conceptID,
+        cues: ['as soon as']
       },
       question_type: 'sentence-combining',
     },
@@ -239,7 +254,8 @@ describe('Getting concept results from an answered SC object', () => {
         directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
         prompt: 'The weather is warm.\nCoconut palms grow.',
         question_uid: question.key,
-        question_concept_uid: question.conceptID
+        question_concept_uid: question.conceptID,
+        cues: ['as soon as']
       },
       question_type: 'sentence-combining',
     }];

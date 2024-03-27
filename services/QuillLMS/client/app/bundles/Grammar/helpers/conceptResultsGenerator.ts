@@ -55,7 +55,8 @@ function getConceptResultsForAttempt(attempt: ResponseAttempt, question: Questio
         answer,
         attemptNumber,
         question_uid:  question.uid,
-        question_concept_uid: question.concept_uid
+        question_concept_uid: question.concept_uid,
+        cues: question.cues?.filter(Boolean)
       } : {
         correct: conceptResult.correct ? 1 : 0,
         directions,
@@ -63,7 +64,8 @@ function getConceptResultsForAttempt(attempt: ResponseAttempt, question: Questio
         answer,
         attemptNumber,
         question_uid:  question.uid,
-        question_concept_uid: question.concept_uid
+        question_concept_uid: question.concept_uid,
+        cues: question.cues?.filter(Boolean)
       },
     }});
 }
