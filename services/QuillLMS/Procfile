@@ -18,4 +18,4 @@ internalworker: MAX_THREADS=$SIDEKIQ_PROCESS_MAX_THREADS MALLOC_ARENA_MAX=2 bund
 migrationworker: MAX_THREADS=$SIDEKIQ_PROCESS_MAX_THREADS MALLOC_ARENA_MAX=2 bundle exec sidekiq -q migration
 
 # Experiments
-experimentworker: MAX_THREADS=$SIDEKIQ_EXPERIMENT_PROCESS_MAX_THREADS MALLOC_ARENA_MAX=2 bundle exec sidekiq -q experiment
+experimentworker: MAX_THREADS=$SIDEKIQ_EXPERIMENT_PROCESS_MAX_THREADS MALLOC_ARENA_MAX=2 bundle exec sidekiq -q experiment -c 1
