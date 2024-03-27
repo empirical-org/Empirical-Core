@@ -174,15 +174,18 @@ export const handleProofreaderSession = (proofreaderSession, state) => {
     // that all gets processed by the normal `setSessionReducerToSavedSession` function and we don't need to set new ones
     if (!proofreaderSession || !proofreaderSession.conceptResults || proofreaderSession.answeredQuestions || state.session.proofreaderSession) { return }
 
-    const concepts: { [key: string]: any } = {}
-    proofreaderSession.conceptResults.map(cr => {
+    const incorrectConceptUIDs = proofreaderSession.conceptResults.reduce((results, cr) => {
       const { metadata, concept_uid } = cr
       const { correct } = metadata
-      if (correct === 0 && !concepts[concept_uid]) {
-        concepts[concept_uid] = true
-      }
-    })
-    const incorrectConceptUIDs = Object.keys(concepts)
+      if (correct === 0 && !results.includes(concept_uid)) { results.push(concept_uid); }
+      return results;
+    }, []);
+    const concepts: { [key: string]: { quantity: number } } = {}
+    /* per Curriculum standards:
+      - 4 or less incorrect concepts: 3 grammar questions per concept
+      - 5 to 9 incorrect concepts: 2 grammar questions per concept
+      - 10 or more incorrect concepts: 1 grammar question per concept
+    */
     let quantity = 3
     if (incorrectConceptUIDs.length > 9) {
       quantity = 1
@@ -190,11 +193,13 @@ export const handleProofreaderSession = (proofreaderSession, state) => {
       quantity = 2
     }
     proofreaderSession.conceptResults.forEach(cr => {
-      if (cr.metadata.correct === 0) {
-        concepts[cr.concept_uid] = { quantity }
+      const { metadata, concept_uid } = cr
+      const { correct } = metadata
+      if (correct === 0) {
+        concepts[concept_uid] = { quantity }
       }
     })
-
+    debugger
     dispatch(saveProofreaderSessionToReducer(proofreaderSession))
     dispatch(getQuestionsForConcepts(concepts, 'production'))
   }
