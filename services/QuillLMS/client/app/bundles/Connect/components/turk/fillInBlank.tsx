@@ -13,9 +13,6 @@ const styles = {
   container: {
     marginTop: 35,
     marginBottom: 18,
-    display: 'flex',
-    alignItems: 'center',
-    flexWrap: 'wrap',
     fontSize: 24,
   },
   text: {
@@ -44,7 +41,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   setQuestionValues = (question) => {
     const q = question;
-    const splitPrompt = q.prompt.replace(/<p>/g, '').replace(/<\/p>/g, '').split('___');
+    const splitPrompt = question.prompt.replace(/<\/p><p>/g, '</br>').replace(/^<p>/g, '').replace(/<p>/g, '<br/>').replace(/<\/p>/g, '').split('___');
     const numberOfInputVals = q.prompt.match(/___/g).length
     this.setState({
       splitPrompt,

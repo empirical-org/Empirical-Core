@@ -80,7 +80,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
 
   setQuestionValues = (question: FillInBlankQuestion) => {
     const q = question;
-    const splitPrompt = q.prompt.split('___');
+    const splitPrompt = question.prompt.replace(/<\/p><p>/g, '</br>').replace(/^<p>/g, '').replace(/<p>/g, '<br/>').replace(/<\/p>/g, '').split('___');
     const numberOfInputVals = q.prompt.match(/___/g).length
     this.setState({
       splitPrompt,
