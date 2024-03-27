@@ -4,7 +4,7 @@ import * as _ from 'underscore';
 import { checkFillInTheBlankQuestion } from 'quill-marking-logic';
 import { stringNormalize } from 'quill-string-normalizer';
 
-import { Feedback, Prompt, fillInBlankInputLabel, getLatestAttempt, hashToCollection, renderPreviewFeedback, } from '../../../Shared/index';
+import { Feedback, Prompt, fillInBlankInputLabel, fillInBlankInputWidth, getLatestAttempt, hashToCollection, renderPreviewFeedback, } from '../../../Shared/index';
 import { submitResponse, } from '../../actions/diagnostics.js';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import { Question } from '../../interfaces/Question';
@@ -176,10 +176,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     if (inputErrors[i]) {
       className += ' error'
     }
-    const longestCue = cues && cues.length ? cues.sort((a: { length: number }, b: { length: number }) => b.length - a.length)[0] : null
-    const width = longestCue ? (longestCue.length * 15) + 10 : 50
-    const styling = { width: `${width}px` }
+
     const inputProperties = this.getInputProperties(i);
+    const value = inputProperties['value']
     return (
       <input
         aria-label={fillInBlankInputLabel(cues, blankAllowed)}
@@ -189,9 +188,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
         id={`input${i}`}
         key={i + 100}
         onChange={this.getChangeHandler(i)}
-        style={styling}
+        style={fillInBlankInputWidth(value, cues)}
         type="text"
-        value={inputProperties['value']}
+        value={value}
       />
     );
   }

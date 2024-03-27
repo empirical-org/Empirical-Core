@@ -195,7 +195,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                   onChange={[Function]}
                   style={
                     Object {
-                      "width": "55px",
+                      "width": "25px",
                     }
                   }
                   type="text"
@@ -273,7 +273,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                   onChange={[Function]}
                   style={
                     Object {
-                      "width": "55px",
+                      "width": "25px",
                     }
                   }
                   type="text"
@@ -301,9 +301,6 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
             }
             style={
               Object {
-                "alignItems": "center",
-                "display": "flex",
-                "flexWrap": "wrap",
                 "fontSize": 24,
                 "marginBottom": 18,
                 "marginTop": 35,
@@ -313,9 +310,6 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
             <div
               style={
                 Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "flexWrap": "wrap",
                   "fontSize": 24,
                   "marginBottom": 18,
                   "marginTop": 35,
@@ -353,7 +347,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 onChange={[Function]}
                 style={
                   Object {
-                    "width": "55px",
+                    "width": "25px",
                   }
                 }
                 type="text"
@@ -390,7 +384,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 onChange={[Function]}
                 style={
                   Object {
-                    "width": "55px",
+                    "width": "25px",
                   }
                 }
                 type="text"

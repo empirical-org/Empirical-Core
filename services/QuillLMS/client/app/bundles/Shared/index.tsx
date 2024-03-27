@@ -110,6 +110,7 @@ export {
   titleCase,
   onMobile,
   fillInBlankInputLabel,
+  fillInBlankInputWidth,
   getIconForActivityClassification,
   isTrackableStudentEvent,
   hexToRGBA,

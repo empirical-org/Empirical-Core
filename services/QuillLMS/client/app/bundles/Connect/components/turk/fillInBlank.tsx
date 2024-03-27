@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as _ from 'underscore';
 import { checkFillInTheBlankQuestion, } from 'quill-marking-logic'
 
-import { Feedback, Prompt, fillInBlankInputLabel, hashToCollection, } from '../../../Shared/index';
+import { Feedback, Prompt, fillInBlankInputLabel, fillInBlankInputWidth, hashToCollection, } from '../../../Shared/index';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import Cues from '../renderForQuestions/cues.jsx';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
@@ -141,9 +141,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     if (inputErrors.has(i)) {
       className += ' error'
     }
-    const longestCue = cues && cues.length ? cues.sort((a, b) => b.length - a.length)[0] : null
-    const width = longestCue ? (longestCue.length * 15) + 10 : 50
-    const styling = { width: `${width}px`}
+
+    const value = inputVals[i]
+
     return (
       <input
         aria-label={fillInBlankInputLabel(cues, blankAllowed)}
@@ -152,9 +152,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
         key={i + 100}
         onBlur={this.getBlurHandler(i)}
         onChange={this.getChangeHandler(i)}
-        style={styling}
+        style={fillInBlankInputWidth(value, cues)}
         type="text"
-        value={inputVals[i]}
+        value={value}
       />
     );
   }
