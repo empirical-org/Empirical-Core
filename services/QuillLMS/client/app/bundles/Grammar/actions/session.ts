@@ -199,7 +199,6 @@ export const handleProofreaderSession = (proofreaderSession, state) => {
         concepts[concept_uid] = { quantity }
       }
     })
-    debugger
     dispatch(saveProofreaderSessionToReducer(proofreaderSession))
     dispatch(getQuestionsForConcepts(concepts, 'production'))
   }
