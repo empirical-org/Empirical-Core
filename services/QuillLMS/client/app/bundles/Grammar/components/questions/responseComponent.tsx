@@ -148,7 +148,6 @@ class ResponseComponent extends React.Component {
 
   setResponsesLoaded() {
     this.setState({isLoadingResponses: false})
-    console.log("set loaded");
   }
 
   clearResponses() {

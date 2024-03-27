@@ -10,7 +10,6 @@ class ResponseComponentWrapper extends React.Component {
 
   getResponses = () => {
     const { responses } = this.state;
-    console.log(responses);
     return responses;
   };
 
