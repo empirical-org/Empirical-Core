@@ -44,6 +44,7 @@ import UnitTemplateCategoriesApp from './UnitTemplateCategoriesAppClient';
 import UploadRostersApp from '../../Staff/startup/UploadRostersAppClient';
 import StudentFeedbackModal from '../../Student/startup/StudentFeedbackModalAppClient';
 import StudentNavbarItems from '../../Student/startup/StudentNavbarItemsAppClient';
+import PremiumFooterApp from '../../Footer/startup/PremiumFooterAppClient.jsx';
 
 import '../styles/styles.scss';
 import '../../../assets/javascripts/clickHandlers.js'
@@ -56,6 +57,7 @@ ReactOnRails.register({
   LessonPlannerApp,
   TeacherAccountApp,
   ScorebookApp,
+  PremiumFooterApp,
   PremiumPricingGuideApp,
   ProgressReportApp,
   ResultsPageApp,
