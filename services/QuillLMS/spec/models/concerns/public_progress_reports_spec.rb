@@ -454,4 +454,103 @@ describe PublicProgressReports, type: :model do
     end
 
   end
+
+  describe '#get_final_attempt_feedback' do
+    let(:proofreader_activity) { create(:proofreader_activity)}
+    let(:connect_activity) { create(:connect_activity)}
+    let(:question_uid) { '123' }
+    let(:prompt_text) { 'This is my prompt text' }
+    let(:one) { 1 }
+    let(:zero) { 0 }
+    let(:final_attempt_number) {FakeReports::EVIDENCE_FINAL_ATTEMPT_NUMBER }
+    let(:not_final_attempt_number) { FakeReports::EVIDENCE_FINAL_ATTEMPT_NUMBER - 1 }
+
+    describe 'evidence activity' do
+      let(:evidence_activity) { create(:evidence_lms_activity)}
+      let!(:activity_session) { create(:activity_session, activity: evidence_activity) }
+
+      it 'should return the default evidence suboptimal final attempt feedback if the concept result is for the fifth attempt and the score is zero' do
+        expect(FakeReports.new.get_final_attempt_feedback(activity_session, question_uid, zero, prompt_text, final_attempt_number)).to eq(FakeReports::EVIDENCE_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+      end
+
+      it 'should not return the default evidence suboptimal final attempt feedback if the concept result is not for the fifth attempt' do
+        expect(FakeReports.new.get_final_attempt_feedback(activity_session, question_uid, zero, prompt_text, not_final_attempt_number)).not_to eq(FakeReports::EVIDENCE_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+      end
+
+      it 'should not return the default evidence suboptimal final attempt feedback if the score is greater than zero' do
+        expect(FakeReports.new.get_final_attempt_feedback(activity_session, question_uid, one, prompt_text, final_attempt_number)).not_to eq(FakeReports::EVIDENCE_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+      end
+    end
+
+    describe 'grammar activity' do
+      let(:grammar_activity) { create(:grammar_activity)}
+      let!(:activity_session) { create(:activity_session, activity: grammar_activity) }
+
+      it 'should return the default grammar optimal final attempt feedback if the score is greater than zero' do
+        expect(FakeReports.new.get_final_attempt_feedback(activity_session, question_uid, one, prompt_text, final_attempt_number)).to eq(FakeReports::GRAMMAR_OPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+      end
+
+      it 'should return the default grammar suboptimal final attempt feedback if the score is zero' do
+        expect(FakeReports.new.get_final_attempt_feedback(activity_session, question_uid, zero, prompt_text, final_attempt_number)).to eq(FakeReports::GRAMMAR_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+      end
+    end
+
+    describe 'proofreader activity' do
+      let(:proofreader_activity) { create(:proofreader_activity)}
+      let!(:activity_session) { create(:activity_session, activity: proofreader_activity) }
+
+      describe 'the question is a grammar question' do
+        let!(:question) { create(:question, question_type: Question::TYPE_GRAMMAR_QUESTION) }
+        it 'should return the default grammar optimal final attempt feedback if the score is greater than zero' do
+          expect(FakeReports.new.get_final_attempt_feedback(activity_session, question.uid, one, prompt_text, final_attempt_number)).to eq(FakeReports::GRAMMAR_OPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+        end
+
+        it 'should return the default grammar suboptimal final attempt feedback if the score is zero' do
+          expect(FakeReports.new.get_final_attempt_feedback(activity_session, question.uid, zero, prompt_text, final_attempt_number)).to eq(FakeReports::GRAMMAR_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+        end
+      end
+
+      describe 'the question is not a grammar question' do
+        it 'should return the default proofreader optimal final attempt feedback if the score is greater than zero' do
+          expect(FakeReports.new.get_final_attempt_feedback(activity_session, question_uid, one, prompt_text, final_attempt_number)).to eq(FakeReports::PROOFREADER_OPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+        end
+
+        it 'should return the default proofreader suboptimal final attempt feedback if the score is zero' do
+          expect(FakeReports.new.get_final_attempt_feedback(activity_session, question_uid, zero, prompt_text, final_attempt_number)).to eq(FakeReports::PROOFREADER_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+        end
+      end
+
+    end
+
+    describe 'connect activity' do
+      let(:connect_activity) { create(:connect_activity)}
+      let!(:activity_session) { create(:activity_session, activity: connect_activity) }
+
+      describe 'the question is a sentence combining question' do
+        let!(:question) { create(:question, question_type: Question::TYPE_CONNECT_SENTENCE_COMBINING) }
+
+        it 'should return the default connect optimal final attempt feedback if the score is greater than zero' do
+          expect(FakeReports.new.get_final_attempt_feedback(activity_session, question.uid, one, prompt_text, final_attempt_number)).to eq(FakeReports::CONNECT_OPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+        end
+
+        it 'should return the default connect sentence combining suboptimal final attempt feedback if the score is zero' do
+          expect(FakeReports.new.get_final_attempt_feedback(activity_session, question.uid, zero, prompt_text, final_attempt_number)).to eq(FakeReports::CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_SENTENCE_COMBINING_FEEDBACK)
+        end
+      end
+
+      describe 'the question is a fill in the blank question' do
+        let!(:question) { create(:question, question_type: Question::TYPE_CONNECT_FILL_IN_BLANKS) }
+
+        it 'should return the default connect optimal final attempt feedback if the score is greater than zero' do
+          expect(FakeReports.new.get_final_attempt_feedback(activity_session, question.uid, one, prompt_text, final_attempt_number)).to eq(FakeReports::CONNECT_OPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+        end
+
+        it 'should return the default connect sentence combining suboptimal final attempt feedback if the score is zero' do
+          expect(FakeReports.new.get_final_attempt_feedback(activity_session, question.uid, zero, prompt_text, final_attempt_number)).to eq(FakeReports::CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK)
+        end
+      end
+
+    end
+
+  end
 end

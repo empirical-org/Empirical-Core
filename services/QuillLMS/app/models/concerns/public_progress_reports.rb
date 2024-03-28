@@ -6,6 +6,16 @@ module PublicProgressReports
 
   extend ActiveSupport::Concern
 
+  GRAMMAR_OPTIMAL_FINAL_ATTEMPT_FEEDBACK = "Well done! That's the correct answer."
+  GRAMMAR_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK = "Good try! Compare your response to the strong responses, and then go to on to the next question."
+  PROOFREADER_OPTIMAL_FINAL_ATTEMPT_FEEDBACK = "Correct"
+  PROOFREADER_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK = "Incorrect"
+  CONNECT_OPTIMAL_FINAL_ATTEMPT_FEEDBACK = "That's a strong sentence!"
+  CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_SENTENCE_COMBINING_FEEDBACK = "Nice try. Let's try a multiple choice question."
+  CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK =  "Good try! Compare your response to the strong responses, and then go to on to the next question."
+  EVIDENCE_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK = "You completed five revisions!"
+  EVIDENCE_FINAL_ATTEMPT_NUMBER = 5
+
   def last_completed_diagnostic
     diagnostic_activity_ids = Activity.diagnostic_activity_ids
     current_user.classroom_units
@@ -255,11 +265,13 @@ module PublicProgressReports
       cr.sort!{|x,y| (x.attempt_number || 0) <=> (y.attempt_number || 0)}
       directfirst = cr.first.concept_result_directions&.text || cr.first.concept_result_instructions&.text || ""
       prompt_text = cr.first.concept_result_prompt&.text
+      score = get_score_for_question(cr)
+      question_uid = cr.first.extra_metadata ? cr.first.extra_metadata['question_uid'] : nil
       hash = {
         directions: directfirst.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", ""),
         prompt: prompt_text,
         answer: cr.first.answer,
-        score: get_score_for_question(cr),
+        score: score,
         key_target_skill_concept: get_key_target_skill_concept_for_question(cr, activity_session),
         concepts: cr.map { |crs|
           attempt_number = crs.attempt_number
@@ -270,13 +282,14 @@ module PublicProgressReports
             correct: crs.correct,
             feedback: get_feedback_from_feedback_history(activity_session, prompt_text, attempt_number),
             lastFeedback: crs.concept_result_previous_feedback&.text,
+            finalAttemptFeedback: get_final_attempt_feedback(activity_session, question_uid, score, prompt_text, attempt_number),
             attempt: attempt_number || 1,
             answer: crs.answer,
             directions: direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
           }
         },
         question_number: cr.first.question_number,
-        question_uid: cr.first.extra_metadata ? cr.first.extra_metadata['question_uid'] : nil
+        question_uid: question_uid
       }
       if cr.first.question_score
         hash[:questionScore] = cr.first.question_score
@@ -285,6 +298,35 @@ module PublicProgressReports
     }
   end
   # rubocop:enable Metrics/CyclomaticComplexity
+
+  def get_final_attempt_feedback(activity_session, question_uid, score, prompt_text, attempt_number)
+    question = question_uid ? Question.find_by_uid(question_uid) : nil
+
+    case activity_session&.classification
+    when ActivityClassification.evidence
+      return get_max_attempts_feedback_from_activity_session_and_prompt_text(activity_session, prompt_text) if score == 0 && attempt_number == EVIDENCE_FINAL_ATTEMPT_NUMBER
+      get_feedback_from_feedback_history(activity_session, prompt_text, attempt_number)
+
+    when ActivityClassification.grammar
+      score > 0 ? GRAMMAR_OPTIMAL_FINAL_ATTEMPT_FEEDBACK : GRAMMAR_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK
+
+    when ActivityClassification.proofreader
+      # proofreader sessions sometimes includes grammar questions as follow-up, so we have to determine what type of question it is
+      if question&.question_type == Question::TYPE_GRAMMAR_QUESTION
+        score > 0 ? GRAMMAR_OPTIMAL_FINAL_ATTEMPT_FEEDBACK : GRAMMAR_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK
+      else
+        score > 0 ? PROOFREADER_OPTIMAL_FINAL_ATTEMPT_FEEDBACK : PROOFREADER_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK
+      end
+
+    when ActivityClassification.connect
+      if score > 0
+        CONNECT_OPTIMAL_FINAL_ATTEMPT_FEEDBACK
+      else
+        question&.question_type == Question::TYPE_CONNECT_SENTENCE_COMBINING ? CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_SENTENCE_COMBINING_FEEDBACK : CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK
+      end
+
+    end
+  end
 
   def get_key_target_skill_concept_for_question(concept_results, activity_session)
     default = {
@@ -322,12 +364,21 @@ module PublicProgressReports
     feedback_histories = activity_session.feedback_histories
     return "" if feedback_histories.empty? || prompt_text.blank? || attempt_number.blank?
 
-    prompt_ids = activity_session.activity.child_activity.prompt_ids
-    prompt = Evidence::Prompt.where(id: prompt_ids, text: prompt_text)&.first
+    prompt = get_evidence_prompt_from_activity_and_prompt_text(activity_session, prompt_text)
     feedback_history = feedback_histories.select {|fh| fh.attempt == attempt_number.to_i && fh.prompt_id == prompt&.id }&.first
     feedback_history&.feedback_text
   end
   # rubocop:enable Metrics/CyclomaticComplexity
+
+  def get_max_attempts_feedback_from_activity_session_and_prompt_text(activity_session, prompt_text)
+    prompt = get_evidence_prompt_from_activity_and_prompt_text(activity_session, prompt_text)
+    prompt&.max_attempts_feedback || EVIDENCE_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK
+  end
+
+  def get_evidence_prompt_from_activity_and_prompt_text(activity_session, prompt_text)
+    prompt_ids = activity_session.activity.child_activity&.prompt_ids
+    Evidence::Prompt.where(id: prompt_ids, text: prompt_text)&.first
+  end
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def generate_recommendations_for_classroom(current_user, unit_id, classroom_id, activity_id)

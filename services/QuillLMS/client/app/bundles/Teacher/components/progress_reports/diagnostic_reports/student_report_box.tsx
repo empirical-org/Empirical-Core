@@ -43,15 +43,13 @@ const StudentReportBox = ({ questionData, boxNumber, showScore, showDiff, }) => 
         <tr className={classNameAndText} key={key || ''}>
           <td>{classNameAndText}</td>
           <td />
-          <td>{formatString(directionsOrFeedback)}</td>
+          <td><div dangerouslySetInnerHTML={{ __html: directionsOrFeedback }} /></td>
         </tr>
       )
     }
   }
 
   function feedbackRow(attemptNum, conceptsByAttempt) {
-    const maxAttemptsIncorrectFeedback = 'Nice effort! You worked hard to make your sentence stronger.'
-
     let currAttempt = conceptsByAttempt[attemptNum]
     let nextAttempt = conceptsByAttempt[attemptNum + 1]
 
@@ -63,13 +61,12 @@ const StudentReportBox = ({ questionData, boxNumber, showScore, showDiff, }) => 
       while (!feedback && nextAttempt[index]) {
         // in some legacy data, we were not storing feedback in lastFeedback, but in directions.
         // so the second clause accounts for legacy data without lastFeedback fields.
+        // this is also true for Evidence activities, at least as of 04/28/24
         feedback = nextAttempt[index].lastFeedback || nextAttempt[index].directions
         index += 1;
       }
-    } else if (currAttempt[0].feedback) {
-      // this is the last attempt, so if it was incorrect then we return the default max attempts feedback
-      // that the student saw
-      feedback = currAttempt[0].correct ? currAttempt[0].feedback : maxAttemptsIncorrectFeedback
+    } else if (currAttempt[0].finalAttemptFeedback) {
+      feedback = currAttempt[0].finalAttemptFeedback
     }
     // sometimes feedback is coming through as a react variable, I've been unable to find the source of it
     if (feedback && typeof feedback === 'string') {
