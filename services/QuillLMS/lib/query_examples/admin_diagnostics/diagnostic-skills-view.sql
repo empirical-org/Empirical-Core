@@ -1,8 +1,8 @@
         /*
-           Data Processed By Query: 1.64 GB
+           Data Processed By Query: 1.59 GB
            Bytes Billed For Query:  0.23 GB
-           Total Query Time:        1733 ms
-           Total Slot Time:         2349 ms
+           Total Query Time:        1800 ms
+           Total Slot Time:         3108 ms
            BI Engine Mode Used:     FULL_INPUT
              BI Engine Code:          
              BI Engine Message:       
@@ -16,6 +16,7 @@
         COUNT(DISTINCT performance.post_activity_session_id) AS post_students_completed,
         ROUND(SAFE_DIVIDE(SUM(performance.pre_questions_correct), CAST(SUM(performance.pre_questions_total) AS float64)), 2) AS pre_score,
         ROUND(SAFE_DIVIDE(SUM(performance.post_questions_correct), CAST(SUM(performance.post_questions_total) AS float64)), 2) AS post_score,
+        ROUND(SAFE_DIVIDE(SUM(CASE WHEN performance.post_activity_session_id IS NOT NULL THEN performance.pre_questions_correct ELSE NULL END), CAST(SUM(CASE WHEN performance.post_activity_session_id IS NOT NULL THEN performance.pre_questions_total ELSE NULL END) AS float64)), 2) AS pre_score_completed_post,
         /*
         The value below is used to duplicate growth percentage calculations from teacher reports:
           It is intended to work only when aggregated at the Skill Group level
@@ -54,7 +55,7 @@
           NULL as aggregate_id,
           'ROLLUP' AS name,
           group_by,
-          SUM(pre_students_completed) AS pre_students_completed, SUM(post_students_completed) AS post_students_completed, SUM(pre_students_completed * pre_score) / SUM(pre_students_completed) AS pre_score, SUM(post_students_completed * post_score) / SUM(post_students_completed) AS post_score, SUM(post_students_completed * growth_percentage) / SUM(post_students_completed) AS growth_percentage, SUM(maintained_proficiency) AS maintained_proficiency, SUM(improved_proficiency) AS improved_proficiency, SUM(recommended_practice) AS recommended_practice
+          SUM(pre_students_completed) AS pre_students_completed, SUM(post_students_completed) AS post_students_completed, SUM(pre_students_completed * pre_score) / SUM(pre_students_completed) AS pre_score, SUM(post_students_completed * post_score) / SUM(post_students_completed) AS post_score, SUM(post_students_completed * pre_score_completed_post) / SUM(post_students_completed) AS pre_score_completed_post, SUM(post_students_completed * growth_percentage) / SUM(post_students_completed) AS growth_percentage, SUM(maintained_proficiency) AS maintained_proficiency, SUM(improved_proficiency) AS improved_proficiency, SUM(recommended_practice) AS recommended_practice
         FROM aggregate_rows
         GROUP BY skill_group_name, group_by
         UNION ALL
