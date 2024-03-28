@@ -34,7 +34,7 @@ describe('studentwiseSkillGroupUDF', () => {
 
     const result = studentwiseSkillGroupUDF(zipped);
     const parsedResult = JSON.parse(result)
-    expect(parsedResult.Capitalization_tier).toEqual("0%")
+    expect(parsedResult.Capitalization_tier).toEqual("0/7")
   })
 
 
@@ -104,35 +104,21 @@ describe('parseElement', () => {
 
 describe('findLastIndex', () => {
   it('should return the correct index', () => {
-    const finderFn = (x) => x == 4
+    const finderFn = (x) => x === 4
     const arr = [2, 4, 6, 4]
     expect(findLastIndex(arr, 0, finderFn)).toEqual(3)
   })
 
   it('should return the correct index, with 2-element array', () => {
-    const finderFn = (x) => x == 4
+    const finderFn = (x) => x === 4
     const arr = [2, 4]
     expect(findLastIndex(arr, 0, finderFn)).toEqual(1)
   })
 
   it('should return the correct index, with 1-element array', () => {
-    const finderFn = (x) => x == 4
+    const finderFn = (x) => x === 4
     const arr = [2, 4]
     expect(findLastIndex(arr, 1, finderFn)).toEqual(1)
   })
 })
 
-describe('tierUDF', () => {
-  it('should output the correct tier', () => {
-    expect(tierUDF(0, 3)).toEqual("0%")
-    expect(tierUDF(3, 10)).toEqual("21-30%")
-    expect(tierUDF(81, 100)).toEqual("81-90%")
-  })
-
-  it('should return -1 for invalid inputs', () => {
-    // expect(tierUDF('a', 3)).toEqual("-1")
-    // expect(tierUDF(3, 'a')).toEqual("-1")
-    // expect(tierUDF(3, 0)).toEqual("-1")
-    // expect(tierUDF(120, 10)).toEqual("-1")
-  })
-})

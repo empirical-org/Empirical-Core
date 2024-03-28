@@ -76,26 +76,26 @@ export function studentwiseSkillGroupUDF(elements) {
   //source: https://docs.google.com/spreadsheets/d/1JFey0UpMkmPzkQtZKsr_FdXRXnNEDFXZe52H7dUMg9E/edit#gid=0
   const skillGroupsByActivity = {
     1161: [
-      { name: 'Sentences with To Be' },
-      { name: 'Sentences With Have' },
-      { name: 'Sentences With Want' },
-      { name: 'Listing Adjectives and Nouns' },
-      { name: 'Writing Questions' }
+      { name: 'Sentences with To Be', activities: [1096, 1097, 1098, 1099, 1100, 1101, 1137, 1102, 1103, 1104, 1105, 1144, 1106, 1107, 1108] },
+      { name: 'Sentences With Have', activities: []  },
+      { name: 'Sentences With Want', activities: []  },
+      { name: 'Listing Adjectives and Nouns', activities: [1134, 1135, 1156, 1157, 1158, 1159, 1160]  },
+      { name: 'Writing Questions', activities: []  }
     ],
     1568: [
-      { name: 'Subject-Verb Agreement' },
-      { name: 'Possessive Nouns and Pronouns' },
-      { name: 'Prepositions' },
-      { name: 'Future Tense' },
-      { name: 'Articles' },
-      { name: 'Writing Questions' }
+      { name: 'Subject-Verb Agreement', activities: [1541, 1543, 1546]  },
+      { name: 'Possessive Nouns and Pronouns', activities: [1544, 1545, 1550, 1547]  },
+      { name: 'Prepositions', activities: [1551, 1552, 1553, 1554, 1555, 1557, 1558, 1548]  },
+      { name: 'Future Tense', activities: [1559, 1560, 1561, 1563]  },
+      { name: 'Articles', activities: [1567, 1569, 1562, 1564]  },
+      { name: 'Writing Questions', activities: [1571, 1570, 1573, 1549]  }
     ],
     1590: [
-      { name: 'Regular Past Tense' },
-      { name: 'Irregular Past Tense' },
-      { name: 'Progressive Tense' },
-      { name: 'Phrasal Verbs' },
-      { name: 'ELL-Specific Skills' }
+      { name: 'Regular Past Tense', activities: []  },
+      { name: 'Irregular Past Tense', activities: []  },
+      { name: 'Progressive Tense', activities: []  },
+      { name: 'Phrasal Verbs', activities: []  },
+      { name: 'ELL-Specific Skills', activities: []  }
     ],
     1663: [
       { name: 'Commonly Confused Words', activities: [113, 111, 107, 112] },
@@ -107,22 +107,22 @@ export function studentwiseSkillGroupUDF(elements) {
       { name: 'Subject-Verb Agreement', activities: [1054, 742, 2506] }
     ],
     1668: [
-      { name: 'Compound Subjects, Objects, and Predicates' },
-      { name: 'Compound Sentences' },
-      { name: 'Complex Sentences' },
-      { name: 'Conjunctive Adverbs' },
-      { name: 'Parallel Structure' },
-      { name: 'Capitalization' },
-      { name: 'Subject-Verb Agreement' },
-      { name: 'Nouns, Pronouns, and Verbs' }
+      { name: 'Compound Subjects, Objects, and Predicates', activities: [435, 436, 434, 837, 1005]  },
+      { name: 'Compound Sentences', activities: [424, 426, 428, 429, 430, 776]  },
+      { name: 'Complex Sentences', activities: [417, 418, 1221, 2502, 2498, 2500, 2496, 2497, 2501, 2499]  },
+      { name: 'Conjunctive Adverbs', activities: [755, 759, 851, 863, 757, 985, 986, 861, 993]  },
+      { name: 'Parallel Structure', activities: [752, 754]  },
+      { name: 'Capitalization', activities: [841, 2495, 887, 886, 840]  },
+      { name: 'Subject-Verb Agreement', activities: [770, 769, 774, 772, 896]  },
+      { name: 'Nouns, Pronouns, and Verbs', activities: [1486, 1452, 1487, 1488, 848, 1308, 737, 1425, 1345, 2245]  }
     ],
     1678: [
-      { name: 'Compound-Complex Sentences' },
-      { name: 'Appositive Phrases' },
-      { name: 'Relative Clauses' },
-      { name: 'Participial Phrases' },
-      { name: 'Parallel Structure' },
-      { name: 'Advanced Combining' }
+      { name: 'Compound-Complex Sentences', activities: [653, 862, 868, 869]  },
+      { name: 'Advanced Combining', activities: [1414, 1283, 1281, 1223, 1441] },
+      { name: 'Appositive Phrases', activities: [1211, 1220, 1213, 1212, 1214]  },
+      { name: 'Relative Clauses', activities: [594, 595, 596, 1049, 598, 1002]  },
+      { name: 'Participial Phrases', activities: [443, 450, 1237, 876, 878]  },
+      { name: 'Parallel Structure', activities: [752, 754, 1235]  }
     ]
   }
 
@@ -190,30 +190,7 @@ export function studentwiseSkillGroupUDF(elements) {
   function getSkillTier (interDiagnosticActivities, skillRecommendedActivities) {
     const intersection = interDiagnosticActivities.map(x => x.activityId).filter(x => skillRecommendedActivities.includes(x))
     const percentageToInteger = [... new Set(intersection)].length / skillRecommendedActivities.length * 100
-
-    if (percentageToInteger === 0 ) { return "0%" }
-    if (percentageToInteger === 100 ) { return "100%" }
-
-    const tiers = {
-      "1-10%":    { from: 0, to: 11},
-      "11-20%":   { from: 11, to: 21},
-      "21-30%":   { from: 21, to: 31},
-      "31-40%":   { from: 31, to: 41},
-      "41-50%":   { from: 41, to: 51},
-      "51-60%":   { from: 51, to: 61},
-      "61-70%":   { from: 61, to: 71},
-      "71-80%":   { from: 71, to: 81},
-      "81-90%":   { from: 81, to: 91},
-      "91-99%":   { from: 91, to: 100}
-    }
-
-    for (const [tierName, value] of Object.entries(tiers)) {
-      if (percentageToInteger >= value.from && percentageToInteger < value.to) {
-        return tierName
-      }
-    }
-
-    return `${percentageToInteger}`
+    return `${[... new Set(intersection)].length}/${skillRecommendedActivities.length}`
   }
 
   const skillScores = skillGroupsByActivity[PRE_DIAGNOSTIC_ACTIVITY_ID].reduce(
@@ -240,44 +217,3 @@ export function studentwiseSkillGroupUDF(elements) {
     }
   )
 }
-
-// params: numAssignedRecommendedCompleted STRING, recommendedActivityCount STRING
-export function tierUDF(numAssignedRecommendedCompleted, recommendedActivityCount) {
-  const completedCount = parseInt(numAssignedRecommendedCompleted)
-  const activityCount = parseInt(recommendedActivityCount)
-
-  if (isNaN(completedCount) ||
-      isNaN(activityCount) ||
-      activityCount < 1 ||
-      completedCount < 0
-  ) {
-    return "-1"
-  }
-  const percentage = completedCount / activityCount * 100
-
-  if (percentage === 0 ) { return "0%" }
-  if (percentage === 100 ) { return "100%" }
-
-  const tiers = {
-    "1-10%":    { from: 0, to: 11},
-    "11-20%":   { from: 11, to: 21},
-    "21-30%":   { from: 21, to: 31},
-    "31-40%":   { from: 31, to: 41},
-    "41-50%":   { from: 41, to: 51},
-    "51-60%":   { from: 51, to: 61},
-    "61-70%":   { from: 61, to: 71},
-    "71-80%":   { from: 71, to: 81},
-    "81-90%":   { from: 81, to: 91},
-    "91-99%":   { from: 91, to: 100}
-  }
-
-  for (const [tierName, value] of Object.entries(tiers)) {
-    if (percentage >= value.from && percentage < value.to) {
-      return tierName
-    }
-  }
-
-  return `${percentage}`
-}
-
-
