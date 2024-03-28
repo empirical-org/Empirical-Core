@@ -33,11 +33,11 @@ module AdminDiagnosticReports
         GREATEST(
           SAFE_DIVIDE(SUM(performance.post_questions_correct), CAST(SUM(performance.post_questions_total) AS float64))
             - SAFE_DIVIDE(SUM(CASE WHEN performance.post_activity_session_id IS NOT NULL THEN performance.pre_questions_correct ELSE NULL END),
-                CAST(SUM(CASE WHEN performance.post_activity_session_id IS NOT NULL THEN performance.pre_questions_total ELSE NULL END) AS float64)),
+              CAST(SUM(CASE WHEN performance.post_activity_session_id IS NOT NULL THEN performance.pre_questions_total ELSE NULL END) AS float64)),
         0) AS growth_percentage,
-        COUNT(DISTINCT CASE WHEN (pre_questions_correct = pre_questions_total AND post_questions_correct = post_questions_total) THEN performance.student_id ELSE NULL END) AS maintained_proficiency,
-        COUNT(DISTINCT CASE WHEN (pre_questions_correct < pre_questions_total AND post_questions_correct > pre_questions_correct) THEN performance.student_id ELSE NULL END) AS improved_proficiency,
-        COUNT(DISTINCT CASE WHEN (post_questions_correct < pre_questions_correct OR (pre_questions_correct < pre_questions_total AND post_questions_correct = pre_questions_correct)) THEN performance.student_id ELSE NULL END) AS recommended_practice
+        COUNT(DISTINCT CASE WHEN (pre_questions_correct = pre_questions_total AND post_questions_correct = post_questions_total) THEN CONCAT(performance.classroom_id, ':', performance.student_id) ELSE NULL END) AS maintained_proficiency,
+        COUNT(DISTINCT CASE WHEN (pre_questions_correct < pre_questions_total AND post_questions_correct > pre_questions_correct) THEN CONCAT(performance.classroom_id, ':', performance.student_id) ELSE NULL END) AS improved_proficiency,
+        COUNT(DISTINCT CASE WHEN (post_questions_correct < pre_questions_correct OR (pre_questions_correct < pre_questions_total AND post_questions_correct = pre_questions_correct)) THEN CONCAT(performance.classroom_id, ':', performance.student_id) ELSE NULL END) AS recommended_practice
       SQL
     end
 
