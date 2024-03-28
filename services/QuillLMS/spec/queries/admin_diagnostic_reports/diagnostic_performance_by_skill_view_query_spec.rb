@@ -75,40 +75,39 @@ module AdminDiagnosticReports
         end
       end
 
-    # TODO: A specific case that's not currently written up that we need to address is when a teacher has two different Diagnostics in the same ClassroomUnit.  We want to make sure that the data doesn't get contaminated with over-eager joins in this case
-    #  # TODO: Here's a list of edge cases we should consider covering once runtimes are reasonable
-    #  # no completed activity_sessions
-    #  # pre activity_sessions only
-    #  ## count total questions
-    #  ### with multiple attempts
-    #  ## count total correct answers
-    #  ### with multiple attempts
-    #  # pre and post activity_sessions
-    #  ## count total questions
-    #  ### with multiple attempts
-    #  ## count total correct answers
-    #  ### with multiple attempts
-    #  # pre and post activity sessions plus second pre
-    #  # two sets of pre and post activity_sessions
-    #  # score calculations
-    #  ## pre activity_session only
-    #  ## pre and post activity_sessions
-    #  # growth percentage logic
-    #  ## pre activity_session only
-    #  ## 0 score for pre
-    #  ### partial score for post
-    #  ### full score for post
-    #  ## partial score for pre
-    #  ### lower score for post
-    #  ### equal score for post
-    #  ### higher score for post
-    #  ### max score for post
-    #  ## max score for pre
-    #  ### lower score for post
-    #  ### same score for post
-    #  ### higher score for post
-    #  ### max score for pre
-
+      # TODO: A specific case that's not currently written up that we need to address is when a teacher has two different Diagnostics in the same ClassroomUnit.  We want to make sure that the data doesn't get contaminated with over-eager joins in this case
+      #  # TODO: Here's a list of edge cases we should consider covering once runtimes are reasonable
+      #  # no completed activity_sessions
+      #  # pre activity_sessions only
+      #  ## count total questions
+      #  ### with multiple attempts
+      #  ## count total correct answers
+      #  ### with multiple attempts
+      #  # pre and post activity_sessions
+      #  ## count total questions
+      #  ### with multiple attempts
+      #  ## count total correct answers
+      #  ### with multiple attempts
+      #  # pre and post activity sessions plus second pre
+      #  # two sets of pre and post activity_sessions
+      #  # score calculations
+      #  ## pre activity_session only
+      #  ## pre and post activity_sessions
+      #  # growth percentage logic
+      #  ## pre activity_session only
+      #  ## 0 score for pre
+      #  ### partial score for post
+      #  ### full score for post
+      #  ## partial score for pre
+      #  ### lower score for post
+      #  ### equal score for post
+      #  ### higher score for post
+      #  ### max score for post
+      #  ## max score for pre
+      #  ### lower score for post
+      #  ### same score for post
+      #  ### higher score for post
+      #  ### max score for pre
     end
   end
 end
