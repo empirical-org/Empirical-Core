@@ -26,6 +26,9 @@ module Evidence
         it { should validate_presence_of(:llm_prompt_id) }
         it { should validate_presence_of(:passage_prompt_id) }
         it { should validate_inclusion_of(:status).in_array(described_class::STATUSES) }
+        it { should have_readonly_attribute(:llm_config_id) }
+        it { should have_readonly_attribute(:llm_prompt_id) }
+        it { should have_readonly_attribute(:passage_prompt_id) }
 
         it { belong_to(:llm_config).class_name('Evidence::Research::GenAI::LLMConfig') }
         it { belong_to(:llm_prompt).class_name('Evidence::Research::GenAI::LLMPrompt') }
@@ -35,6 +38,18 @@ module Evidence
           have_many(:passage_prompt_responses)
             .class_name('Evidence::Research::GenAI::PassagePromptResponse')
             .through(:passage_prompt)
+        end
+
+        it do
+          have_many(:llm_feedbacks)
+            .class_name('Evidence::Research::GenAI::LLMPromptFeedback')
+            .through(:passage_prompt_responses)
+        end
+
+        it do
+          have_many(:example_feedbacks)
+            .class_name('Evidence::Research::GenAI::ExampleFeedback')
+            .through(:passage_prompt_responses)
         end
 
         it { expect(build(:evidence_research_gen_ai_experiment)).to be_valid }
