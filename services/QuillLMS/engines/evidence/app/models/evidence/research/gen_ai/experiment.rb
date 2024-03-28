@@ -65,7 +65,7 @@ module Evidence
 
         private def create_llm_prompt_responses_feedbacks(limit:)
           passage_prompt_responses.limit(limit).each do |passage_prompt_response|
-            feedback = llm_client.run(prompt: llm_prompt.feedback_prompt(passage_prompt_response.response))
+            feedback = llm_client.run(prompt: llm_prompt.prompt_response_coda(passage_prompt_response.response))
             LLMFeedback.create!(text: feedback, passage_prompt_response:)
           end
         end

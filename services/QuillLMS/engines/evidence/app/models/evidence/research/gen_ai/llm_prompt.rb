@@ -21,7 +21,7 @@ module Evidence
 
         attr_readonly :prompt, :llm_prompt_template_id
 
-        delegate :description, to: :llm_prompt_template
+        delegate :coda, :description, to: :llm_prompt_template
 
         def self.create_from_template!(llm_prompt_template_id:, passage_prompt_id:)
           create!(
@@ -30,8 +30,7 @@ module Evidence
            )
         end
 
-        def feedback_prompt(response) = "#{prompt}\n\nResponse: #{response}\nFeedback:"
-        def evaluation_prompt(response) = "#{prompt}\n\nResponse: #{response}\nParaphrase:"
+        def prompt_response_coda(response) = "#{prompt}\n\nResponse: #{response}\n#{coda}:"
 
         def to_s = prompt
       end

@@ -1041,7 +1041,8 @@ CREATE TABLE public.evidence_research_gen_ai_llm_prompt_templates (
     description text NOT NULL,
     contents text NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    coda character varying DEFAULT 'feedback'::character varying NOT NULL
 );
 
 
@@ -2067,6 +2068,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240318141942'),
 ('20240318143146'),
 ('20240318144447'),
-('20240328124638');
+('20240328124638'),
+('20240328185342');
 
 

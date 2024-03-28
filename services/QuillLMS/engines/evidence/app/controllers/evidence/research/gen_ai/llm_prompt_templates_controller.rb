@@ -6,6 +6,7 @@ module Evidence
       class LLMPromptTemplatesController < ApplicationController
         def new
           @llm_prompt_template = LLMPromptTemplate.new
+          @codas = LLMPromptTemplate::CODAS
         end
 
         def create
