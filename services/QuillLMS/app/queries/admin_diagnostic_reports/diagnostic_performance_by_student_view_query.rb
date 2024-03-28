@@ -7,6 +7,7 @@ module AdminDiagnosticReports
     attr_reader :diagnostic_id
 
     AGGREGATE_COLUMN = :student_id
+    MAX_STUDENTS_TO_RETURN = 500
 
     def initialize(diagnostic_id:, **options)
       raise InvalidDiagnosticIdError, "#{diagnostic_id} is not a valid diagnostic_id value." unless DIAGNOSTIC_ORDER_BY_ID.include?(diagnostic_id.to_i)
@@ -95,6 +96,7 @@ module AdminDiagnosticReports
       result.group_by { |row| "#{row[:classroom_id]}:#{row[self.class::AGGREGATE_COLUMN]}" }
         .values
         .map { |group_rows| build_diagnostic_aggregates(group_rows) }
+        .slice(0, MAX_STUDENTS_TO_RETURN)
     end
 
     private def valid_aggregation_options = ['student']
