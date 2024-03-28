@@ -79,7 +79,7 @@ export const incrementRequestCount = () => {
   return { type: ActionTypes.INCREMENT_REQUEST_COUNT }
 }
 
-export const searchResponses = (qid: string) => {
+export const searchResponses = (qid: string, callback: Function) => {
   return (dispatch: Function, getState: Function) => {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
@@ -103,6 +103,7 @@ export const searchResponses = (qid: string) => {
             numberOfPages: data.numberOfPages,
           };
           dispatch(updateResponses(responseData));
+          callback();
         }
       }
     );

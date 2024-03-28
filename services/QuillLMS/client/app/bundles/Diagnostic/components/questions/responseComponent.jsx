@@ -6,6 +6,7 @@ import {
   QuestionBar,
   ResponseSortFields,
   ResponseToggleFields,
+  Spinner,
   hashToCollection,
   responsesWithStatus,
 } from '../../../Shared/index';
@@ -56,7 +57,8 @@ class ResponseComponent extends React.Component {
       health: {},
       gradeBreakdown: {},
       enableRematchAllButton: true,
-      responses: this.props.filters.responses
+      responses: this.props.filters.responses,
+      isLoadingResponses: false
     };
   }
 
@@ -70,14 +72,7 @@ class ResponseComponent extends React.Component {
   componentDidUpdate(prevProps) {
     const { filters } = this.props
 
-    // remove text field when comparing, since sometimes the text search can change without necessarilly requiring
-    // a new search (e.g when admin is typing)
-    const { ["text"]: unused, ...prevFiltersWithoutText } = prevProps.filters.formattedFilterData;
-    const { ["text"]: unused2, ...currFiltersWithoutText } = filters.formattedFilterData;
-
-    if (!_.isEqual(prevFiltersWithoutText, currFiltersWithoutText)) {
-      this.searchResponses();
-    } else if (this.props.states[this.props.questionID] === C.SHOULD_RELOAD_RESPONSES && prevProps.states[prevProps.questionID] !== C.SHOULD_RELOAD_RESPONSES) {
+    if (this.props.states[this.props.questionID] === C.SHOULD_RELOAD_RESPONSES && prevProps.states[prevProps.questionID] !== C.SHOULD_RELOAD_RESPONSES) {
       this.props.dispatch(questionActions.clearQuestionState(this.props.questionID));
       this.searchResponses();
     } else if (!_.isEqual(filters.responses, prevProps.filters.responses)) {
@@ -122,10 +117,17 @@ class ResponseComponent extends React.Component {
     this.props.dispatch(questionActions.updateResponses({ responses: [], numberOfResponses: 0, numberOfPages: 1, responsePageNumber: 1, }));
   };
 
+  setResponsesLoaded = () => {
+    this.setState({isLoadingResponses: false})
+  }
+
   searchResponses = () => {
     const { dispatch, questionID } = this.props;
+
+    this.setState({isLoadingResponses: true})
+
     dispatch(questionActions.incrementRequestCount())
-    dispatch(questionActions.searchResponses(questionID));
+    dispatch(questionActions.searchResponses(questionID, this.setResponsesLoaded));
   }
 
   getTotalAttempts = () => {
@@ -240,7 +242,17 @@ class ResponseComponent extends React.Component {
   };
 
   renderResponses = () => {
-    if (this.state.viewingResponses) {
+    const { isLoadingResponses, viewingResponses } = this.state
+
+    if (isLoadingResponses && viewingResponses) {
+      return (
+        <div className="loading-spinner-container">
+          <Spinner />
+        </div>
+      );
+    }
+
+    if (viewingResponses) {
       const { responses } = this.state;
       const { questionID, selectedIncorrectSequences, selectedFocusPoints } = this.props;
       const sortedResponses = _.sortBy(hashToCollection(responses), 'sortOrder')
@@ -483,6 +495,7 @@ class ResponseComponent extends React.Component {
 
   updatePageNumber = pageNumber => {
     this.props.dispatch(questionActions.updatePageNumber(pageNumber));
+    this.searchResponses();
   };
 
   incrementPageNumber = () => {
@@ -574,6 +587,18 @@ class ResponseComponent extends React.Component {
     );
   };
 
+  showResults = () => {
+    this.searchResponses();
+  }
+
+  renderShowResultsButton = () => {
+    return (
+      <div className="show-results-container">
+        <a className="button is-outlined is-primary search" onClick={this.showResults}>Show Results</a>
+      </div>
+    );
+  }
+
   render() {
     const { filters, mode } = this.props;
     const { responses, stringFilter } = filters;
@@ -589,38 +614,40 @@ class ResponseComponent extends React.Component {
         <h4 className="title is-5" >
           Overview - Total Attempts: <strong>{this.getTotalAttempts()}</strong> | Unique Responses: <strong>{this.getResponseCount()}</strong> | Percentage of weak responses: <strong>{this.getPercentageWeakResponses()}%</strong>
         </h4>
-        <div className="tabs is-toggle is-fullwidth">
-          {this.renderStatusToggleMenu()}
-        </div>
-        <div className="columns">
-          <div className="column">
-            <div className="tabs is-toggle is-fullwidth">
-              {this.renderSortingFields()}
-            </div>
+        <div className="filters-and-sorting-container">
+          <div className="tabs is-toggle is-fullwidth">
+            {this.renderStatusToggleMenu()}
           </div>
-          <div className="column">
-            <div className="columns">
-              <div className="column">
-                {this.renderExpandCollapseAll()}
+          <div className="columns">
+            <div className="column">
+              <div className="tabs is-toggle is-fullwidth">
+                {this.renderSortingFields()}
               </div>
-              {this.renderResetAllFiltersButton()}
-              {this.renderDeselectAllFiltersButton()}
-              {showPosOrUniqueButton}
+            </div>
+            <div className="column">
+              <div className="columns">
+                <div className="column">
+                  {this.renderExpandCollapseAll()}
+                </div>
+                {this.renderResetAllFiltersButton()}
+                {this.renderDeselectAllFiltersButton()}
+                {showPosOrUniqueButton}
+              </div>
             </div>
           </div>
+          <div className="search-container">
+            <input
+              className="input"
+              onChange={this.handleStringFiltering}
+              onKeyPress={this.handleSearchEnter}
+              placeholder="Enter a search term or /regular expression/"
+              ref="stringFilter"
+              type="text"
+              value={stringFilter}
+            />
+          </div>
         </div>
-        <div className="search-container">
-          <input
-            className="input"
-            onChange={this.handleStringFiltering}
-            onKeyPress={this.handleSearchEnter}
-            placeholder="Enter a search term or /regular expression/"
-            ref="stringFilter"
-            type="text"
-            value={stringFilter}
-          />
-          <button className="button is-outlined is-primary search" onClick={this.searchResponses} type="submit">Search</button>
-        </div>
+        {this.renderShowResultsButton()}
         {this.renderDisplayingMessage()}
         {this.renderPageNumbers()}
         {this.renderResponses()}

@@ -223,7 +223,7 @@ function getFormattedSearchData(state) {
   return searchData;
 }
 
-function searchResponses(qid) {
+function searchResponses(qid, callback) {
   return (dispatch, getState) => {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
@@ -246,6 +246,7 @@ function searchResponses(qid) {
             numberOfPages: data.numberOfPages,
           };
           dispatch(updateResponses(responseData));
+          callback();
         }
       }
     );

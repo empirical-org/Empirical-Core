@@ -102,6 +102,38 @@ ul.is-unstyled {
 
 .panel-checkbox.toggle {
   padding: 5px;
+  span.tag:not(.is-dark, .is-info, .is-danger, .is-success, .is-warning) {
+    background-color: $quill-white;
+    color: $quill-black;
+    border-color: $quill-black;
+  }
+}
+
+.sort-field:not(.is-active) {
+  a {
+    background-color: $quill-white;
+    color: $quill-black;
+  }
+}
+
+.sort-field {
+  a {
+    border-color: $quill-grey-5;
+  }
+}
+
+.filters-and-sorting-container {
+  background-color: $quill-grey-3;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.show-results-container {
+  padding-left: 0;
+  margin: 30px 30px 30px 0px;
+  a {
+    margin: 0px;
+  }
 }
 
 .intro-next-button {
