@@ -187,7 +187,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                   
                 </span>,
                 <input
-                  aria-label="Choose which one of the following options fits best in the blank  or leave it empty: the, an, a."
+                  aria-label="Choose which one of the following options fits best in the blank  or leave it empty: a, an, the."
                   autoComplete="off"
                   className="fill-in-blank-input"
                   disabled={false}
@@ -338,7 +338,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 }
               />
               <input
-                aria-label="Choose which one of the following options fits best in the blank  or leave it empty: the, an, a."
+                aria-label="Choose which one of the following options fits best in the blank  or leave it empty: a, an, the."
                 autoComplete="off"
                 className="fill-in-blank-input"
                 disabled={false}
