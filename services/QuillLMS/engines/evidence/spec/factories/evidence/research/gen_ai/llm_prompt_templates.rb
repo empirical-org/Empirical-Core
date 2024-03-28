@@ -5,6 +5,7 @@
 # Table name: evidence_research_gen_ai_llm_prompt_templates
 #
 #  id          :bigint           not null, primary key
+#  coda        :string           default("feedback"), not null
 #  contents    :text             not null
 #  description :text             not null
 #  created_at  :datetime         not null

@@ -2,16 +2,13 @@
   <h2>Experiment</h2>
 
   <h3>Passage</h3>
-  <p><%= @experiment.passage_prompt %></p>
+  <p><%= link_to @experiment.passage_prompt, @experiment.passage_prompt %></p>
 
   <h3>LLM</h3>
   <p><%= @experiment.llm_config %></p>
 
-  <%= link_to 'LLMPromptTemplate', @experiment.llm_prompt.llm_prompt_template %>
-
   <h3>LLM Prompt</h3>
-  <p><%= @experiment.llm_prompt.description %></p>
-  <p><%= simple_format(@experiment.llm_prompt.prompt) %></p>
+  <p><%= link_to @experiment.llm_prompt.description, @experiment.llm_prompt %></p>
 
   <h3>Results</h3>
   <p><%= @experiment.results ? @experiment.results.to_json : 'No results yet' %></p>

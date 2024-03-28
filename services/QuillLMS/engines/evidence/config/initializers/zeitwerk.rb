@@ -13,6 +13,7 @@ Rails.autoloaders.each do |autoloader|
     'llm_prompt_builder' => 'LLMPromptBuilder',
     'llm_prompt_template' => 'LLMPromptTemplate',
     'llm_prompt_templates_controller' => 'LLMPromptTemplatesController',
+    'llm_prompts_controller' => 'LLMPromptsController',
     'open_ai' => 'OpenAI',
     'vertex_ai' => 'VertexAI'
   )

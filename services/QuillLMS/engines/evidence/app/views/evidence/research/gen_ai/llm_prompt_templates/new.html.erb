@@ -8,6 +8,11 @@
   </div>
 
   <div class="field-spacing">
+    <%= f.label :coda, "Coda:" %>
+    <%= select_tag :coda, options_for_select(@codas), { required: true } %>
+  </div>
+
+  <div class="field-spacing">
     <%= f.label :contents %><br>
     <%= f.text_area :contents, cols: 100, rows: 50, required: true %>
   </div>

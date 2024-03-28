@@ -5,6 +5,7 @@
 # Table name: evidence_research_gen_ai_example_feedbacks
 #
 #  id                         :bigint           not null, primary key
+#  chain_of_thought           :text
 #  label                      :string           not null
 #  paraphrase                 :text
 #  text                       :text             not null
@@ -27,6 +28,10 @@ module Evidence
         delegate :response, to: :passage_prompt_response
 
         def response_and_feedback = "Response: #{response}\nFeedback: #{text}"
+
+        def response_chain_of_thought_and_feedback
+          "Response: #{response}\nChain-of-Thought: #{chain_of_thought}\nFeedback: #{text}"
+        end
       end
     end
   end
