@@ -32,6 +32,8 @@ module Evidence
 
         def feedback_prompt(response) = "#{prompt}\n\nResponse: #{response}\nFeedback:"
         def evaluation_prompt(response) = "#{prompt}\n\nResponse: #{response}\nParaphrase:"
+
+        def to_s = prompt
       end
     end
   end

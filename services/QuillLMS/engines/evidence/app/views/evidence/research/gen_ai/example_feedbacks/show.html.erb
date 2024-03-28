@@ -1,0 +1,28 @@
+<div>
+  <h2>Example Feedback</h2>
+
+  <h3>Response</h3>
+  <p><%= @example_feedback.passage_prompt_response %></p>
+
+  <h3>Feedback</h3>
+  <p><%= @example_feedback.text %></p>
+
+  <h3>Label</h3>
+  <p><%= @example_feedback.label %></p>
+
+  <% if @example_feedback.paraphrase %>
+    <h3>Paraphrase</h3>
+    <p><%= @example_feedback.paraphrase %></p>
+  <% end %>
+
+  <% if @example_feedback.chain_of_thought %>
+    <h3>Chain-of-Thought</h3>
+    <p><%= @example_feedback.chain_of_thought %></p>
+  <% end %>
+</div>
+
+<br>
+<%= link_to 'Edit Example Feedback', [:edit, @example_feedback] %>
+<br>
+<br>
+<%= link_to 'Experiments', research_gen_ai_experiments_path %>

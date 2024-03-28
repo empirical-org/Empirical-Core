@@ -55,6 +55,13 @@ module Evidence
             it { is_expected.to eq relevant_passage }
           end
 
+          context 'passage' do
+            let(:contents) { delimit('passage') }
+            let(:passage_contents) { passage_prompt.passage.contents }
+
+            it { is_expected.to eq passage_contents }
+          end
+
           context 'examples' do
             let(:num_of_examples) { 5 }
 
@@ -70,6 +77,24 @@ module Evidence
             let(:contents) { delimit("examples,#{limit}") }
 
             it { is_expected.to eq example_feedbacks.first(limit).map(&:response_and_feedback).join("\n") }
+          end
+
+          context 'examples_chain_of_thought' do
+            let(:num_of_examples) { 5 }
+
+            let!(:example_feedbacks) do
+              create_list(
+                :evidence_research_gen_ai_example_feedback,
+                num_of_examples,
+                chain_of_thought: 'this is a chain of thought',
+                passage_prompt_response: create(:evidence_research_gen_ai_passage_prompt_response, passage_prompt:)
+              )
+            end
+
+            let(:limit) { 3 }
+            let(:contents) { delimit("examples_chain_of_thought,#{limit}") }
+
+            it { is_expected.to eq example_feedbacks.first(limit).map(&:response_chain_of_thought_and_feedback).join("\n") }
           end
 
           context 'multiple substitutions' do

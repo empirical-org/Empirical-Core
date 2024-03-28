@@ -21,10 +21,12 @@ module Evidence
         OPTIONAL_COMMA_AND_DIGIT_REGEX = "(?:,(\\d+))?"
 
         SUBSTITUTIONS = {
-          "prompt" => ->(builder, _) { builder.passage_prompt.prompt },
-          "instructions" => ->(builder, _) { builder.passage_prompt.instructions },
-          "relevant_passage" => ->(builder, _) { builder.passage_prompt.relevant_passage },
           "examples" => ->(builder, limit) { builder.examples(limit) },
+          "examples_chain_of_thought" => ->(builder, limit) { builder.examples_chain_of_thought(limit) },
+          "instructions" => ->(builder, _) { builder.passage_prompt.instructions },
+          "passage" => ->(builder, _) { builder.passage_prompt.passage.contents },
+          "prompt" => ->(builder, _) { builder.passage_prompt.prompt },
+          "relevant_passage" => ->(builder, _) { builder.passage_prompt.relevant_passage },
         }.freeze
 
         attr_reader :llm_prompt_template_id, :passage_prompt_id
@@ -54,6 +56,15 @@ module Evidence
             .example_feedbacks
             .limit(limit)
             .map(&:response_and_feedback)
+            .join("\n")
+        end
+
+        def examples_chain_of_thought(limit)
+          passage_prompt
+            .example_feedbacks
+            .where.not(chain_of_thought: nil)
+            .limit(limit)
+            .map(&:response_chain_of_thought_and_feedback)
             .join("\n")
         end
 

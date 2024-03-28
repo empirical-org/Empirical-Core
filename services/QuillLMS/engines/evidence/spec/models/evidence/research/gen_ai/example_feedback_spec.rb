@@ -5,6 +5,7 @@
 # Table name: evidence_research_gen_ai_example_feedbacks
 #
 #  id                         :bigint           not null, primary key
+#  chain_of_thought           :text
 #  label                      :string           not null
 #  paraphrase                 :text
 #  text                       :text             not null

@@ -43,9 +43,11 @@ Evidence::Engine.routes.draw do
 
   namespace :research do
     namespace :gen_ai do
+      resources :example_feedbacks, only: [:show, :edit, :update]
       resources :experiments, only: [:new, :create, :show, :index]
       resources :llm_configs, only: [:new, :create, :show, :index]
       resources :llm_prompt_templates, only: [:new, :create, :show, :index]
+      resources :llm_prompts, only: [:show]
       resources :passage_prompts, only: [:new, :create, :show, :index]
     end
   end

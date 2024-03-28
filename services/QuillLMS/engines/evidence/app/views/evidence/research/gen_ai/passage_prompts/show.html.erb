@@ -1,0 +1,31 @@
+<div>
+  <h2>Passage Prompt</h2>
+  <p><%= @passage_prompt  %></p>
+
+  <% if @passage_prompt.example_feedbacks.any? %>
+    <h3>Example Feedback</h3>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Response</th>
+          <th>Example Feedback</th>
+          <th>Chain of Thought</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @passage_prompt.example_feedbacks.each do |example_feedback| %>
+          <tr>
+            <td><%= link_to "Edit", [:edit, example_feedback] %></td>
+            <td><%= example_feedback.passage_prompt_response.response %></td>
+            <td><%= example_feedback.text %></td>
+            <td><%= example_feedback.chain_of_thought %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No example feedback found.</p>
+  <% end %>
+</div>
+<%= link_to 'Back', research_gen_ai_experiments_path %>
