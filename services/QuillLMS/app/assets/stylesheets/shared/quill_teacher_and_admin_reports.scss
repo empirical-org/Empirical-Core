@@ -92,6 +92,7 @@
     }
   }
   .dropdown-with-icon {
+    min-height: 68px !important;
     .dropdown__single-value::before {
       content: url('https://assets.quill.org/images/pages/activity_summary/students.svg');
       position: relative;

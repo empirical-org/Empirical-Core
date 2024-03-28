@@ -18,7 +18,8 @@
     }
   }
   &.dropdown-container {
-  justify-content: flex-start;
+    justify-content: flex-start;
+    min-height: 66px
   }
 
   &.not-editable input {
@@ -342,7 +343,6 @@
       filter: brightness(1) sepia(1) saturate(1.5) invert(1.5) hue-rotate(300deg);
     }
     &.not-editable {
-      min-height: 0px;
       .dropdown__menu {
         border-radius: 4px;
         margin-top: 8px;
