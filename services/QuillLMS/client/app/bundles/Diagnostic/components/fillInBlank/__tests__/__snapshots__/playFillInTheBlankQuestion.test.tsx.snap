@@ -10,9 +10,9 @@ exports[`PlayFillInTheBlankQuestion component should render 1`] = `
       "blankAllowed": true,
       "conceptID": "fJXVAoYCC8S9kByua0kXXA",
       "cues": Array [
-        "the",
-        "an",
         "a",
+        "an",
+        "the",
       ],
       "instructions": "Rewrite the sentence. Fill in the blank with one of these articles: a, an, the. If no article is needed, remove the blank.
 <br/><br/>
@@ -96,9 +96,9 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 "blankAllowed": true,
                 "conceptID": "fJXVAoYCC8S9kByua0kXXA",
                 "cues": Array [
-                  "the",
-                  "an",
                   "a",
+                  "an",
+                  "the",
                 ],
                 "instructions": "Rewrite the sentence. Fill in the blank with one of these articles: a, an, the. If no article is needed, remove the blank.
 <br/><br/>
@@ -112,13 +112,13 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
               className="cues"
             >
               <Cue
-                cue="the"
-                key="0the"
+                cue="a"
+                key="0a"
               >
                 <div
                   className="cue"
                 >
-                  the
+                  a
                 </div>
               </Cue>
               <Cue
@@ -132,13 +132,13 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 </div>
               </Cue>
               <Cue
-                cue="a"
-                key="2a"
+                cue="the"
+                key="2the"
               >
                 <div
                   className="cue"
                 >
-                  a
+                  the
                 </div>
               </Cue>
               <img
@@ -195,7 +195,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                   onChange={[Function]}
                   style={
                     Object {
-                      "width": "25px",
+                      "width": "20px",
                     }
                   }
                   type="text"
@@ -265,7 +265,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                   
                 </span>,
                 <input
-                  aria-label="Choose which one of the following options fits best in the blank  or leave it empty: the, an, a."
+                  aria-label="Choose which one of the following options fits best in the blank  or leave it empty: a, an, the."
                   autoComplete="off"
                   className="fill-in-blank-input"
                   disabled={false}
@@ -273,7 +273,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                   onChange={[Function]}
                   style={
                     Object {
-                      "width": "25px",
+                      "width": "20px",
                     }
                   }
                   type="text"
@@ -347,7 +347,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 onChange={[Function]}
                 style={
                   Object {
-                    "width": "25px",
+                    "width": "20px",
                   }
                 }
                 type="text"
@@ -375,7 +375,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 }
               />
               <input
-                aria-label="Choose which one of the following options fits best in the blank  or leave it empty: the, an, a."
+                aria-label="Choose which one of the following options fits best in the blank  or leave it empty: a, an, the."
                 autoComplete="off"
                 className="fill-in-blank-input"
                 disabled={false}
@@ -384,7 +384,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 onChange={[Function]}
                 style={
                   Object {
-                    "width": "25px",
+                    "width": "20px",
                   }
                 }
                 type="text"
