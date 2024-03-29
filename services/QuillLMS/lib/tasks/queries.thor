@@ -159,11 +159,11 @@ class Queries < Thor
     aggregation_options = ['grade', 'teacher', 'classroom']
 
     #multi_queries.each do |key, query|
-    #  payloads = aggregation_options.map {|aggregation| ["GROUP BY #{aggregation}", query.run(**multi_args.merge({aggregation:})) }.to_h
+    #  payloads = aggregation_options.to_h {|aggregation| ["GROUP BY #{aggregation}", query.run(**multi_args.merge({aggregation:})) }
     #  snapshot_query_payload(key, payloads)
     #end
     single_queries.each do |key, query|
-      payloads = aggregation_options.map {|aggregation| ["GROUP BY #{aggregation}", query.run(**single_args.merge({aggregation:}))] }.to_h
+      payloads = aggregation_options.to_h {|aggregation| ["GROUP BY #{aggregation}", query.run(**single_args.merge({aggregation:}))] }
       snapshot_query_payload(key, payloads)
     end
     #student_queries.each {|key, query| snapshot_query_payload(key, query.run(**single_args)) }
