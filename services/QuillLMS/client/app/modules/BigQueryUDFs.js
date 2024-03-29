@@ -76,11 +76,11 @@ export function studentwiseSkillGroupUDF(elements) {
   //source: https://docs.google.com/spreadsheets/d/1JFey0UpMkmPzkQtZKsr_FdXRXnNEDFXZe52H7dUMg9E/edit#gid=0
   const skillGroupsByActivity = {
     1161: [
-      { name: 'Sentences with To Be', activities: [1096, 1097, 1098, 1099, 1100, 1101, 1137, 1102, 1103, 1104, 1105, 1144, 1106, 1107, 1108] },
-      { name: 'Sentences With Have', activities: []  },
-      { name: 'Sentences With Want', activities: []  },
+      { name: 'Sentences with To Be', activities: [1096, 1097, 1098, 1099, 1100, 1101, 1137, 1102, 1103, 1104, 1105, 1144, 1106, 1107, 1108, 1109, 1110, 1111, 1112, 1113, 1153, 1114, 1152, 1136, 1145, 1154, 1151, 1138] },
+      { name: 'Sentences With Have', activities: [1119, 1120, 1121, 1122, 1127, 1128, 1129, 1130, 1131]  },
+      { name: 'Sentences With Want', activities: [1115, 1117, 1116, 1118, 1123, 1124, 1125, 1126, 1132, 1133]  },
       { name: 'Listing Adjectives and Nouns', activities: [1134, 1135, 1156, 1157, 1158, 1159, 1160]  },
-      { name: 'Writing Questions', activities: []  }
+      { name: 'Writing Questions', activities: [1139, 1155, 1142, 1140, 1141, 1143, 1148, 1146, 1149, 1147, 1150]  }
     ],
     1568: [
       { name: 'Subject-Verb Agreement', activities: [1541, 1543, 1546]  },
@@ -91,11 +91,11 @@ export function studentwiseSkillGroupUDF(elements) {
       { name: 'Writing Questions', activities: [1571, 1570, 1573, 1549]  }
     ],
     1590: [
-      { name: 'Regular Past Tense', activities: []  },
-      { name: 'Irregular Past Tense', activities: []  },
-      { name: 'Progressive Tense', activities: []  },
-      { name: 'Phrasal Verbs', activities: []  },
-      { name: 'ELL-Specific Skills', activities: []  }
+      { name: 'Regular Past Tense', activities: [1575, 1576, 1577, 1578]  },
+      { name: 'Irregular Past Tense', activities: [1579, 1580, 1581, 1582, 1583, 1584, 1585, 1586, 1587]  },
+      { name: 'Progressive Tense', activities: [1591, 1588, 1625, 1589, 1626]  },
+      { name: 'Phrasal Verbs', activities: [1627, 1628, 1629, 1654, 1657, 1655]  },
+      { name: 'ELL-Specific Skills', activities: [1658, 1660, 1662, 1661]  }
     ],
     1663: [
       { name: 'Commonly Confused Words', activities: [113, 111, 107, 112] },
