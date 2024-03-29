@@ -1,8 +1,6 @@
 require_relative '../../config/environment'
 
 class Queries < Thor
-  OUTPUT_ADMIN_DIAGNOSTICS = 'lib/query_examples/admin_diagnostics/'
-
   # user_id 9874030 is a test user
   # e.g. bundle exec thor queries:generate_snapshot_sqls 9874030
   desc 'generate_snapshot_sqls user_id start_time end_time', 'Output .sql fils for all snapshots for a user'
@@ -118,9 +116,64 @@ class Queries < Thor
     student_queries.each {|key, query| run_admin_query(key, query, student_args, dryrun) }
   end
 
+  # bundle exec thor queries:snapshot_diagnostic_queries
+  desc 'snapshot_diagnostic_queries', 'Snapshot Google BigQuery queries for comparison'
+  def snapshot_diagnostic_queries
+    multi_queries = {
+      'pre-diagnostic-assigned-view' => ::AdminDiagnosticReports::PreDiagnosticAssignedViewQuery,
+      'pre-diagnostic-completed-view' => ::AdminDiagnosticReports::PreDiagnosticCompletedViewQuery,
+      'recommendations' => ::AdminDiagnosticReports::DiagnosticRecommendationsQuery,
+      'post-diagnostic-assigned-view' => ::AdminDiagnosticReports::PostDiagnosticAssignedViewQuery,
+      'post-diagnostic-completed-view' => ::AdminDiagnosticReports::PostDiagnosticCompletedViewQuery
+    }
+
+    single_queries = {
+       'diagnostic-skills-view' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillViewQuery
+    }
+
+    student_queries = {
+      'diagnostic-students-view' => ::AdminDiagnosticReports::DiagnosticPerformanceByStudentViewQuery,
+      'student-recommendation' => ::AdminDiagnosticReports::DiagnosticRecommendationsByStudentQuery,
+      'filter-scope' => ::AdminDiagnosticReports::StudentCountByFilterScopeQuery
+    }
+
+    timeframe_start = DateTime.parse(DEFAULT_START)
+    timeframe_end = DateTime.parse(DEFAULT_END)
+    school_ids = [38811,38804,38801,38800,38779,38784,38780,38773,38765,38764]
+    grades = ["6", "9"]
+    teacher_ids = [4595888, 13775265, 2082409, 4722961]
+    classroom_ids = [1448748, 1521712, 1530378, 1457177]
+
+    multi_args = {
+      timeframe_start:,
+      timeframe_end:,
+      school_ids:,
+      grades:,
+      teacher_ids:,
+      classroom_ids:
+    }
+    single_args = multi_args.merge({
+      diagnostic_id: 1663 # The starter pre diagnostic
+    })
+
+    aggregation_options = ['grade', 'teacher', 'classroom']
+
+    #multi_queries.each do |key, query|
+    #  payloads = aggregation_options.map {|aggregation| ["GROUP BY #{aggregation}", query.run(**multi_args.merge({aggregation:})) }.to_h
+    #  snapshot_query_payload(key, payloads)
+    #end
+    single_queries.each do |key, query|
+      payloads = aggregation_options.map {|aggregation| ["GROUP BY #{aggregation}", query.run(**single_args.merge({aggregation:}))] }.to_h
+      snapshot_query_payload(key, payloads)
+    end
+    #student_queries.each {|key, query| snapshot_query_payload(key, query.run(**single_args)) }
+  end
+
   # put helper methods in this block
   no_commands do
     OUTPUT_SNAPSHOTS = 'lib/query_examples/snapshots/'
+    OUTPUT_ADMIN_DIAGNOSTICS = 'lib/query_examples/admin_diagnostics/'
+    OUTPUT_ADMIN_DIAGNOSTIC_PAYLOADS = 'lib/snapshots/admin_diagnostics/'
 
     # Averages run differently (.query raises), so skipping for now
     AVERAGE_SNAPSHOT_QUERIES = [
@@ -155,6 +208,11 @@ class Queries < Thor
 
       metadata = query_metadata(sql, dryrun:)
       File.write(output_directory + "#{name}.sql", metadata + sql)
+    end
+
+    private def snapshot_query_payload(name, results)
+      output_directory = make_directory(OUTPUT_ADMIN_DIAGNOSTIC_PAYLOADS)
+      File.write(output_directory + "#{name}.json", JSON.pretty_generate(results))
     end
 
     private def parse_result(result)
