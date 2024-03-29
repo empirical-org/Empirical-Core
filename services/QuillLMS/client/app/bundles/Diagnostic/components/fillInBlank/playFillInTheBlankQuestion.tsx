@@ -4,7 +4,16 @@ import * as _ from 'underscore';
 import { checkFillInTheBlankQuestion } from 'quill-marking-logic';
 import { stringNormalize } from 'quill-string-normalizer';
 
-import { Feedback, Prompt, fillInBlankInputLabel, fillInBlankInputWidth, getLatestAttempt, hashToCollection, renderPreviewFeedback, } from '../../../Shared/index';
+import {
+  Feedback,
+  Prompt,
+  fillInBlankInputLabel,
+  fillInBlankInputWidth,
+  splitPromptForFillInBlank,
+  getLatestAttempt,
+  hashToCollection,
+  renderPreviewFeedback,
+} from '../../../Shared/index';
 import { submitResponse, } from '../../actions/diagnostics.js';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import { Question } from '../../interfaces/Question';
@@ -80,7 +89,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   }
 
   setQuestionValues = (question: Question) => {
-    const splitPrompt = question.prompt.replace(/<\/p><p>/g, '</br>').replace(/^<p>/g, '').replace(/<p>/g, '<br/>').replace(/<\/p>/g, '').split('___');
+    const splitPrompt = splitPromptForFillInBlank(question.prompt);
     const numberOfInputVals = question.prompt.match(/___/g).length
     this.setState({
       splitPrompt,

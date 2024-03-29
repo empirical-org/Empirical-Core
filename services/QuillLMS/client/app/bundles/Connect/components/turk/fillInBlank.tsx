@@ -4,7 +4,14 @@ import { connect } from 'react-redux';
 import * as _ from 'underscore';
 import { checkFillInTheBlankQuestion, } from 'quill-marking-logic'
 
-import { Feedback, Prompt, fillInBlankInputLabel, fillInBlankInputWidth, hashToCollection, } from '../../../Shared/index';
+import {
+  Feedback,
+  Prompt,
+  fillInBlankInputLabel,
+  fillInBlankInputWidth,
+  splitPromptForFillInBlank,
+  hashToCollection,
+} from '../../../Shared/index';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import Cues from '../renderForQuestions/cues.jsx';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
@@ -41,7 +48,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   setQuestionValues = (question) => {
     const q = question;
-    const splitPrompt = question.prompt.replace(/<\/p><p>/g, '</br>').replace(/^<p>/g, '').replace(/<p>/g, '<br/>').replace(/<\/p>/g, '').split('___');
+    const splitPrompt = splitPromptForFillInBlank(question.prompt);
     const numberOfInputVals = q.prompt.match(/___/g).length
     this.setState({
       splitPrompt,

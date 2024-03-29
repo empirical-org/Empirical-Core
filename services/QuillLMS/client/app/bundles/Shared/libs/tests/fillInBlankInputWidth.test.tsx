@@ -1,23 +1,48 @@
-import { fillInBlankInputWidth } from '../fillInBlankInputWidth';
+import { fillInBlankInputWidth, determineBaseString, } from '../fillInBlankInputWidth';
+
+describe('determineBaseString function', () => {
+  it('returns the value when the value is longer than the shortest cue', () => {
+    const string = determineBaseString('aaaa', ['a', 'longercue', 'muchlongercue']);
+    expect(string).toBe('aaaa');
+  });
+
+  it('returns the shortest cue when the shortest cue is longer than the value', () => {
+    const string = determineBaseString('a', ['aaaaaa', 'longercue', 'muchlongercue']);
+    expect(string).toBe('aaaaaa');
+  });
+
+  it('handles empty value and cues array by returning an empty string', () => {
+    const string = determineBaseString('', []);
+    expect(string).toBe('');
+  });
+
+  it('handles null value and cues array by returning an empty string', () => {
+    const string = determineBaseString(null, null);
+    expect(string).toBe('');
+  });
+});
+
 
 describe('fillInBlankInputWidth function', () => {
-  it('calculates width correctly for a value longer than the shortest cue', () => {
-    const width = fillInBlankInputWidth('aaaa', ['a', 'longercue', 'muchlongercue']).width;
-    expect(width).toBe('70px'); // 'aaaa'.length * 15 + 10 = 70
+  beforeEach(() => {
+    Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
+      configurable: true,
+      value: 500, // arbitrary for tests
+    });
   });
 
-  it('calculates width correctly for a value shorter than the shortest cue', () => {
-    const width = fillInBlankInputWidth('a', ['aaaaaa', 'longercue', 'muchlongercue']).width;
-    expect(width).toBe('100px'); // 'aaaaaa'.length * 15 + 10 = 100
+  it('calculates width when there is a value and cues', () => {
+    const { width, } = fillInBlankInputWidth('aaaa', ['a', 'longercue', 'muchlongercue']);
+    expect(width).toBe('520px');
   });
 
-  it('handles empty value and cues array correctly', () => {
-    const width = fillInBlankInputWidth('', []).width;
-    expect(width).toBe('55px'); // 3 (default length if value is empty) * 15 + 10 = 55
+  it('calculates width when value and cues are empty', () => {
+    const { width, } = fillInBlankInputWidth('', []);
+    expect(width).toBe('520px');
   });
 
-  it('handles null value and cues array correctly', () => {
-    const width = fillInBlankInputWidth(null, null).width;
-    expect(width).toBe('55px'); // 3 (default length if value is empty) * 15 + 10 = 55
+  it('calculates width when value and cues are null', () => {
+    const { width, } = fillInBlankInputWidth(null, null);
+    expect(width).toBe('520px');
   });
 });
