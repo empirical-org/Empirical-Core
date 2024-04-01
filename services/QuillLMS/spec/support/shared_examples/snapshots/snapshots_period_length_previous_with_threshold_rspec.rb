@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.shared_examples 'snapshots period length, previous within threshold' do |timeframe_key, threshold, february_threshold|
   context "'#{timeframe_key}'" do
+    let(:february_and_march_months) { [2,3] }
     let(:now) { DateTime.current }
     let(:timeframe) {described_class.calculate_timeframes(timeframe_key)}
     let(:previous_timeframe) {described_class.calculate_timeframes(timeframe_key, previous_timeframe: true)}
@@ -16,7 +17,8 @@ RSpec.shared_examples 'snapshots period length, previous within threshold' do |t
     let(:threshold_to_use) do
       return threshold if february_threshold.nil?
 
-      now.month.in?([2,3])  ? february_threshold : threshold
+      yesterday = now - 1.day
+      yesterday.month.in?(february_and_march_months) ? february_threshold : threshold
     end
 
     before do
