@@ -37,34 +37,6 @@ describe('studentwiseSkillGroupUDF', () => {
     expect(parsedResult.Capitalization_tier).toEqual("0/7")
   })
 
-
-  it('should ignore spanned activities that are not recommended by the pre diagnostic', () => {
-    // const activityIds = ["1663", "9999", "4", "1664"];
-    // const completedAts = ['2022-01-01T00:00:00Z', '2022-01-01T00:01:00Z', '2024-01-01T00:01:00Z',  '2022-01-02T00:00:00Z'];
-    // const scores = ["false", "false", "true", "true"];
-    // const skillGroupNames = "a b c d".split(' ')
-
-    // const zipped = zip(scores, activityIds, completedAts, skillGroupNames)
-
-    // const result = studentwiseSkillGroupUDF(zipped);
-    // const parsedResult = JSON.parse(result)
-    // expect(parsedResult.numAssignedRecommendedCompleted).toEqual(0)
-  })
-
-  it('should extract the correct rec activity account', () => {
-    // const activityIds = ["1663", "3", "4", "1664"];
-    // const completedAts = ['2022-01-01T00:00:00Z', '2022-01-01T00:01:00Z', '2024-01-01T00:01:00Z',  '2022-01-02T00:00:00Z'];
-    // const scores = ["false", "false", "true", "true"];
-    // const skillGroupNames = "a b c d".split(' ')
-
-    // const zipped = zip(scores, activityIds, completedAts, skillGroupNames)
-
-    // const result = studentwiseSkillGroupUDF(zipped);
-    // const parsedResult = JSON.parse(result)
-
-    // expect(parsedResult.recommendedActivityCount).toEqual(10)
-  })
-
   it('should remove commas from skill group names that have commas', () => {
     const activityIds = ["1663", "1664"];
     const completedAts = ['2022-01-01T00:00:00Z', '2022-01-02T00:00:00Z'];
