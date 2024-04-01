@@ -87,7 +87,7 @@ function shouldHandleEvent(event) {
   const activeElement = document.activeElement;
   const tagNames = [INPUT, SELECT, TEXTAREA, BUTTON];
   // Prevent sensor activation if focused on input, select, textarea, or button
-  if (activeElement && (tagNames.includes(activeElement.tagName) || activeElement.attributes['contenteditable']?.value === 'true')) {
+  if (activeElement && (tagNames.includes(activeElement.tagName) || activeElement.attributes['contenteditable']?.value === 'true') || event.srcElement['isContentEditable']) {
     return false;
   }
   return true; // Return true to allow activation in other cases
