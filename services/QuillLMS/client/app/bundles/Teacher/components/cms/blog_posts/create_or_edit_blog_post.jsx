@@ -252,7 +252,6 @@ export default class CreateOrEditBlogPost extends React.Component {
   handlePublishClick = (e) => this.handleSubmitClick(e, true)
 
   handlePublishedAtChange = (e) => {
-    console.log("🚀 ~ file: create_or_edit_blog_post.jsx:255 ~ CreateOrEditBlogPost ~ e:", e)
     this.setState({ publishedAt: e}, this.updatePreviewCardBasedOnType)
   }
 
@@ -578,10 +577,10 @@ export default class CreateOrEditBlogPost extends React.Component {
           focused={focused}
           id="date-picker"
           inputIconPosition="after"
+          isOutsideRange={() => false}
           navNext="›"
           navPrev="‹"
           numberOfMonths={1}
-          isOutsideRange={() => false}
           onDateChange={this.handlePublishedAtChange}
           onFocusChange={({ focused }) => this.setState({ focused })}
         />
