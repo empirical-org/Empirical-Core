@@ -57,6 +57,7 @@ module Evidence
 
           update!(status: RUNNING)
           create_llm_prompt_responses_feedbacks(limit:)
+          calculate_results
           update!(status: COMPLETED)
         rescue StandardError => e
           experiment_errors << e.message
@@ -66,7 +67,14 @@ module Evidence
         private def create_llm_prompt_responses_feedbacks(limit:)
           passage_prompt_responses.limit(limit).each do |passage_prompt_response|
             feedback = llm_client.run(prompt: llm_prompt.feedback_prompt(passage_prompt_response.response))
-            LLMFeedback.create!(text: feedback, passage_prompt_response:)
+            llm_feedback = LLMFeedback.create!(text: feedback, passage_prompt_response:)
+          end
+        end
+
+        private def calculate_results
+          passage_prompt_responses.each do |passage_prompt_response|
+
+
           end
         end
       end

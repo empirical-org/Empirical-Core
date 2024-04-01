@@ -15,6 +15,8 @@ module Evidence
   module Research
     module GenAI
       class LLMFeedback < ApplicationRecord
+        include HasOptimalAndSubOptimal
+
         belongs_to :passage_prompt_response, class_name: 'Evidence::Research::GenAI::PassagePromptResponse'
         validates :text, presence: true
         validates :passage_prompt_response_id, presence: true
