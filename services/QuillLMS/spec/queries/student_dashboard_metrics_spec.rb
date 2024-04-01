@@ -62,8 +62,9 @@ describe StudentDashboardMetrics do
   end
 
   describe 'completed_sessions' do
-    it 'only includes sessions with completed_at not nil' do
+    it 'only includes sessions with completed_at not nil and visible true' do
       create(:activity_session, :started, user: student, classroom_unit:)
+      create(:activity_session, :completed, visible: false, user: student, classroom_unit:)
       metrics_instance = StudentDashboardMetrics.new(student, classroom.id)
 
       expect(metrics_instance.completed_sessions.count).to eq(activity_sessions.count)
