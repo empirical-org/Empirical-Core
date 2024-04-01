@@ -5081,7 +5081,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Rewrite the sentences, and place a comma in the appropriate place.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Rewrite the sentences, and place a comma in the appropriate place.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -5171,7 +5177,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Proofread your work. Check your ending punctuation.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Proofread your work. Check your ending punctuation.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr
@@ -5287,7 +5299,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Proofread your work. Check your ending punctuation.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Proofread your work. Check your ending punctuation.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr
@@ -5403,7 +5421,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Proofread your work. Check your ending punctuation.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Proofread your work. Check your ending punctuation.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr
@@ -5519,7 +5543,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Proofread your work. Check your ending punctuation.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Proofread your work. Check your ending punctuation.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr
@@ -5849,7 +5879,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Rewrite the sentences, and place a comma in the appropriate place.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Rewrite the sentences, and place a comma in the appropriate place.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -5939,7 +5975,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Proofread your work. Check your ending punctuation.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Proofread your work. Check your ending punctuation.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr
@@ -6055,7 +6097,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Proofread your work. Check your ending punctuation.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Proofread your work. Check your ending punctuation.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr
@@ -6171,7 +6219,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Proofread your work. Check your ending punctuation.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Proofread your work. Check your ending punctuation.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr
@@ -6287,7 +6341,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Proofread your work. Check your ending punctuation.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Proofread your work. Check your ending punctuation.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr
@@ -6537,7 +6597,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Rewrite the sentence, and put a comma in the appropriate place.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Rewrite the sentence, and put a comma in the appropriate place.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -6781,7 +6847,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Rewrite the sentence, and put a comma in the appropriate place.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Rewrite the sentence, and put a comma in the appropriate place.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -6871,7 +6943,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Try again! Unfortunately, that answer is not correct.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Try again! Unfortunately, that answer is not correct.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr
@@ -7161,7 +7239,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Rewrite the sentences, and place a comma in the appropriate place.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Rewrite the sentences, and place a comma in the appropriate place.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -7251,7 +7335,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Try again! Unfortunately, that answer is not correct.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Try again! Unfortunately, that answer is not correct.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr
@@ -7367,7 +7457,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Try again! Unfortunately, that answer is not correct.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Try again! Unfortunately, that answer is not correct.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr
@@ -7702,7 +7798,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Rewrite the sentences, and place a comma in the appropriate place.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Rewrite the sentences, and place a comma in the appropriate place.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -7792,7 +7894,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Try again! Unfortunately, that answer is not correct.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Try again! Unfortunately, that answer is not correct.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr
@@ -7913,7 +8021,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Revise your sentence. You don't need to have a space before a period.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "<p>Revise your sentence. You don't need to have a space before a period.</p>",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr
@@ -8034,7 +8148,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Try again! Unfortunately, that answer is not correct.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Try again! Unfortunately, that answer is not correct.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr
@@ -8150,7 +8270,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Proofread your work. Check your punctuation.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Proofread your work. Check your punctuation.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr
@@ -8400,7 +8526,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Rewrite the sentence, and put a comma in the appropriate place.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Rewrite the sentence, and put a comma in the appropriate place.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -8684,7 +8816,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Rewrite the sentences, and place a comma in the appropriate place.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Rewrite the sentences, and place a comma in the appropriate place.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -8774,7 +8912,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Proofread your work. Check your ending punctuation.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Proofread your work. Check your ending punctuation.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr
@@ -8890,7 +9034,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Proofread your work. Check your ending punctuation.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Proofread your work. Check your ending punctuation.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr
@@ -9006,7 +9156,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Proofread your work. Check your ending punctuation.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Proofread your work. Check your ending punctuation.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr
@@ -9256,7 +9412,13 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Rewrite the sentence, and put a comma in the appropriate place.
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Rewrite the sentence, and put a comma in the appropriate place.",
+                          }
+                        }
+                      />
                     </td>
                   </tr>
                   <tr>

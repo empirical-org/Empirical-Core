@@ -501,6 +501,7 @@ describe PublicProgressReports, type: :model do
 
       describe 'the question is a grammar question' do
         let!(:question) { create(:question, question_type: Question::TYPE_GRAMMAR_QUESTION) }
+        
         it 'should return the default grammar optimal final attempt feedback if the score is greater than zero' do
           expect(FakeReports.new.get_final_attempt_feedback(activity_session, question.uid, one, prompt_text, final_attempt_number)).to eq(FakeReports::GRAMMAR_OPTIMAL_FINAL_ATTEMPT_FEEDBACK)
         end

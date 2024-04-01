@@ -301,31 +301,12 @@ module PublicProgressReports
 
   def get_final_attempt_feedback(activity_session, question_uid, score, prompt_text, attempt_number)
     question = question_uid ? Question.find_by_uid(question_uid) : nil
+    classification = activity_session&.classification
 
-    case activity_session&.classification
-    when ActivityClassification.evidence
-      return get_max_attempts_feedback_from_activity_session_and_prompt_text(activity_session, prompt_text) if score == 0 && attempt_number == EVIDENCE_FINAL_ATTEMPT_NUMBER
-      get_feedback_from_feedback_history(activity_session, prompt_text, attempt_number)
-
-    when ActivityClassification.grammar
-      score > 0 ? GRAMMAR_OPTIMAL_FINAL_ATTEMPT_FEEDBACK : GRAMMAR_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK
-
-    when ActivityClassification.proofreader
-      # proofreader sessions sometimes includes grammar questions as follow-up, so we have to determine what type of question it is
-      if question&.question_type == Question::TYPE_GRAMMAR_QUESTION
-        score > 0 ? GRAMMAR_OPTIMAL_FINAL_ATTEMPT_FEEDBACK : GRAMMAR_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK
-      else
-        score > 0 ? PROOFREADER_OPTIMAL_FINAL_ATTEMPT_FEEDBACK : PROOFREADER_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK
-      end
-
-    when ActivityClassification.connect
-      if score > 0
-        CONNECT_OPTIMAL_FINAL_ATTEMPT_FEEDBACK
-      else
-        question&.question_type == Question::TYPE_CONNECT_SENTENCE_COMBINING ? CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_SENTENCE_COMBINING_FEEDBACK : CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK
-      end
-
-    end
+    return evidence_final_attempt_feedback(activity_session, score, prompt_text, attempt_number) if classification == ActivityClassification.evidence
+    return grammar_final_attempt_feedback(score) if classification == ActivityClassification.grammar
+    return proofreader_final_attempt_feedback(question, score) if classification == ActivityClassification.proofreader
+    return connect_final_attempt_feedback(question, score) if classification == ActivityClassification.connect
   end
 
   def get_key_target_skill_concept_for_question(concept_results, activity_session)
@@ -518,6 +499,34 @@ module PublicProgressReports
       })
     end
     question_array
+  end
+
+  private def evidence_final_attempt_feedback(activity_session, score, prompt_text, attempt_number)
+    if score == 0 && attempt_number == EVIDENCE_FINAL_ATTEMPT_NUMBER
+      get_max_attempts_feedback_from_activity_session_and_prompt_text(activity_session, prompt_text)
+    else
+      get_feedback_from_feedback_history(activity_session, prompt_text, attempt_number)
+    end
+  end
+
+  private def grammar_final_attempt_feedback(score)
+    score > 0 ? GRAMMAR_OPTIMAL_FINAL_ATTEMPT_FEEDBACK : GRAMMAR_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK
+  end
+
+  private def proofreader_final_attempt_feedback(question, score)
+    if question&.question_type == Question::TYPE_GRAMMAR_QUESTION
+      grammar_final_attempt_feedback(score)
+    else
+      score > 0 ? PROOFREADER_OPTIMAL_FINAL_ATTEMPT_FEEDBACK : PROOFREADER_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK
+    end
+  end
+
+  private def connect_final_attempt_feedback(question, score)
+    if score > 0
+      CONNECT_OPTIMAL_FINAL_ATTEMPT_FEEDBACK
+    else
+      question&.question_type == Question::TYPE_CONNECT_SENTENCE_COMBINING ? CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_SENTENCE_COMBINING_FEEDBACK : CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK
+    end
   end
 
 end
