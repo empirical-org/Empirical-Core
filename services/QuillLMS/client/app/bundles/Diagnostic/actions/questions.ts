@@ -216,7 +216,7 @@ function getFormattedSearchData(state) {
   return searchData;
 }
 
-function searchResponses(qid) {
+function searchResponses(qid, callback) {
   return (dispatch, getState) => {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
@@ -228,7 +228,7 @@ function searchResponses(qid) {
         // if equal to const set earlier, update the state
         // otherwise, do nothing
         if (getState().filters.requestCount === requestNumber && body) {
-          const embeddedOrder = _.map(body.results, (response, i) => {
+          const embeddedOrder = _.map(body.results, (response: any, i: number) => {
             response.sortOrder = i;
             return response;
           });
@@ -239,6 +239,7 @@ function searchResponses(qid) {
             numberOfPages: body.numberOfPages,
           };
           dispatch(updateResponses(responseData));
+          callback();
         }
       }
     );

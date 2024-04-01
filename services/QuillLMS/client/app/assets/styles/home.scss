@@ -185,7 +185,7 @@ a.q-button {
 
 
 
-$list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar, quillforestgreen: $quillforestgreen, quillblue: $quillblue, quill-teal: $quill-teal, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, green: $green, lightgray: $lightgray, darkgray: $darkgray, purple: $purple, lessonspurple: $lessonspurple);
+$list: (quillgreen: $quill-green, quillred: $quillred, quillnavbar: $quillnavbar, quillforestgreen: $quillforestgreen, quillblue: $quillblue, quill-teal: $quill-teal, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, green: $green, lightgray: $lightgray, darkgray: $darkgray, purple: $purple, lessonspurple: $lessonspurple);
 
 @each $name, $color in $list {
   .text-#{"" + $name} {
@@ -293,8 +293,9 @@ $background-images-list: (diagnostic-pattern-magnifier connect-pattern-bullseye 
 section.q-hero {
   width: 100%;
   min-height: 530px;
-  background-image: url("https://assets.quill.org/images/background_images/homepage_pattern.webp");
+  background-image: url("https://assets.quill.org/images/background_images/background-pattern-crop.png");
   background-position: center center;
+  background-size: 800px;
   .navbar {
     background-color: initial;
     .navbar-tooltip-trigger {
@@ -562,7 +563,7 @@ section.q-hero {
 
 .q-hero-footer {
   text-align: center;
-  background-color: #027360;
+  background-color: $quill-viridian;
   p {
     font-size: 20px;
     letter-spacing: 0.1px;

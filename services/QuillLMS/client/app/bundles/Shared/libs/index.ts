@@ -21,6 +21,8 @@ export { roundValuesToSeconds, roundMillisecondsToSeconds, } from './timeTrackin
 export { titleCase } from './titleCase'
 export { onMobile } from './onMobile'
 export { fillInBlankInputLabel, } from './fillInBlankInputLabel'
+export { fillInBlankInputWidth, } from './fillInBlankInputWidth'
+export { splitPromptForFillInBlank, } from './splitPromptForFillInBlank'
 export { getIconForActivityClassification } from './getIconForActivityClassification'
 export { isTrackableStudentEvent } from './isTrackableStudentEvent'
 export { hexToRGBA } from './hexToRGBA'
