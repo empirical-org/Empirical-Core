@@ -139,9 +139,14 @@ class Queries < Thor
 
     timeframe_start = DateTime.parse(DEFAULT_START)
     timeframe_end = DateTime.parse(DEFAULT_END)
+    # The values defined below are "magical".  More specifically, they are hard-coded from a specific test user.
+    # This is the list of schools admin-ed by `liz.domingue@cpsb.org`
     school_ids = [38811,38804,38801,38800,38779,38784,38780,38773,38765,38764]
+    # These are two arbitrary grades with data for admin `liz.domingue@cpsb.org`
     grades = ["6", "9"]
+    # These are two teachers assigned to each of the above grades: "desiree.mott@cpsb.org", "samuel.orsot@cpsb.org", "jamie.sargent@cpsb.org", "trista.johnston@cpsb.org"
     teacher_ids = [4595888, 13775265, 2082409, 4722961]
+    # These are one classroom owned by each of the above teachers: "ENGLISH II - JOHNSTON - 01", "ENGLISH I - SARGENT - 01", "English III 6th Hour", "ENGLISH 6 -NO GR - MOTT - 07"
     classroom_ids = [1448748, 1521712, 1530378, 1457177]
 
     multi_args = {
