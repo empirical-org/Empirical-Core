@@ -22,6 +22,7 @@ workflows:
           mapping: |
             services/QuillLMS/(app/|bin/|config/|db/|lib/|engines/|Gemfile).* lms-edits true
             services/QuillLMS/client/.* lms-client-edits true
+            services/QuillLMS/app/queries/.* lms-query-edits true
             services/QuillCMS/.* cms-edits true
             packages/quill-marking-logic/.* marking-logic-edits true
           base-revision: develop

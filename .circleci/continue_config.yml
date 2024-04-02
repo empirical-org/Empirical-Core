@@ -473,8 +473,8 @@ jobs:
       - image: cimg/ruby:3.1.4-node
     steps:
       - run:
-        name: Blank step
-        command: echo 'hello'
+          name: Blank step
+          command: echo 'hello'
       - when:
           condition: << parameters.should-run >>
           steps:
@@ -517,6 +517,9 @@ parameters:
   lms-client-edits:
     type: boolean
     default: false
+  lms-query-edits:
+    type: boolean
+    default: false
   cms-edits:
     type: boolean
     default: false
@@ -540,7 +543,7 @@ workflows:
       - lms_node_build:
           should-run: << pipeline.parameters.lms-client-edits >>
       - lms_big_query_build:
-          should-run: << pipeline.parameters.lms-edits >>
+          should-run: << pipeline.parameters.lms-query-edits >>
       - lms_integration_build:
           should-run: << pipeline.parameters.lms-edits >>
       - cms_rails_build:
