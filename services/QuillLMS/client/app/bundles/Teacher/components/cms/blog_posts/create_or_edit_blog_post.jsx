@@ -577,6 +577,7 @@ export default class CreateOrEditBlogPost extends React.Component {
           focused={focused}
           id="date-picker"
           inputIconPosition="after"
+          isOutsideRange={() => false}
           navNext="›"
           navPrev="‹"
           numberOfMonths={1}
