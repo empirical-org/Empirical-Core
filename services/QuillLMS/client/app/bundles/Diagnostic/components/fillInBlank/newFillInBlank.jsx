@@ -8,7 +8,6 @@ class NewFillInBlank extends Component {
     const { dispatch } = this.props;
     if (data.prompt !== '') {
       const questionData = data
-      questionData.prompt = data.prompt.replace('<p>', '').replace('</p>', '')
       dispatch(fillInBlankActions.submitNewQuestion(
         questionData,
         {
