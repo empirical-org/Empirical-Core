@@ -27,7 +27,7 @@ module Evidence
 
         attr_readonly :experiment_id, :label, :passage_prompt_response_id, :text
 
-        delegate :example_optimal?, to: :passage_prompt_response
+        delegate :example_optimal?, :example_feedback, to: :passage_prompt_response
 
         def example_sub_optimal? = !example_optimal?
 

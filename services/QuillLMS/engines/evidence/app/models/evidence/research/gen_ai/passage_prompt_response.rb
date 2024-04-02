@@ -25,6 +25,8 @@ module Evidence
         attr_readonly :response, :passage_prompt_id
 
         def example_optimal? = example_feedback.optimal?
+
+        def to_s = response
       end
     end
   end
