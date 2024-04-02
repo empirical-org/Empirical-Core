@@ -437,36 +437,17 @@ parameters:
 # here we specify our workflows, most of which are conditionally
 # executed based upon pipeline parameter values. Each workflow calls a
 # specific job defined above, in the jobs section.
-define: &default_filter
-  filters:
-    branches:
-      ignore: /^deploy-.*/
+# define: &default_filter
+#   filters:
+#     branches:
+#       ignore: /^deploy-.*/
 
 workflows:
   build-test:
     jobs:
       - lms_rails_build:
         should-run: << pipeline.parameters.lms-edits >>
-        <<: *default_filter
-      - evidence_rails_build:
-        #when: << pipeline.parameters.lms-edits >>
-        <<: *default_filter
-      - lms_big_query_build:
-        #when: << pipeline.parameters.lms-edits >>
-        <<: *default_filter
-      - lms_node_build:
-        #when: << pipeline.parameters.lms-client-edits >>
-        <<: *default_filter
-      - lms_integration_build:
-        #when:
-         # or: [<< pipeline.parameters.lms-client-edits >>, << pipeline.parameters.lms-edits >>]
-        <<: *default_filter
-      - cms_rails_build:
-        #when: << pipeline.parameters.cms-edits >>
-        <<: *default_filter
-      - marking_logic_node_build:
-        #when: << pipeline.parameters.marking-logic-edits >>
-        <<: *default_filter
+
   lint-code:
     jobs:
       - node_lint:
