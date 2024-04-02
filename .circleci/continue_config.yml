@@ -196,50 +196,56 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: password
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - bundle-cache-lms-v3-{{ checksum "services/QuillLMS/Gemfile.lock" }}
-            - bundle-cache-lms-v3
       - run:
-          name: Bundle Install if cache isn't present.
-          command: |
-            cd services/QuillLMS
-            gem install bundler:2.2.33
-            # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
-            bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
-            bundle check || bundle install --path vendor/bundle
-      - save_cache:
-          key: bundle-cache-lms-v3-{{ checksum "services/QuillLMS/Gemfile.lock" }}
-          paths:
-            - services/QuillLMS/vendor/bundle
-      - run:
-          name: Install postgres dependencies
-          command: |
-            wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-            echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
-            sudo apt-get update
-            sudo apt-get install -y postgresql-client-15
-      - run:
-          name: Copy Config files
-          command: |
-            cd services/QuillLMS
-            cp .env-sample .env
-            cp config/database.yml.circle config/database.yml
-      - run:
-          name: Set up DB
-          command: |
-            cd services/QuillLMS
-            bundle exec rake db:schema:load
-            bundle exec rake db:migrate
-          environment:
-            DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
-      - run:
-          name: Run tests
-          command: |
-            cd services/QuillLMS
-            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split)
-            bin/rspec ${TESTFILES} --tag big_query_snapshot
+          name: Blank step
+          command: echo 'hello'
+      - when:
+          condition: << parameters.should-run >>
+          steps:
+            - checkout
+            - restore_cache:
+                keys:
+                  - bundle-cache-lms-v3-{{ checksum "services/QuillLMS/Gemfile.lock" }}
+                  - bundle-cache-lms-v3
+            - run:
+                name: Bundle Install if cache isn't present.
+                command: |
+                  cd services/QuillLMS
+                  gem install bundler:2.2.33
+                  # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
+                  bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
+                  bundle check || bundle install --path vendor/bundle
+            - save_cache:
+                key: bundle-cache-lms-v3-{{ checksum "services/QuillLMS/Gemfile.lock" }}
+                paths:
+                  - services/QuillLMS/vendor/bundle
+            - run:
+                name: Install postgres dependencies
+                command: |
+                  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+                  echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+                  sudo apt-get update
+                  sudo apt-get install -y postgresql-client-15
+            - run:
+                name: Copy Config files
+                command: |
+                  cd services/QuillLMS
+                  cp .env-sample .env
+                  cp config/database.yml.circle config/database.yml
+            - run:
+                name: Set up DB
+                command: |
+                  cd services/QuillLMS
+                  bundle exec rake db:schema:load
+                  bundle exec rake db:migrate
+                environment:
+                  DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
+            - run:
+                name: Run tests
+                command: |
+                  cd services/QuillLMS
+                  TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split)
+                  bin/rspec ${TESTFILES} --tag big_query_snapshot
   lms_node_build:
     parameters:
       should-run:
