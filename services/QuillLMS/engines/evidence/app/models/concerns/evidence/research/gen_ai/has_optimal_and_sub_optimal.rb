@@ -14,6 +14,7 @@ module Evidence
         ].freeze
 
         def optimal? = OPTIMAL_PREFIXES.any? { |prefix| text.start_with?(prefix) }
+
         def sub_optimal? = !optimal?
       end
     end

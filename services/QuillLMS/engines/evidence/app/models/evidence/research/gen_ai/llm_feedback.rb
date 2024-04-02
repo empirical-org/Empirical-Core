@@ -27,9 +27,11 @@ module Evidence
 
         attr_readonly :experiment_id, :label, :passage_prompt_response_id, :text
 
-        def example_feedbacks
-          passage_prompt_response.example_feedbacks.first
-        end
+        delegate :example_optimal?, to: :passage_prompt_response
+
+        def example_sub_optimal? = !example_optimal?
+
+        def response_and_feedback = "Response: #{passage_prompt_response.response}\nFeedback: #{text}"
       end
     end
   end
