@@ -103,68 +103,78 @@ jobs:
           POSTGRES_PASSWORD: password
       - image: selenium/standalone-chrome:4.11.0
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - npm-cache-lms-client-v8-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-            - npm-cache-lms-client-v8-{{ checksum "services/QuillLMS/client/package.json" }}-
-            - npm-cache-lms-client-v8
       - run:
-          name: Install NPM dependencies
-          command: |
-            cd services/QuillLMS
-            npm install
-            npm rebuild node-sass
-      - save_cache:
-          key: npm-cache-lms-client-v8-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-          paths:
-            - services/QuillLMS/client/node_modules
-      - restore_cache:
-          keys:
-            - bundle-cache-lms-v3-{{ checksum "services/QuillLMS/Gemfile.lock" }}
-            - bundle-cache-lms-v3
-      - run:
-          name: Bundle Install if cache isn't present.
-          command: |
-            cd services/QuillLMS
-            # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
-            bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
-            bundle check || bundle install --path vendor/bundle
-      - save_cache:
-          key: bundle-cache-lms-v3-{{ checksum "services/QuillLMS/Gemfile.lock" }}
-          paths:
-            - services/QuillLMS/vendor/bundle
-      - run:
-          name: Install postgres dependencies
-          command: |
-            wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-            echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
-            sudo apt-get update
-            sudo apt-get install -y postgresql-client-15
+          name: Blank step
+          command: echo 'hello'
+      - when:
+          condition: << parameters.should-run >>
+          steps:
+            - checkout
+            - restore_cache:
+                keys:
+                  - npm-cache-lms-client-v8-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+                  - npm-cache-lms-client-v8-{{ checksum "services/QuillLMS/client/package.json" }}-
+                  - npm-cache-lms-client-v8
+            - run:
+                name: Install NPM dependencies
+                command: |
+                  cd services/QuillLMS
+                  npm install
+                  npm rebuild node-sass
+            - save_cache:
+                key: npm-cache-lms-client-v8-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+                paths:
+                  - services/QuillLMS/client/node_modules
+            - restore_cache:
+                keys:
+                  - bundle-cache-lms-v3-{{ checksum "services/QuillLMS/Gemfile.lock" }}
+                  - bundle-cache-lms-v3
+            - run:
+                name: Bundle Install if cache isn't present.
+                command: |
+                  cd services/QuillLMS
+                  # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
+                  bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
+                  bundle check || bundle install --path vendor/bundle
+            - save_cache:
+                key: bundle-cache-lms-v3-{{ checksum "services/QuillLMS/Gemfile.lock" }}
+                paths:
+                  - services/QuillLMS/vendor/bundle
+            - run:
+                name: Install postgres dependencies
+                command: |
+                  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+                  echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+                  sudo apt-get update
+                  sudo apt-get install -y postgresql-client-15
 
-      - run:
-          name: Copy Config files
-          command: |
-            cd services/QuillLMS
-            cp .env-sample .env
-            cp config/database.yml.circle config/database.yml
-      - run:
-          name: Set up DB
-          command: |
-            cd services/QuillLMS
-            bundle exec rake db:schema:load
-            bundle exec rake db:migrate
-          environment:
-            DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
-      - run:
-          name: Run tests
-          command: |
-            cd services/QuillLMS
-            TESTFILES=$(circleci tests glob "spec/system/*_spec.rb" | circleci tests split)
-            bin/rspec ${TESTFILES}
-      - store_artifacts:
-          path: /home/circleci/Empirical-Core/services/QuillLMS/tmp/screenshots
+            - run:
+                name: Copy Config files
+                command: |
+                  cd services/QuillLMS
+                  cp .env-sample .env
+                  cp config/database.yml.circle config/database.yml
+            - run:
+                name: Set up DB
+                command: |
+                  cd services/QuillLMS
+                  bundle exec rake db:schema:load
+                  bundle exec rake db:migrate
+                environment:
+                  DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
+            - run:
+                name: Run tests
+                command: |
+                  cd services/QuillLMS
+                  TESTFILES=$(circleci tests glob "spec/system/*_spec.rb" | circleci tests split)
+                  bin/rspec ${TESTFILES}
+            - store_artifacts:
+                path: /home/circleci/Empirical-Core/services/QuillLMS/tmp/screenshots
   lms_big_query_build:
+    parameters:
+      should-run:
+        type: boolean
+        default: false
     working_directory: ~/Empirical-Core
     parallelism: 2
     docker:
@@ -273,6 +283,10 @@ jobs:
                   TESTFILES=$(circleci tests glob "app/**/*.test.*" | circleci tests split)
                   node --expose-gc ./node_modules/.bin/jest $TESTFILES --maxWorkers=2 --logHeapUsage
   cms_rails_build:
+    parameters:
+      should-run:
+        type: boolean
+        default: false
     working_directory: ~/Empirical-Core
     docker:
       - image: ruby:3.2.0
@@ -290,55 +304,78 @@ jobs:
         environment:
           xpack.security.enabled: false
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - bundle-cache-cms{{ checksum "services/QuillCMS/Gemfile.lock" }}
       - run:
-          name: Bundle Install if cache isn't present.
-          command: |
-            cd services/QuillCMS
-            gem install bundler:2.3.26
-            bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
-            bundle check || bundle install --path vendor/bundle
-      - save_cache:
-          key: bundle-cache-cms{{ checksum "services/QuillCMS/Gemfile.lock" }}
-          paths:
-            - services/QuillCMS/vendor/bundle
-      - run:
-          name: Copy Config files
-          command: |
-            cd services/QuillCMS
-            cp config/database.yml.circle config/database.yml
-      - run:
-          name: Set up DB
-          command: |
-            cd services/QuillCMS
-            bundle exec rake db:migrate
-          environment:
-            DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_cms_test_db"
-      - run:
-          name: Run CMS tests
-          command: |
-            cd services/QuillCMS
-            bundle exec rake spec
+          name: Blank step
+          command: echo 'hello'
+      - when:
+          condition: << parameters.should-run >>
+          steps:
+            - checkout
+            - restore_cache:
+                keys:
+                  - bundle-cache-cms{{ checksum "services/QuillCMS/Gemfile.lock" }}
+            - run:
+                name: Bundle Install if cache isn't present.
+                command: |
+                  cd services/QuillCMS
+                  gem install bundler:2.3.26
+                  bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
+                  bundle check || bundle install --path vendor/bundle
+            - save_cache:
+                key: bundle-cache-cms{{ checksum "services/QuillCMS/Gemfile.lock" }}
+                paths:
+                  - services/QuillCMS/vendor/bundle
+            - run:
+                name: Copy Config files
+                command: |
+                  cd services/QuillCMS
+                  cp config/database.yml.circle config/database.yml
+            - run:
+                name: Set up DB
+                command: |
+                  cd services/QuillCMS
+                  bundle exec rake db:migrate
+                environment:
+                  DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_cms_test_db"
+            - run:
+                name: Run CMS tests
+                command: |
+                  cd services/QuillCMS
+                  bundle exec rake spec
   marking_logic_node_build:
+    parameters:
+      should-run:
+        type: boolean
+        default: false
     working_directory: ~/Empirical-Core
     docker:
       - image: cimg/node:14.18-browsers
     steps:
-      - checkout
       - run:
-          name: Install NPM dependencies
-          command: |
-            cd packages/quill-marking-logic
-            npm install
-      - run:
-          name: Run Marking Logic Tests
-          command: |
-            cd packages/quill-marking-logic
-            FORCE_COLOR=true npm run test --colors
+          name: Blank step
+          command: echo 'hello'
+      - when:
+          condition: << parameters.should-run >>
+          steps:
+            - run:
+                name: Blank step
+                command: echo 'hello'
+            - checkout
+            - run:
+                name: Install NPM dependencies
+                command: |
+                  cd packages/quill-marking-logic
+                  npm install
+            - run:
+                name: Run Marking Logic Tests
+                command: |
+                  cd packages/quill-marking-logic
+                  FORCE_COLOR=true npm run test --colors
   evidence_rails_build:
+    parameters:
+      should-run:
+        type: boolean
+        default: false
     working_directory: ~/Empirical-Core
     parallelism: 1
     docker:
@@ -355,85 +392,121 @@ jobs:
           POSTGRES_PASSWORD: password
       - image: cimg/redis:6.0.20
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - bundle-cache-evidence-v3-{{ checksum "services/QuillLMS/engines/evidence/Gemfile.lock" }}
-            - bundle-cache-evidence-v3
       - run:
-          name: Bundle Install if cache isn't present.
-          command: |
-            cd services/QuillLMS/engines/evidence
-            # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
-            bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
-            bundle check || bundle install --path vendor/bundle
-      - save_cache:
-          key: bundle-cache-evidence-v3-{{ checksum "services/QuillLMS/engines/evidence/Gemfile.lock" }}
-          paths:
-            - services/QuillLMS/engines/evidence/vendor/bundle
-      - run:
-          name: Install postgres dependencies
-          command: |
-            wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-            echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
-            sudo apt-get update
-            sudo apt-get install -y postgresql-client-15
-      - run:
-          name: Copy Config files
-          command: |
-            cd services/QuillLMS/engines/evidence/spec/dummy
-            cp config/database.yml.circle config/database.yml
-      - run:
-          name: Set up DB
-          command: |
-            cd services/QuillLMS/engines/evidence
-            bundle exec rake db:create RAILS_ENV=test
-            bundle exec rake db:schema:load RAILS_ENV=test
-          environment:
-            DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_evidence_test_db"
-      - run:
-          name: Run tests
-          command: |
-            cd services/QuillLMS/engines/evidence
-            bin/rspec
+          name: Blank step
+          command: echo 'hello'
+      - when:
+          condition: << parameters.should-run >>
+          steps:
+            - checkout
+            - restore_cache:
+                keys:
+                  - bundle-cache-evidence-v3-{{ checksum "services/QuillLMS/engines/evidence/Gemfile.lock" }}
+                  - bundle-cache-evidence-v3
+            - run:
+                name: Bundle Install if cache isn't present.
+                command: |
+                  cd services/QuillLMS/engines/evidence
+                  # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
+                  bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
+                  bundle check || bundle install --path vendor/bundle
+            - save_cache:
+                key: bundle-cache-evidence-v3-{{ checksum "services/QuillLMS/engines/evidence/Gemfile.lock" }}
+                paths:
+                  - services/QuillLMS/engines/evidence/vendor/bundle
+            - run:
+                name: Install postgres dependencies
+                command: |
+                  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+                  echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+                  sudo apt-get update
+                  sudo apt-get install -y postgresql-client-15
+            - run:
+                name: Copy Config files
+                command: |
+                  cd services/QuillLMS/engines/evidence/spec/dummy
+                  cp config/database.yml.circle config/database.yml
+            - run:
+                name: Set up DB
+                command: |
+                  cd services/QuillLMS/engines/evidence
+                  bundle exec rake db:create RAILS_ENV=test
+                  bundle exec rake db:schema:load RAILS_ENV=test
+                environment:
+                  DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_evidence_test_db"
+            - run:
+                name: Run tests
+                command: |
+                  cd services/QuillLMS/engines/evidence
+                  bin/rspec
   node_lint:
+    parameters:
+      should-run:
+        type: boolean
+        default: false
     working_directory: ~/Empirical-Core
     docker:
       - image: cimg/node:14.21
     steps:
-      - checkout
       - run:
-          name: Install NPM Dependencies
-          command: |
-            npm install
-      - run:
-          name: Run ESlint
-          command: |
-            npm run eslint
+          name: Blank step
+          command: echo 'hello'
+      - when:
+          condition: << parameters.should-run >>
+          steps:
+            - checkout
+            - run:
+                name: Install NPM Dependencies
+                command: |
+                  npm install
+            - run:
+                name: Run ESlint
+                command: |
+                  npm run eslint
   rubocop_lms_lint:
+    parameters:
+      should-run:
+        type: boolean
+        default: false
     working_directory: ~/Empirical-Core
     docker:
       - image: cimg/ruby:3.1.4-node
     steps:
-      - checkout
       - run:
-          name: Run Rubocop for LMS
-          command: |
-            cd services/QuillLMS
-            ruby ./install_rubocop.rb
-            rubocop
+        name: Blank step
+        command: echo 'hello'
+      - when:
+          condition: << parameters.should-run >>
+          steps:
+            - checkout
+            - run:
+                name: Run Rubocop for LMS
+                command: |
+                  cd services/QuillLMS
+                  ruby ./install_rubocop.rb
+                  rubocop
   rubocop_cms_lint:
+    parameters:
+      should-run:
+        type: boolean
+        default: false
     working_directory: ~/Empirical-Core
     docker:
       - image: cimg/ruby:3.2.0-node
     steps:
-      - checkout
       - run:
-          name: Run Rubocop for CMS
-          command: |
-            cd services/QuillCMS
-            ruby ./install_rubocop.rb
-            rubocop
+        name: Blank step
+        command: echo 'hello'
+      - when:
+          condition: << parameters.should-run >>
+          steps:
+            - checkout
+            - run:
+                name: Run Rubocop for CMS
+                command: |
+                  cd services/QuillCMS
+                  ruby ./install_rubocop.rb
+                  rubocop
 
 # the default pipeline parameters, which will be updated according to
 # the results of the path-filtering orb
@@ -466,9 +539,20 @@ workflows:
           should-run: << pipeline.parameters.lms-edits >>
       - lms_node_build:
           should-run: << pipeline.parameters.lms-client-edits >>
+      - lms_big_query_build:
+          should-run: << pipeline.parameters.lms-edits >>
+      - lms_integration_build:
+          should-run: << pipeline.parameters.lms-edits >>
+      - cms_rails_build:
+          should-run: << pipeline.parameters.cms-edits >>
+      - marking_logic_node_build:
+          should-run: << pipeline.parameters.marking-logic-edits >>
 
   lint-code:
     jobs:
-      - node_lint
-      - rubocop_lms_lint
-      - rubocop_cms_lint
+      - node_lint:
+          should-run: << pipeline.parameters.lms-client-edits >>
+      - rubocop_lms_lint:
+          should-run: << pipeline.parameters.lms-edits >>
+      - rubocop_cms_lint:
+          should-run: << pipeline.parameters.cms-edits >>
