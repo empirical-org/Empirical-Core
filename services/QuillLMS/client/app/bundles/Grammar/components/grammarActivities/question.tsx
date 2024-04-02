@@ -11,14 +11,15 @@ import {
   ProgressBar,
   TeacherPreviewMenuButton,
   getLatestAttempt,
-  hashToCollection
+  hashToCollection,
+  finalAttemptFeedback,
+  ALLOWED_ATTEMPTS
 } from '../../../Shared/index';
 import * as responseActions from '../../actions/responses';
 import { setCurrentQuestion } from '../../actions/session';
 import { GrammarActivity } from '../../interfaces/grammarActivities';
 import { Question } from '../../interfaces/questions';
 
-const ALLOWED_ATTEMPTS = 5
 const UNANSWERED = 'unanswered'
 const CORRECTLY_ANSWERED = 'correctly answered'
 const FINAL_ATTEMPT = 'final attempt'
@@ -407,8 +408,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     }
 
     if (question.attempts && question.attempts.length === ALLOWED_ATTEMPTS) {
-      const finalAttemptFeedback = `<b>Good try!</b> Compare your response to the strong response, and then go on to the next question.<br><br><b>Your response</b><br>${response}<br><br><b>A strong response</b><br>${this.correctResponse()}`
-      return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: finalAttemptFeedback }} />} feedbackType="incorrect-continue" />
+      return finalAttemptFeedback(response, this.correctResponse());
     }
     return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: latestAttempt && latestAttempt.feedback ? latestAttempt.feedback : '' }} />} feedbackType="revise-matched" />
   }

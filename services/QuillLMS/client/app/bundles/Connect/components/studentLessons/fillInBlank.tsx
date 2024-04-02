@@ -11,6 +11,8 @@ import {
   fillInBlankInputLabel,
   getLatestAttempt,
   hashToCollection,
+  finalAttemptFeedback,
+  ALLOWED_ATTEMPTS
 } from '../../../Shared/index';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import { FillInBlankQuestion } from '../../interfaces/questions';
@@ -19,8 +21,6 @@ import Cues from '../renderForQuestions/cues.jsx';
 import FeedbackContainer from '../renderForQuestions/feedback';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-
-const ALLOWED_ATTEMPTS = 5
 
 const styles = {
   container: {
@@ -393,13 +393,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     const latestAttempt = getLatestAttempt(question.attempts);
 
     if (maxAttemptsSubmitted && !latestAttempt.response.optimal) {
-      const finalAttemptFeedback = `<b>Good try!</b> Compare your response to the strong response, and then go on to the next question.<br><br><b>Your response</b><br>${latestAttempt.response.text}<br><br><b>A strong response</b><br>${this.correctResponse()}`
-      return (
-        <Feedback
-          feedback={<p dangerouslySetInnerHTML={{ __html: finalAttemptFeedback }} />}
-          feedbackType="incorrect-continue"
-        />
-      )
+      return finalAttemptFeedback(latestAttempt.response.text, this.correctResponse());
     } else if (inputErrors && _.size(inputErrors) !== 0) {
       const blankFeedback = question.blankAllowed ? ' or leave it blank' : ''
       const feedbackText = `Choose one of the options provided${blankFeedback}. Make sure it is spelled correctly.`

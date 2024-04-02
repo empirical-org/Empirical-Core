@@ -35,3 +35,4 @@ export {
   sortByLevenshteinAndOptimal,
   extractConceptResultsFromResponse
 } from './responseTools'
+export { finalAttemptFeedback } from './finalAttemptFeedback'

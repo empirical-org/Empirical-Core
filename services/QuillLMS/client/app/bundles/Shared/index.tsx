@@ -99,6 +99,7 @@ export {
   isValidAndNotEmptyRegex,
   momentFormatConstants,
   copyToClipboard,
+  finalAttemptFeedback,
   getLatestAttempt,
   getCurrentQuestion,
   getQuestionsWithAttempts,
@@ -228,7 +229,8 @@ export {
   MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR,
   INTRODUCTION,
   CHECKLIST,
-  READ_AND_HIGHLIGHT
+  READ_AND_HIGHLIGHT,
+  ALLOWED_ATTEMPTS
 } from './utils/constants'
 
 export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'
