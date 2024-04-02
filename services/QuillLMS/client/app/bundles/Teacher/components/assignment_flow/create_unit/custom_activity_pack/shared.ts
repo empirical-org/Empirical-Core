@@ -135,6 +135,7 @@ function filterBySavedActivityIds(savedActivityFilters: number[], activity: Acti
 }
 
 export function filterByFlag(flagFilters: string[], activity:Activity) {
+  console.log(activity);
   if (!flagFilters.length) { return true }
   return flagFilters.some(flag => activity.flags.includes(flag))
 }
