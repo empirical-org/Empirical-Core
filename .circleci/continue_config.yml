@@ -446,7 +446,7 @@ workflows:
   build-test:
     jobs:
       - lms_rails_build:
-        should-run: true
+          should-run: true
 
   lint-code:
     jobs:
