@@ -1,19 +1,19 @@
-import React from 'react';
 import { mount } from 'enzyme';
+import React from 'react';
+import { stripHtml } from "string-strip-html";
 
-import Subscriptions from '../Subscriptions';
 import {
-  TEACHER_TRIAL,
+  CREDIT_CARD,
   PREMIUM_CREDIT,
-  TEACHER_SPONSORED_FREE,
-  TEACHER_PAID,
-  COLLEGE_BOARD_EDUCATOR_LIFETIME_PREMIUM,
+  SCHOOL_DISTRICT_PAID,
   SCHOOL_PAID,
   SCHOOL_PAID_VIA_STRIPE,
   SCHOOL_SPONSORED_FREE,
-  SCHOOL_DISTRICT_PAID,
-  CREDIT_CARD
-} from '../../components/subscriptions/constants'
+  TEACHER_PAID,
+  TEACHER_SPONSORED_FREE,
+  TEACHER_TRIAL
+} from '../../components/subscriptions/constants';
+import Subscriptions from '../Subscriptions';
 
 const TEACHER_RENEWAL_PRICE = 80
 const SCHOOL_RENEWAL_PRICE = 1800
@@ -46,6 +46,10 @@ const sharedProps = {
 jest.spyOn(global.Date, 'now').mockImplementation(() =>
   new Date('2022-05-26T11:01:58.135Z').valueOf()
 );
+
+jest.mock('string-strip-html', () => ({
+  stripHtml: jest.fn(val => ({ result: val }))
+}));
 
 describe('Subscriptions UI state iterations', () => {
   const expiredAttributes = { expiration: '2022-01-1', expired: true }

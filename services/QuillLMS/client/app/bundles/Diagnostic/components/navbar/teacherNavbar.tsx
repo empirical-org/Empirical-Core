@@ -2,8 +2,8 @@ import * as React from "react";
 import { connect } from 'react-redux';
 
 import { TeacherPreviewMenuButton } from '../../../Shared/index';
+import { closeLanguageMenu } from '../../actions/diagnostics';
 import { LanguageOptions } from '../shared/languageOptions';
-import { closeLanguageMenu } from '../../actions/diagnostics'
 
 const quillLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white-2022.svg`;
 const closeSrc = `${process.env.CDN_URL}/images/icons/close-white.svg`

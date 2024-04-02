@@ -46,7 +46,7 @@
     box-shadow: none;
     div {
       height: 100%;
-      background-color: #06806b;
+      background-color: $quill-green;
       &.step-one {
         width: 10%;
       }
@@ -83,17 +83,23 @@
       line-height: 1.33;
       margin-bottom: 40px;
     }
-    .grouped-minis .assignment-card {
-      &:first-of-type {
-        margin-bottom: 0px;
-        border-radius: 6px 6px 0px 0px;
-      }
-      &:last-of-type {
-        border-radius: 0px 0px 6px 6px;
+    .grouped-minis {
+      box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.10);
+      border-radius: 16px;
+      .assignment-card {
+        box-shadow: none;
+        &:first-of-type {
+          margin-bottom: 0px;
+          border-radius: 16px 16px 0px 0px;
+          border-bottom: none;
+        }
+        &:last-of-type {
+          border-radius: 0px 0px 16px 16px;
+        }
       }
     }
     .assignment-card {
-      margin-bottom: 24px;
+      margin-bottom: 32px;
       .button-container {
         align-items: center;
         .interactive-wrapper {
@@ -125,7 +131,7 @@
   }
   .diagnostic-page {
     .filter-tabs {
-      border-bottom: 1px solid #e0e0e0;
+      border-bottom: 1px solid $quill-grey-5;
       max-width: 582px;
       width: 100%;
       margin-bottom: 24px;
@@ -142,12 +148,12 @@
         text-align: center;
         background-color: transparent;
         padding: 16px 14px;
-        color: #5c5c5c;
+        color: $quill-grey-50;
         border-bottom: 2px solid transparent;
         margin-bottom: -1px;
         &.active {
-          color: #06806b;
-          border-bottom: 2px solid #06806b;
+          color: $quill-green;
+          border-bottom: 2px solid $quill-green;
         }
       }
     }
@@ -161,7 +167,7 @@
         margin-bottom: 40px;
         .pack-sub-container {
           .activity-pack-label {
-            color: #5c5c5c;
+            color: $quill-grey-50;
             font-size: 12px;
             line-height: 1.33;
           }
@@ -193,6 +199,24 @@
   .share-activity-pack-modal-container {
     .quill-snackbar {
       z-index: 3;
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  .quill-modal {
+    max-width: 90vw;
+    height: min-content !important;
+  }
+  .share-activity-pack-modal {
+    .form-buttons {
+      flex-direction: column;
+      button {
+        margin-left: 0px !important;
+      }
+      button:last-of-type {
+        margin-top: 16px;
+      }
     }
   }
 }

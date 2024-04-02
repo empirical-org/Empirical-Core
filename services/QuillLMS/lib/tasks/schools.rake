@@ -150,8 +150,8 @@ namespace :schools do
       end
     end
 
-    puts "Moved #{users_updated} users to the correct school."
-    puts "Moved #{admins_updated} admins to the correct school."
+    puts "Moved #{users_updated} users to the correct school." unless Rails.env.test?
+    puts "Moved #{admins_updated} admins to the correct school." unless Rails.env.test?
   end
 
   # See not on :reassign_users_from_duplicates.  This task is intended
@@ -175,12 +175,12 @@ namespace :schools do
         update_hash = duplicate.as_json.except('id', 'nces_id', 'created_at').select { |_,v| v.present? }
         School.update(row['original_school_id'], update_hash)
 
-        puts duplicate.as_json
+        puts duplicate.as_json unless Rails.env.test?
         duplicate.destroy!
         duplicate_schools_deleted += 1
       end
     end
 
-    puts "Deleted #{duplicate_schools_deleted} duplicate schools."
+    puts "Deleted #{duplicate_schools_deleted} duplicate schools." unless Rails.env.test?
   end
 end

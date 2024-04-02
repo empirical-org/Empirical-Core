@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'clever-ruby'
+
 module CleverIntegration
   class DistrictClient
     attr_reader :district_token
@@ -8,28 +10,45 @@ module CleverIntegration
       @district_token = district_token
     end
 
-    def get_teacher_classrooms(teacher_clever_id)
+    def district_name(district_clever_id)
       data_api
-        .get_sections_for_teacher(teacher_clever_id)
+        .get_district(district_clever_id)
         .data
-        .map { |classroom_data| DistrictClassroomDataAdapter.run(classroom_data) }
+        .name
     end
 
-    def get_classroom_students(classroom_clever_id)
-      data_api
-        .get_students_for_section(classroom_clever_id)
-        .data
-        .map { |student_data| DistrictStudentDataAdapter.run(student_data) }
+    def teacher_classrooms(teacher_clever_id)
+      handle_client_errors do
+        data_api
+          .get_sections_for_teacher(teacher_clever_id)
+          .data
+          .map { |classroom_data| DistrictClassroomDataAdapter.run(classroom_data) }
+      end
+    end
+
+    def classroom_students(classroom_clever_id)
+      handle_client_errors do
+        data_api
+          .get_students_for_section(classroom_clever_id)
+          .data
+          .map { |student_data| DistrictStudentDataAdapter.run(student_data) }
+      end
     end
 
     private def data_api
       @data_api ||= begin
-        config = Clever::Configuration.new
+        config = ::Clever::Configuration.new
         config.access_token = district_token
-        api_instance = Clever::DataApi.new
+        api_instance = ::Clever::DataApi.new
         api_instance.api_client.config = config
         api_instance
       end
+    end
+
+    private def handle_client_errors
+      yield
+    rescue ::Clever::ApiError => e
+      e.code == 404 ? [] : ErrorNotifier.report(e)
     end
   end
 end

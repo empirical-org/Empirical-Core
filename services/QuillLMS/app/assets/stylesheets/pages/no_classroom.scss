@@ -43,7 +43,7 @@
     background-color: #00c2a2;
     font-size: 18px;
     font-weight: 600;
-    color: #ffffff;
+    color: $quill-white;
   }
   button:hover {
     outline: none;
@@ -116,7 +116,7 @@
     font-size: 16px;
     display: flex;
     font-weight: bold;
-    color: #ffffff;
+    color: $quill-white;
     align-items: center;
     justify-content: center;
   }

@@ -1,15 +1,14 @@
 import React from 'react';
-import _ from 'underscore';
 
-import ActivityPack from './activity_pack'
+import ActivityPack from './activity_pack';
 
-import LoadingIndicator from '../../shared/loading_indicator';
-import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown';
+import { requestGet, } from '../../../../../modules/request';
+import { DropdownInput, Snackbar, defaultSnackbarTimeout, } from '../../../../Shared/index';
+import { MY_ACTIVITIES_FEATURED_BLOG_ID } from '../../../constants/featuredBlogPost';
 import getParameterByName from '../../modules/get_parameter_by_name';
-import getAuthToken from '../../modules/get_auth_token';
-import { DropdownInput, Snackbar, defaultSnackbarTimeout, } from '../../../../Shared/index'
-import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_reports/progress_report_constants'
-import { requestGet, } from '../../../../../modules/request'
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_reports/progress_report_constants';
+import ArticleSpotlight from '../../shared/articleSpotlight';
+import LoadingIndicator from '../../shared/loading_indicator';
 
 const clipboardSrc = `${process.env.CDN_URL}/images/illustrations/clipboard.svg`
 
@@ -97,15 +96,15 @@ export default class ManageUnits extends React.Component {
   };
 
   getUnitsForCurrentClassAndOpenState = () => {
-    const { open, } = this.props
     const { selectedClassroomId, classrooms, allUnits, } = this.state
     if (selectedClassroomId && selectedClassroomId !== allClassroomKey) {
       // TODO: Refactor this. It is ridiculous that we need to find a classroom and match on name. Instead, the units should just have a list of classroom_ids that we can match on.
       const selectedClassroom = classrooms.find(c => c.id === Number(selectedClassroomId));
-      const unitsInCurrentClassroom = allUnits.filter(unit => unit.classrooms.find(c => c.name === selectedClassroom.name) && unit.open === open);
+      const unitsInCurrentClassroom = allUnits.filter(unit => unit.classrooms.find(c => c.name === selectedClassroom.name));
       this.setState({ units: unitsInCurrentClassroom, loaded: true, });
     } else {
-      this.setState(prevState => ({ units: prevState.allUnits.filter(unit => unit.open === open), loaded: true, }));
+      this.setState(prevState => ({ units: prevState.allUnits, loaded: true, }));
+
     }
   };
 
@@ -198,10 +197,12 @@ export default class ManageUnits extends React.Component {
   };
 
   stateBasedComponent = () => {
-    const { actions, open, } = this.props
-    const { units, selectedClassroomId, classrooms, } = this.state
+    const { open, } = this.props
+    const { units, selectedClassroomId } = this.state
 
-    if (!units.length && open) {
+    const displayableUnits = units.filter(unit => unit.open === open)
+
+    if (!displayableUnits.length && open) {
       return (
         <div className="my-activities-empty-state container">
           <img alt="Clipboard with notes written on it" src={clipboardSrc} />
@@ -211,7 +212,7 @@ export default class ManageUnits extends React.Component {
       )
     }
 
-    if (!units.length && !open) {
+    if (!displayableUnits.length && !open) {
       return (
         <div className="my-activities-empty-state container">
           <img alt="Clipboard with notes written on it" src={clipboardSrc} />
@@ -221,7 +222,7 @@ export default class ManageUnits extends React.Component {
       )
     }
 
-    const activityPacks = units.map(unit => (
+    const activityPacks = displayableUnits.map(unit => (
       <ActivityPack
         data={unit}
         getUnits={this.getUnits}
@@ -249,7 +250,7 @@ export default class ManageUnits extends React.Component {
   }
 
   render() {
-    const { open, } = this.props
+    const { open } = this.props
     const { classrooms, selectedClassroomId, loaded, showSnackbar, snackbarCopy, } = this.state
 
     if (!loaded) { return <LoadingIndicator /> }
@@ -264,23 +265,26 @@ export default class ManageUnits extends React.Component {
     const selectedOption = allOptions.find(opt => String(opt.value) === String(selectedClassroomId))
 
     return (
-      <div className="my-activities">
-        <Snackbar text={snackbarCopy} visible={showSnackbar} />
-        <section className="my-activities-header">
-          <div className="container">
-            <div className="top-line">
-              <h1>My {open ? 'Open' : 'Closed'} Activity Packs</h1>
-              <a className="quill-button contained primary medium focus-on-light" href="/assign">Assign activities</a>
+      <React.Fragment>
+        <div className="my-activities gray-background-accommodate-footer">
+          <Snackbar text={snackbarCopy} visible={showSnackbar} />
+          <section className="my-activities-header">
+            <div className="container">
+              <div className="top-line">
+                <h1>My {open ? 'Open' : 'Closed'} Activity Packs</h1>
+                <a className="quill-button contained primary medium focus-on-light" href="/assign">Assign activities</a>
+              </div>
+              <DropdownInput
+                handleChange={this.switchClassrooms}
+                options={allOptions}
+                value={selectedOption}
+              />
             </div>
-            <DropdownInput
-              handleChange={this.switchClassrooms}
-              options={allOptions}
-              value={selectedOption}
-            />
-          </div>
-        </section>
-        {this.stateBasedComponent()}
-      </div>
+          </section>
+          {this.stateBasedComponent()}
+        </div>
+        {open && <ArticleSpotlight blogPostId={MY_ACTIVITIES_FEATURED_BLOG_ID} />}
+      </React.Fragment>
     );
   }
 }

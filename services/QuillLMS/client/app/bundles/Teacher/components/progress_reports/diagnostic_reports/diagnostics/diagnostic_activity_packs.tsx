@@ -1,15 +1,17 @@
-import * as React from 'react'
-import * as moment from 'moment'
+import moment from 'moment';
+import * as React from 'react';
 
-import GrowthSummarySection from './growthSummarySection'
-import EmptyDiagnosticProgressReport from './empty_diagnostic_progress_report.jsx'
-import { Classroom, Activity, Diagnostic, } from './interfaces'
-import { goToAssign, baseDiagnosticImageSrc, } from './shared'
+import EmptyDiagnosticProgressReport from './empty_diagnostic_progress_report.jsx';
+import GrowthSummarySection from './growthSummarySection';
+import { Classroom, Diagnostic } from './interfaces';
+import { baseDiagnosticImageSrc, calculateClassGrowthPercentage, goToAssign, } from './shared';
 
-import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_ACTIVITY_PACKS_INDEX,  } from '../../../shared/demo_onboarding_tour'
-import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_report_constants'
-import { DropdownInput, Tooltip, } from '../../../../../Shared/index'
 import { requestGet } from '../../../../../../modules/request/index';
+import { DropdownInput, Tooltip, } from '../../../../../Shared/index';
+import { DIAGNOSTICS_FEATURED_BLOG_POST_ID, GRAY_ARTICLE_FOOTER_BACKGROUND_COLOR } from '../../../../constants/featuredBlogPost';
+import ArticleSpotlight from '../../../shared/articleSpotlight';
+import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_ACTIVITY_PACKS_INDEX, } from '../../../shared/demo_onboarding_tour';
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_report_constants';
 
 const multipleCardsIcon = <img alt="Activity pack icon" src={`${baseDiagnosticImageSrc}/icons-card-multiple.svg`} />
 const multipleUsersIcon = <img alt="Multiple user icon" src={`${baseDiagnosticImageSrc}/icons-user-multiple.svg`} />
@@ -60,7 +62,7 @@ const PostInProgress = ({ name, }) => {
     <section className="post-in-progress">
       <div>
         <h4>Post</h4>
-        <p>{wrenchIcon}<span>We’re working on building the {name} (Post). We’ll let you know when it’s available.</span></p>
+        <p>{wrenchIcon}<span>We're working on building the {name} (Post). We'll let you know when it's available.</span></p>
       </div>
     </section>
   )
@@ -90,20 +92,30 @@ const PostSection = ({ post, activityId, unitTemplateId, name, }) => {
 }
 
 const Diagnostic = ({ diagnostic, }) => {
-  const [skillsGrowth, setSkillsGrowth] = React.useState(null)
+  const [studentResults, setStudentResults] = React.useState<StudentResult[]>([]);
+  const [skillGroupSummaries, setSkillGroupSummaries] = React.useState<SkillGroupSummary[]>([]);
+  const [classwideGrowthAverage, setClasswideGrowthAverage] = React.useState<number>(null);
   const { name, pre, post, } = diagnostic
+  const completedStudentCount = studentResults.filter(sr => sr.skill_groups).length
 
   React.useEffect(() => {
-    if (post && post.assigned_count) {
-      getSkillsGrowth()
+    if (post && post.activity_id) {
+      getResults()
     }
   }, [])
 
-  function getSkillsGrowth() {
+  React.useEffect(() => {
+    // classwideGrowthAverage result may be 0 in some instances so we check for initial null value
+    if (skillGroupSummaries.length && completedStudentCount && classwideGrowthAverage === null) {
+      calculateClassGrowthPercentage({ skillGroupSummaries, completedStudentCount, setClasswideGrowthAverage })
+    }
+  }, [skillGroupSummaries])
 
-    requestGet(`/teachers/progress_reports/skills_growth/${pre.classroom_id}/post_test_activity_id/${post.activity_id}/pre_test_activity_id/${pre.activity_id}`,
+  function getResults() {
+    requestGet(`/teachers/progress_reports/diagnostic_growth_results_summary?activity_id=${post.activity_id}&classroom_id=${pre.classroom_id}`,
       (data) => {
-        setSkillsGrowth(data.skills_growth)
+        setStudentResults(data.student_results);
+        setSkillGroupSummaries(data.skill_group_summaries);
       }
     )
   }
@@ -113,15 +125,18 @@ const Diagnostic = ({ diagnostic, }) => {
   if (pre.post_test_id) {
     const growthSummaryLink = summaryLink(true, pre.post_test_id, pre.classroom_id, pre.unit_id)
 
+    // we only care about whether or not the pre-diagnostic is eligible because even if the post- is, we can't compare the data and so need to keep the empty state
+    const eligibleForQuestionScoring = pre.eligible_for_question_scoring
+
     if (post.assigned_count) {
       postAndGrowth = (<React.Fragment>
         <PostSection post={post} />
-        <GrowthSummarySection growthSummaryLink={growthSummaryLink} showGrowthSummary={true} skillsGrowth={skillsGrowth} />
+        <GrowthSummarySection eligibleForQuestionScoring={eligibleForQuestionScoring} growthSummaryLink={growthSummaryLink} showGrowthSummary={true} skillsGrowth={classwideGrowthAverage} />
       </React.Fragment>)
     } else {
       postAndGrowth = (<React.Fragment>
         <PostSection activityId={pre.post_test_id} name={name} unitTemplateId={post.unit_template_id} />
-        <GrowthSummarySection name={name} />
+        <GrowthSummarySection eligibleForQuestionScoring={eligibleForQuestionScoring} name={name} />
       </React.Fragment>
       )
     }
@@ -139,9 +154,9 @@ const Diagnostic = ({ diagnostic, }) => {
 }
 
 const Classroom = ({ classroom, }) => {
-  const diagnostics = classroom.diagnostics.map(d => <Diagnostic diagnostic={d} key={d.pre.id} />)
+  const diagnostics = classroom.diagnostics.map(d => <Diagnostic diagnostic={d} key={`${d.pre.activity_id}-${classroom.id}`} />)
   return (
-    <section className="classroom-section">
+    <section className="classroom-section" key={classroom.id}>
       <h2>{classroom.name}</h2>
       {diagnostics}
     </section>
@@ -163,19 +178,22 @@ const DiagnosticActivityPacks = ({ classrooms, }) => {
   const classroomElements = selectedClassroomId === ALL ? classrooms.map(c => <Classroom classroom={c} key={c.id} />) : <Classroom classroom={classrooms.find(c => c.id === selectedClassroomId)} />
 
   return (
-    <div className="diagnostic-activity-packs-container white-background-accommodate-footer">
-      <DemoOnboardingTour pageKey={DEMO_ONBOARDING_DIAGNOSTIC_ACTIVITY_PACKS_INDEX} />
-      <div className="container diagnostic-activity-packs">
-        <h1>Diagnostic Reports</h1>
-        <DropdownInput
-          handleChange={onClassesDropdownChange}
-          isSearchable={false}
-          options={dropdownOptions}
-          value={dropdownOptions.find(opt => opt.value === selectedClassroomId)}
-        />
-        {classroomElements}
+    <React.Fragment>
+      <div className="diagnostic-activity-packs-container white-background-accommodate-footer">
+        <DemoOnboardingTour pageKey={DEMO_ONBOARDING_DIAGNOSTIC_ACTIVITY_PACKS_INDEX} />
+        <div className="container diagnostic-activity-packs">
+          <h1>Diagnostic Reports</h1>
+          <DropdownInput
+            handleChange={onClassesDropdownChange}
+            isSearchable={false}
+            options={dropdownOptions}
+            value={dropdownOptions.find(opt => opt.value === selectedClassroomId)}
+          />
+          {classroomElements}
+        </div>
       </div>
-    </div>
+      <ArticleSpotlight blogPostId={DIAGNOSTICS_FEATURED_BLOG_POST_ID} />
+    </React.Fragment>
   )
 }
 

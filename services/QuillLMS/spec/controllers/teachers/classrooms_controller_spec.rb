@@ -168,13 +168,13 @@ describe Teachers::ClassroomsController, type: :controller do
       let(:analyzer) { double(:analyzer, track_with_attributes: true) }
 
       before do
-        allow(Analyzer).to receive(:new) { analyzer }
+        allow(Analytics::Analyzer).to receive(:new) { analyzer }
       end
 
       it 'should track the ownership transfer' do
         expect(analyzer).to receive(:track_with_attributes).with(
           current_owner,
-          SegmentIo::BackgroundEvents::TRANSFER_OWNERSHIP,
+          Analytics::SegmentIo::BackgroundEvents::TRANSFER_OWNERSHIP,
           { properties: { new_owner_id: subsequent_owner.id.to_s } }
         )
         session[:user_id] = current_owner.id
@@ -224,14 +224,27 @@ describe Teachers::ClassroomsController, type: :controller do
           let!(:cu) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])}
           let!(:ua) { create(:unit_activity, unit: cu.unit, activity: activity)}
           let!(:activity_session) { create(:activity_session, user: student, activity: activity, classroom_unit: cu, state: 'finished') }
+          let!(:activity_session2) { create(:activity_session, user: student, state: 'finished') }
 
-          it 'should assign students and number_of_completed_activities' do
+          it 'should assign students and number_of_completed_activities for activities completed for that class' do
             get :index
 
             classrooms.count.times do |i|
               next unless assigns(:classrooms)[i]['id'] == classroom.id
 
               expect(assigns(:classrooms)[i][:students][0][:number_of_completed_activities]).to eq 1
+            end
+          end
+
+          it 'should assign students but not number_of_completed_activities if the classroom is archived' do
+            classroom.update(visible: false)
+
+            get :index
+
+            classrooms.count.times do |i|
+              next unless assigns(:classrooms)[i]['id'] == classroom.id
+
+              expect(assigns(:classrooms)[i][:students][0][:number_of_completed_activities]).not_to be
             end
           end
         end
@@ -283,23 +296,33 @@ describe Teachers::ClassroomsController, type: :controller do
         before do
           create(:google_classroom_user,
             :active,
-            provider_classroom_id: classroom.google_classroom_id,
-            provider_user_id: student1.google_id
+            classroom_external_id: classroom.classroom_external_id,
+            user_external_id: student1.google_id
           )
 
           create(:google_classroom_user,
             :deleted,
-            provider_classroom_id: classroom.google_classroom_id,
-            provider_user_id: student2.google_id
+            classroom_external_id: classroom.classroom_external_id,
+            user_external_id: student2.google_id
           )
         end
 
-        it 'reports which students are no longer in provider classroom' do
+        it 'reports which students are no longer in provider classroom in visible classroom' do
           get :index, as: :json
           parsed_response = JSON.parse(response.body)
           expect(parsed_response["classrooms"][0]["students"][0]["synced"]).to eq true
           expect(parsed_response["classrooms"][0]["students"][1]["synced"]).to eq false
         end
+
+        it 'reports which students are no longer in provider classroom in archived classroom' do
+          classroom.update(visible: false)
+
+          get :index, as: :json
+          parsed_response = JSON.parse(response.body)
+          expect(parsed_response["classrooms"][0]["students"][0]["synced"]).to eq true
+          expect(parsed_response["classrooms"][0]["students"][1]["synced"]).to eq false
+        end
+
       end
     end
   end

@@ -4,7 +4,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   include PublicProgressReports
   include LessonsRecommendations
   include DiagnosticReports
-  require 'pusher'
 
   before_action :authorize_teacher!,
     only: [
@@ -45,24 +44,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     render json: response
   end
 
-  def diagnostic_student_responses_index
-    activity_id = results_summary_params[:activity_id]
-    classroom_id = results_summary_params[:classroom_id]
-    unit_id = results_summary_params[:unit_id]
-
-    students_json = current_user.classroom_unit_by_ids_cache(
-      classroom_id: classroom_id,
-      unit_id: unit_id,
-      activity_id: activity_id,
-      key: 'diagnostic_reports.diagnostic_student_responses_index'
-    ) do
-      set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id, hashify_activity_sessions: true)
-      diagnostic_student_responses
-    end
-
-    render json: { students: students_json }
-  end
-
   def individual_student_diagnostic_responses
     data = fetch_individual_student_diagnostic_responses_cache
 
@@ -71,7 +52,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     render json: data
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   private def fetch_individual_student_diagnostic_responses_cache
     activity_id = individual_student_diagnostic_responses_params[:activity_id]
     classroom_id = individual_student_diagnostic_responses_params[:classroom_id]
@@ -96,30 +76,25 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       end
 
       student = User.find_by_id(student_id)
-      skills = Activity.find(activity_id).skills.distinct
+      skill_groups = activity_session.activity.skill_groups
       pre_test = Activity.find_by_follow_up_activity_id(activity_id)
       pre_test_activity_session = pre_test && find_activity_session_for_student_activity_and_classroom(student_id, pre_test.id, classroom_id, nil)
 
       if pre_test && pre_test_activity_session
+        pre_questions = format_concept_results(pre_test_activity_session, pre_test_activity_session.concept_results.order("question_number::int"))
+        post_questions = format_concept_results(activity_session, activity_session.concept_results.order("question_number::int"))
         concept_results = {
-          pre: { questions: format_concept_results(pre_test_activity_session, pre_test_activity_session.concept_results.order("question_number::int")) },
-          post: { questions: format_concept_results(activity_session, activity_session.concept_results.order("question_number::int")) }
+          pre: { questions: pre_questions },
+          post: { questions: post_questions }
         }
-        formatted_skills = skills.map do |skill|
-          {
-            pre: data_for_skill_by_activity_session(pre_test_activity_session.concept_results, skill),
-            post: data_for_skill_by_activity_session(activity_session.concept_results, skill)
-          }
-        end
-        skill_results = { skills: formatted_skills.uniq { |formatted_skill| formatted_skill[:pre][:skill] } }
+        skill_group_results = GrowthResultsSummary.skill_groups_for_session(skill_groups, activity_session, pre_test_activity_session, student.name)
       else
         concept_results = { questions: format_concept_results(activity_session, activity_session.concept_results.order("question_number::int")) }
-        skill_results = { skills: skills.map { |skill| data_for_skill_by_activity_session(activity_session.concept_results, skill) }.uniq { |formatted_skill| formatted_skill[:skill] } }
+        skill_group_results = ResultsSummary.skill_groups_for_session(skill_groups, activity_session.concept_results, student.name)
       end
-      { concept_results: concept_results, skill_results: skill_results, name: student.name }
+      { concept_results: concept_results, skill_group_results: skill_group_results, name: student.name }
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   def classrooms_with_students
     render json: fetch_classrooms_with_students_cache
@@ -174,21 +149,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     render json: { student_ids: assigned_student_ids_for_classroom_and_units(classroom, units) }
   end
 
-  def skills_growth
-    classroom = Classroom.find(params[:classroom_id])
-    cache_keys = {
-      pre_test: params[:pre_test_activity_id],
-      post_test: params[:post_test_activity_id]
-    }
-
-    json = current_user.classroom_cache(classroom, key: 'teachers.progress_reports.diagnostic_reports.skills_growth', groups: cache_keys) do
-      { skills_growth: skills_growth_by_classroom_for_post_tests(params[:classroom_id], params[:post_test_activity_id], params[:pre_test_activity_id]) }
-    end
-
-    render json: json
-  end
-
-  # rubocop:disable Metrics/CyclomaticComplexity
   def redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit
     params.permit(:unit_id, :activity_id)
     unit_id = params[:unit_id]
@@ -197,20 +157,16 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     last_activity_session = ActivitySession.where(classroom_unit: classroom_units, activity_id: activity_id, is_final_score: true).order(updated_at: :desc).limit(1)&.first
     classroom_id = last_activity_session&.classroom_unit&.classroom_id
 
-    # rubocop:disable Style/GuardClause
     if !classroom_id
       return render json: {}, status: 404
     elsif Activity.diagnostic_activity_ids.include?(activity_id.to_i)
       activity_is_a_post_test = Activity.find_by(follow_up_activity_id: activity_id).present?
-      summary_or_growth_summary = activity_is_a_post_test ? 'growth_summary' : 'summary'
       unit_query_string = "?unit=#{unit_id}"
-      render json: { url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity_id}/classroom/#{classroom_id}/#{summary_or_growth_summary}#{unit_query_string}" }
+      render json: { url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity_id}/classroom/#{classroom_id}/responses#{unit_query_string}" }
     else
       render json: { url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students" }
     end
-    # rubocop:enable Style/GuardClause
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   def assign_post_test
     Units::AssignmentHelpers.assign_unit_to_one_class(params[:classroom_id], params[:unit_template_id], params[:student_ids], false)
@@ -263,11 +219,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     activity = Activity.find_by_id_or_uid(params[:activity_id])
     url = classroom_report_url(params[:classroom_unit_id].to_i, activity.id)
 
-    if url
-      redirect_to url
-    else
-      redirect_to teachers_progress_reports_landing_page_path
-    end
+    redirect_to url || teachers_progress_reports_landing_page_path
   end
 
   def report_from_classroom_unit_and_activity_and_user
@@ -364,48 +316,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     else
       classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: {unit_activities: {activity_id: activity_id}})
       activity_session = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished', user_id: student_id).order(completed_at: :desc).first
-    end
-  end
-
-  private def diagnostic_student_responses
-    @assigned_students.map do |student|
-      activity_session = @activity_sessions[student.id]
-
-      if activity_session
-        formatted_concept_results = format_concept_results(activity_session, activity_session.concept_results)
-        score = get_average_score(formatted_concept_results)
-        if score >= (ProficiencyEvaluator.proficiency_cutoff * 100)
-          proficiency = ActivitySession::PROFICIENT
-        elsif score >= (ProficiencyEvaluator.nearly_proficient_cutoff * 100)
-          proficiency = ActivitySession::NEARLY_PROFICIENT
-        else
-          proficiency = ActivitySession::NOT_YET_PROFICIENT
-        end
-        {
-          name: student.name,
-          id: student.id,
-          score: score,
-          proficiency: proficiency
-        }
-      else
-        { name: student.name }
-      end
-    end
-  end
-
-  private def skills_growth_by_classroom_for_post_tests(classroom_id, post_test_activity_id, pre_test_activity_id)
-    set_post_test_activity_sessions_and_assigned_students(post_test_activity_id, classroom_id)
-
-    @post_test_activity_sessions.reduce(0) do |sum, as|
-      post_correct_skill_ids = as&.correct_skill_ids
-      pre_correct_skill_ids = ActivitySession
-        .includes(:concept_results, activity: {skills: :concepts})
-        .where(user_id: as.user_id, activity_id: pre_test_activity_id)
-        .order(completed_at: :desc)
-        .first
-        &.correct_skill_ids
-      total_acquired_skills_count = post_correct_skill_ids && pre_correct_skill_ids ? (post_correct_skill_ids - pre_correct_skill_ids).length : 0
-      sum += total_acquired_skills_count > 0 ? total_acquired_skills_count : 0
     end
   end
 

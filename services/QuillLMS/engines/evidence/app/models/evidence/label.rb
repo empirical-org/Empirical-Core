@@ -1,5 +1,19 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: comprehension_labels
+#
+#  id         :integer          not null, primary key
+#  name       :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  rule_id    :integer          not null
+#
+# Foreign Keys
+#
+#  fk_rails_...  (rule_id => comprehension_rules.id) ON DELETE => cascade
+#
 module Evidence
   class Label < ApplicationRecord
     self.table_name = 'comprehension_labels'

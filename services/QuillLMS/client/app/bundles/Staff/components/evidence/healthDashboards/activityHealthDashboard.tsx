@@ -1,15 +1,15 @@
 import * as React from "react";
 import { useRef } from 'react';
-import { useQuery } from 'react-query';
 import { CSVLink } from 'react-csv';
+import { useQuery } from 'react-query';
 import { firstBy } from 'thenby';
 
 
-import { PromptHealthRows } from './promptHealthRow'
+import { PromptHealthRows } from './promptHealthRow';
 
-import { FlagDropdown, ReactTable, filterNumbers, expanderColumn } from '../../../../Shared/index'
+import { FlagDropdown, ReactTable, expanderColumn, filterNumbers, PRODUCTION_FLAG } from '../../../../Shared/index';
+import { addCommasToThousands, getLinkToActivity, secondsToHumanReadableTime } from "../../../helpers/evidence/miscHelpers";
 import { fetchAggregatedActivityHealths } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
-import { getLinkToActivity, secondsToHumanReadableTime, addCommasToThousands } from "../../../helpers/evidence/miscHelpers";
 
 const ALL_FLAGS = "All Flags"
 const NAME_COLUMN = "name"
@@ -52,7 +52,7 @@ const TrueFalseFilter = ({ column, setFilter }) => (
 )
 
 export const ActivityHealthDashboard = ({ handleDashboardToggle }) => {
-  const [flag, setFlag] = React.useState<string>(ALL_FLAGS)
+  const [flag, setFlag] = React.useState<string>(PRODUCTION_FLAG)
   const [promptSearchInput, setPromptSearchInput] = React.useState<string>("")
   const [dataToDownload, setDataToDownload] = React.useState<Array<{}>>([])
   const [rows, setRows] = React.useState<Array<{}>>(null)
@@ -73,7 +73,7 @@ export const ActivityHealthDashboard = ({ handleDashboardToggle }) => {
 
   React.useEffect(() => {
     if (activityHealthsData && activityHealthsData.activityHealths) {
-      setRows(getFilteredData(activityHealthsData.activityHealths))
+      setRows(activityHealthsData.activityHealths)
     }
   }, [activityHealthsData])
 

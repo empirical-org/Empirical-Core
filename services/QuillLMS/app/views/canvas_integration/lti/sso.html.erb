@@ -1,0 +1,21 @@
+<% button_id = 'redirect_to_canvas_to_verify_credentials' %>
+<% @footer_base_only = true %>
+
+<div>
+  <div class='container account-form'>
+    <div class='account-container text-center' style='min-height: 200px'>
+      <h4>You be will redirected to Canvas to verify credentials...please wait.</h4>
+      <div class='text-center auth-section'>
+        <p class='sign-up-link'>
+          <%= button_to @button_text, @button_url, id: button_id, params: @button_params %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type='text/javascript'>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById("<%= button_id %>").click();
+  });
+</script>

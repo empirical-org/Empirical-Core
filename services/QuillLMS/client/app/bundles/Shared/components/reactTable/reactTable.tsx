@@ -1,7 +1,7 @@
 import * as React from "react";
-import { useTable, useSortBy, usePagination, useFilters, useExpanded, useGroupBy, } from "react-table";
+import { useExpanded, useFilters, useGroupBy, usePagination, useSortBy, useTable, } from "react-table";
 
-import ReactTablePagination from './reactTablePagination'
+import ReactTablePagination from './reactTablePagination';
 
 import { NumberFilterInputProps } from "../../interfaces";
 
@@ -68,16 +68,19 @@ interface ReactTableProps {
   className?: string,
   filterable?: boolean,
   defaultPageSize?: number,
+  disableSortBy?: boolean,
   currentPage?: number,
-  defaultSorted?: string,
+  defaultSorted?: string | {id: string, desc: boolean }[],
   onSortedChange?: (sortBy: string) => void,
   onPageChange?: (pageIndex: number) => void,
   onFiltersChange?: (filters: []) => void,
+  showPagination?: boolean,
   showPaginationBottom?: boolean,
   manualFilters?: boolean,
   manualSortBy?: boolean,
   manualPagination?: boolean,
   manualPageCount?: boolean,
+  minRows?: number,
   defaultGroupBy?: string,
   SubComponent?: any
 }
@@ -90,6 +93,7 @@ export const ReactTable = ({
   defaultPageSize,
   currentPage,
   defaultSorted,
+  disableSortBy,
   onSortedChange,
   onPageChange,
   onFiltersChange,
@@ -120,6 +124,7 @@ export const ReactTable = ({
     {
       data,
       defaultColumn,
+      disableSortBy,
       manualSortBy,
       manualPagination,
       manualFilters: manualFilters,

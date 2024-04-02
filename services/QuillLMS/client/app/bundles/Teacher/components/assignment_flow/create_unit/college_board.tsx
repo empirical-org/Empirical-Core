@@ -1,7 +1,7 @@
 import * as React from 'react';
+import ScrollToTop from '../../shared/scroll_to_top';
+import AssignmentFlowNavigation from '../assignment_flow_navigation';
 import AssignmentCard from './assignment_card';
-import AssignmentFlowNavigation from '../assignment_flow_navigation'
-import ScrollToTop from '../../shared/scroll_to_top'
 
 const selectCard = (history: any, link: string) => {
   history.push(link)
@@ -20,6 +20,7 @@ const minis = ({ history }) => [
     header="View AP Activities"
     imgAlt="Page with writing with the word AP in top left corner"
     imgSrc={apSrc}
+    key="ap"
     selectCard={() => selectCard(history, '/assign/ap')}
   />),
   (<AssignmentCard
@@ -31,6 +32,7 @@ const minis = ({ history }) => [
     header="View Pre-AP Activities"
     imgAlt="Page with writing with the word Pre-AP in top left corner"
     imgSrc={preApSrc}
+    key="pre-ap"
     selectCard={() => selectCard(history, '/assign/pre-ap')}
   />),
   (<AssignmentCard
@@ -41,6 +43,7 @@ const minis = ({ history }) => [
     header="View SpringBoard Activities"
     imgAlt="Page with writing with the word SpringBoard on top"
     imgSrc={springBoardSrc}
+    key="springboard"
     selectCard={() => selectCard(history, '/assign/springboard')}
   />)
 ];

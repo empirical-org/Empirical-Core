@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdminActionModal it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="modal-container admin-action-modal-container"
+  >
+    <div
+      class="modal-background"
+    />
+    <div
+      aria-labelledby="modalTitle"
+      aria-modal="true"
+      class="admin-action-modal quill-modal"
+      role="dialog"
+      tabindex="-1"
+    >
+      <div
+        class="admin-action-modal-header"
+      >
+        <h3
+          class="title"
+          id="modalTitle"
+        >
+          Header
+        </h3>
+      </div>
+      <div
+        class="admin-action-modal-body modal-body"
+      >
+        <p>
+          body
+        </p>
+      </div>
+      <div
+        class="admin-action-modal-footer"
+      >
+        <div
+          class="buttons"
+        >
+          <button
+            class="quill-button outlined secondary medium focus-on-light"
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            class="quill-button contained primary medium focus-on-light"
+            type="button"
+          >
+            Confirm
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

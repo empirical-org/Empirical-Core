@@ -1,0 +1,11 @@
+<% if admin_impersonating_user?(current_user) %>
+  <div class="teacher-dashboard" id="premium-hub-header">
+    <div class="admin-nav-bar">
+      <h4>
+        <%= link_to("Premium Hub", "/session") %>
+        <i class="fa fa-chevron-right"></i>
+        <%= "#{current_user.name} Account" %>
+      </h4>
+    </div>
+  </div>
+<% end %>

@@ -1,5 +1,5 @@
-import React from 'react'
-import TextInputGenerator from '../../modules/componentGenerators/text_input_generator.jsx'
+import React from 'react';
+import TextInputGenerator from '../../modules/componentGenerators/text_input_generator.jsx';
 
 export default class NewNestedResource extends React.Component {
   constructor(props, context) {

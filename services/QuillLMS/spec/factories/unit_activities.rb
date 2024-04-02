@@ -55,7 +55,7 @@ FactoryBot.define do
     end
 
     trait :evidence_unit_activity do
-      activity { create(:evidence_activity, :production) }
+      activity { create(:evidence_lms_activity, :production) }
     end
   end
 end

@@ -1,16 +1,16 @@
 import _ from 'lodash';
-import { checkGrammarQuestion, Response } from 'quill-marking-logic'
+import { checkGrammarQuestion, Response } from 'quill-marking-logic';
 
-import { ActionTypes } from './actionTypes'
-import * as responseActions from './responses'
+import { ActionTypes } from './actionTypes';
+import * as responseActions from './responses';
 
-import { QuestionApi, GRAMMAR_QUESTION_TYPE } from '../libs/questions_api'
-import { SessionApi } from '../libs/sessions_api'
-import { Question } from '../interfaces/questions'
-import { SessionState } from '../reducers/sessionReducer'
+import { hashToCollection } from '../../Shared/index';
+import { permittedFlag } from '../helpers/flagArray';
 import { shuffle } from '../helpers/shuffle';
-import { permittedFlag } from '../helpers/flagArray'
-import { hashToCollection } from '../../Shared/index'
+import { Question } from '../interfaces/questions';
+import { GRAMMAR_QUESTION_TYPE, QuestionApi } from '../libs/questions_api';
+import { SessionApi } from '../libs/sessions_api';
+import { SessionState } from '../reducers/sessionReducer';
 
 export const allQuestions = {};
 let questionsInitialized = false;
@@ -166,7 +166,7 @@ export const startListeningToFollowUpQuestionsForProofreaderSession = (proofread
   }
 }
 
-const handleProofreaderSession = (proofreaderSession, state) => {
+export const handleProofreaderSession = (proofreaderSession, state) => {
   return dispatch => {
 
     // if there is no proofreader session or concept results for that session, we can't do anything here
@@ -174,17 +174,29 @@ const handleProofreaderSession = (proofreaderSession, state) => {
     // that all gets processed by the normal `setSessionReducerToSavedSession` function and we don't need to set new ones
     if (!proofreaderSession || !proofreaderSession.conceptResults || proofreaderSession.answeredQuestions || state.session.proofreaderSession) { return }
 
-    const concepts: { [key: string]: { quantity: 1|2|3 } } = {}
-    const incorrectConcepts = proofreaderSession.conceptResults.filter(cr => cr.metadata.correct === 0)
+    const incorrectConceptUIDs = proofreaderSession.conceptResults.reduce((results, cr) => {
+      const { metadata, concept_uid } = cr
+      const { correct } = metadata
+      if (correct === 0 && !results.includes(concept_uid)) { results.push(concept_uid); }
+      return results;
+    }, []);
+    const concepts: { [key: string]: { quantity: number } } = {}
+    /* per Curriculum standards:
+      - 4 or less incorrect concepts: 3 grammar questions per concept
+      - 5 to 9 incorrect concepts: 2 grammar questions per concept
+      - 10 or more incorrect concepts: 1 grammar question per concept
+    */
     let quantity = 3
-    if (incorrectConcepts.length > 9) {
+    if (incorrectConceptUIDs.length > 9) {
       quantity = 1
-    } else if (incorrectConcepts.length > 4) {
+    } else if (incorrectConceptUIDs.length > 4) {
       quantity = 2
     }
     proofreaderSession.conceptResults.forEach(cr => {
-      if (cr.metadata.correct === 0) {
-        concepts[cr.concept_uid] = { quantity }
+      const { metadata, concept_uid } = cr
+      const { correct } = metadata
+      if (correct === 0) {
+        concepts[concept_uid] = { quantity }
       }
     })
     dispatch(saveProofreaderSessionToReducer(proofreaderSession))

@@ -1,26 +1,34 @@
 import * as React from 'react';
 import Select from 'react-select';
 
-import { HTMLDropdownOption } from './htmlDropdownOption'
-import { HTMLDropdownSingleValue } from './htmlDropdownSingleValue'
-import { CheckableDropdownOption } from './checkableDropdownOption'
-import { CheckableDropdownValueContainer } from './checkableDropdownValueContainer'
-import { StandardDropdownOption } from './standardDropdownOption'
+import { CheckableDropdownOption } from './checkableDropdownOption';
+import { CheckableDropdownValueContainer } from './checkableDropdownValueContainer';
+import { SearchableCheckableDropdownMenuList } from './searchableCheckableDropdownMenuList';
+import { HTMLDropdownOption } from './htmlDropdownOption';
+import { HTMLDropdownSingleValue } from './htmlDropdownSingleValue';
+import { StandardDropdownOption } from './standardDropdownOption';
+
+export interface Option {
+  label: string,
+  value: string | number,
+  [key: string]: any
+}
 
 interface DropdownInputProps {
-  options: Array<{label: string, value: string, [key:string]: any}>;
+  options: Array<Option>;
   className?: string;
   disabled?: boolean;
   error?: string;
   handleCancel?: (event: any) => void;
-  handleChange?: (selection: any|any[]) => void;
+  handleChange?: (selection: any | any[]) => void;
   helperText?: string;
-  label?: string|JSX.Element;
+  label?: string | JSX.Element;
   id?: string;
   isMulti?: boolean;
   isSearchable?: boolean;
   onClick?: (event?: any) => void;
   optionType?: string;
+  optionTypeDescriptor?: string;
   placeholder?: string;
   timesSubmitted?: Number;
   type?: string;
@@ -39,12 +47,13 @@ interface DropdownInputState {
   errorAcknowledged: boolean;
   menuIsOpen: boolean;
   options: Array<any>;
-  cursor: number|null;
+  cursor: number | null;
   inputValue: string;
 }
 
 const KEYDOWN = 'keydown'
 const MOUSEDOWN = 'mousedown'
+const TOUCHSTART = 'touchstart'
 
 const ARROWDOWN = 'ArrowDown'
 const ARROWUP = 'ArrowUp'
@@ -71,6 +80,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   componentDidMount() {
     this.handleUpdatedOptions(null);
     document.addEventListener(MOUSEDOWN, this.handleClick, true)
+    document.addEventListener(TOUCHSTART, this.handleClick, true)
     document.addEventListener(KEYDOWN, this.handleKeyDown, true)
   }
 
@@ -82,7 +92,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     this.setOptionFocus()
   }
 
-  componentWillReceiveProps(nextProps: any) {
+  UNSAFE_componentWillReceiveProps(nextProps: any) {
     const { error, timesSubmitted, options } = this.props
     const { errorAcknowledged, } = this.state
     if (nextProps.error !== error && errorAcknowledged) {
@@ -97,6 +107,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   componentWillUnmount() {
     document.removeEventListener(MOUSEDOWN, this.handleClick, true)
     document.removeEventListener(KEYDOWN, this.handleClick, true)
+    document.removeEventListener(TOUCHSTART, this.handleClick, true)
   }
 
   handleUpdatedOptions = (receivedOptions: any) => {
@@ -108,7 +119,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     this.setState({ options: passedOptions });
   }
 
-  handleInputActivation = () => {
+  handleInputInteraction = (e) => {
     const { disabled, isSearchable, onClick, } = this.props
     const { active, menuIsOpen, } = this.state
 
@@ -117,6 +128,8 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     if (!disabled && (!menuIsOpen || !active)) {
       const cursor = isSearchable ? null : 0
       this.setState({ active: true, menuIsOpen: true, cursor }, () => { this.input ? this.input.focus() : null })
+    } else if (e && e.target.className.includes('dropdown__indicator')) {
+      this.deactivateInput()
     }
   }
 
@@ -150,10 +163,14 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
 
   handleInputChange = (inputValue, action) => {
     const { handleInputChange } = this.props;
-    if (action.action !== "input-blur" && action.action !== 'menu-close') {
-      this.setState({ inputValue });
+
+    if (action.action !== 'input-change') {
+      return
     }
-    if(handleInputChange && action.action === 'input-change') {
+
+    this.setState({ inputValue });
+
+    if (handleInputChange) {
       handleInputChange(inputValue);
     }
   }
@@ -214,7 +231,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       case ENTER:
         e.preventDefault()
         if (!active || !menuIsOpen) {
-          this.handleInputActivation()
+          this.handleInputInteraction()
         } else if (cursor !== null) {
           this.handleEnterWithFocusedOption()
         }
@@ -276,7 +293,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
 
   handleKeyDownOnInputContainer = (e) => {
     if (e.key === TAB) { return }
-    this.handleInputActivation()
+    this.handleInputInteraction(e)
   }
 
   handleFilterOptions = (candidate: { label: string; value: string; data: any }, value: string) => {
@@ -285,14 +302,16 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   renderInput() {
-    const { active, errorAcknowledged, menuIsOpen, cursor, inputValue, options } = this.state
-    const { className, label, value, placeholder, error, type, id, isSearchable, isMulti, optionType, usesCustomOption, filterOptions } = this.props
+    const { active, errorAcknowledged, menuIsOpen, cursor, inputValue, } = this.state
+    const { className, label, value, placeholder, error, type, id, isSearchable, isMulti, optionType, optionTypeDescriptor, usesCustomOption, filterOptions, disabled, } = this.props
     const passedValue = value || ''
     const hasText = value || isMulti ? 'has-text' : ''
     const inactiveOrActive = active ? 'active' : 'inactive'
     const notEditable = isSearchable || isMulti ? '' : 'not-editable'
+    const searchable = isSearchable ? 'searchable' : ''
     const checkboxDropdown = isMulti ? 'checkbox-dropdown' : ''
-    const sharedClasses = `dropdown-container input-container ${inactiveOrActive} ${hasText} ${notEditable} ${className} ${checkboxDropdown}`
+    const sharedClasses = `dropdown-container input-container ${inactiveOrActive} ${hasText} ${notEditable} ${className} ${searchable} ${checkboxDropdown}`
+
     const sharedProps = {
       id,
       cursor,
@@ -301,7 +320,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       type,
       placeholder: placeholder || '',
       onKeyDown: this.onKeyDown,
-      options,
+      options: this.filteredOptions(),
       isClearable: false,
       className: "dropdown",
       classNamePrefix: "dropdown",
@@ -311,15 +330,16 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       onInputChange: this.handleInputChange,
       tabIndex: isSearchable ? 0 : -1,
       inputValue,
-      filterOption: filterOptions ? this.handleFilterOptions : null
+      filterOption: filterOptions ? this.handleFilterOptions : null,
     }
     if (error) {
       if (errorAcknowledged) {
         return (
           <div
             className={`error ${sharedClasses}`}
-            onClick={this.handleInputActivation}
+            onClick={this.handleInputInteraction}
             onKeyDown={this.handleKeyDownOnInputContainer}
+            onTouchStart={this.handleInputInteraction}
             ref={node => this.node = node}
             role="button"
             tabIndex={0}
@@ -338,6 +358,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             className={`error unacknowledged ${sharedClasses}`}
             onClick={this.handleErrorAcknowledgement}
             onKeyDown={this.handleErrorAcknowledgement}
+            onTouchStart={this.handleErrorAcknowledgement}
             ref={node => this.node = node}
             role="button"
             tabIndex={0}
@@ -352,35 +373,65 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
         )
       }
     } else if (isMulti) {
-      return (
-        <div
-          className={sharedClasses}
-          onClick={this.handleInputActivation}
-          onKeyDown={this.handleKeyDownOnInputContainer}
-          ref={node => this.node = node}
-          role="button"
-          tabIndex={0}
-        >
-          <label htmlFor={id}>{label}</label>
-          <Select
-            {...sharedProps}
-            closeMenuOnSelect={false}
-            components={{ Option: CheckableDropdownOption, ValueContainer: CheckableDropdownValueContainer }}
-            hideSelectedOptions={false}
-            isMulti
-            isSearchable={false}
-            menuIsOpen={active ? menuIsOpen : false}
-            onChange={this.handleOptionSelection}
-            optionType={optionType}
-          />
-        </div>
-      )
+      if (isSearchable) {
+        return (
+          <div
+            className={sharedClasses}
+            disabled={disabled}
+            onClick={this.handleInputInteraction}
+            onKeyDown={this.handleKeyDownOnInputContainer}
+            onTouchStart={this.handleInputInteraction}
+            ref={node => this.node = node}
+            role="button"
+            tabIndex={0}
+          >
+            <label htmlFor={id}>{label}</label>
+            <Select
+              {...sharedProps}
+              closeMenuOnSelect={false}
+              components={{ Option: CheckableDropdownOption, ValueContainer: CheckableDropdownValueContainer, MenuList: SearchableCheckableDropdownMenuList }}
+              hideSelectedOptions={false}
+              isMulti
+              menuIsOpen={active ? menuIsOpen : false}
+              onChange={this.handleOptionSelection}
+              optionType={optionType}
+              optionTypeDescriptor="selected"
+            />
+          </div>
+        )
+      } else {
+        return (
+          <div
+            className={sharedClasses}
+            onClick={this.handleInputInteraction}
+            onKeyDown={this.handleKeyDownOnInputContainer}
+            onTouchStart={this.handleInputInteraction}
+            ref={node => this.node = node}
+            role="button"
+            tabIndex={0}
+          >
+            <label htmlFor={id}>{label}</label>
+            <Select
+              {...sharedProps}
+              closeMenuOnSelect={false}
+              components={{ Option: CheckableDropdownOption, ValueContainer: CheckableDropdownValueContainer }}
+              hideSelectedOptions={false}
+              isMulti
+              menuIsOpen={active ? menuIsOpen : false}
+              onChange={this.handleOptionSelection}
+              optionType={optionType}
+              optionTypeDescriptor={optionTypeDescriptor}
+            />
+          </div>
+        )
+      }
     } else if (usesCustomOption) {
       return (
         <div
           className={sharedClasses}
-          onClick={this.handleInputActivation}
+          onClick={this.handleInputInteraction}
           onKeyDown={this.handleKeyDownOnInputContainer}
+          onTouchStart={this.handleInputInteraction}
           ref={node => this.node = node}
           role="button"
           tabIndex={0}
@@ -399,8 +450,9 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       return (
         <div
           className={`${sharedClasses}`}
-          onClick={this.handleInputActivation}
+          onClick={this.handleInputInteraction}
           onKeyDown={this.handleKeyDownOnInputContainer}
+          onTouchStart={this.handleInputInteraction}
           ref={node => this.node = node}
           role="button"
           tabIndex={0}
@@ -417,8 +469,9 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       return (
         <div
           className={`dropdown ${sharedClasses}`}
-          onClick={this.handleInputActivation}
+          onClick={this.handleInputInteraction}
           onKeyDown={this.handleKeyDownOnInputContainer}
+          onTouchStart={this.handleInputInteraction}
           ref={node => this.node = node}
           role="button"
           tabIndex={0}

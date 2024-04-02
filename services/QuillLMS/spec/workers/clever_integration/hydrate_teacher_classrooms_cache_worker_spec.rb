@@ -2,44 +2,49 @@
 
 require 'rails_helper'
 
-describe CleverIntegration::HydrateTeacherClassroomsCacheWorker do
-  subject { described_class.new.perform(teacher_id) }
+module CleverIntegration
+  RSpec.describe HydrateTeacherClassroomsCacheWorker do
+    subject { described_class.new.perform(user_id) }
 
-  let(:hydrator_class) { CleverIntegration::TeacherClassroomsCacheHydrator }
+    context 'nil user_id' do
+      let(:user_id) { nil }
 
-  context 'nil user_id' do
-    let(:teacher_id) { nil }
-
-    it { should_not_hydrate_cache }
-  end
-
-  context 'user does not exist' do
-    let(:teacher_id) { 0 }
-
-    it { should_not_hydrate_cache }
-  end
-
-  context 'user exists' do
-    context 'that does not have clever_id' do
-      let(:teacher_id) { create(:teacher).id }
-
-      it { should_not_hydrate_cache }
+      it do
+        expect(ErrorNotifier).to receive(:report).with(described_class::UserNotFoundError, user_id: user_id)
+        expect(TeacherClassroomsCacheHydrator).not_to receive(:run)
+        subject
+      end
     end
 
-    context 'that has clever_id' do
-      let(:teacher_id) { create(:teacher, :signed_up_with_clever).id }
+    context 'user does not exist' do
+      let(:user_id) { 0 }
 
-      it { should_hydrate_cache }
+      it do
+        expect(ErrorNotifier).to receive(:report).with(described_class::UserNotFoundError, user_id: user_id)
+        expect(TeacherClassroomsCacheHydrator).not_to receive(:run)
+        subject
+      end
     end
-  end
 
-  def should_not_hydrate_cache
-    expect(hydrator_class).to_not receive(:run)
-    subject
-  end
+    context 'user exists' do
+      let(:user) { create(:teacher, :signed_up_with_clever) }
+      let(:user_id) { user.id }
 
-  def should_hydrate_cache
-    expect(hydrator_class).to receive(:run).with(teacher_id)
-    subject
+      it do
+        expect(ErrorNotifier).not_to receive(:report)
+        expect(TeacherClassroomsCacheHydrator).not_to receive(:run)
+        subject
+      end
+
+      context 'is clever_authorized' do
+        before { create(:clever_library_auth_credential, user: user) }
+
+        it do
+          expect(ErrorNotifier).not_to receive(:report)
+          expect(TeacherClassroomsCacheHydrator).to receive(:run).with(user)
+          subject
+        end
+      end
+    end
   end
 end

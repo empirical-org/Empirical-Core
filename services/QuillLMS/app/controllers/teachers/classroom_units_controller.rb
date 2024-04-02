@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pusher'
-
 class Teachers::ClassroomUnitsController < ApplicationController
   respond_to :json
 

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import _ from 'underscore';
-import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm.jsx';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
+import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm.jsx';
+import { hashToCollection, } from '../../../Shared/index'
 
 class EditIncorrectSequencesContainer extends Component {
   constructor() {
@@ -37,7 +37,10 @@ class EditIncorrectSequencesContainer extends Component {
     const { match } = this.props
     const { params } = match
     const { incorrectSequenceID, questionID } = params
-    return this.props[questionType].data[questionID].incorrectSequences[incorrectSequenceID];
+
+    const { incorrectSequences, } = this.props[questionType].data[questionID]
+    const sequencesArray = Array.isArray(incorrectSequences) && incorrectSequences.every(is => is.key) ? incorrectSequences : hashToCollection(incorrectSequences)
+    return sequencesArray.find(is => is.key === incorrectSequenceID);
   }
 
   submitForm = (data, incorrectSequenceID) => {

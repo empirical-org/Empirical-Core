@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import PromptStepContainer from './promptStepContainer'
+import PromptStepContainer from './promptStepContainer';
 
 import { renderReadPassageStep, } from '../../helpers/containerRenderHelpers';
 

@@ -1,6 +1,6 @@
 'use strict'
 
-import _ from 'lodash'
+import _ from 'lodash';
 
 export default  function () {
   // we have to go through all of this because in order to send files (for example images) over ajax, we have to turn the request data into a FormData object,

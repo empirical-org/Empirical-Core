@@ -1,5 +1,5 @@
-import * as React from 'react'
 import { mount } from 'enzyme'
+import * as React from 'react'
 
 import Stage2 from '../Stage2'
 
@@ -30,6 +30,7 @@ describe('Stage2 component', () => {
     updateUnitName: jest.fn(),
     user: {}
   }
+
   it('buttonEnabled returns expected value', () => {
     let wrapper = mount(<Stage2 {...mockProps} />)
     expect(wrapper.instance().buttonEnabled()).toEqual(true)

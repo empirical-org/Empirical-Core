@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import _ from 'lodash'
+import _ from 'lodash';
+import React, { Component } from 'react';
 
 export default class EditLessonDetails extends Component<any, any> {
   constructor(props){

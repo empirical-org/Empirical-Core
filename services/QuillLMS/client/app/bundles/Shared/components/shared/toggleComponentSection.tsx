@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { expandIcon } from '../..'
+import { expandIcon } from '../..';
 
 export const ToggleComponentSection = ({ label, components }) => {
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false);

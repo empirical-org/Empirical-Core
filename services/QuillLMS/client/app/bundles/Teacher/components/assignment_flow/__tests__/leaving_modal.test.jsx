@@ -1,7 +1,7 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import LeavingModal from '../leaving_modal'
+import LeavingModal from '../leaving_modal';
 
 describe('LeavingModal component', () => {
   const wrapper = shallow(

@@ -5,7 +5,7 @@ class Api::V1::RuleFeedbackHistoriesController < Api::ApiController
     raise ArgumentError unless params.include?('activity_id') && params.include?('conjunction')
 
     options = params.permit(:conjunction, :activity_id, :start_date, :end_date).to_h.symbolize_keys
-    report = RuleFeedbackHistory.generate_report(**options)
+    report = Staff::RulesAnalysisQuery.run(**options)
     render json: { rule_feedback_histories: report }
   end
 
@@ -28,7 +28,7 @@ class Api::V1::RuleFeedbackHistoriesController < Api::ApiController
   def activity_health
     raise ArgumentError unless params.include?('activity_id')
 
-    report = ActivityFeedbackHistory.run({activity_id: params['activity_id']})
+    report = ActivityFeedbackHistory.run(**{activity_id: params['activity_id']})
     render json: report
   end
 end

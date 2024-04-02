@@ -7,7 +7,7 @@ namespace :students do
 
     duplicate_emails = User.student.where.not(email: [nil, ""]).group(:email).having("count(email) > 1").pluck(:email)
 
-    progress_bar = ProgessBar.new(duplicate_emails.size)
+    progress_bar = ProgressBar.new(duplicate_emails.size)
 
     duplicate_emails.each do |email|
       User.find_by(email: email).duplicate_empty_student_accounts.destroy_all

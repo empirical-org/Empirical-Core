@@ -18,23 +18,28 @@ export {
   TextFilter,
   expanderColumn,
   NumberFilterInput,
-  CheckboxFilter
 } from './components/reactTable/reactTable'
 
 export {
   ArchivedButton,
+  PostNavigationBanner,
   ButtonLoadingSpinner,
+  DarkButtonLoadingSpinner,
+  LightButtonLoadingSpinner,
   Card,
   CarouselAnimation,
   DataTable,
   ProgressBar,
+  DragHandle,
   DropdownInput,
+  DropdownInputWithSearchTokens,
   Error,
   ExpandableCard,
   FlagDropdown,
   Input,
   OneThumbSlider,
   Passthrough,
+  ReportHeader,
   ResumeOrBeginButton,
   ScreenreaderInstructions,
   SmartSpinner,
@@ -91,6 +96,7 @@ export {
 export {
   hashToCollection,
   isValidRegex,
+  isValidAndNotEmptyRegex,
   momentFormatConstants,
   copyToClipboard,
   getLatestAttempt,
@@ -104,12 +110,20 @@ export {
   titleCase,
   onMobile,
   fillInBlankInputLabel,
+  fillInBlankInputWidth,
+  splitPromptForFillInBlank,
   getIconForActivityClassification,
   isTrackableStudentEvent,
   hexToRGBA,
   uniqueValuesArray,
   filterNumbers,
-  redirectToActivity
+  redirectToActivity,
+  renderNavList,
+  noResultsMessage,
+  getStatusForResponse,
+  responsesWithStatus,
+  sortByLevenshteinAndOptimal,
+  extractConceptResultsFromResponse
 } from './libs/index'
 
 export {
@@ -131,6 +145,7 @@ export {
   playBoxIcon,
   previewIcon,
   smallWhiteCheckIcon,
+  indeterminateCheckIcon,
   cursorClick,
   cursorPointingHand,
   removeIcon,
@@ -156,7 +171,15 @@ export {
   infoIcon,
   closedLockIcon,
   openLockIcon,
-  networkIcon
+  networkIcon,
+  whiteDiamondIcon,
+  redDiamondIcon,
+  evidenceHandbookIcon,
+  whiteArrowPointingDownIcon,
+  filterIcon,
+  documentFileIcon,
+  singleUserIcon,
+  whiteEmailIcon,
 } from './images/index'
 
 export {
@@ -199,12 +222,15 @@ export {
   NOT_APPLICABLE,
   STUDENT,
   TEACHER,
-  INDIVIDUAL_CONTRIBUTOR
+  INDIVIDUAL_CONTRIBUTOR,
+  ADMIN,
+  NOT_LISTED,
+  NO_SCHOOL_SELECTED,
+  EVIDENCE_HANDBOOK_LINK,
+  MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR,
+  INTRODUCTION,
+  CHECKLIST,
+  READ_AND_HIGHLIGHT
 } from './utils/constants'
-
-export {
-  UserIdsForEvent,
-  Question,
-  QuestionObject } from './interfaces'
 
 export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'

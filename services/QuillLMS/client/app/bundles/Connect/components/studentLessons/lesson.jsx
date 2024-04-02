@@ -1,39 +1,39 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import _ from 'lodash';
+import Pusher from 'pusher-js';
 
+import PlayFillInTheBlankQuestion from './fillInBlank.tsx';
+import Finished from './finished.jsx';
 import PlayLessonQuestion from './question';
 import PlaySentenceFragment from './sentenceFragment.jsx';
-import PlayFillInTheBlankQuestion from './fillInBlank.tsx'
-import Finished from './finished.jsx';
 
-import SessionActions from '../../actions/sessions.js';
+import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
+  CLICK,
+  KEYDOWN,
+  KEYPRESS,
+  MOUSEDOWN,
+  MOUSEMOVE,
   PlayTitleCard,
-  Spinner,
   ProgressBar,
   Register,
-  TeacherPreviewMenuButton,
-  roundValuesToSeconds,
-  KEYDOWN,
-  MOUSEMOVE,
-  MOUSEDOWN,
-  CLICK,
-  KEYPRESS,
-  VISIBILITYCHANGE,
   SCROLL,
+  Spinner,
+  TeacherPreviewMenuButton,
+  VISIBILITYCHANGE,
+  roundValuesToSeconds,
 } from '../../../Shared/index';
-import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion, resumePreviousSession, setCurrentQuestion } from '../../actions.js';
-import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../libs/conceptResults/lesson';
-import { getParameterByName } from '../../libs/getParameterByName';
-import { permittedFlag } from '../../libs/flagArray'
+import { clearData, loadData, nextQuestion, resumePreviousSession, setCurrentQuestion, submitResponse, updateCurrentQuestion } from '../../actions.js';
+import SessionActions from '../../actions/sessions.js';
 import {
-  questionCount,
   answeredQuestionCount,
-  getProgressPercent
-} from '../../libs/calculateProgress'
-import { requestPut, requestPost, } from '../../../../modules/request/index'
+  getProgressPercent,
+  questionCount
+} from '../../libs/calculateProgress';
+import { calculateScoreForLesson, getConceptResultsForAllQuestions } from '../../libs/conceptResults/lesson';
+import { permittedFlag } from '../../libs/flagArray';
+import { getParameterByName } from '../../libs/getParameterByName';
 
 const TITLE_CARD_TYPE = "TL"
 
@@ -212,6 +212,26 @@ export class Lesson extends React.Component {
     return question;
   }
 
+  initializeSubscription(activitySessionUid) {
+    if (process.env.NODE_ENV === 'development') {
+      Pusher.logToConsole = true;
+    }
+    if (!window.pusher) {
+      window.pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
+    }
+    const channel = window.pusher.subscribe(activitySessionUid);
+    
+    channel.bind('concept-results-saved', () => {
+      document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${activitySessionUid}`;
+      this.setState({ saved: true, });
+    });
+
+    channel.bind('concept-results-partially-saved', () => {
+      document.location.href = process.env.DEFAULT_URL;
+    });
+  }
+
+
   createAnonActivitySession = (lessonID, results, score, data) => {
     requestPost(
       `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
@@ -223,13 +243,14 @@ export class Lesson extends React.Component {
         data
       },
       (body) => {
-        document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
-        this.setState({ saved: true, });
+        this.initializeSubscription(body.activity_session.uid)
       }
     )
   }
 
   finishActivitySession = (sessionID, results, score, data) => {
+    this.initializeSubscription(sessionID)
+
     requestPut(
       `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
       {
@@ -239,8 +260,7 @@ export class Lesson extends React.Component {
         data
       },
       (body) => {
-        document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${sessionID}`;
-        this.setState({ saved: true, });
+        // doing nothing here because the Pusher subscription should handle a redirect once concept results are saved
       },
       (body) => {
         this.setState({

@@ -1,8 +1,6 @@
 import React from 'react';
-import _ from 'underscore';
 import Textarea from 'react-textarea-autosize';
-import { generateStyleObjects } from '../../libs/markupUserResponses';
-const C = require('../../constants').default;
+import C from '../../constants';
 
 const noUnderlineErrors = [];
 

@@ -20,16 +20,28 @@ module Evidence
       let(:mailer) { double('mailer', deliver_now!: true) }
       let(:label_configs) {{'because' => [{'label' => 'Label1', 'examples' => ['hello', 'goodbye']}]}}
 
-      it 'call generate and call file_mailer' do
+      it 'call generate and call file_mailer with defaults' do
         expect(Evidence::Synthetic::SeedDataGenerator).to receive(:csvs_for_activity)
-          .with(activity_id: activity.id, nouns: nouns, label_configs: label_configs)
+          .with(activity_id: activity.id, nouns: nouns, label_configs: label_configs, use_passage: true)
           .and_return(generator_response)
 
         expect(FileMailer).to receive(:send_multiple_files)
           .with(email, email_subject, generator_response)
           .and_return(mailer)
 
-        subject.perform(activity.id, nouns, label_configs)
+        subject.perform(activity.id, nouns, label_configs, true)
+      end
+
+      it 'call generate and call file_mailer with use_passage config' do
+        expect(Evidence::Synthetic::SeedDataGenerator).to receive(:csvs_for_activity)
+          .with(activity_id: activity.id, nouns: nouns, label_configs: label_configs, use_passage: false)
+          .and_return(generator_response)
+
+        expect(FileMailer).to receive(:send_multiple_files)
+          .with(email, email_subject, generator_response)
+          .and_return(mailer)
+
+        subject.perform(activity.id, nouns, label_configs, false)
       end
     end
   end

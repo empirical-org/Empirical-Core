@@ -1,9 +1,9 @@
-import * as React from 'react'
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { activities } from './data'
+import { activities } from './data';
 
-import ActivityRow from '../activity_row'
+import ActivityRow from '../activity_row';
 
 describe('ActivityRow component', () => {
   const sharedProps = {

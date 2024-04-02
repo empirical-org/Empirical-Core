@@ -14,6 +14,7 @@ export interface ErrorAuthors {
   "Punctuation End Hint": string
   "Punctuation Hint": string
   "Punctuation and Case Hint": string
+  "Quotation Mark Hint": string
   "Required Words Hint": string
   "Spacing After Comma Hint": string
   "Starting Capitalization Hint": string
@@ -39,6 +40,7 @@ const error_authors: ErrorAuthors = {
   "Punctuation End Hint": "Punctuation End Hint",
   "Punctuation Hint": "Punctuation Hint",
   "Punctuation and Case Hint": "Punctuation and Case Hint",
+  "Quotation Mark Hint": "Quotation Mark Hint",
   "Required Words Hint": "Required Words Hint",
   "Spacing After Comma Hint": "Spacing After Comma Hint",
   "Spelling Hint": "Spelling Hint",

@@ -11,30 +11,27 @@
 #  is_retry              :boolean          default(FALSE)
 #  percentage            :float
 #  started_at            :datetime
-#  state                 :string           default("unstarted"), not null
+#  state                 :string(255)      default("unstarted"), not null
 #  temporary             :boolean          default(FALSE)
 #  timespent             :integer
-#  uid                   :string
+#  uid                   :string(255)
 #  visible               :boolean          default(TRUE), not null
 #  created_at            :datetime
 #  updated_at            :datetime
 #  activity_id           :integer
 #  classroom_activity_id :integer
 #  classroom_unit_id     :integer
-#  pairing_id            :string
+#  pairing_id            :string(255)
 #  user_id               :integer
 #
 # Indexes
 #
-#  index_activity_sessions_on_activity_id            (activity_id)
-#  index_activity_sessions_on_classroom_activity_id  (classroom_activity_id)
-#  index_activity_sessions_on_classroom_unit_id      (classroom_unit_id)
-#  index_activity_sessions_on_completed_at           (completed_at)
-#  index_activity_sessions_on_pairing_id             (pairing_id)
-#  index_activity_sessions_on_started_at             (started_at)
-#  index_activity_sessions_on_state                  (state)
-#  index_activity_sessions_on_uid                    (uid) UNIQUE
-#  index_activity_sessions_on_user_id                (user_id)
+#  new_activity_sessions_activity_id_idx        (activity_id)
+#  new_activity_sessions_classroom_unit_id_idx  (classroom_unit_id)
+#  new_activity_sessions_completed_at_idx       (completed_at)
+#  new_activity_sessions_uid_idx                (uid) UNIQUE
+#  new_activity_sessions_uid_key                (uid) UNIQUE
+#  new_activity_sessions_user_id_idx            (user_id)
 #
 FactoryBot.define do
   factory :simple_activity_session, class: 'ActivitySession'
@@ -45,12 +42,12 @@ FactoryBot.define do
     uid                 { SecureRandom.urlsafe_base64 }
     percentage          { 0.50 }
     started_at          { created_at }
-    state               'finished'
+    state               { 'finished' }
     completed_at        { Time.current }
-    is_final_score      true
-    is_retry            false
-    temporary           false
-    visible             true
+    is_final_score      { true }
+    is_retry            { false }
+    temporary           { false }
+    visible             { true }
 
     before(:create) do |activity_session|
       if activity_session.user && !activity_session.classroom_unit
@@ -72,32 +69,32 @@ FactoryBot.define do
       classroom_unit = activity_session.classroom_unit
       UnitActivity.find_or_create_by(activity: activity_session.activity, unit_id: classroom_unit.unit_id)
       StudentsClassrooms.find_or_create_by(student_id: activity_session.user_id, classroom_id: classroom_unit.classroom_id )
-      create(:concept_result, activity_session: activity_session)
+      ConceptResult.find_or_create_by(activity_session: activity_session)
     end
 
     trait :retry do
-      is_retry true
+      is_retry { true }
     end
 
     trait :unstarted do
-      percentage {nil}
-      state 'unstarted'
-      completed_at {nil}
-      is_final_score false
+      percentage { nil }
+      state { 'unstarted' }
+      completed_at { nil }
+      is_final_score { false }
     end
 
     trait :started do
-      percentage {nil}
-      state 'started'
-      completed_at {nil}
-      is_final_score false
+      percentage { nil }
+      state { 'started' }
+      completed_at { nil }
+      is_final_score { false }
     end
 
     trait :finished do
       percentage {0.50}
-      state 'finished'
+      state { 'finished' }
       completed_at { Time.current }
-      is_final_score true
+      is_final_score { true }
     end
 
     factory :diagnostic_activity_session do
@@ -105,7 +102,7 @@ FactoryBot.define do
     end
 
     factory :evidence_activity_session do
-      activity { create(:evidence_activity) }
+      activity { create(:evidence_lms_activity) }
       # We explicitly don't record percentages for Evidence sessions
       percentage { nil }
     end

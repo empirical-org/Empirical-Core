@@ -33,7 +33,7 @@ EmpiricalGrammar::Application.configure do
     enable_starttls_auto: true
   }
 
-  config.assets.precompile += %w(sign_up_email.css)
+  config.assets.precompile += %w(sign_up_email.css admin_usage_snapshot_report_pdf.scss)
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -56,7 +56,6 @@ EmpiricalGrammar::Application.configure do
   # Image Uploads (see paperclip gem)
   Paperclip.options[:command_path] = "/usr/local/bin/"
 
-
   config.after_initialize do
     Bullet.enable = true
     Bullet.console = true
@@ -76,4 +75,8 @@ EmpiricalGrammar::Application.configure do
   config.active_record.database_selector = { delay: 0.seconds }
   config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+
+  config.hosts << ENV.fetch("NGROK_HOST") if ENV.fetch("NGROK_HOST", false)
+
+  BetterErrors.editor = ENV['BETTER_ERRORS_EDITOR'] if defined?(BetterErrors) && ENV['BETTER_ERRORS_EDITOR']
 end

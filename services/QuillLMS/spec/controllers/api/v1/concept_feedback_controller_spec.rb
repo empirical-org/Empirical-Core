@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-require 'json'
 require 'rails_helper'
 
 describe Api::V1::ConceptFeedbackController, type: :controller do
   let!(:concept_feedback) { create(:concept_feedback) }
 
   describe "#index" do
+    after { Rails.cache.clear } # index is cached
+
     it "should return a list of ConceptFeedbacks" do
       get :index, params: { activity_type: concept_feedback.activity_type }, as: :json
       expect(JSON.parse(response.body).keys.length).to eq(1)

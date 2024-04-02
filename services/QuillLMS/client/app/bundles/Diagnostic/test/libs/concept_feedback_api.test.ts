@@ -13,8 +13,7 @@ jest.mock('../../../../modules/request/index', () => ({
 
 import {
   ConceptFeedbackApi,
-  conceptFeedbackApiBaseUrl,
-  CONNECT_TYPE
+  conceptFeedbackApiBaseUrl
 } from '../../libs/concept_feedback_api'
 
 import {

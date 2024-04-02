@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'jwt'
-
 class CreateLessonsToken
 
   def initialize(user, classroom_unit_id)

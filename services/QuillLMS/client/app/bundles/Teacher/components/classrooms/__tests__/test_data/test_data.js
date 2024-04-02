@@ -177,7 +177,6 @@ export const classroomWithoutStudents = {
   ]
 }
 
-
 export const classroomProps = [
   classroomWithoutStudents,
   {
@@ -274,6 +273,11 @@ export const userProps = {
   account_type: 'unknown',
 }
 
+export const googleUserProps = {
+  ...userProps,
+  provider: 'Google'
+}
+
 export const googleClassrooms = [
   {
     id: 5038757116,
@@ -282,7 +286,7 @@ export const googleClassrooms = [
     section: "1",
     alreadyImported: true,
     grade: null,
-    creationTime: "2017-08-17T21:19:02.818Z",
+    year: 2017,
     studentCount: 0
   },
   {
@@ -292,7 +296,7 @@ export const googleClassrooms = [
     section: null,
     alreadyImported: true,
     grade: null,
-    creationTime: "2017-04-24T18:36:15.711Z",
+    year: 2017,
     studentCount: 0
   },
   {
@@ -302,7 +306,7 @@ export const googleClassrooms = [
     section: null,
     alreadyImported: true,
     grade: null,
-    creationTime: "2017-03-13T16:31:05.568Z",
+    year: 2017,
     studentCount: 9
   },
   {
@@ -312,7 +316,7 @@ export const googleClassrooms = [
     section: null,
     alreadyImported: true,
     grade: null,
-    creationTime: "2017-03-13T16:14:31.136Z",
+    year: 2017,
     studentCount: 0
   },
   {
@@ -322,7 +326,7 @@ export const googleClassrooms = [
     section: null,
     alreadyImported: true,
     grade: null,
-    creationTime: "2017-03-13T16:07:49.735Z",
+    year: 2017,
     studentCount: 2
   },
   {
@@ -332,7 +336,7 @@ export const googleClassrooms = [
     section: null,
     alreadyImported: true,
     grade: null,
-    creationTime: "2017-03-13T16:05:33.074Z",
+    year: 2017,
     studentCount: 1
   }
 ]

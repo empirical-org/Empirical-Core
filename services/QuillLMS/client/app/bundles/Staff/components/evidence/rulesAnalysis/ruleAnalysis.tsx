@@ -1,20 +1,20 @@
-import * as React from "react";
-import { useQueryClient, useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
 import moment from 'moment';
+import * as React from "react";
+import { useQuery, useQueryClient } from 'react-query';
+import { Link } from 'react-router-dom';
 import { firstBy } from 'thenby';
 
-import FilterWidget from "../shared/filterWidget";
-import { fetchRule } from '../../../utils/evidence/ruleAPIs';
+import { ALL, LOW_CONFIDENCE, RULES_ANALYSIS, RULE_ANALYSIS, SCORED, STRONG, UNSCORED, WEAK } from '../../../../../constants/evidence';
+import { DataTable, Error, Input, ReactTable, Spinner, smallWhiteCheckIcon, } from '../../../../Shared/index';
+import { getVersionOptions, handlePageFilterClick } from "../../../helpers/evidence/miscHelpers";
+import { renderHeader } from "../../../helpers/evidence/renderHelpers";
+import { DropdownObjectInterface } from '../../../interfaces/evidenceInterfaces';
 import { fetchActivity, fetchActivityVersions } from '../../../utils/evidence/activityAPIs';
-import { fetchRuleFeedbackHistoriesByRule } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
 import { fetchConcepts, } from '../../../utils/evidence/conceptAPIs';
 import { createOrUpdateFeedbackHistoryRating, massCreateOrUpdateFeedbackHistoryRating, } from '../../../utils/evidence/feedbackHistoryRatingAPIs';
-import { DropdownObjectInterface } from '../../../interfaces/evidenceInterfaces';
-import { DataTable, Error, Spinner, Input, smallWhiteCheckIcon, ReactTable, } from '../../../../Shared/index';
-import { handlePageFilterClick, getVersionOptions } from "../../../helpers/evidence/miscHelpers";
-import { renderHeader } from "../../../helpers/evidence/renderHelpers";
-import { ALL, SCORED, UNSCORED, STRONG, WEAK, RULE_ANALYSIS, RULES_ANALYSIS, LOW_CONFIDENCE } from '../../../../../constants/evidence';
+import { fetchRule } from '../../../utils/evidence/ruleAPIs';
+import { fetchRuleFeedbackHistoriesByRule } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
+import FilterWidget from "../shared/filterWidget";
 
 const responseHeaders = (isLowConfidenceRule) => {
   const highlightedOutput = {
@@ -410,6 +410,9 @@ const RuleAnalysis = ({ match }) => {
         <button className={massMarkButtonClassName} disabled={massMarkButtonDisabled} onClick={massMarkStrong} type="button">Mark All Selected As Strong</button>
         <button className={massMarkButtonClassName} disabled={massMarkButtonDisabled} onClick={massMarkWeak} type="button">Mark All Selected As Weak</button>
         <button className={massMarkButtonClassName} disabled={massMarkButtonDisabled} onClick={massUnmark} type="button">Unmark All Selected</button>
+      </div>
+      <div className="stem">
+        <span>Stem: {prompt && prompt.text && <span className="prompt-text" dangerouslySetInnerHTML={{ __html: prompt.text.replace(prompt.conjunction, `<b>${prompt.conjunction}</b>`)}} />}</span>
       </div>
       <Input
         handleChange={onSearchChange}

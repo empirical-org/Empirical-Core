@@ -118,7 +118,7 @@ class Scorebook::Query
   end
 
   def self.to_offset_datetime(date, offset)
-    (Date.parse(date).midnight - offset.seconds).to_s(:db)
+    (Date.parse(date).midnight - offset.seconds).to_fs(:db)
   end
 
   def self.date_substring_for_acts_completed_at(begin_date, end_date, offset)

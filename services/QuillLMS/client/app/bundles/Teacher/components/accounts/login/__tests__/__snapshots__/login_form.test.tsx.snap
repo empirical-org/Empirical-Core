@@ -1,0 +1,214 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginForm it should render 1`] = `
+<DocumentFragment>
+  <div>
+    <span />
+    <div
+      class="container account-form"
+    >
+      <h1>
+        Good to see you again!
+      </h1>
+      <div
+        class="account-container text-center"
+      >
+        <div
+          class="auth-section"
+        >
+          <form
+            action="/auth/google/online_access"
+            class=""
+            method="post"
+          >
+            <input
+              name="authenticity_token"
+              type="hidden"
+              value="0"
+            />
+            <button
+              class=""
+              type="submit"
+            >
+              <img
+                alt="Google icon"
+                src="undefined/images/shared/google_icon.svg"
+              />
+              <span
+                class=""
+              >
+                Log in with Google
+              </span>
+            </button>
+          </form>
+          <div
+            class="google-tbd"
+          >
+            <h4>
+              <img
+                alt=""
+                src="undefined/images/icons/description-information.svg"
+              />
+               Having trouble logging in with Google?
+            </h4>
+            <p>
+              If you're a Google user, you can also log in using your email address. You just need to create a password.
+            </p>
+            <a
+              class="inline-link"
+              href="/password_reset"
+            >
+              Create a password
+            </a>
+          </div>
+          <button
+            type="button"
+          >
+            <img
+              alt="Clever icon"
+              src="undefined/images/shared/clever_icon.svg"
+            />
+            <span>
+              Log in with Clever
+            </span>
+          </button>
+        </div>
+        <div
+          class="break"
+        >
+          <span />
+          or
+          <span />
+        </div>
+        <div
+          class="login-form"
+        >
+          <div>
+            <form
+              accept-charset="UTF-8"
+            >
+              <input
+                aria-hidden="true"
+                aria-label="utf8"
+                name="utf8"
+                type="hidden"
+                value="✓"
+              />
+              <input
+                aria-hidden="true"
+                aria-label="authenticity token"
+                name="authenticity_token"
+                type="hidden"
+                value=""
+              />
+              <div
+                class="input-container  inactive  email "
+                role="button"
+                tabindex="-1"
+              >
+                <label
+                  for="email-or-username"
+                >
+                  Email or username
+                </label>
+                <input
+                  autocomplete="on"
+                  id="email-or-username"
+                  maxlength="10000"
+                  type="text"
+                  value=""
+                />
+              </div>
+              <div
+                class="password-wrapper"
+              >
+                <div
+                  class="input-container  inactive  password inspectletIgnore "
+                  role="button"
+                  tabindex="-1"
+                >
+                  <label
+                    for="password"
+                  >
+                    Password
+                  </label>
+                  <input
+                    autocomplete="current-password"
+                    id="password"
+                    maxlength="10000"
+                    type="password"
+                    value=""
+                  />
+                </div>
+                <button
+                  aria-label="Show password"
+                  class="interactive-wrapper focus-on-light"
+                  type="button"
+                >
+                  <img
+                    alt=""
+                    src="undefined/images/icons/icons-visibility-on.svg"
+                  />
+                </button>
+              </div>
+              <div
+                class="forget-and-show-password"
+              >
+                <div
+                  class="keep-me-signed-in-row"
+                  id="keep-me-signed-in"
+                >
+                  <button
+                    aria-checked="true"
+                    aria-labelledby="keep-me-signed-in"
+                    class="quill-checkbox selected focus-on-light"
+                    role="checkbox"
+                    type="button"
+                  >
+                    <img
+                      alt="check"
+                      src="undefined/images/shared/check-small-white.svg"
+                    />
+                  </button>
+                   
+                  <p>
+                    Keep me signed in
+                  </p>
+                </div>
+                <a
+                  class="inline-link"
+                  href="/password_reset"
+                >
+                  Forgot password?
+                </a>
+              </div>
+              <input
+                aria-label="Log in"
+                class="quill-button contained primary medium focus-on-light disabled"
+                disabled=""
+                id="log-in"
+                name="commit"
+                type="submit"
+                value="Log in"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+      <p
+        class="sign-up-link"
+      >
+        Don't have an account? 
+        <span
+          class="inline-link"
+          role="link"
+          tabindex="0"
+        >
+          Sign up
+        </span>
+      </p>
+      <span />
+    </div>
+  </div>
+</DocumentFragment>
+`;

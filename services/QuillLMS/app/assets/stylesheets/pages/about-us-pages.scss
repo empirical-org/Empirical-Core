@@ -6,10 +6,14 @@
   align-items: center;
   max-width: 980px;
 
+  iframe {
+    margin-top: 64px;
+  }
+
   h2 {
     font-size: 24px;
     font-weight: bold;
-    color: #000000;
+    color: $quill-black;
     line-height: 1.5;
   }
 
@@ -19,7 +23,7 @@
   }
 
   .header {
-    margin-top: 121px;
+    margin-top: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;

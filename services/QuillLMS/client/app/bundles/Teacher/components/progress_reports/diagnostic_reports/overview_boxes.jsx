@@ -1,6 +1,6 @@
-import React from 'react'
-import ScoreColor from '../../modules/score_color.js'
-import Pluralize from 'pluralize'
+import Pluralize from 'pluralize';
+import React from 'react';
+import ScoreColor from '../../modules/score_color.js';
 
 export default class OverviewBoxes extends React.Component {
   componentDidMount() {
@@ -22,14 +22,14 @@ export default class OverviewBoxes extends React.Component {
     let range,
       proficiency
     if (group === 'red-score-color') {
-      range = '0 - 59%';
-      proficiency = 'Not yet proficient'
+      range = '0 - 31%';
+      proficiency = 'Rarely demonstrated skill'
     } else if (group === 'yellow-score-color') {
-      range = '60 - 79%';
-      proficiency = 'Nearly proficient'
+      range = '32 - 82%';
+      proficiency = 'Sometimes demonstrated skill'
     } else {
-      range = '80 - 100%';
-      proficiency = 'Proficient'
+      range = '83 - 100%';
+      proficiency = 'Frequently demonstrated skill'
     }
     return (
       <div className={'student-groupings ' + group} key={group}>

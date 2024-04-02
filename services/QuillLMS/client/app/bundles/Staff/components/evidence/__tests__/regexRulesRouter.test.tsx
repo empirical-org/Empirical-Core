@@ -1,10 +1,10 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
+import { QueryClientProvider } from 'react-query';
 import { MemoryRouter } from 'react-router-dom';
-import { QueryClientProvider } from 'react-query'
 
-import RegexRulesRouter from '../regexRules/regexRulesRouter';
 import { DefaultReactQueryClient } from '../../../../Shared/index';
+import RegexRulesRouter from '../regexRules/regexRulesRouter';
 
 const queryClient = new DefaultReactQueryClient();
 

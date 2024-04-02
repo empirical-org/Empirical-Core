@@ -8,12 +8,12 @@
   font-weight: 600;
   margin-right: 8px;
   background-color: #005341;
-  color: #ffffff;
+  color: $quill-white;
   max-width: 24px;
   height: 24px;
   font-size: 14px;
   &.active {
-    background-color: #ffffff;
+    background-color: $quill-white;
     color: #262626;
   }
 }

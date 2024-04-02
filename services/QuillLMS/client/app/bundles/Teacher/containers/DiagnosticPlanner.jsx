@@ -1,8 +1,8 @@
 import React from 'react'
-import { Router, Route, Link, browserHistory } from 'react-router'
-import App from '../components/diagnostic/diagnostic_questionnaire/index.jsx'
+import { Route, Router, browserHistory } from 'react-router'
 import Stages from '../components/diagnostic/diagnostic_questionnaire/Stages.jsx'
 import SuccessView from '../components/diagnostic/diagnostic_questionnaire/SuccessView.jsx'
+import App from '../components/diagnostic/diagnostic_questionnaire/index.jsx'
 
 export default class extends React.Component {
   render() {

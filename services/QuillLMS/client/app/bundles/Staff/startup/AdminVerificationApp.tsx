@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AdminVerification from '../containers/AdminVerification'
+import AdminVerification from '../containers/AdminVerification';
 
 const AdminVerificationApp = (props) => (
   <AdminVerification {...props} />

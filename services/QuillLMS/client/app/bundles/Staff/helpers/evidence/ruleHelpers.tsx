@@ -1,25 +1,27 @@
+import { ContentState, EditorState } from 'draft-js';
 import * as React from "react";
-import { EditorState, ContentState } from 'draft-js';
-import stripHtml from "string-strip-html";
+import { stripHtml } from "string-strip-html";
 
-import { validateForm } from './miscHelpers';
 import {
   AUTO_ML,
-  PLAGIARISM,
   FEEDBACK,
-  HIGHLIGHT_TEXT,
-  HIGHLIGHT_ADDITION,
-  HIGHLIGHT_REMOVAL,
-  HIGHLIGHT_TYPE,
   FEEDBACK_LAYER_ADDITION,
   FEEDBACK_LAYER_REMOVAL,
+  HIGHLIGHT_ADDITION,
+  HIGHLIGHT_REMOVAL,
+  HIGHLIGHT_TEXT,
+  HIGHLIGHT_TYPE,
+  PLAGIARISM,
   RULES_BASED_1,
   RULES_BASED_2,
-  RULES_BASED_3
+  RULES_BASED_3,
+  numericalWordOptions, regexRuleSequenceOptions, regexRuleTypes,
+  ruleHighlightOptions,
+  ruleTypeOptions, universalRuleTypeOptions
 } from '../../../../constants/evidence';
-import { InputEvent, DropdownObjectInterface, RuleInterface } from '../../interfaces/evidenceInterfaces';
-import { ruleTypeOptions, universalRuleTypeOptions, ruleHighlightOptions, numericalWordOptions, regexRuleSequenceOptions, regexRuleTypes } from '../../../../constants/evidence';
-import { TextEditor, DropdownInput, Modal } from '../../../Shared/index';
+import { DropdownInput, Modal, TextEditor } from '../../../Shared/index';
+import { DropdownObjectInterface, InputEvent, RuleInterface } from '../../interfaces/evidenceInterfaces';
+import { validateForm } from './miscHelpers';
 
 export function handleSetRuleType(ruleType: DropdownObjectInterface, setRuleType) { setRuleType(ruleType) };
 
@@ -308,6 +310,7 @@ export const buildRule = ({
   Object.keys(rulePrompts).forEach(key => {
     rulePrompts[key].checked && promptIds.push(rulePrompts[key].id);
   });
+
   const order = universal ? universalRulesCount : rulesCount;
 
   let newOrUpdatedRule: any = {
@@ -320,7 +323,7 @@ export const buildRule = ({
     rule_type: ruleType.value,
     suborder: suborder ? suborder : order,
     universal: universal,
-    hint_id: ruleHint?.id,
+    hint_id: ruleHint?.id || null,
     state
   };
 
@@ -340,7 +343,7 @@ export const buildRule = ({
   } else if(newOrUpdatedRule.rule_type === PLAGIARISM) {
     const rules = plagiarismTexts.map(plagiarismText => ({
       ...plagiarismText,
-      text: stripHtml(plagiarismText.text)
+      text: stripHtml(plagiarismText.text).result
     }))
     newOrUpdatedRule.plagiarism_texts_attributes = rules
   } else if(newOrUpdatedRule.rule_type === AUTO_ML) {
@@ -428,7 +431,9 @@ export async function handleSubmitRule({
 }
 
 export function getRulesUrl(activityId: string, promptId: string, ruleType: string) {
-  if (activityId) {
+  if (activityId && ruleType) {
+    return `activities/${activityId}/rules?rule_type=${ruleType}`
+  } else if (activityId) {
     return `activities/${activityId}/rules`
   } else if (!ruleType) {
     throw new Error('A rule type must be specified.')

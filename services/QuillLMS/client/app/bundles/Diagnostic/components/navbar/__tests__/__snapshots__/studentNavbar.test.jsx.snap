@@ -32,7 +32,6 @@ exports[`StudentNavbar renders when the language menu is not open 1`] = `
           className="student-nav-section"
         >
           <button
-            activeClassName="is-active"
             className="student-nav-item focus-on-dark"
             key="a-tag-student-navabar"
             onClick={[Function]}

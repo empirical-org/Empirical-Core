@@ -5,6 +5,25 @@ RSpec.describe QuestionsController, type: :controller do
     allow_any_instance_of(Response).to receive(:create_index_in_elastic_search)
   end
 
+  context '#responses_for_rematching' do
+    let(:question_uid) { '123' }
+    let!(:optimal) {create(:optimal_response, question_uid: question_uid)}
+    let!(:graded_nonoptimal) {create(:graded_nonoptimal_response, question_uid: question_uid)}
+    let!(:ungraded) {create(:ungraded_response, question_uid: question_uid)}
+
+    it 'should return graded responses' do
+      get :responses, params: {question_uid: question_uid}
+
+      expect(response.status).to eq 200
+      # sorting to make test consistent (order doesn't matter for this API)
+      json = JSON.parse(response.body).sort_by{|gr| gr['id']}
+
+      expect(json.count).to eq 2
+      expect(json.first['id']).to eq optimal.id
+      expect(json.second['id']).to eq graded_nonoptimal.id
+    end
+  end
+
   context '#responses' do
     before do
       Rails.cache.clear

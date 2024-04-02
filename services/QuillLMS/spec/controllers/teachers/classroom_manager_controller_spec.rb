@@ -10,6 +10,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
   describe '#lesson_planner' do
     let!(:teacher) { create(:classrooms_teacher, user: user) }
     let(:user) { create(:teacher, first_name: "test") }
+    let(:milestone) { create(:dismiss_unassign_warning_modal) }
 
     before do
       allow(controller).to receive(:current_user) { user }
@@ -20,6 +21,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
       expect(assigns(:tab)).to eq "test tab"
       expect(assigns(:grade)).to eq "test grade"
       expect(assigns(:students)).to eq user.students.any?
+      expect(assigns(:unassign_warning_hidden)).to eq UserMilestone.exists?(milestone_id: milestone.id, user_id: user.id)
       expect(assigns(:last_classroom_id)).to eq user.classrooms_i_teach.last.id
       expect(assigns(:last_classroom_name)).to eq user.classrooms_i_teach.last.name
     end
@@ -365,7 +367,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
   end
 
   describe '#dashboard' do
-    let(:teacher) { create(:teacher) }
+    let(:teacher) { create(:teacher_with_one_classroom) }
     let(:blog_post1) { create(:blog_post, featured_order_number: 0)}
     let(:blog_post2) { create(:blog_post, featured_order_number: 1)}
     let(:blog_post3) { create(:blog_post, featured_order_number: 2)}
@@ -378,7 +380,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     before do
       allow(controller).to receive(:current_user) { teacher }
-      allow(teacher).to receive(:classrooms_i_teach) { [] }
       allow(teacher).to receive(:archived_classrooms) { [] }
       allow(teacher).to receive(:has_outstanding_coteacher_invitation?) { true }
     end
@@ -388,18 +389,30 @@ describe Teachers::ClassroomManagerController, type: :controller do
       expect(assigns(:featured_blog_posts)).to eq [blog_post1, blog_post2, blog_post3]
     end
 
+    it 'should set the classrooms variable to an array of classrooms with a students and student_count key' do
+      classrooms = teacher.classrooms_i_teach.map do |classroom|
+        classroom_obj = classroom.attributes
+        classroom_obj[:students] = classroom.students
+        classroom_obj[:student_count] = classroom.students.length
+        classroom_obj
+      end
+
+      get :dashboard
+      expect(assigns(:classrooms)).to eq(classrooms)
+    end
+
     describe 'teacher info milestone' do
 
-      describe 'when the teacher already has teacher info' do
+      describe 'when the teacher already has teacher info minimum grade level' do
         it 'assigns must_see_teacher_info_modal to false' do
-          create(:teacher_info, user: teacher)
+          teacher.teacher_info.update(minimum_grade_level: 3)
 
           get :dashboard
           expect(assigns(:must_see_teacher_info_modal)).to eq false
         end
       end
 
-      describe 'when the teacher does not have teacher info' do
+      describe 'when the teacher does not have minimum_grade_level set on teacher_info' do
 
         it 'assigns must_see_teacher_info_modal to true if the user_milestone does not exist' do
           get :dashboard
@@ -510,7 +523,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
       }.to_json)
     end
   end
-
 
   describe '#teacher_dashboard_metrics' do
     let!(:teacher) { create(:teacher) }
@@ -644,36 +656,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
   end
 
-  describe '#retreive_google_clasrooms' do
-    let(:teacher) { create(:teacher) }
-
-    before do
-      allow(controller).to receive(:current_user) { teacher }
-      allow(GoogleIntegration::Classroom::Main).to receive(:pull_data) { "google response" }
-    end
-
-    it 'should render the id of the teacher if there is nothing else in the store' do
-      get :retrieve_google_classrooms
-      expect(response.body).to eq({id: teacher.id, quill_retrieval_processing: true}.to_json)
-    end
-  end
-
-  describe '#import_google_students' do
-    let(:teacher) { create(:teacher) }
-
-    before do
-      allow(controller).to receive(:current_user) { teacher }
-      allow(GoogleIntegration::Classroom::Main).to receive(:pull_data) { "google response" }
-    end
-
-    it 'should kick off the importer' do
-      create(:google_auth_credential, user: teacher)
-
-      expect(GoogleStudentImporterWorker).to receive(:perform_async)
-      put :import_google_students, params: { selected_classroom_ids: [1,2], as: :json }
-    end
-  end
-
   describe '#update_my_account' do
     let(:teacher) { create(:teacher) }
 
@@ -687,25 +669,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
   end
 
-  describe '#update_google_classrooms' do
-    let(:teacher) { create(:teacher) }
-    let(:google_classroom_id1) { 123 }
-    let(:google_classroom_id2) { 456 }
-
-    let(:selected_classrooms) { [{ id: google_classroom_id1 }, { id: google_classroom_id2 }] }
-
-    before { allow(controller).to receive(:current_user) { teacher } }
-
-    it 'should return an array with two classrooms' do
-     post :update_google_classrooms, params: { selected_classrooms: selected_classrooms }, as: :json
-
-     classrooms = JSON.parse(response.body).deep_symbolize_keys.fetch(:classrooms)
-
-     google_classroom_ids = classrooms.map { |classroom| classroom[:google_classroom_id] }.sort
-     expect(google_classroom_ids).to eq [google_classroom_id1, google_classroom_id2]
-   end
-  end
-
   describe '#view_demo' do
     let!(:teacher) { create(:teacher) }
     let!(:demo_teacher) { create(:teacher, email: Demo::ReportDemoCreator::EMAIL)}
@@ -713,7 +676,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     before do
       allow(controller).to receive(:current_user) { teacher }
-      allow(Analyzer).to receive(:new) { analyzer }
+      allow(Analytics::Analyzer).to receive(:new) { analyzer }
     end
 
     it 'will call current_user_demo_id= if the demo account exists' do
@@ -741,7 +704,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     it 'will track event' do
       expect(Demo::ResetAccountWorker).to receive(:perform_async).with(demo_teacher.id)
-      expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::VIEWED_DEMO)
+      expect(analyzer).to receive(:track).with(teacher, Analytics::SegmentIo::BackgroundEvents::VIEWED_DEMO)
 
       get :view_demo
     end
@@ -803,7 +766,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     before do
       allow(controller).to receive(:current_user) { teacher }
-      allow(Analyzer).to receive(:new) { analyzer }
+      allow(Analytics::Analyzer).to receive(:new) { analyzer }
     end
 
     it 'will call preview_student_id= if the student exists and is in one of the teachers classrooms' do
@@ -827,7 +790,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'will track event' do
-      expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::VIEWED_AS_STUDENT)
+      expect(analyzer).to receive(:track).with(teacher, Analytics::SegmentIo::BackgroundEvents::VIEWED_AS_STUDENT)
       get :preview_as_student, params: { student_id: student1.id }
     end
   end

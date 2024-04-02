@@ -18,12 +18,23 @@
 
 .premium-tab {
   a {
-    background-color: #DF9E3D !important;
-    color: #FFFFFF !important;
+    background-color: $quillgoldlight !important;
+    color: $quill-gold-dark-50 !important;
     padding-left: 40px;
     padding-right: 40px;
+    border-radius: 8px 8px 0px 0px !important;
+    margin-left: 4px;
     border-right: none !important;
+    border-left: none !important;
     cursor: pointer !important;
+    span {
+      .large-diamond-icon {
+        background-image: url("https://assets.quill.org/images/icons/yellow-diamond.svg");
+        &.is-in-middle {
+          margin: 0px 4px 0px 4px;
+        }
+      }
+    }
   }
   .premium-tab-copy {
     display: flex;
@@ -31,6 +42,12 @@
     img {
       margin-left: 4px;
       margin-right: 4px;
+    }
+  }
+  &.teacher-premium-tab {
+    img {
+      width: 20px;
+      margin-left: 4px;
     }
   }
 }
@@ -80,17 +97,18 @@
   }
 
 }
-li.active.premium-tab > a,
-li.premium-tab > a:hover {
-  background-color: #D3982A !important;
-  // border-top: 3px solid #875A12 !important;
-  // padding-top: 0 !important;
+li.active.premium-tab > a {
+  background-color: $quill-gold !important;
+  span {
+    color: $quill-white;
+    .large-diamond-icon {
+      background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
+    }
+  }
 }
-.premium-tab a.active,
-.premium-tab a:hover {
-  background-color: #D3982A !important;
-  // border-top: 3px solid #875A12 !important;
-  // padding-top: 0 !important;
+
+li.premium-tab > a:hover {
+  background-color: #FCD79F !important;
 }
 
 .premium-page {
@@ -104,7 +122,7 @@ li.premium-tab > a:hover {
   .quill-modal {
     z-index: 6;
   }
-  .already-has-premium-modal {
+  .already-has-premium-modal, .log-in-to-purchase-modal {
     max-width: calc(100vw - 20px);
     min-height: min-content;
     p {
@@ -139,7 +157,7 @@ li.premium-tab > a:hover {
           width: 100%;
         }
         &:not(:last-of-type) {
-          border-right: 1px solid #E0E0E0;
+          border-right: 1px solid $quill-grey-5;
         }
         &:last-of-type {
           border-right: 1px solid transparent;
@@ -250,7 +268,7 @@ li.premium-tab > a:hover {
     }
   }
   .pricing-minis {
-    border: solid 1px #e0e0e0;
+    border: solid 1px $quill-grey-5;
     border-bottom: none;
     display: flex;
     border-radius: 8px 8px 0px 0px;
@@ -258,7 +276,7 @@ li.premium-tab > a:hover {
   .pricing-mini {
     background-color: white;
     border-radius: 8px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid $quill-grey-5;
   }
   .premium-button-container {
     display: flex;
@@ -274,7 +292,7 @@ li.premium-tab > a:hover {
       font-style: italic;
       font-size: 12px;
       line-height: 20px;
-      color: #5C5C5C;
+      color: $quill-grey-50;
       margin-top: 4px;
     }
   }
@@ -328,7 +346,7 @@ li.premium-tab > a:hover {
       p {
         margin: 8px 0 24px;
         line-height: 1.43;
-        color: #5c5c5c;
+        color: $quill-grey-50;
       }
     }
   }
@@ -338,7 +356,7 @@ li.premium-tab > a:hover {
     font-size: 24px;
     font-weight: bold;
     line-height: 1.25;
-    color: #000000;
+    color: $quill-black;
     margin-bottom: 32px;
   }
   .logo-group-wrapper {
@@ -395,8 +413,8 @@ li.premium-tab > a:hover {
 
 .features {
   background-color: white;
-  border-top: 1px solid #e0e0e0;
-  border-bottom: 1px solid #e0e0e0;
+  border-top: 1px solid $quill-grey-5;
+  border-bottom: 1px solid $quill-grey-5;
   padding-bottom: 80px;
   section {
     border-style: none;
@@ -438,7 +456,7 @@ li.premium-tab > a:hover {
       font-size: 24px;
       font-weight: bold;
       line-height: 1.25;
-      color: #000000;
+      color: $quill-black;
       margin-bottom: 8px;
     }
     p {
@@ -467,7 +485,7 @@ li.premium-tab > a:hover {
           font-size: 12px;
           font-weight: 600;
           line-height: 1.33;
-          color: #5c5c5c;
+          color: $quill-grey-50;
         }
       }
     }
@@ -484,14 +502,14 @@ li.premium-tab > a:hover {
       }
       p {
         text-align: left;
-        color: #5c5c5c;
+        color: $quill-grey-50;
       }
       span {
         font-size: 12px;
         line-height: 1.33;
         text-align: left;
         display: block;
-        color: #5c5c5c;
+        color: $quill-grey-50;
         margin-bottom: 4px;
         &:last-of-type {
           margin-bottom: 8px;
@@ -511,7 +529,7 @@ li.premium-tab > a:hover {
           .popular-tag-background {
             opacity: 0.65;
             backdrop-filter: blur(10px);
-            background-color: #000000;
+            background-color: $quill-black;
             border-radius: 4px;
             height: 100%;
           }
@@ -519,7 +537,7 @@ li.premium-tab > a:hover {
             font-size: 12px;
             font-weight: 600;
             line-height: 1.33;
-            color: #ffffff;
+            color: $quill-white;
             position: absolute;
             top: 2px;
             left: 6px;
@@ -528,11 +546,42 @@ li.premium-tab > a:hover {
       }
     }
   }
+  .topics-row {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    .topic-explored {
+      width: 300px;
+      margin-top: 32px;
+      .topic-image {
+        width: 300px;
+        height: 100px;
+        border-radius: 8px;
+        background: #F5F5F5;
+        position: relative;
+        img {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin: -30px 0 0 -30px;
+        }
+      }
+      h4 {
+        padding-top: 16px;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+  }
+  .coaching-header {
+    margin-top: 112px;
+  }
 }
 
 #q-and-a {
   padding: 80px 0px;
-  background-color: white;
+  background-color: white !important;
   text-align: center;
   .q-and-a-inner-wrapper {
     padding: 0px 10px;
@@ -543,7 +592,7 @@ li.premium-tab > a:hover {
     }
     .qa-section {
       color: black;
-      border-top: 1px solid #e0e0e0;
+      border-top: 1px solid $quill-grey-5;
       border-bottom: none;
       text-align: left;
       .question {
@@ -581,7 +630,7 @@ li.premium-tab > a:hover {
       }
     }
     .q-and-a-inner-wrapper:last-child div {
-      border-bottom: 1px solid #e0e0e0
+      border-bottom: 1px solid $quill-grey-5
     }
     .support-link {
       width: 249px;
@@ -607,7 +656,7 @@ li.premium-tab > a:hover {
   .premium-page {
 
     .overview {
-      height: 2087px;
+      height: min-content;
       width: 950px;
 
       .header {
@@ -644,7 +693,7 @@ li.premium-tab > a:hover {
       &.show-shadow {
         &::after, &:after {
           opacity: 0.07;
-          background-image: linear-gradient(to bottom, #000000, #000000 99%);
+          background-image: linear-gradient(to bottom, $quill-black, $quill-black 99%);
         }
       }
       @media (max-width: 600px) {
@@ -658,8 +707,8 @@ li.premium-tab > a:hover {
         text-align: left;
       }
       &:nth-of-type(2) {
-        border-left: 1px solid #e0e0e0;
-        border-right: 1px solid #e0e0e0;
+        border-left: 1px solid $quill-grey-5;
+        border-right: 1px solid $quill-grey-5;
         border-radius: 0px;
       }
     }
@@ -687,8 +736,6 @@ li.premium-tab > a:hover {
 
 @media (max-width: 991px) {
   .premium-page {
-    padding-left: 10px;
-    padding-right: 10px;
 
     .school-and-district-premium-modal {
       flex-direction: column;
@@ -699,7 +746,7 @@ li.premium-tab > a:hover {
           width: calc(100vw - 52px);
           max-width: 300px;
           border-right: 0px !important;
-          border-bottom: 1px solid #e0e0e0;
+          border-bottom: 1px solid $quill-grey-5;
           padding: 32px 0px;
           margin: 0px 16px;
           h2 {
@@ -750,7 +797,7 @@ li.premium-tab > a:hover {
     .pricing-mini {
       max-width: 360px;
       width: 100%;
-      border: solid 1px #e0e0e0;
+      border: solid 1px $quill-grey-5;
       margin-bottom: 32px;
       h2 {
         height: min-content;
@@ -774,18 +821,25 @@ li.premium-tab > a:hover {
       }
     }
 
+    .topics-row {
+      display: block;
+      .topic-explored {
+        margin: 32px auto;
+      }
+    }
+
     .individual-features-table-container {
-      border-top: 1px solid #e0e0e0;
+      border-top: 1px solid $quill-grey-5;
 
       .interactive-wrapper {
         font-size: 14px;
         font-weight: 600;
-        color: #5c5c5c;
+        color: $quill-grey-50;
         margin: 14px;
       }
 
       .header-row {
-        border-top: 1px solid #e0e0e0;
+        border-top: 1px solid $quill-grey-5;
         padding: 32px 16px 8px;
         text-align: left;
         h3 {
@@ -800,7 +854,7 @@ li.premium-tab > a:hover {
         display: flex;
         padding: 16px;
         justify-content: space-between;
-        border-top: 1px solid #e0e0e0;
+        border-top: 1px solid $quill-grey-5;
         text-align: left;
         .quill-tooltip-trigger {
           width: 16px;

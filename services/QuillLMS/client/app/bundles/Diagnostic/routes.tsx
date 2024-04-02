@@ -1,9 +1,8 @@
 import * as React from "react";
 import { RouteConfig } from "react-router-config";
 
-import Admin from "./components/admin/admin"
-import DiagnosticRouter from "./components/shared/diagnosticRouter"
-import Turk from './components/turk/turkDiagnostic.jsx';
+import Admin from "./components/admin/admin";
+import DiagnosticRouter from "./components/shared/diagnosticRouter";
 
 export const routes: RouteConfig[] = [
   {
@@ -16,6 +15,6 @@ export const routes: RouteConfig[] = [
   },
   {
     path: "/turk/:diagnosticID",
-    component: () => (<Turk />)
+    component: (props: any) => (<DiagnosticRouter {...props} />)
   }
 ];

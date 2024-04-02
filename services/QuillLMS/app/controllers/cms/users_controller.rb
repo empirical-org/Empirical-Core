@@ -147,7 +147,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
   protected def user_params
-    params.require(:user).permit([:name, :email, :flagset, :username, :title, :role, :admin_sub_role, :classcode, :password, :password_confirmation, :flags =>[]] + default_params
+    params.require(:user).permit([:name, :email, :flagset, :username, :title, :role, :admin_sub_role, :classcode, :password, :password_confirmation, :email_verification_status, :flags =>[]] + default_params
     )
   end
 

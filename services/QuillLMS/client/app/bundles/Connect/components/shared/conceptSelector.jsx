@@ -1,8 +1,8 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React from 'react';
+import { connect } from 'react-redux';
 // import Select from 'react-select-search'
-import _ from 'underscore'
 import Select from 'react-select';
+import _ from 'underscore';
 
 // TODO: delete everywhere else that we use conceptsToOptions
 

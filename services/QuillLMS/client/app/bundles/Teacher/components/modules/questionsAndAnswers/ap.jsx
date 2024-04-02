@@ -15,7 +15,7 @@ const ap = () => [
   },
   {
     question: 'Is a writing skills survey different than a diagnostic?',
-    answer: <p>Quill&apos;s writing skills surveys can be used in lieu of Quill&apos;s general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in AP courses to begin with one of the ELL Diagnostics instead of a writing skills survey. <a href="ttps://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments" rel="noopener noreferrer" target="_blank">This article explains the differences between Quill’s various diagnostics and surveys in more depth.</a></p>
+    answer: <p>Quill&apos;s writing skills surveys can be used in lieu of Quill&apos;s general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in AP courses to begin with one of the ELL Diagnostics instead of a writing skills survey. <a href="https://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments" rel="noopener noreferrer" target="_blank">This article explains the differences between Quill’s various diagnostics and surveys in more depth.</a></p>
   },
   {
     question: 'How long does the Survey take?',
@@ -109,7 +109,7 @@ const ap = () => [
     answer: (
       <div>
         <p className="college-board-q-and-a-text">We are here for you! The following resources are available:</p>
-        <p className="college-board-q-and-a-text"><strong>Quill Instructional Coach:</strong> You can reach out directly to Sherry Lewkowicz, Quill&apos;s coach dedicated to supporting College Board teachers, at <a href="mailto:sherry@quill.org">sherry@quill.org</a>. Be sure to mention the course(s) you teach.</p>
+        <p className="college-board-q-and-a-text"><strong>Quill Instructional Coach:</strong> You can reach out to us at<a href='mailto:pd@quill.org'>pd@quill.org</a>. Be sure to mention the course(s) you teach.</p>
         <p className="college-board-q-and-a-text"><strong><a href="https://www.quill.org/teacher-center" rel="noopener noreferrer" target="_blank">Teacher Center:</a></strong> The place to go for all things best practice and implementation!</p>
         <p className="college-board-q-and-a-text"><strong>Support:</strong> Having a technical issue? Email <a href="mailto:support@quill.org">support@quill.org</a> or use the chat in the lower right corner of Quill to connect with a member of the Quill support team.</p>
         <p className="college-board-q-and-a-text">AP® is a registered trademark of the College Board.</p>

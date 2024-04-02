@@ -1,6 +1,6 @@
-const C = require('../constants').default;
-import { ConceptFeedbackApi, } from '../libs/concept_feedback_api.ts';
 import { push } from 'react-router-redux';
+import C from '../constants';
+import { ConceptFeedbackApi, } from '../libs/concept_feedback_api.ts';
 
 const actions = {
   // called when the app starts. this means we immediately download all quotes, and

@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import AssignActivityPackBanner from '../assignActivityPackBanner'
+import AssignActivityPackBanner from '../assignActivityPackBanner';
 
-import GradeLevelSection from '../shared/grade_level_section'
-import SubjectAreaSection from '../shared/subject_area_section'
-import { requestPost, } from '../../../../../modules/request/index'
+import { requestPut, } from '../../../../../modules/request/index';
+import GradeLevelSection from '../shared/grade_level_section';
+import SubjectAreaSection from '../shared/subject_area_section';
 
 const teacherAtBoardSrc = `${process.env.CDN_URL}/images/onboarding/packs-whole.svg`
 
@@ -14,7 +14,7 @@ const AddTeacherInfo = ({ subjectAreas, }) => {
   const [selectedSubjectAreaIds, setSelectedSubjectAreaIds] = React.useState([])
 
   function submitTeacherInfo() {
-    requestPost(
+    requestPut(
       `${process.env.DEFAULT_URL}/teacher_infos`,
       {
         minimum_grade_level: minimumGradeLevel.value,

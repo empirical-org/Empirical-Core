@@ -1,12 +1,12 @@
 import * as React from "react";
-import { Link } from 'react-router-dom'
 import { useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
 import { firstBy } from 'thenby';
 
-import { fetchRules } from '../../../utils/evidence/ruleAPIs';
+import { AUTO_ML } from '../../../../../constants/evidence';
 import { DataTable, Spinner } from '../../../../Shared/index';
 import { getCheckIcon } from '../../../helpers/evidence/renderHelpers';
-import { AUTO_ML } from '../../../../../constants/evidence';
+import { fetchRules } from '../../../utils/evidence/ruleAPIs';
 
 const LabelsTable = ({ activityId, prompt }) => {
 

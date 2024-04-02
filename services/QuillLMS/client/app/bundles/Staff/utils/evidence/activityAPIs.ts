@@ -1,5 +1,5 @@
+import { apiFetch, getActivitySessionsCSVUrl, getActivitySessionsUrl, handleApiError, handleRequestErrors, mainApiFetch, requestFailed } from '../../helpers/evidence/routingHelpers';
 import { ActivityInterface, DropdownObjectInterface } from '../../interfaces/evidenceInterfaces';
-import { handleApiError, apiFetch, mainApiFetch, handleRequestErrors, requestFailed, getActivitySessionsUrl, getActivitySessionsCSVUrl } from '../../helpers/evidence/routingHelpers';
 
 export const fetchActivities = async () => {
   let activities: ActivityInterface[];
@@ -53,10 +53,10 @@ export const updateActivityVersion = async (activityNote: string, activityId: st
   return { errors: [] };
 }
 
-export const createSeedData = async (nouns: string, labelConfigs: object, activityId: string) => {
+export const createSeedData = async (nouns: string, labelConfigs: object, activityId: string, usePassage: string) => {
   const response = await apiFetch(`activities/${activityId}/seed_data`, {
     method: 'POST',
-    body: JSON.stringify({nouns: nouns, label_configs: labelConfigs})
+    body: JSON.stringify({nouns: nouns, label_configs: labelConfigs, use_passage: usePassage})
   });
   const { status } = response;
 
@@ -68,10 +68,10 @@ export const createSeedData = async (nouns: string, labelConfigs: object, activi
   return { errors: [] };
 }
 
-export const createLabeledSyntheticData = async (filenames: string[], activityId: string) => {
+export const createLabeledSyntheticData = async (promptFiles: object, activityId: string) => {
   const response = await apiFetch(`activities/${activityId}/labeled_synthetic_data`, {
     method: 'POST',
-    body: JSON.stringify({filenames})
+    body: JSON.stringify({prompt_files: promptFiles})
   });
   const { status } = response;
 
@@ -153,12 +153,24 @@ export const fetchChangeLogs = async ({ queryKey, }) => {
 }
 
 export const fetchActivityVersions = async ({ queryKey, }) => {
-  const [key, activityId]: [string, string] = queryKey
-  const response = await apiFetch(`activities/${activityId}/activity_versions`);
+  const [key, activityId, ignoreCount]: [string, string, boolean] = queryKey
+  const includeCountParamString = ignoreCount ? '' : "?include_count=true"
+  const response = await apiFetch(`activities/${activityId}/activity_versions${includeCountParamString}`);
   const changeLogs = await response.json();
 
   return {
     changeLogs,
     error: handleApiError('Failed to fetch change log, please refresh the page.', response)
+  };
+}
+
+export const fetchInvalidHighlights = async ({ queryKey, }) => {
+  const [key, activityId]: [string, string] = queryKey
+  const response = await apiFetch(`activities/${activityId}/invalid_highlights`);
+  const invalid_highlights = await response.json();
+
+  return {
+    invalid_highlights: invalid_highlights.invalid_highlights,
+    error: handleApiError('Failed to fetch invalid_highlights value, please refresh the page.', response)
   };
 }

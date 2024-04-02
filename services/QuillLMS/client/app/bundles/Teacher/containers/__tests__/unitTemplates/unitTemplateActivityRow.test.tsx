@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
-import {UnitTemplateActivityRow }from '../../UnitTemplates/unitTemplateActivityRow'
+import { UnitTemplateActivityRow } from '../../UnitTemplates/unitTemplateActivityRow';
 
 describe('UnitTemplateActivityRow component', () => {
   const mockProps = {

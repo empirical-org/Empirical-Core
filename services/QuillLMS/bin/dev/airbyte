@@ -1,0 +1,85 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+INSTANCES = {
+  1 => {
+    name: 'airbyte2',
+    port: 8001,
+    tables: "concept_results",
+  },
+  2 => {
+    name: 'airbyte-pink',
+    port: 8002,
+    tables: "classrooms classroom_units provider_classroom_users  students_classrooms unit_activities"
+  },
+  3 => {
+    name: 'airbyte-0-43-0',
+    port: 8003,
+    tables: "all_other_tables"
+  }
+}
+
+# To avoid nested string interpolation farther down
+INSTANCES_PRINTOUT = INSTANCES.map{|idx, instance| "#{idx}. #{instance[:tables]}\n" }.join
+
+prompt0 = <<~STR
+  What would you like to do?
+    1. Open the Airbyte UI
+    2. ssh into a Airbyte server\n
+  Enter a number:
+STR
+
+prompt1 = <<~STR
+  Which group of tables would you like to access?\n
+  #{INSTANCES_PRINTOUT}
+  Enter a number:
+STR
+
+Step = Struct.new(:prompt, :valid?, :current_value)
+
+MACHINE = {
+  0 => Step.new(prompt0, ->(input){ [1,2].include?(input.to_i)}, nil),
+  1 => Step.new(prompt1, ->(input){ [1,2,3].include?(input.to_i)}, nil)
+}
+
+SSH_SUBCOMMAND = '2'
+FINAL_STATE = 1
+current_state = 0
+
+def final_state?(state)
+  state > 1
+end
+
+def run_command
+  subcommand = MACHINE[0].current_value
+  instance = INSTANCES[MACHINE[1].current_value.to_i]
+  if subcommand == SSH_SUBCOMMAND
+    cmd = "gcloud --project=analytics-data-stores beta compute ssh #{instance[:name]}"
+    puts "Running: #{cmd}...\n"
+    system cmd
+  else
+    cmd = "gcloud --project=analytics-data-stores beta compute ssh #{instance[:name]} -- -L #{instance[:port]}:localhost:8000 -N -f"
+    puts "Running: #{cmd}...\n"
+    system cmd
+    system "open http://localhost:#{instance[:port]}"
+  end
+
+  puts "\nMore info, including the web servers' basic auth password, here: \nhttps://www.notion.so/quill/Airbyte-devops-cheat-shee
+  t-07720c320c664681ae55c593d0b8dc7c \n\n Exiting..."
+end
+
+loop do
+  step = MACHINE[current_state]
+  puts step.prompt
+  input = $stdin.gets.chomp
+  if step.valid?.call(input)
+    step.current_value = input
+    current_state += 1
+    if final_state?(current_state)
+      run_command
+      exit 0
+    end
+  else
+    puts "\nInvalid input. Please try again.\n"
+  end
+end

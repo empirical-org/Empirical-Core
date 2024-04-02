@@ -1,4 +1,4 @@
-import { TO_DO_ACTIVITIES, } from '../constants/student_profile'
+import { TO_DO_ACTIVITIES, } from '../constants/student_profile';
 
 const initialState = {
   classrooms: [],
@@ -10,7 +10,8 @@ const initialState = {
   scores: null,
   student: null,
   nextActivitySession: null,
-  activeClassworkTab: TO_DO_ACTIVITIES
+  activeClassworkTab: TO_DO_ACTIVITIES,
+  exactScoresDataPending: false
 };
 
 export default (state, action) => {
@@ -20,6 +21,7 @@ export default (state, action) => {
     case 'HANDLE_CLASSROOM_CLICK':
       return Object.assign({}, state, {
         loading: true,
+        exactScoresDataPending: false,
         selectedClassroomId: action.selectedClassroomId
       });
     case 'RECEIVE_STUDENTS_CLASSROOMS':
@@ -30,8 +32,17 @@ export default (state, action) => {
         scores: action.data.scores,
         student: action.data.student,
         nextActivitySession: action.data.next_activity_session,
-        selectedClassroomId: action.data.classroom_id
+        selectedClassroomId: action.data.classroom_id,
+        metrics: action.data.metrics,
+        showExactScores: action.data.show_exact_scores,
+        exactScoresDataPending: action.data.show_exact_scores // if this value is true, when we switch to the completed tab we will fire a request to get the relevant data
       });
+    case 'RECEIVE_EXACT_SCORES_DATA': {
+      return Object.assign({}, state, {
+        exactScoresDataPending: false,
+        exactScoresData: action.data.exact_scores_data
+      })
+    }
     case 'UPDATE_ACTIVE_CLASSWORK_TAB':
       return Object.assign({}, state, { activeClassworkTab: action.activeClassworkTab });
     default:

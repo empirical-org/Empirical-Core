@@ -1,16 +1,15 @@
+import { ContentState, EditorState } from 'draft-js';
 import React from 'react';
 import { connect } from 'react-redux';
 import SelectSearch from 'react-select-search';
-import { fuzzySearch } from 'react-select-search';
-import { EditorState, ContentState } from 'draft-js'
-import ChooseModelContainer from './chooseModelContainer.jsx'
 import _ from 'underscore';
+import ChooseModelContainer from './chooseModelContainer.jsx';
 
 import {
   hashToCollection,
   SortableList,
   TextEditor
-} from '../../../Shared/index'
+} from '../../../Shared/index';
 
 class LessonForm extends React.Component {
   constructor(props) {
@@ -89,7 +88,7 @@ class LessonForm extends React.Component {
         const prompt = questionobj ? questionobj.prompt : 'Question No Longer Exists';
         const promptOrTitle = question.questionType === 'titleCards' ? questionobj.title : prompt
         return (
-          <p className="sortable-list-item" key={question.key} questionType={question.questionType}>
+          <p className="sortable-list-item" id={question.key} key={question.key} questionType={question.questionType}>
             {promptOrTitle}
             {'\t\t'}
             <button onClick={this.handleChange.bind(null, question.key)}>Delete</button>
@@ -117,7 +116,6 @@ class LessonForm extends React.Component {
       }
       return (
         <SelectSearch
-          filterOptions={fuzzySearch}
           key={questionType}
           onChange={this.handleSearchChange}
           options={formatted}

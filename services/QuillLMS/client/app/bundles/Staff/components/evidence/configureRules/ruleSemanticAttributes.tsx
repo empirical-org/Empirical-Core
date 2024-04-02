@@ -1,8 +1,8 @@
 import * as React from "react";
 
+import { Input } from '../../../../Shared/index';
 import { handleSetRuleLabelName } from '../../../helpers/evidence/ruleHelpers';
 import { InputEvent } from '../../../interfaces/evidenceInterfaces';
-import { Input } from '../../../../Shared/index'
 
 interface RuleSemanticAttributesProps {
   errors: any,

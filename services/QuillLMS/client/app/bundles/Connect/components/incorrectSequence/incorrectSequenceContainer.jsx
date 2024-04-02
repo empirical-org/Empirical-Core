@@ -1,11 +1,11 @@
+import { ContentState, EditorState } from 'draft-js';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import _ from 'underscore';
-import { EditorState, ContentState } from 'draft-js'
+import { v4 as uuid } from 'uuid';
 
-import { TextEditor, isValidRegex } from '../../../Shared/index';
-import { hashToCollection, SortableList } from '../../../Shared/index';
+import { SortableList, TextEditor, hashToCollection, isValidRegex } from '../../../Shared/index';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 
@@ -38,17 +38,21 @@ class IncorrectSequencesContainer extends Component {
     const incorrectSequences = this.getSequences(question)
 
     if (!_.isEqual(previousState.incorrectSequences, incorrectSequences)) {
-      this.setState({ incorrectSequences, });
+      this.setState({ incorrectSequences, orderedIds: null });
     };
   }
 
+  getSequenceIndexByKey = (key) => {
+    const { incorrectSequences, } = this.state
+
+    return incorrectSequences.findIndex(is => is.key === key)
+  }
+
   getSequences = (question) => {
-    const sequences = question.incorrectSequences;
-    if(sequences && sequences.length) {
-      return sequences.filter(incorrectSequence => incorrectSequence)
-    } else {
-      return sequences
-    }
+    return hashToCollection(question.incorrectSequences).map(is => {
+      is.uid = is.uid || uuid()
+      return is
+    }).filter(incorrectSequence => incorrectSequence);
   }
 
   deleteConceptResult = (conceptResultKey, sequenceKey) => {
@@ -60,7 +64,7 @@ class IncorrectSequencesContainer extends Component {
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       const data = incorrectSequences[sequenceKey];
       delete data.conceptResults[conceptResultKey];
-      dispatch(submitEditedIncorrectSequence(questionID, data, sequenceKey));
+      dispatch(actionFile.submitEditedIncorrectSequence(questionID, data, data.key));
     }
   }
 
@@ -79,11 +83,13 @@ class IncorrectSequencesContainer extends Component {
 
   sequencesSortedByOrder = () => {
     const { orderedIds, incorrectSequences } = this.state
+    
+    const sequencesCollection = Array.isArray(incorrectSequences) ? incorrectSequences : hashToCollection(incorrectSequences)
+
     if (orderedIds) {
-      const sequencesCollection = hashToCollection(incorrectSequences)
-      return orderedIds.map(id => sequencesCollection.find(sequence => sequence.key === id))
+      return orderedIds.map(id => sequencesCollection.find(s => s.uid === id))
     } else {
-      return hashToCollection(incorrectSequences).sort((a, b) => a.order - b.order);
+      return sequencesCollection.sort((a, b) => a.order - b.order);
     }
   }
 
@@ -93,8 +99,10 @@ class IncorrectSequencesContainer extends Component {
     const { params } = match;
     const { questionID } = params;
     const orderedIds = sortInfo.map(item => item.key);
-    this.setState({ orderedIds, });
-    dispatch(actionFile.updateIncorrectSequences(questionID, this.sequencesSortedByOrder()));
+    this.setState({ orderedIds, }, () => {
+      const sortedSequences = this.sequencesSortedByOrder()
+      dispatch(actionFile.updateIncorrectSequences(questionID, sortedSequences));
+    });
   };
 
   saveSequencesAndFeedback = (key) => {
@@ -105,10 +113,11 @@ class IncorrectSequencesContainer extends Component {
     const { questionID } = params
     const { incorrectSequences } = this.state
     const filteredSequences = this.removeEmptySequences(incorrectSequences)
-    let data = filteredSequences[key]
+    const index = this.getSequenceIndexByKey(key)
+    let data = filteredSequences[index]
     delete data.conceptResults.null;
     if (data.text === '') {
-      delete filteredSequences[key]
+      delete filteredSequences[index]
       dispatch(deleteIncorrectSequence(questionID, key));
     } else if (data.text.split('|||').some(sequence => !isValidRegex(sequence))) {
       alert('Your regex syntax is invalid. Try again!')
@@ -131,7 +140,7 @@ class IncorrectSequencesContainer extends Component {
     const { incorrectSequences } = this.state
     const className = `regex-${key}`
     const value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}|||`;
-    incorrectSequences[key].text = value;
+    incorrectSequences[this.getSequenceIndexByKey(key)].text = value;
     this.setState({incorrectSequences: incorrectSequences})
   }
 
@@ -144,19 +153,19 @@ class IncorrectSequencesContainer extends Component {
         return
       }
     }
-    incorrectSequences[key].text = value;
+    incorrectSequences[this.getSequenceIndexByKey(key)].text = value;
     this.setState({incorrectSequences: incorrectSequences})
   }
 
   handleNameChange = (e, key) => {
     const { incorrectSequences } = this.state
-    incorrectSequences[key].name = e.target.value
+    incorrectSequences[this.getSequenceIndexByKey(key)].name = e.target.value
     this.setState({incorrectSequences: incorrectSequences})
   }
 
   handleFeedbackChange = (e, key) => {
     const { incorrectSequences } = this.state
-    incorrectSequences[key].feedback = e
+    incorrectSequences[this.getSequenceIndexByKey(key)].feedback = e
     this.setState({incorrectSequences: incorrectSequences})
   }
 
@@ -183,7 +192,7 @@ class IncorrectSequencesContainer extends Component {
 
     const components = this.sequencesSortedByOrder().map((sequence) => {
       return (
-        <div className="card is-fullwidth has-bottom-margin" key={sequence.key}>
+        <div className="card is-fullwidth has-bottom-margin" id={sequence.uid} key={sequence.uid} >
           <header className="card-header">
             <input className="regex-name" onChange={(e) => this.handleNameChange(e, sequence.key)} placeholder="Name" type="text" value={sequence.name || ''} />
           </header>

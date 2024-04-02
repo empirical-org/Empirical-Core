@@ -19,6 +19,31 @@ module Evidence
       end
     end
 
+    context '#activity_versions' do
+      let(:activity) { create(:evidence_activity) }
+
+      context 'include_count param is falsy' do
+        it 'should call ChangeLog#activity_versions with include_count: falsy' do
+          allow(controller).to receive(:set_activity).and_return(nil)
+          controller.instance_variable_set(:@activity, activity)
+          expect(activity).to receive(:activity_versions).with(include_count: nil)
+
+          get :activity_versions, params: { id: activity.id }
+        end
+      end
+
+      context 'include_count param is truthy' do
+        it 'should call ChangeLog#activity_versions with include_count: true' do
+          allow(controller).to receive(:set_activity).and_return(nil)
+          controller.instance_variable_set(:@activity, activity)
+          expect(activity).to receive(:activity_versions).with(include_count: "true")
+
+          get :activity_versions, params: { id: activity.id, include_count: true }
+        end
+      end
+
+    end
+
     context 'should index' do
       it 'should return successfully - no activities' do
         get(:index)
@@ -115,6 +140,78 @@ module Evidence
         expect(parent_activity.present?).to(eq(true))
         expect(parent_activity.id).to(eq(new_activity.parent_activity_id))
         expect(new_activity.present?).to(eq(true))
+      end
+
+      it 'should create a new default regex rule for the because prompt' do
+        post :create,
+          params: {
+            activity:  {
+              parent_activity_id: activity.parent_activity_id,
+              scored_level:  activity.scored_level,
+              target_level: activity.target_level,
+              title: activity.title,
+              notes: activity.notes,
+              prompts_attributes: [{ text: "meat is bad for you.", conjunction: "because"}]
+            }
+          }
+        parsed_response = JSON.parse(response.body)
+        expect(response.code.to_i).to(eq(201))
+        because_rule = Activity.first.because_prompt.rules.find_by(name: Evidence::Activity::DEFAULT_BECAUSE_RULE_NAME)
+        expect(because_rule).to be
+        expect(because_rule.rule_type).to eq(Evidence::Rule::TYPE_REGEX_ONE)
+        expect(because_rule.concept_uid).to eq(Evidence::Activity::DEFAULT_BECAUSE_RULE_CONCEPT)
+        expect(because_rule.feedbacks.first.text).to eq(Evidence::Activity::DEFAULT_BECAUSE_RULE_FEEDBACK)
+        expect(because_rule.regex_rules.first.regex_text).to eq(Evidence::Activity::DEFAULT_BECAUSE_RULE_REGEX)
+      end
+
+      it 'should create a new default regex rule for the so prompt' do
+        post :create,
+          params: {
+            activity:  {
+              parent_activity_id: activity.parent_activity_id,
+              scored_level:  activity.scored_level,
+              target_level: activity.target_level,
+              title: activity.title,
+              notes: activity.notes,
+              prompts_attributes: [{ text: "meat is bad for you.", conjunction: "so"}]
+            }
+          }
+        parsed_response = JSON.parse(response.body)
+        expect(response.code.to_i).to(eq(201))
+        so_rule = Activity.first.so_prompt.rules.find_by(name: Evidence::Activity::DEFAULT_SO_RULE_NAME)
+        expect(so_rule).to be
+        expect(so_rule.rule_type).to eq(Evidence::Rule::TYPE_REGEX_ONE)
+        expect(so_rule.concept_uid).to eq(Evidence::Activity::DEFAULT_SO_RULE_CONCEPT)
+        expect(so_rule.feedbacks.first.text).to eq(Evidence::Activity::DEFAULT_SO_RULE_FEEDBACK)
+        expect(so_rule.regex_rules.first.regex_text).to eq(Evidence::Activity::DEFAULT_SO_RULE_REGEX)
+        expect(so_rule.hint_id).to eq(Evidence::Activity::DEFAULT_SO_RULE_HINT_ID)
+      end
+
+      it 'should create a new default regex rule for repeating the stem' do
+        post :create,
+          params: {
+            activity:  {
+              parent_activity_id: activity.parent_activity_id,
+              scored_level:  activity.scored_level,
+              target_level: activity.target_level,
+              title: activity.title,
+              notes: activity.notes,
+              prompts_attributes: [
+                { text: "meat is bad for you.", conjunction: "because"},
+                { text: "meat is bad for you.", conjunction: "but"},
+                { text: "meat is bad for you.", conjunction: "so"}
+              ]
+            }
+          }
+        parsed_response = JSON.parse(response.body)
+        expect(response.code.to_i).to(eq(201))
+        activity = Activity.first
+        stem_rule = activity.so_prompt.rules.find_by(name: Evidence::Activity::DEFAULT_REPEAT_STEM_RULE_NAME)
+        expect(stem_rule).to be
+        expect(stem_rule.rule_type).to eq(Evidence::Rule::TYPE_REGEX_ONE)
+        expect(stem_rule.concept_uid).to eq(Evidence::Activity::DEFAULT_REPEAT_STEM_RULE_CONCEPT)
+        expect(stem_rule.regex_rules.first.regex_text).to eq("^#{activity.stem}")
+        expect(stem_rule.prompt_ids).to match_array([activity.because_prompt.id, activity.but_prompt.id, activity.so_prompt.id])
       end
     end
 
@@ -333,6 +430,16 @@ module Evidence
         expect(rule.id).to(eq(parsed_response[0]["id"]))
       end
 
+      it 'should filter rule by rule_type' do
+        grammar_rule = create(:evidence_rule, :rule_type => (Rule::TYPE_GRAMMAR), :prompts => ([prompt]))
+        automl_rule = create(:evidence_rule, :rule_type => (Rule::TYPE_AUTOML), :prompts => ([prompt]))
+        get(:rules, :params => ({ :id => activity.id, :rule_type => (Rule::TYPE_GRAMMAR) }))
+        parsed_response = JSON.parse(response.body)
+        expect(response.code.to_i).to(eq(200))
+        expect(parsed_response.size).to eq(1)
+        expect(grammar_rule.id).to(eq(parsed_response[0]["id"]))
+      end
+
       it 'should return feedbacks and highlights associated with the rules' do
         get(:rules, :params => ({ :id => activity.id }))
         parsed_response = JSON.parse(response.body)
@@ -348,19 +455,18 @@ module Evidence
 
     context "#seed_data" do
       let(:activity) { create(:evidence_activity) }
-      # TODO: fill out test when frontend is complete
       let(:label_configs) {{}}
 
       it "should call background worker" do
-        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs)
-        post :seed_data, params: { id: activity.id, nouns: "" }
+        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs, true)
+        post :seed_data, params: { id: activity.id, nouns: ""}
 
         expect(response).to have_http_status(:success)
       end
 
       it "should call background worker with noun string converted to array" do
-        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, ['noun1','noun two','noun3'], label_configs)
-        post :seed_data, params: { id: activity.id, nouns: "noun1, noun two,,noun3" }
+        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, ['noun1','noun two','noun3'], label_configs, true)
+        post :seed_data, params: { id: activity.id, nouns: "noun1, noun two,,noun3"}
 
         expect(response).to have_http_status(:success)
       end
@@ -370,38 +476,148 @@ module Evidence
         let(:label2) {'label2'}
         let(:example1) {'some sentence'}
         let(:example2) {'sentence other'}
-        let(:label_config1) {{'label' => label1, 'example1' => example1, 'example2' => example2}}
-        let(:label_config2) {{'label' => label2, 'example1' => example1, 'example2' => example2}}
+        let(:label_config1) {{'label' => label1, 'examples' => [example1, example2]}}
+        let(:label_config2) {{'label' => label2, 'examples' => [example1, example2]}}
         let(:label_configs) {{'so' => [label_config1, label_config2], 'because' => [label_config2]}}
 
         it "should call background worker" do
-          expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs)
+          expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs, true)
           post :seed_data, params: { id: activity.id, nouns: "", label_configs: label_configs }
 
           expect(response).to have_http_status(:success)
         end
 
+        context 'blank example' do
+          let(:label_config1_blank) {{'label' => label1, 'examples' => [example1, example2, ' ', "\n", '']}}
+          let(:label_configs_with_blanks) {{'so' => [label_config1_blank, label_config2], 'because' => [label_config2]}}
+
+          it "should call background worker with no blank examples" do
+            expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs, true)
+            post :seed_data, params: { id: activity.id, nouns: "", label_configs: label_configs_with_blanks }
+
+            expect(response).to have_http_status(:success)
+          end
+        end
+      end
+
+      context 'use_passage=false' do
+        it "should call background worker" do
+          expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], {}, false)
+          post :seed_data, params: { id: activity.id, nouns: "", use_passage: false }
+
+          expect(response).to have_http_status(:success)
+        end
+      end
+
+      context 'use_passage=nil' do
+        it "should call background worker with use_passage=true" do
+          expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], {}, true)
+          post :seed_data, params: { id: activity.id, nouns: "", use_passage: nil }
+
+          expect(response).to have_http_status(:success)
+        end
       end
     end
 
     context "#labeled_synthetic_data" do
       let(:activity) { create(:evidence_activity) }
+      let(:because) {create(:evidence_prompt, conjunction: 'because', activity: activity)}
+      let(:but) {create(:evidence_prompt, conjunction: 'but', activity: activity)}
+      let(:so) {create(:evidence_prompt, conjunction: 'so', activity: activity)}
+
+      let(:blank_prompts) {{'because' => [], 'but' => [], 'so' => []}}
+      let(:prompt_files) {{'because' => ['one'], 'but' => ['two'], 'so' => ['three', 'four']}}
 
       it "should NOT call background worker if no filenames" do
         expect(Evidence::SyntheticLabeledDataWorker).to_not receive(:perform_async)
 
-        post :labeled_synthetic_data, params: { id: activity.id, filenames: [] }
+        post :labeled_synthetic_data, params: { id: activity.id, prompt_files: blank_prompts }
 
         expect(response).to have_http_status(:success)
       end
 
       it "should call background worker for each filename" do
-        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('one', activity.id)
-        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('two', activity.id)
+        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('one', because.id)
+        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('two', but.id)
+        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('three', so.id)
+        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('four', so.id)
 
-        post :labeled_synthetic_data, params: { id: activity.id, filenames: ['one', 'two'] }
+        post :labeled_synthetic_data, params: { id: activity.id, prompt_files: prompt_files }
 
         expect(response).to have_http_status(:success)
+      end
+    end
+
+    context "#topic_optimal_info" do
+      let(:because_concept) { SecureRandom.hex }
+      let(:but_concept) { SecureRandom.hex }
+      let(:so_concept) { SecureRandom.hex }
+
+      let(:because_rule) { create(:evidence_rule, rule_type: Evidence::Rule::TYPE_AUTOML, concept_uid: because_concept, optimal: true) }
+      let(:but_rule) { create(:evidence_rule, rule_type: Evidence::Rule::TYPE_AUTOML, concept_uid: but_concept, optimal: true) }
+      let(:so_rule) { create(:evidence_rule, rule_type: Evidence::Rule::TYPE_AUTOML, concept_uid: so_concept, optimal: true) }
+
+      let(:because_prompt) { create(:evidence_prompt, rules: [because_rule]) }
+      let(:but_prompt) { create(:evidence_prompt, rules: [but_rule]) }
+      let(:so_prompt) { create(:evidence_prompt, rules: [so_rule]) }
+
+      let(:activity) { create(:evidence_activity, prompts: [because_prompt, but_prompt, so_prompt]) }
+
+      it "should return a payload that includes the appropriate concept_uids for each prompt" do
+        get :topic_optimal_info, params: { id: activity.id }
+
+        parsed_response = JSON.parse(response.body)
+
+
+        expect(response).to have_http_status(:success)
+        expect(parsed_response['concept_uids']).to eq({
+          because_prompt.id.to_s => because_concept,
+          but_prompt.id.to_s => but_concept,
+          so_prompt.id.to_s => so_concept
+        })
+      end
+
+      it "should return a payload that includes the static list of rule_types that only trigger after semantic (autoML) rules" do
+        get :topic_optimal_info, params: { id: activity.id }
+
+        parsed_response = JSON.parse(response.body)
+
+        expect(response).to have_http_status(:success)
+        expect(parsed_response['rule_types']).to eq([
+          'rules-based-2',
+          'grammar',
+          'spelling',
+          'rules-based-3'
+        ])
+      end
+    end
+
+    context '#invalid_highlights' do
+      subject { get :invalid_highlights, params: { id: activity.id } }
+      let(:parsed_response) { JSON.parse(response.body) }
+
+      let(:because_rule) { create(:evidence_rule) }
+      let(:because_prompt) { create(:evidence_prompt, rules: [because_rule]) }
+      let(:activity) { create(:evidence_activity, prompts: [because_prompt]) }
+      let(:invalid_highlights) {
+        [
+          {rule_id: because_rule.id, rule_type: because_rule.rule_type, prompt_id: because_prompt.id}
+        ]
+      }
+      let(:expected_response) {
+        {
+          "invalid_highlights" => invalid_highlights.map(&:stringify_keys)
+        }
+      }
+
+      before do
+        allow(activity).to receive(:invalid_highlights).and_return(invalid_highlights)
+        allow(Activity).to receive(:find).and_return(activity)
+      end
+
+      it do
+        subject
+        expect(parsed_response).to eq(expected_response)
       end
     end
   end

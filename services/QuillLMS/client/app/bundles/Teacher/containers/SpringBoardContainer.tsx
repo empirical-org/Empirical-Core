@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import SpringBoard from '../components/college_board/spring_board';
 import { requestGet } from '../../../modules/request';
+import SpringBoard from '../components/college_board/spring_board';
 
 interface SpringBoardContainerProps {
   isPartOfAssignmentFlow?: boolean;

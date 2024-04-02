@@ -9,7 +9,7 @@ module CleverIntegration::Creators::Teacher
       # necessary to have both due to difference in structure between Clever Library user auth hash and district user auth hash
       clever_id: hash[:clever_id] || hash[:id],
       name: hash[:name],
-      role: User::TEACHER
+      role: teacher.admin? ? User::ADMIN : User::TEACHER
     )
 
     remove_google_link(teacher)
@@ -21,6 +21,6 @@ module CleverIntegration::Creators::Teacher
 
     teacher.update(google_id: nil)
 
-    SegmentAnalytics.new.track_event_from_string('TEACHER_GOOGLE_AND_CLEVER', teacher.id)
+    Analytics::SegmentAnalytics.new.track_event_from_string('TEACHER_GOOGLE_AND_CLEVER', teacher.id)
   end
 end

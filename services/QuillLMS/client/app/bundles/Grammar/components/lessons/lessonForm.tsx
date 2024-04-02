@@ -1,14 +1,13 @@
+import { ContentState, EditorState } from 'draft-js';
+import _ from 'lodash';
 import * as React from 'react';
-import SelectSearch from 'react-select-search';
-import { fuzzySearch } from 'react-select-search';
 import { connect } from 'react-redux';
-import { EditorState, ContentState } from 'draft-js'
-
-import ConceptSelector from '../shared/conceptSelector'
-import { Concepts, Concept } from '../../interfaces/grammarActivities'
-import { Question } from '../../interfaces/questions'
-import { ConceptReducerState } from '../../reducers/conceptsReducer'
-import { hashToCollection, SortableList, TextEditor, } from '../../../Shared/index'
+import SelectSearch from 'react-select-search';
+import { SortableList, TextEditor, hashToCollection, } from '../../../Shared/index';
+import { Concept, Concepts } from '../../interfaces/grammarActivities';
+import { Question } from '../../interfaces/questions';
+import { ConceptReducerState } from '../../reducers/conceptsReducer';
+import ConceptSelector from '../shared/conceptSelector';
 
 interface LessonFormState {
   title: string;
@@ -129,7 +128,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
         const prompt = questionobj ? questionobj.prompt : 'Question No Longer Exists';
         const promptOrTitle = questionobj.title || questionobj.prompt
         return (
-          <p className="sortable-list-item" key={question.key}>
+          <p className="sortable-list-item" id={question.key} key={question.key}>
             {promptOrTitle}
             {'\t\t'}
             <button onClick={this.handleQuestionChange.bind(null, question.key)}>Delete</button>
@@ -151,7 +150,6 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
       formatted = options.map(opt => ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, }));
       return (
         <SelectSearch
-          filterOptions={fuzzySearch}
           onChange={this.handleQuestionChange}
           options={formatted}
           placeholder="Search for a question"

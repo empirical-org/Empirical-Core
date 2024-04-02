@@ -1,31 +1,58 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
+import { incompleteCategorizedActivities, completeCategorizedActivities, exactScoresData } from './test_data';
+
+import { DataTable } from '../../../../Shared/index';
 import StudentProfileUnit from '../student_profile_unit';
-import { DataTable } from '../../../../Shared/index'
-
-import { categorizedActivities } from './test_data'
 
 describe('StudentProfileUnit component', () => {
 
-  it('should render', () => {
-    const wrapper = mount(
+  it('should render incomplete activities', () => {
+    const { asFragment, } = render(
       <StudentProfileUnit
-        data={categorizedActivities}
+        data={incompleteCategorizedActivities}
         unitName="Unit"
       />
     );
-    expect(wrapper).toMatchSnapshot()
-    expect(wrapper.find('.unit-name').text()).toBe('Unit');
+    expect(asFragment()).toMatchSnapshot()
   });
 
-  it('should render a data table for both complete activities and incomplete activities', () => {
-    const wrapper = mount(
+  it('should render completed activities when showExactScores is false', () => {
+    const { asFragment, } = render(
       <StudentProfileUnit
-        data={categorizedActivities}
+        data={completeCategorizedActivities}
+        showExactScores={false}
         unitName="Unit"
       />
     );
-    expect(wrapper.find(DataTable).length).toBe(Object.keys(categorizedActivities).length);
+    expect(asFragment()).toMatchSnapshot()
+  });
+
+  it('should render completed activities when showExactScores is true but the data is pending', () => {
+    const { asFragment, } = render(
+      <StudentProfileUnit
+        data={completeCategorizedActivities}
+        exactScoresData={exactScoresData}
+        exactScoresDataPending={true}
+        showExactScores={true}
+        unitName="Unit"
+      />
+    );
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  it('should render completed activities when showExactScores is true and the data is present', () => {
+    const { asFragment, } = render(
+      <StudentProfileUnit
+        data={completeCategorizedActivities}
+        exactScoresData={exactScoresData}
+        exactScoresDataPending={false}
+        showExactScores={true}
+        unitName="Unit"
+      />
+    );
+    expect(asFragment()).toMatchSnapshot()
   })
 });

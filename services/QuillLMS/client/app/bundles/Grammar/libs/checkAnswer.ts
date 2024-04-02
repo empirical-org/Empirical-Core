@@ -1,7 +1,5 @@
-declare function require(name: string);
-import * as _ from 'underscore'
-import {checkGrammarQuestion} from 'quill-marking-logic'
-import { hashToCollection } from '../../Shared/index'
+import { checkGrammarQuestion } from 'quill-marking-logic';
+import { hashToCollection } from '../../Shared/index';
 
 export default function checkAnswer(question, response, responses, mode= 'default') {
   const fields = {

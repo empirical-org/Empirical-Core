@@ -1,5 +1,28 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: comprehension_rules
+#
+#  id          :integer          not null, primary key
+#  concept_uid :string
+#  name        :string           not null
+#  note        :string
+#  optimal     :boolean          not null
+#  rule_type   :string           not null
+#  state       :string           not null
+#  suborder    :integer
+#  uid         :string           not null
+#  universal   :boolean          not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  hint_id     :bigint
+#
+# Indexes
+#
+#  index_comprehension_rules_on_hint_id  (hint_id)
+#  index_comprehension_rules_on_uid      (uid) UNIQUE
+#
 module Evidence
   class Rule < ApplicationRecord
     self.table_name = 'comprehension_rules'

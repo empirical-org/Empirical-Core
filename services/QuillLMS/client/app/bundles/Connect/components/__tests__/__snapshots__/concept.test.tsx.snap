@@ -94,7 +94,7 @@ exports[`Concept component should render Concept 1`] = `
             className="spinner-container"
           >
             <img
-              alt=""
+              alt="Loading spinner"
               className="spinner"
               src="https://assets.quill.org/images/icons/loader_still.svg"
             />

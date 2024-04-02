@@ -57,6 +57,7 @@ exports[`OneThumbSlider component should render when there is a value 1`] = `
         direction="to right"
         disabled={false}
         draggableTrack={false}
+        key="range-undefined"
         max={4}
         min={1}
         onChange={[Function]}
@@ -78,56 +79,57 @@ exports[`OneThumbSlider component should render when there is a value 1`] = `
               "#06806b",
             ]
           }
+          innerRef={
+            Object {
+              "current": <div
+                class="track"
+              >
+                <div
+                  class="mark first-mark"
+                  style="position: absolute;"
+                >
+                  1
+                </div>
+                <div
+                  class="mark"
+                  style="position: absolute;"
+                >
+                  2
+                </div>
+                <div
+                  class="mark"
+                  style="position: absolute;"
+                >
+                  3
+                </div>
+                <div
+                  class="mark last-mark"
+                  style="position: absolute;"
+                >
+                  4
+                </div>
+                <div
+                  aria-valuemax="4"
+                  aria-valuemin="1"
+                  aria-valuenow="2"
+                  class="thumb"
+                  draggable="false"
+                  role="slider"
+                  style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                  tabindex="0"
+                />
+              </div>,
+            }
+          }
+          key="track-undefined"
           maxValue={4}
           minValue={1}
-          props={
+          onMouseDown={[Function]}
+          onTouchStart={[Function]}
+          style={
             Object {
-              "onMouseDown": [Function],
-              "onTouchStart": [Function],
-              "ref": Object {
-                "current": <div
-                  class="track"
-                >
-                  <div
-                    class="mark first-mark"
-                    style="position: absolute;"
-                  >
-                    1
-                  </div>
-                  <div
-                    class="mark"
-                    style="position: absolute;"
-                  >
-                    2
-                  </div>
-                  <div
-                    class="mark"
-                    style="position: absolute;"
-                  >
-                    3
-                  </div>
-                  <div
-                    class="mark last-mark"
-                    style="position: absolute;"
-                  >
-                    4
-                  </div>
-                  <div
-                    aria-valuemax="4"
-                    aria-valuemin="1"
-                    aria-valuenow="2"
-                    class="thumb"
-                    draggable="false"
-                    role="slider"
-                    style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                    tabindex="0"
-                  />
-                </div>,
-              },
-              "style": Object {
-                "cursor": "pointer",
-                "transform": "scale(1)",
-              },
+              "cursor": "pointer",
+              "transform": "scale(1)",
             }
           }
           values={
@@ -155,8 +157,9 @@ exports[`OneThumbSlider component should render when there is a value 1`] = `
                 }
               }
             >
-              <Mark
+              <ForwardRef
                 index={0}
+                key="mark0"
                 markLabels={
                   Array [
                     1,
@@ -165,28 +168,16 @@ exports[`OneThumbSlider component should render when there is a value 1`] = `
                     4,
                   ]
                 }
-                props={
+                style={
                   Object {
-                    "key": "mark0",
-                    "ref": Object {
-                      "current": <div
-                        class="mark first-mark"
-                        style="position: absolute;"
-                      >
-                        1
-                      </div>,
-                    },
-                    "style": Object {
-                      "left": "NaNpx",
-                      "marginTop": "NaNpx",
-                      "position": "absolute",
-                    },
+                    "left": "NaNpx",
+                    "marginTop": "NaNpx",
+                    "position": "absolute",
                   }
                 }
               >
                 <div
                   className="mark first-mark"
-                  key="mark0"
                   style={
                     Object {
                       "left": "NaNpx",
@@ -197,9 +188,10 @@ exports[`OneThumbSlider component should render when there is a value 1`] = `
                 >
                   1
                 </div>
-              </Mark>
-              <Mark
+              </ForwardRef>
+              <ForwardRef
                 index={1}
+                key="mark1"
                 markLabels={
                   Array [
                     1,
@@ -208,28 +200,16 @@ exports[`OneThumbSlider component should render when there is a value 1`] = `
                     4,
                   ]
                 }
-                props={
+                style={
                   Object {
-                    "key": "mark1",
-                    "ref": Object {
-                      "current": <div
-                        class="mark"
-                        style="position: absolute;"
-                      >
-                        2
-                      </div>,
-                    },
-                    "style": Object {
-                      "left": "NaNpx",
-                      "marginTop": "NaNpx",
-                      "position": "absolute",
-                    },
+                    "left": "NaNpx",
+                    "marginTop": "NaNpx",
+                    "position": "absolute",
                   }
                 }
               >
                 <div
                   className="mark"
-                  key="mark1"
                   style={
                     Object {
                       "left": "NaNpx",
@@ -240,9 +220,10 @@ exports[`OneThumbSlider component should render when there is a value 1`] = `
                 >
                   2
                 </div>
-              </Mark>
-              <Mark
+              </ForwardRef>
+              <ForwardRef
                 index={2}
+                key="mark2"
                 markLabels={
                   Array [
                     1,
@@ -251,28 +232,16 @@ exports[`OneThumbSlider component should render when there is a value 1`] = `
                     4,
                   ]
                 }
-                props={
+                style={
                   Object {
-                    "key": "mark2",
-                    "ref": Object {
-                      "current": <div
-                        class="mark"
-                        style="position: absolute;"
-                      >
-                        3
-                      </div>,
-                    },
-                    "style": Object {
-                      "left": "NaNpx",
-                      "marginTop": "NaNpx",
-                      "position": "absolute",
-                    },
+                    "left": "NaNpx",
+                    "marginTop": "NaNpx",
+                    "position": "absolute",
                   }
                 }
               >
                 <div
                   className="mark"
-                  key="mark2"
                   style={
                     Object {
                       "left": "NaNpx",
@@ -283,9 +252,10 @@ exports[`OneThumbSlider component should render when there is a value 1`] = `
                 >
                   3
                 </div>
-              </Mark>
-              <Mark
+              </ForwardRef>
+              <ForwardRef
                 index={3}
+                key="mark3"
                 markLabels={
                   Array [
                     1,
@@ -294,28 +264,16 @@ exports[`OneThumbSlider component should render when there is a value 1`] = `
                     4,
                   ]
                 }
-                props={
+                style={
                   Object {
-                    "key": "mark3",
-                    "ref": Object {
-                      "current": <div
-                        class="mark last-mark"
-                        style="position: absolute;"
-                      >
-                        4
-                      </div>,
-                    },
-                    "style": Object {
-                      "left": "NaNpx",
-                      "marginTop": "NaNpx",
-                      "position": "absolute",
-                    },
+                    "left": "NaNpx",
+                    "marginTop": "NaNpx",
+                    "position": "absolute",
                   }
                 }
               >
                 <div
                   className="mark last-mark"
-                  key="mark3"
                   style={
                     Object {
                       "left": "NaNpx",
@@ -326,43 +284,29 @@ exports[`OneThumbSlider component should render when there is a value 1`] = `
                 >
                   4
                 </div>
-              </Mark>
-              <Thumb
-                props={
+              </ForwardRef>
+              <ForwardRef
+                aria-valuemax={4}
+                aria-valuemin={1}
+                aria-valuenow={2}
+                draggable={false}
+                key="0"
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                role="slider"
+                style={
                   Object {
-                    "aria-valuemax": 4,
-                    "aria-valuemin": 1,
-                    "aria-valuenow": 2,
-                    "draggable": false,
-                    "key": 0,
-                    "onKeyDown": [Function],
-                    "onKeyUp": [Function],
-                    "ref": Object {
-                      "current": <div
-                        aria-valuemax="4"
-                        aria-valuemin="1"
-                        aria-valuenow="2"
-                        class="thumb"
-                        draggable="false"
-                        role="slider"
-                        style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                        tabindex="0"
-                      />,
-                    },
-                    "role": "slider",
-                    "style": Object {
-                      "MozUserSelect": "none",
-                      "WebkitUserSelect": "none",
-                      "cursor": "grab",
-                      "msUserSelect": "none",
-                      "position": "absolute",
-                      "touchAction": "none",
-                      "userSelect": "none",
-                      "zIndex": 0,
-                    },
-                    "tabIndex": 0,
+                    "MozUserSelect": "none",
+                    "WebkitUserSelect": "none",
+                    "cursor": "grab",
+                    "msUserSelect": "none",
+                    "position": "absolute",
+                    "touchAction": "none",
+                    "userSelect": "none",
+                    "zIndex": 0,
                   }
                 }
+                tabIndex={0}
               >
                 <div
                   aria-valuemax={4}
@@ -370,7 +314,6 @@ exports[`OneThumbSlider component should render when there is a value 1`] = `
                   aria-valuenow={2}
                   className="thumb"
                   draggable={false}
-                  key="0"
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
                   role="slider"
@@ -388,7 +331,7 @@ exports[`OneThumbSlider component should render when there is a value 1`] = `
                   }
                   tabIndex={0}
                 />
-              </Thumb>
+              </ForwardRef>
             </div>
           </div>
         </Track>
@@ -454,6 +397,7 @@ exports[`OneThumbSlider component should render when there is no value 1`] = `
         direction="to right"
         disabled={false}
         draggableTrack={false}
+        key="range-undefined"
         max={4}
         min={1}
         onChange={[Function]}
@@ -475,56 +419,57 @@ exports[`OneThumbSlider component should render when there is no value 1`] = `
               "#dbdbdb",
             ]
           }
+          innerRef={
+            Object {
+              "current": <div
+                class="track"
+              >
+                <div
+                  class="mark first-mark"
+                  style="position: absolute;"
+                >
+                  1
+                </div>
+                <div
+                  class="mark"
+                  style="position: absolute;"
+                >
+                  2
+                </div>
+                <div
+                  class="mark"
+                  style="position: absolute;"
+                >
+                  3
+                </div>
+                <div
+                  class="mark last-mark"
+                  style="position: absolute;"
+                >
+                  4
+                </div>
+                <div
+                  aria-valuemax="4"
+                  aria-valuemin="1"
+                  aria-valuenow="1"
+                  class="thumb"
+                  draggable="false"
+                  role="slider"
+                  style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                  tabindex="0"
+                />
+              </div>,
+            }
+          }
+          key="track-undefined"
           maxValue={4}
           minValue={1}
-          props={
+          onMouseDown={[Function]}
+          onTouchStart={[Function]}
+          style={
             Object {
-              "onMouseDown": [Function],
-              "onTouchStart": [Function],
-              "ref": Object {
-                "current": <div
-                  class="track"
-                >
-                  <div
-                    class="mark first-mark"
-                    style="position: absolute;"
-                  >
-                    1
-                  </div>
-                  <div
-                    class="mark"
-                    style="position: absolute;"
-                  >
-                    2
-                  </div>
-                  <div
-                    class="mark"
-                    style="position: absolute;"
-                  >
-                    3
-                  </div>
-                  <div
-                    class="mark last-mark"
-                    style="position: absolute;"
-                  >
-                    4
-                  </div>
-                  <div
-                    aria-valuemax="4"
-                    aria-valuemin="1"
-                    aria-valuenow="1"
-                    class="thumb"
-                    draggable="false"
-                    role="slider"
-                    style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                    tabindex="0"
-                  />
-                </div>,
-              },
-              "style": Object {
-                "cursor": "pointer",
-                "transform": "scale(1)",
-              },
+              "cursor": "pointer",
+              "transform": "scale(1)",
             }
           }
           values={
@@ -552,8 +497,9 @@ exports[`OneThumbSlider component should render when there is no value 1`] = `
                 }
               }
             >
-              <Mark
+              <ForwardRef
                 index={0}
+                key="mark0"
                 markLabels={
                   Array [
                     1,
@@ -562,28 +508,16 @@ exports[`OneThumbSlider component should render when there is no value 1`] = `
                     4,
                   ]
                 }
-                props={
+                style={
                   Object {
-                    "key": "mark0",
-                    "ref": Object {
-                      "current": <div
-                        class="mark first-mark"
-                        style="position: absolute;"
-                      >
-                        1
-                      </div>,
-                    },
-                    "style": Object {
-                      "left": "NaNpx",
-                      "marginTop": "NaNpx",
-                      "position": "absolute",
-                    },
+                    "left": "NaNpx",
+                    "marginTop": "NaNpx",
+                    "position": "absolute",
                   }
                 }
               >
                 <div
                   className="mark first-mark"
-                  key="mark0"
                   style={
                     Object {
                       "left": "NaNpx",
@@ -594,9 +528,10 @@ exports[`OneThumbSlider component should render when there is no value 1`] = `
                 >
                   1
                 </div>
-              </Mark>
-              <Mark
+              </ForwardRef>
+              <ForwardRef
                 index={1}
+                key="mark1"
                 markLabels={
                   Array [
                     1,
@@ -605,28 +540,16 @@ exports[`OneThumbSlider component should render when there is no value 1`] = `
                     4,
                   ]
                 }
-                props={
+                style={
                   Object {
-                    "key": "mark1",
-                    "ref": Object {
-                      "current": <div
-                        class="mark"
-                        style="position: absolute;"
-                      >
-                        2
-                      </div>,
-                    },
-                    "style": Object {
-                      "left": "NaNpx",
-                      "marginTop": "NaNpx",
-                      "position": "absolute",
-                    },
+                    "left": "NaNpx",
+                    "marginTop": "NaNpx",
+                    "position": "absolute",
                   }
                 }
               >
                 <div
                   className="mark"
-                  key="mark1"
                   style={
                     Object {
                       "left": "NaNpx",
@@ -637,9 +560,10 @@ exports[`OneThumbSlider component should render when there is no value 1`] = `
                 >
                   2
                 </div>
-              </Mark>
-              <Mark
+              </ForwardRef>
+              <ForwardRef
                 index={2}
+                key="mark2"
                 markLabels={
                   Array [
                     1,
@@ -648,28 +572,16 @@ exports[`OneThumbSlider component should render when there is no value 1`] = `
                     4,
                   ]
                 }
-                props={
+                style={
                   Object {
-                    "key": "mark2",
-                    "ref": Object {
-                      "current": <div
-                        class="mark"
-                        style="position: absolute;"
-                      >
-                        3
-                      </div>,
-                    },
-                    "style": Object {
-                      "left": "NaNpx",
-                      "marginTop": "NaNpx",
-                      "position": "absolute",
-                    },
+                    "left": "NaNpx",
+                    "marginTop": "NaNpx",
+                    "position": "absolute",
                   }
                 }
               >
                 <div
                   className="mark"
-                  key="mark2"
                   style={
                     Object {
                       "left": "NaNpx",
@@ -680,9 +592,10 @@ exports[`OneThumbSlider component should render when there is no value 1`] = `
                 >
                   3
                 </div>
-              </Mark>
-              <Mark
+              </ForwardRef>
+              <ForwardRef
                 index={3}
+                key="mark3"
                 markLabels={
                   Array [
                     1,
@@ -691,28 +604,16 @@ exports[`OneThumbSlider component should render when there is no value 1`] = `
                     4,
                   ]
                 }
-                props={
+                style={
                   Object {
-                    "key": "mark3",
-                    "ref": Object {
-                      "current": <div
-                        class="mark last-mark"
-                        style="position: absolute;"
-                      >
-                        4
-                      </div>,
-                    },
-                    "style": Object {
-                      "left": "NaNpx",
-                      "marginTop": "NaNpx",
-                      "position": "absolute",
-                    },
+                    "left": "NaNpx",
+                    "marginTop": "NaNpx",
+                    "position": "absolute",
                   }
                 }
               >
                 <div
                   className="mark last-mark"
-                  key="mark3"
                   style={
                     Object {
                       "left": "NaNpx",
@@ -723,43 +624,29 @@ exports[`OneThumbSlider component should render when there is no value 1`] = `
                 >
                   4
                 </div>
-              </Mark>
-              <Thumb
-                props={
+              </ForwardRef>
+              <ForwardRef
+                aria-valuemax={4}
+                aria-valuemin={1}
+                aria-valuenow={1}
+                draggable={false}
+                key="0"
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                role="slider"
+                style={
                   Object {
-                    "aria-valuemax": 4,
-                    "aria-valuemin": 1,
-                    "aria-valuenow": 1,
-                    "draggable": false,
-                    "key": 0,
-                    "onKeyDown": [Function],
-                    "onKeyUp": [Function],
-                    "ref": Object {
-                      "current": <div
-                        aria-valuemax="4"
-                        aria-valuemin="1"
-                        aria-valuenow="1"
-                        class="thumb"
-                        draggable="false"
-                        role="slider"
-                        style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                        tabindex="0"
-                      />,
-                    },
-                    "role": "slider",
-                    "style": Object {
-                      "MozUserSelect": "none",
-                      "WebkitUserSelect": "none",
-                      "cursor": "grab",
-                      "msUserSelect": "none",
-                      "position": "absolute",
-                      "touchAction": "none",
-                      "userSelect": "none",
-                      "zIndex": 0,
-                    },
-                    "tabIndex": 0,
+                    "MozUserSelect": "none",
+                    "WebkitUserSelect": "none",
+                    "cursor": "grab",
+                    "msUserSelect": "none",
+                    "position": "absolute",
+                    "touchAction": "none",
+                    "userSelect": "none",
+                    "zIndex": 0,
                   }
                 }
+                tabIndex={0}
               >
                 <div
                   aria-valuemax={4}
@@ -767,7 +654,6 @@ exports[`OneThumbSlider component should render when there is no value 1`] = `
                   aria-valuenow={1}
                   className="thumb"
                   draggable={false}
-                  key="0"
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
                   role="slider"
@@ -785,7 +671,7 @@ exports[`OneThumbSlider component should render when there is no value 1`] = `
                   }
                   tabIndex={0}
                 />
-              </Thumb>
+              </ForwardRef>
             </div>
           </div>
         </Track>
@@ -855,6 +741,7 @@ exports[`TwoThumbSlider component should render 1`] = `
         direction="to right"
         disabled={false}
         draggableTrack={false}
+        key="range-undefined"
         max={4}
         min={1}
         onChange={[Function]}
@@ -878,66 +765,67 @@ exports[`TwoThumbSlider component should render 1`] = `
               "#dbdbdb",
             ]
           }
+          innerRef={
+            Object {
+              "current": <div
+                class="track"
+              >
+                <div
+                  class="mark first-mark"
+                  style="position: absolute;"
+                >
+                  1
+                </div>
+                <div
+                  class="mark"
+                  style="position: absolute;"
+                >
+                  2
+                </div>
+                <div
+                  class="mark"
+                  style="position: absolute;"
+                >
+                  3
+                </div>
+                <div
+                  class="mark last-mark"
+                  style="position: absolute;"
+                >
+                  4
+                </div>
+                <div
+                  aria-valuemax="3"
+                  aria-valuemin="1"
+                  aria-valuenow="1"
+                  class="thumb"
+                  draggable="false"
+                  role="slider"
+                  style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                  tabindex="0"
+                />
+                <div
+                  aria-valuemax="4"
+                  aria-valuemin="1"
+                  aria-valuenow="3"
+                  class="thumb"
+                  draggable="false"
+                  role="slider"
+                  style="position: absolute; z-index: 1; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                  tabindex="0"
+                />
+              </div>,
+            }
+          }
+          key="track-undefined"
           maxValue={4}
           minValue={1}
-          props={
+          onMouseDown={[Function]}
+          onTouchStart={[Function]}
+          style={
             Object {
-              "onMouseDown": [Function],
-              "onTouchStart": [Function],
-              "ref": Object {
-                "current": <div
-                  class="track"
-                >
-                  <div
-                    class="mark first-mark"
-                    style="position: absolute;"
-                  >
-                    1
-                  </div>
-                  <div
-                    class="mark"
-                    style="position: absolute;"
-                  >
-                    2
-                  </div>
-                  <div
-                    class="mark"
-                    style="position: absolute;"
-                  >
-                    3
-                  </div>
-                  <div
-                    class="mark last-mark"
-                    style="position: absolute;"
-                  >
-                    4
-                  </div>
-                  <div
-                    aria-valuemax="3"
-                    aria-valuemin="1"
-                    aria-valuenow="1"
-                    class="thumb"
-                    draggable="false"
-                    role="slider"
-                    style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                    tabindex="0"
-                  />
-                  <div
-                    aria-valuemax="4"
-                    aria-valuemin="1"
-                    aria-valuenow="3"
-                    class="thumb"
-                    draggable="false"
-                    role="slider"
-                    style="position: absolute; z-index: 1; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                    tabindex="0"
-                  />
-                </div>,
-              },
-              "style": Object {
-                "cursor": "inherit",
-                "transform": "scale(1)",
-              },
+              "cursor": "inherit",
+              "transform": "scale(1)",
             }
           }
           values={
@@ -966,8 +854,9 @@ exports[`TwoThumbSlider component should render 1`] = `
                 }
               }
             >
-              <Mark
+              <ForwardRef
                 index={0}
+                key="mark0"
                 markLabels={
                   Array [
                     1,
@@ -976,28 +865,16 @@ exports[`TwoThumbSlider component should render 1`] = `
                     4,
                   ]
                 }
-                props={
+                style={
                   Object {
-                    "key": "mark0",
-                    "ref": Object {
-                      "current": <div
-                        class="mark first-mark"
-                        style="position: absolute;"
-                      >
-                        1
-                      </div>,
-                    },
-                    "style": Object {
-                      "left": "NaNpx",
-                      "marginTop": "NaNpx",
-                      "position": "absolute",
-                    },
+                    "left": "NaNpx",
+                    "marginTop": "NaNpx",
+                    "position": "absolute",
                   }
                 }
               >
                 <div
                   className="mark first-mark"
-                  key="mark0"
                   style={
                     Object {
                       "left": "NaNpx",
@@ -1008,9 +885,10 @@ exports[`TwoThumbSlider component should render 1`] = `
                 >
                   1
                 </div>
-              </Mark>
-              <Mark
+              </ForwardRef>
+              <ForwardRef
                 index={1}
+                key="mark1"
                 markLabels={
                   Array [
                     1,
@@ -1019,28 +897,16 @@ exports[`TwoThumbSlider component should render 1`] = `
                     4,
                   ]
                 }
-                props={
+                style={
                   Object {
-                    "key": "mark1",
-                    "ref": Object {
-                      "current": <div
-                        class="mark"
-                        style="position: absolute;"
-                      >
-                        2
-                      </div>,
-                    },
-                    "style": Object {
-                      "left": "NaNpx",
-                      "marginTop": "NaNpx",
-                      "position": "absolute",
-                    },
+                    "left": "NaNpx",
+                    "marginTop": "NaNpx",
+                    "position": "absolute",
                   }
                 }
               >
                 <div
                   className="mark"
-                  key="mark1"
                   style={
                     Object {
                       "left": "NaNpx",
@@ -1051,9 +917,10 @@ exports[`TwoThumbSlider component should render 1`] = `
                 >
                   2
                 </div>
-              </Mark>
-              <Mark
+              </ForwardRef>
+              <ForwardRef
                 index={2}
+                key="mark2"
                 markLabels={
                   Array [
                     1,
@@ -1062,28 +929,16 @@ exports[`TwoThumbSlider component should render 1`] = `
                     4,
                   ]
                 }
-                props={
+                style={
                   Object {
-                    "key": "mark2",
-                    "ref": Object {
-                      "current": <div
-                        class="mark"
-                        style="position: absolute;"
-                      >
-                        3
-                      </div>,
-                    },
-                    "style": Object {
-                      "left": "NaNpx",
-                      "marginTop": "NaNpx",
-                      "position": "absolute",
-                    },
+                    "left": "NaNpx",
+                    "marginTop": "NaNpx",
+                    "position": "absolute",
                   }
                 }
               >
                 <div
                   className="mark"
-                  key="mark2"
                   style={
                     Object {
                       "left": "NaNpx",
@@ -1094,9 +949,10 @@ exports[`TwoThumbSlider component should render 1`] = `
                 >
                   3
                 </div>
-              </Mark>
-              <Mark
+              </ForwardRef>
+              <ForwardRef
                 index={3}
+                key="mark3"
                 markLabels={
                   Array [
                     1,
@@ -1105,28 +961,16 @@ exports[`TwoThumbSlider component should render 1`] = `
                     4,
                   ]
                 }
-                props={
+                style={
                   Object {
-                    "key": "mark3",
-                    "ref": Object {
-                      "current": <div
-                        class="mark last-mark"
-                        style="position: absolute;"
-                      >
-                        4
-                      </div>,
-                    },
-                    "style": Object {
-                      "left": "NaNpx",
-                      "marginTop": "NaNpx",
-                      "position": "absolute",
-                    },
+                    "left": "NaNpx",
+                    "marginTop": "NaNpx",
+                    "position": "absolute",
                   }
                 }
               >
                 <div
                   className="mark last-mark"
-                  key="mark3"
                   style={
                     Object {
                       "left": "NaNpx",
@@ -1137,43 +981,29 @@ exports[`TwoThumbSlider component should render 1`] = `
                 >
                   4
                 </div>
-              </Mark>
-              <Thumb
-                props={
+              </ForwardRef>
+              <ForwardRef
+                aria-valuemax={3}
+                aria-valuemin={1}
+                aria-valuenow={1}
+                draggable={false}
+                key="0"
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                role="slider"
+                style={
                   Object {
-                    "aria-valuemax": 3,
-                    "aria-valuemin": 1,
-                    "aria-valuenow": 1,
-                    "draggable": false,
-                    "key": 0,
-                    "onKeyDown": [Function],
-                    "onKeyUp": [Function],
-                    "ref": Object {
-                      "current": <div
-                        aria-valuemax="3"
-                        aria-valuemin="1"
-                        aria-valuenow="1"
-                        class="thumb"
-                        draggable="false"
-                        role="slider"
-                        style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                        tabindex="0"
-                      />,
-                    },
-                    "role": "slider",
-                    "style": Object {
-                      "MozUserSelect": "none",
-                      "WebkitUserSelect": "none",
-                      "cursor": "grab",
-                      "msUserSelect": "none",
-                      "position": "absolute",
-                      "touchAction": "none",
-                      "userSelect": "none",
-                      "zIndex": 0,
-                    },
-                    "tabIndex": 0,
+                    "MozUserSelect": "none",
+                    "WebkitUserSelect": "none",
+                    "cursor": "grab",
+                    "msUserSelect": "none",
+                    "position": "absolute",
+                    "touchAction": "none",
+                    "userSelect": "none",
+                    "zIndex": 0,
                   }
                 }
+                tabIndex={0}
               >
                 <div
                   aria-valuemax={3}
@@ -1181,7 +1011,6 @@ exports[`TwoThumbSlider component should render 1`] = `
                   aria-valuenow={1}
                   className="thumb"
                   draggable={false}
-                  key="0"
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
                   role="slider"
@@ -1199,43 +1028,29 @@ exports[`TwoThumbSlider component should render 1`] = `
                   }
                   tabIndex={0}
                 />
-              </Thumb>
-              <Thumb
-                props={
+              </ForwardRef>
+              <ForwardRef
+                aria-valuemax={4}
+                aria-valuemin={1}
+                aria-valuenow={3}
+                draggable={false}
+                key="1"
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                role="slider"
+                style={
                   Object {
-                    "aria-valuemax": 4,
-                    "aria-valuemin": 1,
-                    "aria-valuenow": 3,
-                    "draggable": false,
-                    "key": 1,
-                    "onKeyDown": [Function],
-                    "onKeyUp": [Function],
-                    "ref": Object {
-                      "current": <div
-                        aria-valuemax="4"
-                        aria-valuemin="1"
-                        aria-valuenow="3"
-                        class="thumb"
-                        draggable="false"
-                        role="slider"
-                        style="position: absolute; z-index: 1; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                        tabindex="0"
-                      />,
-                    },
-                    "role": "slider",
-                    "style": Object {
-                      "MozUserSelect": "none",
-                      "WebkitUserSelect": "none",
-                      "cursor": "grab",
-                      "msUserSelect": "none",
-                      "position": "absolute",
-                      "touchAction": "none",
-                      "userSelect": "none",
-                      "zIndex": 1,
-                    },
-                    "tabIndex": 0,
+                    "MozUserSelect": "none",
+                    "WebkitUserSelect": "none",
+                    "cursor": "grab",
+                    "msUserSelect": "none",
+                    "position": "absolute",
+                    "touchAction": "none",
+                    "userSelect": "none",
+                    "zIndex": 1,
                   }
                 }
+                tabIndex={0}
               >
                 <div
                   aria-valuemax={4}
@@ -1243,7 +1058,6 @@ exports[`TwoThumbSlider component should render 1`] = `
                   aria-valuenow={3}
                   className="thumb"
                   draggable={false}
-                  key="1"
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
                   role="slider"
@@ -1261,7 +1075,7 @@ exports[`TwoThumbSlider component should render 1`] = `
                   }
                   tabIndex={0}
                 />
-              </Thumb>
+              </ForwardRef>
             </div>
           </div>
         </Track>

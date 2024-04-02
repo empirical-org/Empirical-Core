@@ -1,17 +1,18 @@
+import qs from 'qs';
 import React from 'react';
-import qs from 'qs'
 
-import QuestionsAndAnswers from './QuestionsAndAnswers.tsx'
-
-import SchoolAndDistrictPremiumModal, { SCHOOL_SELECTION_STAGE, } from '../components/premium/school_and_district_premium_modal'
-import PremiumBannerBuilder from '../components/scorebook/premium_banners/premium_banner_builder.jsx'
+import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
+import { Snackbar, defaultSnackbarTimeout, } from '../../Shared/index';
+import PremiumFeaturesTable from '../components/premium/premium_features_table.tsx';
 import PremiumPricingMinisRow from '../components/premium/premium_pricing_minis_row.jsx';
-import PremiumFeaturesTable from '../components/premium/premium_features_table.tsx'
-import SubscriberLogos from '../components/premium/subscriber_logos.jsx';
+import SchoolAndDistrictPremiumModal, { SCHOOL_SELECTION_STAGE, } from '../components/premium/school_and_district_premium_modal';
 import SchoolPremium from '../components/premium/school_premium.jsx';
+import SubscriberLogos from '../components/premium/subscriber_logos.jsx';
+import PremiumBannerBuilder from '../components/scorebook/premium_banners/premium_banner_builder.jsx';
 import StripeSubscriptionCheckoutSessionButton from '../components/shared/StripeSubscriptionCheckoutSessionButton';
-import { Snackbar, defaultSnackbarTimeout, } from '../../Shared/index'
-import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor'
+
+import { requestPost } from '../../../modules/request';
+
 
 const subscribers = [
   { name: 'Achievement first school logo', source: '/images/subscribers/1_achievement.png', id: 'achievement-first'},
@@ -47,6 +48,21 @@ const AlreadyHasPremiumModal = ({ type, close, }) => (
   </div>
 )
 
+const LoginToPurchaseModal = ({ close }) => (
+  <div className="modal-container log-in-to-purchase-modal-container">
+    <div className="modal-background" />
+    <div className="log-in-to-purchase-modal quill-modal modal-body">
+      <div>
+        <h3 className="title">Log in to purchase</h3>
+      </div>
+      <p>Please <a className="focus-on-light" href="/session/new">log in to your Quill account</a> to purchase Teacher Premium.</p>
+      <div className="form-buttons">
+        <button className="quill-button medium contained primary focus-on-light" onClick={close} type="button">OK</button>
+      </div>
+    </div>
+  </div>
+)
+
 export const PremiumPricingGuide = ({
   customerEmail,
   diagnosticActivityCount,
@@ -62,6 +78,7 @@ export const PremiumPricingGuide = ({
   const [showSchoolAndDistrictPremiumModal, setShowSchoolAndDistrictPremiumModal] = React.useState(!!openModalToSchoolSelection)
   const [showAlreadyHasTeacherPremiumModal, setShowAlreadyHasTeacherPremiumModal] = React.useState(false)
   const [showAlreadyHasSchoolPremiumModal, setShowAlreadyHasSchoolPremiumModal] = React.useState(false)
+  const [showLoginToPurchaseModal, setShowLoginToPurchaseModal] = React.useState(false)
   const [showSnackbar, setShowSnackbar] = React.useState(false)
 
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
@@ -82,6 +99,7 @@ export const PremiumPricingGuide = ({
 
   function openAlreadyHasTeacherPremiumModal() { setShowAlreadyHasTeacherPremiumModal(true) }
 
+  function toggleLoginToPurchaseModal() { setShowLoginToPurchaseModal(!showLoginToPurchaseModal) }
 
   function handleNotListedSelection() {
     setShowSnackbar(true)
@@ -102,7 +120,9 @@ export const PremiumPricingGuide = ({
   }
 
   const teacherBuyNowButton = () => {
-    if (!userIsEligibleForNewSubscription) {
+    if(!customerEmail) {
+      return <button className="quill-button contained medium primary focus-on-light" onClick={toggleLoginToPurchaseModal} type="button">Buy now</button>
+    } else if (!userIsEligibleForNewSubscription) {
       return <button className="quill-button contained medium primary focus-on-light" onClick={openAlreadyHasTeacherPremiumModal} type="button">Buy now</button>
     }
     return (
@@ -119,25 +139,30 @@ export const PremiumPricingGuide = ({
     )
   }
 
-  const upgradeToPremiumNowButton = () => {
-    return (
-      <StripeSubscriptionCheckoutSessionButton
-        buttonClassName='btn-orange'
-        buttonText='Upgrade to Premium Now'
-        cancelPath='premium'
-        customerEmail={customerEmail}
-        stripePriceId={stripeTeacherPlan.plan.stripe_price_id}
-        userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
-        userIsSignedIn={userIsSignedIn()}
-      />
-    )
+  const upgradeToPremiumNow = () => {
+    if (!userIsSignedIn()) {
+      alert('You must be logged in to activate Premium.')
+    } else if (!userIsEligibleForNewSubscription) {
+      alert(
+        "You have an active subscription and cannot buy premium now. If your subscription is a school subscription, you may buy Premium when it expires. If your subscription is a teacher one, please turn on recurring payments and we will renew it automatically when your subscription ends."
+      )
+    } else {
+      const path = '/stripe_integration/subscription_checkout_sessions'
+      const data = {
+        cancel_path: 'premium',
+        customer_email: customerEmail,
+        stripe_price_id: stripeTeacherPlan.plan.stripe_price_id
+      }
+
+      requestPost(path, data, body => { window.location.replace(body.redirect_url) })
+    }
   }
 
   return (
     <div>
-      <div className="container premium-page white-background-accommodate-footer">
+      <div className="container premium-page">
         <Snackbar text="Sorry, you need to select a school to purchase School Premium." visible={showSnackbar} />
-        {userIsSignedIn() && <PremiumBannerBuilder originPage="premium" upgradeToPremiumNowButton={upgradeToPremiumNowButton} />}
+        {userIsSignedIn() && <PremiumBannerBuilder originPage="premium" upgradeToPremiumNow={upgradeToPremiumNow} />}
         {showSchoolAndDistrictPremiumModal && (
           <SchoolAndDistrictPremiumModal
             closeModal={closeSchoolAndDistrictPremiumModal}
@@ -152,6 +177,7 @@ export const PremiumPricingGuide = ({
         )}
         {showAlreadyHasSchoolPremiumModal && <AlreadyHasPremiumModal close={closeAlreadyHasSchoolPremiumModal} type="School Premium" />}
         {showAlreadyHasTeacherPremiumModal && <AlreadyHasPremiumModal close={closeAlreadyHasTeacherPremiumModal} type="Teacher Premium" />}
+        {showLoginToPurchaseModal && <LoginToPurchaseModal close={toggleLoginToPurchaseModal} />}
         <div className="overview text-center">
           <PremiumPricingMinisRow
             diagnosticActivityCount={diagnosticActivityCount}
@@ -163,22 +189,16 @@ export const PremiumPricingGuide = ({
             teacherBuyNowButton={teacherBuyNowButton}
             userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
           />
-
           <PremiumFeaturesTable
             diagnosticActivityCount={diagnosticActivityCount}
             independentPracticeActivityCount={independentPracticeActivityCount}
             lessonsActivityCount={lessonsActivityCount}
           />
         </div>
-
         <div className="features text-center">
           <SchoolPremium />
           <SubscriberLogos subscribers={subscribers} />
         </div>
-        <QuestionsAndAnswers
-          questionsAndAnswersFile="premium"
-          supportLink="https://support.quill.org/quill-premium"
-        />
       </div>
     </div>
   )

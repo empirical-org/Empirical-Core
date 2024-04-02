@@ -1,13 +1,11 @@
-import * as IntF from '../classroomLessons/interfaces';
-import * as CLIntF from '../../interfaces/classroomLessons';
-import CustomizeStatic from './slides/static';
-import CustomizeModel from './slides/model';
-import CustomizeSingleAnswer from './slides/singleAnswer';
+import CustomizeExit from './slides/exit';
 import CustomizeFillInTheBlanks from './slides/fillInTheBlanks';
 import CustomizeFillInTheList from './slides/fillInTheList';
-import CustomizeExit from './slides/exit';
-import CustomizeUnsupported from './slides/unsupportedType';
+import CustomizeModel from './slides/model';
 import CustomizeMultistep from './slides/multistep';
+import CustomizeSingleAnswer from './slides/singleAnswer';
+import CustomizeStatic from './slides/static';
+import CustomizeUnsupported from './slides/unsupportedType';
 
 export function getComponent(type: string) {
   switch (type) {

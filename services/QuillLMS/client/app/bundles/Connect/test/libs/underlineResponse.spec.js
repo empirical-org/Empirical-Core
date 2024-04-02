@@ -1,19 +1,18 @@
-import expect, {createSpy, spyOn, isSpy} from 'expect';
-import {diffWords} from 'diff'
+import { diffWords } from 'diff';
+import expect from 'expect';
 import {
+  generateStyleObjects,
+  getAdditionalInlineStyleRangeObject,
   getChangeObjects,
-  getChangeObjectsWithoutRemoved,
   getChangeObjectsWithoutAdded,
+  getChangeObjectsWithoutRemoved,
   getErroneousWordLength,
   getErroneousWordOffset,
-  getInlineStyleRangeObject,
   getErrorType,
-  getMissingWordErrorString,
+  getInlineStyleRangeObject,
   getMissingInlineStyleRangeObject,
-  getAdditionalInlineStyleRangeObject,
-  generateStyleObjects,
-  getImportantStyleRangeObject
-} from '../../libs/markupUserResponses.js'
+  getMissingWordErrorString
+} from '../../libs/markupUserResponses.js';
 
 describe("finding the position of the substring", () => {
   const target = "I like NYC.";

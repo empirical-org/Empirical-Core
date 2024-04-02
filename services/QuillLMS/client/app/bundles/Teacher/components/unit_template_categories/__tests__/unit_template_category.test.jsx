@@ -2,9 +2,8 @@
  * @jest-environment jsdom
 */
 
-import * as React from 'react';
 import { mount } from 'enzyme';
-import _ from 'underscore'
+import * as React from 'react';
 
 import UnitTemplateCategory from '../unit_template_category';
 

@@ -1,9 +1,9 @@
-import * as React from 'react'
-import ReactCSSTransitionReplace from 'react-css-transition-replace'
-import stripHtml from "string-strip-html";
+import * as React from 'react';
+import ReactCSSTransitionReplace from 'react-css-transition-replace';
+import { stripHtml } from "string-strip-html";
 
-import { GRAMMAR, SPELLING, RULES_BASED_3, } from '../../../../constants/evidence'
-import useFocus from '../../../Shared/hooks/useFocus'
+import { GRAMMAR, RULES_BASED_3, SPELLING, } from '../../../../constants/evidence';
+import useFocus from '../../../Shared/hooks/useFocus';
 
 const loopSrc = `${process.env.CDN_URL}/images/icons/loop.svg`
 const smallCheckCircleSrc = `${process.env.CDN_URL}/images/icons/check-circle-small.svg`
@@ -35,7 +35,7 @@ const feedbackToShow = (lastSubmittedResponse, submittedResponses, prompt, custo
   if (!madeLastAttemptAndItWasSuboptimal(submittedResponses, prompt, lastSubmittedResponse)) { return lastSubmittedResponse.feedback }
 
   if ([GRAMMAR, SPELLING, RULES_BASED_3].includes(lastSubmittedResponse.feedback_type)) {
-    return `<p>You completed four revisions! ${stripHtml(prompt.optimal_label_feedback || '')}</p><br/><p>However, our feedback bot detected additional spelling or grammar changes you could make to improve your sentence.</p><br/><p>Read your response one more time, and think about what changes you could make. Then move on to the next prompt.</p>`
+    return `<p>You completed four revisions! ${stripHtml(prompt.optimal_label_feedback || '').result}</p><br/><p>However, our feedback bot detected additional spelling or grammar changes you could make to improve your sentence.</p><br/><p>Read your response one more time, and think about what changes you could make. Then move on to the next prompt.</p>`
   }
 
   return prompt.max_attempts_feedback
@@ -147,8 +147,8 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
   let screenreaderPassageHighlightText
   let screenreaderResponseHighlightText
 
-  const passageHighlights = highlight && highlight.filter(h => h.type === 'passage').map(h => stripHtml(h.text))
-  const responseHighlights = highlight && highlight.filter(h => h.type === 'response').map(h => stripHtml(h.text))
+  const passageHighlights = highlight && highlight.filter(h => h.type === 'passage').map(h => stripHtml(h.text).result)
+  const responseHighlights = highlight && highlight.filter(h => h.type === 'response').map(h => stripHtml(h.text).result)
 
   if (passageHighlights && passageHighlights.length) {
     screenreaderPassageHighlightText = <p className="sr-only">Screenreader users, the feedback you just heard is referring to the following section(s) of the passage: {passageHighlights.join('; ')}</p>

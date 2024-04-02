@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 import { SortableList } from '../../../../Shared/index';
 
 class Script extends React.Component<any, any> {
@@ -11,7 +11,7 @@ class Script extends React.Component<any, any> {
   renderScriptItem(scriptItem) {
     const item = this.props.script[scriptItem]
     return (
-      <div className="box slide-box" key={scriptItem}>
+      <div className="box slide-box" id={scriptItem} key={scriptItem}>
         <span className="slide-type">{item.type}</span>
         <span className="slide-title">{item.data ? item.data.heading : ''}</span>
         <span className="slide-edit"><a href={`/lessons/#/admin/classroom-lessons/${this.props.lesson}/editions/${this.props.editionID}/slide/${this.props.slide}/scriptItem/${scriptItem}`}>Edit</a></span>

@@ -1,11 +1,11 @@
 /* eslint-env browser*/
+import moment from 'moment';
 import _ from 'underscore';
-const moment = require('moment');
 
-import { requestGet, requestPost, requestPut, requestDelete } from '../../../modules/request/index';
+import { requestDelete, requestGet, requestPost, requestPut } from '../../../modules/request/index';
 import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
 
-const C = require('../constants').default;
+import C from '../constants';
 
 export function deleteStatus(questionId) {
   return { type: C.DELETE_RESPONSE_STATUS, data: { questionId, }, };
@@ -125,15 +125,16 @@ export function massEditDeleteResponses(ids, qid) {
   };
 }
 
-export function submitResponseEdit(rid, content, qid) {
+export function submitResponseEdit(rid, content, qid, callback) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content, false);
   return (dispatch) => {
     requestPut(
       `${process.env.QUILL_CMS}/responses/${rid}`,
       { response: rubyConvertedResponse, },
       (body) => {
+        callback(body);
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-        dispatch({ type: C.SHOULD_RELOAD_RESPONSES, qid, });
+        dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
       },
       (body) => {
         dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${body}`, });
@@ -198,14 +199,14 @@ function makeIterator(array) {
   let nextIndex = 0;
 
   return {
-    next: function() {
+    next: function () {
       let nextVal = null;
       if (nextIndex < array.length) {
-        nextVal = {value: array[nextIndex], done: false};
+        nextVal = { value: array[nextIndex], done: false };
         nextIndex += 1;
       }
       else {
-        nextVal = {done: true};
+        nextVal = { done: true };
       }
       return nextVal;
     }
@@ -269,7 +270,7 @@ export function submitOptimalResponses(qid, conceptUID, responses, concepts) {
   const convertedResponses = convertConceptNamesToIds(responses, concepts)
   return (dispatch) => {
     convertedResponses.forEach((obj) => {
-      const defaultConcept = [{ conceptUID, correct: true}]
+      const defaultConcept = [{ conceptUID, correct: true }]
       const response = {
         text: obj.text,
         feedback: "That's a strong sentence!",

@@ -6,7 +6,7 @@ class CalculateAndCacheVitallyUserWorker
 
   def perform(user_id, year)
     teacher = User.find(user_id)
-    data = PreviousYearTeacherDatum.new(teacher, year).calculate_data
-    CacheVitallyTeacherData.set(user_id, year, data.to_json)
+    data = VitallyIntegration::PreviousYearTeacherDatum.new(teacher, year).calculate_data
+    VitallyIntegration::CacheVitallyTeacherData.set(user_id, year, data.to_json)
   end
 end

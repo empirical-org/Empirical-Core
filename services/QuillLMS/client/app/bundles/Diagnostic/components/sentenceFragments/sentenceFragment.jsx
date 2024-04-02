@@ -1,29 +1,29 @@
 import React from 'react';
-import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
 
-import EditForm from './sentenceFragmentForm.jsx';
-import ResponseComponent from '../questions/responseComponent.jsx';
-import fragmentActions from '../../actions/sentenceFragments.ts';
-import {
-  submitOptimalResponses,
-  listenToResponsesWithCallback
-} from '../../actions/responses';
-import C from '../../constants';
-import FocusPointsContainer from '../focusPoints/focusPointsContainer.jsx';
-import EditFocusPointsContainer from '../focusPoints/editFocusPointsContainer.jsx';
-import NewFocusPointsContainer from '../focusPoints/newFocusPointsContainer.jsx';
-import IncorrectSequenceContainer from '../incorrectSequence/incorrectSequenceContainer.jsx';
-import EditIncorrectSequenceContainer from '../incorrectSequence/editIncorrectSequenceContainer.jsx';
-import NewIncorrectSequenceContainer from '../incorrectSequence/newIncorrectSequenceContainer.jsx';
-import ResponseComponentWrapper from '../questions/responseRouteWrapper.jsx';
-import ChooseModelContainer from './chooseModelContainer.jsx';
-import TestQuestionContainer from './testSentenceFragmentContainer';
-import MassEditContainer from '../questions/massEditContainer.jsx';
 import {
   Modal,
   UploadOptimalResponses,
 } from '../../../Shared/index';
+import {
+  listenToResponsesWithCallback,
+  submitOptimalResponses
+} from '../../actions/responses';
+import fragmentActions from '../../actions/sentenceFragments.ts';
+import C from '../../constants';
+import EditFocusPointsContainer from '../focusPoints/editFocusPointsContainer.jsx';
+import FocusPointsContainer from '../focusPoints/focusPointsContainer.jsx';
+import NewFocusPointsContainer from '../focusPoints/newFocusPointsContainer.jsx';
+import EditIncorrectSequenceContainer from '../incorrectSequence/editIncorrectSequenceContainer.jsx';
+import IncorrectSequenceContainer from '../incorrectSequence/incorrectSequenceContainer.jsx';
+import NewIncorrectSequenceContainer from '../incorrectSequence/newIncorrectSequenceContainer.jsx';
+import MassEditContainer from '../questions/massEditContainer.jsx';
+import ResponseComponent from '../questions/responseComponent.jsx';
+import ResponseComponentWrapper from '../questions/responseRouteWrapper.jsx';
+import ChooseModelContainer from './chooseModelContainer.jsx';
+import EditForm from './sentenceFragmentForm.jsx';
+import TestQuestionContainer from './testSentenceFragmentContainer';
 
 const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 

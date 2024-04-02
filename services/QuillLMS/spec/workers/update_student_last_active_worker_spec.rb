@@ -7,7 +7,7 @@ describe UpdateStudentLastActiveWorker do
 
   describe '#perform' do
     let!(:user) { create(:user) }
-    let(:new_date) { DateTime.new(100) }
+    let(:new_date) { Time.at(100).utc }
 
     it 'should update the users last seen with the given date time'  do
       subject.perform(user.id, new_date)

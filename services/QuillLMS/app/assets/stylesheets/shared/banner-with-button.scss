@@ -31,10 +31,11 @@
 }
 
 .premium-footer {
-  background-color: #DF9E3D;
-  color: white;
+  background-color: $white;
   padding: 32px 61px;
   .content-container {
+    background-color: #FBF2E5;
+    border: 1px solid #DF9E3D;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -73,8 +74,8 @@
     }
   }
   .explore-premium-button {
-    color: #DF9E3D;
-    background-color: white;
+    color: $quill-white;
+    background-color: $quill-gold-dark-50;
     font-weight: 700;
     font-size: 14px;
     line-height: 14px;

@@ -98,19 +98,46 @@ $lightgray: #cecece;
     border: solid 1px #cecece;
 }
 .individual-student-activity-view {
-  padding-bottom: 91px;
-  padding-top: 25px;
-  margin: auto;
-  max-width: 950px;
-  width: 100%;
-  margin: 0 auto;
+  padding-top: 48px;
+  header, .time-spent-and-target-skills-count {
+    span {
+      font-weight: 600;
+      color: $quill-grey-50;
+    }
+    h3 {
+      font-weight: 700;
+      line-height: 26px;
+    }
+  }
+
+  .time-spent-and-target-skills-count {
+    display: flex;
+    margin-top: 32px;
+    p {
+      font-size: 24px;
+      font-weight: 600;
+      line-height: normal;
+    }
+    div {
+      max-width: 50vw;
+    }
+    div:first-of-type {
+      border-right: 1px solid $quill-grey-10;
+      padding-right: 32px;
+    }
+    div:last-of-type {
+      margin-left: 32px;
+    }
+  }
+
   .how-we-grade {
     margin-top: 1.5em;
   }
+
   .activity-view-header-container {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     .dropdown-container {
       width: 268px;
       min-height: 32px;
@@ -119,9 +146,82 @@ $lightgray: #cecece;
       }
     }
   }
+
+  .helpful-tips {
+    margin-top: 48px;
+    border-radius: 8px;
+    border: 1px solid $quill-grey-15;
+    background: $quill-grey-1;
+    padding: 24px;
+    .helpful-tips-header {
+      display: flex;
+      align-items: center;
+      padding-bottom: 16px;
+      border-bottom: 1px solid $quill-grey-10;
+      img {
+        margin-right: 8px;
+      }
+      h3 {
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 22px;
+        color: $quill-grey-90;
+        span {
+          color: $quill-grey-50;
+          font-weight: 400;
+        }
+      }
+    }
+    .toggle-student-report-explanation {
+      background-color: transparent;
+      display: flex;
+      padding: 16px 0px 0px;
+      width: 100%;
+      text-align: left;
+      &.is-open {
+        img {
+          transform: rotate(180deg);
+        }
+      }
+      &.scoring-explanation {
+        border-bottom: 1px solid $quill-grey-10;
+        padding-bottom: 16px;
+      }
+
+      h4 {
+        color: $quill-grey-90;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 22px;
+      }
+
+      img, span {
+        margin-right: 8px;
+        min-width: 24px;
+        display: block;
+      }
+
+      .body {
+        margin-top: 16px;
+        color: $quill-grey-90;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 22px;
+        a {
+          color: inherit;
+          text-decoration: underline;
+        }
+        ul {
+          margin-bottom: 0px;
+        }
+      }
+    }
+  }
+
   .left-side-container {
     .activity-view-header {
-      margin-bottom: 12px;
+      margin-top: 4px;
     }
     .score-time-spent-container {
       display: flex;
@@ -132,40 +232,91 @@ $lightgray: #cecece;
       }
     }
   }
+
+  .concept-result {
+    display: inline-flex;
+    border-radius: 15px;
+    padding: 0px 8px 0px 5px;
+    min-height: 20px;
+    height: min-content;
+    align-items: center;
+    justify-content: center;
+    margin-right: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    img {
+      margin-right: 6px;
+    }
+    &.correct {
+      border: 1px solid #58AD0C;
+      background: #B8DB99;
+      color: $quill-green-vibrant;
+    }
+    &.incorrect {
+      border: 1px solid $quill-gold-dark-10;
+      background: $quill-gold-5;
+      color: $quill-gold-dark;
+    }
+  }
+
+  .incorrect-target-skill-background {
+    background-color: #FFF9EF;
+  }
+
+  .correct-target-skill-background {
+    background-color: $quill-green-vibrant-10;
+  }
+
+  .concept-results-cell {
+    display: flex;
+    min-height: 34px;
+  }
+
+  @media (max-width: 600px) {
+    .concept-results-cell {
+      display: table-cell;
+    }
+    .concept-result-separator {
+      display: block;
+      height: 4px;
+    }
+  }
 }
+
 .student-report-box {
     margin: auto;
-    margin-top: 25px;
-    max-width: 950px;
+    margin-top: 32px;
     .student-report-table-and-index {
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
       background-color: white;
+      border-radius: 8px;
+      border: 1px solid $quill-grey-10;
+      padding: 16px 0px;
     }
     .question-index {
-        @include gray-border;
-        border-right: none;
-        width: 10%;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-                flex-direction: column;
-        text-align: center;
-        -webkit-box-pack: center;
-            -ms-flex-pack: center;
-                justify-content: center;
-        font-size: 24px;
+      font-weight: 700;
+      border: none;
+      width: 10%;
+      max-width: 93px;
+      min-width: 70px;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column;
+      text-align: center;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      font-size: 24px;
     }
     table {
         background-color: white;
-        @include gray-border;
-        border-left: none;
         font-size: 14;
-        max-width: 855px;
         width: 100%;
         tr {
             height: 30px;
@@ -214,7 +365,6 @@ $lightgray: #cecece;
 .student-report-box {
   td {
       height: 30px;
-      border-bottom: solid 0.5px #cecece;
       padding: 7px;
     }
   tr.student-report-headers td {
@@ -259,8 +409,8 @@ $lightgray: #cecece;
     background-color: #FADDE2;
   }
 }
-.yellow-score-color {
-  background-color: #fff6e2;
+.yellow-score-color, .orange-score-color {
+  background-color: #FFF6E2;
   &:hover {
     background-color: #FEF0D2;
   }
@@ -269,7 +419,7 @@ $lightgray: #cecece;
   background: #f7f5f5;
 }
 .in-progress-row {
-  background: #ffffff;
+  background: $quill-white;
 }
 
 
@@ -280,7 +430,7 @@ $lightgray: #cecece;
   display: inline-block;
   margin-top: 15px;
   margin-right: 15px;
-  width: 193px;
+  width: min-content;
   padding: 10px;
   h3 {
     font-size: 20px;
@@ -291,8 +441,6 @@ $lightgray: #cecece;
   }
 }
 #individual-classroom-view {
-  margin: auto;
-  max-width: 950px;
   th, td {
     text-align: left;
     &:first-of-type {
@@ -311,7 +459,7 @@ $lightgray: #cecece;
 .recommendations-explanation {
   margin-top: 8px;
   font-size: 14px;
-  color: #000000;
+  color: $quill-black;
 }
 
 .recommendations-container {
@@ -486,7 +634,7 @@ $lightgray: #cecece;
       padding: 12px;
       font-size: 12px;
       line-height: 1.25;
-      background-color: #ffffff;
+      background-color: $quill-white;
       border: solid 1px #cecece;
       display: -webkit-box;
       display: -ms-flexbox;
@@ -530,7 +678,7 @@ $lightgray: #cecece;
       font-size: 12px;
       line-height: 1.25;
       overflow: hidden;
-      background-color: #ffffff;
+      background-color: $quill-white;
       border: solid 1px #cecece;
       border-left: none;
       -webkit-box-align: center;
@@ -546,7 +694,7 @@ $lightgray: #cecece;
 
       &.selected {
         p {
-          color: #000000;
+          color: $quill-black;
         }
       }
       &.previously-assigned {
@@ -622,17 +770,12 @@ $lightgray: #cecece;
 
 /* for progress report landing page*/
 .progress-reports-landing-page {
-  margin: auto;
-  max-width: 1025px;
   a {
     text-decoration: none;
   }
-  .generic-mini {
-    margin: 20px;
-  }
   .header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin: 0px 20px;
     align-items: center;
     text-align: left;
@@ -645,18 +788,26 @@ $lightgray: #cecece;
     }
   }
   .premium {
-    margin-top: 5px;
-    color: #eda41b;
+    border-radius: 4px;
+    border: 1px solid $quill-gold-dark-20;
+    background: $quill-gold-10;
+    width: min-content;
+    margin: auto;
+    white-space: nowrap;
+    color: $quill-gold-dark-50;
     font-size: 12px;
-    font-weight: 600;
+    font-style: normal;
+    font-weight: 700;
     text-transform: uppercase;
-    /* want shorter images if we have the premium row of type*/
-    & + div {
-      height: 120px;
+    padding: 2px 8px;
+    display: flex;
+    align-items: center;
+    margin-top: 7px;
+    img {
+      width: 14px;
+      height: 11px;
+      margin-left: 6px;
     }
-  }
-  h3 + div {
-    padding-top: 10px;
   }
 
   @media screen and (max-width: 768px) {
@@ -764,5 +915,31 @@ $lightgray: #cecece;
   }
   .row::before {
     content: none;
+  }
+}
+
+@media (max-width: 850px) {
+  .activity-analysis {
+    .table {
+      overflow-x: auto !important;
+    }
+    .classroom-selector {
+      flex-direction: column;
+      align-items: flex-start !important;
+    }
+    .activities-unit {
+      .unit-header-row {
+        flex-direction: column;
+        .unit-name {
+          margin-bottom: 0 !important;
+        }
+      }
+    }
+    .number-of-students:before {
+      top: -22px !important;
+    }
+    .row.activity {
+      min-height: 80px;
+    }
   }
 }

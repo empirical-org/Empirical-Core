@@ -1,4 +1,4 @@
-import { Response, ConceptResult } from 'quill-marking-logic'
+import { ConceptResult, Response } from 'quill-marking-logic';
 
 export type ResponseAttempt = Response & { conceptResults: { [key: string]: ConceptResult } }
 

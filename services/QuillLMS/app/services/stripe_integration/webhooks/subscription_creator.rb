@@ -51,7 +51,7 @@ module StripeIntegration
       end
 
       private def expiration
-        Time.at(stripe_subscription.current_period_end).to_date
+        Time.zone.at(stripe_subscription.current_period_end).to_date
       end
 
       private def payment_amount
@@ -101,7 +101,7 @@ module StripeIntegration
       end
 
       private def start_date
-        Time.at(stripe_subscription.current_period_start).to_date
+        Time.zone.at(stripe_subscription.current_period_start).to_date
       end
 
       private def stripe_customer_id

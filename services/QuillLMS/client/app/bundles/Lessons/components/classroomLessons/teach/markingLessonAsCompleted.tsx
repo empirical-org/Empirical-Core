@@ -2,25 +2,18 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import {
-  startListeningToSessionForTeacher,
   finishActivity,
+  startListeningToSessionForTeacher,
 } from '../../../actions/classroomSessions';
 import {
-  getClassLesson
-} from '../../../actions/classroomLesson';
-import {
   getEditionQuestions,
-} from '../../../actions/customize'
+} from '../../../actions/customize';
+import { generate } from '../../../libs/conceptResults/classroomLessons.js';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
-  ClassroomLessonSession,
-  ClassroomUnitId,
-  ClassroomSessionId
+  ClassroomSessionId,
+  ClassroomUnitId
 } from '../interfaces';
-import {
-  ClassroomLesson
-} from '../../../interfaces/classroomLessons'
-import {generate} from '../../../libs/conceptResults/classroomLessons.js';
 
 interface MarkingLessonsAsCompletedState {
   classroomUnitId: ClassroomUnitId|null,

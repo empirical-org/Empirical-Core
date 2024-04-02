@@ -1,5 +1,5 @@
-const tsc = require('typescript');
-const babelJest = require('babel-jest');
+import tsc from 'typescript'
+import babelJest from 'babel-jest'
 
 module.exports = {
   process(src, path) {

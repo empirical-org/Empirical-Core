@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
+import { Modal } from '../../../Shared/index'
 import * as actions from '../../actions/conceptsFeedback'
-import LinkListItem from '../shared/linkListItem'
 import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
-import { Modal } from '../../../Shared/index'
+import LinkListItem from '../shared/linkListItem'
 
 interface ConceptsFeedbackProps {
   dispatch: Function;

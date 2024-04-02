@@ -1,7 +1,7 @@
 import * as React from 'react'
 import _ from 'underscore'
-import keysForPOS from './POSIndex'
 import POSForResponse from './POSForResponse'
+import keysForPOS from './POSIndex'
 
 export default class POSForResponsesList extends React.Component {
 

@@ -21,6 +21,13 @@
     margin-right: 24px;
     margin-bottom: 40px;
   }
+  .board-and-advisory-description {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #646464;
+    margin-bottom: 48px;
+  }
   .board-or-advisory-member {
     display: flex;
     margin-bottom: 26px;
@@ -28,6 +35,7 @@
     max-width: 300px;
     width: 100%;
     img {
+      border-radius: 50%;
       margin-right: 16px;
     }
     div {

@@ -12,6 +12,10 @@ EmpiricalGrammar::Application.configure do
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
 
+  config.before_eager_load do
+    Rails.application.reload_routes!
+  end
+
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
@@ -64,10 +68,10 @@ EmpiricalGrammar::Application.configure do
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
   config.assets.precompile += %w(
                                  cms.js
-                                 cms.css
                                  scorebook/*
                                  scorebook/**/*
                                  sign_up_email.css
+                                 admin_usage_snapshot_report_pdf.scss
                                  )
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true

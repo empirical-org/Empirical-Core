@@ -1,27 +1,26 @@
-declare function require(name:string);
-import * as React from 'react';
-import * as  _ from 'underscore';
 import { stringNormalize } from 'quill-string-normalizer';
-import stripHtml from "string-strip-html";
+import * as React from 'react';
+import { stripHtml } from "string-strip-html";
+import * as _ from 'underscore';
+import { checkFillInTheBlankQuestion, } from 'quill-marking-logic'
 
-import Cues from '../renderForQuestions/cues.jsx';
-import FeedbackContainer from '../renderForQuestions/feedback'
-import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
-import { Attempt } from '../renderForQuestions/answerState.js';
-import { getGradedResponsesWithCallback } from '../../actions/responses.js';
-import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import { FillInBlankQuestion } from '../../interfaces/questions';
 import {
-  hashToCollection,
-  Prompt,
   ConceptExplanation,
   Feedback,
-  getLatestAttempt,
+  Prompt,
   fillInBlankInputLabel,
-} from '../../../Shared/index'
-
-const qml = require('quill-marking-logic')
-const checkFillInTheBlankQuestion = qml.checkFillInTheBlankQuestion
+  fillInBlankInputWidth,
+  splitPromptForFillInBlank,
+  getLatestAttempt,
+  hashToCollection,
+} from '../../../Shared/index';
+import { getGradedResponsesWithCallback } from '../../actions/responses.js';
+import { FillInBlankQuestion } from '../../interfaces/questions';
+import { Attempt } from '../renderForQuestions/answerState.js';
+import Cues from '../renderForQuestions/cues.jsx';
+import FeedbackContainer from '../renderForQuestions/feedback';
+import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
+import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 
 const styles = {
   container: {
@@ -83,7 +82,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
 
   setQuestionValues = (question: FillInBlankQuestion) => {
     const q = question;
-    const splitPrompt = q.prompt.split('___');
+    const splitPrompt = splitPromptForFillInBlank(question.prompt);
     const numberOfInputVals = q.prompt.match(/___/g).length
     this.setState({
       splitPrompt,
@@ -194,9 +193,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     if (inputErrors[i]) {
       className += ' error'
     }
-    const longestCue = cues && cues.length ? cues.sort((a, b) => b.length - a.length)[0] : null
-    const width = longestCue ? (longestCue.length * 15) + 10 : 50
-    const styling = { width: `${width}px`}
+
+    const value = inputVals[i]
+
     return (
       <input
         aria-label={fillInBlankInputLabel(cues, blankAllowed)}
@@ -206,9 +205,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
         id={`input${i}`}
         key={i + 100}
         onChange={this.getChangeHandler(i)}
-        style={styling}
+        style={fillInBlankInputWidth(value, cues)}
         type="text"
-        value={inputVals[i]}
+        value={value}
       />
     );
   }
@@ -280,7 +279,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     const zipped = _.zip(splitPrompt, trimmedInputVals);
     const formatted = _.flatten(zipped).join('').trim();
     // we use stripHtml for prompts that have stylized elements
-    return stripHtml(formatted);
+    return stripHtml(formatted).result;
   }
 
   handleSubmitClick = () => {

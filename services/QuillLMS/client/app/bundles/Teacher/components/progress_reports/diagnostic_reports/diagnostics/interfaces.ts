@@ -55,9 +55,8 @@ export interface SkillResults {
 
 export interface SkillGroup {
   skills: Array<Skill>;
-  acquired_skill_ids: number[];
   id: number;
-  number_of_correct_skills_text: string;
+  number_of_correct_questions_text: string;
   post_test_proficiency: string;
   pre_test_proficiency: string;
   proficiency_text: string;
@@ -76,8 +75,15 @@ export interface Skill {
 export interface SkillGroupSummary {
   name: string;
   description?: string;
+  not_yet_proficient_student_names: string[];
   not_yet_proficient_in_post_test_student_names?: string[];
-  not_yet_proficient_in_pre_test_student_names?: string[];
+  gained_proficiency_in_post_test_student_names?: string[];
+  proficiency_scores_by_student: {
+    [name: string]: {
+      pre: number,
+      post: number
+    }
+  }
 }
 
 export interface StudentResult {

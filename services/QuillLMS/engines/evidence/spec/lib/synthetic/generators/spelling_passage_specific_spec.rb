@@ -13,8 +13,14 @@ describe Evidence::Synthetic::Generators::SpellingPassageSpecific do
     it 'should return spelling item of word common in passage' do
       expect(subject.count).to eq 1
       expect(subject.class).to eq Hash
-      expect(subject[text1].count).to eq 1
-      expect(subject[text1]['dancing']).to eq 'the dacing step'
+
+      generator_results = subject[text1].first
+      generator = generator_results.generator
+
+      expect(generator.type).to eq 'SpellingPassage'
+      expect(generator.word).to eq('dancing')
+      expect(generator_results.results).to eq(['the dacing step'])
+      expect(generator.word_list).to eq(['dancing'])
     end
   end
 
@@ -27,8 +33,14 @@ describe Evidence::Synthetic::Generators::SpellingPassageSpecific do
     it 'should return spelling item of long word in passage' do
       expect(subject.count).to eq 1
       expect(subject.class).to eq Hash
-      expect(subject[text1].count).to eq 1
-      expect(subject[text1]['longlonglong']).to eq 'the loglonglong word'
+
+      generator_results = subject[text1].first
+      generator = generator_results.generator
+
+      expect(generator.type).to eq 'SpellingPassage'
+      expect(generator.word).to eq('longlonglong')
+      expect(generator_results.results).to eq(['the loglonglong word'])
+      expect(generator.word_list).to eq(['longlonglong'])
     end
   end
 end

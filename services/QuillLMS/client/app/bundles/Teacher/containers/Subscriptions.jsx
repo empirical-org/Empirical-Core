@@ -1,17 +1,16 @@
-import React from 'react';
-import Pusher from 'pusher-js';
 import _ from 'lodash';
+import Pusher from 'pusher-js';
+import React from 'react';
 
+import { requestGet, requestPut, } from '../../../modules/request';
+import PremiumConfirmationModal from '../components/subscriptions/PremiumConfirmationModal';
 import SubscriptionStatus from '../components/subscriptions/SubscriptionStatus';
 import AvailableCredits from '../components/subscriptions/available_credits';
-import CurrentSubscription from '../components/subscriptions/current_subscription';
-import SubscriptionHistory from '../components/subscriptions/subscription_history';
-import PremiumConfirmationModal from '../components/subscriptions/PremiumConfirmationModal';
-import RefundPolicy from '../components/subscriptions/refund_policy';
-import PremiumCreditsTable from '../components/subscriptions/premium_credits_table';
-import getAuthToken from '../components/modules/get_auth_token';
 import { ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES } from '../components/subscriptions/constants';
-import { requestGet, requestPut, } from '../../../modules/request';
+import CurrentSubscription from '../components/subscriptions/current_subscription';
+import PremiumCreditsTable from '../components/subscriptions/premium_credits_table';
+import RefundPolicy from '../components/subscriptions/refund_policy';
+import SubscriptionHistory from '../components/subscriptions/subscription_history';
 
 export default class Subscriptions extends React.Component {
   constructor(props) {
@@ -86,7 +85,7 @@ export default class Subscriptions extends React.Component {
 
   initializePusherForStripePurchaseConfirmation() {
     const { stripeInvoiceId } = this.props
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
     const channelName = String(stripeInvoiceId)
     const channel = pusher.subscribe(channelName);
 
@@ -100,7 +99,7 @@ export default class Subscriptions extends React.Component {
     const { subscriptionStatus } = this.props
     const { stripe_subscription_id } = subscriptionStatus
 
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
     const channelName = String(stripe_subscription_id)
     const channel = pusher.subscribe(channelName);
 

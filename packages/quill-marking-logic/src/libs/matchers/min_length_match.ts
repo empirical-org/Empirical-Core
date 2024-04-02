@@ -1,5 +1,6 @@
 import * as _ from 'underscore'
 import {stringNormalize} from 'quill-string-normalizer'
+
 import {getOptimalResponses} from '../sharedResponseFunctions'
 import {Response, PartialResponse} from '../../interfaces'
 import {feedbackStrings} from '../constants/feedback_strings'
@@ -7,11 +8,8 @@ import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 export function minLengthMatch(responseString:string, responses:Array<Response>):Boolean {
   const optimalResponses = getOptimalResponses(responses);
-  if (optimalResponses.length < 2) {
-    return undefined;
-  }
   const lengthsOfResponses = optimalResponses.map(resp => stringNormalize(resp.text).split(' ').length);
-  const minLength = _.min(lengthsOfResponses) - 1;
+  const minLength = _.min(lengthsOfResponses) - 3;
   return responseString.split(' ').length < minLength
 }
 

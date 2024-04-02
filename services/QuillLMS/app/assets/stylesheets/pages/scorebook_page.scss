@@ -1,11 +1,71 @@
 #scorebook {
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    margin: 32px 0px 16px;
+  }
+
+  section {
+    padding: 0px;
+  }
+
+  .input-container {
+    width: 300px;
+    min-height: 38px;
+    justify-content: flex-start;
+
+    input {
+      font-size: 14px !important;
+    }
+
+    .dropdown {
+      margin-bottom: 0px;
+    }
+
+    .dropdown__control {
+      border: 1px $quill-grey-15;
+      border-style: solid;
+      padding: 4px 16px;
+      border-radius: 4px !important;
+      margin-bottom: 0px;
+    }
+
+    .dropdown__single-value {
+      display: flex;
+    }
+
+    &.inactive.has-text label {
+      margin-bottom: 0px;
+    }
+
+    &.classroom-dropdown-input {
+      .dropdown__single-value::before {
+        content: url('https://assets.quill.org/images/pages/activity_summary/students.svg');
+        position: relative;
+        margin-right: 8px;
+      }
+    }
+
+    &.activity-pack-dropdown-input {
+      .dropdown__single-value::before {
+        content: url('https://assets.quill.org/images/pages/activity_summary/book.svg');
+        position: relative;
+        margin-right: 8px;
+      }
+    }
+  }
+
 	.section-content-wrapper {
 		padding-bottom: 5px;
 	}
 
 	.icons-wrapper.score-legend {
-		padding-bottom: 30px;
-		border-bottom: 1px solid rgb(206,206,206);
+		border-bottom: 1px solid $quill-grey-15;
+    padding: 48px 0px;
+    .icons {
+      gap: 24px;
+    }
 	}
 
 	.icons-wrapper.icon-legend {
@@ -18,9 +78,27 @@
 				display: flex;
 				align-items: center;
 				.icons-description-wrapper {
+          max-width: 175px;
 					.title {
-						font-weight: 600;
+            color: $quill-grey-90;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 14px;
+            &.align-center {
+              display: flex;
+              align-items: center;
+            }
 					}
+          .explanation, .description {
+            color: $quill-grey-35;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 16px;
+            margin-top: 2px;
+          }
+          img {
+            margin-left: 4px;
+          }
 				}
 				.icon-wrapper {
 					position: relative;
@@ -30,37 +108,21 @@
 	}
 
 	.app-legend {
-		padding-top: 25px;
+		margin: 48px 0px;
+    .icons {
+      gap: 30px;
+    }
 		.icon {
-      background-color: #f7f5f5;
       text-align: left;
       min-width: min-content;
-      margin-right: 20px;
-      margin-bottom: 20px;
     }
     .icon:focus, .icon:hover {
       outline-offset: 6px;
       text-decoration: none;
     }
-		.title {
-			color: #717171;
-			margin-bottom: 6px;
-		}
-		.description {
-			color: #888888;
-		}
-		.icon-puzzle-embossed, .icon-flag-embossed, .icon-connect-embossed, .icon-lessons-embossed, .icon-diagnostic-embossed {
-			background-position: top;
-		}
-		.icon-wrapper {
-			margin-bottom: 3px;
-      &.evidence-icon {
-        height: 30px;
-      }
-		}
-		.icons-description-wrapper {
-			margin-left: 5px;
-		}
+    .icons-description-wrapper {
+      margin-left: 10px;
+    }
 	}
 
 	.in-progress-symbol, .attempt-symbol, .scheduled-symbol, .locked-symbol {
@@ -70,13 +132,23 @@
 		right: -8px;
 	}
 
-  .scheduled-symbol, .locked-symbol {
+  .scheduled-symbol {
     height: 16px;
     background-color: #f7f5f5;
   }
 
+  .locked-symbol {
+    height: 12;
+    background-color: #f7f5f5;
+    right: -2px;
+    top: -3px;
+  }
+
 	.missed-indicator {
-		height: 38px;
+    height: 38px;
+    position: absolute;
+    left: 0px;
+    top: 1px;
 	}
 
 	.attempt-count {
@@ -88,48 +160,73 @@
 		font-size: 11px;
 	}
 
-	.overview-section {
-		margin: 0 auto;
-		max-width: calc(#{$sitewidepagewidth} + 20px); // accounting for right padding on each activity icon
-    padding-left: 10px; // accounting for overflow
-	}
+  .overview-section {
+    padding: 32px 0px;
+    .flex-row {
+      column-gap: 15.24px;
+      row-gap: 16px;
+    }
+  }
 
 	.student-header {
-		align-items: center;
+		align-items: flex-start;
 		display: flex;
-		margin-bottom: 26px;
-    margin-right: 10px;  // accounting for right padding on each activity icon
+		margin-bottom: 32px;
 
-		.average-score {
-      margin-left: 16px;
-		}
+    .vertical-divider {
+      border-left: 1px solid $quill-grey-10;
+      display: block;
+      margin: 0px 16px;
+      height: 41px;
+    }
 
     .average-score, .time-spent {
-      color: #666666;
+      display: flex;
+      flex-direction: column;
+      .data {
+        color: $quill-grey-90;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: normal;
+      }
+      .data-label {
+        color: $quill-grey-50;
+        font-size: 12px;
+        line-height: 20px;
+      }
     }
 
 		a.activity-scores-link {
-			border: solid 1px $orange;
-			border-radius: 15px;
-			color: $color_rusty_nail_approx;
-			margin-left: 10px;
-			padding: 4px 12px 4px 14px;
+      margin-left: 32px;
+      border-radius: 4px;
+      border: 1px solid $quill-gold-dark-20;
+      background: $quill-gold-1;
+      color: $quill-gold-dark-50;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 13px; /* 100% */
+      height: 32px;
+      display: flex;
+      align-items: center;
+      padding: 0px 16px;
+
+      img {
+        height: 11px;
+        width: 14px;
+        margin-left: 4px;
+      }
 
 			&:hover {
 				text-decoration: none;
-			}
-
-			.fas{
-				color: $orange;
-				font-size: 16px;
-				margin-left: 8px;
-				vertical-align: middle;
 			}
 		}
 	}
 
 	.student-name {
-		flex-grow: 1;
+    flex-grow: 1;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 26px;
 	}
 
 	.date-range-filter {
@@ -158,6 +255,16 @@
 	}
 }
 
+@media (max-width: 1050px) {
+  #scorebook .icons-wrapper.icon-legend .icons {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .activity-page-dropdown-wrapper.scorebook-filters {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
 // The following is the CSS for the AirBNB 'react-dates' component.
 // We are putting it here because we are going to customize it
 // significantly in order to make it do what we want it to do.
@@ -234,20 +341,20 @@ $chevroncolor: #027360;
   border: 0;
   cursor: default; }
   .CalendarDay--outside:active {
-    background: #fff; }
+    background: $quill-white; }
 
 .CalendarDay--hovered {
   background: #eee;
   border: 1px double #ddd;
-  color: #666; }
+  color: $quill-grey-40; }
 
 .CalendarDay--blocked-minimum-nights {
   color: #cacccd;
-  background: #fff;
+  background: $quill-white;
   border: 1px solid #e4e7e7;
   cursor: default; }
   .CalendarDay--blocked-minimum-nights:active {
-    background: #fff; }
+    background: $quill-white; }
 
 .CalendarDay--selected-span {
   background: $quillgreen;
@@ -273,7 +380,7 @@ $chevroncolor: #027360;
 .CalendarDay--selected {
   background: $accentcolor;
   border: 1px double $accentcolor;
-  color: #fff; }
+  color: $quill-white; }
   .CalendarDay--selected-start:active,
   .CalendarDay--selected-end:active,
   .CalendarDay--selected:active {
@@ -288,11 +395,11 @@ $chevroncolor: #027360;
 
 .CalendarDay--blocked-out-of-range {
   color: #cacccd;
-  background: #fff;
+  background: $quill-white;
   border: 1px solid #e4e7e7;
   cursor: default; }
   .CalendarDay--blocked-out-of-range:active {
-    background: #fff; }
+    background: $quill-white; }
 
 .CalendarMonth {
   text-align: center;
@@ -333,7 +440,7 @@ $chevroncolor: #027360;
   padding: 5px 0; }
 
 .CalendarMonthGrid {
-  background: #fff;
+  background: $quill-white;
   z-index: 0;
   text-align: left; }
 
@@ -356,7 +463,7 @@ $chevroncolor: #027360;
   overflow-y: scroll; }
 
 .DayPicker {
-  background: #fff;
+  background: $quill-white;
   position: relative;
   text-align: left; }
 
@@ -366,7 +473,7 @@ $chevroncolor: #027360;
 }
 
 .DayPicker--horizontal {
-  background: #fff;
+  background: $quill-white;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.07);
   border-radius: 3px; }
   .DayPicker--horizontal.DayPicker--portal {
@@ -388,7 +495,7 @@ $chevroncolor: #027360;
   margin-left: 9px; }
 
 .DayPicker__week-header {
-  color: #757575;
+  color: $quill-grey-35;
   position: absolute;
   top: 45px;
   z-index: 2;
@@ -482,8 +589,8 @@ $chevroncolor: #027360;
 .DayPickerNavigation__prev--default,
 .DayPickerNavigation__next--default {
   border: 1px solid #dce0e0;
-  background-color: #fff;
-  color: #757575; }
+  background-color: $quill-white;
+  color: $quill-grey-35; }
   .DayPickerNavigation__prev--default:focus, .DayPickerNavigation__prev--default:hover,
   .DayPickerNavigation__next--default:focus,
   .DayPickerNavigation__next--default:hover {
@@ -518,7 +625,7 @@ $chevroncolor: #027360;
     fill: #82888a; }
 
 .DayPickerNavigation--vertical {
-  background: #fff;
+  background: $quill-white;
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
   position: absolute;
   bottom: 0;
@@ -604,12 +711,12 @@ $chevroncolor: #027360;
     left: -28px; }
 
 .DayPickerKeyboardShortcuts__show_span {
-  color: #fff;
+  color: $quill-white;
   position: absolute; }
 
 .DayPickerKeyboardShortcuts__panel {
   overflow: auto;
-  background: #fff;
+  background: $quill-white;
   border: 1px solid #dbdbdb;
   border-radius: 2px;
   position: absolute;
@@ -680,9 +787,9 @@ $chevroncolor: #027360;
   font-weight: 300;
   font-size: 15px;
   line-height: 25px;
-  color: #757575;
+  color: $quill-grey-35;
   margin: 0;
-  padding: 5px;
+  padding: 0px 5px;
   position: relative;
   display: inline-block;
   width: 110px;
@@ -708,7 +815,7 @@ $chevroncolor: #027360;
 
 .DateInput--open-down.DateInput--with-caret::after {
   top: 45px;
-  border-bottom-color: #fff; }
+  border-bottom-color: $quill-white; }
 
 .DateInput--open-up.DateInput--with-caret::before,
 .DateInput--open-up.DateInput--with-caret::after {
@@ -720,7 +827,7 @@ $chevroncolor: #027360;
 
 .DateInput--open-up.DateInput--with-caret::after {
   top: -25px;
-  border-top-color: #fff; }
+  border-top-color: $quill-white; }
 
 .DateInput--disabled {
   background: #cacccd; }
@@ -770,7 +877,7 @@ $chevroncolor: #027360;
 
 .DateRangePicker__picker {
   z-index: 1;
-  background-color: #fff;
+  background-color: $quill-white;
   position: absolute; }
 
 .DateRangePicker__picker--rtl {
@@ -797,7 +904,7 @@ $chevroncolor: #027360;
   width: 100%; }
 
 .DateRangePicker__picker--full-screen-portal {
-  background-color: #fff; }
+  background-color: $quill-white; }
 
 .DateRangePicker__close {
   background: none;
@@ -822,11 +929,14 @@ $chevroncolor: #027360;
     text-decoration: none; }
 
 .DateRangePickerInput {
-  background-color: #fff;
-  border: 1px solid #cacccd;
+  background-color: $quill-white;
+  border-radius: 4px;
+  border: 1px solid $quill-grey-15;
   display: inline-block;
- 	border-radius: 5px;
 	padding-right: 2px;
+  height: 38px;
+  display: flex;
+  align-items: center;
 }
 
 .DateRangePickerInput--disabled {
@@ -896,7 +1006,7 @@ $chevroncolor: #027360;
 
 .SingleDatePicker__picker {
   z-index: 1;
-  background-color: #fff;
+  background-color: $quill-white;
   position: absolute; }
 
 .SingleDatePicker__picker--rtl {
@@ -923,7 +1033,7 @@ $chevroncolor: #027360;
   width: 100%; }
 
 .SingleDatePicker__picker--full-screen-portal {
-  background-color: #fff; }
+  background-color: $quill-white; }
 
 .SingleDatePicker__close {
   background: none;
@@ -948,7 +1058,7 @@ $chevroncolor: #027360;
     text-decoration: none; }
 
 .SingleDatePickerInput {
-  background-color: #fff;
+  background-color: $quill-white;
   border: 1px solid #dbdbdb; }
 
 .SingleDatePickerInput--rtl {
@@ -992,9 +1102,41 @@ $chevroncolor: #027360;
   display: inline-block;
   vertical-align: middle;
   padding: 10px;
-  margin: 0 5px 0 10px; }
-  .SingleDatePickerInput__calendar-icon svg {
-    fill: #82888a;
-    height: 15px;
-    width: 14px;
-    vertical-align: middle; }
+  margin: 0 5px 0 10px;
+}
+
+.SingleDatePickerInput__calendar-icon svg {
+  fill: #82888a;
+  height: 15px;
+  width: 14px;
+  vertical-align: middle;
+}
+
+@media (max-width: 600px) {
+  .section-content-wrapper {
+    .scorebook-filter-group {
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+      .dropdown__control {
+        min-width: max-content;
+      }
+    }
+    .DateRangePicker {
+      display: flex;
+      justify-content: flex-start !important;
+    }
+  }
+  .overview-section {
+    .student-header {
+      flex-direction: column;
+      align-items: flex-start !important;
+      .activity-scores-link {
+        margin-left: 0px !important;
+      }
+    }
+    .student-header > * {
+      margin-bottom: 8px;
+    }
+  }
+}

@@ -3,13 +3,13 @@
 // (See https://github.com/empirical-org/Empirical-Core/issues/3019
 // under the 'High Priority' heading for more information.)
 
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
 import ManageUnits from '../manage_units.jsx';
+import { getParameterByName, } from '../../../modules/get_parameter_by_name';
 
 jest.mock('../../../modules/get_parameter_by_name', () => jest.fn());
-const getParameterByName = require('../../../modules/get_parameter_by_name');
 
 const mockClassrooms = [
   {

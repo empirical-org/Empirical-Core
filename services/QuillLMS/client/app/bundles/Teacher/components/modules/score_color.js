@@ -1,16 +1,7 @@
+import GradeColor from './grade_color'
+
 // generally used for setting color class names, hence the score color concat at end
 export default function (grade) {
-  let color;
-  if (grade === null) {
-    color = 'gray';
-  } else if (grade >= 80) {
-    color = 'green';
-  } else if (grade >= 60 && grade <= 79) {
-    color = 'yellow';
-  } else if (grade <= 59) {
-    color = 'red';
-  } else {
-    color = null;
-  }
+  const color = GradeColor(grade/100)
   return `${color}-score-color`;
 }

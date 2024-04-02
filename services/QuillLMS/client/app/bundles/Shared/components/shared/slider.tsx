@@ -26,8 +26,7 @@ interface OneThumbSliderProps extends SharedSliderProps {
   defaultValue: number
 }
 
-const Track = ({ props, children, colors, values, minValue, maxValue, }) => {
-  const { style, ref, onMouseDown, onTouchStart, } = props
+const Track = ({ style, innerRef, onMouseDown, onTouchStart, children, colors, values, minValue, maxValue, }) => {
   const background = getTrackBackground({
     values,
     colors,
@@ -46,7 +45,7 @@ const Track = ({ props, children, colors, values, minValue, maxValue, }) => {
     >
       <div
         className="track"
-        ref={ref}
+        ref={innerRef}
         style={{ background, }}
       >
         {children}
@@ -55,37 +54,39 @@ const Track = ({ props, children, colors, values, minValue, maxValue, }) => {
   )
 }
 
-const Thumb = ({ props, }) => {
-  const { style, } = props
+const Thumb = React.forwardRef((props, ref) => (
+  <div
+    {...props}
+    className="thumb"
+    ref={ref}
+  />
+))
 
-  return (
-    <div
-      {...props}
-      className="thumb"
-      style={style}
-    />
-  )
-}
+const Mark = React.forwardRef(({ index, markLabels, ...restProps }, ref) => {
+  let className = 'mark';
+  className += index === 0 ? ' first-mark' : '';
+  className += markLabels && index === markLabels.length - 1 ? ' last-mark' : '';
 
-const Mark = ({ props, index, markLabels, }) => {
-  let className = 'mark'
-  className += index === 0 ? ' first-mark' : ''
-  className += markLabels && index === markLabels.length - 1 ? ' last-mark' : ''
-  return <div {...props} className={className}>{markLabels && markLabels[index]}</div>
-}
+  return <div {...restProps} className={className} ref={ref}>{markLabels && markLabels[index]}</div>;
+});
 
 const Slider = ({ values, minValue, maxValue, step, handleChange, markLabels, id, className, trackColors, }: SliderProps) => {
-  const renderThumb = ({ props, }) =>  { return <Thumb props={props} /> }
+  const renderThumb = ({ props, }) =>  { return <Thumb {...props} /> }
 
-  const renderMark = ({ props, index, }) => { return <Mark index={index} markLabels={markLabels} props={props} /> }
+  const renderMark = ({ props, index, }) => { return <Mark {...props} index={index} markLabels={markLabels} /> }
 
   const renderTrack = ({ props, children, }) => {
+    const { ref, onMouseDown, onTouchStart, } = props
     return (
       <Track
         colors={trackColors}
+        innerRef={ref}
+        key={`track-${id}`}
         maxValue={maxValue}
         minValue={minValue}
-        props={props}
+        onMouseDown={onMouseDown}
+        onTouchStart={onTouchStart}
+        style={props.style}
         values={values}
       >
         {children}
@@ -104,6 +105,7 @@ const Slider = ({ values, minValue, maxValue, step, handleChange, markLabels, id
       }}
     >
       <Range
+        key={`range-${id}`}
         max={maxValue}
         min={minValue}
         onChange={handleChange}

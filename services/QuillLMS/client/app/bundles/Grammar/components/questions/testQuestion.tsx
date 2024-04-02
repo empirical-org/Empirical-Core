@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { checkAnswer, goToNextQuestion, setSessionReducer } from '../../actions/session';
 import PlayQuestion from '../grammarActivities/question';
-import { setSessionReducer, goToNextQuestion, checkAnswer } from '../../actions/session';
 
 class TestQuestion extends React.Component {
   constructor() {

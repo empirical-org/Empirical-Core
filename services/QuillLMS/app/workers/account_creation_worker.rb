@@ -7,11 +7,11 @@ class AccountCreationWorker
     @user = User.find(id)
 
     # tell segment.io
-    analytics = Analyzer.new
+    analytics = Analytics::Analyzer.new
     return unless @user.teacher?
 
-    events = [SegmentIo::BackgroundEvents::TEACHER_ACCOUNT_CREATION]
-    events += [SegmentIo::BackgroundEvents::TEACHER_SIGNED_UP_FOR_NEWSLETTER] if @user.send_newsletter
+    events = [Analytics::SegmentIo::BackgroundEvents::TEACHER_ACCOUNT_CREATION]
+    events += [Analytics::SegmentIo::BackgroundEvents::TEACHER_SIGNED_UP_FOR_NEWSLETTER] if @user.send_newsletter
     analytics.track_chain(@user, events)
   end
 end

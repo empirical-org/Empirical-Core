@@ -1,8 +1,8 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import { StudentScores } from '../student_scores.jsx';
 import ActivityIconWithTooltip from '../../general_components/activity_icon_with_tooltip';
+import { StudentScores } from '../student_scores.jsx';
 
 const data = {
   userId: 666,

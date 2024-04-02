@@ -10,6 +10,7 @@
 #  expiration             :date
 #  payment_amount         :integer
 #  payment_method         :string
+#  purchase_order_number  :string
 #  purchaser_email        :string
 #  recurring              :boolean          default(FALSE)
 #  start_date             :date
@@ -28,8 +29,6 @@
 #  index_subscriptions_on_recurring          (recurring)
 #  index_subscriptions_on_start_date         (start_date)
 #
-require 'newrelic_rpm'
-require 'new_relic/agent'
 
 class Subscription < ApplicationRecord
   class RenewalNilStripeCustomer < StandardError; end
@@ -48,6 +47,13 @@ class Subscription < ApplicationRecord
 
   after_commit :check_if_purchaser_email_is_in_database
   after_initialize :set_null_start_date_to_today
+
+  SUMMER_CUTOFF_MONTH = 7
+
+  SUMMER_EXPIRATION_MONTH = 7
+  SUMMER_EXPIRATION_DAY = 31
+  WINTER_EXPIRATION_MONTH = 12
+  WINTER_EXPIRATION_DAY = 31
 
   CB_LIFETIME_DURATION = 365 * 50 # In days, this is approximately 50 years
 
@@ -116,6 +122,8 @@ class Subscription < ApplicationRecord
   validates :stripe_invoice_id, allow_blank: true, stripe_uid: { prefix: :in }
   validates :stripe_subscription_id, allow_blank: true, stripe_uid: { prefix: :sub }
 
+  before_validation :strip_stripe_id_whitespace
+
   delegate :stripe_cancel_at_period_end, :stripe_subscription_url,
     to: :stripe_subscription
 
@@ -169,7 +177,7 @@ class Subscription < ApplicationRecord
   end
 
   def expired?
-    expiration <= Date.current
+    expiration < Date.current
   end
 
   def check_if_purchaser_email_is_in_database
@@ -248,7 +256,11 @@ class Subscription < ApplicationRecord
 
   def self.promotional_dates
     today = Date.current
-    exp_month_and_day = today.month < 7 ? "30-6" : "31-12"
+    if today.month < SUMMER_CUTOFF_MONTH
+      exp_month_and_day = "#{SUMMER_EXPIRATION_DAY}-#{SUMMER_EXPIRATION_MONTH}"
+    else
+      exp_month_and_day = "#{WINTER_EXPIRATION_DAY}-#{WINTER_EXPIRATION_MONTH}"
+    end
 
     { start_date: today, expiration: Date::strptime("#{exp_month_and_day}-#{today.year + 1}","%d-%m-%Y") }
   end
@@ -313,6 +325,17 @@ class Subscription < ApplicationRecord
     StripeIntegration::Subscription.new(self)
   end
 
+  def stripe_invoice
+    @stripe_invoice ||= Stripe::Invoice.retrieve(stripe_invoice_id)
+  end
+
+  def populate_data_from_stripe_invoice
+    return unless stripe_invoice_id.present?
+
+    self.payment_amount = stripe_invoice.total unless payment_amount
+    self.purchaser_email = stripe_invoice.customer_email unless purchaser_email
+  end
+
   def renewal_stripe_price_id
     return STRIPE_TEACHER_PLAN_PRICE_ID if [TEACHER_PAID, TEACHER_TRIAL].include?(account_type)
     # TODO: can get cleaned up when we unify account types vs plan names, this covers the existing bases
@@ -322,5 +345,10 @@ class Subscription < ApplicationRecord
 
   def stripe?
     stripe_invoice_id.present? && stripe_subscription_id.present?
+  end
+
+  private def strip_stripe_id_whitespace
+    self.stripe_invoice_id = stripe_invoice_id&.strip
+    self.stripe_subscription_id = stripe_subscription_id&.strip
   end
 end

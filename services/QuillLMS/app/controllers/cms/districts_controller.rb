@@ -40,8 +40,9 @@ class Cms::DistrictsController < Cms::CmsController
   def new_admin
     id = params[:id]
     @js_file = 'staff'
-    @style_file = 'staff'
+    @style_file = "#{ApplicationController::STAFF}.scss"
     @cms_district_path = cms_district_path(id)
+    @schools = schools_formatted_for_new_admin
   end
 
   def new_subscription
@@ -82,6 +83,17 @@ class Cms::DistrictsController < Cms::CmsController
 
   private def set_district
     @district = District.find(params[:id])
+  end
+
+  private def schools_formatted_for_new_admin
+    @district.schools.map do |school|
+      {
+        id: school.id,
+        name: school.name,
+        checked: school.subscription.present?,
+        has_subscription: school.subscription.present?
+      }
+    end
   end
 
   private def text_search_inputs
@@ -161,7 +173,6 @@ class Cms::DistrictsController < Cms::CmsController
       .left_joins(:schools_users)
       .left_joins(:schools_admins)
       .left_joins(school_subscriptions: :subscription)
-      .where("subscriptions.expiration IS NULL OR subscriptions.expiration > ?", Date.current)
       .where("subscriptions.de_activated_date IS NULL")
       .group('schools.name, schools.id, subscriptions.account_type')
   end

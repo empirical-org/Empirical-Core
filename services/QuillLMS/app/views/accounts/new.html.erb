@@ -1,5 +1,9 @@
 <%= react_component('NewAccountApp', props: {
   teacherFromGoogleSignUp: @teacher_from_google_signup,
-  subjectAreas: SubjectArea.all
+  subjectAreas: SubjectArea.all,
+  subRoles: AdminInfo::SELECTABLE_SUB_ROLES,
+  user: current_user,
+  school: current_user&.school,
+  isAdmin: current_user&.admin?
 })%>
 <%= javascript_include_tag('cookie_warning.js') %>

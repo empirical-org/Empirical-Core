@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 
 import AssignADiagnostic from '../create_unit/assign_a_diagnostic';
 import AssignmentCard from '../create_unit/assignment_card';

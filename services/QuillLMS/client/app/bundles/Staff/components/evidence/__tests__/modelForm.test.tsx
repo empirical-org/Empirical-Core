@@ -1,10 +1,10 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
+import { QueryClientProvider } from 'react-query';
 import { MemoryRouter } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from 'react-query'
 
+import { DefaultReactQueryClient, DropdownInput } from '../../../../Shared/index';
 import ModelForm from '../semanticRules/modelForm';
-import { Input, DefaultReactQueryClient } from '../../../../Shared/index';
 
 const mockProps = {
   match: {
@@ -14,7 +14,7 @@ const mockProps = {
     },
     isExact: true,
     path: '',
-    url:''
+    url: ''
   },
   history: {}
 }
@@ -32,7 +32,7 @@ describe('ModelForm component', () => {
   it('should render ModelForm', () => {
     expect(container.find(ModelForm).length).toEqual(1);
   });
-  it('should render one Input component', () => {
-    expect(container.find(Input).length).toEqual(1);
+  it('should render one DropdownInput component', () => {
+    expect(container.find(DropdownInput).length).toEqual(1);
   });
 });

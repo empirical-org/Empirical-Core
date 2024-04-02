@@ -1,13 +1,12 @@
-declare function require(name:string);
 import * as _ from 'underscore';
-import { hashToCollection } from '../../../Shared/index'
+import { hashToCollection } from '../../../Shared/index';
 
-// const qml = require('quill-marking-logic')
-import { checkDiagnosticSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic'
+import { ConceptResult, checkDiagnosticQuestion, checkDiagnosticSentenceFragment, checkFillInTheBlankQuestion } from 'quill-marking-logic';
+import { requestGet, requestPost, requestPut, } from '../../../../modules/request/index';
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel.js';
-import { requestGet, requestPost, requestPut, } from '../../../../modules/request/index'
+import C from '../../constants'
 
-interface Question {
+export interface Question {
   conceptID: string,
   cues: Array<string>,
   flag: string,
@@ -21,17 +20,28 @@ interface Question {
   modelConceptUID?: string
 }
 
+export interface Response {
+  id: number,
+  concept_results: Array<Object>,
+  feedback: string,
+  key: string,
+  optimal: boolean,
+  statusCode: number,
+  text: string
+}
+
 interface FocusPoints {
   [key:string]: FocusPoint
 }
 
-interface FocusPoint {
+export interface FocusPoint {
   feedback: string,
   text: string,
   order?: string
 }
 
-interface IncorrectSequence {
+export interface IncorrectSequence {
+  caseInsensitive: boolean,
   conceptResults: ConceptResults,
   feedback: string,
   text: string
@@ -77,14 +87,17 @@ export function rematchAll(mode: string, question: Question, questionID: string,
   });
 }
 
-export function rematchOne(response: string, mode: string, question: Question, questionID: string, callback:Function) {
+export function rematchOne(response: Response, mode: string, question: Question, questionID: string, callback:Function, dispatch: Function) {
   const matcher = getMatcher(mode);
   getGradedResponses(questionID).then((data) => {
     question.key = questionID
     const matcherFields = getMatcherFields(mode, question, formatGradedResponses(data));
     const promise = rematchResponse(matcher, matcherFields, response);
     if (promise) {
-      promise.then(() => { callback(); });
+      promise.then((result) => {
+        dispatch({ type: C.FINISH_QUESTION_EDIT, questionID, });
+        callback(result);
+      });
     }
   });
 }
@@ -211,6 +224,7 @@ function getMatcherFields(mode:string, question:Question, responses:{[key:string
   const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints).sort((a, b) => a.order - b.order) : [];
   const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
   const defaultConceptUID = question.modelConceptUID || question.conceptID
+  const { caseInsensitive, } = question
 
   if (mode === 'sentenceFragments') {
     return {
@@ -228,7 +242,7 @@ function getMatcherFields(mode:string, question:Question, responses:{[key:string
   } else if (mode === 'diagnosticQuestions') {
     return [question.key, hashToCollection(responses), focusPoints, incorrectSequences, defaultConceptUID]
   } else if (mode === 'fillInBlank') {
-    return [question.key, hashToCollection(responses), defaultConceptUID]
+    return [question.key, hashToCollection(responses), caseInsensitive, defaultConceptUID, true]
   } else {
     return [question.key, responseArray, focusPoints, incorrectSequences, defaultConceptUID]
   }
@@ -253,7 +267,7 @@ function getResponseBody(pageNumber) {
 }
 
 function getGradedResponses(questionID) {
-  return requestGet(`${process.env.QUILL_CMS}/questions/${questionID}/responses`);
+  return requestGet(`${process.env.QUILL_CMS}/questions/${questionID}/responses_for_rematching`);
 }
 
 function formatGradedResponses(jsonString):{[key:string]: Response} {

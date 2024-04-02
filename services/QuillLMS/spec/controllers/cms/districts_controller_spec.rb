@@ -105,7 +105,19 @@ describe Cms::DistrictsController do
         expect(assigns(:school_data)[0]).to eq(school)
         expect(assigns(:school_data).length).to eq(1)
       end
+
+      it 'should show a record if the only subscription is expired' do
+        school = create(:school, district: district)
+        expired_sub = create(:subscription, expiration: 15.days.ago.to_date)
+        create(:school_subscription, school: school, subscription: expired_sub)
+
+        get :show, params: { id: district.id }
+        expect(assigns(:school_data)[0]).to eq(school)
+        expect(assigns(:school_data).length).to eq(1)
+      end
     end
+
+
   end
 
   describe '#edit' do

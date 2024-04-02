@@ -1,4 +1,4 @@
-import { Event, EventDefinitions } from './event_definitions';
+import { EventDefinitions } from './event_definitions';
 
 
 // Ensure that no two events accidentally share the same name,

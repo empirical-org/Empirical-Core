@@ -22,7 +22,7 @@ gem 'scenic', '~> 1.5.4'
 
 # QUEUE/CACHING
 gem 'connection_pool', '~> 2.2.5'
-gem 'dalli', '~> 2.7'
+gem 'dalli', '~> 3.2.2'
 gem 'redis', '~> 4.5'
 gem "redis-rails", "~> 5.0"
 gem "redis-store", "~> 1.9"
@@ -34,25 +34,25 @@ gem 'sinatra', require: false # Used for the web-based queue management interfac
 # MIDDLEWARE
 gem 'rack-cors', '~> 1.1', require: 'rack/cors'
 gem 'rack-attack', '~> 6.5'
-gem 'rails_autoscale_agent', '~> 0.10'
 
 # API
 gem 'active_model_serializers', '~> 0.10'
 
 # SEARCH
-gem 'elasticsearch-model', '~> 5.1'
-gem 'elasticsearch-rails', '~> 5.1'
+gem 'elasticsearch-model', '~> 6.1.2'
+gem 'elasticsearch-rails', '~> 6.1.2'
 gem 'kaminari', '~> 1.2'
 
 # OTHER
 
-gem 'newrelic_rpm'
+gem 'newrelic_rpm', '~> 9.3.1'
 gem 'rubyzip', '~> 2.3'
 
 # WEBSOCKETS
-gem 'pusher', '~> 1.4.3'
+gem 'pusher', '~> 2.0.3'
 
 # HTTP
+gem 'faraday-httpclient', '~> 2.0', '>= 2.0.1'
 gem 'httparty', '~> 0.18'
 
 group :development do
@@ -63,9 +63,17 @@ end
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'factory_bot_rails', '~> 4.8.2'
-  gem 'pry', '~> 0.10.4'
+  gem 'factory_bot_rails'
+  gem 'pry', '~> 0.14.1'
   gem 'rb-readline'
-  gem 'rspec-rails', '~> 4.0'
+  gem 'rspec-rails'
   gem 'webmock'
+  gem 'rubocop'
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
+end
+
+group :production, :staging do
+  gem 'judoscale-rails'
+  gem 'judoscale-sidekiq'
 end

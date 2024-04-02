@@ -158,6 +158,21 @@ describe Cms::SchoolsController do
       expect(School.last.free_lunches).to eq 2
       expect(response).to redirect_to cms_school_path(School.last.id)
     end
+
+    it 'should not raise exception when creating a school with duplicate nces_id' do
+      expect do
+        2.times do
+          post :create, params: { school: {
+              name: "test",
+              city: "test city",
+              state: "test state",
+              zipcode: "11000",
+              free_lunches: 2,
+              nces_id: "1"
+          } }
+        end
+      end.to_not raise_error
+    end
   end
 
   describe '#edit_subscription' do

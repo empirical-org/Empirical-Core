@@ -1,16 +1,8 @@
-import { ConceptResult } from 'quill-marking-logic'
-import * as _ from 'lodash'
+import * as _ from 'lodash';
+import { ConceptResult } from 'quill-marking-logic';
 
-import { Question, FormattedConceptResult, ResponseAttempt } from '../interfaces/questions'
-import { hashToCollection } from '../../Shared/index'
-
-const scoresForNAttempts: { [key:number]: number} = {
-  1: 1,
-  2: 0.8,
-  3: 0.6,
-  4: 0.4,
-  5: 0.2,
-};
+import { hashToCollection } from '../../Shared/index';
+import { FormattedConceptResult, Question, ResponseAttempt } from '../interfaces/questions';
 
 export function getConceptResultsForQuestion(question: Question): FormattedConceptResult[]|undefined {
   const prompt = question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '');
@@ -62,14 +54,18 @@ function getConceptResultsForAttempt(attempt: ResponseAttempt, question: Questio
         prompt,
         answer,
         attemptNumber,
-        question_uid:  question.uid
+        question_uid:  question.uid,
+        question_concept_uid: question.concept_uid,
+        cues: question.cues?.filter(Boolean)
       } : {
         correct: conceptResult.correct ? 1 : 0,
         directions,
         prompt,
         answer,
         attemptNumber,
-        question_uid:  question.uid
+        question_uid:  question.uid,
+        question_concept_uid: question.concept_uid,
+        cues: question.cues?.filter(Boolean)
       },
     }});
 }
@@ -84,9 +80,9 @@ export function embedQuestionNumbers(nestedConceptResultArray: FormattedConceptR
       const lastAttempt = _.sortBy(conceptResultArray, (conceptResult) => {
         return conceptResult.metadata.attemptNumber;
       }).reverse()[0]
-      const maxAttemptNo = lastAttempt && lastAttempt.metadata.correct ? lastAttempt.metadata.attemptNumber : undefined;
+      const questionScore = lastAttempt && lastAttempt.metadata.correct ? 1 : 0
       conceptResult.metadata.questionNumber = startingNumber + index + 1;
-      conceptResult.metadata.questionScore = scoresForNAttempts[maxAttemptNo] || 0
+      conceptResult.metadata.questionScore = questionScore
       return conceptResult;
     })
   });
@@ -99,10 +95,7 @@ export function getConceptResultsForAllQuestions(questions: Question[], starting
 }
 
 export function getScoreForQuestion(question: Question): number {
-  if (question.attempts && question.attempts.find(attempt => attempt.optimal)) {
-    return scoresForNAttempts[question.attempts.length] || 0
-  }
-  return 0
+  return question.attempts.find(attempt => attempt.optimal) ? 1 : 0
 }
 
 export function calculateScoreForLesson(questions: Question[]) {

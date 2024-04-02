@@ -32,3 +32,18 @@ export const NOT_APPLICABLE = 'N/A'
 export const STUDENT = 'student'
 export const TEACHER = 'teacher'
 export const INDIVIDUAL_CONTRIBUTOR = 'individual-contributor'
+export const ADMIN = 'admin'
+
+export const NOT_LISTED = 'not listed'
+export const NO_SCHOOL_SELECTED = 'no school selected'
+
+export const PENDING = 'Pending'
+
+export const EVIDENCE_HANDBOOK_LINK = 'https://docsend.com/view/29vcfdqa5aupkmfp'
+
+export const MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR = 1150
+
+// Evidence teacher preview step consts
+export const INTRODUCTION = 'introduction'
+export const CHECKLIST = 'checklist'
+export const READ_AND_HIGHLIGHT = 'read-and-highlight'

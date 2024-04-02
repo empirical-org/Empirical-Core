@@ -1,5 +1,21 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: comprehension_highlights
+#
+#  id             :integer          not null, primary key
+#  highlight_type :string           not null
+#  starting_index :integer
+#  text           :string           not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  feedback_id    :integer          not null
+#
+# Foreign Keys
+#
+#  fk_rails_...  (feedback_id => comprehension_feedbacks.id) ON DELETE => cascade
+#
 module Evidence
   class Highlight < ApplicationRecord
     self.table_name = 'comprehension_highlights'

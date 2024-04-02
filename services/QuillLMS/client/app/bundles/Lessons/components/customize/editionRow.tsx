@@ -4,8 +4,8 @@ const MakeCopy = 'https://assets.quill.org/images/icons/make-copy-edition-icon.s
 const EditEdition = 'https://assets.quill.org/images/icons/edit-edition-icon.svg'
 const DeleteEdition = 'https://assets.quill.org/images/icons/delete-edition-icon.svg'
 
-import * as CustomizeIntf from '../../interfaces/customize'
-import { MOUSEDOWN } from '../../../Shared/utils/eventNames'
+import { MOUSEDOWN } from '../../../Shared/utils/eventNames';
+import * as CustomizeIntf from '../../interfaces/customize';
 
 interface EditionRowState {
   showDropdown: boolean

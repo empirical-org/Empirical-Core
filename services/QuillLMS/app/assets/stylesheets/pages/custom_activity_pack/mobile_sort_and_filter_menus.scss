@@ -28,7 +28,7 @@
           background-color: white;
           width: 100%;
           font-size: 16px;
-          color: #000;
+          color: $quill-black;
           line-height: 1;
           text-align: left;
           padding: 16px;
@@ -46,7 +46,7 @@
         height: 64px;
         padding: 0px 16px;
         display: flex;
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px solid $quill-grey-5;
         justify-content: flex-end;
         .interactive-wrapper {
           font-size: 16px;

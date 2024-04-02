@@ -7,7 +7,7 @@ describe AccountCreationWorker do
 
   subject { described_class.new }
 
-  before { allow(Analyzer).to receive(:new) { analyzer } }
+  before { allow(Analytics::Analyzer).to receive(:new) { analyzer } }
 
   describe '#perform' do
     context 'when user is a teacher' do
@@ -17,7 +17,7 @@ describe AccountCreationWorker do
         it 'should track the account creation' do
           expect(analyzer).to receive(:track_chain).with(
               teacher,
-              [SegmentIo::BackgroundEvents::TEACHER_ACCOUNT_CREATION]
+              [Analytics::SegmentIo::BackgroundEvents::TEACHER_ACCOUNT_CREATION]
           )
           subject.perform(teacher.id)
         end
@@ -30,8 +30,8 @@ describe AccountCreationWorker do
           expect(analyzer).to receive(:track_chain).with(
               teacher,
               [
-                SegmentIo::BackgroundEvents::TEACHER_ACCOUNT_CREATION,
-                SegmentIo::BackgroundEvents::TEACHER_SIGNED_UP_FOR_NEWSLETTER
+                Analytics::SegmentIo::BackgroundEvents::TEACHER_ACCOUNT_CREATION,
+                Analytics::SegmentIo::BackgroundEvents::TEACHER_SIGNED_UP_FOR_NEWSLETTER
               ]
           )
           subject.perform(teacher.id)

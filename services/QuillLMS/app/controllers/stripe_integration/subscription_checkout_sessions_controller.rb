@@ -78,7 +78,7 @@ module StripeIntegration
       if schools.empty? || !customer.admin?
         "#{subscriptions_url}?checkout_session_id={CHECKOUT_SESSION_ID}"
       else
-        "#{teacher_admin_subscriptions_url(school_id: school_ids.first)}&checkout_session_id={CHECKOUT_SESSION_ID}"
+        "#{premium_hub_school_subscriptions_url(school_id: school_ids.first)}&checkout_session_id={CHECKOUT_SESSION_ID}"
       end
     end
 

@@ -47,7 +47,8 @@ describe 'ScorebookQuery' do
     # have to do update_columns here because otherwise the publish date is offset by a callback
     unit_activity1.update_columns(publish_date: publish_date)
     results = Scorebook::Query.run(classroom.id)
-    expect(results[0]['scheduled']).to eq(true)
+    row = results.find {|r| r['activity_id'] == unit_activity1.activity_id}
+    expect(row['scheduled']).to eq(true)
   end
 
   it 'returns activities with publish dates in the past as not scheduled' do
@@ -55,7 +56,8 @@ describe 'ScorebookQuery' do
     # have to do update_columns here because otherwise the publish date is offset by a callback
     unit_activity1.update_columns(publish_date: publish_date)
     results = Scorebook::Query.run(classroom.id)
-    expect(results[0]['scheduled']).to eq(false)
+    row = results.find {|r| r['activity_id'] == unit_activity1.activity_id}
+    expect(row['scheduled']).to eq(false)
   end
 
   describe 'pack sequence status' do

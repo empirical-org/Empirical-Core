@@ -21,11 +21,11 @@ describe TeacherActivityFeed, type: :model do
 
         expect(feed.first[:id]).to eq(activity_session2.id)
         expect(feed.first[:completed]).to eq("2 mins ago")
-        expect(feed.first[:score]).to eq("Nearly proficient")
+        expect(feed.first[:score]).to eq(ActivitySession::SOMETIMES_DEMONSTRATED_SKILL)
 
         expect(feed.last[:id]).to eq(activity_session.id)
         expect(feed.last[:completed]).to eq("5 mins ago")
-        expect(feed.last[:score]).to eq("Proficient")
+        expect(feed.last[:score]).to eq(ActivitySession::FREQUENTLY_DEMONSTRATED_SKILL)
       end
     end
 
@@ -44,7 +44,7 @@ describe TeacherActivityFeed, type: :model do
 
         expect(feed.first[:id]).to eq(activity_session.id)
         expect(feed.first[:completed]).to eq("5 mins ago")
-        expect(feed.first[:score]).to eq("Proficient")
+        expect(feed.first[:score]).to eq(ActivitySession::FREQUENTLY_DEMONSTRATED_SKILL)
       end
     end
   end
@@ -86,9 +86,9 @@ describe TeacherActivityFeed, type: :model do
     let(:lesson_activity_session) { create(:lesson_activity_session) }
     let(:diagnostic_activity_session) { create(:diagnostic_activity_session) }
     let(:evidence_activity_session) { create(:evidence_activity_session) }
-    let(:proficient_activity_session) { create(:connect_activity_session, percentage: 0.90) }
-    let(:nearly_proficient_activity_session) { create(:grammar_activity_session, percentage: 0.75) }
-    let(:not_yet_proficient_activity_session) { create(:proofreader_activity_session, percentage: 0.40) }
+    let(:frequently_demonstrated_skill_activity_session) { create(:connect_activity_session, percentage: 0.90) }
+    let(:sometimes_demonstrated_skill_activity_session) { create(:grammar_activity_session, percentage: 0.75) }
+    let(:rarely_demonstrated_skill_activity_session) { create(:proofreader_activity_session, percentage: 0.30) }
 
     let(:feed) { TeacherActivityFeed.new('fake_id') }
 
@@ -116,27 +116,27 @@ describe TeacherActivityFeed, type: :model do
       end
     end
 
-    context 'when the activity session percentage is at or above the proficiency cutoff' do
-      it "returns #{ActivitySession::PROFICIENT}" do
-        text = feed.send(:text_for_score, proficient_activity_session.classification.key, proficient_activity_session.percentage)
+    context 'when the activity session percentage is at or above the frequently demonstrated skill cutoff' do
+      it "returns #{ActivitySession::FREQUENTLY_DEMONSTRATED_SKILL}" do
+        text = feed.send(:text_for_score, frequently_demonstrated_skill_activity_session.classification.key, frequently_demonstrated_skill_activity_session.percentage)
 
-        expect(text).to eq(ActivitySession::PROFICIENT)
+        expect(text).to eq(ActivitySession::FREQUENTLY_DEMONSTRATED_SKILL)
       end
     end
 
-    context 'when the activity session percentage is at or above the nearly proficient cutoff' do
-      it "returns #{ActivitySession::NEARLY_PROFICIENT}" do
-        text = feed.send(:text_for_score, nearly_proficient_activity_session.classification.key, nearly_proficient_activity_session.percentage)
+    context 'when the activity session percentage is at or above the sometimes demonstrated skill cutoff' do
+      it "returns #{ActivitySession::SOMETIMES_DEMONSTRATED_SKILL}" do
+        text = feed.send(:text_for_score, sometimes_demonstrated_skill_activity_session.classification.key, sometimes_demonstrated_skill_activity_session.percentage)
 
-        expect(text).to eq(ActivitySession::NEARLY_PROFICIENT)
+        expect(text).to eq(ActivitySession::SOMETIMES_DEMONSTRATED_SKILL)
       end
     end
 
-    context 'when the activity session percentage is below the nearly proficient cutoff' do
-      it "returns #{ActivitySession::NOT_YET_PROFICIENT}" do
-        text = feed.send(:text_for_score, not_yet_proficient_activity_session.classification.key, not_yet_proficient_activity_session.percentage)
+    context 'when the activity session percentage is below the sometimes demonstrated skill cutoff' do
+      it "returns #{ActivitySession::RARELY_DEMONSTRATED_SKILL}" do
+        text = feed.send(:text_for_score, rarely_demonstrated_skill_activity_session.classification.key, rarely_demonstrated_skill_activity_session.percentage)
 
-        expect(text).to eq(ActivitySession::NOT_YET_PROFICIENT)
+        expect(text).to eq(ActivitySession::RARELY_DEMONSTRATED_SKILL)
       end
     end
 
@@ -189,15 +189,15 @@ describe TeacherActivityFeed, type: :model do
 
     context 'when the timestamp was more than one week ago' do
       it 'should return the written out date if this calendar year' do
-        completed_at = Time.parse('2021-01-01')
-        now = Time.parse('2021-01-08')
+        completed_at = Time.zone.parse('2021-01-01')
+        now = Time.zone.parse('2021-01-08')
 
         expect(feed.send(:text_for_completed, completed_at, now)).to eq(completed_at.strftime("%b #{completed_at.day.ordinalize}"))
       end
 
       it 'should return the written out date if with year if not this calendar year' do
-        completed_at = Time.parse('2020-12-31')
-        now = Time.parse('2021-01-07')
+        completed_at = Time.zone.parse('2020-12-31')
+        now = Time.zone.parse('2021-01-07')
 
         expect(feed.send(:text_for_completed, completed_at, now)).to eq(completed_at.strftime("%b #{completed_at.day.ordinalize}, %Y"))
       end
@@ -205,7 +205,7 @@ describe TeacherActivityFeed, type: :model do
 
     context 'when the timestamp was a different calendar year' do
       it 'should return the written out date' do
-        completed_at = Time.parse('2019-12-31')
+        completed_at = Time.zone.parse('2019-12-31')
         expect(feed.send(:text_for_completed, completed_at)).to eq(completed_at.strftime("%b #{completed_at.day.ordinalize}, %Y"))
       end
     end

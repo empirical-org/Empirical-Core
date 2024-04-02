@@ -1,0 +1,17 @@
+#premium-hub-header {
+  background-color: $quill-white;
+  .admin-nav-bar {
+    max-width: $sitewidepagewidth;
+    margin: 0 auto;
+  }
+  h4 {
+    cursor: pointer;
+    font-weight: 700 !important;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  i, svg {
+    margin: 0px 15px;
+    color: $quill-grey-15
+  }
+}

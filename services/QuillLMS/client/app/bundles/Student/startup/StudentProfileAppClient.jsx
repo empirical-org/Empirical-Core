@@ -1,9 +1,9 @@
 import React from 'react';
-import StudentProfile from '../../Teacher/containers/StudentProfile.jsx';
 import { Provider } from 'react-redux';
-import studentProfile from '../../../reducers/student_profile';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
+import studentProfile from '../../../reducers/student_profile';
+import StudentProfile from '../../Teacher/containers/StudentProfile.jsx';
 
 const store = createStore(studentProfile, applyMiddleware(thunk));
 

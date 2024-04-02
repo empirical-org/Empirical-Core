@@ -3,9 +3,10 @@
 class PagesController < ApplicationController
   include HTTParty
   include PagesHelper
+
   before_action :determine_js_file, :determine_flag
   before_action :set_defer_js, except: [
-    :play, :locker, :preap_units, :springboard_units, :evidence,
+    :play, :preap_units, :springboard_units, :evidence,
     :connect, :grammar, :diagnostic, :proofreader, :lessons
   ]
   before_action :set_root_url
@@ -48,8 +49,6 @@ class PagesController < ApplicationController
     set_just_logged_out_flag if check_should_clear_segment_identity
   end
   # rubocop:enable Metrics/CyclomaticComplexity
-
-  def develop; end
 
   def mission
     redirect_to('/about')
@@ -395,6 +394,7 @@ class PagesController < ApplicationController
   def evidence_tool
     @title = 'Quill Reading for Evidence | Use a text to write with evidence'
     @description = 'Provide your students with nonfiction texts paired with AI-powered writing prompts, instead of multiple-choice questions, to enable deeper thinking.'
+    @featured_evidence_articles = BlogPost.where(topic: BlogPost::WRITING_FOR_LEARNING).order(created_at: :desc).limit(4)
   end
 
   def activities
@@ -464,37 +464,37 @@ class PagesController < ApplicationController
   end
 
   def backpack
-    @style_file = 'staff'
+    @style_file = "#{ApplicationController::STAFF}.scss"
   end
 
   def evidence
     allow_iframe
-    @style_file = ApplicationController::EVIDENCE
+    @style_file = "#{ApplicationController::EVIDENCE}.scss"
   end
 
   def proofreader
     allow_iframe
-    @style_file = ApplicationController::PROOFREADER
+    @style_file = "#{ApplicationController::PROOFREADER}.scss"
   end
 
   def grammar
     allow_iframe
-    @style_file = ApplicationController::GRAMMAR
+    @style_file = "#{ApplicationController::GRAMMAR}.scss"
   end
 
   def lessons
     allow_iframe
-    @style_file = ApplicationController::LESSONS
+    @style_file = "#{ApplicationController::LESSONS}.scss"
   end
 
   def connect
     allow_iframe
-    @style_file = ApplicationController::CONNECT
+    @style_file = "#{ApplicationController::CONNECT}.scss"
   end
 
   def diagnostic
     allow_iframe
-    @style_file = ApplicationController::DIAGNOSTIC
+    @style_file = "#{ApplicationController::DIAGNOSTIC}.scss"
   end
 
   def administrator
@@ -504,8 +504,14 @@ class PagesController < ApplicationController
   def locker
     return redirect_to profile_path if !staff?
 
-    @style_file = 'staff'
+    @style_file = "#{ApplicationController::STAFF}.scss"
   end
+
+  def quill_academy
+    redirect_to root_path unless current_user
+  end
+
+  def teacher_premium; end
 
   private def determine_layout
     case action_name
@@ -521,11 +527,13 @@ class PagesController < ApplicationController
   # rubocop:disable Metrics/CyclomaticComplexity
   private def determine_js_file
     case action_name
-    when 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'privacy', 'map', 'teacher-center', 'news', 'stats', 'activities'
-      @js_file = 'public'
-    when 'grammar_tool', 'connect_tool', 'diagnostic_tool', 'proofreader_tool', 'lessons_tool', 'evidence_tool', 'home_new'
-      @js_file = 'tools'
-    when 'backpack' || 'locker'
+    when 'about', 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'privacy', 'map', 'teacher-center', 'news', 'stats', 'activities', 'pathways', 'careers', 'press'
+      @js_file = 'shared'
+    when 'connect_tool', 'grammar_tool', 'diagnostic_tool', 'proofreader_tool', 'home_new', 'evidence_tool', 'lessons_tool', 'ap', 'preap', 'springboard'
+      @js_file = 'home'
+    when 'premium'
+      @js_file = current_user ? 'application' : 'public'
+    when 'backpack', 'locker'
       @js_file = 'staff'
     when ApplicationController::EVIDENCE
       @js_file = ApplicationController::EVIDENCE

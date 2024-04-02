@@ -1,9 +1,8 @@
 import React from 'react';
-import moment from 'moment';
 import "react-dates/initialize";
 
 import { DateRangePicker } from 'react-dates';
-import DateRangeFilterOption from './date_range_filter_option.jsx'
+import DateRangeFilterOption from './date_range_filter_option.jsx';
 
 export default class  DateRangeFilter extends React.Component {
   constructor(props) {
@@ -39,9 +38,10 @@ export default class  DateRangeFilter extends React.Component {
   render() {
     return (
       <DateRangePicker
-        customInputIcon={<i className="fas fa-icon fa-calendar" />}
+        customInputIcon={<img alt="" src={`${process.env.CDN_URL}/images/pages/activity_summary/calendar.svg`} />}
         daySize={30}
         endDate={this.props.endDate}
+        endDateId="end-date"
         focusedInput={this.state.focusedInput}
         isOutsideRange={day => {return false}}
         navNext="›"
@@ -51,6 +51,7 @@ export default class  DateRangeFilter extends React.Component {
         onFocusChange={focusedInput => this.setState({ focusedInput })}
         renderCalendarInfo={this.renderFilterOptions}
         startDate={this.props.beginDate}
+        startDateId="start-date"
       />
     );
   }

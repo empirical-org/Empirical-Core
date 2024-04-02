@@ -3,51 +3,35 @@
 require 'rails_helper'
 
 RSpec.describe CleverIntegration::ClassroomStudentsImporter do
+  include_context 'Clever Library Students Data'
+
   let(:classroom) { create(:classroom, :from_clever) }
-  let(:teacher_id) { create(:teacher).id }
+  let(:classroom_external_id) { classroom.classroom_external_id }
+  let(:classroom_students_data) { CleverIntegration::ClassroomStudentsData.new(classroom, client) }
+  let(:client) { double(:clever_client) }
 
-  subject { described_class.run(classroom, students_data, teacher_id) }
+  before { allow(client).to receive(:classroom_students).with(classroom_external_id).and_return(students_data) }
 
-  context 'students_data is nil' do
+  subject { described_class.run(classroom_students_data) }
+
+  context 'classroom_students_data is nil' do
     let(:students_data) { nil }
 
-    it 'skips importing' do
-      expect(CleverIntegration::Associators::StudentsToClassroom).not_to receive(:run)
-      expect(ProviderClassroomUsersUpdater).not_to receive(:run)
-      subject
-    end
+    it { expect { subject }.not_to change(User.student, :count) }
+    it { expect { subject }.not_to change(StudentsClassrooms, :count) }
+    it { expect { subject }.not_to change(CleverClassroomUser, :count) }
   end
 
-  context 'students_data is empty' do
+  context 'classroom_students_data is empty' do
     let(:students_data) { [] }
 
-    it 'skips importing' do
-      expect(CleverIntegration::Associators::StudentsToClassroom).not_to receive(:run)
-      expect(ProviderClassroomUsersUpdater).not_to receive(:run)
-      subject
-    end
+    it { expect { subject }.not_to change(User.student, :count) }
+    it { expect { subject }.not_to change(StudentsClassrooms, :count) }
+    it { expect { subject }.not_to change(CleverClassroomUser, :count) }
   end
 
-  context 'students_data has two students' do
-    let(:students_data) { [student_data1, student_data2] }
-
-    let(:student_data1) do
-      {
-        clever_id: '123',
-        email: 'billo@example.com',
-        name: 'Bill Oz',
-        username: 'billo'
-      }
-    end
-
-    let(:student_data2) do
-      {
-        clever_id: '456',
-        email: 'fc@example.com',
-        name: 'Frank Clinton',
-        username: 'frank_clinton'
-      }
-    end
+  context 'classroom_students_data has two students' do
+    let(:students_data) { [student1_attrs, student2_attrs] }
 
     it { expect { subject }.to change(User.student, :count).from(0).to(2) }
     it { expect { subject }.to change(StudentsClassrooms, :count).from(0).to(2) }

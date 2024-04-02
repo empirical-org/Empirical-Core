@@ -2,9 +2,6 @@
 
 # https://github.com/rails/sass-rails/issues/157
 if Rails.env.development?
-  require 'sass'
-  require 'sass/engine'
-
   module Sass
     class Engine
       def initialize(template, options={})

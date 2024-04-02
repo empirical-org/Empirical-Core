@@ -1,17 +1,17 @@
 import React from 'react';
 
-import PasswordInfo from './password_info.jsx'
+import { requestPost, } from '../../../../../modules/request/index';
+import { Input, Snackbar, } from '../../../../Shared/index';
 import AuthGoogleAccessForm from '../AuthGoogleAccessForm';
-import PasswordWrapper from '../shared/password_wrapper'
-import AssignActivityPackBanner from '../assignActivityPackBanner'
-import getAuthToken from '../../modules/get_auth_token'
-import { Input, } from '../../../../Shared/index'
-import { Snackbar } from '../../../../Shared/index'
-import { requestPost, } from '../../../../../modules/request/index'
+import AssignActivityPackBanner from '../assignActivityPackBanner';
+import PasswordWrapper from '../shared/password_wrapper';
+import PasswordInfo from './password_info.jsx';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+const informationSrc = `${process.env.CDN_URL}/images/icons/description-information.svg`
 
 class LoginFormApp extends React.Component {
+
   constructor(props) {
     super(props);
 
@@ -149,6 +149,11 @@ class LoginFormApp extends React.Component {
           <div className="account-container text-center">
             <div className="auth-section">
               <AuthGoogleAccessForm text='Log in with Google' />
+              <div className="google-tbd">
+                <h4><img alt="" src={informationSrc} /> Having trouble logging in with Google?</h4>
+                <p>If you're a Google user, you can also log in using your email address. You just need to create a password.</p>
+                <a className="inline-link" href="/password_reset">Create a password</a>
+              </div>
               <button onClick={this.handleCleverClick} type="button">
                 <img alt="Clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
                 <span>Log in with Clever</span>
@@ -187,6 +192,7 @@ class LoginFormApp extends React.Component {
                   <input
                     aria-label="Log in"
                     className={this.submitClass()}
+                    disabled={!(email.length && password.length)}
                     id="log-in"
                     name="commit"
                     type="submit"

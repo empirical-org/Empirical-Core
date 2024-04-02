@@ -1,10 +1,10 @@
 import * as _ from 'underscore';
 
-// const qml = require('quill-marking-logic')
-import { checkGrammarQuestion, ConceptResult } from 'quill-marking-logic'
+import { checkGrammarQuestion, ConceptResult } from 'quill-marking-logic';
+import { requestGet, requestPost, requestPut, } from '../../../../modules/request/index';
+import { hashToCollection } from '../../../Shared/index';
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel';
-import { hashToCollection } from '../../../Shared/index'
-import { requestGet, requestPost, requestPut, } from '../../../../modules/request/index'
+import convertConceptResultsArrayToHash from '../convertConceptResultsArrayToHash'
 
 interface Question {
   conceptID: string,
@@ -147,7 +147,7 @@ function updateRematchedResponse(response: any, newResponse: any) {
     parent_id: newResponse.response.parent_id,
     author: newResponse.response.author,
     feedback: newResponse.response.feedback,
-    concept_results: convertResponsesArrayToHash(conceptResults),
+    concept_results: convertConceptResultsArrayToHash(conceptResults),
   };
   return updateResponse(response.id, newVals);
 }
@@ -171,7 +171,7 @@ function determineDelta(response: any, newResponse: any) {
   const parentIDChanged = (newResponse.response.parent_id ? Number(newResponse.response.parent_id) : null) !== response.parent_id;
   const authorChanged = newResponse.response.author !== response.author;
   const feedbackChanged = newResponse.response.feedback !== response.feedback;
-  const conceptResultsChanged = !_.isEqual(convertResponsesArrayToHash(conceptResults), response.concept_results);
+  const conceptResultsChanged = !_.isEqual(convertConceptResultsArrayToHash(conceptResults), response.concept_results);
   const changed = parentIDChanged || authorChanged || feedbackChanged || conceptResultsChanged;
   if (changed) {
     if (unmatched) {
@@ -216,7 +216,7 @@ function getResponseBody(pageNumber: number) {
 }
 
 function getGradedResponses(questionID) {
-  return requestGet(`${process.env.QUILL_CMS}/questions/${questionID}/responses`);
+  return requestGet(`${process.env.QUILL_CMS}/questions/${questionID}/responses_for_rematching`);
 }
 
 function formatGradedResponses(jsonString: string): {[key: string]: Response} {
@@ -238,15 +238,4 @@ function formatGradedResponses(jsonString: string): {[key: string]: Response} {
     delete resp.concept_results;
   });
   return bodyToObj;
-}
-
-function convertResponsesArrayToHash(crArray: any) {
-  const crs = _.values(crArray);
-  const newHash: {[key:string]: Boolean} = {};
-  _.each(crs, (val) => {
-    if (val.conceptUID && val.conceptUID.length > 0) {
-      newHash[val.conceptUID] = val.correct;
-    }
-  });
-  return newHash;
 }

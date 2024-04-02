@@ -23,7 +23,7 @@ class ResponseSortFields extends React.Component<any, any> {
 
   renderSortField(displayName: string, stateName: string) {
     return (
-      <li className={this.stateSpecificClass(stateName)}>
+      <li className={`sort-field ${this.stateSpecificClass(stateName)}`}>
         <a onClick={this.props.toggleResponseSort.bind(null, stateName)}>
           {displayName} {this.renderAscendingArrow(stateName)}
         </a>
@@ -45,4 +45,5 @@ class ResponseSortFields extends React.Component<any, any> {
 
 }
 
-export { ResponseSortFields }
+export { ResponseSortFields };
+

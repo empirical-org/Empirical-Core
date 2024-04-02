@@ -3,28 +3,28 @@
 module Mailer
   class User < SimpleDelegator
 
-    def send_admin_dashboard_teacher_account_created_email(admin_name, school_name, is_reminder)
-      AdminDashboardUserMailer.teacher_account_created_email(self, admin_name, school_name, is_reminder).deliver_now! if email.present?
+    def send_premium_hub_teacher_account_created_email(admin_name, school_name, is_reminder)
+      PremiumHubUserMailer.teacher_account_created_email(self, admin_name, school_name, is_reminder).deliver_now! if email.present?
     end
 
-    def send_admin_dashboard_admin_account_created_email(admin_name, school_name, is_reminder)
-      AdminDashboardUserMailer.admin_account_created_email(self, admin_name, school_name, is_reminder).deliver_now! if email.present?
+    def send_premium_hub_admin_account_created_email(admin_name, school_name, is_reminder)
+      PremiumHubUserMailer.admin_account_created_email(self, admin_name, school_name, is_reminder).deliver_now! if email.present?
     end
 
-    def send_admin_dashboard_teacher_link_school_email(admin_name, school)
-      AdminDashboardUserMailer.teacher_link_school_email(self, admin_name, school).deliver_now! if email.present?
+    def send_premium_hub_teacher_link_school_email(admin_name, school)
+      PremiumHubUserMailer.teacher_link_school_email(self, admin_name, school).deliver_now! if email.present?
     end
 
-    def send_admin_dashboard_made_school_admin_email(admin_name, school_name)
-      AdminDashboardUserMailer.made_school_admin_email(self, admin_name, school_name).deliver_now! if email.present?
+    def send_premium_hub_made_school_admin_email(admin_name, school_name)
+      PremiumHubUserMailer.made_school_admin_email(self, admin_name, school_name).deliver_now! if email.present?
     end
 
-    def send_admin_dashboard_made_school_admin_link_school_email(admin_name, school)
-      AdminDashboardUserMailer.made_school_admin_link_school_email(self, admin_name, school).deliver_now! if email.present?
+    def send_premium_hub_made_school_admin_link_school_email(admin_name, school)
+      PremiumHubUserMailer.made_school_admin_link_school_email(self, admin_name, school).deliver_now! if email.present?
     end
 
-    def send_admin_dashboard_made_school_admin_change_school_email(admin_name, new_school, existing_school)
-      AdminDashboardUserMailer.made_school_admin_change_school_email(self, admin_name, new_school, existing_school).deliver_now! if email.present?
+    def send_premium_hub_made_school_admin_change_school_email(admin_name, new_school, existing_school)
+      PremiumHubUserMailer.made_school_admin_change_school_email(self, admin_name, new_school, existing_school).deliver_now! if email.present?
     end
 
     def send_internal_tool_admin_account_created_email(school_name)

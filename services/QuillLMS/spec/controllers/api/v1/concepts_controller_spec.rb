@@ -3,50 +3,37 @@
 require 'rails_helper'
 
 describe Api::V1::ConceptsController, type: :controller do
+  let(:user) { create(:user) }
+  let(:parsed_body) { JSON.parse(response.body) }
+
+  before { allow(controller).to receive(:current_user) { user } }
 
   context 'POST #create' do
-    let!(:user) { create(:staff) }
-    let!(:token) { double :acceptable? => true, resource_owner_id: user.id }
+    subject { post :create, params: { concept: { name: concept_name, parent_uid: parent_concept.uid } }, as: :json }
+
     let!(:concept_name) { 'Concept1' }
     let!(:parent_concept) { create(:concept) }
 
-    def subject
-      post :create, params: { concept: {name: concept_name, parent_uid: parent_concept.uid} }, as: :json
-    end
+    it { expect { subject }.not_to change(Concept, :count) }
+    it { expect(subject).to have_http_status(:see_other) }
 
-    it_behaves_like 'protected endpoint'
+    context 'as staff' do
+      let(:user) { create(:staff) }
 
-    context 'default behavior' do
-      let(:parsed_body) { JSON.parse(response.body) }
+      before { subject }
 
-      before do
-        allow(controller).to receive(:doorkeeper_token) {token}
-        subject
-      end
-
-      it 'responds with 200' do
-        expect(response.status).to eq(200)
-      end
-
-      it 'responds with correct keys' do
-        expect(parsed_body['concept'].keys).to match_array(%w(id uid name parent_id))
-      end
-
-      it 'responds with correct values' do
-        expect(parsed_body['concept']['name']).to eq(concept_name)
-        expect(parsed_body['concept']['uid']).to_not be_nil
-      end
+      it { expect(response).to have_http_status(:ok)}
+      it { expect(parsed_body['concept'].keys).to match_array(%w(id uid name parent_id)) }
+      it { expect(parsed_body['concept']['name']).to eq concept_name  }
+      it { expect(parsed_body['concept']['uid']).to_not be_nil }
     end
   end
 
   context 'GET #index' do
-    let!(:concept1) { create(:concept, name: 'Articles') }
-    let!(:concept2) { create(:concept, name: 'The', parent: concept1) }
-    let(:parsed_body) { JSON.parse(response.body) }
+    subject { get :index, as: :json }
 
-    def subject
-      get :index, as: :json
-    end
+    let!(:concept1) { create(:concept) }
+    let!(:concept2) { create(:concept, parent: concept1) }
 
     before { subject }
 
@@ -56,6 +43,8 @@ describe Api::V1::ConceptsController, type: :controller do
   end
 
   context 'GET #level_zero_concepts_with_lineage' do
+    subject { get :level_zero_concepts_with_lineage }
+
     let!(:concept1) { create(:concept, name: 'Articles', visible: true) }
     let!(:concept2) { create(:concept, name: 'The', parent: concept1) }
     let!(:concept3) { create(:concept, name: 'Something', parent: concept2)}
@@ -63,11 +52,6 @@ describe Api::V1::ConceptsController, type: :controller do
     let!(:concept5) { create(:concept, name: 'Name', parent: concept4) }
     let!(:concept6) { create(:concept, name: 'Other', parent: concept5)}
     let!(:concept7) { create(:concept, name: 'Different', visible: false) }
-    let(:parsed_body) { JSON.parse(response.body) }
-
-    def subject
-      get :level_zero_concepts_with_lineage
-    end
 
     before { subject }
 

@@ -7,7 +7,7 @@ describe ClearUserDataWorker, type: :worker do
 
   let!(:ip_location) { create(:ip_location) }
   let(:user) { create(:student_in_two_classrooms_with_many_activities, google_id: 'sergey_and_larry_were_here', send_newsletter: true, ip_location: ip_location) }
-  let!(:auth_credential) { create(:auth_credential, user: user) }
+  let!(:auth_credential) { create(:google_auth_credential, user: user) }
   let!(:activity_sessions) { user.activity_sessions }
   let!(:classroom_units) { ClassroomUnit.where("? = ANY (assigned_student_ids)", user.id) }
 
@@ -36,6 +36,15 @@ describe ClearUserDataWorker, type: :worker do
       expect(as.user_id).to be nil
     end
   end
+
+  # TODO: figure out intermitten spec failure
+  # context 'updated_at check' do
+  #   let(:activity_session) { activity_sessions.unscoped.first }
+
+  #   before { allow(DateTime).to receive(:current).and_return(1.day.from_now) }
+
+  #   it { expect { subject }.to change { activity_session.reload.updated_at } }
+  # end
 
   context 'subscriptions' do
     let!(:subscription) { create(:subscription, :recurring, :stripe) }

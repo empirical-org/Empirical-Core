@@ -16,6 +16,7 @@ import {whitespaceChecker} from '../matchers/whitespace_match';
 import {rigidChangeObjectChecker, flexibleChangeObjectChecker} from '../matchers/change_object_match';
 import {caseStartChecker} from '../matchers/case_start_match';
 import {punctuationEndChecker} from '../matchers/punctuation_end_match';
+import {quotationMarkChecker} from '../matchers/quotation_mark_match';
 import {spellingFeedbackStrings} from '../constants/feedback_strings';
 
 export function checkGrammarQuestion(
@@ -71,6 +72,7 @@ function* firstPassMatchers(data: GradingObject, spellCorrected=false) {
     yield incorrectSequenceChecker(submission, incorrectSequences, responses);
   }
   yield caseInsensitiveChecker(submission, responses);
+  yield quotationMarkChecker(submission, responses);
   yield punctuationInsensitiveChecker(submission, responses);
   yield punctuationAndCaseInsensitiveChecker(submission, responses);
   yield spacingBeforePunctuationChecker(submission, responses);

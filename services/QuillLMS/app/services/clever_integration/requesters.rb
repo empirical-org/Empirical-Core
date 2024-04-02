@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'clever-ruby'
+
 module CleverIntegration::Requesters
 
   def self.teacher(clever_id, district_token=nil)
@@ -27,9 +29,9 @@ module CleverIntegration::Requesters
   end
 
   def self.api_instance(district_token=nil)
-    config = Clever::Configuration.new
+    config = ::Clever::Configuration.new
     config.access_token = district_token
-    api_instance = Clever::DataApi.new
+    api_instance = ::Clever::DataApi.new
     api_instance.api_client.config = config
     api_instance
   end

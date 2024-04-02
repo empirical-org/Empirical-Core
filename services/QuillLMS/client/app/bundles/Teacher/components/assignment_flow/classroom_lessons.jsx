@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Units from './manage_units/units';
-
-import LoadingIndicator from '../shared/loading_indicator';
+import _ from 'lodash';
+import { requestGet, } from '../../../../modules/request';
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown';
-import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../progress_reports/progress_report_constants'
-import { requestGet, } from '../../../../modules/request'
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../progress_reports/progress_report_constants';
+import LoadingIndicator from '../shared/loading_indicator';
+import Units from './manage_units/units';
 
 export default class ClassroomLessons extends React.Component {
   constructor(props) {
@@ -190,7 +190,7 @@ export default class ClassroomLessons extends React.Component {
     const assignLessonsLink = <a className="bg-quillgreen text-white" href="/assign/activity-library?activityClassificationFilters[]=lessons" target="_blank">Assign Lessons</a>  // eslint-disable-line react/jsx-no-target-blank
     const learnMoreLink = <a className="bg-white text-quillgreen" href="/tools/lessons" target="_blank">Learn More</a> // eslint-disable-line react/jsx-no-target-blank
     return (
-      <div className="empty-lessons manage-units">
+      <div className="empty-lessons manage-units gray-background-accommodate-footer">
         <div className="content">
           <h1>You have no lessons assigned!</h1>
           <p>In order to launch a lesson, you need to assign a lesson to one of your classes.</p>
@@ -233,7 +233,7 @@ export default class ClassroomLessons extends React.Component {
       return this.renderEmptyState();
     } else if (loaded) {
       return (
-        <div id="lesson_planner">
+        <div className="gray-background-accommodate-footer" id="lesson_planner">
           <div className="container my-lessons manage-units">
             {this.renderHeader()}
             <ItemDropdown

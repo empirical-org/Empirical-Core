@@ -1,20 +1,19 @@
-import { combineReducers } from 'redux';
-import { SubmitActions } from '../actions';
 import { routerReducer } from 'react-router-redux';
+import { combineReducers } from 'redux';
 import classroomLesson from './classroomLesson';
 import classroomLessons from './classroomLessons'; // this is the admin one
-import classroomLessonsReviews from './classroomLessonsReviews'
+import classroomLessonsReviews from './classroomLessonsReviews';
 import classroomSessions from './classroomSessions';
 import concepts from './concepts.ts';
 import conceptsFeedback from './conceptsFeedback.ts';
-import customize, * as FromCustomize from './customize'
+import customize, * as FromCustomize from './customize';
+import playDiagnostic from './diagnostics';
 import display from './display';
 import fillInBlank from './fillInBlank.ts';
 import filters from './filtersReducer';
 import generatedIncorrectSequences from './generatedIncorrectSequences';
 import lessons from './lessons.ts';
 import massEdit from './massEdit';
-import playDiagnostic from './diagnostics';
 import playLesson from './questionReducer';
 import question from './questionReducerV2';
 import questions from './questions.ts';

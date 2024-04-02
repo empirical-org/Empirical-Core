@@ -1,6 +1,6 @@
-import * as React from 'react'
 import { mount, } from 'enzyme';
 import toJson from 'enzyme-to-json';
+import * as React from 'react';
 
 const mockTrackAnalyticsEvent = jest.fn()
 jest.mock('../../actions/analytics', () => ({
@@ -12,12 +12,11 @@ const MockActivityID = 1
 const mockGetParameterByName = jest.fn()
   .mockReturnValueOnce(MockSessionID)
   .mockReturnValue(MockActivityID)
-jest.mock('../../helpers/getParameterByName', () => ({
-  default: mockGetParameterByName
-}))
 
-import { Header } from '../../components/Header'
-import { Events } from '../../modules/analytics'
+jest.mock('../../helpers/getParameterByName', () => mockGetParameterByName)
+
+import { Header } from '../../components/Header';
+import { Events } from '../../modules/analytics';
 
 const dispatch = () => {}
 

@@ -11,24 +11,35 @@ describe ResultsSummary do
   let!(:students_classroom1) { create(:students_classrooms, classroom: classroom, student: student1)}
   let!(:student2) { create(:student, name: 'Alphabetical B')}
   let!(:students_classroom2) { create(:students_classrooms, classroom: classroom, student: student2)}
-  let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student1.id, student2.id]) }
+  let!(:student3) { create(:student, name: 'Alphabetical C')}
+  let!(:students_classroom3) { create(:students_classrooms, classroom: classroom, student: student3)}
+  let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student1.id, student2.id, student3.id]) }
   let!(:unit_activity) { create(:unit_activity, unit: unit) }
   let!(:skill_group_activity) { create(:skill_group_activity, activity: unit_activity.activity)}
-  let!(:activity_session) { create(:activity_session, :finished, user: student1, classroom_unit: classroom_unit, activity: unit_activity.activity) }
-  let!(:concept) { create(:concept) }
-  let!(:skill) { create(:skill, skill_group: skill_group_activity.skill_group) }
-  let!(:skill_concept) { create(:skill_concept, concept: concept, skill: skill) }
-  let!(:correct_concept_result) { create(:concept_result, concept: concept, activity_session: activity_session, correct: true) }
-  let!(:incorrect_concept_result) { create(:concept_result, concept: concept, activity_session: activity_session, correct: false) }
+  let!(:activity_session1) { create(:activity_session_without_concept_results, :finished, user: student1, classroom_unit: classroom_unit, activity: unit_activity.activity) }
+  let!(:activity_session2) { create(:activity_session_without_concept_results, :finished, user: student3, classroom_unit: classroom_unit, activity: unit_activity.activity) }
+  let!(:diagnostic_question_skill1) { create(:diagnostic_question_skill, skill_group: skill_group_activity.skill_group) }
+  let!(:diagnostic_question_skill2) { create(:diagnostic_question_skill, skill_group: skill_group_activity.skill_group) }
+  let!(:correct_concept_result1) { create(:concept_result, activity_session: activity_session1, correct: true, question_number: 1, extra_metadata: { question_uid: diagnostic_question_skill1.question.uid } ) }
+  let!(:correct_concept_result2) { create(:concept_result, activity_session: activity_session2, correct: true, question_number: 1, extra_metadata: { question_uid: diagnostic_question_skill1.question.uid } ) }
+  let!(:incorrect_concept_result) { create(:concept_result, activity_session: activity_session1, correct: false, question_number: 2, extra_metadata: { question_uid: diagnostic_question_skill2.question.uid } ) }
 
   describe '#results_summary' do
     it 'should return data with the student results and skill group summaries' do
       expect(results_summary(unit_activity.activity_id, classroom.id, nil)).to eq({
+        activity_id: unit_activity.activity_id,
+        classroom_id: classroom.id,
+        unit_id: nil,
         skill_group_summaries: [
           {
             name: skill_group_activity.skill_group.name,
             description: skill_group_activity.skill_group.description,
-            not_yet_proficient_student_names: [student1.name]
+            not_yet_proficient_student_names: [student1.name],
+            proficiency_scores_by_student: {
+              student1.name => 0.5,
+              student3.name => 1.0
+            },
+            question_uids: skill_group_activity.skill_group.questions.pluck(:uid),
           }
         ],
         student_results: [
@@ -41,26 +52,78 @@ describe ResultsSummary do
                 description: skill_group_activity.skill_group.description,
                 skills: [
                   {
-                    id: skill.id,
-                    skill: skill.name,
+                    id: diagnostic_question_skill1.id,
+                    name: diagnostic_question_skill1.name,
                     number_correct: 1,
+                    number_incorrect: 0,
+                    proficiency_score: 1,
+                    summary: ResultsSummary::FULLY_CORRECT,
+                    question_uid: diagnostic_question_skill1.question.uid
+                  },
+                  {
+                    id: diagnostic_question_skill2.id,
+                    name: diagnostic_question_skill2.name,
+                    number_correct: 0,
                     number_incorrect: 1,
-                    summary: ResultsSummary::PARTIALLY_CORRECT,
+                    proficiency_score: 0,
+                    summary: ResultsSummary::NOT_CORRECT,
+                    question_uid: diagnostic_question_skill2.question.uid
                   }
                 ],
-                skill_ids: [skill.id],
-                correct_skill_ids: [],
-                number_of_correct_skills_text: "0 of 1 skills correct",
-                proficiency_text: ResultsSummary::NO_PROFICIENCY,
-                id: skill_group_activity.skill_group.id
+                question_uids: skill_group_activity.skill_group.questions.pluck(:uid),
+                skill_ids: [diagnostic_question_skill1.id, diagnostic_question_skill2.id],
+                correct_skill_ids: [diagnostic_question_skill1.id],
+                number_of_correct_questions_text: "1 of 2 Questions Correct",
+                proficiency_text: ResultsSummary::PARTIAL_PROFICIENCY,
+                id: skill_group_activity.skill_group.id,
+                number_correct: 1,
+                number_incorrect: 1,
+                summary: ResultsSummary::PARTIALLY_CORRECT,
               }
             ],
-            total_correct_skills_count: 0,
-            total_possible_skills_count: 1,
-            correct_skill_text: "0 of 1 skills correct"
+            total_correct_questions_count: 1,
+            total_correct_skill_groups_count: 0,
+            total_possible_questions_count: 2,
+            correct_question_text: "1 of 2 Questions Correct",
+            correct_skill_groups_text: "0 of 1 Skills",
           },
           {
             name: student2.name
+          },
+          {
+            name: student3.name,
+            id: student3.id,
+            skill_groups: [
+              {
+                skill_group: skill_group_activity.skill_group.name,
+                description: skill_group_activity.skill_group.description,
+                skills: [
+                  {
+                    id: diagnostic_question_skill1.id,
+                    name: diagnostic_question_skill1.name,
+                    number_correct: 1,
+                    number_incorrect: 0,
+                    proficiency_score: 1.0,
+                    summary: ResultsSummary::FULLY_CORRECT,
+                    question_uid: diagnostic_question_skill1.question.uid
+                  }
+                ],
+                question_uids: skill_group_activity.skill_group.questions.pluck(:uid),
+                skill_ids: [diagnostic_question_skill1.id],
+                correct_skill_ids: [diagnostic_question_skill1.id],
+                number_of_correct_questions_text: "1 of 1 Questions Correct",
+                proficiency_text: ResultsSummary::PROFICIENCY,
+                id: skill_group_activity.skill_group.id,
+                number_correct: 1,
+                number_incorrect: 0,
+                summary: ResultsSummary::FULLY_CORRECT,
+              }
+            ],
+            total_correct_questions_count: 1,
+            total_correct_skill_groups_count: 1,
+            total_possible_questions_count: 1,
+            correct_question_text: "1 of 1 Questions Correct",
+            correct_skill_groups_text: "1 of 1 Skills",
           }
         ]
       })
@@ -73,12 +136,14 @@ describe ResultsSummary do
         {
           name: skill_group_activity.skill_group.name,
           description: skill_group_activity.skill_group.description,
-          not_yet_proficient_student_names: []
+          not_yet_proficient_student_names: [],
+          proficiency_scores_by_student: {}
         }
       ]
       @skill_groups = [skill_group_activity.skill_group]
       @assigned_students = [student1, student2]
-      @activity_sessions = [activity_session].map { |session| [session.user_id, session] }.to_h
+      @activity_sessions = [activity_session1].to_h { |session| [session.user_id, session] }
+
       expect(student_results).to eq(
         [
           {
@@ -90,23 +155,40 @@ describe ResultsSummary do
                 description: skill_group_activity.skill_group.description,
                 skills: [
                   {
-                    id: skill.id,
-                    skill: skill.name,
+                    id: diagnostic_question_skill1.id,
+                    name: diagnostic_question_skill1.name,
                     number_correct: 1,
+                    number_incorrect: 0,
+                    proficiency_score: 1,
+                    summary: ResultsSummary::FULLY_CORRECT,
+                    question_uid: diagnostic_question_skill1.question.uid,
+                  },
+                  {
+                    id: diagnostic_question_skill2.id,
+                    name: diagnostic_question_skill2.name,
+                    number_correct: 0,
                     number_incorrect: 1,
-                    summary: ResultsSummary::PARTIALLY_CORRECT,
+                    proficiency_score: 0,
+                    summary: ResultsSummary::NOT_CORRECT,
+                    question_uid: diagnostic_question_skill2.question.uid,
                   }
                 ],
-                skill_ids: [skill.id],
-                correct_skill_ids: [],
-                number_of_correct_skills_text: "0 of 1 skills correct",
-                proficiency_text: ResultsSummary::NO_PROFICIENCY,
-                id: skill_group_activity.skill_group.id
+                skill_ids: [diagnostic_question_skill1.id, diagnostic_question_skill2.id],
+                correct_skill_ids: [diagnostic_question_skill1.id],
+                number_correct: 1,
+                number_incorrect: 1,
+                number_of_correct_questions_text: "1 of 2 Questions Correct",
+                proficiency_text: ResultsSummary::PARTIAL_PROFICIENCY,
+                question_uids: skill_group_activity.skill_group.questions.pluck(:uid),
+                id: skill_group_activity.skill_group.id,
+                summary: ResultsSummary::PARTIALLY_CORRECT,
               }
             ],
-            total_correct_skills_count: 0,
-            total_possible_skills_count: 1,
-            correct_skill_text: "0 of 1 skills correct"
+            total_correct_questions_count: 1,
+            total_correct_skill_groups_count: 0,
+            total_possible_questions_count: 2,
+            correct_question_text: "1 of 2 Questions Correct",
+            correct_skill_groups_text: "0 of 1 Skills",
           },
           {
             name: student2.name
@@ -122,27 +204,43 @@ describe ResultsSummary do
         {
           name: skill_group_activity.skill_group.name,
           description: skill_group_activity.skill_group.description,
-          not_yet_proficient_student_names: []
+          not_yet_proficient_student_names: [],
+          proficiency_scores_by_student: {}
         }
       ]
-      expect(skill_groups_for_session([skill_group_activity.skill_group], activity_session, student1.name)).to eq [
+      expect(skill_groups_for_session([skill_group_activity.skill_group], activity_session1.concept_results, student1.name)).to eq [
         {
           skill_group: skill_group_activity.skill_group.name,
           description: skill_group_activity.skill_group.description,
           skills: [
             {
-              id: skill.id,
-              skill: skill.name,
+              id: diagnostic_question_skill1.id,
+              name: diagnostic_question_skill1.name,
               number_correct: 1,
+              number_incorrect: 0,
+              proficiency_score: 1,
+              summary: ResultsSummary::FULLY_CORRECT,
+              question_uid: diagnostic_question_skill1.question.uid,
+            },
+            {
+              id: diagnostic_question_skill2.id,
+              name: diagnostic_question_skill2.name,
+              number_correct: 0,
               number_incorrect: 1,
-              summary: ResultsSummary::PARTIALLY_CORRECT,
+              proficiency_score: 0,
+              summary: ResultsSummary::NOT_CORRECT,
+              question_uid: diagnostic_question_skill2.question.uid,
             }
           ],
-          skill_ids: [skill.id],
-          correct_skill_ids: [],
-          number_of_correct_skills_text: "0 of 1 skills correct",
-          proficiency_text: ResultsSummary::NO_PROFICIENCY,
-          id: skill_group_activity.skill_group.id
+          skill_ids: [diagnostic_question_skill1.id, diagnostic_question_skill2.id],
+          correct_skill_ids: [diagnostic_question_skill1.id],
+          number_correct: 1,
+          number_incorrect: 1,
+          number_of_correct_questions_text: "1 of 2 Questions Correct",
+          proficiency_text: ResultsSummary::PARTIAL_PROFICIENCY,
+          id: skill_group_activity.skill_group.id,
+          question_uids: skill_group_activity.skill_group.questions.pluck(:uid),
+          summary: ResultsSummary::PARTIALLY_CORRECT
         }
       ]
     end
@@ -152,10 +250,11 @@ describe ResultsSummary do
         {
           name: skill_group_activity.skill_group.name,
           description: skill_group_activity.skill_group.description,
-          not_yet_proficient_student_names: []
+          not_yet_proficient_student_names: [],
+          proficiency_scores_by_student: {}
         }
       ]
-      skill_groups_for_session([skill_group_activity.skill_group], activity_session, student1.name)
+      skill_groups_for_session([skill_group_activity.skill_group], activity_session1.concept_results, student1.name)
       expect(@skill_group_summaries[0][:not_yet_proficient_student_names]).to eq [student1.name]
     end
 

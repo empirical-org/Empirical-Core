@@ -7,13 +7,14 @@
 #  id                         :integer          not null, primary key
 #  data                       :jsonb
 #  description                :text
-#  flags                      :string           default([]), not null, is an Array
+#  flags                      :string(255)      default([]), not null, is an Array
 #  maximum_grade_level        :integer
 #  minimum_grade_level        :integer
-#  name                       :string
+#  name                       :string(255)
+#  question_count             :integer          default(0), not null
 #  repeatable                 :boolean          default(TRUE)
 #  supporting_info            :string
-#  uid                        :string           not null
+#  uid                        :string(255)      not null
 #  created_at                 :datetime
 #  updated_at                 :datetime
 #  activity_classification_id :integer
@@ -37,6 +38,7 @@
 require 'rails_helper'
 
 describe Activity, type: :model, redis: true do
+  it { should have_many(:activity_sessions) }
   it { should have_many(:skill_group_activities) }
   it { should have_many(:skill_groups).through(:skill_group_activities) }
 
@@ -112,8 +114,8 @@ describe Activity, type: :model, redis: true do
       end
 
       describe 'activity is evidence and the flag is being changed' do
-        let!(:evidence_activity) { create(:evidence_activity, flag: 'alpha') }
-        let!(:child_activity) { Evidence::Activity.create(title: "this is a child activity", notes: "note", parent_activity_id: evidence_activity.id)}
+        let!(:evidence_activity) { create(:evidence_lms_activity, flag: 'alpha') }
+        let!(:child_activity) { create(:evidence_activity, title: "this is a child activity", notes: "note", parent_activity_id: evidence_activity.id)}
         let!(:staff_user) { create(:user, role: 'staff') }
 
         before do
@@ -248,7 +250,7 @@ describe Activity, type: :model, redis: true do
       classification = build(:activity_classification, key: 'evidence')
       classified_activity = create(:activity, classification: classification)
       activity_session = build(:activity_session)
-      comp_activity = Evidence::Activity.create!(parent_activity_id: classified_activity.id,
+      comp_activity = create(:evidence_activity, parent_activity_id: classified_activity.id,
         target_level: 12,
         title: 'Test Evidence Activity',
         notes: 'Test Evidence Activity')
@@ -283,13 +285,13 @@ describe Activity, type: :model, redis: true do
     it "must use the evidence_url_helper when the classification.key is 'evidence'" do
       classification = build(:activity_classification, key: 'evidence')
       classified_activity = create(:activity, classification: classification)
-      comp_activity = Evidence::Activity.create!(parent_activity_id: classified_activity.id,
+      comp_activity = create(:evidence_activity, parent_activity_id: classified_activity.id,
         target_level: 12,
         title: 'Test Evidence Activity',
         notes: 'Test Evidence Activity')
       expect(classified_activity).to receive(:evidence_url_helper).with({anonymous: true}).and_call_original
       result = classified_activity.anonymous_module_url
-      expect(result.to_s).to eq("#{classification.module_url}?anonymous=true&skipToPrompts=true&uid=#{comp_activity.id}")
+      expect(result.to_s).to eq("#{classification.module_url}?anonymous=true&uid=#{comp_activity.id}")
     end
   end
 
@@ -380,14 +382,14 @@ describe Activity, type: :model, redis: true do
     let(:activity) { create(:activity) }
 
     it 'deletes the default_activity_search from the cache' do
-      $redis.set('default_activity_search', {something: 'something'})
+      $redis.set('default_activity_search', {something: 'something'}.to_json)
       Activity.clear_activity_search_cache
       expect($redis.get('default_activity_search')).to eq nil
     end
 
     it 'deletes all redis keys as defined in UserFlagset' do
       UserFlagset::FLAGSETS.keys.map{|x| "#{x}_"}.push("").each do |flagset|
-        $redis.set("default_#{flagset}activity_search", {a_key: 'a_value'} )
+        $redis.set("default_#{flagset}activity_search", {a_key: 'a_value'}.to_json )
       end
 
       Activity.clear_activity_search_cache
@@ -644,7 +646,7 @@ describe Activity, type: :model, redis: true do
     end
 
     it 'should return a Evidence::Activity if one has the LMS Activity.id as its parent_activity_id' do
-      comp_activity = Evidence::Activity.create!(title: 'Old Title', notes: 'Some notes', target_level: 1, parent_activity_id: activity.id)
+      comp_activity = create(:evidence_activity, title: 'Old Title', notes: 'Some notes', target_level: 1, parent_activity_id: activity.id)
       expect(activity.child_activity).to eq(comp_activity)
     end
   end
@@ -655,7 +657,7 @@ describe Activity, type: :model, redis: true do
 
     it 'should update the child activity title to the name value' do
       new_name = 'A new name'
-      comp_activity = Evidence::Activity.create!(title: 'Old Title', notes: 'Some notes', target_level: 1, parent_activity_id: activity.id)
+      comp_activity = create(:evidence_activity, title: 'Old Title', notes: 'Some notes', target_level: 1, parent_activity_id: activity.id)
       activity.update(name: new_name)
       comp_activity.reload
       expect(comp_activity.title).to eq(new_name)
@@ -669,7 +671,7 @@ describe Activity, type: :model, redis: true do
   context 'a test that belongs in Comprehension that we need here because the engine stubs the LMS Activity model, and we need them both to behave as if real' do
     describe '#Evidence::Activity.update_parent_activity_name' do
       let(:activity) { create(:activity) }
-      let(:comp_activity) { Evidence::Activity.create!(title: 'Old Title', notes: 'Some notes', target_level: 1, parent_activity_id: activity.id) }
+      let(:comp_activity) {create(:evidence_activity, title: 'Old Title', notes: 'Some notes', target_level: 1, parent_activity_id: activity.id) }
 
       it 'should update the parent_activity.name when the comprehension activity.title is updated' do
         new_title = 'New Title'
@@ -730,6 +732,41 @@ describe Activity, type: :model, redis: true do
 
         it { expect(subject).to eq false }
       end
+    end
+  end
+
+  describe '#publication_date' do
+    context 'when the activity has no associated flag change log' do
+      it 'returns the created_at date of that activity' do
+        activity = create(:evidence_lms_activity, created_at: Time.zone.today - 10.days)
+        create(:evidence_activity, parent_activity: activity, title: "title", notes: "notes")
+
+        expect(activity.publication_date).to eq(activity.created_at.strftime("%m/%d/%Y"))
+      end
+    end
+
+    context 'when the activity has an associated flag change log' do
+      it 'returns the created_at date of the last flag change' do
+        activity = create(:evidence_lms_activity)
+        evidence_activity = create(:evidence_activity, parent_activity: activity, title: "title", notes: "notes")
+        change_log = create(:change_log, created_at: Time.zone.today - 20.days, changed_attribute: Activity::FLAGS_ATTRIBUTE, changed_record: evidence_activity)
+
+        expect(activity.publication_date).to eq(change_log.created_at.strftime("%m/%d/%Y"))
+      end
+    end
+  end
+
+  describe '#serialize_with_topics_and_publication_date' do
+    it 'returns the serialized activity hash with topics genealogy and publication date added' do
+      topic = create(:topic, level: 1)
+      activity = create(:evidence_lms_activity, topics: [topic])
+      evidence_activity = create(:evidence_activity, parent_activity: activity, title: "title", notes: "notes")
+      change_log = create(:change_log, created_at: Time.zone.today - 20.days, changed_attribute: Activity::FLAGS_ATTRIBUTE, changed_record: evidence_activity)
+
+      serialized_hash = activity.serialize_with_topics_and_publication_date
+      expect(serialized_hash["id"]).to eq(activity.id)
+      expect(serialized_hash[:topics]).to eq([topic.genealogy])
+      expect(serialized_hash[:publication_date]).to eq(change_log.created_at.strftime("%m/%d/%Y"))
     end
   end
 end

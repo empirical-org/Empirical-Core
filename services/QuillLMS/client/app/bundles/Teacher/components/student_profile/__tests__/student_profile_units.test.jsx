@@ -1,14 +1,14 @@
-import React from "react";
 import { mount } from "enzyme";
+import React from "react";
 
 import { activities } from "./test_data";
 
-import StudentProfileUnits from "../student_profile_units";
-import StudentProfileUnit, { LOCKED, UNLOCKED } from "../student_profile_unit";
 import {
-  TO_DO_ACTIVITIES,
   COMPLETED_ACTIVITIES,
+  TO_DO_ACTIVITIES,
 } from "../../../../../constants/student_profile";
+import StudentProfileUnit, { LOCKED, UNLOCKED } from "../student_profile_unit";
+import StudentProfileUnits from "../student_profile_units";
 
 describe("StudentProfileUnits component", () => {
   it("should render <StudentProfileUnit /> components with correct props", () => {
@@ -19,16 +19,19 @@ describe("StudentProfileUnits component", () => {
             unit_id: 1,
             unit_name: "Same ID",
             user_pack_sequence_item_status: UNLOCKED,
+            ua_id: 1
           },
           {
             unit_id: 1,
             unit_name: "Same ID",
             user_pack_sequence_item_status: UNLOCKED,
+            ua_id: 2
           },
           {
             unit_id: 2,
             unit_name: "Different",
             user_pack_sequence_item_status: LOCKED,
+            ua_id: 3
           },
         ]}
       />

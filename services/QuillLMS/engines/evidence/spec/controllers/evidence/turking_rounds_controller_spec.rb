@@ -84,7 +84,7 @@ module Evidence
         expect(response.code.to_i).to(eq(204))
         turking_round.reload
         expect(turking_round.activity_id).to(eq(new_activity.id))
-        expect(turking_round.expires_at.to_s(:db)).to(eq(new_datetime.to_s(:db)))
+        expect(turking_round.expires_at.to_fs(:db)).to(eq(new_datetime.to_fs(:db)))
       end
 
       it 'should not update record and return errors as json' do

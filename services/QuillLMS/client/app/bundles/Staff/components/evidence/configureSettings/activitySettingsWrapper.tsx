@@ -4,10 +4,10 @@ import { withRouter } from 'react-router-dom';
 
 import ActivitySettings from './activitySettings';
 
-import { ActivityInterface } from '../../../interfaces/evidenceInterfaces';
-import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { blankActivity } from '../../../../../constants/evidence';
 import { Spinner } from '../../../../Shared/index';
+import { ActivityInterface } from '../../../interfaces/evidenceInterfaces';
+import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 
 const ActivitySettingsWrapper = ({ match }) => {
   const { params } = match;

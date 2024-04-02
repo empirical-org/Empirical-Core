@@ -29,7 +29,7 @@ class SerializeEvidencePromptHealth
       avg_time_spent_per_prompt: nil
     }
 
-    return serialized_data if prompt_feedback_history.empty?
+    return serialized_data if prompt_feedback_history.empty? || prompt_feedback_history[prompt.id].blank?
 
     feedback_history_data = {
       version_responses: prompt_feedback_history[prompt.id]["total_responses"],
@@ -50,7 +50,12 @@ class SerializeEvidencePromptHealth
   end
 
   private def rule_feedback_histories
-    @rule_feedback_histories ||= RuleFeedbackHistory.generate_report({activity_id: prompt.activity.id, conjunction: prompt.conjunction, activity_version: prompt.activity.version})
+    @rule_feedback_histories ||=
+      RuleFeedbackHistory.generate_report(**{
+        activity_id: prompt.activity.id,
+        activity_version: prompt.activity.version,
+        conjunction: prompt.conjunction
+      })
   end
 
   private def total_responses

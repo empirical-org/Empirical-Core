@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe AssignRecommendationsWorker do
+RSpec.describe AssignRecommendationsWorker do
   subject { described_class.new.perform(args) }
 
   let(:unit_template) { create(:unit_template) }
@@ -32,8 +32,19 @@ describe AssignRecommendationsWorker do
   end
 
   before do
-    allow(Analyzer).to receive(:new) { analyzer }
+    allow(Analytics::Analyzer).to receive(:new) { analyzer }
     allow(PusherRecommendationCompleted).to receive(:run)
+  end
+
+  context 'when no classroom is found' do
+    before { classroom.update(visible: false) }
+
+    it 'does not assign units to the class' do
+      expect(Units::AssignmentHelpers).not_to receive(:assign_unit_to_one_class)
+      subject
+    end
+
+    it { expect { subject }.not_to raise_error }
   end
 
   context 'when no units is found' do
@@ -124,14 +135,14 @@ describe AssignRecommendationsWorker do
   def should_track_that_all_recommendations_are_being_assigned
     expect(analyzer)
       .to receive(:track_with_attributes)
-      .with(teacher, SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS, properties)
+      .with(teacher, Analytics::SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS, properties)
 
     subject
   end
 
 
   def should_not_track_that_all_recommendations_are_being_assigned
-    expect(analyzer).not_to receive(:track).with(teacher, SegmentIo::BackgroundEvents::ASSIGN_ALL_RECOMMENDATIONS)
+    expect(analyzer).not_to receive(:track).with(teacher, Analytics::SegmentIo::BackgroundEvents::ASSIGN_ALL_RECOMMENDATIONS)
     subject
   end
 
@@ -174,4 +185,3 @@ describe AssignRecommendationsWorker do
     subject
   end
 end
-

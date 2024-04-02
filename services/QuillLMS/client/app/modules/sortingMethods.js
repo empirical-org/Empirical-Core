@@ -1,5 +1,5 @@
-import _ from 'underscore'
-import moment from 'moment'
+import moment from 'moment';
+import _ from 'underscore';
 
 export function sortByLastName(fullName1, fullName2){
   const lastName1 = _.last(fullName1.split(' '))

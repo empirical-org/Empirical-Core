@@ -1,8 +1,8 @@
 import expect from 'expect';
-import data from '../jsonFromDiagnostic';
 import {
   getConceptResultsForSentenceCombining
-} from '../../libs/conceptResults/sentenceCombining'
+} from '../../libs/conceptResults/sentenceCombining';
+import data from '../jsonFromDiagnostic';
 
 describe("Getting concept results from an answered SC object", () => {
   const question = data[2].data;
@@ -11,7 +11,10 @@ describe("Getting concept results from an answered SC object", () => {
     correct: 1,
     directions: "Combine the sentences. (After, Even though, Since)",
     prompt: "It was snowing. Marcella wore a sweater.",
-    answer: "Marcella wore a sweater since it was snowing."
+    answer: "Marcella wore a sweater since it was snowing.",
+    question_uid: question.key,
+    question_concept_uid: question.conceptID,
+    cues: question.cues
   }
 
   it("should have the correct score and concept uids", () => {

@@ -42,6 +42,7 @@ export interface ConceptResultMetadata {
   prompt: string,
   questionNumber: number,
   unchanged: boolean,
+  question_concept_uid: string
 }
 
 export interface Concepts {

@@ -4,8 +4,8 @@ class ErrorWorker
   include Sidekiq::Worker
 
   def perform
-    ea = ErrorAnalytics.new
-    ea.track500
+    Analytics::ErrorAnalytics
+      .new
+      .track500
   end
-
 end

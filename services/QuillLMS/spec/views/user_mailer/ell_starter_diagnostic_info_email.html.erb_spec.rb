@@ -8,7 +8,7 @@ describe "user_mailer/ell_starter_diagnostic_info_email.html.erb", type: :view d
     assign(:name, "Eric")
     assign(:constants, UserMailer::CONSTANTS)
 
-    render
+    render template: 'user_mailer/ell_starter_diagnostic_info_email'
 
     expect(rendered).to match("Eric")
   end

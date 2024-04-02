@@ -1,7 +1,7 @@
+import * as _ from 'lodash';
 import { Action } from "redux";
 import { ActionTypes } from "../actions/actionTypes";
-import * as _ from 'lodash';
-import { ConceptFeedback } from '../interfaces/conceptsFeedback'
+import { ConceptFeedback } from '../interfaces/conceptsFeedback';
 
 type ConceptsFeedbackAction = Action & { data: ConceptFeedback[], cid: string }
 

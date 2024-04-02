@@ -1,11 +1,11 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import InviteCoteacherModal from '../invite_coteachers_modal'
-import { Input, DataTable, } from '../../../../Shared/index'
+import { DataTable, Input, } from '../../../../Shared/index';
+import InviteCoteacherModal from '../invite_coteachers_modal';
 
-import { classroomWithStudents, classroomProps } from './test_data/test_data'
 import { requestPost } from '../../../../../modules/request';
+import { classroomProps, classroomWithStudents } from './test_data/test_data';
 
 jest.mock('../../../../../modules/request/index', () => ({
   requestPost: jest.fn()
@@ -58,12 +58,5 @@ describe('InviteCoteacherModal component', () => {
     it('should render a datatable', () => {
       expect(wrapper.find(DataTable).exists()).toBe(true)
     })
-
-    it('should trim trailing whitespace for coteacher email after submission', () => {
-      wrapper.setState({ email: "test-user@gmail.com "})
-      wrapper.instance().inviteCoteachers()
-      expect(requestPost).toHaveBeenCalledWith("/invitations/create_coteacher_invitation", {classroom_ids: [285383], invitee_email: "test-user@gmail.com"}, expect.any(Function))
-    })
   })
-
 })

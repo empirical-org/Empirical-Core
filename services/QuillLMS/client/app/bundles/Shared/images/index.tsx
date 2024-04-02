@@ -52,6 +52,10 @@ export const arrowPointingRightIcon = {
   src: `${process.env.CDN_URL}/images/icons/icons-arrow-back.svg`,
   alt: "Arrow pointing right icon"
 }
+export const whiteArrowPointingDownIcon = {
+  src: `${process.env.CDN_URL}/images/icons/downward-arrow-icon-white.svg`,
+  alt: "White arrow pointing down icon"
+}
 
 export const expandIcon = {
   src: `${process.env.CDN_URL}/images/icons/expand.svg`,
@@ -86,6 +90,11 @@ export const previewIcon = {
 export const smallWhiteCheckIcon = {
   src: `${process.env.CDN_URL}/images/shared/check-small-white.svg`,
   alt: 'Check icon'
+}
+
+export const indeterminateCheckIcon = {
+  src: `${process.env.CDN_URL}/images/icons/indeterminate.svg`,
+  alt: 'Indeterminate check icon'
 }
 
 export const cursorClick = {
@@ -216,4 +225,38 @@ export const openLockIcon = {
 export const networkIcon = {
   alt: 'Black silhouette of group of 4 people',
   src: `${process.env.CDN_URL}/images/onboarding/network.svg`
+}
+
+export const whiteDiamondIcon = {
+  alt: 'White diamond',
+  src: `${process.env.CDN_URL}/images/icons/white-diamond.svg`
+}
+export const redDiamondIcon = {
+  alt: 'Red diamond',
+  src: `${process.env.CDN_URL}/images/icons/red-diamond.svg`
+}
+
+export const evidenceHandbookIcon = {
+  alt: 'Stack of papers with text "Quill Reading for Evidence Teacher Handbook"',
+  src: `${process.env.CDN_URL}/images/evidence/evidence-teacher-handbook.svg`
+}
+
+export const filterIcon = {
+  alt: 'Filter icon with three vertical dots and 3 horizontal lines',
+  src: `${process.env.CDN_URL}/images/icons/icons-filter.svg`
+}
+
+export const documentFileIcon = {
+  alt: 'Document file with folded corner and two horizontal lines',
+  src: `${process.env.CDN_URL}/images/icons/file-document.svg`
+}
+
+export const singleUserIcon = {
+  alt: 'Black silhouette of single user',
+  src: `${process.env.CDN_URL}/images/icons/single-user-icon-black.svg`
+}
+
+export const whiteEmailIcon = {
+  alt: 'Envelope icon',
+  src: `${process.env.CDN_URL}/images/icons/email-icon-white.svg`
 }

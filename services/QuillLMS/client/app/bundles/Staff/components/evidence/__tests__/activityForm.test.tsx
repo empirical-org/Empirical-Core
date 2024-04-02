@@ -1,10 +1,10 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
+import { DataTable } from '../../../../Shared';
 import { mockActivity } from '../__mocks__/data';
 import ActivityForm from '../configureSettings/activityForm';
 import UpperFormSection from '../configureSettings/upperFormSection';
-import { DataTable } from '../../../../Shared';
 
 const mockProps = {
   activity: mockActivity,

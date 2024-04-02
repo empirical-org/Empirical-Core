@@ -11,30 +11,27 @@
 #  is_retry              :boolean          default(FALSE)
 #  percentage            :float
 #  started_at            :datetime
-#  state                 :string           default("unstarted"), not null
+#  state                 :string(255)      default("unstarted"), not null
 #  temporary             :boolean          default(FALSE)
 #  timespent             :integer
-#  uid                   :string
+#  uid                   :string(255)
 #  visible               :boolean          default(TRUE), not null
 #  created_at            :datetime
 #  updated_at            :datetime
 #  activity_id           :integer
 #  classroom_activity_id :integer
 #  classroom_unit_id     :integer
-#  pairing_id            :string
+#  pairing_id            :string(255)
 #  user_id               :integer
 #
 # Indexes
 #
-#  index_activity_sessions_on_activity_id            (activity_id)
-#  index_activity_sessions_on_classroom_activity_id  (classroom_activity_id)
-#  index_activity_sessions_on_classroom_unit_id      (classroom_unit_id)
-#  index_activity_sessions_on_completed_at           (completed_at)
-#  index_activity_sessions_on_pairing_id             (pairing_id)
-#  index_activity_sessions_on_started_at             (started_at)
-#  index_activity_sessions_on_state                  (state)
-#  index_activity_sessions_on_uid                    (uid) UNIQUE
-#  index_activity_sessions_on_user_id                (user_id)
+#  new_activity_sessions_activity_id_idx        (activity_id)
+#  new_activity_sessions_classroom_unit_id_idx  (classroom_unit_id)
+#  new_activity_sessions_completed_at_idx       (completed_at)
+#  new_activity_sessions_uid_idx                (uid) UNIQUE
+#  new_activity_sessions_uid_key                (uid) UNIQUE
+#  new_activity_sessions_user_id_idx            (user_id)
 #
 require 'rails_helper'
 
@@ -49,6 +46,7 @@ describe ActivitySession, type: :model, redis: true do
   it { should have_many(:feedback_histories).through(:feedback_sessions) }
   it { should have_one(:classroom).through(:classroom_unit) }
   it { should have_one(:unit).through(:classroom_unit) }
+  it { should have_one(:unit_template).through(:unit) }
   it { should have_many(:concept_results) }
   it { should have_many(:concepts).through(:concept_results) }
   it { should have_many(:teachers).through(:classroom) }
@@ -500,52 +498,6 @@ end
         expect(activity_session.started_at).to eq(time)
         expect(activity_session.state).to eq("started")
       end
-    end
-  end
-
-  describe '#parse_for_results' do
-    let!(:activity_session) { create(:activity_session) }
-    let!(:proficient_concept) { create(:concept)}
-    let!(:proficient_concept_result) { create(:concept_result, concept: proficient_concept, activity_session: activity_session, correct: true)}
-    let!(:nearly_proficient_concept) { create(:concept)}
-    let!(:nearly_proficient_concept_result_positive1) { create(:concept_result, concept: nearly_proficient_concept, activity_session: activity_session, correct: true)}
-    let!(:nearly_proficient_concept_result_positive2) { create(:concept_result, concept: nearly_proficient_concept, activity_session: activity_session, correct: true)}
-    let!(:nearly_proficient_concept_result_negative) { create(:concept_result, concept: nearly_proficient_concept, activity_session: activity_session, correct: false)}
-    let!(:not_yet_proficient_concept) { create(:concept)}
-    let!(:not_yet_proficient_concept_result) { create(:concept_result, concept: not_yet_proficient_concept, activity_session: activity_session, correct: false)}
-    let!(:ignored_concept) { create(:concept, uid: ActivitySession::CONCEPT_UIDS_TO_EXCLUDE_FROM_REPORT[0])}
-    let!(:ignored_concept_result) { create(:concept_result, concept: ignored_concept, activity_session: activity_session, correct: false)}
-
-    it 'should return an object with concept results organized by category' do
-      expect(activity_session.parse_for_results[ActivitySession::PROFICIENT]).to be_present
-      expect(activity_session.parse_for_results[ActivitySession::NEARLY_PROFICIENT]).to be_present
-      expect(activity_session.parse_for_results[ActivitySession::NOT_YET_PROFICIENT]).to be_present
-    end
-
-    it 'should return concept results that averaged 80% or higher in the PROFICIENT category' do
-      expect(activity_session.parse_for_results[ActivitySession::PROFICIENT]).to include(proficient_concept.name)
-    end
-
-    it 'should return concept results that averaged 60% or higher in the NEARLY PROFICIENT category' do
-      expect(activity_session.parse_for_results[ActivitySession::NEARLY_PROFICIENT]).to include(nearly_proficient_concept.name)
-    end
-
-    it 'should return concept results that averaged below 60 in the NOT YET PROFICIENT category' do
-      expect(activity_session.parse_for_results[ActivitySession::NOT_YET_PROFICIENT]).to include(not_yet_proficient_concept.name)
-    end
-
-    it 'should not return the ignored concept result in any category if there are fewer than four concept results for it' do
-      expect(activity_session.parse_for_results[ActivitySession::PROFICIENT]).not_to include(ignored_concept.name)
-      expect(activity_session.parse_for_results[ActivitySession::NEARLY_PROFICIENT]).not_to include(ignored_concept.name)
-      expect(activity_session.parse_for_results[ActivitySession::NOT_YET_PROFICIENT]).not_to include(ignored_concept.name)
-    end
-
-    it 'should return the ignored concept result if there are at least four concept results for it' do
-      3.times do |i|
-        ignored_concept_result.id = nil
-        ConceptResult.create(ignored_concept_result.attributes)
-      end
-      expect(activity_session.parse_for_results[ActivitySession::NOT_YET_PROFICIENT]).to include(ignored_concept.name)
     end
   end
 
@@ -1094,5 +1046,13 @@ end
 
       it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(1) }
     end
+  end
+
+  context 'is_evidence?' do
+    let!(:evidence_activity_session) { create(:evidence_activity_session) }
+    let!(:diagnostic_activity_session) { create(:activity_session) }
+
+    it { expect(evidence_activity_session.is_evidence?).to eq(true) }
+    it { expect(diagnostic_activity_session.is_evidence?).to eq(false) }
   end
 end

@@ -5,17 +5,17 @@
   width: 100%;
   li {
     a {
-      background: #06806B;
-      border-left: 1px solid #006150;
-      color: $white;
+      background: $quill-green-5;
+      border-left: 1px solid #BAD6D1;
+      color: $quill-green;
       font-size: 14px;
       font-weight: 600;
       line-height: 41px;
       margin-top: 0px;
-      padding: 3px 32px 3px;
+      padding: 3px 24px 3px;
       text-decoration: none;
       &:hover {
-        background-color: #0E927C;
+        background-color: rgba(188, 220, 214, 1);
       }
 
       &.mobile {
@@ -34,10 +34,10 @@
 
     &.active {
       a {
-        background: $white;
+        background: $quill-green;
         border-bottom: none;
         border-left-width: 0;
-        color: #027360;
+        color: $quill-white;
         position: relative;
 
         &:after {
@@ -58,43 +58,159 @@
 }
 
 .tab-subnavigation-wrapper {
-  background: #fff;
-  border-bottom: 1px solid #cecece;
-  margin-top: -1px;
-  min-height: 48px;
-  padding: 8px 0;
+  &.desktop {
+    background: $quill-green;
+    min-height: 44px;
+    padding: 8px 0;
 
-  &.about-subtabs {
-    margin-top: 0;
-  }
+    &.about-subtabs {
+      margin-top: 0;
+    }
 
-  ul {
-    float: left;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-
-    li {
+    ul {
       float: left;
-      padding: 5px;
-      &:first-of-type {
-        padding-left: 0px;
-      }
-      a {
-        border-radius: 6px;
-        color: #3b3b3b;
-        font-size: 13px;
-        height: 35px;
-        padding: 5px 12px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
 
-        &.active {
-          background: #e6e6e6;
+      li {
+        float: left;
+        padding-left: 4px;
+        padding-right: 4px;
+        &:first-of-type {
+          padding-left: 0px;
         }
+        a, button {
+          border-radius: 6px;
+          color: $quill-white;
+          font-size: 13px;
+          display: flex;
+          align-items: center;
+          height: 28px;
+          padding: 5px 12px;
 
-        .fa-external-link {
-          display: inline-block;
-          font-size: 11px;
-          margin-left: 6px;
+          &.active {
+            background: $quill-white;
+            color: $quill-green;
+            text-decoration: none;
+          }
+
+          &:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            color: $quill-white;
+          }
+
+          .fa-external-link {
+            display: inline-block;
+            font-size: 11px;
+            margin-left: 6px;
+          }
+        }
+      }
+    }
+  }
+  &.mobile {
+    height: 76px;
+    &.home-or-tools-page {
+      .dropdown-container {
+        background-color: transparent;
+      }
+    }
+    .dropdown-container {
+      position: absolute;
+      width: 100%;
+      padding: 16px;
+      background-color: $quill-green;
+      .open {
+        .dropdown-menu {
+          display: block;
+          margin: 0;
+          padding: 0px 16px 16px 16px;
+          border: none;
+          border-radius: 0px 0px 10px 10px;
+          background-color: $quill-green;
+          li {
+            padding: 16px 0px;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            &#mobile-diagnostics-tab {
+              border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+              border-radius: 0;
+            }
+            &#my-account-tab {
+              margin-bottom: 0px;
+            }
+            a {
+              padding: 0px;
+              margin-left: 16px;
+              color: $quill-white;
+              font-weight: 600;
+              line-height: 20px;
+              background-color: transparent !important;
+              .premium-tab-copy {
+                display: flex;
+                img {
+                  display: inherit;
+                  margin-left: 8px;
+                }
+              }
+            }
+            .checkmark-icon {
+              background-image: url("https://assets.quill.org/images/icons/mobile-white-check.svg");
+              background-repeat: no-repeat;
+              background-position: center;
+              width: 18px;
+              height: 19px;
+              display: none;
+              margin-right: 10.5px;
+              &.active {
+                display: inherit;
+              }
+            }
+          }
+        }
+      }
+      .dropdown-menu {
+        display: none;
+      }
+      #mobile-subnav-dropdown {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: $quill-white;
+        line-height: 20px;
+        color: $quill-green;
+        width: 100%;
+        height: 44px;
+        border-radius: 6px;
+        padding: 16px;
+        p {
+          font-size: 16px;
+          font-weight: 600;
+          margin-bottom: 0px;
+        }
+        i {
+          font-size: 24px;
+          font-weight: 200;
+        }
+      }
+    }
+    &.red {
+      .dropdown-container {
+        background-color: $quill-maroon;
+        #mobile-subnav-dropdown {
+          color: $quill-maroon;
+        }
+        .dropdown-menu {
+          background-color: $quill-maroon;
+          li {
+            a {
+              color: $quill-white !important;
+            }
+          }
         }
       }
     }
@@ -102,44 +218,39 @@
 }
 
 .student-reports-subnav.tab-subnavigation-wrapper {
-  margin-top: -1px;
-  $orange: #eda41b;
+  min-height: 44px;
 
-  a:not(.default) {
-    border: 1px solid $orange;
-    color: #875a12;
-    &.active {
-      background: $orange;
-      color: white;
-
-      i, svg {
-        color: white;
-      }
-
-      img {
-        filter: brightness(0) invert(1);
-      }
-    }
-
-    i, svg {
-      color: $orange;
-    }
-
-    &:hover {
-      text-decoration: none;
-      background: $orange;
-      color: white;
-
-      i, svg {
-        color: white;
-      }
-
-      img {
-        filter: brightness(0) invert(1);
-      }
-    }
+  ul {
+    display: flex;
+    align-items: center;
   }
 
+  a {
+    display: flex;
+    align-items: center;
+    height: auto;
+  }
+  a:not(.default) {
+    background-color: rgba(255, 255, 255, 0.35);
+    color: white;
+    &.active {
+      background-color: $quill-white;
+      color: $quill-green;
+      .small-diamond-icon {
+        background-image: url("https://assets.quill.org/images/icons/green-diamond.svg");
+      }
+      &:hover {
+        color: $quill-white;
+        background-color: rgba(255, 255, 255, 0.5);
+        .small-diamond-icon {
+          background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
+        }
+      }
+    }
+    .small-diamond-icon {
+      background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
+    }
+  }
   li a img {
     margin-top: -3px;
   }
@@ -164,8 +275,36 @@
   }
 }
 
+#student-reports-link {
+  a {
+    border-radius: 0px 8px 0px 0px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .hide-on-mobile {
+    &.premium-tab-copy {
+      display: none !important;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .hide-on-desktop {
+      &.premium-tab-small {
+        display: none !important;
+      }
+    }
+}
+
 @media (min-width: 930px) {
-  .hide-on-desktop { display: none !important; }
+  .hide-on-desktop:not(.premium-tab-small) { display: none !important; }
+}
+
+@media (min-width: 930px) and (max-width: 1040px) {
+  #teacher-nav-tabs li a {
+      padding: 3px 20px 3px;
+  }
 }
 
 @media (max-width: 930px) {
@@ -262,5 +401,25 @@
         }
       }
     }
+  }
+}
+
+@media (max-width: 1150px) {
+  .tab-subnavigation-wrapper.desktop {
+    display: none;
+  }
+
+  .tab-subnavigation-wrapper.mobile {
+    display: inherit;
+  }
+}
+
+@media (min-width: 1151px) {
+  .tab-subnavigation-wrapper.desktop {
+    display: flex;
+  }
+
+  .tab-subnavigation-wrapper.mobile {
+    display: none;
   }
 }

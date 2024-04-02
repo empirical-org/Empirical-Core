@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "yaml"
-
 module Evidence
   class Configs
     DEFAULT_PATH = Evidence::Engine.root.join('config')

@@ -1,10 +1,10 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import AddStudents, { studentsCreate, teacherCreates} from '../add_students'
-import StudentOptions from '../student_options'
-import ClassCodeLink from '../class_code_link'
-import CreateStudentAccounts from '../create_student_accounts'
+import AddStudents, { studentsCreate, teacherCreates } from '../add_students';
+import ClassCodeLink from '../class_code_link';
+import CreateStudentAccounts from '../create_student_accounts';
+import StudentOptions from '../student_options';
 
 const classroom = { id: 1, code: 'happy-day', name: 'Classroom'}
 

@@ -21,29 +21,6 @@ describe Api::V1::FirebaseTokensController, type: :controller do
       end
     end
 
-    context 'when authenticated via OAuth' do
-      let(:token) { double :acceptable? => true }
-
-      before do
-        allow(controller).to receive(:doorkeeper_token) { token }
-        allow(token).to receive(:resource_owner_id) { user.id }
-      end
-
-      def subject
-        post :create, params: { app: 'foobar' }, as: :json
-      end
-
-      it 'responds with 200' do
-        subject
-        expect(response.status).to eq(200)
-      end
-
-      it 'creates the token with the correct user info' do
-        expect_any_instance_of(FirebaseApp).to receive(:token_for).with(user).at_least(:once)
-        subject
-      end
-    end
-
     context 'when the firebase app does not exist' do
       subject { post :create, params: { app: 'nonexistent' }, as: :json }
 

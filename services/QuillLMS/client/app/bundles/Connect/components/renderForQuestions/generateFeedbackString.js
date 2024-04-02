@@ -1,7 +1,6 @@
-import React from 'react'
-import _ from 'underscore'
-let C = require("../../constants").default
+import _ from 'underscore';
 
+import C from "../../constants"
 
 const feedbackStrings = C.FEEDBACK_STRINGS
 

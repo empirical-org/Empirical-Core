@@ -1,6 +1,4 @@
-import { shallow } from 'enzyme';
 
-import EditUnitActivitiesContainer from '../EditUnitActivitiesContainer.jsx';
 
 describe('EditUnitActivitiesContainer container', () => {
 

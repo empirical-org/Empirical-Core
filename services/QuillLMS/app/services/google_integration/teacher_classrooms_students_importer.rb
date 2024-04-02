@@ -13,8 +13,8 @@ module GoogleIntegration
       import_classrooms_students
     end
 
-    private def classroom_students_client
-      @classroom_students_client ||= GoogleIntegration::Classroom::Requesters::Students.generate(teacher_client)
+    private def client
+      @client ||= ClientFetcher.run(teacher)
     end
 
     private def classrooms
@@ -22,15 +22,11 @@ module GoogleIntegration
     end
 
     private def classrooms_students_data
-      classrooms.map { |classroom| ClassroomStudentsData.new(classroom, classroom_students_client) }
+      classrooms.map { |classroom| ClassroomStudentsData.new(classroom, client) }
     end
 
     private def import_classrooms_students
       classrooms_students_data.each { |classroom_students_data| ClassroomStudentsImporter.run(classroom_students_data) }
-    end
-
-    private def teacher_client
-      @teacher_client ||= Client.new(teacher).create
     end
   end
 end

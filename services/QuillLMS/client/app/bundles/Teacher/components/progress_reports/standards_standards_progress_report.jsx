@@ -1,16 +1,13 @@
 import React from 'react'
-import _ from 'underscore'
-
-import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 
 import { NOT_SCORED_DISPLAY_TEXT } from './constants.js'
 
-import LoadingSpinner from '../shared/loading_indicator.jsx'
-import userIsPremium from '../modules/user_is_premium'
-import {sortTableByStandardLevel} from '../../../../modules/sortingMethods.js'
-import { getTimeSpent } from '../../helpers/studentReports'
-import { ReactTable, } from '../../../Shared/index'
 import { requestGet, } from '../../../../modules/request/index'
+import { sortTableByStandardLevel } from '../../../../modules/sortingMethods.js'
+import { ReactTable, ReportHeader, singleUserIcon, } from '../../../Shared/index'
+import { getTimeSpent } from '../../helpers/studentReports'
+import userIsPremium from '../modules/user_is_premium'
+import LoadingSpinner from '../shared/loading_indicator.jsx'
 
 export default class StandardsProgressReport extends React.Component {
   constructor() {
@@ -70,29 +67,22 @@ export default class StandardsProgressReport extends React.Component {
       }, {
         Header: 'Time spent',
         accessor: 'timespent',
-        className: blurIfNotPremium,
         resizable: false,
         width: 100,
-        Cell: ({row}) => (
-          getTimeSpent(row.original['timespent'])
-        )
+        Cell: ({ row }) => <span className={blurIfNotPremium}>{getTimeSpent(row.original['timespent'])}</span>
       }, {
         Header: 'Avg. score',
         accessor: 'average_score',
-        className: blurIfNotPremium,
         resizable: false,
         width: 100,
-        Cell: ({row}) => (
-          `${row.original['average_score']}`
-        )
+        Cell: ({ row }) => <span className={blurIfNotPremium}>{`${row.original['average_score']}`}</span>
       }, {
         Header: 'Proficiency Status',
         accessor: 'mastery_status',
-        className: blurIfNotPremium,
         resizable: false,
         width: 165,
         Cell: ({row}) => (
-          <span><span className={row.original['mastery_status'] === 'Proficient' ? 'proficient-indicator' : 'not-proficient-indicator'} />{row.original['mastery_status']}</span>
+          <span className={blurIfNotPremium}><span className={row.original['mastery_status'] === 'Proficient' ? 'proficient-indicator' : 'not-proficient-indicator'} />{row.original['mastery_status']}</span>
         )
       }
     ])
@@ -144,17 +134,19 @@ export default class StandardsProgressReport extends React.Component {
       return <LoadingSpinner />
     }
     const filteredData = this.filteredData()
+    const subHeaderElement = (
+      <div className="student-badge">
+        <img alt={singleUserIcon.alt} src={singleUserIcon.src} />
+        <p>{student.name}</p>
+      </div>
+    )
     return (
-      <div className='individual-student progress-reports-2018 '>
-        <div className="meta-overview flex-row space-between">
-          <div className='header-and-info'>
-            <h1><span>Standards Report:</span> {student.name}</h1>
-          </div>
-          <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport className="button-green" data={csvData} />
-            <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
-          </div>
-        </div>
+      <div className='teacher-report-container individual-student progress-reports-2018'>
+        <ReportHeader
+          csvData={csvData}
+          headerText="Standards Report"
+          subHeaderElement={subHeaderElement}
+        />
         <div key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
           <ReactTable
             className='progress-report has-green-arrow'

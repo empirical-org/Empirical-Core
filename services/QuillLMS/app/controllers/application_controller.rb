@@ -28,45 +28,17 @@ class ApplicationController < ActionController::Base
   DIAGNOSTIC = 'diagnostic'
   LESSONS = 'lessons'
 
+  STAFF = 'staff'
+
   helper SegmentioHelper
 
-  before_action :set_raven_context
+  before_action :set_sentry_context
   before_action :check_staff_for_extended_session
   before_action :confirm_valid_session
   before_action :set_default_cache_security_headers
 
-  def admin!
-    return if current_user.try(:admin?)
-
-    auth_failed
-  end
-
-  def staff!
-    return if current_user.try(:staff?)
-
-    auth_failed
-  end
-
-  def teacher_or_staff!
-    return if current_user.try(:teacher?)
-
-    staff!
-  end
-
-  def teacher!
-    return if current_user.try(:teacher?)
-
-    admin!
-  end
-
-  def student!
-    return if current_user.try(:student?)
-
-    auth_failed
-  end
-
   def show_errors
-    status = env['PATH_INFO'][1..-1]
+    status = env['PATH_INFO'][1..]
     render_error(status)
   end
 
@@ -152,14 +124,14 @@ class ApplicationController < ActionController::Base
     response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
   end
 
-  protected def set_raven_context
-    Raven.user_context(id: session[:current_user_id])
-    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+  protected def set_sentry_context
+    Sentry.set_user(id: session[:current_user_id])
+    Sentry.set_extras(params: params.to_unsafe_h, url: request.url)
   end
 
   protected def confirm_valid_session
     return if current_user.nil? || session.nil? || session[:staff_id] || admin_impersonating_user?(current_user)
-    return unless reset_session? || current_user.google_access_expired?
+    return unless reset_session? || current_user.google_access_expired_and_no_password?
 
     reset_session_and_redirect_to_sign_in
   end

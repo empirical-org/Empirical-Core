@@ -1,11 +1,10 @@
 import React from 'react';
-import moment from 'moment';
 
-import CreateOrEditBlogPost from '../components/cms/blog_posts/create_or_edit_blog_post';
-import BlogPostTable from '../components/cms/blog_posts/blog_post_table';
-import FeaturedBlogPosts from '../components/cms/blog_posts/featured_blog_posts.tsx'
-import BlogPostIndex from '../components/blog_posts/blog_post_index';
 import BlogPost from '../components/blog_posts/blog_post';
+import BlogPostIndex from '../components/blog_posts/blog_post_index';
+import BlogPostTable from '../components/cms/blog_posts/blog_post_table';
+import CreateOrEditBlogPost from '../components/cms/blog_posts/create_or_edit_blog_post';
+import FeaturedBlogPosts from '../components/cms/blog_posts/featured_blog_posts.tsx';
 import getAuthToken from '../components/modules/get_auth_token';
 
 const FEATURED_BLOG_POST_LIMIT = 5

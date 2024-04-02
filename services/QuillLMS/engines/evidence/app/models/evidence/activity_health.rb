@@ -1,5 +1,24 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: evidence_activity_healths
+#
+#  id                    :bigint           not null, primary key
+#  name                  :string           not null
+#  flag                  :string           not null
+#  activity_id           :integer          not null
+#  version               :integer          not null
+#  version_plays         :integer          not null
+#  total_plays           :integer          not null
+#  completion_rate       :integer
+#  because_final_optimal :integer
+#  but_final_optimal     :integer
+#  so_final_optimal      :integer
+#  avg_completion_time   :integer
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#
 module Evidence
   class ActivityHealth < ApplicationRecord
 

@@ -1,11 +1,11 @@
-import 'whatwg-fetch'
-import React from 'react';
-import { Provider } from 'react-redux'
-import createStore from '../../../utils/configureStore';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
+import React from 'react';
+import { Provider } from 'react-redux';
+import 'whatwg-fetch';
+import createStore from '../../../utils/configureStore';
 
-import Lessons from '../lessons'
+import Lessons from '../lessons';
 
 describe('Lessons component', () => {
 
@@ -17,7 +17,7 @@ describe('Lessons component', () => {
     data: {},
   }}
 
-  const wrapper = shallow(<Provider store={store}><Lessons props={props} /></Provider>)
+  const wrapper = mount(<Provider store={store}><Lessons props={props} /></Provider>)
   it('matches the snapshot', () => {
     expect(toJson(wrapper)).toMatchSnapshot()
   })

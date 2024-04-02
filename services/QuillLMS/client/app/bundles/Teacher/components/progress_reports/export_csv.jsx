@@ -1,8 +1,9 @@
 import React from 'react';
 
 import Pusher from 'pusher-js';
-import ButtonLoadingIndicator from '../shared/button_loading_indicator.jsx';
-import { requestPost, } from '../../../../modules/request/index'
+import { requestPost, } from '../../../../modules/request/index';
+import { ButtonLoadingSpinner, } from '../../../Shared/index'
+;
 
 export default class ExportCSV extends React.Component {
   static defaultProps = {requestUrl: `${process.env.DEFAULT_URL}/teachers/progress_reports/csv_exports`};
@@ -44,7 +45,7 @@ export default class ExportCSV extends React.Component {
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
-    const pusher = new Pusher(process.env.PUSHER_KEY, {encrypted: true});
+    const pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
     let teacherId = this.props.teacher.id
     const channel = pusher.subscribe(teacherId.toString());
     const that = this;
@@ -66,7 +67,7 @@ export default class ExportCSV extends React.Component {
     } else if (s.waitingForCsv) {
       content = (<span>
                         Downloading
-        <ButtonLoadingIndicator />
+        <ButtonLoadingSpinner />
       </span>)
     } else {
       content = 'Download Report'

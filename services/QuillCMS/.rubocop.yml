@@ -1,0 +1,28 @@
+inherit_from:
+  - ../.rubocop_base.yml
+  - .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 3.2
+
+Layout/ArrayAlignment:
+  Enabled: true
+  Exclude:
+    - spec/workers/rematch_response_worker_spec.rb
+
+Lint/AssignmentInCondition:
+  Enabled: true
+  Exclude:
+    - lib/tasks/import_from_firebase.rake
+    - lib/tasks/import_responses_from_csv.rake
+
+Style/MixinUsage:
+  Enabled: true
+  Exclude:
+    - bin/setup
+    - bin/update
+
+Style/RaiseArgs:
+  Enabled: true
+  Exclude:
+    - app/workers/rematch_response_worker.rb

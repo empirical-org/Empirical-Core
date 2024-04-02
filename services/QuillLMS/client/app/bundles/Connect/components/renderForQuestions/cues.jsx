@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Cue, CueExplanation } from '../../../Shared/index'
+import { Cue, CueExplanation } from '../../../Shared/index';
 const arrow = `${process.env.CDN_URL}/images/icons/pointing-arrow.svg`;
 
 export default class Cues extends React.Component {

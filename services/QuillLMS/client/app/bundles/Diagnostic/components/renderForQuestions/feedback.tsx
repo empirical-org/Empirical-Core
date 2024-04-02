@@ -1,6 +1,6 @@
 import * as React from 'react';
-import getAnswerState from './answerState';
 import { Feedback } from '../../../Shared/index';
+import getAnswerState from './answerState';
 
 class FeedbackComponent extends React.Component<any, any> {
   constructor(props) {

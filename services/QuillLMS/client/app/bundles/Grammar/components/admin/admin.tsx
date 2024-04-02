@@ -1,22 +1,22 @@
 import * as React from 'react';
-import { Route, Switch, withRouter, RouteComponentProps } from "react-router-dom";
 import { connect } from 'react-redux';
-import * as grammarActivitiesActions from '../../actions/grammarActivities'
-import * as questionsActions from '../../actions/questions'
-import * as conceptsActions from '../../actions/concepts'
-import * as conceptsFeedbackActions from '../../actions/conceptsFeedback'
-import * as questionAndConceptMapActions from '../../actions/questionAndConceptMap'
-import Questions from '../questions/questions'
-import Question from '../questions/question'
-import Lessons from '../lessons/lessons'
-import Lesson from '../lessons/lesson'
-import Concepts from '../concepts/concepts'
-import Concept from '../concepts/concept'
-import ConceptsFeedback from '../conceptsFeedback/conceptsFeedback'
-import ConceptFeedback from '../conceptsFeedback/conceptFeedback'
-import QuestionDashboard from '../dashboards/questionDashboard'
-import ConceptDashboard from '../dashboards/conceptDashboard'
-import TabLink from './tabLink'
+import { Route, RouteComponentProps, Switch, withRouter } from "react-router-dom";
+import * as conceptsActions from '../../actions/concepts';
+import * as conceptsFeedbackActions from '../../actions/conceptsFeedback';
+import * as grammarActivitiesActions from '../../actions/grammarActivities';
+import * as questionAndConceptMapActions from '../../actions/questionAndConceptMap';
+import * as questionsActions from '../../actions/questions';
+import Concept from '../concepts/concept';
+import Concepts from '../concepts/concepts';
+import ConceptFeedback from '../conceptsFeedback/conceptFeedback';
+import ConceptsFeedback from '../conceptsFeedback/conceptsFeedback';
+import ConceptDashboard from '../dashboards/conceptDashboard';
+import QuestionDashboard from '../dashboards/questionDashboard';
+import Lesson from '../lessons/lesson';
+import Lessons from '../lessons/lessons';
+import Question from '../questions/question';
+import Questions from '../questions/questions';
+import TabLink from './tabLink';
 
 const usersEndpoint = `${process.env.DEFAULT_URL}/api/v1/users.json`;
 const newSessionEndpoint = `${process.env.DEFAULT_URL}/session/new`;

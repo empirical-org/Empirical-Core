@@ -1,44 +1,45 @@
-import * as React from "react";
-import * as Redux from "redux";
-import {connect} from "react-redux";
 import * as _ from 'lodash';
 import { Response } from 'quill-marking-logic';
+import * as React from "react";
+import { connect } from "react-redux";
+import * as Redux from "redux";
+import Pusher from 'pusher-js';
 
-import QuestionComponent from './question'
-import Intro from './intro'
-import TurkCodePage from './turkCodePage'
+import Intro from './intro';
+import QuestionComponent from './question';
+import TurkCodePage from './turkCodePage';
 
-import getParameterByName from '../../helpers/getParameterByName';
-import { getActivity } from "../../actions/grammarActivities";
+import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
-  updateSession,
-  getQuestionsForConcepts,
-  getQuestions,
-  goToNextQuestion,
+  CLICK,
+  KEYDOWN,
+  KEYPRESS,
+  MOUSEDOWN,
+  MOUSEMOVE,
+  SCROLL,
+  VISIBILITYCHANGE,
+  roundValuesToSeconds,
+} from '../../../Shared/index';
+import { startListeningToConcepts } from '../../actions/concepts';
+import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback';
+import { getActivity } from "../../actions/grammarActivities";
+import { startListeningToQuestions } from '../../actions/questions';
+import {
   checkAnswer,
+  getQuestions,
+  getQuestionsForConcepts,
+  goToNextQuestion,
   startListeningToFollowUpQuestionsForProofreaderSession,
   startNewSession,
+  updateSession,
 } from "../../actions/session";
-import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback'
-import { startListeningToConcepts } from '../../actions/concepts'
-import { startListeningToQuestions } from '../../actions/questions'
-import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../helpers/conceptResultsGenerator'
-import { SessionState } from '../../reducers/sessionReducer'
-import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
-import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer'
-import { Question, FormattedConceptResult } from '../../interfaces/questions'
-import LoadingSpinner from '../shared/loading_spinner'
-import {
-  roundValuesToSeconds,
-  KEYDOWN,
-  MOUSEMOVE,
-  MOUSEDOWN,
-  CLICK,
-  KEYPRESS,
-  VISIBILITYCHANGE,
-  SCROLL,
-} from '../../../Shared/index'
-import { requestPut, requestPost, } from '../../../../modules/request/index'
+import { calculateScoreForLesson, getConceptResultsForAllQuestions } from '../../helpers/conceptResultsGenerator';
+import getParameterByName from '../../helpers/getParameterByName';
+import { FormattedConceptResult, Question } from '../../interfaces/questions';
+import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer';
+import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer';
+import { SessionState } from '../../reducers/sessionReducer';
+import LoadingSpinner from '../shared/loading_spinner';
 
 interface PlayGrammarContainerState {
   showTurkCode: boolean;
@@ -146,22 +147,6 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       this.saveToLMS(session)
     }
 
-    if (hasreceiveddata && grammarActivities.currentActivity && !session.hasreceiveddata && !session.pending && !session.error) {
-      const { questions, concepts, flag } = grammarActivities.currentActivity
-      if (questions && questions.length) {
-        dispatch(getQuestions(questions, flag))
-      } else {
-        dispatch(getQuestionsForConcepts(concepts, flag))
-      }
-    }
-
-    if (session.hasreceiveddata && !session.currentQuestion && session.unansweredQuestions.length === 0 && session.answeredQuestions.length > 0) {
-      this.saveToLMS(session)
-      // handles case where proofreader has no follow-up questions
-    } else if (session.hasreceiveddata && !session.currentQuestion && session.unansweredQuestions.length === 0 && session.proofreaderSession) {
-      this.saveToLMS(session)
-    }
-
     const sessionID = getParameterByName('student', window.location.href)
     const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
     const sessionIdentifier = sessionID || proofreaderSessionId
@@ -176,7 +161,6 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     }
     if(previewMode && !introSkipped && skippedToQuestionFromIntro) {
       this.setState({ introSkipped: true });
-      this.goToNextQuestion();
     }
 
   }
@@ -271,7 +255,27 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       }
     }
 
+    initializeSubscription(activitySessionUid) {
+      if (process.env.NODE_ENV === 'development') {
+        Pusher.logToConsole = true;
+      }
+      if (!window.pusher) {
+        window.pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
+      }
+      const channel = window.pusher.subscribe(activitySessionUid);
+      channel.bind('concept-results-saved', () => {
+        document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${activitySessionUid}`;
+        this.setState({ saved: true, });
+      });
+
+      channel.bind('concept-results-partially-saved', () => {
+        document.location.href = process.env.DEFAULT_URL;
+      });
+    }
+
     finishActivitySession = (sessionID: string, results: FormattedConceptResult[], score: number, data) => {
+      this.initializeSubscription(sessionID)
+
       requestPut(
         `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
         {
@@ -281,8 +285,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
           data
         },
         (body) => {
-          document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
-          this.setState({ saved: true, });
+          // not doing anything here because Pusher should handle the redirect once the concept results are saved
         },
         (body) => {
           this.setState({
@@ -308,7 +311,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         },
         (body) => {
           if (!showTurkCode && !previewMode) {
-            document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
+            this.initializeSubscription(body.activity_session.uid)
           }
         }
       )

@@ -1,0 +1,38 @@
+<p>Dear <%= @user_first_name %>,</p>
+<p>Your <%= @frequency %> Quill Admin Usage Snapshot Report is here! 🎉</p>
+
+<p>
+  📥
+  <a
+    clicktracking=off
+    href="<%= @download_url %>"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    <b>Download Report</b>
+  </a>
+<p>
+  📊
+  <a
+    clicktracking=off
+    href="<%= @premium_hub_url %>"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    <b>Explore More Admin Reports</b>
+  </a>
+</p>
+
+<p>Best regards,</p>
+<p><%= @constants[:signatures][:quill_team]%></p>
+
+<p>
+  <a
+    clicktracking=off
+    href="<%= @unsubscribe_url %>"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    <b>Unsubscribe from this report</b>
+  </a>
+</p>

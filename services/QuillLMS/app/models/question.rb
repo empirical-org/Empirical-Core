@@ -50,6 +50,8 @@ class Question < ApplicationRecord
     TYPE_GRAMMAR_QUESTION => 'grammar_questions',
   }
 
+  has_many :diagnostic_question_skills
+
   validates :data, presence: true
   validates :question_type, presence: true, inclusion: {in: TYPES}
   validates :uid, presence: true, uniqueness: true

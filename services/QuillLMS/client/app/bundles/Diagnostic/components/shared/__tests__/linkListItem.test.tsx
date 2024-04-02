@@ -1,8 +1,9 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
-import { LinkListItem } from '../linkListItem';;
+import { LinkListItem } from '../linkListItem';
+;
 
 describe('LinkListItem component', () => {
   const text = 'Fix this sentence.'

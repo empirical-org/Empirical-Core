@@ -1,12 +1,20 @@
 # frozen_string_literal: true
 
 class ProfilesController < ApplicationController
+  include PublicProgressReports
+
+  ACTIVITY_ID = 'activity_id'
+  CLASSROOM_UNIT_ID = 'classroom_unit_id'
+  UA_ID = 'ua_id'
+
   before_action :signed_in!
 
   def show
     @user = current_user
 
-    if current_user.student?
+    if current_user.email_verification_pending?
+      redirect_to '/sign-up/verify-email'
+    elsif current_user.student?
       @js_file = 'student'
       if current_user.classrooms.any?
         # in the future, we could use the following sql query to direct the student
@@ -30,13 +38,19 @@ class ProfilesController < ApplicationController
   end
 
   def student_profile_data
-    if current_user.classrooms.any?
+    classroom_id = params[:current_classroom_id]
+
+    if current_user.classrooms.any? && classroom_id
       render json: {
-        scores: student_profile_data_sql(params[:current_classroom_id]),
+        scores: student_profile_data_sql(classroom_id),
         next_activity_session: next_activity_session,
         student: student_data,
-        classroom_id: params[:current_classroom_id]
+        classroom_id: classroom_id,
+        show_exact_scores: Classroom.find_by_id(classroom_id)&.owner&.teacher_info&.show_students_exact_score,
+        metrics: StudentDashboardMetrics.new(current_user, classroom_id).run
       }
+    elsif current_user.classrooms.any?
+      render json: {}
     else
       render json: {error: 'Current user has no classrooms'}
     end
@@ -51,6 +65,14 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def student_exact_scores_data
+    exact_scores_data = Rails.cache.fetch(student_score_cache_key, expires_in: 8.hours) do
+      exact_scores_data_all(current_user, params[:data], params[:classroom_id])
+    end
+
+    render json: { exact_scores_data:}
+  end
+
   def students_classrooms_json
     render json: {classrooms: students_classrooms_with_join_info}
   end
@@ -58,7 +80,7 @@ class ProfilesController < ApplicationController
   def admin
     return redirect_to dashboard_teachers_classrooms_path if admin_impersonating_user?(@user)
 
-    redirect_to teachers_admin_dashboard_path
+    redirect_to teachers_premium_hub_path
   end
 
   def teacher
@@ -67,6 +89,40 @@ class ProfilesController < ApplicationController
 
   def staff
     render :staff
+  end
+
+  private def student_score_cache_key = User.student_scores_cache_key(current_user.id, params[:classroom_id])
+
+  private def exact_scores_data_all(user, data, classroom_id)
+    activity_sessions_grouped = student_activity_sessions_grouped(user.id, data)
+
+    data.map do |user_activity|
+      key = [user_activity[ACTIVITY_ID]&.to_i, user_activity[CLASSROOM_UNIT_ID]&.to_i]
+      activity_sessions = activity_sessions_grouped[key] || []
+      student_exact_scores(user, user_activity, activity_sessions)
+    end
+  end
+
+  private def student_activity_sessions_grouped(user_id, data)
+    ActivitySession
+      .includes(:unit, concept_results: :concept, activity: :classification)
+      .where(
+        user_id: user_id,
+        activity_id: data.map{|h| h[ACTIVITY_ID]},
+        classroom_unit_id: data.map{|h| h[CLASSROOM_UNIT_ID]},
+        state: ActivitySession::STATE_FINISHED
+      )
+      .group_by {|as| [as.activity_id, as.classroom_unit_id]}
+  end
+
+  private def student_exact_scores(user, unit_activity_params, activity_sessions)
+    {
+      'sessions' => activity_sessions.map { |as| format_activity_session_for_tooltip(as, user) },
+      'completed_attempts' => activity_sessions.length,
+      ACTIVITY_ID => unit_activity_params[ACTIVITY_ID],
+      CLASSROOM_UNIT_ID => unit_activity_params[CLASSROOM_UNIT_ID],
+      UA_ID => unit_activity_params[UA_ID]
+    }
   end
 
   protected def user_params
@@ -139,10 +195,8 @@ class ProfilesController < ApplicationController
   end
 
   protected def current_classroom(classroom_id = nil)
-    if classroom_id
-      current_user.classrooms.find_by(id: classroom_id.to_i) if !!classroom_id
-    else
-      current_user.classrooms.last
-    end
+    return if classroom_id.nil?
+
+    current_user.classrooms.find_by(id: classroom_id.to_i) if !!classroom_id
   end
 end

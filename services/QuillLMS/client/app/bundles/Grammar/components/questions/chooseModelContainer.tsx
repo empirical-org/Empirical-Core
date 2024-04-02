@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import ConceptSelector from '../shared/conceptSelector';
 import { ConceptExplanation } from '../../../Shared/index';
 import * as questionActions from '../../actions/questions';
-import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
-import { QuestionsReducerState } from '../../reducers/questionsReducer'
-import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer'
-import { ConceptReducerState } from '../../reducers/conceptsReducer'
-import { Match } from '../../interfaces/match'
+import { Match } from '../../interfaces/match';
+import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer';
+import { ConceptReducerState } from '../../reducers/conceptsReducer';
+import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer';
+import { QuestionsReducerState } from '../../reducers/questionsReducer';
+import ConceptSelector from '../shared/conceptSelector';
 
 interface ChooseModelContainerState {
   modelConceptUID: string|undefined;

@@ -1,5 +1,5 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
 import StaticDisplaySubscription from '../static_display_subscription';
 

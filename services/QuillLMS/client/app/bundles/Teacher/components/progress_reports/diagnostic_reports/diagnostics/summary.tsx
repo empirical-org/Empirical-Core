@@ -1,54 +1,53 @@
-import * as React from 'react'
-import qs from 'qs'
-import { withRouter, Link, } from 'react-router-dom';
+import qs from 'qs';
+import * as React from 'react';
+import { withRouter } from 'react-router-dom';
 
-import {
-  baseDiagnosticImageSrc,
-  noDataYet,
-  fileDocumentIcon,
-} from './shared'
-import PercentageCircle from './percentageCircle'
-import SkillGroupTooltip from './skillGroupTooltip'
 import {
   SkillGroupSummary,
   StudentResult,
-} from './interfaces'
+} from './interfaces';
+import PercentageCircle from './percentageCircle';
+import IneligibleForQuestionScoring from './ineligibleForQuestionScoring'
+import {
+  fileDocumentIcon,
+  noDataYet,
+  timeRewindIllustration,
+} from './shared';
+import SkillGroupTooltip from './skillGroupTooltip';
 
-import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_RESULTS_SUMMARY, } from '../../../shared/demo_onboarding_tour'
-import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet } from '../../../../../../modules/request/index';
 import {
   Tooltip,
-} from '../../../../../Shared/index'
-
-const timeRewindIllustration = <img alt="Illustration of a clock with an arrow pointing backwards" src={`${baseDiagnosticImageSrc}/time-rewind.svg`} />
+} from '../../../../../Shared/index';
+import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_RESULTS_SUMMARY, } from '../../../shared/demo_onboarding_tour';
+import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
 const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => {
-  const { name, description, not_yet_proficient_student_names, } = skillGroupSummary
+  const { name, description, not_yet_proficient_student_names, proficiency_scores_by_student } = skillGroupSummary
   let cardContent = noDataYet
   if (completedStudentCount) {
     const numberOfStudentsNeedingPractice = not_yet_proficient_student_names.length
-    const percentage = (numberOfStudentsNeedingPractice/completedStudentCount) * 100
+    const proficiencyScoresSum: any = Object.values(proficiency_scores_by_student).reduce((a: number, b: number) => a + b, 0)
+    const percentage = Math.round((proficiencyScoresSum/completedStudentCount) * 100)
     let needPracticeElement = <span className="need-practice-element no-practice-needed">No practice needed</span>
 
     if (numberOfStudentsNeedingPractice) {
       const tooltipText = `<p>${not_yet_proficient_student_names.join('<br>')}</p>`
-      const tooltipTriggerText = numberOfStudentsNeedingPractice === 1 ? "1 student needs practice" : `${numberOfStudentsNeedingPractice} students need practice`
+      const tooltipTriggerText = numberOfStudentsNeedingPractice === 1 ? "1 student recommended practice" : `${numberOfStudentsNeedingPractice} students recommended practice`
       needPracticeElement = (<Tooltip
         tooltipText={tooltipText}
         tooltipTriggerText={tooltipTriggerText}
         tooltipTriggerTextClass="need-practice-element"
       />)
     }
-
     cardContent = (<React.Fragment>
-      <span className="percentage-circle-label">Proficient</span>
+      <span className="percentage-circle-label">Score</span>
       <PercentageCircle
         bgcolor="#ebebeb"
         borderWidth={8}
         color="#4ea500"
         innerColor="#ffffff"
-        percent={100 - Math.round(percentage)}
+        percent={percentage}
         radius={52}
       />
       {needPracticeElement}
@@ -65,7 +64,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => 
   )
 }
 
-export const Summary = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, location, }) => {
+export const Summary = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, location, eligibleForQuestionScoring, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedStudentResults);
   const [studentResults, setStudentResults] = React.useState<StudentResult[]>(passedStudentResults || []);
   const [skillGroupSummaries, setSkillGroupSummaries] = React.useState<SkillGroupSummary[]>(passedSkillGroupSummaries || []);
@@ -75,12 +74,12 @@ export const Summary = ({ passedStudentResults, passedSkillGroupSummaries, match
   const unitQueryString = unitId ? `&unit_id=${unitId}` : ''
 
   React.useEffect(() => {
-    getResults()
-  }, [])
-
-  React.useEffect(() => {
-    setLoading(true)
-    getResults()
+    if (eligibleForQuestionScoring) {
+      setLoading(true)
+      getResults()
+    } else {
+      setLoading(false)
+    }
   }, [activityId, classroomId, unitId])
 
   function getResults() {
@@ -97,7 +96,9 @@ export const Summary = ({ passedStudentResults, passedSkillGroupSummaries, match
 
   let emptyState
 
-  if (!skillGroupSummaries.length) {
+  if (!eligibleForQuestionScoring) {
+    emptyState = <IneligibleForQuestionScoring pageName="class summary" />
+  } else if (!skillGroupSummaries.length) {
     emptyState = (<section className="results-empty-state">
       {timeRewindIllustration}
       <h2>This report is unavailable for diagnostics assigned before a certain date.</h2>

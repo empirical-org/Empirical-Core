@@ -1,6 +1,6 @@
+import { ContentState, EditorState } from 'draft-js';
+import * as _ from 'lodash';
 import * as React from 'react';
-import { EditorState, ContentState } from 'draft-js';
-import * as _ from 'lodash'
 
 import { TextEditor } from '../../../../Shared';
 import { PromptInterface } from '../../../interfaces/evidenceInterfaces';

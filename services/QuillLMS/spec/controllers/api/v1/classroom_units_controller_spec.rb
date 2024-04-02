@@ -24,11 +24,13 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
   end
   let(:teacher) { classroom.owner }
 
+  before {  request.accept = 'application/json' }
+
   context '#student_names' do
     it 'does not authenticate a teacher who is not associated with the classroom activity' do
       session[:user_id] = other_teacher.id
       get :student_names, params: { activity_id: activity.uid, classroom_unit_id: classroom_unit.id }, as: :json
-      expect(response.status).to be_in([303, 404])
+      expect(response.status).to eq 401
     end
 
     it 'authenticates a teacher who is associated with the classroom activity classroom' do
@@ -69,8 +71,9 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
   context '#teacher_and_classroom_name' do
     it 'does not authenticate a teacher who is not associated with the classroom activity' do
       session[:user_id] = other_teacher.id
+
       get :teacher_and_classroom_name, params: { classroom_unit_id: classroom_unit.id }, as: :json
-      expect(response.status).to be_in([303, 404])
+      expect(response.status).to eq 401
     end
 
     it 'authenticates a teacher who is associated with the classroom activity classroom' do
@@ -90,9 +93,19 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
   context '#finish_lesson' do
     let(:follow_up_activity) { create(:activity) }
     let(:activity) { create(:activity, follow_up_activity: follow_up_activity) }
+    let(:unit_activity) { UnitActivity.find_by(unit: classroom_unit.unit, activity: activity) }
+    let!(:classroom_unit_activity_state) do
+      create(:classroom_unit_activity_state,
+        classroom_unit: classroom_unit,
+        unit_activity: unit_activity,
+        pinned: true,
+        locked: false
+      )
+    end
 
     it 'does not authenticate a teacher who does not own the classroom activity' do
       session[:user_id] = other_teacher.id
+
       put :finish_lesson,
         params: {
           activity_id: activity.uid,
@@ -101,8 +114,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
           follow_up: true
         },
         as: :json
-
-      expect(response.status).to be_in([303, 404])
+      expect(response.status).to eq 401
     end
 
     it 'authenticates a teacher who does own the classroom activity' do
@@ -119,6 +131,21 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
         as: :json
 
       expect(response.status).not_to eq(303)
+    end
+
+    it 'authenticates a teacher who does own the classroom activity and updates update_at' do
+      session[:user_id] = teacher.id
+
+      expect do
+        put :finish_lesson,
+          params: {
+            activity_id: activity.uid,
+            classroom_unit_id: classroom_unit.id,
+            concept_results: [],
+            follow_up: true
+          },
+          as: :json
+      end.to change { classroom_unit_activity_state.reload.updated_at }
     end
 
     it 'sends the appropriate methods to ActivitySession' do
@@ -281,7 +308,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
   end
 
   describe '#classroom_teacher_and_coteacher_ids' do
-    let(:teacher_ids) { classroom.teacher_ids.collect {|i| [i, true]}.to_h }
+    let(:teacher_ids) { classroom.teacher_ids.to_h {|i| [i, true]} }
 
     before { session[:user_id] = teacher.id }
 

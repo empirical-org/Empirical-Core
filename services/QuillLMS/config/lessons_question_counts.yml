@@ -1,0 +1,56 @@
+# Note, obtained this by running a Rethink DB query to find the number of slides
+# per activity that are interactive.
+
+# Run in RethinkDB Admin
+# r.db('quill_lessons')
+#   .table("classroom_lessons")
+#   .group('id')
+#   .sum(function(lesson) {
+#     return lesson
+#       .getField('questions')
+#       .filter(function(question) {
+#         return r.expr(['CL-LB', 'CL-ST','CL-FL','CL-MS']).contains(question('type'))
+#       })
+#       .count()
+#   })
+
+default:
+  '-KsFqfPtBvlOFZmhZLjI': 2
+  '-KsFr4QDNGS7Wtez49ez': 6
+  '-KsJlSHlJ9G0rlVlRIfk': 4
+  '-KsJrEnfGODOwna7nqvA': 2
+  '-KsK-ymM2op_xype1Fay': 3
+  '-KsKZJx5VHnamM-5acKL': 6
+  '-KsKmzdhUYHYCB6EDKz_': 5
+  '-KsKpXAoaEIY5jvWMIzJ': 4
+  '-KsL-6oEuJHwxNcrVDjg': 3
+  '-KsL-WJOxa68oNqtrG0V': 2
+  '-KsL2AT06tFZJXlxTPhQ': 5
+  '-KsL6HwGEMOI5C7PHuS2': 2
+  '-KsL6d9-ij4oM7qMUZFm': 3
+  '-KsL9Kx6EpEKQHPw1WP3': 3
+  '-KsLCJWvsJpZG3RAj-jE': 2
+  '-KsLDWMFAOjXZxlo5ssQ': 4
+  '-KsOXi8nfdjJVxREBwvR': 2
+  '-KsO_d-isyrivHMKfoi-': 4
+  '-KsOaEE0VbhcqTrKx5sN': 2
+  '-KsOcKjE8F-wg_9nJxNY': 2
+  '-KsOhQN0j3a2QzF0vwiR': 3
+  '-KsOi7WHebBxssxsoDWT': 4
+  '-KsOkkI23rit9B5dmuIk': 2
+  '-KsOtuOOJGqGRfzyTns-': 3
+  '-KsOwIVQFzJKUgzFLe-U': 4
+  '-Kv8wF5PX-CTyzOWmXjd': 9
+  '-KzQfqbTuzpYETsVyfCi': 1
+  'ckdemo':  3
+  'compound-sentences':  3
+  'compound-sentences-demo': 5
+  'compound-sentences-part-two': 3
+  'compound-subjects': 3
+  'compound-subjects-demo':  4
+  'conjunctions-of-time':  4
+  'india': 2
+  'mlk': 3
+  'mvp': 2
+  'sandbox': 3
+  'time-order': 5

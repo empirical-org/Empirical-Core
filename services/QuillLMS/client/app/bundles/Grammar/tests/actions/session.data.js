@@ -1447,4 +1447,169 @@ const mockQuestions = {
   },
 }
 
-export { denormalizedSession, normalizedSession, mockQuestions }
+const mockConceptResults1 = [
+  {
+    concept_uid: "R3sBcYAvoXP2_oNVXiA98g",
+    metadata: {
+      correct: 0
+    }
+  },
+  {
+    concept_uid: "tSSLMHqX0q-9mKTJHSyung",
+    metadata: {
+      correct: 0
+    }
+  },
+  {
+    concept_uid: "R3sBcYAvoXP2_oNVXiA98g",
+    metadata: {
+      correct: 0
+    }
+  },
+  {
+    concept_uid: "hJKqVOkQQQgfEsmzOWC1xw",
+    metadata: {
+      correct: 0
+    }
+  },
+  {
+    concept_uid: "tSSLMHqX0q-9mKTJHSyung",
+    metadata: {
+      correct: 0
+    }
+  },
+  {
+    concept_uid: "hJKqVOkQQQgfEsmzOWC1xw",
+    metadata: {
+      correct: 0
+    }
+  },
+  {
+    concept_uid: "R3sBcYAvoXP2_oNVXiA98g",
+    metadata: {
+      correct: 0
+    }
+  },
+]
+
+const mockConceptResults2 = [
+  {
+    concept_uid: "R3sBcYAvoXP2_oNVXiA98g",
+    metadata: {
+      correct: 0
+    }
+  },
+  {
+    concept_uid: "tSSLMHqX0q-9mKTJHSyung",
+    metadata: {
+      correct: 0
+    }
+  },
+  {
+    concept_uid: "hJKqVOkQQQgfEsmzOWC1xw",
+    metadata: {
+      correct: 0
+    }
+  },
+  {
+    concept_uid: "i8s7u34nksjhdninsdlkji",
+    metadata: {
+      correct: 0
+    }
+  },
+  {
+    concept_uid: "asdh783hjadkjasku3jhas",
+    metadata: {
+      correct: 0
+    }
+  }
+]
+
+const mockConceptResults3 = [
+  {
+    concept_uid: "R3sBcYAvoXP2_oNVXiA98g",
+    metadata: {
+      correct: 0
+    }
+  },
+  {
+    concept_uid: "tSSLMHqX0q-9mKTJHSyung",
+    metadata: {
+      correct: 0
+    }
+  },
+  {
+    concept_uid: "hJKqVOkQQQgfEsmzOWC1xw",
+    metadata: {
+      correct: 0
+    }
+  },
+  {
+    concept_uid: "tSSLMHqX0q-9mKTJHSyasd",
+    metadata: {
+      correct: 0
+    }
+  },
+  {
+    concept_uid: "asdh783hjadkjasku3jhas",
+    metadata: {
+      correct: 0
+    }
+  },
+  {
+    concept_uid: "9823haksjdaksjd983jkha",
+    metadata: {
+      correct: 0
+    }
+  },
+  {
+    concept_uid: "ais87h43kjasdkhj8hkass",
+    metadata: {
+      correct: 0
+    }
+  },
+  {
+    concept_uid: "ash983hjashnbasdh934hn",
+    metadata: {
+      correct: 0
+    }
+  },
+  {
+    concept_uid: "87iyhbnsdii4nskdh8ikhn",
+    metadata: {
+      correct: 0
+    }
+  },
+  {
+    concept_uid: "znbxi7erhbsj7n3unsdujn",
+    metadata: {
+      correct: 0
+    }
+  },
+]
+
+const mockProofreaderSession1 = {
+  activityUID: "asl2JCt8j1ItiGeYbOJ5tQ",
+  anonymous: false,
+  conceptResults: mockConceptResults1,
+  passage: null,
+  timeTracking: null
+}
+
+const mockProofreaderSession2 = {
+  activityUID: "asl2JCt8j1ItiGeYbOJ5tQ",
+  anonymous: false,
+  conceptResults: mockConceptResults2,
+  passage: null,
+  timeTracking: null
+}
+
+const mockProofreaderSession3 = {
+  activityUID: "asl2JCt8j1ItiGeYbOJ5tQ",
+  anonymous: false,
+  conceptResults: mockConceptResults3,
+  passage: null,
+  timeTracking: null
+}
+
+export { denormalizedSession, normalizedSession, mockQuestions, mockProofreaderSession1, mockProofreaderSession2, mockProofreaderSession3 }

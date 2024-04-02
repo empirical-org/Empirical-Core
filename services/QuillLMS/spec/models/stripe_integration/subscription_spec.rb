@@ -144,5 +144,33 @@ RSpec.describe StripeIntegration::Subscription do
         it { expect(subject).to eq stripe_last_four }
       end
     end
+
+    context 'stripe_payment_method is not a card' do
+      let(:payment_method_error_msg) { "undefined method `card' for #<Stripe::PaymentMethod:0x229fdcc id=#{stripe_payment_method_id}>" }
+      let(:retrieve_customer) { allow(Stripe::Customer).to receive(:retrieve) }
+      let(:stripe_customer) { double(:customer, default_source: default_source) }
+
+      let(:retrieve_source) do
+        allow(Stripe::Customer).to receive(:retrieve_source).with(stripe_customer_id, default_source)
+      end
+
+      before do
+        retrieve_invoice.and_return(stripe_invoice)
+        retrieve_subscription.and_return(stripe_subscription)
+        retrieve_customer.and_return(stripe_customer)
+        retrieve_payment_method.and_raise(NoMethodError.new(payment_method_error_msg, :id))
+      end
+
+      context 'default_source is nil' do
+        let(:default_source) { nil }
+
+        it 'should not attempt to retrieve source if there is no default_source' do
+          expect(Stripe::Customer).not_to receive(:retrieve_source)
+          expect(subject).to eq nil
+        end
+      end
+    end
+
   end
+
 end

@@ -1,23 +1,15 @@
-import React from 'react'
+import { mount } from 'enzyme';
+import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { mount } from 'enzyme'
-import * as $ from 'jquery'
 
 import {
   dummyLocationData,
   dummyMatchData,
   passedStudentsWithNoStudentData,
   passedStudentsWithStudentData,
-} from './test_data'
+} from './test_data';
 
-import { StudentResponsesIndex, } from '../studentResponsesIndex'
-
-jest.mock('qs', () => ({
-  default: {
-    parse: jest.fn(() => ({}))
-  }
-})
-)
+import { StudentResponsesIndex, } from '../studentResponsesIndex';
 
 describe('StudentResponsesIndex component', () => {
   it('should render when there is no student data', () => {

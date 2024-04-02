@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GoogleIntegrationContainer it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <div
+      class="integration-container"
+    >
+      <img
+        alt=""
+        class="logo"
+        src="undefined/images/pages/administrator/integrations/google_logo.svg"
+      />
+      <h1>
+        Streamline teaching with Google Classroom
+      </h1>
+      <p>
+        Make teaching at your school even more effective with our seamless Google Classroom integration. With this integration, teachers at your school or district can:
+      </p>
+      <ul>
+        <li>
+          <img
+            alt=""
+            src="undefined/images/pages/administrator/integrations/circle-check.svg"
+          />
+          Seamlessly import Google Classroom rosters.
+        </li>
+        <li>
+          <img
+            alt=""
+            src="undefined/images/pages/administrator/integrations/circle-check.svg"
+          />
+          Automatically create and sync Google Classroom student accounts.
+        </li>
+        <li>
+          <img
+            alt=""
+            src="undefined/images/pages/administrator/integrations/circle-check.svg"
+          />
+          Share assignments directly to Google Classroom.
+        </li>
+      </ul>
+      <div
+        class="links"
+      >
+        <a
+          href="https://support.quill.org/en/articles/8500172-how-to-choose-your-rostering-integration"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          How to choose your integration
+        </a>
+        <a
+          href="https://support.quill.org/en/articles/8470129-how-do-i-facilitate-the-google-classroom-integration-for-my-school-district"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          How to set up this integration
+        </a>
+      </div>
+      <div
+        class="integration-tip"
+      >
+        <div>
+          <h2>
+            Integration Tip
+          </h2>
+          <p>
+            Start the school year right by choosing a single integration. Changing mid-year can cause rostering challenges and may take up more of your valuable time, so decide upfront for a better experience.
+          </p>
+        </div>
+        <img
+          alt=""
+          src="undefined/images/pages/administrator/integrations/lightbulb.svg"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

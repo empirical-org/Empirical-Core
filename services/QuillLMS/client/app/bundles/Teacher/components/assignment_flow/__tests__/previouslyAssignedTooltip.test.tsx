@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
-import PreviouslyAssignedTooltip from '../previouslyAssignedTooltip'
+import PreviouslyAssignedTooltip from '../previouslyAssignedTooltip';
 
 describe('PreviouslyAssignedTooltip component', () => {
   const wrapper = shallow(<PreviouslyAssignedTooltip previouslyAssignedActivityData={{ previouslyAssignedActivityData: [] }} />);

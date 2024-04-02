@@ -1,0 +1,408 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataExportContainer full state it should render 1`] = `
+<DocumentFragment>
+  <main>
+    <div
+      class="header"
+    >
+      <div
+        class="quill-snackbar "
+      >
+        You will receive an email with a download link shortly.
+      </div>
+      <h1>
+        <span>
+          Data Export
+        </span>
+        <a
+          href="https://support.quill.org/en/articles/8672493-how-do-i-use-the-admin-data-export"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Document file with folded corner and two horizontal lines"
+            src="undefined/images/icons/file-document.svg"
+          />
+          <span>
+            Guide
+          </span>
+        </a>
+      </h1>
+      <div
+        class="header-buttons"
+      >
+        <button
+          class="quill-button download-report-button contained primary medium focus-on-light"
+          type="button"
+        >
+          <img
+            alt="White arrow pointing down icon"
+            src="undefined/images/icons/downward-arrow-icon-white.svg"
+          />
+          <span>
+            Download
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="filter-button-container"
+    >
+      <button
+        class="interactive-wrapper focus-on-light"
+        type="button"
+      >
+        <img
+          alt="Filter icon with three vertical dots and 3 horizontal lines"
+          src="undefined/images/icons/icons-filter.svg"
+        />
+        Filters
+      </button>
+    </div>
+    <div
+      class="data-export-container"
+    >
+      <section
+        class="fields-section"
+      >
+        <h3>
+          Fields
+        </h3>
+        <div
+          class="fields-container"
+        >
+          <div
+            class="checkbox-container"
+          >
+            <button
+              aria-label="Checked checkbox"
+              class="quill-checkbox selected"
+              id="Student Email"
+              type="button"
+            >
+              <img
+                alt="Checked checkbox"
+                src="undefined/images/shared/check-small-white.svg"
+              />
+            </button>
+            <label
+              for="Student Email"
+            >
+              Student Email
+            </label>
+          </div>
+          <div
+            class="checkbox-container"
+          >
+            <button
+              aria-label="Checked checkbox"
+              class="quill-checkbox selected"
+              id="Completed Date"
+              type="button"
+            >
+              <img
+                alt="Checked checkbox"
+                src="undefined/images/shared/check-small-white.svg"
+              />
+            </button>
+            <label
+              for="Completed Date"
+            >
+              Completed Date
+            </label>
+          </div>
+          <div
+            class="checkbox-container"
+          >
+            <button
+              aria-label="Checked checkbox"
+              class="quill-checkbox selected"
+              id="Activity"
+              type="button"
+            >
+              <img
+                alt="Checked checkbox"
+                src="undefined/images/shared/check-small-white.svg"
+              />
+            </button>
+            <label
+              for="Activity"
+            >
+              Activity
+            </label>
+          </div>
+          <div
+            class="checkbox-container"
+          >
+            <button
+              aria-label="Checked checkbox"
+              class="quill-checkbox selected"
+              id="Activity Pack"
+              type="button"
+            >
+              <img
+                alt="Checked checkbox"
+                src="undefined/images/shared/check-small-white.svg"
+              />
+            </button>
+            <label
+              for="Activity Pack"
+            >
+              Activity Pack
+            </label>
+          </div>
+          <div
+            class="checkbox-container"
+          >
+            <button
+              aria-label="Checked checkbox"
+              class="quill-checkbox selected"
+              id="Score"
+              type="button"
+            >
+              <img
+                alt="Checked checkbox"
+                src="undefined/images/shared/check-small-white.svg"
+              />
+            </button>
+            <label
+              for="Score"
+            >
+              Score
+            </label>
+          </div>
+          <div
+            class="checkbox-container"
+          >
+            <button
+              aria-label="Checked checkbox"
+              class="quill-checkbox selected"
+              id="Time Spent"
+              type="button"
+            >
+              <img
+                alt="Checked checkbox"
+                src="undefined/images/shared/check-small-white.svg"
+              />
+            </button>
+            <label
+              for="Time Spent"
+            >
+              Time Spent
+            </label>
+          </div>
+          <div
+            class="checkbox-container"
+          >
+            <button
+              aria-label="Checked checkbox"
+              class="quill-checkbox selected"
+              id="Standard"
+              type="button"
+            >
+              <img
+                alt="Checked checkbox"
+                src="undefined/images/shared/check-small-white.svg"
+              />
+            </button>
+            <label
+              for="Standard"
+            >
+              Standard
+            </label>
+          </div>
+          <div
+            class="checkbox-container"
+          >
+            <button
+              aria-label="Checked checkbox"
+              class="quill-checkbox selected"
+              id="Tool"
+              type="button"
+            >
+              <img
+                alt="Checked checkbox"
+                src="undefined/images/shared/check-small-white.svg"
+              />
+            </button>
+            <label
+              for="Tool"
+            >
+              Tool
+            </label>
+          </div>
+          <div
+            class="checkbox-container"
+          >
+            <button
+              aria-label="Checked checkbox"
+              class="quill-checkbox selected"
+              id="School"
+              type="button"
+            >
+              <img
+                alt="Checked checkbox"
+                src="undefined/images/shared/check-small-white.svg"
+              />
+            </button>
+            <label
+              for="School"
+            >
+              School
+            </label>
+          </div>
+          <div
+            class="checkbox-container"
+          >
+            <button
+              aria-label="Checked checkbox"
+              class="quill-checkbox selected"
+              id="Grade"
+              type="button"
+            >
+              <img
+                alt="Checked checkbox"
+                src="undefined/images/shared/check-small-white.svg"
+              />
+            </button>
+            <label
+              for="Grade"
+            >
+              Grade
+            </label>
+          </div>
+          <div
+            class="checkbox-container"
+          >
+            <button
+              aria-label="Checked checkbox"
+              class="quill-checkbox selected"
+              id="Teacher"
+              type="button"
+            >
+              <img
+                alt="Checked checkbox"
+                src="undefined/images/shared/check-small-white.svg"
+              />
+            </button>
+            <label
+              for="Teacher"
+            >
+              Teacher
+            </label>
+          </div>
+          <div
+            class="checkbox-container"
+          >
+            <button
+              aria-label="Checked checkbox"
+              class="quill-checkbox selected"
+              id="Class"
+              type="button"
+            >
+              <img
+                alt="Checked checkbox"
+                src="undefined/images/shared/check-small-white.svg"
+              />
+            </button>
+            <label
+              for="Class"
+            >
+              Class
+            </label>
+          </div>
+        </div>
+      </section>
+      <section
+        class="preview-section"
+      >
+        <h3>
+          Preview
+        </h3>
+        <span
+          aria-hidden="false"
+          class="quill-tooltip-trigger "
+          role="tooltip"
+        >
+          <span
+            class="undefined"
+            role="button"
+            tabindex="0"
+          >
+            <img
+              alt="Question mark icon"
+              src="undefined/images/icons/icons-help.svg"
+            />
+          </span>
+          <span
+            class="quill-tooltip-wrapper"
+          >
+            <span
+              aria-live="polite"
+              class="quill-tooltip"
+            />
+          </span>
+        </span>
+      </section>
+      <div
+        class="loading-spinner"
+      >
+        <div
+          class="spinner-container"
+        >
+          <img
+            alt="Loading spinner"
+            class="spinner"
+            src="https://assets.quill.org/images/icons/loader_still.svg"
+          />
+        </div>
+      </div>
+    </div>
+  </main>
+</DocumentFragment>
+`;
+
+exports[`DataExportContainer limited state it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="restricted-page"
+  >
+    <img
+      alt="Gray lock"
+      src="undefined/images/pages/administrator/premium_lock.svg"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`DataExportContainer loading state it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="loading-spinner"
+  >
+    <div
+      class="spinner-container"
+    >
+      <img
+        alt="Loading spinner"
+        class="spinner"
+        src="https://assets.quill.org/images/icons/loader_still.svg"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`DataExportContainer restricted state it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="restricted-page"
+  >
+    <img
+      alt="Gray lock"
+      src="undefined/images/pages/administrator/premium_lock.svg"
+    />
+  </div>
+</DocumentFragment>
+`;

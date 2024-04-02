@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card } from '../../../../Shared/index'
+import { Card } from '../../../../Shared/index';
 
-import AssignActivityPackBanner from '../assignActivityPackBanner'
-import { requestPut, } from '../../../../../modules/request/index'
+import { requestPut, } from '../../../../../modules/request/index';
+import AssignActivityPackBanner from '../assignActivityPackBanner';
 
 const homeSchoolSrc = `${process.env.CDN_URL}/images/onboarding/home-building.svg`
 const internationalSrc = `${process.env.CDN_URL}/images/onboarding/globe.svg`
@@ -23,7 +23,7 @@ class SelectUSNonK12 extends React.Component {
 
   handleClickUSHigherEd = () => this.selectSchool('us higher ed')
 
-  selectSchool(idOrType) {
+  selectSchool = (idOrType) => {
     requestPut(
       `${process.env.DEFAULT_URL}/select_school`,
       { school_id_or_type: idOrType, },

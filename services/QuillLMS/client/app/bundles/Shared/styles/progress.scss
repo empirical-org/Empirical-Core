@@ -8,8 +8,8 @@
   }
 
   progress[value]::-webkit-progress-value {
-    background-color: #06806b;
-    color: #06806b;
+    background-color: $quill-green;
+    color: $quill-green;
   }
 
   .progress.activity-progress {

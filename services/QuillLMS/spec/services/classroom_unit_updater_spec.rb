@@ -34,7 +34,7 @@ RSpec.describe ClassroomUnitUpdater do
     let(:assigned_student_ids) { [student1.id] }
     let(:student_ids) { [student2.id] }
 
-    it { expect { subject }.to change { classroom_unit.reload.assigned_student_ids }.to [student1.id, student2.id] }
+    it { expect { subject }.to change { classroom_unit.reload.assigned_student_ids }.to match_array [student1.id, student2.id] }
     it { expect { subject }.not_to change { classroom_unit.reload.visible}.from(true) }
     it { unarchives_an_archived_classroom_unit }
 

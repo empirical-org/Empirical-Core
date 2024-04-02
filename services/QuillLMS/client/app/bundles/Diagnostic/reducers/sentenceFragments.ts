@@ -1,6 +1,6 @@
+import _ from 'lodash';
 import { Action } from "redux";
 import ActionTypes from '../constants';
-import _ from 'lodash';
 import { SentenceFragment } from '../interfaces/SentenceFragment';
 
 export interface SentenceFragmentsReducerState {

@@ -53,7 +53,7 @@ class ActiveRecord::Relation
       last_id = last_item.is_a?(Array) ? last_item[id_index] : last_item
 
       # Remove :id column if not in *columns
-      items.map! { |row| row[1..-1] } if remove_id_from_results
+      items.map! { |row| row[1..] } if remove_id_from_results
 
       yield items
 

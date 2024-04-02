@@ -113,14 +113,14 @@ class ReferralsUser < ApplicationRecord
     # Unlike other analytics events, we want to track this event with respect
     # to the referrer, not the current user, because we are attempting to
     # measure the referrer's referring activity and not the current user's.
-    ReferrerAnalytics.new.track_referral_invited(referrer, referred_user.id)
+    Analytics::ReferrerAnalytics.new.track_referral_invited(referrer, referred_user.id)
   end
 
   private def trigger_activated_event
     # Unlike other analytics events, we want to track this event with respect
     # to the referrer, not the current user, because we are attempting to
     # measure the referrer's referring activity and not the current user's.
-    ReferrerAnalytics.new.track_referral_activated(referrer, referred_user.id)
+    Analytics::ReferrerAnalytics.new.track_referral_activated(referrer, referred_user.id)
     UserMilestone.find_or_create_by(user_id: referrer.id, milestone_id: Milestone.find_or_create_by(name: Milestone::TYPES[:refer_an_active_teacher]).id)
     ReferralEmailWorker.perform_async(id)
   end

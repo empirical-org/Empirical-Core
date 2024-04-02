@@ -42,7 +42,7 @@ class SalesStageTypesFactory
     {
       name: 'Quote Requested',
       order: '4',
-      description: 'Fill out the Quote request form in Xero and then mark as complete in Quill. Do this for both email requests and wufoo quotes.',
+      description: 'Fill out the Quote request form in Xero and then mark as complete in Quill. Do this for both email requests and salesmate quotes.',
       trigger: 'user'
     },
     {

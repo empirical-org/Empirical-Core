@@ -31,7 +31,7 @@ describe ClassroomUnit, type: :model, redis: true do
   it { should belong_to(:classroom) }
   it { should belong_to(:unit) }
   it { should have_many(:activity_sessions) }
-  it { should have_many(:classroom_unit_activity_states) }
+  it { should have_many(:classroom_unit_activity_states).dependent(:destroy) }
 
   it { is_expected.to callback(:check_for_assign_on_join_and_update_students_array_if_true).before(:save) }
   it { is_expected.to callback(:hide_appropriate_activity_sessions).after(:save) }
@@ -113,6 +113,16 @@ describe ClassroomUnit, type: :model, redis: true do
     end
   end
 
+  describe '#hide_all_activity_sessions' do
+    before do
+      # try making sure that the gap between initialization and update is treated wide enough to register a difference in updated_at
+      allow(DateTime).to receive(:current).and_return(1.minute.from_now)
+    end
+
+    it { expect { classroom_unit.send(:hide_all_activity_sessions) }.to change { activity_session.reload.visible }.from(true).to(false) }
+    it { expect { classroom_unit.send(:hide_all_activity_sessions) }.to change { activity_session.reload.updated_at } }
+  end
+
   describe '#check_for_assign_on_join_and_update_students_array_if_true callback' do
     context 'when assign_on_join is false' do
       let(:classroom_with_two_students) { create(:classroom, students: [student, student2])}
@@ -145,8 +155,7 @@ describe ClassroomUnit, type: :model, redis: true do
 
   describe '#remove_assigned_student' do
     let(:student) { create(:student_in_two_classrooms_with_many_activities) }
-    let(:student_classroom) { StudentsClassrooms.find_by(student_id: student.id) }
-    let(:classroom_unit) { ClassroomUnit.find_by(classroom_id: student_classroom.classroom_id)}
+    let(:classroom_unit) { student.classrooms.first.classroom_units.first }
 
     it "should remove the student's id from assigned_student_ids array from that classroom's classroom units" do
       classroom_unit.remove_assigned_student(student.id)
@@ -194,45 +203,60 @@ describe ClassroomUnit, type: :model, redis: true do
   end
 
   describe 'manage_user_pack_sequence_items' do
-    context 'after_save' do
-      context 'assigned_student_ids has changed' do
-        subject { classroom_unit.reload.update(assigned_student_ids: new_assigned_student_ids, assign_on_join: false) }
+    subject { classroom_unit.reload.update(assigned_student_ids: new_assigned_student_ids, assign_on_join: false) }
 
-        let(:another_student) { create(:student) }
+    let(:another_student) { create(:student) }
 
-        context 'no user_pack_sequence_items exist' do
-          context 'student was removed' do
-            let(:new_assigned_student_ids) { [] }
+    context 'no user_pack_sequence_items exist' do
+      context 'student was removed' do
+        let(:new_assigned_student_ids) { [] }
 
-            it { expect { subject }.not_to change(UserPackSequenceItem, :count) }
-          end
+        it { expect { subject }.not_to change(UserPackSequenceItem, :count) }
+      end
 
-          context 'new student was added' do
-            let(:new_assigned_student_ids) { [student.id, another_student.id]}
+      context 'new student was added' do
+        let(:new_assigned_student_ids) { [student.id, another_student.id]}
 
-            it { expect { subject }.not_to change(UserPackSequenceItem, :count) }
-          end
+        it { expect { subject }.not_to change(UserPackSequenceItem, :count) }
+      end
+    end
+
+    context 'user_pack_sequence_items exist' do
+      let!(:pack_sequence_item) { create(:pack_sequence_item, classroom_unit: classroom_unit) }
+
+      before { create(:user_pack_sequence_item, user: student, pack_sequence_item: pack_sequence_item) }
+
+      context 'student was removed' do
+        let(:new_assigned_student_ids) { [] }
+
+        it { expect { subject }.to change(UserPackSequenceItem, :count).from(1).to(0) }
+      end
+
+      context 'new student was added' do
+        let(:new_assigned_student_ids) { [student.id, another_student.id]}
+
+        it { expect { subject }.to change(UserPackSequenceItem, :count).from(1).to(2) }
+
+        context 'but already has a user_pack_sequence_item' do
+          before { create(:user_pack_sequence_item, user: another_student, pack_sequence_item: pack_sequence_item) }
+
+          it { expect { subject }.not_to change(UserPackSequenceItem, :count)}
+        end
+      end
+
+      context 'race condition exists with user_pack_sequence_item creation' do
+        let(:new_assigned_student_ids) { [student.id, another_student.id]}
+
+        before do
+          allow(UserPackSequenceItem)
+            .to receive(:find_or_create_by!)
+            .with(pack_sequence_item_id: pack_sequence_item.id, user_id: another_student.id)
+            .and_raise(ActiveRecord::RecordNotUnique)
+            .once
         end
 
-        context 'user_pack_sequence_items exist' do
-          let!(:pack_sequence_item) { create(:pack_sequence_item, classroom_unit: classroom_unit) }
-
-          before { create(:user_pack_sequence_item, user: student, pack_sequence_item: pack_sequence_item) }
-
-          context 'student was removed' do
-            let(:new_assigned_student_ids) { [] }
-
-            it { expect { subject }.to change(UserPackSequenceItem, :count).from(1).to(0) }
-          end
-
-          context 'new student was added' do
-            let(:new_assigned_student_ids) { [student.id, another_student.id]}
-
-            it { expect { subject }.to change(UserPackSequenceItem, :count).from(1).to(2) }
-          end
-        end
+        it { expect { subject }.not_to change(UserPackSequenceItem, :count) }
       end
     end
   end
-
 end

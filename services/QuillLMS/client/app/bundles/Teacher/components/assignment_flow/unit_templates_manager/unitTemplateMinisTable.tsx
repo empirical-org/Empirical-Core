@@ -1,10 +1,10 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { DataTable, uniqueValuesArray, Tooltip } from '../../../../Shared';
-import { READING_TEXTS, READING_FOR_EVIDENCE, CONNECT, DIAGNOSTIC, GRAMMAR, PROOFREADER, LESSONS } from '../assignmentFlowConstants';
-import { UnitTemplateCategoryInterface, UnitTemplateInterface } from '../../../../../interfaces/unitTemplate';
 import { Activity } from '../../../../../interfaces/activity';
+import { UnitTemplateCategoryInterface, UnitTemplateInterface } from '../../../../../interfaces/unitTemplate';
+import { DataTable, Tooltip, uniqueValuesArray } from '../../../../Shared';
 import { renderActivityPackTooltipElement } from '../../../helpers/unitTemplates';
+import { CONNECT, DIAGNOSTIC, GRAMMAR, LESSONS, PROOFREADER, READING_FOR_EVIDENCE, READING_TEXTS } from '../assignmentFlowConstants';
 
 export const UnitTemplateMinisTable = ({ unitTemplates, userSignedIn }) => {
   const toolColors = {
@@ -59,7 +59,7 @@ export const UnitTemplateMinisTable = ({ unitTemplates, userSignedIn }) => {
       <section className="tools-section">
         {tools.map((tool, i) => {
           const toolName = i === tools.length - 1 ? tool : `${tool},`;
-          return <p style={{ color: toolColors[tool] }}>{toolName}</p>
+          return <p key={toolName} style={{ color: toolColors[tool] }}>{toolName}</p>
         })}
       </section>
     )

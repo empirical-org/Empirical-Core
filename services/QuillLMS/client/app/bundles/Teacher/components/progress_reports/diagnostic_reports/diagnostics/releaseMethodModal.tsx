@@ -7,8 +7,8 @@ import {
 } from './shared'
 
 import {
-  infoIcon,
   Tooltip,
+  infoIcon,
 } from '../../../../../Shared/index'
 
 const baseStaggeredReleaseSrc = `${baseDiagnosticImageSrc}/staggered_release`

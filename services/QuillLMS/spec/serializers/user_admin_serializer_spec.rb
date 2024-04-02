@@ -19,6 +19,7 @@ describe UserAdminSerializer do
         email
         teachers
         schools
+        admin_approval_requests
       }
     end
   end

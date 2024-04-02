@@ -1,2 +1,5 @@
 <% tabs = device == 'mobile' ? tools_tabs(large: false) : tools_tabs(large: true) %>
+<% current_path = request.env['PATH_INFO'] %>
+<% on_home_or_tools_page = current_path == '/' || current_path.include?('tools') %>
 <%= render partial: "pages/shared/sub_navbar", locals: { tabs: tabs, active_tab: @active_tab } %>
+<%= render partial: 'pages/shared/mobile_sub_navbar', locals: { tabs: tabs, active_tab:  @active_tab, on_home_or_tools_page: on_home_or_tools_page } %>

@@ -1,17 +1,17 @@
+import moment from 'moment';
 import * as React from 'react';
-import Dropzone from 'react-dropzone'
-import moment from 'moment'
-import { EditorState, ContentState } from 'draft-js';
+import { SingleDatePicker } from 'react-dates';
 import "react-dates/initialize";
-import { SingleDatePicker } from 'react-dates'
+import Dropzone from 'react-dropzone';
+import Textarea from 'react-textarea-autosize';
 
-import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx'
+import { requestPost, requestPut, } from '../../../../../modules/request/index';
+import { smallWhiteCheckIcon } from '../../../../Shared/index';
+import { BLOG_POST_TO_COLOR, } from '../../blog_posts/blog_post_constants';
+import BlogPostContent from '../../blog_posts/blog_post_content';
+import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx';
+import getAuthToken from '../../modules/get_auth_token';
 import PreviewCard from '../../shared/preview_card.jsx';
-import BlogPostContent from '../../blog_posts/blog_post_content'
-import getAuthToken from '../../modules/get_auth_token'
-import { requestPost, requestPut, } from '../../../../../modules/request/index'
-import { BLOG_POST_TO_COLOR, } from '../../blog_posts/blog_post_constants'
-import { smallWhiteCheckIcon, } from '../../../../Shared/index'
 
 const defaultPreviewCardContent = `<div class='preview-card-body'>
    <h3>Party Parrot Parade</h3>
@@ -42,11 +42,12 @@ export default class CreateOrEditBlogPost extends React.Component {
       draft,
       slug,
       preview_card_content,
+      footer_content,
       premium,
       press_name,
       published_at,
       external_link,
-      center_images,
+      center_images
     } = postToEdit
     // set state to empty values or those of the postToEdit
 
@@ -78,7 +79,8 @@ export default class CreateOrEditBlogPost extends React.Component {
       publishedAt: published_at,
       externalLink: external_link,
       centerImages: center_images,
-      focused: false
+      focused: false,
+      footerContent: footer_content
     };
   }
 
@@ -187,6 +189,10 @@ export default class CreateOrEditBlogPost extends React.Component {
     this.setState({externalLink: e.target.value})
   }
 
+  handleFooterChange = (e) => {
+    this.setState({ footerContent: e.target.value })
+  }
+
   handleImageLinkChange = (e) => {
     const { value, } = e.target;
     const { previewCardHasAlreadyBeenManuallyEdited, } = this.state
@@ -271,6 +277,7 @@ export default class CreateOrEditBlogPost extends React.Component {
       externalLink,
       centerImages,
       pressName,
+      footerContent
     } = this.state
 
     e.preventDefault()
@@ -293,7 +300,8 @@ export default class CreateOrEditBlogPost extends React.Component {
         published_at: publishedAt ? new Date(publishedAt) : null,
         external_link: externalLink,
         center_images: centerImages,
-        press_name: pressName
+        press_name: pressName,
+        footer_content: footerContent
       }
     }
 
@@ -500,7 +508,7 @@ export default class CreateOrEditBlogPost extends React.Component {
   renderArticleMarkdownOrPreview = () => {
     const { publishedAt, showArticlePreview, body, centerImages, author_id, title, } = this.state
     const { postToEdit, authors, } = this.props
-    let content, toolbarLeft, mdLink, dateDisplayed
+    let content, toolbarLeft, dateDisplayed
     if (publishedAt) {
       dateDisplayed = publishedAt
     } else if (postToEdit) {
@@ -539,7 +547,6 @@ export default class CreateOrEditBlogPost extends React.Component {
         <i className="far fa-square" onClick={this.handleInsertSecondaryButton} />
       </div>)
       content = <textarea id="markdown-content" onChange={this.handleBodyChange} rows={20} type="text" value={body} />
-      mdLink = <a className='quill-button fun outlined secondary focus-on-light' href="http://commonmark.org/help/" rel="noopener noreferrer" target="_blank">Markdown Cheatsheet</a>
     }
     return (
       <div>
@@ -553,7 +560,6 @@ export default class CreateOrEditBlogPost extends React.Component {
           </div>
           {content}
         </div>
-        {mdLink}
       </div>
     )
 
@@ -571,6 +577,7 @@ export default class CreateOrEditBlogPost extends React.Component {
           focused={focused}
           id="date-picker"
           inputIconPosition="after"
+          isOutsideRange={() => false}
           navNext="›"
           navPrev="‹"
           numberOfMonths={1}
@@ -599,9 +606,9 @@ export default class CreateOrEditBlogPost extends React.Component {
     if ([STANDARD].includes(preview_card_type)) {
       contentFields = [
         <label key="title-label">Title:</label>,
-        <input key="title" onChange={this.handleBlogPostPreviewTitleChange} type='text' value={blogPostPreviewTitle} />,
+        <input key="title" onChange={this.handleBlogPostPreviewTitleChange} type='text' value={blogPostPreviewTitle || ''} />,
         <label key="description-label">Description: <i>(Please, choose the juiciest quote from the article that makes you want to read it and you should aim for 200 characters for the card description., for example: &#34;I put jazz on and my kids work on Quill.&#34;)</i></label>,
-        <input key="description" onChange={this.handleBlogPostPreviewDescriptionChange} type='text' value={blogPostPreviewDescription} />,
+        <input key="description" onChange={this.handleBlogPostPreviewDescriptionChange} type='text' value={blogPostPreviewDescription || ''} />,
       ]
     } else if (preview_card_type === CUSTOM_HTML) {
       contentFields = [
@@ -702,8 +709,7 @@ export default class CreateOrEditBlogPost extends React.Component {
       externalLink,
       uploadedMediaLink,
       preview_card_content,
-      premium,
-      centerImages,
+      footerContent
     } = this.state
     const nullAuthor = {id: null, name: 'None'}
     const allTopics = topics.concat(studentTopics)
@@ -713,16 +719,16 @@ export default class CreateOrEditBlogPost extends React.Component {
         <form>
           <div className="left-column">
             <label>Title:</label>
-            <input onChange={this.handleTitleChange} type="text" value={title} />
+            <input onChange={this.handleTitleChange} type="text" value={title || ''} />
 
             <label>SEO Meta Description:</label>
-            <input onChange={this.handleSubtitleChange} type="text" value={subtitle} />
+            <input onChange={this.handleSubtitleChange} type="text" value={subtitle || ''} />
 
             <label>SEO Meta Image:</label>
-            <input onChange={this.handleImageLinkChange} type="text" value={imageLink} />
+            <input onChange={this.handleImageLinkChange} type="text" value={imageLink || ''} />
 
             <label>Press Name (optional):</label>
-            <input onChange={this.handlePressNameChange} type="text" value={pressName} />
+            <input onChange={this.handlePressNameChange} type="text" value={pressName || ''} />
 
             <div className='short-fields'>
               <div>
@@ -743,14 +749,14 @@ export default class CreateOrEditBlogPost extends React.Component {
 
             <div>
               <label>External Link: (Optional, use only if this card should point to another website)</label>
-              <input onChange={this.handleExternalLinkChange} value={externalLink} />
+              <input onChange={this.handleExternalLinkChange} value={externalLink || ''} />
             </div>
 
             <div className="media-upload-container">
               <label>Click the square below or drag an image into it to upload an image or video:</label>
               <div className="dropzone-container"><Dropzone onDrop={this.handleDrop} /></div>
               <label style={{marginTop: '10px'}}>Here is the link to your uploaded image or video:</label>
-              <input value={uploadedMediaLink} />
+              <input readOnly value={uploadedMediaLink || ''} />
               <a className="quill-button fun secondary outlined focus-on-light" href="/cms/images" target="_blank">All Uploaded Media</a>
             </div>
 
@@ -758,7 +764,34 @@ export default class CreateOrEditBlogPost extends React.Component {
 
             {this.renderPremiumCheckbox()}
 
-            {this.renderArticleMarkdownOrPreview()}
+            <p className="embedded-youtube-reminder">
+              {`When getting a URL from YouTube, make sure to click the “Embed” option when clicking “Share” from a video to get the right URL. The link should look like this:
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/XXXXXXXXXXX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>. The link should NOT look like this: https://youtu.be/XXXXXXXXXX`}
+            </p>
+
+            <div>
+              <div className="article-content-header-container">
+                <label>Article Content</label>
+                <a className='quill-button fun outlined secondary focus-on-light' href="http://commonmark.org/help/" rel="noopener noreferrer" target="_blank">Markdown Cheatsheet</a>
+              </div>
+              {this.renderArticleMarkdownOrPreview()}
+            </div>
+
+            <div>
+              <div className="article-content-header-container">
+                <label>Recommended Article Footer Content</label>
+                <a className='quill-button fun outlined secondary focus-on-light' href="http://commonmark.org/help/" rel="noopener noreferrer" target="_blank">Markdown Cheatsheet</a>
+              </div>
+              <p className="footer-content-disclaimer">(Please note that recommended article footers are currently hardcoded for particular pages so there is no need to fill this out unless this article will be displayed as a recommended article on one of the teacher dashboard pages. If left blank, the preview card content will be used for the footer. <strong>This should also be written with Markdown syntax.</strong>)</p>
+              <Textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="footer-content-text-editor"
+                onInput={this.handleFooterChange}
+                spellCheck={false}
+                value={footerContent}
+              />
+            </div>
 
             <div className="save-buttons">
               {this.renderSaveDraftButton()}

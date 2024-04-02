@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-import BlogPostContent from './blog_post_content'
 import {
-  TEACHER_CENTER_SLUG,
   BLOG_POST_TO_COLOR,
-} from './blog_post_constants'
+  TEACHER_CENTER_SLUG,
+} from './blog_post_constants';
+import BlogPostContent from './blog_post_content';
 
+import { requestPost, } from '../../../../modules/request/index';
 import PreviewCard from '../shared/preview_card.jsx';
-import { requestPost, } from '../../../../modules/request/index'
 
 const RATING_MESSAGES = {
   instructions: 'Was this article helpful?',
@@ -45,10 +45,10 @@ export default class BlogPost extends React.Component {
     )
   }
 
-  renderMostRecentPosts() {
-    const { mostRecentPosts, } = this.props
+  renderRelatedPosts() {
+    const { relatedPosts, } = this.props
 
-    return mostRecentPosts.map(post =>
+    return relatedPosts.map(post =>
       (<PreviewCard
         color={BLOG_POST_TO_COLOR[post.topic]}
         content={post.preview_card_content}
@@ -79,7 +79,7 @@ export default class BlogPost extends React.Component {
 
     return (
       <div id='article-container'>
-        <article>
+        <article className="container">
           <BlogPostContent
             author={author}
             body={blogPost.body}
@@ -94,13 +94,13 @@ export default class BlogPost extends React.Component {
           </footer>
         </article>
         <div id='similar-posts'>
-          <div id='similar-post-container'>
+          <div className="container" id='similar-post-container'>
             <h2>
               <span>Teacher Center Articles</span>
               <a className="quill-button contained primary fun focus-on-light" href={`/${TEACHER_CENTER_SLUG}`}>Show more</a>
             </h2>
             <div id='preview-card-container'>
-              {this.renderMostRecentPosts()}
+              {this.renderRelatedPosts()}
             </div>
           </div>
         </div>

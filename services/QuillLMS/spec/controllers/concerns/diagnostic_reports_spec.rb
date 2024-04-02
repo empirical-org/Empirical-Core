@@ -5,20 +5,21 @@ require 'rails_helper'
 describe DiagnosticReports do
   include DiagnosticReports
 
-  describe '#data_for_skill_by_activity_session' do
-    let!(:activity_session) { create(:activity_session) }
-    let!(:concept) { create(:concept) }
-    let!(:skill_concept) { create(:skill_concept, concept: concept) }
-    let!(:correct_concept_result) { create(:concept_result, concept: concept, activity_session: activity_session, correct: true) }
-    let!(:incorrect_concept_result) { create(:concept_result, concept: concept, activity_session: activity_session, correct: false) }
+  describe '#data_for_question_by_activity_session' do
+    let!(:activity_session) { create(:activity_session_without_concept_results) }
+    let!(:skill_group_activity) { create(:skill_group_activity, activity: activity_session.activity)}
+    let!(:diagnostic_question_skill) { create(:diagnostic_question_skill, skill_group: skill_group_activity.skill_group) }
+    let!(:correct_concept_result) { create(:concept_result, activity_session: activity_session, correct: true, question_number: 1, extra_metadata: { question_uid: diagnostic_question_skill.question.uid } ) }
 
     it 'should return data with the name of the skill, number of correct concept results, number of incorrect concept results, and a summary' do
-      expect(data_for_skill_by_activity_session(activity_session.concept_results, skill_concept.skill)).to eq({
-        id: skill_concept.skill.id,
-        skill: skill_concept.skill.name,
+      expect(data_for_question_by_activity_session(activity_session.concept_results, diagnostic_question_skill)).to eq({
+        id: diagnostic_question_skill.id,
+        name: diagnostic_question_skill.name,
         number_correct: 1,
-        number_incorrect: 1,
-        summary: DiagnosticReports::PARTIALLY_CORRECT
+        number_incorrect: 0,
+        proficiency_score: 1,
+        question_uid: diagnostic_question_skill.question.uid,
+        summary: DiagnosticReports::FULLY_CORRECT
       })
     end
   end
@@ -38,6 +39,38 @@ describe DiagnosticReports do
 
     it 'should return PARTIALLY_CORRECT if neither number_correct nor number_incorrect is 0' do
       expect(summarize_correct_skills(1, 1)).to eq(DiagnosticReports::PARTIALLY_CORRECT)
+    end
+  end
+
+  describe '#calculate_proficiency_score' do
+    subject { calculate_proficiency_score(number_correct, number_incorrect) }
+
+    context 'undefined scores' do
+      let(:number_correct) { 0 }
+      let(:number_incorrect) { 0 }
+
+      it { expect(subject).to eq DiagnosticReports::NOT_PRESENT }
+    end
+
+    context 'zero correct' do
+      let(:number_correct) { 0 }
+      let(:number_incorrect) { 1 }
+
+      it { expect(subject).to eq 0 }
+    end
+
+    context 'zero incorrect' do
+      let(:number_correct) { 1 }
+      let(:number_incorrect) { 0 }
+
+      it { expect(subject).to eq 1 }
+    end
+
+    context 'nonzero correct and incorrect' do
+      let(:number_correct) { 1 }
+      let(:number_incorrect) { 1 }
+
+      it { expect(subject).to eq 0 }
     end
   end
 
@@ -99,7 +132,7 @@ describe DiagnosticReports do
       let!(:unit_activity2) { create(:unit_activity, unit: unit2, activity: unit_activity1.activity) }
       let!(:activity_session1) { create(:activity_session, :finished, user: student1, classroom_unit: classroom_unit1, activity: unit_activity1.activity) }
       let!(:activity_session2) { create(:activity_session, :finished, user: student2, classroom_unit: classroom_unit1, activity: unit_activity1.activity) }
-      let!(:activity_session3) { create(:activity_session, :finished, user: student2, classroom_unit: classroom_unit2, activity: unit_activity1.activity) }
+      let!(:activity_session3) { create(:activity_session, :finished, completed_at: activity_session2.completed_at.since(1.minute), user: student2, classroom_unit: classroom_unit2, activity: unit_activity1.activity) }
 
       it 'should set the variables for all the final score activity sessions for that activity, classroom, and unit, with only one per student' do
         set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(unit_activity1.activity_id, classroom.id, nil)
@@ -113,6 +146,13 @@ describe DiagnosticReports do
         set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(unit_activity1.activity_id, classroom.id, nil)
         expect(@assigned_students).to include(student2, student3)
         expect(@activity_sessions).to include(activity_session3)
+      end
+
+      it 'should not include an activity session that is not associated with the current classroom' do
+        [students_classroom1, students_classroom3].each(&:delete)
+        set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(unit_activity1.activity_id, classroom.id, nil)
+        expect(@assigned_students).to eq [student2]
+        expect(@activity_sessions.map(&:user_id).uniq).to eq [student2.id]
       end
 
     end

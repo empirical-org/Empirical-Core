@@ -1,11 +1,11 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import { withRouter, Link } from 'react-router-dom';
-import TeacherLessonsNavbar from './teacherNavbar'
-import CustomizeNavbar from './customizeNavbar'
-import LaunchEditionNavbar from './launchEditionNavbar'
-import CreateCustomizedEditionNavbar from './createCustomizedEditionNavbar'
-import {getParameterByName} from '../../libs/getParameterByName'
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import { getParameterByName } from '../../libs/getParameterByName';
+import CreateCustomizedEditionNavbar from './createCustomizedEditionNavbar';
+import CustomizeNavbar from './customizeNavbar';
+import LaunchEditionNavbar from './launchEditionNavbar';
+import TeacherLessonsNavbar from './teacherNavbar';
 
 class Navbar extends React.Component {
   state = {

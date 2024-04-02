@@ -1,0 +1,34 @@
+<header>
+  <h2>Experiments</h2>
+</header>
+
+<% if @experiments.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Passage</th>
+        <th>Conjunction</th>
+        <th>Status</th>
+        <th>LLM Prompt Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @experiments.each do |experiment| %>
+        <tr>
+          <td><%= experiment.id %></td>
+          <td><%= experiment.passage_prompt.name %></td>
+          <td><%= experiment.conjunction %></td>
+          <td><%= experiment.status %></td>
+          <td><%= experiment.llm_prompt.description %></td>
+          <td><%= link_to "View", experiment %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No experiments found.</p>
+<% end %>
+
+<%= link_to 'New Experiment', new_research_gen_ai_experiment_path %>

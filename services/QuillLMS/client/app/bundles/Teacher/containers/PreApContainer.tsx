@@ -1,6 +1,6 @@
-import * as React from 'react'
+import * as React from 'react';
 import { requestGet } from '../../../modules/request';
-import PreAp from '../components/college_board/pre_ap'
+import PreAp from '../components/college_board/pre_ap';
 
 interface PreApContainerProps {
   isPartOfAssignmentFlow?: boolean;

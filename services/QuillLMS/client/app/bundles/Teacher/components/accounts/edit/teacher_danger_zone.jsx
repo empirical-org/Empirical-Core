@@ -1,5 +1,5 @@
 import React from 'react';
-import DeleteAccountModal from './delete_account_modal'
+import DeleteAccountModal from './delete_account_modal';
 
 export default class TeacherDangerZone extends React.Component {
   constructor(props) {

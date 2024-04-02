@@ -1,5 +1,5 @@
-import React from 'react';
 import { mount } from 'enzyme';
+import React from 'react';
 
 import PremiumCreditsTable from '../premium_credits_table';
 

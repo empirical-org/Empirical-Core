@@ -1,7 +1,6 @@
 import * as React from "react";
-import moment from 'moment'
 
-import { ChangeLog } from '../../interfaces/interfaces'
+import { ChangeLog } from '../../interfaces/interfaces';
 
 interface IndividualRecordChangeLogProps {
   changeLogs: Array<ChangeLog>

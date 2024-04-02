@@ -1,5 +1,5 @@
+import { hashToCollection, } from '../../../Shared/index';
 import { formattedCues } from '../formattedCues';
-import { hashToCollection, } from '../../../Shared/index'
 
 export function getConceptResultsForAttempt(question, attemptIndex, question_type, defaultInstructions = '') {
   let directions;
@@ -46,12 +46,18 @@ export function getConceptResultsForAttempt(question, attemptIndex, question_typ
       prompt,
       attemptNumber,
       answer,
+      question_uid:  question.key,
+      question_concept_uid: question.conceptID,
+      cues: question.cues?.filter(Boolean),
     } : {
       correct: conceptResult.correct ? 1 : 0,
       directions,
       prompt,
       attemptNumber,
       answer,
-    },
+      question_uid:  question.key,
+      question_concept_uid: question.conceptID,
+      cues: question.cues?.filter(Boolean),
+    }
   }));
 }

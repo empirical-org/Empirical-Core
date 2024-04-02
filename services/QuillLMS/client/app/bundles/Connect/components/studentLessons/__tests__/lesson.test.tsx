@@ -1,16 +1,15 @@
-import * as React from 'react';
-import 'whatwg-fetch'
 import { shallow } from 'enzyme';
-import { loadData, resumePreviousSession, submitResponse, updateCurrentQuestion, nextQuestion } from '../../../actions.js';
-import { Lesson } from '../lesson.jsx';
-import { PlayTitleCard, Spinner, ProgressBar } from '../../../../Shared/index';
-import { Register } from '../../../../Shared/index';
-import Finished from '../finished.jsx';
-import PlayLessonQuestion from '../question';
-import PlaySentenceFragment from '../sentenceFragment.jsx';
-import PlayFillInTheBlankQuestion from '../fillInBlank.tsx';
+import * as React from 'react';
+import 'whatwg-fetch';
+import { PlayTitleCard, ProgressBar, Register, Spinner } from '../../../../Shared/index';
+import { loadData, nextQuestion, resumePreviousSession, submitResponse, updateCurrentQuestion } from '../../../actions.js';
 import SessionActions from '../../../actions/sessions.js';
 import * as progressHelpers from '../../../libs/calculateProgress';
+import PlayFillInTheBlankQuestion from '../fillInBlank.tsx';
+import Finished from '../finished.jsx';
+import { Lesson } from '../lesson.jsx';
+import PlayLessonQuestion from '../question';
+import PlaySentenceFragment from '../sentenceFragment.jsx';
 
 // required function mocks
 SessionActions.update = jest.fn();

@@ -13,8 +13,8 @@ describe CalculateAndCacheVitallyAccountWorker do
       year = 2017
       data = {}
       new_datum = double(calculate_data: data)
-      expect(PreviousYearSchoolDatum).to receive(:new).with(school, year).and_return(new_datum)
-      expect(CacheVitallySchoolData).to receive(:set).with(school.id, year, data.to_json)
+      expect(VitallyIntegration::PreviousYearSchoolDatum).to receive(:new).with(school, year).and_return(new_datum)
+      expect(VitallyIntegration::CacheVitallySchoolData).to receive(:set).with(school.id, year, data.to_json)
 
       subject.perform(school.id, year)
     end

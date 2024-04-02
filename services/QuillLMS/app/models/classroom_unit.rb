@@ -36,7 +36,7 @@ class ClassroomUnit < ApplicationRecord
   has_many :pack_sequence_items, dependent: :destroy
   has_many :user_pack_sequence_items, through: :pack_sequence_items
   has_many :completed_activity_sessions, -> {completed}, class_name: 'ActivitySession'
-  has_many :classroom_unit_activity_states
+  has_many :classroom_unit_activity_states, dependent: :destroy
 
   scope :visible, -> { where(visible: true) }
 
@@ -83,11 +83,15 @@ class ClassroomUnit < ApplicationRecord
 
   def manage_user_pack_sequence_items
     pack_sequence_items.reload.each do |pack_sequence_item|
-      existing_user_ids = pack_sequence_item.users.pluck(:id)
+      existing_user_ids = pack_sequence_item.reload.users.pluck(:id)
       new_user_ids = assigned_student_ids - existing_user_ids
       deleted_user_ids = existing_user_ids - assigned_student_ids
 
-      new_user_ids.each { |user_id| pack_sequence_item.user_pack_sequence_items.create!(user_id: user_id) }
+      new_user_ids.each do |user_id|
+        UserPackSequenceItem.find_or_create_by!(pack_sequence_item_id: pack_sequence_item.id, user_id: user_id)
+      rescue ActiveRecord::RecordNotUnique
+        next
+      end
 
       pack_sequence_item
         .user_pack_sequence_items
@@ -115,7 +119,7 @@ class ClassroomUnit < ApplicationRecord
   end
 
   private def hide_all_activity_sessions
-    activity_sessions.update_all(visible: false)
+    activity_sessions.update_all(visible: false, updated_at: DateTime.current)
   end
 
   private def hide_appropriate_activity_sessions

@@ -1,30 +1,30 @@
+import pluralize from 'pluralize';
 import * as React from 'react';
 import _ from 'underscore';
-import pluralize from 'pluralize'
 
-import TopicSection from './topic_section.jsx';
-import HeaderSection from './header_section'
 import {
+  ALL,
+  BEST_PRACTICES,
+  BLOG_POST_TO_COLOR,
+  GETTING_STARTED,
+  SEARCH,
   STUDENT,
   STUDENT_CENTER,
   STUDENT_CENTER_SLUG,
+  SUPPORT,
   TEACHER_CENTER,
   TEACHER_CENTER_SLUG,
-  TOPIC,
-  ALL,
-  SEARCH,
-  TEACHER_STORIES,
-  GETTING_STARTED,
-  WRITING_INSTRUCTION_RESEARCH,
   TEACHER_MATERIALS,
+  TEACHER_STORIES,
+  TOPIC,
+  WRITING_FOR_LEARNING,
   VIDEO_TUTORIALS,
-  WHATS_NEW,
-  BEST_PRACTICES,
-  SUPPORT,
   WEBINARS,
-  USING_QUILL_FOR_READING_COMPREHENSION,
-  BLOG_POST_TO_COLOR,
-} from './blog_post_constants'
+  WHATS_NEW,
+  WRITING_INSTRUCTION_RESEARCH,
+} from './blog_post_constants';
+import HeaderSection from './header_section';
+import TopicSection from './topic_section.jsx';
 
 import PreviewCard from '../shared/preview_card.jsx';
 
@@ -65,16 +65,16 @@ export default class BlogPostIndex extends React.Component {
       case VIDEO_TUTORIALS:
         return "View detailed walkthroughs of Quill tools, set-up, and features"
       case BEST_PRACTICES:
-        return 'Explore implementation ideas from Quill’s instructional experts'
+        return "Explore implementation ideas from Quill's instructional experts"
       case WHATS_NEW:
         return 'Stay up to date on the latest Quill news'
       case TEACHER_MATERIALS:
         return 'Read and download useful materials to help navigate Quill, support students, and teach writing'
-      case USING_QUILL_FOR_READING_COMPREHENSION:
-        return "Learn all about Quill's new reading and writing tool"
+      case WRITING_FOR_LEARNING:
+        return "Learn about using Quill to simultaneously strengthen students' content knowledge and writing skills"
       case TEACHER_CENTER:
       default:
-        return 'Everything you need to know about Quill’s pedagogy and use in the classroom'
+        return "Everything you need to know about Quill's pedagogy and use in the classroom"
     }
   }
 
@@ -188,14 +188,11 @@ export default class BlogPostIndex extends React.Component {
   }
 
   renderPreviewCardsByTopic() {
-    const { blogPosts, isComprehensionUser, role, topics } = this.props;
+    const { blogPosts, role, topics } = this.props;
     let sections = [];
     const articlesByTopic = _.groupBy(blogPosts, TOPIC);
     topics.forEach(topic => {
       const articlesInThisTopic = articlesByTopic[topic.name];
-      const skipComprehension = topic.name === USING_QUILL_FOR_READING_COMPREHENSION && !isComprehensionUser;
-
-      if(skipComprehension) { return }
 
       if (articlesInThisTopic) {
         sections.push(<TopicSection

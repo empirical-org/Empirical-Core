@@ -11,6 +11,7 @@ import {incorrectSequenceChecker} from '../matchers/incorrect_sequence_match';
 import {caseInsensitiveChecker} from '../matchers/case_insensitive_match';
 import {punctuationInsensitiveChecker} from '../matchers/punctuation_insensitive_match';
 import {punctuationAndCaseInsensitiveChecker} from '../matchers/punctuation_and_case_insensitive_match';
+import {quotationMarkChecker} from '../matchers/quotation_mark_match';
 import {spacingBeforePunctuationChecker} from '../matchers/spacing_before_punctuation_match';
 import {spacingAfterCommaChecker} from '../matchers/spacing_after_comma_match';
 import {whitespaceChecker} from '../matchers/whitespace_match';
@@ -91,6 +92,7 @@ function* firstPassMatchers(data: GradingObject, spellCorrected=false) {
     yield incorrectSequenceChecker(submission, incorrectSequences, responses);
   }
   yield caseInsensitiveChecker(submission, responses);
+  yield quotationMarkChecker(submission, responses);
   yield punctuationInsensitiveChecker(submission, responses);
   yield punctuationAndCaseInsensitiveChecker(submission, responses);
   yield spacingBeforePunctuationChecker(submission, responses);

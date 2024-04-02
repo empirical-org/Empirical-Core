@@ -1,14 +1,15 @@
 import React from 'react';
 
-import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
-import TeacherGeneralAccountInfo from '../components/accounts/edit/teacher_general'
-import TeacherPasswordAccountInfo from '../components/accounts/edit/update_password'
-import TeacherLinkedAccounts from '../components/accounts/edit/teacher_linked_accounts'
-import TeacherEmailNotifications from '../components/accounts/edit/teacher_email_notifications'
-import TeacherGradeLevels from '../components/accounts/edit/teacher_grade_levels'
-import TeacherSubjectAreas from '../components/accounts/edit/teacher_subject_areas'
-import TeacherDangerZone from '../components/accounts/edit/teacher_danger_zone'
-import { requestPut, requestPost, } from '../../../modules/request/index';
+import { requestPost, requestPut, } from '../../../modules/request/index';
+import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index';
+import TeacherDangerZone from '../components/accounts/edit/teacher_danger_zone';
+import TeacherEmailNotifications from '../components/accounts/edit/teacher_email_notifications';
+import TeacherGeneralAccountInfo from '../components/accounts/edit/teacher_general';
+import TeacherGradeLevels from '../components/accounts/edit/teacher_grade_levels';
+import TeacherLinkedAccounts from '../components/accounts/edit/teacher_linked_accounts';
+import TeacherSubjectAreas from '../components/accounts/edit/teacher_subject_areas';
+import TeacherPasswordAccountInfo from '../components/accounts/edit/update_password';
+import TeacherStudentDashboardSettings from '../components/accounts/edit/teacher_student_dashboard_settings'
 
 function gradeLevelToOption(gradeLevel) {
   return gradeLevel ? { value: gradeLevel, label: gradeLevel, } : null
@@ -18,6 +19,8 @@ const PASSWORD = 'password'
 const GRADE_LEVEL = 'gradeLevel'
 const SUBJECT_AREAS = 'subjectAreas'
 const GENERAL = 'general'
+const EMAIL_NOTIFICATIONS = 'emailNotifications'
+const STUDENT_DASHBOARD_SETTINGS = 'studentDashboardSettings'
 
 export default class TeacherAccount extends React.Component {
   constructor(props) {
@@ -32,9 +35,12 @@ export default class TeacherAccount extends React.Component {
       school,
       school_type,
       send_newsletter,
+      notification_email_frequency,
+      teacher_notification_settings,
       minimum_grade_level,
       maximum_grade_level,
       subject_area_ids,
+      show_students_exact_score,
     } = props.accountInfo
     this.state = {
       activeSection: null,
@@ -46,13 +52,19 @@ export default class TeacherAccount extends React.Component {
       googleId: google_id,
       cleverId: clever_id,
       sendNewsletter: send_newsletter,
+      tempSendNewsletter: send_newsletter,
+      notificationEmailFrequency: notification_email_frequency,
+      tempNotificationEmailFrequency: notification_email_frequency,
+      teacherNotificationSettings: teacher_notification_settings,
+      tempTeacherNotificationSettings: teacher_notification_settings,
       minimumGradeLevel: minimum_grade_level,
       maximumGradeLevel: maximum_grade_level,
       selectedSubjectAreaIds: subject_area_ids,
+      showStudentsExactScore: show_students_exact_score,
       snackbarCopy: '',
       showSnackbar: false,
       errors: {},
-      timesSubmitted: 0
+      timesSubmitted: 0,
     }
   }
 
@@ -68,6 +80,20 @@ export default class TeacherAccount extends React.Component {
       }
       this.setState({ snackbarCopy, }, this.showSnackbar)
     }
+  }
+
+  setTeacherNotificationOption = (key, value) => {
+    this.setState({[key]: value})
+  }
+
+  resetTeacherNotificationSection = () => {
+    const { sendNewsletter, notificationEmailFrequency, teacherNotificationSettings } = this.state
+
+    this.setState({
+      "tempSendNewsletter": sendNewsletter,
+      "tempNotificationEmailFrequency": notificationEmailFrequency,
+      "tempTeacherNotificationSettings": teacherNotificationSettings
+    })
   }
 
   activateSection = section => {
@@ -106,17 +132,43 @@ export default class TeacherAccount extends React.Component {
         const {
           minimum_grade_level,
           maximum_grade_level,
-          subject_area_ids
+          subject_area_ids,
+          notification_email_frequency,
+          show_students_exact_score,
         } = body
+
         this.setState({
           minimumGradeLevel: minimum_grade_level,
           maximumGradeLevel: maximum_grade_level,
           selectedSubjectAreaIds: subject_area_ids,
+          notificationEmailFrequency: notification_email_frequency,
+          tempNotificationEmailFrequency: notification_email_frequency,
+          showStudentsExactScore: show_students_exact_score,
           snackbarCopy,
           errors: {}
         }, () => {
-          this.showSnackbar()
+          if (snackbarCopy) { this.showSnackbar() }
           this.setState({ activeSection: null, })
+        })
+      },
+      (body) => {
+        this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1, })
+      }
+    )
+  }
+
+  updateNotificationSettings = (data) => {
+    requestPost(
+      '/api/v1/teacher_notification_settings/bulk_update',
+      data,
+      (body) => {
+        const { teacher_notification_settings, } = body
+        this.setState({
+          teacherNotificationSettings: teacher_notification_settings,
+          tempTeacherNotificationSettings: teacher_notification_settings,
+          errors: {}
+        }, () => {
+          this.setState({activeSection: null, })
         })
       },
       (body) => {
@@ -150,6 +202,7 @@ export default class TeacherAccount extends React.Component {
           googleId: google_id,
           cleverId: clever_id,
           sendNewsletter: send_newsletter,
+          tempSendNewsletter: send_newsletter,
           snackbarCopy,
           errors: {}
         }, () => {
@@ -180,12 +233,16 @@ export default class TeacherAccount extends React.Component {
       errors,
       timesSubmitted,
       activeSection,
-      sendNewsletter,
+      tempSendNewsletter,
+      tempNotificationEmailFrequency,
+      tempTeacherNotificationSettings,
       postGoogleClassroomAssignments,
       minimumGradeLevel,
       maximumGradeLevel,
       selectedSubjectAreaIds,
+      showStudentsExactScore,
     } = this.state
+
     const { accountInfo, alternativeSchools, alternativeSchoolsNameMap, cleverLink, showDismissSchoolSelectionReminderCheckbox, subjectAreas, } = this.props
     return (
       <div className="user-account white-background-accommodate-footer">
@@ -229,7 +286,16 @@ export default class TeacherAccount extends React.Component {
           updateUser={this.updateUser}
         />
         <TeacherEmailNotifications
-          sendNewsletter={sendNewsletter}
+          activateSection={() => this.activateSection(EMAIL_NOTIFICATIONS)}
+          active={activeSection === EMAIL_NOTIFICATIONS}
+          deactivateSection={() => this.deactivateSection(EMAIL_NOTIFICATIONS)}
+          notificationEmailFrequency={tempNotificationEmailFrequency}
+          notificationSettings={tempTeacherNotificationSettings}
+          resetTeacherNotificationSection={this.resetTeacherNotificationSection}
+          sendNewsletter={tempSendNewsletter}
+          setTeacherNotificationOption={this.setTeacherNotificationOption}
+          updateNotificationSettings={this.updateNotificationSettings}
+          updateTeacherInfo={this.updateTeacherInfo}
           updateUser={this.updateUser}
         />
         <TeacherGradeLevels
@@ -246,6 +312,13 @@ export default class TeacherAccount extends React.Component {
           deactivateSection={() => this.deactivateSection(SUBJECT_AREAS)}
           passedSelectedSubjectAreaIds={selectedSubjectAreaIds}
           subjectAreas={subjectAreas}
+          updateTeacherInfo={this.updateTeacherInfo}
+        />
+        <TeacherStudentDashboardSettings
+          activateSection={() => this.activateSection(STUDENT_DASHBOARD_SETTINGS)}
+          active={activeSection === STUDENT_DASHBOARD_SETTINGS}
+          deactivateSection={() => this.deactivateSection(STUDENT_DASHBOARD_SETTINGS)}
+          passedShowStudentsExactScore={showStudentsExactScore}
           updateTeacherInfo={this.updateTeacherInfo}
         />
         <TeacherDangerZone

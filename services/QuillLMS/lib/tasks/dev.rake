@@ -4,8 +4,6 @@ namespace :dev do
 
   desc "easy tool to make this work locally with oauth apps"
   task :reset_apps => :environment do
-
-    Doorkeeper::Application.all.each  { |app| switch_to_local(app, ['redirect_uri']) }
     ActivityClassification.all.each { |app| switch_to_local(app, ['form_url', 'module_url']) }
 
     puts "Replaced existing OAuth endpoints and app with localhost:4000 choices -- remember to run grammar there"

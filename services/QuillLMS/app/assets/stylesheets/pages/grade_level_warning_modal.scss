@@ -33,7 +33,7 @@
         color: #027360;
       }
       .data-table-row:last-of-type {
-        border-bottom: 1px solid #e0e0e0 !important;
+        border-bottom: 1px solid $quill-grey-5 !important;
       }
     }
     .modal-body {
@@ -46,7 +46,7 @@
       }
       .warning {
         margin: 0px;
-        color: #EB4F47;
+        color: $quill-red;
         display: flex;
         img {
           margin-right: 8px;

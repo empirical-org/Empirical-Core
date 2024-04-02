@@ -251,25 +251,6 @@ a.progress-reports-nav {
 
 .progress-report-filters {
   display: flex;
-  margin: 20px 0;
-
-  .dropdown__control {
-    background-color: transparent;
-  }
-
-  & > div {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    margin: 0 10px;
-
-    &:first-of-type {
-      margin-left: 0;
-    }
-
-    &:last-of-type {
-      margin-right: 0;
-    }
-  }
 }
 
 .circle {
@@ -295,4 +276,20 @@ a.progress-reports-nav {
 .activity-progress-report-container .dropdown-menu {
   margin-left: 15px;
   width: calc(100% - 30px);
+}
+
+@media (max-width: 650px) {
+  .progress-report-filters {
+    flex-direction: column;
+    align-items: baseline;
+    padding-right: 16px;
+  }
+  .progress-report-filters > * {
+    margin: 0px;
+  }
+  .progress-report {
+    table {
+      min-width: 1000px;
+    }
+  }
 }

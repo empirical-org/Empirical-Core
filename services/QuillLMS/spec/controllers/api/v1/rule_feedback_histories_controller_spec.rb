@@ -9,22 +9,13 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
   end
 
   describe '#by_conjunction' do
-    it 'should return successfully' do
-      get :by_conjunction, params: { conjunction: 'so', activity_id: 1 }, as: :json
-
-      expect(response.status).to eq 200
-      expect(JSON.parse(response.body)).to eq(
-        {"rule_feedback_histories"=>[]}
-      )
-    end
-
-    it 'should pass conjunction, activity_id, start_date and end_date through to #generate_report' do
+    it 'should pass conjunction, activity_id, start_date and end_date through to Staff::RulesAnalysisQuery#run' do
       CONJUNCTION = 'because'
       ACTIVITY_ID = '17'
       START_DATE = '2021-04-05T22:32:14.524Z'
       END_DATE = '2021-05-05T22:32:14.524Z'
 
-      expect(RuleFeedbackHistory).to receive(:generate_report).with({
+      expect(Staff::RulesAnalysisQuery).to receive(:run).with({
         conjunction: CONJUNCTION,
         activity_id: ACTIVITY_ID,
         start_date: START_DATE,
@@ -62,7 +53,7 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
       it 'should return successfully' do
         main_activity = create(:activity)
 
-        prompt = Evidence::Prompt.create!(
+        prompt = create(:evidence_prompt,
           text: 'foobarbazbat',
           conjunction: 'so',
           activity: main_activity,
@@ -94,7 +85,7 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
       it 'should return successfully' do
         main_activity = create(:activity)
 
-        prompt = Evidence::Prompt.create!(
+        prompt = create(:evidence_prompt,
           text: 'foobarbazbat',
           conjunction: 'so',
           activity: main_activity,

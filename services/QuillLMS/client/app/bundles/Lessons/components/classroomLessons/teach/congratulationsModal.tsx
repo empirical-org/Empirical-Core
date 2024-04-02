@@ -1,6 +1,6 @@
-import * as React from 'react'
+import * as React from 'react';
 import { saveReview } from '../../../actions/classroomSessions';
-import { ClassroomSessionId } from '../interfaces'
+import { ClassroomSessionId } from '../interfaces';
 
 export default class CongratulationsModal extends React.Component<{closeModal: any, lessonId:string, classroomSessionId:ClassroomSessionId}, {selectedEmoji: number|null}> {
   constructor(props) {

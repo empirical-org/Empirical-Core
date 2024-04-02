@@ -17,7 +17,7 @@ class Api::V1::ProgressReportsController < Api::ApiController
   def district_activity_scores
     return unless current_user&.admin?
 
-    serialized_district_activity_scores_json = $redis.get("SERIALIZED_DISTRICT_ACTIVITY_SCORES_FOR_#{current_user.id}")
+    serialized_district_activity_scores_json = $redis.get("#{SchoolsAdmins::DISTRICT_ACTIVITY_SCORES_CACHE_KEY_STEM}#{current_user.id}")
     if serialized_district_activity_scores_json
       serialized_district_activity_scores = JSON.parse(serialized_district_activity_scores_json)
     end
@@ -32,7 +32,7 @@ class Api::V1::ProgressReportsController < Api::ApiController
   def district_concept_reports
     return unless current_user&.admin?
 
-    serialized_district_concept_reports_json = $redis.get("SERIALIZED_DISTRICT_CONCEPT_REPORTS_FOR_#{current_user.id}")
+    serialized_district_concept_reports_json = $redis.get("#{SchoolsAdmins::DISTRICT_CONCEPT_REPORTS_CACHE_KEY_STEM}#{current_user.id}")
     if serialized_district_concept_reports_json
       serialized_district_concept_reports = JSON.parse(serialized_district_concept_reports_json)
     end
@@ -47,15 +47,14 @@ class Api::V1::ProgressReportsController < Api::ApiController
   def district_standards_reports
     return unless current_user&.admin?
 
-    serialized_district_standards_reports_json = $redis.get("SERIALIZED_DISTRICT_STANDARDS_REPORTS_FOR_#{current_user.id}")
-    if serialized_district_standards_reports_json
-      serialized_district_standards_reports = JSON.parse(serialized_district_standards_reports_json)
-    end
-    if serialized_district_standards_reports.nil?
-      FindDistrictStandardsReportsWorker.perform_async(current_user.id)
+    is_freemium = params && params[:freemium] ? true : false
+    cache_key = is_freemium ? SchoolsAdmins::FREEMIUM_DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM : SchoolsAdmins::DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM
+    data = Rails.cache.fetch("#{cache_key}#{current_user.id}")
+    if data.nil?
+      FindDistrictStandardsReportsWorker.perform_async(current_user.id, is_freemium)
       render json: { id: current_user.id }
     else
-      render json: { data: serialized_district_standards_reports }
+      render json: { data: JSON.parse(data) }
     end
   end
 

@@ -1,18 +1,22 @@
 .student-profile-unit {
   border-radius: 6px;
-  border: solid 1px #e0e0e0;
-  background-color: #ffffff;
+  border: solid 1px $quill-grey-5;
+  background-color: $quill-white;
   margin-bottom: 24px;
+  .score-tooltip-activator {
+    position: relative;
+    white-space: normal;
+  }
   &.selected-unit {
     .unit-name-and-staggered-release-status {
       animation: highlight 5s 1;
 
       @keyframes highlight {
         0%  {
-          background-color: #fff3e0;
+          background-color: #FFF3E0;
         }
         100% {
-          background-color: #ffffff;
+          background-color: $quill-white;
         }
       }
 
@@ -34,7 +38,7 @@
   }
   .activities-container {
     padding: 32px 24px;
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid $quill-grey-5;
     h3 {
       font-size: 16px;
       font-weight: bold;
@@ -53,7 +57,9 @@
         cursor: text;
       }
       .data-table-row {
-        height: 72px;
+        min-height: 72px;
+        height: min-content;
+        padding: 18px 0px;
         &:hover {
           background-color: transparent;
         }
@@ -77,6 +83,9 @@
     .score {
       display: flex;
       align-items: center;
+      .button-loading-spinner {
+        margin-right: 8px;
+      }
       div {
         display: inline-block;
         width: 24px;
@@ -86,13 +95,13 @@
         &.completed {
           background-color: #358fdf;
         }
-        &.proficient {
+        &.frequently-demonstrated-skill {
           background-color: #4ea500;
         }
-        &.nearly-proficient {
+        &.sometimes-demonstrated-skill {
           background-color: #eb9911;
         }
-        &.not-yet-proficient {
+        &.rarely-demonstrated-skill {
           background-color: #e73030;
         }
       }
@@ -103,7 +112,7 @@
     }
 
     @media (max-width: 1200px) {
-      .tool-icon-section, .completed-due-date-section {
+      .tool-icon-section, .completed-due-date-section, .completed-date-section {
         display: none;
       }
       .name-section {
@@ -120,12 +129,13 @@
       }
       .data-table-headers, .data-table-header, .data-table-row, .data-table-row-section {
         min-width: auto !important;
+        width: auto !important;
       }
       .data-table-row {
         flex-wrap: wrap;
       }
     }
-    @media (max-width: 682px) {
+    @media (max-width: 850px) {
       .name-section {
         white-space: normal;
       }
@@ -149,13 +159,18 @@
       .score-section {
         flex: 1;
         overflow: visible;
+        margin-right: 0px;
+        .quill-tooltip-trigger {
+          margin-right: 0px;
+        }
         .score {
-          position: relative;
+          flex-direction: column;
+          align-items: flex-start;
+          div {
+            margin-bottom: 8px;
+          }
           span {
-            position: absolute;
-            top: 32px;
-            max-width: 80px;
-            white-space: normal
+            white-space: normal;
           }
         }
       }

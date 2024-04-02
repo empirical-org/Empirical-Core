@@ -1,0 +1,221 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LogInAsATeacherModal it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="modal-container admin-action-modal-container log-in-as-a-teacher-modal"
+  >
+    <div
+      class="modal-background"
+    />
+    <div
+      aria-labelledby="logInAsATeacherModalTitle"
+      aria-modal="true"
+      class="admin-action-modal quill-modal"
+      role="dialog"
+      tabindex="-1"
+    >
+      <div
+        class="admin-action-modal-header"
+      >
+        <h3
+          class="title"
+          id="logInAsATeacherModalTitle"
+        >
+          Log in as a teacher
+        </h3>
+      </div>
+      <div
+        class="admin-action-modal-body modal-body"
+      >
+        <p>
+          Access a teacher's account to assign activities, manage rosters, and view data.
+        </p>
+        <div
+          class="dropdown-container input-container inactive has-text  school-selector searchable "
+          role="button"
+          tabindex="0"
+        >
+          <label>
+            School
+          </label>
+          <div
+            class="dropdown css-b62m3t-container"
+          >
+            <span
+              class="css-1f43avz-a11yText-A11yText"
+              id="react-select-2-live-region"
+            />
+            <span
+              aria-atomic="false"
+              aria-live="polite"
+              aria-relevant="additions text"
+              class="css-1f43avz-a11yText-A11yText"
+            />
+            <div
+              class="dropdown__control css-13cymwt-control"
+            >
+              <div
+                class="dropdown__value-container dropdown__value-container--has-value css-1fdsijx-ValueContainer"
+              >
+                <div
+                  class="dropdown__single-value css-1dimb5e-singleValue"
+                >
+                  Douglass High School
+                </div>
+                <div
+                  class="dropdown__input-container css-qbdosj-Input"
+                  data-value=""
+                >
+                  <input
+                    aria-autocomplete="list"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    autocapitalize="none"
+                    autocomplete="off"
+                    autocorrect="off"
+                    class="dropdown__input"
+                    id="react-select-2-input"
+                    role="combobox"
+                    spellcheck="false"
+                    style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                    tabindex="0"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div
+                class="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
+              >
+                <span
+                  class="dropdown__indicator-separator css-1u9des2-indicatorSeparator"
+                />
+                <div
+                  aria-hidden="true"
+                  class="dropdown__indicator dropdown__dropdown-indicator css-1xc3v61-indicatorContainer"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="css-tj5bde-Svg"
+                    focusable="false"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    width="20"
+                  >
+                    <path
+                      d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="dropdown-container input-container inactive   teacher-selector searchable "
+          role="button"
+          tabindex="0"
+        >
+          <label>
+            Teacher
+          </label>
+          <div
+            class="dropdown css-b62m3t-container"
+          >
+            <span
+              class="css-1f43avz-a11yText-A11yText"
+              id="react-select-3-live-region"
+            />
+            <span
+              aria-atomic="false"
+              aria-live="polite"
+              aria-relevant="additions text"
+              class="css-1f43avz-a11yText-A11yText"
+            />
+            <div
+              class="dropdown__control css-13cymwt-control"
+            >
+              <div
+                class="dropdown__value-container css-1fdsijx-ValueContainer"
+              >
+                <div
+                  class="dropdown__placeholder css-1jqq78o-placeholder"
+                  id="react-select-3-placeholder"
+                />
+                <div
+                  class="dropdown__input-container css-qbdosj-Input"
+                  data-value=""
+                >
+                  <input
+                    aria-autocomplete="list"
+                    aria-describedby="react-select-3-placeholder"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    autocapitalize="none"
+                    autocomplete="off"
+                    autocorrect="off"
+                    class="dropdown__input"
+                    id="react-select-3-input"
+                    role="combobox"
+                    spellcheck="false"
+                    style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                    tabindex="0"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div
+                class="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
+              >
+                <span
+                  class="dropdown__indicator-separator css-1u9des2-indicatorSeparator"
+                />
+                <div
+                  aria-hidden="true"
+                  class="dropdown__indicator dropdown__dropdown-indicator css-1xc3v61-indicatorContainer"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="css-tj5bde-Svg"
+                    focusable="false"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    width="20"
+                  >
+                    <path
+                      d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="admin-action-modal-footer"
+      >
+        <div
+          class="buttons"
+        >
+          <button
+            class="quill-button outlined secondary medium focus-on-light"
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            class="quill-button contained primary medium focus-on-light disabled"
+            disabled=""
+            type="button"
+          >
+            Log in
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

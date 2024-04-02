@@ -5,14 +5,15 @@ module CleverIntegration
     include Sidekiq::Worker
     sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
 
-    def perform(teacher_id)
-      return unless clever_id?(teacher_id)
+    class UserNotFoundError < StandardError; end
 
-      TeacherClassroomsCacheHydrator.run(teacher_id)
-    end
+    def perform(user_id)
+      user = ::User.find_by(id: user_id)
 
-    private def clever_id?(teacher_id)
-      teacher_id && ::User.find_by(id: teacher_id)&.clever_id&.present?
+      return ErrorNotifier.report(UserNotFoundError, user_id: user_id) if user.nil?
+      return unless user.clever_authorized?
+
+      TeacherClassroomsCacheHydrator.run(user)
     end
   end
 end

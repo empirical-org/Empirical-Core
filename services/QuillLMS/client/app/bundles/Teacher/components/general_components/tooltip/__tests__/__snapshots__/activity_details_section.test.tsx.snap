@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivityDetailsSection component should render 1`] = `
+<DocumentFragment>
+  <div
+    class="activity-tooltip-details-section "
+  >
+    <p
+      class="header"
+    >
+      Test Header
+    </p>
+    <p
+      class="description"
+    >
+      This is a test description
+    </p>
+  </div>
+</DocumentFragment>
+`;

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'csv'
-
 class Teachers::ProgressReports::ActivitySessionsController < Teachers::ProgressReportsController
   PAGE_SIZE = 25;
 

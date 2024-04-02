@@ -6,7 +6,7 @@ namespace :users do
   task clear_data_on_deleted_users: :environment do
     deleted_users = User.deleted_users
 
-    progress_bar = ProgessBar.new(deleted_users.size)
+    progress_bar = ProgressBar.new(deleted_users.size)
 
     deleted_users.find_each do |user|
       user.clear_data
@@ -38,5 +38,35 @@ namespace :users do
     User.joins(:schools_admins).where.not(role: User::ADMIN).distinct.each do |admin_user|
       admin_user.update(role: User::ADMIN)
     end
+  end
+
+  task mark_google_clever_admins_verified: :environment do
+    User.left_outer_joins(:user_email_verification)
+      .joins(:admin_info) # only users who self-service sign up as admins have AdminInfo records
+      .where.not(clever_id: nil)
+      .or(User.where.not(google_id: nil)) # the position of `or` matters a lot when you have multiple `where` clauses
+      .where(role: User::ADMIN)
+      .where(user_email_verification: { id: nil })
+      .each do |user|
+
+      verification_method = UserEmailVerification::GOOGLE_VERIFICATION if user.google_id
+      verification_method = UserEmailVerification::CLEVER_VERIFICATION if user.clever_id
+      user.verify_email(verification_method)
+    end
+  end
+
+  task set_default_notification_frequency: :environment do
+    # First make sure all teachers and admins have a TeacherInfo record with
+    # notification_email_frequency set to "never"
+    User.left_outer_joins(:teacher_info)
+      .where(role: [User::TEACHER, User::ADMIN])
+      .where(teacher_info: {id: nil})
+      .find_each do |user|
+      puts "Creating TeacherInfo record for user #{user.id}"
+      user.create_teacher_info(notification_email_frequency: TeacherInfo::NEVER_EMAIL)
+    end
+
+    # Now find any existing TeacherInfo records without notification_email_frequency set, and set it to "never"
+    TeacherInfo.where(notification_email_frequency: nil).update_all(notification_email_frequency: TeacherInfo::NEVER_EMAIL)
   end
 end

@@ -7,13 +7,14 @@
 #  id                         :integer          not null, primary key
 #  data                       :jsonb
 #  description                :text
-#  flags                      :string           default([]), not null, is an Array
+#  flags                      :string(255)      default([]), not null, is an Array
 #  maximum_grade_level        :integer
 #  minimum_grade_level        :integer
-#  name                       :string
+#  name                       :string(255)
+#  question_count             :integer          default(0), not null
 #  repeatable                 :boolean          default(TRUE)
 #  supporting_info            :string
-#  uid                        :string           not null
+#  uid                        :string(255)      not null
 #  created_at                 :datetime
 #  updated_at                 :datetime
 #  activity_classification_id :integer
@@ -49,8 +50,10 @@ class Activity < ApplicationRecord
 
   has_one :standard_level, through: :standard
 
+  has_many :activity_sessions
   has_many :skill_group_activities
   has_many :skill_groups, through: :skill_group_activities
+  has_many :diagnostic_question_skills, through: :skill_groups
   has_many :skills, through: :skill_groups
   has_many :unit_activities, dependent: :destroy
   has_many :units, through: :unit_activities
@@ -68,6 +71,7 @@ class Activity < ApplicationRecord
   has_many :activity_topics, dependent: :destroy
   has_many :topics, through: :activity_topics
 
+  before_validation :populate_question_count
   before_create :flag_as_beta, unless: :flags?
   before_save :set_minimum_and_maximum_grade_levels_to_default_values, unless: :minimum_grade_level
   after_commit :clear_activity_search_cache
@@ -93,11 +97,16 @@ class Activity < ApplicationRecord
   ALPHA = 'alpha'
   ARCHIVED = 'archived'
 
+  FLAGS_ATTRIBUTE = 'flags'
+
   scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
   scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
   scope :alpha_user, -> { where("'#{ALPHA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
+  scope :evidence, -> { where(classification: ActivityClassification.evidence) }
+  scope :evidence_beta1, -> { where(flags: [Flags::EVIDENCE_BETA1]) }
+  scope :evidence_beta2, -> { where(flags: [Flags::EVIDENCE_BETA2]) }
 
   # only Grammar (2), Connect (5), and Diagnostic (4) Activities contain questions
   # the other two, Proofreader and Lesson, contain passages and other data, not questions
@@ -187,6 +196,13 @@ class Activity < ApplicationRecord
   def anonymous_module_url
     initial_params = {anonymous: true}
     module_url_helper(initial_params)
+  end
+
+  def publication_date
+    return nil unless is_evidence?
+
+    created_time = child_activity.last_flags_change_log_record&.created_at || created_at
+    created_time.strftime("%m/%d/%Y")
   end
 
   # TODO: cleanup
@@ -293,6 +309,10 @@ class Activity < ApplicationRecord
     user_pack_sequence_items.locked.exists?(user: user)
   end
 
+  def serialize_with_topics_and_publication_date
+    serializable_hash.merge({topics: topics&.map(&:genealogy), publication_date: publication_date})
+  end
+
   private def update_evidence_title?
     is_evidence? && saved_change_to_name?
   end
@@ -312,9 +332,9 @@ class Activity < ApplicationRecord
       changed_record_type: 'Evidence::Activity',
       changed_record_id: child_activity&.id,
       explanation: nil,
-      changed_attribute: "flags",
-      previous_value: previous_changes["flags"][0],
-      new_value: previous_changes["flags"][1]
+      changed_attribute: FLAGS_ATTRIBUTE,
+      previous_value: previous_changes[FLAGS_ATTRIBUTE][0],
+      new_value: previous_changes[FLAGS_ATTRIBUTE][1]
     }
     ChangeLog.create(change_log)
   end
@@ -346,7 +366,6 @@ class Activity < ApplicationRecord
     # Rename "student" to "session" because it's called "student" in all tools other than Evidence
     initial_params[:session] = initial_params.delete :student if initial_params[:student]
     initial_params[:uid] = Evidence::Activity.find_by(parent_activity_id: id).id
-    initial_params[:skipToPrompts] = true if initial_params[:anonymous]
     construct_redirect_url(base_url, initial_params)
   end
 
@@ -392,4 +411,9 @@ class Activity < ApplicationRecord
     end
     return true
   end
+
+  private def populate_question_count
+    self.question_count = QuestionCounter.run(self)
+  end
+
 end

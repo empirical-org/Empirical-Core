@@ -13,11 +13,11 @@ module CleverIntegration
     end
 
     def run
-      { clever_id: clever_id, email: email, name: name }
-    end
-
-    private def clever_id
-      info_hash.id
+      {
+        email: email,
+        name: name,
+        user_external_id: user_external_id
+      }
     end
 
     private def email
@@ -36,6 +36,10 @@ module CleverIntegration
 
     private def name
       NameBuilder.run(first_name, last_name)
+    end
+
+    private def user_external_id
+      info_hash.id
     end
   end
 end

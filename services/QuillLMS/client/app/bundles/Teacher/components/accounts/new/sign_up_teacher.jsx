@@ -1,15 +1,14 @@
 import React from 'react';
 
-import AuthSignUp from './auth_sign_up'
+import AuthSignUp from './auth_sign_up';
 
-import PasswordWrapper from '../shared/password_wrapper'
-import TeacherSignUpInfo from '../shared/teacher_sign_up_info'
-import AnalyticsWrapper from '../../shared/analytics_wrapper'
-import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
-import AssignActivityPackBanner from '../assignActivityPackBanner'
-import { Input, } from '../../../../Shared/index'
-import { requestPost, } from '../../../../../modules/request/index'
-import { INDIVIDUAL_CONTRIBUTOR } from '../../../../Shared/index';
+import { requestPost, } from '../../../../../modules/request/index';
+import { ADMIN, INDIVIDUAL_CONTRIBUTOR, Input, TEACHER, } from '../../../../Shared/index';
+import AnalyticsWrapper from '../../shared/analytics_wrapper';
+import AssignActivityPackBanner from '../assignActivityPackBanner';
+import PasswordWrapper from '../shared/password_wrapper';
+import TeacherSignUpInfo from '../shared/teacher_sign_up_info';
+import AgreementsAndLinkToLogin from './agreements_and_link_to_login';
 
 class SignUpTeacher extends React.Component {
   constructor(props) {
@@ -49,6 +48,7 @@ class SignUpTeacher extends React.Component {
   handleSubmit = (e) => {
     const { firstName, lastName, email, password, sendNewsletter, timesSubmitted, } = this.state
     e.preventDefault();
+    const isAdmin = window.location.href.includes(ADMIN)
 
     requestPost(
       `${process.env.DEFAULT_URL}/account`,
@@ -57,13 +57,16 @@ class SignUpTeacher extends React.Component {
           name: `${firstName} ${lastName}`,
           password,
           email,
-          role: 'teacher',
+          role: isAdmin ? ADMIN : TEACHER,
           send_newsletter: sendNewsletter,
         }
       },
       (body) => {
-        const isIndvidualContributor = window.location.href.includes(INDIVIDUAL_CONTRIBUTOR);
-        if(isIndvidualContributor) {
+        const isIndividualContributor = window.location.href.includes(INDIVIDUAL_CONTRIBUTOR);
+
+        if (isAdmin) {
+          window.location = '/sign-up/verify-email'
+        } else if(isIndividualContributor) {
           window.location = '/sign-up/add-teacher-info'
         } else {
           window.location = '/sign-up/add-k12'

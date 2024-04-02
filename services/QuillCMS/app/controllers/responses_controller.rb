@@ -57,7 +57,7 @@ class ResponsesController < ApplicationController
     new_vals = transformed_new_vals(response_params)
     updated_response = @response.update(new_vals)
     if updated_response
-      render json: @response
+      render json: @response.serialized_for_admin_cms
     else
       render json: @response.errors, status: :unprocessable_entity
     end
@@ -185,7 +185,7 @@ class ResponsesController < ApplicationController
 
   def reindex_responses_updated_today_for_given_question
     question_uid = params[:question_uid]
-    Response.__elasticsearch__.import query: -> { where("question_uid = ? AND updated_at >= ?", question_uid, Time.zone.now.beginning_of_day) }
+    Response.__elasticsearch__.import(query: -> { where("question_uid = ? AND updated_at >= ?", question_uid, Time.zone.now.beginning_of_day) } )
   end
 
   # Use callbacks to share common setup or constraints between actions.

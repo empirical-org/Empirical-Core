@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import UnitTemplateFirstRow from '../unit_template_first_row';
 import { activityPack } from '../../../../../../test_data/activityPack';
+import UnitTemplateFirstRow from '../unit_template_first_row';
 
 const mockProps = {
   data: activityPack

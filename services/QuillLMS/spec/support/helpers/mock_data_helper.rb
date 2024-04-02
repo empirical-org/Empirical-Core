@@ -10,6 +10,6 @@ module MockDataHelper
     # If there is no folder for holding our mock data, create it.
     FileUtils.mkdir_p 'client/__mockdata__'
     condition = "_#{condition.downcase.gsub(/[^0-9a-z_]/, '_')}" if condition
-    File.write("client/__mockdata__/#{response.request.fullpath.gsub('/', '_')[1..-1]}#{condition}.json", response.body)
+    File.write("client/__mockdata__/#{response.request.fullpath.gsub('/', '_')[1..]}#{condition}.json", response.body)
   end
 end

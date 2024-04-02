@@ -1,11 +1,11 @@
-import React from 'react';
-import { SingleDatePicker } from 'react-dates'
 import _ from 'lodash';
-import { DataTable } from '../../Shared/index'
-import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx';
 import moment from 'moment';
+import React from 'react';
+import { SingleDatePicker } from 'react-dates';
+import { DataTable, ButtonLoadingSpinner, } from '../../Shared/index';
+import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx';
 
-import { requestPut, requestPost, } from '../../../modules/request/index'
+import { requestPost, requestPut, } from '../../../modules/request/index';
 
 export default class EditOrCreateSubscription extends React.Component {
   constructor(props) {
@@ -23,6 +23,7 @@ export default class EditOrCreateSubscription extends React.Component {
       subscription: defaultSubscription,
       firstFocused: false,
       secondFocused: false,
+      submitting: false,
       schools
     }
   }
@@ -124,6 +125,20 @@ export default class EditOrCreateSubscription extends React.Component {
     this.setState({ subscription: newSub, });
   }
 
+  handleStripeInvoiceIdChange = (e) => {
+    const { subscription, } = this.state
+    const newSub = Object.assign({}, subscription);
+    newSub.stripe_invoice_id = e.target.value;
+    this.setState({ subscription: newSub, });
+  }
+
+  handlePurchaseOrderNumberChange = (e) => {
+    const { subscription, } = this.state
+    const newSub = Object.assign({}, subscription);
+    newSub.purchase_order_number = e.target.value;
+    this.setState({ subscription: newSub, });
+  }
+
   handleExpirationDateChange = (e) => {
     const { subscription, } = this.state
     const newSub = Object.assign({}, subscription);
@@ -162,22 +177,48 @@ export default class EditOrCreateSubscription extends React.Component {
 
   handleSubmit = () => {
     const { view, } = this.props
+    const { submitting, } = this.state
+
+    if (submitting) { return }
+
     const submitVars = this.submitVars()
     const that = this
 
-    submitVars.requestMethod(
-      submitVars.urlString,
-      submitVars.data,
-      (body) => {
-        alert('Subscription was saved');
-        if (view === 'new') {
-          // switch to the edit view after submission
-          window.location = window.location.href.replace('new', 'edit')
+    this.setState({ submitting: true, }, () => {
+      submitVars.requestMethod(
+        submitVars.urlString,
+        submitVars.data,
+        (body) => {
+          alert('Subscription was saved');
+          if (view === 'new') {
+            // redirect back to the school or district details page
+            window.location = window.location.href.replace('new_subscription', '')
+          }
+        },
+        (body) => {
+          this.setState({ submitting: false, })
+          alert('There was an error. Please try again and contact a dev if you continue to get this warning.')
         }
-      },
-      (body) => {
-        alert('There was an error. Please try again and contact a dev if you continue to get this warning.')
-      }
+      )
+    })
+  }
+
+  isInvoice = () => {
+    const { subscription } = this.state
+
+    return (subscription.payment_method === "Invoice")
+  }
+
+  stripeInvoiceInput = () => {
+    const { subscription } = this.state
+
+    return (
+      <React.Fragment>
+        <label>Stripe Invoice ID (leave blank for non-Stripe invoices)</label>
+        <input onChange={this.handleStripeInvoiceIdChange} type="text" value={subscription.stripe_invoice_id} />
+        <label>Purchase Order Number (if provided by customer)</label>
+        <input onChange={this.handlePurchaseOrderNumberChange} type="text" value={subscription.purchase_order_number} />
+      </React.Fragment>
     )
   }
 
@@ -196,8 +237,9 @@ export default class EditOrCreateSubscription extends React.Component {
           items={subscriptionPaymentOptions}
           selectedItem={subscription.payment_method || 'N/A'}
         />
-        <label>Purchase Amount (dollar value as integer -- no decimal or symbol)</label>
-        <input onChange={this.handlePaymentAmountChange} type="text" value={subscription.payment_amount / 100} />
+        {this.isInvoice() && this.stripeInvoiceInput()}
+        <label>Purchase Amount (dollar value as integer -- no decimal or symbol: $80.00 should be entered as 80) -- if you leave this blank and provide a valid Stripe Invoice ID, this will be set automatically after you save </label>
+        <input onChange={this.handlePaymentAmountChange} type="text" value={subscription.payment_amount / 100 || ''} />
       </React.Fragment>
     )
   }
@@ -256,8 +298,7 @@ export default class EditOrCreateSubscription extends React.Component {
       <React.Fragment>
         <h2>Purchaser Information</h2>
         {this.purchaserFromSchool()}
-        <label>Purchaser Email</label>
-        <p>If the purchaser is not in the school and you see a school dropdown, select &#39;None&#39; and put in the purchasers email.</p>
+        <label>Purchaser Email -- if you leave this blank and provide a valid Stripe Invoice ID, this will be set automatically after you save</label>
         <input onChange={this.handlePurchaserEmailChange} type="text" value={subscription.purchaser_email} />
         <br />
         {this.changeToPurchaserInfo()}
@@ -321,6 +362,8 @@ export default class EditOrCreateSubscription extends React.Component {
           focused={firstFocused}
           id="date-picker"
           inputIconPosition="after"
+          isOutsideRange={() => false}
+          minDate={null}
           navNext="›"
           navPrev="‹"
           numberOfMonths={1}
@@ -345,8 +388,20 @@ export default class EditOrCreateSubscription extends React.Component {
   }
 
   submitButton = () => {
+    const { submitting, } = this.state
     const { subscriberType, view } = this.props
     const submitAction = subscriberType === 'User' ? this.handleSubmit : this.submitConfirmation
+
+    if (submitting) {
+      return (
+        <div>
+          <button className="q-button cta-button bg-quillgreen text-white" disabled={true} type="submit">
+            <span>{view === 'new' ? 'New' : 'Update'} Subscription</span>
+            <ButtonLoadingSpinner />
+          </button>
+        </div>
+      )
+    }
 
     return (
       <div>

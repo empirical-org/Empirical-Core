@@ -5,15 +5,14 @@
 # Table name: csv_exports
 #
 #  id          :integer          not null, primary key
-#  csv_file    :string
+#  csv_file    :string(255)
 #  emailed_at  :datetime
-#  export_type :string
+#  export_type :string(255)
 #  filters     :json
 #  created_at  :datetime
 #  updated_at  :datetime
 #  teacher_id  :integer
 #
-require 'csv'
 
 class CsvExport < ApplicationRecord
   EXPORT_TYPE_OPTIONS = %w(activity_sessions

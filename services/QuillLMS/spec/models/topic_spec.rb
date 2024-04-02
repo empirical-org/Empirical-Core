@@ -24,7 +24,6 @@ describe Topic, type: :model do
   it { should have_many(:change_logs) }
 
   it { should validate_presence_of(:name) }
-  it { should validate_inclusion_of(:visible).in?([true, false]) }
   it { should validate_inclusion_of(:level).in?(0..3) }
 
   let!(:level_three_topic) { create(:topic, level: 3) }
@@ -110,4 +109,48 @@ describe Topic, type: :model do
     end
   end
 
+  describe '#parent' do
+    context 'when a topic is level 2' do
+      it 'should return the parent' do
+        parent = create(:topic, level: 3)
+        topic = create(:topic, level: 2)
+        topic.update(parent_id: parent.id)
+        expect(topic.parent).to eq(parent)
+      end
+    end
+
+    context 'when a topic is level 1' do
+      it 'should return the parent' do
+        parent = create(:topic, level: 2)
+        topic = create(:topic, level: 1)
+        topic.update(parent_id: parent.id)
+        expect(topic.parent).to eq(parent)
+      end
+    end
+
+    context 'when a topic is level 3' do
+      it 'should return nil' do
+        topic = create(:topic, level: 3)
+        expect(topic.parent).to eq(nil)
+      end
+    end
+  end
+
+  describe '#genealogy' do
+    subject { topic.genealogy }
+
+    let(:topic) { create(:topic, level: level)}
+
+    context 'when topic is level 1' do
+      let(:level) { 1 }
+
+      it { expect(subject).to eq [topic.parent.parent.name, topic.parent.name, topic.name] }
+    end
+
+    context 'when topic is level 2' do
+      let(:level) { 2 }
+
+      it { expect(subject).to eq [topic.parent.name, topic.name] }
+    end
+  end
 end

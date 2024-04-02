@@ -1,17 +1,17 @@
 import * as React from "react";
-import { useQueryClient, useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
-import stripHtml from "string-strip-html";
+import { stripHtml } from "string-strip-html";
 
 import RuleForm from './ruleForm';
 
-import { renderHeader } from '../../../helpers/evidence/renderHelpers';
-import { getPromptsIcons } from '../../../helpers/evidence/promptHelpers';
 import { BECAUSE, BUT, SO } from '../../../../../constants/evidence';
-import { updateRule, deleteRule, fetchRule } from '../../../utils/evidence/ruleAPIs';
+import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
+import { getPromptsIcons } from '../../../helpers/evidence/promptHelpers';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
-import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
+import { deleteRule, fetchRule, updateRule } from '../../../utils/evidence/ruleAPIs';
 
 const Rule = ({ history, match }) => {
   const { params } = match;
@@ -49,7 +49,7 @@ const Rule = ({ history, match }) => {
         const { text } = plagiarism_text;
         return {
           label: `Plagiarism Text - Text String ${i + 1}`,
-          value: stripHtml(text)
+          value: stripHtml(text).result
         }
       });
     }
@@ -57,7 +57,7 @@ const Rule = ({ history, match }) => {
       const { text } = feedback;
       return {
         label: `Feedback ${i + 1}`,
-        value: stripHtml(text)
+        value: stripHtml(text).result
       }
     });
     return attributesArray.concat(feedbacksArray);

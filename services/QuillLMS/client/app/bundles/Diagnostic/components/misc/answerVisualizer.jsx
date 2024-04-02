@@ -1,10 +1,10 @@
+import fuzzy from 'fuzzyset.js';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import fuzzy from 'fuzzyset.js';
-import DiffedResponse from './diffedResponse.jsx';
 import { listenToResponsesWithCallback } from '../../actions/responses';
-import respWithStatus from '../../libs/responseTools.js';
+import { responsesWithStatus, } from '../../../Shared/index';
+import DiffedResponse from './diffedResponse.jsx';
 
 export class AnswerVisualizer extends Component {
   constructor() {
@@ -22,7 +22,7 @@ export class AnswerVisualizer extends Component {
       questionID,
       (data) => {
         this.setState({
-          responses: respWithStatus(data),
+          responses: responsesWithStatus(data),
           loadedResponses: true,
         });
       }

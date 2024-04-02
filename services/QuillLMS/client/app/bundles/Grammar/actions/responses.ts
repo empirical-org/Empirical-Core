@@ -1,12 +1,13 @@
 /* eslint-env browser*/
-import _ from 'underscore';
-import * as moment from 'moment'
-import { Response, ConceptResult } from 'quill-marking-logic'
+import moment from 'moment';
+import { ConceptResult, Response } from 'quill-marking-logic';
 
-import { ActionTypes } from './actionTypes'
+import { ActionTypes } from './actionTypes';
 
+import { requestDelete, requestGet, requestPost, requestPut, } from '../../../modules/request/index';
 import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
-import { requestGet, requestPut, requestPost, requestDelete, } from '../../../modules/request/index'
+import convertConceptResultsArrayToHash from '../libs/convertConceptResultsArrayToHash';
+
 
 export function deleteStatus(questionId: string) {
   return { type: ActionTypes.DELETE_RESPONSE_STATUS, data: { questionId, }, };
@@ -27,6 +28,8 @@ export function submitResponse(content: Response, prid: string, isFirstAttempt: 
   rubyConvertedResponse.created_at = moment().format('x');
   rubyConvertedResponse.first_attempt_count = isFirstAttempt ? 1 : 0;
   rubyConvertedResponse.is_first_attempt = isFirstAttempt;
+  rubyConvertedResponse.concept_results = convertConceptResultsArrayToHash(rubyConvertedResponse.conceptResults || rubyConvertedResponse.concept_results)
+
   return (dispatch: Function) => {
     requestPost(
       `${process.env.QUILL_CMS}/responses/create_or_increment`,

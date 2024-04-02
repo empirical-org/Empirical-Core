@@ -1,9 +1,9 @@
 import { ActionTypes } from './actionTypes'
 import { TrackAnalyticsEvent } from './analytics'
 
-import { Events } from '../modules/analytics'
+import { requestGet, requestPost, requestPut, } from '../../../modules/request/index'
 import { FeedbackObject } from '../interfaces/feedback'
-import { requestGet, requestPut, requestPost, } from '../../../modules/request/index'
+import { Events } from '../modules/analytics'
 
 interface GetFeedbackArguments {
   sessionID: string,
@@ -70,6 +70,12 @@ export const processUnfetchableSession = () => {
 export const setActiveStepForSession = (activeStep: number) => {
   return (dispatch: Function) => {
     dispatch({ type: ActionTypes.SET_ACTIVE_STEP, activeStep })
+  }
+}
+
+export const setPreviewSessionStep = (previewSessionStep: string) => {
+  return (dispatch: Function) => {
+    dispatch({ type: ActionTypes.SET_PREVIEW_SESSION_STEP, previewSessionStep })
   }
 }
 

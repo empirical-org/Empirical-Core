@@ -1,6 +1,4 @@
-<% current_path = request.env['PATH_INFO'] %>
-
-<% if viewing_demo_account? && !previewing_student_dashboard? && !current_path.include?('tools') %>
+<% if should_render_demo_banner %>
   <%= react_component('DemoAccountBanner', props: {
     signedInOutsideDemo: signed_in_outside_demo?,
     recommendationsLink: demo_account_recommendations_link,

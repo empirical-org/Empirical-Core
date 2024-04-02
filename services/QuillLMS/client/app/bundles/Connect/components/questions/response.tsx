@@ -1,25 +1,25 @@
+import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import _ from 'underscore';
-import questionActions from '../../actions/questions';
-import sentenceFragmentActions from '../../actions/sentenceFragments';
-import { EditorState, ContentState } from 'draft-js'
-import ResponseList from './responseList.jsx';
-import getBoilerplateFeedback from './boilerplateFeedback.jsx';
+
+import {
+  Modal,
+  TextEditor
+} from '../../../Shared/index';
 import massEdit from '../../actions/massEdit';
-import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx';
+import questionActions from '../../actions/questions';
 import {
   deleteResponse,
-  submitResponseEdit,
   getGradedResponsesWithCallback,
+  submitResponseEdit,
 } from '../../actions/responses';
-import {
-  hashToCollection,
-  Modal,
-  TextEditor,
-} from '../../../Shared/index'
+import sentenceFragmentActions from '../../actions/sentenceFragments';
+import C from '../../constants';
+import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx';
+import getBoilerplateFeedback from './boilerplateFeedback.jsx';
+import ResponseList from './responseList.jsx';
 
-const jsDiff = require('diff');
-const C = require('../../constants').default;
+import * as jsDiff from 'diff';
 
 interface ResponseObj {
   author: string,
@@ -508,7 +508,7 @@ export default class Response extends React.Component<ResponseProps, ResponseSta
           <div className="content">
             <div className="media">
               <div className="media-content">
-                <p><span style={{ whiteSpace: 'pre-wrap' }}>{response.text}</span> {author}</p>
+                <p><pre dangerouslySetInnerHTML={{ __html: response.text }} />{author}</p>
               </div>
               <div className="media-right" style={{ textAlign: 'right', }}>
                 <figure className="image is-32x32">

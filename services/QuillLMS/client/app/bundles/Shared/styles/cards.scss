@@ -1,7 +1,7 @@
 .quill-card, .expandable-quill-card {
   border-radius: 6px;
-  box-shadow: 0 0 0 1px #e0e0e0;
-  background-color: #ffffff;
+  box-shadow: 0 0 0 1px $quill-grey-5;
+  background-color: $quill-white;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -17,7 +17,7 @@
     margin-bottom: 0px;
   }
   &:hover, &:focus {
-    box-shadow: 0 0 0 2px #06806b;
+    box-shadow: 0 0 0 2px $quill-green;
     outline: none;
   }
 }
@@ -48,7 +48,7 @@
       .row-name-button {
         background-color: white;
         .row-name-label {
-          color: #545454;
+          color: $quill-grey-60;
         }
         .row-name-label:hover {
           text-decoration: underline;
@@ -70,9 +70,9 @@
   .expanded-section {
     padding: 16px 16px 0px 16px;
     width: 100%;
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid $quill-grey-5;
     .row-section {
-      border-bottom: 1px solid #e0e0e0 !important;
+      border-bottom: 1px solid $quill-grey-5 !important;
       padding: 16px;
       display: flex;
       justify-content: space-between;

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 module Evidence
-  RSpec.describe(OpenAI::Concerns::API, type: :model) do
+  RSpec.describe(OpenAI::Concerns::Api, type: :model) do
 
     let(:endpoint) {'https://api.openai.com/v1/some_endpoint'}
     let(:sample_response_body) {{"key"=>"value"}}
@@ -11,25 +11,15 @@ module Evidence
     # include headers in response for proper parsing by HTTParty
     let(:sample_response) { {body: sample_response_body.to_json, headers: {content_type: 'application/json'}} }
 
-    let(:class_without_defined_methods) do
-      Class.new do
-        include Evidence::OpenAI::Concerns::API
-      end
-    end
+    let(:class_without_defined_methods) { Class.new { include Evidence::OpenAI::Concerns::Api } }
 
     let(:class_with_methods) do
       Class.new do
-        include Evidence::OpenAI::Concerns::API
+        include Evidence::OpenAI::Concerns::Api
 
-        def request_body
-          {}
-        end
-        def endpoint
-          '/some_endpoint'
-        end
-        def cleaned_results
-          response.body
-        end
+        def request_body = {}
+        def endpoint = '/some_endpoint'
+        def cleaned_results = response.body
       end
     end
 

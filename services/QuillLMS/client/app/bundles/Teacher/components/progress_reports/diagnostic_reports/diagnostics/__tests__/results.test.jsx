@@ -1,24 +1,16 @@
-import React from 'react'
 import { mount } from 'enzyme'
-import * as $ from 'jquery'
+import React from 'react'
 
 import {
   dummyLocationData,
   dummyMatchData,
-  resultsSummaryStudentResults,
   resultsSummarySkillGroupSummaries,
   resultsSummarySkillGroupSummariesNoData,
+  resultsSummaryStudentResults,
   resultsSummaryStudentResultsNoData,
 } from './test_data'
 
 import { Results, } from '../results'
-
-jest.mock('qs', () => ({
-  default: {
-    parse: jest.fn(() => ({}))
-  }
-})
-)
 
 describe('Results component', () => {
   it('should render when there are results', () => {

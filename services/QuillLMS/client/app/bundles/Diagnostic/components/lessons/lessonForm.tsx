@@ -1,22 +1,21 @@
+import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import SelectSearch from 'react-select-search';
-import { fuzzySearch } from 'react-select-search';
-import { EditorState, ContentState } from 'draft-js'
-import ChooseModel from './chooseModel';
-import { DeleteButton, NameInput } from './lessonFormComponents.tsx';
+import {
+  SortableList,
+  TextEditor,
+  hashToCollection
+} from '../../../Shared/index';
+import { Lesson } from '../../interfaces/lesson';
 import { ConceptsReducerState } from '../../reducers/concepts';
 import { ConceptsFeedbackReducerState } from '../../reducers/conceptsFeedback';
 import { FillInBlankReducerState } from '../../reducers/fillInBlank';
-import { Lesson } from '../../interfaces/lesson';
 import { QuestionsReducerState } from '../../reducers/questions';
 import { SentenceFragmentsReducerState } from '../../reducers/sentenceFragments';
 import { TitleCardsReducerState } from '../../reducers/titleCards';
-import {
-  hashToCollection,
-  SortableList,
-  TextEditor
-} from '../../../Shared/index'
+import ChooseModel from './chooseModel';
+import { DeleteButton, NameInput } from './lessonFormComponents.tsx';
 
 export interface LessonFormProps {
   concepts: ConceptsReducerState,
@@ -132,7 +131,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
         const prompt = questionObject ? questionObject.prompt : 'Question No Longer Exists';
         const promptOrTitle = questionObject && question.questionType === 'titleCards' ? questionObject.title : prompt
         return (
-          <p className="sortable-list-item" defaultValue={question.questionType} key={question.key}>
+          <p className="sortable-list-item" defaultValue={question.questionType} id={question.key} key={question.key}>
             {promptOrTitle}
             {'\t\t'}
             <DeleteButton onChange={this.handleQuestionChange} questionId={question.key} />
@@ -170,7 +169,6 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
       }
       return (
         <SelectSearch
-          filterOptions={fuzzySearch}
           id="all-questions"
           key={questionType}
           onChange={this.handleSearchChange}

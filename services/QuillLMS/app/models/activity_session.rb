@@ -11,42 +11,36 @@
 #  is_retry              :boolean          default(FALSE)
 #  percentage            :float
 #  started_at            :datetime
-#  state                 :string           default("unstarted"), not null
+#  state                 :string(255)      default("unstarted"), not null
 #  temporary             :boolean          default(FALSE)
 #  timespent             :integer
-#  uid                   :string
+#  uid                   :string(255)
 #  visible               :boolean          default(TRUE), not null
 #  created_at            :datetime
 #  updated_at            :datetime
 #  activity_id           :integer
 #  classroom_activity_id :integer
 #  classroom_unit_id     :integer
-#  pairing_id            :string
+#  pairing_id            :string(255)
 #  user_id               :integer
 #
 # Indexes
 #
-#  index_activity_sessions_on_activity_id            (activity_id)
-#  index_activity_sessions_on_classroom_activity_id  (classroom_activity_id)
-#  index_activity_sessions_on_classroom_unit_id      (classroom_unit_id)
-#  index_activity_sessions_on_completed_at           (completed_at)
-#  index_activity_sessions_on_pairing_id             (pairing_id)
-#  index_activity_sessions_on_started_at             (started_at)
-#  index_activity_sessions_on_state                  (state)
-#  index_activity_sessions_on_uid                    (uid) UNIQUE
-#  index_activity_sessions_on_user_id                (user_id)
+#  new_activity_sessions_activity_id_idx        (activity_id)
+#  new_activity_sessions_classroom_unit_id_idx  (classroom_unit_id)
+#  new_activity_sessions_completed_at_idx       (completed_at)
+#  new_activity_sessions_uid_idx                (uid) UNIQUE
+#  new_activity_sessions_uid_key                (uid) UNIQUE
+#  new_activity_sessions_user_id_idx            (user_id)
 #
-require 'newrelic_rpm'
-require 'new_relic/agent'
-
 class ActivitySession < ApplicationRecord
 
   class ConceptResultSubmittedWithoutActivitySessionError < StandardError; end
   class StudentNotAssignedActivityError < StandardError; end
-  class LongTimeTrackingError < StandardError; end
 
   include Uid
   include Concepts
+  include PublicProgressReports
 
   COMPLETED = 'Completed'
 
@@ -59,9 +53,9 @@ class ActivitySession < ApplicationRecord
 
   MAX_4_BYTE_INTEGER_SIZE = 2147483647
 
-  NEARLY_PROFICIENT = 'Nearly proficient'
-  NOT_YET_PROFICIENT = 'Not yet proficient'
-  PROFICIENT = 'Proficient'
+  SOMETIMES_DEMONSTRATED_SKILL = 'Sometimes demonstrated skill'
+  RARELY_DEMONSTRATED_SKILL = 'Rarely demonstrated skill'
+  FREQUENTLY_DEMONSTRATED_SKILL = 'Frequently demonstrated skill'
 
   RESULTS_PER_PAGE = 25
 
@@ -84,6 +78,7 @@ class ActivitySession < ApplicationRecord
   has_many :user_activity_classifications, through: :classification
   has_one :classroom, through: :classroom_unit
   has_one :unit, through: :classroom_unit
+  has_one :unit_template, through: :unit
   has_many :concept_results
   has_many :teachers, through: :classroom
   has_many :concepts, -> { distinct }, through: :concept_results
@@ -140,8 +135,7 @@ class ActivitySession < ApplicationRecord
   # returns {user_id: average}
   def self.average_scores_by_student(user_ids)
     averages_for_user_ids(user_ids)
-      .map { |as| [as['user_id'], (as['avg'].to_f * 100).to_i] }
-      .to_h
+      .to_h { |as| [as['user_id'], (as['avg'].to_f * 100).to_i] }
   end
 
   def timespent
@@ -330,38 +324,6 @@ class ActivitySession < ApplicationRecord
     percentage
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  def parse_for_results
-    concept_results_by_concept = concept_results.group_by { |c| c.concept_id }
-
-    results = {
-      PROFICIENT => [],
-      NEARLY_PROFICIENT => [],
-      NOT_YET_PROFICIENT => []
-    }
-
-    concept_results_by_concept.each do |concept_id, arr|
-      concept = Concept.find_by_id(concept_id)
-      if CONCEPT_UIDS_TO_EXCLUDE_FROM_REPORT.include?(concept.uid) && arr.length < 4
-        next
-      end
-
-      number_correct = arr.inject(0) { |sum, cr| sum + (cr.correct ? 1 : 0) }
-      average_correct = number_correct.to_f / arr.length
-
-      if average_correct >= ProficiencyEvaluator.proficiency_cutoff
-        results[PROFICIENT].push(concept.name)
-      elsif average_correct >= ProficiencyEvaluator.nearly_proficient_cutoff
-        results[NEARLY_PROFICIENT].push(concept.name)
-      else
-        results[NOT_YET_PROFICIENT].push(concept.name)
-      end
-    end
-
-    results
-  end
-  # rubocop:enable Metrics/CyclomaticComplexity
-
   alias owner user
 
   # TODO: legacy fix
@@ -393,7 +355,7 @@ class ActivitySession < ApplicationRecord
       concept_result[:activity_session_id] = activity_session_id
       concept_result.delete(:activity_session_uid)
 
-      SaveActivitySessionConceptResultsWorker.perform_async({
+      SaveActivitySessionConceptResultsWorker.perform_async(**{
         concept_id: concept_result[:concept_id],
         question_type: concept_result[:question_type],
         activity_session_id: concept_result[:activity_session_id],
@@ -515,6 +477,10 @@ class ActivitySession < ApplicationRecord
         results.length && results.all?(&:correct)
       end
     end
+  end
+
+  def is_evidence?
+    classification.key == ActivityClassification::EVIDENCE_KEY
   end
 
   private def correctly_assigned

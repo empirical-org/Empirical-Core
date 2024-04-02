@@ -18,7 +18,7 @@ export const highlightGrammar = (str: string, highlightArray, promptLength: numb
 
   highlightArray.forEach((highlight) => {
     const offset = highlight.character - promptLength - 1
-    const stringAfterOffset = str.slice(offset)
+    let stringAfterOffset = str.slice(offset)
     const stringBeforeOffset = str.slice(0, offset)
 
     const phraseToFormat = stripEvidenceHtml(highlight.text)

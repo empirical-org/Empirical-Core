@@ -12,16 +12,16 @@ describe TeachersController, type: :controller do
 
     before { allow(controller).to receive(:current_user) { teacher } }
 
-    describe '#admin_dashboard' do
+    describe '#premium_hub' do
       it 'redirect to profile if not admin' do
-        get :admin_dashboard
+        get :premium_hub
         expect(response).to redirect_to profile_path
       end
 
-      it 'render admin dashboard' do
+      it 'render Premium Hub dashboard' do
         user = create(:admin)
         allow(controller).to receive(:current_user) { user }
-        get :admin_dashboard
+        get :premium_hub
         expect(response).to render_template('admin')
       end
     end
@@ -93,7 +93,7 @@ describe TeachersController, type: :controller do
         let!(:classroom_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher) }
         let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: classroom.students.ids)}
         let!(:unit_activity1) { create(:unit_activity, unit: unit, activity: lesson_activity1)}
-        let!(:unit_activity2) { create(:unit_activity, unit: unit, activity: lesson_activity2)}
+        let!(:unit_activity2) { create(:unit_activity, created_at: unit_activity1.created_at.since(1.minute), unit: unit, activity: lesson_activity2)}
         let!(:classroom_unit_activity_state1) { create(:classroom_unit_activity_state, unit_activity: unit_activity1, classroom_unit: classroom_unit, completed: false)}
         let!(:classroom_unit_activity_state2) { create(:classroom_unit_activity_state, unit_activity: unit_activity2, classroom_unit: classroom_unit, completed: false)}
 
@@ -144,6 +144,7 @@ describe TeachersController, type: :controller do
 
         it 'returns a row for each diagnostic' do
           get :diagnostic_info_for_dashboard_mini
+
           expected_response = [
             {
               assigned_count: classroom.students.ids.length,
@@ -167,8 +168,9 @@ describe TeachersController, type: :controller do
               unit_id: unit.id,
               classroom_id: classroom.id
             }
-          ]
-          expect(response.body).to eq({units: expected_response}.to_json)
+          ].map(&:stringify_keys)
+
+          expect(JSON.parse(response.body)['units']).to match_array expected_response
         end
       end
 
@@ -207,8 +209,9 @@ describe TeachersController, type: :controller do
               unit_id: unit.id,
               classroom_id: classroom.id
             }
-          ]
-          expect(response.body).to eq({units: expected_response}.to_json)
+          ].map(&:stringify_keys)
+
+          expect(JSON.parse(response.body)['units']).to match_array expected_response.map(&:stringify_keys)
         end
       end
 

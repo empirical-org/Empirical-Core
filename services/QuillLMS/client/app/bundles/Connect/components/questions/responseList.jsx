@@ -1,10 +1,9 @@
-import React from 'react'
-import _ from 'underscore'
-import { focusPointMatchHelper, incorrectSequenceMatchHelper } from "quill-marking-logic"
+import { focusPointMatchHelper, incorrectSequenceMatchHelper } from "quill-marking-logic";
+import React from 'react';
 
-import Response from './response'
+import { AffectedResponse, isValidRegex } from '../../../Shared/index';
 import massEdit from '../../actions/massEdit';
-import { AffectedResponse, isValidRegex } from '../../../Shared/index'
+import Response from './response';
 
 export default class ResponseList extends React.Component {
   addAllResponsesToMassEdit = () => {

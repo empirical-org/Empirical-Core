@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
-import { LanguageOptions } from '../languageOptions';
 import { languages } from '../../../modules/translation/languagePageInfo';
+import { LanguageOptions } from '../languageOptions';
 
 const mockProps = {
   dispatch: () => jest.fn(),

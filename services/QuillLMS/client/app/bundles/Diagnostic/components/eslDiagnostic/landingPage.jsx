@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ResumeOrBeginButton } from '../../../Shared/index';
-import { ENGLISH, rightToLeftLanguages, languageData } from '../../modules/translation/languagePageInfo';
+import { ENGLISH, languageData, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
 
 export class LandingPage extends React.Component {
 

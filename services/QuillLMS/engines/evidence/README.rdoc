@@ -17,8 +17,8 @@ Configure the parent_activity in parent rails app, in a `config/initializer/evid
 
 It's worth reading through the guide to Rails Engines. This covers most of what you need to know about the difference between an Engine and a full rails app.
 
-Guide for Rails 4.2
-https://guides.rubyonrails.org/v4.2/engines.html
+Guide for Rails 6.1
+https://guides.rubyonrails.org/v6.1/engines.html
 
 #### Install gems
 

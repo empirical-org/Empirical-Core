@@ -18,15 +18,19 @@ describe GrowthResultsSummary do
   let!(:post_test_unit_activity) { create(:unit_activity, unit: post_test_unit) }
   let!(:pre_test_skill_group_activity) { create(:skill_group_activity, activity: pre_test_unit_activity.activity)}
   let!(:post_test_skill_group_activity) { create(:skill_group_activity, activity: post_test_unit_activity.activity, skill_group: pre_test_skill_group_activity.skill_group)}
-  let!(:pre_test_activity_session) { create(:activity_session, :finished, user: student1, classroom_unit: pre_test_classroom_unit, activity: pre_test_unit_activity.activity) }
-  let!(:post_test_activity_session) { create(:activity_session, :finished, user: student1, classroom_unit: post_test_classroom_unit, activity: post_test_unit_activity.activity) }
-  let!(:post_test_activity_session_with_no_pre_test) { create(:activity_session, :finished, user: student2, classroom_unit: post_test_classroom_unit, activity: post_test_unit_activity.activity) }
-  let!(:concept) { create(:concept) }
-  let!(:skill) { create(:skill, skill_group: pre_test_skill_group_activity.skill_group) }
-  let!(:skill_concept) { create(:skill_concept, concept: concept, skill: skill) }
-  let!(:pre_test_correct_concept_result) { create(:concept_result, concept: concept, activity_session: pre_test_activity_session, correct: true) }
-  let!(:post_test_correct_concept_result) { create(:concept_result, concept: concept, activity_session: post_test_activity_session, correct: true) }
-  let!(:pre_test_incorrect_concept_result) { create(:concept_result, concept: concept, activity_session: pre_test_activity_session, correct: false) }
+  let!(:pre_test_activity_session) { create(:activity_session_without_concept_results, :finished, user: student1, classroom_unit: pre_test_classroom_unit, activity: pre_test_unit_activity.activity) }
+  let!(:post_test_activity_session) { create(:activity_session_without_concept_results, :finished, user: student1, classroom_unit: post_test_classroom_unit, activity: post_test_unit_activity.activity) }
+  let!(:post_test_activity_session_with_no_pre_test) { create(:activity_session_without_concept_results, :finished, user: student2, classroom_unit: post_test_classroom_unit, activity: post_test_unit_activity.activity) }
+
+  let!(:diagnostic_question_skill1) { create(:diagnostic_question_skill, skill_group: pre_test_skill_group_activity.skill_group) }
+  let!(:diagnostic_question_skill2) { create(:diagnostic_question_skill, skill_group: pre_test_skill_group_activity.skill_group) }
+  let!(:diagnostic_question_skill3) { create(:diagnostic_question_skill, skill_group: pre_test_skill_group_activity.skill_group) }
+  let!(:diagnostic_question_skill4) { create(:diagnostic_question_skill, skill_group: pre_test_skill_group_activity.skill_group) }
+
+  let!(:correct_concept_result1) { create(:concept_result, activity_session: pre_test_activity_session, correct: true, question_number: 1, extra_metadata: { question_uid: diagnostic_question_skill1.question.uid } ) }
+  let!(:correct_concept_result2) { create(:concept_result, activity_session: post_test_activity_session, correct: true, question_number: 1, extra_metadata: { question_uid: diagnostic_question_skill2.question.uid } ) }
+  let!(:incorrect_concept_result1) { create(:concept_result, activity_session: pre_test_activity_session, correct: false, question_number: 2, extra_metadata: { question_uid: diagnostic_question_skill3.question.uid } ) }
+  let!(:correct_concept_result3) { create(:concept_result, activity_session: post_test_activity_session, correct: true, question_number: 2, extra_metadata: { question_uid: diagnostic_question_skill4.question.uid } ) }
 
   describe '#growth_results_summary' do
     it 'should return data with the student results and skill group summaries' do
@@ -35,8 +39,15 @@ describe GrowthResultsSummary do
           {
             name: pre_test_skill_group_activity.skill_group.name,
             description: pre_test_skill_group_activity.skill_group.description,
-            not_yet_proficient_in_pre_test_student_names: [student1.name],
-            not_yet_proficient_in_post_test_student_names: []
+            not_yet_proficient_in_post_test_student_names: [],
+            gained_proficiency_in_post_test_student_names: [student1.name],
+            proficiency_scores_by_student: {
+              student1.name => {
+                pre: 0.5,
+                post: 1.0
+              }
+            },
+            question_uids: pre_test_skill_group_activity.skill_group.questions.pluck(:uid),
           }
         ],
         student_results: [
@@ -50,37 +61,84 @@ describe GrowthResultsSummary do
                 skills: [
                   {
                     pre: {
-                      id: skill.id,
-                      skill: skill.name,
-                      number_correct: 1,
-                      number_incorrect: 1,
-                      summary: GrowthResultsSummary::PARTIALLY_CORRECT,
-                    },
-                    post: {
-                      id: skill.id,
-                      skill: skill.name,
+                      id: diagnostic_question_skill1.id,
+                      name: diagnostic_question_skill1.name,
                       number_correct: 1,
                       number_incorrect: 0,
+                      proficiency_score: 1,
                       summary: GrowthResultsSummary::FULLY_CORRECT,
-                    }
+                      question_uid: diagnostic_question_skill1.question.uid
+                    },
+                    post: nil
+                  },
+                  {
+                    post: {
+                      id: diagnostic_question_skill2.id,
+                      name: diagnostic_question_skill2.name,
+                      number_correct: 1,
+                      number_incorrect: 0,
+                      proficiency_score: 1,
+                      summary: GrowthResultsSummary::FULLY_CORRECT,
+                      question_uid: diagnostic_question_skill2.question.uid
+                    },
+                    pre: nil
+                  },
+                  {
+                    pre: {
+                      id: diagnostic_question_skill3.id,
+                      name: diagnostic_question_skill3.name,
+                      number_correct: 0,
+                      number_incorrect: 1,
+                      proficiency_score: 0,
+                      summary: GrowthResultsSummary::NOT_CORRECT,
+                      question_uid: diagnostic_question_skill3.question.uid
+                    },
+                    post: nil
+                  },
+                  {
+                    post: {
+                      id: diagnostic_question_skill4.id,
+                      name: diagnostic_question_skill4.name,
+                      number_correct: 1,
+                      number_incorrect: 0,
+                      proficiency_score: 1,
+                      summary: GrowthResultsSummary::FULLY_CORRECT,
+                      question_uid: diagnostic_question_skill4.question.uid
+                    },
+                    pre: nil
                   }
                 ],
-                number_of_correct_skills_text: "1 of 1 skills correct",
+                number_of_correct_questions_text: "2 of 2 Questions Correct",
+                pre: {
+                  number_correct: 1,
+                  number_incorrect: 1,
+                  summary: GrowthResultsSummary::PARTIALLY_CORRECT
+                },
+                post: {
+                  number_correct: 2,
+                  number_incorrect: 0,
+                  summary: GrowthResultsSummary::FULLY_CORRECT
+                },
+                question_uids: pre_test_skill_group_activity.skill_group.questions.pluck(:uid),
                 proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
-                pre_test_proficiency: GrowthResultsSummary::NO_PROFICIENCY,
+                pre_test_proficiency: GrowthResultsSummary::PARTIAL_PROFICIENCY,
+                pre_test_proficiency_score: 0.5,
                 post_test_proficiency: GrowthResultsSummary::PROFICIENCY,
+                post_test_proficiency_score: 1.0,
                 id: pre_test_skill_group_activity.skill_group.id,
-                post_correct_skill_ids: [skill.id],
-                pre_correct_skill_ids: [],
-                acquired_skill_ids: [skill.id],
-                skill_ids: [skill.id]
+                post_correct_skill_ids: [diagnostic_question_skill2.id, diagnostic_question_skill4.id],
+                pre_correct_skill_ids: [diagnostic_question_skill1.id],
+                skill_ids: [diagnostic_question_skill2.id, diagnostic_question_skill4.id]
               }
             ],
-            total_acquired_skills_count: 1,
-            total_correct_skills_count: 1,
-            total_pre_correct_skills_count: 0,
-            total_possible_skills_count: 1,
-            correct_skill_text: "1 of 1 skills correct"
+            total_acquired_skill_groups_count: 1,
+            total_correct_questions_count: 2,
+            total_pre_correct_questions_count: 1,
+            total_pre_possible_questions_count: 2,
+            total_maintained_skill_group_proficiency_count: 0,
+            total_possible_questions_count: 2,
+            correct_question_text: "2 of 2 Questions Correct",
+            correct_skill_groups_text: "1 of 1 Skills",
           },
           {
             name: student2.name
@@ -96,15 +154,16 @@ describe GrowthResultsSummary do
         {
           name: pre_test_skill_group_activity.skill_group.name,
           description: pre_test_skill_group_activity.skill_group.description,
-          not_yet_proficient_in_pre_test_student_names: [],
           not_yet_proficient_in_post_test_student_names: [],
+          gained_proficiency_in_post_test_student_names: [],
+          proficiency_scores_by_student: {}
         }
       ]
       @skill_groups = [pre_test_skill_group_activity.skill_group]
       @pre_test_assigned_students = [student1, student2]
-      @pre_test_activity_sessions = [pre_test_activity_session].map { |session| [session.user_id, session] }.to_h
+      @pre_test_activity_sessions = [pre_test_activity_session].to_h { |session| [session.user_id, session] }
       @post_test_assigned_students = [student1, student2]
-      @post_test_activity_sessions = [post_test_activity_session].map { |session| [session.user_id, session] }.to_h
+      @post_test_activity_sessions = [post_test_activity_session].to_h { |session| [session.user_id, session] }
       expect(student_results).to eq(
         [
           {
@@ -117,37 +176,84 @@ describe GrowthResultsSummary do
                 skills: [
                   {
                     pre: {
-                      id: skill.id,
-                      skill: skill.name,
-                      number_correct: 1,
-                      number_incorrect: 1,
-                      summary: GrowthResultsSummary::PARTIALLY_CORRECT,
-                    },
-                    post: {
-                      id: skill.id,
-                      skill: skill.name,
+                      id: diagnostic_question_skill1.id,
+                      name: diagnostic_question_skill1.name,
                       number_correct: 1,
                       number_incorrect: 0,
+                      proficiency_score: 1,
                       summary: GrowthResultsSummary::FULLY_CORRECT,
-                    }
+                      question_uid: diagnostic_question_skill1.question.uid
+                    },
+                    post: nil
+                  },
+                  {
+                    post: {
+                      id: diagnostic_question_skill2.id,
+                      name: diagnostic_question_skill2.name,
+                      number_correct: 1,
+                      number_incorrect: 0,
+                      proficiency_score: 1,
+                      summary: GrowthResultsSummary::FULLY_CORRECT,
+                      question_uid: diagnostic_question_skill2.question.uid
+                    },
+                    pre: nil
+                  },
+                  {
+                    pre: {
+                      id: diagnostic_question_skill3.id,
+                      name: diagnostic_question_skill3.name,
+                      number_correct: 0,
+                      number_incorrect: 1,
+                      proficiency_score: 0,
+                      summary: GrowthResultsSummary::NOT_CORRECT,
+                      question_uid: diagnostic_question_skill3.question.uid
+                    },
+                    post: nil
+                  },
+                  {
+                    post: {
+                      id: diagnostic_question_skill4.id,
+                      name: diagnostic_question_skill4.name,
+                      number_correct: 1,
+                      number_incorrect: 0,
+                      proficiency_score: 1,
+                      summary: GrowthResultsSummary::FULLY_CORRECT,
+                      question_uid: diagnostic_question_skill4.question.uid
+                    },
+                    pre: nil
                   }
                 ],
-                number_of_correct_skills_text: "1 of 1 skills correct",
+                pre: {
+                  number_correct: 1,
+                  number_incorrect: 1,
+                  summary: GrowthResultsSummary::PARTIALLY_CORRECT
+                },
+                post: {
+                  number_correct: 2,
+                  number_incorrect: 0,
+                  summary: GrowthResultsSummary::FULLY_CORRECT
+                },
+                question_uids: pre_test_skill_group_activity.skill_group.questions.pluck(:uid),
+                number_of_correct_questions_text: "2 of 2 Questions Correct",
                 proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
-                pre_test_proficiency: GrowthResultsSummary::NO_PROFICIENCY,
+                pre_test_proficiency: GrowthResultsSummary::PARTIAL_PROFICIENCY,
+                pre_test_proficiency_score: 0.5,
                 post_test_proficiency: GrowthResultsSummary::PROFICIENCY,
+                post_test_proficiency_score: 1.0,
                 id: pre_test_skill_group_activity.skill_group.id,
-                post_correct_skill_ids: [skill.id],
-                pre_correct_skill_ids: [],
-                acquired_skill_ids: [skill.id],
-                skill_ids: [skill.id]
+                post_correct_skill_ids: [diagnostic_question_skill2.id, diagnostic_question_skill4.id],
+                pre_correct_skill_ids: [diagnostic_question_skill1.id],
+                skill_ids: [diagnostic_question_skill2.id, diagnostic_question_skill4.id]
               }
             ],
-            total_acquired_skills_count: 1,
-            total_correct_skills_count: 1,
-            total_pre_correct_skills_count: 0,
-            total_possible_skills_count: 1,
-            correct_skill_text: "1 of 1 skills correct"
+            total_acquired_skill_groups_count: 1,
+            total_correct_questions_count: 2,
+            total_maintained_skill_group_proficiency_count: 0,
+            total_pre_correct_questions_count: 1,
+            total_pre_possible_questions_count: 2,
+            total_possible_questions_count: 2,
+            correct_question_text: "2 of 2 Questions Correct",
+            correct_skill_groups_text: "1 of 1 Skills",
           },
           {
             name: student2.name
@@ -161,15 +267,16 @@ describe GrowthResultsSummary do
         {
           name: pre_test_skill_group_activity.skill_group.name,
           description: pre_test_skill_group_activity.skill_group.description,
-          not_yet_proficient_in_pre_test_student_names: [],
           not_yet_proficient_in_post_test_student_names: [],
+          gained_proficiency_in_post_test_student_names: [],
+          proficiency_scores_by_student: {}
         }
       ]
       @skill_groups = [pre_test_skill_group_activity.skill_group]
       @pre_test_assigned_students = [student2]
       @pre_test_activity_sessions = []
       @post_test_assigned_students = [student2]
-      @post_test_activity_sessions = [post_test_activity_session_with_no_pre_test].map { |session| [session.user_id, session] }.to_h
+      @post_test_activity_sessions = [post_test_activity_session_with_no_pre_test].to_h { |session| [session.user_id, session] }
       expect(student_results).to eq(
         [
           {
@@ -187,8 +294,9 @@ describe GrowthResultsSummary do
         {
           name: pre_test_skill_group_activity.skill_group.name,
           description: pre_test_skill_group_activity.skill_group.description,
-          not_yet_proficient_in_pre_test_student_names: [],
           not_yet_proficient_in_post_test_student_names: [],
+          gained_proficiency_in_post_test_student_names: [],
+          proficiency_scores_by_student: {}
         }
       ]
       expect(skill_groups_for_session([pre_test_skill_group_activity.skill_group], post_test_activity_session, pre_test_activity_session, student1.name)).to eq [
@@ -198,45 +306,89 @@ describe GrowthResultsSummary do
           skills: [
             {
               pre: {
-                id: skill.id,
-                skill: skill.name,
-                number_correct: 1,
-                number_incorrect: 1,
-                summary: GrowthResultsSummary::PARTIALLY_CORRECT,
-              },
-              post: {
-                id: skill.id,
-                skill: skill.name,
+                id: diagnostic_question_skill1.id,
+                name: diagnostic_question_skill1.name,
                 number_correct: 1,
                 number_incorrect: 0,
+                proficiency_score: 1,
                 summary: GrowthResultsSummary::FULLY_CORRECT,
-              }
+                question_uid: diagnostic_question_skill1.question.uid
+              },
+              post: nil
+            },
+            {
+              post: {
+                id: diagnostic_question_skill2.id,
+                name: diagnostic_question_skill2.name,
+                number_correct: 1,
+                number_incorrect: 0,
+                proficiency_score: 1,
+                summary: GrowthResultsSummary::FULLY_CORRECT,
+                question_uid: diagnostic_question_skill2.question.uid
+              },
+              pre: nil
+            },
+            {
+              pre: {
+                id: diagnostic_question_skill3.id,
+                name: diagnostic_question_skill3.name,
+                number_correct: 0,
+                number_incorrect: 1,
+                proficiency_score: 0,
+                summary: GrowthResultsSummary::NOT_CORRECT,
+                question_uid: diagnostic_question_skill3.question.uid
+              },
+              post: nil
+            },
+            {
+              post: {
+                id: diagnostic_question_skill4.id,
+                name: diagnostic_question_skill4.name,
+                number_correct: 1,
+                number_incorrect: 0,
+                proficiency_score: 1,
+                summary: GrowthResultsSummary::FULLY_CORRECT,
+                question_uid: diagnostic_question_skill4.question.uid
+              },
+              pre: nil
             }
           ],
-          number_of_correct_skills_text: "1 of 1 skills correct",
+          pre: {
+            number_correct: 1,
+            number_incorrect: 1,
+            summary: GrowthResultsSummary::PARTIALLY_CORRECT
+          },
+          post: {
+            number_correct: 2,
+            number_incorrect: 0,
+            summary: GrowthResultsSummary::FULLY_CORRECT
+          },
+          question_uids: pre_test_skill_group_activity.skill_group.questions.pluck(:uid),
+          number_of_correct_questions_text: "2 of 2 Questions Correct",
           proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
-          pre_test_proficiency: GrowthResultsSummary::NO_PROFICIENCY,
+          pre_test_proficiency: GrowthResultsSummary::PARTIAL_PROFICIENCY,
+          pre_test_proficiency_score: 0.5,
           post_test_proficiency: GrowthResultsSummary::PROFICIENCY,
+          post_test_proficiency_score: 1.0,
           id: pre_test_skill_group_activity.skill_group.id,
-          post_correct_skill_ids: [skill.id],
-          pre_correct_skill_ids: [],
-          acquired_skill_ids: [skill.id],
-          skill_ids: [skill.id]
+          post_correct_skill_ids: [diagnostic_question_skill2.id, diagnostic_question_skill4.id],
+          pre_correct_skill_ids: [diagnostic_question_skill1.id],
+          skill_ids: [diagnostic_question_skill2.id, diagnostic_question_skill4.id]
         }
       ]
     end
 
-    it 'should add the students name to the not_yet_proficient arrays for any skill group they are not proficient in' do
+    it 'should add the students name to the not_yet_proficient_in_post_test_student_names array for any skill group they are not proficient in' do
       @skill_group_summaries = [
         {
           name: pre_test_skill_group_activity.skill_group.name,
           description: pre_test_skill_group_activity.skill_group.description,
-          not_yet_proficient_in_pre_test_student_names: [],
           not_yet_proficient_in_post_test_student_names: [],
+          gained_proficiency_in_post_test_student_names: [],
+          proficiency_scores_by_student: {}
         }
       ]
       skill_groups_for_session([pre_test_skill_group_activity.skill_group], post_test_activity_session, pre_test_activity_session, student1.name)
-      expect(@skill_group_summaries[0][:not_yet_proficient_in_pre_test_student_names]).to eq [student1.name]
       expect(@skill_group_summaries[0][:not_yet_proficient_in_post_test_student_names]).to eq []
     end
 

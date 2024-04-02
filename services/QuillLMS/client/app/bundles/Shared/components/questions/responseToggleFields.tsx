@@ -48,8 +48,7 @@ class ResponseToggleFields extends React.Component<any, any> {
   }
 
   toggleFieldAndResetPage(status: string) {
-    this.props.resetPageNumber();
-    this.props.toggleField(status);
+    this.props.toggleFieldAndResetPage(status);
   }
 
   render() {
@@ -69,4 +68,5 @@ class ResponseToggleFields extends React.Component<any, any> {
   }
 }
 
-export { ResponseToggleFields }
+export { ResponseToggleFields };
+

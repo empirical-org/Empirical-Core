@@ -1,8 +1,8 @@
 import * as React from 'react'
 
+import { requestPost, requestPut, } from '../../../../modules/request/index'
 import GradeLevelSection from '../accounts/shared/grade_level_section'
 import SubjectAreaSection from '../accounts/shared/subject_area_section'
-import { requestPost, } from '../../../../modules/request/index'
 
 const teacherAtBoardSrc = `${process.env.CDN_URL}/images/onboarding/packs-whole.svg`
 
@@ -12,7 +12,7 @@ const TeacherInfoModal = ({ close, subjectAreas, }) => {
   const [selectedSubjectAreaIds, setSelectedSubjectAreaIds] = React.useState([])
 
   function submitTeacherInfo() {
-    requestPost(
+    requestPut(
       `${process.env.DEFAULT_URL}/teacher_infos`,
       {
         minimum_grade_level: minimumGradeLevel.value,

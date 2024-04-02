@@ -1,11 +1,12 @@
 import * as React from "react";
-import {HashRouter} from "react-router-dom";
-import {Provider} from "react-redux";
-import { QueryClientProvider } from 'react-query'
+import { QueryClientProvider } from 'react-query';
+import { Provider } from "react-redux";
+import { HashRouter } from "react-router-dom";
+import { CompatRouter } from "react-router-dom-v5-compat";
 
-import {route} from "./routes";
-import { configureStore, initStore } from "./store/configStore";
 import { DefaultReactQueryClient } from '../Shared';
+import { route } from "./routes";
+import { configureStore, initStore } from "./store/configStore";
 
 const store = configureStore();
 store.dispatch(initStore());
@@ -17,7 +18,11 @@ class App extends React.Component<{user: string}, {}> {
     return (
       <QueryClientProvider client={queryClient} contextSharing={true}>
         <Provider store={store}>
-          <HashRouter basename="/">{route(user)}</HashRouter>
+          <HashRouter basename="/">
+            <CompatRouter>
+              {route(user)}
+            </CompatRouter>
+          </HashRouter>
         </Provider>
       </QueryClientProvider>
     );

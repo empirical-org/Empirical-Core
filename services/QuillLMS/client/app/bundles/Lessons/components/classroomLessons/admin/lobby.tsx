@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
+import _ from 'lodash';
+import React, { Component } from 'react';
 import * as CLIntF from '../../../interfaces/classroomLessons';
-import _ from 'lodash'
-import StudentLobby from '../play/lobby'
-import MultipleTextEditor from './slideHTMLEditor'
+import StudentLobby from '../play/lobby';
+import MultipleTextEditor from './slideHTMLEditor';
 
 interface AdminLobbyProps {
   question: CLIntF.QuestionData,

@@ -1,0 +1,259 @@
+#premium-hub {
+
+  .banner-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 32px;
+    margin-bottom: 32px;
+  }
+
+  .sub-container {
+    section {
+      padding: 0;
+      border-bottom: none;
+    }
+
+    .freemium-section {
+      .standards-reports-by-classroom {
+        padding-top: 0;
+
+        .progress-report {
+          .rt-tbody>.rt-tr-group:nth-child(n+6) {
+            @extend .non-premium-blur
+          }
+        }
+      }
+    }
+  }
+
+  .error,
+  .message {
+    font-size: 16px;
+    margin-top: 15px;
+  }
+
+  .error {
+    color: #ff4542
+  }
+
+  .message {
+    color: #348fdf;
+  }
+
+  h2 {
+    font-size: 26px;
+    font-weight: 700;
+  }
+
+  .blur {
+    tr {
+
+      td:nth-of-type(2),
+      td:nth-of-type(3),
+      td:nth-of-type(4) {
+        -webkit-filter: blur(5px);
+        -moz-filter: blur(5px);
+        -o-filter: blur(5px);
+        -ms-filter: blur(5px);
+        filter: blur(5px);
+      }
+    }
+  }
+
+  .admin-banner {
+    padding: 32px;
+    background: $quill-gold;
+    color: white;
+    display: flex;
+    justify-content: center;
+
+    .banner-content {
+      max-width: $sitewidepagewidth;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .quill-button {
+      color: $quill-gold;
+      border: none;
+      font-weight: 700;
+      margin-left: 16px;
+    }
+
+    .banner-buttons {
+      display: flex;
+    }
+
+    h3 {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 29px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 17px;
+      max-width: 700px;
+    }
+  }
+
+  .restricted {
+    height: 360px;
+    background: $quill-white;
+    border: 1px solid #C0C0C0;
+    display: flex;
+    align-items: center;
+    border-radius: 12px;
+    justify-content: center;
+    margin-top: 32px;
+  }
+
+  .restricted-page {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-top: 345px;
+    padding-bottom: 45px; // accounts for permanent 300px of padding at the bottom
+  }
+
+  .sub-container {
+    max-width: $sitewidepagewidth;
+    margin: 0 auto;
+
+    @media (max-width: 1210px) {
+      margin: 0 10px;
+    }
+
+    .dark-divider {
+      background: $quill-grey-25;
+      height: 1px;
+      margin: 48px 0px;
+    }
+
+    .light-divider {
+      background: $quill-grey-5;
+      ;
+      height: 1px;
+      margin: 24px 0px;
+    }
+
+    .header {
+      .csv-button {
+        margin-top: 32px;
+      }
+    }
+  }
+
+  .tab-subnavigation-wrapper {
+    .active {
+      text-decoration: none;
+    }
+  }
+}
+
+.premium-hub-subnav {
+  min-height: 44px !important;
+  background-color: $quill-maroon !important;
+
+  ul {
+    li {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      a, button {
+        display: flex;
+        align-items: center;
+        .small-diamond-icon {
+          background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
+        }
+        &.active {
+          color: $quill-maroon !important;
+          .small-diamond-icon {
+            background-image: url("https://assets.quill.org/images/icons/red-diamond.svg");
+          }
+          &:hover {
+            color: $quill-white !important;
+            .small-diamond-icon {
+              background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
+            }
+          }
+        }
+
+        &.premium {
+          background-color: rgba(255, 255, 255, 0.35);
+        }
+
+        img {
+          width: 14.52px;
+          height: 11.81px;
+          margin: 0px 0px 2px 8px;
+        }
+      }
+      a:hover {
+        background-color: rgba(255, 255, 255, 0.50);
+        text-decoration: none;
+      }
+      &.premium-reports-tab {
+        position: relative;
+        button {
+          background: transparent;
+          span::after {
+            margin-left: 8px;
+            content: "\f078";
+            font-family: "Font Awesome 5 Pro";
+          }
+          &.open:not(.active) {
+            background-color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            color: $quill-white;
+          }
+        }
+        .premium-reports-nav-dropdown {
+          position: absolute;
+          border-radius: 8px;
+          border: 1px solid $quill-grey-15;
+          background: $quill-white;
+          min-height: min-content;
+          top: 36px;
+          width: 300px;
+          z-index: 3;
+          box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.10);
+          a {
+            color: $quill-black;
+            margin: 8px;
+            display: flex;
+            padding: 20px 8px;
+            justify-content: space-between;
+            .new-tag {
+              color: $quill-white;
+              background-color: $quill-maroon;
+              font-size: 10px;
+              padding: 4px 6px;
+              border-radius: 5px;
+            }
+            &:hover {
+              color: $quill-black;
+              background-color: $quill-green-5;
+            }
+            &:focus, &:hover {
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.reports-table-container {
+  overflow-x: auto;
+}
+
+@media (max-width: 787px) {
+  .how-we-grade {
+    text-align: left !important;
+  }
+}

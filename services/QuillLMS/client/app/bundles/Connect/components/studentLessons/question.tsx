@@ -1,32 +1,31 @@
-declare function require(name:string);
+import { Response } from 'quill-marking-logic';
 import * as React from 'react';
 import * as _ from 'underscore';
-import {Response} from 'quill-marking-logic'
 
 import {
-  SentenceFragments,
   ConceptExplanation,
   MultipleChoice,
-  hashToCollection,
-  getLatestAttempt
-} from '../../../Shared/index'
+  SentenceFragments,
+  getLatestAttempt,
+  hashToCollection
+} from '../../../Shared/index';
 import { submitResponse } from '../../actions.js';
+import {
+  getGradedResponsesWithCallback,
+  getMultipleChoiceResponseOptionsWithCallback
+} from '../../actions/responses.js';
+import C from '../../constants';
+import EditCaretPositioning from '../../libs/EditCaretPositioning';
 import Question from '../../libs/question';
-import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
+import getResponse from '../renderForQuestions/checkAnswer';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
 import RenderFeedback from '../renderForQuestions/feedback';
-import getResponse from '../renderForQuestions/checkAnswer';
+import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
+import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
-import {
-  getMultipleChoiceResponseOptionsWithCallback,
-  getGradedResponsesWithCallback
-} from '../../actions/responses.js';
-import EditCaretPositioning from '../../libs/EditCaretPositioning';
 
 const RenderSentenceFragments = SentenceFragments
-const C = require('../../constants').default;
 
 interface PlayLessonQuestionProps {
   conceptsFeedback: any;
@@ -343,9 +342,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
         if (negativeConceptWithConceptFeedback) {
           return <ConceptExplanation {...conceptsFeedback.data[negativeConceptWithConceptFeedback.conceptUID]} />
         }
-      }
-
-      if (latestAttempt.response.concept_results) {
+      } else if (latestAttempt.response.concept_results) {
         const negativeConcepts = this.getNegativeConceptResultsForResponse(latestAttempt.response.concept_results);
         const negativeConceptWithConceptFeedback = negativeConcepts.find(c => {
           return conceptsFeedback.data[c.conceptUID]

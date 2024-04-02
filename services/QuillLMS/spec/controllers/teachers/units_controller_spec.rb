@@ -47,7 +47,7 @@ describe Teachers::UnitsController, type: :controller do
 
   describe '#create' do
     it 'kicks off a background job' do
-      create(:auth_credential, user: teacher)
+      create(:google_auth_credential, user: teacher)
 
       expect {
         post :create,
@@ -139,17 +139,14 @@ describe Teachers::UnitsController, type: :controller do
           diagnostics: [
             name: diagnostic_activity.name,
             pre: {
-              assigned_student_ids: classroom_unit.assigned_student_ids,
               classroom_name: classroom.name,
               activity_name: diagnostic_activity.name,
               activity_id: diagnostic_activity.id,
-              unit_id: unit.id,
-              unit_name: unit.name,
               classroom_id: classroom.id,
               assigned_date: unit_activity.created_at,
               post_test_id: diagnostic_activity.follow_up_activity_id,
-              classroom_unit_id: classroom_unit.id,
               unit_template_id: unit.unit_template_id,
+              eligible_for_question_scoring: true,
               completed_count: 1,
               assigned_count: 1
             }
@@ -165,7 +162,8 @@ describe Teachers::UnitsController, type: :controller do
     end
 
     it 'should successfully render both fresh data and cached data' do
-      expect(controller).to receive(:diagnostics_organized_by_classroom).once.with(any_args).and_call_original
+      expect(DiagnosticsOrganizedByClassroomFetcher).to receive(:run).once.with(teacher).and_call_original
+
       2.times do
         get :diagnostic_units
 
@@ -387,16 +385,34 @@ describe Teachers::UnitsController, type: :controller do
 
     it "sends a 200 status code when it is passed valid data" do
       put :update_classroom_unit_assigned_students, params: { id: unit.id, unit: {
-            classrooms: "[{\"id\":#{classroom.id},\"student_ids\":[]}]"
+            classrooms: [{ id: classroom.id, student_ids: [student.id] }]
           } }
       expect(response.status).to eq(200)
     end
 
     it "sends a 422 status code when it is passed invalid data" do
       put :update_classroom_unit_assigned_students, params: { id: unit.id + 500, unit: {
-            classrooms: "[{\"id\":#{classroom.id},\"student_ids\":[]}]"
+            classrooms: [{ id: classroom.id, student_ids: [] }]
           } }
       expect(response.status).to eq(422)
+    end
+
+  end
+
+  describe '#restore_classroom_unit_assignment_for_one_student' do
+
+    before do
+      ClassroomUnit.update(assigned_student_ids: [])
+      completed_activity_session.update(visible: false)
+    end
+
+    it "adds the student back to the assigned_student_ids array and unarchives any hidden activity sessions" do
+      put :restore_classroom_unit_assignment_for_one_student, params: { id: unit.id, classroom_unit_id: classroom_unit.id, student_id: student.id }
+
+      expect(classroom_unit.reload.assigned_student_ids).to eq([student.id])
+      expect(completed_activity_session.reload.visible).to eq(true)
+
+      expect(response.status).to eq(200)
     end
 
   end
@@ -442,7 +458,7 @@ describe Teachers::UnitsController, type: :controller do
     end
 
     it 'should redirect to the lesson if there is only one lesson' do
-      classroom_unit = create(:classroom_unit, classroom: current_user.classrooms_i_own.first)
+      classroom_unit = create(:classroom_unit, classroom: teacher.classrooms_i_own.first)
       unit_activity = create(:unit_activity, unit: classroom_unit.unit, activity: activity)
       get :select_lesson_with_activity_id, params: { activity_id: activity.id }
       expect(response).to redirect_to("/teachers/classroom_units/#{classroom_unit.id}/launch_lesson/#{activity.uid}")

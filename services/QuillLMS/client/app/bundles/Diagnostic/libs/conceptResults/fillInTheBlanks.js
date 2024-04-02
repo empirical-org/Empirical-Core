@@ -1,5 +1,5 @@
+import { hashToCollection } from '../../../Shared/index';
 import { formattedCues } from '../formattedCues';
-import { hashToCollection } from '../../../Shared/index'
 
 export function getConceptResultsForFillInTheBlanks(question) {
   const prompt = question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '');
@@ -29,6 +29,9 @@ export function getConceptResultsForFillInTheBlanks(question) {
       directions,
       prompt,
       answer,
+      question_uid: question.key,
+      question_concept_uid: question.conceptID,
+      cues: question.cues?.filter(Boolean)
     },
   }));
 }
