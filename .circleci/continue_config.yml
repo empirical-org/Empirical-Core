@@ -32,7 +32,7 @@ jobs:
     steps:
       - run:
           name: Blank step
-          command: print 'hello'
+          command: echo 'hello'
       - when:
           condition: << parameters.should-run >>
           steps:
@@ -242,7 +242,7 @@ jobs:
     steps:
       - run:
           name: Blank step
-          command: print 'hello'
+          command: echo 'hello'
       - when:
           condition: << parameters.should-run >>
           steps:
