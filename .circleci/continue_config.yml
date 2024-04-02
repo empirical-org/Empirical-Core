@@ -30,6 +30,9 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: password
     steps:
+      - run:
+          name: Blank step
+          command: print 'hello'
       - when:
           condition: << parameters.should-run >>
           steps:
@@ -237,6 +240,9 @@ jobs:
     docker:
       - image: cimg/node:14.21
     steps:
+      - run:
+          name: Blank step
+          command: print 'hello'
       - when:
           condition: << parameters.should-run >>
           steps:
