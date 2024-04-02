@@ -495,8 +495,8 @@ jobs:
       - image: cimg/ruby:3.2.0-node
     steps:
       - run:
-        name: Blank step
-        command: echo 'hello'
+          name: Blank step
+          command: echo 'hello'
       - when:
           condition: << parameters.should-run >>
           steps:
