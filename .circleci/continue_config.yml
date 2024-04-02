@@ -467,5 +467,7 @@ workflows:
     jobs:
       - node_lint:
         <<: *default_filter
-      - rubocop_lint:
+      - rubocop_lms_lint:
+        <<: *default_filter
+      - rubocop_cms_lint:
         <<: *default_filter
