@@ -8,7 +8,7 @@ Here is a quick overview of the monorepo. Quill.org relies on a handful of appli
 
 ### [QuillLMS (Learning Management System)](services/QuillLMS/README.md)
 
-Quill LMS (Learning Management System) is the main application in the repo (95% of the code in the repo lives here). This is where Quill teachers, students, classes, activities, questions, reports, etc. are all managed.
+Quill LMS (Learning Management System) is the main application in the repo (95% of the code in the repo lives here). This is where Quill teachers, students, classes, activities, questions, reports, etc. are all managed..
 
 The Quill LMS is a [Ruby on Rails](https://rubyonrails.org/) application (v4.2). This application is backed by a Postgres database. Note, we've started to use [Rails Engines](https://guides.rubyonrails.org/engines.html) to organize some newer code in the [`engines/`](services/QuillLMS/engines/) directory.
 
