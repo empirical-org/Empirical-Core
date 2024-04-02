@@ -430,38 +430,35 @@ parameters:
 # here we specify our workflows, most of which are conditionally
 # executed based upon pipeline parameter values. Each workflow calls a
 # specific job defined above, in the jobs section.
+define: &default_filter
+  filters:
+    branches:
+      ignore: /^deploy-.*/
+
 workflows:
-  lms-backend-tests:
-    when: << pipeline.parameters.lms-edits >>
+  build-test:
     jobs:
-      - lms_rails_build: &default_filter
-          filters:
-            branches:
-              ignore: /^deploy-.*/
+      - lms_rails_build:
+        when: << pipeline.parameters.lms-edits >>
+        <<: *default_filter
       - evidence_rails_build:
-          <<: *default_filter
+        when: << pipeline.parameters.lms-edits >>
+        <<: *default_filter
       - lms_big_query_build:
-          <<: *default_filter
-  lms-frontend-tests:
-    when: << pipeline.parameters.lms-client-edits >>
-    jobs:
+        when: << pipeline.parameters.lms-edits >>
+        <<: *default_filter
       - lms_node_build:
+        when: << pipeline.parameters.lms-client-edits >>
         <<: *default_filter
-  lms-integration-tests:
-    when:
-      or: [<< pipeline.parameters.lms-client-edits >>, << pipeline.parameters.lms-edits >>]
-    jobs:
       - lms_integration_build:
+        when:
+          or: [<< pipeline.parameters.lms-client-edits >>, << pipeline.parameters.lms-edits >>]
         <<: *default_filter
-  cms-tests:
-    when: << pipeline.parameters.cms-edits >>
-    jobs:
       - cms_rails_build:
+        when: << pipeline.parameters.cms-edits >>
         <<: *default_filter
-  marking-logic-tests:
-    when: << pipeline.parameters.marking-logic-edits >>
-    jobs:
       - marking_logic_node_build:
+        when: << pipeline.parameters.marking-logic-edits >>
         <<: *default_filter
   lint-code:
     jobs:
