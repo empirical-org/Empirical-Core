@@ -34,7 +34,7 @@ The Quill CMS is a [Ruby on Rails](https://rubyonrails.org/) application (v6.1) 
 QuillLessonsServer is a real-time application that supports our in-classroom product Quill Lessons. It is a [Node.js](https://nodejs.org/en/) application backed by a [RethinkDB](https://rethinkdb.com/) data store. It is an API-only application that makes heavy use of [socket.io](https://socket.io/)
 
 
-### Other
+### Other.
 
 As mentioned above, this repo is most of the code we use day-to-day at Quill. Outside of the main applications, there are some smaller code items:
 - Small javascript libraries live in [packages](packages/).
