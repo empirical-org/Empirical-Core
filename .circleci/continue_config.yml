@@ -3,27 +3,12 @@ version: 2.1
 orbs:
   maven: circleci/maven@1.2.0
 
-
-define: &default_filter
-  filters:
-    branches:
-      ignore: /^deploy-.*/
-
-define: &should_run_params
-  parameters:
-    should-run:
-      type: boolean
-      default: false
-
-define: &blank_step
-  run:
-    name: Blank step
-    command: echo 'hello'
-
-
 jobs:
   lms_rails_build:
-    <<: *should_run_params
+    parameters:
+      should-run:
+        type: boolean
+        default: false
     working_directory: ~/Empirical-Core
     parallelism: 6
     docker:
@@ -96,7 +81,10 @@ jobs:
                   TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | grep -v "spec/system/" | circleci tests split)
                   bin/rspec -- ${TESTFILES}
   lms_integration_build:
-    <<: *should_run_params
+    parameters:
+      should-run:
+        type: boolean
+        default: false
     working_directory: ~/Empirical-Core
     parallelism: 1
     docker:
@@ -183,7 +171,10 @@ jobs:
             - store_artifacts:
                 path: /home/circleci/Empirical-Core/services/QuillLMS/tmp/screenshots
   lms_big_query_build:
-    <<: *should_run_params
+    parameters:
+      should-run:
+        type: boolean
+        default: false
     working_directory: ~/Empirical-Core
     parallelism: 2
     docker:
@@ -256,7 +247,10 @@ jobs:
                   TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split)
                   bin/rspec ${TESTFILES} --tag big_query_snapshot
   lms_node_build:
-    <<: *should_run_params
+    parameters:
+      should-run:
+        type: boolean
+        default: false
     working_directory: ~/Empirical-Core
     parallelism: 3
     docker:
@@ -295,7 +289,10 @@ jobs:
                   TESTFILES=$(circleci tests glob "app/**/*.test.*" | circleci tests split)
                   node --expose-gc ./node_modules/.bin/jest $TESTFILES --maxWorkers=2 --logHeapUsage
   cms_rails_build:
-    <<: *should_run_params
+    parameters:
+      should-run:
+        type: boolean
+        default: false
     working_directory: ~/Empirical-Core
     docker:
       - image: ruby:3.2.0
@@ -352,7 +349,10 @@ jobs:
                   cd services/QuillCMS
                   bundle exec rake spec
   marking_logic_node_build:
-    <<: *should_run_params
+    parameters:
+      should-run:
+        type: boolean
+        default: false
     working_directory: ~/Empirical-Core
     docker:
       - image: cimg/node:14.18-browsers
@@ -378,7 +378,10 @@ jobs:
                   cd packages/quill-marking-logic
                   FORCE_COLOR=true npm run test --colors
   evidence_rails_build:
-    <<: *should_run_params
+    parameters:
+      should-run:
+        type: boolean
+        default: false
     working_directory: ~/Empirical-Core
     parallelism: 1
     docker:
@@ -443,7 +446,10 @@ jobs:
                   cd services/QuillLMS/engines/evidence
                   bin/rspec
   node_lint:
-    <<: *should_run_params
+    parameters:
+      should-run:
+        type: boolean
+        default: false
     working_directory: ~/Empirical-Core
     docker:
       - image: cimg/node:14.21
@@ -464,7 +470,10 @@ jobs:
                 command: |
                   npm run eslint
   rubocop_lms_lint:
-    <<: *should_run_params
+    parameters:
+      should-run:
+        type: boolean
+        default: false
     working_directory: ~/Empirical-Core
     docker:
       - image: cimg/ruby:3.1.4-node
@@ -483,7 +492,10 @@ jobs:
                   ruby ./install_rubocop.rb
                   rubocop
   rubocop_cms_lint:
-    <<: *should_run_params
+    parameters:
+      should-run:
+        type: boolean
+        default: false
     working_directory: ~/Empirical-Core
     docker:
       - image: cimg/ruby:3.2.0-node
@@ -524,6 +536,10 @@ parameters:
 # here we specify our workflows, most of which are conditionally
 # executed based upon pipeline parameter values. Each workflow calls a
 # specific job defined above, in the jobs section.
+define: &default_filter
+  filters:
+    branches:
+      ignore: /^deploy-.*/
 
 workflows:
   build-test:
