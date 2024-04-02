@@ -106,7 +106,6 @@ class FillInBlankForm extends Component {
       flag: flag ? flag : 'alpha',
       cuesLabel: cuesLabel
     };
-    data.prompt = data.prompt.replace('<p>', '').replace('</p>', '')
     if (this.props.new && data.prompt != '') {
       action(
         data,
