@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require File.expand_path('../boot', __FILE__)
-
+# fake comment
 # Pick the frameworks you want:
 require "active_record/railtie"
 require "action_controller/railtie"
