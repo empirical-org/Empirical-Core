@@ -43,7 +43,7 @@ const StudentReportBox = ({ questionData, boxNumber, showScore, showDiff, }) => 
         <tr className={classNameAndText} key={key || ''}>
           <td>{classNameAndText}</td>
           <td />
-          <td><div dangerouslySetInnerHTML={{ __html: directionsOrFeedback }} /></td>
+          <td>{formatString(directionsOrFeedback)}</td>
         </tr>
       )
     }

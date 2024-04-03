@@ -79,13 +79,7 @@ exports[`StudentReportBox should render 1`] = `
               </td>
               <td />
               <td>
-                <div
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "Combine the sentences. (But, So)",
-                    }
-                  }
-                />
+                Combine the sentences. (But, So)
               </td>
             </tr>
             <tr>
@@ -175,13 +169,7 @@ exports[`StudentReportBox should render 1`] = `
               </td>
               <td />
               <td>
-                <div
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<p>Revise your work. Use one of the joining words from the instructions.</p>",
-                    }
-                  }
-                />
+                Revise your work. Use one of the joining words from the instructions.
               </td>
             </tr>
             <tr
