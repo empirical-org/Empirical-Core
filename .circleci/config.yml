@@ -20,7 +20,7 @@ workflows:
           # line:
           # <regex path-to-test> <parameter-to-set> <value-of-pipeline-parameter>
           mapping: |
-            services/QuillLMS/(app/|bin/|config/|db/|lib/|Gemfile|spec/|public/|Procfile).* lms-run-rspec true
+            services/QuillLMS/(app/|bin/|config/|db/|lib/|Gemfile|spec/|public/|Procfile).* lms-run-backend true
             services/QuillLMS/client/.* lms-run-javascript true
             services/QuillLMS/app/queries/.* lms-run-queries true
             services/QuillLMS/(app/|bin/|config/|db/|lib/|Gemfile|spec/|public/|Procfile|client/).* lms-run-integration true
