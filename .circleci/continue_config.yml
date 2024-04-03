@@ -526,6 +526,9 @@ parameters:
   lms-query-edits:
     type: boolean
     default: false
+  lms-integration-edits:
+    type: boolean
+    default: false
   cms-edits:
     type: boolean
     default: false
@@ -554,7 +557,7 @@ workflows:
           should-run: << pipeline.parameters.lms-query-edits >>
           <<: *default_filter
       - lms_integration_build:
-          should-run: << pipeline.parameters.lms-edits >>
+          should-run: << pipeline.parameters.lms-integration-edits >>
           <<: *default_filter
       - cms_rails_build:
           should-run: << pipeline.parameters.cms-edits >>
