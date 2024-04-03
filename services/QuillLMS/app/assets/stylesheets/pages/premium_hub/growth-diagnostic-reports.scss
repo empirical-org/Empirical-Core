@@ -169,8 +169,29 @@ main {
       }
     }
   }
-  .growth-diagnostic-reports-by-skill-table .data-table-body .data-table-row:nth-of-type(4) td {
-    min-height: 98px !important;
+  .growth-diagnostic-reports-by-skill-table {
+    .data-table-body {
+      .data-table-row:nth-of-type(4) td {
+        min-height: 98px !important;
+      }
+      .data-table-row td {
+        &:nth-of-type(4) {
+          overflow: visible;
+        }
+        .no-class-growth {
+          display: flex;
+          .quill-tooltip-trigger {
+            margin: 0px 0px 0px 4px;
+            span {
+              padding-right: 0;
+            }
+            .quill-tooltip {
+              padding-right: 24px;
+            }
+          }
+        }
+      }
+    }
   }
 
   .growth-diagnostic-reports-by-student-table {

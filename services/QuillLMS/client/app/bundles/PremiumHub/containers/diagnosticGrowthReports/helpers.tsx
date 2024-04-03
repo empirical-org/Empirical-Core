@@ -2,6 +2,7 @@ import * as React from 'react'
 import { getTimeInMinutesAndSeconds } from "../../shared"
 import { getTimeSpent } from '../../../Teacher/helpers/studentReports'
 import moment from 'moment'
+import { Tooltip, helpIcon } from '../../../Shared'
 
 const checkSrc = `${process.env.CDN_URL}/images/icons/circle-check-icon-vibrant-green.svg`
 const loopSrc = `${process.env.CDN_URL}/images/icons/revise-icon-grey.svg`
@@ -225,16 +226,36 @@ function proficiencyValue(proficiencyLevelCount, totalStudents) {
   return `${proficiencyLevelCount} of ${totalStudents}`
 }
 
-function growthResultsValue(score, studentCount) {
-  if (score && score > 0) {
-    return `+${scoreValue(score, studentCount)}`
+function noClassGrowthTooltipText(preScoreCompletedPost, postStudentsCompleted, postScore) {
+  const studentsOrStudents = postStudentsCompleted === 1 ? 'student' : 'students'
+  const prePercentage = `${Math.round(preScoreCompletedPost * 100)}%`
+  const postPercentage = `${Math.round(postScore * 100)}%`
+  const comparisonText = prePercentage === postPercentage ? 'the same' : 'lower than this'
+  return `The Pre Score of the ${postStudentsCompleted} ${studentsOrStudents} that completed the Post Diagnostic was ${prePercentage}. As the Post Score of these students (${postPercentage}) was ${comparisonText}, we deem there to have been no overall class growth.`
+}
+
+function growthResultsValue({ growthScore, studentCount, preScoreCompletedPost, postStudentsCompleted, postScore }) {
+  if (growthScore && growthScore > 0) {
+    return `+${scoreValue(growthScore, studentCount)}`
   }
-  return `No growth (${studentCount})`;
+  if (preScoreCompletedPost && postStudentsCompleted) {
+    const tooltipText = noClassGrowthTooltipText(preScoreCompletedPost, postStudentsCompleted, postScore)
+    return(
+      <div className="no-class-growth">
+        <p>No class growth</p>
+        <Tooltip
+          tooltipText={tooltipText}
+          tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
+        />
+      </div>
+    )
+  }
+  return noDataToShow;
 }
 
 function formatSkillsData(data, isAggregateRowData) {
   return data.map((entry, i) => {
-    const { aggregate_rows, growth_percentage, improved_proficiency, maintained_proficiency, post_score, post_students_completed, pre_score, pre_students_completed, recommended_practice, skill_group_name, name } = entry
+    const { aggregate_rows, growth_percentage, improved_proficiency, maintained_proficiency, post_score, post_students_completed, pre_score, pre_students_completed, pre_score_completed_post, recommended_practice, skill_group_name, name } = entry
     return {
       id: i,
       name: isAggregateRowData ? name : skill_group_name,
@@ -242,7 +263,7 @@ function formatSkillsData(data, isAggregateRowData) {
       pre_score: getSingleSortValue(pre_score),
       postSkillScore: scoreValue(post_score, post_students_completed),
       post_score: getSingleSortValue(post_score),
-      growthResults: growthResultsValue(growth_percentage, post_students_completed),
+      growthResults: growthResultsValue({ growthScore: growth_percentage, studentCount: post_students_completed, preScoreCompletedPost: pre_score_completed_post, postStudentsCompleted: post_students_completed, postScore: post_score }),
       growthResultsSortValue: getSingleSortValue(growth_percentage),
       studentsImprovedSkill: proficiencyValue(improved_proficiency, post_students_completed),
       improved_proficiency: getSingleSortValue(improved_proficiency),
