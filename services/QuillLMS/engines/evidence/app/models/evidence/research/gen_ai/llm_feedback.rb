@@ -29,7 +29,7 @@ module Evidence
 
         delegate :example_optimal?, :example_feedback, to: :passage_prompt_response
 
-        def identical_feedback? = example_feedback.text == text
+        def identical_feedback? = example_feedback.text.strip == text.strip
 
         def optimal_or_sub_optimal_match? = example_optimal? ? optimal? : sub_optimal?
 

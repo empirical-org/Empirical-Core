@@ -98,6 +98,12 @@ module Evidence
 
             it { is_expected.to be false }
           end
+
+          context 'when feedback is identical once stripped of leading/trailing whitespace' do
+            let(:text) { "  #{llm_feedback.text}  " }
+
+            it { is_expected.to be true }
+          end
         end
       end
     end
