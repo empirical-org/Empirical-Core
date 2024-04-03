@@ -487,27 +487,31 @@ jobs:
 # the default pipeline parameters, which will be updated according to
 # the results of the path-filtering orb
 parameters:
-  lms-edits:
+  lms-run-backend:
     type: boolean
     default: false
-  lms-client-edits:
+  lms-run-javascript:
     type: boolean
     default: false
-  lms-query-edits:
+  lms-run-queries:
     type: boolean
     default: false
-  lms-integration-edits:
+  lms-run-integration:
     type: boolean
     default: false
-  lms-evidence-edits:
+  lms-run-evidence:
     type: boolean
     default: false
-  cms-edits:
+  lms-run-ruby-lint:
     type: boolean
     default: false
-  marking-logic-edits:
+  cms-run:
     type: boolean
     default: false
+  marking-logic-run:
+    type: boolean
+    default: false
+
 
 # here we specify our workflows, most of which are conditionally
 # executed based upon pipeline parameter values. Each workflow calls a
@@ -521,35 +525,35 @@ workflows:
   build-test:
     jobs:
       - lms_rails_build:
-          should-run: << pipeline.parameters.lms-edits >>
+          should-run: << pipeline.parameters.lms-run-backend >>
           <<: *default_filter
       - lms_node_build:
-          should-run: << pipeline.parameters.lms-client-edits >>
+          should-run: << pipeline.parameters.lms-run-javascript >>
           <<: *default_filter
       - lms_big_query_build:
-          should-run: << pipeline.parameters.lms-query-edits >>
+          should-run: << pipeline.parameters.lms-run-queries >>
           <<: *default_filter
       - lms_integration_build:
-          should-run: << pipeline.parameters.lms-integration-edits >>
+          should-run: << pipeline.parameters.lms-run-integration >>
           <<: *default_filter
       - evidence_rails_build:
-          should-run: << pipeline.parameters.lms-evidence-edits >>
+          should-run: << pipeline.parameters.lms-run-evidence >>
           <<: *default_filter
       - cms_rails_build:
-          should-run: << pipeline.parameters.cms-edits >>
+          should-run: << pipeline.parameters.cms-run >>
           <<: *default_filter
       - marking_logic_node_build:
-          should-run: << pipeline.parameters.marking-logic-edits >>
+          should-run: << pipeline.parameters.marking-logic-run >>
           <<: *default_filter
 
   lint-code:
     jobs:
       - node_lint:
-          should-run: << pipeline.parameters.lms-client-edits >>
+          should-run: << pipeline.parameters.lms-run-javascript >>
           <<: *default_filter
       - rubocop_lms_lint:
-          should-run: << pipeline.parameters.lms-edits >>
+          should-run: << pipeline.parameters.lms-run-ruby-lint >>
           <<: *default_filter
       - rubocop_cms_lint:
-          should-run: << pipeline.parameters.cms-edits >>
+          should-run: << pipeline.parameters.cms-run >>
           <<: *default_filter

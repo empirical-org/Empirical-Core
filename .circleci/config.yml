@@ -20,13 +20,14 @@ workflows:
           # line:
           # <regex path-to-test> <parameter-to-set> <value-of-pipeline-parameter>
           mapping: |
-            services/QuillLMS/(app/|bin/|config/|db/|lib/|Gemfile|spec/|public/|Procfile).* lms-edits true
-            services/QuillLMS/client/.* lms-client-edits true
-            services/QuillLMS/app/queries/.* lms-query-edits true
-            services/QuillLMS/(app/|bin/|config/|db/|lib/|Gemfile|spec/|public/|Procfile|client/).* lms-integration-edits true
-            services/QuillLMS/(engines/app/|bin/|config/|db/|lib/|Gemfile|spec/|public/|Procfile).* lms-evidence-edits true
-            services/QuillCMS/.* cms-edits true
-            packages/quill-marking-logic/.* marking-logic-edits true
+            services/QuillLMS/(app/|bin/|config/|db/|lib/|Gemfile|spec/|public/|Procfile).* lms-run-rspec true
+            services/QuillLMS/client/.* lms-run-javascript true
+            services/QuillLMS/app/queries/.* lms-run-queries true
+            services/QuillLMS/(app/|bin/|config/|db/|lib/|Gemfile|spec/|public/|Procfile|client/).* lms-run-integration true
+            services/QuillLMS/(engines/|app/|bin/|config/|db/|lib/|Gemfile|spec/|public/|Procfile).* lms-run-evidence true
+            services/QuillCMS/.* cms-run true
+            packages/quill-marking-logic/.* marking-logic-run true
+            services/QuillLMS/(engines/|app/|bin/|config/|db/|lib/|Gemfile|spec/|public/|Procfile).* lms-run-ruby-lint true
           base-revision: develop
           # this is the path of the configuration we should trigger once
           # path filtering and pipeline parameter value updates are
