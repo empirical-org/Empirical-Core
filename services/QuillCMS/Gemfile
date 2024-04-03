@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
-# test comment
+
 # CORE
 gem 'puma', '~> 4.3.12'
 gem 'rails', '~> 6.1'

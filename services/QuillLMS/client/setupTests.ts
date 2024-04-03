@@ -10,7 +10,7 @@ configure({ adapter: new Adapter() });
 Object.defineProperty(document, 'fonts', {
   value: { addEventListener: jest.fn(), removeEventListener: jest.fn() },
 });
-
+// test comment
 global.IntersectionObserver = class IntersectionObserver {
   constructor() {}
 
