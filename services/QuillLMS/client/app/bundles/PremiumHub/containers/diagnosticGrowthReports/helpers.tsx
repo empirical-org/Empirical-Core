@@ -33,7 +33,7 @@ export const totalActivitiesAndTimespentTooltipText = 'Each diagnostic is linked
 export const postQuestionsCorrectTooltipText = 'The total number of questions answered correctly on the Post diagnostic.'
 export const postSkillsImprovedOrMaintainTooltipText = 'The number of skills the student maintained or showed improvement in on the Post diagnostic. A skill is considered “improved” if the student answered more questions for that skill correctly on the Post diagnostic than they did on the Pre. A skill is considered “maintained” if the student answered all questions for the skill correctly on both the Pre and the Post diagnostic.'
 
-const noDataToShow = <p>&mdash;</p>
+export const noDataToShow = <p>&mdash;</p>
 
 // Shared functions
 
@@ -234,7 +234,7 @@ function noClassGrowthTooltipText(preScoreCompletedPost, postStudentsCompleted, 
   return `The Pre Score of the ${postStudentsCompleted} ${studentsOrStudents} that completed the Post Diagnostic was ${prePercentage}. As the Post Score of these students (${postPercentage}) was ${comparisonText}, we deem there to have been no overall class growth.`
 }
 
-function growthResultsValue({ growthScore, studentCount, preScoreCompletedPost, postStudentsCompleted, postScore }) {
+export function growthResultsValue({ growthScore, studentCount, preScoreCompletedPost, postStudentsCompleted, postScore }) {
   if (growthScore && growthScore > 0) {
     return `+${scoreValue(growthScore, studentCount)}`
   }
