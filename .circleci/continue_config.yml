@@ -31,8 +31,8 @@ jobs:
           POSTGRES_PASSWORD: password
     steps:
       - run: &blank_required_step
-          name: Blank step
-          command: echo 'hello'
+          name: Required first step in case following condition is false (A job must have one step or it errors)
+          command: echo 'About to check whether to run these tests'
       - when:
           condition: << parameters.should-run >>
           steps:
@@ -196,8 +196,7 @@ jobs:
           POSTGRES_PASSWORD: password
     steps:
       - run:
-          name: Blank step
-          command: echo 'hello'
+          <<: *blank_required_step
       - when:
           condition: << parameters.should-run >>
           steps:
@@ -256,8 +255,7 @@ jobs:
       - image: cimg/node:14.21
     steps:
       - run:
-          name: Blank step
-          command: echo 'hello'
+          <<: *blank_required_step
       - when:
           condition: << parameters.should-run >>
           steps:
@@ -310,8 +308,7 @@ jobs:
           xpack.security.enabled: false
     steps:
       - run:
-          name: Blank step
-          command: echo 'hello'
+          <<: *blank_required_step
       - when:
           condition: << parameters.should-run >>
           steps:
@@ -357,14 +354,10 @@ jobs:
       - image: cimg/node:14.18-browsers
     steps:
       - run:
-          name: Blank step
-          command: echo 'hello'
+          <<: *blank_required_step
       - when:
           condition: << parameters.should-run >>
           steps:
-            - run:
-                name: Blank step
-                command: echo 'hello'
             - checkout
             - run:
                 name: Install NPM dependencies
@@ -398,8 +391,7 @@ jobs:
       - image: cimg/redis:6.0.20
     steps:
       - run:
-          name: Blank step
-          command: echo 'hello'
+          <<: *blank_required_step
       - when:
           condition: << parameters.should-run >>
           steps:
@@ -454,8 +446,7 @@ jobs:
       - image: cimg/node:14.21
     steps:
       - run:
-          name: Blank step
-          command: echo 'hello'
+          <<: *blank_required_step
       - when:
           condition: << parameters.should-run >>
           steps:
@@ -478,8 +469,7 @@ jobs:
       - image: cimg/ruby:3.1.4-node
     steps:
       - run:
-          name: Blank step
-          command: echo 'hello'
+          <<: *blank_required_step
       - when:
           condition: << parameters.should-run >>
           steps:
@@ -500,8 +490,7 @@ jobs:
       - image: cimg/ruby:3.2.0-node
     steps:
       - run:
-          name: Blank step
-          command: echo 'hello'
+          <<: *blank_required_step
       - when:
           condition: << parameters.should-run >>
           steps:
