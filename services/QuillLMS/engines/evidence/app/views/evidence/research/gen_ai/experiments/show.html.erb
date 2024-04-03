@@ -13,8 +13,42 @@
   <p><%= @experiment.llm_prompt.description %></p>
   <p><%= simple_format(@experiment.llm_prompt.prompt) %></p>
 
+  <hr/>
   <h3>Results</h3>
-  <p><%= @experiment.results ? @experiment.results.to_json : 'No results yet' %></p>
+  <% if @experiment.results %>
+    <p>Accuracy (identical): <%= @experiment.results['accuracy_identical'] %></p>
+    <p>Accuracy (sub/optimal): <%= @experiment.results['accuracy_optimal_sub_optimal'] %></p>
+
+    <%= render 'matrix', matrix: @experiment.results['confusion_matrix'], title: 'Confusion Matrix' %>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Identical match</th>
+          <th>OptSubOpt match</th>
+          <th>Prompt Response</th>
+          <th>Example Feedback</th>
+          <th>LLM Feedback</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @experiment.llm_feedbacks.each do |llm_feedback| %>
+          <tr>
+            <% example_feedback = llm_feedback.example_feedback %>
+            <td class="<%= llm_feedback.identical_feedback? ? 'green' : 'red' %>"></td>
+            <td class="<%= llm_feedback.optimal_or_sub_optimal_match? ? 'green' : 'red' %>"></td>
+            <td><%= llm_feedback.passage_prompt_response %></td>
+            <td><%= llm_feedback.text %></td>
+            <td><%= example_feedback.text %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% else %>
+      <p>No results yet</p>
+    <% end %>
+
+
 
   <h3>Status</h3>
   <p><%= @experiment.status.capitalize %></p>
@@ -31,4 +65,5 @@
   <h3>Created At</h3>
   <p><%= @experiment.created_at.strftime("%B %d, %Y %H:%M") %></p>
 </div>
+
 <%= link_to 'Back', research_gen_ai_experiments_path %>

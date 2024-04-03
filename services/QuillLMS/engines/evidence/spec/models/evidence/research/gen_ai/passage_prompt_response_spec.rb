@@ -23,10 +23,31 @@ module Evidence
         it { should have_readonly_attribute(:response) }
         it { should have_readonly_attribute(:passage_prompt_id) }
 
-        it { have_many(:example_feedbacks).class_name('Evidence::Research::GenAI::ExampleFeedback').dependent(:destroy) }
+        it { have_one(:example_feedback).class_name('Evidence::Research::GenAI::ExampleFeedback').dependent(:destroy) }
         it { have_many(:llm_feedbacks).class_name('Evidence::Research::GenAI::LLMFeedback').dependent(:destroy) }
 
         it { expect(build(:evidence_research_gen_ai_passage_prompt_response)).to be_valid }
+
+        describe '#example_optimal?' do
+          subject { passage_prompt_response.example_optimal? }
+
+          let(:example_feedback) { create(:evidence_research_gen_ai_example_feedback) }
+          let(:passage_prompt_response) { example_feedback.passage_prompt_response }
+
+          before { allow(example_feedback).to receive(:optimal?).and_return(is_optimal) }
+
+          context 'when example feedback is optimal' do
+            let(:is_optimal) { true }
+
+            it { is_expected.to eq true }
+          end
+
+          context 'when example feedback is not optimal' do
+            let(:is_optimal) { false }
+
+            it { is_expected.to eq false }
+          end
+        end
       end
     end
   end

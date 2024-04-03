@@ -15,7 +15,7 @@ module Evidence
     module GenAI
       FactoryBot.define do
         factory :evidence_research_gen_ai_llm_config, class: 'Evidence::Research::GenAI::LLMConfig' do
-          vendor { 'the vendor' }
+          vendor { Evidence::Research::GenAI::LLMConfig::VENDOR_MAP.keys.sample }
           version { 'v1.0' }
         end
       end
