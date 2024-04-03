@@ -3,11 +3,6 @@ version: 2.1
 orbs:
   maven: circleci/maven@1.2.0
 
-
-define: &blank_run_step
-  name: Blank step
-  command: echo 'hello'
-
 jobs:
   lms_rails_build:
     parameters:
@@ -35,8 +30,9 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: password
     steps:
-      - run:
-          <<: *blank_run_step
+      - run: &blank_required_step
+          name: Blank step
+          command: echo 'hello'
       - when:
           condition: << parameters.should-run >>
           steps:
@@ -108,8 +104,7 @@ jobs:
       - image: selenium/standalone-chrome:4.11.0
     steps:
       - run:
-          name: Blank step
-          command: echo 'hello'
+          <<: *blank_required_step
       - when:
           condition: << parameters.should-run >>
           steps:
