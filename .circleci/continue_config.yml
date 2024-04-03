@@ -530,7 +530,8 @@ workflows:
           should-run: << pipeline.parameters.lms-query-edits >>
           <<: *default_filter
       - lms_integration_build:
-          should-run: << pipeline.parameters.lms-integration-edits >>
+          should-run:
+            or: [<< pipeline.parameters.lms-edits >>, << pipeline.parameters.lms-client-edits >>]
           <<: *default_filter
       - evidence_rails_build:
           should-run: << pipeline.parameters.lms-evidence-edits >>
