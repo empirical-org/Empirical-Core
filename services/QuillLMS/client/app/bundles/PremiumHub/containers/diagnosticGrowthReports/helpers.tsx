@@ -56,13 +56,16 @@ function processAggregateRows(aggregateRowsData, diagnosticId, rowData) {
   if (!aggregateRowsData[diagnosticId]) {
     aggregateRowsData[diagnosticId] = {}
   }
-  rowData.map(row => {
+  rowData.map((row, i) => {
     const { aggregate_id, ...properties } = row;
     if(aggregateRowsData[diagnosticId] && !aggregateRowsData[diagnosticId][aggregate_id]) {
-      aggregateRowsData[diagnosticId][aggregate_id] = {...properties}
+      aggregateRowsData[diagnosticId][aggregate_id] = {...properties }
     }
     if (aggregateRowsData[diagnosticId] && aggregateRowsData[diagnosticId][aggregate_id]) {
       aggregateRowsData[diagnosticId][aggregate_id] = { ...aggregateRowsData[diagnosticId][aggregate_id], ...properties };
+    }
+    if (aggregateRowsData[diagnosticId] && aggregateRowsData[diagnosticId][aggregate_id] && !aggregateRowsData[diagnosticId][aggregate_id].order) {
+      aggregateRowsData[diagnosticId][aggregate_id].order = i
     }
   });
 }
@@ -93,8 +96,17 @@ function overallSkillGrowthValue({diagnosticId, overallSkillGrowth, handleGrowth
   return 'No Growth';
 }
 
-function createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId, handleGrowthChipClick, handlePreDiagnosticChipClick }) {
-  return Object.keys(aggregateRowsDataForDiagnostic).map(key => {
+function createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId, handleGrowthChipClick, handlePreDiagnosticChipClick, groupByValue }) {
+  let keys
+  if (groupByValue === 'teacher' || groupByValue === 'classroom') {
+    keys = Object.keys(aggregateRowsDataForDiagnostic).sort((a, b) => {
+      return aggregateRowsDataForDiagnostic[a].order - aggregateRowsDataForDiagnostic[b].order;
+    });
+  } else {
+    keys = Object.keys(aggregateRowsDataForDiagnostic)
+  }
+
+  return keys.map(key => {
     const data = aggregateRowsDataForDiagnostic[key];
     // we can early return if there are no students assigned to pre diagnostic
     if (!data.pre_students_assigned) { return null }
@@ -113,7 +125,7 @@ function createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId, 
 }
 
 export function aggregateOverviewData(args) {
-  const { preDiagnosticAssignedData, postDiagnosticAssignedData, preDiagnosticCompletedData, postDiagnosticCompletedData, recommendationsData, setAggregatedData, handleSetNoDiagnosticDataAvailable, hasAdjustedFiltersFromDefault, setLoading, handleGrowthChipClick, handlePreDiagnosticChipClick } = args;
+  const { preDiagnosticAssignedData, postDiagnosticAssignedData, preDiagnosticCompletedData, postDiagnosticCompletedData, recommendationsData, setAggregatedData, handleSetNoDiagnosticDataAvailable, hasAdjustedFiltersFromDefault, setLoading, handleGrowthChipClick, handlePreDiagnosticChipClick, groupByValue } = args;
 
   // if there are no results for the pre diagnostic API and filters are at default, no diagnostics have been assigned
   if (!preDiagnosticAssignedData.length && !hasAdjustedFiltersFromDefault) {
@@ -207,7 +219,7 @@ export function aggregateOverviewData(args) {
     entry.postStudentsCompleted = getSingleSortValue(postStudentsCompleted)
     entry.overallSkillGrowthSortValue = getSingleSortValue(overallSkillGrowth)
     entry.overallSkillGrowth = overallSkillGrowthValue({diagnosticId: id, overallSkillGrowth, handleGrowthChipClick })
-    entry.aggregate_rows = createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId: id, handleGrowthChipClick, handlePreDiagnosticChipClick })
+    entry.aggregate_rows = createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId: id, handleGrowthChipClick, handlePreDiagnosticChipClick, groupByValue })
   })
   setAggregatedData(combinedData);
   setLoading(false);
