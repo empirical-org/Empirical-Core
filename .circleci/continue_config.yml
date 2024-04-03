@@ -10,7 +10,7 @@ jobs:
         type: boolean
         default: false
     working_directory: ~/Empirical-Core
-    parallelism: 6
+    parallelism: 8
     docker:
       - image: cimg/ruby:3.1.4
         environment:
@@ -84,7 +84,7 @@ jobs:
     parameters:
       <<: *should_run_params
     working_directory: ~/Empirical-Core
-    parallelism: 2
+    parallelism: 4
     docker:
       - image: cimg/ruby:3.1.4-node
         environment:
