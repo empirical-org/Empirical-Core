@@ -1,9 +1,5 @@
 const _ = require('lodash');
 const u = require('underscore');
-const Sequelize = require('sequelize');
-const CMS_URL = 'https://cms.quill.org'
-const FIREBASE_NAME = 'quillconnect'
-
 const {
   checkSentenceCombining,
   checkSentenceFragment,
@@ -12,7 +8,10 @@ const {
   checkDiagnosticSentenceFragment,
   checkGrammarQuestion,
   ConceptResult,
-} = require('../../services/QuillLMS/client/app/bundles/Shared/quill-marking-logic/src/main');
+} = require('@shared/quill-marking-logic')
+const Sequelize = require('sequelize');
+const CMS_URL = 'https://cms.quill.org'
+const FIREBASE_NAME = 'quillconnect'
 
 const sequelize = new Sequelize(process.env.DATABASE, process.env.USERNAME, process.env.PASSWORD, {
   host: process.env.HOST,
