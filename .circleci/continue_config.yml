@@ -5,7 +5,7 @@ orbs:
 
 jobs:
   lms_rails_build:
-    parameters:
+    parameters: &should_run_params
       should-run:
         type: boolean
         default: false
@@ -82,9 +82,7 @@ jobs:
                   bin/rspec -- ${TESTFILES}
   lms_integration_build:
     parameters:
-      should-run:
-        type: boolean
-        default: false
+      <<: *should_run_params
     working_directory: ~/Empirical-Core
     parallelism: 1
     docker:
@@ -171,9 +169,7 @@ jobs:
                 path: /home/circleci/Empirical-Core/services/QuillLMS/tmp/screenshots
   lms_big_query_build:
     parameters:
-      should-run:
-        type: boolean
-        default: false
+      <<: *should_run_params
     working_directory: ~/Empirical-Core
     parallelism: 2
     docker:
@@ -246,9 +242,7 @@ jobs:
                   bin/rspec ${TESTFILES} --tag big_query_snapshot
   lms_node_build:
     parameters:
-      should-run:
-        type: boolean
-        default: false
+      <<: *should_run_params
     working_directory: ~/Empirical-Core
     parallelism: 3
     docker:
@@ -287,9 +281,7 @@ jobs:
                   node --expose-gc ./node_modules/.bin/jest $TESTFILES --maxWorkers=2 --logHeapUsage
   cms_rails_build:
     parameters:
-      should-run:
-        type: boolean
-        default: false
+      <<: *should_run_params
     working_directory: ~/Empirical-Core
     docker:
       - image: ruby:3.2.0
@@ -346,9 +338,7 @@ jobs:
                   bundle exec rake spec
   marking_logic_node_build:
     parameters:
-      should-run:
-        type: boolean
-        default: false
+      <<: *should_run_params
     working_directory: ~/Empirical-Core
     docker:
       - image: cimg/node:14.18-browsers
@@ -371,9 +361,7 @@ jobs:
                   FORCE_COLOR=true npm run test --colors
   evidence_rails_build:
     parameters:
-      should-run:
-        type: boolean
-        default: false
+      <<: *should_run_params
     working_directory: ~/Empirical-Core
     parallelism: 1
     docker:
@@ -438,9 +426,7 @@ jobs:
                   bin/rspec
   node_lint:
     parameters:
-      should-run:
-        type: boolean
-        default: false
+      <<: *should_run_params
     working_directory: ~/Empirical-Core
     docker:
       - image: cimg/node:14.21
@@ -461,9 +447,7 @@ jobs:
                   npm run eslint
   rubocop_lms_lint:
     parameters:
-      should-run:
-        type: boolean
-        default: false
+      <<: *should_run_params
     working_directory: ~/Empirical-Core
     docker:
       - image: cimg/ruby:3.1.4-node
@@ -482,9 +466,7 @@ jobs:
                   rubocop
   rubocop_cms_lint:
     parameters:
-      should-run:
-        type: boolean
-        default: false
+      <<: *should_run_params
     working_directory: ~/Empirical-Core
     docker:
       - image: cimg/ruby:3.2.0-node
