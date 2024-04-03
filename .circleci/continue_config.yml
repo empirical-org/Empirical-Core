@@ -499,6 +499,9 @@ parameters:
   lms-integration-edits:
     type: boolean
     default: false
+  lms-evidence-edits:
+    type: boolean
+    default: false
   cms-edits:
     type: boolean
     default: false
