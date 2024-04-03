@@ -20,7 +20,7 @@ export default defineConfig({
       entry: path.resolve(__dirname, 'index.js'), // Your Lambda's entry point
       formats: ['cjs']
     },
-    minify: true,
+    minify: false,
   },
   resolve: {
     alias: {

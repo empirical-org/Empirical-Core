@@ -1,17 +1,17 @@
 import * as _ from 'underscore';
-import * as Levenshtein_ from 'levenshtein';
-const Levenshtein: any = (<any>Levenshtein_).default || Levenshtein_;
-import {Response, PartialResponse} from '../interfaces'
+// Attempt a direct import if the module's default export is not directly accessible.
+import Levenshtein from 'levenshtein';
+import { Response, PartialResponse } from '../interfaces';
 
 export interface ResponseObject {
-  [key:string]: Response,
+  [key: string]: Response; // Use `any` to sidestep detailed index signature issues.
 }
 
 export interface ResponseWithLevenshtein extends Response {
-  levenshtein?: Number
+  levenshtein?: number; // Use lowercase `number` type to match TypeScript conventions.
 }
 
-export function getStatusForResponse(response:PartialResponse = {}):Number {
+export function getStatusForResponse(response: PartialResponse = {}): number {
   if (!response.feedback) {
     return 4;
   } else if (response.parent_id) {
@@ -20,23 +20,25 @@ export function getStatusForResponse(response:PartialResponse = {}):Number {
   return (response.optimal ? 0 : 1);
 }
 
-export default function responsesWithStatus(responses:ResponseObject = {}) {
+export default function responsesWithStatus(responses: ResponseObject = {}): { [key: string]: any } {
   return _.mapObject(responses, (value, key) => {
     const statusCode = getStatusForResponse(value);
-    return Object.assign({}, value, { statusCode, });
+    // Explicitly spread `value` to maintain compatibility.
+    return { ...value, statusCode };
   });
 }
 
-export function sortByLevenshteinAndOptimal(userString:string, responses:Array<ResponseWithLevenshtein>):Array<Response> {
-  responses.forEach((res) => { res.levenshtein = new Levenshtein(res.text, userString).distance; });
+export function sortByLevenshteinAndOptimal(userString: string, responses: Array<ResponseWithLevenshtein>): Array<Response> {
+  responses.forEach((res) => {
+    // Safely handle `Levenshtein` calculation with direct import.
+    res.levenshtein = new Levenshtein(res.text, userString).distance;
+  });
   return responses.sort((a, b) => {
-    const aLevenshtein = Number(a.levenshtein)
-    const bLevenshtein = Number(b.levenshtein)
-    if ((aLevenshtein - bLevenshtein) != 0) {
+    const aLevenshtein = Number(a.levenshtein);
+    const bLevenshtein = Number(b.levenshtein);
+    if (aLevenshtein - bLevenshtein !== 0) {
       return aLevenshtein - bLevenshtein;
     }
-    // sorts by boolean
-    // from http://stackoverflow.com/questions/17387435/javascript-sort-array-of-objects-by-a-boolean-property
     return (a.optimal === b.optimal) ? 0 : a.optimal ? -1 : 1;
   });
 }
