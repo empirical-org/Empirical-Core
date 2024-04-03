@@ -1,15 +1,15 @@
-const _ = require('lodash');
-const u = require('underscore');
-const {
+import _ from 'lodash';
+import u from 'underscore';
+import Sequelize from 'sequelize';
+import {
   checkSentenceCombining,
   checkSentenceFragment,
   checkDiagnosticQuestion,
   checkFillInTheBlankQuestion,
   checkDiagnosticSentenceFragment,
   checkGrammarQuestion,
-  ConceptResult,
-} = require('@shared/quill-marking-logic')
-const Sequelize = require('sequelize');
+} from '@shared'
+
 const CMS_URL = 'https://cms.quill.org'
 const FIREBASE_NAME = 'quillconnect'
 
@@ -250,6 +250,4 @@ function convertResponsesArrayToHash(crArray) {
   return newHash;
 }
 
-module.exports = {
-  rematchIndividualQuestion
-}
+export { rematchIndividualQuestion, }
