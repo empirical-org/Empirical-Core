@@ -24,6 +24,7 @@ workflows:
             services/QuillLMS/client/.* lms-client-edits true
             services/QuillLMS/app/queries/.* lms-query-edits true
             services/QuillLMS/.* lms-integration-edits true
+            services/QuillLMS/engines/evidence/.* lms-evidence-edits true
             services/QuillCMS/.* cms-edits true
             packages/quill-marking-logic/.* marking-logic-edits true
           base-revision: develop

@@ -84,7 +84,7 @@ jobs:
     parameters:
       <<: *should_run_params
     working_directory: ~/Empirical-Core
-    parallelism: 1
+    parallelism: 2
     docker:
       - image: cimg/ruby:3.1.4-node
         environment:
@@ -244,7 +244,7 @@ jobs:
     parameters:
       <<: *should_run_params
     working_directory: ~/Empirical-Core
-    parallelism: 3
+    parallelism: 4
     docker:
       - image: cimg/node:14.21
     steps:
@@ -528,6 +528,10 @@ workflows:
           <<: *default_filter
       - lms_integration_build:
           should-run: << pipeline.parameters.lms-integration-edits >>
+          <<: *default_filter
+      - evidence_rails_build:
+          should-run:
+            or: [<< pipeline.parameters.lms-edits >>, << pipeline.parameters.lms-evidence-edits >>]
           <<: *default_filter
       - cms_rails_build:
           should-run: << pipeline.parameters.cms-edits >>
