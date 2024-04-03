@@ -28,6 +28,18 @@ module Evidence
 
             it { is_expected.to be false }
           end
+
+          context 'when the text contains a prefix with different case' do
+            let(:text) { "#{described_class::OPTIMAL_PREFIXES.sample.upcase} #{Faker::Lorem.sentence}" }
+
+            it { is_expected.to be true }
+          end
+
+          context 'when the text contains a prefix with extra whitespace' do
+            let(:text) { "  #{described_class::OPTIMAL_PREFIXES.sample} #{Faker::Lorem.sentence}" }
+
+            it { is_expected.to be true }
+          end
         end
 
         describe '#sub_optimal?' do

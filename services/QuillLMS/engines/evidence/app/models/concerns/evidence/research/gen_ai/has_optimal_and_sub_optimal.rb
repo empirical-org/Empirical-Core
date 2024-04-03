@@ -13,7 +13,7 @@ module Evidence
           'Excellent job'
         ].freeze
 
-        def optimal? = OPTIMAL_PREFIXES.any? { |prefix| text.start_with?(prefix) }
+        def optimal? = OPTIMAL_PREFIXES.any? { |prefix| text.downcase.strip.start_with?(prefix.downcase.strip) }
 
         def sub_optimal? = !optimal?
       end
