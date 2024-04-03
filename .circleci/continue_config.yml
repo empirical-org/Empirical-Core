@@ -171,7 +171,7 @@ jobs:
     parameters:
       <<: *should_run_params
     working_directory: ~/Empirical-Core
-    parallelism: 2
+    parallelism: 4
     docker:
       - image: cimg/ruby:3.1.4
         environment:
