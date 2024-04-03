@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# test comment
 class ActivityFeedbackHistory
   def self.run(activity_id:, activity_version: nil)
     activity_stats_query(activity_id: activity_id, activity_version: activity_version)
