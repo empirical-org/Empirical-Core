@@ -22,6 +22,7 @@ class Concept < ApplicationRecord
   validates :name, presence: true
   has_many :concept_results
   has_many :change_logs, as: :changed_record
+  has_many :diagnostic_question_optimal_concepts
 
   def lineage
     family_tree = name
