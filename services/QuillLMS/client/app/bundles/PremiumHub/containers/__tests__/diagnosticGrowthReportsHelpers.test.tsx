@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { aggregateOverviewData } from '../diagnosticGrowthReports/helpers'
+import { aggregateOverviewData, createAggregateRowData } from '../diagnosticGrowthReports/helpers'
 
 const mockArgs = {
   preDiagnosticAssignedData: [],
@@ -201,6 +201,98 @@ const mockCombinedData = [{
   studentsCompletedPractice: "159 Students"
 }]
 
+const mockAggregateRowsDataForDiagnostic1 = {
+  9955813: {
+    average_practice_activities_count: 15.058823529411764,
+    average_time_spent_seconds: 6991.35294117647,
+    diagnostic_id: 1663,
+    diagnostic_name: "Starter Baseline Diagnostic (Pre)",
+    group_by: "teacher",
+    name: "Gabriela Segura",
+    order: 14,
+    overall_skill_growth: 0.058248299319727886,
+    post_students_assigned: 7,
+    post_students_completed: 7,
+    pre_average_score: 0.5543575920934412,
+    pre_students_assigned: 54,
+    pre_students_completed: 53,
+    students_completed_practice: 51
+  },
+  9959478: {
+    diagnostic_id: 1663,
+    diagnostic_name: "Starter Baseline Diagnostic (Pre)",
+    group_by: "teacher",
+    name: "Mindy Santillan",
+    order: 13,
+    overall_skill_growth: null,
+    post_students_completed: 0,
+    pre_average_score: 0.5917366946778712,
+    pre_students_assigned: 72,
+    pre_students_completed: 68
+  },
+  9992069: {
+    average_practice_activities_count: 12,
+    average_time_spent_seconds: 4562.2,
+    diagnostic_id: 1663,
+    diagnostic_name: "Starter Baseline Diagnostic (Pre)",
+    group_by: "teacher",
+    name: "Catherine Vazquez",
+    order: 17,
+    overall_skill_growth: null,
+    post_students_completed: 0,
+    pre_average_score: 0.5661375661375662,
+    pre_students_assigned: 10,
+    pre_students_completed: 9,
+    students_completed_practice: 5
+  }
+}
+
+const mockAggregateRowsDataForDiagnostic2 = {
+  9955813: {
+    average_practice_activities_count: 15.058823529411764,
+    average_time_spent_seconds: 6991.35294117647,
+    diagnostic_id: 1663,
+    diagnostic_name: "Starter Baseline Diagnostic (Pre)",
+    group_by: "classroom",
+    name: "ELA & ELL - Period 4",
+    order: 14,
+    overall_skill_growth: 0.058248299319727886,
+    post_students_assigned: 7,
+    post_students_completed: 7,
+    pre_average_score: 0.5543575920934412,
+    pre_students_assigned: 54,
+    pre_students_completed: 53,
+    students_completed_practice: 51
+  },
+  9959478: {
+    diagnostic_id: 1663,
+    diagnostic_name: "Starter Baseline Diagnostic (Pre)",
+    group_by: "classroom",
+    name: "ELA & ELL - Period 2",
+    order: 13,
+    overall_skill_growth: null,
+    post_students_completed: 0,
+    pre_average_score: 0.5917366946778712,
+    pre_students_assigned: 72,
+    pre_students_completed: 68
+  },
+  9992069: {
+    average_practice_activities_count: 12,
+    average_time_spent_seconds: 4562.2,
+    diagnostic_id: 1663,
+    diagnostic_name: "Starter Baseline Diagnostic (Pre)",
+    group_by: "classroom",
+    name: "6th ELA Period 1 - Year 5",
+    order: 12,
+    overall_skill_growth: null,
+    post_students_completed: 0,
+    pre_average_score: 0.5661375661375662,
+    pre_students_assigned: 10,
+    pre_students_completed: 9,
+    students_completed_practice: 5
+  }
+}
+
 describe('#aggregateOverviewData', () => {
   describe('there is no preDiagnosticAssignedData', () => {
     it('calls handleSetNoDiagnosticDataAvailable with true and setLoading with false', () => {
@@ -219,6 +311,36 @@ describe('#aggregateOverviewData', () => {
       aggregateOverviewData(mockArgs)
       expect(mockArgs.setLoading).toHaveBeenCalledWith(false)
       expect(mockArgs.setAggregatedData).toHaveBeenCalledWith(mockCombinedData)
+    })
+  })
+})
+describe('#createAggregateRowData', () => {
+  describe('by teacher', () => {
+    it('returns data sorted alphabetically by name', () => {
+      const aggregateRowData = createAggregateRowData({
+        aggregateRowsDataForDiagnostic: mockAggregateRowsDataForDiagnostic1,
+        diagnosticId: 1664,
+        handleGrowthChipClick: jest.fn,
+        handlePreDiagnosticChipClick: jest.fn,
+        groupByValue: 'teacher'
+      })
+      expect(aggregateRowData[0].name).toEqual('Mindy Santillan')
+      expect(aggregateRowData[1].name).toEqual('Gabriela Segura')
+      expect(aggregateRowData[2].name).toEqual('Catherine Vazquez')
+    })
+  })
+  describe('by classroom', () => {
+    it('returns data sorted alphabetically by name', () => {
+      const aggregateRowData = createAggregateRowData({
+        aggregateRowsDataForDiagnostic: mockAggregateRowsDataForDiagnostic2,
+        diagnosticId: 1664,
+        handleGrowthChipClick: jest.fn,
+        handlePreDiagnosticChipClick: jest.fn,
+        groupByValue: 'classroom'
+      })
+      expect(aggregateRowData[0].name).toEqual('6th ELA Period 1 - Year 5')
+      expect(aggregateRowData[1].name).toEqual('ELA & ELL - Period 2')
+      expect(aggregateRowData[2].name).toEqual('ELA & ELL - Period 4')
     })
   })
 })

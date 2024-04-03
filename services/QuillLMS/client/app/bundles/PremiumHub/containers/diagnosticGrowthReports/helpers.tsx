@@ -96,7 +96,7 @@ function overallSkillGrowthValue({diagnosticId, overallSkillGrowth, handleGrowth
   return 'No Growth';
 }
 
-function createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId, handleGrowthChipClick, handlePreDiagnosticChipClick, groupByValue }) {
+export function createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId, handleGrowthChipClick, handlePreDiagnosticChipClick, groupByValue }) {
   let keys
   if (groupByValue === 'teacher' || groupByValue === 'classroom') {
     keys = Object.keys(aggregateRowsDataForDiagnostic).sort((a, b) => {
