@@ -56,7 +56,7 @@ module Evidence
 
           update!(status: RUNNING)
           create_llm_prompt_responses_feedbacks(limit:)
-          update!(results: (results || {}).merge(calculated_results))
+          calculate_results
           update!(status: COMPLETED)
         rescue StandardError => e
           experiment_errors << e.message
@@ -70,8 +70,11 @@ module Evidence
           end
         end
 
+        private def calculate_results = update!(results: (results || {}).merge(calculated_results))
+
         private def calculated_results
           {
+            accuracy_identical: IdenticalResultsAccuracyCalculator.run(self),
             accuracy_optimal_sub_optimal: optimal_and_sub_optimal_results[:accuracy],
             confusion_matrix: optimal_and_sub_optimal_results[:confusion_matrix]
           }

@@ -85,7 +85,7 @@ module Evidence
             expect { subject }
               .to change { experiment.reload.results }
               .from(nil)
-              .to(include('accuracy_optimal_sub_optimal', 'confusion_matrix'))
+              .to(include('accuracy_optimal_sub_optimal', 'confusion_matrix', 'accuracy_identical'))
           end
 
           context 'with limit provided' do
