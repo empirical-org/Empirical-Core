@@ -140,13 +140,14 @@ namespace :diagnostic_question_optimal_concepts do
         concepts = concepts.where(grandparent: {name: level_2_concept_names[i]}) if level_2_concept_names[i]
         concepts
       end.flatten.compact
-      if level_0_concept_names.length != level_0_concepts.length || level_0_concepts.empty?
-        puts "Multiple concepts found by name" if level_0_concept_names.length < level_0_concepts.length
-        # Using double-quotes inside double-quotes because we want this to produce an output that could be validly piped into a CSV if desired
-        # rubocop:disable Style/StringLiteralsInInterpolation
-        concepts_to_audit.push("#{activity.name},#{question_number},\"#{full_concept_names.join("\n")}\",\"#{level_0_concepts.map {|concept| [concept.parent.parent.name, concept.parent.name, concept.name].join(" | ") }.join("\n")}\"")
-        # rubocop:enable Style/StringLiteralsInInterpolation
-      end
+
+      next if level_0_concept_names.length == level_0_concepts.length
+
+      puts "Multiple concepts found by name" if level_0_concept_names.length < level_0_concepts.length
+      # Using double-quotes inside double-quotes because we want this to produce an output that could be validly piped into a CSV if desired
+      # rubocop:disable Style/StringLiteralsInInterpolation
+      concepts_to_audit.push("#{activity.name},#{question_number},\"#{full_concept_names.join("\n")}\",\"#{level_0_concepts.map {|concept| [concept.parent.parent.name, concept.parent.name, concept.name].join(" | ") }.join("\n")}\"")
+      # rubocop:enable Style/StringLiteralsInInterpolation
     end
     puts questions_to_audit
     puts "========================"
