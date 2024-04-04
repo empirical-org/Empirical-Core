@@ -4,9 +4,11 @@ require 'rails_helper'
 
 describe EvidenceReports, type: :model do
   before do
-    class FakeReports
+    fake_reports_class = Class.new do
       include EvidenceReports
     end
+
+    stub_const('FakeReports', fake_reports_class)
   end
 
   describe '#get_evidence_prompt_from_activity_and_prompt_text' do

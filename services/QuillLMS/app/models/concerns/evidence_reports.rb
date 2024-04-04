@@ -32,7 +32,8 @@ module EvidenceReports
     return nil if feedback_histories.empty? || prompt_text.blank? || attempt_number.blank?
 
     prompt = get_evidence_prompt_from_activity_and_prompt_text(activity_session, prompt_text)
-    feedback_histories.select {|fh| fh.attempt == attempt_number.to_i && fh.prompt_id == prompt&.id }&.first
+
+    feedback_histories.find {|fh| fh.attempt == attempt_number.to_i && fh.prompt_id == prompt&.id }
   end
 
   def get_evidence_prompt_from_activity_and_prompt_text(activity_session, prompt_text)
