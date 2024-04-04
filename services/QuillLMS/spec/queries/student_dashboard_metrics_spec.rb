@@ -4,8 +4,15 @@ require 'rails_helper'
 
 describe StudentDashboardMetrics do
   before do
-    wednesday_noon = Time.current.beginning_of_week(:wednesday).noon
-    travel_to wednesday_noon
+    now = Time.current
+    wednesday_noon = now.beginning_of_week(:wednesday).noon
+    first_of_month = now.beginning_of_month
+
+    if wednesday_noon - 7.days < first_of_month
+      travel_to wednesday_noon + 1.week
+    else
+      travel_to wednesday_noon
+    end
   end
 
   after do
@@ -40,9 +47,8 @@ describe StudentDashboardMetrics do
       expect(metrics[:day][:activities_completed]).to eq(1)
       expect(metrics[:day][:timespent]).to eq(today_timespent)
 
-      # TODO: Fix this test with time freeze in middle of month
-      # expect(metrics[:week][:activities_completed]).to eq(2)
-      # expect(metrics[:week][:timespent]).to eq(today_timespent + yesterday_timespent)
+      expect(metrics[:week][:activities_completed]).to eq(2)
+      expect(metrics[:week][:timespent]).to eq(today_timespent + yesterday_timespent)
 
       expect(metrics[:month][:activities_completed]).to eq(3)
       expect(metrics[:month][:timespent]).to eq(today_timespent + yesterday_timespent + first_of_month_timespent)
