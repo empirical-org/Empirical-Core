@@ -22,11 +22,32 @@ export function parseElement(e) {
   }
 
   return {
-    score: stringAttributes[0] === "true" ? 1 : 0,
+    scores: [stringAttributes[0] === "true" ? 1 : 0],
     activityId: parseInt(stringAttributes[1]),
     completedAt: stringAttributes[2],
     skillGroupName: removeCommas(stringAttributes[3])
   }
+}
+
+export function deduplicateAndAverageScores(arr) {
+  const scoresMap = new Map();
+
+  arr.forEach(item => {
+    const key = `${item.activityId}|${item.skillGroupName}`;
+
+    if (scoresMap.has(key)) {
+      let scores = scoresMap.get(key).scores
+      scores.push(item.scores[0])
+      scoresMap.set(key, {...scoresMap.get(key), scores: scores });
+    } else {
+      scoresMap.set(key, item);
+    }
+  });
+
+  return Array.from(scoresMap.values()).map(dedupedItem => {
+    const avg = dedupedItem.scores.reduce((acc, val) => acc + val, 0) / dedupedItem.scores.length;
+    return {activityId: dedupedItem.activityId, completedAt: dedupedItem.completedAt, skillGroupName: dedupedItem.skillGroupName, score: avg }
+  })
 }
 
 // BigQuery does not currently accept DATETIMEs as arguments for JS UDFs
@@ -49,7 +70,7 @@ export function studentwiseSkillGroupUDF(elements) {
     }
 
     return {
-      score: stringAttributes[0] === "true" ? 1 : 0,
+      scores: [stringAttributes[0] === "true" ? 1 : 0],
       activityId: parseInt(stringAttributes[1]),
       completedAt: stringAttributes[2],
       skillGroupName: removeCommas(stringAttributes[3])
@@ -71,6 +92,27 @@ export function studentwiseSkillGroupUDF(elements) {
       return 0
     }
     return row.score
+  }
+
+  function deduplicateAndAverageScores(arr) {
+    const scoresMap = new Map();
+
+    arr.forEach(item => {
+      const key = `${item.activityId}|${item.skillGroupName}`;
+
+      if (scoresMap.has(key)) {
+        let scores = scoresMap.get(key).scores
+        scores.push(item.scores[0])
+        scoresMap.set(key, {...scoresMap.get(key), scores: scores });
+      } else {
+        scoresMap.set(key, item);
+      }
+    });
+
+    return Array.from(scoresMap.values()).map(dedupedItem => {
+      const avg = dedupedItem.scores.reduce((acc, val) => acc + val, 0) / dedupedItem.scores.length;
+      return {activityId: dedupedItem.activityId, completedAt: dedupedItem.completedAt, skillGroupName: dedupedItem.skillGroupName, score: avg }
+    })
   }
 
   //source: https://docs.google.com/spreadsheets/d/1JFey0UpMkmPzkQtZKsr_FdXRXnNEDFXZe52H7dUMg9E/edit#gid=0
@@ -141,7 +183,7 @@ export function studentwiseSkillGroupUDF(elements) {
     1678: 1680  // Advanced
   }
 
-  const zipped = elements.map(parseElement).sort((a,b) => (new Date(a.completedAt) - new Date(b.completedAt)))
+  const zipped = deduplicateAndAverageScores(elements.map(parseElement)).sort((a,b) => (new Date(a.completedAt) - new Date(b.completedAt)))
 
   const canonicalPreTestIdx = zipped.findIndex(
     elem => Object.keys(prePostDiagnosticActivityIdPairs).map(x => parseInt(x)).includes(elem.activityId)

@@ -1,4 +1,4 @@
-import { tierUDF, studentwiseSkillGroupUDF, findLastIndex, parseElement } from "./BigQueryUDFs"
+import { tierUDF, studentwiseSkillGroupUDF, findLastIndex, parseElement, deduplicateAndAverageScores } from "./BigQueryUDFs"
 
 function zip(scores, activityIds, completedAts, skillGroupNames) {
   return scores.map((score, idx) => ([score, activityIds[idx], completedAts[idx], skillGroupNames[idx]].join('|')))
@@ -58,7 +58,7 @@ describe('parseElement', () => {
   it('should parse elements correctly', () => {
     const inputString = "true|1668|2023-10-31 13:37:19.789202|Subject-Verb Agreement"
     const expectedOutput = {
-      score: 1,
+      scores: [1],
       activityId: 1668,
       completedAt: "2023-10-31 13:37:19.789202",
       skillGroupName: "Subject-Verb Agreement"
@@ -71,6 +71,23 @@ describe('parseElement', () => {
     const inputString = "bad|input"
 
     expect(() => (parseElement(inputString))).toThrow(`Invalid element string: ${inputString}`)
+  })
+})
+
+describe('deduplicateAndAverageScores', () => {
+  it('should dedupe and average', () => {
+    const input = [
+      {scores: [1], activityId: 1, skillGroupName: 'a', completedAt: "2023-10-31 13:37:19.789202"},
+      {scores: [0], activityId: 1, skillGroupName: 'a', completedAt: "2023-10-31 13:37:19.789202"},
+      {scores: [1], activityId: 1, skillGroupName: 'b', completedAt: "2023-10-31 13:37:19.789202"}
+    ]
+
+    const expected = [
+      {score: .5, activityId: 1, skillGroupName: 'a', completedAt: "2023-10-31 13:37:19.789202"},
+      {score: 1, activityId: 1, skillGroupName: 'b', completedAt: "2023-10-31 13:37:19.789202"}
+    ]
+
+    expect(deduplicateAndAverageScores(input)).toEqual(expected)
   })
 })
 
