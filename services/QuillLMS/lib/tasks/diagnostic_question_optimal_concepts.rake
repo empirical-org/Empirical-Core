@@ -40,7 +40,7 @@ namespace :diagnostic_question_optimal_concepts do
       exit 1
     end
 
-    diagnostics = DIAGNOSTIC_ID_LOOKUP.to_h {|diagnostic_name, id| [diagnostic_name, Activity.find(id)]}
+    diagnostics = DIAGNOSTIC_ID_LOOKUP.transform_values {|id| Activity.find(id)}
 
     total_count = 0
     duplicate_count = 0
@@ -97,10 +97,10 @@ namespace :diagnostic_question_optimal_concepts do
       exit 1
     end
 
-    diagnostics = DIAGNOSTIC_ID_LOOKUP.to_h {|diagnostic_name, id| [diagnostic_name, Activity.find(id)]}
+    diagnostics = DIAGNOSTIC_ID_LOOKUP.transform_values {|id| Activity.find(id)}
 
     questions_to_audit = []
-    concepts_to_audit = []    
+    concepts_to_audit = []
     CSV.parse(pipe_data, headers: true).each do |row|
       activity = diagnostics[row[DIAGNOSTIC_INDEX]]
       questions = activity.data['questions'].filter {|d| d['questionType'] != 'titleCards' }
@@ -136,13 +136,16 @@ namespace :diagnostic_question_optimal_concepts do
       level_2_concept_names = full_concept_names.map{ |name| name.split("|")[-3]&.strip }
       level_0_concepts = level_0_concept_names.map.with_index do |name, i|
         concepts = Concept.where(name:, visible: true).left_outer_joins(:parent).joins("LEFT OUTER JOIN concepts AS grandparent ON parent.parent_id = grandparent.id").where.not(parent: {parent_id: nil})
-        concepts = level_1_concept_names[i] ? concepts.where(parent: {name: level_1_concept_names[i]}) : concepts
-        concepts = level_2_concept_names[i] ? concepts.where(grandparent: {name: level_2_concept_names[i]}) : concepts
+        concepts = concepts.where(parent: {name: level_1_concept_names[i]}) if level_1_concept_names[i]
+        concepts = concepts.where(grandparent: {name: level_2_concept_names[i]}) if level_2_concept_names[i]
         concepts
       end.flatten.compact
-      if (level_0_concept_names.length != level_0_concepts.length || level_0_concepts.length == 0)
+      if level_0_concept_names.length != level_0_concepts.length || level_0_concepts.empty?
         puts "Multiple concepts found by name" if level_0_concept_names.length < level_0_concepts.length
+        # Using double-quotes inside double-quotes because we want this to produce an output that could be validly piped into a CSV if desired
+        # rubocop:disable Style/StringLiteralsInInterpolation
         concepts_to_audit.push("#{activity.name},#{question_number},\"#{full_concept_names.join("\n")}\",\"#{level_0_concepts.map {|concept| [concept.parent.parent.name, concept.parent.name, concept.name].join(" | ") }.join("\n")}\"")
+        # rubocop:enable Style/StringLiteralsInInterpolation
       end
     end
     puts questions_to_audit
