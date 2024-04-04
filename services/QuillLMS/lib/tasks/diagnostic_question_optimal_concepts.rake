@@ -2,7 +2,6 @@
 
 namespace :diagnostic_question_optimal_concepts do
   DELIMITER = "\n"
-  CSV_PATH = "diagnostic_question_concepts4.csv"
 
   DIAGNOSTIC_INDEX = 0
   QUESTION_INDEX = 2
@@ -30,12 +29,23 @@ namespace :diagnostic_question_optimal_concepts do
 
   desc 'Populate diagnostic_question_optimal_concepts from CSV extracted from Curriculum Notion database: https://www.notion.so/quill/f937b1cc8d2d4ed8943a36ce35dca177?v=7dd55ee1f04e4b5daf79645aae960aa1'
   task populate_from_csv: :environment do
+    pipe_data = $stdin.read unless $stdin.tty?
+
+    unless pipe_data
+      puts 'No data detected on STDIN.  You must pass data to the task for it to run.  Example:'
+      puts '  rake diagnostic_question_optimal_concepts:populate_from_csv < path/to/local/file.csv'
+      puts ''
+      puts 'If you are piping data into Heroku, you need to include the --no-tty flag:'
+      puts '  heroku run rake diagnostic_question_optimal_concepts:populate_from_csv -a empirical-grammar --no-tty < path/to/local/file.csv'
+      exit 1
+    end
+
     diagnostics = DIAGNOSTIC_ID_LOOKUP.to_h {|diagnostic_name, id| [diagnostic_name, Activity.find(id)]}
 
     total_count = 0
     duplicate_count = 0
     missing_concept_count = 0
-    CSV.read(CSV_PATH, headers: true).each do |row|
+    CSV.parse(pipe_data, headers: true).each do |row|
       activity = diagnostics[row[DIAGNOSTIC_INDEX]]
       activity_questions = activity.data['questions'].filter {|d| d['questionType'] != 'titleCards' }
       question_number = row[QUESTION_NUMBER_INDEX].to_i
@@ -76,12 +86,22 @@ namespace :diagnostic_question_optimal_concepts do
 
   desc "Validate the input CSV to ensure that all data that we expect to find in the LMS using the CSV is found.  This will flag cases where there's some kind of mis-match so that we can manually confirm that any discrepancies are just typos, but that the correct data is being found."
   task validate_csv_data: :environment do
+    pipe_data = $stdin.read unless $stdin.tty?
+
+    unless pipe_data
+      puts 'No data detected on STDIN.  You must pass data to the task for it to run.  Example:'
+      puts '  rake diagnostic_question_optimal_concepts:validate_csv_data < path/to/local/file.csv'
+      puts ''
+      puts 'If you are piping data into Heroku, you need to include the --no-tty flag:'
+      puts '  heroku run rake diagnostic_question_optimal_concepts:validate_csv_data -a empirical-grammar --no-tty < path/to/local/file.csv'
+      exit 1
+    end
 
     diagnostics = DIAGNOSTIC_ID_LOOKUP.to_h {|diagnostic_name, id| [diagnostic_name, Activity.find(id)]}
 
     questions_to_audit = []
     concepts_to_audit = []    
-    CSV.read(CSV_PATH, headers: true).each do |row|
+    CSV.parse(pipe_data, headers: true).each do |row|
       activity = diagnostics[row[DIAGNOSTIC_INDEX]]
       questions = activity.data['questions'].filter {|d| d['questionType'] != 'titleCards' }
       question_number = row[QUESTION_NUMBER_INDEX].to_i
