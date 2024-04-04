@@ -152,7 +152,7 @@ describe EvidenceReports, type: :model do
 
     context 'when feedback history type is GRAMMAR, RULES_BASED_THREE, or SPELLING' do
       before do
-        allow(feedback_history).to receive(:feedback_type).and_return(FeedbackHistory::GRAMMAR)
+        allow(feedback_history).to receive(:spelling_or_grammar?).and_return(true)
       end
 
       it 'returns spelling or grammar feedback' do
@@ -163,7 +163,7 @@ describe EvidenceReports, type: :model do
 
     context 'when feedback history type is not specified and max attempts feedback is present' do
       before do
-        allow(feedback_history).to receive(:feedback_type).and_return(nil)
+        allow(feedback_history).to receive(:spelling_or_grammar?).and_return(false)
         allow(instance).to receive(:format_max_attempts_feedback).with(prompt.max_attempts_feedback).and_return("Some detailed feedback.")
       end
 
@@ -175,7 +175,7 @@ describe EvidenceReports, type: :model do
 
     context 'when feedback history type is not specified and no max attempts feedback is present' do
       before do
-        allow(feedback_history).to receive(:feedback_type).and_return(nil)
+        allow(feedback_history).to receive(:spelling_or_grammar?).and_return(false)
         allow(prompt).to receive(:max_attempts_feedback).and_return(nil)
       end
 

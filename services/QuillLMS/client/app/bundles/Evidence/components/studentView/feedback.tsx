@@ -2,7 +2,7 @@ import * as React from 'react';
 import ReactCSSTransitionReplace from 'react-css-transition-replace';
 import { stripHtml } from "string-strip-html";
 
-import { GRAMMAR, RULES_BASED_3, SPELLING, SPELLING_AND_GRAMMAR_FEEDBACK, } from '../../../../constants/evidence';
+import { GRAMMAR, RULES_BASED_3, SPELLING, EVIDENCE_SUBOPTIMAL_SPELLING_OR_GRAMMAR_FINAL_ATTEMPT_FEEDBACK, } from '../../../../constants/evidence';
 import useFocus from '../../../Shared/hooks/useFocus';
 
 const loopSrc = `${process.env.CDN_URL}/images/icons/loop.svg`
@@ -35,7 +35,7 @@ const feedbackToShow = (lastSubmittedResponse, submittedResponses, prompt, custo
   if (!madeLastAttemptAndItWasSuboptimal(submittedResponses, prompt, lastSubmittedResponse)) { return lastSubmittedResponse.feedback }
 
   if ([GRAMMAR, SPELLING, RULES_BASED_3].includes(lastSubmittedResponse.feedback_type)) {
-    return SPELLING_AND_GRAMMAR_FEEDBACK
+    return EVIDENCE_SUBOPTIMAL_SPELLING_OR_GRAMMAR_FINAL_ATTEMPT_FEEDBACK
   }
 
   return prompt.max_attempts_feedback

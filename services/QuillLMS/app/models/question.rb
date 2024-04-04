@@ -158,6 +158,10 @@ class Question < ApplicationRecord
     REMATCH_TYPE_MAPPING.fetch(question_type)
   end
 
+  def connect_sentence_combining?
+    question_type == TYPE_CONNECT_SENTENCE_COMBINING
+  end
+
   private def refresh_caches
     Rails.cache.delete(CACHE_KEY_QUESTION + uid.to_s)
     Rails.cache.delete(CACHE_KEY_ALL + question_type)

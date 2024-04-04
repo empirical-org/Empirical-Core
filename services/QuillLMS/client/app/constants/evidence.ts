@@ -43,7 +43,7 @@ export const FIRST_STRONG_EXAMPLE = 'first_strong_example';
 export const SECOND_STRONG_EXAMPLE = 'second_strong_example';
 
 // this constant is also used on the backend to generate hardcoded feedback for their reports (see services/QuillLMS/app/models/concerns/public_progress_reports.rb) and should be updated there if it's updated here.
-export const SPELLING_AND_GRAMMAR_FEEDBACK = "You completed four revisions!<br/>You’ve found the right piece of evidence, but there may still be spelling or grammar changes you could make to improve your sentence.<br/>Read your sentence one more time and think about what changes you could make. Then move on to the next prompt."
+export const EVIDENCE_SUBOPTIMAL_SPELLING_OR_GRAMMAR_FINAL_ATTEMPT_FEEDBACK = "You completed four revisions!<br/>You’ve found the right piece of evidence, but there may still be spelling or grammar changes you could make to improve your sentence.<br/>Read your sentence one more time and think about what changes you could make. Then move on to the next prompt."
 
 export const courseOptions = [
   {

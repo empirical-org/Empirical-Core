@@ -13,12 +13,14 @@ module EvidenceReports
   def format_max_attempts_feedback(max_attempts_feedback)
     return nil unless max_attempts_feedback
 
+    punctuation_mark_not_followed_by_a_space_regex = /(\.|,|;|!|\?)(?=\S)/
+
     # remove HTML, split to take everything before the split-off text, remove leading and trailing whitespace, and make sure any punctuation is followed by a space
     ActionView::Base.full_sanitizer.sanitize(max_attempts_feedback)
       .split(EVIDENCE_SUBOPTIMAL_SPLIT_TEXT)
       .first
       .strip
-      .gsub(/(\.|,|;|!|\?)(?=\S)/, '\1 ')
+      .gsub(punctuation_mark_not_followed_by_a_space_regex, '\1 ')
   end
 
   def get_feedback_from_feedback_history(activity_session, prompt_text, attempt_number)
@@ -37,16 +39,15 @@ module EvidenceReports
   end
 
   def get_evidence_prompt_from_activity_and_prompt_text(activity_session, prompt_text)
-    prompt_ids = Evidence::Activity.find_by(parent_activity_id: activity_session.activity_id)&.prompt_ids
-    Evidence::Prompt.where(id: prompt_ids, text: prompt_text)&.first
+    Evidence::Prompt
+      .joins(:activity)
+      .find_by(text: prompt_text, activity: {parent_activity_id: activity_session.activity_id})
   end
 
   def get_suboptimal_final_attempt_evidence_feedback_from_activity_session_and_prompt_text(activity_session, prompt_text)
     feedback_history = get_feedback_history_from_activity_session_prompt_text_and_attempt_number(activity_session, prompt_text, EVIDENCE_FINAL_ATTEMPT_NUMBER)
 
-    if [FeedbackHistory::GRAMMAR, FeedbackHistory::RULES_BASED_THREE, FeedbackHistory::SPELLING].include?(feedback_history&.feedback_type)
-      return EVIDENCE_SUBOPTIMAL_SPELLING_OR_GRAMMAR_FINAL_ATTEMPT_FEEDBACK
-    end
+    return EVIDENCE_SUBOPTIMAL_SPELLING_OR_GRAMMAR_FINAL_ATTEMPT_FEEDBACK if feedback_history&.spelling_or_grammar?
 
     prompt = get_evidence_prompt_from_activity_and_prompt_text(activity_session, prompt_text)
 

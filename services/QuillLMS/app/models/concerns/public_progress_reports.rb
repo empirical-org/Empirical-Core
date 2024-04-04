@@ -265,12 +265,12 @@ module PublicProgressReports
       directfirst = cr.first.concept_result_directions&.text || cr.first.concept_result_instructions&.text || ""
       prompt_text = cr.first.concept_result_prompt&.text
       score = get_score_for_question(cr)
-      question_uid = cr.first.extra_metadata ? cr.first.extra_metadata['question_uid'] : nil
+      question_uid = cr.first.extra_metadata&.dig('question_uid')
       hash = {
         directions: directfirst.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", ""),
         prompt: prompt_text,
         answer: cr.first.answer,
-        score: score,
+        score:,
         key_target_skill_concept: get_key_target_skill_concept_for_question(cr, activity_session),
         concepts: cr.map { |crs|
           attempt_number = crs.attempt_number
@@ -288,7 +288,7 @@ module PublicProgressReports
           }
         },
         question_number: cr.first.question_number,
-        question_uid: question_uid
+        question_uid:
       }
       if cr.first.question_score
         hash[:questionScore] = cr.first.question_score
@@ -492,11 +492,10 @@ module PublicProgressReports
   end
 
   private def connect_final_attempt_feedback(question, score)
-    if score > 0
-      CONNECT_OPTIMAL_FINAL_ATTEMPT_FEEDBACK
-    else
-      question&.question_type == Question::TYPE_CONNECT_SENTENCE_COMBINING ? CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_SENTENCE_COMBINING_FEEDBACK : CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK
-    end
+    return CONNECT_OPTIMAL_FINAL_ATTEMPT_FEEDBACK if score > 0
+    return CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_SENTENCE_COMBINING_FEEDBACK if question&.connect_sentence_combining?
+
+    CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK
   end
 
 end
