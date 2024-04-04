@@ -1008,7 +1008,8 @@ CREATE TABLE public.evidence_research_gen_ai_llm_feedbacks (
     text text NOT NULL,
     label character varying,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    experiment_id integer NOT NULL
 );
 
 
@@ -2065,6 +2066,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240318140506'),
 ('20240318141942'),
 ('20240318143146'),
-('20240318144447');
+('20240318144447'),
+('20240401223116');
 
 
