@@ -86,7 +86,8 @@ export {
 export {
   MultipleChoice,
   Register,
-  PlayTitleCard
+  PlayTitleCard,
+  FinalAttemptFeedback
 } from './components/studentLessons/index'
 
 export {
@@ -99,7 +100,6 @@ export {
   isValidAndNotEmptyRegex,
   momentFormatConstants,
   copyToClipboard,
-  finalAttemptFeedback,
   getLatestAttempt,
   getCurrentQuestion,
   getQuestionsWithAttempts,

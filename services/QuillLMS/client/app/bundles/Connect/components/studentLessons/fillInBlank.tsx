@@ -11,7 +11,7 @@ import {
   fillInBlankInputLabel,
   getLatestAttempt,
   hashToCollection,
-  finalAttemptFeedback,
+  FinalAttemptFeedback,
   ALLOWED_ATTEMPTS
 } from '../../../Shared/index';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
@@ -86,9 +86,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     let text
     if (Object.keys(responses).length) {
       const responseArray = hashToCollection(responses).sort((a: Response, b: Response) => b.count - a.count)
-      const correctResponse = responseArray.find((r: Response) => r.optimal)
-      if (correctResponse) {
-        text = correctResponse.text
+      const firstOptimalResponse = responseArray.find((r: Response) => r.optimal)
+      if (firstOptimalResponse) {
+        text = firstOptimalResponse.text
       }
     }
     if (!text) {
@@ -393,7 +393,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     const latestAttempt = getLatestAttempt(question.attempts);
 
     if (maxAttemptsSubmitted && !latestAttempt.response.optimal) {
-      return finalAttemptFeedback(latestAttempt.response.text, this.correctResponse());
+      return (
+        <FinalAttemptFeedback
+          latestAttempt={latestAttempt.response.text}
+          correctResponse={this.correctResponse()}
+        />
+      )
     } else if (inputErrors && _.size(inputErrors) !== 0) {
       const blankFeedback = question.blankAllowed ? ' or leave it blank' : ''
       const feedbackText = `Choose one of the options provided${blankFeedback}. Make sure it is spelled correctly.`

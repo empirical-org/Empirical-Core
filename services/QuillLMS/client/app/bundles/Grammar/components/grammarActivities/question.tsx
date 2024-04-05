@@ -12,7 +12,7 @@ import {
   TeacherPreviewMenuButton,
   getLatestAttempt,
   hashToCollection,
-  finalAttemptFeedback,
+  FinalAttemptFeedback,
   ALLOWED_ATTEMPTS
 } from '../../../Shared/index';
 import * as responseActions from '../../actions/responses';
@@ -408,7 +408,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     }
 
     if (question.attempts && question.attempts.length === ALLOWED_ATTEMPTS) {
-      return finalAttemptFeedback(response, this.correctResponse());
+      return <FinalAttemptFeedback latestAttempt={response} correctResponse={this.correctResponse()} />;
     }
     return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: latestAttempt && latestAttempt.feedback ? latestAttempt.feedback : '' }} />} feedbackType="revise-matched" />
   }
