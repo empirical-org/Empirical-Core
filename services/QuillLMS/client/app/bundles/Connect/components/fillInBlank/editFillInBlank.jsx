@@ -10,7 +10,6 @@ class EditFillInBlank extends Component {
     const { params } = match
     const { questionID } = params
     let questionData = data
-    questionData.prompt = data.prompt.replace('<p>', '').replace('</p>', '')
     dispatch(fillInBlankActions.submitQuestionEdit(questionID, data));
   };
 

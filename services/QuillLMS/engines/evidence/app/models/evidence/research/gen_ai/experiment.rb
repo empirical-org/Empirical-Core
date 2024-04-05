@@ -29,9 +29,16 @@ module Evidence
         belongs_to :llm_prompt, class_name: 'Evidence::Research::GenAI::LLMPrompt'
         belongs_to :passage_prompt, class_name: 'Evidence::Research::GenAI::PassagePrompt'
 
+        has_many :llm_feedbacks,
+          class_name: 'Evidence::Research::GenAI::LLMFeedback'
+
         has_many :passage_prompt_responses,
           class_name: 'Evidence::Research::GenAI::PassagePromptResponse',
           through: :passage_prompt
+
+        has_many :example_feedbacks,
+          class_name: 'Evidence::Research::GenAI::ExampleFeedback',
+          through: :passage_prompt_responses
 
         validates :llm_config_id, :llm_prompt_id, :passage_prompt_id, presence: true
         validates :status, presence: true, inclusion: { in: STATUSES }
@@ -40,6 +47,8 @@ module Evidence
         delegate :llm_client, to: :llm_config
         delegate :vendor, :version, to: :llm_config
 
+        attr_readonly :llm_config_id, :llm_prompt_id, :passage_prompt_id
+
         attr_accessor :llm_prompt_template_id
 
         def run(limit: nil)
@@ -47,6 +56,7 @@ module Evidence
 
           update!(status: RUNNING)
           create_llm_prompt_responses_feedbacks(limit:)
+          calculate_results
           update!(status: COMPLETED)
         rescue StandardError => e
           experiment_errors << e.message
@@ -56,8 +66,22 @@ module Evidence
         private def create_llm_prompt_responses_feedbacks(limit:)
           passage_prompt_responses.limit(limit).each do |passage_prompt_response|
             feedback = llm_client.run(prompt: llm_prompt.feedback_prompt(passage_prompt_response.response))
-            LLMFeedback.create!(text: feedback, passage_prompt_response:)
+            LLMFeedback.create!(experiment: self, text: feedback, passage_prompt_response:)
           end
+        end
+
+        private def calculate_results = update!(results: (results || {}).merge(calculated_results))
+
+        private def calculated_results
+          {
+            accuracy_identical: IdenticalResultsAccuracyCalculator.run(self),
+            accuracy_optimal_sub_optimal: optimal_and_sub_optimal_results[:accuracy],
+            confusion_matrix: optimal_and_sub_optimal_results[:confusion_matrix]
+          }
+        end
+
+        private def optimal_and_sub_optimal_results
+          @optimal_and_sub_optimal_results ||= OptimalAndSubOptimalResultsBuilder.run(self)
         end
       end
     end
