@@ -12,26 +12,28 @@ describe EvidenceReports, type: :model do
   end
 
   describe '#get_evidence_prompt_from_activity_and_prompt_text' do
+    subject { FakeReports.new.get_evidence_prompt_from_activity_and_prompt_text(activity_session, prompt_text) }
 
     let(:activity_session) { create(:activity_session) }
-    let(:prompt_text) { "Prompt text "}
-    let(:prompt) { create(:evidence_prompt, text: prompt_text) }
+    let(:correct_prompt_text) { "Prompt text "}
+    let(:prompt) { create(:evidence_prompt, text: correct_prompt_text) }
     let!(:evidence_child_activity) { create(:evidence_activity, parent_activity_id: activity_session.activity.id, prompts: [prompt]) }
 
-    it 'should return the prompt if one is found' do
-      expect(FakeReports.new.get_evidence_prompt_from_activity_and_prompt_text(activity_session, prompt_text)).to eq(prompt)
+    context 'should return the prompt if one is found' do
+      let(:prompt_text) { correct_prompt_text }
+      it { is_expected.to eq(prompt) }
     end
 
-    it 'should return nil if no prompt is found' do
-      expect(FakeReports.new.get_evidence_prompt_from_activity_and_prompt_text(activity_session, "not prompt text")).to eq(nil)
+    context 'should return nil if no prompt is found' do
+      let(:prompt_text) { "not prompt text" }
+
+      it { is_expected.to eq(nil) }
     end
 
   end
 
   describe '#get_feedback_history_from_activity_session_prompt_text_and_attempt_number' do
-    subject {
-      FakeReports.new.get_feedback_history_from_activity_session_prompt_text_and_attempt_number(activity_session, prompt_text, attempt_number)
-    }
+    subject { FakeReports.new.get_feedback_history_from_activity_session_prompt_text_and_attempt_number(activity_session, prompt_text, attempt_number) }
 
     let!(:activity_session_with_feedback_histories) { create(:activity_session) }
     let(:activity_session) { activity_session_with_feedback_histories}
@@ -83,6 +85,8 @@ describe EvidenceReports, type: :model do
   end
 
   describe 'get_feedback_from_feedback_history' do
+    subject { instance.get_feedback_from_feedback_history(activity_session, prompt_text, attempt_number) }
+
     let(:instance) { FakeReports.new }
     let!(:activity_session) { create(:activity_session) }
     let(:correct_prompt_text) { "Correct prompt text" }
@@ -92,10 +96,6 @@ describe EvidenceReports, type: :model do
     let!(:evidence_child_activity) { create(:evidence_activity, parent_activity_id: activity_session.activity.id, prompts: [prompt]) }
     let(:feedback_text) { "Specific feedback" }
     let!(:feedback_history_for_prompt) { create(:feedback_history, prompt:, attempt: attempt_number, feedback_text: feedback_text) }
-
-    subject {
-      instance.get_feedback_from_feedback_history(activity_session, prompt_text, attempt_number)
-    }
 
     context 'returns feedback text if feedback history is found' do
       before do
@@ -124,32 +124,30 @@ describe EvidenceReports, type: :model do
   end
 
   describe '#format_max_attempts_feedback' do
+    subject { instance.format_max_attempts_feedback(feedback) }
+
     let(:instance) { FakeReports.new }
     let(:html_feedback) { "<p>You completed five revisions!</p><br/><p>Your response was missing key details. Here are some strong responses:</p>" }
     let(:text_with_punctuation) { "This is a test!Please note,there are errors;However,it works." }
     let(:text_without_split) { "You completed five revisions! Your response was strong." }
     let(:plain_text_feedback) { "This is a plain text feedback without HTML." }
 
-    subject {
-      instance.format_max_attempts_feedback(feedback)
-    }
-
     context 'correctly processes HTML feedback and stops before the split text' do
       let(:feedback) { html_feedback }
 
-      it { is_expected.to eq ("You completed five revisions! Your response was missing key details.") }
+      it { is_expected.to eq "You completed five revisions! Your response was missing key details." }
     end
 
     context 'ensures punctuation is followed by a space' do
       let(:feedback) { text_with_punctuation }
 
-      it { is_expected.to eq ("This is a test! Please note, there are errors; However, it works.") }
+      it { is_expected.to eq "This is a test! Please note, there are errors; However, it works." }
     end
 
     context 'returns the full text if the split text does not appear' do
       let(:feedback) { text_without_split }
 
-      it { is_expected.to eq (text_without_split) }
+      it { is_expected.to eq text_without_split }
     end
 
     context 'returns nil if the feedback is nil' do
@@ -161,18 +159,18 @@ describe EvidenceReports, type: :model do
     context 'processes plain text feedback without HTML' do
       let(:feedback) { plain_text_feedback }
 
-      it { is_expected.to eq (plain_text_feedback) }
+      it { is_expected.to eq plain_text_feedback }
     end
   end
 
   describe '#get_suboptimal_final_attempt_evidence_feedback_from_activity_session_and_prompt_text' do
+    subject { instance.get_suboptimal_final_attempt_evidence_feedback_from_activity_session_and_prompt_text(activity_session, prompt_text) }
+
     let(:instance) { FakeReports.new }
     let(:activity_session) { double("ActivitySession") }
     let(:prompt_text) { "Correct prompt text" }
     let(:feedback_history) { double("FeedbackHistory") }
     let(:prompt) { double("Prompt", max_attempts_feedback: "<p>Some detailed feedback.</p>") }
-
-    subject { instance.get_suboptimal_final_attempt_evidence_feedback_from_activity_session_and_prompt_text(activity_session, prompt_text) }
 
     before do
       allow(instance).to receive(:get_feedback_history_from_activity_session_prompt_text_and_attempt_number)
@@ -189,7 +187,7 @@ describe EvidenceReports, type: :model do
       end
 
       it 'returns spelling or grammar feedback' do
-        is_expected.to eq(FakeReports::EVIDENCE_SUBOPTIMAL_SPELLING_OR_GRAMMAR_FINAL_ATTEMPT_FEEDBACK)
+        expect(subject).to eq(FakeReports::EVIDENCE_SUBOPTIMAL_SPELLING_OR_GRAMMAR_FINAL_ATTEMPT_FEEDBACK)
       end
     end
 
@@ -200,7 +198,7 @@ describe EvidenceReports, type: :model do
       end
 
       it 'returns formatted max attempts feedback' do
-        is_expected.to eq("Some detailed feedback.")
+        expect(subject).to eq("Some detailed feedback.")
       end
     end
 
@@ -211,7 +209,7 @@ describe EvidenceReports, type: :model do
       end
 
       it 'returns default suboptimal final attempt feedback' do
-        is_expected.to eq(FakeReports::EVIDENCE_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+        expect(subject).to eq(FakeReports::EVIDENCE_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK)
       end
     end
   end
