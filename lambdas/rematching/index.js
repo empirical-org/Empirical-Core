@@ -1,10 +1,7 @@
 import { rematchIndividualQuestion, } from './rematch'
 
 exports.handler = async (event) => {
-  console.log('event', event)
-  console.log('event.body', event.body)
   const body = JSON.parse(event.body);
-  console.log('body', body)
   const { response, type, question, referenceResponses } = body
 
   try {
