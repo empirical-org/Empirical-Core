@@ -29,53 +29,63 @@ describe EvidenceReports, type: :model do
   end
 
   describe '#get_feedback_history_from_activity_session_prompt_text_and_attempt_number' do
-    let!(:activity_session) { create(:activity_session) }
-    let(:prompt_text) { "Correct prompt text" }
-    let(:attempt_number) { FakeReports::EVIDENCE_FINAL_ATTEMPT_NUMBER }
-    let(:prompt) { create(:evidence_prompt, text: prompt_text) }
+    subject {
+      FakeReports.new.get_feedback_history_from_activity_session_prompt_text_and_attempt_number(activity_session, prompt_text, attempt_number)
+    }
+
+    let!(:activity_session_with_feedback_histories) { create(:activity_session) }
+    let(:activity_session) { activity_session_with_feedback_histories}
+    let(:correct_prompt_text) { "Correct prompt text" }
+    let(:prompt_text) { correct_prompt_text }
+    let(:final_attempt_number) { FakeReports::EVIDENCE_FINAL_ATTEMPT_NUMBER }
+    let(:attempt_number) { final_attempt_number }
+    let(:prompt) { create(:evidence_prompt, text: correct_prompt_text) }
     let!(:evidence_child_activity) { create(:evidence_activity, parent_activity_id: activity_session.activity.id, prompts: [prompt]) }
-    let!(:feedback_history_for_prompt) { create(:feedback_history, prompt:, attempt: attempt_number, feedback_text: "Specific feedback") }
+    let(:feedback_history_for_prompt) { create(:feedback_history, prompt:, attempt: final_attempt_number, feedback_text: "Specific feedback") }
 
     before do
-      allow(activity_session).to receive(:feedback_histories).and_return([feedback_history_for_prompt])
+      allow(activity_session_with_feedback_histories).to receive(:feedback_histories).and_return([feedback_history_for_prompt])
     end
 
-    it 'returns the correct feedback history based on prompt text and attempt number' do
-      result = FakeReports.new.get_feedback_history_from_activity_session_prompt_text_and_attempt_number(activity_session, prompt_text, attempt_number)
-      expect(result).to eq(feedback_history_for_prompt)
+    context 'returns the correct feedback history based on prompt text and attempt number' do
+      it { is_expected.to eq(feedback_history_for_prompt) }
     end
 
-    it 'returns nil if the prompt text does not match any feedback histories' do
-      result = FakeReports.new.get_feedback_history_from_activity_session_prompt_text_and_attempt_number(activity_session, "Nonexistent prompt text", attempt_number)
-      expect(result).to be_nil
+    context 'returns nil if the prompt text does not match any feedback histories' do
+      let(:prompt_text) { "Nonexistent prompt text" }
+
+      it { is_expected.to eq(nil) }
     end
 
-    it 'returns nil if the attempt number does not match any feedback histories for the prompt' do
-      result = FakeReports.new.get_feedback_history_from_activity_session_prompt_text_and_attempt_number(activity_session, prompt_text, 3)
-      expect(result).to be_nil
+    context 'returns nil if the attempt number does not match any feedback histories for the prompt' do
+      let(:attempt_number) { 3 }
+
+      it { is_expected.to eq(nil) }
     end
 
-    it 'returns nil if feedback histories are empty' do
-      empty_activity_session = create(:activity_session) # This session has no feedback_histories
-      result = FakeReports.new.get_feedback_history_from_activity_session_prompt_text_and_attempt_number(empty_activity_session, prompt_text, attempt_number)
-      expect(result).to be_nil
+    context 'returns nil if feedback histories are empty' do
+      let(:activity_session) { create(:activity_session) }
+
+      it { is_expected.to eq(nil) }
     end
 
-    it 'returns nil if prompt text is blank' do
-      result = FakeReports.new.get_feedback_history_from_activity_session_prompt_text_and_attempt_number(activity_session, "", attempt_number)
-      expect(result).to be_nil
+    context 'returns nil if prompt text is blank' do
+      let(:prompt_text) { "" }
+
+      it { is_expected.to eq(nil) }
     end
 
-    it 'returns nil if attempt number is blank' do
-      result = FakeReports.new.get_feedback_history_from_activity_session_prompt_text_and_attempt_number(activity_session, prompt_text, "")
-      expect(result).to be_nil
+    context 'returns nil if attempt number is blank' do
+      let(:attempt_number) { '' }
+
+      it { is_expected.to eq(nil) }
     end
   end
 
   describe 'get_feedback_from_feedback_history' do
     let(:instance) { FakeReports.new }
     let!(:activity_session) { create(:activity_session) }
-    let(:prompt_text) { "Correct prompt text" }
+    let(:correct_prompt_text) { "Correct prompt text" }
     let(:wrong_prompt_text) { "Wrong prompt text" }
     let(:attempt_number) { FakeReports::EVIDENCE_FINAL_ATTEMPT_NUMBER }
     let(:prompt) { create(:evidence_prompt, text: prompt_text) }
@@ -83,20 +93,32 @@ describe EvidenceReports, type: :model do
     let(:feedback_text) { "Specific feedback" }
     let!(:feedback_history_for_prompt) { create(:feedback_history, prompt:, attempt: attempt_number, feedback_text: feedback_text) }
 
-    it 'returns feedback text if feedback history is found' do
-      allow(instance).to receive(:get_feedback_history_from_activity_session_prompt_text_and_attempt_number)
-                         .with(activity_session, prompt_text, attempt_number)
-                         .and_return(feedback_history_for_prompt)
+    subject {
+      instance.get_feedback_from_feedback_history(activity_session, prompt_text, attempt_number)
+    }
 
-      expect(instance.get_feedback_from_feedback_history(activity_session, prompt_text, attempt_number)).to eq(feedback_text)
+    context 'returns feedback text if feedback history is found' do
+      before do
+        allow(instance).to receive(:get_feedback_history_from_activity_session_prompt_text_and_attempt_number)
+                           .with(activity_session, correct_prompt_text, attempt_number)
+                           .and_return(feedback_history_for_prompt)
+      end
+
+      let(:prompt_text) { correct_prompt_text }
+
+      it { is_expected.to eq(feedback_text) }
     end
 
-    it 'returns nil if feedback history is not found' do
-      allow(instance).to receive(:get_feedback_history_from_activity_session_prompt_text_and_attempt_number)
-                         .with(activity_session, wrong_prompt_text, attempt_number)
-                         .and_return(nil)
+    context 'returns nil if feedback history is not found' do
+      before do
+        allow(instance).to receive(:get_feedback_history_from_activity_session_prompt_text_and_attempt_number)
+                           .with(activity_session, wrong_prompt_text, attempt_number)
+                           .and_return(nil)
+      end
 
-      expect(instance.get_feedback_from_feedback_history(activity_session, wrong_prompt_text, attempt_number)).to eq(nil)
+      let(:prompt_text) { wrong_prompt_text }
+
+      it { is_expected.to eq(nil) }
     end
 
   end
@@ -108,29 +130,38 @@ describe EvidenceReports, type: :model do
     let(:text_without_split) { "You completed five revisions! Your response was strong." }
     let(:plain_text_feedback) { "This is a plain text feedback without HTML." }
 
-    it 'correctly processes HTML feedback and stops before the split text' do
-      result = instance.format_max_attempts_feedback(html_feedback)
-      expect(result).to eq("You completed five revisions! Your response was missing key details.")
+    subject {
+      instance.format_max_attempts_feedback(feedback)
+    }
+
+    context 'correctly processes HTML feedback and stops before the split text' do
+      let(:feedback) { html_feedback }
+
+      it { is_expected.to eq ("You completed five revisions! Your response was missing key details.") }
     end
 
-    it 'ensures punctuation is followed by a space' do
-      result = instance.format_max_attempts_feedback(text_with_punctuation)
-      expect(result).to eq("This is a test! Please note, there are errors; However, it works.")
+    context 'ensures punctuation is followed by a space' do
+      let(:feedback) { text_with_punctuation }
+
+      it { is_expected.to eq ("This is a test! Please note, there are errors; However, it works.") }
     end
 
-    it 'returns the full text if the split text does not appear' do
-      result = instance.format_max_attempts_feedback(text_without_split)
-      expect(result).to eq(text_without_split)
+    context 'returns the full text if the split text does not appear' do
+      let(:feedback) { text_without_split }
+
+      it { is_expected.to eq (text_without_split) }
     end
 
-    it 'returns nil if the feedback is nil' do
-      result = instance.format_max_attempts_feedback(nil)
-      expect(result).to be_nil
+    context 'returns nil if the feedback is nil' do
+      let(:feedback) { nil }
+
+      it { is_expected.to eq nil }
     end
 
-    it 'processes plain text feedback without HTML' do
-      result = instance.format_max_attempts_feedback(plain_text_feedback)
-      expect(result).to eq(plain_text_feedback)
+    context 'processes plain text feedback without HTML' do
+      let(:feedback) { plain_text_feedback }
+
+      it { is_expected.to eq (plain_text_feedback) }
     end
   end
 
@@ -140,6 +171,8 @@ describe EvidenceReports, type: :model do
     let(:prompt_text) { "Correct prompt text" }
     let(:feedback_history) { double("FeedbackHistory") }
     let(:prompt) { double("Prompt", max_attempts_feedback: "<p>Some detailed feedback.</p>") }
+
+    subject { instance.get_suboptimal_final_attempt_evidence_feedback_from_activity_session_and_prompt_text(activity_session, prompt_text) }
 
     before do
       allow(instance).to receive(:get_feedback_history_from_activity_session_prompt_text_and_attempt_number)
@@ -156,8 +189,7 @@ describe EvidenceReports, type: :model do
       end
 
       it 'returns spelling or grammar feedback' do
-        result = instance.get_suboptimal_final_attempt_evidence_feedback_from_activity_session_and_prompt_text(activity_session, prompt_text)
-        expect(result).to eq(FakeReports::EVIDENCE_SUBOPTIMAL_SPELLING_OR_GRAMMAR_FINAL_ATTEMPT_FEEDBACK)
+        is_expected.to eq(FakeReports::EVIDENCE_SUBOPTIMAL_SPELLING_OR_GRAMMAR_FINAL_ATTEMPT_FEEDBACK)
       end
     end
 
@@ -168,8 +200,7 @@ describe EvidenceReports, type: :model do
       end
 
       it 'returns formatted max attempts feedback' do
-        result = instance.get_suboptimal_final_attempt_evidence_feedback_from_activity_session_and_prompt_text(activity_session, prompt_text)
-        expect(result).to eq("Some detailed feedback.")
+        is_expected.to eq("Some detailed feedback.")
       end
     end
 
@@ -180,8 +211,7 @@ describe EvidenceReports, type: :model do
       end
 
       it 'returns default suboptimal final attempt feedback' do
-        result = instance.get_suboptimal_final_attempt_evidence_feedback_from_activity_session_and_prompt_text(activity_session, prompt_text)
-        expect(result).to eq(FakeReports::EVIDENCE_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+        is_expected.to eq(FakeReports::EVIDENCE_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK)
       end
     end
   end
