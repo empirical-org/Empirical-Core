@@ -40,6 +40,8 @@ RSpec.configure do |config|
   config.filter_run_excluding benchmarking: true
 
   config.around(:each, :external_api) { |example| with_webmock_disabled { example.run } }
+
+  Dir[Evidence::Engine.root.join('spec/support/shared_examples/**/*.rb')].each { |f| require f }
 end
 
 Shoulda::Matchers.configure do |config|
@@ -48,6 +50,8 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 private def with_webmock_disabled
   WebMock.allow_net_connect!

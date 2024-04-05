@@ -1,0 +1,14 @@
+<% if matrix %>
+  <h4><%= title %></h4>
+  <table style="width: auto; table-layout: auto; border-collapse: collapse; border: 1px solid black;">
+    <% matrix.each do |row| %>
+      <tr>
+        <% row.each do |element| %>
+          <td>
+            <%= element %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

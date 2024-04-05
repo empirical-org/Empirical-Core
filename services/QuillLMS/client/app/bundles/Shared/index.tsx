@@ -111,6 +111,8 @@ export {
   titleCase,
   onMobile,
   fillInBlankInputLabel,
+  fillInBlankInputWidth,
+  splitPromptForFillInBlank,
   getIconForActivityClassification,
   isTrackableStudentEvent,
   hexToRGBA,
