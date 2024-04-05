@@ -7,8 +7,8 @@ module Evidence
         include Evidence.sidekiq_module
         sidekiq_options retry: 0, queue: 'experiment'
 
-        def perform(experiment_id)
-          Experiment.find(experiment_id).run
+        def perform(experiment_id, limit_num_examples = nil)
+          Experiment.find(experiment_id).run(limit_num_examples:)
         end
       end
     end

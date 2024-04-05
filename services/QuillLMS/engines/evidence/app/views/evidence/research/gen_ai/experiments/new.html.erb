@@ -21,6 +21,12 @@
     <%= link_to 'new', new_research_gen_ai_passage_prompt_path, class: 'new-link', target: '_blank' %>
   </div>
 
+<div class="field-spacing">
+  <%= f.label :limit_num_examples, "Limit number of examples:" %>
+  <%= f.number_field :limit_num_examples, min: 1, value: nil, class: 'number-input', required: false %>
+</div>
+
+
   <div class="actions">
     <%= f.submit "Run Experiment" %>
   </div>

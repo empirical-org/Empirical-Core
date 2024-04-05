@@ -49,13 +49,13 @@ module Evidence
 
         attr_readonly :llm_config_id, :llm_prompt_id, :passage_prompt_id
 
-        attr_accessor :llm_prompt_template_id
+        attr_accessor :limit_num_examples, :llm_prompt_template_id
 
-        def run(limit: nil)
+        def run(limit_num_examples: nil)
           return unless status == PENDING
 
           update!(status: RUNNING)
-          create_llm_prompt_responses_feedbacks(limit:)
+          create_llm_prompt_responses_feedbacks(limit_num_examples:)
           calculate_results
           update!(status: COMPLETED)
         rescue StandardError => e
@@ -63,26 +63,14 @@ module Evidence
           update!(status: FAILED)
         end
 
-        private def create_llm_prompt_responses_feedbacks(limit:)
-          passage_prompt_responses.limit(limit).each do |passage_prompt_response|
+        private def create_llm_prompt_responses_feedbacks(limit_num_examples: nil)
+          passage_prompt_responses.limit(limit_num_examples).each do |passage_prompt_response|
             feedback = llm_client.run(prompt: llm_prompt.feedback_prompt(passage_prompt_response.response))
             LLMFeedback.create!(experiment: self, text: feedback, passage_prompt_response:)
           end
         end
 
-        private def calculate_results = update!(results: (results || {}).merge(calculated_results))
-
-        private def calculated_results
-          {
-            accuracy_identical: IdenticalResultsAccuracyCalculator.run(self),
-            accuracy_optimal_sub_optimal: optimal_and_sub_optimal_results[:accuracy],
-            confusion_matrix: optimal_and_sub_optimal_results[:confusion_matrix]
-          }
-        end
-
-        private def optimal_and_sub_optimal_results
-          @optimal_and_sub_optimal_results ||= OptimalAndSubOptimalResultsBuilder.run(self)
-        end
+        private def calculate_results = update!(results: (results || {}).merge(ResultsFetcher.run(llm_feedbacks)))
       end
     end
   end
