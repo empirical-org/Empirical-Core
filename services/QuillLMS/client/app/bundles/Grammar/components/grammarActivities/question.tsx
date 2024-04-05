@@ -408,7 +408,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     }
 
     if (question.attempts && question.attempts.length === ALLOWED_ATTEMPTS) {
-      return <FinalAttemptFeedback latestAttempt={response} correctResponse={this.correctResponse()} />;
+      return <FinalAttemptFeedback correctResponse={this.correctResponse()} latestAttempt={response} />;
     }
     return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: latestAttempt && latestAttempt.feedback ? latestAttempt.feedback : '' }} />} feedbackType="revise-matched" />
   }

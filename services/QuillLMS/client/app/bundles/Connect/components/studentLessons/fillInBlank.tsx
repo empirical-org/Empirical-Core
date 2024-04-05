@@ -395,8 +395,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     if (maxAttemptsSubmitted && !latestAttempt.response.optimal) {
       return (
         <FinalAttemptFeedback
-          latestAttempt={latestAttempt.response.text}
           correctResponse={this.correctResponse()}
+          latestAttempt={latestAttempt.response.text}
         />
       )
     } else if (inputErrors && _.size(inputErrors) !== 0) {
