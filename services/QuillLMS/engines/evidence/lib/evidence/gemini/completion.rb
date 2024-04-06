@@ -7,11 +7,17 @@ module Evidence
 
       class CleanedResultsError < StandardError; end
 
-      attr_accessor :prompt
+      GENERATE_CONTENT = 'generateContent'
 
-      def initialize(prompt:)
+      attr_accessor :llm_config, :prompt
+
+      def initialize(llm_config:, prompt:)
+        @llm_config = llm_config
         @prompt = prompt
       end
+
+      private def model_version = llm_config.version
+      private def instruction = GENERATE_CONTENT
 
       # From curl request body structure: https://aistudio.google.com/app/apikey
       def request_body

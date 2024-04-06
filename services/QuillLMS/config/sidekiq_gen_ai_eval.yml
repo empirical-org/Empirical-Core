@@ -1,0 +1,4 @@
+---
+:concurrency: 1
+:queues:
+  - [gen_ai_eval, 1]

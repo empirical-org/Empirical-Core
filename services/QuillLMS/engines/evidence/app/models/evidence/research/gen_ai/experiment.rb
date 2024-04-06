@@ -49,28 +49,26 @@ module Evidence
 
         attr_readonly :llm_config_id, :llm_prompt_id, :passage_prompt_id
 
-        attr_accessor :limit_num_examples, :llm_prompt_template_id
+        attr_accessor :llm_config_ids, :llm_prompt_template_ids, :passage_prompt_ids, :num_examples
 
-        def run(limit_num_examples: nil)
+        def run(num_examples: nil)
           return unless status == PENDING
 
           update!(status: RUNNING)
-          create_llm_prompt_responses_feedbacks(limit_num_examples:)
-          calculate_results
+          create_llm_prompt_responses_feedbacks(num_examples:)
+          CalculateResultsWorker.perform_async(id)
           update!(status: COMPLETED)
         rescue StandardError => e
           experiment_errors << e.message
           update!(status: FAILED)
         end
 
-        private def create_llm_prompt_responses_feedbacks(limit_num_examples: nil)
-          passage_prompt_responses.limit(limit_num_examples).each do |passage_prompt_response|
-            feedback = llm_client.run(prompt: llm_prompt.feedback_prompt(passage_prompt_response.response))
+        private def create_llm_prompt_responses_feedbacks(num_examples: nil)
+          passage_prompt_responses.limit(num_examples).each do |passage_prompt_response|
+            feedback = llm_client.run(llm_config:, prompt: llm_prompt.feedback_prompt(passage_prompt_response.response))
             LLMFeedback.create!(experiment: self, text: feedback, passage_prompt_response:)
           end
         end
-
-        private def calculate_results = update!(results: (results || {}).merge(ResultsFetcher.run(llm_feedbacks)))
       end
     end
   end

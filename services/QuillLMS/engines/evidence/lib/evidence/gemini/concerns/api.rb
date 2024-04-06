@@ -50,7 +50,7 @@ module Evidence
           end
         end
 
-        private def endpoint = "#{BASE_URI}?key=#{Evidence::Gemini::API_KEY}"
+        private def endpoint = "#{BASE_URI}/#{model_version}:#{instruction}?key=#{Evidence::Gemini::API_KEY}"
 
         private def body = request_body.merge(safety_settings:).to_json
 

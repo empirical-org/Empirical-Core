@@ -30,23 +30,13 @@ module Evidence
         it { should have_readonly_attribute(:llm_prompt_id) }
         it { should have_readonly_attribute(:passage_prompt_id) }
 
-        it { belong_to(:llm_config).class_name('Evidence::Research::GenAI::LLMConfig') }
-        it { belong_to(:llm_prompt).class_name('Evidence::Research::GenAI::LLMPrompt') }
-        it { belong_to(:passage_prompt).class_name('Evidence::Research::GenAI::PassagePrompt') }
+        it { belong_to(:llm_config) }
+        it { belong_to(:llm_prompt) }
+        it { belong_to(:passage_prompt) }
 
-        it { have_many(:llm_feedbacks).class_name('Evidence::Research::GenAI::LLMFeedback') }
-
-        it do
-          have_many(:passage_prompt_responses)
-            .class_name('Evidence::Research::GenAI::PassagePromptResponse')
-            .through(:passage_prompt)
-        end
-
-        it do
-          have_many(:example_feedbacks)
-            .class_name('Evidence::Research::GenAI::ExampleFeedback')
-            .through(:passage_prompt_responses)
-        end
+        it { have_many(:llm_feedbacks) }
+        it { have_many(:passage_prompt_responses).through(:passage_prompt) }
+        it { have_many(:example_feedbacks).through(:passage_prompt_responses) }
 
         it { expect(build(:evidence_research_gen_ai_experiment)).to be_valid }
 

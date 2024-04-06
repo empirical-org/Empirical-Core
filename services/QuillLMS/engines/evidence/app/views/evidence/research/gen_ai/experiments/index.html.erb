@@ -1,12 +1,15 @@
 <header>
   <h2>Experiments</h2>
 </header>
+<%= link_to 'New Experiment', new_research_gen_ai_experiment_path %>
+<meta http-equiv="refresh" content="5">
 
 <% if @experiments.any? %>
   <table>
     <thead>
       <tr>
         <th>ID</th>
+        <th>LLM Config</th>
         <th>Passage</th>
         <th>Conjunction</th>
         <th>Status</th>
@@ -18,6 +21,7 @@
       <% @experiments.each do |experiment| %>
         <tr>
           <td><%= experiment.id %></td>
+          <td><%= experiment.llm_config %></td>
           <td><%= experiment.passage_prompt.name %></td>
           <td><%= experiment.conjunction %></td>
           <td><%= experiment.status %></td>
