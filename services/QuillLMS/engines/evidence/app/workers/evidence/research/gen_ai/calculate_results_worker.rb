@@ -5,6 +5,7 @@ module Evidence
     module GenAI
       class CalculateResultsWorker
         include Evidence.sidekiq_module
+
         sidekiq_options retry: 3, queue: 'gen_ai_eval'
 
         def perform(experiment_id)

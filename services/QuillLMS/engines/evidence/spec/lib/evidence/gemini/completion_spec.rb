@@ -5,11 +5,14 @@ require 'rails_helper'
 module Evidence
   module Gemini
     RSpec.describe Completion, external_api: true do
-      subject { described_class.run(prompt:) }
+      %w[gemini-1.0-pro gemini-1.5-pro-latest].each do |version|
+        subject { described_class.run(llm_config:, prompt:) }
 
-      let(:prompt) { "Write the next word after this sentence: #{Faker::Quote.mitch_hedberg}" }
+        let(:llm_config) { create(:evidence_research_gen_ai_llm_config, version:) }
+        let(:prompt) { "Write the next word after this sentence: #{Faker::Quote.mitch_hedberg}" }
 
-      it { is_expected.to be_a String }
+        it { is_expected.to be_a String }
+      end
     end
   end
 end

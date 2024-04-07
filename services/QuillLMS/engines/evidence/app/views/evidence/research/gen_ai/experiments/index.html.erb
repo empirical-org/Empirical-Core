@@ -12,8 +12,9 @@
         <th>LLM Config</th>
         <th>Passage</th>
         <th>Conjunction</th>
-        <th>Status</th>
         <th>LLM Prompt Description</th>
+        <th># of Examples</th>
+        <th>Status</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -24,8 +25,9 @@
           <td><%= experiment.llm_config %></td>
           <td><%= experiment.passage_prompt.name %></td>
           <td><%= experiment.conjunction %></td>
-          <td><%= experiment.status %></td>
           <td><%= experiment.llm_prompt.description %></td>
+          <td><%= experiment.num_examples %></td>
+          <td><%= experiment.status %></td>
           <td><%= link_to "View", experiment %></td>
         </tr>
       <% end %>

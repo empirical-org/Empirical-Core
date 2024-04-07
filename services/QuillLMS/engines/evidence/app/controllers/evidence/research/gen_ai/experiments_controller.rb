@@ -17,10 +17,10 @@ module Evidence
           llm_config_ids.each do |llm_config_id|
             llm_prompt_template_ids.each do |llm_prompt_template_id|
               passage_prompt_ids.each do |passage_prompt_id|
-                experiment = Experiment.new(llm_config_id:, passage_prompt_id:)
+                experiment = Experiment.new(llm_config_id:, passage_prompt_id:, num_examples:)
                 experiment.llm_prompt = LLMPrompt.create_from_template!(llm_prompt_template_id:, passage_prompt_id:)
 
-                RunExperimentWorker.perform_async(experiment.id, num_examples) if experiment.save
+                RunExperimentWorker.perform_async(experiment.id) if experiment.save
               end
             end
           end
@@ -44,8 +44,8 @@ module Evidence
         private def llm_config_ids = experiment_params[:llm_config_ids].reject(&:blank?).map(&:to_i)
         private def llm_prompt_template_ids = experiment_params[:llm_prompt_template_ids].reject(&:blank?).map(&:to_i)
         private def passage_prompt_ids = experiment_params[:passage_prompt_ids].reject(&:blank?).map(&:to_i)
-        private def num_examples = 1
-        # private def num_examples = experiment_params[:num_examples].present? ? params[:num_examples].to_i : nil
+
+        private def num_examples = experiment_params[:num_examples].nil? ? params[:num_examples].to_i : nil
       end
     end
   end

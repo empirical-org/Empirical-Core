@@ -6,6 +6,7 @@
 #
 #  id                :bigint           not null, primary key
 #  experiment_errors :text             is an Array
+#  num_examples      :integer          default(0), not null
 #  results           :jsonb
 #  status            :string           default("pending"), not null
 #  created_at        :datetime         not null
@@ -45,6 +46,7 @@ module Evidence
 
           let(:experiment) { create(:evidence_research_gen_ai_experiment) }
           let(:passage_prompt) { experiment.passage_prompt }
+          let(:llm_config) { experiment.llm_config }
           let(:llm_client) { double(:llm_client) }
           let(:num_passage_prompt_responses) { 4 }
           let(:llm_feedback_text) { 'Test feedback' }
@@ -61,7 +63,13 @@ module Evidence
 
           before do
             allow(experiment).to receive(:llm_client).and_return(llm_client)
-            allow(llm_client).to receive(:run).with(prompt: instance_of(String)).and_return(llm_feedback_text)
+
+            allow(llm_client)
+              .to receive(:run)
+              .with(llm_config:, prompt: instance_of(String))
+              .and_return(llm_feedback_text)
+
+            allow(CalculateResultsWorker).to receive(:perform_async).with(experiment.id)
 
             passage_prompt_responses.each do |passage_prompt_response|
               create(:evidence_research_gen_ai_example_feedback, passage_prompt_response:)
@@ -70,21 +78,6 @@ module Evidence
 
           it { expect { subject }.to change { experiment.reload.status }.to(described_class::COMPLETED) }
           it { expect { subject }.to change(LLMFeedback, :count).by(num_passage_prompt_responses) }
-
-          it do
-            expect { subject }
-              .to change { experiment.reload.results }
-              .from(nil)
-              .to(include('accuracy_optimal_sub_optimal', 'confusion_matrix', 'accuracy_identical'))
-          end
-
-          context 'with limit provided' do
-            subject { experiment.run(limit:) }
-
-            let(:limit) { 2 }
-
-            it { expect { subject }.to change(LLMFeedback, :count).by(limit) }
-          end
 
           context 'when an error occurs during execution' do
             let(:error_message) { 'Test error' }
