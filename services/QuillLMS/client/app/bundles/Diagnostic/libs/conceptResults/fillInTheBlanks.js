@@ -31,6 +31,7 @@ export function getConceptResultsForFillInTheBlanks(question) {
       answer,
       question_uid: question.key,
       question_concept_uid: question.conceptID,
+      cues: question.cues?.filter(Boolean)
     },
   }));
 }

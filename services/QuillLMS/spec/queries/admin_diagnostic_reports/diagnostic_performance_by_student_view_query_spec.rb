@@ -7,24 +7,38 @@ module AdminDiagnosticReports
     include_context 'Admin Diagnostic Aggregate CTE'
     include_context 'Pre Post Diagnostic Skill Group Performance View'
 
+    let(:query_args) do
+      {
+        timeframe_start: timeframe_start,
+        timeframe_end: timeframe_end,
+        school_ids: school_ids,
+        grades: grades,
+        teacher_ids: teacher_ids,
+        classroom_ids: classroom_ids,
+        diagnostic_id: pre_diagnostic.id
+      }
+    end
+
+    context 'when finding more than 500 records' do
+      let(:runner_results) do
+        (described_class::MAX_STUDENTS_TO_RETURN + 1).times.map do |i|
+          {
+            :student_id => i,
+            :name => 'ROLLUP'
+          }
+        end
+      end
+      let(:runner) { double(execute: runner_results) }
+
+      it { expect(results.length).to eq(described_class::MAX_STUDENTS_TO_RETURN) }
+    end
+
     # TODO: Some of these specs fail intermittently.  In the interest of getting the code out the door, we're commenting them out, but we should come back and fix that soon
     #context 'big_query_snapshot', :big_query_snapshot do
     #  # Some of our tests include activity_sessions having NULL in its timestamps so we need a version that has timestamps with datetime data in them so that WITH in the CTE understands the data type expected
     #  let(:reference_activity_session) { create(:activity_session, :finished) }
     #  # Some of our tests expect no concept_results to exist, but BigQuery needs to know what one is shaped like in order to build temporary queries
     #  let(:reference_concept_results) { create(:concept_result, extra_metadata: {question_uid: SecureRandom.uuid}) }
-
-    #  let(:query_args) do
-    #    {
-    #      timeframe_start: timeframe_start,
-    #      timeframe_end: timeframe_end,
-    #      school_ids: school_ids,
-    #      grades: grades,
-    #      teacher_ids: teacher_ids,
-    #      classroom_ids: classroom_ids,
-    #      diagnostic_id: pre_diagnostic.id
-    #    }
-    #  end
 
     #  let(:cte_records) do
     #    [

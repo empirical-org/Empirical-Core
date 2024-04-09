@@ -11,6 +11,9 @@ import SubscriberLogos from '../components/premium/subscriber_logos.jsx';
 import PremiumBannerBuilder from '../components/scorebook/premium_banners/premium_banner_builder.jsx';
 import StripeSubscriptionCheckoutSessionButton from '../components/shared/StripeSubscriptionCheckoutSessionButton';
 
+import { requestPost } from '../../../modules/request';
+
+
 const subscribers = [
   { name: 'Achievement first school logo', source: '/images/subscribers/1_achievement.png', id: 'achievement-first'},
   { name: 'KIPP: SF school logo', source: '/images/subscribers/2_kipp_sf.png', id: 'kipp-sf'},
@@ -136,25 +139,30 @@ export const PremiumPricingGuide = ({
     )
   }
 
-  const upgradeToPremiumNowButton = () => {
-    return (
-      <StripeSubscriptionCheckoutSessionButton
-        buttonClassName='btn-orange focus-on-light'
-        buttonText='Upgrade to Premium Now'
-        cancelPath='premium'
-        customerEmail={customerEmail}
-        stripePriceId={stripeTeacherPlan.plan.stripe_price_id}
-        userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
-        userIsSignedIn={userIsSignedIn()}
-      />
-    )
+  const upgradeToPremiumNow = () => {
+    if (!userIsSignedIn()) {
+      alert('You must be logged in to activate Premium.')
+    } else if (!userIsEligibleForNewSubscription) {
+      alert(
+        "You have an active subscription and cannot buy premium now. If your subscription is a school subscription, you may buy Premium when it expires. If your subscription is a teacher one, please turn on recurring payments and we will renew it automatically when your subscription ends."
+      )
+    } else {
+      const path = '/stripe_integration/subscription_checkout_sessions'
+      const data = {
+        cancel_path: 'premium',
+        customer_email: customerEmail,
+        stripe_price_id: stripeTeacherPlan.plan.stripe_price_id
+      }
+
+      requestPost(path, data, body => { window.location.replace(body.redirect_url) })
+    }
   }
 
   return (
     <div>
       <div className="container premium-page">
         <Snackbar text="Sorry, you need to select a school to purchase School Premium." visible={showSnackbar} />
-        {userIsSignedIn() && <PremiumBannerBuilder originPage="premium" upgradeToPremiumNowButton={upgradeToPremiumNowButton} />}
+        {userIsSignedIn() && <PremiumBannerBuilder originPage="premium" upgradeToPremiumNow={upgradeToPremiumNow} />}
         {showSchoolAndDistrictPremiumModal && (
           <SchoolAndDistrictPremiumModal
             closeModal={closeSchoolAndDistrictPremiumModal}

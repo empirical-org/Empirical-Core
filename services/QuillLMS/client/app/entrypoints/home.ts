@@ -1,1 +1,1 @@
-import '../bundles/Home/home';
+import '../bundles/Home/startup/clientRegistration';

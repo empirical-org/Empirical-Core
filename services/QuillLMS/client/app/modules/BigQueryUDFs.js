@@ -9,27 +9,72 @@ export function findLastIndex(array, startIndex, fn) {
   return array.length - 1 - reversedIdx
 }
 
-// BigQuery does not currently accept DATETIMEs as arguments for JS UDFs
-// So we cast DATETIMES to STRINGS before calling this function
-export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skillGroupNames) {
-  function boolToInt(bool) { return bool ? 1 : 0}
-
+// example argument: true|1668|2023-10-31 13:37:19.789202|Subject-Verb Agreement
+export function parseElement(e) {
   function removeCommas(str) {
     const regExp = /,/g
     return str.replace(regExp, '')
   }
 
-  function zipAndSort(scores, activityIds, completedAts, skillGroupNames) {
-    const zipped = completedAts.map(
-      (elem, i) => ({
-        completedAt: elem,
-        score: boolToInt(scores[i]),
-        activityId: parseInt(activityIds[i]),
-        skillGroupName: removeCommas(skillGroupNames[i])
+  const stringAttributes = e.split('|')
+  if (stringAttributes.length !== 4) {
+    throw new Error(`Invalid element string: ${e}`)
+  }
 
-      })
-    )
-    return zipped.sort((a,b) => (new Date(a.completedAt) - new Date(b.completedAt)))
+  return {
+    scores: [stringAttributes[0] === "true" ? 1 : 0],
+    activityId: parseInt(stringAttributes[1]),
+    completedAt: stringAttributes[2],
+    skillGroupName: removeCommas(stringAttributes[3])
+  }
+}
+
+export function deduplicateAndAverageScores(arr) {
+  const scoresMap = new Map();
+
+  arr.forEach(item => {
+    const key = `${item.activityId}|${item.skillGroupName}`;
+
+    if (scoresMap.has(key)) {
+      let scores = scoresMap.get(key).scores
+      scores.push(item.scores[0])
+      scoresMap.set(key, {...scoresMap.get(key), scores: scores });
+    } else {
+      scoresMap.set(key, item);
+    }
+  });
+
+  return Array.from(scoresMap.values()).map(dedupedItem => {
+    const avg = dedupedItem.scores.reduce((acc, val) => acc + val, 0) / dedupedItem.scores.length;
+    return {activityId: dedupedItem.activityId, completedAt: dedupedItem.completedAt, skillGroupName: dedupedItem.skillGroupName, score: avg }
+  })
+}
+
+// BigQuery does not currently accept DATETIMEs as arguments for JS UDFs
+// So we cast DATETIMES to STRINGS before calling this function
+export function studentwiseSkillGroupUDF(elements) {
+  function removeCommas(str) {
+    const regExp = /,/g
+    return str.replace(regExp, '')
+  }
+
+  function parseElement(e) {
+    function removeCommas(str) {
+      const regExp = /,/g
+      return str.replace(regExp, '')
+    }
+
+    const stringAttributes = e.split('|')
+    if (stringAttributes.length !== 4) {
+      throw new Error(`Invalid element string: ${e}`)
+    }
+
+    return {
+      scores: [stringAttributes[0] === "true" ? 1 : 0],
+      activityId: parseInt(stringAttributes[1]),
+      completedAt: stringAttributes[2],
+      skillGroupName: removeCommas(stringAttributes[3])
+    }
   }
 
   function findLastIndex(array, startIndex, fn) {
@@ -37,12 +82,6 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
     const reversedIdx = reversedArray.findIndex(fn)
     if (reversedIdx === -1) return -1
     return array.length - 1 - reversedIdx
-  }
-
-  function allArraysEqualLength(...arrayLengths) {
-    const firstArrayLength = arrayLengths.pop()
-
-    return arrayLengths.every(x => x === firstArrayLength)
   }
 
   function getSkillScore(zipped, errorMessageArray, skillGroupName, preOrPost) {
@@ -55,55 +94,77 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
     return row.score
   }
 
+  function deduplicateAndAverageScores(arr) {
+    const scoresMap = new Map();
+
+    arr.forEach(item => {
+      const key = `${item.activityId}|${item.skillGroupName}`;
+
+      if (scoresMap.has(key)) {
+        let scores = scoresMap.get(key).scores
+        scores.push(item.scores[0])
+        scoresMap.set(key, {...scoresMap.get(key), scores: scores });
+      } else {
+        scoresMap.set(key, item);
+      }
+    });
+
+    return Array.from(scoresMap.values()).map(dedupedItem => {
+      const avg = dedupedItem.scores.reduce((acc, val) => acc + val, 0) / dedupedItem.scores.length;
+      return {activityId: dedupedItem.activityId, completedAt: dedupedItem.completedAt, skillGroupName: dedupedItem.skillGroupName, score: avg }
+    })
+  }
+
   //source: https://docs.google.com/spreadsheets/d/1JFey0UpMkmPzkQtZKsr_FdXRXnNEDFXZe52H7dUMg9E/edit#gid=0
   const skillGroupsByActivity = {
     1161: [
-      { id: 167, name: 'Sentences with To Be' },
-      { id: 168, name: 'Sentences With Have' },
-      { id: 169, name: 'Sentences With Want' },
-      { id: 170, name: 'Listing Adjectives and Nouns' },
-      { id: 171, name: 'Writing Questions' }
+      { name: 'Sentences with To Be', activities: [1096, 1097, 1098, 1099, 1100, 1101, 1137, 1102, 1103, 1104, 1105, 1144, 1106, 1107, 1108, 1109, 1110, 1111, 1112, 1113, 1153, 1114, 1152, 1136, 1145, 1154, 1151, 1138] },
+      { name: 'Sentences With Have', activities: [1119, 1120, 1121, 1122, 1127, 1128, 1129, 1130, 1131]  },
+      { name: 'Sentences With Want', activities: [1115, 1117, 1116, 1118, 1123, 1124, 1125, 1126, 1132, 1133]  },
+      { name: 'Listing Adjectives and Nouns', activities: [1134, 1135, 1156, 1157, 1158, 1159, 1160]  },
+      { name: 'Writing Questions', activities: [1139, 1155, 1142, 1140, 1141, 1143, 1148, 1146, 1149, 1147, 1150]  }
     ],
     1568: [
-      { id: 172, name: 'Subject-Verb Agreement' },
-      { id: 173, name: 'Possessive Nouns and Pronouns' },
-      { id: 174, name: 'Prepositions' },
-      { id: 175, name: 'Future Tense' },
-      { id: 176, name: 'Articles' },
-      { id: 177, name: 'Writing Questions' }
+      { name: 'Subject-Verb Agreement', activities: [1541, 1543, 1546]  },
+      { name: 'Possessive Nouns and Pronouns', activities: [1544, 1545, 1550, 1547]  },
+      { name: 'Prepositions', activities: [1551, 1552, 1553, 1554, 1555, 1557, 1558, 1548]  },
+      { name: 'Future Tense', activities: [1559, 1560, 1561, 1563]  },
+      { name: 'Articles', activities: [1567, 1569, 1562, 1564]  },
+      { name: 'Writing Questions', activities: [1571, 1570, 1573, 1549]  }
     ],
     1590: [
-      { id: 178, name: 'Regular Past Tense' },
-      { id: 179, name: 'Irregular Past Tense' },
-      { id: 180, name: 'Progressive Tense' },
-      { id: 181, name: 'Phrasal Verbs' },
-      { id: 182, name: 'ELL-Specific Skills' }
+      { name: 'Regular Past Tense', activities: [1575, 1576, 1577, 1578]  },
+      { name: 'Irregular Past Tense', activities: [1579, 1580, 1581, 1582, 1583, 1584, 1585, 1586, 1587]  },
+      { name: 'Progressive Tense', activities: [1591, 1588, 1625, 1589, 1626]  },
+      { name: 'Phrasal Verbs', activities: [1627, 1628, 1629, 1654, 1657, 1655]  },
+      { name: 'ELL-Specific Skills', activities: [1658, 1660, 1662, 1661]  }
     ],
     1663: [
-      { id: 123, name: 'Capitalization' },
-      { id: 124, name: 'Plural and Possessive Nouns' },
-      { id: 125, name: 'Adjectives and Adverbs' },
-      { id: 126, name: 'Prepositional Phrases' },
-      { id: 128, name: 'Compound Subjects, Objects, and Predicates' },
-      { id: 216, name: 'Subject-Verb Agreement' }
+      { name: 'Commonly Confused Words', activities: [113, 111, 107, 112] },
+      { name: 'Capitalization', activities: [802, 181, 804, 885, 801, 887, 886] },
+      { name: 'Plural and Possessive Nouns', activities: [803, 283, 1440, 1308, 808] },
+      { name: 'Adjectives and Adverbs', activities: [431, 301, 438, 775, 844, 843, 124, 713, 1407, 717, 1418, 1409] },
+      { name: 'Prepositional Phrases', activities: [599, 712, 600, 846] },
+      { name: 'Compound Subjects, Objects, and Predicates', activities: [435, 436, 434, 437, 837, 433] },
+      { name: 'Subject-Verb Agreement', activities: [1054, 742, 2506] }
     ],
     1668: [
-      { id: 129, name: 'Compound Subjects, Objects, and Predicates' },
-      { id: 130, name: 'Compound Sentences' },
-      { id: 131, name: 'Complex Sentences' },
-      { id: 132, name: 'Conjunctive Adverbs' },
-      { id: 133, name: 'Parallel Structure' },
-      { id: 134, name: 'Capitalization' },
-      { id: 135, name: 'Subject-Verb Agreement' },
-      { id: 136, name: 'Nouns, Pronouns, and Verbs' }
+      { name: 'Compound Subjects, Objects, and Predicates', activities: [435, 436, 434, 837, 1005]  },
+      { name: 'Compound Sentences', activities: [424, 426, 428, 429, 430, 776]  },
+      { name: 'Complex Sentences', activities: [417, 418, 1221, 2502, 2498, 2500, 2496, 2497, 2501, 2499]  },
+      { name: 'Conjunctive Adverbs', activities: [755, 759, 851, 863, 757, 985, 986, 861, 993]  },
+      { name: 'Parallel Structure', activities: [752, 754]  },
+      { name: 'Capitalization', activities: [841, 2495, 887, 886, 840]  },
+      { name: 'Subject-Verb Agreement', activities: [770, 769, 774, 772, 896]  },
+      { name: 'Nouns, Pronouns, and Verbs', activities: [1486, 1452, 1487, 1488, 848, 1308, 737, 1425, 1345, 2245]  }
     ],
     1678: [
-      { id: 137, name: 'Compound-Complex Sentences' },
-      { id: 138, name: 'Appositive Phrases' },
-      { id: 139, name: 'Relative Clauses' },
-      { id: 140, name: 'Participial Phrases' },
-      { id: 141, name: 'Parallel Structure' },
-      { id: 142, name: 'Advanced Combining' }
+      { name: 'Compound-Complex Sentences', activities: [653, 862, 868, 869]  },
+      { name: 'Advanced Combining', activities: [1414, 1283, 1281, 1223, 1441] },
+      { name: 'Appositive Phrases', activities: [1211, 1220, 1213, 1212, 1214]  },
+      { name: 'Relative Clauses', activities: [594, 595, 596, 1049, 598, 1002]  },
+      { name: 'Participial Phrases', activities: [443, 450, 1237, 876, 878]  },
+      { name: 'Parallel Structure', activities: [752, 754, 1235]  }
     ]
   }
 
@@ -112,15 +173,6 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
   const defaultReturnValue = {
     errorMessage: "Default error message"
   }
-
-  if (!allArraysEqualLength(scores.length, activityIds.length, completedAts.length, skillGroupNames.length)) {
-    return JSON.stringify({
-      ...defaultReturnValue,
-      ...{ errorMessage: `Unequal input lengths: ${scores.length} ${activityIds.length} ${completedAts.length} ${skillGroupNames.length}` }
-    })
-  }
-
-  const zipped = zipAndSort(scores, activityIds, completedAts, skillGroupNames)
 
   const prePostDiagnosticActivityIdPairs = {
     1161: 1774, // ELL Starter
@@ -131,14 +183,7 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
     1678: 1680  // Advanced
   }
 
-  const recommendedActivities = {
-    1161: [147, 148, 149, 150, 151],  // ELL Starter
-    1568: [250, 251, 252, 253, 254, 255],  // ELL Intermediate
-    1590: [258, 259, 260, 261, 262],  // ELL Advanced
-    1663: [306, 263, 307, 264, 308, 265, 266, 267, 268, 363], // Starter
-    1668: [309, 287, 310, 288, 311, 289, 290, 291, 292, 293, 294], // Intermediate
-    1678: [312, 275, 276, 313, 314, 277, 278, 279, 362]   // Advanced
-  }
+  const zipped = deduplicateAndAverageScores(elements.map(parseElement)).sort((a,b) => (new Date(a.completedAt) - new Date(b.completedAt)))
 
   const canonicalPreTestIdx = zipped.findIndex(
     elem => Object.keys(prePostDiagnosticActivityIdPairs).map(x => parseInt(x)).includes(elem.activityId)
@@ -181,71 +226,36 @@ export function studentwiseSkillGroupUDF(scores, activityIds, completedAts, skil
     })
   }
 
+  const interDiagnosticActivities = zipped.slice(canonicalPreTestIdx + 1, canonicalPostTestIdx)
+
+  // the percentage of a student's completed activities, for a certain skill, over the recommended activities
+  function getSkillTier (interDiagnosticActivities, skillRecommendedActivities) {
+    const intersection = interDiagnosticActivities.map(x => x.activityId).filter(x => skillRecommendedActivities.includes(x))
+    const percentageToInteger = [... new Set(intersection)].length / skillRecommendedActivities.length * 100
+    return `${[... new Set(intersection)].length}/${skillRecommendedActivities.length}`
+  }
+
   const skillScores = skillGroupsByActivity[PRE_DIAGNOSTIC_ACTIVITY_ID].reduce(
     (accum, currentValue) => {
       const formattedName = removeCommas(currentValue.name)
       const preColumnName = `${formattedName}_pre`
       const postColumnName = `${formattedName}_post`
+      const skillTierColumnName = `${formattedName}_tier`
       return {
         [preColumnName]: getSkillScore(zipped, errorMessageArray, formattedName, 'pre'),
         [postColumnName]: getSkillScore(zipped, errorMessageArray, formattedName, 'post'),
+        [skillTierColumnName]: getSkillTier(interDiagnosticActivities, currentValue.activities),
         ...accum
       }
     },
     {}
   )
-  const interDiagnosticActivities = zipped.slice(canonicalPreTestIdx + 1, canonicalPostTestIdx)
-  const numAssignedRecommendedCompleted = interDiagnosticActivities.filter(
-    elem => recommendedActivities[PRE_DIAGNOSTIC_ACTIVITY_ID].includes(elem.activityId)
-  ).length
 
   return JSON.stringify(
     {
-      recommendedActivityCount: recommendedActivities[PRE_DIAGNOSTIC_ACTIVITY_ID].length,
       errorMessage: errorMessageArray.join(' '),
-      numAssignedRecommendedCompleted,
+      diagnostic_pre_id: PRE_DIAGNOSTIC_ACTIVITY_ID,
       ...skillScores
     }
   )
 }
-
-// params: numAssignedRecommendedCompleted STRING, recommendedActivityCount STRING
-export function tierUDF(numAssignedRecommendedCompleted, recommendedActivityCount) {
-  const completedCount = parseInt(numAssignedRecommendedCompleted)
-  const activityCount = parseInt(recommendedActivityCount)
-
-  if (isNaN(completedCount) ||
-      isNaN(activityCount) ||
-      activityCount < 1 ||
-      completedCount < 0
-  ) {
-    return "-1"
-  }
-  const percentage = completedCount / activityCount * 100
-
-  if (percentage === 0 ) { return "0%" }
-  if (percentage === 100 ) { return "100%" }
-
-  const tiers = {
-    "1-10%":    { from: 0, to: 11},
-    "11-20%":   { from: 11, to: 21},
-    "21-30%":   { from: 21, to: 31},
-    "31-40%":   { from: 31, to: 41},
-    "41-50%":   { from: 41, to: 51},
-    "51-60%":   { from: 51, to: 61},
-    "61-70%":   { from: 61, to: 71},
-    "71-80%":   { from: 71, to: 81},
-    "81-90%":   { from: 81, to: 91},
-    "91-99%":   { from: 91, to: 100}
-  }
-
-  for (const [tierName, value] of Object.entries(tiers)) {
-    if (percentage >= value.from && percentage < value.to) {
-      return tierName
-    }
-  }
-
-  return "-1"
-}
-
-

@@ -125,7 +125,7 @@
       margin-top: 24px;
     }
     .dropdown-container {
-      min-height: 46px;
+      min-height: 50px;
       justify-content: flex-start;
     }
     .dropdown__menu {
@@ -520,7 +520,7 @@
     .filter-container {
       position: fixed;
       top: 0;
-      z-index: 2;
+      z-index: 3;
       background-color: white;
       height: 100%;
       width: 100vw;

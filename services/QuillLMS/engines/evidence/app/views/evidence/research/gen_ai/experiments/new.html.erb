@@ -1,0 +1,33 @@
+<h1>New Experiment</h1>
+
+<%= form_for @experiment do |f| %>
+  <%= render 'errors', object: @experiment %>
+
+  <div class="field-spacing">
+    <%= f.label :llm_config_id, "LLM Config:" %>
+    <%= f.collection_select :llm_config_id, @llm_configs, :id, :to_s, { required: true } %>
+    <%= link_to 'new', new_research_gen_ai_llm_config_path, class: 'new-link', target: '_blank' %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :llm_prompt_template_id, "LLM Prompt Template:" %>
+    <%= f.collection_select :llm_prompt_template_id, @llm_prompt_templates, :id, :to_s, { required: true } %>
+    <%= link_to 'new', new_research_gen_ai_llm_prompt_template_path, class: 'new-link', target: '_blank' %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :passage_prompt_id, "Passage Prompt:" %>
+    <%= f.collection_select :passage_prompt_id, @passage_prompts, :id, :to_s, { required: true } %>
+    <%= link_to 'new', new_research_gen_ai_passage_prompt_path, class: 'new-link', target: '_blank' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Run Experiment" %>
+  </div>
+<% end %>
+
+
+
+
+<br/>
+<%= link_to 'Experiments', research_gen_ai_experiments_path, class: 'new-link', target: '_blank' %>

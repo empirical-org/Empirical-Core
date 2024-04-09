@@ -139,8 +139,13 @@ const baseColorTitlesAndVariableNames = [
     title: 'Quill Gold Dark',
     variableName: "quill-gold-dark"
   },
+  {
+    title: 'Quill Yellow',
+    variableName: "quill-yellow"
+  },
 ]
 
+const greenNumbers = [null, 50, 20, 15, 10, 5, 1]
 const colorNumbers = [null, 50, 20, 10, 5, 1]
 const transparentColorNumbers = [90, 80, 70, 60, 50, 40, 30, 20, 10]
 
@@ -155,7 +160,8 @@ const renderElement =(title, variableName) => (
 
 const ColorPalette = () => {
   const colorRows = baseColorTitlesAndVariableNames.map(color => {
-    const colors = colorNumbers.map(number => {
+    const numbersArray = color.title.includes('Green') ? greenNumbers : colorNumbers
+    const colors = numbersArray.map(number => {
       let title = color.title
       let variableName = color.variableName
 

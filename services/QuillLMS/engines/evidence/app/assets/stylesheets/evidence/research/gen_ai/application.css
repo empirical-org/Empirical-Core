@@ -1,0 +1,52 @@
+.field-spacing {
+  margin-bottom: 20px;
+}
+
+.field-spacing label, .field-spacing select {
+  font-size: 16px;
+}
+
+.field-spacing select {
+  padding: 8px;
+  margin-top: 4px;
+}
+.new-link {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px; /* Adds some space above the table */
+  margin-bottom: 20px; /* Adds some space below the table */
+}
+
+th, td {
+  border: 1px solid #ddd; /* Light grey border */
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #f8f8f8; /* Very light grey background */
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2; /* Zebra striping for rows */
+}
+
+.actions-link {
+  padding: 4px 8px;
+  background-color: #007bff; /* Blue background */
+  color: white; /* White text */
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.actions-link:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.red { background-color: red; }
+.green { background-color: green; }

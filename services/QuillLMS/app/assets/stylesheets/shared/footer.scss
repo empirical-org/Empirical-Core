@@ -264,15 +264,18 @@
 }
 
 .student-footer {
-  background: white;
+  background: $quill-grey-1;
+  font-color: $quill-grey-50;
   .inner-container {
-    padding: 64px 61px;
+    padding: 64px 0px;
     .privacy-and-terms {
       display: flex;
-      padding-top: 16px;
-      border-top: 1px solid $quill-grey-15;
-      p, a {
-        margin-right: 32px;
+      margin: auto;
+      width: fit-content;
+      gap: 32px;
+      font-size: 12px;
+      a, p {
+        color: $quill-grey-50;
       }
     }
   }
@@ -288,6 +291,13 @@
       padding-right: 54px;
     }
   }
+}
+
+.premium-footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-bottom: 32px;
+  margin-top: 32px;
 }
 
 .white-background-accommodate-footer {

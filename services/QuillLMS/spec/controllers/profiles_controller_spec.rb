@@ -318,7 +318,7 @@ describe ProfilesController, type: :controller do
 
       describe '#student_exact_scores_data' do
         it 'returns formatted data for activity sessions' do
-          post :student_exact_scores_data, params: { data: data_param }, as: :json
+          post :student_exact_scores_data, params: { data: data_param, classroom_id: classroom_unit.classroom_id }, as: :json
 
           expect(response).to have_http_status(:ok)
           json_response = JSON.parse(response.body)

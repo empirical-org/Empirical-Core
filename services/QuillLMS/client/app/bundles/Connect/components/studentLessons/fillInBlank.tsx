@@ -9,6 +9,8 @@ import {
   Feedback,
   Prompt,
   fillInBlankInputLabel,
+  fillInBlankInputWidth,
+  splitPromptForFillInBlank,
   getLatestAttempt,
   hashToCollection,
 } from '../../../Shared/index';
@@ -80,7 +82,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
 
   setQuestionValues = (question: FillInBlankQuestion) => {
     const q = question;
-    const splitPrompt = q.prompt.split('___');
+    const splitPrompt = splitPromptForFillInBlank(question.prompt);
     const numberOfInputVals = q.prompt.match(/___/g).length
     this.setState({
       splitPrompt,
@@ -191,9 +193,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     if (inputErrors[i]) {
       className += ' error'
     }
-    const longestCue = cues && cues.length ? cues.sort((a, b) => b.length - a.length)[0] : null
-    const width = longestCue ? (longestCue.length * 15) + 10 : 50
-    const styling = { width: `${width}px`}
+
+    const value = inputVals[i]
+
     return (
       <input
         aria-label={fillInBlankInputLabel(cues, blankAllowed)}
@@ -203,9 +205,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
         id={`input${i}`}
         key={i + 100}
         onChange={this.getChangeHandler(i)}
-        style={styling}
+        style={fillInBlankInputWidth(value, cues)}
         type="text"
-        value={inputVals[i]}
+        value={value}
       />
     );
   }
