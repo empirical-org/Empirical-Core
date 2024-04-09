@@ -142,6 +142,8 @@ class User < ApplicationRecord
   has_many :user_subscriptions
   has_many :subscriptions, through: :user_subscriptions
   has_many :activity_sessions
+  has_many :started_activities, through: :activity_sessions, source: :activity
+
   has_one :schools_users
   has_one :sales_contact, dependent: :destroy
   has_one :school, through: :schools_users
@@ -194,7 +196,7 @@ class User < ApplicationRecord
     through: :administered_school_canvas_instance_schools,
     source: :canvas_instance
 
-  has_many :administered_school_canvas_configs, through: :administered_school_canvas_instances, source: :canvas_config
+  has_many :administered_school_canvas_configs, through: :administered_school_canvas_instances_with_canvas_configs, source: :canvas_config
 
   has_many :admin_report_filter_selections, dependent: :destroy
   has_many :pdf_subscriptions, through: :admin_report_filter_selections

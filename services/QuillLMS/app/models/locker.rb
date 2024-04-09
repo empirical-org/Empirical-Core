@@ -12,7 +12,7 @@
 #  user_id     :integer
 #
 class Locker < ApplicationRecord
-  has_one :user
+  belongs_to :user
 
   validates :user_id, presence: true, uniqueness: true
   validates :label, presence: true
