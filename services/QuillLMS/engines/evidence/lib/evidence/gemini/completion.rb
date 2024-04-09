@@ -5,8 +5,6 @@ module Evidence
     class Completion < Evidence::ApplicationService
       include Evidence::Gemini::Concerns::Api
 
-      class CleanedResultsError < StandardError; end
-
       GENERATE_CONTENT = 'generateContent'
 
       attr_accessor :llm_config, :prompt

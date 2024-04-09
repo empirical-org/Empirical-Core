@@ -12,6 +12,31 @@ module Evidence
         let(:prompt) { "Write the next word after this sentence: #{Faker::Quote.mitch_hedberg}" }
 
         it { is_expected.to be_a String }
+
+        describe 'rate limit error handling' do
+          subject { described_class.new(llm_config:, prompt:) }
+
+          let(:endpoint) { subject.send(:endpoint) }
+          let(:code) { 429 }
+
+          let(:body) do
+            {
+              error: {
+                code:,
+                message: 'Resource has been exhausted (e.g., check quota).',
+                status: 'RESOURCE_EXHAUSTED'
+              }
+            }.to_json
+          end
+
+          before do
+            stub_const('Evidence::Gemini::Concerns::Api::MAX_RETRIES', 0)
+            stub_const('Evidence::Gemini::Concerns::Api::MAX_ATTEMPTS', 0)
+            stub_request(:post, endpoint).to_return(status: code, body:, headers: {})
+          end
+
+          it { expect { subject.run }.to raise_error Evidence::Gemini::Concerns::Api::MaxAttemptsError }
+        end
       end
     end
   end
