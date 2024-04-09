@@ -20,7 +20,7 @@ require 'rails_helper'
 describe Concept, type: :model do
 
   it { should have_many(:change_logs) }
-  it { should have_many(:diagnostic_question_optimal_concepts) }
+  it { should have_many(:diagnostic_question_optimal_concepts).dependent(:destroy) }
 
   describe 'can behave like an uid class' do
     context 'when behaves like uid' do

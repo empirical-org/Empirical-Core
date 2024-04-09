@@ -48,7 +48,7 @@ RSpec.describe Question, type: :model do
     }
   end
 
-  it { should have_many(:diagnostic_question_optimal_concepts) }
+  it { should have_many(:diagnostic_question_optimal_concepts).dependent(:destroy) }
 
   describe '#valid?' do
     it 'should be valid from the factory' do
