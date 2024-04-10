@@ -75,6 +75,12 @@ RailsAdmin.config do |config|
     end
   end
 
+   config.model 'AuthCredential' do
+    list do
+      limited_pagination true
+    end
+  end
+
   config.model 'BlogPost' do
     list do
       exclude_fields :blog_post_user_ratings
@@ -103,6 +109,23 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model 'Classroom' do
+    list do
+      exclude_fields  :classroom_units, :units, :unit_activities, :activities, :standard_levels,
+        :coteacher_classroom_invitations, :students, :students_classrooms, :classrooms_teachers, :teachers
+      limited_pagination true
+    end
+    edit do
+      configure :teachers do
+        read_only true
+      end
+      configure :students do
+        read_only true
+      end
+      include_all_fields
+    end
+  end
+
   config.model 'Concept' do
     list do
       exclude_fields :change_logs
@@ -123,7 +146,7 @@ RailsAdmin.config do |config|
 
   config.model 'LearnWorldsAccount' do
     list do
-      exclude_fields :learn_worlds_account_enrolled_course_events, :enrolled_courses
+      fields :id, :user, :last_login, :created_at, :updated_at
     end
   end
 
@@ -229,6 +252,19 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model 'Unit' do
+    list do
+      exclude_fields :activities, :standards
+      configure :classrooms do
+        eager_load true
+      end
+      limited_pagination true
+    end
+    edit do
+      exclude_fields :user
+    end
+  end
+
   config.model 'UnitTemplate' do
     list do
       exclude_fields :activities, :activities_unit_templates, :partner_content, :recommendations
@@ -288,7 +324,7 @@ RailsAdmin.config do |config|
     "AdminReportFilterSelection",
     "Announcement",
     "AppSetting",
-    # "AuthCredential",
+    "AuthCredential",
     "Author",
     "BlogPost",
     "BlogPostUserRating",
@@ -299,7 +335,7 @@ RailsAdmin.config do |config|
     "CanvasInstanceSchool",
     "ChangeLog",
     "Checkbox",
-    # "Classroom",
+    "Classroom",
     # "ClassroomActivity",
     # "ClassroomUnit",
     # "ClassroomUnitActivityState",
@@ -379,7 +415,7 @@ RailsAdmin.config do |config|
     # "ThirdPartyUserId",
     "TitleCard",
     "Topic",
-    # "Unit",
+    "Unit",
     # "UnitActivity",
     "UnitTemplate",
     "UnitTemplateCategory",
