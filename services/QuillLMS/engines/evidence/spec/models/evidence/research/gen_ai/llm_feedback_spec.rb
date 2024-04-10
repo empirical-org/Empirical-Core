@@ -27,8 +27,8 @@ module Evidence
         it { should have_readonly_attribute(:passage_prompt_response_id) }
         it { should have_readonly_attribute(:experiment_id)}
 
-        it { should belong_to(:passage_prompt_response).class_name('Evidence::Research::GenAI::PassagePromptResponse')}
-        it { should belong_to(:experiment).class_name('Evidence::Research::GenAI::Experiment')}
+        it { should belong_to(:passage_prompt_response) }
+        it { should belong_to(:experiment) }
 
         it { expect(build(:evidence_research_gen_ai_llm_feedback)).to be_valid }
 

@@ -1,3 +1,5 @@
+<meta http-equiv="refresh" content="5">
+
 <div>
   <h2>Experiment</h2>
 
@@ -11,13 +13,14 @@
 
   <h3>LLM Prompt</h3>
   <p><%= @experiment.llm_prompt.description %></p>
-  <p><%= simple_format(@experiment.llm_prompt.prompt) %></p>
+  <%# <p><%= simple_format(@experiment.llm_prompt.prompt) %></p>
 
   <hr/>
   <h3>Results</h3>
   <% if @experiment.results %>
     <p>Accuracy (identical): <%= @experiment.results['accuracy_identical'] %></p>
     <p>Accuracy (sub/optimal): <%= @experiment.results['accuracy_optimal_sub_optimal'] %></p>
+    <p>Misc metrics: <%= pp @experiment.results['misc_metrics'] %></p>
 
     <%= render 'matrix', matrix: @experiment.results['confusion_matrix'], title: 'Confusion Matrix' %>
 

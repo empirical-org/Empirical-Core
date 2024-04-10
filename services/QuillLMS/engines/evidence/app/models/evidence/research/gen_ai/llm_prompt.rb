@@ -16,6 +16,8 @@ module Evidence
       class LLMPrompt < ApplicationRecord
         belongs_to :llm_prompt_template, class_name: 'Evidence::Research::GenAI::LLMPromptTemplate'
 
+        has_many :experiments, class_name: 'Evidence::Research::GenAI::Experiment', dependent: :destroy
+
         validates :prompt, presence: true
         validates :llm_prompt_template_id, presence: true
 

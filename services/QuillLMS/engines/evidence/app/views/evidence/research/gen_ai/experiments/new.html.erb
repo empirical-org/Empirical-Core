@@ -1,33 +1,93 @@
-<h1>New Experiment</h1>
+<h1>Experiment Runner</h1>
 
-<%= form_for @experiment do |f| %>
+<%= form_for @experiment, html: { id: 'new_experiment_form' } do |f| %>
   <%= render 'errors', object: @experiment %>
 
-  <div class="field-spacing">
-    <%= f.label :llm_config_id, "LLM Config:" %>
-    <%= f.collection_select :llm_config_id, @llm_configs, :id, :to_s, { required: true } %>
-    <%= link_to 'new', new_research_gen_ai_llm_config_path, class: 'new-link', target: '_blank' %>
+  <div id="llm-configs-container" class="field-spacing">
+    <div style="display: flex; align-items: baseline;">
+      <label style="margin-right: 10px;">llm config:</label>
+      <%= link_to 'new', new_research_gen_ai_llm_config_path, class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
+    </div>
+    <%= check_box_tag 'select_all_llm_config', '', false, id: 'select_all_llm_config', class: 'check-all' %> Select all
+    <br/>
+    <% @llm_configs.each do |llm_config| %>
+      <%= check_box_tag 'research_gen_ai_experiment[llm_config_ids][]', llm_config.id, false, id: dom_id(llm_config), class: 'llm-config-checkbox' %>
+      <%= label_tag dom_id(llm_config), llm_config.to_s %><br/>
+    <% end %>
+  </div>
+
+  <div id="llm-prompt-templates-container" class="field-spacing">
+    <div style="display: flex; align-items: baseline;">
+      <label style="margin-right: 10px;">llm prompt template:</label>
+      <%= link_to 'new', new_research_gen_ai_llm_prompt_template_path, class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
+    </div>
+    <%= check_box_tag 'select_all_llm_prompt_template', '', false, id: 'select_all_llm_prompt_template', class: 'check-all' %> Select all
+    <br/>
+  <% @llm_prompt_templates.each do |llm_prompt_template| %>
+    <%= check_box_tag 'research_gen_ai_experiment[llm_prompt_template_ids][]', llm_prompt_template.id, false, id: dom_id(llm_prompt_template), class: 'llm-prompt-template-checkbox' %>
+    <%= label_tag dom_id(llm_prompt_template), llm_prompt_template.to_s %><br/>
+  <% end %>
+  </div>
+
+  <div id="passage-prompts-container" class="field-spacing">
+    <div style="display: flex; align-items: baseline;">
+      <label style="margin-right: 10px;">passage prompt:</label>
+      <%= link_to 'new', new_research_gen_ai_passage_prompt_path, class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
+    </div>
+    <%= check_box_tag 'select_all_passage_prompt', '', false, id: 'select_all_passage_prompt', class: 'check-all' %> Select all
+    <br/>
+    <% @passage_prompts.each do |passage_prompt, index| %>
+      <%= check_box_tag 'research_gen_ai_experiment[passage_prompt_ids][]', passage_prompt.id, false, id: dom_id(passage_prompt), class: 'passage-prompt-checkbox' %>
+      <%= label_tag dom_id(passage_prompt), passage_prompt.to_s %><br/>
+    <% end %>
   </div>
 
   <div class="field-spacing">
-    <%= f.label :llm_prompt_template_id, "LLM Prompt Template:" %>
-    <%= f.collection_select :llm_prompt_template_id, @llm_prompt_templates, :id, :to_s, { required: true } %>
-    <%= link_to 'new', new_research_gen_ai_llm_prompt_template_path, class: 'new-link', target: '_blank' %>
-  </div>
-
-  <div class="field-spacing">
-    <%= f.label :passage_prompt_id, "Passage Prompt:" %>
-    <%= f.collection_select :passage_prompt_id, @passage_prompts, :id, :to_s, { required: true } %>
-    <%= link_to 'new', new_research_gen_ai_passage_prompt_path, class: 'new-link', target: '_blank' %>
+    <%= f.number_field :num_examples, min: 1, value: nil, class: 'number-input', required: false, style: "width: 75px;" %>
+    <%= f.label :num_examples, "# of examples (leave blank for all):" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Run Experiment" %>
+    <%= f.submit "run" %>
   </div>
 <% end %>
 
-
-
-
-<br/>
 <%= link_to 'Experiments', research_gen_ai_experiments_path, class: 'new-link', target: '_blank' %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.check-all').forEach(checkAllBox => {
+      checkAllBox.addEventListener('change', function() {
+        const classSelector = '.' + this.id.replace('select_all_', '').replace(/_/g, '-') + '-checkbox';
+
+        console.log(classSelector);
+        let checkboxes = document.querySelectorAll(classSelector);
+        checkboxes.forEach(checkbox => { checkbox.checked = this.checked; })
+      });
+    });
+  });
+
+  document.getElementById('new_experiment_form').onsubmit = function(event) {
+    const containers = [
+      {selector: '#llm-configs-container', name: 'LLM Config'},
+      {selector: '#llm-prompt-templates-container', name: 'LLM Prompt Template'},
+      {selector: '#passage-prompts-container', name: 'Passage Prompt'},
+    ];
+
+    const messages = [];
+
+    containers.forEach(container => {
+      const isChecked = Array.from(document.querySelectorAll(container.selector + ' input[type="checkbox"]')).some(el => el.checked);
+      console.log(container.selector, isChecked);
+      if (!isChecked) { messages.push(`- Please select at least one ${container.name}.`); }
+    });
+
+    if (messages.length > 0) {
+      alert(`Please correct the following errors:\n${messages.join('\n')}`);
+      event.preventDefault();
+      return false;
+    }
+
+    return true;
+  };
+</script>

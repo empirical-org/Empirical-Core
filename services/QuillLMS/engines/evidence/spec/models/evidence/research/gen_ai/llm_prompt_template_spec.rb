@@ -21,7 +21,7 @@ module Evidence
         it { should have_readonly_attribute(:description) }
         it { should have_readonly_attribute(:contents) }
 
-        it { should have_many(:llm_prompts).class_name('Evidence::Research::GenAI::LLMPrompt').dependent(:destroy) }
+        it { should have_many(:llm_prompts).dependent(:destroy) }
 
         it { expect(FactoryBot.build(:evidence_research_gen_ai_llm_prompt_template)).to be_valid }
       end
