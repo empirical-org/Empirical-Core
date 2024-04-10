@@ -4,10 +4,8 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
   before_action :activity_type, except: [:index]
   before_action :concept_feedback_by_uid, except: [:index, :create, :update]
 
-  ALL_CONCEPT_FEEDBACKS_KEY = 'all_concept_feedbacks'
-
   def index
-    all_concept_feedbacks = $redis.get(ALL_CONCEPT_FEEDBACKS_KEY)
+    all_concept_feedbacks = $redis.get(ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY)
     all_concept_feedbacks ||= get_all_concept_feedbacks_and_cache
 
     render json: all_concept_feedbacks
@@ -57,7 +55,9 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
       .where(activity_type: params[:activity_type])
       .all
       .reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
-    $redis.set(ALL_CONCEPT_FEEDBACKS_KEY, all_concept_feedbacks)
+      .to_json
+
+    $redis.set(ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY, all_concept_feedbacks)
     all_concept_feedbacks
   end
 end
