@@ -23,7 +23,7 @@ class Api::V1::ConceptsController < Api::ApiController
     # }
     #
     concepts = $redis.get(Concept::ALL_CONCEPTS_KEY)
-    concepts ||= get_all_concepts_and_cache
+    concepts ||= fetch_all_concepts_and_cache
     render json: concepts
   end
 
@@ -36,7 +36,7 @@ class Api::V1::ConceptsController < Api::ApiController
     params.require(:concept).permit(:name, :parent_uid)
   end
 
-  private def get_all_concepts_and_cache
+  private def fetch_all_concepts_and_cache
     concepts = {concepts: Concept.all_with_level}.to_json
     $redis.set(Concept::ALL_CONCEPTS_KEY, concepts)
     concepts

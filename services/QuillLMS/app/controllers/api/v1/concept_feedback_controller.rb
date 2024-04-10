@@ -6,7 +6,7 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
 
   def index
     all_concept_feedbacks = $redis.get(ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY)
-    all_concept_feedbacks ||= get_all_concept_feedbacks_and_cache
+    all_concept_feedbacks ||= fetch_all_concept_feedbacks_and_cache
 
     render json: all_concept_feedbacks
   end
@@ -50,7 +50,7 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
     params.require(:concept_feedback).except(:uid)
   end
 
-  private def get_all_concept_feedbacks_and_cache
+  private def fetch_all_concept_feedbacks_and_cache
     all_concept_feedbacks = ConceptFeedback
       .where(activity_type: params[:activity_type])
       .all
