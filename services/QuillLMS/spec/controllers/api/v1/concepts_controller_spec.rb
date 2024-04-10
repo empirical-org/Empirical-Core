@@ -35,10 +35,15 @@ describe Api::V1::ConceptsController, type: :controller do
     let!(:concept1) { create(:concept) }
     let!(:concept2) { create(:concept, parent: concept1) }
 
-    before { subject }
-
     it 'returns all concepts' do
+      subject
       expect(parsed_body['concepts'].length).to eq(2)
+    end
+
+    it 'sets the cache if not set already' do
+      $redis.del(Api::V1::ConceptsController::ALL_CONCEPTS_KEY)
+      get :index, as: :json
+      expect($redis.get(Api::V1::ConceptsController::ALL_CONCEPTS_KEY)).to eq({concepts: Concept.all_with_level}.to_json)
     end
   end
 

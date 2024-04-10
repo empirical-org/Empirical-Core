@@ -3,6 +3,8 @@
 class Api::V1::ConceptsController < Api::ApiController
   before_action :staff!, only: [:create]
 
+  ALL_CONCEPTS_KEY = "all_concepts_with_level"
+
   def create
     concept = Concept.new(concept_params)
     if concept.save
@@ -11,8 +13,6 @@ class Api::V1::ConceptsController < Api::ApiController
       render json: concept.errors, status: 422
     end
   end
-
-  caches_action :index, format: 'json', expires_in: 1.hour
 
   def index
     # Returns all the concepts, sorted by level
@@ -23,7 +23,9 @@ class Api::V1::ConceptsController < Api::ApiController
     #   concept_level_0: [concepts where parent id matches a level one concept]
     # }
     #
-    render json: {concepts: Concept.all_with_level}.to_json
+    concepts = $redis.get(ALL_CONCEPTS_KEY)
+    concepts ||= get_all_concepts_and_cache
+    render json: concepts
   end
 
   def level_zero_concepts_with_lineage
@@ -33,5 +35,11 @@ class Api::V1::ConceptsController < Api::ApiController
 
   private def concept_params
     params.require(:concept).permit(:name, :parent_uid)
+  end
+
+  private def get_all_concepts_and_cache
+    concepts = {concepts: Concept.all_with_level}.to_json
+    $redis.set(ALL_CONCEPTS_KEY, concepts)
+    concepts
   end
 end
