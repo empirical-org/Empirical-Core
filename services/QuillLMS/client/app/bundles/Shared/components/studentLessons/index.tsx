@@ -9,3 +9,7 @@ export {
 export {
   PlayTitleCard
 } from './playTitleCard'
+
+export {
+  FinalAttemptFeedback
+} from './finalAttemptFeedback'
