@@ -1,0 +1,7 @@
+<div class="navbar-divider-bar green"></div>
+<%= react_component('StudentActivityReportApp', props: {
+  reportData: @report_data,
+  activity: @activity_session.activity,
+  showExactScore: @activity_session&.classroom_unit&.classroom&.owner&.teacher_info&.show_students_exact_score,
+  classroomId: @activity_session&.classroom_unit&.classroom_id
+}) %>

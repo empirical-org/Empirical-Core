@@ -1,0 +1,71 @@
+.helpful-tips {
+  margin-top: 48px;
+  border-radius: 8px;
+  border: 1px solid $quill-grey-15;
+  background: $quill-grey-1;
+  padding: 24px;
+  .helpful-tips-header {
+    display: flex;
+    align-items: center;
+    padding-bottom: 16px;
+    border-bottom: 1px solid $quill-grey-10;
+    img {
+      margin-right: 8px;
+    }
+    h3 {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 22px;
+      color: $quill-grey-90;
+      span {
+        color: $quill-grey-50;
+        font-weight: 400;
+      }
+    }
+  }
+  .toggle-student-report-explanation {
+    background-color: transparent;
+    display: flex;
+    padding: 16px 0px 0px;
+    width: 100%;
+    text-align: left;
+    &.is-open {
+      img {
+        transform: rotate(180deg);
+      }
+    }
+    &.scoring-explanation {
+      border-bottom: 1px solid $quill-grey-10;
+      padding-bottom: 16px;
+    }
+
+    h4 {
+      color: $quill-grey-90;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 22px;
+    }
+
+    img, span {
+      margin-right: 8px;
+      min-width: 24px;
+      display: block;
+    }
+
+    .body {
+      margin-top: 16px;
+      color: $quill-grey-90;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 22px;
+      a {
+        color: inherit;
+        text-decoration: underline;
+      }
+      ul {
+        margin-bottom: 0px;
+      }
+    }
+  }
+}

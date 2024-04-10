@@ -1,0 +1,78 @@
+.student-activity-report {
+  .header {
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 32px;
+    }
+    .score {
+      padding: 6px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      .score-indicator {
+        height: 20px;
+        width: 20px;
+        display: inline-block;
+        margin-right: 8px;
+        border-radius: 4px;
+      }
+
+      &.proficient {
+        background-color: $quill-green-vibrant-10;
+        border: 1px solid $quill-green-vibrant-50;
+        .score-indicator {
+          background-color: $quill-green-vibrant-50;
+        }
+      }
+
+      &.nearly-proficient {
+        background-color: $quill-gold-5;
+        border: 1px solid $quill-gold-dark-10;
+        .score-indicator {
+          background-color: $quill-gold;
+        }
+      }
+
+      &.not-yet-proficient {
+        background-color: $quill-red-5;
+        border: 1px solid $quill-red-50;
+        .score-indicator {
+          background-color: $quill-red;
+        }
+      }
+
+    }
+  }
+
+
+  .helpful-tips {
+    margin-top: 32px;
+  }
+
+  .question-container {
+    display: flex;
+    gap: 32px;
+    padding: 32px 0px;
+    border-bottom: 1px solid $quill-grey-15;
+    .question-level-information, .attempts {
+      flex: 1;
+    }
+    .question-level-information {
+      padding: 24px;
+      border-radius: 8px;
+      &.optimal {
+        border: 1px solid $quill-green-vibrant-50;
+        background: $quill-green-vibrant-10;
+      }
+      &.suboptimal {
+        border: 2px solid $quill-gold-dark-20;
+        background: $quill-gold-5;
+      }
+    }
+  }
+}

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import _ from 'underscore';
-import { diffWords, } from 'diff'
 
 import { formatString, formatStringAndAddSpacesAfterPeriods, } from './formatString';
 
 import NumberSuffix from '../../modules/numberSuffixBuilder.js';
 import ScoreColor from '../../modules/score_color.js';
+import { findFeedbackForReport, formatAnswerStringForReports, } from '../../../../Shared/index'
 
 const reviseIcon = <img alt="" src={`${process.env.CDN_URL}/images/pages/activity_analysis/revise.svg`} />
 const checkmarkIcon = <img alt="" src={`${process.env.CDN_URL}/images/pages/activity_analysis/checkmark.svg`} />
@@ -50,24 +50,8 @@ const StudentReportBox = ({ questionData, boxNumber, showScore, showDiff, }) => 
   }
 
   function feedbackRow(attemptNum, conceptsByAttempt) {
-    let currAttempt = conceptsByAttempt[attemptNum]
-    let nextAttempt = conceptsByAttempt[attemptNum + 1]
+    let feedback = findFeedbackForReport(attemptNum, conceptsByAttempt)
 
-    let feedback = false
-
-    if (nextAttempt) {
-      let index = 0;
-      // iterate until we find a next attempt with directions
-      while (!feedback && nextAttempt[index]) {
-        // in some legacy data, we were not storing feedback in lastFeedback, but in directions.
-        // so the second clause accounts for legacy data without lastFeedback fields.
-        // this is also true for Evidence activities, at least as of 04/28/24
-        feedback = nextAttempt[index].lastFeedback || nextAttempt[index].directions
-        index += 1;
-      }
-    } else if (currAttempt[0].finalAttemptFeedback) {
-      feedback = currAttempt[0].finalAttemptFeedback
-    }
     // sometimes feedback is coming through as a react variable, I've been unable to find the source of it
     if (feedback && typeof feedback === 'string') {
       feedback = feedbackOrDirections(feedback, 'Feedback', `${String(feedback)}-${attemptNum}`)
@@ -124,15 +108,7 @@ const StudentReportBox = ({ questionData, boxNumber, showScore, showDiff, }) => 
   }
 
   function scoreRow(answer, attemptNum, previousAnswer) {
-    let answerString = answer
-    if (previousAnswer && showDiff) {
-      const diff = diffWords(previousAnswer, answer)
-      answerString = diff.map((word) => {
-        if (word.removed) { return '' }
-        const key = `${attemptNum}-${word.value}`;
-        return word.added ? <b key={key}>{word.value}</b> : <span key={key}>{word.value}</span>
-      })
-    }
+    const answerString = formatAnswerStringForReports(answer, previousAnswer, attemptNum, showDiff)
     return (
       <tr className="submission" key={attemptNum + answer}>
         <td>{`${NumberSuffix(attemptNum)} submission`}</td>

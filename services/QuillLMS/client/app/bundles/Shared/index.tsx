@@ -36,6 +36,7 @@ export {
   Error,
   ExpandableCard,
   FlagDropdown,
+  HelpfulTips,
   Input,
   OneThumbSlider,
   Passthrough,
@@ -124,7 +125,9 @@ export {
   getStatusForResponse,
   responsesWithStatus,
   sortByLevenshteinAndOptimal,
-  extractConceptResultsFromResponse
+  extractConceptResultsFromResponse,
+  findFeedbackForReport,
+  formatAnswerStringForReports,
 } from './libs/index'
 
 export {
