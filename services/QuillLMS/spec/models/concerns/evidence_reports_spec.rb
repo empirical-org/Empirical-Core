@@ -21,7 +21,7 @@ describe EvidenceReports, type: :model do
 
     context 'should return the prompt if one is found' do
       let(:prompt_text) { correct_prompt_text }
-      
+
       it { is_expected.to eq(prompt) }
     end
 
