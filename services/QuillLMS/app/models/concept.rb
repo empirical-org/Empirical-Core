@@ -7,8 +7,8 @@
 #  id             :integer          not null, primary key
 #  description    :text
 #  explanation    :text
-#  name           :string(255)
-#  uid            :string(255)      not null
+#  name           :string
+#  uid            :string           not null
 #  visible        :boolean          default(TRUE)
 #  created_at     :datetime
 #  updated_at     :datetime
@@ -22,6 +22,8 @@ class Concept < ApplicationRecord
   validates :name, presence: true
   has_many :concept_results
   has_many :change_logs, as: :changed_record
+
+  ALL_CONCEPTS_KEY = "all_concepts_with_level"
 
   def lineage
     family_tree = name

@@ -32,7 +32,7 @@ describe Api::V1::ConceptsController, type: :controller do
       let(:user) { create(:staff) }
 
       it 'expires the redis cache for all concepts, each time a new concept is created' do
-        expect($redis).to receive(:del).with(Api::V1::ConceptsController::ALL_CONCEPTS_KEY)
+        expect($redis).to receive(:del).with(Concept::ALL_CONCEPTS_KEY)
         subject
       end
     end
@@ -51,8 +51,8 @@ describe Api::V1::ConceptsController, type: :controller do
     end
 
     it 'sets the redis cache for all concepts if not set already' do
-      $redis.del(Api::V1::ConceptsController::ALL_CONCEPTS_KEY)
-      expect($redis).to receive(:set).with(Api::V1::ConceptsController::ALL_CONCEPTS_KEY, {concepts: Concept.all_with_level}.to_json)
+      $redis.del(Concept::ALL_CONCEPTS_KEY)
+      expect($redis).to receive(:set).with(Concept::ALL_CONCEPTS_KEY, {concepts: Concept.all_with_level}.to_json)
       subject
     end
   end
