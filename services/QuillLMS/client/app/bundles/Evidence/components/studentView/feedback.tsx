@@ -2,7 +2,7 @@ import * as React from 'react';
 import ReactCSSTransitionReplace from 'react-css-transition-replace';
 import { stripHtml } from "string-strip-html";
 
-import { GRAMMAR, RULES_BASED_3, SPELLING, } from '../../../../constants/evidence';
+import { GRAMMAR, RULES_BASED_3, SPELLING, EVIDENCE_SUBOPTIMAL_SPELLING_OR_GRAMMAR_FINAL_ATTEMPT_FEEDBACK, } from '../../../../constants/evidence';
 import useFocus from '../../../Shared/hooks/useFocus';
 
 const loopSrc = `${process.env.CDN_URL}/images/icons/loop.svg`
@@ -35,7 +35,7 @@ const feedbackToShow = (lastSubmittedResponse, submittedResponses, prompt, custo
   if (!madeLastAttemptAndItWasSuboptimal(submittedResponses, prompt, lastSubmittedResponse)) { return lastSubmittedResponse.feedback }
 
   if ([GRAMMAR, SPELLING, RULES_BASED_3].includes(lastSubmittedResponse.feedback_type)) {
-    return `<p>You completed four revisions! ${stripHtml(prompt.optimal_label_feedback || '').result}</p><br/><p>However, our feedback bot detected additional spelling or grammar changes you could make to improve your sentence.</p><br/><p>Read your response one more time, and think about what changes you could make. Then move on to the next prompt.</p>`
+    return EVIDENCE_SUBOPTIMAL_SPELLING_OR_GRAMMAR_FINAL_ATTEMPT_FEEDBACK
   }
 
   return prompt.max_attempts_feedback
