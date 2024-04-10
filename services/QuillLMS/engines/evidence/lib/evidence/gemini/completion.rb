@@ -5,13 +5,17 @@ module Evidence
     class Completion < Evidence::ApplicationService
       include Evidence::Gemini::Concerns::Api
 
-      class CleanedResultsError < StandardError; end
+      GENERATE_CONTENT = 'generateContent'
 
-      attr_accessor :prompt
+      attr_accessor :llm_config, :prompt
 
-      def initialize(prompt:)
+      def initialize(llm_config:, prompt:)
+        @llm_config = llm_config
         @prompt = prompt
       end
+
+      private def model_version = llm_config.version
+      private def instruction = GENERATE_CONTENT
 
       # From curl request body structure: https://aistudio.google.com/app/apikey
       def request_body

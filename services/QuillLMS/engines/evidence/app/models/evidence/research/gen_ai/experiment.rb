@@ -6,6 +6,7 @@
 #
 #  id                :bigint           not null, primary key
 #  experiment_errors :text             default([]), not null, is an Array
+#  num_examples      :integer          default(0), not null
 #  results           :jsonb
 #  status            :string           default("pending"), not null
 #  created_at        :datetime         not null
@@ -25,20 +26,13 @@ module Evidence
           FAILED = 'failed'
         ].freeze
 
-        belongs_to :llm_config, class_name: 'Evidence::Research::GenAI::LLMConfig'
-        belongs_to :llm_prompt, class_name: 'Evidence::Research::GenAI::LLMPrompt'
-        belongs_to :passage_prompt, class_name: 'Evidence::Research::GenAI::PassagePrompt'
+        belongs_to :llm_config
+        belongs_to :llm_prompt
+        belongs_to :passage_prompt
 
-        has_many :llm_feedbacks,
-          class_name: 'Evidence::Research::GenAI::LLMFeedback'
-
-        has_many :passage_prompt_responses,
-          class_name: 'Evidence::Research::GenAI::PassagePromptResponse',
-          through: :passage_prompt
-
-        has_many :example_feedbacks,
-          class_name: 'Evidence::Research::GenAI::ExampleFeedback',
-          through: :passage_prompt_responses
+        has_many :llm_feedbacks
+        has_many :passage_prompt_responses, through: :passage_prompt
+        has_many :example_feedbacks, through: :passage_prompt_responses
 
         validates :llm_config_id, :llm_prompt_id, :passage_prompt_id, presence: true
         validates :status, presence: true, inclusion: { in: STATUSES }
@@ -49,39 +43,25 @@ module Evidence
 
         attr_readonly :llm_config_id, :llm_prompt_id, :passage_prompt_id
 
-        attr_accessor :llm_prompt_template_id
+        attr_accessor :llm_config_ids, :llm_prompt_template_ids, :passage_prompt_ids, :num_examples
 
-        def run(limit: nil)
+        def run
           return unless status == PENDING
 
           update!(status: RUNNING)
-          create_llm_prompt_responses_feedbacks(limit:)
-          calculate_results
+          create_llm_prompt_responses_feedbacks
+          CalculateResultsWorker.perform_async(id)
           update!(status: COMPLETED)
         rescue StandardError => e
           experiment_errors << e.message
           update!(status: FAILED)
         end
 
-        private def create_llm_prompt_responses_feedbacks(limit:)
-          passage_prompt_responses.limit(limit).each do |passage_prompt_response|
-            feedback = llm_client.run(prompt: llm_prompt.feedback_prompt(passage_prompt_response.response))
+        private def create_llm_prompt_responses_feedbacks
+          passage_prompt_responses.limit(num_examples).each do |passage_prompt_response|
+            feedback = llm_client.run(llm_config:, prompt: llm_prompt.feedback_prompt(passage_prompt_response.response))
             LLMFeedback.create!(experiment: self, text: feedback, passage_prompt_response:)
           end
-        end
-
-        private def calculate_results = update!(results: (results || {}).merge(calculated_results))
-
-        private def calculated_results
-          {
-            accuracy_identical: IdenticalResultsAccuracyCalculator.run(self),
-            accuracy_optimal_sub_optimal: optimal_and_sub_optimal_results[:accuracy],
-            confusion_matrix: optimal_and_sub_optimal_results[:confusion_matrix]
-          }
-        end
-
-        private def optimal_and_sub_optimal_results
-          @optimal_and_sub_optimal_results ||= OptimalAndSubOptimalResultsBuilder.run(self)
         end
       end
     end
