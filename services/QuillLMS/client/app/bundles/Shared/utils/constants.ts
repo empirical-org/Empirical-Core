@@ -47,3 +47,5 @@ export const MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR = 1150
 export const INTRODUCTION = 'introduction'
 export const CHECKLIST = 'checklist'
 export const READ_AND_HIGHLIGHT = 'read-and-highlight'
+
+export const ALLOWED_ATTEMPTS = 5

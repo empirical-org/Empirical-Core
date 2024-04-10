@@ -23,8 +23,8 @@ module Evidence
         it { should have_readonly_attribute(:response) }
         it { should have_readonly_attribute(:passage_prompt_id) }
 
-        it { have_one(:example_feedback).class_name('Evidence::Research::GenAI::ExampleFeedback').dependent(:destroy) }
-        it { have_many(:llm_feedbacks).class_name('Evidence::Research::GenAI::LLMFeedback').dependent(:destroy) }
+        it { have_one(:example_feedback).dependent(:destroy) }
+        it { have_many(:llm_feedbacks).dependent(:destroy) }
 
         it { expect(build(:evidence_research_gen_ai_passage_prompt_response)).to be_valid }
 
