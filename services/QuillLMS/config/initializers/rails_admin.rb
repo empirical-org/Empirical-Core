@@ -75,7 +75,7 @@ RailsAdmin.config do |config|
     end
   end
 
-   config.model 'AuthCredential' do
+  config.model 'AuthCredential' do
     list do
       limited_pagination true
     end
@@ -111,7 +111,7 @@ RailsAdmin.config do |config|
 
   config.model 'Classroom' do
     list do
-      exclude_fields  :classroom_units, :units, :unit_activities, :activities, :standard_levels,
+      exclude_fields :classroom_units, :units, :unit_activities, :activities, :standard_levels,
         :coteacher_classroom_invitations, :students, :students_classrooms, :classrooms_teachers, :teachers
       limited_pagination true
     end
@@ -122,7 +122,6 @@ RailsAdmin.config do |config|
       configure :students do
         read_only true
       end
-      include_all_fields
     end
   end
 
