@@ -4,22 +4,21 @@ module Evidence
   module Research
     module GenAI
       class OptimalAndSubOptimalResultsBuilder < ApplicationService
-        attr_reader :experiment, :num_feedbacks
+        attr_reader :llm_feedbacks
 
         OPTIMAL = 0
         SUB_OPTIMAL = 1
 
-        def initialize(experiment)
-          @experiment = experiment
-          @num_feedbacks = experiment.llm_feedbacks.size
+        def initialize(llm_feedbacks)
+          @llm_feedbacks = llm_feedbacks
         end
 
         def run = { accuracy:, confusion_matrix: }
 
         private def accuracy
-          return nil if num_feedbacks.zero?
+          return nil if llm_feedbacks.empty?
 
-          1.0 * (confusion_matrix[OPTIMAL][OPTIMAL] + confusion_matrix[SUB_OPTIMAL][SUB_OPTIMAL]) / num_feedbacks
+          1.0 * (confusion_matrix[OPTIMAL][OPTIMAL] + confusion_matrix[SUB_OPTIMAL][SUB_OPTIMAL]) / llm_feedbacks.size
         end
 
         # results is a 2x2 matrix where
@@ -28,7 +27,7 @@ module Evidence
         private def confusion_matrix
           @confusion_matrix ||= begin
             [[0, 0], [0, 0]].tap do |matrix|
-              experiment.llm_feedbacks.each do |llm_feedback|
+              llm_feedbacks.each do |llm_feedback|
                 if llm_feedback.example_optimal?
                   if llm_feedback.optimal?
                     matrix[OPTIMAL][OPTIMAL] += 1

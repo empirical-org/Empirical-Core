@@ -6,11 +6,7 @@ module Evidence
   module Research
     module GenAI
       RSpec.describe OptimalAndSubOptimalResultsBuilder, type: :service do
-        subject { described_class.run(experiment) }
-
-        let(:experiment) { create(:evidence_research_gen_ai_experiment) }
-
-        before { allow(experiment).to receive(:llm_feedbacks).and_return(llm_feedbacks) }
+        subject { described_class.run(llm_feedbacks) }
 
         context 'when there are no llm feedbacks' do
           let(:llm_feedbacks) { [] }
