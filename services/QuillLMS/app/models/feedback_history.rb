@@ -189,7 +189,7 @@ class FeedbackHistory < ApplicationRecord
       .count > 0
   end
 
-  def spelling_or_grammar? = feedback_type.in?[GRAMMAR, RULES_BASED_THREE, SPELLING]
+  def spelling_or_grammar? = feedback_type.in?([GRAMMAR, RULES_BASED_THREE, SPELLING])
 
   private def initiate_flag_worker
     SetFeedbackHistoryFlagsWorker.perform_async(id)
