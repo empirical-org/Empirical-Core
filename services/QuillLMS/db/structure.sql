@@ -2467,6 +2467,38 @@ ALTER SEQUENCE public.csv_exports_id_seq OWNED BY public.csv_exports.id;
 
 
 --
+-- Name: diagnostic_question_optimal_concepts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.diagnostic_question_optimal_concepts (
+    id bigint NOT NULL,
+    question_uid character varying NOT NULL,
+    concept_id integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: diagnostic_question_optimal_concepts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.diagnostic_question_optimal_concepts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: diagnostic_question_optimal_concepts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.diagnostic_question_optimal_concepts_id_seq OWNED BY public.diagnostic_question_optimal_concepts.id;
+
+
+--
 -- Name: diagnostic_question_skills; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6298,6 +6330,13 @@ ALTER TABLE ONLY public.csv_exports ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
+-- Name: diagnostic_question_optimal_concepts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.diagnostic_question_optimal_concepts ALTER COLUMN id SET DEFAULT nextval('public.diagnostic_question_optimal_concepts_id_seq'::regclass);
+
+
+--
 -- Name: diagnostic_question_skills id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -7478,6 +7517,14 @@ ALTER TABLE ONLY public.criteria
 
 ALTER TABLE ONLY public.csv_exports
     ADD CONSTRAINT csv_exports_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: diagnostic_question_optimal_concepts diagnostic_question_optimal_concepts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.diagnostic_question_optimal_concepts
+    ADD CONSTRAINT diagnostic_question_optimal_concepts_pkey PRIMARY KEY (id);
 
 
 --
@@ -9932,6 +9979,13 @@ CREATE UNIQUE INDEX unique_classroom_and_user_ids_on_classrooms_teachers ON publ
 
 
 --
+-- Name: unique_diagnostic_question_optimal_concepts_uid_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_diagnostic_question_optimal_concepts_uid_id ON public.diagnostic_question_optimal_concepts USING btree (question_uid, concept_id);
+
+
+--
 -- Name: unique_index_schools_on_nces_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -11296,6 +11350,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240318143324'),
 ('20240318144601'),
 ('20240401223448'),
+('20240403160959'),
 ('20240407173007');
 
 
