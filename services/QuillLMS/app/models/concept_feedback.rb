@@ -21,15 +21,10 @@ class ConceptFeedback < ApplicationRecord
     TYPE_CONNECT = 'connect',
     TYPE_GRAMMAR = 'grammar'
   ]
-
-  ALL_CONCEPT_FEEDBACKS_KEY = 'all_concept_feedbacks'
-
   validates :data, presence: true
   validates :uid, presence: true, uniqueness: { scope: :activity_type }
   validates :activity_type, presence: true, inclusion: {in: TYPES}
   validate :data_must_be_hash
-
-  after_commit :clear_concept_feedbacks_cache
 
   def as_json(options=nil)
     data
@@ -37,10 +32,6 @@ class ConceptFeedback < ApplicationRecord
 
   private def data_must_be_hash
     errors.add(:data, "must be a hash") unless data.is_a?(Hash)
-  end
-
-  private def clear_concept_feedbacks_cache
-    $redis.del(ALL_CONCEPT_FEEDBACKS_KEY)
   end
 end
 

@@ -23,8 +23,6 @@ class Concept < ApplicationRecord
   has_many :concept_results
   has_many :change_logs, as: :changed_record
 
-  ALL_CONCEPTS_KEY = "all_concepts_with_level"
-
   def lineage
     family_tree = name
     if parent

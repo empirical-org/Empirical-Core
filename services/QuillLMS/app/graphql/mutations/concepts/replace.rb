@@ -21,7 +21,6 @@ class Mutations::Concepts::Replace < Mutations::BaseMutation
     previous_replacement_id = concept.replacement_id
     replacement = Concept.find(inputs[:replacement_id])
     if replacement && concept.update(replacement_id: inputs[:replacement_id], visible: false)
-      $redis.del(Concept::ALL_CONCEPTS_KEY)
 
       ConceptReplacementWorker.perform_async(concept.id, replacement.id)
       change_logs = inputs[:change_logs].map do |cl|
