@@ -2,6 +2,7 @@
   "all": {
     "sourceCodeDir": "client/app",
     "entryPointsDir": "client/app/entrypoints",
+    "additionalEntrypoints": ["client/app/snippets/*"],
     "watchAdditionalPaths": ["app/assets/stylesheets"]
   },
   "development": {
