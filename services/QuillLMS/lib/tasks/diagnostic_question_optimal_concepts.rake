@@ -29,40 +29,32 @@ namespace :diagnostic_question_optimal_concepts do
 
   desc 'Populate diagnostic_question_optimal_concepts from CSV extracted from Curriculum Notion database: https://www.notion.so/quill/f937b1cc8d2d4ed8943a36ce35dca177?v=7dd55ee1f04e4b5daf79645aae960aa1'
   task populate_from_csv: :environment do
-    pipe_data = $stdin.read unless $stdin.tty?
-
-    unless pipe_data
-      puts 'No data detected on STDIN.  You must pass data to the task for it to run.  Example:'
-      puts '  rake diagnostic_question_optimal_concepts:populate_from_csv < path/to/local/file.csv'
-      puts ''
-      puts 'If you are piping data into Heroku, you need to include the --no-tty flag:'
-      puts '  heroku run rake diagnostic_question_optimal_concepts:populate_from_csv -a empirical-grammar --no-tty < path/to/local/file.csv'
-      exit 1
-    end
-
-    diagnostics = DIAGNOSTIC_ID_LOOKUP.transform_values {|id| Activity.find(id)}
+    include SeedDiagnosticQuestionOptimalConcepts
 
     total_count = 0
+    invalid_questions = 0
+    invalid_concepts = 0
     duplicate_count = 0
     missing_concept_count = 0
     CSV.parse(pipe_data, headers: true).each do |row|
-      activity = diagnostics[row[DIAGNOSTIC_INDEX]]
-      activity_questions = activity.data['questions'].filter {|d| d['questionType'] != 'titleCards' }
-      question_number = row[QUESTION_NUMBER_INDEX].to_i
-      question_uid = activity_questions[question_number - 1]['key']
-      question = Question.find_by(uid: question_uid)
+      unless question_valid?(row)
+        puts "Invalid question: #{diagnostics[row[DIAGNOSTIC_INDEX]]}, question #{row[QUESTION_NUMBER_INDEX]}"
+        invalid_questions += 1
+        next
+      end
+
+      unless concepts_valid?(row)
+        puts "Concepts not fully matched in LMS: #{row[OPTIMAL_CONCEPTS_INDEX]}"
+        invalid_concepts += 1
+        next
+      end
+
+      question = fetch_question_from_row(row)
       concepts_row = row[OPTIMAL_CONCEPTS_INDEX]
 
       full_concept_names = concepts_row.split(DELIMITER).reject{|concept| concept == ""}.uniq
       concepts = full_concept_names.map do |concept_name|
-        level0, level1, level2 = concept_name.split("|").map(&:strip).reverse
-        concepts = Concept.left_outer_joins(:parent)
-          .joins("LEFT OUTER JOIN concepts AS grandparent ON parent.parent_id = grandparent.id")
-          .where(visible: true)
-          .where.not(parent: {parent_id: nil})
-        concepts = concepts.where(parent: {name: level1}) if level1
-        concepts = concepts.where(grandparent: {name: level2}) if level2
-        concept = concepts.where(name: level0)
+        concept = fetch_concept(concept_name)
         if concept.length > 1
           puts "Matched too many Concepts: #{concept_name}"
         elsif concept.length == 1
@@ -82,13 +74,18 @@ namespace :diagnostic_question_optimal_concepts do
     puts "Total rows in CSV processed: #{total_count}"
     puts "Duplicate question + concept data rows: #{duplicate_count}"
     puts "Records with failures to match: #{missing_concept_count}"
+    puts "Questions not processed due to LMS mismatch: #{invalid_questions}"
+    puts "Questions not processed due to Concept mismatch in LMS: #{invalid_concepts}"
   end
 
-  desc "Validate the input CSV to ensure that all data that we expect to find in the LMS using the CSV is found.  This will flag cases where there's some kind of mis-match so that we can manually confirm that any discrepancies are just typos, but that the correct data is being found."
-  task validate_csv_data: :environment do
-    pipe_data = $stdin.read unless $stdin.tty?
+  module SeedDiagnosticQuestionOptimalConcepts
+    def diagnostics = DIAGNOSTIC_ID_LOOKUP.transform_values {|id| Activity.find(id)}
 
-    unless pipe_data
+    def pipe_data
+      @pipe_data ||= $stdin.read unless $stdin.tty?
+
+      return @pipe_data if @pipe_data
+      
       puts 'No data detected on STDIN.  You must pass data to the task for it to run.  Example:'
       puts '  rake diagnostic_question_optimal_concepts:validate_csv_data < path/to/local/file.csv'
       puts ''
@@ -97,60 +94,51 @@ namespace :diagnostic_question_optimal_concepts do
       exit 1
     end
 
-    diagnostics = DIAGNOSTIC_ID_LOOKUP.transform_values {|id| Activity.find(id)}
+    def fetch_concept(concept_name)
+      level0, level1, level2 = concept_name.split("|").map(&:strip).reverse
+      concepts = Concept.left_outer_joins(:parent)
+        .joins("LEFT OUTER JOIN concepts AS grandparent ON parent.parent_id = grandparent.id")
+        .where(visible: true)
+        .where.not(parent: {parent_id: nil})
+      concepts = concepts.where(parent: {name: level1}) if level1
+      concepts = concepts.where(grandparent: {name: level2}) if level2
+      concepts.where(name: level0)
+    end
 
-    questions_to_audit = []
-    concepts_to_audit = []
-    CSV.parse(pipe_data, headers: true).each do |row|
+    def fetch_question_from_row(row)
       activity = diagnostics[row[DIAGNOSTIC_INDEX]]
-      questions = activity.data['questions'].filter {|d| d['questionType'] != 'titleCards' }
+      # Filter out titleCards from the questions array
+      activity_questions = activity.data['questions'].filter {|d| d['questionType'] != 'titleCards' }
       question_number = row[QUESTION_NUMBER_INDEX].to_i
-      question_uid = questions[question_number - 1]['key']
-      question = Question.find_by(uid: question_uid)
+      # Use -1 to go from 1-indexed data in the CSV to 0-indexed data in the database
+      question_uid = activity_questions[question_number - 1]['key']
+      Question.find_by(uid: question_uid)
+    end
 
-      # Flag any cases where the question from the CSV doesn't exactly match the text of the same question number in the LMS for auditing to ensure that we're actually looking at data for the right question
-      # Note: from the most recent Notion CSV there are 5 questions with discrepancies, but they're all minor typos in Notion that aren't worth dealing with.  Confirmed that all questions in Notion refer to the correct question in LMS.
-      sanitized_question = question.data['prompt']
+    def sanitize_question(question)
+      question
         .gsub("&#x27;", "'")
+        .gsub("’", "'")
         .gsub(/<[^>]*>/,"")
         .gsub(/\./, ". ")
         .gsub(/\s+/, " ")
+        .gsub(/_[_]+/, "___")
         .strip
-      csv_question = row[QUESTION_INDEX]
-      sanitized_csv_question = csv_question.gsub(/\./, ". ")
-        .gsub("’", "'")
-        .gsub(">", "")
-        .gsub(/\s+/, " ")
-        .gsub(/___[_]+/, "___")
-        .strip
-      unless sanitized_question.include?(sanitized_csv_question)
-        questions_to_audit.push("#{activity.name},#{question_number},#{sanitized_csv_question},#{sanitized_question}")
-      end
+    end
 
+    def question_valid?(row)
+      question = fetch_question_from_row(row)
+
+      sanitize_question(question.data['prompt']) == sanitize_question(row[QUESTION_INDEX])
+    end
+
+    def concepts_valid?(row)
       concepts_row = row[OPTIMAL_CONCEPTS_INDEX]
 
-      # Flag cases where recorded optimal concepts in the Notion data can not be matched to a concept in the LMS.  Some of these may be fine, but we want to ensure that every concept that does matter gets accurately matched.
       full_concept_names = concepts_row.split(DELIMITER).reject{|concept| concept == ""}.uniq
-      level_0_concept_names = full_concept_names.map{ |name| name.split("|").last.strip }
-      level_1_concept_names = full_concept_names.map{ |name| name.split("|")[-2]&.strip }
-      level_2_concept_names = full_concept_names.map{ |name| name.split("|")[-3]&.strip }
-      level_0_concepts = level_0_concept_names.map.with_index do |name, i|
-        concepts = Concept.where(name:, visible: true).left_outer_joins(:parent).joins("LEFT OUTER JOIN concepts AS grandparent ON parent.parent_id = grandparent.id").where.not(parent: {parent_id: nil})
-        concepts = concepts.where(parent: {name: level_1_concept_names[i]}) if level_1_concept_names[i]
-        concepts = concepts.where(grandparent: {name: level_2_concept_names[i]}) if level_2_concept_names[i]
-        concepts
-      end.flatten.compact
+      concepts = full_concept_names.map { |concept_name| fetch_concept(concept_name) }.flatten
 
-      next if level_0_concept_names.length == level_0_concepts.length
-
-      puts "Multiple concepts found by name" if level_0_concept_names.length < level_0_concepts.length
-      # Using double-quotes inside double-quotes because we want this to produce an output that could be validly piped into a CSV if desired
-      # rubocop:disable Style/StringLiteralsInInterpolation
-      concepts_to_audit.push("#{activity.name},#{question_number},\"#{full_concept_names.join("\n")}\",\"#{level_0_concepts.map {|concept| [concept.parent.parent.name, concept.parent.name, concept.name].join(" | ") }.join("\n")}\"")
-      # rubocop:enable Style/StringLiteralsInInterpolation
+      full_concept_names.length == concepts.length
     end
-    puts questions_to_audit
-    puts "========================"
-    puts concepts_to_audit
   end
 end
