@@ -10,6 +10,7 @@ Rails.autoloaders.each do |autoloader|
     'llm_configs_controller' => 'LLMConfigsController',
     'llm_feedback' => 'LLMFeedback',
     'llm_prompt' => 'LLMPrompt',
+    'llm_prompts_controller' => 'LLMPromptsController',
     'llm_prompt_builder' => 'LLMPromptBuilder',
     'llm_prompt_template' => 'LLMPromptTemplate',
     'llm_prompt_templates_controller' => 'LLMPromptTemplatesController',

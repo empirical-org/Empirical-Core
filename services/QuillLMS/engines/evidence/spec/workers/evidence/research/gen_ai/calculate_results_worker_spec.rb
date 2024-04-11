@@ -38,7 +38,8 @@ module Evidence
           end
 
           it 'merges and updates the experiment results' do
-            expect(experiment).to receive(:update!).with(results: fetched_results)
+            expect(experiment).to receive(:update_results).with(fetched_results)
+            expect(experiment).to receive(:update_results).with(experiment_eval_execution_time: an_instance_of(Float))
             subject
           end
         end

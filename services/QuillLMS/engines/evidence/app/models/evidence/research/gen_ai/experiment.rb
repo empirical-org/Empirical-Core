@@ -30,9 +30,10 @@ module Evidence
         belongs_to :llm_prompt
         belongs_to :passage_prompt
 
-        has_many :llm_feedbacks
-        has_many :passage_prompt_responses, through: :passage_prompt
-        has_many :example_feedbacks, through: :passage_prompt_responses
+        has_many :llm_feedbacks, -> { order(:id) }
+        has_many :passage_prompt_responses, -> { order(:id) }, through: :passage_prompt
+        has_many :example_feedbacks, -> { order(:id) }, through: :passage_prompt_responses
+
 
         validates :llm_config_id, :llm_prompt_id, :passage_prompt_id, presence: true
         validates :status, presence: true, inclusion: { in: STATUSES }
@@ -43,9 +44,11 @@ module Evidence
 
         attr_readonly :llm_config_id, :llm_prompt_id, :passage_prompt_id
 
-        attr_accessor :llm_config_ids, :llm_prompt_template_ids, :passage_prompt_ids, :num_examples
+        attr_accessor :llm_config_ids, :llm_prompt_template_ids, :passage_prompt_ids
 
         def run
+          start_time = Time.zone.now
+
           return unless status == PENDING
 
           update!(status: RUNNING)
@@ -55,7 +58,16 @@ module Evidence
         rescue StandardError => e
           experiment_errors << e.message
           update!(status: FAILED)
+        ensure
+          update_results(experiment_duration: (Time.zone.now - start_time).round(2))
         end
+
+        def update_results(new_data)
+          self.results ||= {}
+          results.merge!(new_data)
+          save!
+        end
+
 
         private def create_llm_prompt_responses_feedbacks
           passage_prompt_responses.limit(num_examples).each do |passage_prompt_response|
