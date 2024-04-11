@@ -93,6 +93,15 @@ const StudentActivityReportApp = ({ activity, showExactScore, reportData, classr
     const { question_number, questionScore, key_target_skill_concept, directions, prompt, cues, } = question
     const studentReachedOptimal = questionScore > 0
 
+    const parentheticalContentRegex = /\s*\(([^)]+)\)/
+
+    const [directionsForDisplay, cuesString] = directions.split(parentheticalContentRegex);
+
+    const cuesStrippedFromDirections = cuesString?.split(', ')
+
+    const cuesForDisplay = cues || cuesStrippedFromDirections
+    const cueElements = cuesForDisplay?.map(cue => <span className="cue" key={cue}>{cue}</span>)
+
     return (
       <div className={`question-level-information ${studentReachedOptimal ? 'optimal' : 'suboptimal'}`}>
         <h2>
@@ -102,14 +111,14 @@ const StudentActivityReportApp = ({ activity, showExactScore, reportData, classr
 
         <div className="directions">
           <h3>Directions</h3>
-          <p>{directions}</p>
+          <p>{directionsForDisplay.trim()}</p>
         </div>
 
         <div className="prompt">
           <h3>Prompt</h3>
           <div>
-            <p>{prompt}</p>
-            {cues}
+            <div className="prompt-text" dangerouslySetInnerHTML={{ __html: prompt, }} />
+            {cueElements}
           </div>
         </div>
 
