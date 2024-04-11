@@ -13,13 +13,13 @@ module Evidence
         end
 
         def evaluation_duration(experiment)
-          "#{experiment.results['evaluation_duration']&.round(2)} s"
+          "#{experiment.evaluation_duration&.round(2)} s"
         end
 
         def experiment_duration(experiment)
-          return '0 s' if experiment.results['experiment_duration'].nil? || experiment.num_examples.zero?
+          return '0 s' if experiment.experiment_duration.nil? || experiment.num_examples.zero?
 
-          duration = experiment.results['experiment_duration'].round(2)
+          duration = experiment.experiment_duration.round(2)
           "#{duration} s (#{(duration / @experiment.num_examples)&.round(2)}s / example)"
         end
       end
