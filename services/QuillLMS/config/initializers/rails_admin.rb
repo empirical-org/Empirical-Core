@@ -239,6 +239,18 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model 'SubjectArea' do
+    list do
+      exclude_fields :teacher_info_subject_areas
+    end
+  end
+
+  config.model 'Subscription' do
+    list do
+      exclude_fields :credit_transactions, :district_subscriptions, :districts, :school_subscriptions, :schools, :user_subscriptions, :users
+    end
+  end
+
   config.model 'Topic' do
     list do
       exclude_fields :activities, :activity_topics, :change_logs
@@ -266,7 +278,7 @@ RailsAdmin.config do |config|
 
   config.model 'UnitTemplate' do
     list do
-      exclude_fields :activities, :activities_unit_templates, :partner_content, :recommendations
+      exclude_fields :activities, :activities_unit_templates, :partner_contents, :units, :recommendations, :diagnostics_recommended_by
     end
   end
 
