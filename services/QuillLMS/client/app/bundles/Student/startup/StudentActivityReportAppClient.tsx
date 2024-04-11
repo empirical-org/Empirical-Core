@@ -1,5 +1,6 @@
 import * as React from 'react';
 import _ from 'lodash';
+import { stripHtml } from "string-strip-html";
 
 import { HelpfulTips, formatAnswerStringForReports, findFeedbackForReport, } from '../../Shared/index';
 import { proficiencyCutoffsAsPercentage } from '../../../modules/proficiency_cutoffs';
@@ -89,8 +90,8 @@ const StudentActivityReportApp = ({ activity, showExactScore, reportData, classr
   }
 
   function renderQuestionLevelInformation(question) {
-    const { question_number, question_score, key_target_skill_concept, directions, prompt, cues, } = question
-    const studentReachedOptimal = question_score > 1
+    const { question_number, questionScore, key_target_skill_concept, directions, prompt, cues, } = question
+    const studentReachedOptimal = questionScore > 0
 
     return (
       <div className={`question-level-information ${studentReachedOptimal ? 'optimal' : 'suboptimal'}`}>
@@ -114,7 +115,7 @@ const StudentActivityReportApp = ({ activity, showExactScore, reportData, classr
 
         <div className="target-skill">
           <h3>Target Skill</h3>
-          <div className="target-skill-indicator">
+          <div className={`target-skill-indicator ${key_target_skill_concept.correct ? 'correct' : 'incorrect'}`}>
             {key_target_skill_concept.correct ? skillCheckIcon : skillReviseIcon}
             <span>{key_target_skill_concept.name}</span>
           </div>
@@ -142,13 +143,15 @@ const StudentActivityReportApp = ({ activity, showExactScore, reportData, classr
       const attemptNumber = attempt.attempt
       const previousAnswer = groupedAttempts[index - 1] ? groupedAttempts[index - 1][0].answer : null
 
+      const feedback = String(findFeedbackForReport(attemptNumber, groupedAttempts))
+
       return (
         <div className="attempt" key={attemptNumber}>
           <h3>{numberSuffixBuilder(attemptNumber)} attempt</h3>
           <p className="answer">{formatAnswerStringForReports(attempt.answer, previousAnswer, attemptNumber, true)}</p>
           <div className={`feedback ${className}`}>
             <h4>{icon} Feedback</h4>
-            <p>{findFeedbackForReport(attemptNumber, groupedAttempts)}</p>
+            <p>{stripHtml(feedback).result}</p>
           </div>
         </div>
       )
