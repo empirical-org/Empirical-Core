@@ -85,7 +85,7 @@ namespace :diagnostic_question_optimal_concepts do
       @pipe_data ||= $stdin.read unless $stdin.tty?
 
       return @pipe_data if @pipe_data
-      
+
       puts 'No data detected on STDIN.  You must pass data to the task for it to run.  Example:'
       puts '  rake diagnostic_question_optimal_concepts:validate_csv_data < path/to/local/file.csv'
       puts ''
