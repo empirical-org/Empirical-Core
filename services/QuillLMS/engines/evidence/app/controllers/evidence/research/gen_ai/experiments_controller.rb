@@ -30,7 +30,11 @@ module Evidence
           redirect_to research_gen_ai_experiments_path
         end
 
-        def show = @experiment = Experiment.find(params[:id])
+        def show
+          @experiment = Experiment.find(params[:id])
+          @next = Experiment.where("id > ?", @experiment.id).order(id: :asc).first
+          @previous = Experiment.where("id < ?", @experiment.id).order(id: :desc).first
+        end
 
         private def experiment_params
           params

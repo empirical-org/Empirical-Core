@@ -1,5 +1,15 @@
 <meta http-equiv="refresh" content="5">
 
+<%= link_to 'Back', research_gen_ai_experiments_path %>
+
+<% if @previous %>
+  <%= link_to "Previous", @previous %>
+<% end %>
+
+<% if @next %>
+  <%= link_to "Next", @next %>
+<% end %>
+
 <div>
   <h2>Experiment</h2>
 
@@ -80,4 +90,3 @@
   <p><%= @experiment.created_at.strftime("%B %d, %Y %H:%M") %></p>
 </div>
 
-<%= link_to 'Back', research_gen_ai_experiments_path %>
