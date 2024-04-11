@@ -45,15 +45,15 @@ module Evidence
         describe '#run' do
           subject { experiment.run }
 
-          let(:experiment) { create(:evidence_research_gen_ai_experiment) }
+          let(:experiment) { create(:evidence_research_gen_ai_experiment, num_examples:) }
+          let(:num_examples) { 4 }
           let(:passage_prompt) { experiment.passage_prompt }
           let(:llm_config) { experiment.llm_config }
           let(:llm_client) { double(:llm_client) }
-          let(:num_passage_prompt_responses) { 4 }
           let(:llm_feedback_text) { 'Test feedback' }
 
           let(:passage_prompt_responses) do
-            create_list(:evidence_research_gen_ai_passage_prompt_response, num_passage_prompt_responses, passage_prompt:)
+            create_list(:evidence_research_gen_ai_passage_prompt_response, num_examples, passage_prompt:)
           end
 
           let!(:example_feedbacks) do
@@ -78,7 +78,7 @@ module Evidence
           end
 
           it { expect { subject }.to change { experiment.reload.status }.to(described_class::COMPLETED) }
-          it { expect { subject }.to change(LLMFeedback, :count).by(num_passage_prompt_responses) }
+          it { expect { subject }.to change(LLMFeedback, :count).by(num_examples) }
 
           context 'when an error occurs during execution' do
             let(:error_message) { 'Test error' }

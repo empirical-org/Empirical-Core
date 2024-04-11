@@ -16,7 +16,7 @@ module Evidence
           experiment = Experiment.find(experiment_id)
           experiment.update_results(ResultsFetcher.run(experiment.llm_feedbacks))
         ensure
-          experiment.update!(evaluation_duration: Time.zone.now - start_time)
+          experiment&.update!(evaluation_duration: Time.zone.now - start_time)
         end
       end
     end
