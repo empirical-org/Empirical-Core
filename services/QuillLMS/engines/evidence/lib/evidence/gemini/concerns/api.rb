@@ -6,7 +6,10 @@ module Evidence
       module Api
         extend ActiveSupport::Concern
 
-        class FinishReasonOtherError < StandardError; end
+        class CleanedResultsError < StandardError; end
+        class MaxAttemptsError < StandardError; end
+        class MaxRetriesError < StandardError; end
+        class RateLimitError < StandardError; end
         class ServiceUnavailableError < StandardError; end
 
         BASE_URI = Evidence::Gemini::BASE_URI
@@ -39,35 +42,32 @@ module Evidence
           begin
             @response = post_with_backoff
             cleaned_results
-          rescue FinishReasonOtherError => e
-            return [] if num_attempts >= MAX_ATTEMPTS
+          rescue CleanedResultsError, MaxRetriesError => e
+            raise MaxAttemptsError, e.message if num_attempts >= MAX_ATTEMPTS
 
-            puts "num_attempts: #{num_attempts}"
             num_attempts += 1
+            puts "Retrying attempt #{num_attempts}"
             retry
           rescue *Evidence::HTTP_TIMEOUT_ERRORS
             []
           end
         end
 
-        private def endpoint = "#{BASE_URI}?key=#{Evidence::Gemini::API_KEY}"
+        private def endpoint = "#{BASE_URI}/#{model_version}:#{instruction}?key=#{Evidence::Gemini::API_KEY}"
 
-        private def body = request_body.merge(safety_settings:).to_json
+        private def body = request_body.merge(safety_settings: SAFETY_SETTINGS).to_json
 
         private def headers = { "Content-Type" => "application/json" }
 
-        private def safety_settings = SAFETY_SETTINGS
-
-        private def timeout = TIMEOUT
-
         private def post_with_backoff(retries: 0)
-          response = self.class.post(endpoint, body:, headers:, timeout:)
+          response = self.class.post(endpoint, body:, headers:, timeout: TIMEOUT)
 
-          raise "ServiceUnavailable" if response.code == 503
+          raise ServiceUnavailableError, "Service is unavailable" if response.code == 503
+          raise RateLimitError, "Rate limit exceeded. Please try again later." if response.code == 429
 
           response
         rescue => e
-          raise "Max retries reached. Last error: #{e.message}" unless retries < MAX_RETRIES
+          raise MaxRetriesError, e.message if retries >= MAX_RETRIES
 
           retries += 1
           sleep [2**retries, MAX_SLEEP_FOR_BACKOFF].min

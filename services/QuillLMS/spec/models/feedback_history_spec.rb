@@ -702,4 +702,22 @@ RSpec.describe FeedbackHistory, type: :model do
       end
     end
   end
+
+  context '#spelling_or_grammar?' do
+    it 'returns true for spelling and grammar feedback' do
+      [FeedbackHistory::SPELLING, FeedbackHistory::GRAMMAR, FeedbackHistory::RULES_BASED_THREE].each do |feedback_type|
+        feedback_history = build(:feedback_history, feedback_type: feedback_type)
+        expect(feedback_history.spelling_or_grammar?).to be true
+      end
+
+    end
+
+    it 'returns false for non-spelling or grammar feedback' do
+      FeedbackHistory::FEEDBACK_TYPES.excluding(FeedbackHistory::SPELLING, FeedbackHistory::GRAMMAR, FeedbackHistory::RULES_BASED_THREE).each do |feedback_type|
+        feedback_history = build(:feedback_history, feedback_type: feedback_type)
+        expect(feedback_history.spelling_or_grammar?).to be false
+      end
+    end
+  end
+
 end
