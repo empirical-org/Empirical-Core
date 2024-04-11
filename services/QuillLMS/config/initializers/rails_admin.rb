@@ -10,6 +10,8 @@ RailsAdmin.config do |config|
     redirect_to main_app.root_path unless current_user&.staff?
   end
 
+  UNEDITABLE_MODELS = ['ChangeLog']
+
   config.actions do
     dashboard do
       statistics false
@@ -17,10 +19,15 @@ RailsAdmin.config do |config|
     index                         # mandatory
     new
     export
-    bulk_delete
+    # Turn off bulk delete, seems dangerous
+    # bulk_delete
     show
-    edit
-    delete
+    edit do
+      except UNEDITABLE_MODELS
+    end
+    delete do
+      except UNEDITABLE_MODELS
+    end
     show_in_app
 
     ## With an audit adapter, you can add:
@@ -101,12 +108,10 @@ RailsAdmin.config do |config|
   end
 
   config.model 'ChangeLog' do
-    list do
-      # TODO: this is a workaround for a bug in changelog :user being overwritten
-      exclude_fields :user
-
-      field :user_name
-    end
+    # TODO: this is a workaround for a bug in changelog :user being overwritten
+    field :user_name
+    include_all_fields
+    exclude_fields :user
   end
 
   config.model 'Classroom' do
@@ -319,6 +324,8 @@ RailsAdmin.config do |config|
     end
   end
 
+  # Leaving in the models we turned off for documentation purposes
+  # e.g. this model was turned off, not forgotten
   config.included_models = [
     # "ActiveActivitySession",
     'ActivitiesUnitTemplate',
