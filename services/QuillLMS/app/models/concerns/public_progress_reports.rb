@@ -270,6 +270,7 @@ module PublicProgressReports
         directions: directfirst.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", ""),
         prompt: prompt_text,
         answer: cr.first.answer,
+        cues: cr.first.extra_metadata&.dig('cues'),
         score:,
         key_target_skill_concept: get_key_target_skill_concept_for_question(cr, activity_session),
         concepts: cr.map { |crs|
