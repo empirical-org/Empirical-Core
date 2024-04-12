@@ -33,8 +33,6 @@ EmpiricalGrammar::Application.configure do
     enable_starttls_auto: true
   }
 
-  config.assets.precompile += %w(admin_usage_snapshot_report_pdf.scss)
-
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
   config.log_level = :debug
