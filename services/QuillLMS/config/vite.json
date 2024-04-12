@@ -2,7 +2,6 @@
   "all": {
     "sourceCodeDir": "client/app",
     "entryPointsDir": "client/app/entrypoints",
-    "additionalEntrypoints": ["client/app/snippets/stats_email.scss"],
     "watchAdditionalPaths": ["app/assets/stylesheets"]
   },
   "development": {
