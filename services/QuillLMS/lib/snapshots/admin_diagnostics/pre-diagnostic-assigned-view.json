@@ -1,0 +1,118 @@
+{
+  "GROUP BY grade": [
+    {
+      "diagnostic_id": 1663,
+      "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "grade",
+      "pre_students_assigned": 89,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": "6",
+          "name": "Grade 6",
+          "group_by": "grade",
+          "pre_students_assigned": 45
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": "9",
+          "name": "Grade 9",
+          "group_by": "grade",
+          "pre_students_assigned": 44
+        }
+      ]
+    }
+  ],
+  "GROUP BY teacher": [
+    {
+      "diagnostic_id": 1663,
+      "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "teacher",
+      "pre_students_assigned": 89,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 4722961,
+          "name": "Trista Johnston",
+          "group_by": "teacher",
+          "pre_students_assigned": 19
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 4595888,
+          "name": "Desiree Mott",
+          "group_by": "teacher",
+          "pre_students_assigned": 22
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 13775265,
+          "name": "Samuel Orsot",
+          "group_by": "teacher",
+          "pre_students_assigned": 23
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 2082409,
+          "name": "Jamie Sargent",
+          "group_by": "teacher",
+          "pre_students_assigned": 25
+        }
+      ]
+    }
+  ],
+  "GROUP BY classroom": [
+    {
+      "diagnostic_id": 1663,
+      "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "classroom",
+      "pre_students_assigned": 89,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 1457177,
+          "name": "ENGLISH 6 -NO GR - MOTT - 07",
+          "group_by": "classroom",
+          "pre_students_assigned": 22
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 1521712,
+          "name": "ENGLISH I - SARGENT - 01",
+          "group_by": "classroom",
+          "pre_students_assigned": 25
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 1448748,
+          "name": "ENGLISH II - JOHNSTON - 01",
+          "group_by": "classroom",
+          "pre_students_assigned": 19
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 1530378,
+          "name": "English III 6th Hour",
+          "group_by": "classroom",
+          "pre_students_assigned": 23
+        }
+      ]
+    }
+  ]
+}

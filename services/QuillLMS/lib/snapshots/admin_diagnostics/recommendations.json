@@ -1,0 +1,104 @@
+{
+  "GROUP BY grade": [
+    {
+      "diagnostic_id": 1663,
+      "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "grade",
+      "students_completed_practice": 20,
+      "average_practice_activities_count": 20.0,
+      "average_time_spent_seconds": 7062.4,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": "6",
+          "name": "Grade 6",
+          "group_by": "grade",
+          "students_completed_practice": 4,
+          "average_practice_activities_count": 16.5,
+          "average_time_spent_seconds": 4742.75
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": "9",
+          "name": "Grade 9",
+          "group_by": "grade",
+          "students_completed_practice": 16,
+          "average_practice_activities_count": 20.875,
+          "average_time_spent_seconds": 7642.3125
+        }
+      ]
+    }
+  ],
+  "GROUP BY teacher": [
+    {
+      "diagnostic_id": 1663,
+      "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "teacher",
+      "students_completed_practice": 20,
+      "average_practice_activities_count": 20.0,
+      "average_time_spent_seconds": 7062.4,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 4722961,
+          "name": "Trista Johnston",
+          "group_by": "teacher",
+          "students_completed_practice": 16,
+          "average_practice_activities_count": 20.875,
+          "average_time_spent_seconds": 7642.3125
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 13775265,
+          "name": "Samuel Orsot",
+          "group_by": "teacher",
+          "students_completed_practice": 4,
+          "average_practice_activities_count": 16.5,
+          "average_time_spent_seconds": 4742.75
+        }
+      ]
+    }
+  ],
+  "GROUP BY classroom": [
+    {
+      "diagnostic_id": 1663,
+      "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "classroom",
+      "students_completed_practice": 20,
+      "average_practice_activities_count": 20.0,
+      "average_time_spent_seconds": 7062.4,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 1448748,
+          "name": "ENGLISH II - JOHNSTON - 01",
+          "group_by": "classroom",
+          "students_completed_practice": 16,
+          "average_practice_activities_count": 20.875,
+          "average_time_spent_seconds": 7642.3125
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 1530378,
+          "name": "English III 6th Hour",
+          "group_by": "classroom",
+          "students_completed_practice": 4,
+          "average_practice_activities_count": 16.5,
+          "average_time_spent_seconds": 4742.75
+        }
+      ]
+    }
+  ]
+}
