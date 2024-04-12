@@ -6,12 +6,42 @@ module Evidence
   module Gemini
     RSpec.describe Completion, external_api: true do
       %w[gemini-1.0-pro gemini-1.5-pro-latest].each do |version|
-        subject { described_class.run(llm_config:, prompt:) }
+        subject { described_class.new(llm_config:, prompt:) }
 
         let(:llm_config) { create(:evidence_research_gen_ai_llm_config, version:) }
         let(:prompt) { "Write the next word after this sentence: #{Faker::Quote.mitch_hedberg}" }
 
-        it { is_expected.to be_a String }
+        describe 'response processing' do
+          subject { described_class.new(llm_config:, prompt:) }
+
+          let(:feedback_marker) { described_class::FEEDBACK_MARKER }
+          let(:feedback) { 'This is feedback.' }
+          let(:feedback_with_marker) { "Response: This is a test response. \n#{feedback_marker} #{feedback}" }
+
+          let(:parsed_response) do
+            double(
+              parsed_response: {
+                'candidates' => [
+                  { 'content' => { 'parts' => [{ 'text' => text }] } }
+                ]
+              }
+            )
+          end
+
+          before { allow(subject).to receive(:response).and_return(parsed_response) }
+
+          context 'when feedback marker is present in text' do
+            let(:text) { feedback_with_marker }
+
+            it { expect(subject.run).to eq(feedback) }
+          end
+
+          context 'when no feedback marker is present in text' do
+            let(:text) { feedback }
+
+            it { expect(subject.run).to eq(feedback) }
+          end
+        end
 
         describe 'rate limit error handling' do
           subject { described_class.new(llm_config:, prompt:) }
