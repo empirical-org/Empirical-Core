@@ -5,7 +5,7 @@ require 'rails_helper'
 module TeacherNotifications
   describe RollupMailer, type: :mailer do
     before do
-      allow_any_instance_of(ActionView::Helpers::AssetTagHelper).to receive(:stylesheet_link_tag)
+      allow_any_instance_of(ActionView::Base).to receive(:vite_stylesheet_tag)
     end
 
     let(:user) { create(:teacher) }
@@ -17,6 +17,7 @@ module TeacherNotifications
     it { expect(mail.from).to eq(['hello@quill.org']) }
 
     it 'should include the user notification frequency value in the subject line' do
+      #binding.pry
       [TeacherInfo::HOURLY_EMAIL, TeacherInfo::DAILY_EMAIL, TeacherInfo::WEEKLY_EMAIL].each do |frequency|
         user.teacher_info.update(notification_email_frequency: frequency)
 
