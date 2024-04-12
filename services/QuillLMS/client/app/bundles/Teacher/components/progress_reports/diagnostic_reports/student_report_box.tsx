@@ -5,7 +5,7 @@ import { formatString, formatStringAndAddSpacesAfterPeriods, } from './formatStr
 
 import NumberSuffix from '../../modules/numberSuffixBuilder.js';
 import ScoreColor from '../../modules/score_color.js';
-import { findFeedbackForReport, formatAnswerStringForReports, } from '../../../../Shared/index'
+import { findFeedbackForReport, formatAnswerStringForReport, } from '../../../../Shared/index'
 
 const reviseIcon = <img alt="" src={`${process.env.CDN_URL}/images/pages/activity_analysis/revise.svg`} />
 const checkmarkIcon = <img alt="" src={`${process.env.CDN_URL}/images/pages/activity_analysis/checkmark.svg`} />
@@ -108,7 +108,7 @@ const StudentReportBox = ({ questionData, boxNumber, showScore, showDiff, }) => 
   }
 
   function scoreRow(answer, attemptNum, previousAnswer) {
-    const answerString = formatAnswerStringForReports(answer, previousAnswer, attemptNum, showDiff)
+    const answerString = formatAnswerStringForReport(answer, previousAnswer, attemptNum, showDiff)
     return (
       <tr className="submission" key={attemptNum + answer}>
         <td>{`${NumberSuffix(attemptNum)} submission`}</td>

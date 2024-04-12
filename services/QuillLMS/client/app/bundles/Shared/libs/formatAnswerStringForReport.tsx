@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { diffWords, } from 'diff'
 
-export function formatAnswerStringForReports(answer, previousAnswer, attemptNum, showDiff) {
+export function formatAnswerStringForReport(answer, previousAnswer, attemptNum, showDiff) {
   let answerString = answer
   if (previousAnswer && showDiff) {
     const diff = diffWords(previousAnswer, answer)

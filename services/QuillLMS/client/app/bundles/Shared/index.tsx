@@ -127,7 +127,7 @@ export {
   sortByLevenshteinAndOptimal,
   extractConceptResultsFromResponse,
   findFeedbackForReport,
-  formatAnswerStringForReports,
+  formatAnswerStringForReport,
 } from './libs/index'
 
 export {

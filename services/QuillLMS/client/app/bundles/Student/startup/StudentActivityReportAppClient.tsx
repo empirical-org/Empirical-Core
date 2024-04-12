@@ -1,21 +1,12 @@
 import * as React from 'react';
 import _ from 'lodash';
-import { stripHtml } from "string-strip-html";
 
-import { HelpfulTips, formatAnswerStringForReports, findFeedbackForReport, } from '../../Shared/index';
+import Attempt from '../components/studentActivityReport/attempt'
+import QuestionLevelInformation from '../components/studentActivityReport/questionLevelInformation'
+import { HelpfulTips } from '../../Shared/index';
 import { proficiencyCutoffsAsPercentage } from '../../../modules/proficiency_cutoffs';
-import numberSuffixBuilder from '../../Teacher/components/modules/numberSuffixBuilder';
 
 const arrowBackSrc = `${process.env.CDN_URL}/images/icons/arrow-back.svg`
-
-const baseSrc = `${process.env.CDN_URL}/images/pages/student_activity_report`
-const feedbackReviseIcon = <img alt="" src={`${baseSrc}/feedback_revise.svg`} />
-const feedbackCheckIcon = <img alt="" src={`${baseSrc}/feedback_check.svg`} />
-const feedbackMultipleChoiceIcon = <img alt="" src={`${baseSrc}/feedback_multiple_choice.svg`} />
-const questionCheckIcon = <img alt="" src={`${baseSrc}/question_check.svg`} />
-const questionReviseIcon = <img alt="" src={`${baseSrc}/question_revise.svg`} />
-const skillCheckIcon = <img alt="" src={`${baseSrc}/skill_check.svg`} />
-const skillReviseIcon = <img alt="" src={`${baseSrc}/skill_revise.svg`} />
 
 const helpfulTips = (
   <HelpfulTips
@@ -83,52 +74,10 @@ const StudentActivityReportApp = ({ activity, showExactScore, reportData, classr
   function renderQuestion(question) {
     return (
       <div className="question-container">
-        {renderQuestionLevelInformation(question)}
+        <QuestionLevelInformation
+          question={question}
+        />
         <div className="attempts">{renderAttempts(question)}</div>
-      </div>
-    )
-  }
-
-  function renderQuestionLevelInformation(question) {
-    const { question_number, questionScore, key_target_skill_concept, directions, prompt, cues, } = question
-    const studentReachedOptimal = questionScore > 0
-
-    const parentheticalContentRegex = /\s*\(([^)]+)\)/
-
-    const [directionsForDisplay, cuesString] = directions.split(parentheticalContentRegex);
-
-    const cuesStrippedFromDirections = cuesString?.split(', ')
-
-    const cuesForDisplay = cues || cuesStrippedFromDirections
-    const cueElements = cuesForDisplay?.map(cue => <span className="cue" key={cue}>{cue}</span>)
-
-    return (
-      <div className={`question-level-information ${studentReachedOptimal ? 'optimal' : 'suboptimal'}`}>
-        <h2>
-          <span>Question {question_number}</span>
-          {studentReachedOptimal ? questionCheckIcon : questionReviseIcon}
-        </h2>
-
-        <div className="directions">
-          <h3>Directions</h3>
-          <p>{directionsForDisplay.trim()}</p>
-        </div>
-
-        <div className="prompt">
-          <h3>Prompt</h3>
-          <div>
-            <div className="prompt-text" dangerouslySetInnerHTML={{ __html: prompt, }} />
-            {cueElements}
-          </div>
-        </div>
-
-        <div className="target-skill">
-          <h3>Target Skill</h3>
-          <div className={`target-skill-indicator ${key_target_skill_concept.correct ? 'correct' : 'incorrect'}`}>
-            {key_target_skill_concept.correct ? skillCheckIcon : skillReviseIcon}
-            <span>{key_target_skill_concept.name}</span>
-          </div>
-        </div>
       </div>
     )
   }
@@ -138,31 +87,16 @@ const StudentActivityReportApp = ({ activity, showExactScore, reportData, classr
     const groupedAttemptValues = Object.values(groupedAttempts)
     return groupedAttemptValues.map((groupedAttempt, index) => {
       const attempt = groupedAttempt[0]
-
-      let className = "suboptimal"
-      let icon = feedbackReviseIcon
-
       const lastAttempt = index === groupedAttemptValues.length - 1
-
-      if (lastAttempt) {
-        className = question.questionScore > 0 ? 'optimal' : 'final-suboptimal'
-        icon = question.questionScore > 0 ? feedbackCheckIcon : feedbackMultipleChoiceIcon
-      }
-
-      const attemptNumber = attempt.attempt
-      const previousAnswer = groupedAttempts[index - 1] ? groupedAttempts[index - 1][0].answer : null
-
-      const feedback = String(findFeedbackForReport(attemptNumber, groupedAttempts))
-
       return (
-        <div className="attempt" key={attemptNumber}>
-          <h3>{numberSuffixBuilder(attemptNumber)} attempt</h3>
-          <p className="answer">{formatAnswerStringForReports(attempt.answer, previousAnswer, attemptNumber, true)}</p>
-          <div className={`feedback ${className}`}>
-            <h4>{icon} Feedback</h4>
-            <p>{stripHtml(feedback).result}</p>
-          </div>
-        </div>
+        <Attempt
+          attempt={attempt}
+          groupedAttempts={groupedAttempts}
+          index={index}
+          key={index}
+          lastAttempt={lastAttempt}
+          studentReachedOptimal={question.questionScore > 0}
+        />
       )
     })
   }
