@@ -6,8 +6,8 @@
       "aggregate_id": null,
       "name": "ROLLUP",
       "group_by": "grade",
-      "post_students_completed": 18,
-      "overall_skill_growth": 0.1430461073318216,
+      "post_students_completed": 42,
+      "overall_skill_growth": 0.13062169312169314,
       "aggregate_rows": [
         {
           "diagnostic_id": 1663,
@@ -24,8 +24,48 @@
           "aggregate_id": "9",
           "name": "Grade 9",
           "group_by": "grade",
-          "post_students_completed": 18,
-          "overall_skill_growth": 0.1430461073318216
+          "post_students_completed": 42,
+          "overall_skill_growth": 0.1306216931216931
+        }
+      ]
+    },
+    {
+      "diagnostic_id": 1668,
+      "diagnostic_name": "Intermediate Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "grade",
+      "post_students_completed": 10,
+      "overall_skill_growth": 0.10000000000000002,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1668,
+          "diagnostic_name": "Intermediate Baseline Diagnostic (Pre)",
+          "aggregate_id": "9",
+          "name": "Grade 9",
+          "group_by": "grade",
+          "post_students_completed": 10,
+          "overall_skill_growth": 0.1
+        }
+      ]
+    },
+    {
+      "diagnostic_id": 1678,
+      "diagnostic_name": "Advanced Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "grade",
+      "post_students_completed": 2,
+      "overall_skill_growth": 0.0625,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1678,
+          "diagnostic_name": "Advanced Baseline Diagnostic (Pre)",
+          "aggregate_id": "9",
+          "name": "Grade 9",
+          "group_by": "grade",
+          "post_students_completed": 2,
+          "overall_skill_growth": 0.0625
         }
       ]
     }
@@ -37,9 +77,18 @@
       "aggregate_id": null,
       "name": "ROLLUP",
       "group_by": "teacher",
-      "post_students_completed": 18,
-      "overall_skill_growth": 0.14304610733182158,
+      "post_students_completed": 42,
+      "overall_skill_growth": 0.12884677680596046,
       "aggregate_rows": [
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 12924154,
+          "name": "Cassie Broussard",
+          "group_by": "teacher",
+          "post_students_completed": 24,
+          "overall_skill_growth": 0.11819727891156462
+        },
         {
           "diagnostic_id": 1663,
           "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
@@ -47,7 +96,7 @@
           "name": "Trista Johnston",
           "group_by": "teacher",
           "post_students_completed": 18,
-          "overall_skill_growth": 0.14304610733182158
+          "overall_skill_growth": 0.1430461073318216
         },
         {
           "diagnostic_id": 1663,
@@ -77,6 +126,46 @@
           "overall_skill_growth": null
         }
       ]
+    },
+    {
+      "diagnostic_id": 1668,
+      "diagnostic_name": "Intermediate Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "teacher",
+      "post_students_completed": 10,
+      "overall_skill_growth": 0.09999999999999999,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1668,
+          "diagnostic_name": "Intermediate Baseline Diagnostic (Pre)",
+          "aggregate_id": 12924154,
+          "name": "Cassie Broussard",
+          "group_by": "teacher",
+          "post_students_completed": 10,
+          "overall_skill_growth": 0.1
+        }
+      ]
+    },
+    {
+      "diagnostic_id": 1678,
+      "diagnostic_name": "Advanced Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "teacher",
+      "post_students_completed": 2,
+      "overall_skill_growth": 0.0625,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1678,
+          "diagnostic_name": "Advanced Baseline Diagnostic (Pre)",
+          "aggregate_id": 12924154,
+          "name": "Cassie Broussard",
+          "group_by": "teacher",
+          "post_students_completed": 2,
+          "overall_skill_growth": 0.06250000000000001
+        }
+      ]
     }
   ],
   "GROUP BY classroom": [
@@ -86,8 +175,8 @@
       "aggregate_id": null,
       "name": "ROLLUP",
       "group_by": "classroom",
-      "post_students_completed": 18,
-      "overall_skill_growth": 0.1430461073318216,
+      "post_students_completed": 42,
+      "overall_skill_growth": 0.1288467768059605,
       "aggregate_rows": [
         {
           "diagnostic_id": 1663,
@@ -119,11 +208,60 @@
         {
           "diagnostic_id": 1663,
           "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 1448764,
+          "name": "ENGLISH II ADV - BROUSSARD - 01",
+          "group_by": "classroom",
+          "post_students_completed": 24,
+          "overall_skill_growth": 0.11819727891156465
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
           "aggregate_id": 1530378,
           "name": "English III 6th Hour",
           "group_by": "classroom",
           "post_students_completed": 0,
           "overall_skill_growth": null
+        }
+      ]
+    },
+    {
+      "diagnostic_id": 1668,
+      "diagnostic_name": "Intermediate Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "classroom",
+      "post_students_completed": 10,
+      "overall_skill_growth": 0.1,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1668,
+          "diagnostic_name": "Intermediate Baseline Diagnostic (Pre)",
+          "aggregate_id": 1448764,
+          "name": "ENGLISH II ADV - BROUSSARD - 01",
+          "group_by": "classroom",
+          "post_students_completed": 10,
+          "overall_skill_growth": 0.1
+        }
+      ]
+    },
+    {
+      "diagnostic_id": 1678,
+      "diagnostic_name": "Advanced Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "classroom",
+      "post_students_completed": 2,
+      "overall_skill_growth": 0.0625,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1678,
+          "diagnostic_name": "Advanced Baseline Diagnostic (Pre)",
+          "aggregate_id": 1448764,
+          "name": "ENGLISH II ADV - BROUSSARD - 01",
+          "group_by": "classroom",
+          "post_students_completed": 2,
+          "overall_skill_growth": 0.0625
         }
       ]
     }
