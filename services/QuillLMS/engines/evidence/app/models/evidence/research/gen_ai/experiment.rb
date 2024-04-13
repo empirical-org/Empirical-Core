@@ -55,7 +55,7 @@ module Evidence
           update!(status: RUNNING)
           create_llm_prompt_responses_feedbacks
           CalculateResultsWorker.perform_async(id)
-          update!(status: COMPLETED)
+          experiment_errors.empty? ? update!(status: COMPLETED) : update!(status: FAILED)
         rescue => e
           experiment_errors << e.message
           update!(status: FAILED)
@@ -74,6 +74,9 @@ module Evidence
             feedback = llm_client.run(llm_config:, prompt: llm_prompt.feedback_prompt(passage_prompt_response.response))
             text = Resolver.run(feedback:)
             LLMFeedback.create!(experiment: self, text:, passage_prompt_response:)
+          rescue Resolver::Error => e
+            experiment_errors << (e.message + " for response: #{passage_prompt_response.id}")
+            next
           end
         end
       end

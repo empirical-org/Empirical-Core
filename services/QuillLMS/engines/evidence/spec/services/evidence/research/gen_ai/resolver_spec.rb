@@ -11,13 +11,19 @@ module Evidence
         context 'when feedback is nil' do
           let(:feedback) { nil }
 
-          it { is_expected.to eq nil }
+          it { expect { subject }.to raise_error(described_class::NilFeedbackError) }
+        end
+
+        context 'when feedback is empty' do
+          let(:feedback) { '' }
+
+          it { expect { subject }.to raise_error(described_class::EmptyFeedbackError) }
         end
 
         context 'when feedback has no marker' do
           let(:feedback) { 'This is feedback.' }
 
-          it { is_expected.to eq feedback }
+          it { expect(subject).to eq(feedback) }
         end
 
         context 'when feedback contains a marker' do
@@ -25,7 +31,13 @@ module Evidence
           let(:text) { 'This is feedback.' }
           let(:feedback) { "Response: This is response. \n#{marker} #{text}" }
 
-          it { is_expected.to eq text }
+          it { expect(subject).to eq(text) }
+        end
+
+        context 'when feedback is present but text after the marker is blank' do
+          let(:feedback) { "#{described_class::FEEDBACK_MARKER}    " }
+
+          it { expect { subject }.to raise_error(described_class::BlankTextError, "Feedback provided: '#{feedback}'") }
         end
       end
     end
