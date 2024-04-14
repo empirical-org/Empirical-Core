@@ -13,6 +13,7 @@
 
 <div>
   <h2>Experiment</h2>
+  <p><%= @experiment.created_at.strftime("%B %d, %Y %H:%M") %></p>
 
   <h3>Passage</h3>
   <p><%= @experiment.passage_prompt %></p>
@@ -87,7 +88,5 @@
     </ul>
   <% end %>
 
-  <h3>Created At</h3>
-  <p><%= @experiment.created_at.strftime("%B %d, %Y %H:%M") %></p>
 </div>
 
