@@ -6,7 +6,23 @@ module Evidence
       class ExperimentsController < ApplicationController
         include ExperimentsHelper
 
-        def index =  @experiments = Experiment.all.order(created_at: :desc)
+        def index
+          completed_experiments =
+            Experiment
+              .completed
+              .pluck(:llm_config_id, :llm_prompt_id, :passage_prompt_id, :num_examples)
+              .map { |llm_config_id, llm_prompt_id, passage_prompt_id, num_examples| { llm_config_id:, llm_prompt_id:, passage_prompt_id:, num_examples: } }
+              .to_set
+
+          @experiments = Experiment.all.reject do |experiment|
+            experiment.failed? && completed_experiments.include?(
+              llm_config_id: experiment.llm_config_id,
+              llm_prompt_id: experiment.llm_prompt_id,
+              passage_prompt_id: experiment.passage_prompt_id,
+              num_examples: experiment.num_examples
+            )
+          end.sort_by(&:id).reverse
+        end
 
         def new
           @experiment = Experiment.new
@@ -19,10 +35,14 @@ module Evidence
           llm_config_ids.each do |llm_config_id|
             llm_prompt_template_ids.each do |llm_prompt_template_id|
               passage_prompt_ids.each do |passage_prompt_id|
-                experiment = Experiment.new(llm_config_id:, passage_prompt_id:, num_examples: num_examples(passage_prompt_id))
-                experiment.llm_prompt = LLMPrompt.create_from_template!(llm_prompt_template_id:, passage_prompt_id:)
+                llm_prompt = LLMPrompt.create_from_template!(llm_prompt_template_id:, passage_prompt_id:)
 
-                RunExperimentWorker.perform_async(experiment.id) if experiment.save
+                run_experiment(
+                  llm_config_id:,
+                  llm_prompt_id: llm_prompt.id,
+                  passage_prompt_id:,
+                  num_examples: num_examples(passage_prompt_id)
+                )
               end
             end
           end
@@ -34,6 +54,18 @@ module Evidence
           @experiment = Experiment.find(params[:id])
           @next = Experiment.where("id > ?", @experiment.id).order(id: :asc).first
           @previous = Experiment.where("id < ?", @experiment.id).order(id: :desc).first
+        end
+
+        def retry
+          run_experiment(**Experiment.find(params[:id]).retry_params)
+
+          redirect_to research_gen_ai_experiments_path
+        end
+
+        private def run_experiment(llm_config_id:, llm_prompt_id:, passage_prompt_id:, num_examples:)
+          experiment = Experiment.new(llm_config_id:, passage_prompt_id:, llm_prompt_id:, num_examples:)
+
+          RunExperimentWorker.perform_async(experiment.id) if experiment.save
         end
 
         private def experiment_params

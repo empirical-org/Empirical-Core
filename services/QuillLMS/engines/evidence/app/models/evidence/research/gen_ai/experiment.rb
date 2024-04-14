@@ -42,15 +42,23 @@ module Evidence
         delegate :conjunction, :name, to: :passage_prompt
         delegate :llm_client, to: :llm_config
         delegate :vendor, :version, to: :llm_config
+        delegate :llm_prompt_template_id, to: :llm_prompt
+
+        scope :completed, -> { where(status: COMPLETED) }
+        scope :failed, -> { where(status: FAILED) }
 
         attr_readonly :llm_config_id, :llm_prompt_id, :passage_prompt_id
 
         attr_accessor :llm_config_ids, :llm_prompt_template_ids, :passage_prompt_ids
 
+        def pending? = status == PENDING
+        def failed? = status == FAILED
+        def running? = status == RUNNING
+
         def run
           start_time = Time.zone.now
 
-          return unless status == PENDING
+          return unless pending?
 
           update!(status: RUNNING)
           create_llm_prompt_responses_feedbacks
@@ -68,6 +76,8 @@ module Evidence
           results.merge!(new_data)
           save!
         end
+
+        def retry_params = { llm_config_id:, llm_prompt_id:, passage_prompt_id:, num_examples: }
 
         private def create_llm_prompt_responses_feedbacks
           passage_prompt_responses.limit(num_examples).each do |passage_prompt_response|

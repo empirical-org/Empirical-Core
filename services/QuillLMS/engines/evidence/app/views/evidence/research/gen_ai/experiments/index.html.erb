@@ -2,7 +2,7 @@
   <h2>Experiments</h2>
 </header>
 <%= link_to 'New Experiment', new_research_gen_ai_experiment_path %>
-<meta http-equiv="refresh" content="5">
+<meta http-equiv="refresh" content="30">
 
 <% if @experiments.any? %>
   <table>
@@ -28,7 +28,19 @@
           <td><%= experiment.llm_prompt.description %></td>
           <td><%= experiment.num_examples %></td>
           <td><%= experiment.status %></td>
-          <td><%= link_to "View", experiment %></td>
+          <td>
+            <div class=link-container">
+              <%= link_to "View", experiment %>
+              <% if experiment.failed? %>
+                <%= button_to 'Retry',
+                      retry_research_gen_ai_experiment_path(experiment),
+                      method: :post,
+                      data: { confirm: 'Are you sure you want to retry this experiment?' },
+                      class: 'link-button'
+                %>
+              <% end %>
+            </div>
+          </td>
         </tr>
       <% end %>
     </tbody>
