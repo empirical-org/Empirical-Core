@@ -79,7 +79,7 @@ module AdminDiagnosticReports
 
     def from_and_join_clauses
       <<-SQL
-        FROM lms_staging.pre_post_diagnostic_skill_group_performance_view AS performance
+        FROM lms.pre_post_diagnostic_skill_group_performance_view AS performance
         JOIN lms.school_classroom_teachers_view AS filter ON performance.classroom_id = filter.classroom_id
       SQL
     end
