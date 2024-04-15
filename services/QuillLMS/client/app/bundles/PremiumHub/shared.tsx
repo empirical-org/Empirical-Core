@@ -32,7 +32,8 @@ export const diagnosticTypeDropdownOptions = [
   { label: 'ELL Intermediate Diagnostic', value: 1568 },
   { label: 'ELL Advanced Diagnostic', value: 1590 },
   { label: 'AP Writing Skills Survey', value: 992 },
-  { label: 'Pre-AP Writing Skills Survey', value: 1229 },
+  { label: 'Pre-AP Writing Skills Survey 1', value: 1229 },
+  { label: 'Pre-AP Writing Skills Survey 2', value: 1230 },
   { label: 'SpringBoard Writing Skills Survey', value: 1432 }
 ]
 
