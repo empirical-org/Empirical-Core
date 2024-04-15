@@ -18,6 +18,7 @@ import LandingPage from '../landing.jsx';
 import PlayDiagnosticQuestion from '../sentenceCombining.jsx';
 import PlaySentenceFragment from '../sentenceFragment.jsx';
 import { StudentDiagnostic } from '../studentDiagnostic';
+import * as sessionSaver from '../../../utils/saveSession'
 
 // required mocked functions
 progressHelpers.questionCount = jest.fn();
@@ -25,6 +26,7 @@ progressHelpers.answeredQuestionCount = jest.fn();
 progressHelpers.getProgressPercent = jest.fn(() => {return 0});
 parameterHelper.getParameterByName = jest.fn();
 diagnosticHelper.getConceptResultsForAllQuestions = jest.fn();
+sessionSaver.saveSession = jest.fn();
 SessionActions.update = jest.fn();
 
 let mockProps = {
@@ -230,29 +232,16 @@ describe('StudentDiagnostic Container functions', () => {
     mockProps.playDiagnostic.questionSet = [{}, {}, {}, {}];
     expect(container.instance().hasQuestionsInQuestionSet(mockProps)).toEqual(4);
   });
-  it("saveToLMS calls createAnonActivitySession class function passing diagnosticID, results & 1 as arguments if sessionID is null", () => {
-    const createAnonActivitySession = jest.spyOn(container.instance(), 'createAnonActivitySession');
+  it("saveToLMS calls saveSession if sessionID is null", () => {
     container.setState({ sessionID: null });
     container.instance().saveToLMS();
-    expect(createAnonActivitySession).toHaveBeenCalled();
+    expect(sessionSaver.saveSession).toHaveBeenCalled();
   });
-  it("saveToLMS calls finishActivitySession class function passing sessionID, results & 1 as arguments if sessionID is not null", () => {
-    const finishActivitySession = jest.spyOn(container.instance(), 'finishActivitySession');
+  it("saveToLMS calls saveSession if sessionID is not null", () => {
     container.setState({ sessionID: 'test-session-id' });
     container.instance().saveToLMS();
-    expect(finishActivitySession).toHaveBeenCalled();
-    expect(diagnosticHelper.getConceptResultsForAllQuestions).toHaveBeenCalledWith([]);
+    expect(sessionSaver.saveSession).toHaveBeenCalled();
   });
-
-  // TODO: implement finishActivitySession and createAnonActivitySession tests with request module mocking
-
-  // it("finishActivitySession makes a put request and sets saved piece of state to true on success", () => {
-  // });
-  // it("finishActivitySession makes a put request and sets saved piece of state to false on failure", () => {
-  // });
-  // it("createAnonActivitySession makes a post request and sets saved piece of state to true on success", () => {
-  // });
-
   it("submitResponse calls dispatch() prop function, passing submitResponse(response) as an argument", () => {
     const response = {};
     container.instance().submitResponse({});

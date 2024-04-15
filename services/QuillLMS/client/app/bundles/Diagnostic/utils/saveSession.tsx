@@ -7,6 +7,23 @@ import { roundValuesToSeconds, } from '../../Shared/index';
 
 const TITLE_CARD_TYPE = "TL"
 
+export const saveSession = (sessionID, timeTracking, playDiagnostic, match, isTurkSession, updateState) => {
+  const { params } = match
+  const { diagnosticID } = params
+
+  updateState({ error: false, });
+
+  const relevantAnsweredQuestions = playDiagnostic.answeredQuestions.filter(q => q.questionType !== TITLE_CARD_TYPE)
+  const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
+  const data = { time_tracking: roundValuesToSeconds(timeTracking), }
+
+  if (sessionID) {
+    finishActivitySession(sessionID, results, 1, data, isTurkSession, updateState);
+  } else {
+    createAnonActivitySession(diagnosticID, results, 1, data, isTurkSession, updateState);
+  }
+}
+
 const initializeSubscription = (activitySessionUid, isTurkSession, updateState) => {
   if (process.env.NODE_ENV === 'development') {
     Pusher.logToConsole = true;
@@ -24,23 +41,6 @@ const initializeSubscription = (activitySessionUid, isTurkSession, updateState) 
   channel.bind('concept-results-partially-saved', () => {
     if (!isTurkSession) { document.location.href = process.env.DEFAULT_URL; }
   });
-}
-
-export const saveSession = (sessionID, timeTracking, playDiagnostic, match, isTurkSession, updateState) => {
-  const { params } = match
-  const { diagnosticID } = params
-
-  updateState({ error: false, });
-
-  const relevantAnsweredQuestions = playDiagnostic.answeredQuestions.filter(q => q.questionType !== TITLE_CARD_TYPE)
-  const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
-  const data = { time_tracking: roundValuesToSeconds(timeTracking), }
-
-  if (sessionID) {
-    finishActivitySession(sessionID, results, 1, data, isTurkSession, updateState);
-  } else {
-    createAnonActivitySession(diagnosticID, results, 1, data, isTurkSession, updateState);
-  }
 }
 
 const finishActivitySession = (sessionID, results, score, data, isTurkSession, updateState) => {
