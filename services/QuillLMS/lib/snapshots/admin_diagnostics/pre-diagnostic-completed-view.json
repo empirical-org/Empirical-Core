@@ -56,7 +56,7 @@
       "name": "ROLLUP",
       "group_by": "grade",
       "pre_students_completed": 23,
-      "pre_average_score": 0.28695652173913044,
+      "pre_average_score": 0.2927536231884058,
       "aggregate_rows": [
         {
           "diagnostic_id": 1678,
@@ -65,7 +65,7 @@
           "name": "Grade 9",
           "group_by": "grade",
           "pre_students_completed": 23,
-          "pre_average_score": 0.28695652173913044
+          "pre_average_score": 0.2927536231884058
         }
       ]
     }
@@ -78,7 +78,7 @@
       "name": "ROLLUP",
       "group_by": "teacher",
       "pre_students_completed": 98,
-      "pre_average_score": 0.5510204081632654,
+      "pre_average_score": 0.5510204081632653,
       "aggregate_rows": [
         {
           "diagnostic_id": 1663,
@@ -154,7 +154,7 @@
       "name": "ROLLUP",
       "group_by": "teacher",
       "pre_students_completed": 23,
-      "pre_average_score": 0.28695652173913044,
+      "pre_average_score": 0.2927536231884058,
       "aggregate_rows": [
         {
           "diagnostic_id": 1678,
@@ -163,7 +163,7 @@
           "name": "Cassie Broussard",
           "group_by": "teacher",
           "pre_students_completed": 23,
-          "pre_average_score": 0.28695652173913044
+          "pre_average_score": 0.2927536231884058
         }
       ]
     }
@@ -252,7 +252,7 @@
       "name": "ROLLUP",
       "group_by": "classroom",
       "pre_students_completed": 23,
-      "pre_average_score": 0.28695652173913044,
+      "pre_average_score": 0.2927536231884058,
       "aggregate_rows": [
         {
           "diagnostic_id": 1678,
@@ -261,7 +261,7 @@
           "name": "ENGLISH II ADV - BROUSSARD - 01",
           "group_by": "classroom",
           "pre_students_completed": 23,
-          "pre_average_score": 0.28695652173913044
+          "pre_average_score": 0.2927536231884058
         }
       ]
     }

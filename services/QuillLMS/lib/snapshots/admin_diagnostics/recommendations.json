@@ -39,8 +39,8 @@
       "name": "ROLLUP",
       "group_by": "grade",
       "students_completed_practice": 17,
-      "average_practice_activities_count": 33.88235294117647,
-      "average_time_spent_seconds": 7128.823529411765,
+      "average_practice_activities_count": 34.1764705882353,
+      "average_time_spent_seconds": 7174.529411764706,
       "aggregate_rows": [
         {
           "diagnostic_id": 1668,
@@ -49,8 +49,8 @@
           "name": "Grade 9",
           "group_by": "grade",
           "students_completed_practice": 17,
-          "average_practice_activities_count": 33.88235294117647,
-          "average_time_spent_seconds": 7128.823529411765
+          "average_practice_activities_count": 34.1764705882353,
+          "average_time_spent_seconds": 7174.529411764706
         }
       ]
     },
@@ -127,8 +127,8 @@
       "name": "ROLLUP",
       "group_by": "teacher",
       "students_completed_practice": 17,
-      "average_practice_activities_count": 33.88235294117647,
-      "average_time_spent_seconds": 7128.823529411765,
+      "average_practice_activities_count": 34.1764705882353,
+      "average_time_spent_seconds": 7174.529411764706,
       "aggregate_rows": [
         {
           "diagnostic_id": 1668,
@@ -137,8 +137,8 @@
           "name": "Cassie Broussard",
           "group_by": "teacher",
           "students_completed_practice": 17,
-          "average_practice_activities_count": 33.88235294117647,
-          "average_time_spent_seconds": 7128.823529411765
+          "average_practice_activities_count": 34.1764705882353,
+          "average_time_spent_seconds": 7174.529411764706
         }
       ]
     },
@@ -215,8 +215,8 @@
       "name": "ROLLUP",
       "group_by": "classroom",
       "students_completed_practice": 17,
-      "average_practice_activities_count": 33.88235294117647,
-      "average_time_spent_seconds": 7128.823529411765,
+      "average_practice_activities_count": 34.1764705882353,
+      "average_time_spent_seconds": 7174.529411764706,
       "aggregate_rows": [
         {
           "diagnostic_id": 1668,
@@ -225,8 +225,8 @@
           "name": "ENGLISH II ADV - BROUSSARD - 01",
           "group_by": "classroom",
           "students_completed_practice": 17,
-          "average_practice_activities_count": 33.88235294117647,
-          "average_time_spent_seconds": 7128.823529411765
+          "average_practice_activities_count": 34.1764705882353,
+          "average_time_spent_seconds": 7174.529411764706
         }
       ]
     },
