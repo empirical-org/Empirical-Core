@@ -22,12 +22,6 @@ default:
     name_fallback: 'pre_post_diagnostic_skill_performance_local'
     sql: 'pre_post_diagnostic_skill_group_performance_view.sql'
     create_options: "OPTIONS(allow_non_incremental_definition = true, enable_refresh = true, max_staleness = INTERVAL '8' HOUR, refresh_interval_minutes = 360)"
-  pre_post_diagnostic_skill_group_performance_view_STAGING:
-    dataset: 'lms_staging'
-    name: 'pre_post_diagnostic_skill_group_performance_view'
-    name_fallback: 'pre_post_diagnostic_skill_performance_local'
-    sql: 'pre_post_diagnostic_skill_group_performance_view_STAGING.sql'
-    create_options: "OPTIONS(allow_non_incremental_definition = true, enable_refresh = true, max_staleness = INTERVAL '8' HOUR, refresh_interval_minutes = 360)"
   recommendation_activity_session_stubs_view:
     dataset: 'lms'
     name: 'recommendation_activity_session_stubs_view'

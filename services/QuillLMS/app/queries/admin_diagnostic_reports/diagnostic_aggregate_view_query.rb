@@ -28,7 +28,7 @@ module AdminDiagnosticReports
     def materialized_views = [filter_view, performance_view]
 
     def filter_view = materialized_view('school_classroom_teachers_view')
-    def performance_view = materialized_view('pre_post_diagnostic_skill_group_performance_view_STAGING')
+    def performance_view = materialized_view('pre_post_diagnostic_skill_group_performance_view')
 
     def run
       post_process(run_query)
