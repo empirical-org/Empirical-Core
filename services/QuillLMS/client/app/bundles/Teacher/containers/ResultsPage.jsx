@@ -5,10 +5,26 @@ import activityLaunchLink from '../components/modules/generate_activity_launch_l
 import ScrollToTop from '../components/shared/scroll_to_top'
 import { proficiencyCutoffsAsPercentage } from '../../../modules/proficiency_cutoffs';
 
-export default class ResultsPage extends React.Component {
-  renderResultsSection = (sectionHeader, targetSkills) => {
-    const { showExactScore, } = this.props
+const diagnosticActivityType = 'diagnostic'
 
+const ResultsPage = ({
+  activityName,
+  showExactScore,
+  numberOfCorrectQuestions,
+  numberOfQuestions,
+  activityType,
+  percentage,
+  groupedKeyTargetSkillConcepts,
+  integrationPartnerName,
+  integrationPartnerSessionId,
+  anonymous,
+  classroomId,
+  classroomUnitId,
+  activityId,
+}) => {
+  const isDiagnostic = activityType === diagnosticActivityType
+
+  const renderResultsSection = (sectionHeader, targetSkills) => {
     if (!targetSkills.length) { return }
 
     const targetSkillElements = targetSkills.sort((a, b) => (a.percentage > b.percentage) ? -1 : 1).map(targetSkill => {
@@ -16,7 +32,7 @@ export default class ResultsPage extends React.Component {
       return (
         <div className="target-skill" key={name}>
           <span>{name}</span>
-          {showExactScore ? <span>{numberOfCorrectQuestions} of {numberOfQuestions} correct ({percentage}%)</span> : <span />}
+          {showExactScore && !isDiagnostic ? <span>{numberOfCorrectQuestions} of {numberOfQuestions} correct ({percentage}%)</span> : <span />}
         </div>
       )
     })
@@ -29,8 +45,15 @@ export default class ResultsPage extends React.Component {
     )
   }
 
-  bottomSection = () => {
-    const { activityName, showExactScore, numberOfCorrectQuestions, numberOfQuestions, activityType, percentage, groupedKeyTargetSkillConcepts, } = this.props
+  const bottomSection = () => {
+    if (isDiagnostic) {
+      return (
+        <div className="results-section">
+          <h2>You completed a diagnostic!</h2>
+          <p className="diagnostic-explanation">You won’t see a score for diagnostics, but we’ll use the results to create a personalized learning plan just for you. Your teacher will review the results and assign practice activities to help you grow as a writer.</p>
+        </div>
+      )
+    }
 
     const proficientSkills = []
     const keepPracticingSkills = []
@@ -56,25 +79,15 @@ export default class ResultsPage extends React.Component {
       }
     })
 
-
-
     return (
-      <div className="activity-results">
-        <div className="activity-name-and-overall-score">
-          <div>
-            <h2>{activityName}</h2>
-            {showExactScore && <p>Total Score: {numberOfCorrectQuestions} of {numberOfQuestions} target skills correct ({Math.round(percentage * 100)}%)</p>}
-          </div>
-          <ResultsIcon activityType={activityType} percentage={percentage} />
-        </div>
-        {this.renderResultsSection('Proficient', proficientSkills)}
-        {this.renderResultsSection('Keep Practicing', keepPracticingSkills)}
-      </div>
+      <React.Fragment>
+        {renderResultsSection('Proficient', proficientSkills)}
+        {renderResultsSection('Keep Practicing', keepPracticingSkills)}
+      </React.Fragment>
     )
   }
 
-  headerButtons = () => {
-    const { integrationPartnerName, integrationPartnerSessionId, anonymous, classroomId, classroomUnitId, activityId, } = this.props
+  const headerButtons = () => {
     const primaryButtonClassName = 'quill-button primary contained large focus-on-light'
     if (integrationPartnerName && integrationPartnerSessionId) {
       const link = `/${integrationPartnerName}?session_id=${integrationPartnerSessionId}`;
@@ -88,24 +101,33 @@ export default class ResultsPage extends React.Component {
     return (
       <div className="header-buttons">
         <a className={primaryButtonClassName} href={dashboardLink}>Return to dashboard</a>
-        <a className='quill-button secondary outlined large focus-on-light' href={`/activity_sessions/classroom_units/${classroomUnitId}/activities/${activityId}`}>Replay activity</a>
+        {!isDiagnostic && <a className='quill-button secondary outlined large focus-on-light' href={`/activity_sessions/classroom_units/${classroomUnitId}/activities/${activityId}`}>Replay activity</a>}
       </div>
     )
   }
 
-  render() {
-    return (
-      <div className="results-page-container">
-        <div id='results-page'>
-          <ScrollToTop />
-          <div className='top-section'>
-            <h1>Activity Complete!</h1>
-            {this.headerButtons()}
+  return (
+    <div className="results-page-container white-background-accommodate-footer">
+      <div id='results-page'>
+        <ScrollToTop />
+        <div className='top-section'>
+          <h1>Activity Complete!</h1>
+          {headerButtons()}
+        </div>
+        <div className="activity-results">
+          <div className="activity-name-and-overall-score">
+            <div>
+              <h2>{activityName}</h2>
+              {showExactScore && !isDiagnostic && <p>Total Score: {numberOfCorrectQuestions} of {numberOfQuestions} target skills correct ({Math.round(percentage * 100)}%)</p>}
+            </div>
+            <ResultsIcon activityType={activityType} percentage={percentage} />
           </div>
-          {this.bottomSection()}
+          {bottomSection()}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 
 }
+
+export default ResultsPage
