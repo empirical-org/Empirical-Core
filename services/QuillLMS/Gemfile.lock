@@ -533,7 +533,7 @@ GEM
       pry (>= 0.10.4)
     psych (3.3.4)
     public_suffix (5.0.3)
-    puma (5.6.4)
+    puma (5.6.8)
       nio4r (~> 2.0)
     puma_worker_killer (0.3.1)
       get_process_mem (~> 0.2)
@@ -915,7 +915,7 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   psych (< 4)
-  puma (~> 5.6.4)
+  puma (~> 5.6.8)
   puma_worker_killer
   pusher (~> 2.0.3)
   rack-affiliates (= 0.4.0)
