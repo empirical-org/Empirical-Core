@@ -1,5 +1,3 @@
-import { assert } from 'chai';
-
 import {minLengthMatch, minLengthChecker} from './min_length_match'
 
 import {Response} from '../../interfaces'
@@ -29,7 +27,7 @@ describe('The minLengthMatch function', () => {
         question_uid: 'question 2'
       }
     ]
-    assert.ok(minLengthMatch(responseString, savedResponses));
+    expect(minLengthMatch(responseString, savedResponses)).toBeTruthy()
   });
 
   it('should return false if the response string is only shorter than the optimal response by two words', () => {
@@ -52,7 +50,7 @@ describe('The minLengthMatch function', () => {
         question_uid: 'question 2'
       }
     ]
-    assert.notOk(minLengthMatch(responseString, savedResponses));
+    expect(minLengthMatch(responseString, savedResponses)).toEqual(false)
   });
 
   it('Should take a response string and return undefined if it is shorter than the shortest optimal response by three words or less', () => {
@@ -75,7 +73,7 @@ describe('The minLengthMatch function', () => {
         question_uid: 'question 2'
       }
     ]
-    assert.notOk(minLengthMatch(responseString, savedResponses));
+    expect(minLengthMatch(responseString, savedResponses)).toBeFalsy()
   });
 
 });
@@ -112,19 +110,19 @@ describe('The minLengthChecker', () => {
         conceptResultTemplate('N5VXCdTAs91gP46gATuvPQ')
       ]
     }
-    assert.equal(minLengthChecker(responseString, savedResponses).feedback, partialResponse.feedback);
-    assert.equal(minLengthChecker(responseString, savedResponses).author, partialResponse.author);
-    assert.equal(minLengthChecker(responseString, savedResponses).parent_id, partialResponse.parent_id);
-    assert.equal(minLengthChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
+    expect(minLengthChecker(responseString, savedResponses).feedback).toEqual(partialResponse.feedback);
+    expect(minLengthChecker(responseString, savedResponses).author).toEqual(partialResponse.author);
+    expect(minLengthChecker(responseString, savedResponses).parent_id).toEqual(partialResponse.parent_id);
+    expect(minLengthChecker(responseString, savedResponses).concept_results.length).toEqual(partialResponse.concept_results.length);
   });
 
   it('Should not return a partial response if response string is only two words shorter than the optimal response', () => {
     const responseString = 'My happy dog took a'
-    assert.equal(minLengthChecker(responseString, savedResponses), null);
+    expect(minLengthChecker(responseString, savedResponses)).toBeFalsy()
   });
 
   it('Should not return any concept results if it is asked to', () => {
-    assert.notOk(minLengthChecker(responseString, savedResponses, true).concept_results);
+    expect(minLengthChecker(responseString, savedResponses, true).concept_results).toBeFalsy()
   });
 
 })

@@ -1,4 +1,3 @@
-import { assert } from 'chai';
 import {processSentences, uniqueWordsFromSentences} from  './processSentences'
 
 describe('The processSentences function', () => {
@@ -10,7 +9,7 @@ describe('The processSentences function', () => {
       'Even though teams disagree, they support each other.'
     ]
     const expected = 'Even\nthough\nteams\nmay\ndisagree\nthey\nsupport\neach\nother\nTeams\nmay\ndisagree\neven\nthough\nthey\nsupport\neach\nother\nTeams\nsupport\neach\nother\neven\nthough\nthey\nmay\ndisagree\nEven\nthough\nteams\ndisagree\nthey\nsupport\neach\nother';
-    assert.equal(processSentences(sentences), expected);
+    expect(processSentences(sentences)).toEqual(expected);
   });
 
   it('Should not take return a string with \n\n\ in it', () => {
@@ -21,7 +20,7 @@ describe('The processSentences function', () => {
       'Even though teams disagree, they support each other.'
     ]
     const expected = 'Even\nthough\nteams\nmay\ndisagree\nthey\nsupport\neach\nother\nTeams\nsupport\neach\nother\neven\nthough\nthey\nmay\ndisagree\nEven\nthough\nteams\ndisagree\nthey\nsupport\neach\nother';
-    assert.equal(processSentences(sentences), expected);
+    expect(processSentences(sentences)).toEqual(expected);
   })
 
   it('Should be able to return the unique words from the sentences', () => {
@@ -32,8 +31,8 @@ describe('The processSentences function', () => {
       'Even though teams disagree, they support each other.'
     ]
     const expected = ['Even', 'though', 'teams', 'may', 'disagree', 'they', 'support', 'each', 'other', 'Teams', 'even'];
-    assert.deepEqual(uniqueWordsFromSentences(sentences), expected);
+    expect(uniqueWordsFromSentences(sentences)).toEqual(expected);
   })
 
-  
+
 });

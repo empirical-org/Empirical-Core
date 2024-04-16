@@ -1,5 +1,4 @@
 import * as _ from 'underscore'
-import { assert } from 'chai';
 import {punctuationInsensitiveMatch, punctuationInsensitiveChecker} from './punctuation_insensitive_match'
 import {Response, PartialResponse} from '../../interfaces'
 import {feedbackStrings} from '../constants/feedback_strings'
@@ -22,7 +21,7 @@ describe('The punctuationInsensitiveMatch function', () => {
   it('Should take a response string and find the corresponding saved response if the string matches exactly when punctuation is removed', () => {
     const responseString = "My dog took a nap";
     const matchedResponse: Response = punctuationInsensitiveMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.id, savedResponses[0].id);
+    expect(matchedResponse.id).toEqual(savedResponses[0].id);
   });
 
 });
@@ -39,20 +38,20 @@ describe('The punctuationInsensitiveChecker', () => {
         conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
       ]
     }
-    assert.equal(punctuationInsensitiveChecker(responseString, savedResponses).feedback, partialResponse.feedback);
-    assert.equal(punctuationInsensitiveChecker(responseString, savedResponses).author, partialResponse.author);
-    assert.equal(punctuationInsensitiveChecker(responseString, savedResponses).parent_id, partialResponse.parent_id);
-    assert.equal(punctuationInsensitiveChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
+    expect(punctuationInsensitiveChecker(responseString, savedResponses).feedback).toEqual(partialResponse.feedback);
+    expect(punctuationInsensitiveChecker(responseString, savedResponses).author).toEqual(partialResponse.author);
+    expect(punctuationInsensitiveChecker(responseString, savedResponses).parent_id).toEqual(partialResponse.parent_id);
+    expect(punctuationInsensitiveChecker(responseString, savedResponses).concept_results.length).toEqual(partialResponse.concept_results.length);
   });
 
   it('Should return undefined if the lowercased response string does not match a lowercased partial response', () => {
     const responseString = "my cat took a nap.";
-    assert.equal(punctuationInsensitiveChecker(responseString, savedResponses), undefined);
+    expect(punctuationInsensitiveChecker(responseString, savedResponses)).toEqual(undefined);
   });
 
   it('Should return the same concept results as the matched response if it is asked to', () => {
     const responseString = "My dog took a nap.";
-    assert.ok(_.isEqual(punctuationInsensitiveChecker(responseString, savedResponses, true).concept_results, punctuationInsensitiveMatch(responseString, savedResponses).concept_results));
+    expect(_.isEqual(punctuationInsensitiveChecker(responseString, savedResponses, true).concept_results, punctuationInsensitiveMatch(responseString, savedResponses).concept_results)).toBeTruthy()
   });
 
 })

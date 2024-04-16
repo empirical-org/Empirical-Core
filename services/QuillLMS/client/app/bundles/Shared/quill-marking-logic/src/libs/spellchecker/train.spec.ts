@@ -1,11 +1,10 @@
-import { assert } from 'chai';
 import {train} from './train';
 
 describe('The train function', () => {
   it('Should take \n seperated words in a list', () => {
     const dict = 'misspelled\nforked';
     const dictionary = train(dict);
-    assert.deepEqual(dictionary, {
+    expect(dictionary).toEqual({
       misspelled: 1,
       forked: 1,
     });
@@ -16,7 +15,7 @@ describe('The train function', () => {
     const firstDictionary = train(firstDict);
     const secondDict = 'funny\nhilarious';
     const secondDictionary = train(secondDict, firstDictionary);
-    assert.deepEqual(secondDictionary, {
+    expect(secondDictionary).toEqual({
       misspelled: 1,
       forked: 1,
       funny: 1,
@@ -29,7 +28,7 @@ describe('The train function', () => {
     const firstDictionary = train(firstDict);
     const secondDict = 'misspelled\nforked\nfunny\nhilarious';
     const secondDictionary = train(secondDict, firstDictionary);
-    assert.deepEqual(secondDictionary, {
+    expect(secondDictionary).toEqual({
       misspelled: 2,
       forked: 2,
       funny: 1,
@@ -40,7 +39,7 @@ describe('The train function', () => {
   it('is case sensitive', () => {
     const dict = 'Misspelled\nforked';
     const dictionary = train(dict);
-    assert.deepEqual(dictionary, {
+    expect(dictionary).toEqual({
       Misspelled: 1,
       forked: 1,
     });
@@ -49,7 +48,7 @@ describe('The train function', () => {
   it('is treats different casess correctly', () => {
     const dict = 'Misspelled\nmisspelled\nforked';
     const dictionary = train(dict);
-    assert.deepEqual(dictionary, {
+    expect(dictionary).toEqual({
       Misspelled: 1,
       misspelled: 1,
       forked: 1,

@@ -1,4 +1,3 @@
-import { assert } from 'chai';
 import {spacingAfterCommaMatch, spacingAfterCommaChecker} from './spacing_after_comma_match'
 import {Response, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
@@ -19,19 +18,19 @@ describe('The spacingAfterCommaMatch function', () => {
   it('Should take a response string and return true if there is no space after a comma', () => {
     const responseString = "My dog took a nap,did yours?";
     const matchedResponse = spacingAfterCommaMatch(responseString);
-    assert.isOk(matchedResponse);
+    expect(matchedResponse).toBeTruthy()
   });
 
   it('Should take a response string and return false if the comma is surrounded by numbers', () => {
     const responseString = "My dog took a 2,000 year nap, did yours?";
     const matchedResponse = spacingAfterCommaMatch(responseString);
-    assert.notOk(matchedResponse);
+    expect(matchedResponse).toBeFalsy()
   });
 
   it('Should take a response string and return false if the comma is followed by a quotation mark', () => {
     const responseString = 'Get those blankets off of me," yelled my brother.'
     const matchedResponse = spacingAfterCommaMatch(responseString);
-    assert.notOk(matchedResponse);
+    expect(matchedResponse).toBeFalsy()
   });
 
 });
@@ -48,20 +47,20 @@ describe('The spacingAfterCommaChecker', () => {
         conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
       ]
     }
-    assert.equal(spacingAfterCommaChecker(responseString, savedResponses).feedback, partialResponse.feedback);
-    assert.equal(spacingAfterCommaChecker(responseString, savedResponses).author, partialResponse.author);
-    assert.equal(spacingAfterCommaChecker(responseString, savedResponses).parent_id, partialResponse.parent_id);
-    assert.equal(spacingAfterCommaChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
+    expect(spacingAfterCommaChecker(responseString, savedResponses).feedback).toEqual(partialResponse.feedback);
+    expect(spacingAfterCommaChecker(responseString, savedResponses).author).toEqual(partialResponse.author);
+    expect(spacingAfterCommaChecker(responseString, savedResponses).parent_id).toEqual(partialResponse.parent_id);
+    expect(spacingAfterCommaChecker(responseString, savedResponses).concept_results.length).toEqual(partialResponse.concept_results.length);
   });
 
   it('Should return undefined if there is a space after a comma', () => {
     const responseString = "My dog took a nap, did yours?";
-    assert.equal(spacingAfterCommaChecker(responseString, savedResponses), undefined);
+    expect(spacingAfterCommaChecker(responseString, savedResponses)).toEqual(undefined);
   });
 
   it('Should return undefined if the comma is surrounded by numbers', () => {
     const responseString = "My dog took a 2,000 year nap, did yours?";
-    assert.equal(spacingAfterCommaChecker(responseString, savedResponses), undefined);
+    expect(spacingAfterCommaChecker(responseString, savedResponses)).toEqual(undefined);
   });
 
 })

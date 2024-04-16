@@ -1,4 +1,3 @@
-import { assert } from 'chai';
 import {checkSentenceCombining} from './sentence_combining'
 import {Response} from '../../interfaces'
 
@@ -25,23 +24,23 @@ describe('The checking a sentence combining question', () => {
   it('it should be able to grade it.', () => {
     const responseString: string = "My dog took a nap.";
     const matchedResponse = checkSentenceCombining('questionOne', responseString, savedResponses, null, null);
-    assert.equal(matchedResponse.id, savedResponses[0].id);
+    expect(matchedResponse.id).toEqual(savedResponses[0].id);
   });
 
   it('it should be able to grade it even with trailing spaces.', () => {
     const responseString: string = "My dog took a nap. ";
     const matchedResponse = checkSentenceCombining('questionOne', responseString, savedResponses, null, null);
-    assert.equal(matchedResponse.id, savedResponses[0].id);
+    expect(matchedResponse.id).toEqual(savedResponses[0].id);
   });
 
   it('it should be able to grade it with spelling errors.', () => {
     const responseString: string = "My dg took a nap.";
-    assert.ok(checkSentenceCombining('questionOne', responseString, savedResponses, null, null));
+    expect(checkSentenceCombining('questionOne', responseString, savedResponses, null, null)).toBeTruthy()
   });
 
   it('it should be able to grade it with spelling and punctuation errors.', () => {
     const responseString: string = "My dg took a nap";
 
-    assert.ok(checkSentenceCombining('questionOne', responseString, savedResponses, null, null));
+    expect(checkSentenceCombining('questionOne', responseString, savedResponses, null, null)).toBeTruthy()
   });
 });

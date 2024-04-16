@@ -1,4 +1,3 @@
-import { assert } from 'chai';
 import {whitespaceMatch, whitespaceChecker} from './whitespace_match'
 import {Response, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
@@ -20,7 +19,7 @@ describe('The whitespaceMatch function', () => {
   it('Should take a response string and find the corresponding saved response if the string matches when whitespace is removed', () => {
     const responseString:string = "Mydogtookanap.";
     const matchedResponse = whitespaceMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.id, savedResponses[0].id);
+    expect(matchedResponse.id).toEqual(savedResponses[0].id);
   });
 
 });
@@ -37,10 +36,10 @@ describe('The whitespaceChecker', () => {
         conceptResultTemplate('5Yv4-kNHwwCO2p8HI90oqQ')
       ]
     }
-    assert.equal(whitespaceChecker(responseString, savedResponses).feedback, partialResponse.feedback);
-    assert.equal(whitespaceChecker(responseString, savedResponses).author, partialResponse.author);
-    assert.equal(whitespaceChecker(responseString, savedResponses).parent_id, partialResponse.parent_id);
-    assert.equal(whitespaceChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
+    expect(whitespaceChecker(responseString, savedResponses).feedback).toEqual(partialResponse.feedback);
+    expect(whitespaceChecker(responseString, savedResponses).author).toEqual(partialResponse.author);
+    expect(whitespaceChecker(responseString, savedResponses).parent_id).toEqual(partialResponse.parent_id);
+    expect(whitespaceChecker(responseString, savedResponses).concept_results.length).toEqual(partialResponse.concept_results.length);
   });
 
   it('Should return a partialResponse object if the string matches then whitespace is added', () => {
@@ -53,10 +52,10 @@ describe('The whitespaceChecker', () => {
         conceptResultTemplate('5Yv4-kNHwwCO2p8HI90oqQ')
       ]
     }
-    assert.equal(whitespaceChecker(responseString, savedResponses).feedback, partialResponse.feedback);
-    assert.equal(whitespaceChecker(responseString, savedResponses).author, partialResponse.author);
-    assert.equal(whitespaceChecker(responseString, savedResponses).parent_id, partialResponse.parent_id);
-    assert.equal(whitespaceChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
+    expect(whitespaceChecker(responseString, savedResponses).feedback).toEqual(partialResponse.feedback);
+    expect(whitespaceChecker(responseString, savedResponses).author).toEqual(partialResponse.author);
+    expect(whitespaceChecker(responseString, savedResponses).parent_id).toEqual(partialResponse.parent_id);
+    expect(whitespaceChecker(responseString, savedResponses).concept_results.length).toEqual(partialResponse.concept_results.length);
   });
 
 })

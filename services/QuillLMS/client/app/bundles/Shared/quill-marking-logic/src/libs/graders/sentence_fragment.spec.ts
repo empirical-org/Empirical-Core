@@ -1,4 +1,3 @@
-import { assert } from 'chai';
 import {checkSentenceFragment} from './sentence_fragment'
 import {Response} from '../../interfaces'
 
@@ -34,7 +33,7 @@ describe('The checking a sentence fragment', () => {
       incorrectSequences: [],
       prompt: 'My dog took nap.'});
     matchedResponse.then(resp => {
-      assert.equal(resp.id, savedResponses[0].id);
+      expect(resp.id).toEqual(savedResponses[0].id);
     });
   });
 
@@ -68,7 +67,7 @@ describe('The checking a sentence fragment', () => {
       incorrectSequences: [],
       prompt: 'My dog took nap.'});
     matchedResponse.then(resp => {
-      assert.equal(resp.id, savedResponses[0].id);
+      expect(resp.id).toEqual(savedResponses[0].id);
     });
   });
 
@@ -102,7 +101,7 @@ describe('The checking a sentence fragment', () => {
       incorrectSequences: [],
       prompt: 'My dog took nap.'});
     matchedResponse.then(resp => {
-      assert.equal(resp.id, savedResponses[0].id);
+      expect(resp.id).toEqual(savedResponses[0].id);
     });
   });
 

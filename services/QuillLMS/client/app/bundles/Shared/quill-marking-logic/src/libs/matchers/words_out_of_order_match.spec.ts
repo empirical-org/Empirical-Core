@@ -1,4 +1,3 @@
-import { assert } from 'chai';
 import {wordsOutOfOrderMatch, wordsOutOfOrderChecker} from './words_out_of_order_match'
 import {Response, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
@@ -28,25 +27,25 @@ describe('The wordsOutOfOrderMatch function', () => {
   it('should match the optimal saved response when the words are rearranged', () => {
     const responseString:string = "My dog a took nap.";
     const matchedResponse = wordsOutOfOrderMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.id, savedResponses[0].id);
+    expect(matchedResponse.id).toEqual(savedResponses[0].id);
   });
 
   it('should match even if the swapped words are next to punctuation', () => {
     const responseString:string = "My dog took nap a.";
     const matchedResponse = wordsOutOfOrderMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.id, savedResponses[0].id);
+    expect(matchedResponse.id).toEqual(savedResponses[0].id);
   });
 
   it('should match even if the swapped words involve swapped capitalization', () => {
     const responseString:string = "Dog my took a nap.";
     const matchedResponse = wordsOutOfOrderMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.id, savedResponses[0].id);
+    expect(matchedResponse.id).toEqual(savedResponses[0].id);
   });
 
   it('Should not match a response when words are duplicated"', () => {
     const responseString:string = "My dog took a took nap.";
     const matchedResponse = wordsOutOfOrderMatch(responseString, savedResponses);
-    assert.isUndefined(matchedResponse);
+    expect(matchedResponse).toEqual(undefined);
   });
 
 });
@@ -64,10 +63,10 @@ describe('The wordsOutOfOrderChecker', () => {
         conceptResultTemplate('5Yv4-kNHwwCO2p8HI90oqQ')
       ]
     }
-    assert.equal(matchedResponse.feedback, partialResponse.feedback);
-    assert.equal(matchedResponse.author, partialResponse.author);
-    assert.equal(matchedResponse.parent_id, partialResponse.parent_id);
-    assert.equal(matchedResponse.concept_results.length, partialResponse.concept_results.length);
+    expect(matchedResponse.feedback).toEqual(partialResponse.feedback);
+    expect(matchedResponse.author).toEqual(partialResponse.author);
+    expect(matchedResponse.parent_id).toEqual(partialResponse.parent_id);
+    expect(matchedResponse.concept_results.length).toEqual(partialResponse.concept_results.length);
   });
 
 })

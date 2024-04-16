@@ -1,4 +1,3 @@
-import { assert } from 'chai';
 import {lengthMatch, lengthChecker} from './length_match'
 import {Response} from '../../interfaces'
 import {feedbackStrings} from '../constants/feedback_strings'
@@ -29,12 +28,12 @@ describe('The lengthMatch function', () => {
 
   it('should return a too long author if the response string is longer than the prompt length plus the wordCountChange.max', () => {
     const responseString = "My happy dog took a very long nap";
-    assert.equal(lengthMatch(responseString, savedResponses, prompt, {max: 1, min: 1}).author, 'Too Long Hint');
+    expect(lengthMatch(responseString, savedResponses, prompt, {max: 1, min: 1}).author).toEqual('Too Long Hint');
   });
 
   it('should return a too short author if the response string is shorter than the prompt length plus wordCountChange.max', () => {
     const responseString = prompt;
-    assert.equal(lengthMatch(responseString, savedResponses, prompt, {max: 1, min: 1}).author, 'Too Short Hint');
+    expect(lengthMatch(responseString, savedResponses, prompt, {max: 1, min: 1}).author).toEqual('Too Short Hint');
   });
 
 })
@@ -44,25 +43,25 @@ describe('The lengthChecker function', () => {
   it('should return a partialResponse object if the response string is longer than the prompt length plus the wordCountChange.max', () => {
     const responseString = "My happy dog took a very long nap";
     const returnValue = lengthChecker(responseString, savedResponses, prompt, {max: 1, min: 1})
-    assert.equal(returnValue.author, 'Too Long Hint');
-    assert.ok(returnValue.feedback);
-    assert.equal(returnValue.optimal, false)
-    assert.equal(returnValue.parent_id, savedResponses[0].id)
+    expect(returnValue.author).toEqual('Too Long Hint');
+    expect(returnValue.feedback).toBeTruthy()
+    expect(returnValue.optimal).toEqual(false)
+    expect(returnValue.parent_id).toEqual(savedResponses[0].id)
   });
 
   it('should return a partialResponse object if the response string is shorter than the prompt length plus wordCountChange.max', () => {
     const responseString = prompt;
     const returnValue = lengthChecker(responseString, savedResponses, prompt, {max: 1, min: 1})
-    assert.equal(returnValue.author, 'Too Short Hint');
-    assert.ok(returnValue.feedback);
-    assert.equal(returnValue.optimal, false)
-    assert.equal(returnValue.parent_id, savedResponses[0].id)
+    expect(returnValue.author).toEqual('Too Short Hint');
+    expect(returnValue.feedback).toBeTruthy()
+    expect(returnValue.optimal).toEqual(false)
+    expect(returnValue.parent_id).toEqual(savedResponses[0].id)
   });
 
   it('should return undefined if the response string is between prompt length plus wordCountChange.min and prompt length plus wordCountChange.max', () => {
     const responseString = 'My grumpy dog took a nap.';
     const returnValue = lengthChecker(responseString, savedResponses, prompt, {max: 1, min: 1})
-    assert.notOk(returnValue);
+    expect(returnValue).toBeFalsy()
   });
 
 })

@@ -1,4 +1,3 @@
-import {assert} from 'chai';
 import {incorrectSequenceMatch, incorrectSequenceChecker} from './incorrect_sequence_match';
 import {Response, IncorrectSequence} from '../../interfaces'
 import {getTopOptimalResponse} from '../sharedResponseFunctions'
@@ -95,13 +94,13 @@ describe('The incorrectSequenceMatch', () => {
 
   positiveTests.forEach((test:string, i) => {
     it(`should find a incorrect sequence match: ${i}`, () => {
-      assert.ok(incorrectSequenceMatch(test, incorrectSequences))
+      expect(incorrectSequenceMatch(test, incorrectSequences)).toBeTruthy()
     });
   });
 
   negativeTests.forEach((test:string, i) => {
     it(`should not find a incorrect sequence match: ${i}`, () => {
-      assert.notOk(incorrectSequenceMatch(test, incorrectSequences))
+      expect(incorrectSequenceMatch(test, incorrectSequences)).toBeFalsy()
     });
   });
 });
@@ -116,10 +115,10 @@ describe('The incorrectSequenceChecker', () => {
       parent_id: getTopOptimalResponse(savedResponses).id,
       concept_results: incorrectSequenceMatch(responseString, incorrectSequences).concept_results
     }
-    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).feedback, partialResponse.feedback);
-    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).author, partialResponse.author);
-    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).parent_id, partialResponse.parent_id);
-    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).concept_results, partialResponse.concept_results);
+    expect(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).feedback).toEqual(partialResponse.feedback);
+    expect(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).author).toEqual(partialResponse.author);
+    expect(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).parent_id).toEqual(partialResponse.parent_id);
+    expect(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).concept_results).toEqual(partialResponse.concept_results);
   });
 
   it('Should return a partialResponse object if the response string matches an incorrect sequence case insensitively', () => {
@@ -130,15 +129,15 @@ describe('The incorrectSequenceChecker', () => {
       parent_id: getTopOptimalResponse(savedResponses).id,
       concept_results: incorrectSequenceMatch(responseString, incorrectSequences).concept_results
     }
-    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).feedback, partialResponse.feedback);
-    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).author, partialResponse.author);
-    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).parent_id, partialResponse.parent_id);
-    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).concept_results, partialResponse.concept_results);
+    expect(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).feedback).toEqual(partialResponse.feedback);
+    expect(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).author).toEqual(partialResponse.author);
+    expect(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).parent_id).toEqual(partialResponse.parent_id);
+    expect(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).concept_results).toEqual(partialResponse.concept_results);
   });
 
   it('Should return undefined if the response string does not match an incorrect sequence', () => {
     const responseString = "Jared likes Edtech and startups.";
-    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses), undefined);
+    expect(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses)).toEqual(undefined);
   });
 
   it("Should return a partialResponse object with the incorrectSequence's name as the author if the response string matches an incorrect sequence with a name", () => {
@@ -150,9 +149,9 @@ describe('The incorrectSequenceChecker', () => {
       concept_results: incorrectSequenceMatch(responseString, incorrectSequences).concept_results
     }
 
-    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).feedback, partialResponse.feedback);
-    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).author, partialResponse.author);
-    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).parent_id, partialResponse.parent_id);
-    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).concept_results, partialResponse.concept_results);
+    expect(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).feedback).toEqual(partialResponse.feedback);
+    expect(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).author).toEqual(partialResponse.author);
+    expect(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).parent_id).toEqual(partialResponse.parent_id);
+    expect(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).concept_results).toEqual(partialResponse.concept_results);
   });
 })

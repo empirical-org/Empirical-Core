@@ -1,5 +1,3 @@
-import { assert } from 'chai';
-
 import {punctuationEndMatch, punctuationEndChecker } from './punctuation_end_match'
 
 import {Response,PartialResponse} from '../../interfaces'
@@ -28,7 +26,7 @@ describe('The punctuationEndMatch function', () => {
         question_uid: "questionTwo"
       }
     ]
-    assert.ok(punctuationEndMatch(responseString, savedResponses));
+    expect(punctuationEndMatch(responseString, savedResponses)).toBeTruthy()
   });
 
   it('Should take a response string and find top optimal response if the response string ends with a letter', () => {
@@ -59,9 +57,9 @@ describe('The punctuationEndMatch function', () => {
         conceptResultTemplate('68mWURj5PUdSICATQay8uA')
       ]
     }
-    assert.equal(punctuationEndChecker(responseString, savedResponses).feedback, partialResponse.feedback);
-    assert.equal(punctuationEndChecker(responseString, savedResponses).author, partialResponse.author);
-    assert.equal(punctuationEndChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
+    expect(punctuationEndChecker(responseString, savedResponses).feedback).toEqual(partialResponse.feedback);
+    expect(punctuationEndChecker(responseString, savedResponses).author).toEqual(partialResponse.author);
+    expect(punctuationEndChecker(responseString, savedResponses).concept_results.length).toEqual(partialResponse.concept_results.length);
   });
 
 });

@@ -1,4 +1,3 @@
-import {assert} from 'chai'
 import {spacyPOSSentenceMatch, spacyPOSSentenceChecker} from './spacy_pos_match'
 import {Response} from '../../interfaces'
 import {feedbackStrings} from '../constants/feedback_strings'
@@ -89,26 +88,26 @@ describe('The machineLearningSentenceMatchChecker function', () => {
   it('should return a partialResponse object if the matcher returns a response', async () => {
     const responseString = "My goofy dog took a short nap.";
     const returnValue = await spacyPOSSentenceChecker(responseString, "-KX7RNIvRs5HN9oD-vA2", 'http://localhost:3100', returnsCorrect)
-    assert.equal(returnValue.author, 'Parts of Speech');
-    assert.equal(returnValue.feedback, "That's a strong sentence!");
-    assert.equal(returnValue.optimal, true);
-    assert.equal(returnValue.parent_id, 17655);
+    expect(returnValue.author).toEqual('Parts of Speech');
+    expect(returnValue.feedback).toEqual("That's a strong sentence!");
+    expect(returnValue.optimal).toEqual(true);
+    expect(returnValue.parent_id).toEqual(17655);
 
   });
 
   it('should return a partialResponse object if the matcher returns a response', async () => {
     const responseString = "My goofy dog took a short nap.";
     const returnValue = await spacyPOSSentenceChecker(responseString, "-KX7RNIvRs5HN9oD-vA2", 'http://localhost:3100', returnsIncorrect)
-    assert.equal(returnValue.author, 'Parts of Speech');
-    assert.equal(returnValue.feedback, "<p>You added an action. Good work! Now make the action word singular so it works with just <em>one</em> scientist.</p>");
-    assert.equal(returnValue.optimal, false);
-    assert.equal(returnValue.parent_id, 1646707);
+    expect(returnValue.author).toEqual('Parts of Speech');
+    expect(returnValue.feedback).toEqual("<p>You added an action. Good work! Now make the action word singular so it works with just <em>one</em> scientist.</p>");
+    expect(returnValue.optimal).toEqual(false);
+    expect(returnValue.parent_id).toEqual(1646707);
   });
 
   it('should return a partialResponse object if the matcher returns false', async () => {
     const responseString = 'My grumpy dog took a nap.';
     const returnValue = await spacyPOSSentenceChecker(responseString, "-KX7RNIvRs5HN9oD-vA2", 'http://localhost:3100', returnsFalse)
-    assert.equal(returnValue, undefined);
+    expect(returnValue).toEqual(undefined);
   });
 
 });

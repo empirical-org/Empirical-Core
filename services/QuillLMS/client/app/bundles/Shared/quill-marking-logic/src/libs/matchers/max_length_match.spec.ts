@@ -1,4 +1,3 @@
-import { assert } from 'chai';
 import {maxLengthMatch, maxLengthChecker} from './max_length_match'
 import {Response} from '../../interfaces'
 import {feedbackStrings} from '../constants/feedback_strings'
@@ -27,7 +26,7 @@ describe('The maxLengthMatch function', () => {
         question_uid: 'question 2'
       }
     ]
-    assert.ok(maxLengthMatch(responseString, savedResponses));
+    expect(maxLengthMatch(responseString, savedResponses)).toBeTruthy()
   });
 
   it('Should take a response string and return false if it is longer than the longest optimal response by one word', () => {
@@ -50,7 +49,7 @@ describe('The maxLengthMatch function', () => {
         question_uid: 'question 2'
       }
     ]
-    assert.notOk(maxLengthMatch(responseString, savedResponses));
+    expect(maxLengthMatch(responseString, savedResponses)).toBeFalsy()
   });
 
   it('Should take a response string and return false if there are not at least two optimal responses', () => {
@@ -73,7 +72,7 @@ describe('The maxLengthMatch function', () => {
         question_uid: 'question 2'
       }
     ]
-    assert.notOk(maxLengthMatch(responseString, savedResponses));
+    expect(maxLengthMatch(responseString, savedResponses)).toBeFalsy()
   });
 
 });
@@ -111,10 +110,10 @@ describe('The maxLengthChecker', () => {
         conceptResultTemplate('QYHg1tpDghy5AHWpsIodAg')
       ]
     }
-    assert.equal(maxLengthChecker(responseString, savedResponses).feedback, partialResponse.feedback);
-    assert.equal(maxLengthChecker(responseString, savedResponses).author, partialResponse.author);
-    assert.equal(maxLengthChecker(responseString, savedResponses).parent_id, partialResponse.parent_id);
-    assert.equal(maxLengthChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
+    expect(maxLengthChecker(responseString, savedResponses).feedback).toEqual(partialResponse.feedback);
+    expect(maxLengthChecker(responseString, savedResponses).author).toEqual(partialResponse.author);
+    expect(maxLengthChecker(responseString, savedResponses).parent_id).toEqual(partialResponse.parent_id);
+    expect(maxLengthChecker(responseString, savedResponses).concept_results.length).toEqual(partialResponse.concept_results.length);
   });
 
 })

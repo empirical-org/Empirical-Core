@@ -1,4 +1,3 @@
-import { assert } from 'chai';
 import {requiredWordsMatch, requiredWordsChecker} from './required_words_match'
 import {Response, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
@@ -26,7 +25,7 @@ describe('The requiredWordsMatch function', () => {
 
   it('Should take a response string and return a feedback object if it is missing a required word', () => {
     const responseString = "My dog took a.";
-    assert.ok(requiredWordsMatch(responseString, savedResponses));
+    expect(requiredWordsMatch(responseString, savedResponses)).toBeTruthy()
   });
 
 });
@@ -43,20 +42,20 @@ describe('The requiredWordsChecker', () => {
         conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
       ]
     }
-    assert.equal(requiredWordsChecker(responseString, savedResponses).feedback, partialResponse.feedback);
-    assert.equal(requiredWordsChecker(responseString, savedResponses).author, partialResponse.author);
-    assert.equal(requiredWordsChecker(responseString, savedResponses).parent_id, partialResponse.parent_id);
-    assert.equal(requiredWordsChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
+    expect(requiredWordsChecker(responseString, savedResponses).feedback).toEqual(partialResponse.feedback);
+    expect(requiredWordsChecker(responseString, savedResponses).author).toEqual(partialResponse.author);
+    expect(requiredWordsChecker(responseString, savedResponses).parent_id).toEqual(partialResponse.parent_id);
+    expect(requiredWordsChecker(responseString, savedResponses).concept_results.length).toEqual(partialResponse.concept_results.length);
   });
 
   it('Should return undefined if the response string is not missing a required word', () => {
     const responseString = "My dog took a nap.";
-    assert.equal(requiredWordsChecker(responseString, savedResponses), undefined);
+    expect(requiredWordsChecker(responseString, savedResponses)).toEqual(undefined);
   });
 
   it('Should return the lowercased missing word if optimal responses contain both uppercase and lowercase', () => {
     const responseString = "My dog took a.";
-    assert.notEqual(requiredWordsChecker(responseString, savedResponses).feedback.indexOf('nap'), -1);
+    expect(requiredWordsChecker(responseString, savedResponses).feedback.indexOf('nap')).not.toEqual(-1)
   });
 
 })

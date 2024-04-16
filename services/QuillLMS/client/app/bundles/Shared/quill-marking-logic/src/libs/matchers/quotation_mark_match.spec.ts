@@ -1,5 +1,3 @@
-import { assert } from 'chai';
-
 import { quotationMarkChecker, quotationMarkMatch } from './quotation_mark_match';
 
 import {Response,PartialResponse} from '../../interfaces'
@@ -29,12 +27,12 @@ describe('The quotationMarkMatch function', () => {
 
   it('Should take a response string and return true if response does not contain two adjacent single quotes', () => {
     const responseString = "There are adjacent single quotes in \'\' this string.";
-    assert.ok(quotationMarkMatch(responseString, savedResponses));
+    expect(quotationMarkMatch(responseString, savedResponses)).toBeTruthy()
   });
 
   it('Should take a response string and return false if response does not contain two adjacent single quotes', () => {
     const responseString = "There are only double \" \" quotes in this string.";
-    assert.notOk(quotationMarkMatch(responseString, savedResponses));
+    expect(quotationMarkMatch(responseString, savedResponses)).toBeFalsy()
   });
 
   it('Should take a response string and find top optimal response if the response string contains two adjacent single quotes', () => {
@@ -47,9 +45,9 @@ describe('The quotationMarkMatch function', () => {
         conceptResultTemplate('TWgxAwCxRjDLPzpZWYmGrw')
       ]
     }
-    assert.equal(quotationMarkChecker(responseString, savedResponses).feedback, partialResponse.feedback);
-    assert.equal(quotationMarkChecker(responseString, savedResponses).author, partialResponse.author);
-    assert.equal(quotationMarkChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
+    expect(quotationMarkChecker(responseString, savedResponses).feedback).toEqual(partialResponse.feedback);
+    expect(quotationMarkChecker(responseString, savedResponses).author).toEqual(partialResponse.author);
+    expect(quotationMarkChecker(responseString, savedResponses).concept_results.length).toEqual(partialResponse.concept_results.length);
   });
 
 });

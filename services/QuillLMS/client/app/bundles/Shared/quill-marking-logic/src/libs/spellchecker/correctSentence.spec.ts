@@ -1,4 +1,3 @@
-import { assert } from 'chai';
 import {processSentence} from  './processSentence';
 import {train} from './train';
 import {
@@ -16,33 +15,33 @@ describe('The correct function', () => {
     const dictionary = train(processSentence(correctAnswer));
     const output = correctSentence(dictionary, incorrectSentence);
 
-    assert.equal(correctAnswer, output);
+    expect(correctAnswer).toEqual(output);
   });
 
 });
 
 describe('The string prep functions', () => {
   it('should be able to remove special chars from the start of a string', () => {
-    assert.deepEqual(removeSpecialCharsFromStart('.a'), ['a', '.']);
-    assert.deepEqual(removeSpecialCharsFromStart(',a'), ['a', ',']);
-    assert.deepEqual(removeSpecialCharsFromStart('!a'), ['a', '!']);
-    assert.deepEqual(removeSpecialCharsFromStart('?a'), ['a', '?']);
-    assert.deepEqual(removeSpecialCharsFromStart('\"a'), ['a', '"']);
-    assert.deepEqual(removeSpecialCharsFromStart('.,!?\"a'), ['a', '.,!?"']);
+    expect(removeSpecialCharsFromStart('.a')).toEqual(['a', '.']);
+    expect(removeSpecialCharsFromStart(',a')).toEqual(['a', ',']);
+    expect(removeSpecialCharsFromStart('!a')).toEqual(['a', '!']);
+    expect(removeSpecialCharsFromStart('?a')).toEqual(['a', '?']);
+    expect(removeSpecialCharsFromStart('\"a')).toEqual(['a', '"']);
+    expect(removeSpecialCharsFromStart('.,!?\"a')).toEqual(['a', '.,!?"'])
   });
 
   it('should be able to remove special chars from the end of a string', () => {
-    assert.deepEqual(removeSpecialCharsFromEnd('a.'), ['a', '.']);
-    assert.deepEqual(removeSpecialCharsFromEnd('a,'), ['a', ',']);
-    assert.deepEqual(removeSpecialCharsFromEnd('a!'), ['a', '!']);
-    assert.deepEqual(removeSpecialCharsFromEnd('a?'), ['a', '?']);
-    assert.deepEqual(removeSpecialCharsFromEnd('a"'), ['a', '"']);
-    assert.deepEqual(removeSpecialCharsFromEnd('a.,!?"'), ['a', '.,!?"']);
+    expect(removeSpecialCharsFromEnd('a.')).toEqual(['a', '.']);
+    expect(removeSpecialCharsFromEnd('a,')).toEqual(['a', ',']);
+    expect(removeSpecialCharsFromEnd('a!')).toEqual(['a', '!']);
+    expect(removeSpecialCharsFromEnd('a?')).toEqual(['a', '?']);
+    expect(removeSpecialCharsFromEnd('a"')).toEqual(['a', '"']);
+    expect(removeSpecialCharsFromEnd('a.,!?"')).toEqual(['a', '.,!?"']);
   });
 
   it('should be able to remove all special chars from both ends of the string.', () => {
-    assert.deepEqual(removeSpecialCharsFromWord('"Ryan!?"'), ['"', 'Ryan', '!?"']);
-    assert.deepEqual(removeSpecialCharsFromWord('!!!a'), ['!!!', 'a', '']);
-    assert.deepEqual(removeSpecialCharsFromWord('""'), ['""', '', '']);
+    expect(removeSpecialCharsFromWord('"Ryan!?"')).toEqual(['"', 'Ryan', '!?"']);
+    expect(removeSpecialCharsFromWord('!!!a')).toEqual(['!!!', 'a', '']);
+    expect(removeSpecialCharsFromWord('""')).toEqual(['""', '', '']);
   });
 });

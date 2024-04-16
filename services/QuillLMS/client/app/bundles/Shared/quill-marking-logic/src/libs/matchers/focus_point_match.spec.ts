@@ -65,13 +65,13 @@ describe('focusPointMatch', () => {
 
   positiveTests.forEach((test, i) => {
     it(`should find a focus point match: ${i}`, () => {
-      assert.ok(focusPointMatch(test, focusPoints))
+      expect(focusPointMatch(test, focusPoints)).toBeTruthy()
     });
   });
 
   negativeTests.forEach((test, i) => {
     it(`should not find a focus point match: ${i}`, () => {
-      assert.notOk(focusPointMatch(test, focusPoints));
+      expect(focusPointMatch(test, focusPoints)).toBeFalsy()
     });
   });
 });
@@ -86,9 +86,9 @@ describe('The focusPointChecker', () => {
       parent_id: getTopOptimalResponse(savedResponses).id,
       concept_results: focusPointMatch(responseString, focusPoints).concept_results
     }
-    assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).feedback, partialResponse.feedback);
-    assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).author, partialResponse.author);
-    assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).parent_id, partialResponse.parent_id);
+    expect(focusPointChecker(responseString, focusPoints, savedResponses).feedback).toEqual(partialResponse.feedback);
+    expect(focusPointChecker(responseString, focusPoints, savedResponses).author).toEqual(partialResponse.author);
+    expect(focusPointChecker(responseString, focusPoints, savedResponses).parent_id).toEqual(partialResponse.parent_id);
   });
 
   it('Should return a partialResponse object if the response string matches a focus point', () => {
@@ -100,13 +100,13 @@ describe('The focusPointChecker', () => {
       concept_results: focusPointMatch(responseString, focusPoints).concept_results
     }
 
-    assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).feedback, partialResponse.feedback);
-    assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).author, partialResponse.author);
-    assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).parent_id, partialResponse.parent_id);
+    expect(focusPointChecker(responseString, focusPoints, savedResponses).feedback).toEqual(partialResponse.feedback);
+    expect(focusPointChecker(responseString, focusPoints, savedResponses).author).toEqual(partialResponse.author);
+    expect(focusPointChecker(responseString, focusPoints, savedResponses).parent_id).toEqual(partialResponse.parent_id);
   });
 
   it('Should return undefined if the response string does not match a focus point', () => {
     const responseString = "Jared likes edtech and startups.";
-    assert.equal(focusPointChecker(responseString, focusPoints, savedResponses), undefined);
+    expect(focusPointChecker(responseString, focusPoints, savedResponses)).toEqual(undefined);
   });
 })

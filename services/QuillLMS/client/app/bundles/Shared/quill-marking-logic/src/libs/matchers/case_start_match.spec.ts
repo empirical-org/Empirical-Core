@@ -1,4 +1,3 @@
-import { assert } from 'chai';
 import {caseStartMatch, caseStartChecker} from './case_start_match'
 import {Response} from '../../interfaces'
 import {feedbackStrings} from '../constants/feedback_strings'
@@ -28,12 +27,12 @@ describe('The caseStartMatch function', () => {
 
   it('Should return true if the response string starts with a lowercase letter', () => {
     const responseString = "my dog took a nap.";
-    assert.ok(caseStartMatch(responseString, savedResponses));
+    expect(caseStartMatch(responseString, savedResponses)).toBeTruthy()
   });
 
   it('Should return false if the response string does not start with a lowercase letter', () => {
     const responseString = "My dog took a nap.";
-    assert.notOk(caseStartMatch(responseString, savedResponses));
+    expect(caseStartMatch(responseString, savedResponses)).toBeFalsy()
   });
 
 });
@@ -50,15 +49,15 @@ describe('The caseStartChecker', () => {
         conceptResultTemplate('S76ceOpAWR-5m-k47nu6KQ')
       ],
     }
-    assert.equal(caseStartChecker(responseString, savedResponses).feedback, partialResponse.feedback);
-    assert.equal(caseStartChecker(responseString, savedResponses).author, partialResponse.author);
-    assert.equal(caseStartChecker(responseString, savedResponses).parent_id, partialResponse.parent_id);
-    assert.equal(caseStartChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
+    expect(caseStartChecker(responseString, savedResponses).feedback).toEqual(partialResponse.feedback);
+    expect(caseStartChecker(responseString, savedResponses).author).toEqual(partialResponse.author);
+    expect(caseStartChecker(responseString, savedResponses).parent_id).toEqual(partialResponse.parent_id);
+    expect(caseStartChecker(responseString, savedResponses).concept_results.length).toEqual(partialResponse.concept_results.length);
   });
 
   it('Should return undefined if the response string does not start with a lowercase letter', () => {
     const responseString = "My dog took a nap.";
-    assert.equal(caseStartChecker(responseString, savedResponses), undefined);
+    expect(caseStartChecker(responseString, savedResponses)).toEqual(undefined);
   });
 
 })

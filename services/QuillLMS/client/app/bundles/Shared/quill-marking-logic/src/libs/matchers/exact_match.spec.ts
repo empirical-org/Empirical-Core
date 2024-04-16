@@ -16,7 +16,7 @@ describe('The exactMatch function', () => {
       }
     ]
     const matchedResponse = exactMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.id, savedResponses[0].id);
+    expect(matchedResponse.id).toEqual(savedResponses[0].id);
   });
 
 });

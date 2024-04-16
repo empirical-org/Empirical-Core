@@ -1,4 +1,3 @@
-import { assert } from 'chai';
 import {rigidChangeObjectMatch, flexibleChangeObjectMatch, levenshteinChangeObjectMatch} from './change_object_match'
 import {Response} from '../../interfaces'
 
@@ -17,8 +16,8 @@ describe('The rigidChangeObjectMatch function', () => {
       }
     ]
     const matchedResponse = rigidChangeObjectMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.response.id, savedResponses[0].id)
-    assert.equal(matchedResponse.errorType, "MISSING_WORD");
+    expect(matchedResponse.response.id).toEqual(savedResponses[0].id)
+    expect(matchedResponse.errorType).toEqual("MISSING_WORD");
   });
 
   it('Should take a response string missing two words in order and classify it as missing word', () => {
@@ -34,8 +33,8 @@ describe('The rigidChangeObjectMatch function', () => {
       }
     ]
     const matchedResponse = rigidChangeObjectMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.response.id, savedResponses[0].id)
-    assert.equal(matchedResponse.errorType, "MISSING_WORD");
+    expect(matchedResponse.response.id).toEqual(savedResponses[0].id)
+    expect(matchedResponse.errorType).toEqual("MISSING_WORD");
   });
 
   it('Should take a response string missing two words not in order and classify it as missing word', () => {
@@ -51,8 +50,8 @@ describe('The rigidChangeObjectMatch function', () => {
       }
     ]
     const matchedResponse = rigidChangeObjectMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.response.id, savedResponses[0].id)
-    assert.equal(matchedResponse.errorType, "MISSING_WORD");
+    expect(matchedResponse.response.id).toEqual(savedResponses[0].id)
+    expect(matchedResponse.errorType).toEqual("MISSING_WORD");
   });
 
   it('Should take a response string with one extra word and classify it as added word', () => {
@@ -68,8 +67,8 @@ describe('The rigidChangeObjectMatch function', () => {
       }
     ]
     const matchedResponse = rigidChangeObjectMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.response.id, savedResponses[0].id)
-    assert.equal(matchedResponse.errorType, "ADDITIONAL_WORD");
+    expect(matchedResponse.response.id).toEqual(savedResponses[0].id)
+    expect(matchedResponse.errorType).toEqual("ADDITIONAL_WORD");
   });
 
   it('Should take a response string with two extra words in order and classify it as added word', () => {
@@ -85,8 +84,8 @@ describe('The rigidChangeObjectMatch function', () => {
       }
     ]
     const matchedResponse = rigidChangeObjectMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.response.id, savedResponses[0].id)
-    assert.equal(matchedResponse.errorType, "ADDITIONAL_WORD");
+    expect(matchedResponse.response.id).toEqual(savedResponses[0].id)
+    expect(matchedResponse.errorType).toEqual("ADDITIONAL_WORD");
   });
 
   it('Should take a response string with two extra words out of order and classify it as added word', () => {
@@ -102,8 +101,8 @@ describe('The rigidChangeObjectMatch function', () => {
       }
     ]
     const matchedResponse = rigidChangeObjectMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.response.id, savedResponses[0].id)
-    assert.equal(matchedResponse.errorType, "ADDITIONAL_WORD");
+    expect(matchedResponse.response.id).toEqual(savedResponses[0].id)
+    expect(matchedResponse.errorType).toEqual("ADDITIONAL_WORD");
   });
 
   it('Should take a response string and classify it as modified word', () => {
@@ -119,8 +118,8 @@ describe('The rigidChangeObjectMatch function', () => {
       }
     ]
     const matchedResponse = rigidChangeObjectMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.response.id, savedResponses[0].id)
-    assert.equal(matchedResponse.errorType, "INCORRECT_WORD");
+    expect(matchedResponse.response.id).toEqual(savedResponses[0].id)
+    expect(matchedResponse.errorType).toEqual("INCORRECT_WORD");
   });
 
   it('Should take a response string and classify it as a misspelled word', () => {
@@ -136,8 +135,8 @@ describe('The rigidChangeObjectMatch function', () => {
       }
     ]
     const matchedResponse = rigidChangeObjectMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.response.id, savedResponses[0].id)
-    assert.equal(matchedResponse.errorType, "MISSPELLED_WORD");
+    expect(matchedResponse.response.id).toEqual(savedResponses[0].id)
+    expect(matchedResponse.errorType).toEqual("MISSPELLED_WORD");
   });
 });
 
@@ -156,8 +155,8 @@ describe('The levenshteinChangeObjectMatch function', () => {
       }
     ]
     const matchedResponse = levenshteinChangeObjectMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.response.id, savedResponses[0].id)
-    assert.equal(matchedResponse.errorType, "MISSING_WORD");
+    expect(matchedResponse.response.id).toEqual(savedResponses[0].id)
+    expect(matchedResponse.errorType).toEqual("MISSING_WORD");
   });
 
   it('Should take a response string and classify it as added word', () => {
@@ -173,8 +172,8 @@ describe('The levenshteinChangeObjectMatch function', () => {
       }
     ]
     const matchedResponse = levenshteinChangeObjectMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.response.id, savedResponses[0].id)
-    assert.equal(matchedResponse.errorType, "ADDITIONAL_WORD");
+    expect(matchedResponse.response.id).toEqual(savedResponses[0].id)
+    expect(matchedResponse.errorType).toEqual("ADDITIONAL_WORD");
   });
 
   it('Should take a response string and classify it as modified word', () => {
@@ -190,8 +189,8 @@ describe('The levenshteinChangeObjectMatch function', () => {
       }
     ]
     const matchedResponse = levenshteinChangeObjectMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.response.id, savedResponses[0].id)
-    assert.equal(matchedResponse.errorType, "INCORRECT_WORD");
+    expect(matchedResponse.response.id).toEqual(savedResponses[0].id)
+    expect(matchedResponse.errorType).toEqual("INCORRECT_WORD");
   });
 
   it('Should take a response string and classify it as a misspelled word', () => {
@@ -207,8 +206,8 @@ describe('The levenshteinChangeObjectMatch function', () => {
       }
     ]
     const matchedResponse = levenshteinChangeObjectMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.response.id, savedResponses[0].id)
-    assert.equal(matchedResponse.errorType, "MISSPELLED_WORD");
+    expect(matchedResponse.response.id).toEqual(savedResponses[0].id)
+    expect(matchedResponse.errorType).toEqual("MISSPELLED_WORD");
   });
 });
 
@@ -228,8 +227,8 @@ describe('The flexibleChangeObjectMatch function', () => {
       }
     ]
     const matchedResponse = flexibleChangeObjectMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.response.id, savedResponses[0].id)
-    assert.equal(matchedResponse.errorType, "MISSING_WORD");
+    expect(matchedResponse.response.id).toEqual(savedResponses[0].id)
+    expect(matchedResponse.errorType).toEqual("MISSING_WORD");
   });
 
   it('Should take a response string and classify it as added word', () => {
@@ -245,8 +244,8 @@ describe('The flexibleChangeObjectMatch function', () => {
       }
     ]
     const matchedResponse = flexibleChangeObjectMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.response.id, savedResponses[0].id)
-    assert.equal(matchedResponse.errorType, "ADDITIONAL_WORD");
+    expect(matchedResponse.response.id).toEqual(savedResponses[0].id)
+    expect(matchedResponse.errorType).toEqual("ADDITIONAL_WORD");
   });
 
   it('Should take a response string and classify it as modified word', () => {
@@ -262,8 +261,8 @@ describe('The flexibleChangeObjectMatch function', () => {
       }
     ]
     const matchedResponse = flexibleChangeObjectMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.response.id, savedResponses[0].id)
-    assert.equal(matchedResponse.errorType, "INCORRECT_WORD");
+    expect(matchedResponse.response.id).toEqual(savedResponses[0].id)
+    expect(matchedResponse.errorType).toEqual("INCORRECT_WORD");
   });
 
   it('Should take a response string and classify it as a misspelled word', () => {
@@ -279,8 +278,8 @@ describe('The flexibleChangeObjectMatch function', () => {
       }
     ]
     const matchedResponse = flexibleChangeObjectMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.response.id, savedResponses[0].id)
-    assert.equal(matchedResponse.errorType, "MISSPELLED_WORD");
+    expect(matchedResponse.response.id).toEqual(savedResponses[0].id)
+    expect(matchedResponse.errorType).toEqual("MISSPELLED_WORD");
   });
 
   it('Should take a response string and classify it as a modified word', () => {
@@ -296,8 +295,8 @@ describe('The flexibleChangeObjectMatch function', () => {
       }
     ]
     const matchedResponse = flexibleChangeObjectMatch(responseString, savedResponses);
-    assert.equal(matchedResponse.response.id, savedResponses[0].id)
-    assert.equal(matchedResponse.missingText, 'surfers')
-    assert.equal(matchedResponse.errorType, "INCORRECT_WORD");
+    expect(matchedResponse.response.id).toEqual(savedResponses[0].id)
+    expect(matchedResponse.missingText).toEqual('surfers')
+    expect(matchedResponse.errorType).toEqual("INCORRECT_WORD");
   });
 });

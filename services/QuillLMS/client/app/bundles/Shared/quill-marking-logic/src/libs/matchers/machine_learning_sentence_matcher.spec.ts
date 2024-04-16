@@ -1,4 +1,3 @@
-import {assert} from 'chai'
 import {machineLearningSentenceMatch, machineLearningSentenceChecker} from './machine_learning_sentence_match'
 import {Response} from '../../interfaces'
 import {feedbackStrings} from '../constants/feedback_strings'
@@ -46,17 +45,17 @@ describe('The machineLearningSentenceMatchChecker function', () => {
   it('should return a partialResponse object if the matcher returns a response', async () => {
     const responseString = "My goofy dog took a short nap.";
     const returnValue = await machineLearningSentenceChecker(responseString, savedResponses, 'http://localhost:3100', returnsTrue)
-    assert.equal(returnValue.author, 'Boop');
-    assert.equal(returnValue.feedback, "You made an error.");
-    assert.equal(returnValue.optimal, false);
-    assert.equal(returnValue.parent_id, getTopOptimalResponse(savedResponses).id);
+    expect(returnValue.author).toEqual('Boop');
+    expect(returnValue.feedback).toEqual("You made an error.");
+    expect(returnValue.optimal).toEqual(false);
+    expect(returnValue.parent_id).toEqual(getTopOptimalResponse(savedResponses).id);
 
   });
 
   it('should return a partialResponse object if the matcher returns false', async () => {
     const responseString = 'My grumpy dog took a nap.';
     const returnValue = await machineLearningSentenceChecker(responseString, savedResponses, 'http://localhost:3100', returnsFalse)
-    assert.equal(returnValue, undefined);
+    expect(returnValue).toEqual(undefined);
   });
 
 });

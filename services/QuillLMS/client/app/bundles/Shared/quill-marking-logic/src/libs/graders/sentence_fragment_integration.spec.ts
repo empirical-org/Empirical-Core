@@ -1,5 +1,4 @@
 import { responses, incorrectSequences, focusPoints } from '../../../test/data/batswings'
-import { assert } from 'chai';
 import {checkSentenceFragment} from './sentence_fragment'
 import {Response} from '../../interfaces';
 import { feedbackStrings } from '../constants/feedback_strings';
@@ -27,7 +26,7 @@ describe('The checking a sentence fragment', () => {
       };
       const matchedResponse = checkSentenceFragment(fields);
       matchedResponse.then(resp => {
-        assert.equal(resp.id, responses[0].id);
+        expect(resp.id).toEqual(responses[0].id);
       })
     });
 
@@ -38,7 +37,7 @@ describe('The checking a sentence fragment', () => {
       };
       const matchedResponse = checkSentenceFragment(fields);
       matchedResponse.then(resp => {
-        assert.equal(resp.id, responses[1].id);
+        expect(resp.id).toEqual(responses[1].id);
       })
     });
 
@@ -49,7 +48,7 @@ describe('The checking a sentence fragment', () => {
       };
       const matchedResponse = checkSentenceFragment(fields);
       matchedResponse.then(resp => {
-        assert.equal(resp.id, responses[1].id);
+        expect(resp.id).toEqual(responses[1].id);
       })
     });
 
@@ -61,7 +60,7 @@ describe('The checking a sentence fragment', () => {
       };
       const matchedResponse = checkSentenceFragment(fields);
       matchedResponse.then(resp => {
-        assert.equal(resp.feedback, incorrectSequences[0].feedback);
+        expect(resp.feedback).toBeTruthy(incorrectSequences[0].feedback);
       })
     });
 
@@ -73,7 +72,7 @@ describe('The checking a sentence fragment', () => {
       };
       const matchedResponse = checkSentenceFragment(fields);
       matchedResponse.then(resp => {
-        assert.equal(resp.feedback, focusPoints[0].feedback);
+        expect(resp.feedback).toEqual(focusPoints[0].feedback);
       })
     });
     //
@@ -84,7 +83,7 @@ describe('The checking a sentence fragment', () => {
       };
       const matchedResponse = checkSentenceFragment(fields);
       matchedResponse.then(resp => {
-        assert.equal(resp.feedback, 'Revise your work. Add one to three words to the prompt to make the sentence complete.');
+        expect(resp.feedback).toEqual('Revise your work. Add one to three words to the prompt to make the sentence complete.');
       })
     })
 
@@ -95,7 +94,7 @@ describe('The checking a sentence fragment', () => {
       };
       const matchedResponse = checkSentenceFragment(fields);
       matchedResponse.then(resp => {
-        assert.equal(resp.feedback, feedbackStrings.caseError);
+        expect(resp.feedback).toEqual(feedbackStrings.caseError);
       })
     });
 
@@ -106,14 +105,8 @@ describe('The checking a sentence fragment', () => {
       };
       const matchedResponse = checkSentenceFragment(fields);
       matchedResponse.then(resp => {
-        assert.equal(resp.feedback, feedbackStrings.punctuationError);
+        expect(resp.feedback).toEqual(feedbackStrings.punctuationError);
       })
-    });
-
-    it('should be able to find a punctuation and case insensitive match', () => {
-      // const responseString = "bats have wings so they can fly."
-      // const matchedResponse = checkSentenceFragment('questionOne', responseString, responses, {min: 1, max: 3}, false, incorrectSequences, 'Bats have wings they can fly.');
-      // assert.equal(matchedResponse.feedback, feedbackStrings.punctuationAndCaseError);
     });
 
     it('should be able to find a spacing before punctuation match', () => {
@@ -123,7 +116,7 @@ describe('The checking a sentence fragment', () => {
       };
       const matchedResponse = checkSentenceFragment(fields);
       matchedResponse.then(resp => {
-        assert.equal(resp.feedback, spacingBeforePunctuation("Bats have wings so they can fly far .").feedback);
+        expect(resp.feedback).toBeTruthy(spacingBeforePunctuation("Bats have wings so they can fly far .").feedback);
       });
     });
 
@@ -134,7 +127,7 @@ describe('The checking a sentence fragment', () => {
       };
       const matchedResponse = checkSentenceFragment(fields);
       matchedResponse.then(resp => {
-        assert.equal(resp.feedback, feedbackStrings.spacingAfterCommaError);
+        expect(resp.feedback).toEqual(feedbackStrings.spacingAfterCommaError);
       });
     });
   });

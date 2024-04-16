@@ -1,4 +1,3 @@
-import { assert } from 'chai';
 import {spacingBeforePunctuationMatch, spacingBeforePunctuationChecker} from './spacing_before_punctuation_match'
 import {Response, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
@@ -19,7 +18,7 @@ describe('The spacingBeforePunctuationMatch function', () => {
   it('Should take a response string and return true if there is no space before punctuation', () => {
     const responseString = "My dog took a nap, did yours ? ";
     const matchedResponse = spacingBeforePunctuationMatch(responseString);
-    assert.isOk(matchedResponse);
+    expect(matchedResponse).toBeTruthy()
   });
 
 });
@@ -36,15 +35,15 @@ describe('The spacingBeforePunctuationChecker', () => {
         conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
       ]
     }
-    assert.equal(spacingBeforePunctuationChecker(responseString, savedResponses).feedback, partialResponse.feedback);
-    assert.equal(spacingBeforePunctuationChecker(responseString, savedResponses).author, partialResponse.author);
-    assert.equal(spacingBeforePunctuationChecker(responseString, savedResponses).parent_id, partialResponse.parent_id);
-    assert.equal(spacingBeforePunctuationChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
+    expect(spacingBeforePunctuationChecker(responseString, savedResponses).feedback).toEqual(partialResponse.feedback);
+    expect(spacingBeforePunctuationChecker(responseString, savedResponses).author).toEqual(partialResponse.author);
+    expect(spacingBeforePunctuationChecker(responseString, savedResponses).parent_id).toEqual(partialResponse.parent_id);
+    expect(spacingBeforePunctuationChecker(responseString, savedResponses).concept_results.length).toEqual(partialResponse.concept_results.length);
   });
 
   it('Should return undefined if the response string is not missing space before punctuation', () => {
     const responseString = "My dog took a nap.";
-    assert.equal(spacingBeforePunctuationChecker(responseString, savedResponses), undefined);
+    expect(spacingBeforePunctuationChecker(responseString, savedResponses)).toEqual(undefined);
   });
 
 })

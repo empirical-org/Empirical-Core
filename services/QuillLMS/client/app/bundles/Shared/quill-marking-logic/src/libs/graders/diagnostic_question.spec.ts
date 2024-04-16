@@ -1,4 +1,3 @@
-import { assert } from 'chai';
 import {checkDiagnosticQuestion} from './diagnostic_question'
 import {Response} from '../../interfaces'
 
@@ -26,7 +25,7 @@ describe('The checking a diagnostic question', () => {
       }
     ]
     const matchedResponse = checkDiagnosticQuestion('questionOne', responseString, savedResponses, null, null);
-    assert.equal(matchedResponse.id, savedResponses[0].id);
+    expect(matchedResponse.id).toEqual(savedResponses[0].id);
   });
 
   it('it should be able to grade it even with trailing whitespace.', () => {
@@ -51,7 +50,7 @@ describe('The checking a diagnostic question', () => {
       }
     ]
     const matchedResponse = checkDiagnosticQuestion('questionOne', responseString, savedResponses, null, null);
-    assert.equal(matchedResponse.id, savedResponses[0].id);
+    expect(matchedResponse.id).toEqual(savedResponses[0].id);
   });
 
   it('it should be able to grade it even with leading whitespace.', () => {
@@ -76,7 +75,7 @@ describe('The checking a diagnostic question', () => {
       }
     ]
     const matchedResponse = checkDiagnosticQuestion('questionOne', responseString, savedResponses, null, null);
-    assert.equal(matchedResponse.id, savedResponses[0].id);
+    expect(matchedResponse.id).toEqual(savedResponses[0].id);
   });
 
 });
