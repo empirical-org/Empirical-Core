@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { checkGrammarQuestion, Response } from 'quill-marking-logic';
+import { checkGrammarQuestion, Response } from '../../Shared/quill-marking-logic/src/main';
 
 import { ActionTypes } from './actionTypes';
 import * as responseActions from './responses';

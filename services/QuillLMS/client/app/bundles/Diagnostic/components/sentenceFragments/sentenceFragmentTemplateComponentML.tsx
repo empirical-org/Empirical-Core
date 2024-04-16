@@ -1,7 +1,7 @@
-import { checkSentenceFragment, Response } from 'quill-marking-logic';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as _ from 'underscore';
+
 import {
   ConceptExplanation,
   hashToCollection,
@@ -13,6 +13,7 @@ import Feedback from '../renderForQuestions/feedback';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
+import { checkSentenceFragment, Response } from '../../../Shared/quill-marking-logic/src/main';
 
 const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 

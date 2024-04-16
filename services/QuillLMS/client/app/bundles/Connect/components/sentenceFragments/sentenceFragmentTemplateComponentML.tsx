@@ -1,4 +1,4 @@
-import { checkSentenceFragment, Response } from 'quill-marking-logic';
+import { checkSentenceFragment, Response } from '../../../Shared/quill-marking-logic/src/main';
 import * as React from 'react';
 
 import { ConceptExplanation, getLatestAttempt, hashToCollection } from '../../../Shared/index';

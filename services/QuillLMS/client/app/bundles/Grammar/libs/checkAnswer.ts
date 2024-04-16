@@ -1,4 +1,4 @@
-import { checkGrammarQuestion } from 'quill-marking-logic';
+import { checkGrammarQuestion } from '../../Shared/quill-marking-logic/src/main';
 import { hashToCollection } from '../../Shared/index';
 
 export default function checkAnswer(question, response, responses, mode= 'default') {
