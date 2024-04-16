@@ -11,6 +11,7 @@ module AdminDiagnosticReports
       # Some of our tests include activity_sessions having NULL in its timestamps so we need a version that has timestamps with datetime data in them so that WITH in the CTE understands the data type expected
       let(:reference_activity_session) { create(:activity_session, :finished) }
       let(:reference_concept_result) { create(:concept_result, activity_session: reference_activity_session, extra_metadata: {question_uid: SecureRandom.uuid}) }
+      let(:reference_diagnostic_question_optimal_concept) { create(:diagnostic_question_optimal_concept) }
 
       let(:cte_records) do
         [
@@ -25,6 +26,7 @@ module AdminDiagnosticReports
           unit_activities,
           reference_activity_session,
           reference_concept_result,
+          reference_diagnostic_question_optimal_concept,
           view_records
         ]
       end
