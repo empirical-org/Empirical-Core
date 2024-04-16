@@ -294,22 +294,6 @@ jobs:
           command: |
             cd services/QuillCMS
             bundle exec rake spec
-  marking_logic_node_build:
-    working_directory: ~/Empirical-Core
-    docker:
-      - image: cimg/node:14.18-browsers
-    steps:
-      - checkout
-      - run:
-          name: Install NPM dependencies
-          command: |
-            cd packages/quill-marking-logic
-            npm install
-      - run:
-          name: Run Marking Logic Tests
-          command: |
-            cd packages/quill-marking-logic
-            FORCE_COLOR=true npm run test --colors
   evidence_rails_build:
     working_directory: ~/Empirical-Core
     parallelism: 1
