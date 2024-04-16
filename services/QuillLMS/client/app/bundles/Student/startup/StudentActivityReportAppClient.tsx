@@ -95,7 +95,7 @@ const StudentActivityReportApp = ({ activity, showExactScore, reportData, classr
           index={index}
           key={index}
           lastAttempt={lastAttempt}
-          studentReachedOptimal={question.questionScore > 0}
+          studentReachedOptimal={(question.questionScore || question.score) > 0}
         />
       )
     })

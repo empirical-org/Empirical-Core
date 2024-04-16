@@ -8,8 +8,8 @@ const skillCheckIcon = <img alt="" src={`${baseSrc}/skill_check.svg`} />
 const skillReviseIcon = <img alt="" src={`${baseSrc}/skill_revise.svg`} />
 
 const QuestionLevelInformation = ({ question, }) => {
-  const { question_number, questionScore, key_target_skill_concept, directions, prompt, cues, } = question
-  const studentReachedOptimal = questionScore > 0
+  const { question_number, questionScore, key_target_skill_concept, directions, prompt, cues, score, } = question
+  const studentReachedOptimal = (questionScore || score) > 0
 
   const parentheticalContentRegex = /\s*\(([^)]+)\)/
 
