@@ -16,6 +16,8 @@ module Evidence
   module Research
     module GenAI
       class ExampleFeedback < ApplicationRecord
+        include HasOptimalAndSubOptimal
+
         belongs_to :passage_prompt_response, class_name: 'Evidence::Research::GenAI::PassagePromptResponse'
 
         validates :text, presence: true

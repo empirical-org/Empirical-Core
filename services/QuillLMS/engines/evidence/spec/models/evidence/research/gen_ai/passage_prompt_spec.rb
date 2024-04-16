@@ -33,9 +33,9 @@ module Evidence
 
         it { belong_to(:passage).class_name('Evidence::Research::GenAI::Passage') }
 
-        it { have_many(:passage_prompt_responses).class_name('Evidence::Research::GenAI::PassagePromptResponse').dependent(:destroy) }
-        it { have_many(:example_feedbacks).class_name('Evidence::Research::GenAI::ExampleFeedback').through(:passage_prompt_responses) }
-        it { have_many(:llm_feedbacks).class_name('Evidence::Research::GenAI::LLMPromptFeedback').through(:passage_prompt_responses) }
+        it { have_many(:passage_prompt_responses).dependent(:destroy) }
+        it { have_many(:example_feedbacks).through(:passage_prompt_responses) }
+        it { have_many(:llm_feedbacks).through(:passage_prompt_responses) }
         it { have_many(:experiments).dependent(:destroy) }
 
         it { expect(build(:evidence_research_gen_ai_passage_prompt)).to be_valid }

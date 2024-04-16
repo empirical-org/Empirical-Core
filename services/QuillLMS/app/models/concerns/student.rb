@@ -25,7 +25,6 @@ module Student
 
     has_many :activity_sessions, dependent: :destroy
     has_many :assigned_activities, -> { where("students_classrooms.student_id = ANY (classroom_units.assigned_student_ids)") }, through: :classrooms, source: :activities
-    has_many :started_activities, through: :activity_sessions, source: :activity
 
     def incomplete_assigned_activities
       assigned_activities_with_activity_sessions

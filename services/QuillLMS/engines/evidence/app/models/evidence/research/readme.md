@@ -56,7 +56,7 @@ classDiagram
 ```
 
 ## 3. Experiment Ouptut
-As the `Experiment` is run, the LLM returns feedback relevant to the `PassagePromptResponse` which is stored as `LLMFeedback`.   These results are compared with `ExampleFeedback` and evaluated.
+As the `Experiment` is run, the LLM returns feedback relevant to the `PassagePromptResponse` which is stored as `LLMFeedback` along with the corresponding `experiment_id`.   These results are compared with `ExampleFeedback` and evaluated.
 
 ```mermaid
 classDiagram
@@ -70,4 +70,5 @@ classDiagram
     }
     PassagePromptResponse --|> ExampleFeedback
     PassagePromptResponse --|> LLMFeedback
+    Experiment --|> LLMFeedback
 ```

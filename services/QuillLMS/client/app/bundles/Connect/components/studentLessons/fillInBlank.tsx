@@ -13,6 +13,8 @@ import {
   splitPromptForFillInBlank,
   getLatestAttempt,
   hashToCollection,
+  FinalAttemptFeedback,
+  ALLOWED_ATTEMPTS
 } from '../../../Shared/index';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import { FillInBlankQuestion } from '../../interfaces/questions';
@@ -78,6 +80,23 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     if (prevProps.question.prompt !== question.prompt) {
       this.setQuestionValues(question)
     }
+  }
+
+  correctResponse = () => {
+    const { responses } = this.state
+    const { question } = this.props
+    let text
+    if (Object.keys(responses).length) {
+      const responseArray = hashToCollection(responses).sort((a: Response, b: Response) => b.count - a.count)
+      const firstOptimalResponse = responseArray.find((r: Response) => r.optimal)
+      if (firstOptimalResponse) {
+        text = firstOptimalResponse.text
+      }
+    }
+    if (!text) {
+      text = question.answers[0].text.replace(/{|}/gm, '')
+    }
+    return text
   }
 
   setQuestionValues = (question: FillInBlankQuestion) => {
@@ -372,7 +391,17 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     const { previewMode, question } = this.props;
     const { responses, inputErrors } = this.state
 
-    if (inputErrors && _.size(inputErrors) !== 0) {
+    const maxAttemptsSubmitted = question.attempts && question.attempts.length === ALLOWED_ATTEMPTS;
+    const latestAttempt = getLatestAttempt(question.attempts);
+
+    if (maxAttemptsSubmitted && !latestAttempt.response.optimal) {
+      return (
+        <FinalAttemptFeedback
+          correctResponse={this.correctResponse()}
+          latestAttempt={latestAttempt.response.text}
+        />
+      )
+    } else if (inputErrors && _.size(inputErrors) !== 0) {
       const blankFeedback = question.blankAllowed ? ' or leave it blank' : ''
       const feedbackText = `Choose one of the options provided${blankFeedback}. Make sure it is spelled correctly.`
       const feedback = <p>{feedbackText}</p>

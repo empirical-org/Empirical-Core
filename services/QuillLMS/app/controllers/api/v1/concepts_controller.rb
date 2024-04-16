@@ -12,8 +12,6 @@ class Api::V1::ConceptsController < Api::ApiController
     end
   end
 
-  caches_action :index, format: 'json', expires_in: 1.hour
-
   def index
     # Returns all the concepts, sorted by level
     # Example Response:
