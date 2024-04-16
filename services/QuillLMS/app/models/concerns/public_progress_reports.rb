@@ -173,7 +173,7 @@ module PublicProgressReports
 
       finished_session = final_sessions_by_user[student.id]&.first
       if finished_session.present?
-        score_obj = formatted_score_obj(finished_session, classification, student, average_scores[student.id])
+        score_obj = formatted_score_obj(finished_session, classification, student, average_scores[student.id] || 0)
         scores[:students].push(score_obj)
         next
       end
@@ -193,7 +193,7 @@ module PublicProgressReports
     :not_completed_names
   end
 
-  def formatted_score_obj(final_activity_session, classification, student, average_score_on_quill)
+  def formatted_score_obj(final_activity_session, classification, student, average_score_on_quill=0)
     formatted_concept_results = format_concept_results(final_activity_session, final_activity_session.concept_results)
     if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(classification.key)
       score = get_average_score(formatted_concept_results)
@@ -211,8 +211,8 @@ module PublicProgressReports
       number_of_correct_questions: formatted_concept_results.filter { |q| q[:key_target_skill_concept][:correct] }.length,
       number_of_questions: formatted_concept_results.length,
       concept_results: formatted_concept_results,
-      score: score,
-      average_score_on_quill: average_score_on_quill || 0
+      score:,
+      average_score_on_quill:
     }
   end
 
@@ -270,6 +270,7 @@ module PublicProgressReports
         directions: directfirst.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", ""),
         prompt: prompt_text,
         answer: cr.first.answer,
+        cues: cr.first.extra_metadata&.dig('cues'),
         score:,
         key_target_skill_concept: get_key_target_skill_concept_for_question(cr, activity_session),
         concepts: cr.map { |crs|
