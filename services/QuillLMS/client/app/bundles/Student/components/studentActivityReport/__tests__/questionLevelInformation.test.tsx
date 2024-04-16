@@ -42,6 +42,7 @@ describe('QuestionLevelInformation', () => {
     const suboptimalQuestion = {
       ...baseQuestion,
       questionScore: 0,
+      score: 0,
       key_target_skill_concept: { ...baseQuestion.key_target_skill_concept, correct: false, }
     }
 
