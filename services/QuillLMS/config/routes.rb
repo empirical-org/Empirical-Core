@@ -160,6 +160,7 @@ EmpiricalGrammar::Application.routes.draw do
     as: :activity_session_from_classroom_unit_and_activity
 
   get 'classroom_units/:classroom_unit_id/activities/:id' => 'activities#activity_session'
+  get 'activity_sessions/:id/student_activity_report' => 'activity_sessions#student_activity_report'
   get 'activity_sessions/:uid' => 'activity_sessions#result'
 
   get 'students_classrooms_json' => 'profiles#students_classrooms_json'

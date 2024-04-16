@@ -7,12 +7,10 @@ import StudentReportBox from './student_report_box';
 import { QuestionData } from '../../../../../interfaces/questionData';
 import { Student } from '../../../../../interfaces/student';
 import { requestGet } from '../../../../../modules/request/index';
-import { DropdownInput, expandIcon } from '../../../../Shared/index';
+import { DropdownInput, HelpfulTips, } from '../../../../Shared/index';
 import { getTimeSpent } from '../../../helpers/studentReports';
 import LoadingSpinner from '../../shared/loading_indicator.jsx';
 import { CONNECT_KEY, EVIDENCE_KEY, GRAMMAR_KEY, LESSONS_KEY, PROOFREADER_KEY, } from '../constants';
-
-const lightbulbIcon = <img alt="" src={`${process.env.CDN_URL}/images/pages/activity_analysis/lightbulb.svg`} />
 
 export interface StudentReportState {
   boldingExplanationIsOpen: boolean,
@@ -33,8 +31,6 @@ interface StudentReportProps extends RouteComponentProps {
 }
 
 const StudentReport = ({ params, studentDropdownCallback, passedStudents, }) => {
-  const [boldingExplanationIsOpen, setBoldingExplanationIsOpen] = React.useState(false)
-  const [scoringExplanationIsOpen, setScoringExplanationIsOpen] = React.useState(false)
   const [loading, setLoading] = React.useState(!passedStudents)
   const [students, setStudents] = React.useState(passedStudents || null)
 
@@ -63,14 +59,6 @@ const StudentReport = ({ params, studentDropdownCallback, passedStudents, }) => 
     });
   }
 
-  function handleToggleBoldingExplanation() {
-    setBoldingExplanationIsOpen(!boldingExplanationIsOpen)
-  }
-
-  function handleToggleScoringExplanation() {
-    setScoringExplanationIsOpen(!scoringExplanationIsOpen)
-  }
-
   function studentBoxes(studentData: Student) {
     const concept_results = _.sortBy(studentData.concept_results, 'question_number')
     return concept_results.map((question: QuestionData, index: number) => {
@@ -80,18 +68,26 @@ const StudentReport = ({ params, studentDropdownCallback, passedStudents, }) => 
 
   function renderHelpfulTips(student) {
     return (
-      <div className="helpful-tips">
-        <div className="helpful-tips-header">
-          {lightbulbIcon}
-          <h3>Helpful Tips for Teachers <span>(Expand to show more information)</span></h3>
-        </div>
-        {renderScoringExplanation(student)}
-        {renderBoldingExplanation()}
-      </div>
+      <HelpfulTips
+        header={<h3>Helpful Tips for Teachers <span>(Expand to show more information)</span></h3>}
+        sections={[
+          scoringExplanation(student),
+          {
+            headerText: "The bolded text helps you see the edits. It is not what the student sees.",
+            body: (
+              <React.Fragment>
+                <p>In each student response, we have bolded all of the text that was added or edited from the previous response so that you can quickly see what changed in the student’s writing throughout their revision cycle.</p>
+                <br />
+                <p>When your student completes an activity, Quill uses bolding to provide hints for them about what to change. In the feedback you see below, phrases like “look at the bolded word” refer to the bolding the student sees as a hint, not the bolded text displayed in this report.</p>
+              </React.Fragment>
+            ),
+          },
+        ]}
+      />
     )
   }
 
-  function renderScoringExplanation(student) {
+  function scoringExplanation(student) {
     let headerText = `The score for ${student.activity_classification_name} activities is based on reaching a correct response by the final attempt.`
 
     if (student.activity_classification === EVIDENCE_KEY) {
@@ -102,70 +98,25 @@ const StudentReport = ({ params, studentDropdownCallback, passedStudents, }) => 
       headerText = "Quill Lessons does not provide a score for students as there is no automated grading in the tool. Instead, the purpose of the tool is for teachers and students to collaboratively discuss answers, with feedback coming from peers rather than the automated grading and feedback that Quill provides in its independent practice tools."
     }
 
-    if (scoringExplanationIsOpen) {
-      return (
-        <button className="toggle-student-report-explanation scoring-explanation is-open" onClick={handleToggleScoringExplanation} type="button">
-          <img alt={expandIcon.alt} src={expandIcon.src} />
-          <div>
-            <h4>{headerText}</h4>
-            <div className="body">
-              <p>Quill employs a <b>mastery-based grading</b> system to grade activities.</p>
-              <br />
-              <p>Students earn:</p>
-              <ul>
-                <li>Proficient (‘green’) for scoring between 83-100%.</li>
-                <li>Nearly Proficient (‘yellow’) for scoring between 32%-82%.</li>
-                <li>Not Proficient (‘red’) for scoring between 0%-31%.</li>
-                <li>Completed (’blue’) for activities that are not graded, such as a <a href="https://support.quill.org/en/articles/2554430-what-assessments-diagnostics-and-skills-surveys-are-available-on-quill-and-who-are-they-for" rel="noopener noreferrer" target="_blank">Diagnostic</a> or <a href="https://support.quill.org/en/articles/1173157-quill-lessons-getting-started-guide" rel="noopener noreferrer" target="_blank">Quill Lesson</a>.</li>
-              </ul>
-              <br />
-              <p>Students will only see their proficiency after submitting an activity. The grade does not appear. We encourage students to <a href="https://support.quill.org/en/articles/5554673-how-can-students-replay-activities" rel="noopener noreferrer" target="_blank">replay</a> their activities and <a href="https://www.quill.org/teacher-center/go-for-green">Go for Green</a> to get additional practice on skills and earn a higher grade.</p>
-            </div>
-          </div>
-        </button>
+    return {
+      headerText,
+      isDisabled: ![CONNECT_KEY, GRAMMAR_KEY, PROOFREADER_KEY].includes(student.activity_classification),
+      body: (
+        <React.Fragment>
+          <p>Quill employs a <b>mastery-based grading</b> system to grade activities.</p>
+          <br />
+          <p>Students earn:</p>
+          <ul>
+            <li>Proficient (‘green’) for scoring between 83-100%.</li>
+            <li>Nearly Proficient (‘yellow’) for scoring between 32%-82%.</li>
+            <li>Not Proficient (‘red’) for scoring between 0%-31%.</li>
+            <li>Completed (’blue’) for activities that are not graded, such as a <a href="https://support.quill.org/en/articles/2554430-what-assessments-diagnostics-and-skills-surveys-are-available-on-quill-and-who-are-they-for" rel="noopener noreferrer" target="_blank">Diagnostic</a> or <a href="https://support.quill.org/en/articles/1173157-quill-lessons-getting-started-guide" rel="noopener noreferrer" target="_blank">Quill Lesson</a>.</li>
+          </ul>
+          <br />
+          <p>Students will only see their proficiency after submitting an activity. The grade does not appear. We encourage students to <a href="https://support.quill.org/en/articles/5554673-how-can-students-replay-activities" rel="noopener noreferrer" target="_blank">replay</a> their activities and <a href="https://www.quill.org/teacher-center/go-for-green">Go for Green</a> to get additional practice on skills and earn a higher grade.</p>
+        </React.Fragment>
       )
     }
-
-    if ([CONNECT_KEY, GRAMMAR_KEY, PROOFREADER_KEY].includes(student.activity_classification)) {
-      return (
-        <button className="toggle-student-report-explanation scoring-explanation is-closed" onClick={handleToggleScoringExplanation} type="button">
-          <img alt={expandIcon.alt} src={expandIcon.src} />
-          <h4>{headerText}</h4>
-        </button>
-      )
-    }
-
-    return (
-      <div className="toggle-student-report-explanation scoring-explanation is-closed">
-        <span />
-        <h4>{headerText}</h4>
-      </div>
-    )
-  }
-
-  function renderBoldingExplanation() {
-    if (boldingExplanationIsOpen) {
-      return (
-        <button className="toggle-student-report-explanation is-open" onClick={handleToggleBoldingExplanation} type="button">
-          <img alt={expandIcon.alt} src={expandIcon.src} />
-          <div>
-            <h4>The bolded text helps you see the edits. It is not what the student sees.</h4>
-            <div className="body">
-              <p>In each student response, we have bolded all of the text that was added or edited from the previous response so that you can quickly see what changed in the student’s writing throughout their revision cycle.</p>
-              <br />
-              <p>When your student completes an activity, Quill uses bolding to provide hints for them about what to change. In the feedback you see below, phrases like “look at the bolded word” refer to the bolding the student sees as a hint, not the bolded text displayed in this report.</p>
-            </div>
-          </div>
-        </button>
-      )
-    }
-
-    return (
-      <button className="toggle-student-report-explanation is-closed" onClick={handleToggleBoldingExplanation} type="button">
-        <img alt={expandIcon.alt} src={expandIcon.src} />
-        <h4>The bolded text helps you see the edits. It is not what the student sees.</h4>
-      </button>
-    )
   }
 
   if (loading) { return <LoadingSpinner /> }
