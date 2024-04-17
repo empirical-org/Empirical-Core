@@ -65,7 +65,7 @@ describe 'Student Concern', type: :model do
   end
 
   let!(:activity_session_for_second_student1) do
-    create(:activity_session, user_id: student2.id, classroom_unit_id: classroom_unit1.id)
+    create(:activity_session, user_id: student2.id, classroom_unit_id: classroom_unit1.id, updated_at: DateTime.now - 1.hour)
   end
 
   let!(:activity_session_for_second_student2) do
@@ -239,6 +239,14 @@ describe 'Student Concern', type: :model do
         student1.merge_activity_sessions(student2)
         student2.reload
         expect(student2.activity_sessions.length).to equal(0)
+      end
+
+      it "sets updated_at on the ActivitySessions that get moved" do
+        now = DateTime.current
+        allow(DateTime).to receive(:current).and_return(now)
+
+        student1.merge_activity_sessions(student2)
+        expect(activity_session_for_second_student1.reload.updated_at).to eq(now)
       end
     end
 

@@ -179,7 +179,7 @@ module Student
 
     secondary_account_grouped_activity_sessions.each do |classroom_unit_id, activity_sessions|
       if classroom_unit_id
-        activity_sessions.each {|as| as.update_columns(user_id: id) }
+        activity_sessions.each {|as| as.update_columns(user_id: id, updated_at: DateTime.current) }
         if primary_account_grouped_activity_sessions[classroom_unit_id]
           hide_extra_activity_sessions(classroom_unit_id)
         else
