@@ -32,12 +32,13 @@ describe 'ActivitiesScoresByClassroom' do
     end
   end
 
-  it 'does not return archived activity sessions' do
+  it 'does not return archived activity sessions or sessions with no completed_at date' do
     new_student = create(:student)
     create(:students_classrooms, student: new_student, classroom: classroom)
     classroom_unit = classroom.classroom_units.first
     classroom_unit.assigned_student_ids << new_student.id
     create(:activity_session, user: classroom.students.first, classroom_unit: classroom_unit, visible: false)
+    create(:activity_session, user: classroom.students.first, classroom_unit: classroom_unit, visible: true, completed_at: nil)
     results = ProgressReports::ActivitiesScoresByClassroom.results(classroom.owner.classrooms_i_teach.map(&:id))
     expect(results.pluck("name")).not_to include(new_student.name)
   end
