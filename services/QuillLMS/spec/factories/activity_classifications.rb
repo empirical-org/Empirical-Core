@@ -24,7 +24,7 @@
 #
 FactoryBot.define do
   factory :activity_classification, aliases: [:classification] do
-    # sequence(:id)  { |n| 100 + n } # prevent id collisions by starting ids at 100
+    sequence(:id)  { |n| 100 + n } # prevent id collisions by starting ids at 100
     sequence(:key) do |n|
       loop do
         possible_key = "key#{n}"
