@@ -513,9 +513,6 @@ workflows:
       - cms_rails_build:
           should-run: << pipeline.parameters.cms-run >>
           <<: *default_filter
-      - marking_logic_node_build:
-          should-run: << pipeline.parameters.marking-logic-run >>
-          <<: *default_filter
 
   lint-code:
     jobs:
