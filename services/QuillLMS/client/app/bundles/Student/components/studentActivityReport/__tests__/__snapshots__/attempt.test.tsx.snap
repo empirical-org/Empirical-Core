@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Attempt renders as expected when the student has a suboptimal attempt 1`] = `
+<DocumentFragment>
+  <div
+    class="attempt"
+  >
+    <h3>
+      1st attempt
+    </h3>
+    <p
+      class="answer"
+    >
+      Dan’s sister can drive us to the park. She has gotten her license two weeks ago.
+    </p>
+    <div
+      class="feedback suboptimal"
+    >
+      <h4>
+        <img
+          alt=""
+          src="undefined/images/pages/student_activity_report/feedback_revise.svg"
+        />
+         Feedback
+      </h4>
+      <p>
+        Try again. How can you show that get is an action completed at a specific time in the past?
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Attempt renders as expected when the student has a suboptimal final attempt 1`] = `
+<DocumentFragment>
+  <div
+    class="attempt"
+  >
+    <h3>
+      5th attempt
+    </h3>
+    <p
+      class="answer"
+    >
+      <span>
+        Jason went to the basketball game last night. There, he has watched his sister score thirty points.
+      </span>
+    </p>
+    <div
+      class="feedback final-suboptimal"
+    >
+      <h4>
+        <img
+          alt=""
+          src="undefined/images/pages/student_activity_report/feedback_multiple_choice.svg"
+        />
+         Feedback
+      </h4>
+      <p>
+        Good try! Compare your response to the strong responses, and then go to on to the next question.
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Attempt renders as expected when the student has an optimal attempt 1`] = `
+<DocumentFragment>
+  <div
+    class="attempt"
+  >
+    <h3>
+      2nd attempt
+    </h3>
+    <p
+      class="answer"
+    >
+      Dan’s sister can drive us to the park. She got her license two weeks ago.
+    </p>
+    <div
+      class="feedback optimal"
+    >
+      <h4>
+        <img
+          alt=""
+          src="undefined/images/pages/student_activity_report/feedback_check.svg"
+        />
+         Feedback
+      </h4>
+      <p>
+        That's a strong sentence!
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;

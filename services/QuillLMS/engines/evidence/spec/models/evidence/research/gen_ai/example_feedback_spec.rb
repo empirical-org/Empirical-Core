@@ -29,6 +29,8 @@ module Evidence
         it { should belong_to(:passage_prompt_response) }
 
         it { expect(build(:evidence_research_gen_ai_example_feedback)).to be_valid}
+
+        it_behaves_like 'a class with optimal and sub-optimal'
       end
     end
   end

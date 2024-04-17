@@ -50,6 +50,7 @@ class Question < ApplicationRecord
     TYPE_GRAMMAR_QUESTION => 'grammar_questions',
   }
 
+  has_many :diagnostic_question_optimal_concepts, class_name: 'DiagnosticQuestionOptimalConcept', foreign_key: :question_uid, primary_key: :uid, dependent: :destroy
   has_many :diagnostic_question_skills
 
   validates :data, presence: true
@@ -156,6 +157,10 @@ class Question < ApplicationRecord
   # this attribute is used by the CMS's Rematch All process
   def rematch_type
     REMATCH_TYPE_MAPPING.fetch(question_type)
+  end
+
+  def connect_sentence_combining?
+    question_type == TYPE_CONNECT_SENTENCE_COMBINING
   end
 
   private def refresh_caches

@@ -196,7 +196,12 @@ class ChangeLog < ApplicationRecord
     changed_record&.conjunctions if changed_record.respond_to?(:conjunctions)
   end
 
+  # TODO: Fix this overwrite of :user association
   def user
+    User.find_by(id: user_id)&.name
+  end
+
+  def user_name
     User.find_by(id: user_id)&.name
   end
 

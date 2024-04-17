@@ -4,8 +4,15 @@ require 'rails_helper'
 
 describe StudentDashboardMetrics do
   before do
-    wednesday_noon = Time.current.beginning_of_week(:wednesday).noon
-    travel_to wednesday_noon
+    now = Time.current
+    wednesday_noon = now.beginning_of_week(:wednesday).noon
+    first_of_month = now.beginning_of_month
+
+    if wednesday_noon - 7.days < first_of_month
+      travel_to wednesday_noon + 1.week
+    else
+      travel_to wednesday_noon
+    end
   end
 
   after do

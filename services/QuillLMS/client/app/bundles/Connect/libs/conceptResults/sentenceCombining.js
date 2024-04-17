@@ -21,6 +21,7 @@ export function getConceptResultsForSentenceCombining(question) {
   if (question.cues && question.cues[0] !== '') {
     directions += ` ${formattedCues(question.cues)}`;
   }
+  
   return conceptResults.map((conceptResult, i) => ({
     concept_uid: conceptResult.conceptUID,
     question_type: 'sentence-combining',

@@ -6,6 +6,7 @@
 #
 #  id                :bigint           not null, primary key
 #  experiment_errors :text             is an Array
+#  num_examples      :integer          default(0), not null
 #  results           :jsonb
 #  status            :string           default("pending"), not null
 #  created_at        :datetime         not null

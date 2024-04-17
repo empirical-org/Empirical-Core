@@ -3,8 +3,17 @@
 module PublicProgressReports
   include DiagnosticReports
   include GetScoreForQuestion
+  include EvidenceReports
 
   extend ActiveSupport::Concern
+
+  GRAMMAR_OPTIMAL_FINAL_ATTEMPT_FEEDBACK = "Well done! That's the correct answer."
+  GRAMMAR_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK = "Good try! Compare your response to the strong responses, and then go to on to the next question."
+  PROOFREADER_OPTIMAL_FINAL_ATTEMPT_FEEDBACK = "Correct"
+  PROOFREADER_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK = "Incorrect"
+  CONNECT_OPTIMAL_FINAL_ATTEMPT_FEEDBACK = "That's a strong sentence!"
+  CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_SENTENCE_COMBINING_FEEDBACK = "Nice try. Let's try a multiple choice question."
+  CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK =  "Good try! Compare your response to the strong responses, and then go to on to the next question."
 
   def last_completed_diagnostic
     diagnostic_activity_ids = Activity.diagnostic_activity_ids
@@ -164,7 +173,7 @@ module PublicProgressReports
 
       finished_session = final_sessions_by_user[student.id]&.first
       if finished_session.present?
-        score_obj = formatted_score_obj(finished_session, classification, student, average_scores[student.id])
+        score_obj = formatted_score_obj(finished_session, classification, student, average_scores[student.id] || 0)
         scores[:students].push(score_obj)
         next
       end
@@ -184,7 +193,7 @@ module PublicProgressReports
     :not_completed_names
   end
 
-  def formatted_score_obj(final_activity_session, classification, student, average_score_on_quill)
+  def formatted_score_obj(final_activity_session, classification, student, average_score_on_quill=0)
     formatted_concept_results = format_concept_results(final_activity_session, final_activity_session.concept_results)
     if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(classification.key)
       score = get_average_score(formatted_concept_results)
@@ -202,8 +211,8 @@ module PublicProgressReports
       number_of_correct_questions: formatted_concept_results.filter { |q| q[:key_target_skill_concept][:correct] }.length,
       number_of_questions: formatted_concept_results.length,
       concept_results: formatted_concept_results,
-      score: score,
-      average_score_on_quill: average_score_on_quill || 0
+      score:,
+      average_score_on_quill:
     }
   end
 
@@ -255,11 +264,14 @@ module PublicProgressReports
       cr.sort!{|x,y| (x.attempt_number || 0) <=> (y.attempt_number || 0)}
       directfirst = cr.first.concept_result_directions&.text || cr.first.concept_result_instructions&.text || ""
       prompt_text = cr.first.concept_result_prompt&.text
+      score = get_score_for_question(cr)
+      question_uid = cr.first.extra_metadata&.dig('question_uid')
       hash = {
         directions: directfirst.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", ""),
         prompt: prompt_text,
         answer: cr.first.answer,
-        score: get_score_for_question(cr),
+        cues: cr.first.extra_metadata&.dig('cues'),
+        score:,
         key_target_skill_concept: get_key_target_skill_concept_for_question(cr, activity_session),
         concepts: cr.map { |crs|
           attempt_number = crs.attempt_number
@@ -270,13 +282,14 @@ module PublicProgressReports
             correct: crs.correct,
             feedback: get_feedback_from_feedback_history(activity_session, prompt_text, attempt_number),
             lastFeedback: crs.concept_result_previous_feedback&.text,
+            finalAttemptFeedback: get_final_attempt_feedback(activity_session, question_uid, score, prompt_text, attempt_number),
             attempt: attempt_number || 1,
             answer: crs.answer,
             directions: direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
           }
         },
         question_number: cr.first.question_number,
-        question_uid: cr.first.extra_metadata ? cr.first.extra_metadata['question_uid'] : nil
+        question_uid:
       }
       if cr.first.question_score
         hash[:questionScore] = cr.first.question_score
@@ -285,6 +298,16 @@ module PublicProgressReports
     }
   end
   # rubocop:enable Metrics/CyclomaticComplexity
+
+  def get_final_attempt_feedback(activity_session, question_uid, score, prompt_text, attempt_number)
+    question = question_uid ? Question.find_by_uid(question_uid) : nil
+    classification = activity_session&.classification
+
+    return evidence_final_attempt_feedback(activity_session, score, prompt_text, attempt_number) if classification == ActivityClassification.evidence
+    return grammar_final_attempt_feedback(score) if classification == ActivityClassification.grammar
+    return proofreader_final_attempt_feedback(question, score) if classification == ActivityClassification.proofreader
+    return connect_final_attempt_feedback(question, score) if classification == ActivityClassification.connect
+  end
 
   def get_key_target_skill_concept_for_question(concept_results, activity_session)
     default = {
@@ -316,18 +339,6 @@ module PublicProgressReports
       (formatted_results.inject(0) {|sum, crs| sum + crs[:score]} / formatted_results.length).round()
     end
   end
-
-  # rubocop:disable Metrics/CyclomaticComplexity
-  def get_feedback_from_feedback_history(activity_session, prompt_text, attempt_number)
-    feedback_histories = activity_session.feedback_histories
-    return "" if feedback_histories.empty? || prompt_text.blank? || attempt_number.blank?
-
-    prompt_ids = activity_session.activity.child_activity.prompt_ids
-    prompt = Evidence::Prompt.where(id: prompt_ids, text: prompt_text)&.first
-    feedback_history = feedback_histories.select {|fh| fh.attempt == attempt_number.to_i && fh.prompt_id == prompt&.id }&.first
-    feedback_history&.feedback_text
-  end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def generate_recommendations_for_classroom(current_user, unit_id, classroom_id, activity_id)
@@ -467,6 +478,25 @@ module PublicProgressReports
       })
     end
     question_array
+  end
+
+  private def grammar_final_attempt_feedback(score)
+    score > 0 ? GRAMMAR_OPTIMAL_FINAL_ATTEMPT_FEEDBACK : GRAMMAR_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK
+  end
+
+  private def proofreader_final_attempt_feedback(question, score)
+    if question&.question_type == Question::TYPE_GRAMMAR_QUESTION
+      grammar_final_attempt_feedback(score)
+    else
+      score > 0 ? PROOFREADER_OPTIMAL_FINAL_ATTEMPT_FEEDBACK : PROOFREADER_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK
+    end
+  end
+
+  private def connect_final_attempt_feedback(question, score)
+    return CONNECT_OPTIMAL_FINAL_ATTEMPT_FEEDBACK if score > 0
+    return CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_SENTENCE_COMBINING_FEEDBACK if question&.connect_sentence_combining?
+
+    CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK
   end
 
 end
