@@ -16,7 +16,7 @@
 require 'rails_helper'
 
 RSpec.describe CanvasInstance, type: :model do
-  subject { create(:canvas_instance) }
+  subject { build(:canvas_instance) }
 
   it { expect(subject).to be_valid }
 
@@ -49,18 +49,18 @@ RSpec.describe CanvasInstance, type: :model do
   end
 
   context 'url validator' do
-    subject { create(:canvas_instance, url: url) }
+    subject { build(:canvas_instance, url: url) }
 
     context 'valid url' do
       let(:url) { 'https://example.instructure.com' }
 
-      it { expect(subject.errors).to be_empty }
+      it { expect(subject.valid?).to be true }
     end
 
     context 'invalid url' do
       let(:url) { 'not-a-url' }
 
-      it { expect { subject }.to raise_error(ActiveRecord::RecordInvalid) }
+      it { expect { subject.save! }.to raise_error(ActiveRecord::RecordInvalid) }
     end
   end
 end

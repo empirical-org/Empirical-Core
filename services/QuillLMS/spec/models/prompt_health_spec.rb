@@ -36,7 +36,7 @@ describe PromptHealth, type: :model, redis: true do
 
   context '#serializable_hash' do
     it 'serialize into the expected shape' do
-      prompt_health = create(:prompt_health)
+      prompt_health = build(:prompt_health)
       expect(prompt_health.serializable_hash).to eq({
         id: prompt_health.id,
         text: prompt_health.text,

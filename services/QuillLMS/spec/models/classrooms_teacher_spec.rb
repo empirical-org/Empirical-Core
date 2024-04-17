@@ -36,7 +36,7 @@ RSpec.describe ClassroomsTeacher, type: :model, redis: true do
   it { is_expected.to callback(:reset_lessons_cache_for_teacher).before(:destroy) }
 
   describe 'teacher' do
-    let(:teacher) { create(:classrooms_teacher) }
+    let(:teacher) { build(:classrooms_teacher) }
 
     it 'should return the associated user' do
       expect(teacher.teacher).to eq(teacher.user)

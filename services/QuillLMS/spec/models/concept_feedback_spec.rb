@@ -19,7 +19,7 @@
 require 'rails_helper'
 
 RSpec.describe ConceptFeedback, type: :model do
-  let(:concept_feedback) { create(:concept_feedback) }
+  let(:concept_feedback) { build(:concept_feedback) }
 
   describe '#valid?' do
     it 'should be valid from the factory' do

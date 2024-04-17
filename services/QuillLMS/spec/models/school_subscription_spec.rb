@@ -18,7 +18,7 @@
 require 'rails_helper'
 
 describe SchoolSubscription, type: :model do
-  let!(:school_sub) {create(:school_subscription)}
+  let!(:school_sub) {build(:school_subscription)}
 
   it { should validate_presence_of(:school_id) }
   it { should validate_presence_of(:subscription_id) }

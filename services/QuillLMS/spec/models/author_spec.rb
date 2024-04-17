@@ -38,7 +38,7 @@ describe Author, type: :model, redis: true do
 
   describe 'avatar url' do
     context 'when avatar exists' do
-      let(:author) { create(:author) }
+      let(:author) { build(:author) }
 
       it 'should return the avatar' do
         expect(author.avatar_url).to eq(author.avatar)
@@ -46,7 +46,7 @@ describe Author, type: :model, redis: true do
     end
 
     context 'when avatar does not exist' do
-      let(:author) { create(:author, avatar: '') }
+      let(:author) { build(:author, avatar: '') }
 
       it 'should return the default avatar url' do
         expect(author.avatar_url).to eq(DEFAULT_AVATAR_TEST_URL)

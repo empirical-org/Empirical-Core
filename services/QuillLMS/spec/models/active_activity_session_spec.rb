@@ -17,7 +17,7 @@
 require 'rails_helper'
 
 RSpec.describe ActiveActivitySession, type: :model do
-  let(:active_activity_session) { create(:active_activity_session) }
+  let(:active_activity_session) { build_stubbed(:active_activity_session) }
 
   describe '#valid?' do
     it 'should be valid from the factory' do
@@ -40,9 +40,13 @@ RSpec.describe ActiveActivitySession, type: :model do
       expect(active_activity_session.errors[:data]).to include('must be a hash')
     end
 
-    it 'should be invalid if the uid is not unique' do
-      new_active_activity_session = ActiveActivitySession.new(uid: active_activity_session.uid, data: {foo: 'bar'})
-      expect(new_active_activity_session.valid?).to be false
+    context 'another session' do
+      let(:active_activity_session) { create(:active_activity_session) }
+
+      it 'should be invalid if the uid is not unique' do
+        new_active_activity_session = ActiveActivitySession.new(uid: active_activity_session.uid, data: {foo: 'bar'})
+        expect(new_active_activity_session.valid?).to be false
+      end
     end
   end
 

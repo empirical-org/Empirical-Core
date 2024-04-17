@@ -17,7 +17,7 @@
 require 'rails_helper'
 
 RSpec.describe LearnWorldsCourse, type: :model do
-  subject { create(:learn_worlds_course) }
+  subject { build(:learn_worlds_course) }
 
   it { should validate_uniqueness_of(:external_id) }
 

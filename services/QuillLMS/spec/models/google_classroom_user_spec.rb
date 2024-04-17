@@ -19,9 +19,13 @@
 require 'rails_helper'
 
 RSpec.describe GoogleClassroomUser, type: :model do
-  subject { create(:google_classroom_user)}
+  subject { build(:google_classroom_user)}
 
-  it_behaves_like 'a provider classroom user'
+  context 'provider' do
+    subject { create(:google_classroom_user)}
+
+    it_behaves_like 'a provider classroom user'
+  end
 
   it { expect(subject.canvas_instance).to be nil }
 

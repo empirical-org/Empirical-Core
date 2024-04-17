@@ -25,7 +25,7 @@ require 'rails_helper'
 
 RSpec.describe TeacherSavedActivity, type: :model do
 
-  subject { create(:teacher_saved_activity) }
+  subject { build(:teacher_saved_activity) }
 
   it { should belong_to(:teacher).class_name('User') }
   it { should belong_to(:activity) }

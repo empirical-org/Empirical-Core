@@ -6,10 +6,10 @@ describe SchoolsAdmins, type: :model, redis: true do
   it { should belong_to(:school) }
   it { should belong_to(:user) }
 
-  let(:user) { create(:user, email: 'test@quill.org') }
+  let(:user) { build(:user, email: 'test@quill.org') }
 
   describe '#admin' do
-    let(:admins) { create(:schools_admins, user: user) }
+    let(:admins) { build(:schools_admins, user: user) }
 
     it 'should return the user associated' do
       expect(admins.admin).to eq(admins.user)

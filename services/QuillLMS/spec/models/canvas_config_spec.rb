@@ -22,7 +22,7 @@
 require 'rails_helper'
 
 RSpec.describe CanvasConfig, type: :model do
-  let(:canvas_config) { create(:canvas_config) }
+  let(:canvas_config) { build(:canvas_config) }
 
   it { expect(canvas_config).to be_valid }
 

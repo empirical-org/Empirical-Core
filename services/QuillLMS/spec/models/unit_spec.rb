@@ -37,10 +37,10 @@ describe Unit, type: :model do
   it { is_expected.to callback(:save_user_pack_sequence_items).after(:save) }
   it { is_expected.to callback(:hide_classroom_units_and_unit_activities).after(:save) }
 
-  let!(:classroom) { create(:classroom) }
-  let!(:teacher) { create(:teacher) }
-  let!(:activity) { create(:activity) }
-  let!(:unit) { create(:unit, user: teacher, visible: true) }
+  let(:classroom) { create(:classroom) }
+  let(:teacher) { create(:teacher) }
+  let(:activity) { create(:activity) }
+  let(:unit) { create(:unit, user: teacher, visible: true) }
 
   describe 'user_id field' do
     it 'should not raise an error' do
@@ -172,9 +172,9 @@ describe Unit, type: :model do
 
   describe '#touch_all_classrooms_and_classroom_units' do
     let(:initial_time) { 1.day.ago}
-    let!(:unit) { create(:unit) }
-    let!(:classroom) { create(:classroom) }
-    let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit)}
+    let(:unit) { create(:unit) }
+    let(:classroom) { create(:classroom) }
+    let(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit)}
 
     it "should update classrooms and classroom_units updated_at on unit save" do
       classroom.update_columns(updated_at: initial_time)
@@ -202,12 +202,12 @@ describe Unit, type: :model do
   end
 
   describe 'save_user_pack_sequence_items' do
-    let!(:unit) { create(:unit, user: teacher, visible: visible) }
-    let!(:num_students) { 2 }
-    let!(:student_ids) { create_list(:student, num_students).pluck(:id) }
-    let!(:classroom_unit) { create(:classroom_unit, unit: unit, assigned_student_ids: student_ids) }
-    let!(:num_jobs) { num_students }
-    let!(:pack_sequence_item) { create(:pack_sequence_item, classroom_unit: classroom_unit) }
+    let(:unit) { create(:unit, user: teacher, visible: visible) }
+    let(:num_students) { 2 }
+    let(:student_ids) { create_list(:student, num_students).pluck(:id) }
+    let(:classroom_unit) { create(:classroom_unit, unit: unit, assigned_student_ids: student_ids) }
+    let(:num_jobs) { num_students }
+    let(:pack_sequence_item) { create(:pack_sequence_item, classroom_unit: classroom_unit) }
 
     before { create_list(:user_pack_sequence_item, num_students, pack_sequence_item: pack_sequence_item) }
 
@@ -233,8 +233,8 @@ describe Unit, type: :model do
   end
 
   describe '#closed?' do
-    let!(:open_unit) { create(:unit, open: true) }
-    let!(:closed_unit) { create(:unit, open: false) }
+    let(:open_unit) { build(:unit, open: true) }
+    let(:closed_unit) { build(:unit, open: false) }
 
     it 'should return true if the unit is closed' do
       expect(closed_unit.closed?).to eq(true)

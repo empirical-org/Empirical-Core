@@ -19,9 +19,13 @@
 require 'rails_helper'
 
 RSpec.describe CanvasClassroomUser, type: :model do
-  subject { create(:canvas_classroom_user)}
+  subject { build(:canvas_classroom_user)}
 
-  it_behaves_like 'a provider classroom user'
+  context 'provider classroom' do
+    subject { create(:canvas_classroom_user)}
+
+    it_behaves_like 'a provider classroom user'
+  end
 
   it { expect { subject.clever_classroom_id }.to raise_error NotImplementedError }
   it { expect { subject.clever_user_id }.to raise_error NotImplementedError }

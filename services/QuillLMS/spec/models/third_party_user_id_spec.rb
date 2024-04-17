@@ -22,8 +22,8 @@
 require 'rails_helper'
 
 describe "ThirdPartyUserId", type: :model do
-  let(:title_card) { create(:title_card) }
-  let(:third_party_user_id) { create(:third_party_user_id) }
+  let(:title_card) { build(:title_card) }
+  let(:third_party_user_id) { build(:third_party_user_id) }
   let(:new_params) { {user: third_party_user_id.user, source: third_party_user_id.source, third_party_id: third_party_user_id.third_party_id} }
 
   describe "#valid" do

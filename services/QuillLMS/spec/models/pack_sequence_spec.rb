@@ -25,7 +25,7 @@
 require 'rails_helper'
 
 RSpec.describe PackSequence, type: :model do
-  subject { create(:pack_sequence) }
+  subject { build(:pack_sequence) }
 
   it { should belong_to(:classroom) }
   it { should belong_to(:diagnostic_activity) }

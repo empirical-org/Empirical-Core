@@ -117,7 +117,7 @@ RSpec.describe User, type: :model do
   it_behaves_like 'a subscriber'
 
   let(:user) { build(:user) }
-  let!(:user_with_original_email) { build(:user, email: 'fake@example.com') }
+  let(:user_with_original_email) { build(:user, email: 'fake@example.com') }
 
   describe 'flags' do
     describe 'validations' do
@@ -164,12 +164,12 @@ RSpec.describe User, type: :model do
   end
 
   describe '#stripe_customer?' do
-    let(:user) { create(:teacher, :has_a_stripe_customer_id) }
+    let(:user) { build(:teacher, :has_a_stripe_customer_id) }
     let(:stripe_customer_id) { user.stripe_customer_id }
     let(:retrieve_stripe_customer) { allow(Stripe::Customer).to receive(:retrieve).with(stripe_customer_id) }
 
     context 'user with no stripe_customer_id' do
-      it { expect(create(:teacher).stripe_customer?).to eq false }
+      it { expect(build(:teacher).stripe_customer?).to eq false }
     end
 
     context 'customer does not exist on stripe' do
@@ -392,7 +392,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '#admin?' do
-    let!(:user) { create(:admin) }
+    let(:user) { build(:admin) }
 
     context 'when admin exists' do
       it 'should return true' do
@@ -410,7 +410,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'serialized' do
-    let(:user) { create(:user) }
+    let(:user) { build(:user) }
 
     it 'should return the right seralizer object' do
       expect(user.serialized).to be_a("#{user.role.capitalize}Serializer".constantize)
@@ -419,7 +419,7 @@ RSpec.describe User, type: :model do
 
   describe '#newsletter?' do
     context 'user.send_newsletter = false' do
-      let(:teacher) { create(:user, send_newsletter: false) }
+      let(:teacher) { build(:user, send_newsletter: false) }
 
       it 'returns false' do
         expect(teacher.newsletter?).to eq(false)
@@ -427,7 +427,7 @@ RSpec.describe User, type: :model do
     end
 
     context 'user.send_newsletter = true' do
-      let(:teacher) { create(:user, send_newsletter: true) }
+      let(:teacher) { build(:user, send_newsletter: true) }
 
       it 'returns true' do
         expect(teacher.newsletter?).to eq(true)
@@ -436,7 +436,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '#send_account_created_email' do
-    let(:user) { create(:user) }
+    let(:user) { build(:user) }
 
     before do
       allow(UserMailer).to receive(:account_created_email).and_return(double(:email, deliver_now!: true))
@@ -449,7 +449,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '#send_invitation_to_non_existing_user' do
-    let(:user) { create(:user) }
+    let(:user) { build(:user) }
 
     before do
       allow(UserMailer).to receive(:invitation_to_non_existing_user).and_return(double(:email, deliver_now!: true))
@@ -462,7 +462,7 @@ RSpec.describe User, type: :model do
   end
 
   describe "#send_invitation_to_existing_user" do
-    let(:user) { create(:user) }
+    let(:user) { build(:user) }
 
     before do
       allow(UserMailer).to receive(:invitation_to_existing_user).and_return(double(:email, deliver_now!: true))
@@ -489,7 +489,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '#send_lesson_plan_email' do
-    let(:user) { create(:user) }
+    let(:user) { build(:user) }
     let(:lessons) { double(:lessons) }
     let(:unit) { double(:unit) }
 
@@ -504,7 +504,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '#send_new_admin_email' do
-    let(:user) { create(:user) }
+    let(:user) { build(:user) }
     let(:school) { double(:school) }
 
     before do
@@ -518,7 +518,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '#delete_classroom_minis_cache' do
-    let(:user) { create(:user) }
+    let(:user) { build(:user) }
 
     it 'should clear the class_room_minis cache' do
       $redis.set("user_id:#{user.id}_classroom_minis", "anything")

@@ -19,7 +19,7 @@
 require 'rails_helper'
 
 RSpec.describe Question, type: :model do
-  let(:question) { create(:question) }
+  let(:question) { build(:question) }
   let(:new_focus_point) do
     {
       'conceptResults' => {
@@ -70,11 +70,15 @@ RSpec.describe Question, type: :model do
       expect(question.valid?).to be false
       expect(question.errors[:data]).to include('must be a hash')
     end
+    context 'uniqueness' do
+      let(:question) { create(:question) }
 
-    it 'should be invalid if the uid is not unique and question type is the same' do
-      new_question = Question.new(uid: question.uid, data: {foo: 'bar'}, question_type: question.question_type)
-      expect(new_question.valid?).to be false
+      it 'should be invalid if the uid is not unique and question type is the same' do
+        new_question = Question.new(uid: question.uid, data: {foo: 'bar'}, question_type: question.question_type)
+        expect(new_question.valid?).to be false
+      end
     end
+
 
     it 'should be invalid if it has no question type' do
       question.question_type = nil

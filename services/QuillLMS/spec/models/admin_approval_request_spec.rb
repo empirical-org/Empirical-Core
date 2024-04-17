@@ -29,7 +29,7 @@ describe AdminApprovalRequest, type: :model, redis: true do
   it { should validate_presence_of(:requestee_id) }
 
   describe '#wipe_cache_for_requestee' do
-    let(:admin_approval_request) { create(:admin_approval_request) }
+    let(:admin_approval_request) { build(:admin_approval_request) }
     let!(:school_admin) { create(:schools_admins, user: admin_approval_request.requestee) }
 
     it 'should call .wipe_cache on the requestee school admin record' do

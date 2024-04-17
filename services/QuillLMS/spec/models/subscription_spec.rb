@@ -79,7 +79,7 @@ describe Subscription, type: :model do
   end
 
   describe '#is_trial?' do
-    let!(:subscription) { create(:subscription) }
+    let!(:subscription) { build(:subscription) }
 
     it "returns true if the subscription is in Subscription::TRIAL_TYPES" do
       Subscription::TRIAL_TYPES.each do |tt|

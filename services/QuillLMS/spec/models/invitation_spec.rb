@@ -20,7 +20,7 @@
 require 'rails_helper'
 
 RSpec.describe Invitation, type: :model do
-  let(:teacher) { create(:teacher_with_a_couple_classrooms_with_one_student_each) }
+  let(:teacher) { build(:teacher_with_a_couple_classrooms_with_one_student_each) }
 
   describe 'validations' do
 

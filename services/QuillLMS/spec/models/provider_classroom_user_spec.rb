@@ -21,9 +21,9 @@ require 'rails_helper'
 RSpec.describe ProviderClassroomUser, type: :model do
   context 'validations' do
     context 'invalid type' do
-      subject { create(:provider_classroom_user, type: 'NotApprovedType') }
+      subject { build(:provider_classroom_user, type: 'NotApprovedType') }
 
-      it { expect { subject }.to raise_error ActiveRecord::RecordInvalid }
+      it { expect(subject.valid?).to be false }
     end
   end
 end

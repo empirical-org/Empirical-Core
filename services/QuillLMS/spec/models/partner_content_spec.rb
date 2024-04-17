@@ -35,7 +35,7 @@ describe PartnerContent, type: :model do
   context 'basic data' do
     it 'should be valid' do
       unit_template = create(:unit_template)
-      partner_content = PartnerContent.create(partner: 'amplify', content: unit_template)
+      partner_content = build(:partner_content, partner: 'amplify', content: unit_template)
       expect(partner_content).to be_valid
     end
   end

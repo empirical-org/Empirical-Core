@@ -24,7 +24,7 @@
 require 'rails_helper'
 
 RSpec.describe CanvasInstanceSchool, type: :model do
-  subject { create(:canvas_instance_school) }
+  subject { build(:canvas_instance_school) }
 
   it { expect(subject).to be_valid }
 
@@ -32,6 +32,7 @@ RSpec.describe CanvasInstanceSchool, type: :model do
   it { should belong_to(:school) }
 
   context 'uniqueness' do
+    subject { create(:canvas_instance_school) }
     it { expect { subject.dup.save!}.to raise_error ActiveRecord::RecordNotUnique }
   end
 end

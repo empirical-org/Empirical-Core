@@ -39,7 +39,7 @@
 require 'rails_helper'
 
 describe BlogPost, type: :model do
-  let(:blog_post) { create(:blog_post) }
+  let(:blog_post) { build(:blog_post) }
 
   describe '#increment_read_count' do
     it 'should increment the view count by 1' do
@@ -72,6 +72,7 @@ describe BlogPost, type: :model do
   end
 
   describe '#generate_slug' do
+    let(:blog_post) { create(:blog_post) }
     let(:title) { blog_post.title }
     let(:slug) { title.gsub(/[^a-zA-Z\d\s]/, '').gsub(' ', '-').downcase }
     let(:blog_post_with_same_title) { create(:blog_post, title: title) }
@@ -92,7 +93,7 @@ describe BlogPost, type: :model do
 
   describe '#can_be_accessed_by' do
     context 'when the article is free' do
-      let(:free_article) { create(:blog_post) }
+      let(:free_article) { build(:blog_post) }
 
       it 'should be accessible' do
         expect(free_article.can_be_accessed_by(nil)).to be(true)
@@ -100,7 +101,7 @@ describe BlogPost, type: :model do
     end
 
     context 'when the article is premium' do
-      let(:paid_article) { create(:blog_post, :premium) }
+      let(:paid_article) { build(:blog_post, :premium) }
       let(:free_user)    { create(:teacher) }
       let(:premium_user) { create(:teacher, :premium)}
 
@@ -119,7 +120,7 @@ describe BlogPost, type: :model do
   end
 
   describe '#average_rating' do
-    let(:blog_post) { create(:blog_post) }
+    let(:blog_post) { build(:blog_post) }
     let(:blog_post_ratings) { create_list(:blog_post_user_rating, 3, blog_post: blog_post) }
 
     it 'should calculate the average' do
@@ -133,7 +134,7 @@ describe BlogPost, type: :model do
   end
 
   describe 'related_posts' do
-    let(:blog_post1) { create(:blog_post, topic: "What's new") }
+    let(:blog_post1) { build(:blog_post, topic: "What's new") }
     let(:blog_post2) { create(:blog_post, topic: "What's new", created_at: 1.day.ago) }
     let(:blog_post3) { create(:blog_post, topic: "Getting started") }
     let(:blog_post4) { create(:blog_post, topic: "What's new", created_at: 1.year.ago, draft: true) }

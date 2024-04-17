@@ -36,7 +36,7 @@ describe AuthCredential, type: :model do
   it { should validate_inclusion_of(:type).in_array(AuthCredential::TYPES) }
 
   describe '#access_token_expired?' do
-    let(:auth_credential) { create(:google_auth_credential, expires_at: expires_at) }
+    let(:auth_credential) { build(:google_auth_credential, expires_at: expires_at) }
 
     context 'nil expires_at' do
       let(:expires_at) { nil }

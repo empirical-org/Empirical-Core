@@ -58,7 +58,7 @@ RSpec.describe AppSetting, type: :model do
 
   describe '#enabled_for_user?' do
     context 'override is false' do
-      let(:app_setting1) { create(:app_setting, percent_active: 100, enabled: false) }
+      let(:app_setting1) { build(:app_setting, percent_active: 100, enabled: false) }
 
       it 'should return false' do
         expect(app_setting1.enabled_for_user?(user)).to be false
@@ -67,7 +67,7 @@ RSpec.describe AppSetting, type: :model do
     end
 
     context 'user is nil' do
-      let(:app_setting1) { create(:app_setting, percent_active: 100, enabled: true) }
+      let(:app_setting1) { build(:app_setting, percent_active: 100, enabled: true) }
 
       it 'should return false' do
         expect(app_setting1.enabled_for_user?(nil)).to be false
@@ -75,7 +75,7 @@ RSpec.describe AppSetting, type: :model do
     end
 
     context 'override is true, staff is true' do
-      let(:app_setting1) { create(:app_setting, percent_active: 0, enabled: true, enabled_for_staff: true) }
+      let(:app_setting1) { build(:app_setting, percent_active: 0, enabled: true, enabled_for_staff: true) }
 
       it 'should return true when user is staff' do
         allow_any_instance_of(User).to receive(:staff?) { true }
@@ -101,25 +101,25 @@ RSpec.describe AppSetting, type: :model do
 
     context 'statistical sanity test for hashing algorithm' do
       it 'when percent_active is 50, users should be evenishly distributed' do
-        app_setting = create(:app_setting, name: 'lorem1', enabled: true, percent_active: 50)
+        app_setting = build(:app_setting, name: 'lorem1', enabled: true, percent_active: 50)
         result = one_to_a_hundred.count {|r| app_setting.user_in_rollout_bucket?(r) }
         expect(result).to eq 49
       end
 
       it 'when percent_active is low, few users should be in bucket' do
-        app_setting = create(:app_setting, name: 'lorem2', enabled: true, percent_active: 10)
+        app_setting = build(:app_setting, name: 'lorem2', enabled: true, percent_active: 10)
         result = one_to_a_hundred.count {|r| app_setting.user_in_rollout_bucket?(r) }
         expect(result).to eq 8
       end
 
       it 'when percent_active is high, many users should be in bucket' do
-        app_setting = create(:app_setting, name: 'lorem3', enabled: true, percent_active: 95)
+        app_setting = build(:app_setting, name: 'lorem3', enabled: true, percent_active: 95)
         result = one_to_a_hundred.count {|r| app_setting.user_in_rollout_bucket?(r) }
         expect(result).to eq 99
       end
 
       it 'when percent_active is 100, all users should be in bucket' do
-        app_setting = create(:app_setting, name: 'lorem4', enabled: true, percent_active: 100)
+        app_setting = build(:app_setting, name: 'lorem4', enabled: true, percent_active: 100)
         result = one_to_a_hundred.count {|r| app_setting.user_in_rollout_bucket?(r) }
         expect(result).to eq 100
       end

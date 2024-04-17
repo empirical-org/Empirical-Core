@@ -26,7 +26,7 @@
 require 'rails_helper'
 
 describe GoogleAuthCredential, type: :model do
-  subject { create(:google_auth_credential) }
+  subject { build(:google_auth_credential) }
 
   it { should belong_to(:user) }
 

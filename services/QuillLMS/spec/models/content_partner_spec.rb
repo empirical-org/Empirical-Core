@@ -14,7 +14,7 @@
 require 'rails_helper'
 
 describe ContentPartner do
-  let!(:content_partner) { create(:content_partner) }
+  let!(:content_partner) { build(:content_partner) }
 
   it { expect(subject).to validate_presence_of :name }
   it { expect(subject).to have_many :content_partner_activities }

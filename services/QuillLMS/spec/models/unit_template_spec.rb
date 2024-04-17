@@ -25,7 +25,7 @@
 require 'rails_helper'
 
 describe UnitTemplate, redis: true, type: :model do
-  let!(:unit_template) {create(:unit_template)}
+  let(:unit_template) {create(:unit_template)}
 
   it { should belong_to(:unit_template_category) }
   it { should belong_to(:author) }

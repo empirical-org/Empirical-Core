@@ -16,7 +16,7 @@ require 'rails_helper'
 
 describe FirebaseApp, type: :model do
 
-  let(:firebase_app){ create(:firebase_app) }
+  let(:firebase_app){ build(:firebase_app) }
 
   context "#token_for" do
     let(:generator) { double("Firebase::FirebaseTokenGenerator") }
@@ -50,7 +50,7 @@ describe FirebaseApp, type: :model do
     end
 
     context 'for a student' do
-      let(:user) { create(:student) }
+      let(:user) { build(:student) }
 
       it_behaves_like 'generating a token'
     end
@@ -71,13 +71,13 @@ describe FirebaseApp, type: :model do
     end
 
     context 'for a teacher' do
-      let(:user) { create(:teacher) }
+      let(:user) { build(:teacher) }
 
       it_behaves_like 'generating a token'
     end
 
     context 'for a staff member' do
-      let(:user) { create(:staff) }
+      let(:user) { build(:staff) }
 
       it_behaves_like 'generating a token'
     end
@@ -115,7 +115,7 @@ describe FirebaseApp, type: :model do
     end
 
     context 'when staff user' do
-      let(:user) { create(:user, role: 'staff') }
+      let(:user) { build(:user, role: 'staff') }
 
       it 'should return the encoded payload with staff claims' do
         connect_token = firebase_app.connect_token_for(user)
@@ -124,7 +124,7 @@ describe FirebaseApp, type: :model do
     end
 
     context 'when admin user' do
-      let(:user) { create(:admin) }
+      let(:user) { build(:admin) }
 
       it 'should return the encoded payload with admin claims' do
         connect_token = firebase_app.connect_token_for(user)
@@ -133,7 +133,7 @@ describe FirebaseApp, type: :model do
     end
 
     context 'when teacher user' do
-      let(:user) { create(:user, role: 'teacher') }
+      let(:user) { build(:user, role: 'teacher') }
 
       it 'should return the encoded payload with teacher claims' do
         connect_token = firebase_app.connect_token_for(user)
@@ -142,7 +142,7 @@ describe FirebaseApp, type: :model do
     end
 
     context 'when student user' do
-      let(:user) { create(:user, role: 'student') }
+      let(:user) { build(:user, role: 'student') }
 
       it 'should return the encoded payload with student claims' do
         connect_token = firebase_app.connect_token_for(user)

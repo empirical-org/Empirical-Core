@@ -24,7 +24,7 @@
 require 'rails_helper'
 
 RSpec.describe CanvasAccount, type: :model do
-  subject { create(:canvas_account) }
+  subject { build(:canvas_account) }
 
   it { should be_valid }
 
@@ -32,7 +32,7 @@ RSpec.describe CanvasAccount, type: :model do
   it { should belong_to(:user) }
 
   describe '#user_external_id' do
-    let(:canvas_account) { create(:canvas_account) }
+    let(:canvas_account) { build(:canvas_account) }
     let(:canvas_instance_id) { canvas_account.canvas_instance_id }
     let(:external_id) { canvas_account.external_id }
 

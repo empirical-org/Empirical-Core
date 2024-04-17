@@ -26,7 +26,7 @@
 require 'rails_helper'
 
 describe CanvasAuthCredential, type: :model do
-  subject { create(:canvas_auth_credential) }
+  subject { build(:canvas_auth_credential) }
 
   it { should belong_to(:user) }
   it { should have_one(:canvas_instance_auth_credential).dependent(:destroy) }
@@ -38,6 +38,8 @@ describe CanvasAuthCredential, type: :model do
   it { expect { subject.update(token: 'foo') }.to change(subject, :access_token ).to('foo') }
 
   describe '#canvas_authorized?' do
+    subject { create(:canvas_auth_credential) }
+
     it { is_expected.to be_canvas_authorized}
 
     context 'nil expires_at' do

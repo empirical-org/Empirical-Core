@@ -28,7 +28,7 @@ require 'rails_helper'
 
 RSpec.describe ConceptResult, type: :model do
   before do
-    create(:concept_result)
+    build(:concept_result)
   end
 
   context 'associations' do

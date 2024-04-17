@@ -21,7 +21,7 @@
 require 'rails_helper'
 
 describe CanvasInstanceAuthCredential, type: :model do
-  subject { create(:canvas_instance_auth_credential) }
+  subject { build(:canvas_instance_auth_credential) }
 
   it { expect(subject).to be_valid }
 
@@ -30,10 +30,14 @@ describe CanvasInstanceAuthCredential, type: :model do
 
   it { should validate_uniqueness_of(:auth_credential_id) }
 
-  it 'validates database uniqueness constraint of auth_credential_id' do
-    expect {
-      build(:canvas_instance_auth_credential, auth_credential: subject.auth_credential).save(validate: false)
-    }.to raise_error(ActiveRecord::RecordNotUnique)
+  context 'multiple records' do
+    subject { create(:canvas_instance_auth_credential) }
+
+    it 'validates database uniqueness constraint of auth_credential_id' do
+      expect {
+        build(:canvas_instance_auth_credential, auth_credential: subject.auth_credential).save(validate: false)
+      }.to raise_error(ActiveRecord::RecordNotUnique)
+    end
   end
 end
 

@@ -26,9 +26,13 @@
 require 'rails_helper'
 
 describe District, type: :model do
-  let!(:district) { create(:district) }
+  let!(:district) { build(:district) }
 
-  it { should validate_uniqueness_of(:nces_id).with_message("A district with this NCES ID already exists.") }
+  context 'uniqueness' do
+    let!(:district) { create(:district) }
+    it { should validate_uniqueness_of(:nces_id).with_message("A district with this NCES ID already exists.") }
+  end
+
   it { should allow_value("", nil).for(:nces_id) }
 
   it { should have_many(:schools) }

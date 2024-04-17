@@ -25,7 +25,7 @@
 require 'rails_helper'
 
 RSpec.describe CanvasClassroom, type: :model do
-  subject { create(:canvas_classroom) }
+  subject { build(:canvas_classroom) }
 
   it { should be_valid }
 
@@ -33,7 +33,7 @@ RSpec.describe CanvasClassroom, type: :model do
   it { should belong_to(:canvas_instance) }
 
   describe '#classroom_external_id' do
-    let(:canvas_classroom) { create(:canvas_classroom) }
+    let(:canvas_classroom) { build(:canvas_classroom) }
     let(:canvas_instance_id) { canvas_classroom.canvas_instance_id }
     let(:external_id) { canvas_classroom.external_id }
 

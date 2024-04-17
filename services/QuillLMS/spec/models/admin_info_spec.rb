@@ -35,8 +35,8 @@ describe AdminInfo, type: :model, redis: true do
     it {should validate_uniqueness_of(:user_id)}
   end
 
-  let(:admin_info) {create(:admin_info)}
-  let(:admin) {create(:user)}
+  let(:admin_info) {build_stubbed(:admin_info)}
+  let(:admin) {build_stubbed(:user)}
 
   describe 'admin' do
     it 'should read the user for the admin' do

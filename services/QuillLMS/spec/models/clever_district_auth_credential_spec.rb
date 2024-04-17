@@ -26,7 +26,7 @@
 require 'rails_helper'
 
 describe CleverDistrictAuthCredential, type: :model do
-  subject { create(:clever_district_auth_credential) }
+  subject { build(:clever_district_auth_credential) }
 
   it { should belong_to(:user) }
 
@@ -36,13 +36,13 @@ describe CleverDistrictAuthCredential, type: :model do
   it { is_expected.not_to be_google_authorized }
 
   context 'expires_at is nil' do
-    subject { create(:clever_library_auth_credential, expires_at: nil) }
+    subject { build(:clever_library_auth_credential, expires_at: nil) }
 
     it { is_expected.not_to be_clever_authorized }
   end
 
   context 'expires_at is in the past' do
-    subject { create(:clever_library_auth_credential, expires_at: 1.day.ago) }
+    subject { build(:clever_library_auth_credential, expires_at: 1.day.ago) }
 
     it { is_expected.not_to be_clever_authorized }
   end
