@@ -167,7 +167,8 @@ export const OverviewSection = ({
         handleSetNoDiagnosticDataAvailable,
         setLoading,
         handleGrowthChipClick,
-        handlePreDiagnosticChipClick
+        handlePreDiagnosticChipClick,
+        groupByValue: groupByValue.value
       })
     }
   }, [preDiagnosticAssignedData, postDiagnosticAssignedData, preDiagnosticCompletedData, postDiagnosticCompletedData, recommendationsData])
