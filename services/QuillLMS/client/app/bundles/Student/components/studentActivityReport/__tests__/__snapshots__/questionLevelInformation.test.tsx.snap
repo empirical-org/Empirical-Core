@@ -1,0 +1,261 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QuestionLevelInformation renders as expected when the student did not reach an optimal score 1`] = `
+<DocumentFragment>
+  <div
+    class="question-level-information suboptimal"
+  >
+    <h2>
+      <span>
+        Question 1
+      </span>
+      <img
+        alt=""
+        src="undefined/images/pages/student_activity_report/question_revise.svg"
+      />
+    </h2>
+    <div
+      class="directions"
+    >
+      <h3>
+        Directions
+      </h3>
+      <p>
+        Fill in the blank with the correct form of the action word.
+      </p>
+    </div>
+    <div
+      class="prompt"
+    >
+      <h3>
+        Prompt
+      </h3>
+      <div>
+        <div
+          class="prompt-text"
+        >
+          Jason went to the basketball game last night. There, he ___ his sister score thirty points.
+        </div>
+      </div>
+    </div>
+    <div
+      class="target-skill"
+    >
+      <h3>
+        Target Skill
+      </h3>
+      <div
+        class="target-skill-indicator incorrect"
+      >
+        <img
+          alt=""
+          src="undefined/images/pages/student_activity_report/skill_revise.svg"
+        />
+        <span>
+          Perfect Tense
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`QuestionLevelInformation renders as expected when the student reached optimal score 1`] = `
+<DocumentFragment>
+  <div
+    class="question-level-information optimal"
+  >
+    <h2>
+      <span>
+        Question 1
+      </span>
+      <img
+        alt=""
+        src="undefined/images/pages/student_activity_report/question_check.svg"
+      />
+    </h2>
+    <div
+      class="directions"
+    >
+      <h3>
+        Directions
+      </h3>
+      <p>
+        Fill in the blank with the correct form of the action word.
+      </p>
+    </div>
+    <div
+      class="prompt"
+    >
+      <h3>
+        Prompt
+      </h3>
+      <div>
+        <div
+          class="prompt-text"
+        >
+          Jason went to the basketball game last night. There, he ___ his sister score thirty points.
+        </div>
+      </div>
+    </div>
+    <div
+      class="target-skill"
+    >
+      <h3>
+        Target Skill
+      </h3>
+      <div
+        class="target-skill-indicator correct"
+      >
+        <img
+          alt=""
+          src="undefined/images/pages/student_activity_report/skill_check.svg"
+        />
+        <span>
+          Perfect Tense
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`QuestionLevelInformation renders as expected when there are cues in parentheses in the directions text 1`] = `
+<DocumentFragment>
+  <div
+    class="question-level-information optimal"
+  >
+    <h2>
+      <span>
+        Question 1
+      </span>
+      <img
+        alt=""
+        src="undefined/images/pages/student_activity_report/question_check.svg"
+      />
+    </h2>
+    <div
+      class="directions"
+    >
+      <h3>
+        Directions
+      </h3>
+      <p>
+        Fill in the blank with the correct form of the action word.
+      </p>
+    </div>
+    <div
+      class="prompt"
+    >
+      <h3>
+        Prompt
+      </h3>
+      <div>
+        <div
+          class="prompt-text"
+        >
+          Jason went to the basketball game last night. There, he ___ his sister score thirty points.
+        </div>
+        <span
+          class="cue"
+        >
+          Has watched
+        </span>
+        <span
+          class="cue"
+        >
+          Watched
+        </span>
+      </div>
+    </div>
+    <div
+      class="target-skill"
+    >
+      <h3>
+        Target Skill
+      </h3>
+      <div
+        class="target-skill-indicator correct"
+      >
+        <img
+          alt=""
+          src="undefined/images/pages/student_activity_report/skill_check.svg"
+        />
+        <span>
+          Perfect Tense
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`QuestionLevelInformation renders as expected when there are cues in the body of the question hash 1`] = `
+<DocumentFragment>
+  <div
+    class="question-level-information optimal"
+  >
+    <h2>
+      <span>
+        Question 1
+      </span>
+      <img
+        alt=""
+        src="undefined/images/pages/student_activity_report/question_check.svg"
+      />
+    </h2>
+    <div
+      class="directions"
+    >
+      <h3>
+        Directions
+      </h3>
+      <p>
+        Fill in the blank with the correct form of the action word.
+      </p>
+    </div>
+    <div
+      class="prompt"
+    >
+      <h3>
+        Prompt
+      </h3>
+      <div>
+        <div
+          class="prompt-text"
+        >
+          Jason went to the basketball game last night. There, he ___ his sister score thirty points.
+        </div>
+        <span
+          class="cue"
+        >
+          has watched
+        </span>
+        <span
+          class="cue"
+        >
+          watched
+        </span>
+      </div>
+    </div>
+    <div
+      class="target-skill"
+    >
+      <h3>
+        Target Skill
+      </h3>
+      <div
+        class="target-skill-indicator correct"
+      >
+        <img
+          alt=""
+          src="undefined/images/pages/student_activity_report/skill_check.svg"
+        />
+        <span>
+          Perfect Tense
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -22,14 +22,28 @@ describe ActivitySessionsController, type: :controller do
   let!(:activity_session) { create(:activity_session, user: user1, activity: activity, classroom_unit: cu, state: 'unstarted') }
   let(:user) { create(:staff) }
 
-
-
   describe '#play' do
     before { allow_any_instance_of(Activity).to receive(:activity_classification_id) { 3 } }
 
     it 'should redirect to module url' do
       get :play, params: { id: activity_session.id }
       expect(response).to redirect_to activity.module_url(activity_session)
+    end
+  end
+
+  describe '#student_activity_report' do
+    let(:student_user) { create(:user) }
+    let(:activity_session) { create(:activity_session, user: student_user) }
+
+    let(:formatted_score_obj) { { id: activity_session.id} }
+
+    before do
+      allow(controller).to receive(:formatted_score_obj).and_return(formatted_score_obj)
+    end
+
+    it 'should set the report_data' do
+      get :student_activity_report, params: { id: activity_session }
+      expect(assigns(:report_data)).to eq formatted_score_obj
     end
   end
 

@@ -53,6 +53,10 @@ export {
 } from './flagDropdown'
 
 export {
+  HelpfulTips
+} from './helpfulTips'
+
+export {
   Input
 } from './input'
 

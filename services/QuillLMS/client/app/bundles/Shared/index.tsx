@@ -36,6 +36,7 @@ export {
   Error,
   ExpandableCard,
   FlagDropdown,
+  HelpfulTips,
   Input,
   OneThumbSlider,
   Passthrough,
@@ -86,7 +87,8 @@ export {
 export {
   MultipleChoice,
   Register,
-  PlayTitleCard
+  PlayTitleCard,
+  FinalAttemptFeedback
 } from './components/studentLessons/index'
 
 export {
@@ -123,7 +125,9 @@ export {
   getStatusForResponse,
   responsesWithStatus,
   sortByLevenshteinAndOptimal,
-  extractConceptResultsFromResponse
+  extractConceptResultsFromResponse,
+  findFeedbackForReport,
+  formatAnswerStringForReport,
 } from './libs/index'
 
 export {
@@ -230,7 +234,8 @@ export {
   MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR,
   INTRODUCTION,
   CHECKLIST,
-  READ_AND_HIGHLIGHT
+  READ_AND_HIGHLIGHT,
+  ALLOWED_ATTEMPTS
 } from './utils/constants'
 
 export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'

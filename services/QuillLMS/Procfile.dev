@@ -3,7 +3,8 @@ rails: rails s -b 0.0.0.0
 
 worker: bundle exec sidekiq -v -q default -q critical -q critical_external
 reportworker: bundle exec sidekiq -v -q low
-experimentworker: bundle exec sidekiq -c 1
+experimentworker: bundle exec sidekiq -C config/sidekiq_experiment.yml
+gen-ai-eval-worker: bundle exec sidekiq -C config/sidekiq_gen_ai_eval.yml
 
 redis-sidekiq: redis-server --port 6379
 
