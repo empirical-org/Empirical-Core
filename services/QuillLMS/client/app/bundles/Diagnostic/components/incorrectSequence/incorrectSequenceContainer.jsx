@@ -162,15 +162,29 @@ class IncorrectSequencesContainer extends Component {
   }
 
   sortCallback = sortInfo => {
-    const { actionFile } = this.state
+    const orderedIds = sortInfo.map(item => item.key);
+    this.setState({ orderedIds });
+  };
+
+  updateOrder = () => {
+    const { actionFile, incorrectSequences, orderedIds } = this.state
     const { dispatch, match } = this.props;
     const { params } = match;
     const { questionID } = params;
-    const orderedIds = sortInfo.map(item => item.key);
-    this.setState({ orderedIds, }, () => {
-      dispatch(actionFile.updateIncorrectSequences(questionID, this.sequencesSortedByOrder()));
-    });
-  };
+    if (orderedIds) {
+      const newIncorrectSequences = []
+      const incorrectSequenceArray = hashToCollection(incorrectSequences)
+      orderedIds.forEach((id, index) => {
+        const sequence = incorrectSequenceArray.find(is => is.key === id);
+        sequence.order = index
+        newIncorrectSequences.push(sequence)
+      })
+      dispatch(actionFile.updateIncorrectSequences(questionID, newIncorrectSequences))
+      alert('Saved!')
+    } else {
+      alert('No changes to incorrect sequence order have been made.')
+    }
+  }
 
   renderTagsForSequence(sequenceString) {
     return sequenceString.split('|||').map((seq, index) => (<span className="tag is-medium is-light" key={`seq${index}`} style={{ margin: '3px', }}>{seq}</span>));
@@ -188,6 +202,13 @@ class IncorrectSequencesContainer extends Component {
       );
       return _.values(components);
     }
+  }
+
+  renderSaveOrderButton() {
+    const { orderedIds } = this.state
+    return (
+      orderedIds ? <button className="button is-outlined is-primary" onClick={this.updateOrder} style={{ float: 'right', }}>Save Sequence Order</button> : null
+    );
   }
 
   renderSequenceList() {
@@ -251,6 +272,7 @@ class IncorrectSequencesContainer extends Component {
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Incorrect Sequences</h1>
           <a className="button is-outlined is-primary" href={`/diagnostic/#/admin/${path}/${questionID}/incorrect-sequences/new`} rel="noopener noreferrer" style={{ float: 'right', }}>Add Incorrect Sequence</a>
+          {this.renderSaveOrderButton()}
         </div>
         {this.renderSequenceList()}
       </div>
