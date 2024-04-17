@@ -1,0 +1,62 @@
+{
+  "GROUP BY grade": [
+    {
+      "diagnostic_id": 1663,
+      "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "grade",
+      "post_students_assigned": 30,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": "9",
+          "name": "Grade 9",
+          "group_by": "grade",
+          "post_students_assigned": 30
+        }
+      ]
+    }
+  ],
+  "GROUP BY teacher": [
+    {
+      "diagnostic_id": 1663,
+      "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "teacher",
+      "post_students_assigned": 30,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 12924154,
+          "name": "Cassie Broussard",
+          "group_by": "teacher",
+          "post_students_assigned": 30
+        }
+      ]
+    }
+  ],
+  "GROUP BY classroom": [
+    {
+      "diagnostic_id": 1663,
+      "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "classroom",
+      "post_students_assigned": 30,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 1448764,
+          "name": "ENGLISH II ADV - BROUSSARD - 01",
+          "group_by": "classroom",
+          "post_students_assigned": 30
+        }
+      ]
+    }
+  ]
+}

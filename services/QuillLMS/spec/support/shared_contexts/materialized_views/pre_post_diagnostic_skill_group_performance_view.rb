@@ -73,12 +73,19 @@ RSpec.shared_context 'Pre Post Diagnostic Skill Group Performance View' do
   let(:post_diagnostic_concept_results) { post_diagnostic_activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session:, question_number: i + 1, attempt_number: nil, extra_metadata: {question_uid: post_diagnostic_question.uid}) } }
   let(:concept_results) { [pre_diagnostic_concept_results, post_diagnostic_concept_results].flatten }
 
+  let(:diagnostic_question_optimal_concepts) do
+    concept_results.map do |concept_result|
+      create(:diagnostic_question_optimal_concept, question: Question.find_by(uid: concept_result.extra_metadata['question_uid']), concept: concept_result.concept)
+    end
+  end
+
   let(:view_records) do
     [
       activities,
       activity_sessions,
       classroom_units,
       concept_results,
+      diagnostic_question_optimal_concepts,
       diagnostic_question_skills,
       questions,
       skill_groups,

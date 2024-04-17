@@ -19,10 +19,6 @@ module AdminDiagnosticReports
           classrooms_teachers,
           schools,
           schools_users,
-          classroom_units,
-          activity_sessions,
-          concept_results,
-          pre_diagnostic,
           reference_activity_session,
           reference_concept_result,
           view_records
@@ -96,6 +92,26 @@ module AdminDiagnosticReports
         end
 
         it { expect(results.first[:pre_average_score]).to eq(0.0) }
+      end
+
+      context 'diagnostic_question_optimal_concepts do not match concept_results' do
+        # Create optimal concept links to all questions that are not tied to concept results
+        let(:diagnostic_question_optimal_concepts) { questions.map { |question| create(:diagnostic_question_optimal_concept, question: question) } }
+
+        it { expect(results.first[:pre_average_score]).to eq(0.0) }
+      end
+
+      context 'extra diagnostic_question_optimal_concepts without matching concept_results' do
+        let(:diagnostic_question_optimal_concepts) do
+          concept_results.map do |concept_result|
+            [
+              create(:diagnostic_question_optimal_concept, question: Question.find_by(uid: concept_result.extra_metadata['question_uid']), concept: concept_result.concept),
+              create(:diagnostic_question_optimal_concept, question: Question.find_by(uid: concept_result.extra_metadata['question_uid']))
+            ]
+          end.flatten
+        end
+
+        it { expect(results.first[:pre_average_score]).to eq(1.0) }
       end
     end
   end
