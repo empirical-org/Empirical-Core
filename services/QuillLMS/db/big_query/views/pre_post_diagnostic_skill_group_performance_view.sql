@@ -13,7 +13,7 @@ SELECT
     pre.classroom_unit_id AS pre_classroom_unit_id,
     post.classroom_unit_id AS post_classroom_unit_id,
     IFNULL(pre.activity_name, post.pre_activity_name) AS activity_name,
-    IFNULL(pre.questions_correct, 0) AS pre_questions_correct,
+    pre.questions_correct AS pre_questions_correct,
     pre.questions_total AS pre_questions_total,
     post.questions_correct AS post_questions_correct,
     post.questions_total AS post_questions_total
@@ -27,8 +27,8 @@ SELECT
         activities.follow_up_activity_id AS post_activity_id,
         skill_groups.id AS skill_group_id,
         skill_groups.name AS skill_group_name,
-        SUM(CAST(concept_results.correct AS int64)) questions_correct,
-        COUNT(DISTINCT concept_results.question_number) AS questions_total,
+        SUM(CAST(question_scores.correct AS int64)) questions_correct,
+        COUNT(DISTINCT question_scores.question_number) AS questions_total,
         classroom_units.classroom_id AS classroom_id,
         CAST(assigned_student_id AS int64) AS student_id,
         classroom_units.id AS classroom_unit_id
@@ -64,8 +64,8 @@ SELECT
           LEFT OUTER JOIN lms.diagnostic_question_optimal_concepts ON STRING(PARSE_JSON(concept_results.extra_metadata).question_uid) = diagnostic_question_optimal_concepts.question_uid AND concept_results.concept_id = diagnostic_question_optimal_concepts.concept_id
         WHERE concept_results.attempt_number IS NULL
         GROUP BY concept_results.activity_session_id, concept_results.extra_metadata, concept_results.question_number
-      ) AS concept_results ON activity_sessions.id = concept_results.activity_session_id
-      LEFT OUTER JOIN lms.questions ON concept_results.question_uid = questions.uid
+      ) AS question_scores ON activity_sessions.id = question_scores.activity_session_id
+      LEFT OUTER JOIN lms.questions ON question_scores.question_uid = questions.uid
       LEFT OUTER JOIN lms.diagnostic_question_skills ON questions.id = diagnostic_question_skills.question_id
       LEFT OUTER JOIN lms.skill_group_activities ON activity_sessions.activity_id = skill_group_activities.activity_id
       LEFT OUTER JOIN lms.skill_groups
@@ -97,8 +97,8 @@ SELECT
         activities.name AS pre_activity_name,
         skill_groups.id AS skill_group_id,
         skill_groups.name AS skill_group_name,
-        SUM(CAST(concept_results.correct AS int64)) questions_correct,
-        COUNT(DISTINCT concept_results.question_number) AS questions_total,
+        SUM(CAST(question_scores.correct AS int64)) questions_correct,
+        COUNT(DISTINCT question_scores.question_number) AS questions_total,
         classroom_units.classroom_id AS classroom_id,
         CAST(assigned_student_id AS int64) AS student_id,
         classroom_units.id AS classroom_unit_id
@@ -134,8 +134,8 @@ SELECT
           LEFT OUTER JOIN lms.diagnostic_question_optimal_concepts ON STRING(PARSE_JSON(concept_results.extra_metadata).question_uid) = diagnostic_question_optimal_concepts.question_uid AND concept_results.concept_id = diagnostic_question_optimal_concepts.concept_id
         WHERE concept_results.attempt_number IS NULL
         GROUP BY concept_results.activity_session_id, concept_results.extra_metadata, concept_results.question_number
-      ) AS concept_results ON activity_sessions.id = concept_results.activity_session_id
-      LEFT OUTER JOIN lms.questions ON concept_results.question_uid = questions.uid
+      ) AS question_scores ON activity_sessions.id = question_scores.activity_session_id
+      LEFT OUTER JOIN lms.questions ON question_scores.question_uid = questions.uid
       LEFT OUTER JOIN lms.diagnostic_question_skills ON questions.id = diagnostic_question_skills.question_id
       LEFT OUTER JOIN lms.skill_group_activities ON activity_sessions.activity_id = skill_group_activities.activity_id
       LEFT OUTER JOIN lms.skill_groups
