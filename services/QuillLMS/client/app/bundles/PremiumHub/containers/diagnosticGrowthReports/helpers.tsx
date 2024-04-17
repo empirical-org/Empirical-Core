@@ -2,6 +2,7 @@ import * as React from 'react'
 import { getTimeInMinutesAndSeconds } from "../../shared"
 import { getTimeSpent } from '../../../Teacher/helpers/studentReports'
 import moment from 'moment'
+import { Tooltip, helpIcon } from '../../../Shared'
 
 const checkSrc = `${process.env.CDN_URL}/images/icons/circle-check-icon-vibrant-green.svg`
 const loopSrc = `${process.env.CDN_URL}/images/icons/revise-icon-grey.svg`
@@ -32,7 +33,7 @@ export const totalActivitiesAndTimespentTooltipText = 'Each diagnostic is linked
 export const postQuestionsCorrectTooltipText = 'The total number of questions answered correctly on the Post diagnostic.'
 export const postSkillsImprovedOrMaintainTooltipText = 'The number of skills the student maintained or showed improvement in on the Post diagnostic. A skill is considered “improved” if the student answered more questions for that skill correctly on the Post diagnostic than they did on the Pre. A skill is considered “maintained” if the student answered all questions for the skill correctly on both the Pre and the Post diagnostic.'
 
-const noDataToShow = <p>&mdash;</p>
+export const noDataToShow = <p>&mdash;</p>
 
 // Shared functions
 
@@ -56,13 +57,16 @@ function processAggregateRows(aggregateRowsData, diagnosticId, rowData) {
   if (!aggregateRowsData[diagnosticId]) {
     aggregateRowsData[diagnosticId] = {}
   }
-  rowData.map(row => {
+  rowData.map((row, i) => {
     const { aggregate_id, ...properties } = row;
     if(aggregateRowsData[diagnosticId] && !aggregateRowsData[diagnosticId][aggregate_id]) {
-      aggregateRowsData[diagnosticId][aggregate_id] = {...properties}
+      aggregateRowsData[diagnosticId][aggregate_id] = {...properties }
     }
     if (aggregateRowsData[diagnosticId] && aggregateRowsData[diagnosticId][aggregate_id]) {
       aggregateRowsData[diagnosticId][aggregate_id] = { ...aggregateRowsData[diagnosticId][aggregate_id], ...properties };
+    }
+    if (aggregateRowsData[diagnosticId] && aggregateRowsData[diagnosticId][aggregate_id] && !aggregateRowsData[diagnosticId][aggregate_id].order) {
+      aggregateRowsData[diagnosticId][aggregate_id].order = i
     }
   });
 }
@@ -93,8 +97,17 @@ function overallSkillGrowthValue({diagnosticId, overallSkillGrowth, handleGrowth
   return 'No Growth';
 }
 
-function createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId, handleGrowthChipClick, handlePreDiagnosticChipClick }) {
-  return Object.keys(aggregateRowsDataForDiagnostic).map(key => {
+export function createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId, handleGrowthChipClick, handlePreDiagnosticChipClick, groupByValue }) {
+  let keys
+  if (groupByValue === 'teacher' || groupByValue === 'classroom') {
+    keys = Object.keys(aggregateRowsDataForDiagnostic).sort((a, b) => {
+      return aggregateRowsDataForDiagnostic[a].order - aggregateRowsDataForDiagnostic[b].order;
+    });
+  } else {
+    keys = Object.keys(aggregateRowsDataForDiagnostic)
+  }
+
+  return keys.map(key => {
     const data = aggregateRowsDataForDiagnostic[key];
     // we can early return if there are no students assigned to pre diagnostic
     if (!data.pre_students_assigned) { return null }
@@ -113,7 +126,7 @@ function createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId, 
 }
 
 export function aggregateOverviewData(args) {
-  const { preDiagnosticAssignedData, postDiagnosticAssignedData, preDiagnosticCompletedData, postDiagnosticCompletedData, recommendationsData, setAggregatedData, handleSetNoDiagnosticDataAvailable, hasAdjustedFiltersFromDefault, setLoading, handleGrowthChipClick, handlePreDiagnosticChipClick } = args;
+  const { preDiagnosticAssignedData, postDiagnosticAssignedData, preDiagnosticCompletedData, postDiagnosticCompletedData, recommendationsData, setAggregatedData, handleSetNoDiagnosticDataAvailable, hasAdjustedFiltersFromDefault, setLoading, handleGrowthChipClick, handlePreDiagnosticChipClick, groupByValue } = args;
 
   // if there are no results for the pre diagnostic API and filters are at default, no diagnostics have been assigned
   if (!preDiagnosticAssignedData.length && !hasAdjustedFiltersFromDefault) {
@@ -207,7 +220,7 @@ export function aggregateOverviewData(args) {
     entry.postStudentsCompleted = getSingleSortValue(postStudentsCompleted)
     entry.overallSkillGrowthSortValue = getSingleSortValue(overallSkillGrowth)
     entry.overallSkillGrowth = overallSkillGrowthValue({diagnosticId: id, overallSkillGrowth, handleGrowthChipClick })
-    entry.aggregate_rows = createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId: id, handleGrowthChipClick, handlePreDiagnosticChipClick })
+    entry.aggregate_rows = createAggregateRowData({ aggregateRowsDataForDiagnostic, diagnosticId: id, handleGrowthChipClick, handlePreDiagnosticChipClick, groupByValue })
   })
   setAggregatedData(combinedData);
   setLoading(false);
@@ -225,16 +238,36 @@ function proficiencyValue(proficiencyLevelCount, totalStudents) {
   return `${proficiencyLevelCount} of ${totalStudents}`
 }
 
-function growthResultsValue(score, studentCount) {
-  if (score && score > 0) {
-    return `+${scoreValue(score, studentCount)}`
+function noClassGrowthTooltipText(preScoreCompletedPost, postStudentsCompleted, postScore) {
+  const studentsOrStudents = postStudentsCompleted === 1 ? 'student' : 'students'
+  const prePercentage = `${Math.round(preScoreCompletedPost * 100)}%`
+  const postPercentage = `${Math.round(postScore * 100)}%`
+  const comparisonText = prePercentage === postPercentage ? 'the same' : 'lower than this'
+  return `The Pre Score of the ${postStudentsCompleted} ${studentsOrStudents} that completed the Post Diagnostic was ${prePercentage}. As the Post Score of these students (${postPercentage}) was ${comparisonText}, we deem there to have been no overall class growth.`
+}
+
+export function growthResultsValue({ growthScore, studentCount, preScoreCompletedPost, postStudentsCompleted, postScore }) {
+  if (growthScore && growthScore > 0) {
+    return `+${scoreValue(growthScore, studentCount)}`
   }
-  return `No growth (${studentCount})`;
+  if (preScoreCompletedPost && postStudentsCompleted) {
+    const tooltipText = noClassGrowthTooltipText(preScoreCompletedPost, postStudentsCompleted, postScore)
+    return(
+      <div className="no-class-growth">
+        <p>No class growth</p>
+        <Tooltip
+          tooltipText={tooltipText}
+          tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
+        />
+      </div>
+    )
+  }
+  return noDataToShow;
 }
 
 function formatSkillsData(data, isAggregateRowData) {
   return data.map((entry, i) => {
-    const { aggregate_rows, growth_percentage, improved_proficiency, maintained_proficiency, post_score, post_students_completed, pre_score, pre_students_completed, recommended_practice, skill_group_name, name } = entry
+    const { aggregate_rows, growth_percentage, improved_proficiency, maintained_proficiency, post_score, post_students_completed, pre_score, pre_students_completed, pre_score_completed_post, recommended_practice, skill_group_name, name } = entry
     return {
       id: i,
       name: isAggregateRowData ? name : skill_group_name,
@@ -242,7 +275,7 @@ function formatSkillsData(data, isAggregateRowData) {
       pre_score: getSingleSortValue(pre_score),
       postSkillScore: scoreValue(post_score, post_students_completed),
       post_score: getSingleSortValue(post_score),
-      growthResults: growthResultsValue(growth_percentage, post_students_completed),
+      growthResults: growthResultsValue({ growthScore: growth_percentage, studentCount: post_students_completed, preScoreCompletedPost: pre_score_completed_post, postStudentsCompleted: post_students_completed, postScore: post_score }),
       growthResultsSortValue: getSingleSortValue(growth_percentage),
       studentsImprovedSkill: proficiencyValue(improved_proficiency, post_students_completed),
       improved_proficiency: getSingleSortValue(improved_proficiency),
