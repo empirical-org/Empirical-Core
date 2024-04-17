@@ -16,7 +16,7 @@
 #
 FactoryBot.define do
   factory :diagnostic_question_optimal_concept do
-    concept { create(:concept) }
-    question { create(:question) }
+    concept
+    question
   end
 end

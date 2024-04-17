@@ -13,7 +13,7 @@
 #
 FactoryBot.define do
   factory :locker do
-    user_id { create(:user).id }
+    user
     label { 'Test locker label'}
     preferences { { 'test locker section': [] } }
   end

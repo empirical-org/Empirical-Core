@@ -21,8 +21,8 @@
 #
 FactoryBot.define do
   factory :classrooms_teacher do
-    user { create(:teacher) }
-    classroom { create(:classroom) }
+    user factory: :teacher
+    classroom
     role { ClassroomsTeacher::ROLE_TYPES[:owner] }
     order { nil }
 

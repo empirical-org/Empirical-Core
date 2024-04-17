@@ -164,14 +164,14 @@ describe Activity, type: :model, redis: true do
       it "must set classification relationship" do
         activity.classification=nil
         expect(activity.classification).to_not be_present
-        expect(activity.classification_key=ActivityClassification.first.key || create(:classification).key).to be_present
+        expect(activity.classification_key=ActivityClassification.first&.key || create(:classification).key).to be_present
       end
     end
 
     describe "#classification_key" do
       before do
         activity.classification=nil
-        activity.classification_key=ActivityClassification.first.key || create(:classification).key
+        activity.classification_key=ActivityClassification.first&.key || create(:classification).key
       end
 
       it "must set classification relationship" do

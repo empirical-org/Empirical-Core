@@ -22,8 +22,8 @@
 #
 FactoryBot.define do
   factory :user_activity_classification do
-    user { create(:user) }
-    activity_classification { create(:activity_classification) }
+    user
+    activity_classification
     count { 0 }
   end
 end

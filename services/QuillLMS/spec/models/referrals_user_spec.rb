@@ -20,6 +20,10 @@
 require 'rails_helper'
 
 RSpec.describe ReferralsUser, type: :model do
+  before do
+    Analytics::SegmentAnalytics.backend = FakeSegmentBackend.new
+  end
+
   context 'associations' do
     let(:referrals_user) { create(:referrals_user) }
     let(:referring_user) { referrals_user.user }

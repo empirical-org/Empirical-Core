@@ -26,8 +26,8 @@
 #
 FactoryBot.define do
   factory :classroom_unit do
-    unit { create(:unit) }
-    classroom { create(:classroom) }
+    unit
+    classroom
     assign_on_join { false }
 
     factory :classroom_unit_with_activity_sessions do

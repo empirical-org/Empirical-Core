@@ -48,10 +48,10 @@ FactoryBot.define do
 
     description             { "This is the description for the '#{name}' activity." }
     uid                     { SecureRandom.urlsafe_base64 }
-    standard                { Standard.first || create(:standard) }
-    classification          { create(:classification) }
+    standard
+    classification
     activity_categories     { create_pair(:activity_category) }
-    raw_score               { create(:raw_score) }
+    raw_score
     repeatable              { true }
     question_count          { 10 }
     data                    { { questionType: 'questions', questions: [{ key: 'fake_key' }] } }

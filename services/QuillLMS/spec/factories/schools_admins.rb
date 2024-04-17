@@ -18,7 +18,7 @@
 #
 FactoryBot.define do
   factory :schools_admins do
-    school { create(:school) }
-    user { create(:teacher) }
+    school
+    user factory: :teacher
   end
 end

@@ -18,6 +18,6 @@
 #
 FactoryBot.define do
   factory :user_login do
-    user { create(:teacher) }
+    user factory: :teacher
   end
 end

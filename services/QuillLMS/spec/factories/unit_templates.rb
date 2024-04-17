@@ -32,8 +32,8 @@ FactoryBot.define do
         break possible_name unless UnitTemplate.exists?(name: possible_name)
       end
     end
-    author                  { create(:author) }
-    unit_template_category  { create(:unit_template_category) }
+    author
+    unit_template_category
 
     factory :unit_template_with_activities do
       activities              { build_list(:activity, 3) }
