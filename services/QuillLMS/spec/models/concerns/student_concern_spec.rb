@@ -242,11 +242,11 @@ describe 'Student Concern', type: :model do
       end
 
       it "sets updated_at on the ActivitySessions that get moved" do
-        now = DateTime.current
+        now = DateTime.current.utc
         allow(DateTime).to receive(:current).and_return(now)
 
         student1.merge_activity_sessions(student2)
-        expect(activity_session_for_second_student1.reload.updated_at).to eq(now)
+        expect(activity_session_for_second_student1.reload.updated_at.iso8601).to eq(now.iso8601)
       end
     end
 
