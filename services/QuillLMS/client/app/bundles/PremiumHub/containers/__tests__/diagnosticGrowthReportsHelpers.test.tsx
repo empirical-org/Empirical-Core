@@ -1,6 +1,7 @@
 import * as React from 'react'
 
-import { aggregateOverviewData, createAggregateRowData } from '../diagnosticGrowthReports/helpers'
+import { aggregateOverviewData, createAggregateRowData, growthResultsValue, noDataToShow } from '../diagnosticGrowthReports/helpers'
+import { Tooltip } from '../../../Shared'
 
 const mockArgs = {
   preDiagnosticAssignedData: [],
@@ -314,6 +315,27 @@ describe('#aggregateOverviewData', () => {
     })
   })
 })
+
+describe('#growthResultsValue', () => {
+  it('returns growth score value with student count if growth score present', () => {
+    const value = growthResultsValue({ growthScore: 0.6428571428571429, studentCount: 5, preScoreCompletedPost: 0.2857142857142857, postStudentsCompleted: 3, postScore: 0.9285714285714286 })
+    expect(value).toEqual('+64% (5)')
+  })
+  it('returns no class growth with tooltip if growthScore is 0 and preScoreCompletedPost and postStudentsCompleted values are present', () => {
+    const value = growthResultsValue({ growthScore: 0, studentCount: 5, preScoreCompletedPost: 0.7857142857142857, postStudentsCompleted: 3, postScore: 0.6285714285714286 })
+    expect(value).toEqual(
+      <div className="no-class-growth">
+        <p>No class growth</p>
+        <Tooltip isTabbable={true} tooltipText="The Pre Score of the 3 students that completed the Post Diagnostic was 79%. As the Post Score of these students (63%) was lower than this, we deem there to have been no overall class growth." tooltipTriggerText={<img alt="Question mark icon" src="undefined/images/icons/icons-help.svg" />} />
+      </div>
+    )
+  })
+  it('returns -- value for all other cases', () => {
+    const value = growthResultsValue({ growthScore: 0, studentCount: 5, preScoreCompletedPost: 0, postStudentsCompleted: 3, postScore: 0.9285714285714286 })
+    expect(value).toEqual(noDataToShow)
+  })
+})
+
 describe('#createAggregateRowData', () => {
   describe('by teacher', () => {
     it('returns data sorted alphabetically by name', () => {
