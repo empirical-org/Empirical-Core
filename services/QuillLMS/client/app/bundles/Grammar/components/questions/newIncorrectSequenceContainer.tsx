@@ -19,7 +19,10 @@ class NewIncorrectSequencesContainer extends React.Component {
     data.order = _.keys(usedIncorrectSequences).length;
     // the only difference in the route between this page and the one where you can see all the incorrect sequences is the `/new` at the end of the path, so removing that will send us back to the main list
     const url = match.url.replace('/new', '')
-    const callback = () => history.push(url)
+    const callback = () => {
+      history.push(url)
+      window.location.reload()
+    }
     dispatch(questionActions.submitNewIncorrectSequence(match.params.questionID, data, callback))
   }
 
