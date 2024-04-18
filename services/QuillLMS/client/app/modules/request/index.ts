@@ -19,12 +19,7 @@ async function handleFetch({ url, method, success, error, payload, }: {url: stri
   const response = await fetch(fullyQualifiedUrl(url), options)
   const textResponse = await response.clone().text()
 
-  let jsonResponse
-  try {
-    jsonResponse = textResponse.length ? await response.clone().json() : {};
-  } catch (err) {
-    jsonResponse = {}
-  }
+  const jsonResponse = textResponse.length ? await response.clone().json() : {};
 
   if (response.status === 303 && jsonResponse.redirect) {
     window.location.href = jsonResponse.redirect

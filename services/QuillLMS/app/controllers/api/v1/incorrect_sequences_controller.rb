@@ -27,8 +27,9 @@ class Api::V1::IncorrectSequencesController < Api::ApiController
   end
 
   def destroy
-    @question.delete_incorrect_sequence(params[:id])
-    render(plain: 'OK')
+    render json: {}, status: 200
+    # @question.delete_incorrect_sequence(params[:id])
+    # render(plain: 'OK')
   end
 
   def update_all
