@@ -16,8 +16,10 @@ describe SubjectArea, type: :model, redis: true do
 
   it { should have_many(:teacher_info_subject_areas) }
   it { should validate_presence_of(:name) }
+
   context 'uniqueness' do
     let!(:subject_area) { create(:subject_area) }
+
     it { should validate_uniqueness_of(:name) }
   end
 

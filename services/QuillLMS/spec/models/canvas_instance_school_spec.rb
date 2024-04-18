@@ -33,6 +33,7 @@ RSpec.describe CanvasInstanceSchool, type: :model do
 
   context 'uniqueness' do
     subject { create(:canvas_instance_school) }
+
     it { expect { subject.dup.save!}.to raise_error ActiveRecord::RecordNotUnique }
   end
 end

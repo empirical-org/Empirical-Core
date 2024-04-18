@@ -70,6 +70,7 @@ RSpec.describe Question, type: :model do
       expect(question.valid?).to be false
       expect(question.errors[:data]).to include('must be a hash')
     end
+
     context 'uniqueness' do
       let(:question) { create(:question) }
 

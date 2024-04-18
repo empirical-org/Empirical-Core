@@ -30,6 +30,7 @@ describe District, type: :model do
 
   context 'uniqueness' do
     let!(:district) { create(:district) }
+
     it { should validate_uniqueness_of(:nces_id).with_message("A district with this NCES ID already exists.") }
   end
 
