@@ -248,6 +248,16 @@ describe 'Student Concern', type: :model do
         student1.merge_activity_sessions(student2)
         expect(activity_session_for_second_student1.reload.updated_at.iso8601).to eq(now.iso8601)
       end
+
+      it "sets the updated_at to the same value that touch would" do
+        activity_session_for_second_student1.update_columns(updated_at: DateTime.current)
+        datetime_current_updated_at = activity_session_for_second_student1.reload.updated_at
+
+        activity_session_for_second_student1.touch
+        touch_updated_at = activity_session_for_second_student1.reload.updated_at
+
+        expect(touch_updated_at - datetime_current_updated_at).to be < 1.second
+      end
     end
 
     context "called with a teacher id" do
