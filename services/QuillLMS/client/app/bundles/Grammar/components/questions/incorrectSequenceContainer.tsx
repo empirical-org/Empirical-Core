@@ -119,6 +119,8 @@ class IncorrectSequencesContainer extends React.Component {
       const sequencesCollection = hashToCollection(incorrectSequences)
       return orderedIds.map(id => sequencesCollection.find(s => s.key === id))
     } else {
+      console.log("sorting")
+      console.log(incorrectSequences)
       return hashToCollection(incorrectSequences).sort((a, b) => a.order - b.order);
     }
   }
@@ -181,6 +183,8 @@ class IncorrectSequencesContainer extends React.Component {
   renderSequenceList() {
     const { match } = this.props
     const components = this.sequencesSortedByOrder().map((seq) => {
+      console.log(seq)
+      console.log(seq.key)
       const onClickDelete = () => { this.handleDeleteSequence(seq.key) }
       return (
         <div className="card is-fullwidth has-bottom-margin" id={seq.key} key={seq.key}>
