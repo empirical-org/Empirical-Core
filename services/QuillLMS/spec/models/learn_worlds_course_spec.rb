@@ -14,7 +14,7 @@
 #
 #  index_learn_worlds_courses_on_external_id  (external_id) UNIQUE
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe LearnWorldsCourse, type: :model do
   subject { build(:learn_worlds_course) }

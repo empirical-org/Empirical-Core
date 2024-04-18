@@ -24,7 +24,7 @@
 #  index_classrooms_on_grade                (grade)
 #  index_classrooms_on_grade_level          (grade_level)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe Classroom, type: :model do
   it { should validate_uniqueness_of(:code) }

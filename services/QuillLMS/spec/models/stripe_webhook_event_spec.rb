@@ -16,7 +16,7 @@
 #
 #  index_stripe_webhook_events_on_external_id  (external_id) UNIQUE
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe StripeWebhookEvent, type: :model do
   subject { build(:stripe_webhook_event) }

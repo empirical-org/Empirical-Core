@@ -12,7 +12,7 @@
 #
 #  index_concept_result_instructions_on_text  (text) UNIQUE
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe ConceptResultInstructions, type: :model do
   before do

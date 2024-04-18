@@ -16,7 +16,7 @@
 #  index_questions_on_question_type  (question_type)
 #  index_questions_on_uid            (uid) UNIQUE
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe Question, type: :model do
   let(:question) { build(:question) }

@@ -19,7 +19,7 @@
 #
 #  fk_rails_...  (canvas_instance_id => canvas_instances.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe CanvasConfig, type: :model do
   let(:canvas_config) { build(:canvas_config) }

@@ -25,7 +25,7 @@
 #  fk_rails_...  (classroom_unit_id => classroom_units.id)
 #  fk_rails_...  (unit_activity_id => unit_activities.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe ClassroomUnitActivityState, type: :model, redis: true do
 

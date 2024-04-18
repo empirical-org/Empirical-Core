@@ -17,7 +17,7 @@
 #  index_partner_contents_on_content_type_and_content_id  (content_type,content_id)
 #  index_partner_contents_on_partner                      (partner)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe PartnerContent, type: :model do
   it { should belong_to(:content) }

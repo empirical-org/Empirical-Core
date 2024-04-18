@@ -19,7 +19,7 @@
 #  index_classrooms_teachers_on_user_id                  (user_id)
 #  unique_classroom_and_user_ids_on_classrooms_teachers  (user_id,classroom_id) UNIQUE
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe ClassroomsTeacher, type: :model, redis: true do
   let(:classrooms_teacher_with_arbitrary_role) { build(:classrooms_teacher, role: 'hippopotamus') }

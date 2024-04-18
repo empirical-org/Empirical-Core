@@ -11,7 +11,7 @@
 #  updated_at  :datetime         not null
 #  user_id     :integer
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe Locker, type: :model do
   context 'validations' do

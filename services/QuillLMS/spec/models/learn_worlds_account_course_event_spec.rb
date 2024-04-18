@@ -21,7 +21,7 @@
 #  fk_rails_...  (learn_worlds_account_id => learn_worlds_accounts.id)
 #  fk_rails_...  (learn_worlds_course_id => learn_worlds_courses.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe LearnWorldsAccountCourseEvent, type: :model do
   subject { create(:learn_worlds_account_course_event) }

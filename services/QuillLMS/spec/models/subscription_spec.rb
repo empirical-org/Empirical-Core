@@ -29,7 +29,7 @@
 #  index_subscriptions_on_recurring          (recurring)
 #  index_subscriptions_on_start_date         (start_date)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe Subscription, type: :model do
   context 'validations' do

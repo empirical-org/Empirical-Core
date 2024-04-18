@@ -16,7 +16,7 @@
 #  index_concept_feedbacks_on_activity_type          (activity_type)
 #  index_concept_feedbacks_on_uid_and_activity_type  (uid,activity_type) UNIQUE
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe ConceptFeedback, type: :model do
   let(:concept_feedback) { build(:concept_feedback) }

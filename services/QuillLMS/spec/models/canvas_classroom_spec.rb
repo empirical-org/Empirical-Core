@@ -22,7 +22,7 @@
 #  fk_rails_...  (canvas_instance_id => canvas_instances.id)
 #  fk_rails_...  (classroom_id => classrooms.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe CanvasClassroom, type: :model do
   subject { build(:canvas_classroom) }

@@ -10,7 +10,7 @@
 #  created_at   :datetime
 #  updated_at   :datetime
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe ActivityCategory, type: :model do
   let(:activity_category) {build(:activity_category, order_number: nil)}

@@ -13,7 +13,7 @@
 #  index_feedback_sessions_on_activity_session_uid  (activity_session_uid) UNIQUE
 #  index_feedback_sessions_on_uid                   (uid) UNIQUE
 #
-require 'rails_helper'
+require 'spec_helper'
 
 # it { shoulda cheatsheet: https://github.com/thoughtbot/it { shoulda-matchers#activemodel-matchers
 RSpec.describe FeedbackSession, type: :model do

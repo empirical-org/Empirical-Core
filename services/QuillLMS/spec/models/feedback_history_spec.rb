@@ -29,7 +29,7 @@
 #  index_feedback_histories_on_prompt_type_and_id    (prompt_type,prompt_id)
 #  index_feedback_histories_on_rule_uid              (rule_uid)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 # it { shoulda cheatsheet: https://github.com/thoughtbot/it { shoulda-matchers#activemodel-matchers
 RSpec.describe FeedbackHistory, type: :model do

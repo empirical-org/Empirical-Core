@@ -15,7 +15,7 @@
 #  index_school_subscriptions_on_school_id        (school_id)
 #  index_school_subscriptions_on_subscription_id  (subscription_id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe SchoolSubscription, type: :model do
   let!(:school_sub) {build(:school_subscription)}

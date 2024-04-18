@@ -24,7 +24,7 @@
 #  fk_rails_...  (classroom_id => classrooms.id)
 #  fk_rails_...  (unit_id => units.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe ClassroomUnit, type: :model, redis: true do
 

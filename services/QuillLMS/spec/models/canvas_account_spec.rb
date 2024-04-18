@@ -21,7 +21,7 @@
 #  fk_rails_...  (canvas_instance_id => canvas_instances.id)
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe CanvasAccount, type: :model do
   subject { build(:canvas_account) }

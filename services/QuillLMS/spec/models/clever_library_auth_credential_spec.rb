@@ -23,7 +23,7 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe CleverLibraryAuthCredential, type: :model do
   subject { build(:clever_library_auth_credential) }

@@ -20,7 +20,7 @@
 #  fk_rails_...  (activity_classification_id => activity_classifications.id)
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 
 RSpec.describe UserActivityClassification, type: :model do

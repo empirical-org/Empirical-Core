@@ -18,7 +18,7 @@
 #  index_ip_locations_on_user_id  (user_id)
 #  index_ip_locations_on_zip      (zip)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe IpLocation, type: :model do
   it { should belong_to(:user) }

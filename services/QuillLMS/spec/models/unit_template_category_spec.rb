@@ -9,7 +9,7 @@
 #  primary_color   :string(255)
 #  secondary_color :string(255)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe UnitTemplateCategory, type: :model do
   it { should have_many(:unit_templates) }

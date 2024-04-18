@@ -20,7 +20,7 @@
 #  fk_rails_...  (district_id => districts.id)
 #  fk_rails_...  (subscription_id => subscriptions.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe DistrictSubscription, type: :model do
   let(:district) { create(:district) }

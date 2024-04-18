@@ -19,7 +19,7 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe FeedbackHistoryRating, type: :model do
   it 'should test uniqueness on user_id and feedback_history_id' do

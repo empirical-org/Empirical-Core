@@ -18,7 +18,7 @@
 #  fk_rails_...  (activity_id => activities.id)
 #  fk_rails_...  (topic_id => topics.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe ActivityTopic, type: :model do
   it { should belong_to(:activity) }

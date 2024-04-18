@@ -17,7 +17,7 @@
 #  index_invitations_on_invitee_email  (invitee_email)
 #  index_invitations_on_inviter_id     (inviter_id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe Invitation, type: :model do
   let(:teacher) { build(:teacher_with_a_couple_classrooms_with_one_student_each) }

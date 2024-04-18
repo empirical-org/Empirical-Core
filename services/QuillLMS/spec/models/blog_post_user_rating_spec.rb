@@ -11,7 +11,7 @@
 #  blog_post_id :integer
 #  user_id      :integer
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe BlogPostUserRating, type: :model do
   describe 'ACCEPTABLE_RATINGS' do

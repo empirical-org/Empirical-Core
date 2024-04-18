@@ -16,7 +16,7 @@
 #
 #  index_provider_type_and_classroom_id_and_user_id  (type,classroom_external_id,user_external_id) UNIQUE
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe ProviderClassroomUser, type: :model do
   context 'validations' do

@@ -15,7 +15,7 @@
 #  index_referrer_users_on_referral_code  (referral_code) UNIQUE
 #  index_referrer_users_on_user_id        (user_id) UNIQUE
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe ReferrerUser, type: :model do
   let!(:teacher) { create(:teacher) }

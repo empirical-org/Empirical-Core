@@ -20,7 +20,7 @@
 #  fk_rails_...  (concept_id => concepts.id)
 #  fk_rails_...  (recommendation_id => recommendations.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe Criterion, type: :model do
 

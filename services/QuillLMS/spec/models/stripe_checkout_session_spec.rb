@@ -22,7 +22,7 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe StripeCheckoutSession, type: :model do
   describe '.custom_find_or_create_by!' do

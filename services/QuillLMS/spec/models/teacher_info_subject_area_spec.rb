@@ -20,7 +20,7 @@
 #  fk_rails_...  (subject_area_id => subject_areas.id)
 #  fk_rails_...  (teacher_info_id => teacher_infos.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe TeacherInfoSubjectArea, type: :model, redis: true do
   it { should belong_to(:subject_area) }

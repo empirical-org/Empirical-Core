@@ -17,7 +17,7 @@
 #
 #  index_app_settings_on_name  (name) UNIQUE
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe AppSetting, type: :model do
   let(:user) { create(:user) }

@@ -22,7 +22,7 @@
 #  fk_rails_...  (pack_sequence_item_id => pack_sequence_items.id)
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe UserPackSequenceItem, type: :model do
 

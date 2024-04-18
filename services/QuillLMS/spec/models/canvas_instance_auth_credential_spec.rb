@@ -18,7 +18,7 @@
 #  fk_rails_...  (auth_credential_id => auth_credentials.id)
 #  fk_rails_...  (canvas_instance_id => canvas_instances.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe CanvasInstanceAuthCredential, type: :model do
   subject { build(:canvas_instance_auth_credential) }

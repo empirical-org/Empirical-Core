@@ -20,7 +20,7 @@
 #
 #  fk_rails_...  (activity_session_id => activity_sessions.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe ActivitySurveyResponse, type: :model do
   it { should belong_to(:activity_session) }

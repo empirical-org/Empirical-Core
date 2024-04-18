@@ -16,7 +16,7 @@
 #
 #  fk_rails_...  (parent_id => topics.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe Topic, type: :model do
   it { should have_many(:activity_topics) }

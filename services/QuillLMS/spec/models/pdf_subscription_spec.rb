@@ -14,7 +14,7 @@
 #  index_pdf_subscriptions_on_admin_report_filter_selection_id  (admin_report_filter_selection_id)
 #  index_pdf_subscriptions_on_frequency                         (frequency)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe PdfSubscription, type: :model do
   it { expect(build(:pdf_subscription)).to be_valid }

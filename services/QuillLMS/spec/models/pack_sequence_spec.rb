@@ -22,7 +22,7 @@
 #  fk_rails_...  (classroom_id => classrooms.id)
 #  fk_rails_...  (diagnostic_activity_id => activities.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe PackSequence, type: :model do
   subject { build(:pack_sequence) }

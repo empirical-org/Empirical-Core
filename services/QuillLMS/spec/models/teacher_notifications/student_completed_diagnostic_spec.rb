@@ -20,7 +20,7 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 module TeacherNotifications
   RSpec.describe StudentCompletedDiagnostic, type: :model do

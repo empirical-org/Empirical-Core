@@ -20,7 +20,7 @@
 #  fk_rails_...  (activity_id => activities.id)
 #  fk_rails_...  (content_partner_id => content_partners.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe ContentPartnerActivity do
   it { should belong_to :content_partner }

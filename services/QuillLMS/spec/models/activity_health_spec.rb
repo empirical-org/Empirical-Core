@@ -19,7 +19,7 @@
 #  tool                    :string
 #  url                     :string
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe ActivityHealth, type: :model, redis: true do
 

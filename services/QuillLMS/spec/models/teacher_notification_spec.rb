@@ -20,7 +20,7 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe TeacherNotification, type: :model do
   context 'should relations' do

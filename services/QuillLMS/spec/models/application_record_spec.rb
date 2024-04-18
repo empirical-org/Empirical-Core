@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe(ApplicationRecord, :type => :model) do
   describe '#save_with_error_handling' do

@@ -19,7 +19,7 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe "ThirdPartyUserId", type: :model do
   let(:title_card) { build(:title_card) }

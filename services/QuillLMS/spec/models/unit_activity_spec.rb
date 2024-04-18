@@ -25,7 +25,7 @@
 #  fk_rails_...  (activity_id => activities.id)
 #  fk_rails_...  (unit_id => units.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe UnitActivity, type: :model, redis: true do
 

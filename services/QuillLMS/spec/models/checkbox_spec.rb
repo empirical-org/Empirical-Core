@@ -15,7 +15,7 @@
 #
 #  index_checkboxes_on_user_id_and_objective_id  (user_id,objective_id) UNIQUE
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe Checkbox, type: :model do
   it { should belong_to(:objective) }

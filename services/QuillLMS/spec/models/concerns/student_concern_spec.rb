@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
 
 describe 'Student Concern', type: :model do
   let!(:classroom) { create(:classroom)}

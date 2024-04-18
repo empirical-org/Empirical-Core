@@ -11,7 +11,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe ContentPartner do
   let!(:content_partner) { build(:content_partner) }

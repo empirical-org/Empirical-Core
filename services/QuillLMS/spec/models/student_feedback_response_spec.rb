@@ -11,7 +11,7 @@
 #  created_at   :datetime
 #  updated_at   :datetime
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe StudentFeedbackResponse do
   it {

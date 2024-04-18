@@ -36,7 +36,7 @@
 #  index_blog_posts_on_topic       (topic)
 #  tsv_idx                         (tsv) USING gin
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe BlogPost, type: :model do
   let(:blog_post) { build(:blog_post) }

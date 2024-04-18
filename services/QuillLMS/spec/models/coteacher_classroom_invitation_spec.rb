@@ -16,7 +16,7 @@
 #  index_coteacher_classroom_invitations_on_classroom_id   (classroom_id)
 #  index_coteacher_classroom_invitations_on_invitation_id  (invitation_id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe CoteacherClassroomInvitation, type: :model do
   let!(:teacher) { create(:teacher_with_a_couple_classrooms_with_one_student_each) }

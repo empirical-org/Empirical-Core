@@ -15,7 +15,7 @@
 #  index_user_subscriptions_on_subscription_id  (subscription_id)
 #  index_user_subscriptions_on_user_id          (user_id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe UserSubscription, type: :model do
   it { should validate_presence_of(:user_id) }

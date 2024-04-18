@@ -14,7 +14,7 @@
 #
 #  unique_diagnostic_question_optimal_concepts_uid_id  (question_uid,concept_id) UNIQUE
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe DiagnosticQuestionOptimalConcept, type: :model do
   it { should belong_to(:concept) }

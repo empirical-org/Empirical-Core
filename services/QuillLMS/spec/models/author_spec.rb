@@ -8,7 +8,7 @@
 #  avatar :text
 #  name   :string(255)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe Author, type: :model, redis: true do
   it { should have_many(:unit_templates) }

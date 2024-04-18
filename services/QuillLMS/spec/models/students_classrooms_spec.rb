@@ -17,7 +17,7 @@
 #  index_students_classrooms_on_student_id                   (student_id)
 #  index_students_classrooms_on_student_id_and_classroom_id  (student_id,classroom_id) UNIQUE
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe StudentsClassrooms, type: :model, redis: true do
   it { should belong_to(:student).class_name('User') }

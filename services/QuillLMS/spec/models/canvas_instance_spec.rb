@@ -13,7 +13,7 @@
 #
 #  index_canvas_instances_on_url  (url) UNIQUE
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe CanvasInstance, type: :model do
   subject { build(:canvas_instance) }

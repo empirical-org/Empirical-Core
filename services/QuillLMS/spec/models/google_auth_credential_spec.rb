@@ -23,7 +23,7 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe GoogleAuthCredential, type: :model do
   subject { build(:google_auth_credential) }

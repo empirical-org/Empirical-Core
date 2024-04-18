@@ -24,7 +24,7 @@
 #
 #  index_concept_results_on_activity_session_id  (activity_session_id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe ConceptResult, type: :model do
   before do

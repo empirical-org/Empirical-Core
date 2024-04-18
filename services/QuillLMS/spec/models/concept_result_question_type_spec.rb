@@ -12,7 +12,7 @@
 #
 #  index_concept_result_question_types_on_text  (text) UNIQUE
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe ConceptResultQuestionType, type: :model do
   before do

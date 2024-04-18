@@ -16,7 +16,7 @@
 #  index_user_milestones_on_user_id                   (user_id)
 #  index_user_milestones_on_user_id_and_milestone_id  (user_id,milestone_id) UNIQUE
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe UserMilestone, type: :model do
   it { should belong_to(:user) }

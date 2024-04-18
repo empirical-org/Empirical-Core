@@ -23,7 +23,7 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe CleverDistrictAuthCredential, type: :model do
   subject { build(:clever_district_auth_credential) }

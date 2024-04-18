@@ -20,7 +20,7 @@
 #
 #  fk_rails_...  (activity_health_id => activity_healths.id) ON DELETE => cascade
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe PromptHealth, type: :model, redis: true do
 

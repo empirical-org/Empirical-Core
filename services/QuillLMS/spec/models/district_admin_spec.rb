@@ -15,7 +15,7 @@
 #  index_district_admins_on_district_id  (district_id)
 #  index_district_admins_on_user_id      (user_id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe DistrictAdmin, type: :model, redis: true do
   it { should belong_to(:district) }

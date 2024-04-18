@@ -21,7 +21,7 @@
 #  fk_rails_...  (activity_id => activities.id)
 #  fk_rails_...  (unit_template_id => unit_templates.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe Recommendation, type: :model do
 

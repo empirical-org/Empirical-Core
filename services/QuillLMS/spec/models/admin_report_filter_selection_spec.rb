@@ -16,7 +16,7 @@
 #  index_admin_report_filter_selections_on_report   (report)
 #  index_admin_report_filter_selections_on_user_id  (user_id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe AdminReportFilterSelection, type: :model, redis: true do
   it { expect(build(:admin_report_filter_selection)).to be_valid }

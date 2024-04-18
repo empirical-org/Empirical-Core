@@ -22,7 +22,7 @@
 #  index_unit_templates_on_author_id                  (author_id)
 #  index_unit_templates_on_unit_template_category_id  (unit_template_category_id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe UnitTemplate, redis: true, type: :model do
   let(:unit_template) {create(:unit_template)}

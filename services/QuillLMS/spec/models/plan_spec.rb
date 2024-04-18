@@ -18,7 +18,7 @@
 #
 #  index_plans_on_name  (name) UNIQUE
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe Plan, type: :model do
   context 'validations' do

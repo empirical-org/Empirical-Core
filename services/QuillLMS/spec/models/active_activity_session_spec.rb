@@ -14,7 +14,7 @@
 #
 #  index_active_activity_sessions_on_uid  (uid) UNIQUE
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe ActiveActivitySession, type: :model do
   let(:active_activity_session) { build_stubbed(:active_activity_session) }

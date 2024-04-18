@@ -10,7 +10,7 @@
 #  updated_at          :datetime         not null
 #  feedback_history_id :integer          not null
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe FeedbackHistoryFlag, type: :model do
   context 'associations' do

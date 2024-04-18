@@ -21,7 +21,7 @@
 #  created_at                     :datetime         not null
 #  updated_at                     :datetime         not null
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe SalesFormSubmission, type: :model do
   let(:api_double) { double }

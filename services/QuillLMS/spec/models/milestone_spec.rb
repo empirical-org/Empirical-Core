@@ -13,7 +13,7 @@
 #
 #  index_milestones_on_name  (name)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe Milestone, type: :model do
   it { should have_many(:user_milestones)}

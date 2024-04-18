@@ -15,7 +15,7 @@
 #
 #  index_announcements_on_start_and_end  (start,end DESC)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe Announcement, type: :model do
   describe '.current_webinar_announcement' do

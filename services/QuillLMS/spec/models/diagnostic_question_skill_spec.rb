@@ -21,6 +21,9 @@
 #  fk_rails_...  (question_id => questions.id)
 #  fk_rails_...  (skill_group_id => skill_groups.id)
 #
+
+require 'spec_helper'
+
 describe DiagnosticQuestionSkill, type: :model do
   context 'validations' do
     it { should belong_to(:skill_group) }

@@ -9,7 +9,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe SubjectArea, type: :model, redis: true do
 

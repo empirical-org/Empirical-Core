@@ -22,7 +22,7 @@
 #
 #  fk_rails_...  (unit_template_id => unit_templates.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe Unit, type: :model do
   it { should belong_to(:user) }

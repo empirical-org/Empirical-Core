@@ -12,7 +12,7 @@
 #
 #  index_concept_result_directions_on_text  (text) UNIQUE
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe ConceptResultDirections, type: :model do
   before do

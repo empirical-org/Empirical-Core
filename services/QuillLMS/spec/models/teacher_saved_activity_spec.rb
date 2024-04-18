@@ -21,7 +21,7 @@
 #  fk_rails_...  (activity_id => activities.id)
 #  fk_rails_...  (teacher_id => users.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe TeacherSavedActivity, type: :model do
 

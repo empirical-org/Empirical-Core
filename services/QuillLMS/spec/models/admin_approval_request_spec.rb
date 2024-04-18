@@ -19,7 +19,7 @@
 #
 #  fk_rails_...  (admin_info_id => admin_infos.id)
 #
-require 'rails_helper'
+require 'spec_helper'
 
 describe AdminApprovalRequest, type: :model, redis: true do
   it { should belong_to(:admin_info) }
