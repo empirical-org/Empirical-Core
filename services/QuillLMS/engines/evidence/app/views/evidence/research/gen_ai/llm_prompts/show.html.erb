@@ -1,0 +1,12 @@
+<div>
+  <h2>LLM Prompt</h2>
+
+  <h3>Description</h3>
+  <p><%= @llm_prompt.description %></p>
+
+  <h3>Contents</h3>
+  <p><%= simple_format(@llm_prompt.prompt) %></p>
+</div>
+
+<br>
+<%= link_to 'Experiments', research_gen_ai_experiments_path %>

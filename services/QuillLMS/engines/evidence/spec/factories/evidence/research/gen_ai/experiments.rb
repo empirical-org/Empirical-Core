@@ -4,16 +4,18 @@
 #
 # Table name: evidence_research_gen_ai_experiments
 #
-#  id                :bigint           not null, primary key
-#  experiment_errors :text             is an Array
-#  num_examples      :integer          default(0), not null
-#  results           :jsonb
-#  status            :string           default("pending"), not null
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  llm_config_id     :integer          not null
-#  llm_prompt_id     :integer          not null
-#  passage_prompt_id :integer          not null
+#  id                  :bigint           not null, primary key
+#  evaluation_duration :float
+#  experiment_duration :float
+#  experiment_errors   :text             default([]), not null, is an Array
+#  num_examples        :integer          default(0), not null
+#  results             :jsonb
+#  status              :string           default("pending"), not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  llm_config_id       :integer          not null
+#  llm_prompt_id       :integer          not null
+#  passage_prompt_id   :integer          not null
 #
 
 module Evidence
