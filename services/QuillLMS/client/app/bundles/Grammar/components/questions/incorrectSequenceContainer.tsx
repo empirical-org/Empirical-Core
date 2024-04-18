@@ -22,12 +22,17 @@ class IncorrectSequencesContainer extends React.Component {
   }
 
   deleteSequence = (sequenceID: string) => {
-    const { incorrectSequences } = this.state
+    const { incorrectSequences, orderedIds } = this.state
     const { dispatch, match, } = this.props
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       dispatch(questionActions.deleteIncorrectSequence(match.params.questionID, sequenceID));
-      delete incorrectSequences[sequenceID]
-      this.setState({ incorrectSequences: incorrectSequences})
+      const newIncorrectSequences = incorrectSequences.filter(sequence => sequence.key != sequenceID)
+      if (orderedIds) {
+        const newOrderedIds = orderedIds.filter(id => id != sequenceID)
+        this.setState({ incorrectSequences: newIncorrectSequences, orderedIds: newOrderedIds })
+      } else {
+        this.setState({ incorrectSequences: newIncorrectSequences })
+      }
     }
   }
 
@@ -119,8 +124,6 @@ class IncorrectSequencesContainer extends React.Component {
       const sequencesCollection = hashToCollection(incorrectSequences)
       return orderedIds.map(id => sequencesCollection.find(s => s.key === id))
     } else {
-      console.log("sorting")
-      console.log(incorrectSequences)
       return hashToCollection(incorrectSequences).sort((a, b) => a.order - b.order);
     }
   }
@@ -183,8 +186,6 @@ class IncorrectSequencesContainer extends React.Component {
   renderSequenceList() {
     const { match } = this.props
     const components = this.sequencesSortedByOrder().map((seq) => {
-      console.log(seq)
-      console.log(seq.key)
       const onClickDelete = () => { this.handleDeleteSequence(seq.key) }
       return (
         <div className="card is-fullwidth has-bottom-margin" id={seq.key} key={seq.key}>
