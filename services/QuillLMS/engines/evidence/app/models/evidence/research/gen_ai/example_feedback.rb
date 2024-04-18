@@ -29,6 +29,8 @@ module Evidence
         delegate :response, to: :passage_prompt_response
 
         def response_and_feedback = "Response: #{response}\nFeedback: #{text}"
+
+        def to_s = text
       end
     end
   end

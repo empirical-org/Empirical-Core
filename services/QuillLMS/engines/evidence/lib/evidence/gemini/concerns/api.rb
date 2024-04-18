@@ -46,7 +46,6 @@ module Evidence
             raise MaxAttemptsError, e.message if num_attempts >= MAX_ATTEMPTS
 
             num_attempts += 1
-            puts "Retrying attempt #{num_attempts}"
             retry
           rescue *Evidence::HTTP_TIMEOUT_ERRORS
             []

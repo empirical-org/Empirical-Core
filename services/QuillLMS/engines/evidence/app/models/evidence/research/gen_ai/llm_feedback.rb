@@ -34,6 +34,8 @@ module Evidence
         def optimal_or_sub_optimal_match? = example_optimal? ? optimal? : sub_optimal?
 
         def response_and_feedback = "Response: #{passage_prompt_response.response}\nFeedback: #{text}"
+
+        def to_s = text
       end
     end
   end

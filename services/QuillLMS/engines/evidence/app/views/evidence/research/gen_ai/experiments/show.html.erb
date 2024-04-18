@@ -1,7 +1,19 @@
 <meta http-equiv="refresh" content="5">
 
+<%= link_to 'Back to Experiments', research_gen_ai_experiments_path %>
+<br>
+
+<% if @previous %>
+  <%= link_to "Previous", @previous %>
+<% end %>
+
+<% if @next %>
+  <%= link_to "Next", @next %>
+<% end %>
+
 <div>
   <h2>Experiment</h2>
+  <p><%= @experiment.created_at.strftime("%B %d, %Y %H:%M") %></p>
 
   <h3>Passage</h3>
   <p><%= @experiment.passage_prompt %></p>
@@ -12,15 +24,20 @@
   <%= link_to 'LLMPromptTemplate', @experiment.llm_prompt.llm_prompt_template %>
 
   <h3>LLM Prompt</h3>
-  <p><%= @experiment.llm_prompt.description %></p>
-  <%# <p><%= simple_format(@experiment.llm_prompt.prompt) %></p>
+  <p><%= link_to @experiment.llm_prompt.description, @experiment.llm_prompt %></p>
 
   <hr/>
   <h3>Results</h3>
   <% if @experiment.results %>
     <p>Accuracy (identical): <%= @experiment.results['accuracy_identical'] %></p>
     <p>Accuracy (sub/optimal): <%= @experiment.results['accuracy_optimal_sub_optimal'] %></p>
-    <p>Misc metrics: <%= pp @experiment.results['misc_metrics'] %></p>
+    <p>Bleu: <%= @experiment.results.dig('misc_metrics', 'bleu', 'bleu')&.round(2) %></p>
+    <p>Rouge1: <%= @experiment.results.dig('misc_metrics', 'rouge', 'rouge1')&.round(2) %></p>
+    <p>Rouge2: <%= @experiment.results.dig('misc_metrics', 'rouge', 'rouge2')&.round(2) %></p>
+    <p>RougeL: <%= @experiment.results.dig('misc_metrics', 'rouge', 'rougeL')&.round(2) %></p>
+    <p>RougeL Sum: <%= @experiment.results.dig('misc_metrics', 'rouge', 'rougeLsum')&.round(2) %></p>
+    <p>Experiment duration: <%= experiment_duration(@experiment) %></p>
+    <p>Evaluation duration: <%= evaluation_duration(@experiment) %></p>
 
     <%= render 'matrix', matrix: @experiment.results['confusion_matrix'], title: 'Confusion Matrix' %>
 
@@ -29,26 +46,32 @@
         <tr>
           <th>Identical match</th>
           <th>OptSubOpt match</th>
+          <th>BertScore (F1)</th>
+          <th>BertScore (Precision)</th>
+          <th>BertScore (Recall)</th>
           <th>Prompt Response</th>
           <th>Example Feedback</th>
           <th>LLM Feedback</th>
         </tr>
       </thead>
       <tbody>
-        <% @experiment.llm_feedbacks.each do |llm_feedback| %>
+        <% @experiment.llm_feedbacks.each.with_index do |llm_feedback, index| %>
           <tr>
             <% example_feedback = llm_feedback.example_feedback %>
             <td class="<%= llm_feedback.identical_feedback? ? 'green' : 'red' %>"></td>
             <td class="<%= llm_feedback.optimal_or_sub_optimal_match? ? 'green' : 'red' %>"></td>
+            <td><%= @experiment.results.dig('misc_metrics', 'bert_score', 'f1', index)&.round(2) %></td>
+            <td><%= @experiment.results.dig('misc_metrics', 'bert_score', 'precision', index)&.round(2) %></td>
+            <td><%= @experiment.results.dig('misc_metrics', 'bert_score', 'recall', index)&.round(2) %></td>
             <td><%= llm_feedback.passage_prompt_response %></td>
-            <td><%= llm_feedback.text %></td>
-            <td><%= example_feedback.text %></td>
+            <td><%= llm_feedback.example_feedback %></td>
+            <td><%= llm_feedback  %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
     <% else %>
-      <p>No results yet</p>
+      <p><%= progress(@experiment) %></p>
     <% end %>
 
 
@@ -65,8 +88,5 @@
     </ul>
   <% end %>
 
-  <h3>Created At</h3>
-  <p><%= @experiment.created_at.strftime("%B %d, %Y %H:%M") %></p>
 </div>
 
-<%= link_to 'Back', research_gen_ai_experiments_path %>
