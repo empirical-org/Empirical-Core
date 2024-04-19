@@ -26,12 +26,10 @@ class IncorrectSequencesContainer extends React.Component {
     const { dispatch, match, } = this.props
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       dispatch(questionActions.deleteIncorrectSequence(match.params.questionID, sequenceID));
-      const newIncorrectSequences = incorrectSequences.filter(sequence => sequence.key != sequenceID)
+      delete incorrectSequences[sequenceID]
       if (orderedIds) {
         const newOrderedIds = orderedIds.filter(id => id != sequenceID)
-        this.setState({ incorrectSequences: newIncorrectSequences, orderedIds: newOrderedIds })
-      } else {
-        this.setState({ incorrectSequences: newIncorrectSequences })
+        this.setState({ orderedIds: newOrderedIds })
       }
     }
   }
