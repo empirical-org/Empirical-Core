@@ -8606,7 +8606,7 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      He can&#x27;t sing well. Still he practices every day.
+                      He can't sing well. Still he practices every day.
                     </td>
                   </tr>
                   <tr>
@@ -8890,7 +8890,7 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Strawberries are my favorite. However I don&#x27;t eat them all the time.
+                      Strawberries are my favorite. However I don't eat them all the time.
                     </td>
                   </tr>
                   <tr>
