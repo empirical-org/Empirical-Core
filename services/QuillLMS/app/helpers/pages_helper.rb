@@ -94,13 +94,8 @@ module PagesHelper
             img: 'team-eric-adams.webp'
           },
           {
-            name: 'Leah Allen-Manning',
-            title: 'Content Marketing Partner',
-            img: 'team-leah-allen-manning.webp'
-          },
-          {
             name: 'Devin Kawailani Barricklow',
-            title: 'Senior Curriculum Developer',
+            title: 'Curriculum Consultant',
             img: 'team-devin-barricklow.webp'
           },
           {
@@ -115,7 +110,7 @@ module PagesHelper
           },
           {
             name: 'Nattalie Dai',
-            title: 'Partnerships Specialist II',
+            title: 'Senior Partnerships Specialist',
             img: 'team-nattalie-dai.webp'
           },
           {
@@ -188,7 +183,7 @@ module PagesHelper
           },
           {
             name: 'Maheen Sahoo',
-            title: 'Senior Manager of Strategic Partnerships, AI for Education',
+            title: 'Director of Strategic Partnerships, AI for Education',
             img: 'team-maheen-sahoo.webp',
             srcset: {
               '2x' => 'team-maheen-sahoo.webp'
@@ -205,8 +200,13 @@ module PagesHelper
             img: 'team-brendan-shean.webp'
           },
           {
+            name: 'Hallie Smith',
+            title: 'Senior Marketing Partner',
+            img: 'team-hallie-smith@2x.webp'
+          },
+          {
             name: 'Anna Waterman',
-            title: 'Senior Curriculum Developer',
+            title: 'Lead Curriculum Editor',
             img: 'team-anna-waterman.webp'
           },
           {
@@ -240,24 +240,39 @@ module PagesHelper
             img: 'board-tony-sebro.webp'
           },
           {
-            name: 'Peg Tyre',
-            title: 'VP of Strategy at the Edwin Gould Foundation',
-            img: 'board-peg-tyre.webp'
-          },
-          {
             name: 'Matthew Rodriguez',
-            title: 'Trader at Millennium Management',
+            title: 'Portfolio Manager at Millennium Management',
             img: 'board-matthew-rodriguez.webp'
           },
           {
             name: 'Stephanie Cohen',
-            title: 'Co-Head of Consumer Wealth Management at Goldman',
+            title: 'Chief Strategy Officer at Cloudflare',
             img: 'board-stephanie-cohen.webp'
           },
           {
             name: 'Ben Sussman',
-            title: 'Engineer at Stripe',
+            title: 'Engineer at Pomelo Care',
             img: 'board-ben-sussman.webp'
+          },
+          {
+            name: 'David Siegel',
+            title: 'Former CEO of Meetup & Investopedia',
+            img: 'board-david-siegel.webp'
+          }
+        ]
+      },
+      {
+        team: 'Advisory Board',
+        members: [
+          {
+            name: 'Peg Tyre',
+            title: 'VP of Strategy at the Edwin Gould Foundation',
+            img: 'advisor-peg-tyre.webp'
+          },
+          {
+            name: 'Alexandria Redmon',
+            title: 'Senior Director of Product & Technology at Hearst',
+            img: 'advisor-alexandria-redmon.webp'
           }
         ]
       },
