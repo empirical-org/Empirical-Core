@@ -140,12 +140,12 @@ class IncorrectSequencesContainer extends React.Component {
     const { questionID } = params;
 
     if (orderedIds) {
-      const newIncorrectSequences = []
+      const newIncorrectSequences = {}
       const incorrectSequenceArray = hashToCollection(incorrectSequences)
       orderedIds.forEach((id, index) => {
         const sequence = incorrectSequenceArray.find(is => is.key === id);
         sequence.order = index
-        newIncorrectSequences.push(sequence)
+        newIncorrectSequences[sequence.key] = sequence
       })
       dispatch(questionActions.updateIncorrectSequences(questionID, newIncorrectSequences))
       alert('Saved!')
