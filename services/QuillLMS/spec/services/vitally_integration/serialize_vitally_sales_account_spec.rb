@@ -226,6 +226,7 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
         user: active_old_student,
         classroom_unit: old_classroom_unit,
         state: 'finished',
+        completed_at: 2.year.ago,
         updated_at: 2.year.ago)
     end
     let!(:last_activity_session) do

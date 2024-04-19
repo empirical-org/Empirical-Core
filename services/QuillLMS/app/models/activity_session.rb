@@ -237,17 +237,17 @@ class ActivitySession < ApplicationRecord
 
     # mark all finished anonymous sessions as final score.
     if user.nil?
-      update_columns(is_final_score: true)
+      update_columns(is_final_score: true, updated_at: DateTime.current)
       return
     end
 
     a = ActivitySession.where(classroom_unit: classroom_unit, user: user, is_final_score: true, activity: activity)
                        .where.not(id: id).first
     if a.nil?
-      update_columns is_final_score: true
+      update_columns is_final_score: true, updated_at: DateTime.current
     elsif a.percentage.nil? || percentage >= a.percentage
-      update_columns is_final_score: true
-      a.update_columns is_final_score: false
+      update_columns is_final_score: true, updated_at: DateTime.current
+      a.update_columns is_final_score: false, updated_at: DateTime.current
     end
     # return true otherwise save will be prevented
     true
