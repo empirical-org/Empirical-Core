@@ -69,7 +69,7 @@ class IncorrectSequencesContainer extends Component {
   }
 
   deleteSequence = sequenceID => {
-    const { actionFile, incorrectSequences } = this.state
+    const { actionFile, incorrectSequences, orderedIds } = this.state
     const { deleteIncorrectSequence } = actionFile
     const { dispatch, match } = this.props
     const { params } = match
@@ -77,7 +77,10 @@ class IncorrectSequencesContainer extends Component {
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       dispatch(deleteIncorrectSequence(questionID, sequenceID));
       delete incorrectSequences[sequenceID];
-      this.setState({incorrectSequences: incorrectSequences})
+      if (orderedIds) {
+        const newOrderedIds = orderedIds.filter(id => id != sequenceID)
+        this.setState({ orderedIds: newOrderedIds })
+      }
     }
   };
 
@@ -104,14 +107,14 @@ class IncorrectSequencesContainer extends Component {
     const { params } = match;
     const { questionID } = params;
     if (orderedIds) {
-      const newIncorrectSequences = []
+      const newIncorrectSequences = {}
       const incorrectSequenceArray = hashToCollection(incorrectSequences)
       orderedIds.forEach((id, index) => {
         const sequence = incorrectSequenceArray.find(is => is.key === id);
         sequence.order = index
-        newIncorrectSequences.push(sequence)
+        newIncorrectSequences[sequence.key] = sequence
       })
-      dispatch(actionFile.updateIncorrectSequences(questionID, newIncorrectSequences))
+      dispatch(questionActions.updateIncorrectSequences(questionID, newIncorrectSequences))
       alert('Saved!')
     } else {
       alert('No changes to incorrect sequence order have been made.')
