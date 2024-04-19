@@ -1,7 +1,7 @@
 import * as React from 'react';
 import _ from 'underscore';
 
-import { formatString, formatStringAndAddSpacesAfterPeriods, } from './formatString';
+import { formatStringAndAddSpacesAfterPeriods, } from './formatString';
 
 import NumberSuffix from '../../modules/numberSuffixBuilder.js';
 import ScoreColor from '../../modules/score_color.js';
@@ -43,7 +43,7 @@ const StudentReportBox = ({ questionData, boxNumber, showScore, showDiff, }) => 
         <tr className={classNameAndText} key={key || ''}>
           <td>{classNameAndText}</td>
           <td />
-          <td>{formatString(directionsOrFeedback)}</td>
+          <td>{formatStringAndAddSpacesAfterPeriods(directionsOrFeedback)}</td>
         </tr>
       )
     }
