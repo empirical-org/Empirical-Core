@@ -4,6 +4,8 @@ import PostNavigationBanners from '../components/styleGuide/postNavigationBanner
 import Buttons from '../components/styleGuide/buttons'
 import Cards from '../components/styleGuide/cards'
 import ColorPalette from '../components/styleGuide/colorPalette'
+import Icons from '../components/styleGuide/icons'
+// import Typography from '../components/styleGuide/typography'
 import DataTables from '../components/styleGuide/dataTables'
 import DropdownInputsWithSearchTokens from '../components/styleGuide/dropdownInputsWithSearchTokens'
 import Menus from '../components/styleGuide/menus'
@@ -30,7 +32,15 @@ export default class BackpackIndex extends React.Component {
           </p>
           <ul className="menu-list">
             {this.renderLink('#color-palette', 'Color Palette')}
+            {this.renderLink('#typography', 'Typography')}
             {this.renderLink('#buttons', 'Buttons')}
+            {this.renderLink('#icons', 'Icons')}
+          </ul>
+          <p className="menu-label">
+          HTML Elements
+          </p>
+          <ul className="menu-list">
+            {this.renderLink('#icons', 'Icons')}
           </ul>
           <p className="menu-label">
           React Components
@@ -53,6 +63,7 @@ export default class BackpackIndex extends React.Component {
           <p>For CSS elements, the text above the element is a list of class names necessary to apply the styles or the variable used for the color. For React components, the text is the code for rendering the component. All React components in Backpack are exportable from the `Shared/index` folder.</p>
           <ColorPalette />
           <Buttons />
+          <Icons />
           <Cards />
           <Menus />
           <DropdownInputsWithSearchTokens />
