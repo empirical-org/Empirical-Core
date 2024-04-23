@@ -65,6 +65,8 @@ class Subscription < ApplicationRecord
   TEACHER_PAID = 'Teacher Paid'
   TEACHER_SPONSORED_FREE = 'Teacher Sponsored Free'
   TEACHER_TRIAL = 'Teacher Trial'
+  SCHOOL_DEMO = 'School Demo'
+  DISTRICT_DEMO = 'District Demo'
 
   OFFICIAL_PAID_TYPES = [
     SCHOOL_DISTRICT_PAID,
@@ -77,16 +79,20 @@ class Subscription < ApplicationRecord
   OFFICIAL_FREE_TYPES = [
     SCHOOL_SPONSORED_FREE,
     TEACHER_SPONSORED_FREE,
-    TEACHER_TRIAL
+    TEACHER_TRIAL,
+    SCHOOL_DEMO,
+    DISTRICT_DEMO
   ].freeze
 
   OFFICIAL_SCHOOL_TYPES = [
     SCHOOL_PAID,
-    SCHOOL_SPONSORED_FREE
+    SCHOOL_SPONSORED_FREE,
+    SCHOOL_DEMO
   ].freeze
 
   OFFICIAL_DISTRICT_TYPES = [
-    SCHOOL_DISTRICT_PAID
+    SCHOOL_DISTRICT_PAID,
+    DISTRICT_DEMO
   ].freeze
 
   OFFICIAL_TEACHER_TYPES = [
