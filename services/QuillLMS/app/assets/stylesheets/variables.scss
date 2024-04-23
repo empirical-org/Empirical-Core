@@ -192,6 +192,94 @@ $color_thunderbird_approx: #c51916;
 $family-sans-serif: "adelle-sans", "Arial", sans-serif;
 $family-monospace: "Roboto-mono", "Monaco", "Inconsolata", monospace;
 
+
+// typography
+
+@mixin display-2xl {
+  font-weight: bold;
+  font-size: 32px;
+}
+
+@mixin display-xl {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+@mixin display-l {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+@mixin display-l-alt {
+  font-weight: semibold;
+  font-size: 20px;
+}
+
+@mixin display-m {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+@mixin display-s {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+@mixin display-xs {
+  font-weight: bold;
+  font-size: 13px;
+}
+
+@mixin display-2xs {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+@mixin text-2xl {
+  font-weight: normal;
+  font-size: 24px;
+}
+
+@mixin text-xl {
+  font-weight: normal;
+  font-size: 20px;
+}
+
+@mixin text-l {
+  font-weight: normal;
+  font-size: 16px;
+}
+
+@mixin text-m {
+  font-weight: normal;
+  font-size: 16px;
+}
+
+@mixin text-s {
+  font-weight: normal;
+  font-size: 14px;
+}
+
+@mixin text-xs {
+  font-weight: normal;
+  font-size: 13px;
+}
+
+@mixin text-2xs {
+  font-weight: normal;
+  font-size: 12px;
+}
+
+@mixin navigation-l {
+  font-weight: semibold;
+  font-size: 14px;
+}
+
+@mixin navigation-m {
+  font-weight: semibold;
+  font-size: 13px;
+}
+
 .wf-loading {
   visibility: hidden;
 }
