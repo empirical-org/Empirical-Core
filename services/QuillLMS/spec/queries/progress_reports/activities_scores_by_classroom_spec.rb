@@ -38,7 +38,7 @@ describe 'ActivitiesScoresByClassroom' do
     classroom_unit = classroom.classroom_units.first
     classroom_unit.assigned_student_ids << new_student.id
     create(:activity_session, user: classroom.students.first, classroom_unit: classroom_unit, visible: false)
-    create(:activity_session, user: classroom.students.first, classroom_unit: classroom_unit, visible: true, completed_at: nil)
+    create(:activity_session, user: classroom.students.first, classroom_unit: classroom_unit, visible: true, state: "unstarted", completed_at: nil)
     results = ProgressReports::ActivitiesScoresByClassroom.results(classroom.owner.classrooms_i_teach.map(&:id))
     expect(results.pluck("name")).not_to include(new_student.name)
   end
