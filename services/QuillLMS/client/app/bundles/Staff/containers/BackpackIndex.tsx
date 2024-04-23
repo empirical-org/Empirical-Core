@@ -5,7 +5,7 @@ import Buttons from '../components/styleGuide/buttons'
 import Cards from '../components/styleGuide/cards'
 import ColorPalette from '../components/styleGuide/colorPalette'
 import Icons from '../components/styleGuide/icons'
-// import Typography from '../components/styleGuide/typography'
+import Typography from '../components/styleGuide/typography'
 import DataTables from '../components/styleGuide/dataTables'
 import DropdownInputsWithSearchTokens from '../components/styleGuide/dropdownInputsWithSearchTokens'
 import Menus from '../components/styleGuide/menus'
@@ -62,6 +62,7 @@ export default class BackpackIndex extends React.Component {
           <h2>Quill&#39;s Style Guide</h2>
           <p>For CSS elements, the text above the element is a list of class names necessary to apply the styles or the variable used for the color. For React components, the text is the code for rendering the component. All React components in Backpack are exportable from the `Shared/index` folder.</p>
           <ColorPalette />
+          <Typography />
           <Buttons />
           <Icons />
           <Cards />
