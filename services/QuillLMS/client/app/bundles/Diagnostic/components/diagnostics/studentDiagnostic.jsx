@@ -6,9 +6,9 @@ import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import LandingPage from './landing.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
 import PlaySentenceFragment from './sentenceFragment.jsx';
-import FinishedTurkDiagnostic from '../turk/finishedDiagnostic'
 
-import { requestPost, requestPut, } from '../../../../modules/request/index';
+import FinishedTurkDiagnostic from '../turk/finishedDiagnostic'
+import { saveSession, } from '../../utils/saveSession'
 import {
   CLICK,
   CarouselAnimation,
@@ -127,6 +127,16 @@ export class StudentDiagnostic extends React.Component {
     return match.path.includes(TURK)
   }
 
+  handleStateUpdate = (newState) => {
+    this.setState(newState)
+  }
+
+  saveToLMS = () => {
+    const { sessionID, timeTracking, } = this.state
+    const { playDiagnostic, match } = this.props
+    saveSession(sessionID, timeTracking, playDiagnostic, match, this.isTurkSession(), this.handleStateUpdate)
+  }
+
   resetTimers = (e=null) => {
     const now = Date.now()
     this.setState((prevState, props) => {
@@ -186,64 +196,6 @@ export class StudentDiagnostic extends React.Component {
   hasQuestionsInQuestionSet = (props) => {
     const pL = props.playDiagnostic;
     return (pL && pL.questionSet && pL.questionSet.length);
-  }
-
-  saveToLMS = () => {
-    const { sessionID, timeTracking, } = this.state
-    const { playDiagnostic, match } = this.props
-    const { params } = match
-    const { diagnosticID } = params
-
-    this.setState({ error: false, });
-
-    const relevantAnsweredQuestions = playDiagnostic.answeredQuestions.filter(q => q.questionType !== TITLE_CARD_TYPE)
-    const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
-    const data = { time_tracking: roundValuesToSeconds(timeTracking), }
-
-    if (sessionID) {
-      this.finishActivitySession(sessionID, results, 1, data);
-    } else {
-      this.createAnonActivitySession(diagnosticID, results, 1, data);
-    }
-  }
-
-  finishActivitySession = (sessionID, results, score, data) => {
-    requestPut(
-      `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
-      {
-        state: 'finished',
-        concept_results: results,
-        percentage: score,
-        data
-      },
-      (body) => {
-        if (!this.isTurkSession()) { document.location.href = process.env.DEFAULT_URL; }
-        this.setState({ saved: true, });
-      },
-      (body) => {
-        this.setState({
-          saved: false,
-          error: body.meta.message,
-        });
-      }
-    )
-  }
-
-  createAnonActivitySession = (lessonID, results, score, data) => {
-    requestPost(
-      `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
-      {
-        state: 'finished',
-        activity_uid: lessonID,
-        concept_results: results,
-        percentage: score,
-        data
-      },
-      (body) => {
-        if (!this.isTurkSession()) { document.location.href = process.env.DEFAULT_URL; }
-        this.setState({ saved: true, });
-      }
-    )
   }
 
   submitResponse = (response) => {
