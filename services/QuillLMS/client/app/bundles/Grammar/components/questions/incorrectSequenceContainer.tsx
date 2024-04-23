@@ -57,8 +57,6 @@ class IncorrectSequencesContainer extends React.Component {
         sequence.order = index
         newIncorrectSequences[sequence.key] = sequence
       })
-      console.log("new array")
-      console.log(newIncorrectSequences)
 
       if (incorrectSequenceArray.length > 0) {
         dispatch(questionActions.updateIncorrectSequences(questionID, newIncorrectSequences, this.alertDeleted))
