@@ -239,10 +239,11 @@ export const deleteIncorrectSequence = (qid: string, seqid: string) => {
   };
 }
 
-export const updateIncorrectSequences = (qid: string, data: Array<IncorrectSequence>) => {
+export const updateIncorrectSequences = (qid: string, data: Array<IncorrectSequence>, callback: Function) => {
   return (dispatch: Function) => {
     IncorrectSequenceApi.updateAllForQuestion(qid, data).then(() => {
       dispatch(getQuestion(qid))
+      callback()
     }).catch((error: string) => {
       alert(`Order update failed! ${error}`);
     });
