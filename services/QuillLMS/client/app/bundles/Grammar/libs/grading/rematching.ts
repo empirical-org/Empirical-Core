@@ -1,6 +1,6 @@
 import * as _ from 'underscore';
 
-import { checkGrammarQuestion, ConceptResult } from 'quill-marking-logic';
+import { checkGrammarQuestion, ConceptResult } from '../../../Shared/quill-marking-logic/src/main';
 import { requestGet, requestPost, requestPut, } from '../../../../modules/request/index';
 import { hashToCollection } from '../../../Shared/index';
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel';

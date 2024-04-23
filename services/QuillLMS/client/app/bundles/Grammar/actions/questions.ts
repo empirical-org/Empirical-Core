@@ -1,5 +1,5 @@
 import Pusher from 'pusher-js';
-import { ConceptResult, Response } from 'quill-marking-logic';
+import { ConceptResult, Response } from '../../Shared/quill-marking-logic/src/main';
 import { push } from 'react-router-redux';
 import _ from 'underscore';
 

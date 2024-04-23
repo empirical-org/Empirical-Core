@@ -1,4 +1,4 @@
-import { checkDiagnosticSentenceFragment, Response } from 'quill-marking-logic';
+import { checkDiagnosticSentenceFragment, Response } from '../../../Shared/quill-marking-logic/src/main';
 import * as React from 'react';
 import { connect } from 'react-redux';
 

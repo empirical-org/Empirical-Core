@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { ConceptResult } from 'quill-marking-logic';
+import { ConceptResult } from '../../Shared/quill-marking-logic/src/main';
 
 import { hashToCollection } from '../../Shared/index';
 import { FormattedConceptResult, Question, ResponseAttempt } from '../interfaces/questions';
