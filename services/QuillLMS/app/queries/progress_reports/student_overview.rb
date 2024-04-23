@@ -9,6 +9,7 @@ class ProgressReports::StudentOverview
           activity_sessions.id AS activity_sessions_id,
           activities.name,
           activity_sessions.percentage,
+          activity_sessions.is_final_score,
           units.name AS unit_name,
           activities.activity_classification_id,
           cuas.completed AS is_a_completed_lesson,
@@ -20,7 +21,7 @@ class ProgressReports::StudentOverview
           ON classroom_units.id = activity_sessions.classroom_unit_id
           AND activity_sessions.user_id = #{ActiveRecord::Base.connection.quote(student_id)}
           AND activity_sessions.visible = true
-          AND activity_sessions.is_final_score = true
+          AND activity_sessions.completed_at IS NOT NULL
         JOIN units
           ON units.id = classroom_units.unit_id
         JOIN activities
