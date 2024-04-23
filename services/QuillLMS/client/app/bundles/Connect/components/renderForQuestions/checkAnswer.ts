@@ -1,4 +1,4 @@
-import { checkSentenceCombining } from 'quill-marking-logic';
+import { checkSentenceCombining } from '../../../Shared/quill-marking-logic/src/main';
 import * as _ from 'underscore';
 
 import { hashToCollection } from '../../../Shared/index';

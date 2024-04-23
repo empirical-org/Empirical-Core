@@ -1,8 +1,8 @@
 // import AWS from 'aws-sdk'
 import * as _ from 'underscore';
-import { hashToCollection, } from '../../../Shared/index';
 
-import { ConceptResult, checkDiagnosticQuestion, checkFillInTheBlankQuestion, checkSentenceCombining, checkSentenceFragment } from 'quill-marking-logic';
+import { hashToCollection, } from '../../../Shared/index';
+import { ConceptResult, checkDiagnosticQuestion, checkFillInTheBlankQuestion, checkSentenceCombining, checkSentenceFragment } from '../../../Shared/quill-marking-logic/src/main';
 import { requestGet, requestPost, requestPut, } from '../../../../modules/request/index';
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel';
 

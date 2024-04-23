@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { AffectedResponse, isValidRegex } from '../../../Shared/index'
 
-import { focusPointMatchHelper, incorrectSequenceMatchHelper } from "quill-marking-logic"
+import { focusPointMatchHelper, incorrectSequenceMatchHelper } from '../../../Shared/quill-marking-logic/src/main'
 import {
   addResponsesToMassEditArray,
   removeResponsesFromMassEditArray

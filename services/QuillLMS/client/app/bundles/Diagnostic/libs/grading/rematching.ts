@@ -1,7 +1,7 @@
 import * as _ from 'underscore';
-import { hashToCollection } from '../../../Shared/index';
 
-import { ConceptResult, checkDiagnosticQuestion, checkDiagnosticSentenceFragment, checkFillInTheBlankQuestion } from 'quill-marking-logic';
+import { hashToCollection } from '../../../Shared/index';
+import { ConceptResult, checkDiagnosticQuestion, checkDiagnosticSentenceFragment, checkFillInTheBlankQuestion } from '../../../Shared/quill-marking-logic/src/main';
 import { requestGet, requestPost, requestPut, } from '../../../../modules/request/index';
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel.js';
 import C from '../../constants'

@@ -145,6 +145,98 @@
   }
 }
 
+#icons {
+  h4 {
+    margin: 24px 0px;
+  }
+  .icon-list {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-row-gap: 8px;
+    grid-column-gap: 8px;
+  }
+  .icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 4px 4px;
+    border: 1px solid #d6d5d6;
+    code {
+      background-color: white;
+      color: #8b8b8b;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+  }
+}
+
+#typography {
+  .display-2xl {
+    @include display-2xl;
+  }
+  .display-xl {
+    @include display-xl;
+  }
+  .display-l {
+    @include display-l;
+  }
+  .display-l-alt {
+    @include display-l-alt;
+  }
+  .display-m {
+    @include display-m;
+  }
+  .display-s {
+    @include display-s;
+  }
+  .display-xs {
+    @include display-xs;
+  }
+  .display-2xs {
+    @include display-2xs;
+  }
+  .text-2xl {
+    @include text-2xl;
+  }
+  .text-xl {
+    @include text-xl;
+  }
+  .text-l {
+    @include text-l;
+  }
+  .text-m {
+    @include text-m;
+  }
+  .text-s {
+    @include text-s;
+  }
+  .text-xs {
+    @include text-xs;
+  }
+  .text-2xs {
+    @include text-2xs;
+  }
+  .navigation-l {
+    @include navigation-l;
+  }
+  .navigation-m {
+    @include navigation-m;
+  }
+
+  .element-container {
+    margin: 16px 0px 20px;
+    span {
+      display: inline-block;
+    }
+    div {
+      margin-bottom: 4px;
+    }
+    div span:first-of-type {
+      width: 250px;
+    }
+  }
+}
+
 #color-palette {
   .color-row {
     display: flex;

@@ -1,4 +1,4 @@
-import { checkDiagnosticQuestion } from 'quill-marking-logic';
+import { checkDiagnosticQuestion } from '../../../Shared/quill-marking-logic/src/main';
 import * as _ from 'underscore';
 import { hashToCollection } from '../../../Shared/index';
 

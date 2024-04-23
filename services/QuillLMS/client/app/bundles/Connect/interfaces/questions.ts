@@ -1,4 +1,4 @@
-import { ConceptResult, Response } from 'quill-marking-logic';
+import { ConceptResult, Response } from '../../Shared/quill-marking-logic/src/main';
 
 // TODO: add/remove/update all interfaces to accurately reflect full data shape
 

@@ -1,47 +1,15 @@
-const _ = require('lodash');
-const u = require('underscore');
-const Sequelize = require('sequelize');
-const { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, checkDiagnosticSentenceFragment, checkGrammarQuestion, ConceptResult } = require('quill-marking-logic')
+import _ from 'lodash';
+import {
+  checkSentenceCombining,
+  checkSentenceFragment,
+  checkDiagnosticQuestion,
+  checkFillInTheBlankQuestion,
+  checkDiagnosticSentenceFragment,
+  checkGrammarQuestion,
+} from '@shared'
+
 const CMS_URL = 'https://cms.quill.org'
 const FIREBASE_NAME = 'quillconnect'
-
-const sequelize = new Sequelize(process.env.DATABASE, process.env.USERNAME, process.env.PASSWORD, {
-  host: process.env.HOST,
-  dialect: 'postgres',
-  port: 5432,
-  logging: false,
-
-  pool: {
-    max: 30,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  },
-
-  // http://docs.sequelizejs.com/manual/tutorial/querying.html#operators
-  operatorsAliases: false
-});
-
-const QuestionResponse = sequelize.define('response', {
-  uid: Sequelize.STRING,
-  parent_id: Sequelize.INTEGER,
-  parent_uid: Sequelize.STRING,
-  question_uid: Sequelize.STRING,
-  author: Sequelize.STRING,
-  text: Sequelize.TEXT,
-  feedback: Sequelize.TEXT,
-  count: Sequelize.INTEGER,
-  first_attempt_count: Sequelize.INTEGER,
-  child_count: Sequelize.INTEGER,
-  optimal: Sequelize.BOOLEAN,
-  weak: Sequelize.BOOLEAN,
-  concept_results: Sequelize.JSONB,
-  spelling_error: Sequelize.BOOLEAN
-},
-{
-  timestamps: true,
-  underscored: true,
-});
 
 let questionCount = 0
 const numberOfResponses = {}
@@ -242,6 +210,4 @@ function convertResponsesArrayToHash(crArray) {
   return newHash;
 }
 
-module.exports = {
-  rematchIndividualQuestion
-}
+export { rematchIndividualQuestion, }

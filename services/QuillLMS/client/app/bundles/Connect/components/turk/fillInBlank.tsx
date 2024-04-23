@@ -2,7 +2,7 @@ import { stringNormalize } from 'quill-string-normalizer';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as _ from 'underscore';
-import { checkFillInTheBlankQuestion, } from 'quill-marking-logic'
+import { checkFillInTheBlankQuestion, } from '../../../Shared/quill-marking-logic/src/main'
 
 import {
   Feedback,

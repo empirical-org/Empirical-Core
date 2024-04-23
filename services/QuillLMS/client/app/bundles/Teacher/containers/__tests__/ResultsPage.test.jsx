@@ -46,6 +46,11 @@ describe('ResultsPage container', () => {
     expect(asFragment()).toMatchSnapshot()
   });
 
+  test('renders correctly when activityType is diagnostic', () => {
+    const { asFragment, } = render(<ResultsPage {...sharedProps} activityType='diagnostic' />);
+    expect(asFragment()).toMatchSnapshot()
+  });
+
   test('renders log in button for anonymous', () => {
     render(<ResultsPage {...sharedProps} anonymous={true} />);
     expect(screen.getByRole('link', { name: 'Log in' })).toHaveAttribute('href', '/session/new');

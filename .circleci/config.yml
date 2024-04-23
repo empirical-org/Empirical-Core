@@ -25,7 +25,6 @@ workflows:
             services/QuillLMS/app/queries/.* lms-run-queries true
             services/QuillLMS/(engines/|app/|bin/|config/|db/|lib/|Gemfile|spec/|public/|Procfile).* lms-run-evidence true
             services/QuillCMS/.* cms-run true
-            packages/quill-marking-logic/.* marking-logic-run true
             services/QuillLMS/(engines/|app/|bin/|config/|db/|lib/|Gemfile|spec/|public/|Procfile).* lms-run-ruby-lint true
           base-revision: develop
           # this is the path of the configuration we should trigger once

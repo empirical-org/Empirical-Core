@@ -1,4 +1,4 @@
-import { Response } from 'quill-marking-logic';
+import { Response } from '../../../Shared/quill-marking-logic/src/main';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, Route, Switch, withRouter } from 'react-router-dom';

@@ -1,4 +1,4 @@
-import { ConceptResult, Response } from 'quill-marking-logic';
+import { ConceptResult, Response } from '../../../Shared/quill-marking-logic/src/main';
 import * as React from "react";
 import ContentEditable from 'react-contenteditable';
 
