@@ -90,7 +90,7 @@ const Typography = () => {
   return (
     <div id="typography">
       <h2 className="style-guide-h2">Typography</h2>
-      <p>In order to use these styles, the mixin name (on the left) inside a CSS rule, ex: `@include display-m`</p>
+      <p>In order to use these styles, include the mixin name (on the left) inside a CSS rule, ex: <code>@include display-m</code></p>
       <div className="element-container">
         {displayScale.map(displayStyle => renderElement(displayStyle.displayText, displayStyle.mixinName))}
       </div>

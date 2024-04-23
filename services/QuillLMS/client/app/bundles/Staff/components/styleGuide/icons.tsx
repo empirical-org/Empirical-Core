@@ -291,7 +291,7 @@ const IconGallery = () => {
   return (
     <div id="icons">
       <h2 className="style-guide-h2">Icons</h2>
-      <p>All paths follow: `{process.env.CDN_URL}/images/icons`</p>
+      <p>All paths follow: <code>{process.env.CDN_URL}/images/icons</code></p>
       {iconGroups.map(iconGroup => (
         <IconDisplay groupPath={iconGroup.path} icons={iconGroup.icons} key={iconGroup.path} title={iconGroup.title} />
       ))}
