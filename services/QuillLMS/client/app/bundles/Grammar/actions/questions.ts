@@ -192,8 +192,6 @@ export const submitQuestionEdit = (qid: string, formContent: Question) => {
 }
 
 export const saveOptimalResponse = (qid: string, conceptUid: string, answer: {text: string}) => {
-  console.log("saving optimal")
-  console.log(answer)
   return (dispatch: Function) => {
     if (answer.text) {
       const conceptResults = [{ conceptUID: conceptUid, correct: true }]
