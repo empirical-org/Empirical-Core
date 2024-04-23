@@ -157,11 +157,11 @@ export const submitNewQuestion = (content: Question) => {
       dispatch(getQuestion(question_uid))
       const action = push(`/admin/questions/${question.uid}`);
       dispatch(action);
+      content.answers.forEach(a => dispatch(saveOptimalResponse(question_uid, content.concept_uid, a)))
     }).catch((error: string) => {
       dispatch({ type: ActionTypes.RECEIVE_NEW_QUESTION_RESPONSE, });
       dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
     });
-    content.answers.forEach(a => dispatch(saveOptimalResponse(newRef.key, content.concept_uid, a)))
   };
 }
 
@@ -192,6 +192,8 @@ export const submitQuestionEdit = (qid: string, formContent: Question) => {
 }
 
 export const saveOptimalResponse = (qid: string, conceptUid: string, answer: {text: string}) => {
+  console.log("saving optimal")
+  console.log(answer)
   return (dispatch: Function) => {
     if (answer.text) {
       const conceptResults = [{ conceptUID: conceptUid, correct: true }]
