@@ -17,10 +17,12 @@ export const saveSession = (sessionID, timeTracking, playDiagnostic, match, isTu
   const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
   const data = { time_tracking: roundValuesToSeconds(timeTracking), }
 
+  const score = 1 // diagnostics always get 100%
+
   if (sessionID) {
-    finishActivitySession(sessionID, results, 1, data, isTurkSession, updateState);
+    finishActivitySession(sessionID, results, score, data, isTurkSession, updateState);
   } else {
-    createAnonActivitySession(diagnosticID, results, 1, data, isTurkSession, updateState);
+    createAnonActivitySession(diagnosticID, results, score, data, isTurkSession, updateState);
   }
 }
 
