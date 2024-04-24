@@ -211,16 +211,14 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
           <NameInput name={name} onChange={this.handleStateChange} />
         </p>
         <div className="control">
-          <label className="label" htmlFor="landing-page-content">
-            Landing Page Content
-            <TextEditor
-              ContentState={ContentState}
-              EditorState={EditorState}
-              handleTextChange={this.onLandingPageChange}
-              id="landing-page-content"
-              text={landingPageHtml || ''}
-            />
-          </label>
+          <label className="label" htmlFor="landing-page-content">Landing Page Content</label>
+          <TextEditor
+            ContentState={ContentState}
+            EditorState={EditorState}
+            handleTextChange={this.onLandingPageChange}
+            id="landing-page-content"
+            text={landingPageHtml || ''}
+          />
         </div>
         <br />
         <p className="control">
