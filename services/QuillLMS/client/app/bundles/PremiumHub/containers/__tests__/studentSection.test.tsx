@@ -13,6 +13,7 @@ const props = {
   selectedTeacherIds: [],
   selectedClassroomIds: [],
   selectedTimeframe: "This school year",
+  selectedDiagnosticId: '1664',
   pusherChannel: null,
   handleSetDiagnosticIdForStudentCount: jest.fn(),
   passedStudentData: null,

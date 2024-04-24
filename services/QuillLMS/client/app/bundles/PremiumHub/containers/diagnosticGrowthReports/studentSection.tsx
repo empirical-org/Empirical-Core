@@ -13,6 +13,7 @@ const FILTER_SCOPE_QUERY_KEY = 'filter-scope'
 const PUSHER_EVENT_KEY = "admin-diagnostic-students-cached";
 const DEFAULT_WIDTH = "138px"
 const BATCH_SIZE = 50
+const MAX_ROW_COUNT = 500
 
 const headers = [
   {
@@ -292,11 +293,12 @@ export const StudentSection = ({
   function renderButtonContent() {
     const disabled = rowsToShow === studentData.length
     const disabledClass = disabled ? 'disabled contained' : 'outlined'
+    const showDownloadLink = rowsToShow === MAX_ROW_COUNT
     return(
       <div className="load-more-button-container">
         <div className="text-container">
           <p>Displaying <strong>{`${rowsToShow} of ${totalStudents}`}</strong> students</p>
-          {disabled && <p> • Please <a href="" rel="noopener noreferrer" target="_blank">download this report</a> to view more than 500 results.</p>}
+          {showDownloadLink && <p> • Please <a href="" rel="noopener noreferrer" target="_blank">download this report</a> to view more than 500 results.</p>}
         </div>
         <button className={`quill-button small secondary focus-on-light ${disabledClass}`} disabled={disabled} onClick={loadMoreRows}>Load more</button>
       </div>
