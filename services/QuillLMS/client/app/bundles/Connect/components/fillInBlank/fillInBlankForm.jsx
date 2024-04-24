@@ -113,7 +113,8 @@ class FillInBlankForm extends Component {
           text: newQuestionOptimalResponse.trim(),
           optimal: true,
           count: 0,
-          feedback: "That's a strong sentence!"
+          feedback: "That's a strong sentence!",
+          concept_results: [{conceptUID: conceptID, correct: true}]
         }
       );
     } else {
