@@ -9,6 +9,7 @@ import { requestPost } from '../../../../modules/request'
 
 const STUDENTS_QUERY_KEY = "diagnostic-students"
 const RECOMMENDATIONS_QUERY_KEY = "student-recommendation"
+const FILTER_SCOPE_QUERY_KEY = 'filter-scope'
 const PUSHER_EVENT_KEY = "admin-diagnostic-students-cached";
 const DEFAULT_WIDTH = "138px"
 const BATCH_SIZE = 50
@@ -156,6 +157,9 @@ export const StudentSection = ({
     if(pusherMessage === getFilterHash(RECOMMENDATIONS_QUERY_KEY, diagnosticTypeValue.value)) {
       getRecommendationsData()
     }
+    if (pusherMessage === getFilterHash(FILTER_SCOPE_QUERY_KEY, diagnosticTypeValue.value)) {
+      getTotalStudentCount()
+    }
   }, [pusherMessage])
 
   React.useEffect(() => {
@@ -174,9 +178,6 @@ export const StudentSection = ({
   }
 
   function updateVisibleData(data) {
-    if(!totalStudents) {
-      setTotalStudents(data.length)
-    }
     const newDataToShow = data.slice(0, rowsToShow);
     setVisibleData(newDataToShow);
   }
@@ -205,6 +206,7 @@ export const StudentSection = ({
   function getData() {
     getRecommendationsData()
     getStudentData()
+    getTotalStudentCount()
   }
 
   function getRecommendationsData() {
@@ -248,6 +250,25 @@ export const StudentSection = ({
     })
   }
 
+  function getTotalStudentCount() {
+    const searchParams = {
+      query: FILTER_SCOPE_QUERY_KEY,
+      timeframe: selectedTimeframe,
+      school_ids: selectedSchoolIds,
+      teacher_ids: selectedTeacherIds,
+      classroom_ids: selectedClassroomIds,
+      grades: selectedGrades,
+      diagnostic_id: diagnosticTypeValue.value
+    }
+
+    requestPost('/admin_diagnostic_students/report', searchParams, (body) => {
+      if (!body.hasOwnProperty('results')) { return }
+      const { results } = body
+      const { count } = results
+      setTotalStudents(count)
+    })
+  }
+
   function handleDiagnosticTypeOptionChange(option) {
     setDiagnosticTypeValue(option)
   }
@@ -273,7 +294,10 @@ export const StudentSection = ({
     const disabledClass = disabled ? 'disabled contained' : 'outlined'
     return(
       <div className="load-more-button-container">
-        <p>Displaying <strong>{`${rowsToShow} of ${studentData.length}`}</strong> students</p>
+        <div className="text-container">
+          <p>Displaying <strong>{`${rowsToShow} of ${totalStudents}`}</strong> students</p>
+          {disabled && <p> • Please <a href="" rel="noopener noreferrer" target="_blank">download this report</a> to view more than 500 results.</p>}
+        </div>
         <button className={`quill-button small secondary focus-on-light ${disabledClass}`} disabled={disabled} onClick={loadMoreRows}>Load more</button>
       </div>
     )
