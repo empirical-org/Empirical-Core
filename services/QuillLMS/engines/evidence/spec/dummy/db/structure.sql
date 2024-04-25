@@ -907,7 +907,8 @@ CREATE TABLE public.evidence_research_gen_ai_example_feedbacks (
     label character varying NOT NULL,
     paraphrase text,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    data_partition character varying DEFAULT 'test'::character varying NOT NULL
 );
 
 
@@ -2072,6 +2073,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240318144447'),
 ('20240401223116'),
 ('20240407172612'),
-('20240411135531');
+('20240411135531'),
+('20240425125151');
 
 
