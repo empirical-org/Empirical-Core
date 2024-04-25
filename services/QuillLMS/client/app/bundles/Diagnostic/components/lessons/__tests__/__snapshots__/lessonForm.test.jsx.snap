@@ -25,14 +25,14 @@ exports[`LessonForm component renderSearchBox renders a SelectSearch component w
       htmlFor="landing-page-content"
     >
       Landing Page Content
-      <TextEditor
-        ContentState={[Function]}
-        EditorState={[Function]}
-        handleTextChange={[Function]}
-        id="landing-page-content"
-        text="<p>Test content</p>"
-      />
     </label>
+    <TextEditor
+      ContentState={[Function]}
+      EditorState={[Function]}
+      handleTextChange={[Function]}
+      id="landing-page-content"
+      text="<p>Test content</p>"
+    />
   </div>
   <br />
   <p
