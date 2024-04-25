@@ -54,7 +54,9 @@ class DiagnosticReports extends React.Component {
     const classroomId = classroomIdChunk ? classroomIdChunk.replace('/c/', '') : null
     const studentIdChunk = (pathname.match(/\/student_report\/[^\/]*/) || [])[0]
     const studentId = studentIdChunk ? studentIdChunk.replace('/student_report/', '') : null
-    return { activityId, unitId, classroomId, studentId, }
+    const activitySessionIdChunk = (pathname.match(/\/activity_session_id\/[^\/]*/) || [])[0]
+    const activitySessionId = activitySessionIdChunk ? activitySessionIdChunk.replace('/activity_session_id/', '') : null
+    return { activityId, unitId, classroomId, studentId, activitySessionId, }
   }
 
   getActivityData = (params) => {
@@ -159,6 +161,7 @@ class DiagnosticReports extends React.Component {
           />
           {this.props.children}
           <Switch>
+            <Route component={routerProps => <StudentReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/student_report/:studentId/activity_session_id/:activitySessionId' />
             <Route component={routerProps => <StudentReport params={params} studentDropdownCallback={this.changeStudent} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/student_report/:studentId' />
             <Route component={routerProps => <QuestionReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/questions' />
             <Route component={routerProps => <ClassReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/students' />

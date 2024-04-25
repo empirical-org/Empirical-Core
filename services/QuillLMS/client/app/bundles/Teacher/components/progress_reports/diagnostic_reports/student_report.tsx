@@ -17,6 +17,7 @@ export interface StudentReportState {
   scoringExplanationIsOpen: boolean,
   loading: boolean,
   students: Student[],
+  sessions: Student[]
 }
 
 interface StudentReportProps extends RouteComponentProps {
@@ -24,7 +25,8 @@ interface StudentReportProps extends RouteComponentProps {
     activityId: string,
     classroomId: string,
     studentId: string,
-    unitId: string
+    unitId: string,
+    activitySessionId?: string,
   },
   studentDropdownCallback: () => void,
   passedStudents?: Student[]
@@ -33,29 +35,55 @@ interface StudentReportProps extends RouteComponentProps {
 const StudentReport = ({ params, studentDropdownCallback, passedStudents, }) => {
   const [loading, setLoading] = React.useState(!passedStudents)
   const [students, setStudents] = React.useState(passedStudents || null)
+  const [sessions, setSessions] = React.useState(null)
 
   const isInitialMount = React.useRef(true);
 
   React.useEffect(() => {
+    setStudents(null)
+    setSessions(null)
+
     if (isInitialMount.current) {
       isInitialMount.current = false
       getStudentData()
+      getSessions()
     } else {
       setLoading(true)
       getStudentData()
+      getSessions()
     }
   }, [params])
 
-  function selectedStudent(students: Student[]) {
-    const { studentId } = params;
-    return studentId ? students.find((student: Student) => student.id === parseInt(studentId)) : students[0];
+  React.useEffect(() => {
+    if (!students || !sessions) { return }
+
+    setLoading(false)
+  }, [students, sessions])
+
+  function selectedSession(students: Student[]) {
+    const { studentId, activitySessionId, } = params;
+
+    const student = studentId ? students.find((student: Student) => student.id === parseInt(studentId)) : students[0];
+
+    if (!activitySessionId) {
+      return student
+    }
+
+    const session = sessions.find((session: Student) => session.activity_session_id === parseInt(activitySessionId))
+    return session || student
   }
 
   function getStudentData() {
     requestGet(`/teachers/progress_reports/students_by_classroom/u/${params.unitId}/a/${params.activityId}/c/${params.classroomId}`, (data: { students: Student[] }) => {
       const { students } = data;
       setStudents(students)
-      setLoading(false)
+    });
+  }
+
+  function getSessions() {
+    requestGet(`/teachers/progress_reports/sessions_for_student/u/${params.unitId}/a/${params.activityId}/c/${params.classroomId}/s/${params.studentId}`, (data: { sessions: Student[] }) => {
+      const { sessions } = data;
+      setSessions(sessions)
     });
   }
 
@@ -121,9 +149,9 @@ const StudentReport = ({ params, studentDropdownCallback, passedStudents, }) => 
 
   if (loading) { return <LoadingSpinner /> }
 
-  const student = selectedStudent(students);
+  const session = selectedSession(students);
 
-  const { name, score, id, time, number_of_questions, number_of_correct_questions, } = student;
+  const { name, score, id, time, number_of_questions, number_of_correct_questions, } = session;
   const displaySkills = number_of_questions ? `${number_of_correct_questions} of ${number_of_questions} ` : ''
   const displayScore = score ? `(${score}%)` : ''
   const displayTimeSpent = getTimeSpent(time)
@@ -150,8 +178,8 @@ const StudentReport = ({ params, studentDropdownCallback, passedStudents, }) => 
             <p>{displaySkills}{displayScore}</p>
           </div>
         </div>
-        {renderHelpfulTips(student)}
-        {studentBoxes(student)}
+        {renderHelpfulTips(session)}
+        {studentBoxes(session)}
       </div>
     </div>
   );
