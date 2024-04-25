@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import _ from 'underscore';
+import moment from 'moment';
 
 import StudentReportBox from './student_report_box';
 
+import NumberSuffix from '../../modules/numberSuffixBuilder.js';
 import { QuestionData } from '../../../../../interfaces/questionData';
 import { Student } from '../../../../../interfaces/student';
 import { requestGet } from '../../../../../modules/request/index';
@@ -29,10 +31,11 @@ interface StudentReportProps extends RouteComponentProps {
     activitySessionId?: string,
   },
   studentDropdownCallback: () => void,
+  sessionDropdownCallback: () => void,
   passedStudents?: Student[]
 }
 
-const StudentReport = ({ params, studentDropdownCallback, passedStudents, }) => {
+const StudentReport = ({ params, studentDropdownCallback, sessionDropdownCallback, passedStudents, }) => {
   const [loading, setLoading] = React.useState(!passedStudents)
   const [students, setStudents] = React.useState(passedStudents || null)
   const [sessions, setSessions] = React.useState(null)
@@ -151,12 +154,17 @@ const StudentReport = ({ params, studentDropdownCallback, passedStudents, }) => 
 
   const session = selectedSession(students);
 
-  const { name, score, id, time, number_of_questions, number_of_correct_questions, } = session;
+  const { name, score, id, time, number_of_questions, number_of_correct_questions, activity_session_id, } = session;
   const displaySkills = number_of_questions ? `${number_of_correct_questions} of ${number_of_questions} ` : ''
   const displayScore = score ? `(${score}%)` : ''
   const displayTimeSpent = getTimeSpent(time)
-  const options = students.map(s => ({ value: s.id, label: s.name, }))
-  const value = options.find(s => id === s.value)
+  const studentOptions = students.map(s => ({ value: s.id, label: s.name, }))
+  const studentValue = studentOptions.find(s => id === s.value)
+  const sessionOptions = sessions.map((s, index) => {
+    const label = `${NumberSuffix(index + 1)} Score: ${s.score}% - ${moment.utc(s.completed_at).format('MMM D[,] h:mma')}`
+    return { value: s.activity_session_id, label, }
+  })
+  const sessionValue = sessionOptions.find(s => activity_session_id === s.value)
 
   return (
     <div className='individual-student-activity-view white-background-accommodate-footer'>
@@ -166,7 +174,10 @@ const StudentReport = ({ params, studentDropdownCallback, passedStudents, }) => 
             <span>Student:</span>
             <h3 className='activity-view-header'>{name}</h3>
           </div>
-          <DropdownInput handleChange={studentDropdownCallback} options={options} value={value} />
+          <div className="dropdowns">
+            <DropdownInput className="bordered" handleChange={studentDropdownCallback} options={studentOptions} value={studentValue} />
+            {sessions.length > 1 ? <DropdownInput className="bordered sessions" handleChange={sessionDropdownCallback} options={sessionOptions} value={sessionValue} /> : null}
+          </div>
         </header>
         <div className="time-spent-and-target-skills-count">
           <div>

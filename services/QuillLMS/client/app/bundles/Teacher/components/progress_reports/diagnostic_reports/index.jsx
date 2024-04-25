@@ -125,6 +125,23 @@ class DiagnosticReports extends React.Component {
     history.push(`/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${value}`)
   };
 
+  changeSession = (session) => {
+    const { history } = this.props
+    const { value } = session
+    const p = this.parseParams(this.props.location.pathname);
+    const { activityId, classroomId, unitId, activitySessionId, studentId, } = p
+    history.push(`/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${studentId}/activity_session_id/${value}`)
+  }
+
+  changeStudent = (student) => {
+    const { history } = this.props
+    const { value } = student
+    this.setState({selectedStudentId: value })
+    const p = this.parseParams(this.props.location.pathname);
+    const { activityId, classroomId, unitId } = p
+    history.push(`/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${value}`)
+  };
+
   findClassroomById = (id) => {
     return this.props.classrooms
       ? this.props.classrooms.find((c) => c.id === id)
@@ -161,8 +178,8 @@ class DiagnosticReports extends React.Component {
           />
           {this.props.children}
           <Switch>
-            <Route component={routerProps => <StudentReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/student_report/:studentId/activity_session_id/:activitySessionId' />
-            <Route component={routerProps => <StudentReport params={params} studentDropdownCallback={this.changeStudent} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/student_report/:studentId' />
+            <Route component={routerProps => <StudentReport params={params} sessionDropdownCallback={this.changeSession} studentDropdownCallback={this.changeStudent} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/student_report/:studentId/activity_session_id/:activitySessionId' />
+            <Route component={routerProps => <StudentReport params={params} sessionDropdownCallback={this.changeSession} studentDropdownCallback={this.changeStudent} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/student_report/:studentId' />
             <Route component={routerProps => <QuestionReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/questions' />
             <Route component={routerProps => <ClassReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/students' />
           </Switch>

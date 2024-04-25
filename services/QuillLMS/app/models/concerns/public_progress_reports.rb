@@ -233,7 +233,8 @@ module PublicProgressReports
       concept_results: formatted_concept_results,
       score:,
       average_score_on_quill:,
-      activity_session_id: activity_session.id
+      activity_session_id: activity_session.id,
+      completed_at: activity_session.completed_at + current_user.utc_offset.seconds
     }
   end
 

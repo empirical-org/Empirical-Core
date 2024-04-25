@@ -138,12 +138,21 @@ $lightgray: #cecece;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .dropdowns {
+      display: flex;
+      gap: 16px;
+    }
     .dropdown-container {
       width: 268px;
+      min-width: fit-content;
       min-height: 32px;
       .dropdown__control {
         background-color: transparent;
       }
+    }
+
+    .sessions {
+      min-width: 292px;
     }
   }
 
@@ -200,7 +209,23 @@ $lightgray: #cecece;
     min-height: 34px;
   }
 
+  @media (max-width: 900px) {
+    .activity-view-header-container {
+      flex-direction: column;
+      align-items: flex-start;
+      .left-side-container {
+        margin-bottom: 20px;
+      }
+    }
+  }
+
   @media (max-width: 600px) {
+    .dropdowns {
+      flex-direction: column;
+      .dropdown-container {
+        width: 100%;
+      }
+    }
     .concept-results-cell {
       display: table-cell;
     }
