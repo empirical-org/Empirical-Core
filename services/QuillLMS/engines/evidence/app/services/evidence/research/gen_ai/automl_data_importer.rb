@@ -3,12 +3,13 @@
 module Evidence
   module Research
     module GenAI
-      class DataImporter < ApplicationService
+      class AutomlDataImporter < ApplicationService
         BUCKET_NAME = ENV['AWS_S3_EVIDENCE_RESEARCH_GEN_AI_BUCKET']
+        TARGET_NUM_EXAMPLES = 100
 
-        attr_reader :file_name, :passage_prompt_id
+        attr_reader :file_name
 
-        def initialize(file_name:, passage_prompt_id:)
+        def initialize(file_name:)
           @file_name = file_name
         end
 
@@ -51,7 +52,20 @@ module Evidence
 
         private def name = file_name.split('.').first
 
-        private def passage_prompt = @passage_prompt ||= PassagePrompt.find(passage_prompt_id)
+        private def passage = @passage ||= Passage.find_or_create_by!(contents: data['text'], name:)
+
+        private def passage_prompts
+          @passage_prompts ||= data['prompts'].map do |conjunction, prompt|
+            passage
+              .passage_prompts
+              .find_or_create_by!(
+                conjunction:,
+                instructions: data['instructions'][conjunction],
+                prompt:,
+                relevant_passage: data['plagiarism'][conjunction]
+              )
+          end
+        end
 
         private def s3_client
           @s3_client ||= Aws::S3::Client.new(
