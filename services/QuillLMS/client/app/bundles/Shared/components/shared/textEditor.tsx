@@ -113,11 +113,14 @@ class TextEditor extends React.Component <any, any> {
   // command: string returned from this.keyBidingFn(event)
   // if this function returns 'handled' string, all ends here.
   // if it return 'not-handled', handling of :command will be delegated to Editor's default handling.
-  onKeyCommand = (command) => {
+  onKeyCommand = (command, editorState) => {
     const { text, } = this.state
     let newState;
+
     if (command === HIGHLIGHT) {
       newState = Draft.RichUtils.toggleInlineStyle(text, HIGHLIGHTABLE);
+    } else {
+      newState = Draft.RichUtils.handleKeyCommand(editorState, command);
     }
 
     if (newState) {
@@ -200,4 +203,3 @@ class TextEditor extends React.Component <any, any> {
 }
 
 export { TextEditor };
-
