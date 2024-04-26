@@ -46,6 +46,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
   def sessions_for_student
     classroom = Classroom.find(params[:classroom_id])
+
     cache_groups = {
       activity_id: params[:activity_id],
       unit_id: params[:unit_id],

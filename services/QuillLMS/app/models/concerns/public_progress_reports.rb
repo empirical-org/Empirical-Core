@@ -135,6 +135,8 @@ module PublicProgressReports
       unit_id: unit_id
     )
 
+    return [] if !classroom_unit
+
     activity_sessions = ActivitySession
       .includes(concept_results: :concept)
       .where(
@@ -222,6 +224,9 @@ module PublicProgressReports
     else
       score = (activity_session.percentage * 100).round
     end
+
+    time_offset = current_user ? current_user.utc_offset.seconds : 0
+
     {
       activity_classification: classification.key,
       activity_classification_name: classification.name,
@@ -234,7 +239,7 @@ module PublicProgressReports
       score:,
       average_score_on_quill:,
       activity_session_id: activity_session.id,
-      completed_at: activity_session.completed_at + current_user.utc_offset.seconds
+      completed_at: activity_session.completed_at + time_offset
     }
   end
 

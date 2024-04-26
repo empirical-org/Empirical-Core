@@ -35,14 +35,15 @@ describe ActivitySessionsController, type: :controller do
     let(:student_user) { create(:user) }
     let(:activity_session) { create(:activity_session, user: student_user) }
 
-    let(:formatted_score_obj) { { id: activity_session.id} }
+    let(:formatted_score_obj) { { activity_session_id: activity_session.id} }
 
     before do
-      allow(controller).to receive(:formatted_score_obj).and_return(formatted_score_obj)
+      allow(controller).to receive(:sessions_for_unit_activity_classroom_and_student).and_return([formatted_score_obj])
     end
 
     it 'should set the report_data' do
-      get :student_activity_report, params: { id: activity_session }
+      get :student_activity_report, params: { id: activity_session.id }
+      expect(assigns(:sessions)).to eq [formatted_score_obj]
       expect(assigns(:report_data)).to eq formatted_score_obj
     end
   end
