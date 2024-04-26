@@ -32,17 +32,20 @@ interface StudentReportProps extends RouteComponentProps {
   },
   studentDropdownCallback: () => void,
   sessionDropdownCallback: () => void,
-  passedStudents?: Student[]
+  passedStudents?: Student[],
+  passedSessions?: Student[]
 }
 
-const StudentReport = ({ params, studentDropdownCallback, sessionDropdownCallback, passedStudents, }) => {
-  const [loading, setLoading] = React.useState(!passedStudents)
+const StudentReport = ({ params, studentDropdownCallback, sessionDropdownCallback, passedStudents, passedSessions }) => {
+  const [loading, setLoading] = React.useState(!(passedStudents && passedSessions))
   const [students, setStudents] = React.useState(passedStudents || null)
-  const [sessions, setSessions] = React.useState(null)
+  const [sessions, setSessions] = React.useState(passedSessions || null)
 
   const isInitialMount = React.useRef(true);
 
   React.useEffect(() => {
+    if (passedStudents && passedSessions) { return }
+
     setStudents(null)
     setSessions(null)
 
