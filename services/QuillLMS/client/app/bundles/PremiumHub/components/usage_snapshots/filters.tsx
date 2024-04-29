@@ -54,6 +54,8 @@ const Filters = ({
   }
 
   function effectiveSelectedClassrooms() {
+    // this accounts for a weird edge case documented in this card: https://www.notion.so/quill/Address-issue-in-the-admin-report-filters-causing-the-Classroom-filter-to-sometimes-end-up-in-an-u-b10b51c217114e67ae937120be73ecfd
+    if(selectedTeachers.length === availableTeachers.length) { return availableClassrooms }
     return selectedClassrooms.filter(c => availableClassrooms.find(ac => ac.id === c.id))
   }
 
