@@ -15,7 +15,7 @@
     "client/node_modules"
   ],
   "scripts": {
-    "postinstall": "cd ./client && npm install",
+    "postinstall": "",
     "test": "npm run jest && npm run build:test && npm run lint && bundle exec rake spec",
     "lint": "cd client && npm run lint",
     "build:test": "cd client && npm run build:test",
