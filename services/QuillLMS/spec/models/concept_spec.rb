@@ -28,6 +28,23 @@ describe Concept, type: :model do
     end
   end
 
+  describe 'callbacks' do
+    let!(:concept) { create(:concept, name: 'test') }
+    context 'after update' do
+      it 'calls Rails.cache.delete on all concepts key' do
+        expect(Rails.cache).to receive(:delete).with(Concept::ALL_CONCEPTS_KEY)
+        concept.update(name: 'test2')
+      end
+    end
+
+    context 'after create' do
+      it 'calls Rails.cache.delete on all concepts key' do
+        expect(Rails.cache).to receive(:delete).with(Concept::ALL_CONCEPTS_KEY)
+        Concept.create(name: 'test')
+      end
+    end
+  end
+
   describe '.leaf_nodes' do
     let!(:root_concept) { create(:concept, name: 'root') }
     let!(:leaf1) { create(:concept, name: 'leaf1', parent: root_concept)}
