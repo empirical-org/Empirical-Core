@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import _ from 'underscore';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm.jsx';
@@ -30,10 +31,12 @@ class NewIncorrectSequencesContainer extends Component {
   submitSequenceForm = data => {
     const { actionFile } = this.state
     const { submitNewIncorrectSequence } = actionFile
-    const { dispatch, match } = this.props
+    const { dispatch, match, generatedIncorrectSequences } = this.props
     const { params } = match
     const { questionID } = params
     delete data.conceptResults.null;
+    const usedIncorrectSequences = generatedIncorrectSequences.used[match.params.questionID];
+    data.order = _.keys(usedIncorrectSequences).length;
     dispatch(submitNewIncorrectSequence(questionID, data));
     window.history.back();
   };
