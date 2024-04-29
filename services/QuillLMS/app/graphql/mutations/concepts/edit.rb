@@ -24,7 +24,6 @@ class Mutations::Concepts::Edit < Mutations::BaseMutation
     concept = Concept.find(inputs[:id])
     values = inputs.reject{|k,v| k == :id || k === :change_logs}
     if concept.update(values)
-      $redis.del(Concept::ALL_CONCEPTS_KEY)
       # Successful update, return the updated object with no errors
       change_logs = inputs[:change_logs].map do |cl|
         {

@@ -21,7 +21,6 @@ class Mutations::Concepts::Create < Mutations::BaseMutation
   def resolve(name:, change_logs:, parent_id: nil, description: nil, explanation: nil)
     concept = Concept.new(name: name, parent_id: parent_id, description: description, explanation: explanation)
     if concept.save
-      $redis.del(Concept::ALL_CONCEPTS_KEY)
       # Successful creation, return the created object with no errors
       change_logs = change_logs.map do |cl|
         {

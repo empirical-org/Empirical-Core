@@ -106,6 +106,6 @@ class Concept < ApplicationRecord
   end
 
   private def clear_concept_cache
-    Rails.cache.delete("#{ALL_CONCEPT_FEEDBACKS_KEY}")
+    Rails.cache.delete("#{ALL_CONCEPTS_KEY}")
   end
 end
