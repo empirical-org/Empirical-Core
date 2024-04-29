@@ -1,4 +1,3 @@
-<% binding.pry %>
 <h1>New Passage Prompt</h1>
 
 <%= form_for @passage_prompt do |f| %>
@@ -6,14 +5,13 @@
 
   <div class="field-spacing">
     <%= f.label :passage_id, "Passage:" %>
-    <%= f.collection_select :passage_id, @passages, :id, :to_s, { required: true } %>
+    <%= f.collection_select :passage_id, @passages, :id, :name, { required: true } %>
+    <%= link_to 'new', new_research_gen_ai_passage_path, class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
   </div>
-
-  <%# <%= link_to 'new', new_research_gen_ai_passage_path, class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %> %>
 
   <div class="field-spacing">
     <%= f.label :conjunction, "Conjunction:" %>
-    <%= select_tag :conjunction, options_for_select(@conjunctions), { required: true } %>
+    <%= f.select :conjunction, options_for_select(@conjunctions), { required: true } %>
   </div>
 
   <div class="field-spacing">

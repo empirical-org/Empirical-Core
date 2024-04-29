@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
-
 RailsAdmin.config do |config|
-  uneditable_models = ['ChangeLog']
-
   config.main_app_name = ["Quill Content Overview"]
 
   config.asset_source = :sprockets
@@ -12,6 +9,8 @@ RailsAdmin.config do |config|
     current_user = User.find_by(id: session[:user_id])
     redirect_to main_app.root_path unless current_user&.staff?
   end
+
+  UNEDITABLE_MODELS = ['ChangeLog']
 
   config.actions do
     dashboard do
@@ -23,8 +22,12 @@ RailsAdmin.config do |config|
     # Turn off bulk delete, seems dangerous
     # bulk_delete
     show
-    edit { except uneditable_models }
-    delete { except uneditable_models }
+    edit do
+      except UNEDITABLE_MODELS
+    end
+    delete do
+      except UNEDITABLE_MODELS
+    end
     show_in_app
 
     ## With an audit adapter, you can add:

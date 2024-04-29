@@ -16,6 +16,8 @@ module Evidence
           if @passage_prompt.save
             redirect_to new_research_gen_ai_experiment_path
           else
+            @passages = Passage.all
+            @conjunctions = PassagePrompt::CONJUNCTIONS
             render :new
           end
         end
@@ -25,7 +27,7 @@ module Evidence
         private def passage_prompt_params
           params
             .require(:research_gen_ai_passage_prompt)
-            .permit(:conjunction, :instructions, :prompt, :passage_id)
+            .permit(:conjunction, :instructions, :prompt, :passage_id, :relevant_passage)
         end
       end
     end

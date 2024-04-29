@@ -18,7 +18,7 @@ module Evidence
           end
         end
 
-        def show = @passage = Prompt.find(params[:id])
+        def show = @passage = Passage.find(params[:id])
 
         private def passage_params
           params
