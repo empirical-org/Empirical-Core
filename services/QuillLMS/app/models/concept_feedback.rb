@@ -40,7 +40,7 @@ class ConceptFeedback < ApplicationRecord
   end
 
   private def clear_concept_feedbacks_cache
-    $redis.del(ALL_CONCEPT_FEEDBACKS_KEY)
+    Rails.cache.delete("#{ALL_CONCEPT_FEEDBACKS_KEY}_#{activity_type}")
   end
 end
 

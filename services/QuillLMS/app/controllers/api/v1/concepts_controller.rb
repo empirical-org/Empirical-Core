@@ -6,7 +6,7 @@ class Api::V1::ConceptsController < Api::ApiController
   def create
     concept = Concept.new(concept_params)
     if concept.save
-      $redis.del(Concept::ALL_CONCEPTS_KEY)
+      Rails.cache.delete(Concept::ALL_CONCEPTS_KEY)
       render json: {concept: {id: concept.id, name: concept.name, uid: concept.uid, parent_id: concept.parent.id}}
     else
       render json: concept.errors, status: 422
@@ -22,8 +22,7 @@ class Api::V1::ConceptsController < Api::ApiController
     #   concept_level_0: [concepts where parent id matches a level one concept]
     # }
     #
-    concepts = $redis.get(Concept::ALL_CONCEPTS_KEY)
-    concepts ||= fetch_all_concepts_and_cache
+    concepts = fetch_all_concepts_and_cache
     render json: concepts
   end
 
@@ -37,8 +36,8 @@ class Api::V1::ConceptsController < Api::ApiController
   end
 
   private def fetch_all_concepts_and_cache
-    concepts = {concepts: Concept.all_with_level}.to_json
-    $redis.set(Concept::ALL_CONCEPTS_KEY, concepts)
-    concepts
+    Rails.cache.fetch(Concept::ALL_CONCEPTS_KEY) do
+      {concepts: Concept.all_with_level}.to_json
+    end
   end
 end

@@ -25,6 +25,8 @@ class Concept < ApplicationRecord
 
   ALL_CONCEPTS_KEY = "all_concepts_with_level"
 
+  after_commit :clear_concept_cache
+
   def lineage
     family_tree = name
     if parent
@@ -101,5 +103,9 @@ class Concept < ApplicationRecord
           concepts.name
       SQL
     ).values.flatten
+  end
+
+  private def clear_concept_cache
+    Rails.cache.delete("#{ALL_CONCEPT_FEEDBACKS_KEY}")
   end
 end
