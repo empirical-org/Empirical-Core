@@ -17,7 +17,6 @@ module TeacherNotifications
     it { expect(mail.from).to eq(['hello@quill.org']) }
 
     it 'should include the user notification frequency value in the subject line' do
-      #binding.pry
       [TeacherInfo::HOURLY_EMAIL, TeacherInfo::DAILY_EMAIL, TeacherInfo::WEEKLY_EMAIL].each do |frequency|
         user.teacher_info.update(notification_email_frequency: frequency)
 
