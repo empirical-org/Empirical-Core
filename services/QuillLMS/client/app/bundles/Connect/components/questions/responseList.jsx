@@ -1,9 +1,10 @@
-import { focusPointMatchHelper, incorrectSequenceMatchHelper } from "quill-marking-logic";
 import React from 'react';
 
-import { AffectedResponse, isValidRegex } from '../../../Shared/index';
-import massEdit from '../../actions/massEdit';
 import Response from './response';
+
+import { AffectedResponse, isValidRegex } from '../../../Shared/index';
+import { focusPointMatchHelper, incorrectSequenceMatchHelper } from '../../../Shared/quill-marking-logic/src/main';
+import massEdit from '../../actions/massEdit';
 
 export default class ResponseList extends React.Component {
   addAllResponsesToMassEdit = () => {

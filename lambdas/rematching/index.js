@@ -1,4 +1,4 @@
-const { rematchAllQuestionsOfAType, rematchIndividualQuestion } =  require('./rematch')
+import { rematchIndividualQuestion, } from './rematch'
 
 exports.handler = async (event) => {
   const body = JSON.parse(event.body);

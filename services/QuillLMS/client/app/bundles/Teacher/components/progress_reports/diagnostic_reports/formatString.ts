@@ -3,7 +3,7 @@ export const formatString = (str: string) => {
 }
 
 export const formatStringAndAddSpacesAfterPeriods = (str: string) => {
-  return stringifiedString(str).replace(/\.(?=[^ ])/g, '. ')
+  return formatString(str).replace(/\.(?=[^ ])/g, '. ')
 }
 
 export const stringifiedString = (str: string) => {

@@ -667,31 +667,37 @@ end
   end
 
   describe '#determine_if_final_score' do
+    let!(:now) { DateTime.current.utc }
+    let!(:starting_updated_at) { now - 1.hour }
     let(:classroom) {create(:classroom)}
     let(:student) {create(:student)}
     let(:activity) {create(:activity)}
 
     let(:classroom_unit)   { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])}
-    let(:previous_final_score) { create(:activity_session, completed_at: Time.current, percentage: 0.9, is_final_score: true, user: student, classroom_unit: classroom_unit, activity: activity)}
+    let(:previous_final_score) { create(:activity_session, completed_at: Time.current, percentage: 0.9, is_final_score: true, user: student, classroom_unit: classroom_unit, activity: activity, updated_at: starting_updated_at)}
+
+    before { allow(DateTime).to receive(:current).and_return(now) }
 
     it 'updates when new activity session has higher percentage' do
       previous_final_score
-      new_activity_session = create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
+      new_activity_session = create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity, updated_at: starting_updated_at)
       new_activity_session.update(completed_at: Time.current, state: 'finished', percentage: 0.95)
       expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
+      expect([ActivitySession.find(previous_final_score.id).reload.updated_at.iso8601, ActivitySession.find(new_activity_session.id).reload.updated_at.iso8601]).to eq([now.iso8601, now.iso8601])
     end
 
     it 'updates when new activity session has equal percentage' do
       previous_final_score
-      new_activity_session = create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
+      new_activity_session = create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity, updated_at: starting_updated_at)
       new_activity_session.update(completed_at: Time.current, state: 'finished', percentage: previous_final_score.percentage)
       expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
+      expect([ActivitySession.find(previous_final_score.id).reload.updated_at.iso8601, ActivitySession.find(new_activity_session.id).reload.updated_at.iso8601]).to eq([now.iso8601, now.iso8601])
     end
 
     it 'updates when new and old session percentages are nil' do
       previous_final_score
       previous_final_score.update(percentage: nil)
-      new_activity_session = create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
+      new_activity_session = create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity, updated_at: starting_updated_at)
       new_activity_session.update(completed_at: Time.current, state: 'finished', percentage: nil)
       expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
     end
@@ -709,8 +715,9 @@ end
 
     it 'doesnt update when new activity session has lower percentage' do
       previous_final_score
-      new_activity_session = create(:activity_session, completed_at: Time.current, state: 'finished', percentage: 0.5, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
+      new_activity_session = create(:activity_session, completed_at: Time.current, state: 'finished', percentage: 0.5, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity, updated_at: now - 1.hour)
       expect([ActivitySession.find(previous_final_score.id).is_final_score, ActivitySession.find(new_activity_session.id).is_final_score]).to eq([true, false])
+      expect([ActivitySession.find(previous_final_score.id).reload.updated_at.iso8601, ActivitySession.find(new_activity_session.id).reload.updated_at.iso8601]).not_to eq([now.iso8601, now.iso8601])
     end
 
     it 'mark finished anonymous sessions as final' do

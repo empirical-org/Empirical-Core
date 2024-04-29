@@ -4888,50 +4888,247 @@ exports[`StudentReport should render 1`] = `
           </p>
         </div>
       </div>
-      <div
-        className="helpful-tips"
-      >
-        <div
-          className="helpful-tips-header"
-        >
-          <img
-            alt=""
-            src="undefined/images/pages/activity_analysis/lightbulb.svg"
-          />
+      <HelpfulTips
+        header={
           <h3>
             Helpful Tips for Teachers 
             <span>
               (Expand to show more information)
             </span>
           </h3>
+        }
+        sections={
+          Array [
+            Object {
+              "body": <React.Fragment>
+                <p>
+                  Quill employs a 
+                  <b>
+                    mastery-based grading
+                  </b>
+                   system to grade activities.
+                </p>
+                <br />
+                <p>
+                  Students earn:
+                </p>
+                <ul>
+                  <li>
+                    Proficient (‘green’) for scoring between 83-100%.
+                  </li>
+                  <li>
+                    Nearly Proficient (‘yellow’) for scoring between 32%-82%.
+                  </li>
+                  <li>
+                    Not Proficient (‘red’) for scoring between 0%-31%.
+                  </li>
+                  <li>
+                    Completed (’blue’) for activities that are not graded, such as a 
+                    <a
+                      href="https://support.quill.org/en/articles/2554430-what-assessments-diagnostics-and-skills-surveys-are-available-on-quill-and-who-are-they-for"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Diagnostic
+                    </a>
+                     or 
+                    <a
+                      href="https://support.quill.org/en/articles/1173157-quill-lessons-getting-started-guide"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Quill Lesson
+                    </a>
+                    .
+                  </li>
+                </ul>
+                <br />
+                <p>
+                  Students will only see their proficiency after submitting an activity. The grade does not appear. We encourage students to 
+                  <a
+                    href="https://support.quill.org/en/articles/5554673-how-can-students-replay-activities"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    replay
+                  </a>
+                   their activities and 
+                  <a
+                    href="https://www.quill.org/teacher-center/go-for-green"
+                  >
+                    Go for Green
+                  </a>
+                   to get additional practice on skills and earn a higher grade.
+                </p>
+              </React.Fragment>,
+              "headerText": "The score for Quill Grammar activities is based on reaching a correct response by the final attempt.",
+              "isDisabled": false,
+            },
+            Object {
+              "body": <React.Fragment>
+                <p>
+                  In each student response, we have bolded all of the text that was added or edited from the previous response so that you can quickly see what changed in the student’s writing throughout their revision cycle.
+                </p>
+                <br />
+                <p>
+                  When your student completes an activity, Quill uses bolding to provide hints for them about what to change. In the feedback you see below, phrases like “look at the bolded word” refer to the bolding the student sees as a hint, not the bolded text displayed in this report.
+                </p>
+              </React.Fragment>,
+              "headerText": "The bolded text helps you see the edits. It is not what the student sees.",
+            },
+          ]
+        }
+      >
+        <div
+          className="helpful-tips"
+        >
+          <div
+            className="helpful-tips-header"
+          >
+            <img
+              alt="Lightbulb icon for helpful tips"
+              src="undefined/images/pages/activity_analysis/lightbulb.svg"
+            />
+            <h3>
+              Helpful Tips for Teachers 
+              <span>
+                (Expand to show more information)
+              </span>
+            </h3>
+          </div>
+          <TipSection
+            index={0}
+            key="The score for Quill Grammar activities is based on reaching a correct response by the final attempt."
+            openStates={
+              Array [
+                false,
+                false,
+              ]
+            }
+            section={
+              Object {
+                "body": <React.Fragment>
+                  <p>
+                    Quill employs a 
+                    <b>
+                      mastery-based grading
+                    </b>
+                     system to grade activities.
+                  </p>
+                  <br />
+                  <p>
+                    Students earn:
+                  </p>
+                  <ul>
+                    <li>
+                      Proficient (‘green’) for scoring between 83-100%.
+                    </li>
+                    <li>
+                      Nearly Proficient (‘yellow’) for scoring between 32%-82%.
+                    </li>
+                    <li>
+                      Not Proficient (‘red’) for scoring between 0%-31%.
+                    </li>
+                    <li>
+                      Completed (’blue’) for activities that are not graded, such as a 
+                      <a
+                        href="https://support.quill.org/en/articles/2554430-what-assessments-diagnostics-and-skills-surveys-are-available-on-quill-and-who-are-they-for"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Diagnostic
+                      </a>
+                       or 
+                      <a
+                        href="https://support.quill.org/en/articles/1173157-quill-lessons-getting-started-guide"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Quill Lesson
+                      </a>
+                      .
+                    </li>
+                  </ul>
+                  <br />
+                  <p>
+                    Students will only see their proficiency after submitting an activity. The grade does not appear. We encourage students to 
+                    <a
+                      href="https://support.quill.org/en/articles/5554673-how-can-students-replay-activities"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      replay
+                    </a>
+                     their activities and 
+                    <a
+                      href="https://www.quill.org/teacher-center/go-for-green"
+                    >
+                      Go for Green
+                    </a>
+                     to get additional practice on skills and earn a higher grade.
+                  </p>
+                </React.Fragment>,
+                "headerText": "The score for Quill Grammar activities is based on reaching a correct response by the final attempt.",
+                "isDisabled": false,
+              }
+            }
+            toggleSection={[Function]}
+          >
+            <button
+              className="toggle-student-report-explanation scoring-explanation is-closed"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Expand icon"
+                src="undefined/images/icons/expand.svg"
+              />
+              <h4>
+                The score for Quill Grammar activities is based on reaching a correct response by the final attempt.
+              </h4>
+            </button>
+          </TipSection>
+          <TipSection
+            index={1}
+            key="The bolded text helps you see the edits. It is not what the student sees."
+            openStates={
+              Array [
+                false,
+                false,
+              ]
+            }
+            section={
+              Object {
+                "body": <React.Fragment>
+                  <p>
+                    In each student response, we have bolded all of the text that was added or edited from the previous response so that you can quickly see what changed in the student’s writing throughout their revision cycle.
+                  </p>
+                  <br />
+                  <p>
+                    When your student completes an activity, Quill uses bolding to provide hints for them about what to change. In the feedback you see below, phrases like “look at the bolded word” refer to the bolding the student sees as a hint, not the bolded text displayed in this report.
+                  </p>
+                </React.Fragment>,
+                "headerText": "The bolded text helps you see the edits. It is not what the student sees.",
+              }
+            }
+            toggleSection={[Function]}
+          >
+            <button
+              className="toggle-student-report-explanation scoring-explanation is-closed"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Expand icon"
+                src="undefined/images/icons/expand.svg"
+              />
+              <h4>
+                The bolded text helps you see the edits. It is not what the student sees.
+              </h4>
+            </button>
+          </TipSection>
         </div>
-        <button
-          className="toggle-student-report-explanation scoring-explanation is-closed"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Expand icon"
-            src="undefined/images/icons/expand.svg"
-          />
-          <h4>
-            The score for Quill Grammar activities is based on reaching a correct response by the final attempt.
-          </h4>
-        </button>
-        <button
-          className="toggle-student-report-explanation is-closed"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Expand icon"
-            src="undefined/images/icons/expand.svg"
-          />
-          <h4>
-            The bolded text helps you see the edits. It is not what the student sees.
-          </h4>
-        </button>
-      </div>
+      </HelpfulTips>
       <StudentReportBox
         boxNumber={1}
         key="0"
@@ -8409,7 +8606,7 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      He can&#x27;t sing well. Still he practices every day.
+                      He can't sing well. Still he practices every day.
                     </td>
                   </tr>
                   <tr>
@@ -8693,7 +8890,7 @@ exports[`StudentReport should render 1`] = `
                     </td>
                     <td />
                     <td>
-                      Strawberries are my favorite. However I don&#x27;t eat them all the time.
+                      Strawberries are my favorite. However I don't eat them all the time.
                     </td>
                   </tr>
                   <tr>

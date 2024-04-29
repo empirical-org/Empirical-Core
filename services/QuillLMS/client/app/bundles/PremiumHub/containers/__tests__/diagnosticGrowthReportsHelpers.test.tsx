@@ -1,6 +1,7 @@
 import * as React from 'react'
 
-import { aggregateOverviewData } from '../diagnosticGrowthReports/helpers'
+import { aggregateOverviewData, createAggregateRowData, growthResultsValue, noDataToShow } from '../diagnosticGrowthReports/helpers'
+import { Tooltip } from '../../../Shared'
 
 const mockArgs = {
   preDiagnosticAssignedData: [],
@@ -201,6 +202,98 @@ const mockCombinedData = [{
   studentsCompletedPractice: "159 Students"
 }]
 
+const mockAggregateRowsDataForDiagnostic1 = {
+  9955813: {
+    average_practice_activities_count: 15.058823529411764,
+    average_time_spent_seconds: 6991.35294117647,
+    diagnostic_id: 1663,
+    diagnostic_name: "Starter Baseline Diagnostic (Pre)",
+    group_by: "teacher",
+    name: "Gabriela Segura",
+    order: 14,
+    overall_skill_growth: 0.058248299319727886,
+    post_students_assigned: 7,
+    post_students_completed: 7,
+    pre_average_score: 0.5543575920934412,
+    pre_students_assigned: 54,
+    pre_students_completed: 53,
+    students_completed_practice: 51
+  },
+  9959478: {
+    diagnostic_id: 1663,
+    diagnostic_name: "Starter Baseline Diagnostic (Pre)",
+    group_by: "teacher",
+    name: "Mindy Santillan",
+    order: 13,
+    overall_skill_growth: null,
+    post_students_completed: 0,
+    pre_average_score: 0.5917366946778712,
+    pre_students_assigned: 72,
+    pre_students_completed: 68
+  },
+  9992069: {
+    average_practice_activities_count: 12,
+    average_time_spent_seconds: 4562.2,
+    diagnostic_id: 1663,
+    diagnostic_name: "Starter Baseline Diagnostic (Pre)",
+    group_by: "teacher",
+    name: "Catherine Vazquez",
+    order: 17,
+    overall_skill_growth: null,
+    post_students_completed: 0,
+    pre_average_score: 0.5661375661375662,
+    pre_students_assigned: 10,
+    pre_students_completed: 9,
+    students_completed_practice: 5
+  }
+}
+
+const mockAggregateRowsDataForDiagnostic2 = {
+  9955813: {
+    average_practice_activities_count: 15.058823529411764,
+    average_time_spent_seconds: 6991.35294117647,
+    diagnostic_id: 1663,
+    diagnostic_name: "Starter Baseline Diagnostic (Pre)",
+    group_by: "classroom",
+    name: "ELA & ELL - Period 4",
+    order: 14,
+    overall_skill_growth: 0.058248299319727886,
+    post_students_assigned: 7,
+    post_students_completed: 7,
+    pre_average_score: 0.5543575920934412,
+    pre_students_assigned: 54,
+    pre_students_completed: 53,
+    students_completed_practice: 51
+  },
+  9959478: {
+    diagnostic_id: 1663,
+    diagnostic_name: "Starter Baseline Diagnostic (Pre)",
+    group_by: "classroom",
+    name: "ELA & ELL - Period 2",
+    order: 13,
+    overall_skill_growth: null,
+    post_students_completed: 0,
+    pre_average_score: 0.5917366946778712,
+    pre_students_assigned: 72,
+    pre_students_completed: 68
+  },
+  9992069: {
+    average_practice_activities_count: 12,
+    average_time_spent_seconds: 4562.2,
+    diagnostic_id: 1663,
+    diagnostic_name: "Starter Baseline Diagnostic (Pre)",
+    group_by: "classroom",
+    name: "6th ELA Period 1 - Year 5",
+    order: 12,
+    overall_skill_growth: null,
+    post_students_completed: 0,
+    pre_average_score: 0.5661375661375662,
+    pre_students_assigned: 10,
+    pre_students_completed: 9,
+    students_completed_practice: 5
+  }
+}
+
 describe('#aggregateOverviewData', () => {
   describe('there is no preDiagnosticAssignedData', () => {
     it('calls handleSetNoDiagnosticDataAvailable with true and setLoading with false', () => {
@@ -219,6 +312,57 @@ describe('#aggregateOverviewData', () => {
       aggregateOverviewData(mockArgs)
       expect(mockArgs.setLoading).toHaveBeenCalledWith(false)
       expect(mockArgs.setAggregatedData).toHaveBeenCalledWith(mockCombinedData)
+    })
+  })
+})
+
+describe('#growthResultsValue', () => {
+  it('returns growth score value with student count if growth score present', () => {
+    const value = growthResultsValue({ growthScore: 0.6428571428571429, studentCount: 5, preScoreCompletedPost: 0.2857142857142857, postStudentsCompleted: 3, postScore: 0.9285714285714286 })
+    expect(value).toEqual('+64% (5)')
+  })
+  it('returns no class growth with tooltip if growthScore is 0 and preScoreCompletedPost and postStudentsCompleted values are present', () => {
+    const value = growthResultsValue({ growthScore: 0, studentCount: 5, preScoreCompletedPost: 0.7857142857142857, postStudentsCompleted: 3, postScore: 0.6285714285714286 })
+    expect(value).toEqual(
+      <div className="no-class-growth">
+        <p>No class growth</p>
+        <Tooltip isTabbable={true} tooltipText="The Pre Score of the 3 students that completed the Post Diagnostic was 79%. As the Post Score of these students (63%) was lower than this, we deem there to have been no overall class growth." tooltipTriggerText={<img alt="Question mark icon" src="undefined/images/icons/icons-help.svg" />} />
+      </div>
+    )
+  })
+  it('returns -- value for all other cases', () => {
+    const value = growthResultsValue({ growthScore: 0, studentCount: 5, preScoreCompletedPost: 0, postStudentsCompleted: 3, postScore: 0.9285714285714286 })
+    expect(value).toEqual(noDataToShow)
+  })
+})
+
+describe('#createAggregateRowData', () => {
+  describe('by teacher', () => {
+    it('returns data sorted alphabetically by name', () => {
+      const aggregateRowData = createAggregateRowData({
+        aggregateRowsDataForDiagnostic: mockAggregateRowsDataForDiagnostic1,
+        diagnosticId: 1664,
+        handleGrowthChipClick: jest.fn,
+        handlePreDiagnosticChipClick: jest.fn,
+        groupByValue: 'teacher'
+      })
+      expect(aggregateRowData[0].name).toEqual('Mindy Santillan')
+      expect(aggregateRowData[1].name).toEqual('Gabriela Segura')
+      expect(aggregateRowData[2].name).toEqual('Catherine Vazquez')
+    })
+  })
+  describe('by classroom', () => {
+    it('returns data sorted alphabetically by name', () => {
+      const aggregateRowData = createAggregateRowData({
+        aggregateRowsDataForDiagnostic: mockAggregateRowsDataForDiagnostic2,
+        diagnosticId: 1664,
+        handleGrowthChipClick: jest.fn,
+        handlePreDiagnosticChipClick: jest.fn,
+        groupByValue: 'classroom'
+      })
+      expect(aggregateRowData[0].name).toEqual('6th ELA Period 1 - Year 5')
+      expect(aggregateRowData[1].name).toEqual('ELA & ELL - Period 2')
+      expect(aggregateRowData[2].name).toEqual('ELA & ELL - Period 4')
     })
   })
 })

@@ -50,3 +50,31 @@ tr:nth-child(even) {
 
 .red { background-color: red; }
 .green { background-color: green; }
+
+.link-button {
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    /*optional: you can also use font-family to match your link styles*/
+    font-family: inherit; /* This makes the font consistent */
+    color: #069; /* Standard link color */
+    text-decoration: underline; /* Mimics link appearance */
+    cursor: pointer;
+    display: inline;
+}
+
+.link-button:hover,
+.link-button:focus {
+    color: #01447e; /* Darker shade for hover effect  */
+    text-decoration: none; /* Differentiates it from a standard link */
+}
+
+.link-container {
+  display: flex; /* This will align children inline and manage spacing */
+  align-items: center; /* Aligns items vertically in the center */
+}
+
+.link-button, a {
+  margin-right: 10px; /* Adjust spacing between the links as needed */
+  white-space: nowrap; /* Ensures that the text does not wrap */
+}

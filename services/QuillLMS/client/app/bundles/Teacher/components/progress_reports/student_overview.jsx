@@ -44,6 +44,10 @@ export default class extends React.Component {
     }
   };
 
+  filterReportData = (data) => {
+    return data.filter(activitySession => activitySession.is_final_score)
+  }
+
   calculateCountAndAverage = () => {
     const { reportData } = this.state;
     let count = 0;
@@ -198,7 +202,7 @@ export default class extends React.Component {
         {this.studentOverviewSection()}
         <StudentOveriewTable
           calculateCountAndAverage={this.calculateCountAndAverage}
-          reportData={reportData}
+          reportData={this.filterReportData(reportData)}
           studentId={studentData.id}
         />
       </div>

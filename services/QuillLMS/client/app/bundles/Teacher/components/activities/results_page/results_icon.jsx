@@ -2,9 +2,13 @@ import React from 'react';
 
 import ScoreColor from '../../modules/score_color.js';
 
-export default class ResultsIcon extends React.Component {
-  backgroundColor = () => {
-    const scoreColor = this.scoreColor();
+const ResultsIcon = ({ activityType, percentage, }) => {
+  const backgroundColor = () => {
+    if (activityType === 'diagnostic') {
+      return { backgroundColor: '#4D8DD9'} // $quill-blue
+    }
+
+    const scoreColor = ScoreColor(percentage * 100);
     let color = '#4ea500';
     if (scoreColor === 'red-score-color') {
       color = '#e73030';
@@ -14,8 +18,7 @@ export default class ResultsIcon extends React.Component {
     return { backgroundColor: color };
   }
 
-  imageSrc = () => {
-    const { activityType, } = this.props
+  const imageSrc = () => {
     let img;
     switch (activityType) {
       case 'connect':
@@ -24,24 +27,23 @@ export default class ResultsIcon extends React.Component {
       case 'sentence':
         img = 'tool-grammar-white.svg'
         break;
+      case 'diagnostic':
+        img = 'tool-diagnostic-white.svg'
+        break;
       default:
         img = 'tool-proofreader-white.svg'
     }
     return `${process.env.CDN_URL}/images/tools/${img}`
   }
 
-  scoreColor = () => {
-    const { percentage, } = this.props
-    return ScoreColor(percentage * 100);
-  }
-
-  render() {
-    return (
-      <div className="results-icon-container">
-        <div className='icon' style={this.backgroundColor()}>
-          <img alt='activity-type' src={this.imageSrc()} />
-        </div>
+  return (
+    <div className="results-icon-container">
+      <div className='icon' style={backgroundColor()}>
+        <img alt='activity-type' src={imageSrc()} />
       </div>
-    )
-  }
+    </div>
+  )
 }
+
+
+export default ResultsIcon

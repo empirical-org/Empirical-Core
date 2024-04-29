@@ -40,7 +40,7 @@ export default class extends React.Component {
       cuesLabel: this.state.cuesLabel
     }
     if (this.props.new) {
-      const optimalResponseObj = {text: this.state.optimalResponseText.trim(), optimal: true, count: 0, feedback: "That's a strong sentence!"}
+      const optimalResponseObj = {text: this.state.optimalResponseText.trim(), optimal: true, count: 0, feedback: "That's a strong sentence!", concept_results: [{conceptUID: concept, correct: true}]}
       this.props.submit(questionObj, optimalResponseObj)
     } else {
       questionObj.conceptID = this.state.concept

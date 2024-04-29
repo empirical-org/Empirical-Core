@@ -6,7 +6,7 @@ ruby File.read('.ruby-version').chomp
 
 # CORE DEPS
 gem 'rails', '7.0.6'
-gem 'puma', '~> 5.6.4'
+gem 'puma', '~> 5.6.8'
 
 # EARLY TO APPLY TO OTHER GEMS
 gem 'dotenv-rails', '~> 2.6'

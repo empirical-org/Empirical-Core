@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as _ from 'underscore';
 // TODO: updated Response interface in quill-marking-logic
-import { checkFillInTheBlankQuestion } from 'quill-marking-logic';
 import { stringNormalize } from 'quill-string-normalizer';
 
+import { checkFillInTheBlankQuestion } from '../../../Shared/quill-marking-logic/src/main';
 import {
   Feedback,
   Prompt,

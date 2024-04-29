@@ -1,0 +1,256 @@
+{
+  "GROUP BY grade": [
+    {
+      "diagnostic_id": 1663,
+      "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "grade",
+      "students_completed_practice": 48,
+      "average_practice_activities_count": 21.75,
+      "average_time_spent_seconds": 6492.25,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": "6",
+          "name": "Grade 6",
+          "group_by": "grade",
+          "students_completed_practice": 4,
+          "average_practice_activities_count": 16.5,
+          "average_time_spent_seconds": 4742.75
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": "9",
+          "name": "Grade 9",
+          "group_by": "grade",
+          "students_completed_practice": 44,
+          "average_practice_activities_count": 22.227272727272727,
+          "average_time_spent_seconds": 6651.295454545455
+        }
+      ]
+    },
+    {
+      "diagnostic_id": 1668,
+      "diagnostic_name": "Intermediate Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "grade",
+      "students_completed_practice": 17,
+      "average_practice_activities_count": 34.1764705882353,
+      "average_time_spent_seconds": 7174.529411764706,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1668,
+          "diagnostic_name": "Intermediate Baseline Diagnostic (Pre)",
+          "aggregate_id": "9",
+          "name": "Grade 9",
+          "group_by": "grade",
+          "students_completed_practice": 17,
+          "average_practice_activities_count": 34.1764705882353,
+          "average_time_spent_seconds": 7174.529411764706
+        }
+      ]
+    },
+    {
+      "diagnostic_id": 1678,
+      "diagnostic_name": "Advanced Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "grade",
+      "students_completed_practice": 23,
+      "average_practice_activities_count": 24.695652173913043,
+      "average_time_spent_seconds": 9940.478260869566,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1678,
+          "diagnostic_name": "Advanced Baseline Diagnostic (Pre)",
+          "aggregate_id": "9",
+          "name": "Grade 9",
+          "group_by": "grade",
+          "students_completed_practice": 23,
+          "average_practice_activities_count": 24.695652173913043,
+          "average_time_spent_seconds": 9940.478260869566
+        }
+      ]
+    }
+  ],
+  "GROUP BY teacher": [
+    {
+      "diagnostic_id": 1663,
+      "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "teacher",
+      "students_completed_practice": 48,
+      "average_practice_activities_count": 21.75,
+      "average_time_spent_seconds": 6492.25,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 12924154,
+          "name": "Cassie Broussard",
+          "group_by": "teacher",
+          "students_completed_practice": 28,
+          "average_practice_activities_count": 23.0,
+          "average_time_spent_seconds": 6085.0
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 4722961,
+          "name": "Trista Johnston",
+          "group_by": "teacher",
+          "students_completed_practice": 16,
+          "average_practice_activities_count": 20.875,
+          "average_time_spent_seconds": 7642.3125
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 13775265,
+          "name": "Samuel Orsot",
+          "group_by": "teacher",
+          "students_completed_practice": 4,
+          "average_practice_activities_count": 16.5,
+          "average_time_spent_seconds": 4742.75
+        }
+      ]
+    },
+    {
+      "diagnostic_id": 1668,
+      "diagnostic_name": "Intermediate Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "teacher",
+      "students_completed_practice": 17,
+      "average_practice_activities_count": 34.1764705882353,
+      "average_time_spent_seconds": 7174.529411764706,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1668,
+          "diagnostic_name": "Intermediate Baseline Diagnostic (Pre)",
+          "aggregate_id": 12924154,
+          "name": "Cassie Broussard",
+          "group_by": "teacher",
+          "students_completed_practice": 17,
+          "average_practice_activities_count": 34.1764705882353,
+          "average_time_spent_seconds": 7174.529411764706
+        }
+      ]
+    },
+    {
+      "diagnostic_id": 1678,
+      "diagnostic_name": "Advanced Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "teacher",
+      "students_completed_practice": 23,
+      "average_practice_activities_count": 24.695652173913043,
+      "average_time_spent_seconds": 9940.478260869566,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1678,
+          "diagnostic_name": "Advanced Baseline Diagnostic (Pre)",
+          "aggregate_id": 12924154,
+          "name": "Cassie Broussard",
+          "group_by": "teacher",
+          "students_completed_practice": 23,
+          "average_practice_activities_count": 24.695652173913043,
+          "average_time_spent_seconds": 9940.478260869566
+        }
+      ]
+    }
+  ],
+  "GROUP BY classroom": [
+    {
+      "diagnostic_id": 1663,
+      "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "classroom",
+      "students_completed_practice": 48,
+      "average_practice_activities_count": 21.75,
+      "average_time_spent_seconds": 6492.25,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 1448748,
+          "name": "ENGLISH II - JOHNSTON - 01",
+          "group_by": "classroom",
+          "students_completed_practice": 16,
+          "average_practice_activities_count": 20.875,
+          "average_time_spent_seconds": 7642.3125
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 1448764,
+          "name": "ENGLISH II ADV - BROUSSARD - 01",
+          "group_by": "classroom",
+          "students_completed_practice": 28,
+          "average_practice_activities_count": 23.0,
+          "average_time_spent_seconds": 6085.0
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 1530378,
+          "name": "English III 6th Hour",
+          "group_by": "classroom",
+          "students_completed_practice": 4,
+          "average_practice_activities_count": 16.5,
+          "average_time_spent_seconds": 4742.75
+        }
+      ]
+    },
+    {
+      "diagnostic_id": 1668,
+      "diagnostic_name": "Intermediate Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "classroom",
+      "students_completed_practice": 17,
+      "average_practice_activities_count": 34.1764705882353,
+      "average_time_spent_seconds": 7174.529411764706,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1668,
+          "diagnostic_name": "Intermediate Baseline Diagnostic (Pre)",
+          "aggregate_id": 1448764,
+          "name": "ENGLISH II ADV - BROUSSARD - 01",
+          "group_by": "classroom",
+          "students_completed_practice": 17,
+          "average_practice_activities_count": 34.1764705882353,
+          "average_time_spent_seconds": 7174.529411764706
+        }
+      ]
+    },
+    {
+      "diagnostic_id": 1678,
+      "diagnostic_name": "Advanced Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "classroom",
+      "students_completed_practice": 23,
+      "average_practice_activities_count": 24.695652173913043,
+      "average_time_spent_seconds": 9940.478260869566,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1678,
+          "diagnostic_name": "Advanced Baseline Diagnostic (Pre)",
+          "aggregate_id": 1448764,
+          "name": "ENGLISH II ADV - BROUSSARD - 01",
+          "group_by": "classroom",
+          "students_completed_practice": 23,
+          "average_practice_activities_count": 24.695652173913043,
+          "average_time_spent_seconds": 9940.478260869566
+        }
+      ]
+    }
+  ]
+}

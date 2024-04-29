@@ -8,11 +8,11 @@ class ActivitySessionsController < ApplicationController
 
   around_action :force_writer_db_role, only: [:activity_session_from_classroom_unit_and_activity]
 
-  before_action :activity_session_from_id, only: [:play, :concept_results]
+  before_action :activity_session_from_id, only: [:play, :concept_results, :student_activity_report]
   before_action :activity_session_from_uid, only: [:result]
   before_action :activity_session_for_update, only: [:update]
   before_action :activity, only: [:play, :result]
-  before_action :activity_session_authorize!, only: [:play, :result]
+  before_action :activity_session_authorize!, only: [:play, :result, :student_activity_report]
   before_action :activity_session_authorize_teacher!, only: [:concept_results]
   before_action :authorize_student_belongs_to_classroom_unit!, only: [:activity_session_from_classroom_unit_and_activity]
   before_action :redirect_if_student_has_not_completed_pre_test, only: [:play]
@@ -41,6 +41,11 @@ class ActivitySessionsController < ApplicationController
     @grouped_key_target_skill_concepts = format_grouped_key_target_skill_concepts(key_target_skill_concepts)
 
     @title = 'Classwork'
+  end
+
+  def student_activity_report
+    @js_file = 'student'
+    @report_data = formatted_score_obj(@activity_session, @activity_session.classification, @activity_session.user)
   end
 
   def anonymous

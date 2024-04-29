@@ -128,7 +128,7 @@ class Queries < Thor
     }
 
     single_queries = {
-       'diagnostic-skills-view' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillViewQuery
+      'diagnostic-skills-view' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillViewQuery
     }
 
     student_queries = {
@@ -145,9 +145,11 @@ class Queries < Thor
     # These are two arbitrary grades with data for admin `liz.domingue@cpsb.org`
     grades = ["6", "9"]
     # These are two teachers assigned to each of the above grades: "desiree.mott@cpsb.org", "samuel.orsot@cpsb.org", "jamie.sargent@cpsb.org", "trista.johnston@cpsb.org"
-    teacher_ids = [4595888, 13775265, 2082409, 4722961]
+    # Adding "cassie.broussard@cpsb.org" to get classrooms with non-starter diagnostics for the multi-diagnostic payloads
+    teacher_ids = [4595888, 13775265, 2082409, 4722961, 12924154]
     # These are one classroom owned by each of the above teachers: "ENGLISH II - JOHNSTON - 01", "ENGLISH I - SARGENT - 01", "English III 6th Hour", "ENGLISH 6 -NO GR - MOTT - 07"
-    classroom_ids = [1448748, 1521712, 1530378, 1457177]
+    # Added "ENGLISH II ADV - BROUSSARD - 01" (1448764) for multi-diagnostic payloads
+    classroom_ids = [1448748, 1521712, 1530378, 1457177, 1448764]
 
     multi_args = {
       timeframe_start:,
@@ -163,15 +165,15 @@ class Queries < Thor
 
     aggregation_options = ['grade', 'teacher', 'classroom']
 
-    #multi_queries.each do |key, query|
-    #  payloads = aggregation_options.to_h {|aggregation| ["GROUP BY #{aggregation}", query.run(**multi_args.merge({aggregation:})) }
-    #  snapshot_query_payload(key, payloads)
-    #end
+    multi_queries.each do |key, query|
+      payloads = aggregation_options.to_h {|aggregation| ["GROUP BY #{aggregation}", query.run(**multi_args.merge({aggregation:}))] }
+      snapshot_query_payload(key, payloads)
+    end
     single_queries.each do |key, query|
       payloads = aggregation_options.to_h {|aggregation| ["GROUP BY #{aggregation}", query.run(**single_args.merge({aggregation:}))] }
       snapshot_query_payload(key, payloads)
     end
-    #student_queries.each {|key, query| snapshot_query_payload(key, query.run(**single_args)) }
+    student_queries.each {|key, query| snapshot_query_payload(key, query.run(**single_args)) }
   end
 
   # put helper methods in this block
