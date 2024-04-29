@@ -58,4 +58,23 @@ RSpec.describe ConceptFeedback, type: :model do
       expect(concept_feedback.as_json).to eq(concept_feedback.data)
     end
   end
+
+  describe '#callbacks' do
+    let!(:concept_feedback) { create(:concept_feedback) }
+
+    context 'after update' do
+      it 'calls Rails.cache.delete on concept feedback with activity type' do
+        expect(Rails.cache).to receive(:delete).with("#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{concept_feedback.activity_type}")
+        concept_feedback.update(data: {test: 'test'})
+      end
+    end
+
+    context 'after create' do
+      it 'calls Rails.cache.delete on concept feedback with activity type' do
+        activity_type = "grammar"
+        expect(Rails.cache).to receive(:delete).with("#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{activity_type}")
+        ConceptFeedback.create(activity_type: activity_type, data: {test: 'test'}, uid: SecureRandom.uuid)
+      end
+    end
+  end
 end
