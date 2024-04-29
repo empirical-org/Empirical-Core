@@ -43,7 +43,7 @@ describe ActivitySessionsController, type: :controller do
 
     it 'should set the report_data' do
       get :student_activity_report, params: { id: activity_session.id }
-      expect(assigns(:sessions)).to eq [formatted_score_obj]
+      expect(assigns(:activity_sessions)).to eq [formatted_score_obj]
       expect(assigns(:report_data)).to eq formatted_score_obj
     end
   end
