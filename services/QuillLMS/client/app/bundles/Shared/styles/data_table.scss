@@ -203,6 +203,7 @@ table.data-table {
       th {
         color: $quill-grey-90;
         font-weight: 700;
+        font-size: 13px;
         align-items: center;
         min-height: 52px;
         max-width: 152px;
@@ -223,7 +224,7 @@ table.data-table {
           white-space: break-spaces;
           padding-right: 24px;
           margin-right: 24px !important;
-          font-size: 12px;
+          font-size: 13px;
 
           &:not(:last-child) {
             border-right: 1px solid $quill-grey-5;
