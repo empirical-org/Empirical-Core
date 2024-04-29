@@ -30,6 +30,7 @@ describe Concept, type: :model do
 
   describe 'callbacks' do
     let!(:concept) { create(:concept, name: 'test') }
+
     context 'after update' do
       it 'calls Rails.cache.delete on all concepts key' do
         expect(Rails.cache).to receive(:delete).with(Concept::ALL_CONCEPTS_KEY)
