@@ -129,7 +129,7 @@ module PublicProgressReports
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def sessions_for_unit_activity_classroom_and_student(unit_id, activity_id, classroom_id, student_id)
+  def activity_sessions_for_unit_activity_classroom_and_student(unit_id, activity_id, classroom_id, student_id)
     classroom_unit = ClassroomUnit.find_by(
       classroom_id: classroom_id,
       unit_id: unit_id

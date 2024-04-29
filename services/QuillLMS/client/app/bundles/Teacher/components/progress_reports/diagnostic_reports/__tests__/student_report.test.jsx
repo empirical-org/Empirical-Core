@@ -37,7 +37,7 @@ const props = {
   }
 }
 
-const highestScoringSession = {
+const highestScoringActivitySession = {
   "activity_session_id": 1,
   "completed_at": "2024-04-23T17:58:23.384Z",
   "activity_classification": "connect",
@@ -384,37 +384,37 @@ const highestScoringSession = {
   "average_score_on_quill": 0
 }
 
-const lowestScoringSession = {
-  ...highestScoringSession,
+const lowestScoringActivitySession = {
+  ...highestScoringActivitySession,
   "completed_at": "2024-04-22T04:58:23.384Z",
   "activity_session_id": 2,
   "score": 30
 }
 
-const middleScoringSession = {
-  ...highestScoringSession,
+const middleScoringActivitySession = {
+  ...highestScoringActivitySession,
   "completed_at": "2024-04-22T20:58:23.384Z",
   "activity_session_id": 3,
   "score": 70
 }
 
 
-const students = [highestScoringSession]
+const students = [highestScoringActivitySession]
 
 describe('StudentReport', () => {
   it('should render', () => {
-    const { asFragment, } = render(<StudentReport {...props} passedSessions={students} passedStudents={students} />)
+    const { asFragment, } = render(<StudentReport {...props} passedActivitySessions={students} passedStudents={students} />)
     expect(asFragment()).toMatchSnapshot()
   })
 
   test('renders correctly when passed multiple sessions', () => {
-    render(<StudentReport {...props} passedSessions={[lowestScoringSession, middleScoringSession, highestScoringSession]} passedStudents={students} />);
+    render(<StudentReport {...props} passedActivitySessions={[lowestScoringActivitySession, middleScoringActivitySession, highestScoringActivitySession]} passedStudents={students} />);
     const dropdownButton = screen.getByRole('button', { name: /score:/i });
     expect(dropdownButton).toBeInTheDocument();
   });
 
   test('renders correctly when passed only one session', () => {
-    render(<StudentReport {...props} passedSessions={[highestScoringSession]} passedStudents={students} />);
+    render(<StudentReport {...props} passedActivitySessions={[highestScoringActivitySession]} passedStudents={students} />);
     const dropdownButton = screen.queryByRole('button', { name: /score:/i });
     expect(dropdownButton).not.toBeInTheDocument();
   });

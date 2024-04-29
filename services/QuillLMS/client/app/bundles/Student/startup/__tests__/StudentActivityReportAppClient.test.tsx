@@ -3,7 +3,7 @@ import { screen, render } from '@testing-library/react';
 
 import StudentActivityReportApp from '../StudentActivityReportAppClient';
 
-const highestScoringSession = {
+const highestScoringActivitySession = {
   "activity_session_id": 1,
   "completed_at": "2024-04-23T17:58:23.384Z",
   "activity_classification": "connect",
@@ -350,23 +350,23 @@ const highestScoringSession = {
   "average_score_on_quill": 0
 }
 
-const lowestScoringSession = {
-  ...highestScoringSession,
+const lowestScoringActivitySession = {
+  ...highestScoringActivitySession,
   "completed_at": "2024-04-22T04:58:23.384Z",
   "activity_session_id": 2,
   "score": 30
 }
 
-const middleScoringSession = {
-  ...highestScoringSession,
+const middleScoringActivitySession = {
+  ...highestScoringActivitySession,
   "completed_at": "2024-04-22T20:58:23.384Z",
   "activity_session_id": 3,
   "score": 70
 }
 
 const props = {
-  "reportData": highestScoringSession,
-  "sessions": [lowestScoringSession, middleScoringSession, highestScoringSession],
+  "reportData": highestScoringActivitySession,
+  "activitySessions": [lowestScoringActivitySession, middleScoringActivitySession, highestScoringActivitySession],
   "activity": {
     "id": 1345,
     "name": "Simple Past vs. Present Perfect 1",
@@ -446,16 +446,16 @@ describe('StudentActivityReportApp', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  test('renders a dropdown when there are multiple sessions', () => {
+  test('renders a dropdown when there are multiple activity sessions', () => {
     render(<StudentActivityReportApp {...props} />);
     const dropdownButton = screen.getByRole('button', { name: /score/i });
     expect(dropdownButton).toBeInTheDocument();
   });
 
-  test('does not render a dropdown when there is only one session', () => {
+  test('does not render a dropdown when there is only one activity session', () => {
     const modifiedProps = {
       ...props,
-      sessions: [highestScoringSession]
+      activitySessions: [highestScoringActivitySession]
     };
     render(<StudentActivityReportApp {...modifiedProps} />);
     const dropdownButton = screen.queryByRole('button', { name: /score/i });

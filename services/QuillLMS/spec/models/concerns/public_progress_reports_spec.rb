@@ -555,7 +555,7 @@ describe PublicProgressReports, type: :model do
 
   end
 
-  describe '#sessions_for_unit_activity_classroom_and_student' do
+  describe '#activity_sessions_for_unit_activity_classroom_and_student' do
     let!(:unit) { create(:unit) }
     let!(:classroom) { create(:classroom) }
     let!(:student) { create(:user) }
@@ -564,18 +564,18 @@ describe PublicProgressReports, type: :model do
     let!(:activity_session) { create(:activity_session, user: student, classroom_unit: classroom_unit, activity: activity) }
 
     it 'returns an array of formatted activity sessions' do
-      result = FakeReports.new.sessions_for_unit_activity_classroom_and_student(unit.id, activity.id, classroom.id, student.id)
+      result = FakeReports.new.activity_sessions_for_unit_activity_classroom_and_student(unit.id, activity.id, classroom.id, student.id)
       expect(result).to be_an(Array)
       expect(result.first).to have_key(:activity_session_id)
     end
 
     it 'returns an empty array when no sessions are found' do
-      expect(FakeReports.new.sessions_for_unit_activity_classroom_and_student(999, 999, 999, 999)).to eq([])
+      expect(FakeReports.new.activity_sessions_for_unit_activity_classroom_and_student(999, 999, 999, 999)).to eq([])
     end
 
     it 'correctly orders sessions by completed_at' do
       earlier_session = create(:activity_session, completed_at: 1.day.ago, user: student, classroom_unit: classroom_unit, activity: activity)
-      result = FakeReports.new.sessions_for_unit_activity_classroom_and_student(unit.id, activity.id, classroom.id, student.id)
+      result = FakeReports.new.activity_sessions_for_unit_activity_classroom_and_student(unit.id, activity.id, classroom.id, student.id)
       expect(result.first[:activity_session_id]).to eq(earlier_session.id)
       expect(result.length).to eq(2)
     end

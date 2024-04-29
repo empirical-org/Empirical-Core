@@ -43,9 +43,9 @@ const helpfulTips = (
   />
 )
 
-const StudentActivityReportApp = ({ activity, showExactScore, reportData, classroomId, sessions, }) => {
-  function onSessionClick(session) {
-    window.location.href = `/activity_sessions/${session.value}/student_activity_report`
+const StudentActivityReportApp = ({ activity, showExactScore, reportData, classroomId, activitySessions, }) => {
+  function onActivitySessionClick(activitySession) {
+    window.location.href = `/activity_sessions/${activitySession.value}/student_activity_report`
   }
 
   function renderScore() {
@@ -74,19 +74,19 @@ const StudentActivityReportApp = ({ activity, showExactScore, reportData, classr
   }
 
   function renderDropdown() {
-    if (sessions.length === 1) { return }
+    if (activitySessions.length === 1) { return }
 
-    const sessionOptions = sessions.map((s, index) => {
+    const activitySessionOptions = activitySessions.map((s, index) => {
       const scoreNumber = `${NumberSuffix(index + 1)} Score`
       const formattedDate = moment.utc(s.completed_at).format('MMM D[,] h:mma')
       const label = showExactScore ? `${scoreNumber}: ${s.score}% - ${formattedDate}` : `${scoreNumber} - ${formattedDate}`
       return { value: s.activity_session_id, label, }
     })
-    const sessionValue = sessionOptions.find(s => reportData.activity_session_id === s.value)
+    const activitySessionValue = activitySessionOptions.find(s => reportData.activity_session_id === s.value)
 
 
     return (
-      <DropdownInput className="bordered sessions" handleChange={onSessionClick} options={sessionOptions} value={sessionValue} />
+      <DropdownInput className="bordered activity-sessions" handleChange={onActivitySessionClick} options={activitySessionOptions} value={activitySessionValue} />
     )
   }
 

@@ -19,7 +19,7 @@ export interface StudentReportState {
   scoringExplanationIsOpen: boolean,
   loading: boolean,
   students: Student[],
-  sessions: Student[]
+  activitySessions: Student[]
 }
 
 interface StudentReportProps extends RouteComponentProps {
@@ -31,42 +31,42 @@ interface StudentReportProps extends RouteComponentProps {
     activitySessionId?: string,
   },
   studentDropdownCallback: () => void,
-  sessionDropdownCallback: () => void,
+  activitySessionDropdownCallback: () => void,
   passedStudents?: Student[],
-  passedSessions?: Student[]
+  passedActivitySessions?: Student[]
 }
 
-const StudentReport = ({ params, studentDropdownCallback, sessionDropdownCallback, passedStudents, passedSessions }) => {
-  const [loading, setLoading] = React.useState(!(passedStudents && passedSessions))
+const StudentReport = ({ params, studentDropdownCallback, activitySessionDropdownCallback, passedStudents, passedActivitySessions }) => {
+  const [loading, setLoading] = React.useState(!(passedStudents && passedActivitySessions))
   const [students, setStudents] = React.useState(passedStudents || null)
-  const [sessions, setSessions] = React.useState(passedSessions || null)
+  const [activitySessions, setActivitySessions] = React.useState(passedActivitySessions || null)
 
   const isInitialMount = React.useRef(true);
 
   React.useEffect(() => {
-    if (passedStudents && passedSessions) { return }
+    if (passedStudents && passedActivitySessions) { return }
 
     setStudents(null)
-    setSessions(null)
+    setActivitySessions(null)
 
     if (isInitialMount.current) {
       isInitialMount.current = false
       getStudentData()
-      getSessions()
+      getActivitySessions()
     } else {
       setLoading(true)
       getStudentData()
-      getSessions()
+      getActivitySessions()
     }
   }, [params])
 
   React.useEffect(() => {
-    if (!students || !sessions) { return }
+    if (!students || !activitySessions) { return }
 
     setLoading(false)
-  }, [students, sessions])
+  }, [students, activitySessions])
 
-  function selectedSession(students: Student[]) {
+  function selectedActivitySession(students: Student[]) {
     const { studentId, activitySessionId, } = params;
 
     const student = studentId ? students.find((student: Student) => student.id === parseInt(studentId)) : students[0];
@@ -75,8 +75,8 @@ const StudentReport = ({ params, studentDropdownCallback, sessionDropdownCallbac
       return student
     }
 
-    const session = sessions.find((session: Student) => session.activity_session_id === parseInt(activitySessionId))
-    return session || student
+    const activitySession = activitySessions.find((session: Student) => session.activity_session_id === parseInt(activitySessionId))
+    return activitySession || student
   }
 
   function getStudentData() {
@@ -86,10 +86,10 @@ const StudentReport = ({ params, studentDropdownCallback, sessionDropdownCallbac
     });
   }
 
-  function getSessions() {
-    requestGet(`/teachers/progress_reports/sessions_for_student/u/${params.unitId}/a/${params.activityId}/c/${params.classroomId}/s/${params.studentId}`, (data: { sessions: Student[] }) => {
-      const { sessions } = data;
-      setSessions(sessions)
+  function getActivitySessions() {
+    requestGet(`/teachers/progress_reports/activity_sessions_for_student/u/${params.unitId}/a/${params.activityId}/c/${params.classroomId}/s/${params.studentId}`, (data: { activity_sessions: Student[] }) => {
+      const { activity_sessions } = data;
+      setActivitySessions(activity_sessions)
     });
   }
 
@@ -155,19 +155,19 @@ const StudentReport = ({ params, studentDropdownCallback, sessionDropdownCallbac
 
   if (loading) { return <LoadingSpinner /> }
 
-  const session = selectedSession(students);
+  const activitySession = selectedActivitySession(students);
 
-  const { name, score, id, time, number_of_questions, number_of_correct_questions, activity_session_id, } = session;
+  const { name, score, id, time, number_of_questions, number_of_correct_questions, activity_session_id, } = activitySession;
   const displaySkills = number_of_questions ? `${number_of_correct_questions} of ${number_of_questions} ` : ''
   const displayScore = score ? `(${score}%)` : ''
   const displayTimeSpent = getTimeSpent(time)
   const studentOptions = students.map(s => ({ value: s.id, label: s.name, }))
   const studentValue = studentOptions.find(s => id === s.value)
-  const sessionOptions = sessions.map((s, index) => {
+  const activitySessionOptions = activitySessions.map((s, index) => {
     const label = `${NumberSuffix(index + 1)} Score: ${s.score}% - ${moment.utc(s.completed_at).format('MMM D[,] h:mma')}`
     return { value: s.activity_session_id, label, }
   })
-  const sessionValue = sessionOptions.find(s => activity_session_id === s.value)
+  const activitySessionValue = activitySessionOptions.find(s => activity_session_id === s.value)
 
   return (
     <div className='individual-student-activity-view white-background-accommodate-footer'>
@@ -179,7 +179,7 @@ const StudentReport = ({ params, studentDropdownCallback, sessionDropdownCallbac
           </div>
           <div className="dropdowns">
             <DropdownInput className="bordered" handleChange={studentDropdownCallback} options={studentOptions} value={studentValue} />
-            {sessions.length > 1 ? <DropdownInput className="bordered sessions" handleChange={sessionDropdownCallback} options={sessionOptions} value={sessionValue} /> : null}
+            {activitySessions.length > 1 ? <DropdownInput className="bordered sessions" handleChange={activitySessionDropdownCallback} options={activitySessionOptions} value={activitySessionValue} /> : null}
           </div>
         </header>
         <div className="time-spent-and-target-skills-count">
@@ -192,8 +192,8 @@ const StudentReport = ({ params, studentDropdownCallback, sessionDropdownCallbac
             <p>{displaySkills}{displayScore}</p>
           </div>
         </div>
-        {renderHelpfulTips(session)}
-        {studentBoxes(session)}
+        {renderHelpfulTips(activitySession)}
+        {studentBoxes(activitySession)}
       </div>
     </div>
   );

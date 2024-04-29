@@ -249,7 +249,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     end
   end
 
-  describe '#sessions_for_student' do
+  describe '#activity_sessions_for_student' do
     let(:student) { create(:student) }
     let(:students_classroom) { create(:students_classroom, classroom: classroom, student: student) }
     let(:unit) { create(:unit) }
@@ -259,28 +259,28 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
 
     it 'returns session data for the given student, unit, and activity' do
-      get :sessions_for_student, params: { classroom_id: classroom.id, unit_id: unit.id, student_id: student.id, activity_id: activity.id }
+      get :activity_sessions_for_student, params: { classroom_id: classroom.id, unit_id: unit.id, student_id: student.id, activity_id: activity.id }
 
       expect(response).to have_http_status(:success)
       json_response = JSON.parse(response.body)
-      expect(json_response['sessions']).to be_present
-      expect(json_response['sessions'].first['id']).to eq(student.id)
+      expect(json_response['activity_sessions']).to be_present
+      expect(json_response['activity_sessions'].first['id']).to eq(student.id)
     end
 
     it 'returns an empty array when no sessions are available' do
-      get :sessions_for_student, params: { classroom_id: classroom.id, unit_id: unit.id, student_id: 999, activity_id: activity.id } # Unmatched student ID
+      get :activity_sessions_for_student, params: { classroom_id: classroom.id, unit_id: unit.id, student_id: 999, activity_id: activity.id } # Unmatched student ID
 
       expect(response).to have_http_status(:success)
       json_response = JSON.parse(response.body)
-      expect(json_response['sessions']).to be_empty
+      expect(json_response['activity_sessions']).to be_empty
     end
 
     context 'with caching' do
       it 'caches the results to prevent repeated database queries' do
-        expect_any_instance_of(Teachers::ProgressReports::DiagnosticReportsController).to receive(:sessions_for_unit_activity_classroom_and_student).with(any_args).once.and_call_original
+        expect_any_instance_of(Teachers::ProgressReports::DiagnosticReportsController).to receive(:activity_sessions_for_unit_activity_classroom_and_student).with(any_args).once.and_call_original
 
         2.times do
-          get :sessions_for_student, params: { classroom_id: classroom.id, unit_id: unit.id, student_id: student.id, activity_id: activity.id }
+          get :activity_sessions_for_student, params: { classroom_id: classroom.id, unit_id: unit.id, student_id: student.id, activity_id: activity.id }
 
           expect(response).to be_successful
         end
