@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe UserMailer, type: :mailer do
   before do
-    allow_any_instance_of(ActionView::Helpers::AssetTagHelper).to receive(:stylesheet_link_tag)
+    allow_any_instance_of(ActionView::Base).to receive(:vite_stylesheet_tag)
   end
 
   describe 'invitation_to_non_existing_user' do
