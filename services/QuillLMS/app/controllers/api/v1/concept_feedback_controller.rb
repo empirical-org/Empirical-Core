@@ -5,12 +5,7 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
   before_action :concept_feedback_by_uid, except: [:index, :create, :update]
 
   def index
-    all_concept_feedbacks = ConceptFeedback
-      .where(activity_type: params[:activity_type])
-      .all
-      .reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
-
-    render json: all_concept_feedbacks
+    render json: fetch_all_concept_feedbacks_and_cache
   end
 
   def show
@@ -50,5 +45,15 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
 
   private def valid_params
     params.require(:concept_feedback).except(:uid)
+  end
+
+  private def fetch_all_concept_feedbacks_and_cache
+    Rails.cache.fetch("#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{params[:activity_type]}") do
+      ConceptFeedback
+        .where(activity_type: params[:activity_type])
+        .all
+        .reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
+        .to_json
+    end
   end
 end

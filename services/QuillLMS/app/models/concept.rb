@@ -22,7 +22,10 @@ class Concept < ApplicationRecord
   validates :name, presence: true
   has_many :concept_results
   has_many :change_logs, as: :changed_record
-  has_many :diagnostic_question_optimal_concepts, dependent: :destroy
+
+  ALL_CONCEPTS_KEY = "all_concepts_with_level"
+
+  after_commit :clear_concept_cache
 
   def lineage
     family_tree = name
@@ -100,5 +103,9 @@ class Concept < ApplicationRecord
           concepts.name
       SQL
     ).values.flatten
+  end
+
+  private def clear_concept_cache
+    Rails.cache.delete("#{ALL_CONCEPTS_KEY}")
   end
 end
