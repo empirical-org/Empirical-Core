@@ -1,4 +1,5 @@
 import * as React from 'react';
+import _ from 'underscore';
 import { connect } from 'react-redux';
 import * as questionActions from '../../actions/questions';
 import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm';
@@ -12,11 +13,15 @@ class NewIncorrectSequencesContainer extends React.Component {
   }
 
   submitSequenceForm = (data) => {
-    const { dispatch, match, history, } = this.props
+    const { dispatch, match, history, questions } = this.props
+    const incorrectSequences = questions.data[match.params.questionID].incorrectSequences
     delete data.conceptResults.null;
+    data.order = _.keys(incorrectSequences).length;
     // the only difference in the route between this page and the one where you can see all the incorrect sequences is the `/new` at the end of the path, so removing that will send us back to the main list
     const url = match.url.replace('/new', '')
-    const callback = () => history.push(url)
+    const callback = () => {
+      history.push(url)
+    }
     dispatch(questionActions.submitNewIncorrectSequence(match.params.questionID, data, callback))
   }
 

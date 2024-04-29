@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'underscore';
 import { connect } from 'react-redux';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
@@ -29,10 +30,12 @@ class NewIncorrectSequencesContainer extends Component {
 
   submitSequenceForm = data => {
     const { actionFile, questionTypeLink } = this.state;
-    const { dispatch, history, match } = this.props;
+    const { dispatch, history, match, generatedIncorrectSequences } = this.props;
     const { params } = match;
     const { questionID } = params;
     delete data.conceptResults.null;
+    const usedIncorrectSequences = generatedIncorrectSequences.used[match.params.questionID];
+    data.order = _.keys(usedIncorrectSequences).length;
     // TODO: fix add new incorrect sequence action to show new incorrect sequence without refreshing
     dispatch(actionFile.submitNewIncorrectSequence(questionID, data));
     history.push(`/admin/${questionTypeLink}/${questionID}/incorrect-sequences`)
