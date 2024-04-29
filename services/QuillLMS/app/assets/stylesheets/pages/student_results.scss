@@ -40,7 +40,7 @@
     border-radius: 8px;
   }
 
-  .activity-name-and-overall-score, .results-section {
+  .activity-name-and-overall-score, .results-section, .keep-practicing-section {
     padding: 32px;
     &:not(:last-of-type) {
       border-bottom: 1px solid $quill-grey-15;
@@ -91,6 +91,19 @@
       color: $quill-grey-50;
       font-size: 16px;
       line-height: normal;
+    }
+  }
+
+  .keep-practicing-section {
+    border-radius: 8px;
+    border: 1px solid $quill-grey-15;
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    p {
+      font-size: 16px;
+      margin-top: 8px;
     }
   }
 }
