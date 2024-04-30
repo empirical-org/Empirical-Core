@@ -1,10 +1,12 @@
 import * as React from 'react';
 import _ from 'lodash';
+import moment from 'moment'
 
 import Attempt from '../components/studentActivityReport/attempt'
 import QuestionLevelInformation from '../components/studentActivityReport/questionLevelInformation'
-import { HelpfulTips } from '../../Shared/index';
+import { HelpfulTips, DropdownInput, } from '../../Shared/index';
 import { proficiencyCutoffsAsPercentage } from '../../../modules/proficiency_cutoffs';
+import NumberSuffix from '../../Teacher/components/modules/numberSuffixBuilder';
 
 const arrowBackSrc = `${process.env.CDN_URL}/images/icons/arrow-back.svg`
 
@@ -41,7 +43,11 @@ const helpfulTips = (
   />
 )
 
-const StudentActivityReportApp = ({ activity, showExactScore, reportData, classroomId, }) => {
+const StudentActivityReportApp = ({ activity, showExactScore, reportData, classroomId, activitySessions, }) => {
+  function onActivitySessionClick(activitySession) {
+    window.location.href = `/activity_sessions/${activitySession.value}/student_activity_report`
+  }
+
   function renderScore() {
     const { score, number_of_questions, number_of_correct_questions, } = reportData;
 
@@ -64,6 +70,23 @@ const StudentActivityReportApp = ({ activity, showExactScore, reportData, classr
         <strong>{displaySkills}</strong>&nbsp;
         {displayScore}
       </div>
+    )
+  }
+
+  function renderDropdown() {
+    if (activitySessions.length === 1) { return }
+
+    const activitySessionOptions = activitySessions.map((s, index) => {
+      const scoreNumber = `${NumberSuffix(index + 1)} Score`
+      const formattedDate = moment.utc(s.completed_at).format('MMM D[,] h:mma')
+      const label = showExactScore ? `${scoreNumber}: ${s.score}% - ${formattedDate}` : `${scoreNumber} - ${formattedDate}`
+      return { value: s.activity_session_id, label, }
+    })
+    const activitySessionValue = activitySessionOptions.find(s => reportData.activity_session_id === s.value)
+
+
+    return (
+      <DropdownInput className="bordered activity-sessions" handleChange={onActivitySessionClick} options={activitySessionOptions} value={activitySessionValue} />
     )
   }
 
@@ -114,7 +137,10 @@ const StudentActivityReportApp = ({ activity, showExactScore, reportData, classr
       <div className="container">
         <div className="header">
           <h1>{activity.name}</h1>
-          {renderScore()}
+          <div className="dropdown-and-score">
+            {renderDropdown()}
+            {renderScore()}
+          </div>
         </div>
         {helpfulTips}
         {renderQuestions()}

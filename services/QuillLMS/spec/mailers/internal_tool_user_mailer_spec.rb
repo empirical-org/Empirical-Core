@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe InternalToolUserMailer, type: :mailer do
   before do
-    allow_any_instance_of(ActionView::Helpers::AssetTagHelper).to receive(:stylesheet_link_tag)
+    allow_any_instance_of(ActionView::Base).to receive(:vite_stylesheet_tag)
   end
 
   describe 'admin_account_created_email' do

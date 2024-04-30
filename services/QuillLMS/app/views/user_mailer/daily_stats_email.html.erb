@@ -3,7 +3,7 @@
   <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <%= stylesheet_link_tag 'stats_email' %>
+        <%= vite_stylesheet_tag 'entrypoints/snippets/stats_email.scss', media: "all"  %>
   </head>
     <body class="email-body">
       <div class='header'>
@@ -90,7 +90,7 @@
                     <td class="comment-cell medium-text">"<%= comment['feedback'] %>"</td>
                     <td id="rating-<%= comment['rating'] %>" class="right-cell medium-text" align="center"><h1><%= comment['rating'] %></h1></td>
                   </tr>
-                <% end %> 
+                <% end %>
             <% end %>
             <tr><td class="medium-text sub-header">Keep up the great work!</td></tr>
         </tbody>
