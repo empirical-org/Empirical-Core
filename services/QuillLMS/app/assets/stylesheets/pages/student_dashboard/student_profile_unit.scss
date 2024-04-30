@@ -95,6 +95,7 @@
         height: 24px;
         border-radius: 2px;
         margin-right: 8px;
+        position: relative;
         &.completed {
           background-color: #358fdf;
         }
@@ -107,6 +108,23 @@
         &.rarely-demonstrated-skill {
           background-color: #e73030;
         }
+        .attempt-symbol {
+      		vertical-align: middle;
+      		position: absolute;
+          top: -6px;
+          right: -6px;
+          height: 16px;
+      	}
+
+      	.attempt-count {
+      		color: $quill-white;
+      		position: absolute;
+      		right: -1px;
+      		top: -5px;
+          font-size: 10px;
+          font-style: normal;
+          font-weight: 700;
+      	}
       }
     }
     .complete-baseline {

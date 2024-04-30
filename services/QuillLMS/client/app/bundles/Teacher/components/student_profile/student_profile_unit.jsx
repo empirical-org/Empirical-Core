@@ -235,7 +235,7 @@ export default class StudentProfileUnit extends React.Component {
 
   score = (act) => {
     const { exactScoresData, showExactScores, exactScoresDataPending, } = this.props
-    const { activity_classification_key, max_percentage, ua_id, classroom_unit_id, } = act
+    const { activity_classification_key, max_percentage, ua_id, classroom_unit_id, completed_attempt_count, } = act
     const maxPercentage = Number(max_percentage)
 
     if (UNGRADED_ACTIVITY_CLASSIFICATIONS.includes(activity_classification_key)) {
@@ -268,15 +268,22 @@ export default class StudentProfileUnit extends React.Component {
       exactScoreCopy = (<span>{number_of_correct_questions} of {number_of_questions} ({Math.round(percentage * 100)}%)</span>)
     }
 
+    const attemptCountIndicator = completed_attempt_count > 1 ? (
+      <span>
+        <img alt="" className="attempt-symbol" src="https://assets.quill.org/images/scorebook/blue-circle-solid.svg" />
+        <span className="attempt-count">{completed_attempt_count}</span>
+      </span>
+    ) : null
+
     if (maxPercentage >= FREQUENTLY_DEMONSTRATED_SKILL_CUTOFF) {
-      return (<div className="score"><div className="frequently-demonstrated-skill" /><span>{exactScoreCopy || 'Frequently demonstrated skill'}</span></div>)
+      return (<div className="score"><div className="frequently-demonstrated-skill">{attemptCountIndicator}</div><span>{exactScoreCopy || 'Frequently demonstrated skill'}</span></div>)
     }
 
     if (maxPercentage >= SOMETIMES_DEMONSTRATED_SKILL_CUTOFF) {
-      return (<div className="score"><div className="sometimes-demonstrated-skill" /><span>{exactScoreCopy || 'Sometimes demonstrated skill'}</span></div>)
+      return (<div className="score"><div className="sometimes-demonstrated-skill">{attemptCountIndicator}</div><span>{exactScoreCopy || 'Sometimes demonstrated skill'}</span></div>)
     }
 
-    return (<div className="score"><div className="rarely-demonstrated-skill" /><span>{exactScoreCopy || 'Rarely demonstrated skill'}</span></div>)
+    return (<div className="score"><div className="rarely-demonstrated-skill">{attemptCountIndicator}</div><span>{exactScoreCopy || 'Rarely demonstrated skill'}</span></div>)
 
   }
 
