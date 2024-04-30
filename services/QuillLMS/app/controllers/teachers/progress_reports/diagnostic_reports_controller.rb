@@ -44,6 +44,20 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     render json: response
   end
 
+  def activity_sessions_for_student
+    classroom = Classroom.find(params[:classroom_id])
+
+    cache_groups = {
+      activity_id: params[:activity_id],
+      unit_id: params[:unit_id],
+      student_id: params[:student_id]
+    }
+    response = current_user.classroom_cache(classroom, key: 'teachers.progress_reports.diagnostic_reports.activity_sessions_for_student', groups: cache_groups) do
+      activity_sessions_for_unit_activity_classroom_and_student(params[:unit_id], params[:activity_id], params[:classroom_id], params[:student_id])
+    end
+    render json: { activity_sessions: response }
+  end
+
   def individual_student_diagnostic_responses
     data = fetch_individual_student_diagnostic_responses_cache
 

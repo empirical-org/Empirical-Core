@@ -5,6 +5,33 @@
   flex-direction: column;
   position: relative;
 
+  &.dropdown-container.bordered {
+    input {
+      font-size: 14px !important;
+    }
+
+    .dropdown {
+      margin-bottom: 0px;
+    }
+
+    .dropdown__control {
+      border: 1px $quill-grey-15 !important;
+      border-style: solid !important;
+      padding: 4px 16px;
+      border-radius: 4px !important;
+      margin-bottom: 0px;
+    }
+
+    .dropdown__single-value {
+      display: flex;
+    }
+
+    &.inactive.has-text label {
+      margin-bottom: 0px;
+    }
+
+  }
+
  &.disabled {
     input, .dropdown .dropdown__single-value {
       color: #7f7f7f;

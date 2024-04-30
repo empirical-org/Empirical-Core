@@ -45,7 +45,8 @@ class ActivitySessionsController < ApplicationController
 
   def student_activity_report
     @js_file = 'student'
-    @report_data = formatted_score_obj(@activity_session, @activity_session.classification, @activity_session.user)
+    @activity_sessions = activity_sessions_for_unit_activity_classroom_and_student(@activity_session.unit&.id, @activity_session.activity_id, @activity_session.classroom&.id, @activity_session.user_id)
+    @report_data = @activity_sessions.find { |session| session[:activity_session_id] == @activity_session.id }
   end
 
   def anonymous

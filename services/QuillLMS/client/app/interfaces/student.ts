@@ -10,4 +10,5 @@ export interface Student {
     concept_results: Concept[],
     score: number,
     average_score_on_quill: number,
+    activity_session_id: number
 }
