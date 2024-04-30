@@ -25,17 +25,6 @@ class IncorrectSequencesContainer extends Component {
     this.state = { orderedIds: orderedIds, questionType, actionFile, questionTypeLink, incorrectSequences };
   }
 
-  // componentDidMount() {
-  //   const { actionFile } = this.state
-  //   const { getUsedSequences } = actionFile
-  //   const { dispatch, match } = this.props
-  //   const { params } = match
-  //   const { questionID } = params
-  //   if (getUsedSequences) {
-  //     dispatch(getUsedSequences(questionID))
-  //   }
-  // }
-
   UNSAFE_componentWillReceiveProps(nextProps) {
     const { incorrectSequences } = this.state
     const { match, questions } = nextProps
