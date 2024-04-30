@@ -142,7 +142,7 @@
       .due-date-section {
         flex: 1;
       }
-      .action-button-section {
+      .action-button-section, .view-results-section {
         flex: 1;
       }
       .score-section {
@@ -165,12 +165,12 @@
         min-height: 108px;
         height: min-content !important;
       }
-      .data-table-row-section.action-button-section {
+      .data-table-row-section.action-button-section, .data-table-row-section.view-results-section {
         flex: 1 0 100%;
         justify-content: flex-start;
         margin-top: 12px;
       }
-      .data-table-header.action-button-section {
+      .data-table-header.action-button-section, .data-table-header.view-results-section {
         display: none !important;
       }
       .due-date-section {

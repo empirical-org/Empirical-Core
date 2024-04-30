@@ -128,7 +128,7 @@ export const ScorebookTooltip = ({ data, inStudentView, }: ScorebookTooltipProps
     const attemptInProgress = started > 0
 
     return sessions.map((session, i) => {
-      const { percentage, number_of_correct_questions, number_of_questions, completed_at, timespent } = session
+      const { percentage, number_of_correct_questions, number_of_questions, completed_at, timespent, is_final_score, } = session
       const ordinalNumber = numberSuffixBuilder(i + 1)
       const formattedPercentage = percentageDisplayer.run(percentage)
       const scoreText = `${number_of_correct_questions} of ${number_of_questions} Target Skills Correct (${formattedPercentage})`
@@ -148,7 +148,7 @@ export const ScorebookTooltip = ({ data, inStudentView, }: ScorebookTooltipProps
           <p className="description">{`${moment.utc(completed_at).format('MMMM D, YYYY [at] h:mm a')} / ${timespent ? getTimeSpent(timespent) : NOT_APPLICABLE}`}</p>
         </div>
       )
-      return <ActivityDetailsSection description={descriptionElement} header={`${ordinalNumber} score`} key={i} />
+      return <ActivityDetailsSection description={descriptionElement} header={`${ordinalNumber} score${inStudentView && is_final_score ? '*' : ''}`} key={i} />
     })
   };
 
@@ -210,7 +210,8 @@ export const ScorebookTooltip = ({ data, inStudentView, }: ScorebookTooltipProps
       <div className="main">
         {activityOverview()}
         {keyTargetSkillConceptsOrExplanation()}
-        {inStudentView ? colorExplanation() : <p className="tooltip-message">Clicking on the activity icon loads the report</p>}
+        {inStudentView ? colorExplanation() : null}
+        <p className="tooltip-message">{inStudentView ? '*Your dashboard shows the highest score of all your attempts' : 'Clicking on the activity icon loads the report'}</p>
       </div>
     </div>
   )
