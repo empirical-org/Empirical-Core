@@ -37,7 +37,7 @@ const Navbar = ({ params, selectedActivity, classrooms, buttonGroupCallback, dro
       <div className="container">
         <div className="name-and-classroom-dropdown">
           <h1>{selectedActivity.name}</h1>
-          <DropdownInput handleChange={onDropdownChange} options={classroomOptions} value={classroomOptions.find(opt => String(opt.value) === params.classroomId)} />
+          <DropdownInput className="bordered" handleChange={onDropdownChange} options={classroomOptions} value={classroomOptions.find(opt => String(opt.value) === params.classroomId)} />
         </div>
         <nav>
           {studentsButton({ buttonGroupCallback, })}

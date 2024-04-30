@@ -129,6 +129,28 @@ module PublicProgressReports
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
+  def activity_sessions_for_unit_activity_classroom_and_student(unit_id, activity_id, classroom_id, student_id)
+    classroom_unit = ClassroomUnit.find_by(
+      classroom_id: classroom_id,
+      unit_id: unit_id
+    )
+
+    return [] if !classroom_unit
+
+    activity_sessions = ActivitySession
+      .includes(concept_results: :concept)
+      .where(
+        user_id: student_id,
+        classroom_unit_id: classroom_unit.id,
+        activity_id: activity_id)
+      .order('activity_sessions.completed_at')
+
+    classification = Activity.find_by(id: activity_id).classification
+    student = User.find_by(id: student_id)
+
+    activity_sessions.map { |activity_session| formatted_score_obj(activity_session, classification, student) }
+  end
+
   # rubocop:disable Metrics/CyclomaticComplexity
   def results_for_classroom(unit_id, activity_id, classroom_id)
     classroom_unit = ClassroomUnit.find_by(
@@ -193,26 +215,31 @@ module PublicProgressReports
     :not_completed_names
   end
 
-  def formatted_score_obj(final_activity_session, classification, student, average_score_on_quill=0)
-    formatted_concept_results = format_concept_results(final_activity_session, final_activity_session.concept_results)
+  def formatted_score_obj(activity_session, classification, student, average_score_on_quill=0)
+    formatted_concept_results = format_concept_results(activity_session, activity_session.concept_results)
     if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(classification.key)
       score = get_average_score(formatted_concept_results)
     elsif [ActivityClassification::EVIDENCE_KEY].include?(classification.key)
       score = nil
     else
-      score = (final_activity_session.percentage * 100).round
+      score = (activity_session.percentage * 100).round
     end
+
+    time_offset = current_user ? current_user.utc_offset.seconds : 0
+
     {
       activity_classification: classification.key,
       activity_classification_name: classification.name,
       id: student.id,
       name: student.name,
-      time: final_activity_session.timespent,
+      time: activity_session.timespent,
       number_of_correct_questions: formatted_concept_results.filter { |q| q[:key_target_skill_concept][:correct] }.length,
       number_of_questions: formatted_concept_results.length,
       concept_results: formatted_concept_results,
       score:,
-      average_score_on_quill:
+      average_score_on_quill:,
+      activity_session_id: activity_session.id,
+      completed_at: activity_session.completed_at + time_offset
     }
   end
 
