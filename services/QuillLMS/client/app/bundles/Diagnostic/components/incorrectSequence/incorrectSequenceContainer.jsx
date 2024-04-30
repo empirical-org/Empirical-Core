@@ -20,9 +20,7 @@ class IncorrectSequencesContainer extends Component {
     const { sentenceFragments } = props
 
     const sequencesCollection = hashToCollection(incorrectSequences)
-    console.log(sequencesCollection)
     const orderedIds = sequencesCollection.sort((a, b) => a.order - b.order).map(b => b.key);
-    console.log(orderedIds)
 
     this.state = {
       orderedIds: orderedIds,
@@ -161,7 +159,6 @@ class IncorrectSequencesContainer extends Component {
   sequencesSortedByOrder = () => {
     const { orderedIds, incorrectSequences } = this.state
     const sequencesCollection = Array.isArray(incorrectSequences) ? incorrectSequences : hashToCollection(incorrectSequences)
-    console.log(orderedIds)
     return orderedIds.map(id => sequencesCollection.find(s => s.key === id))
   }
 
