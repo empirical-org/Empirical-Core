@@ -22,7 +22,7 @@ class IncorrectSequencesContainer extends Component {
     const sequencesCollection = hashToCollection(incorrectSequences)
     const orderedIds = sequencesCollection.sort((a, b) => a.order - b.order).map(b => b.key);
 
-    this.state = { orderedIds: orderedIds, questionType, actionFile, questionTypeLink, incorrectSequences };
+    this.state = { orderedIds, questionType, actionFile, questionTypeLink, incorrectSequences };
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
