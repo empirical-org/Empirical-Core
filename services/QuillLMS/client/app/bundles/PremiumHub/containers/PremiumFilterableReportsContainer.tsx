@@ -343,6 +343,7 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     availableGrades,
     availableTeachers,
     availableClassrooms: availableClassroomsToPass,
+    originalAllClassrooms,
     applyFilters,
     clearFilters,
     selectedGrades,

@@ -13,6 +13,7 @@ describe('Filters component', () => {
     availableGrades: grades,
     availableTeachers: teachers,
     availableClassrooms: classrooms,
+    originalAllClassrooms: classrooms,
     applyFilters: jest.fn(),
     clearFilters: jest.fn(),
     selectedGrades: grades,

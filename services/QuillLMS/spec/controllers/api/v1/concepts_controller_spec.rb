@@ -27,6 +27,16 @@ describe Api::V1::ConceptsController, type: :controller do
       it { expect(parsed_body['concept']['name']).to eq concept_name  }
       it { expect(parsed_body['concept']['uid']).to_not be_nil }
     end
+
+    describe 'cache actions' do
+      let(:user) { create(:staff) }
+
+      it 'expires the redis cache for all concepts, each time a new concept is created' do
+        expect($redis).to receive(:del).with(Concept::ALL_CONCEPTS_KEY)
+        subject
+      end
+    end
+
   end
 
   context 'GET #index' do
@@ -35,10 +45,15 @@ describe Api::V1::ConceptsController, type: :controller do
     let!(:concept1) { create(:concept) }
     let!(:concept2) { create(:concept, parent: concept1) }
 
-    before { subject }
-
     it 'returns all concepts' do
+      subject
       expect(parsed_body['concepts'].length).to eq(2)
+    end
+
+    it 'sets the redis cache for all concepts if not set already' do
+      $redis.del(Concept::ALL_CONCEPTS_KEY)
+      subject
+      expect($redis.get(Concept::ALL_CONCEPTS_KEY)).to eq({concepts: Concept.all_with_level}.to_json)
     end
   end
 

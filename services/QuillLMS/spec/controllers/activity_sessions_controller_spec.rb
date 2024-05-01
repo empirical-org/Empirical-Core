@@ -38,7 +38,7 @@ describe ActivitySessionsController, type: :controller do
     let(:formatted_score_obj) { { activity_session_id: activity_session.id} }
 
     before do
-      allow(controller).to receive(:activity_sessions_for_unit_activity_classroom_and_student).and_return([formatted_score_obj])
+      allow(controller).to receive(:finished_activity_sessions_for_unit_activity_classroom_and_student).and_return([formatted_score_obj])
     end
 
     it 'should set the report_data' do
