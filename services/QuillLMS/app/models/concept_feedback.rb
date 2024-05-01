@@ -31,6 +31,8 @@ class ConceptFeedback < ApplicationRecord
 
   after_commit :clear_concept_feedbacks_cache
 
+  def cache_key = "#{ALL_CONCEPT_FEEDBACKS_KEY}_#{activity_type}"
+
   def as_json(options=nil)
     data
   end
@@ -40,7 +42,7 @@ class ConceptFeedback < ApplicationRecord
   end
 
   private def clear_concept_feedbacks_cache
-    Rails.cache.delete("#{ALL_CONCEPT_FEEDBACKS_KEY}_#{activity_type}")
+    Rails.cache.delete(cache_key)
   end
 end
 

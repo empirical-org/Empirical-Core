@@ -64,7 +64,7 @@ RSpec.describe ConceptFeedback, type: :model do
 
     context 'after update' do
       it 'calls Rails.cache.delete on concept feedback with activity type' do
-        expect(Rails.cache).to receive(:delete).with("#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{concept_feedback.activity_type}")
+        expect(Rails.cache).to receive(:delete).with(concept_feedback.cache_key)
         concept_feedback.update(data: {test: 'test'})
       end
     end
