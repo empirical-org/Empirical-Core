@@ -259,7 +259,9 @@ describe ProfilesController, type: :controller do
                 'completed_pre_activity_session' => pre_test_completed_session.present?,
                 'finished' => activity_session&.percentage ? true : false,
                 'resume_link' => activity_session&.state == 'started' ? 1 : 0,
-                'closed' => false
+                'closed' => false,
+                'activity_session_id' => activity_session&.id,
+                'completed_attempt_count' => activity_session&.completed_at ? 1 : 0
               }
             end
           end
@@ -329,6 +331,8 @@ describe ProfilesController, type: :controller do
           expect(session_data['sessions']).to be_a(Array)
           expect(session_data['sessions'].size).to eq(2)
           expect(session_data['completed_attempts']).to eq(2)
+
+          expect(session_data['sessions'][0]['completed_at']).to be < session_data['sessions'][1]['completed_at']
 
           session_data['sessions'].each do |session|
             expect(session.keys).to include('percentage', 'id', 'description', 'due_date', 'completed_at')

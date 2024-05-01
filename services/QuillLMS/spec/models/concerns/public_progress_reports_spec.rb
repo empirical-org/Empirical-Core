@@ -373,7 +373,8 @@ describe PublicProgressReports, type: :model do
         grouped_key_target_skill_concepts: [{ name: concept.parent.name, correct: 1, incorrect: 1 }],
         number_of_questions: 2,
         number_of_correct_questions: 1,
-        timespent: activity_session.timespent
+        timespent: activity_session.timespent,
+        is_final_score: activity_session.is_final_score
       )
 
       # Due to time-precision rounding on strings, we have to do this comparison
