@@ -4,6 +4,8 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
   before_action :activity_type, except: [:index]
   before_action :concept_feedback_by_uid, except: [:index, :create, :update]
 
+  CACHE_EXPIRY = 24.hours
+
   def index
     render json: fetch_all_concept_feedbacks_and_cache
   end
@@ -48,7 +50,7 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
   end
 
   private def fetch_all_concept_feedbacks_and_cache
-    Rails.cache.fetch("#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{params[:activity_type]}") do
+    Rails.cache.fetch("#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{params[:activity_type]}", expires_in: CACHE_EXPIRY) do
       ConceptFeedback
         .where(activity_type: params[:activity_type])
         .all

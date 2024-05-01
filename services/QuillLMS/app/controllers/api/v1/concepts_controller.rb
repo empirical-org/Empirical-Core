@@ -3,6 +3,8 @@
 class Api::V1::ConceptsController < Api::ApiController
   before_action :staff!, only: [:create]
 
+  CACHE_EXPIRY = 24.hours
+
   def create
     concept = Concept.new(concept_params)
     if concept.save
@@ -35,7 +37,7 @@ class Api::V1::ConceptsController < Api::ApiController
   end
 
   private def fetch_all_concepts_and_cache
-    Rails.cache.fetch(Concept::ALL_CONCEPTS_KEY) do
+    Rails.cache.fetch(Concept::ALL_CONCEPTS_KEY, expires_in: CACHE_EXPIRY) do
       {concepts: Concept.all_with_level}.to_json
     end
   end
