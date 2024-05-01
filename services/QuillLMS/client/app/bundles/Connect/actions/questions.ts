@@ -176,10 +176,11 @@ function updateModelConceptUID(qid, modelConceptUID) {
   }
 }
 
-function submitNewIncorrectSequence(qid, data) {
+function submitNewIncorrectSequence(qid, data, callback) {
   return (dispatch, getState) => {
     IncorrectSequenceApi.create(qid, data).then(() => {
       dispatch(loadQuestion(qid));
+      callback();
     }, (error) => {
       alert(`Submission failed! ${error}`);
     });
@@ -206,10 +207,11 @@ function deleteIncorrectSequence(qid, seqid) {
   };
 }
 
-function updateIncorrectSequences(qid, data) {
+function updateIncorrectSequences(qid, data, callback) {
   return (dispatch, getState) => {
     IncorrectSequenceApi.updateAllForQuestion(qid, data).then(() => {
       dispatch(loadQuestion(qid));
+      callback();
     }).catch((error) => {
       alert(`Order update failed! ${error}`);
     });
