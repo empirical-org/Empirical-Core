@@ -268,7 +268,7 @@ jobs:
                 name: Install NPM dependencies
                 command: |
                   cd services/QuillLMS/client
-                  npm install
+                  npm install --legacy-peer-deps
             - save_cache:
                 key: npm-cache-lms-client-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
                 paths:
