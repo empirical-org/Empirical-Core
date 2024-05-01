@@ -87,7 +87,7 @@ const StudentReport = ({ params, studentDropdownCallback, activitySessionDropdow
   }
 
   function getActivitySessions() {
-    requestGet(`/teachers/progress_reports/activity_sessions_for_student/u/${params.unitId}/a/${params.activityId}/c/${params.classroomId}/s/${params.studentId}`, (data: { activity_sessions: Student[] }) => {
+    requestGet(`/teachers/progress_reports/finished_activity_sessions_for_student/u/${params.unitId}/a/${params.activityId}/c/${params.classroomId}/s/${params.studentId}`, (data: { activity_sessions: Student[] }) => {
       const { activity_sessions } = data;
       setActivitySessions(activity_sessions)
     });
