@@ -73,8 +73,6 @@ export const DiagnosticGrowthReportsContainer = ({
 
   React.useEffect(() => {
     if (!passedData) {
-      setSelectedGroupByValue(null)
-      setSelectedDiagnosticType(null)
       getFilterSelections(activeTab)
     }
   }, [activeTab])
@@ -128,7 +126,6 @@ export const DiagnosticGrowthReportsContainer = ({
     requestPost('/admin_report_filter_selections/show', { report: `${FILTER_SELECTIONS_REPORT_BASE}${tab}` }, (selections) => {
       if (selections) {
         const { group_by_value, diagnostic_type_value } = selections.filter_selections
-        console.log("🚀 ~ requestPost ~ selections.filter_selections:", selections.filter_selections)
         setSelectedGroupByValue(group_by_value)
         setSelectedDiagnosticType(diagnostic_type_value)
       } else {
@@ -156,6 +153,8 @@ export const DiagnosticGrowthReportsContainer = ({
 
   function handleTabChange(e) {
     setActiveTab(e.currentTarget.value)
+    setSelectedGroupByValue(null)
+    setSelectedDiagnosticType(null)
   }
 
   function handleTabChangeFromDataChip(value) {
