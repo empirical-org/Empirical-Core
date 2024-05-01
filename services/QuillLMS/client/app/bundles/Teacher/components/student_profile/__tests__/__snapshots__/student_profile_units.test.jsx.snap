@@ -4381,22 +4381,6 @@ exports[`StudentProfileUnits component should render only completed activities i
             headers={
               Array [
                 Object {
-                  "attribute": "name",
-                  "headerClassName": "name-section",
-                  "name": "Activity",
-                  "noTooltip": true,
-                  "rowSectionClassName": "name-section tooltip-section",
-                  "width": "474px",
-                },
-                Object {
-                  "attribute": "score",
-                  "headerClassName": "score-section tooltip-section",
-                  "name": "Score",
-                  "noTooltip": true,
-                  "rowSectionClassName": "score-section tooltip-section",
-                  "width": "230px",
-                },
-                Object {
                   "attribute": "tool",
                   "headerClassName": "tool-icon-section",
                   "name": "Tool",
@@ -4413,12 +4397,36 @@ exports[`StudentProfileUnits component should render only completed activities i
                   "width": "110px",
                 },
                 Object {
+                  "attribute": "name",
+                  "headerClassName": "name-section",
+                  "name": "Activity",
+                  "noTooltip": true,
+                  "rowSectionClassName": "name-section tooltip-section",
+                  "width": "410px",
+                },
+                Object {
                   "attribute": "completedDate",
                   "headerClassName": "completed-date-section",
                   "name": "Completed date",
                   "noTooltip": true,
                   "rowSectionClassName": "completed-date-section tooltip-section",
                   "width": "110px",
+                },
+                Object {
+                  "attribute": "score",
+                  "headerClassName": "score-section tooltip-section",
+                  "name": "Score",
+                  "noTooltip": true,
+                  "rowSectionClassName": "score-section tooltip-section",
+                  "width": "160px",
+                },
+                Object {
+                  "attribute": "viewResultsButton",
+                  "headerClassName": "tooltip-section view-results-section",
+                  "name": "",
+                  "noTooltip": true,
+                  "rowSectionClassName": "tooltip-section view-results-section",
+                  "width": "118px",
                 },
                 Object {
                   "attribute": "actionButton",
@@ -4491,40 +4499,8 @@ exports[`StudentProfileUnits component should render only completed activities i
                   className="data-table-headers"
                 >
                   <th
-                    className="data-table-header name-section"
-                    key="0"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "474px",
-                        "textAlign": "left",
-                        "width": "474px",
-                      }
-                    }
-                  >
-                    <span>
-                      Activity
-                    </span>
-                  </th>
-                  <th
-                    className="data-table-header score-section tooltip-section"
-                    key="1"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "230px",
-                        "textAlign": "left",
-                        "width": "230px",
-                      }
-                    }
-                  >
-                    <span>
-                      Score
-                    </span>
-                  </th>
-                  <th
                     className="data-table-header tool-icon-section"
-                    key="2"
+                    key="0"
                     scope="col"
                     style={
                       Object {
@@ -4540,7 +4516,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   </th>
                   <th
                     className="data-table-header completed-due-date-section"
-                    key="3"
+                    key="1"
                     scope="col"
                     style={
                       Object {
@@ -4555,8 +4531,24 @@ exports[`StudentProfileUnits component should render only completed activities i
                     </span>
                   </th>
                   <th
+                    className="data-table-header name-section"
+                    key="2"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "410px",
+                        "textAlign": "left",
+                        "width": "410px",
+                      }
+                    }
+                  >
+                    <span>
+                      Activity
+                    </span>
+                  </th>
+                  <th
                     className="data-table-header completed-date-section"
-                    key="4"
+                    key="3"
                     scope="col"
                     style={
                       Object {
@@ -4571,8 +4563,38 @@ exports[`StudentProfileUnits component should render only completed activities i
                     </span>
                   </th>
                   <th
-                    className="data-table-header action-button-section tooltip-section"
+                    className="data-table-header score-section tooltip-section"
+                    key="4"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "160px",
+                        "textAlign": "left",
+                        "width": "160px",
+                      }
+                    }
+                  >
+                    <span>
+                      Score
+                    </span>
+                  </th>
+                  <th
+                    className="data-table-header tooltip-section view-results-section"
                     key="5"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "118px",
+                        "textAlign": "right",
+                        "width": "118px",
+                      }
+                    }
+                  >
+                    <span />
+                  </th>
+                  <th
+                    className="data-table-header action-button-section tooltip-section"
+                    key="6"
                     scope="col"
                     style={
                       Object {
@@ -4593,49 +4615,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                   className="data-table-row  "
                   key="9"
                 >
-                  <td
-                    className="data-table-row-section name-section tooltip-section"
-                    key="name-9"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "474px",
-                        "textAlign": "left",
-                        "width": "474px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      A, An
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
-                    className="data-table-row-section score-section tooltip-section"
-                    key="score-9"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "230px",
-                        "textAlign": "left",
-                        "width": "230px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      <div
-                        className="score"
-                      >
-                        <div
-                          className="frequently-demonstrated-skill"
-                        />
-                        <span>
-                          Frequently demonstrated skill
-                        </span>
-                      </div>
-                    </TableCellContentWrapper>
-                  </td>
                   <td
                     className="data-table-row-section tool-icon-section tooltip-section"
                     key="tool-9"
@@ -4669,6 +4648,23 @@ exports[`StudentProfileUnits component should render only completed activities i
                     </TableCellContentWrapper>
                   </td>
                   <td
+                    className="data-table-row-section name-section tooltip-section"
+                    key="name-9"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "410px",
+                        "textAlign": "left",
+                        "width": "410px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      A, An
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section completed-date-section tooltip-section"
                     key="completedDate-9"
                     onMouseEnter={[Function]}
@@ -4678,6 +4674,47 @@ exports[`StudentProfileUnits component should render only completed activities i
                         "minWidth": "110px",
                         "textAlign": "right",
                         "width": "110px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section score-section tooltip-section"
+                    key="score-9"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "160px",
+                        "textAlign": "left",
+                        "width": "160px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      <div
+                        className="score"
+                      >
+                        <div
+                          className="frequently-demonstrated-skill"
+                        />
+                        <span>
+                          Frequently demonstrated skill
+                        </span>
+                      </div>
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
+                    className="data-table-row-section tooltip-section view-results-section"
+                    key="viewResultsButton-9"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "118px",
+                        "textAlign": "right",
+                        "width": "118px",
                       }
                     }
                   >
@@ -4712,49 +4749,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                   key="5"
                 >
                   <td
-                    className="data-table-row-section name-section tooltip-section"
-                    key="name-5"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "474px",
-                        "textAlign": "left",
-                        "width": "474px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Age of Exploration: Spices
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
-                    className="data-table-row-section score-section tooltip-section"
-                    key="score-5"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "230px",
-                        "textAlign": "left",
-                        "width": "230px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      <div
-                        className="score"
-                      >
-                        <div
-                          className="sometimes-demonstrated-skill"
-                        />
-                        <span>
-                          Sometimes demonstrated skill
-                        </span>
-                      </div>
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section tooltip-section"
                     key="tool-5"
                     onMouseEnter={[Function]}
@@ -4787,6 +4781,23 @@ exports[`StudentProfileUnits component should render only completed activities i
                     </TableCellContentWrapper>
                   </td>
                   <td
+                    className="data-table-row-section name-section tooltip-section"
+                    key="name-5"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "410px",
+                        "textAlign": "left",
+                        "width": "410px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Age of Exploration: Spices
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section completed-date-section tooltip-section"
                     key="completedDate-5"
                     onMouseEnter={[Function]}
@@ -4796,6 +4807,47 @@ exports[`StudentProfileUnits component should render only completed activities i
                         "minWidth": "110px",
                         "textAlign": "right",
                         "width": "110px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section score-section tooltip-section"
+                    key="score-5"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "160px",
+                        "textAlign": "left",
+                        "width": "160px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      <div
+                        className="score"
+                      >
+                        <div
+                          className="sometimes-demonstrated-skill"
+                        />
+                        <span>
+                          Sometimes demonstrated skill
+                        </span>
+                      </div>
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
+                    className="data-table-row-section tooltip-section view-results-section"
+                    key="viewResultsButton-5"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "118px",
+                        "textAlign": "right",
+                        "width": "118px",
                       }
                     }
                   >

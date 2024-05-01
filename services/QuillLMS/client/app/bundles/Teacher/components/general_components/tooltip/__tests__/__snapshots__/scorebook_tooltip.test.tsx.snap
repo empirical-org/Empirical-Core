@@ -171,6 +171,11 @@ exports[`ScorebookTooltip component in student view should render if the percent
           </p>
         </div>
       </div>
+      <p
+        class="tooltip-message"
+      >
+        *Your dashboard shows the highest score of all your attempts
+      </p>
     </div>
   </div>
 </DocumentFragment>
@@ -292,6 +297,11 @@ exports[`ScorebookTooltip component in student view should render if the percent
           </p>
         </div>
       </div>
+      <p
+        class="tooltip-message"
+      >
+        *Your dashboard shows the highest score of all your attempts
+      </p>
     </div>
   </div>
 </DocumentFragment>
@@ -468,6 +478,11 @@ exports[`ScorebookTooltip component in student view should render if the percent
           </p>
         </div>
       </div>
+      <p
+        class="tooltip-message"
+      >
+        *Your dashboard shows the highest score of all your attempts
+      </p>
     </div>
   </div>
 </DocumentFragment>
