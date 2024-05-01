@@ -7,7 +7,9 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
   CACHE_EXPIRY = 24.hours
 
   def index
-    render json: fetch_all_concept_feedbacks_and_cache
+    concept_feedbacks = $redis.get("#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{params[:activity_type]}")
+    concept_feedbacks ||= fetch_all_concept_feedbacks_and_cache
+    render json: concept_feedbacks
   end
 
   def show
@@ -50,12 +52,13 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
   end
 
   private def fetch_all_concept_feedbacks_and_cache
-    Rails.cache.fetch("#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{params[:activity_type]}", expires_in: CACHE_EXPIRY) do
-      ConceptFeedback
-        .where(activity_type: params[:activity_type])
-        .all
-        .reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
-        .to_json
-    end
+    concept_feedbacks = ConceptFeedback
+      .where(activity_type: params[:activity_type])
+      .all
+      .reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
+      .to_json
+
+    $redis.set("#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{params[:activity_type]}", concept_feedbacks)
+    concept_feedbacks
   end
 end

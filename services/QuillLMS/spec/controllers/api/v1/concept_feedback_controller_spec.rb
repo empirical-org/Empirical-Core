@@ -17,8 +17,8 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
       expect(JSON.parse(response.body).keys.first).to eq(concept_feedback.uid)
     end
 
-    it 'resets the rails cache for all concept feedbacks if not set already' do
-      Rails.cache.delete(concept_feedback.cache_key)
+    it 'resets the redis cache for all concept feedbacks if not set already' do
+      $redis.del(concept_feedback.cache_key)
       get :index, params: { activity_type: concept_feedback.activity_type }, as: :json
       expect(JSON.parse(response.body)).to eq(
         ConceptFeedback
@@ -52,8 +52,8 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
       expect(ConceptFeedback.count).to eq(pre_create_count + 1)
     end
 
-    it "should expire the rails cache for concept feedbacks with that activity type" do
-      expect(Rails.cache).to receive(:delete).with(concept_feedback.cache_key)
+    it "should expire the redis cache for concept feedbacks with that activity type" do
+      expect($redis).to receive(:del).with(concept_feedback.cache_key)
       post :create, params: { activity_type: concept_feedback.activity_type, concept_feedback: {foo: "bar"} }, as: :json
     end
   end
@@ -88,8 +88,8 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
       expect(ConceptFeedback.find_by(uid: uid)).to be
     end
 
-    it "should expire the rails cache for concept feedbacks with that activity type" do
-      expect(Rails.cache).to receive(:delete).with(concept_feedback.cache_key)
+    it "should expire the redis cache for concept feedbacks with that activity type" do
+      expect($redis).to receive(:del).with(concept_feedback.cache_key)
       data = {"foo" => "bar"}
       put :update,
         params: {

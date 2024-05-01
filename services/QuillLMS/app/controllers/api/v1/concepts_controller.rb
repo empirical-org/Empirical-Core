@@ -23,7 +23,8 @@ class Api::V1::ConceptsController < Api::ApiController
     #   concept_level_0: [concepts where parent id matches a level one concept]
     # }
     #
-    concepts = fetch_all_concepts_and_cache
+    concepts = $redis.get(Concept::ALL_CONCEPTS_KEY)
+    concepts ||= fetch_all_concepts_and_cache
     render json: concepts
   end
 
@@ -37,8 +38,8 @@ class Api::V1::ConceptsController < Api::ApiController
   end
 
   private def fetch_all_concepts_and_cache
-    Rails.cache.fetch(Concept::ALL_CONCEPTS_KEY, expires_in: CACHE_EXPIRY) do
-      {concepts: Concept.all_with_level}.to_json
-    end
+    concepts = {concepts: Concept.all_with_level}.to_json
+    $redis.set(Concept::ALL_CONCEPTS_KEY, concepts)
+    concepts
   end
 end

@@ -32,15 +32,15 @@ describe Concept, type: :model do
     let!(:concept) { create(:concept, name: 'test') }
 
     context 'after update' do
-      it 'calls Rails.cache.delete on all concepts key' do
-        expect(Rails.cache).to receive(:delete).with(Concept::ALL_CONCEPTS_KEY)
+      it 'calls redis cache delete on all concepts key' do
+        expect($redis).to receive(:del).with(Concept::ALL_CONCEPTS_KEY)
         concept.update(name: 'test2')
       end
     end
 
     context 'after create' do
-      it 'calls Rails.cache.delete on all concepts key' do
-        expect(Rails.cache).to receive(:delete).with(Concept::ALL_CONCEPTS_KEY)
+      it 'calls redis cache delete on all concepts key' do
+        expect($redis).to receive(:del).with(Concept::ALL_CONCEPTS_KEY)
         Concept.create(name: 'test')
       end
     end

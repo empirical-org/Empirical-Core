@@ -42,7 +42,7 @@ class ConceptFeedback < ApplicationRecord
   end
 
   private def clear_concept_feedbacks_cache
-    Rails.cache.delete(cache_key)
+    $redis.del(cache_key)
   end
 end
 
