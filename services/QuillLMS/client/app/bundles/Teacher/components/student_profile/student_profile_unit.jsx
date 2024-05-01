@@ -34,19 +34,18 @@ export const UNLOCKED = 'unlocked'
 
 const incompleteHeaders = [
   {
-    width: '823px',
-    name: 'Activity',
-    attribute: 'name',
-    noTooltip: onMobile(), // On mobile we don't want a tooltip wrapper since they basically don't work there
-    headerClassName: 'name-section',
-    rowSectionClassName: 'name-section'
-  }, {
     width: '24px',
     name: 'Tool',
     attribute: 'tool',
     noTooltip: true,
     headerClassName: 'tool-icon-section',
     rowSectionClassName: 'tool-icon-section'
+  }, {    width: '823px',
+    name: 'Activity',
+    attribute: 'name',
+    noTooltip: onMobile(), // On mobile we don't want a tooltip wrapper since they basically don't work there
+    headerClassName: 'name-section',
+    rowSectionClassName: 'name-section'
   }, {
     width: '100px',
     name: 'Due date',
@@ -73,19 +72,19 @@ const completeHeaders = [
     headerClassName: 'tool-icon-section',
     rowSectionClassName: 'tool-icon-section tooltip-section'
   }, {
-    width: '110px',
-    name: 'Due date',
-    attribute: 'dueDate',
-    noTooltip: true,
-    headerClassName: 'completed-due-date-section',
-    rowSectionClassName: 'completed-due-date-section tooltip-section'
-  }, {
     width: '410px',
     name: 'Activity',
     attribute: 'name',
     noTooltip: true,
     headerClassName: 'name-section',
     rowSectionClassName: 'name-section tooltip-section'
+  }, {
+    width: '110px',
+    name: 'Due date',
+    attribute: 'dueDate',
+    noTooltip: true,
+    headerClassName: 'completed-due-date-section',
+    rowSectionClassName: 'completed-due-date-section tooltip-section'
   }, {
     width: '110px',
     name: 'Completed date',
@@ -359,7 +358,7 @@ export default class StudentProfileUnit extends React.Component {
       return {
         name,
         tool: this.toolIcon(activity_classification_key),
-        dueDate: due_date ? formatDateTimeForDisplay(moment.utc(due_date)) : null,
+        dueDate: due_date ? formatDateTimeForDisplay(moment.utc(due_date)) : '—',
         actionButton: this.actionButton(act, nextActivitySession),
         id: ua_id
       }
