@@ -4,13 +4,12 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
   before_action :activity_type, except: [:index]
   before_action :concept_feedback_by_uid, except: [:index, :create, :update]
 
-  def index
-    all_concept_feedbacks = ConceptFeedback
-      .where(activity_type: params[:activity_type])
-      .all
-      .reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
+  CACHE_EXPIRY = 24.hours
 
-    render json: all_concept_feedbacks
+  def index
+    concept_feedbacks = $redis.get("#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{params[:activity_type]}")
+    concept_feedbacks ||= fetch_all_concept_feedbacks_and_cache
+    render json: concept_feedbacks
   end
 
   def show
@@ -50,5 +49,16 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
 
   private def valid_params
     params.require(:concept_feedback).except(:uid)
+  end
+
+  private def fetch_all_concept_feedbacks_and_cache
+    concept_feedbacks = ConceptFeedback
+      .where(activity_type: params[:activity_type])
+      .all
+      .reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
+      .to_json
+
+    $redis.set("#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{params[:activity_type]}", concept_feedbacks)
+    concept_feedbacks
   end
 end
