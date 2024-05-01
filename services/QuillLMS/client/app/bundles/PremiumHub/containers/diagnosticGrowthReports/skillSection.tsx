@@ -187,11 +187,11 @@ export const SkillSection = ({
     return hashMessage == filterHash
   }
 
-  function handleDiagnosticTypeOptionChange(option) {
+  function handleDiagnosticTypeOptionChange(option: DropdownObjectInterface) {
     handleSetSelectedDiagnosticType(option)
   }
 
-  function handleGroupByOptionChange(option) {
+  function handleGroupByOptionChange(option: DropdownObjectInterface) {
     handleSetSelectedGroupByValue(option)
   }
 

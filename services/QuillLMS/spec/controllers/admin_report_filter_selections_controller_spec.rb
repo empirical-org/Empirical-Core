@@ -83,19 +83,20 @@ RSpec.describe AdminReportFilterSelectionsController, type: :controller do
         grade_string = 'grade'
         classroom_string = 'classroom'
         starter_diagnostic_option = { 'value' => 1663, 'label' => 'Starter Diagnostic' }
+        ell_starter_diagnostic_option = { 'value' => 1161, 'label' => 'ELL Starter Diagnostic' }
 
-        admin_report_filter_selection = create(:admin_report_filter_selection, user: user, report: report, filter_selections: { 'group_by_value' => { 'value' => grade_string, 'label' => grade_string }, 'diagnostic_type_value' => {} })
+        admin_report_filter_selection = create(:admin_report_filter_selection, user: user, report: report, filter_selections: { 'group_by_value' => { 'value' => grade_string, 'label' => grade_string }, 'diagnostic_type_value' => starter_diagnostic_option })
 
         updated_filter_selections = {
           'group_by_value' => classroom_string,
-          'diagnostic_type_value' => starter_diagnostic_option
+          'diagnostic_type_value' => ell_starter_diagnostic_option
         }
         updated_attributes = { report: report, filter_selections: updated_filter_selections }
 
         expect do
           post :create_or_update, params: { admin_report_filter_selection: updated_attributes }
         end.to change { admin_report_filter_selection.reload.filter_selections['group_by_value']['value'] }.from(grade_string).to(classroom_string)
-          .and change { admin_report_filter_selection.reload.filter_selections['diagnostic_type_value']['value'] }.from(nil).to(1663)
+          .and change { admin_report_filter_selection.reload.filter_selections['diagnostic_type_value']['value'] }.from(1663).to(1161)
       end
 
       it "renders a JSON response with the admin report filter selection" do
