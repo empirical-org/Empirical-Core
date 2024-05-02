@@ -175,7 +175,7 @@ export const ScorebookTooltip = ({ data, inStudentView, showExactScores, }: Scor
     const { percentage, } = data
 
     if (percentage === null) { return }
-    
+
     const cutOff = proficiencyCutoffsAsPercentage();
 
     const scoreForComparison = percentage * 100
@@ -204,10 +204,13 @@ export const ScorebookTooltip = ({ data, inStudentView, showExactScores, }: Scor
   }
 
   function tooltipMessage() {
-    if (inStudentView && !showExactScores) { return }
+    let text = 'Clicking on the activity icon loads the report'
+    if (inStudentView) {
+      text = showExactScores ? '*Your dashboard shows the highest score of all your attempts' : 'This type of activity is not graded.'
+    }
 
     return (
-      <p className="tooltip-message">{inStudentView ? '*Your dashboard shows the highest score of all your attempts' : 'Clicking on the activity icon loads the report'}</p>
+      <p className="tooltip-message">{text}</p>
     )
   }
 
