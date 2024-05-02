@@ -6,6 +6,7 @@
   .score-tooltip-activator {
     position: relative;
     white-space: normal;
+    width: 100%;
   }
   &.selected-unit {
     .unit-name-and-staggered-release-status {
@@ -37,7 +38,7 @@
     }
   }
   .activities-container {
-    padding: 32px 24px;
+    padding: 32px 0px;
     border-top: 1px solid $quill-grey-5;
     h3 {
       font-size: 16px;
@@ -59,13 +60,13 @@
       .data-table-row {
         min-height: 72px;
         height: min-content;
-        padding: 18px 0px;
+        padding: 18px 20px;
         &:hover {
           background-color: transparent;
         }
       }
       .data-table-headers {
-        padding: 0px;
+        padding: 0px 20px;
       }
     }
     .action-button-section {
@@ -161,7 +162,6 @@
         white-space: normal;
       }
       .data-table-row {
-        padding: 16px 0px !important;
         min-height: 108px;
         height: min-content !important;
       }
