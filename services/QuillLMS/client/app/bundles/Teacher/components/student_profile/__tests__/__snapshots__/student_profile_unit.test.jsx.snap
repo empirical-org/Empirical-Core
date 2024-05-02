@@ -73,7 +73,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             <th
               class="data-table-header tooltip-section view-results-section"
               scope="col"
-              style="width: 118px; min-width: 118px; text-align: right;"
+              style="width: 118px; min-width: 118px; text-align: left;"
             >
               <span />
             </th>
@@ -136,8 +136,16 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section tooltip-section view-results-section"
-              style="width: 118px; min-width: 118px; text-align: right;"
-            />
+              style="width: 118px; min-width: 118px; text-align: left;"
+            >
+              <a
+                aria-label="View results for Capitalizing People, Places, & the Pronoun - Mixed Topics"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/undefined/student_activity_report"
+              >
+                View results
+              </a>
+            </td>
             <td
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"
@@ -198,8 +206,16 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section tooltip-section view-results-section"
-              style="width: 118px; min-width: 118px; text-align: right;"
-            />
+              style="width: 118px; min-width: 118px; text-align: left;"
+            >
+              <a
+                aria-label="View results for Capitalizing Names of People & the Pronoun  - Mixed Topics"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/undefined/student_activity_report"
+              >
+                View results
+              </a>
+            </td>
             <td
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"
@@ -260,8 +276,16 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section tooltip-section view-results-section"
-              style="width: 118px; min-width: 118px; text-align: right;"
-            />
+              style="width: 118px; min-width: 118px; text-align: left;"
+            >
+              <a
+                aria-label="View results for Capitalizing Names of People - Mixed Topics 1"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/undefined/student_activity_report"
+              >
+                View results
+              </a>
+            </td>
             <td
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"
@@ -322,8 +346,16 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section tooltip-section view-results-section"
-              style="width: 118px; min-width: 118px; text-align: right;"
-            />
+              style="width: 118px; min-width: 118px; text-align: left;"
+            >
+              <a
+                aria-label="View results for Capitalizing Holidays, People, & Places - Mixed Topics"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/undefined/student_activity_report"
+              >
+                View results
+              </a>
+            </td>
             <td
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"
@@ -384,8 +416,16 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section tooltip-section view-results-section"
-              style="width: 118px; min-width: 118px; text-align: right;"
-            />
+              style="width: 118px; min-width: 118px; text-align: left;"
+            >
+              <a
+                aria-label="View results for Capitalizing Dates & Holidays - Mixed Topics 1"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/undefined/student_activity_report"
+              >
+                View results
+              </a>
+            </td>
             <td
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"
@@ -446,8 +486,16 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section tooltip-section view-results-section"
-              style="width: 118px; min-width: 118px; text-align: right;"
-            />
+              style="width: 118px; min-width: 118px; text-align: left;"
+            >
+              <a
+                aria-label="View results for Capitalizing Geographic Names - Mixed Topics 1"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/undefined/student_activity_report"
+              >
+                View results
+              </a>
+            </td>
             <td
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"
@@ -508,8 +556,16 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section tooltip-section view-results-section"
-              style="width: 118px; min-width: 118px; text-align: right;"
-            />
+              style="width: 118px; min-width: 118px; text-align: left;"
+            >
+              <a
+                aria-label="View results for Capitalizing Geographic Names & Holidays - Mixed Topics"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/undefined/student_activity_report"
+              >
+                View results
+              </a>
+            </td>
             <td
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"
@@ -1343,7 +1399,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             <th
               class="data-table-header tooltip-section view-results-section"
               scope="col"
-              style="width: 118px; min-width: 118px; text-align: right;"
+              style="width: 118px; min-width: 118px; text-align: left;"
             >
               <span />
             </th>
@@ -1417,8 +1473,16 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section tooltip-section view-results-section"
-              style="width: 118px; min-width: 118px; text-align: right;"
-            />
+              style="width: 118px; min-width: 118px; text-align: left;"
+            >
+              <a
+                aria-label="View results for Capitalizing People, Places, & the Pronoun - Mixed Topics"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/undefined/student_activity_report"
+              >
+                View results
+              </a>
+            </td>
             <td
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"
@@ -1490,8 +1554,16 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section tooltip-section view-results-section"
-              style="width: 118px; min-width: 118px; text-align: right;"
-            />
+              style="width: 118px; min-width: 118px; text-align: left;"
+            >
+              <a
+                aria-label="View results for Capitalizing Names of People & the Pronoun  - Mixed Topics"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/undefined/student_activity_report"
+              >
+                View results
+              </a>
+            </td>
             <td
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"
@@ -1563,8 +1635,16 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section tooltip-section view-results-section"
-              style="width: 118px; min-width: 118px; text-align: right;"
-            />
+              style="width: 118px; min-width: 118px; text-align: left;"
+            >
+              <a
+                aria-label="View results for Capitalizing Names of People - Mixed Topics 1"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/undefined/student_activity_report"
+              >
+                View results
+              </a>
+            </td>
             <td
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"
@@ -1636,8 +1716,16 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section tooltip-section view-results-section"
-              style="width: 118px; min-width: 118px; text-align: right;"
-            />
+              style="width: 118px; min-width: 118px; text-align: left;"
+            >
+              <a
+                aria-label="View results for Capitalizing Holidays, People, & Places - Mixed Topics"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/undefined/student_activity_report"
+              >
+                View results
+              </a>
+            </td>
             <td
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"
@@ -1709,8 +1797,16 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section tooltip-section view-results-section"
-              style="width: 118px; min-width: 118px; text-align: right;"
-            />
+              style="width: 118px; min-width: 118px; text-align: left;"
+            >
+              <a
+                aria-label="View results for Capitalizing Dates & Holidays - Mixed Topics 1"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/undefined/student_activity_report"
+              >
+                View results
+              </a>
+            </td>
             <td
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"
@@ -1782,8 +1878,16 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section tooltip-section view-results-section"
-              style="width: 118px; min-width: 118px; text-align: right;"
-            />
+              style="width: 118px; min-width: 118px; text-align: left;"
+            >
+              <a
+                aria-label="View results for Capitalizing Geographic Names - Mixed Topics 1"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/undefined/student_activity_report"
+              >
+                View results
+              </a>
+            </td>
             <td
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"
@@ -1855,8 +1959,16 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section tooltip-section view-results-section"
-              style="width: 118px; min-width: 118px; text-align: right;"
-            />
+              style="width: 118px; min-width: 118px; text-align: left;"
+            >
+              <a
+                aria-label="View results for Capitalizing Geographic Names & Holidays - Mixed Topics"
+                class="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/undefined/student_activity_report"
+              >
+                View results
+              </a>
+            </td>
             <td
               class="data-table-row-section action-button-section tooltip-section"
               style="width: 88px; min-width: 88px; text-align: left;"

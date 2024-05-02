@@ -314,25 +314,29 @@ export default class StudentProfileUnit extends React.Component {
 
       const dueDate = due_date ? formatDateTimeForDisplay(moment.utc(due_date)) : '—'
 
+      const shared = {
+        actionButton: this.actionButton(act, nextActivitySession),
+        viewResultsButton: this.viewResultsButton(act)
+      }
+
       if (showExactScores && !UNGRADED_ACTIVITY_CLASSIFICATIONS.includes(activity_classification_key) && !exactScoresDataPending) {
         return {
+          ...shared,
           name: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{name}</TooltipWrapper>,
           score: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{this.score(act)}</TooltipWrapper>,
           tool: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{this.toolIcon(activity_classification_key)}</TooltipWrapper>,
-          actionButton: this.actionButton(act, nextActivitySession),
           dueDate: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{dueDate}</TooltipWrapper>,
           completedDate: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{completed_date ? formatDateTimeForDisplay(moment.utc(completed_date)) : null}</TooltipWrapper>,
           id: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{ua_id}</TooltipWrapper>,
-          viewResultsButton: this.viewResultsButton(act)
         }
 
       }
 
       return {
+        ...shared,
         name,
         score: this.score(act),
         tool: this.toolIcon(activity_classification_key),
-        actionButton: this.actionButton(act, nextActivitySession),
         dueDate: dueDate,
         completedDate: completed_date ? formatDateTimeForDisplay(moment.utc(completed_date)) : null,
         id: ua_id

@@ -4475,6 +4475,13 @@ exports[`StudentProfileUnits component should render only completed activities i
                     </span>
                   </div>,
                   "tool": undefined,
+                  "viewResultsButton": <a
+                    aria-label="View results for A, An"
+                    className="quill-button medium focus-on-light secondary outlined"
+                    href="/activity_sessions/undefined/student_activity_report"
+                  >
+                    View results
+                  </a>,
                 },
                 Object {
                   "actionButton": <a
@@ -4499,6 +4506,13 @@ exports[`StudentProfileUnits component should render only completed activities i
                     </span>
                   </div>,
                   "tool": undefined,
+                  "viewResultsButton": <a
+                    aria-label="View results for Age of Exploration: Spices"
+                    className="quill-button medium focus-on-light secondary outlined"
+                    href="/activity_sessions/undefined/student_activity_report"
+                  >
+                    View results
+                  </a>,
                 },
               ]
             }
@@ -4597,7 +4611,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                     style={
                       Object {
                         "minWidth": "118px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "118px",
                       }
                     }
@@ -4725,12 +4739,20 @@ exports[`StudentProfileUnits component should render only completed activities i
                     style={
                       Object {
                         "minWidth": "118px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "118px",
                       }
                     }
                   >
-                    <TableCellContentWrapper />
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="View results for A, An"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/undefined/student_activity_report"
+                      >
+                        View results
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section tooltip-section"
@@ -4858,12 +4880,20 @@ exports[`StudentProfileUnits component should render only completed activities i
                     style={
                       Object {
                         "minWidth": "118px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "118px",
                       }
                     }
                   >
-                    <TableCellContentWrapper />
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="View results for Age of Exploration: Spices"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/undefined/student_activity_report"
+                      >
+                        View results
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section tooltip-section"
