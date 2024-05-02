@@ -73,7 +73,7 @@ const completeHeaders = [
     headerClassName: 'tool-icon-section',
     rowSectionClassName: 'tool-icon-section tooltip-section'
   }, {
-    width: '410px',
+    width: '440px',
     name: 'Activity',
     attribute: 'name',
     noTooltip: true,
@@ -94,7 +94,7 @@ const completeHeaders = [
     headerClassName: 'completed-date-section',
     rowSectionClassName: 'completed-date-section tooltip-section'
   }, {
-    width: '160px',
+    width: '130px',
     name: 'Score',
     attribute: 'score',
     noTooltip: true,

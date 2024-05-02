@@ -4408,7 +4408,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section tooltip-section",
-                  "width": "410px",
+                  "width": "440px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -4432,7 +4432,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   "name": "Score",
                   "noTooltip": true,
                   "rowSectionClassName": "score-section tooltip-section",
-                  "width": "160px",
+                  "width": "130px",
                 },
                 Object {
                   "attribute": "viewResultsButton",
@@ -4544,9 +4544,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "410px",
+                        "minWidth": "440px",
                         "textAlign": "left",
-                        "width": "410px",
+                        "width": "440px",
                       }
                     }
                   >
@@ -4592,9 +4592,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "160px",
+                        "minWidth": "130px",
                         "textAlign": "left",
-                        "width": "160px",
+                        "width": "130px",
                       }
                     }
                   >
@@ -4661,9 +4661,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "410px",
+                        "minWidth": "440px",
                         "textAlign": "left",
-                        "width": "410px",
+                        "width": "440px",
                       }
                     }
                   >
@@ -4710,9 +4710,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "160px",
+                        "minWidth": "130px",
                         "textAlign": "left",
-                        "width": "160px",
+                        "width": "130px",
                       }
                     }
                   >
@@ -4800,9 +4800,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "410px",
+                        "minWidth": "440px",
                         "textAlign": "left",
-                        "width": "410px",
+                        "width": "440px",
                       }
                     }
                   >
@@ -4849,9 +4849,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "160px",
+                        "minWidth": "130px",
                         "textAlign": "left",
-                        "width": "160px",
+                        "width": "130px",
                       }
                     }
                   >
