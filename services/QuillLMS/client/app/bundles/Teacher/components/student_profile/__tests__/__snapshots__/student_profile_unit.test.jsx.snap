@@ -96,42 +96,60 @@ exports[`StudentProfileUnit component should render completed activities when sh
               class="data-table-row-section tool-icon-section tooltip-section"
               style="width: 24px; min-width: 24px; text-align: left;"
             >
-              <img
-                alt="Puzzle piece representing Quill Grammar"
-                src="undefined/images/icons/tool-grammar-gray.svg"
-              />
+              <div
+                class="score-tooltip-activator"
+              >
+                <img
+                  alt="Puzzle piece representing Quill Grammar"
+                  src="undefined/images/icons/tool-grammar-gray.svg"
+                />
+              </div>
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
               style="width: 410px; min-width: 410px; text-align: left;"
             >
-              Capitalizing People, Places, & the Pronoun - Mixed Topics
+              <div
+                class="score-tooltip-activator"
+              >
+                Capitalizing People, Places, & the Pronoun - Mixed Topics
+              </div>
             </td>
             <td
               class="data-table-row-section completed-due-date-section tooltip-section"
               style="width: 110px; min-width: 110px; text-align: left;"
             >
-              Mar 27, 5am
+              <div
+                class="score-tooltip-activator"
+              >
+                Mar 27, 5am
+              </div>
             </td>
             <td
               class="data-table-row-section completed-date-section tooltip-section"
               style="width: 110px; min-width: 110px; text-align: left;"
             >
-              Feb 22, 1:59pm
+              <div
+                class="score-tooltip-activator"
+              >
+                Feb 22, 1:59pm
+              </div>
             </td>
             <td
               class="data-table-row-section score-section tooltip-section"
               style="width: 160px; min-width: 160px; text-align: left;"
             >
               <div
-                class="score"
+                class="score-tooltip-activator"
               >
                 <div
-                  class="frequently-demonstrated-skill"
-                />
-                <span>
-                  Frequently demonstrated skill
-                </span>
+                  class="score"
+                >
+                  <div
+                    class="frequently-demonstrated-skill"
+                  />
+                  <span />
+                </div>
               </div>
             </td>
             <td
@@ -166,42 +184,60 @@ exports[`StudentProfileUnit component should render completed activities when sh
               class="data-table-row-section tool-icon-section tooltip-section"
               style="width: 24px; min-width: 24px; text-align: left;"
             >
-              <img
-                alt="Puzzle piece representing Quill Grammar"
-                src="undefined/images/icons/tool-grammar-gray.svg"
-              />
+              <div
+                class="score-tooltip-activator"
+              >
+                <img
+                  alt="Puzzle piece representing Quill Grammar"
+                  src="undefined/images/icons/tool-grammar-gray.svg"
+                />
+              </div>
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
               style="width: 410px; min-width: 410px; text-align: left;"
             >
-              Capitalizing Names of People & the Pronoun  - Mixed Topics
+              <div
+                class="score-tooltip-activator"
+              >
+                Capitalizing Names of People & the Pronoun  - Mixed Topics
+              </div>
             </td>
             <td
               class="data-table-row-section completed-due-date-section tooltip-section"
               style="width: 110px; min-width: 110px; text-align: left;"
             >
-              Mar 27, 5am
+              <div
+                class="score-tooltip-activator"
+              >
+                Mar 27, 5am
+              </div>
             </td>
             <td
               class="data-table-row-section completed-date-section tooltip-section"
               style="width: 110px; min-width: 110px; text-align: left;"
             >
-              Feb 22, 1:59pm
+              <div
+                class="score-tooltip-activator"
+              >
+                Feb 22, 1:59pm
+              </div>
             </td>
             <td
               class="data-table-row-section score-section tooltip-section"
               style="width: 160px; min-width: 160px; text-align: left;"
             >
               <div
-                class="score"
+                class="score-tooltip-activator"
               >
                 <div
-                  class="frequently-demonstrated-skill"
-                />
-                <span>
-                  Frequently demonstrated skill
-                </span>
+                  class="score"
+                >
+                  <div
+                    class="frequently-demonstrated-skill"
+                  />
+                  <span />
+                </div>
               </div>
             </td>
             <td
@@ -236,42 +272,60 @@ exports[`StudentProfileUnit component should render completed activities when sh
               class="data-table-row-section tool-icon-section tooltip-section"
               style="width: 24px; min-width: 24px; text-align: left;"
             >
-              <img
-                alt="Puzzle piece representing Quill Grammar"
-                src="undefined/images/icons/tool-grammar-gray.svg"
-              />
+              <div
+                class="score-tooltip-activator"
+              >
+                <img
+                  alt="Puzzle piece representing Quill Grammar"
+                  src="undefined/images/icons/tool-grammar-gray.svg"
+                />
+              </div>
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
               style="width: 410px; min-width: 410px; text-align: left;"
             >
-              Capitalizing Names of People - Mixed Topics 1
+              <div
+                class="score-tooltip-activator"
+              >
+                Capitalizing Names of People - Mixed Topics 1
+              </div>
             </td>
             <td
               class="data-table-row-section completed-due-date-section tooltip-section"
               style="width: 110px; min-width: 110px; text-align: left;"
             >
-              Mar 27, 5am
+              <div
+                class="score-tooltip-activator"
+              >
+                Mar 27, 5am
+              </div>
             </td>
             <td
               class="data-table-row-section completed-date-section tooltip-section"
               style="width: 110px; min-width: 110px; text-align: left;"
             >
-              Feb 22, 1:59pm
+              <div
+                class="score-tooltip-activator"
+              >
+                Feb 22, 1:59pm
+              </div>
             </td>
             <td
               class="data-table-row-section score-section tooltip-section"
               style="width: 160px; min-width: 160px; text-align: left;"
             >
               <div
-                class="score"
+                class="score-tooltip-activator"
               >
                 <div
-                  class="frequently-demonstrated-skill"
-                />
-                <span>
-                  Frequently demonstrated skill
-                </span>
+                  class="score"
+                >
+                  <div
+                    class="frequently-demonstrated-skill"
+                  />
+                  <span />
+                </div>
               </div>
             </td>
             <td
@@ -306,42 +360,60 @@ exports[`StudentProfileUnit component should render completed activities when sh
               class="data-table-row-section tool-icon-section tooltip-section"
               style="width: 24px; min-width: 24px; text-align: left;"
             >
-              <img
-                alt="Puzzle piece representing Quill Grammar"
-                src="undefined/images/icons/tool-grammar-gray.svg"
-              />
+              <div
+                class="score-tooltip-activator"
+              >
+                <img
+                  alt="Puzzle piece representing Quill Grammar"
+                  src="undefined/images/icons/tool-grammar-gray.svg"
+                />
+              </div>
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
               style="width: 410px; min-width: 410px; text-align: left;"
             >
-              Capitalizing Holidays, People, & Places - Mixed Topics
+              <div
+                class="score-tooltip-activator"
+              >
+                Capitalizing Holidays, People, & Places - Mixed Topics
+              </div>
             </td>
             <td
               class="data-table-row-section completed-due-date-section tooltip-section"
               style="width: 110px; min-width: 110px; text-align: left;"
             >
-              Mar 27, 5am
+              <div
+                class="score-tooltip-activator"
+              >
+                Mar 27, 5am
+              </div>
             </td>
             <td
               class="data-table-row-section completed-date-section tooltip-section"
               style="width: 110px; min-width: 110px; text-align: left;"
             >
-              Feb 22, 1:59pm
+              <div
+                class="score-tooltip-activator"
+              >
+                Feb 22, 1:59pm
+              </div>
             </td>
             <td
               class="data-table-row-section score-section tooltip-section"
               style="width: 160px; min-width: 160px; text-align: left;"
             >
               <div
-                class="score"
+                class="score-tooltip-activator"
               >
                 <div
-                  class="frequently-demonstrated-skill"
-                />
-                <span>
-                  Frequently demonstrated skill
-                </span>
+                  class="score"
+                >
+                  <div
+                    class="frequently-demonstrated-skill"
+                  />
+                  <span />
+                </div>
               </div>
             </td>
             <td
@@ -376,42 +448,60 @@ exports[`StudentProfileUnit component should render completed activities when sh
               class="data-table-row-section tool-icon-section tooltip-section"
               style="width: 24px; min-width: 24px; text-align: left;"
             >
-              <img
-                alt="Puzzle piece representing Quill Grammar"
-                src="undefined/images/icons/tool-grammar-gray.svg"
-              />
+              <div
+                class="score-tooltip-activator"
+              >
+                <img
+                  alt="Puzzle piece representing Quill Grammar"
+                  src="undefined/images/icons/tool-grammar-gray.svg"
+                />
+              </div>
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
               style="width: 410px; min-width: 410px; text-align: left;"
             >
-              Capitalizing Dates & Holidays - Mixed Topics 1
+              <div
+                class="score-tooltip-activator"
+              >
+                Capitalizing Dates & Holidays - Mixed Topics 1
+              </div>
             </td>
             <td
               class="data-table-row-section completed-due-date-section tooltip-section"
               style="width: 110px; min-width: 110px; text-align: left;"
             >
-              Mar 27, 5am
+              <div
+                class="score-tooltip-activator"
+              >
+                Mar 27, 5am
+              </div>
             </td>
             <td
               class="data-table-row-section completed-date-section tooltip-section"
               style="width: 110px; min-width: 110px; text-align: left;"
             >
-              Feb 22, 1:59pm
+              <div
+                class="score-tooltip-activator"
+              >
+                Feb 22, 1:59pm
+              </div>
             </td>
             <td
               class="data-table-row-section score-section tooltip-section"
               style="width: 160px; min-width: 160px; text-align: left;"
             >
               <div
-                class="score"
+                class="score-tooltip-activator"
               >
                 <div
-                  class="sometimes-demonstrated-skill"
-                />
-                <span>
-                  Sometimes demonstrated skill
-                </span>
+                  class="score"
+                >
+                  <div
+                    class="sometimes-demonstrated-skill"
+                  />
+                  <span />
+                </div>
               </div>
             </td>
             <td
@@ -446,42 +536,60 @@ exports[`StudentProfileUnit component should render completed activities when sh
               class="data-table-row-section tool-icon-section tooltip-section"
               style="width: 24px; min-width: 24px; text-align: left;"
             >
-              <img
-                alt="Puzzle piece representing Quill Grammar"
-                src="undefined/images/icons/tool-grammar-gray.svg"
-              />
+              <div
+                class="score-tooltip-activator"
+              >
+                <img
+                  alt="Puzzle piece representing Quill Grammar"
+                  src="undefined/images/icons/tool-grammar-gray.svg"
+                />
+              </div>
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
               style="width: 410px; min-width: 410px; text-align: left;"
             >
-              Capitalizing Geographic Names - Mixed Topics 1
+              <div
+                class="score-tooltip-activator"
+              >
+                Capitalizing Geographic Names - Mixed Topics 1
+              </div>
             </td>
             <td
               class="data-table-row-section completed-due-date-section tooltip-section"
               style="width: 110px; min-width: 110px; text-align: left;"
             >
-              Mar 27, 5am
+              <div
+                class="score-tooltip-activator"
+              >
+                Mar 27, 5am
+              </div>
             </td>
             <td
               class="data-table-row-section completed-date-section tooltip-section"
               style="width: 110px; min-width: 110px; text-align: left;"
             >
-              Feb 22, 1:59pm
+              <div
+                class="score-tooltip-activator"
+              >
+                Feb 22, 1:59pm
+              </div>
             </td>
             <td
               class="data-table-row-section score-section tooltip-section"
               style="width: 160px; min-width: 160px; text-align: left;"
             >
               <div
-                class="score"
+                class="score-tooltip-activator"
               >
                 <div
-                  class="sometimes-demonstrated-skill"
-                />
-                <span>
-                  Sometimes demonstrated skill
-                </span>
+                  class="score"
+                >
+                  <div
+                    class="sometimes-demonstrated-skill"
+                  />
+                  <span />
+                </div>
               </div>
             </td>
             <td
@@ -516,42 +624,60 @@ exports[`StudentProfileUnit component should render completed activities when sh
               class="data-table-row-section tool-icon-section tooltip-section"
               style="width: 24px; min-width: 24px; text-align: left;"
             >
-              <img
-                alt="Puzzle piece representing Quill Grammar"
-                src="undefined/images/icons/tool-grammar-gray.svg"
-              />
+              <div
+                class="score-tooltip-activator"
+              >
+                <img
+                  alt="Puzzle piece representing Quill Grammar"
+                  src="undefined/images/icons/tool-grammar-gray.svg"
+                />
+              </div>
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
               style="width: 410px; min-width: 410px; text-align: left;"
             >
-              Capitalizing Geographic Names & Holidays - Mixed Topics
+              <div
+                class="score-tooltip-activator"
+              >
+                Capitalizing Geographic Names & Holidays - Mixed Topics
+              </div>
             </td>
             <td
               class="data-table-row-section completed-due-date-section tooltip-section"
               style="width: 110px; min-width: 110px; text-align: left;"
             >
-              Mar 27, 5am
+              <div
+                class="score-tooltip-activator"
+              >
+                Mar 27, 5am
+              </div>
             </td>
             <td
               class="data-table-row-section completed-date-section tooltip-section"
               style="width: 110px; min-width: 110px; text-align: left;"
             >
-              Feb 22, 1:59pm
+              <div
+                class="score-tooltip-activator"
+              >
+                Feb 22, 1:59pm
+              </div>
             </td>
             <td
               class="data-table-row-section score-section tooltip-section"
               style="width: 160px; min-width: 160px; text-align: left;"
             >
               <div
-                class="score"
+                class="score-tooltip-activator"
               >
                 <div
-                  class="rarely-demonstrated-skill"
-                />
-                <span>
-                  Rarely demonstrated skill
-                </span>
+                  class="score"
+                >
+                  <div
+                    class="rarely-demonstrated-skill"
+                  />
+                  <span />
+                </div>
               </div>
             </td>
             <td

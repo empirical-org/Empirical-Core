@@ -50,9 +50,10 @@ interface ScorebookTooltipData {
 interface ScorebookTooltipProps {
   data: ScorebookTooltipData
   inStudentView?: Boolean;
+  showExactScores?: Boolean;
 }
 
-export const ScorebookTooltip = ({ data, inStudentView, }: ScorebookTooltipProps) => {
+export const ScorebookTooltip = ({ data, inStudentView, showExactScores, }: ScorebookTooltipProps) => {
   const tooltipRef = React.useRef(null);
   const [tooltipStyle, setTooltipStyle] = React.useState({});
   const [caretStyle, setCaretStyle] = React.useState({});
@@ -118,7 +119,7 @@ export const ScorebookTooltip = ({ data, inStudentView, }: ScorebookTooltipProps
     } else if (!completed_attempts) {
       return <p className="no-data-message">This activity has not been completed.</p>
     } else if (sessions && sessions.length) {
-      return <KeyTargetSkillConcepts groupedKeyTargetSkillConcepts={sessions[sessions.length - 1].grouped_key_target_skill_concepts} />
+      return <KeyTargetSkillConcepts groupedKeyTargetSkillConcepts={sessions[sessions.length - 1].grouped_key_target_skill_concepts} shouldShowCounts={!inStudentView || showExactScores} />
     } else {
       return <Spinner />
     }
@@ -155,7 +156,7 @@ export const ScorebookTooltip = ({ data, inStudentView, }: ScorebookTooltipProps
   function totalScoreOrNot() {
     const { percentage, sessions } = data
     const hasScoreData = percentage && sessions && sessions.length > 0
-    if (hasScoreData) {
+    if (hasScoreData && (!inStudentView || showExactScores)) {
       return displayScores()
     } else {
       return <span />
@@ -199,6 +200,14 @@ export const ScorebookTooltip = ({ data, inStudentView, }: ScorebookTooltipProps
     return <ActivityDetailsSection description={descriptionElement} header={header} />
   }
 
+  function tooltipMessage() {
+    if (inStudentView && !showExactScores) { return }
+
+    return (
+      <p className="tooltip-message">{inStudentView ? '*Your dashboard shows the highest score of all your attempts' : 'Clicking on the activity icon loads the report'}</p>
+    )
+  }
+
   const title = activity ? activity.name : name;
   return (
     <div className="scorebook-tooltip" ref={tooltipRef} style={tooltipStyle}>
@@ -211,7 +220,7 @@ export const ScorebookTooltip = ({ data, inStudentView, }: ScorebookTooltipProps
         {activityOverview()}
         {keyTargetSkillConceptsOrExplanation()}
         {inStudentView ? colorExplanation() : null}
-        <p className="tooltip-message">{inStudentView ? '*Your dashboard shows the highest score of all your attempts' : 'Clicking on the activity icon loads the report'}</p>
+        {tooltipMessage()}
       </div>
     </div>
   )

@@ -40,7 +40,8 @@ const incompleteHeaders = [
     noTooltip: true,
     headerClassName: 'tool-icon-section',
     rowSectionClassName: 'tool-icon-section'
-  }, {    width: '823px',
+  }, {
+    width: '823px',
     name: 'Activity',
     attribute: 'name',
     noTooltip: onMobile(), // On mobile we don't want a tooltip wrapper since they basically don't work there
@@ -118,7 +119,7 @@ const completeHeaders = [
   }
 ]
 
-const TooltipWrapper = ({ activity, exactScoresData, children, }) => {
+const TooltipWrapper = ({ activity, exactScoresData, children, showExactScores, }) => {
   const [showTooltip, setShowTooltip] = React.useState(false)
 
   function handleMouseEnter() { setShowTooltip(true) }
@@ -133,7 +134,7 @@ const TooltipWrapper = ({ activity, exactScoresData, children, }) => {
 
   if (showTooltip) {
     tooltip = (
-      <ScorebookTooltip data={tooltipData} inStudentView={true} />
+      <ScorebookTooltip data={tooltipData} inStudentView={true} showExactScores={showExactScores} />
     )
   }
 
@@ -275,14 +276,14 @@ export default class StudentProfileUnit extends React.Component {
     ) : null
 
     if (maxPercentage >= FREQUENTLY_DEMONSTRATED_SKILL_CUTOFF) {
-      return (<div className="score"><div className="frequently-demonstrated-skill">{attemptCountIndicator}</div><span>{exactScoreCopy || 'Frequently demonstrated skill'}</span></div>)
+      return (<div className="score"><div className="frequently-demonstrated-skill">{attemptCountIndicator}</div><span>{exactScoreCopy}</span></div>)
     }
 
     if (maxPercentage >= SOMETIMES_DEMONSTRATED_SKILL_CUTOFF) {
-      return (<div className="score"><div className="sometimes-demonstrated-skill">{attemptCountIndicator}</div><span>{exactScoreCopy || 'Sometimes demonstrated skill'}</span></div>)
+      return (<div className="score"><div className="sometimes-demonstrated-skill">{attemptCountIndicator}</div><span>{exactScoreCopy}</span></div>)
     }
 
-    return (<div className="score"><div className="rarely-demonstrated-skill">{attemptCountIndicator}</div><span>{exactScoreCopy || 'Rarely demonstrated skill'}</span></div>)
+    return (<div className="score"><div className="rarely-demonstrated-skill">{attemptCountIndicator}</div><span>{exactScoreCopy}</span></div>)
 
   }
 
@@ -313,21 +314,24 @@ export default class StudentProfileUnit extends React.Component {
       const { name, activity_classification_key, ua_id, due_date, completed_date, } = act
 
       const dueDate = due_date ? formatDateTimeForDisplay(moment.utc(due_date)) : '—'
+      const completedDate = completed_date ? formatDateTimeForDisplay(moment.utc(completed_date)) : null
 
       const shared = {
         actionButton: this.actionButton(act, nextActivitySession),
         viewResultsButton: this.viewResultsButton(act)
       }
 
-      if (showExactScores && !UNGRADED_ACTIVITY_CLASSIFICATIONS.includes(activity_classification_key) && !exactScoresDataPending) {
+      const sharedTooltipWrapperProps = { activity: act, exactScoresData, showExactScores }
+
+      if (!UNGRADED_ACTIVITY_CLASSIFICATIONS.includes(activity_classification_key) && !exactScoresDataPending) {
         return {
           ...shared,
-          name: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{name}</TooltipWrapper>,
-          score: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{this.score(act)}</TooltipWrapper>,
-          tool: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{this.toolIcon(activity_classification_key)}</TooltipWrapper>,
-          dueDate: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{dueDate}</TooltipWrapper>,
-          completedDate: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{completed_date ? formatDateTimeForDisplay(moment.utc(completed_date)) : null}</TooltipWrapper>,
-          id: <TooltipWrapper activity={act} exactScoresData={exactScoresData}>{ua_id}</TooltipWrapper>,
+          name: <TooltipWrapper {...sharedTooltipWrapperProps}>{name}</TooltipWrapper>,
+          score: <TooltipWrapper {...sharedTooltipWrapperProps}>{this.score(act)}</TooltipWrapper>,
+          tool: <TooltipWrapper {...sharedTooltipWrapperProps}>{this.toolIcon(activity_classification_key)}</TooltipWrapper>,
+          dueDate: <TooltipWrapper {...sharedTooltipWrapperProps}>{dueDate}</TooltipWrapper>,
+          completedDate: <TooltipWrapper {...sharedTooltipWrapperProps}>{completedDate}</TooltipWrapper>,
+          id: <TooltipWrapper {...sharedTooltipWrapperProps}>{ua_id}</TooltipWrapper>,
         }
 
       }
@@ -335,10 +339,10 @@ export default class StudentProfileUnit extends React.Component {
       return {
         ...shared,
         name,
+        dueDate,
+        completedDate,
         score: this.score(act),
         tool: this.toolIcon(activity_classification_key),
-        dueDate: dueDate,
-        completedDate: completed_date ? formatDateTimeForDisplay(moment.utc(completed_date)) : null,
         id: ua_id
       }
     })

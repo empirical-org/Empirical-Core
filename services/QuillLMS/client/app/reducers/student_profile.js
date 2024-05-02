@@ -35,7 +35,7 @@ export default (state, action) => {
         selectedClassroomId: action.data.classroom_id,
         metrics: action.data.metrics,
         showExactScores: action.data.show_exact_scores,
-        exactScoresDataPending: action.data.show_exact_scores // if this value is true, when we switch to the completed tab we will fire a request to get the relevant data
+        exactScoresDataPending: true
       });
     case 'RECEIVE_EXACT_SCORES_DATA': {
       return Object.assign({}, state, {

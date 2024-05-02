@@ -72,62 +72,7 @@ exports[`ScorebookTooltip component in student view should render if the percent
             </div>
           </div>
         </div>
-        <div
-          class="activity-tooltip-details-section "
-        >
-          <p
-            class="header"
-          >
-            1st score
-          </p>
-          <div
-            class="description-block"
-          >
-            <p
-              class="description"
-            >
-              <span
-                class="percentage"
-              >
-                8 of 10 Target Skills Correct (80%)
-              </span>
-               
-            </p>
-            <p
-              class="description"
-            >
-              December 12, 2021 at 9:00 am / 2 mins
-            </p>
-          </div>
-        </div>
-        <div
-          class="activity-tooltip-details-section "
-        >
-          <p
-            class="header"
-          >
-            2nd score
-          </p>
-          <div
-            class="description-block"
-          >
-            <p
-              class="description"
-            >
-              <span
-                class="percentage"
-              >
-                6 of 10 Target Skills Correct (60%)
-              </span>
-               
-            </p>
-            <p
-              class="description"
-            >
-              December 17, 2021 at 9:00 am / 4 mins
-            </p>
-          </div>
-        </div>
+        <span />
         <div
           class="activity-tooltip-details-section "
         >
@@ -171,11 +116,6 @@ exports[`ScorebookTooltip component in student view should render if the percent
           </p>
         </div>
       </div>
-      <p
-        class="tooltip-message"
-      >
-        *Your dashboard shows the highest score of all your attempts
-      </p>
     </div>
   </div>
 </DocumentFragment>
@@ -297,11 +237,6 @@ exports[`ScorebookTooltip component in student view should render if the percent
           </p>
         </div>
       </div>
-      <p
-        class="tooltip-message"
-      >
-        *Your dashboard shows the highest score of all your attempts
-      </p>
     </div>
   </div>
 </DocumentFragment>
@@ -379,62 +314,7 @@ exports[`ScorebookTooltip component in student view should render if the percent
             </div>
           </div>
         </div>
-        <div
-          class="activity-tooltip-details-section "
-        >
-          <p
-            class="header"
-          >
-            1st score
-          </p>
-          <div
-            class="description-block"
-          >
-            <p
-              class="description"
-            >
-              <span
-                class="percentage"
-              >
-                8 of 10 Target Skills Correct (80%)
-              </span>
-               
-            </p>
-            <p
-              class="description"
-            >
-              December 12, 2021 at 9:00 am / 2 mins
-            </p>
-          </div>
-        </div>
-        <div
-          class="activity-tooltip-details-section "
-        >
-          <p
-            class="header"
-          >
-            2nd score
-          </p>
-          <div
-            class="description-block"
-          >
-            <p
-              class="description"
-            >
-              <span
-                class="percentage"
-              >
-                6 of 10 Target Skills Correct (60%)
-              </span>
-               
-            </p>
-            <p
-              class="description"
-            >
-              December 17, 2021 at 9:00 am / 4 mins
-            </p>
-          </div>
-        </div>
+        <span />
         <div
           class="activity-tooltip-details-section "
         >
@@ -478,11 +358,6 @@ exports[`ScorebookTooltip component in student view should render if the percent
           </p>
         </div>
       </div>
-      <p
-        class="tooltip-message"
-      >
-        *Your dashboard shows the highest score of all your attempts
-      </p>
     </div>
   </div>
 </DocumentFragment>

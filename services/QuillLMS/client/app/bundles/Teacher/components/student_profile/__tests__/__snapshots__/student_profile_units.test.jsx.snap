@@ -4235,6 +4235,7 @@ exports[`StudentProfileUnits component should render only completed activities i
       },
     ]
   }
+  exactScoresDataPending={true}
   teacherName="Emilia F"
 >
   <div
@@ -4365,6 +4366,7 @@ exports[`StudentProfileUnits component should render only completed activities i
           ],
         }
       }
+      exactScoresDataPending={true}
       id={7}
       isSelectedUnit={false}
       key="7"
@@ -4470,9 +4472,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                     <div
                       className="frequently-demonstrated-skill"
                     />
-                    <span>
-                      Frequently demonstrated skill
-                    </span>
+                    <span />
                   </div>,
                   "tool": undefined,
                   "viewResultsButton": <a
@@ -4501,9 +4501,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                     <div
                       className="sometimes-demonstrated-skill"
                     />
-                    <span>
-                      Sometimes demonstrated skill
-                    </span>
+                    <span />
                   </div>,
                   "tool": undefined,
                   "viewResultsButton": <a
@@ -4725,9 +4723,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                         <div
                           className="frequently-demonstrated-skill"
                         />
-                        <span>
-                          Frequently demonstrated skill
-                        </span>
+                        <span />
                       </div>
                     </TableCellContentWrapper>
                   </td>
@@ -4866,9 +4862,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                         <div
                           className="sometimes-demonstrated-skill"
                         />
-                        <span>
-                          Sometimes demonstrated skill
-                        </span>
+                        <span />
                       </div>
                     </TableCellContentWrapper>
                   </td>
