@@ -172,8 +172,11 @@ export const ScorebookTooltip = ({ data, inStudentView, showExactScores, }: Scor
   }
 
   function colorExplanation() {
-    const cutOff = proficiencyCutoffsAsPercentage();
     const { percentage, } = data
+
+    if (percentage === null) { return }
+    
+    const cutOff = proficiencyCutoffsAsPercentage();
 
     const scoreForComparison = percentage * 100
 

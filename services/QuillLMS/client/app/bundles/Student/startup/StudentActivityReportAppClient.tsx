@@ -77,9 +77,9 @@ const StudentActivityReportApp = ({ activity, showExactScore, reportData, classr
     if (activitySessions.length === 1) { return }
 
     const activitySessionOptions = activitySessions.map((s, index) => {
-      const scoreNumber = `${NumberSuffix(index + 1)} Score`
+      const scoreNumber = `${NumberSuffix(index + 1)} ${showExactScore && s.score ? 'Score' : 'Attempt'}`
       const formattedDate = moment.utc(s.completed_at).format('MMM D[,] h:mma')
-      const label = showExactScore ? `${scoreNumber}: ${s.score}% - ${formattedDate}` : `${scoreNumber} - ${formattedDate}`
+      const label = showExactScore && s.score ? `${scoreNumber}: ${s.score}% - ${formattedDate}` : `${scoreNumber} - ${formattedDate}`
       return { value: s.activity_session_id, label, }
     })
     const activitySessionValue = activitySessionOptions.find(s => reportData.activity_session_id === s.value)

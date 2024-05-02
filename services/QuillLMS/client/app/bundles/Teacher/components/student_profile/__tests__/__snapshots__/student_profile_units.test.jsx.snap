@@ -412,7 +412,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "823px",
+                  "width": "874px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -517,9 +517,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -588,9 +588,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -701,9 +701,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -814,9 +814,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -1131,7 +1131,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "823px",
+                  "width": "874px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -1289,9 +1289,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -1360,9 +1360,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -1437,9 +1437,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -1514,9 +1514,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -1591,9 +1591,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -1668,9 +1668,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -1745,9 +1745,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -1822,9 +1822,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -1899,9 +1899,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -2372,7 +2372,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "823px",
+                  "width": "874px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -2477,9 +2477,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -2548,9 +2548,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -2661,9 +2661,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -2774,9 +2774,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -3091,7 +3091,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "823px",
+                  "width": "874px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -3249,9 +3249,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -3320,9 +3320,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -3397,9 +3397,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -3474,9 +3474,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -3551,9 +3551,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -3628,9 +3628,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -3705,9 +3705,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -3782,9 +3782,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -3859,9 +3859,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -5453,7 +5453,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "823px",
+                  "width": "874px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -5571,9 +5571,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -5642,9 +5642,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -5719,9 +5719,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -5832,9 +5832,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -5945,9 +5945,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -6262,7 +6262,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "823px",
+                  "width": "874px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -6420,9 +6420,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -6491,9 +6491,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -6568,9 +6568,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -6645,9 +6645,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -6722,9 +6722,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -6799,9 +6799,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -6876,9 +6876,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -6953,9 +6953,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -7030,9 +7030,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -7621,7 +7621,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "823px",
+                  "width": "874px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -7739,9 +7739,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -7810,9 +7810,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -7887,9 +7887,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -8000,9 +8000,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -8113,9 +8113,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -8430,7 +8430,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "823px",
+                  "width": "874px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -8588,9 +8588,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -8659,9 +8659,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -8736,9 +8736,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -8813,9 +8813,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -8890,9 +8890,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -8967,9 +8967,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -9044,9 +9044,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -9121,9 +9121,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -9198,9 +9198,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -9789,7 +9789,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "823px",
+                  "width": "874px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -9907,9 +9907,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -9978,9 +9978,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -10055,9 +10055,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -10168,9 +10168,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -10281,9 +10281,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -10598,7 +10598,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "823px",
+                  "width": "874px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -10756,9 +10756,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -10827,9 +10827,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -10904,9 +10904,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -10981,9 +10981,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -11058,9 +11058,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -11135,9 +11135,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -11212,9 +11212,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -11289,9 +11289,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >
@@ -11366,9 +11366,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "823px",
+                        "minWidth": "874px",
                         "textAlign": "left",
-                        "width": "823px",
+                        "width": "874px",
                       }
                     }
                   >

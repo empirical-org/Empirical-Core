@@ -26,7 +26,6 @@ const PROOFREADER_ACTIVITY_CLASSIFICATION_KEY = "passage"
 const LESSONS_ACTIVITY_CLASSIFICATION_KEY = "lessons"
 const DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY = "diagnostic"
 const EVIDENCE_ACTIVITY_CLASSIFICATION_KEY = "evidence"
-const UNGRADED_ACTIVITY_CLASSIFICATIONS = [LESSONS_ACTIVITY_CLASSIFICATION_KEY, DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY, EVIDENCE_ACTIVITY_CLASSIFICATION_KEY]
 const FREQUENTLY_DEMONSTRATED_SKILL_CUTOFF = 0.83
 const SOMETIMES_DEMONSTRATED_SKILL_CUTOFF = 0.32
 export const LOCKED = 'locked'
@@ -41,7 +40,7 @@ const incompleteHeaders = [
     headerClassName: 'tool-icon-section',
     rowSectionClassName: 'tool-icon-section'
   }, {
-    width: '823px',
+    width: '874px',
     name: 'Activity',
     attribute: 'name',
     noTooltip: onMobile(), // On mobile we don't want a tooltip wrapper since they basically don't work there
@@ -238,7 +237,18 @@ export default class StudentProfileUnit extends React.Component {
     const { activity_classification_key, max_percentage, ua_id, classroom_unit_id, completed_attempt_count, } = act
     const maxPercentage = Number(max_percentage)
 
-    if (UNGRADED_ACTIVITY_CLASSIFICATIONS.includes(activity_classification_key)) {
+    const attemptCountIndicator = completed_attempt_count > 1 ? (
+      <span>
+        <img alt="" className="attempt-symbol" src="https://assets.quill.org/images/scorebook/blue-circle-solid.svg" />
+        <span className="attempt-count">{completed_attempt_count}</span>
+      </span>
+    ) : null
+
+    if (EVIDENCE_ACTIVITY_CLASSIFICATION_KEY === activity_classification_key) {
+      return (<div className="score"><div className="completed">{attemptCountIndicator}</div><span>Completed</span></div>)
+    }
+
+    if ([DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY, LESSONS_ACTIVITY_CLASSIFICATION_KEY].includes(activity_classification_key)) {
       return (
         <Tooltip
           tooltipText="This type of activity is not graded."
@@ -267,13 +277,6 @@ export default class StudentProfileUnit extends React.Component {
 
       exactScoreCopy = (<span>{number_of_correct_questions} of {number_of_questions} ({Math.round(percentage * 100)}%)</span>)
     }
-
-    const attemptCountIndicator = completed_attempt_count > 1 ? (
-      <span>
-        <img alt="" className="attempt-symbol" src="https://assets.quill.org/images/scorebook/blue-circle-solid.svg" />
-        <span className="attempt-count">{completed_attempt_count}</span>
-      </span>
-    ) : null
 
     if (maxPercentage >= FREQUENTLY_DEMONSTRATED_SKILL_CUTOFF) {
       return (<div className="score"><div className="frequently-demonstrated-skill">{attemptCountIndicator}</div><span>{exactScoreCopy}</span></div>)
@@ -321,9 +324,12 @@ export default class StudentProfileUnit extends React.Component {
         viewResultsButton: this.viewResultsButton(act)
       }
 
-      const sharedTooltipWrapperProps = { activity: act, exactScoresData, showExactScores }
+      const sharedTooltipWrapperProps = {
+        activity: act,
+        exactScoresData,
+        showExactScores: activity_classification_key === EVIDENCE_ACTIVITY_CLASSIFICATION_KEY ? false : showExactScores }
 
-      if (!UNGRADED_ACTIVITY_CLASSIFICATIONS.includes(activity_classification_key) && !exactScoresDataPending) {
+      if (![DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY, LESSONS_ACTIVITY_CLASSIFICATION_KEY].includes(activity_classification_key) && !exactScoresDataPending) {
         return {
           ...shared,
           name: <TooltipWrapper {...sharedTooltipWrapperProps}>{name}</TooltipWrapper>,
