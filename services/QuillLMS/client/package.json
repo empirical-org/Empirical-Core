@@ -167,7 +167,8 @@
     "whatwg-fetch": "^2.0.4"
   },
   "overrides": {
-    "@babel/traverse": ">=7.23.2"
+    "@babel/traverse": ">=7.23.2",
+    "sanitize-html": "^2.7.1"
   },
   "browser": {
     "fs": false
