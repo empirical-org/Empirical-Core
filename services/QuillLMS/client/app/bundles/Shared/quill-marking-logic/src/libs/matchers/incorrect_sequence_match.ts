@@ -11,12 +11,19 @@ export function incorrectSequenceMatchHelper(responseString:string, incorrectSeq
 }
 
 export function incorrectSequenceMatch(responseString: string, incorrectSequences:Array<IncorrectSequence>):IncorrectSequence {
-  return _.find(incorrectSequences, (incSeq) => {
+  const sortedIncorrectSequences = incorrectSequences.sort((a, b) => (a.order || 0) - (b.order || 0));
+
+  for (let i = 0; i < sortedIncorrectSequences.length; i++) {
+    let incSeq = sortedIncorrectSequences[i];
     const options = incSeq.text.split('|||');
     const caseInsensitive = incSeq.caseInsensitive ? incSeq.caseInsensitive : false
     const anyMatches = _.any(options, particle => incorrectSequenceMatchHelper(responseString, particle, caseInsensitive));
-    return anyMatches;
-  });
+    if (anyMatches) {
+      return incSeq;
+    }
+  }
+
+  return null;
 }
 
 export function incorrectSequenceChecker(responseString: string, incorrectSequences:Array<IncorrectSequence>, responses:Array<Response>):PartialResponse|undefined {
