@@ -9,7 +9,7 @@ import { getTimeSpent } from '../../../helpers/studentReports';
 import numberSuffixBuilder from '../../modules/numberSuffixBuilder';
 import PercentageDisplayer from '../../modules/percentage_displayer.jsx';
 import { proficiencyCutoffsAsPercentage } from '../../../../../modules/proficiency_cutoffs';
-import { NOT_APPLICABLE, Spinner } from '../../../../Shared'
+import { NOT_APPLICABLE, Spinner, EVIDENCE, } from '../../../../Shared'
 import useWindowSize from '../../../../Shared/hooks/useWindowSize'
 
 const ORDINAL_NUMBERS = ['Zeroth', 'First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh', 'Eighth', 'Ninth', 'Tenth']
@@ -45,6 +45,7 @@ interface ScorebookTooltipData {
   locked?: Boolean;
   scheduled?: Boolean;
   marked_complete?: Boolean;
+  activity_classification_key?: string;
 }
 
 interface ScorebookTooltipProps {
@@ -97,7 +98,7 @@ export const ScorebookTooltip = ({ data, inStudentView, showExactScores, }: Scor
   }, [size]);
 
 
-  const { marked_complete, completed_attempts, locked, scheduled, sessions, started, activity, name } = data
+  const { marked_complete, completed_attempts, locked, scheduled, sessions, started, activity, name, activity_classification_key } = data
 
   function activityOverview() {
     return (
@@ -204,9 +205,16 @@ export const ScorebookTooltip = ({ data, inStudentView, showExactScores, }: Scor
   }
 
   function tooltipMessage() {
+    const isEvidenceActivity = activity_classification_key === EVIDENCE
+
+    if (inStudentView && !showExactScores && !isEvidenceActivity) { return }
+
     let text = 'Clicking on the activity icon loads the report'
-    if (inStudentView) {
-      text = showExactScores ? '*Your dashboard shows the highest score of all your attempts' : 'This type of activity is not graded.'
+
+    if (inStudentView && isEvidenceActivity) {
+      text = 'This type of activity is not graded.'
+    } else if (inStudentView && showExactScores) {
+      text = '*Your dashboard shows the highest score of all your attempts'
     }
 
     return (
