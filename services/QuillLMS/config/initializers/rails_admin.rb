@@ -10,7 +10,7 @@ RailsAdmin.config do |config|
     redirect_to main_app.root_path unless current_user&.staff?
   end
 
-  UNEDITABLE_MODELS = ['ChangeLog']
+  UNEDITABLE_MODELS = ['ChangeLog'].freeze unless Object.const_defined?('UNEDITABLE_MODELS')
 
   config.actions do
     dashboard do
