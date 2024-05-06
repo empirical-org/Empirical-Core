@@ -116,11 +116,6 @@ exports[`ScorebookTooltip component in student view should render if showExactSc
           </p>
         </div>
       </div>
-      <p
-        class="tooltip-message"
-      >
-        This type of activity is not graded.
-      </p>
     </div>
   </div>
 </DocumentFragment>
