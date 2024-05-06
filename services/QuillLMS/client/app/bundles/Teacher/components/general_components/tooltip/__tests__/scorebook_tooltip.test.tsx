@@ -93,17 +93,22 @@ describe('ScorebookTooltip component', () => {
 
   describe('in student view', () => {
     it('should render if the percentage is below the nearly proficient threshold ', () => {
-      const { asFragment } = render(<ScorebookTooltip data={{ ...mockData, percentage: 0 }} inStudentView={true} />);
+      const { asFragment } = render(<ScorebookTooltip data={{ ...mockData, percentage: 0 }} inStudentView={true} showExactScores={true} />);
       expect(asFragment()).toMatchSnapshot();
     })
 
     it('should render if the percentage is between the nearly proficient threshold and the proficient threshold ', () => {
-      const { asFragment } = render(<ScorebookTooltip data={{ ...mockData, percentage: 0.5 }} inStudentView={true} />);
+      const { asFragment } = render(<ScorebookTooltip data={{ ...mockData, percentage: 0.5 }} inStudentView={true} showExactScores={true} />);
       expect(asFragment()).toMatchSnapshot();
     })
 
     it('should render if the percentage is above the proficient threshold ', () => {
-      const { asFragment } = render(<ScorebookTooltip data={{ ...mockData, percentage: 0.9 }} inStudentView={true} />);
+      const { asFragment } = render(<ScorebookTooltip data={{ ...mockData, percentage: 0.9 }} inStudentView={true} showExactScores={true} />);
+      expect(asFragment()).toMatchSnapshot();
+    })
+
+    it('should render if showExactScores is false ', () => {
+      const { asFragment } = render(<ScorebookTooltip data={{ ...mockData, percentage: 0.9 }} inStudentView={true} showExactScores={false} />);
       expect(asFragment()).toMatchSnapshot();
     })
 

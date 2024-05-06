@@ -17,8 +17,15 @@ const groupedKeyTargetSkillConcepts = [
 ]
 
 describe('KeyTargetSkillConcepts component', () => {
-  it('should render', () => {
-    const { asFragment } = render(<KeyTargetSkillConcepts groupedKeyTargetSkillConcepts={groupedKeyTargetSkillConcepts} />);
+  it('should render when shouldShowCounts is true', () => {
+    const { asFragment } = render(<KeyTargetSkillConcepts groupedKeyTargetSkillConcepts={groupedKeyTargetSkillConcepts} shouldShowCounts={true} />);
+    expect(asFragment()).toMatchSnapshot();
+    expect(screen.getByText(/conventions of language/i)).toBeInTheDocument()
+    expect(screen.getByText(/subordinating conjunctions/i)).toBeInTheDocument()
+  })
+
+  it('should render when shouldShowCounts is false', () => {
+    const { asFragment } = render(<KeyTargetSkillConcepts groupedKeyTargetSkillConcepts={groupedKeyTargetSkillConcepts} shouldShowCounts={false} />);
     expect(asFragment()).toMatchSnapshot();
     expect(screen.getByText(/conventions of language/i)).toBeInTheDocument()
     expect(screen.getByText(/subordinating conjunctions/i)).toBeInTheDocument()

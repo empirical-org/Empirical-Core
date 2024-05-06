@@ -112,6 +112,7 @@ class ProfilesController < ApplicationController
         classroom_unit_id: data.map{|h| h[CLASSROOM_UNIT_ID]},
         state: ActivitySession::STATE_FINISHED
       )
+      .order('activity_sessions.completed_at ASC')
       .group_by {|as| [as.activity_id, as.classroom_unit_id]}
   end
 

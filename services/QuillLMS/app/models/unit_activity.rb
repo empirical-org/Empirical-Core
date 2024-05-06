@@ -153,18 +153,20 @@ class UnitActivity < ApplicationRecord
           MAX(acts.updated_at) AS act_sesh_updated_at,
           ua.order_number,
           ua.due_date #{student_timezone_offset_string} AS due_date,
-          MIN(acts.completed_at) #{student_timezone_offset_string} AS completed_date,
+          MIN(final_score_activity_session.completed_at) #{student_timezone_offset_string} AS completed_date,
           ua.publish_date #{student_timezone_offset_string} AS publish_date,
           pre_activity.id AS pre_activity_id,
           cu.created_at AS unit_activity_created_at,
           upsi.status AS user_pack_sequence_item_status,
           COALESCE(cuas.locked, false) AS locked,
           COALESCE(cuas.pinned, false) AS pinned,
-          MAX(acts.percentage) AS max_percentage,
+          MAX(final_score_activity_session.percentage) AS max_percentage,
           CASE WHEN unit.open = false THEN true ELSE false END as closed,
           SUM(CASE WHEN pre_activity_sessions_classroom_units.id > 0 AND pre_activity_sessions.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS completed_pre_activity_session,
           SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS #{ActivitySession::STATE_FINISHED_KEY},
-          SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_STARTED}' THEN 1 ELSE 0 END) AS resume_link
+          SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) AS completed_attempt_count,
+          SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_STARTED}' THEN 1 ELSE 0 END) AS resume_link,
+          MAX(final_score_activity_session.id) AS activity_session_id
         FROM unit_activities AS ua
         JOIN units AS unit
           ON unit.id = ua.unit_id
@@ -175,6 +177,12 @@ class UnitActivity < ApplicationRecord
           AND acts.activity_id = ua.activity_id
           AND acts.visible = true
           AND acts.user_id = #{user_id.to_i}
+        LEFT JOIN activity_sessions AS final_score_activity_session
+          ON cu.id = final_score_activity_session.classroom_unit_id
+          AND final_score_activity_session.activity_id = ua.activity_id
+          AND final_score_activity_session.visible = true
+          AND final_score_activity_session.user_id = #{user_id.to_i}
+          AND final_score_activity_session.is_final_score = true
         JOIN activities AS activity
           ON activity.id = ua.activity_id
         LEFT JOIN activities AS pre_activity

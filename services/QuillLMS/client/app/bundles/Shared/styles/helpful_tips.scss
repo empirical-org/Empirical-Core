@@ -35,8 +35,10 @@
       }
     }
     &.scoring-explanation {
-      border-bottom: 1px solid $quill-grey-10;
-      padding-bottom: 16px;
+      &:not(:last-of-type) {
+        border-bottom: 1px solid $quill-grey-10;
+        padding-bottom: 16px;
+      }
     }
 
     h4 {

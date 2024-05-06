@@ -1,6 +1,7 @@
 <%= react_component('ResultsPageApp', props: {results: @results,
   percentage: @activity_session.percentage,
   activityName: @activity_session.activity.name,
+  activitySessionId: @activity_session.id,
   activityType: ActivityClassification.find(@activity_session.activity.activity_classification_id).key,
   anonymous: !@activity_session.user_id && current_user.nil?,
   classroomId: @classroom_id,

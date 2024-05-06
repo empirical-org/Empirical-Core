@@ -33,7 +33,8 @@ describe('ResultsPage container', () => {
     percentage: 0.61,
     groupedKeyTargetSkillConcepts,
     numberOfQuestions: 13,
-    numberOfCorrectQuestions: 8
+    numberOfCorrectQuestions: 8,
+    activitySessionId: 1
   };
 
   test('renders correctly when showExactScore is true', () => {
@@ -50,6 +51,16 @@ describe('ResultsPage container', () => {
     const { asFragment, } = render(<ResultsPage {...sharedProps} activityType='diagnostic' />);
     expect(asFragment()).toMatchSnapshot()
   });
+
+  test('renders the Keep practicing section when the percentage is below the proficiency threshold', () => {
+    render(<ResultsPage {...sharedProps} percentage={0.5} />);
+    expect(screen.getByRole('heading', { name: /keep practicing!/i })).toBeInTheDocument()
+  })
+
+  test('does not render the Keep practicing section when the percentage is above the proficiency threshold', () => {
+    render(<ResultsPage {...sharedProps} percentage={1} />);
+    expect(screen.queryByRole('heading', { name: /keep practicing!/i })).not.toBeInTheDocument()
+  })
 
   test('renders log in button for anonymous', () => {
     render(<ResultsPage {...sharedProps} anonymous={true} />);
