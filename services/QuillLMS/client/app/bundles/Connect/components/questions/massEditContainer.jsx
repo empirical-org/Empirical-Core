@@ -188,6 +188,7 @@ class MassEditContainer extends React.Component {
                 ContentState={ContentState}
                 EditorState={EditorState}
                 handleTextChange={this.handleMassEditFeedbackTextChange}
+                shouldCheckSpelling={true}
                 text={this.state.massEditFeedback || ''}
               />
             </div>

@@ -62,6 +62,7 @@ export default class FeedbackForm extends React.Component {
               EditorState={EditorState}
               handleTextChange={(e) => this.handleChange(part, e)}
               key={part}
+              shouldCheckSpelling={true}
               text={this.state[part]}
             />
           </React.Fragment>

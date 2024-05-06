@@ -145,6 +145,7 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
           ContentState={ContentState}
           EditorState={EditorState}
           handleTextChange={this.handleContentChange}
+          shouldCheckSpelling={true}
           text={content || ""}
         />
         <br />

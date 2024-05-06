@@ -261,6 +261,7 @@ class IncorrectSequencesContainer extends Component {
               EditorState={EditorState}
               handleTextChange={(e) => this.handleFeedbackChange(e, seq.key)}
               key="feedback"
+              shouldCheckSpelling={true}
               text={seq.feedback}
             />
             <br />

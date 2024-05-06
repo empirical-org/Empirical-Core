@@ -269,6 +269,7 @@ const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded,
             ContentState={ContentState}
             EditorState={EditorState}
             handleTextChange={handleFeedbackChange}
+            shouldCheckSpelling={true}
             text={feedback || ''}
           />
 

@@ -159,6 +159,7 @@ export class FocusPointsContainer extends React.Component {
               EditorState={EditorState}
               handleTextChange={(e) => this.handleFeedbackChange(e, fp.key)}
               key="feedback"
+              shouldCheckSpelling={true}
               text={fp.feedback}
             />
             {this.renderConceptResults(fp.conceptResults, fp.key)}
