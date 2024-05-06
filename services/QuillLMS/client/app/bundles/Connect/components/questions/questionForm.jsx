@@ -142,6 +142,7 @@ export default class extends React.Component {
             ContentState={ContentState}
             EditorState={EditorState}
             handleTextChange={this.handlePromptChange}
+            shouldCheckSpelling={true}
             text={this.props.question.prompt || ""}
           />
           <label className="label">Instructions for student</label>

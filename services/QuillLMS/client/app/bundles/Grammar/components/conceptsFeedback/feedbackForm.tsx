@@ -76,6 +76,7 @@ export default class FeedbackForm extends React.Component<FeedbackFormProps, Fee
             EditorState={EditorState}
             handleTextChange={this.handleChange.bind(null, part)}
             key={part}
+            shouldCheckSpelling={true}
             text={this.state[part]}
           />)
         ]

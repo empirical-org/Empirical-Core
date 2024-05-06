@@ -418,6 +418,7 @@ export default class Response extends React.Component<ResponseProps, ResponseSta
             ContentState={ContentState}
             EditorState={EditorState}
             handleTextChange={this.handleFeedbackChange}
+            shouldCheckSpelling={true}
             text={feedback || ''}
           />
 

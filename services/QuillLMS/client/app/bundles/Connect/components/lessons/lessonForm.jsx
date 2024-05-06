@@ -148,6 +148,7 @@ class LessonForm extends React.Component {
           ContentState={ContentState}
           EditorState={EditorState}
           handleTextChange={this.handleLPChange}
+          shouldCheckSpelling={true}
           text={this.state.landingPageHtml || ''}
         />
         <br />

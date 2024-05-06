@@ -136,6 +136,7 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
               ContentState={ContentState}
               EditorState={EditorState}
               handleTextChange={this.handlePromptChange}
+              shouldCheckSpelling={true}
             />
             <label className="label">Instructions for student</label>
             <p className="control">
@@ -148,6 +149,7 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
                 ContentState={ContentState}
                 EditorState={EditorState}
                 handleTextChange={this.handleRuleDescriptionChange}
+                shouldCheckSpelling={true}
               />
             </p>
             <label className="label">Optimal answer (you can add more later)</label>

@@ -217,6 +217,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
             EditorState={EditorState}
             handleTextChange={this.onLandingPageChange}
             id="landing-page-content"
+            shouldCheckSpelling={true}
             text={landingPageHtml || ''}
           />
         </div>

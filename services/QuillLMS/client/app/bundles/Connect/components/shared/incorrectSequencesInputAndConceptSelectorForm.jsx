@@ -165,6 +165,7 @@ export default class extends React.Component {
               EditorState={EditorState}
               handleTextChange={this.handleFeedbackChange}
               key="feedback"
+              shouldCheckSpelling={true}
               text={this.state.itemFeedback || ""}
             />
             <label className="label" style={{ marginTop: 10, }}>Concepts</label>

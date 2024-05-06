@@ -84,6 +84,7 @@ export default class QuestionForm extends React.Component {
             ContentState={ContentState}
             EditorState={EditorState}
             handleTextChange={this.handlePromptChange}
+            shouldCheckSpelling={true}
             text={prompt || ""}
           />
           <label className="label">Instructions for student</label>
@@ -112,6 +113,7 @@ export default class QuestionForm extends React.Component {
               ContentState={ContentState}
               EditorState={EditorState}
               handleTextChange={this.handleRuleDescriptionChange}
+              shouldCheckSpelling={true}
               text={rule_description}
             />
           </p>

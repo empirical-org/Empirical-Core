@@ -157,6 +157,7 @@ class FillInBlankForm extends Component {
           ContentState={ContentState}
           EditorState={EditorState}
           handleTextChange={this.handlePromptChange}
+          shouldCheckSpelling={true}
           text={this.state.prompt}
         />
         <br />
