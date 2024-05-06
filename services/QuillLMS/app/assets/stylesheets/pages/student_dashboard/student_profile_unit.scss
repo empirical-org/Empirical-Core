@@ -6,6 +6,7 @@
   .score-tooltip-activator {
     position: relative;
     white-space: normal;
+    width: 100%;
   }
   &.selected-unit {
     .unit-name-and-staggered-release-status {
@@ -37,7 +38,7 @@
     }
   }
   .activities-container {
-    padding: 32px 24px;
+    padding: 32px 0px;
     border-top: 1px solid $quill-grey-5;
     h3 {
       font-size: 16px;
@@ -59,13 +60,13 @@
       .data-table-row {
         min-height: 72px;
         height: min-content;
-        padding: 18px 0px;
+        padding: 18px 20px;
         &:hover {
           background-color: transparent;
         }
       }
-      .data-table-headers, .data-table-row {
-        padding: 0px;
+      .data-table-headers {
+        padding: 0px 20px;
       }
     }
     .action-button-section {
@@ -80,6 +81,9 @@
         pointer-events: auto;
       }
     }
+    .view-results-section {
+      margin-right: 16px;
+    }
     .score {
       display: flex;
       align-items: center;
@@ -92,6 +96,7 @@
         height: 24px;
         border-radius: 2px;
         margin-right: 8px;
+        position: relative;
         &.completed {
           background-color: #358fdf;
         }
@@ -104,6 +109,23 @@
         &.rarely-demonstrated-skill {
           background-color: #e73030;
         }
+
+        .attempt-symbol {
+          vertical-align: middle;
+          position: absolute;
+          top: -6px;
+          right: -6px;
+          height: 16px;
+      	}
+      	.attempt-count {
+          color: $quill-white;
+          position: absolute;
+          right: -1px;
+          top: -5px;
+          font-size: 10px;
+          font-style: normal;
+          font-weight: 700;
+      	}
       }
     }
     .complete-baseline {
@@ -121,7 +143,7 @@
       .due-date-section {
         flex: 1;
       }
-      .action-button-section {
+      .action-button-section, .view-results-section {
         flex: 1;
       }
       .score-section {
@@ -140,16 +162,15 @@
         white-space: normal;
       }
       .data-table-row {
-        padding: 16px 0px !important;
         min-height: 108px;
         height: min-content !important;
       }
-      .data-table-row-section.action-button-section {
+      .data-table-row-section.action-button-section, .data-table-row-section.view-results-section {
         flex: 1 0 100%;
         justify-content: flex-start;
         margin-top: 12px;
       }
-      .data-table-header.action-button-section {
+      .data-table-header.action-button-section, .data-table-header.view-results-section {
         display: none !important;
       }
       .due-date-section {

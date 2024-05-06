@@ -1,6 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`KeyTargetSkillConcepts component should render 1`] = `
+exports[`KeyTargetSkillConcepts component should render when shouldShowCounts is false 1`] = `
+<DocumentFragment>
+  <div
+    class="activity-tooltip-details-section target-skills-section"
+  >
+    <p
+      class="header"
+    >
+      Target Skills
+    </p>
+    <div
+      class="description-block"
+    >
+      <div
+        class="target-skill-container"
+      >
+        <p>
+          Conventions of Language
+        </p>
+      </div>
+      <div
+        class="target-skill-container"
+      >
+        <p>
+          Subordinating Conjunctions
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`KeyTargetSkillConcepts component should render when shouldShowCounts is true 1`] = `
 <DocumentFragment>
   <div
     class="activity-tooltip-details-section target-skills-section"

@@ -23,6 +23,7 @@ describe('StudentProfileUnit component', () => {
     const { asFragment, } = render(
       <StudentProfileUnit
         data={completeCategorizedActivities}
+        exactScoresData={exactScoresData}
         showExactScores={false}
         unitName="Unit"
       />

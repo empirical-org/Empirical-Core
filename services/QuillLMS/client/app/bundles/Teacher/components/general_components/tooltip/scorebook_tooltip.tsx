@@ -50,9 +50,10 @@ interface ScorebookTooltipData {
 interface ScorebookTooltipProps {
   data: ScorebookTooltipData
   inStudentView?: Boolean;
+  showExactScores?: Boolean;
 }
 
-export const ScorebookTooltip = ({ data, inStudentView, }: ScorebookTooltipProps) => {
+export const ScorebookTooltip = ({ data, inStudentView, showExactScores, }: ScorebookTooltipProps) => {
   const tooltipRef = React.useRef(null);
   const [tooltipStyle, setTooltipStyle] = React.useState({});
   const [caretStyle, setCaretStyle] = React.useState({});
@@ -118,7 +119,7 @@ export const ScorebookTooltip = ({ data, inStudentView, }: ScorebookTooltipProps
     } else if (!completed_attempts) {
       return <p className="no-data-message">This activity has not been completed.</p>
     } else if (sessions && sessions.length) {
-      return <KeyTargetSkillConcepts groupedKeyTargetSkillConcepts={sessions[sessions.length - 1].grouped_key_target_skill_concepts} />
+      return <KeyTargetSkillConcepts groupedKeyTargetSkillConcepts={sessions[sessions.length - 1].grouped_key_target_skill_concepts} shouldShowCounts={!inStudentView || showExactScores} />
     } else {
       return <Spinner />
     }
@@ -128,7 +129,7 @@ export const ScorebookTooltip = ({ data, inStudentView, }: ScorebookTooltipProps
     const attemptInProgress = started > 0
 
     return sessions.map((session, i) => {
-      const { percentage, number_of_correct_questions, number_of_questions, completed_at, timespent } = session
+      const { percentage, number_of_correct_questions, number_of_questions, completed_at, timespent, is_final_score, } = session
       const ordinalNumber = numberSuffixBuilder(i + 1)
       const formattedPercentage = percentageDisplayer.run(percentage)
       const scoreText = `${number_of_correct_questions} of ${number_of_questions} Target Skills Correct (${formattedPercentage})`
@@ -148,14 +149,14 @@ export const ScorebookTooltip = ({ data, inStudentView, }: ScorebookTooltipProps
           <p className="description">{`${moment.utc(completed_at).format('MMMM D, YYYY [at] h:mm a')} / ${timespent ? getTimeSpent(timespent) : NOT_APPLICABLE}`}</p>
         </div>
       )
-      return <ActivityDetailsSection description={descriptionElement} header={`${ordinalNumber} score`} key={i} />
+      return <ActivityDetailsSection description={descriptionElement} header={`${ordinalNumber} score${inStudentView && is_final_score ? '*' : ''}`} key={i} />
     })
   };
 
   function totalScoreOrNot() {
     const { percentage, sessions } = data
     const hasScoreData = percentage && sessions && sessions.length > 0
-    if (hasScoreData) {
+    if (hasScoreData && (!inStudentView || showExactScores)) {
       return displayScores()
     } else {
       return <span />
@@ -171,8 +172,11 @@ export const ScorebookTooltip = ({ data, inStudentView, }: ScorebookTooltipProps
   }
 
   function colorExplanation() {
-    const cutOff = proficiencyCutoffsAsPercentage();
     const { percentage, } = data
+
+    if (percentage === null) { return }
+
+    const cutOff = proficiencyCutoffsAsPercentage();
 
     const scoreForComparison = percentage * 100
 
@@ -199,6 +203,17 @@ export const ScorebookTooltip = ({ data, inStudentView, }: ScorebookTooltipProps
     return <ActivityDetailsSection description={descriptionElement} header={header} />
   }
 
+  function tooltipMessage() {
+    let text = 'Clicking on the activity icon loads the report'
+    if (inStudentView) {
+      text = showExactScores ? '*Your dashboard shows the highest score of all your attempts' : 'This type of activity is not graded.'
+    }
+
+    return (
+      <p className="tooltip-message">{text}</p>
+    )
+  }
+
   const title = activity ? activity.name : name;
   return (
     <div className="scorebook-tooltip" ref={tooltipRef} style={tooltipStyle}>
@@ -210,7 +225,8 @@ export const ScorebookTooltip = ({ data, inStudentView, }: ScorebookTooltipProps
       <div className="main">
         {activityOverview()}
         {keyTargetSkillConceptsOrExplanation()}
-        {inStudentView ? colorExplanation() : <p className="tooltip-message">Clicking on the activity icon loads the report</p>}
+        {inStudentView ? colorExplanation() : null}
+        {tooltipMessage()}
       </div>
     </div>
   )

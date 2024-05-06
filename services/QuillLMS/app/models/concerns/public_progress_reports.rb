@@ -261,7 +261,8 @@ module PublicProgressReports
       grouped_key_target_skill_concepts: format_grouped_key_target_skill_concepts(key_target_skill_concepts),
       number_of_questions: questions.length,
       number_of_correct_questions: correct_key_target_skill_concepts.length,
-      timespent: activity_session.timespent
+      timespent: activity_session.timespent,
+      is_final_score: activity_session.is_final_score
     }
   end
 
