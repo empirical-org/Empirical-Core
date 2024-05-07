@@ -31,7 +31,16 @@
     "nodemon": "^1.17.3",
     "socket.io-redis": "^5.2.0"
   },
+  "engineStrict": true,
   "engines": {
-    "node": "8.11.1"
+    "node": "14.x",
+    "npm": "8.x"
+  },
+  "overrides": {
+    "@babel/traverse": ">=7.23.2",
+    "minimist": ">= 1.2.6",
+    "socket.io-parser": "^3.3.3",
+    "json-schema": "^0.4.0"
   }
+
 }
