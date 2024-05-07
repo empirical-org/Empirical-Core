@@ -96,6 +96,8 @@ module AdminDiagnosticReports
     private def school_ids
       {
         'liz.domingue@cpsb.org' => [38811,38804,38801,38800,38779,38784,38780,38773,38765,38764],
+        'kclark@stem-prep.org' => [129038, 11117, 129037],
+        'freshteachtest@gmail.com' => [71746, 129107]
       }
     end
   end
