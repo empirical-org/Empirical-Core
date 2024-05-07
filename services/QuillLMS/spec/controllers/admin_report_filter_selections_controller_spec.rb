@@ -80,10 +80,14 @@ RSpec.describe AdminReportFilterSelectionsController, type: :controller do
 
       it "updates the filter selections for growth diagnostic dropdown filters" do
         report = AdminReportFilterSelection::DIAGNOSTIC_GROWTH_REPORT_SKILL
-        grade_option = { 'value' => 'grade', 'label' => 'grade' }
-        classroom_option = { 'value' => 'classroom', 'label' => 'classroom' }
-        starter_diagnostic_option = { 'value' => '1663', 'label' => 'Starter Diagnostic' }
-        ell_starter_diagnostic_option = { 'value' => '1161', 'label' => 'ELL Starter Diagnostic' }
+        grade_string = 'grade'
+        classroom_string = 'classroom'
+        first_diagnostic_id = '1663'
+        second_diagnostic_id = '1161'
+        grade_option = { 'value' => grade_string, 'label' => grade_string }
+        classroom_option = { 'value' => classroom_string, 'label' => classroom_string }
+        starter_diagnostic_option = { 'value' => first_diagnostic_id, 'label' => 'Starter Diagnostic' }
+        ell_starter_diagnostic_option = { 'value' => second_diagnostic_id, 'label' => 'ELL Starter Diagnostic' }
 
         admin_report_filter_selection = create(:admin_report_filter_selection, user: user, report: report, filter_selections: { 'group_by_value' => grade_option, 'diagnostic_type_value' => starter_diagnostic_option })
 
@@ -95,8 +99,8 @@ RSpec.describe AdminReportFilterSelectionsController, type: :controller do
 
         expect do
           post :create_or_update, params: { admin_report_filter_selection: updated_attributes }
-        end.to change { admin_report_filter_selection.reload.filter_selections['group_by_value']['value'] }.from('grade').to('classroom')
-          .and change { admin_report_filter_selection.reload.filter_selections['diagnostic_type_value']['value'] }.from('1663').to('1161')
+        end.to change { admin_report_filter_selection.reload.filter_selections['group_by_value']['value'] }.from(grade_string).to(classroom_string)
+          .and change { admin_report_filter_selection.reload.filter_selections['diagnostic_type_value']['value'] }.from(first_diagnostic_id).to(second_diagnostic_id)
       end
 
       it "renders a JSON response with the admin report filter selection" do
