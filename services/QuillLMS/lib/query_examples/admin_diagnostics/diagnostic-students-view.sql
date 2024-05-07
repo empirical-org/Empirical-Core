@@ -1,8 +1,8 @@
         /*
-           Data Processed By Query: 1.73 GB
+           Data Processed By Query: 1.76 GB
            Bytes Billed For Query:  0.19 GB
-           Total Query Time:        1915 ms
-           Total Slot Time:         2377 ms
+           Total Query Time:        2657 ms
+           Total Slot Time:         6683 ms
            BI Engine Mode Used:     FULL_INPUT
              BI Engine Code:          
              BI Engine Message:       
@@ -13,7 +13,7 @@
           performance.pre_activity_session_completed_at,
           performance.post_activity_session_completed_at,
           performance.classroom_id,
-          students.id AS aggregate_id,
+          CONCAT(performance.classroom_id, ':', performance.student_id) AS aggregate_id,
           students.name AS name,
           'student' AS group_by,
           performance.skill_group_name AS skill_group_name,
@@ -43,13 +43,14 @@
           
           
           AND performance.activity_id = 1663
-          AND filter.school_id IN (38811,38804,38801,38800,38779,38784,38780,38773,38765,38764)
+          AND filter.school_id IN (129038,11117,129037)
           
 
               GROUP BY skill_group_name,
         aggregate_id,
         students.name,
         student_id,
+        student_name,
         pre_activity_session_completed_at,
         post_activity_session_completed_at,
         performance.classroom_id,

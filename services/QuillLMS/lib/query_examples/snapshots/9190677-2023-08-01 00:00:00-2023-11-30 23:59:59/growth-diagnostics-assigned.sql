@@ -1,0 +1,36 @@
+        /*
+           Data Processed By Query: 0.65 GB
+           Bytes Billed For Query:  0.65 GB
+           Total Query Time:        1504 ms
+           Total Slot Time:         77706 ms
+           BI Engine Mode Used:     BI_ENGINE_DISABLED
+             BI Engine Code:          INPUT_TOO_LARGE
+             BI Engine Message:       Cannot broadcast table lms.classrooms: number of files 293 > supported limit of 20.
+        */
+        SELECT IFNULL(SUM(students_assigned), 0) AS count
+          FROM (        SELECT DISTINCT classroom_units.id, ARRAY_LENGTH(assigned_student_ids) AS students_assigned
+                FROM lms.schools
+        JOIN lms.schools_users
+          ON schools.id = schools_users.school_id
+        LEFT OUTER JOIN lms.classrooms_teachers
+          ON schools_users.user_id = classrooms_teachers.user_id
+        LEFT OUTER JOIN lms.classrooms
+          ON classrooms_teachers.classroom_id = classrooms.id
+        JOIN lms.classroom_units
+          ON classrooms.id = classroom_units.classroom_id
+        JOIN lms.unit_activities
+          ON classroom_units.unit_id = unit_activities.unit_id
+
+                WHERE
+          classroom_units.created_at BETWEEN '2023-08-01 00:00:00' AND '2023-11-30 23:59:59'
+          AND schools.id IN (129038,11117,129037)
+          
+          
+          
+          AND classrooms_teachers.role = 'owner'
+        AND unit_activities.activity_id IN (1774,1814,1818,1664,1669,1680)
+
+        
+        
+        
+)

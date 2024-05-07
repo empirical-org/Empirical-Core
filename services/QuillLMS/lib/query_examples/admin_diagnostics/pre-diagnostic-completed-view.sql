@@ -1,8 +1,8 @@
         /*
-           Data Processed By Query: 1.7 GB
-           Bytes Billed For Query:  0.23 GB
-           Total Query Time:        1620 ms
-           Total Slot Time:         5669 ms
+           Data Processed By Query: 1.71 GB
+           Bytes Billed For Query:  0.24 GB
+           Total Query Time:        1805 ms
+           Total Slot Time:         1522 ms
            BI Engine Mode Used:     FULL_INPUT
              BI Engine Code:          
              BI Engine Message:       
@@ -34,7 +34,7 @@
           
           
           AND performance.activity_id IN (1663,1668,1678,1161,1568,1590,992,1229,1230,1432)
-          AND filter.school_id IN (38811,38804,38801,38800,38779,38784,38780,38773,38765,38764)
+          AND filter.school_id IN (129038,11117,129037)
           
 
         GROUP BY performance.activity_id, performance.activity_name, aggregate_id, filter.classroom_name, activity_session_id

@@ -1,8 +1,8 @@
         /*
-           Data Processed By Query: 2.03 GB
-           Bytes Billed For Query:  0.23 GB
-           Total Query Time:        1676 ms
-           Total Slot Time:         3161 ms
+           Data Processed By Query: 1.77 GB
+           Bytes Billed For Query:  0.24 GB
+           Total Query Time:        2520 ms
+           Total Slot Time:         2147 ms
            BI Engine Mode Used:     FULL_INPUT
              BI Engine Code:          
              BI Engine Message:       
@@ -13,7 +13,7 @@
             aggregate_id,
             name,
             group_by,
-            post_students_completed,
+            CAST(SUM(post_students_completed) / COUNT(DISTINCT skill_group_id) AS int64) AS post_students_completed,
             AVG(growth_percentage) AS overall_skill_growth
           FROM (                SELECT
           performance.activity_id AS diagnostic_id,
@@ -21,11 +21,12 @@
           filter.classroom_id AS aggregate_id,
           filter.classroom_name AS name,
           'classroom' AS group_by,
-                  COUNT(DISTINCT performance.post_activity_session_id) AS post_students_completed,
+                  performance.skill_group_id,
+        COUNT(DISTINCT performance.post_activity_session_id) AS post_students_completed,
         GREATEST(
-         ROUND(SAFE_DIVIDE(SUM(performance.post_questions_correct), CAST(SUM(performance.post_questions_total) AS float64)), 2)
-            - ROUND(SAFE_DIVIDE(SUM(CASE WHEN performance.post_activity_session_id IS NOT NULL THEN performance.pre_questions_correct ELSE NULL END),
-              CAST(SUM(CASE WHEN performance.post_activity_session_id IS NOT NULL THEN performance.pre_questions_total ELSE NULL END) AS float64)), 2),
+          SAFE_DIVIDE(SUM(performance.post_questions_correct), CAST(SUM(performance.post_questions_total) AS float64))
+            - SAFE_DIVIDE(SUM(CASE WHEN performance.post_activity_session_id IS NOT NULL THEN performance.pre_questions_correct ELSE NULL END), CAST(SUM(CASE WHEN performance.post_activity_session_id IS NOT NULL THEN performance.pre_questions_total ELSE NULL END) AS float64)
+          ),
         0) AS growth_percentage
 
 
@@ -37,14 +38,14 @@
           
           
           AND performance.activity_id IN (1663,1668,1678,1161,1568,1590,992,1229,1230,1432)
-          AND filter.school_id IN (38811,38804,38801,38800,38779,38784,38780,38773,38765,38764)
+          AND filter.school_id IN (129038,11117,129037)
           
 
-        GROUP BY performance.activity_id, performance.activity_name, aggregate_id, filter.classroom_name, performance.skill_group_name, performance.classroom_id
+        GROUP BY performance.activity_id, performance.activity_name, aggregate_id, filter.classroom_name, performance.skill_group_id, performance.classroom_id
         
         
 )
-          GROUP BY diagnostic_id, diagnostic_name, aggregate_id, name, group_by, post_students_completed
+          GROUP BY diagnostic_id, diagnostic_name, aggregate_id, name, group_by
 )
                 SELECT
           diagnostic_id, diagnostic_name,
