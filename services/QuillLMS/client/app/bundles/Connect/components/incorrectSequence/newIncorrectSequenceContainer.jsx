@@ -31,14 +31,15 @@ class NewIncorrectSequencesContainer extends Component {
   submitSequenceForm = data => {
     const { actionFile } = this.state
     const { submitNewIncorrectSequence } = actionFile
-    const { dispatch, match, generatedIncorrectSequences } = this.props
-    const { params } = match
-    const { questionID } = params
+    const { dispatch, match, history, questions } = this.props
+    const incorrectSequences = questions.data[match.params.questionID].incorrectSequences
     delete data.conceptResults.null;
-    const usedIncorrectSequences = generatedIncorrectSequences.used[match.params.questionID];
-    data.order = _.keys(usedIncorrectSequences).length;
-    dispatch(submitNewIncorrectSequence(questionID, data));
-    window.history.back();
+    data.order = _.keys(incorrectSequences).length;
+    const url = match.url.replace('/new', '')
+    const callback = () => {
+      history.push(url)
+    }
+    dispatch(submitNewIncorrectSequence(match.params.questionID, data, callback));
   };
 
   render() {

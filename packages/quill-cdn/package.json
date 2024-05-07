@@ -18,6 +18,13 @@
     "url": "https://github.com/empirical-org/Quill-CDN/issues"
   },
   "homepage": "https://github.com/empirical-org/Quill-CDN#readme",
+  "engines": {
+    "node": "14.x",
+    "npm": "8.x"
+  },
+  "overrides": {
+     "thenify": "^3.3.1"
+  },
   "devDependencies": {
     "local-web-server": "^4.0.0"
   },

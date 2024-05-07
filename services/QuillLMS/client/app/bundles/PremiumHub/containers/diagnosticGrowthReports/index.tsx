@@ -69,12 +69,6 @@ export const DiagnosticGrowthReportsContainer = ({
     if (!passedData) {
       getFilterSelections(activeTab)
     }
-  }, [])
-
-  React.useEffect(() => {
-    if (!passedData) {
-      getFilterSelections(activeTab)
-    }
   }, [activeTab])
 
   React.useEffect(() => {

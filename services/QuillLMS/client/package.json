@@ -166,6 +166,9 @@
     "ts-jest": "^27.0.5",
     "whatwg-fetch": "^2.0.4"
   },
+  "overrides": {
+    "@babel/traverse": ">=7.23.2"
+  },
   "browser": {
     "fs": false
   },

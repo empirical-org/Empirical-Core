@@ -17,35 +17,24 @@ class IncorrectSequencesContainer extends Component {
     const questionTypeLink = questionType === 'sentenceFragments' ? 'sentence-fragments' : 'questions'
     const actionFile = questionType === 'sentenceFragments' ? sentenceFragmentActions : questionActions
     const question = props[questionType].data[props.match.params.questionID]
-    const incorrectSequences = this.getSequences(question)
+    const incorrectSequences = question.incorrectSequences
 
-    this.state = { orderedIds: null, questionType, actionFile, questionTypeLink, incorrectSequences };
+    const sequencesCollection = hashToCollection(incorrectSequences)
+    const orderedIds = sequencesCollection.sort((a, b) => a.order - b.order).map(b => b.key);
+
+    this.state = { orderedIds, questionType, actionFile, questionTypeLink, incorrectSequences };
   }
 
-  componentDidMount() {
-    const { actionFile } = this.state
-    const { getUsedSequences } = actionFile
-    const { dispatch, match } = this.props
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { incorrectSequences } = this.state
+    const { match, questions } = nextProps
     const { params } = match
-    const { questionID } = params
-    if (getUsedSequences) {
-      dispatch(getUsedSequences(questionID))
+
+    const incomingIncorrectSequences = questions.data[params.questionID].incorrectSequences
+    const incomingOrderedIds = hashToCollection(incomingIncorrectSequences).sort((a, b) => a.order - b.order).map(seq => seq.key)
+    if (!_.isEqual(incorrectSequences, incomingIncorrectSequences)) {
+      this.setState({ incorrectSequences: incomingIncorrectSequences, orderedIds: incomingOrderedIds})
     }
-  }
-
-  componentDidUpdate(previousProps, previousState) {
-    const question = this.props[this.state.questionType].data[this.props.match.params.questionID]
-    const incorrectSequences = this.getSequences(question)
-
-    if (!_.isEqual(previousState.incorrectSequences, incorrectSequences)) {
-      this.setState({ incorrectSequences, orderedIds: null });
-    };
-  }
-
-  getSequenceIndexByKey = (key) => {
-    const { incorrectSequences, } = this.state
-
-    return incorrectSequences.findIndex(is => is.key === key)
   }
 
   getSequences = (question) => {
@@ -77,10 +66,23 @@ class IncorrectSequencesContainer extends Component {
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       dispatch(deleteIncorrectSequence(questionID, sequenceID));
       delete incorrectSequences[sequenceID];
-      if (orderedIds) {
-        const newOrderedIds = orderedIds.filter(id => id != sequenceID)
-        this.setState({ orderedIds: newOrderedIds })
+      const newOrderedIds = orderedIds.filter(id => id !== sequenceID)
+      const incorrectSequenceArray = hashToCollection(incorrectSequences)
+
+      let newIncorrectSequences = {}
+      newOrderedIds.forEach((id, index) => {
+        const sequence = incorrectSequenceArray.find(is => is.key === id);
+        sequence.order = index
+        newIncorrectSequences[sequence.key] = sequence
+      })
+
+      if (incorrectSequenceArray.length > 0) {
+        dispatch(questionActions.updateIncorrectSequences(questionID, newIncorrectSequences, this.alertDeleted))
+      } else {
+        this.alertDeleted()
       }
+
+      this.setState({ orderedIds: newOrderedIds, incorrectSequences: newIncorrectSequences })
     }
   };
 
@@ -89,17 +91,37 @@ class IncorrectSequencesContainer extends Component {
 
     const sequencesCollection = Array.isArray(incorrectSequences) ? incorrectSequences : hashToCollection(incorrectSequences)
 
-    if (orderedIds) {
-      return orderedIds.map(id => sequencesCollection.find(s => s.uid === id))
-    } else {
-      return sequencesCollection.sort((a, b) => a.order - b.order);
-    }
+    return orderedIds.map(id => sequencesCollection.find(s => s.key === id))
+
   }
 
   sortCallback = sortInfo => {
     const orderedIds = sortInfo.map(item => item.key);
     this.setState({ orderedIds });
   };
+
+  alertSaved = () => {
+    alert('Saved!')
+  }
+
+  alertDeleted = () => {
+    alert('Deleted!')
+  }
+
+  handleSaveAllSequences = () => {
+    const { orderedIds, incorrectSequences } = this.state
+    const { dispatch, match } = this.props;
+    const { params } = match;
+    const { questionID } = params;
+    const newIncorrectSequences = {}
+    const incorrectSequenceArray = hashToCollection(incorrectSequences)
+    orderedIds.forEach((id, index) => {
+      const sequence = incorrectSequenceArray.find(is => is.key === id);
+      sequence.order = index
+      newIncorrectSequences[sequence.key] = sequence
+    })
+    dispatch(questionActions.updateIncorrectSequences(questionID, newIncorrectSequences, this.alertSaved))
+  }
 
   updateOrder = () => {
     const { actionFile, orderedIds, incorrectSequences } = this.state
@@ -129,8 +151,7 @@ class IncorrectSequencesContainer extends Component {
     const { questionID } = params
     const { incorrectSequences } = this.state
     const filteredSequences = this.removeEmptySequences(incorrectSequences)
-    const index = this.getSequenceIndexByKey(key)
-    let data = filteredSequences[index]
+    let data = filteredSequences[key]
     delete data.conceptResults.null;
     if (data.text === '') {
       delete filteredSequences[index]
@@ -156,7 +177,7 @@ class IncorrectSequencesContainer extends Component {
     const { incorrectSequences } = this.state
     const className = `regex-${key}`
     const value = `${Array.from(document.getElementsByClassName(className)).map(i => i.value).filter(val => val !== '').join('|||')}|||`;
-    incorrectSequences[this.getSequenceIndexByKey(key)].text = value;
+    incorrectSequences[key].text = value;
     this.setState({incorrectSequences: incorrectSequences})
   }
 
@@ -169,19 +190,19 @@ class IncorrectSequencesContainer extends Component {
         return
       }
     }
-    incorrectSequences[this.getSequenceIndexByKey(key)].text = value;
+    incorrectSequences[key].text = value;
     this.setState({incorrectSequences: incorrectSequences})
   }
 
   handleNameChange = (e, key) => {
     const { incorrectSequences } = this.state
-    incorrectSequences[this.getSequenceIndexByKey(key)].name = e.target.value
+    incorrectSequences[key].name = e.target.value
     this.setState({incorrectSequences: incorrectSequences})
   }
 
   handleFeedbackChange = (e, key) => {
     const { incorrectSequences } = this.state
-    incorrectSequences[this.getSequenceIndexByKey(key)].feedback = e
+    incorrectSequences[key].feedback = e
     this.setState({incorrectSequences: incorrectSequences})
   }
 
@@ -203,12 +224,18 @@ class IncorrectSequencesContainer extends Component {
     }
   }
 
+  renderSaveButton() {
+    return (
+      <button className="button is-outlined is-primary" onClick={this.handleSaveAllSequences} style={{ float: 'right', }} type="button">Save Sequences</button>
+    );
+  }
+
   renderSequenceList = () => {
     const { match } = this.props
 
     const components = this.sequencesSortedByOrder().map((sequence) => {
       return (
-        <div className="card is-fullwidth has-bottom-margin" id={sequence.uid} key={sequence.uid} >
+        <div className="card is-fullwidth has-bottom-margin" id={sequence.key} key={sequence.key} >
           <header className="card-header">
             <input className="regex-name" onChange={(e) => this.handleNameChange(e, sequence.key)} placeholder="Name" type="text" value={sequence.name || ''} />
           </header>
@@ -237,7 +264,6 @@ class IncorrectSequencesContainer extends Component {
           <footer className="card-footer">
             <NavLink className="card-footer-item" to={`${match.url}/${sequence.key}/edit`}>Edit</NavLink>
             <a className="card-footer-item" onClick={() => this.deleteSequence(sequence.key)}>Delete</a>
-            <a className="card-footer-item" onClick={() => this.saveSequencesAndFeedback(sequence.key)}>Save</a>
           </footer>
         </div>
       )
@@ -267,7 +293,7 @@ class IncorrectSequencesContainer extends Component {
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Incorrect Sequences</h1>
           <a className="button is-outlined is-primary" href={`#${match.url}/new`} rel="noopener noreferrer" style={{ float: 'right', }}>Add Incorrect Sequence</a>
-          {this.renderSaveOrderButton()}
+          {this.renderSaveButton()}
         </div>
         {this.renderSequenceList()}
       </div>

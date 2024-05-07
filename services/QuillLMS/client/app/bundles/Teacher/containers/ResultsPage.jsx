@@ -21,8 +21,11 @@ const ResultsPage = ({
   classroomId,
   classroomUnitId,
   activityId,
+  activitySessionId,
 }) => {
   const isDiagnostic = activityType === diagnosticActivityType
+
+  const cutOff = proficiencyCutoffsAsPercentage();
 
   const renderResultsSection = (sectionHeader, targetSkills) => {
     if (!targetSkills.length) { return }
@@ -45,6 +48,22 @@ const ResultsPage = ({
     )
   }
 
+  const renderKeepPracticingSection = () => {
+    const percentageAsWholeNumber = percentage * 100
+
+    if (percentageAsWholeNumber >= cutOff.proficient || isDiagnostic) { return }
+
+    return (
+      <div className="keep-practicing-section">
+        <img alt="" src={`${process.env.CDN_URL}/images/pages/student_results_page/pencil_illustration.svg`} />
+        <div>
+          <h2>Keep practicing!</h2>
+          <p>Becoming a strong writer takes practice. You kept going and finished the activity! By practicing, you will continue to improve and build your skills.</p>
+        </div>
+      </div>
+    )
+  }
+
   const bottomSection = () => {
     if (isDiagnostic) {
       return (
@@ -57,8 +76,6 @@ const ResultsPage = ({
 
     const proficientSkills = []
     const keepPracticingSkills = []
-
-    const cutOff = proficiencyCutoffsAsPercentage();
 
     groupedKeyTargetSkillConcepts.forEach(groupedKeyTargetSkillConcept => {
       const { correct, incorrect, name } = groupedKeyTargetSkillConcept
@@ -101,6 +118,7 @@ const ResultsPage = ({
     return (
       <div className="header-buttons">
         <a className={primaryButtonClassName} href={dashboardLink}>Return to dashboard</a>
+        {!isDiagnostic && <a className='quill-button secondary outlined large focus-on-light' href={`/activity_sessions/${activitySessionId}/student_activity_report`}>View results</a>}
         {!isDiagnostic && <a className='quill-button secondary outlined large focus-on-light' href={`/activity_sessions/classroom_units/${classroomUnitId}/activities/${activityId}`}>Replay activity</a>}
       </div>
     )
@@ -124,6 +142,7 @@ const ResultsPage = ({
           </div>
           {bottomSection()}
         </div>
+        {renderKeepPracticingSection()}
       </div>
     </div>
   );

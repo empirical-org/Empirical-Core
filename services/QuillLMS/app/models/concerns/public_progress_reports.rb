@@ -129,7 +129,7 @@ module PublicProgressReports
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def activity_sessions_for_unit_activity_classroom_and_student(unit_id, activity_id, classroom_id, student_id)
+  def finished_activity_sessions_for_unit_activity_classroom_and_student(unit_id, activity_id, classroom_id, student_id)
     classroom_unit = ClassroomUnit.find_by(
       classroom_id: classroom_id,
       unit_id: unit_id
@@ -142,7 +142,9 @@ module PublicProgressReports
       .where(
         user_id: student_id,
         classroom_unit_id: classroom_unit.id,
-        activity_id: activity_id)
+        activity_id: activity_id,
+        state: ActivitySession::STATE_FINISHED_KEY
+      )
       .order('activity_sessions.completed_at')
 
     classification = Activity.find_by(id: activity_id).classification
@@ -259,7 +261,8 @@ module PublicProgressReports
       grouped_key_target_skill_concepts: format_grouped_key_target_skill_concepts(key_target_skill_concepts),
       number_of_questions: questions.length,
       number_of_correct_questions: correct_key_target_skill_concepts.length,
-      timespent: activity_session.timespent
+      timespent: activity_session.timespent,
+      is_final_score: activity_session.is_final_score
     }
   end
 

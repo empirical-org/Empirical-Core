@@ -108,6 +108,7 @@ describe("StudentProfileUnits component", () => {
       <StudentProfileUnits
         activeClassworkTab={COMPLETED_ACTIVITIES}
         data={activities}
+        exactScoresDataPending={true}
         teacherName="Emilia F"
       />
     );

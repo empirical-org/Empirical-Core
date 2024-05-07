@@ -399,20 +399,20 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
             headers={
               Array [
                 Object {
-                  "attribute": "name",
-                  "headerClassName": "name-section",
-                  "name": "Activity",
-                  "noTooltip": true,
-                  "rowSectionClassName": "name-section",
-                  "width": "823px",
-                },
-                Object {
                   "attribute": "tool",
                   "headerClassName": "tool-icon-section",
                   "name": "Tool",
                   "noTooltip": true,
                   "rowSectionClassName": "tool-icon-section",
                   "width": "24px",
+                },
+                Object {
+                  "attribute": "name",
+                  "headerClassName": "name-section",
+                  "name": "Activity",
+                  "noTooltip": true,
+                  "rowSectionClassName": "name-section",
+                  "width": "874px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -446,7 +446,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       </span>
                     }
                   />,
-                  "dueDate": null,
+                  "dueDate": "—",
                   "id": 41,
                   "name": "Lesson 2: Dependent Clause Fragments",
                   "tool": undefined,
@@ -463,7 +463,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       </span>
                     }
                   />,
-                  "dueDate": null,
+                  "dueDate": "—",
                   "id": 42,
                   "name": "Lesson 3: -ing Fragments",
                   "tool": undefined,
@@ -480,7 +480,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       </span>
                     }
                   />,
-                  "dueDate": null,
+                  "dueDate": "—",
                   "id": 43,
                   "name": "Lesson 4: Fragments Review",
                   "tool": undefined,
@@ -496,24 +496,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   className="data-table-headers"
                 >
                   <th
-                    className="data-table-header name-section"
-                    key="0"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <span>
-                      Activity
-                    </span>
-                  </th>
-                  <th
                     className="data-table-header tool-icon-section"
-                    key="1"
+                    key="0"
                     scope="col"
                     style={
                       Object {
@@ -528,13 +512,29 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     </span>
                   </th>
                   <th
+                    className="data-table-header name-section"
+                    key="1"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <span>
+                      Activity
+                    </span>
+                  </th>
+                  <th
                     className="data-table-header due-date-section"
                     key="2"
                     scope="col"
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
@@ -567,23 +567,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="41"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-41"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Lesson 2: Dependent Clause Fragments
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-41"
                     onMouseEnter={[Function]}
@@ -599,6 +582,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper />
                   </td>
                   <td
+                    className="data-table-row-section name-section"
+                    key="name-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Lesson 2: Dependent Clause Fragments
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
                     onMouseEnter={[Function]}
@@ -606,12 +606,14 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
                   >
-                    <TableCellContentWrapper />
+                    <TableCellContentWrapper>
+                      —
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -678,23 +680,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="42"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-42"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Lesson 3: -ing Fragments
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-42"
                     onMouseEnter={[Function]}
@@ -710,6 +695,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper />
                   </td>
                   <td
+                    className="data-table-row-section name-section"
+                    key="name-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Lesson 3: -ing Fragments
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
                     onMouseEnter={[Function]}
@@ -717,12 +719,14 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
                   >
-                    <TableCellContentWrapper />
+                    <TableCellContentWrapper>
+                      —
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -789,23 +793,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="43"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-43"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Lesson 4: Fragments Review
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-43"
                     onMouseEnter={[Function]}
@@ -821,6 +808,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper />
                   </td>
                   <td
+                    className="data-table-row-section name-section"
+                    key="name-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Lesson 4: Fragments Review
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
                     onMouseEnter={[Function]}
@@ -828,12 +832,14 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
                   >
-                    <TableCellContentWrapper />
+                    <TableCellContentWrapper>
+                      —
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -1112,20 +1118,20 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
             headers={
               Array [
                 Object {
-                  "attribute": "name",
-                  "headerClassName": "name-section",
-                  "name": "Activity",
-                  "noTooltip": true,
-                  "rowSectionClassName": "name-section",
-                  "width": "823px",
-                },
-                Object {
                   "attribute": "tool",
                   "headerClassName": "tool-icon-section",
                   "name": "Tool",
                   "noTooltip": true,
                   "rowSectionClassName": "tool-icon-section",
                   "width": "24px",
+                },
+                Object {
+                  "attribute": "name",
+                  "headerClassName": "name-section",
+                  "name": "Activity",
+                  "noTooltip": true,
+                  "rowSectionClassName": "name-section",
+                  "width": "874px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -1262,24 +1268,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   className="data-table-headers"
                 >
                   <th
-                    className="data-table-header name-section"
-                    key="0"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <span>
-                      Activity
-                    </span>
-                  </th>
-                  <th
                     className="data-table-header tool-icon-section"
-                    key="1"
+                    key="0"
                     scope="col"
                     style={
                       Object {
@@ -1291,6 +1281,22 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   >
                     <span>
                       Tool
+                    </span>
+                  </th>
+                  <th
+                    className="data-table-header name-section"
+                    key="1"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <span>
+                      Activity
                     </span>
                   </th>
                   <th
@@ -1333,23 +1339,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="1"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-1"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      The Travels of Marco Polo
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-1"
                     onMouseEnter={[Function]}
@@ -1363,6 +1352,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      The Travels of Marco Polo
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -1410,23 +1416,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="2"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-2"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Christopher Columbus
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-2"
                     onMouseEnter={[Function]}
@@ -1440,6 +1429,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Christopher Columbus
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -1487,23 +1493,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="10"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-10"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      A, An, The
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-10"
                     onMouseEnter={[Function]}
@@ -1517,6 +1506,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      A, An, The
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -1564,23 +1570,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="3"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-3"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Magellan
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-3"
                     onMouseEnter={[Function]}
@@ -1594,6 +1583,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Magellan
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -1641,23 +1647,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="4"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-4"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Jamestown
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-4"
                     onMouseEnter={[Function]}
@@ -1671,6 +1660,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Jamestown
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -1718,23 +1724,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="6"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-6"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Age of Exploration: Sailing with the Stars
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-6"
                     onMouseEnter={[Function]}
@@ -1748,6 +1737,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Age of Exploration: Sailing with the Stars
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -1795,23 +1801,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="7"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-7"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Age of Exploration: The Cape of Good Hope
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-7"
                     onMouseEnter={[Function]}
@@ -1825,6 +1814,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Age of Exploration: The Cape of Good Hope
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -1872,23 +1878,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="8"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-8"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Age of Exploration: Roanoke
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-8"
                     onMouseEnter={[Function]}
@@ -1902,6 +1891,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Age of Exploration: Roanoke
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -2353,20 +2359,20 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
             headers={
               Array [
                 Object {
-                  "attribute": "name",
-                  "headerClassName": "name-section",
-                  "name": "Activity",
-                  "noTooltip": true,
-                  "rowSectionClassName": "name-section",
-                  "width": "823px",
-                },
-                Object {
                   "attribute": "tool",
                   "headerClassName": "tool-icon-section",
                   "name": "Tool",
                   "noTooltip": true,
                   "rowSectionClassName": "tool-icon-section",
                   "width": "24px",
+                },
+                Object {
+                  "attribute": "name",
+                  "headerClassName": "name-section",
+                  "name": "Activity",
+                  "noTooltip": true,
+                  "rowSectionClassName": "name-section",
+                  "width": "874px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -2400,7 +2406,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       </span>
                     }
                   />,
-                  "dueDate": null,
+                  "dueDate": "—",
                   "id": 41,
                   "name": "Lesson 2: Dependent Clause Fragments",
                   "tool": undefined,
@@ -2417,7 +2423,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       </span>
                     }
                   />,
-                  "dueDate": null,
+                  "dueDate": "—",
                   "id": 42,
                   "name": "Lesson 3: -ing Fragments",
                   "tool": undefined,
@@ -2434,7 +2440,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       </span>
                     }
                   />,
-                  "dueDate": null,
+                  "dueDate": "—",
                   "id": 43,
                   "name": "Lesson 4: Fragments Review",
                   "tool": undefined,
@@ -2450,24 +2456,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   className="data-table-headers"
                 >
                   <th
-                    className="data-table-header name-section"
-                    key="0"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <span>
-                      Activity
-                    </span>
-                  </th>
-                  <th
                     className="data-table-header tool-icon-section"
-                    key="1"
+                    key="0"
                     scope="col"
                     style={
                       Object {
@@ -2482,13 +2472,29 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     </span>
                   </th>
                   <th
+                    className="data-table-header name-section"
+                    key="1"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <span>
+                      Activity
+                    </span>
+                  </th>
+                  <th
                     className="data-table-header due-date-section"
                     key="2"
                     scope="col"
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
@@ -2521,23 +2527,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="41"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-41"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Lesson 2: Dependent Clause Fragments
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-41"
                     onMouseEnter={[Function]}
@@ -2553,6 +2542,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper />
                   </td>
                   <td
+                    className="data-table-row-section name-section"
+                    key="name-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Lesson 2: Dependent Clause Fragments
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
                     onMouseEnter={[Function]}
@@ -2560,12 +2566,14 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
                   >
-                    <TableCellContentWrapper />
+                    <TableCellContentWrapper>
+                      —
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -2632,23 +2640,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="42"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-42"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Lesson 3: -ing Fragments
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-42"
                     onMouseEnter={[Function]}
@@ -2664,6 +2655,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper />
                   </td>
                   <td
+                    className="data-table-row-section name-section"
+                    key="name-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Lesson 3: -ing Fragments
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
                     onMouseEnter={[Function]}
@@ -2671,12 +2679,14 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
                   >
-                    <TableCellContentWrapper />
+                    <TableCellContentWrapper>
+                      —
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -2743,23 +2753,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="43"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-43"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Lesson 4: Fragments Review
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-43"
                     onMouseEnter={[Function]}
@@ -2775,6 +2768,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper />
                   </td>
                   <td
+                    className="data-table-row-section name-section"
+                    key="name-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Lesson 4: Fragments Review
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
                     onMouseEnter={[Function]}
@@ -2782,12 +2792,14 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
                   >
-                    <TableCellContentWrapper />
+                    <TableCellContentWrapper>
+                      —
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -3066,20 +3078,20 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
             headers={
               Array [
                 Object {
-                  "attribute": "name",
-                  "headerClassName": "name-section",
-                  "name": "Activity",
-                  "noTooltip": true,
-                  "rowSectionClassName": "name-section",
-                  "width": "823px",
-                },
-                Object {
                   "attribute": "tool",
                   "headerClassName": "tool-icon-section",
                   "name": "Tool",
                   "noTooltip": true,
                   "rowSectionClassName": "tool-icon-section",
                   "width": "24px",
+                },
+                Object {
+                  "attribute": "name",
+                  "headerClassName": "name-section",
+                  "name": "Activity",
+                  "noTooltip": true,
+                  "rowSectionClassName": "name-section",
+                  "width": "874px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -3216,24 +3228,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   className="data-table-headers"
                 >
                   <th
-                    className="data-table-header name-section"
-                    key="0"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <span>
-                      Activity
-                    </span>
-                  </th>
-                  <th
                     className="data-table-header tool-icon-section"
-                    key="1"
+                    key="0"
                     scope="col"
                     style={
                       Object {
@@ -3245,6 +3241,22 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   >
                     <span>
                       Tool
+                    </span>
+                  </th>
+                  <th
+                    className="data-table-header name-section"
+                    key="1"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <span>
+                      Activity
                     </span>
                   </th>
                   <th
@@ -3287,23 +3299,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="1"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-1"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      The Travels of Marco Polo
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-1"
                     onMouseEnter={[Function]}
@@ -3317,6 +3312,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      The Travels of Marco Polo
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -3364,23 +3376,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="2"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-2"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Christopher Columbus
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-2"
                     onMouseEnter={[Function]}
@@ -3394,6 +3389,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Christopher Columbus
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -3441,23 +3453,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="10"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-10"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      A, An, The
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-10"
                     onMouseEnter={[Function]}
@@ -3471,6 +3466,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      A, An, The
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -3518,23 +3530,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="3"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-3"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Magellan
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-3"
                     onMouseEnter={[Function]}
@@ -3548,6 +3543,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Magellan
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -3595,23 +3607,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="4"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-4"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Jamestown
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-4"
                     onMouseEnter={[Function]}
@@ -3625,6 +3620,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Jamestown
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -3672,23 +3684,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="6"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-6"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Age of Exploration: Sailing with the Stars
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-6"
                     onMouseEnter={[Function]}
@@ -3702,6 +3697,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Age of Exploration: Sailing with the Stars
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -3749,23 +3761,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="7"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-7"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Age of Exploration: The Cape of Good Hope
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-7"
                     onMouseEnter={[Function]}
@@ -3779,6 +3774,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Age of Exploration: The Cape of Good Hope
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -3826,23 +3838,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   key="8"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-8"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Age of Exploration: Roanoke
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-8"
                     onMouseEnter={[Function]}
@@ -3856,6 +3851,23 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Age of Exploration: Roanoke
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -4223,6 +4235,7 @@ exports[`StudentProfileUnits component should render only completed activities i
       },
     ]
   }
+  exactScoresDataPending={true}
   teacherName="Emilia F"
 >
   <div
@@ -4353,6 +4366,7 @@ exports[`StudentProfileUnits component should render only completed activities i
           ],
         }
       }
+      exactScoresDataPending={true}
       id={7}
       isSelectedUnit={false}
       key="7"
@@ -4381,28 +4395,20 @@ exports[`StudentProfileUnits component should render only completed activities i
             headers={
               Array [
                 Object {
-                  "attribute": "name",
-                  "headerClassName": "name-section",
-                  "name": "Activity",
-                  "noTooltip": true,
-                  "rowSectionClassName": "name-section tooltip-section",
-                  "width": "474px",
-                },
-                Object {
-                  "attribute": "score",
-                  "headerClassName": "score-section tooltip-section",
-                  "name": "Score",
-                  "noTooltip": true,
-                  "rowSectionClassName": "score-section tooltip-section",
-                  "width": "230px",
-                },
-                Object {
                   "attribute": "tool",
                   "headerClassName": "tool-icon-section",
                   "name": "Tool",
                   "noTooltip": true,
                   "rowSectionClassName": "tool-icon-section tooltip-section",
                   "width": "24px",
+                },
+                Object {
+                  "attribute": "name",
+                  "headerClassName": "name-section",
+                  "name": "Activity",
+                  "noTooltip": true,
+                  "rowSectionClassName": "name-section tooltip-section",
+                  "width": "440px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -4419,6 +4425,22 @@ exports[`StudentProfileUnits component should render only completed activities i
                   "noTooltip": true,
                   "rowSectionClassName": "completed-date-section tooltip-section",
                   "width": "110px",
+                },
+                Object {
+                  "attribute": "score",
+                  "headerClassName": "score-section tooltip-section",
+                  "name": "Score",
+                  "noTooltip": true,
+                  "rowSectionClassName": "score-section tooltip-section",
+                  "width": "130px",
+                },
+                Object {
+                  "attribute": "viewResultsButton",
+                  "headerClassName": "tooltip-section view-results-section",
+                  "name": "",
+                  "noTooltip": true,
+                  "rowSectionClassName": "tooltip-section view-results-section",
+                  "width": "118px",
                 },
                 Object {
                   "attribute": "actionButton",
@@ -4450,11 +4472,16 @@ exports[`StudentProfileUnits component should render only completed activities i
                     <div
                       className="frequently-demonstrated-skill"
                     />
-                    <span>
-                      Frequently demonstrated skill
-                    </span>
+                    <span />
                   </div>,
                   "tool": undefined,
+                  "viewResultsButton": <a
+                    aria-label="View results for A, An"
+                    className="quill-button medium focus-on-light secondary outlined"
+                    href="/activity_sessions/undefined/student_activity_report"
+                  >
+                    View results
+                  </a>,
                 },
                 Object {
                   "actionButton": <a
@@ -4474,11 +4501,16 @@ exports[`StudentProfileUnits component should render only completed activities i
                     <div
                       className="sometimes-demonstrated-skill"
                     />
-                    <span>
-                      Sometimes demonstrated skill
-                    </span>
+                    <span />
                   </div>,
                   "tool": undefined,
+                  "viewResultsButton": <a
+                    aria-label="View results for Age of Exploration: Spices"
+                    className="quill-button medium focus-on-light secondary outlined"
+                    href="/activity_sessions/undefined/student_activity_report"
+                  >
+                    View results
+                  </a>,
                 },
               ]
             }
@@ -4491,40 +4523,8 @@ exports[`StudentProfileUnits component should render only completed activities i
                   className="data-table-headers"
                 >
                   <th
-                    className="data-table-header name-section"
-                    key="0"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "474px",
-                        "textAlign": "left",
-                        "width": "474px",
-                      }
-                    }
-                  >
-                    <span>
-                      Activity
-                    </span>
-                  </th>
-                  <th
-                    className="data-table-header score-section tooltip-section"
-                    key="1"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "230px",
-                        "textAlign": "left",
-                        "width": "230px",
-                      }
-                    }
-                  >
-                    <span>
-                      Score
-                    </span>
-                  </th>
-                  <th
                     className="data-table-header tool-icon-section"
-                    key="2"
+                    key="0"
                     scope="col"
                     style={
                       Object {
@@ -4539,8 +4539,24 @@ exports[`StudentProfileUnits component should render only completed activities i
                     </span>
                   </th>
                   <th
+                    className="data-table-header name-section"
+                    key="1"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "440px",
+                        "textAlign": "left",
+                        "width": "440px",
+                      }
+                    }
+                  >
+                    <span>
+                      Activity
+                    </span>
+                  </th>
+                  <th
                     className="data-table-header completed-due-date-section"
-                    key="3"
+                    key="2"
                     scope="col"
                     style={
                       Object {
@@ -4556,7 +4572,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   </th>
                   <th
                     className="data-table-header completed-date-section"
-                    key="4"
+                    key="3"
                     scope="col"
                     style={
                       Object {
@@ -4571,8 +4587,38 @@ exports[`StudentProfileUnits component should render only completed activities i
                     </span>
                   </th>
                   <th
-                    className="data-table-header action-button-section tooltip-section"
+                    className="data-table-header score-section tooltip-section"
+                    key="4"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "130px",
+                        "textAlign": "left",
+                        "width": "130px",
+                      }
+                    }
+                  >
+                    <span>
+                      Score
+                    </span>
+                  </th>
+                  <th
+                    className="data-table-header tooltip-section view-results-section"
                     key="5"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "118px",
+                        "textAlign": "left",
+                        "width": "118px",
+                      }
+                    }
+                  >
+                    <span />
+                  </th>
+                  <th
+                    className="data-table-header action-button-section tooltip-section"
+                    key="6"
                     scope="col"
                     style={
                       Object {
@@ -4594,49 +4640,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                   key="9"
                 >
                   <td
-                    className="data-table-row-section name-section tooltip-section"
-                    key="name-9"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "474px",
-                        "textAlign": "left",
-                        "width": "474px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      A, An
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
-                    className="data-table-row-section score-section tooltip-section"
-                    key="score-9"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "230px",
-                        "textAlign": "left",
-                        "width": "230px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      <div
-                        className="score"
-                      >
-                        <div
-                          className="frequently-demonstrated-skill"
-                        />
-                        <span>
-                          Frequently demonstrated skill
-                        </span>
-                      </div>
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section tooltip-section"
                     key="tool-9"
                     onMouseEnter={[Function]}
@@ -4650,6 +4653,23 @@ exports[`StudentProfileUnits component should render only completed activities i
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section tooltip-section"
+                    key="name-9"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "440px",
+                        "textAlign": "left",
+                        "width": "440px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      A, An
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section completed-due-date-section tooltip-section"
@@ -4684,6 +4704,53 @@ exports[`StudentProfileUnits component should render only completed activities i
                     <TableCellContentWrapper />
                   </td>
                   <td
+                    className="data-table-row-section score-section tooltip-section"
+                    key="score-9"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "130px",
+                        "textAlign": "left",
+                        "width": "130px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      <div
+                        className="score"
+                      >
+                        <div
+                          className="frequently-demonstrated-skill"
+                        />
+                        <span />
+                      </div>
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
+                    className="data-table-row-section tooltip-section view-results-section"
+                    key="viewResultsButton-9"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "118px",
+                        "textAlign": "left",
+                        "width": "118px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="View results for A, An"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/undefined/student_activity_report"
+                      >
+                        View results
+                      </a>
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section action-button-section tooltip-section"
                     key="actionButton-9"
                     onMouseEnter={[Function]}
@@ -4712,49 +4779,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                   key="5"
                 >
                   <td
-                    className="data-table-row-section name-section tooltip-section"
-                    key="name-5"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "474px",
-                        "textAlign": "left",
-                        "width": "474px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Age of Exploration: Spices
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
-                    className="data-table-row-section score-section tooltip-section"
-                    key="score-5"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "230px",
-                        "textAlign": "left",
-                        "width": "230px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      <div
-                        className="score"
-                      >
-                        <div
-                          className="sometimes-demonstrated-skill"
-                        />
-                        <span>
-                          Sometimes demonstrated skill
-                        </span>
-                      </div>
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section tooltip-section"
                     key="tool-5"
                     onMouseEnter={[Function]}
@@ -4768,6 +4792,23 @@ exports[`StudentProfileUnits component should render only completed activities i
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section tooltip-section"
+                    key="name-5"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "440px",
+                        "textAlign": "left",
+                        "width": "440px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Age of Exploration: Spices
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section completed-due-date-section tooltip-section"
@@ -4800,6 +4841,53 @@ exports[`StudentProfileUnits component should render only completed activities i
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section score-section tooltip-section"
+                    key="score-5"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "130px",
+                        "textAlign": "left",
+                        "width": "130px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      <div
+                        className="score"
+                      >
+                        <div
+                          className="sometimes-demonstrated-skill"
+                        />
+                        <span />
+                      </div>
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
+                    className="data-table-row-section tooltip-section view-results-section"
+                    key="viewResultsButton-5"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "118px",
+                        "textAlign": "left",
+                        "width": "118px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      <a
+                        aria-label="View results for Age of Exploration: Spices"
+                        className="quill-button medium focus-on-light secondary outlined"
+                        href="/activity_sessions/undefined/student_activity_report"
+                      >
+                        View results
+                      </a>
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section tooltip-section"
@@ -5352,20 +5440,20 @@ exports[`StudentProfileUnits component should render only incomplete activities 
             headers={
               Array [
                 Object {
-                  "attribute": "name",
-                  "headerClassName": "name-section",
-                  "name": "Activity",
-                  "noTooltip": true,
-                  "rowSectionClassName": "name-section",
-                  "width": "823px",
-                },
-                Object {
                   "attribute": "tool",
                   "headerClassName": "tool-icon-section",
                   "name": "Tool",
                   "noTooltip": true,
                   "rowSectionClassName": "tool-icon-section",
                   "width": "24px",
+                },
+                Object {
+                  "attribute": "name",
+                  "headerClassName": "name-section",
+                  "name": "Activity",
+                  "noTooltip": true,
+                  "rowSectionClassName": "name-section",
+                  "width": "874px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -5395,7 +5483,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   >
                     Resume
                   </a>,
-                  "dueDate": null,
+                  "dueDate": "—",
                   "id": 40,
                   "name": "Lesson 1: Missing Subject or Verb Fragments",
                   "tool": undefined,
@@ -5412,7 +5500,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       </span>
                     }
                   />,
-                  "dueDate": null,
+                  "dueDate": "—",
                   "id": 41,
                   "name": "Lesson 2: Dependent Clause Fragments",
                   "tool": undefined,
@@ -5429,7 +5517,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       </span>
                     }
                   />,
-                  "dueDate": null,
+                  "dueDate": "—",
                   "id": 42,
                   "name": "Lesson 3: -ing Fragments",
                   "tool": undefined,
@@ -5446,7 +5534,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       </span>
                     }
                   />,
-                  "dueDate": null,
+                  "dueDate": "—",
                   "id": 43,
                   "name": "Lesson 4: Fragments Review",
                   "tool": undefined,
@@ -5462,24 +5550,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   className="data-table-headers"
                 >
                   <th
-                    className="data-table-header name-section"
-                    key="0"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <span>
-                      Activity
-                    </span>
-                  </th>
-                  <th
                     className="data-table-header tool-icon-section"
-                    key="1"
+                    key="0"
                     scope="col"
                     style={
                       Object {
@@ -5494,13 +5566,29 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     </span>
                   </th>
                   <th
+                    className="data-table-header name-section"
+                    key="1"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <span>
+                      Activity
+                    </span>
+                  </th>
+                  <th
                     className="data-table-header due-date-section"
                     key="2"
                     scope="col"
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
@@ -5533,23 +5621,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   key="40"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-40"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Lesson 1: Missing Subject or Verb Fragments
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-40"
                     onMouseEnter={[Function]}
@@ -5565,6 +5636,23 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     <TableCellContentWrapper />
                   </td>
                   <td
+                    className="data-table-row-section name-section"
+                    key="name-40"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Lesson 1: Missing Subject or Verb Fragments
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-40"
                     onMouseEnter={[Function]}
@@ -5572,12 +5660,14 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
                   >
-                    <TableCellContentWrapper />
+                    <TableCellContentWrapper>
+                      —
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -5608,23 +5698,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   key="41"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-41"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Lesson 2: Dependent Clause Fragments
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-41"
                     onMouseEnter={[Function]}
@@ -5640,6 +5713,23 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     <TableCellContentWrapper />
                   </td>
                   <td
+                    className="data-table-row-section name-section"
+                    key="name-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Lesson 2: Dependent Clause Fragments
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
                     onMouseEnter={[Function]}
@@ -5647,12 +5737,14 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
                   >
-                    <TableCellContentWrapper />
+                    <TableCellContentWrapper>
+                      —
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -5719,23 +5811,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   key="42"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-42"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Lesson 3: -ing Fragments
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-42"
                     onMouseEnter={[Function]}
@@ -5751,6 +5826,23 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     <TableCellContentWrapper />
                   </td>
                   <td
+                    className="data-table-row-section name-section"
+                    key="name-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Lesson 3: -ing Fragments
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
                     onMouseEnter={[Function]}
@@ -5758,12 +5850,14 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
                   >
-                    <TableCellContentWrapper />
+                    <TableCellContentWrapper>
+                      —
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -5830,23 +5924,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   key="43"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-43"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Lesson 4: Fragments Review
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-43"
                     onMouseEnter={[Function]}
@@ -5862,6 +5939,23 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     <TableCellContentWrapper />
                   </td>
                   <td
+                    className="data-table-row-section name-section"
+                    key="name-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Lesson 4: Fragments Review
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
                     onMouseEnter={[Function]}
@@ -5869,12 +5963,14 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
                   >
-                    <TableCellContentWrapper />
+                    <TableCellContentWrapper>
+                      —
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -6153,20 +6249,20 @@ exports[`StudentProfileUnits component should render only incomplete activities 
             headers={
               Array [
                 Object {
-                  "attribute": "name",
-                  "headerClassName": "name-section",
-                  "name": "Activity",
-                  "noTooltip": true,
-                  "rowSectionClassName": "name-section",
-                  "width": "823px",
-                },
-                Object {
                   "attribute": "tool",
                   "headerClassName": "tool-icon-section",
                   "name": "Tool",
                   "noTooltip": true,
                   "rowSectionClassName": "tool-icon-section",
                   "width": "24px",
+                },
+                Object {
+                  "attribute": "name",
+                  "headerClassName": "name-section",
+                  "name": "Activity",
+                  "noTooltip": true,
+                  "rowSectionClassName": "name-section",
+                  "width": "874px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -6303,24 +6399,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   className="data-table-headers"
                 >
                   <th
-                    className="data-table-header name-section"
-                    key="0"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <span>
-                      Activity
-                    </span>
-                  </th>
-                  <th
                     className="data-table-header tool-icon-section"
-                    key="1"
+                    key="0"
                     scope="col"
                     style={
                       Object {
@@ -6332,6 +6412,22 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   >
                     <span>
                       Tool
+                    </span>
+                  </th>
+                  <th
+                    className="data-table-header name-section"
+                    key="1"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <span>
+                      Activity
                     </span>
                   </th>
                   <th
@@ -6374,23 +6470,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   key="1"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-1"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      The Travels of Marco Polo
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-1"
                     onMouseEnter={[Function]}
@@ -6404,6 +6483,23 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      The Travels of Marco Polo
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -6451,23 +6547,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   key="2"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-2"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Christopher Columbus
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-2"
                     onMouseEnter={[Function]}
@@ -6481,6 +6560,23 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Christopher Columbus
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -6528,23 +6624,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   key="10"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-10"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      A, An, The
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-10"
                     onMouseEnter={[Function]}
@@ -6558,6 +6637,23 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      A, An, The
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -6605,23 +6701,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   key="3"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-3"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Magellan
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-3"
                     onMouseEnter={[Function]}
@@ -6635,6 +6714,23 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Magellan
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -6682,23 +6778,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   key="4"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-4"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Jamestown
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-4"
                     onMouseEnter={[Function]}
@@ -6712,6 +6791,23 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Jamestown
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -6759,23 +6855,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   key="6"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-6"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Age of Exploration: Sailing with the Stars
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-6"
                     onMouseEnter={[Function]}
@@ -6789,6 +6868,23 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Age of Exploration: Sailing with the Stars
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -6836,23 +6932,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   key="7"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-7"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Age of Exploration: The Cape of Good Hope
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-7"
                     onMouseEnter={[Function]}
@@ -6866,6 +6945,23 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Age of Exploration: The Cape of Good Hope
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -6913,23 +7009,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   key="8"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-8"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Age of Exploration: Roanoke
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-8"
                     onMouseEnter={[Function]}
@@ -6943,6 +7022,23 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Age of Exploration: Roanoke
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -7512,20 +7608,20 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
             headers={
               Array [
                 Object {
-                  "attribute": "name",
-                  "headerClassName": "name-section",
-                  "name": "Activity",
-                  "noTooltip": true,
-                  "rowSectionClassName": "name-section",
-                  "width": "823px",
-                },
-                Object {
                   "attribute": "tool",
                   "headerClassName": "tool-icon-section",
                   "name": "Tool",
                   "noTooltip": true,
                   "rowSectionClassName": "tool-icon-section",
                   "width": "24px",
+                },
+                Object {
+                  "attribute": "name",
+                  "headerClassName": "name-section",
+                  "name": "Activity",
+                  "noTooltip": true,
+                  "rowSectionClassName": "name-section",
+                  "width": "874px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -7555,7 +7651,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   >
                     Resume
                   </a>,
-                  "dueDate": null,
+                  "dueDate": "—",
                   "id": 40,
                   "name": "Lesson 1: Missing Subject or Verb Fragments",
                   "tool": undefined,
@@ -7572,7 +7668,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       </span>
                     }
                   />,
-                  "dueDate": null,
+                  "dueDate": "—",
                   "id": 41,
                   "name": "Lesson 2: Dependent Clause Fragments",
                   "tool": undefined,
@@ -7589,7 +7685,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       </span>
                     }
                   />,
-                  "dueDate": null,
+                  "dueDate": "—",
                   "id": 42,
                   "name": "Lesson 3: -ing Fragments",
                   "tool": undefined,
@@ -7606,7 +7702,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       </span>
                     }
                   />,
-                  "dueDate": null,
+                  "dueDate": "—",
                   "id": 43,
                   "name": "Lesson 4: Fragments Review",
                   "tool": undefined,
@@ -7622,24 +7718,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   className="data-table-headers"
                 >
                   <th
-                    className="data-table-header name-section"
-                    key="0"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <span>
-                      Activity
-                    </span>
-                  </th>
-                  <th
                     className="data-table-header tool-icon-section"
-                    key="1"
+                    key="0"
                     scope="col"
                     style={
                       Object {
@@ -7654,13 +7734,29 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     </span>
                   </th>
                   <th
+                    className="data-table-header name-section"
+                    key="1"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <span>
+                      Activity
+                    </span>
+                  </th>
+                  <th
                     className="data-table-header due-date-section"
                     key="2"
                     scope="col"
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
@@ -7693,23 +7789,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   key="40"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-40"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Lesson 1: Missing Subject or Verb Fragments
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-40"
                     onMouseEnter={[Function]}
@@ -7725,6 +7804,23 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     <TableCellContentWrapper />
                   </td>
                   <td
+                    className="data-table-row-section name-section"
+                    key="name-40"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Lesson 1: Missing Subject or Verb Fragments
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-40"
                     onMouseEnter={[Function]}
@@ -7732,12 +7828,14 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
                   >
-                    <TableCellContentWrapper />
+                    <TableCellContentWrapper>
+                      —
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -7768,23 +7866,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   key="41"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-41"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Lesson 2: Dependent Clause Fragments
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-41"
                     onMouseEnter={[Function]}
@@ -7800,6 +7881,23 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     <TableCellContentWrapper />
                   </td>
                   <td
+                    className="data-table-row-section name-section"
+                    key="name-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Lesson 2: Dependent Clause Fragments
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
                     onMouseEnter={[Function]}
@@ -7807,12 +7905,14 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
                   >
-                    <TableCellContentWrapper />
+                    <TableCellContentWrapper>
+                      —
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -7879,23 +7979,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   key="42"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-42"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Lesson 3: -ing Fragments
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-42"
                     onMouseEnter={[Function]}
@@ -7911,6 +7994,23 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     <TableCellContentWrapper />
                   </td>
                   <td
+                    className="data-table-row-section name-section"
+                    key="name-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Lesson 3: -ing Fragments
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
                     onMouseEnter={[Function]}
@@ -7918,12 +8018,14 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
                   >
-                    <TableCellContentWrapper />
+                    <TableCellContentWrapper>
+                      —
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -7990,23 +8092,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   key="43"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-43"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Lesson 4: Fragments Review
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-43"
                     onMouseEnter={[Function]}
@@ -8022,6 +8107,23 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     <TableCellContentWrapper />
                   </td>
                   <td
+                    className="data-table-row-section name-section"
+                    key="name-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Lesson 4: Fragments Review
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
                     onMouseEnter={[Function]}
@@ -8029,12 +8131,14 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
                   >
-                    <TableCellContentWrapper />
+                    <TableCellContentWrapper>
+                      —
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -8313,20 +8417,20 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
             headers={
               Array [
                 Object {
-                  "attribute": "name",
-                  "headerClassName": "name-section",
-                  "name": "Activity",
-                  "noTooltip": true,
-                  "rowSectionClassName": "name-section",
-                  "width": "823px",
-                },
-                Object {
                   "attribute": "tool",
                   "headerClassName": "tool-icon-section",
                   "name": "Tool",
                   "noTooltip": true,
                   "rowSectionClassName": "tool-icon-section",
                   "width": "24px",
+                },
+                Object {
+                  "attribute": "name",
+                  "headerClassName": "name-section",
+                  "name": "Activity",
+                  "noTooltip": true,
+                  "rowSectionClassName": "name-section",
+                  "width": "874px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -8463,24 +8567,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   className="data-table-headers"
                 >
                   <th
-                    className="data-table-header name-section"
-                    key="0"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <span>
-                      Activity
-                    </span>
-                  </th>
-                  <th
                     className="data-table-header tool-icon-section"
-                    key="1"
+                    key="0"
                     scope="col"
                     style={
                       Object {
@@ -8492,6 +8580,22 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   >
                     <span>
                       Tool
+                    </span>
+                  </th>
+                  <th
+                    className="data-table-header name-section"
+                    key="1"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <span>
+                      Activity
                     </span>
                   </th>
                   <th
@@ -8534,23 +8638,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   key="1"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-1"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      The Travels of Marco Polo
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-1"
                     onMouseEnter={[Function]}
@@ -8564,6 +8651,23 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      The Travels of Marco Polo
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -8611,23 +8715,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   key="2"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-2"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Christopher Columbus
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-2"
                     onMouseEnter={[Function]}
@@ -8641,6 +8728,23 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Christopher Columbus
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -8688,23 +8792,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   key="10"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-10"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      A, An, The
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-10"
                     onMouseEnter={[Function]}
@@ -8718,6 +8805,23 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      A, An, The
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -8765,23 +8869,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   key="3"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-3"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Magellan
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-3"
                     onMouseEnter={[Function]}
@@ -8795,6 +8882,23 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Magellan
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -8842,23 +8946,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   key="4"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-4"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Jamestown
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-4"
                     onMouseEnter={[Function]}
@@ -8872,6 +8959,23 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Jamestown
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -8919,23 +9023,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   key="6"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-6"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Age of Exploration: Sailing with the Stars
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-6"
                     onMouseEnter={[Function]}
@@ -8949,6 +9036,23 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Age of Exploration: Sailing with the Stars
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -8996,23 +9100,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   key="7"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-7"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Age of Exploration: The Cape of Good Hope
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-7"
                     onMouseEnter={[Function]}
@@ -9026,6 +9113,23 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Age of Exploration: The Cape of Good Hope
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -9073,23 +9177,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   key="8"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-8"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Age of Exploration: Roanoke
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-8"
                     onMouseEnter={[Function]}
@@ -9103,6 +9190,23 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Age of Exploration: Roanoke
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -9672,20 +9776,20 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
             headers={
               Array [
                 Object {
-                  "attribute": "name",
-                  "headerClassName": "name-section",
-                  "name": "Activity",
-                  "noTooltip": true,
-                  "rowSectionClassName": "name-section",
-                  "width": "823px",
-                },
-                Object {
                   "attribute": "tool",
                   "headerClassName": "tool-icon-section",
                   "name": "Tool",
                   "noTooltip": true,
                   "rowSectionClassName": "tool-icon-section",
                   "width": "24px",
+                },
+                Object {
+                  "attribute": "name",
+                  "headerClassName": "name-section",
+                  "name": "Activity",
+                  "noTooltip": true,
+                  "rowSectionClassName": "name-section",
+                  "width": "874px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -9715,7 +9819,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   >
                     Resume
                   </a>,
-                  "dueDate": null,
+                  "dueDate": "—",
                   "id": 40,
                   "name": "Lesson 1: Missing Subject or Verb Fragments",
                   "tool": undefined,
@@ -9732,7 +9836,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       </span>
                     }
                   />,
-                  "dueDate": null,
+                  "dueDate": "—",
                   "id": 41,
                   "name": "Lesson 2: Dependent Clause Fragments",
                   "tool": undefined,
@@ -9749,7 +9853,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       </span>
                     }
                   />,
-                  "dueDate": null,
+                  "dueDate": "—",
                   "id": 42,
                   "name": "Lesson 3: -ing Fragments",
                   "tool": undefined,
@@ -9766,7 +9870,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       </span>
                     }
                   />,
-                  "dueDate": null,
+                  "dueDate": "—",
                   "id": 43,
                   "name": "Lesson 4: Fragments Review",
                   "tool": undefined,
@@ -9782,24 +9886,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   className="data-table-headers"
                 >
                   <th
-                    className="data-table-header name-section"
-                    key="0"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <span>
-                      Activity
-                    </span>
-                  </th>
-                  <th
                     className="data-table-header tool-icon-section"
-                    key="1"
+                    key="0"
                     scope="col"
                     style={
                       Object {
@@ -9814,13 +9902,29 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     </span>
                   </th>
                   <th
+                    className="data-table-header name-section"
+                    key="1"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <span>
+                      Activity
+                    </span>
+                  </th>
+                  <th
                     className="data-table-header due-date-section"
                     key="2"
                     scope="col"
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
@@ -9853,23 +9957,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   key="40"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-40"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Lesson 1: Missing Subject or Verb Fragments
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-40"
                     onMouseEnter={[Function]}
@@ -9885,6 +9972,23 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     <TableCellContentWrapper />
                   </td>
                   <td
+                    className="data-table-row-section name-section"
+                    key="name-40"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Lesson 1: Missing Subject or Verb Fragments
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-40"
                     onMouseEnter={[Function]}
@@ -9892,12 +9996,14 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
                   >
-                    <TableCellContentWrapper />
+                    <TableCellContentWrapper>
+                      —
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -9928,23 +10034,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   key="41"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-41"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Lesson 2: Dependent Clause Fragments
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-41"
                     onMouseEnter={[Function]}
@@ -9960,6 +10049,23 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     <TableCellContentWrapper />
                   </td>
                   <td
+                    className="data-table-row-section name-section"
+                    key="name-41"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Lesson 2: Dependent Clause Fragments
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-41"
                     onMouseEnter={[Function]}
@@ -9967,12 +10073,14 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
                   >
-                    <TableCellContentWrapper />
+                    <TableCellContentWrapper>
+                      —
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -10039,23 +10147,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   key="42"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-42"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Lesson 3: -ing Fragments
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-42"
                     onMouseEnter={[Function]}
@@ -10071,6 +10162,23 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     <TableCellContentWrapper />
                   </td>
                   <td
+                    className="data-table-row-section name-section"
+                    key="name-42"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Lesson 3: -ing Fragments
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-42"
                     onMouseEnter={[Function]}
@@ -10078,12 +10186,14 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
                   >
-                    <TableCellContentWrapper />
+                    <TableCellContentWrapper>
+                      —
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -10150,23 +10260,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   key="43"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-43"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Lesson 4: Fragments Review
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-43"
                     onMouseEnter={[Function]}
@@ -10182,6 +10275,23 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     <TableCellContentWrapper />
                   </td>
                   <td
+                    className="data-table-row-section name-section"
+                    key="name-43"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Lesson 4: Fragments Review
+                    </TableCellContentWrapper>
+                  </td>
+                  <td
                     className="data-table-row-section due-date-section"
                     key="dueDate-43"
                     onMouseEnter={[Function]}
@@ -10189,12 +10299,14 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     style={
                       Object {
                         "minWidth": "100px",
-                        "textAlign": "right",
+                        "textAlign": "left",
                         "width": "100px",
                       }
                     }
                   >
-                    <TableCellContentWrapper />
+                    <TableCellContentWrapper>
+                      —
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -10473,20 +10585,20 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
             headers={
               Array [
                 Object {
-                  "attribute": "name",
-                  "headerClassName": "name-section",
-                  "name": "Activity",
-                  "noTooltip": true,
-                  "rowSectionClassName": "name-section",
-                  "width": "823px",
-                },
-                Object {
                   "attribute": "tool",
                   "headerClassName": "tool-icon-section",
                   "name": "Tool",
                   "noTooltip": true,
                   "rowSectionClassName": "tool-icon-section",
                   "width": "24px",
+                },
+                Object {
+                  "attribute": "name",
+                  "headerClassName": "name-section",
+                  "name": "Activity",
+                  "noTooltip": true,
+                  "rowSectionClassName": "name-section",
+                  "width": "874px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -10623,24 +10735,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   className="data-table-headers"
                 >
                   <th
-                    className="data-table-header name-section"
-                    key="0"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <span>
-                      Activity
-                    </span>
-                  </th>
-                  <th
                     className="data-table-header tool-icon-section"
-                    key="1"
+                    key="0"
                     scope="col"
                     style={
                       Object {
@@ -10652,6 +10748,22 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   >
                     <span>
                       Tool
+                    </span>
+                  </th>
+                  <th
+                    className="data-table-header name-section"
+                    key="1"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <span>
+                      Activity
                     </span>
                   </th>
                   <th
@@ -10694,23 +10806,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   key="1"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-1"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      The Travels of Marco Polo
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-1"
                     onMouseEnter={[Function]}
@@ -10724,6 +10819,23 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-1"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      The Travels of Marco Polo
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -10771,23 +10883,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   key="2"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-2"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Christopher Columbus
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-2"
                     onMouseEnter={[Function]}
@@ -10801,6 +10896,23 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-2"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Christopher Columbus
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -10848,23 +10960,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   key="10"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-10"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      A, An, The
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-10"
                     onMouseEnter={[Function]}
@@ -10878,6 +10973,23 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-10"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      A, An, The
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -10925,23 +11037,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   key="3"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-3"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Magellan
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-3"
                     onMouseEnter={[Function]}
@@ -10955,6 +11050,23 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-3"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Magellan
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -11002,23 +11114,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   key="4"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-4"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Jamestown
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-4"
                     onMouseEnter={[Function]}
@@ -11032,6 +11127,23 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-4"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Jamestown
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -11079,23 +11191,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   key="6"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-6"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Age of Exploration: Sailing with the Stars
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-6"
                     onMouseEnter={[Function]}
@@ -11109,6 +11204,23 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-6"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Age of Exploration: Sailing with the Stars
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -11156,23 +11268,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   key="7"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-7"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Age of Exploration: The Cape of Good Hope
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-7"
                     onMouseEnter={[Function]}
@@ -11186,6 +11281,23 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-7"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Age of Exploration: The Cape of Good Hope
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
@@ -11233,23 +11345,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   key="8"
                 >
                   <td
-                    className="data-table-row-section name-section"
-                    key="name-8"
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "minWidth": "823px",
-                        "textAlign": "left",
-                        "width": "823px",
-                      }
-                    }
-                  >
-                    <TableCellContentWrapper>
-                      Age of Exploration: Roanoke
-                    </TableCellContentWrapper>
-                  </td>
-                  <td
                     className="data-table-row-section tool-icon-section"
                     key="tool-8"
                     onMouseEnter={[Function]}
@@ -11263,6 +11358,23 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     }
                   >
                     <TableCellContentWrapper />
+                  </td>
+                  <td
+                    className="data-table-row-section name-section"
+                    key="name-8"
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "874px",
+                        "textAlign": "left",
+                        "width": "874px",
+                      }
+                    }
+                  >
+                    <TableCellContentWrapper>
+                      Age of Exploration: Roanoke
+                    </TableCellContentWrapper>
                   </td>
                   <td
                     className="data-table-row-section due-date-section"
