@@ -1,7 +1,8 @@
-import * as _ from 'underscore'
+import _ from 'lodash'
+import {stringNormalize} from 'quill-string-normalizer'
+
 import {getTopOptimalResponse} from '../sharedResponseFunctions'
 import {Response, IncorrectSequence, PartialResponse} from '../../interfaces'
-import {stringNormalize} from 'quill-string-normalizer'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
 export function incorrectSequenceMatchHelper(responseString:string, incorrectSequenceParticle:string, caseInsensitive:boolean):boolean {
@@ -13,17 +14,12 @@ export function incorrectSequenceMatchHelper(responseString:string, incorrectSeq
 export function incorrectSequenceMatch(responseString: string, incorrectSequences:Array<IncorrectSequence>):IncorrectSequence {
   const sortedIncorrectSequences = incorrectSequences.sort((a, b) => (a.order || 0) - (b.order || 0));
 
-  for (let i = 0; i < sortedIncorrectSequences.length; i++) {
-    let incSeq = sortedIncorrectSequences[i];
+  return _.find(sortedIncorrectSequences, (incSeq) => {
     const options = incSeq.text.split('|||');
     const caseInsensitive = incSeq.caseInsensitive ? incSeq.caseInsensitive : false
-    const anyMatches = _.any(options, particle => incorrectSequenceMatchHelper(responseString, particle, caseInsensitive));
-    if (anyMatches) {
-      return incSeq;
-    }
-  }
-
-  return null;
+    const anyMatches = _.some(options, particle => incorrectSequenceMatchHelper(responseString, particle, caseInsensitive));
+    return anyMatches
+  })
 }
 
 export function incorrectSequenceChecker(responseString: string, incorrectSequences:Array<IncorrectSequence>, responses:Array<Response>):PartialResponse|undefined {
