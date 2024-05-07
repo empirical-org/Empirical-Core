@@ -4,7 +4,9 @@ class Queries < Thor
   # user_id 9874030 is a test user
   # e.g. bundle exec thor queries:generate_snapshot_sqls 9874030
   desc 'generate_snapshot_sqls user_id start_time end_time', 'Output .sql fils for all snapshots for a user'
+  method_option :dryrun, type: :boolean, default: true
   def generate_snapshot_sqls(user_id, start_time = DEFAULT_START, end_time = DEFAULT_END)
+    dryrun = options[:dryrun]
     output_path = OUTPUT_SNAPSHOTS + [user_id, start_time, end_time].join('-')
     output_directory = make_directory(output_path)
 
@@ -19,7 +21,7 @@ class Queries < Thor
 
       puts sql
 
-      metadata = query_metadata(sql)
+      metadata = query_metadata(sql, dryrun: dryrun)
       puts metadata
 
       File.write(output_directory + "#{key}.sql", metadata + sql)
@@ -71,10 +73,10 @@ class Queries < Thor
     end
   end
 
-  # bundle exec thor queries:analyze_diagnostic_queries --dryrun=false
-  desc 'analyze_diagnostic_queries --dryrun=true/false', 'Benchmark Google BigQuery queries for comparison'
+  # bundle exec thor queries:analyze_diagnostic_queries 9874030 --dryrun=false
+  desc 'analyze_diagnostic_queries 9874030 --dryrun=true/false', 'Benchmark Google BigQuery queries for comparison'
   method_option :dryrun, type: :boolean, default: true
-  def analyze_diagnostic_queries
+  def analyze_diagnostic_queries(user_id)
     dryrun = options[:dryrun]
 
     multi_queries = {
@@ -97,7 +99,7 @@ class Queries < Thor
 
     timeframe_start = DateTime.parse(DEFAULT_START)
     timeframe_end = DateTime.parse(DEFAULT_END)
-    school_ids = [38811,38804,38801,38800,38779,38784,38780,38773,38765,38764]
+    school_ids = school_ids_for_user(user_id)
     aggregation = 'classroom'
 
     multi_args = {
