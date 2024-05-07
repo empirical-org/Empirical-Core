@@ -53,7 +53,7 @@ module Snapshots
       <<-SQL
         AND (
           #{reporting_sessions_view.name}.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')})
-          #{'OR #{reporting_sessions_view.name}.grade IS NULL' if grades.include?('null')}
+          #{"OR #{reporting_sessions_view.name}.grade IS NULL" if grades.include?('null')}
         )
       SQL
     end
