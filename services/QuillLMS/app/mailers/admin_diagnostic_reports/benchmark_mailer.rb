@@ -4,7 +4,7 @@ module AdminDiagnosticReports
   class BenchmarkMailer < ::ApplicationMailer
     default from: 'hello@quill.org'
 
-    RECIPIENT_EMAIL = 'adgr-performance-benc-aaaam4wgvisxjpenaqvnndhgvy@quill.slack.com'
+    RECIPIENT_EMAIL = ENV['SLACK_ADGR_PERFORMANCE_BENCHMARKS_EMAIL']
 
     def benchmark_report(data)
       @data = data
