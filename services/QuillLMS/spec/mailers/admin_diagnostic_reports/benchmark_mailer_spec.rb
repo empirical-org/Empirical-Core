@@ -4,6 +4,10 @@ require 'rails_helper'
 
 module AdminDiagnosticReports
   describe BenchmarkMailer, type: :mailer do
+    before do
+      allow_any_instance_of(ActionView::Base).to receive(:vite_stylesheet_tag)
+    end
+
     let(:email) { 'address@example.com' }
     let(:query_name) { 'sample_query' }
     let(:elapsed_time) { 1.1 }
