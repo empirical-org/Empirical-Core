@@ -33,6 +33,16 @@ RSpec.describe Cron, type: :model do
       expect(TeacherNotifications::EnqueueUsersForRollupEmailWorker).to receive(:perform_async).with(TeacherInfo::HOURLY_EMAIL)
       Cron.interval_1_hour
     end
+
+    [12, 17, 21].each do |hour|
+      it 'enqueues AdminDiagnosticReports::PerformanceBenchmarkWorker' do
+        time = Time.current.midnight + hour.hours
+        expect(Cron).to receive(:now).at_least(:thrice).and_return(time)
+        expect(AdminDiagnosticReports::PerformanceBenchmarkWorker).to receive(:perform_async)
+
+        Cron.interval_1_hour
+      end
+    end
   end
 
   describe "#interval_1_day" do
