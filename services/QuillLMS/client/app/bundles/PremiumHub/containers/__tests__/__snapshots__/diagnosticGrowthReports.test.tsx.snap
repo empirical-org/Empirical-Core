@@ -130,7 +130,7 @@ exports[`DiagnosticGrowthReports full state it should render the expected header
       </button>
     </div>
     <div
-      class="dropdown-container input-container inactive has-text  group-by-dropdown searchable "
+      class="dropdown-container input-container inactive   group-by-dropdown searchable "
       role="button"
       tabindex="0"
     >
@@ -154,19 +154,19 @@ exports[`DiagnosticGrowthReports full state it should render the expected header
           class="dropdown__control css-13cymwt-control"
         >
           <div
-            class="dropdown__value-container dropdown__value-container--has-value css-1fdsijx-ValueContainer"
+            class="dropdown__value-container css-1fdsijx-ValueContainer"
           >
             <div
-              class="dropdown__single-value css-1dimb5e-singleValue"
-            >
-              Grade
-            </div>
+              class="dropdown__placeholder css-1jqq78o-placeholder"
+              id="react-select-2-placeholder"
+            />
             <div
               class="dropdown__input-container css-qbdosj-Input"
               data-value=""
             >
               <input
                 aria-autocomplete="list"
+                aria-describedby="react-select-2-placeholder"
                 aria-expanded="false"
                 aria-haspopup="true"
                 autocapitalize="none"

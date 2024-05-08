@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 
 import * as requestsApi from '../../../../modules/request';
 import SkillSection from "../diagnosticGrowthReports/skillSection";
+import { diagnosticTypeDropdownOptions, groupByDropdownOptions } from "../../shared";
 
 const props = {
   searchCount: 0,
@@ -12,10 +13,12 @@ const props = {
   selectedTeacherIds: [],
   selectedClassroomIds: [],
   selectedTimeframe: "This school year",
+  diagnosticTypeValue: diagnosticTypeDropdownOptions[0],
+  groupByValue: groupByDropdownOptions[0],
   pusherChannel: null,
   handleSetDiagnosticIdForStudentCount: jest.fn(),
-  selectedDiagnosticId: null,
-  selectedGroupByValue: null,
+  handleSetSelectedDiagnosticType: jest.fn(),
+  handleSetSelectedGroupByValue: jest.fn(),
   passedData: null
 }
 

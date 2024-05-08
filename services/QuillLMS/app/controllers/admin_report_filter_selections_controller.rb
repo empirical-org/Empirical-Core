@@ -28,7 +28,9 @@ class AdminReportFilterSelectionsController < ApplicationController
           schools: [:id, :name, :label, :value],
           teachers: [:id, :name, :label, :value],
           classrooms: [:id, :name, :label, :value],
-          grades: [:value, :name, :label]
+          grades: [:value, :name, :label],
+          group_by_value: [:label, :value],
+          diagnostic_type_value: [:label, :value]
         ]
       )
   end

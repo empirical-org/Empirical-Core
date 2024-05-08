@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
-import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
-import { SKILL, STUDENT, groupByDropdownOptions, hashPayload } from '../../shared'
+import { SKILL, STUDENT, diagnosticTypeDropdownOptions, groupByDropdownOptions, hashPayload } from '../../shared'
 import { requestPost, } from '../../../../modules/request';
 import { aggregateOverviewData, averageActivitiesAndTimeSpentTooltipText, completedActivitiesTooltipText, diagnosticNameTooltipText, overallSkillGrowthTooltipText, postDiagnosticCompletedTooltipText, preDiagnosticCompletedTooltipText } from './helpers';
 
@@ -98,16 +97,15 @@ export const OverviewSection = ({
   selectedClassroomIds,
   selectedTimeframe,
   pusherChannel,
+  groupByValue,
   hasAdjustedFiltersFromDefault,
   handleSetNoDiagnosticDataAvailable,
   handleTabChangeFromDataChip,
-  handleSetSelectedDiagnosticId,
+  handleSetSelectedDiagnosticType,
   handleSetSelectedGroupByValue,
   handleSetDiagnosticIdForStudentCount,
   passedData
 }) => {
-
-  const [groupByValue, setGroupByValue] = React.useState<DropdownObjectInterface>(groupByDropdownOptions[0])
   const [loading, setLoading] = React.useState<boolean>(!passedData);
   const [preDiagnosticAssignedData, setPreDiagnosticAssignedData] = React.useState<any>(null);
   const [postDiagnosticAssignedData, setPostDiagnosticAssignedData] = React.useState<any>(null);
@@ -127,7 +125,7 @@ export const OverviewSection = ({
 
   React.useEffect(() => {
     // this is for testing purposes; this value will always be null in a non-testing environment
-    if (!passedData) {
+    if (!passedData && groupByValue) {
       getData()
     }
   }, [searchCount, groupByValue])
@@ -270,16 +268,18 @@ export const OverviewSection = ({
   }
 
   function handleFilterOptionChange(option) {
-    setGroupByValue(option)
+    handleSetSelectedGroupByValue(option)
   }
 
   function handlePreDiagnosticChipClick(id: number) {
-    handleSetSelectedDiagnosticId(id)
+    const diagnosticType = diagnosticTypeDropdownOptions.filter(diagnosticType => diagnosticType.value === id)[0]
+    handleSetSelectedDiagnosticType(diagnosticType)
     handleTabChangeFromDataChip(STUDENT)
   }
 
   function handleGrowthChipClick(id: number) {
-    handleSetSelectedDiagnosticId(id)
+    const diagnosticType = diagnosticTypeDropdownOptions.filter(diagnosticType => diagnosticType.value === id)[0]
+    handleSetSelectedDiagnosticType(diagnosticType)
     handleSetSelectedGroupByValue(groupByValue)
     handleTabChangeFromDataChip(SKILL)
   }
