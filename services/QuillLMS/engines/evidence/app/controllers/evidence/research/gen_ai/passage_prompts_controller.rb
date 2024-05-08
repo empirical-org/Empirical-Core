@@ -16,8 +16,6 @@ module Evidence
           if @passage_prompt.save
             redirect_to new_research_gen_ai_experiment_path
           else
-            @passages = Passage.all
-            @conjunctions = PassagePrompt::CONJUNCTIONS
             render :new
           end
         end

@@ -6,6 +6,6 @@ class AddDataPartitionToExampleFeedbacks < ActiveRecord::Migration[7.0]
       :data_partition,
       :string,
       null: false,
-      default: Evidence::Research::GenAI::ExampleFeedback::TEST_DATA
+      default: Evidence::Research::GenAI::ExampleFeedback::TESTING_DATA
   end
 end

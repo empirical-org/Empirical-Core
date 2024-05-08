@@ -5,7 +5,7 @@
 # Table name: evidence_research_gen_ai_example_feedbacks
 #
 #  id                         :bigint           not null, primary key
-#  data_partition             :string           default("test"), not null
+#  data_partition             :string           default("testing"), not null
 #  label                      :string           not null
 #  paraphrase                 :text
 #  text                       :text             not null
@@ -22,7 +22,7 @@ module Evidence
         DATA_PARTITIONS = [
           PROMPT_ENGINEERING_DATA = 'prompt_engineering',
           FINE_TUNING_DATA = 'fine_tuning',
-          TEST_DATA = 'testing'
+          TESTING_DATA = 'testing'
         ].freeze
 
         belongs_to :passage_prompt_response, class_name: 'Evidence::Research::GenAI::PassagePromptResponse'
