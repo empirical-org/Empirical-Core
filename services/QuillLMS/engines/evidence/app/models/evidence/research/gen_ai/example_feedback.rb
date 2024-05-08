@@ -22,7 +22,7 @@ module Evidence
         DATA_PARTITIONS = [
           PROMPT_ENGINEERING_DATA = 'prompt_engineering',
           FINE_TUNING_DATA = 'fine_tuning',
-          TEST_DATA = 'test'
+          TEST_DATA = 'testing'
         ].freeze
 
         belongs_to :passage_prompt_response, class_name: 'Evidence::Research::GenAI::PassagePromptResponse'

@@ -14,37 +14,20 @@ module Evidence
         end
 
         def run
-          # Training and validation files are artifacts from a previous classification model
-          # Here there are both drawn from to populate example feedbacks
-          [training_file_name, validation_file_name].each do |examples_file_name|
-            break if passage_prompt.passage_prompt_responses.count >= TARGET_NUM_EXAMPLES
+          CSV.parse(get_file(key: file_name), headers: true) do |row|
+            response = row['Student Response']
+            data_partition = row['Data Partition']
+            label = row['Label']
+            text = row['Proposed Feedback']
 
-            get_file(key: examples_file_name).each_line do |line|
-              break if passage_prompt.passage_prompt_responses.count >= TARGET_NUM_EXAMPLES
-
-              example = JSON.parse(line)
-              response = example['text']
-              label = example['label']
-              text = data['feedback'][conjunction][label]
-              example_index = data['examples'][conjunction][label]&.index(response)
-              paraphrase = example_index ? data.dig('evaluation',conjunction,label,example_index) : nil
-
-              passage_prompt
-                .passage_prompt_responses
-                .find_or_create_by!(response:)
-                .example_feedbacks
-                .find_or_create_by!(label:, text:, paraphrase:)
-            end
+            passage_prompt
+              .passage_prompt_responses
+              .find_or_create_by!(response:)
+              .create_example_feedback!(label:, text:, data_partition:)
           end
         end
 
         private def get_file(key:) = s3_client.get_object(bucket: BUCKET_NAME, key:).body
-
-        private def data = @data ||= JSON.parse(input_file)
-
-        private def input_file = get_file(key: file_name).read
-
-        private def name = file_name.split('.').first
 
         private def passage_prompt = @passage_prompt ||= PassagePrompt.find(passage_prompt_id)
 
