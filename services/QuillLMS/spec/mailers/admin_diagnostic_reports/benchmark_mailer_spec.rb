@@ -16,7 +16,7 @@ module AdminDiagnosticReports
       }
     end
     let(:mail) { described_class.benchmark_report(data) }
-  
+
     it { expect(mail.subject).to eq('Admin Diagnostic Report Query Runtimes') }
     it { expect(mail.to).to eq([described_class::RECIPIENT_EMAIL]) }
     it { expect(mail.from).to eq(['hello@quill.org']) }

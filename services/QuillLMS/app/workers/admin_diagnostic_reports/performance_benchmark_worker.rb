@@ -9,13 +9,10 @@ module AdminDiagnosticReports
     end
 
     private def query_performance_by_email
-      school_ids.to_h do |admin_email, school_ids|
-        [
-          admin_email,
-          multi_query_performance(school_ids)
-            .merge(single_query_performance(school_ids))
-            .merge(student_query_performance(school_ids))
-        ]
+      school_ids.transform_values do |school_ids|
+        multi_query_performance(school_ids)
+          .merge(single_query_performance(school_ids))
+          .merge(student_query_performance(school_ids))
       end
     end
 
