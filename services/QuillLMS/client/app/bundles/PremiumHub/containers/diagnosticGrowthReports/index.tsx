@@ -1,11 +1,12 @@
 import * as React from 'react'
 
-import { FULL, restrictedPage, OVERVIEW, SKILL, STUDENT, mapItemsIfNotAll } from '../../shared'
+import { FULL, restrictedPage, OVERVIEW, SKILL, STUDENT, mapItemsIfNotAll, groupByDropdownOptions, diagnosticTypeDropdownOptions } from '../../shared'
 import { Spinner, whiteArrowPointingDownIcon, filterIcon, documentFileIcon } from '../../../Shared/index'
 import OverviewSection from './overviewSection'
 import SkillSection from './skillSection'
 import StudentSection from './studentSection'
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
+import { requestPost } from '../../../../modules/request'
 
 const barChartGreySrc = `${process.env.CDN_URL}/images/pages/diagnostic_reports/icons-bar-chart.svg`
 const barChartWhiteIconSrc = `${process.env.CDN_URL}/images/icons/white-bar-chart-icon.svg`
@@ -14,6 +15,7 @@ const groupOfStudentsWhiteIconSrc = `${process.env.CDN_URL}/images/icons/student
 const pencilGreyIconSrc = `${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/pencil.svg`
 const pencilWhiteIconSrc = `${process.env.CDN_URL}/images/icons/white-pencil-icon.svg`
 
+const FILTER_SELECTIONS_REPORT_BASE = 'diagnostic_growth_report_'
 // these reports only show for the current school year
 const SELECTED_TIMEFRAME = "this-school-year"
 
@@ -58,9 +60,22 @@ export const DiagnosticGrowthReportsContainer = ({
 }) => {
 
   const [activeTab, setActiveTab] = React.useState<string>(OVERVIEW)
-  const [selectedDiagnosticId, setSelectedDiagnosticId] = React.useState<number>(null)
+  const [selectedDiagnosticType, setSelectedDiagnosticType] = React.useState<DropdownObjectInterface>(null)
   const [selectedGroupByValue, setSelectedGroupByValue] = React.useState<DropdownObjectInterface>(null)
   const [noDiagnosticDataAvailable, setNoDiagnosticDataAvailable] = React.useState<boolean>(!!passedData)
+
+  React.useEffect(() => {
+    // this is for testing purposes; this value will always be null in a non-testing environment
+    if (!passedData) {
+      getFilterSelections(activeTab)
+    }
+  }, [activeTab])
+
+  React.useEffect(() => {
+    if (!passedData && selectedGroupByValue && selectedDiagnosticType) {
+      saveFilterSelections(activeTab)
+    }
+  }, [selectedGroupByValue, selectedDiagnosticType])
 
   const sharedProps = {
     searchCount,
@@ -78,27 +93,62 @@ export const DiagnosticGrowthReportsContainer = ({
 
   const overviewProps = {
     ...sharedProps,
-    handleSetSelectedDiagnosticId,
+    groupByValue: selectedGroupByValue,
+    handleSetSelectedDiagnosticType,
     handleTabChangeFromDataChip,
     handleSetSelectedGroupByValue
   }
 
   const skillSectionProps = {
     ...sharedProps,
-    selectedDiagnosticId,
-    selectedGroupByValue
+    groupByValue: selectedGroupByValue,
+    diagnosticTypeValue: selectedDiagnosticType,
+    handleSetSelectedDiagnosticType,
+    handleSetSelectedGroupByValue
   }
 
   const studentSectionProps = {
     ...sharedProps,
-    selectedDiagnosticId,
+    diagnosticTypeValue: selectedDiagnosticType,
+    handleSetSelectedDiagnosticType,
     passedStudentData: null,
     passedRecommendationsData: null,
     passedVisibleData: null
   }
 
+  function getFilterSelections(tab) {
+    requestPost('/admin_report_filter_selections/show', { report: `${FILTER_SELECTIONS_REPORT_BASE}${tab}` }, (selections) => {
+      if (selections) {
+        const { group_by_value, diagnostic_type_value } = selections.filter_selections
+        setSelectedGroupByValue(group_by_value)
+        setSelectedDiagnosticType(diagnostic_type_value)
+      } else {
+        setSelectedGroupByValue(groupByDropdownOptions[0])
+        setSelectedDiagnosticType(diagnosticTypeDropdownOptions[0])
+      }
+    })
+  }
+
+  function saveFilterSelections(tab, successCallback = () => { }) {
+    const filterSelections = {
+      group_by_value: selectedGroupByValue,
+      diagnostic_type_value: selectedDiagnosticType
+    }
+
+    const params = {
+      admin_report_filter_selection: {
+        filter_selections: filterSelections,
+        report: `${FILTER_SELECTIONS_REPORT_BASE}${tab}`
+      }
+    }
+
+    requestPost('/admin_report_filter_selections/create_or_update', params, successCallback)
+  }
+
   function handleTabChange(e) {
     setActiveTab(e.currentTarget.value)
+    setSelectedGroupByValue(null)
+    setSelectedDiagnosticType(null)
   }
 
   function handleTabChangeFromDataChip(value) {
@@ -109,8 +159,8 @@ export const DiagnosticGrowthReportsContainer = ({
     setNoDiagnosticDataAvailable(value)
   }
 
-  function handleSetSelectedDiagnosticId(e) {
-    setSelectedDiagnosticId(Number(e.target.value))
+  function handleSetSelectedDiagnosticType(value: DropdownObjectInterface) {
+    setSelectedDiagnosticType(value)
   }
 
   function handleSetSelectedGroupByValue(value: DropdownObjectInterface) {
@@ -144,7 +194,7 @@ export const DiagnosticGrowthReportsContainer = ({
         </div>
       )
     }
-    return(
+    return (
       <React.Fragment>
         {renderButtons()}
         <div className="filter-button-container">

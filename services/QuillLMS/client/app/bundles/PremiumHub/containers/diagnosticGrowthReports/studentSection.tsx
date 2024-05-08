@@ -106,14 +106,14 @@ export const StudentSection = ({
   selectedTeacherIds,
   selectedClassroomIds,
   selectedTimeframe,
+  diagnosticTypeValue,
   pusherChannel,
   handleSetDiagnosticIdForStudentCount,
-  selectedDiagnosticId,
+  handleSetSelectedDiagnosticType,
   passedStudentData,
   passedRecommendationsData,
   passedVisibleData
 }) => {
-  const [diagnosticTypeValue, setDiagnosticTypeValue] = React.useState<DropdownObjectInterface>(getInitialDiagnosticType())
   const [pusherMessage, setPusherMessage] = React.useState<string>(null)
   const [recommendationsData, setRecommendationsData] = React.useState<any>(passedRecommendationsData || null);
   const [studentData, setStudentData] = React.useState<any>(passedStudentData || null);
@@ -128,7 +128,7 @@ export const StudentSection = ({
 
   React.useEffect(() => {
     // this is for testing purposes; these values will always be null in a non-testing environment
-    if (!passedVisibleData) {
+    if (!passedVisibleData && diagnosticTypeValue) {
       handleSetDiagnosticIdForStudentCount(Number(diagnosticTypeValue.value))
       resetToDefault()
       getData()
@@ -248,15 +248,8 @@ export const StudentSection = ({
     })
   }
 
-  function handleDiagnosticTypeOptionChange(option) {
-    setDiagnosticTypeValue(option)
-  }
-
-  function getInitialDiagnosticType() {
-    if(selectedDiagnosticId) {
-      return diagnosticTypeDropdownOptions.filter(diagnosticType => diagnosticType.value === selectedDiagnosticId)[0]
-    }
-    return diagnosticTypeDropdownOptions[0]
+  function handleDiagnosticTypeOptionChange(option: DropdownObjectInterface) {
+    handleSetSelectedDiagnosticType(option)
   }
 
   function loadMoreRows() {

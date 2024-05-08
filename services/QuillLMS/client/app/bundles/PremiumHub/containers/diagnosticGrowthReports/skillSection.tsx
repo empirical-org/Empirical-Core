@@ -99,14 +99,13 @@ export const SkillSection = ({
   selectedClassroomIds,
   selectedTimeframe,
   pusherChannel,
-  selectedDiagnosticId,
-  selectedGroupByValue,
+  diagnosticTypeValue,
+  groupByValue,
   handleSetDiagnosticIdForStudentCount,
+  handleSetSelectedDiagnosticType,
+  handleSetSelectedGroupByValue,
   passedData
 }) => {
-
-  const [groupByValue, setGroupByValue] = React.useState<DropdownObjectInterface>(selectedGroupByValue || groupByDropdownOptions[0])
-  const [diagnosticTypeValue, setDiagnosticTypeValue] = React.useState<DropdownObjectInterface>(getInitialDiagnosticType())
   const [pusherMessage, setPusherMessage] = React.useState<string>(null)
   const [skillsData, setSkillsData] = React.useState<any>(null);
   const [aggregatedData, setAggregatedData] = React.useState<any>(passedData || []);
@@ -121,7 +120,7 @@ export const SkillSection = ({
   }, [pusherChannel])
 
   React.useEffect(() => {
-    if(!passedData) {
+    if (!passedData && groupByValue && diagnosticTypeValue) {
       // this is for testing purposes; this value will always be null in a non-testing environment
       getData()
     }
@@ -188,19 +187,12 @@ export const SkillSection = ({
     return hashMessage == filterHash
   }
 
-  function handleDiagnosticTypeOptionChange(option) {
-    setDiagnosticTypeValue(option)
+  function handleDiagnosticTypeOptionChange(option: DropdownObjectInterface) {
+    handleSetSelectedDiagnosticType(option)
   }
 
-  function handleGroupByOptionChange(option) {
-    setGroupByValue(option)
-  }
-
-  function getInitialDiagnosticType() {
-    if(selectedDiagnosticId) {
-      return diagnosticTypeDropdownOptions.filter(diagnosticType => diagnosticType.value === selectedDiagnosticId)[0]
-    }
-    return diagnosticTypeDropdownOptions[0]
+  function handleGroupByOptionChange(option: DropdownObjectInterface) {
+    handleSetSelectedGroupByValue(option)
   }
 
   function renderContent() {

@@ -14,7 +14,9 @@ RSpec.describe AdminReportFilterSelectionsController, type: :controller do
         grades: [],
         schools: [],
         teachers: [],
-        timeframe: {}
+        timeframe: {},
+        group_by_value: {},
+        diagnostic_type_value: {}
       },
       report: AdminReportFilterSelection::DATA_EXPORT,
       user_id: user.id
@@ -56,7 +58,7 @@ RSpec.describe AdminReportFilterSelectionsController, type: :controller do
         }.to change(AdminReportFilterSelection, :count).by(1)
       end
 
-      it "updates the filter selections" do
+      it "updates the filter selections for standard filters" do
         report = AdminReportFilterSelection::USAGE_SNAPSHOT_REPORT
         last_week = 'last_week'
         admin_report_filter_selection = create(:admin_report_filter_selection, user: user, report: report, filter_selections: { 'timeframe' => { 'value' => last_week }, 'schools' => [{}] })
@@ -74,6 +76,31 @@ RSpec.describe AdminReportFilterSelectionsController, type: :controller do
           post :create_or_update, params: { admin_report_filter_selection: updated_attributes }
         end.to change { admin_report_filter_selection.reload.filter_selections['timeframe']['value'] }.from(last_week).to(timeframe['value'])
           .and change { admin_report_filter_selection.reload.filter_selections['schools'][0]['name'] }.from(nil).to(school['name'])
+      end
+
+      it "updates the filter selections for growth diagnostic dropdown filters" do
+        report = AdminReportFilterSelection::DIAGNOSTIC_GROWTH_REPORT_SKILL
+        grade_string = 'grade'
+        classroom_string = 'classroom'
+        first_diagnostic_id = '1663'
+        second_diagnostic_id = '1161'
+        grade_option = { 'value' => grade_string, 'label' => grade_string }
+        classroom_option = { 'value' => classroom_string, 'label' => classroom_string }
+        starter_diagnostic_option = { 'value' => first_diagnostic_id, 'label' => 'Starter Diagnostic' }
+        ell_starter_diagnostic_option = { 'value' => second_diagnostic_id, 'label' => 'ELL Starter Diagnostic' }
+
+        admin_report_filter_selection = create(:admin_report_filter_selection, user: user, report: report, filter_selections: { 'group_by_value' => grade_option, 'diagnostic_type_value' => starter_diagnostic_option })
+
+        updated_filter_selections = {
+          'group_by_value' => classroom_option,
+          'diagnostic_type_value' => ell_starter_diagnostic_option
+        }
+        updated_attributes = { report: report, filter_selections: updated_filter_selections }
+
+        expect do
+          post :create_or_update, params: { admin_report_filter_selection: updated_attributes }
+        end.to change { admin_report_filter_selection.reload.filter_selections['group_by_value']['value'] }.from(grade_string).to(classroom_string)
+          .and change { admin_report_filter_selection.reload.filter_selections['diagnostic_type_value']['value'] }.from(first_diagnostic_id).to(second_diagnostic_id)
       end
 
       it "renders a JSON response with the admin report filter selection" do
