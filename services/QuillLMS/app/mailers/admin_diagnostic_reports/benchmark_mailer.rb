@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module AdminDiagnosticReports
-  class BenchmarkMailer < ActionMailer::Base
+  class BenchmarkMailer < ::ApplicationMailer
     default from: 'hello@quill.org'
-  
+
     RECIPIENT_EMAIL = 'thomas@quill.org'
 
     def benchmark_report(data)
