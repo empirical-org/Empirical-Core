@@ -71,7 +71,8 @@ export interface IncorrectSequence {
   concept_results?: Array<ConceptResult>,
   conceptResults?: Array<ConceptResult>,
   caseInsensitive?: boolean|null,
-  name?: string
+  name?: string,
+  order?: number
 }
 
 export interface FeedbackObject {
