@@ -373,19 +373,19 @@ lower_count_questions.each do |lower_count_question|
     duplicated_question.updated_at = nil
 
     # save the new duplicated question
-    duplicated_question.save
+    duplicated_question.save!
 
     # replace the key value for any activities that explicitly include any affected questions
-    Activity.where("data -> 'questions' @> ?", [{key: question.uid}].to_json).each do |activity|
-      activity.data['questions'].each do |question|
-        question['key'] = lower_count_question[:new_uid] if question['key'] == old_question.uid
+    Activity.where("data -> 'questions' @> ?", [{key: old_question.uid}].to_json).each do |activity|
+      activity.data['questions'].each do |q|
+        q['key'] = new_uid if q['key'] == old_question.uid
       end
-      activity.save
+      activity.save!
     end
 
     # archive the old question
     old_question.data['flag'] = Question::FLAG_ARCHIVED
-    old_question.save
+    old_question.save!
   rescue => e
     puts e.message
   end
