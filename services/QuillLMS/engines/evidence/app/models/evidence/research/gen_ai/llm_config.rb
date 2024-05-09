@@ -17,9 +17,11 @@ module Evidence
         class UnsupportedVendorError < StandardError; end
 
         GOOGLE = 'google'
+        OPEN_AI = 'open_ai'
 
         VENDOR_MAP = {
-          GOOGLE => Evidence::Gemini::Completion
+          GOOGLE => Evidence::Gemini::Completion,
+          OPEN_AI => Evidence::OpenAI::Completion
         }.freeze
 
         validates :vendor, presence: true
@@ -28,6 +30,8 @@ module Evidence
         attr_readonly :vendor, :version
 
         def llm_client = VENDOR_MAP.fetch(vendor) { raise UnsupportedVendorError }
+
+        def model_key = version.to_sym
 
         def to_s = "#{vendor}: #{version}"
       end

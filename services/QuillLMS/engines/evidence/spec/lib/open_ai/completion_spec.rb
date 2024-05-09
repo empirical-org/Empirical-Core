@@ -10,6 +10,8 @@ module Evidence
     let(:model_key) { :curie }
     let(:options) {{key: 'value'}}
     let(:endpoint) {'https://api.openai.com/v1/completions'}
+    let(:headers) { { content_type: 'application/json' } }
+    let(:llm_config) { nil }
 
     let(:sample_response_body) do
       {
@@ -29,15 +31,17 @@ module Evidence
 
     end
     # include headers in response for proper parsing by HTTParty
-    let(:sample_response) { {body: sample_response_body.to_json, headers: {content_type: 'application/json'}} }
+    let(:sample_response) { {body: sample_response_body.to_json, headers:} }
 
     let(:completion) do
       Evidence::OpenAI::Completion.new(
-          prompt: prompt,
-          temperature: temperature,
-          count: count,
-          model_key: model_key,
-          options: options)
+        prompt:,
+        temperature:,
+        count:,
+        model_key:,
+        llm_config:,
+        options:
+      )
     end
 
     describe "#new" do
@@ -47,6 +51,13 @@ module Evidence
         expect(completion.count).to eq(count)
         expect(completion.model_key).to eq(model_key)
         expect(completion.options).to eq(options)
+      end
+
+      context 'when llm_config is provided' do
+        let(:model_key) { :davinci }
+        let(:llm_config) { double('llm_config', model_key:) }
+
+        it { expect(completion.model_key).to eq model_key }
       end
     end
 
