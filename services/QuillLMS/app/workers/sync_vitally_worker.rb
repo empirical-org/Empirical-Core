@@ -21,7 +21,7 @@ class SyncVitallyWorker
 
   private def queue_unlink_syncs
     unlinks_to_run.each do |change_log|
-      SyncVitallyUnlinksWorker.perform_async(change_log.changed_record_id, change_log.new_value.to_i)
+      SyncVitallyUnlinksWorker.perform_async(change_log.changed_record_id, change_log.previous_value.to_i)
     end
   end
 
