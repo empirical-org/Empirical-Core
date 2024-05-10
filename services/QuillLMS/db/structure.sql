@@ -2950,7 +2950,7 @@ CREATE TABLE public.evidence_research_gen_ai_example_feedbacks (
     paraphrase text,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    data_partition character varying DEFAULT 'testing'::character varying NOT NULL
+    data_partition character varying
 );
 
 

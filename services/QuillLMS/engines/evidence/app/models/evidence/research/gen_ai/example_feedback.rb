@@ -5,7 +5,7 @@
 # Table name: evidence_research_gen_ai_example_feedbacks
 #
 #  id                         :bigint           not null, primary key
-#  data_partition             :string           default("testing"), not null
+#  data_partition             :string
 #  label                      :string           not null
 #  paraphrase                 :text
 #  text                       :text             not null
@@ -30,7 +30,7 @@ module Evidence
         validates :text, presence: true
         validates :label, presence: true
         validates :passage_prompt_response_id, presence: true
-        validates :data_partition, presence: true, inclusion: { in: DATA_PARTITIONS }
+        validates :data_partition, inclusion: { in: DATA_PARTITIONS }, allow_nil: true
 
         attr_readonly :text, :label, :passage_prompt_response_id
 
