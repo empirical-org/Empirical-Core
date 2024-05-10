@@ -31,8 +31,6 @@ module Evidence
 
         def llm_client = VENDOR_MAP.fetch(vendor) { raise UnsupportedVendorError }
 
-        def model_key = version.to_sym
-
         def to_s = "#{vendor}: #{version}"
       end
     end

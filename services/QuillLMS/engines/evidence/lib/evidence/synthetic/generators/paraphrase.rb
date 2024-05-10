@@ -38,7 +38,7 @@ module Evidence
         end
 
         private def api_results(string)
-          Evidence::OpenAI::Completion.run(
+          Evidence::OpenAI::SentenceCompletion.run(
             prompt: ml_prompt(string),
             count: COUNT,
             temperature: TEMPERATURE

@@ -179,7 +179,7 @@ module Evidence
       end
 
       private def run_generator(generator, options: {})
-        api_results = Evidence::OpenAI::Completion.run(
+        api_results = Evidence::OpenAI::SentenceCompletion.run(
           prompt: generator.ml_prompt,
           count: generator.count,
           temperature: generator.temperature,
