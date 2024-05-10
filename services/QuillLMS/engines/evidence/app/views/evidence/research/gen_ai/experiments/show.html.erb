@@ -1,5 +1,3 @@
-<meta http-equiv="refresh" content="5">
-
 <%= link_to 'Back to Experiments', research_gen_ai_experiments_path %>
 <br>
 
@@ -16,7 +14,7 @@
   <p><%= @experiment.created_at.strftime("%B %d, %Y %H:%M") %></p>
 
   <h3>Passage</h3>
-  <p><%= @experiment.passage_prompt %></p>
+  <p><%= link_to @experiment.passage_prompt, @experiment.passage_prompt %></p>
 
   <h3>LLM</h3>
   <p><%= @experiment.llm_config %></p>
@@ -50,8 +48,8 @@
           <th>BertScore (Precision)</th>
           <th>BertScore (Recall)</th>
           <th>Prompt Response</th>
-          <th>Example Feedback</th>
-          <th>LLM Feedback</th>
+          <th class='feedback-column'>Example Feedback</th>
+          <th class='feedback-column'>LLM Feedback</th>
         </tr>
       </thead>
       <tbody>

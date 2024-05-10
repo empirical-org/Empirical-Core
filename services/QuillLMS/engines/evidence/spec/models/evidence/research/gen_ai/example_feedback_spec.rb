@@ -5,6 +5,7 @@
 # Table name: evidence_research_gen_ai_example_feedbacks
 #
 #  id                         :bigint           not null, primary key
+#  data_partition             :string
 #  label                      :string           not null
 #  paraphrase                 :text
 #  text                       :text             not null
@@ -21,6 +22,7 @@ module Evidence
         it { should validate_presence_of(:text) }
         it { should validate_presence_of(:label) }
         it { should validate_presence_of(:passage_prompt_response_id)}
+        it { should validate_inclusion_of(:data_partition).in_array(ExampleFeedback::DATA_PARTITIONS) }
 
         it { should have_readonly_attribute(:text) }
         it { should have_readonly_attribute(:label) }
