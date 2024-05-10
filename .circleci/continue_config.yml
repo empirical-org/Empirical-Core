@@ -276,7 +276,7 @@ jobs:
                 name: Run Lessons Server Jest Tests
                 command: |
                   cd services/QuillLessonsServer
-                  node --expose-gc ./node_modules/.bin/jest **/*.test.* --maxWorkers=2 --logHeapUsage
+                  node --expose-gc ./node_modules/.bin/jest test --maxWorkers=2 --logHeapUsage
 
   lms_node_build:
     parameters:
