@@ -260,18 +260,18 @@ jobs:
                   sudo npm install npm@8.19.2 -g
             - restore_cache:
                 keys:
-                  - npm-cache-lms-client-v8-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-                  - npm-cache-lms-client-v8-{{ checksum "services/QuillLMS/client/package.json" }}-
-                  - npm-cache-lms-client-v8-
+                  - npm-cache-lessons-server-v1-{{ checksum "services/QuillLessonsServer/package.json" }}-{{ checksum "services/QuillLessonsServer/package-lock.json" }}
+                  - npm-cache-lessons-server-v1-{{ checksum "services/QuillLessonsServer/package.json" }}-
+                  - npm-cache-lessons-server-v1-
             - run:
                 name: Install NPM dependencies
                 command: |
                   cd services/QuillLessonsServer
                   npm install --legacy-peer-deps
             - save_cache:
-                key: npm-cache-lms-client-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+                key: npm-cache-lessons-server-v1-{{ checksum "services/QuillLessonsServer/package.json" }}-{{ checksum "services/QuillLessonsServer/package-lock.json" }}
                 paths:
-                  - services/QuillLMS/client/node_modules
+                  - services/QuillLessonsServer/node_modules
             - run:
                 name: Run Lessons Server Jest Tests
                 command: |
