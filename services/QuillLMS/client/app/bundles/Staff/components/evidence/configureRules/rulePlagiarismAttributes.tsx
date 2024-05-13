@@ -117,12 +117,9 @@ const RulePlagiarismAttributes = ({
       {errors['Plagiarism Text'] && <p className="error-message">{errors['Plagiarism Text']}</p>}
       <p className="form-subsection-label">First Feedback</p>
       {plagiarismFeedbacks[0] && <TextEditor
-        ContentState={ContentState}
-        EditorState={EditorState}
         // eslint-disable-next-line
           handleTextChange={(text) => onHandleSetPlagiarismFeedback(text, 0, null, FEEDBACK)}
         key="first-plagiarism-feedback"
-        shouldCheckSpelling={true}
         text={plagiarismFeedbacks[0].text}
       />}
       {plagiarismFeedbacks[0] && plagiarismFeedbacks[0].highlights_attributes && renderHighlights(plagiarismFeedbacks[0].highlights_attributes, 0, onHandleSetPlagiarismFeedback)}
@@ -133,12 +130,9 @@ const RulePlagiarismAttributes = ({
       {errors['First Plagiarism Feedback'] && <p className="error-message">{errors['First Plagiarism Feedback']}</p>}
       <p className="form-subsection-label">Second Feedback</p>
       {plagiarismFeedbacks[1] && <TextEditor
-        ContentState={ContentState}
-        EditorState={EditorState}
         // eslint-disable-next-line
           handleTextChange={(text) => onHandleSetPlagiarismFeedback(text, 1, null, FEEDBACK)}
         key="second-plagiarism-feedback"
-        shouldCheckSpelling={true}
         text={plagiarismFeedbacks[1].text}
       />}
       {plagiarismFeedbacks[1] && plagiarismFeedbacks[1].highlights_attributes && renderHighlights(plagiarismFeedbacks[1].highlights_attributes, 1, onHandleSetPlagiarismFeedback)}

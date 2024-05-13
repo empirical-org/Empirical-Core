@@ -8,11 +8,8 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
     First Layer Feedback
   </p>
   <TextEditor
-    ContentState={[Function]}
-    EditorState={[Function]}
     handleTextChange={[Function]}
     key="universal-feedback"
-    shouldCheckSpelling={true}
     text="test universal feedback"
   />
   <section
@@ -53,11 +50,8 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
       }
     />
     <TextEditor
-      ContentState={[Function]}
-      EditorState={[Function]}
       handleTextChange={[Function]}
       key="universal-feedback-highlight"
-      shouldCheckSpelling={true}
       text="prompt highlight"
     />
   </section>
@@ -99,11 +93,8 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
       }
     />
     <TextEditor
-      ContentState={[Function]}
-      EditorState={[Function]}
       handleTextChange={[Function]}
       key="universal-feedback-highlight"
-      shouldCheckSpelling={true}
       text="passage highlight"
     />
   </section>
@@ -134,11 +125,8 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
     Second Layer Feedback
   </p>
   <TextEditor
-    ContentState={[Function]}
-    EditorState={[Function]}
     handleTextChange={[Function]}
     key="universal-feedback"
-    shouldCheckSpelling={true}
     text="test universal feedback"
   />
   <div

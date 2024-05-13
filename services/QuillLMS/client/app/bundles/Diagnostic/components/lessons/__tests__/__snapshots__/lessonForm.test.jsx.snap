@@ -27,11 +27,8 @@ exports[`LessonForm component renderSearchBox renders a SelectSearch component w
       Landing Page Content
     </label>
     <TextEditor
-      ContentState={[Function]}
-      EditorState={[Function]}
       handleTextChange={[Function]}
       id="landing-page-content"
-      shouldCheckSpelling={true}
       text="<p>Test content</p>"
     />
   </div>

@@ -64,11 +64,8 @@ exports[`ImageSection component should render ImageSection 1`] = `
       Image Attribution Guide
     </a>
     <TextEditor
-      ContentState={[Function]}
-      EditorState={[Function]}
       handleTextChange={[MockFunction]}
       key="image-attribution"
-      shouldCheckSpelling={true}
     />
   </div>
 </Fragment>
