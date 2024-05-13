@@ -86,57 +86,57 @@ module Evidence
     describe "#run" do
       it "should hit open AI for each item and store results" do
         # full - original
-        expect(Evidence::OpenAI::Completion).to receive(:run)
+        expect(Evidence::OpenAI::SentenceCompletion).to receive(:run)
           .with(prompt: full_passage_prompt, count: 1, temperature: 1, options: {})
           .and_return(full_passage_response)
-        expect(Evidence::OpenAI::Completion).to receive(:run)
+        expect(Evidence::OpenAI::SentenceCompletion).to receive(:run)
           .with(prompt: full_passage_prompt, count: 1, temperature: 0.9, options: {})
           .and_return(full_passage_response2)
         # full - alternate stem1
-        expect(Evidence::OpenAI::Completion).to receive(:run)
+        expect(Evidence::OpenAI::SentenceCompletion).to receive(:run)
           .with(prompt: full_passage_prompt_alternate1, count: 1, temperature: 1, options: {})
           .and_return(full_passage_alternate1_response1)
-        expect(Evidence::OpenAI::Completion).to receive(:run)
+        expect(Evidence::OpenAI::SentenceCompletion).to receive(:run)
           .with(prompt: full_passage_prompt_alternate1, count: 1, temperature: 0.9, options: {})
           .and_return(full_passage_alternate1_response2)
         # full - alternate stem2
-        expect(Evidence::OpenAI::Completion).to receive(:run)
+        expect(Evidence::OpenAI::SentenceCompletion).to receive(:run)
           .with(prompt: full_passage_prompt_alternate2, count: 1, temperature: 1, options: {})
           .and_return(full_passage_alternate2_response1)
-        expect(Evidence::OpenAI::Completion).to receive(:run)
+        expect(Evidence::OpenAI::SentenceCompletion).to receive(:run)
           .with(prompt: full_passage_prompt_alternate2, count: 1, temperature: 0.9, options: {})
           .and_return(full_passage_alternate2_response2)
         # noun
-        expect(Evidence::OpenAI::Completion).to receive(:run)
+        expect(Evidence::OpenAI::SentenceCompletion).to receive(:run)
           .with(prompt: full_noun_prompt, count: 1, temperature: 0.8, options: {})
           .and_return(full_noun_response)
         # chunk1
-        expect(Evidence::OpenAI::Completion).to receive(:run)
+        expect(Evidence::OpenAI::SentenceCompletion).to receive(:run)
           .with(prompt: chunk1_prompt, count: 1, temperature: 0.4, options: {})
           .and_return(chunk1_response)
         # chunk1 - alternate1
-        expect(Evidence::OpenAI::Completion).to receive(:run)
+        expect(Evidence::OpenAI::SentenceCompletion).to receive(:run)
           .with(prompt: chunk1_prompt_alternate1, count: 1, temperature: 0.4, options: {})
           .and_return(chunk1_response)
         # chunk1 - alternate2
-        expect(Evidence::OpenAI::Completion).to receive(:run)
+        expect(Evidence::OpenAI::SentenceCompletion).to receive(:run)
           .with(prompt: chunk1_prompt_alternate2, count: 1, temperature: 0.4, options: {})
           .and_return(chunk1_response)
         # chunk2
-        expect(Evidence::OpenAI::Completion).to receive(:run)
+        expect(Evidence::OpenAI::SentenceCompletion).to receive(:run)
           .with(prompt: chunk2_prompt, count: 1, temperature: 0.4, options: {})
           .and_return(chunk2_response)
         # chunk2 - alternate1
-        expect(Evidence::OpenAI::Completion).to receive(:run)
+        expect(Evidence::OpenAI::SentenceCompletion).to receive(:run)
           .with(prompt: chunk2_prompt_alternate1, count: 1, temperature: 0.4, options: {})
           .and_return(chunk2_response)
         # chunk2 - alternate2
-        expect(Evidence::OpenAI::Completion).to receive(:run)
+        expect(Evidence::OpenAI::SentenceCompletion).to receive(:run)
           .with(prompt: chunk2_prompt_alternate2, count: 1, temperature: 0.4, options: {})
           .and_return(chunk2_response)
 
         # label example
-        expect(Evidence::OpenAI::Completion).to receive(:run)
+        expect(Evidence::OpenAI::SentenceCompletion).to receive(:run)
           .with(prompt: example_prompt, count: 1, temperature: 1, options: {max_tokens: 40})
           .and_return(example_response)
 
@@ -160,7 +160,7 @@ module Evidence
 
         it "should generate ONLY label paraphrases" do
           # label example
-          expect(Evidence::OpenAI::Completion).to receive(:run)
+          expect(Evidence::OpenAI::SentenceCompletion).to receive(:run)
             .with(prompt: example_prompt, count: 1, temperature: 1, options: {max_tokens: 40})
             .and_return(example_response)
 
@@ -180,7 +180,7 @@ module Evidence
       let(:generator) { Evidence::TextGeneration.new(ml_prompt: '', count: 1, temperature: 1) }
 
       before do
-        allow(Evidence::OpenAI::Completion).to receive(:run).and_return(response)
+        allow(Evidence::OpenAI::SentenceCompletion).to receive(:run).and_return(response)
       end
 
       subject { because.send(:run_generator, generator) }
@@ -316,7 +316,7 @@ module Evidence
       let!(:prompt) { create(:evidence_prompt, activity: activity, conjunction: "because") }
 
       before do
-        allow(Evidence::OpenAI::Completion).to receive(:run).and_return(full_passage_response)
+        allow(Evidence::OpenAI::SentenceCompletion).to receive(:run).and_return(full_passage_response)
       end
 
       subject { described_class.csvs_for_activity(activity_id: activity.id, nouns: ['hello']) }
