@@ -208,9 +208,9 @@ export default class extends React.Component<ResponseProps, ResponseState> {
   deleteConceptResult = (crid) => {
     const { conceptResults } = this.state
     if (confirm('Are you sure?')) {
-      const conceptResults = Object.assign({}, conceptResults || {});
-      delete conceptResults[crid];
-      this.setState({conceptResults})
+      const newConceptResults = Object.assign({}, conceptResults || {});
+      delete newConceptResults[crid];
+      this.setState({conceptResults: newConceptResults})
     }
   }
 
