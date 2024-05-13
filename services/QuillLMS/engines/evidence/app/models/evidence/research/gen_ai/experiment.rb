@@ -88,10 +88,9 @@ module Evidence
 
         private def create_llm_prompt_responses_feedbacks
           testing_data_passage_prompt_responses.each do |passage_prompt_response|
-            feedback = llm_client.run(llm_config:, prompt: llm_prompt.feedback_prompt(passage_prompt_response.response))
-            # text = Resolver.run(feedback:)
-            text = feedback # temporarily remove Resolver.run
-            LLMFeedback.create!(experiment: self, text:, passage_prompt_response:)
+            raw_text = llm_client.run(llm_config:, prompt: llm_prompt.feedback_prompt(passage_prompt_response.response))
+            text = Resolver.run(raw_text:)
+            LLMFeedback.create!(experiment: self, raw_text:, text:, passage_prompt_response:)
           rescue Resolver::ResolverError => e
             experiment_errors << (e.message + " for response: #{passage_prompt_response.id}")
             next

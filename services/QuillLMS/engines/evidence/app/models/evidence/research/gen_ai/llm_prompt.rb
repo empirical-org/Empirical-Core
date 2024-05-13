@@ -14,6 +14,8 @@ module Evidence
   module Research
     module GenAI
       class LLMPrompt < ApplicationRecord
+        FEEDBACK_JSON_SCHEMA = { type: 'object', properties: { feedback: { type: 'string' } } }.to_json
+
         belongs_to :llm_prompt_template, class_name: 'Evidence::Research::GenAI::LLMPromptTemplate'
 
         has_many :experiments, class_name: 'Evidence::Research::GenAI::Experiment', dependent: :destroy
@@ -32,7 +34,10 @@ module Evidence
            )
         end
 
-        def feedback_prompt(response) = "#{prompt}\n\nResponse: #{response}\nFeedback:"
+        def feedback_prompt(response)
+          "#{prompt}\n\nResponse: #{response}\nProvide feedback in the following format: #{FEEDBACK_JSON_SCHEMA}"
+        end
+
         def evaluation_prompt(response) = "#{prompt}\n\nResponse: #{response}\nParaphrase:"
       end
     end
