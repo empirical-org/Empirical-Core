@@ -20,6 +20,7 @@ module Evidence
         factory :evidence_research_gen_ai_llm_feedback, class: 'Evidence::Research::GenAI::LLMFeedback' do
           experiment { association :evidence_research_gen_ai_experiment }
           passage_prompt_response { association :evidence_research_gen_ai_passage_prompt_response }
+          raw_text { { 'feedback' => 'This is the feedback' }.to_json }
           text { 'This is the feedback' }
         end
       end

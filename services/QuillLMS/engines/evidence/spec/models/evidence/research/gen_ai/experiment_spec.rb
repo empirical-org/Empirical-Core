@@ -51,7 +51,7 @@ module Evidence
           let(:llm_config) { experiment.llm_config }
           let(:llm_prompt) { experiment.llm_prompt }
           let(:llm_client) { double(:llm_client) }
-          let(:llm_feedback_text) { 'Test feedback' }
+          let(:llm_feedback_text) { { 'feedback' => 'This is feedback' }.to_json }
 
           let(:passage_prompt_responses) do
             create_list(:evidence_research_gen_ai_passage_prompt_response, num_examples, passage_prompt:)

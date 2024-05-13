@@ -14,11 +14,13 @@ module Evidence
         @prompt = prompt
       end
 
+      def request_body = request_body_base.merge(request_body_custom)
+
       private def model_version = llm_config.version
+
       private def instruction = GENERATE_CONTENT
 
-      # From curl request body structure: https://aistudio.google.com/app/apikey
-      def request_body
+      private def request_body_base
         {
           "contents" => [
             {
@@ -28,6 +30,12 @@ module Evidence
             }
           ]
         }
+      end
+
+      private def request_body_custom
+        return {} unless llm_config.version == 'gemini-1.5-pro-latest'
+
+        { "generationConfig": { "response_mime_type": "application/json" } }
       end
 
       private def cleaned_results
