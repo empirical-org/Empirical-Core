@@ -194,11 +194,8 @@ export class FocusPointsContainer extends Component {
           <div className="card-content">
             <label className="label" htmlFor="feedback" style={{ marginTop: 10, }}>Feedback</label>
             <TextEditor
-              ContentState={ContentState}
-              EditorState={EditorState}
               handleTextChange={(e) => this.handleFeedbackChange(e, fp.key)}
               key="feedback"
-              shouldCheckSpelling={true}
               text={fp.feedback}
             />
             {this.renderConceptResults(conceptResults, key)}

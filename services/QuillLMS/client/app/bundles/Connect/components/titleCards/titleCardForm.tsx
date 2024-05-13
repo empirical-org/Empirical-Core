@@ -101,10 +101,7 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
           <br />
           <label className="label">Content</label>
           <TextEditor
-            ContentState={ContentState}
-            EditorState={EditorState}
             handleTextChange={this.handleContentChange}
-            shouldCheckSpelling={true}
             text={content || ""}
           />
           <br />

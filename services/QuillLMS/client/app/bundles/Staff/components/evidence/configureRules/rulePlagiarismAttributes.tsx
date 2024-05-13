@@ -21,11 +21,8 @@ export const PlagiarismTextEditor = ({ text, index, setPlagiarismText, }) => {
     <React.Fragment key={index}>
       <p className="form-subsection-label">Plagiarism Text - Text String {index + 1}</p>
       <TextEditor
-        ContentState={ContentState}
-        EditorState={EditorState}
         handleTextChange={onHandleSetPlagiarismText}
         key={`plagiarism-text-${index}`}
-        shouldCheckSpelling={true}
         text={text}
       />
     </React.Fragment>

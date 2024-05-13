@@ -238,12 +238,9 @@ export const UnitTemplate = ({ unitTemplate }) => {
       <section className="activity-pack-description-container padded-element">
         <label htmlFor="activity-pack-description">Activity Pack Description</label>
         <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
           handleTextChange={handlePackDescriptionChange}
           id="activity-pack-description"
           key="activity-pack-description"
-          shouldCheckSpelling={true}
           text={activityPackInfo}
         />
       </section>

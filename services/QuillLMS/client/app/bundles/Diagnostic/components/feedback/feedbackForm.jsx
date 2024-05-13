@@ -58,11 +58,8 @@ export default class FeedbackForm extends React.Component {
           <React.Fragment>
             <label className="label">{part}</label>
             <TextEditor
-              ContentState={ContentState}
-              EditorState={EditorState}
               handleTextChange={(e) => this.handleChange(part, e)}
               key={part}
-              shouldCheckSpelling={true}
               text={this.state[part]}
             />
           </React.Fragment>

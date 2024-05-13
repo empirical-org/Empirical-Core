@@ -160,11 +160,8 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
             {this.renderTextInputFields()}
             <label className="label" style={{ marginTop: 10, }}>Feedback</label>
             <TextEditor
-              ContentState={ContentState}
-              EditorState={EditorState}
               handleTextChange={this.handleFeedbackChange}
               key="feedback"
-              shouldCheckSpelling={true}
               text={this.state.itemFeedback || ""}
             />
             <label className="label" style={{ marginTop: 10, }}>Concepts</label>

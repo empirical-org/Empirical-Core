@@ -145,10 +145,7 @@ class LessonForm extends React.Component {
           <label className="label">Landing Page Content</label>
         </p>
         <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
           handleTextChange={this.handleLPChange}
-          shouldCheckSpelling={true}
           text={this.state.landingPageHtml || ''}
         />
         <br />

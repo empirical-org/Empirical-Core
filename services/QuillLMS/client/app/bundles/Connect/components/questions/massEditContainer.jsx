@@ -185,10 +185,7 @@ class MassEditContainer extends React.Component {
               <h3>FEEDBACK</h3>
               <TextEditor
                 boilerplate={this.state.selectedMassEditBoilerplate}
-                ContentState={ContentState}
-                EditorState={EditorState}
                 handleTextChange={this.handleMassEditFeedbackTextChange}
-                shouldCheckSpelling={true}
                 text={this.state.massEditFeedback || ''}
               />
             </div>

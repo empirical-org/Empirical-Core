@@ -69,11 +69,8 @@ export const ImageSection = ({
         <p className={`text-editor-label ${imageAttributionStyle}`} id="image-attribution-label"> Image Attribution</p>
         <a className="data-link image-attribution-guide-link" href={imageAttributionGuideLink} rel="noopener noreferrer" target="_blank">Image Attribution Guide</a>
         <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
           handleTextChange={handleSetImageAttribution}
           key="image-attribution"
-          shouldCheckSpelling={true}
           text={activityPassages[0].image_attribution}
         />
       </div>

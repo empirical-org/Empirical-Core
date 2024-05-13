@@ -154,10 +154,7 @@ class FillInBlankForm extends Component {
         <h6 className="control subtitle">Create a new question</h6>
         <label className="label">Prompt</label>
         <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
           handleTextChange={this.handlePromptChange}
-          shouldCheckSpelling={true}
           text={this.state.prompt}
         />
         <br />

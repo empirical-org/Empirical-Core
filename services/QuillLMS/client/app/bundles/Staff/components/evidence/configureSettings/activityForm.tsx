@@ -129,11 +129,8 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
       </p>
       <div className={showHighlights ? '' : 'hide-highlights'}>
         <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
           handleTextChange={handleSetPassageText}
           key="passage-description"
-          shouldCheckSpelling={true}
           text={activityPassages[0].text}
         />
       </div>
@@ -145,11 +142,8 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
     <React.Fragment>
       <p className={`text-editor-label ${essentialKnowledgeStyle}`}>Building Essential Knowledge Text</p>
       <TextEditor
-        ContentState={ContentState}
-        EditorState={EditorState}
         handleTextChange={handleSetPassageEssentialKnowledgeText}
         key="essential-knowledge-text"
-        shouldCheckSpelling={true}
         text={activityPassages[0].essential_knowledge_text}
       />
     </React.Fragment>

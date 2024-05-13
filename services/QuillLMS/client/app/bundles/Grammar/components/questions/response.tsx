@@ -321,10 +321,7 @@ export default class extends React.Component<ResponseProps, ResponseState> {
           <label className="label">Feedback</label>
           <TextEditor
             boilerplate={selectedBoilerplate}
-            ContentState={ContentState}
-            EditorState={EditorState}
             handleTextChange={this.handleFeedbackChange}
-            shouldCheckSpelling={true}
             text={feedback || ''}
           />
 

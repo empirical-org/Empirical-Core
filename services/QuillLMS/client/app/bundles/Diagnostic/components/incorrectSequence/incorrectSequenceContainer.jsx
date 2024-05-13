@@ -257,11 +257,8 @@ class IncorrectSequencesContainer extends Component {
           <div className="card-content">
             <label className="label" htmlFor="feedback" style={{ marginTop: 10, }}>Feedback</label>
             <TextEditor
-              ContentState={ContentState}
-              EditorState={EditorState}
               handleTextChange={(e) => this.handleFeedbackChange(e, seq.key)}
               key="feedback"
-              shouldCheckSpelling={true}
               text={seq.feedback}
             />
             <br />

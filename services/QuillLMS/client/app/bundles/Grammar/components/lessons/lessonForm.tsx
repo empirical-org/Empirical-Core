@@ -211,10 +211,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
           <label className="label">Description</label>
         </p>
         <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
           handleTextChange={this.handleDescriptionChange}
-          shouldCheckSpelling={true}
           text={description || ''}
         />
         <br />
@@ -222,10 +219,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
           <label className="label">Landing Page HTML</label>
         </p>
         <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
           handleTextChange={this.handleLandingPageHTMLChange}
-          shouldCheckSpelling={true}
           text={landingPageHtml || ''}
         />
         <br />

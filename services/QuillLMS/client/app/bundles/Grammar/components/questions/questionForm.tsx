@@ -81,10 +81,7 @@ export default class QuestionForm extends React.Component {
           <h6 className="control subtitle">Create a new question</h6>
           <label className="label">Prompt</label>
           <TextEditor
-            ContentState={ContentState}
-            EditorState={EditorState}
             handleTextChange={this.handlePromptChange}
-            shouldCheckSpelling={true}
             text={prompt || ""}
           />
           <label className="label">Instructions for student</label>
@@ -110,10 +107,7 @@ export default class QuestionForm extends React.Component {
           <label className="label">Rule description (optional, will overwrite the concept's description for this question if set)</label>
           <p className="control">
             <TextEditor
-              ContentState={ContentState}
-              EditorState={EditorState}
               handleTextChange={this.handleRuleDescriptionChange}
-              shouldCheckSpelling={true}
               text={rule_description}
             />
           </p>

@@ -121,8 +121,6 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
         </p>
         <TextEditor
           aria-labelledby="description-label"
-          ContentState={ContentState}
-          EditorState={EditorState}
           handleTextChange={this.onHandleDescriptionChange}
           id="description"
           text={description || ''}

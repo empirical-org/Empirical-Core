@@ -113,11 +113,8 @@ const RuleGenericAttributes = ({
       {ruleUID && renderIDorUID(ruleUID, 'Rule UID')}
       <p className="form-subsection-label">{noteLabel}</p>
       <TextEditor
-        ContentState={ContentState}
-        EditorState={EditorState}
         handleTextChange={onHandleSetRuleNote}
         key="rule-note"
-        shouldCheckSpelling={true}
         text={ruleNote}
       />
     </React.Fragment>

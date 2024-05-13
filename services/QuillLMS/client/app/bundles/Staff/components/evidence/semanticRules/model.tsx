@@ -127,12 +127,9 @@ const Model = ({ match }) => {
         />
         <p className={`text-editor-label ${modelNotesStyle}`}>Model Notes</p>
         <TextEditor
-          ContentState={ContentState}
           disabled={true}
-          EditorState={EditorState}
           handleTextChange={handleSetModelNotes}
           key="model-notes"
-          shouldCheckSpelling={true}
           text={initialNoteValue}
         />
         <DataTable

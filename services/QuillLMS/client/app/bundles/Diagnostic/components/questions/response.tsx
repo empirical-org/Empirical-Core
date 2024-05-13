@@ -266,10 +266,7 @@ const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded,
           <label className="label">Feedback</label>
           <TextEditor
             boilerplate={selectedBoilerplate}
-            ContentState={ContentState}
-            EditorState={EditorState}
             handleTextChange={handleFeedbackChange}
-            shouldCheckSpelling={true}
             text={feedback || ''}
           />
 
