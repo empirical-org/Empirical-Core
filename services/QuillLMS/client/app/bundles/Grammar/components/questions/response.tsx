@@ -1,5 +1,4 @@
 import * as jsDiff from 'diff';
-import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import * as _ from 'underscore';
 

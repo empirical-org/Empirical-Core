@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as _ from 'lodash';
 import * as React from 'react';
 

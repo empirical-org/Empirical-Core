@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';

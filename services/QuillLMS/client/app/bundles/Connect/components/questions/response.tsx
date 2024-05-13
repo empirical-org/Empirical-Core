@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import _ from 'underscore';
 

@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from "react";
 
 import { FEEDBACK, FEEDBACK_LAYER_ADDITION, FEEDBACK_LAYER_REMOVAL, HIGHLIGHT_ADDITION, HIGHLIGHT_REMOVAL, numericalWordOptions } from '../../../../../constants/evidence';

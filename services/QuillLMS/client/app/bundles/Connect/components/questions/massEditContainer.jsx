@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { ContentState, EditorState } from 'draft-js';
 import _ from 'underscore';
 import { requestPost, } from '../../../../modules/request/index';
 import { TextEditor } from '../../../Shared/index';

@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import React, { Component } from 'react';
 import { FlagDropdown, TextEditor } from '../../../Shared/index';
 import C from '../../constants.js';

@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import React from 'react';
 import _ from 'underscore';
 import { TextEditor, isValidRegex } from '../../../Shared/index';

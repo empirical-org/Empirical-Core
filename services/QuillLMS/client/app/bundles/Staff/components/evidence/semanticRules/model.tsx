@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from "react";
 import { useQuery, useQueryClient, } from 'react-query';
 import { Link, useHistory, withRouter } from 'react-router-dom';

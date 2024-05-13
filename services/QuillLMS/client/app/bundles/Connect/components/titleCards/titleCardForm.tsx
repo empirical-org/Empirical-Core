@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { TextEditor, } from '../../../Shared/index';

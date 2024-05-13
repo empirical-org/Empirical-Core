@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';

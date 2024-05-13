@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { ContentState, EditorState } from 'draft-js';
 import Dropzone from 'react-dropzone';
 
 import { IMAGE_ALT_TEXT, IMAGE_ATTRIBUTION, IMAGE_CAPTION, IMAGE_LINK } from '../../../../../constants/evidence';
