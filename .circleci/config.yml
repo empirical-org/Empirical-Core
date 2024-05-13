@@ -26,6 +26,7 @@ workflows:
             services/QuillLMS/(engines/|app/|bin/|config/|db/|lib/|Gemfile|spec/|public/|Procfile).* lms-run-evidence true
             services/QuillCMS/.* cms-run true
             services/QuillLMS/(engines/|app/|bin/|config/|db/|lib/|Gemfile|spec/|public/|Procfile).* lms-run-ruby-lint true
+            services/QuillLessonsServer/.* lessons-server-run true
           base-revision: develop
           # this is the path of the configuration we should trigger once
           # path filtering and pipeline parameter value updates are

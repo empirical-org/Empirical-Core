@@ -17,9 +17,11 @@ module Evidence
         class UnsupportedVendorError < StandardError; end
 
         GOOGLE = 'google'
+        OPEN_AI = 'open_ai'
 
         VENDOR_MAP = {
-          GOOGLE => Evidence::Gemini::Completion
+          GOOGLE => Evidence::Gemini::Completion,
+          OPEN_AI => Evidence::OpenAI::Completion
         }.freeze
 
         validates :vendor, presence: true
