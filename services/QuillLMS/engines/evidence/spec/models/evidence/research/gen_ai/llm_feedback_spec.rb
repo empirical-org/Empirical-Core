@@ -6,6 +6,7 @@
 #
 #  id                         :bigint           not null, primary key
 #  label                      :string
+#  raw_text                   :text             not null
 #  text                       :text             not null
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
@@ -18,10 +19,12 @@ module Evidence
   module Research
     module GenAI
       RSpec.describe LLMFeedback, type: :model do
+        it { should validate_presence_of(:raw_text) }
         it { should validate_presence_of(:text) }
         it { should validate_presence_of(:passage_prompt_response_id)}
         it { should validate_presence_of(:experiment_id)}
 
+        # it { should have_readonly_attribute(:raw_text)}
         it { should have_readonly_attribute(:text) }
         it { should have_readonly_attribute(:label) }
         it { should have_readonly_attribute(:passage_prompt_response_id) }

@@ -36,7 +36,7 @@ module Evidence
 
         delegate :response, to: :passage_prompt_response
 
-        def response_and_feedback = "Response: #{response}\nFeedback: #{text}"
+        def response_and_feedback = { response:, feedback: text }.to_json
 
         def to_s = text
       end
