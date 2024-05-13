@@ -6,6 +6,7 @@
 #
 #  id                         :bigint           not null, primary key
 #  label                      :string
+#  raw_text                   :text             not null
 #  text                       :text             not null
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
