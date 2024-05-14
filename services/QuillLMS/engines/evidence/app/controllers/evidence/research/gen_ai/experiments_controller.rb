@@ -84,7 +84,7 @@ module Evidence
         private def passage_prompt_ids = experiment_params[:passage_prompt_ids].reject(&:blank?).map(&:to_i)
 
         private def num_examples(passage_prompt_id)
-          max_num_examples = PassagePrompt.find(passage_prompt_id).passage_prompt_responses.count
+          max_num_examples = PassagePrompt.find(passage_prompt_id).passage_prompt_responses.testing_data.count
 
           return max_num_examples if experiment_params[:num_examples].blank?
 
