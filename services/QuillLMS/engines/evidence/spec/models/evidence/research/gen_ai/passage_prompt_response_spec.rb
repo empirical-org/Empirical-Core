@@ -28,6 +28,16 @@ module Evidence
 
         it { expect(build(:evidence_research_gen_ai_passage_prompt_response)).to be_valid }
 
+        describe '.testing_data' do
+          subject { PassagePromptResponse.testing_data }
+
+          let!(:testing_feedback) { create(:evidence_research_gen_ai_example_feedback, :testing) }
+          let!(:fine_tuning_feedback) { create(:evidence_research_gen_ai_example_feedback, :fine_tuning) }
+          let!(:prompt_engineering_feedback) { create(:evidence_research_gen_ai_example_feedback, :prompt_engineering) }
+
+          it { is_expected.to eq [testing_feedback.passage_prompt_response] }
+        end
+
         describe '#example_optimal?' do
           subject { passage_prompt_response.example_optimal? }
 

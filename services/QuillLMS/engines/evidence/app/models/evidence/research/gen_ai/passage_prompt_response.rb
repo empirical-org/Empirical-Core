@@ -24,6 +24,11 @@ module Evidence
 
         attr_readonly :response, :passage_prompt_id
 
+        def self.testing_data
+          joins(:example_feedback)
+            .where(example_feedback: { data_partition: ExampleFeedback::TESTING_DATA })
+        end
+
         def example_optimal? = example_feedback.optimal?
 
         def to_s = response
