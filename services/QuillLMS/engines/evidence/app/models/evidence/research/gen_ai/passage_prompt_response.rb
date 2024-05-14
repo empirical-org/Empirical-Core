@@ -24,10 +24,9 @@ module Evidence
 
         attr_readonly :response, :passage_prompt_id
 
-        def self.testing_data
-          joins(:example_feedback)
-            .where(example_feedback: { data_partition: ExampleFeedback::TESTING_DATA })
-        end
+        def self.testing_data = joins(:example_feedback).merge(ExampleFeedback.testing_data)
+        def self.fine_tuning_data = joins(:example_feedback).merge(ExampleFeedback.fine_tuning_data)
+        def self.prompt_engineering_data = joins(:example_feedback).merge(ExampleFeedback.prompt_engineering_data)
 
         def example_optimal? = example_feedback.optimal?
 

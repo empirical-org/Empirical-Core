@@ -36,6 +36,10 @@ module Evidence
 
         delegate :response, to: :passage_prompt_response
 
+        scope :testing_data, -> { where(data_partition: TESTING_DATA) }
+        scope :fine_tuning_data, -> { where(data_partition: FINE_TUNING_DATA) }
+        scope :prompt_engineering_data, -> { where(data_partition: PROMPT_ENGINEERING_DATA) }
+
         def response_and_feedback = { response:, feedback: text }.to_json
 
         def to_s = text
