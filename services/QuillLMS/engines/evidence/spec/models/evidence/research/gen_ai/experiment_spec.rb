@@ -46,7 +46,7 @@ module Evidence
           subject { experiment.run }
 
           let(:experiment) { create(:evidence_research_gen_ai_experiment, num_examples:) }
-          let(:num_examples) { 4 }
+          let(:num_examples) { 3 }
           let(:passage_prompt) { experiment.passage_prompt }
           let(:llm_config) { experiment.llm_config }
           let(:llm_prompt) { experiment.llm_prompt }

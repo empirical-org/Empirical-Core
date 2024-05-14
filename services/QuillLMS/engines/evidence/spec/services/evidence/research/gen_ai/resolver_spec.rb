@@ -31,7 +31,7 @@ module Evidence
           let(:feedback) { 'This is feedback' }
           let(:raw_text) { { type: 'object', properties: { feedback: { type: 'string', value: feedback } } }.to_json }
 
-          it { is_expected.to eq feedback}
+          it { is_expected.to eq feedback }
         end
 
         context 'when raw_text is an enumerated feedback' do

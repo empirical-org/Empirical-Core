@@ -79,20 +79,13 @@ module Evidence
 
         def retry_params = { llm_config_id:, llm_prompt_id:, passage_prompt_id:, num_examples: }
 
-        private def testing_data_passage_prompt_responses
-          passage_prompt_responses
-            .joins(:example_feedback)
-            .where(example_feedback: { data_partition: ExampleFeedback::TESTING_DATA })
-            .limit(num_examples)
-        end
-
         private def create_llm_prompt_responses_feedbacks
-          testing_data_passage_prompt_responses.each do |passage_prompt_response|
+          passage_prompt_responses.testing_data.limit(num_examples).each do |passage_prompt_response|
             raw_text = llm_client.run(llm_config:, prompt: llm_prompt.feedback_prompt(passage_prompt_response.response))
             text = Resolver.run(raw_text:)
             LLMFeedback.create!(experiment: self, raw_text:, text:, passage_prompt_response:)
           rescue Resolver::ResolverError => e
-            experiment_errors << (e.message + " for response: #{passage_prompt_response.id}")
+            experiment_errors << { error: e.message, passage_prompt_response_id: passage_prompt_response.id, raw_text:}.to_json
             next
           end
         end

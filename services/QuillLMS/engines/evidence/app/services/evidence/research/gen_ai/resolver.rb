@@ -23,7 +23,7 @@ module Evidence
 
           return raw_text unless data.is_a?(Hash)
 
-          simple_feedback || enumerated_feedback || raise(UnknownJSONStructureError)
+          simple_feedback || enumerated_feedback || property_feedback_value || raise(UnknownJSONStructureError)
         end
 
         private def data
@@ -35,6 +35,8 @@ module Evidence
         private def simple_feedback = data['feedback']
 
         private def enumerated_feedback = data.dig('properties', 'feedback', 'enum')&.join(' ')
+
+        private def property_feedback_value = data.dig('properties', 'feedback', 'value')
       end
     end
   end
