@@ -20,9 +20,16 @@ module Evidence
           it { expect { subject }.to raise_error(described_class::EmptyFeedbackError) }
         end
 
-        context 'when raw_text is a simple feedback' do
+        context 'when raw_text is a flat feedback' do
           let(:feedback) { 'This is feedback' }
           let(:raw_text) { { response: 'this is a response', feedback: }.to_json }
+
+          it { is_expected.to eq feedback }
+        end
+
+        context 'when raw_text is property_feedback_value' do
+          let(:feedback) { 'This is feedback' }
+          let(:raw_text) { { type: 'object', properties: { feedback: { type: 'string', value: feedback } } }.to_json }
 
           it { is_expected.to eq feedback }
         end
@@ -35,6 +42,9 @@ module Evidence
 
           it { is_expected.to eq feedback }
         end
+
+        # TODO
+        # '{"type":"object","properties":{"feedback":{"type":"string":"You make an interesting point. Can you find any evidence in the text that suggests how driverless cars might be programmed to handle unexpected situations?"}}} '
       end
     end
   end

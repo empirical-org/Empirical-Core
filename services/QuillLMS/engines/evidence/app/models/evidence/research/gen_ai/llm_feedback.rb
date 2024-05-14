@@ -27,7 +27,7 @@ module Evidence
         validates :passage_prompt_response_id, presence: true
         validates :experiment_id, presence: true
 
-        attr_readonly :experiment_id, :label, :passage_prompt_response_id, :text
+        attr_readonly :experiment_id, :label, :passage_prompt_response_id, :raw_text, :text
 
         delegate :example_optimal?, :example_feedback, to: :passage_prompt_response
 

@@ -24,7 +24,7 @@ module Evidence
         it { should validate_presence_of(:passage_prompt_response_id)}
         it { should validate_presence_of(:experiment_id)}
 
-        # it { should have_readonly_attribute(:raw_text)}
+        it { should have_readonly_attribute(:raw_text)}
         it { should have_readonly_attribute(:text) }
         it { should have_readonly_attribute(:label) }
         it { should have_readonly_attribute(:passage_prompt_response_id) }

@@ -10,7 +10,8 @@ module Evidence
         class NilFeedbackError < ResolverError; end
         class EmptyFeedbackError < ResolverError; end
         class BlankTextError < ResolverError; end
-        class InvalidJSONError < StandardError; end
+        class InvalidJSONError < ResolverError; end
+        class UnknownJSONStructureError < ResolverError; end
 
         def initialize(raw_text:)
           @raw_text = raw_text
@@ -20,22 +21,22 @@ module Evidence
           raise NilFeedbackError if raw_text.nil?
           raise EmptyFeedbackError if raw_text.empty?
 
-          simple_feedback || enumerated_feedback || raw_text
+          return raw_text unless data.is_a?(Hash)
+
+          simple_feedback || enumerated_feedback || property_feedback_value || raise(UnknownJSONStructureError)
         end
 
         private def data
           @data ||= JSON.parse(raw_text)
         rescue JSON::ParserError
-          raise InvalidJSONError, "Invalid JSON provided: '#{raw_text}'"
+          raise InvalidJSONError
         end
 
-        private def simple_feedback
-          data['feedback']
-        end
+        private def simple_feedback = data['feedback']
 
-        private def enumerated_feedback
-          data.dig('properties', 'feedback', 'enum').join(' ')
-        end
+        private def enumerated_feedback = data.dig('properties', 'feedback', 'enum')&.join(' ')
+
+        private def property_feedback_value = data.dig('properties', 'feedback', 'value')
       end
     end
   end
