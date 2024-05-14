@@ -10,8 +10,8 @@ module Evidence
         class NilFeedbackError < ResolverError; end
         class EmptyFeedbackError < ResolverError; end
         class BlankTextError < ResolverError; end
-        class InvalidJSONError < StandardError; end
-        class UnknownFeedbackStructureError < ResolverError; end
+        class InvalidJSONError < ResolverError; end
+        class UnknownJSONStructureError < ResolverError; end
 
         def initialize(raw_text:)
           @raw_text = raw_text
@@ -23,13 +23,13 @@ module Evidence
 
           return raw_text unless data.is_a?(Hash)
 
-          simple_feedback || enumerated_feedback || raise(UnknownFeedbackStructureError, "Unknown structure: '#{data}'")
+          simple_feedback || enumerated_feedback || raise(UnknownJSONStructureError)
         end
 
         private def data
           @data ||= JSON.parse(raw_text)
         rescue JSON::ParserError
-          raise InvalidJSONError, "Invalid JSON provided: '#{raw_text}'"
+          raise InvalidJSONError
         end
 
         private def simple_feedback = data['feedback']
