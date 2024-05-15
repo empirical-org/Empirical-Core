@@ -18,6 +18,8 @@ Rails.autoloaders.each do |autoloader|
     'llm_prompt_builder' => 'LLMPromptBuilder',
     'llm_prompt_template' => 'LLMPromptTemplate',
     'llm_prompt_templates_controller' => 'LLMPromptTemplatesController',
+    'malformed_json_fixer' => 'MalformedJSONFixer',
+    'missing_json_quote_fixer' => 'MissingJSONQuoteFixer',
     'open_ai' => 'OpenAI',
     'pusher_csv_export_completed' => 'PusherCSVExportCompleted',
     'report_demo_ap_creator' => 'ReportDemoAPCreator',
