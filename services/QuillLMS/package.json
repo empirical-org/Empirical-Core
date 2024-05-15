@@ -16,6 +16,7 @@
   ],
   "scripts": {
     "postinstall": "cd ./client && npm install",
+    "heroku-postbuild": "[ $NODE_ENV = staging ] && npm prune --production",
     "test": "npm run jest && npm run build:test && npm run lint && bundle exec rake spec",
     "lint": "cd client && npm run lint",
     "build:test": "cd client && npm run build:test",
