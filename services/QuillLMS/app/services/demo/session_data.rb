@@ -18,6 +18,8 @@ module Demo
 
     REPLAYED_PAIR = [Demo::ReportDemoCreator::REPLAYED_ACTIVITY_ID, Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID]
 
+    SAFE_LOAD_CLASSES = [ActivitySession, ConceptResult, ConceptResultQuestionType]
+
     ACTIVITY_USER_PAIRS = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES
       .map {|hash| hash[:activity_sessions].map(&:to_a)}
       .flatten(2)
@@ -44,7 +46,7 @@ module Demo
     end
 
     private def load_file(file)
-      YAML.load_file(FILE_DIRECTORY + file)
+      YAML.safe_load(FILE_DIRECTORY + file, SAFE_LOAD_CLASSES)
     end
 
     # Important! This only needs to be run if there is a change to:
