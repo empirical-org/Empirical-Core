@@ -18,7 +18,14 @@ module Demo
 
     REPLAYED_PAIR = [Demo::ReportDemoCreator::REPLAYED_ACTIVITY_ID, Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID]
 
-    SAFE_LOAD_CLASSES = [ActivitySession, ConceptResult, ConceptResultQuestionType]
+    SAFE_LOAD_CLASSES = [
+      ActiveModel::Attribute.const_get(:FromDatabase),
+      Symbol,
+      Time,
+      ActivitySession,
+      ConceptResult,
+      ConceptResultQuestionType
+    ]
 
     ACTIVITY_USER_PAIRS = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES
       .map {|hash| hash[:activity_sessions].map(&:to_a)}
@@ -46,7 +53,9 @@ module Demo
     end
 
     private def load_file(file)
-      YAML.safe_load(FILE_DIRECTORY + file, SAFE_LOAD_CLASSES)
+      file_path = FILE_DIRECTORY + file
+      file_content = File.read(file_path)
+      YAML.safe_load(file_content, permitted_classes: SAFE_LOAD_CLASSES)
     end
 
     # Important! This only needs to be run if there is a change to:
