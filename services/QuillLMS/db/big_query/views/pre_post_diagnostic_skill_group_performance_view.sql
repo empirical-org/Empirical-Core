@@ -60,7 +60,7 @@ SELECT
               COUNT(diagnostic_question_optimal_concepts.id) > 0 AND
               LOGICAL_AND(CASE WHEN diagnostic_question_optimal_concepts.id IS NOT NULL THEN concept_results.correct END)
             ) AS correct
-          FROM special.concept_results AS concept_results
+          FROM lms.concept_results AS concept_results
           LEFT OUTER JOIN lms.diagnostic_question_optimal_concepts ON STRING(PARSE_JSON(concept_results.extra_metadata).question_uid) = diagnostic_question_optimal_concepts.question_uid AND concept_results.concept_id = diagnostic_question_optimal_concepts.concept_id
         WHERE concept_results.attempt_number IS NULL
         GROUP BY concept_results.activity_session_id, concept_results.extra_metadata, concept_results.question_number
@@ -130,7 +130,7 @@ SELECT
               COUNT(diagnostic_question_optimal_concepts.id) > 0 AND
               LOGICAL_AND(CASE WHEN diagnostic_question_optimal_concepts.id IS NOT NULL THEN concept_results.correct END)
             ) AS correct
-          FROM special.concept_results AS concept_results
+          FROM lms.concept_results AS concept_results
           LEFT OUTER JOIN lms.diagnostic_question_optimal_concepts ON STRING(PARSE_JSON(concept_results.extra_metadata).question_uid) = diagnostic_question_optimal_concepts.question_uid AND concept_results.concept_id = diagnostic_question_optimal_concepts.concept_id
         WHERE concept_results.attempt_number IS NULL
         GROUP BY concept_results.activity_session_id, concept_results.extra_metadata, concept_results.question_number
