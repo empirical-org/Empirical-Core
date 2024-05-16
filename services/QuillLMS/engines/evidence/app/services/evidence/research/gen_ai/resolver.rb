@@ -40,7 +40,7 @@ module Evidence
         end
 
         private def text
-          @text ||= MalformedJSONFixer.run(text)
+          @text ||= MalformedJSONFixer.run(raw_text:)
         end
 
         private def data

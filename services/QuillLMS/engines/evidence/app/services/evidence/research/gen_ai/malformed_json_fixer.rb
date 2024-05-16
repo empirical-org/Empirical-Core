@@ -13,7 +13,7 @@ module Evidence
         end
 
         def run
-          JSON.parse(raw_text)
+          JSON.parse(raw_text).to_json
         rescue JSON::ParserError
           cleaned_text
         rescue Parslet::ParseFailed => e
