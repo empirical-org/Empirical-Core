@@ -42,9 +42,15 @@ module AdminDiagnosticReports
     end
 
     private def students_link
-      @payload.except(:aggregation)
+      student_payload = @payload.except(:aggregation)
 
-      "STUDENTS" # TODO: return an actual file link
+      query_results = DiagnosticPerformanceByStudentViewQuery.run(**student_payload)
+      recommendation_results = DiagnosticRecommendationsByStudentQuery.run(**student_payload)
+
+      merged_results = query_results.map { |query_result| query_result.merge(recommendation_results.fetch(query_result[:student_id], {completed_activities: nil, time_spent_seconds: nil})) }
+
+      data = Adapters::Csv::AdminDiagnosticStudentsSummaryDataExport.to_csv_string(merged_results)
+      upload_csv(data)
     end
 
     private def upload_csv(data)

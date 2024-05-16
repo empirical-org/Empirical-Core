@@ -14,17 +14,25 @@ module Adapters
 
       def self.to_csv_string(bigquery_result, columns = ordered_columns.keys)
         sym_columns = columns.map(&:to_sym)
-        validate_input!(bigquery_result, sym_columns)
+        processed_result = pre_process_result(bigquery_result)
+        validate_input!(processed_result, sym_columns)
 
         CSV.generate do |csv|
           csv << human_displayable_csv_headers(sym_columns)
           csv << human_displayable_csv_tooltips(sym_columns)
-          bigquery_result.each do |row|
-            csv << sym_columns.map { |key| format_cell(key, row[key]) }
-            row[:aggregate_rows].each do |agg_row|
-              csv << (['name'] + sym_columns.slice(1..)).map { |key| format_cell(key, row[key]) }
-            end
-          end
+          processed_result.each { |row| add_aggregate_record_to_csv(csv, row, sym_columns) }
+        end
+      end
+
+      # No pre-processing by default
+      def self.pre_process_result(bigquery_result)
+        bigquery_result
+      end
+
+      def self.add_aggregate_record_to_csv(csv, row, sym_columns)
+        csv << sym_columns.map { |key| format_cell(key, row[key]) }
+        row[:aggregate_rows].each do |agg_row|
+          csv << (['name'] + sym_columns.slice(1..)).map { |key| format_cell(key, row[key]) }
         end
       end
 
@@ -41,15 +49,15 @@ module Adapters
         (row.keys & requested_columns).length == requested_columns.length
       end
 
-      def self.validate_input!(bigquery_result, sym_columns)
+      def self.validate_input!(processed_result, sym_columns)
         if (ordered_columns.keys & sym_columns).length != sym_columns.length
           raise UnhandledColumnError, "Requested column(s) not supported: #{sym_columns - ordered_columns.keys}"
         end
 
-        bigquery_result.each do |row|
+        processed_result.each do |row|
           next if row_contains_requested_columns?(row, sym_columns)
 
-          raise BigQueryResultMissingRequestedColumnError, "Row keys: #{row.keys} Column keys: #{sym_columns}"
+          raise BigQueryResultMissingRequestedColumnError, "Row keys: #{row.keys} Column keys: #{sym_columns} Missing keys: #{sym_columns - row.keys}"
         end
       end
     end
