@@ -5,7 +5,7 @@ INSTANCES = {
   1 => {
     name: 'airbyte2',
     port: 8001,
-    tables: "concept_results",
+    tables: "concept_results (prefix: special)",
   },
   2 => {
     name: 'airbyte-pink',
@@ -16,6 +16,11 @@ INSTANCES = {
     name: 'airbyte-0-43-0',
     port: 8003,
     tables: "all_other_tables"
+  },
+  4 => {
+    name: 'airbyte-celadon',
+    port: 8004,
+    tables: "concept_results (prefix: lms)"
   }
 }
 
@@ -39,7 +44,7 @@ Step = Struct.new(:prompt, :valid?, :current_value)
 
 MACHINE = {
   0 => Step.new(prompt0, ->(input){ [1,2].include?(input.to_i)}, nil),
-  1 => Step.new(prompt1, ->(input){ [1,2,3].include?(input.to_i)}, nil)
+  1 => Step.new(prompt1, ->(input){ INSTANCES.keys.include?(input.to_i)}, nil)
 }
 
 SSH_SUBCOMMAND = '2'
