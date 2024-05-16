@@ -40,7 +40,7 @@ module Adapters
       def self.human_displayable_csv_tooltips(sym_columns) = sym_columns.map{|col| ordered_columns[col][1] }
 
       def self.format_cell(sym_column, value)
-#        return format_lambdas[sym_column](value) if format_lambdas.include?(sym_column)
+        return (format_lambdas[sym_column].call(value)) if format_lambdas.include?(sym_column)
 
         value
       end

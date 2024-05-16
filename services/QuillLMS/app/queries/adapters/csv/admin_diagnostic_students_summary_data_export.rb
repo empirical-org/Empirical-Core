@@ -118,7 +118,6 @@ module Adapters
         }
       end
 
-      def self.format_as_integer = ->(x) { x.to_i }
       def self.format_as_list = ->(x) { x.join(', ') }
       def self.format_as_ratio = ->(x) { x.join(' of ') }
     end
