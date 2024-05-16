@@ -27,10 +27,15 @@ module Evidence
       end
 
       class MalformedJSONParser < Parslet::Parser
+        # The JSON grammar is more complex than this but we're simplifying to handle the cases we've seen
         root(:object)
 
         rule(:object) { (left_brace >> (key_value >> (comma >> key_value).repeat).maybe.as(:object) >> right_brace) }
+
         rule(:key_value) { string.as(:key) >> colon >> string.as(:val) }
+
+        # The JSON string grammar allows for any character except " and control characters but we're simplifying here
+        # to allow only alphanumeric characters and underscores which is what we've seen thus far from the LLM
         rule(:string) { quote.maybe >> alpha_numeric_underscores.as(:string) >> quote.maybe }
 
         rule(:alpha_numeric_underscores) { match('[a-zA-Z0-9_ ]').repeat(1) }
