@@ -1,0 +1,11 @@
+<p>Dear <%= @addressee_name %>,</p>
+
+<p>The Diagnostic Growth Report that you requested on <%= @human_date %> is ready to download. Below is a download link corresponding to each tab of the report:</p>
+
+<a clicktracking=off href=<%= @overview_url %> rel="noopener noreferrer" target="_blank">Download Performance Overview</a>
+<a clicktracking=off href=<%= @skills_url %> rel="noopener noreferrer" target="_blank">Download Performance by Skill</a>
+<a clicktracking=off href=<%= @students_url %> rel="noopener noreferrer" target="_blank">Download Performance by Student</a>
+
+<p>Best regards,</p>
+
+<p><%= @constants[:signatures][:quill_team]%></p>
