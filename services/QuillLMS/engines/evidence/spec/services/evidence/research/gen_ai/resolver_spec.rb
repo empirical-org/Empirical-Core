@@ -23,8 +23,8 @@ module Evidence
         context 'when raw_text is invalid JSON' do
           let(:raw_text) { 'invalid json' }
 
-          it 'raises InvalidJSONError' do
-            expect { subject }.to raise_error(described_class::InvalidJSONError)
+          it 'raises Parslet::ParseFailed' do
+            expect { subject }.to raise_error(Parslet::ParseFailed)
           end
         end
 
@@ -64,14 +64,6 @@ module Evidence
           it 'raises UnknownJSONStructureError' do
             expect { subject }.to raise_error(described_class::UnknownJSONStructureError)
           end
-        end
-
-        context 'when raw_text is key-value pair with value as JSON' do
-          let(:feedback) { 'This is feedback' }
-          let(:feedback_json) { { feedback: }.to_json }
-          let(:raw_text) { "Feedback: #{feedback_json}" }
-
-          it { is_expected.to eq feedback }
         end
       end
     end
