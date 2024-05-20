@@ -41,15 +41,15 @@
                 WHERE
           pre_activity_sessions.completed_at BETWEEN '2023-08-01 00:00:00' AND '2023-12-01 00:00:00'
           AND schools.id IN (38811,38804,38801,38800,38779,38784,38780,38773,38765,38764)
-          
-          
-          
+
+
+
           AND classrooms_teachers.role = 'owner'
           AND activities.id = 1663
 
         GROUP BY aggregate_id, classrooms.name, student_id
-        
-        
+
+
 ),
 pre_questions_correct AS (        SELECT
           student_id,
@@ -61,7 +61,7 @@ pre_questions_correct AS (        SELECT
           most_recent_activity_sessions.name,
           most_recent_activity_sessions.group_by
         FROM most_recent_activity_sessions
-        JOIN special.concept_results AS pre_concept_results
+        JOIN lms.concept_results AS pre_concept_results
           ON most_recent_activity_sessions.pre_activity_session_id = pre_concept_results.activity_session_id
         GROUP BY student_id, pre_activity_session_id, post_activity_session_id, pre_concept_results.question_number, aggregate_id, name, group_by
 ),
@@ -94,7 +94,7 @@ post_questions_correct AS (        SELECT
           most_recent_activity_sessions.name,
           most_recent_activity_sessions.group_by
         FROM most_recent_activity_sessions
-        JOIN special.concept_results AS post_concept_results
+        JOIN lms.concept_results AS post_concept_results
           ON most_recent_activity_sessions.post_activity_session_id = post_concept_results.activity_session_id
         GROUP BY student_id, pre_activity_session_id, post_activity_session_id, post_concept_results.question_number, aggregate_id, name, group_by
 ),
