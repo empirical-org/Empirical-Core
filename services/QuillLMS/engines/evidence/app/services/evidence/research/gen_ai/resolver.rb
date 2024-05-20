@@ -39,12 +39,12 @@ module Evidence
           raise EmptyFeedbackError if raw_text.blank?
         end
 
-        private def text
-          @text ||= MalformedJSONFixer.run(raw_text:)
-        end
+        private def cleaned_text = MalformedJSONFixer.run(preprocessed_text:)
+
+        private def preprocessed_text = RawTextPreprocessor.run(raw_text:)
 
         private def data
-          @data ||= JSON.parse(text)
+          @data ||= JSON.parse(preprocessed_text)
         rescue JSON::ParserError
           raise InvalidJSONError
         end

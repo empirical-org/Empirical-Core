@@ -6,42 +6,43 @@ module Evidence
   module Research
     module GenAI
       class MalformedJSONFixer < ApplicationService
-        attr_reader :raw_text
+        attr_reader :text
 
-        def initialize(raw_text:)
-          @raw_text = raw_text
+        def initialize(text:)
+          @text = text
         end
 
         def run
-          JSON.parse(raw_text).to_json
+          JSON.parse(text).to_json
         rescue JSON::ParserError
           cleaned_text
+        end
+
+        private def cleaned_text
+          cleaner.apply(parsed_text).to_json
         rescue Parslet::ParseFailed => e
           raise e.parse_failure_cause.ascii_tree
         end
 
-        private def cleaner = @cleaner ||= JSONCleaner.new
-        private def cleaned_text = cleaner.apply(parsed_text).to_json
-        private def parser = @parser ||= MalformedJSONParser.new
-        private def parsed_text = parser.parse(raw_text)
+        private def cleaner = JSONCleaner.new
+        private def parser = MalformedJSONParser.new
+        private def parsed_text = parser.parse(text)
       end
 
       class MalformedJSONParser < Parslet::Parser
         # The JSON grammar is more complex than this but we're simplifying to handle the cases we've seen
-        root(:top)
+        root(:object)
 
-        rule(:top) { object }
+        rule(:object) { (left_brace >> (key_val >> (comma >> key_val).repeat).as(:object) >> right_brace) }
 
-        rule(:object) { (left_brace >> (key_value >> (comma >> key_value).repeat).maybe.as(:object) >> right_brace) }
-
-        rule(:key_value) { string.as(:key) >> colon >> value.as(:val) }
-        rule(:value) { object | string }
+        rule(:key_val) { string.as(:key) >> colon >> value.as(:val) }
+        rule(:value) { string | object }
 
         # The JSON string grammar allows for any character except " and control characters but we're simplifying here
         # to allow only alphanumeric characters and underscores which is what we've seen thus far from the LLM
-        rule(:string) { quote.maybe >> alpha_numeric_underscores.as(:string) >> quote.maybe }
+        rule(:string) { quote.maybe >> alnum_or_underscores.as(:string) >> quote.maybe }
 
-        rule(:alpha_numeric_underscores) { match('[a-zA-Z0-9_ ]').repeat(1) }
+        rule(:alnum_or_underscores) { ( match['[:alnum:]'] | str('_') ).repeat(1) }
         rule(:comma) { spaces? >> str(',') >> spaces? }
         rule(:colon) { spaces? >> str(':') >> spaces? }
         rule(:quote) { spaces? >> str('"') >> spaces? }
