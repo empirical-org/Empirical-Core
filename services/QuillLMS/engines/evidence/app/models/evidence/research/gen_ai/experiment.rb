@@ -84,7 +84,7 @@ module Evidence
             raw_text = llm_client.run(llm_config:, prompt: llm_prompt.feedback_prompt(passage_prompt_response.response))
             text = Resolver.run(raw_text:)
             LLMFeedback.create!(experiment: self, raw_text:, text:, passage_prompt_response:)
-          rescue Resolver::ResolverError => e
+          rescue => e
             experiment_errors << { error: e.message, passage_prompt_response_id: passage_prompt_response.id, raw_text:}.to_json
             next
           end
