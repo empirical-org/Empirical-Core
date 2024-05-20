@@ -45,7 +45,7 @@ module Evidence
 
         def request_body_customizations
           return {} unless vendor == GOOGLE
-          return {} unless llm_config.version.in [GEMINI_1_5_PRO_LATEST, GEMINI_1_5_FLASH_LATEST]
+          return {} unless version.in? [GEMINI_1_5_PRO_LATEST, GEMINI_1_5_FLASH_LATEST]
 
           JSON_FORMAT_RESPONSES
         end
