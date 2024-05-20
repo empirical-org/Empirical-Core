@@ -21,18 +21,21 @@ module Evidence
         end
 
         private def cleaner = @cleaner ||= JSONCleaner.new
-        private def cleaned_text = cleaner.apply(parsed_text)
+        private def cleaned_text = cleaner.apply(parsed_text).to_json
         private def parser = @parser ||= MalformedJSONParser.new
         private def parsed_text = parser.parse(raw_text)
       end
 
       class MalformedJSONParser < Parslet::Parser
         # The JSON grammar is more complex than this but we're simplifying to handle the cases we've seen
-        root(:object)
+        root(:top)
+
+        rule(:top) { object }
 
         rule(:object) { (left_brace >> (key_value >> (comma >> key_value).repeat).maybe.as(:object) >> right_brace) }
 
-        rule(:key_value) { string.as(:key) >> colon >> string.as(:val) }
+        rule(:key_value) { string.as(:key) >> colon >> value.as(:val) }
+        rule(:value) { object | string }
 
         # The JSON string grammar allows for any character except " and control characters but we're simplifying here
         # to allow only alphanumeric characters and underscores which is what we've seen thus far from the LLM
@@ -51,8 +54,8 @@ module Evidence
 
       class JSONCleaner < Parslet::Transform
         rule(string: simple(:x)) { String(x).strip }
-        rule(key: simple(:k), val: simple(:v)) { { k => v } }
-        rule(object: subtree(:x)) { x.reduce({}, :merge).to_json }
+        rule(key: simple(:k), val: subtree(:v)) { { k => v } }
+        rule(object: subtree(:x)) { x.is_a?(Array) ? x.reduce({}, :merge) : x }
       end
     end
   end
