@@ -5,7 +5,7 @@ require 'rails_helper'
 module Evidence
   module Gemini
     RSpec.describe Completion, external_api: true do
-      %w[gemini-1.0-pro gemini-1.5-pro-latest].each do |version|
+      Evidence::Research::GenAI::LLMConfig::GOOGLE_VERSIONS.each do |version|
         subject { described_class.new(llm_config:, prompt:) }
 
         let(:llm_config) { create(:evidence_research_gen_ai_llm_config, version:) }
