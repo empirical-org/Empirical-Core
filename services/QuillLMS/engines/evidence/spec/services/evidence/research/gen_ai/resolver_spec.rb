@@ -23,9 +23,7 @@ module Evidence
         context 'when raw_text is invalid JSON' do
           let(:raw_text) { 'invalid json' }
 
-          it 'raises Parslet::ParseFailed' do
-            expect { subject }.to raise_error(Parslet::ParseFailed)
-          end
+          it { expect { subject }.to raise_error(described_class::InvalidJSONError) }
         end
 
         context 'when raw_text is a feedback' do
