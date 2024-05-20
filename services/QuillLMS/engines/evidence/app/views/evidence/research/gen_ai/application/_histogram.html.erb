@@ -1,0 +1,67 @@
+<style>
+  .histogram-wrapper {
+    display: flex;
+    align-items: flex-end;
+  }
+  .histogram-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .bars-container {
+    display: flex;
+    align-items: flex-end;
+    height: <%= @histogram_height %>;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    margin-bottom: 20px;
+  }
+  .bar {
+    display: inline-block;
+    margin-right: 2px;
+    background-color: blue;
+    text-align: center;
+    color: white;
+    width: 30px;
+  }
+  .bar-label {
+    writing-mode: vertical-rl;
+    text-align: center;
+    transform: rotate(180deg);
+  }
+  .x-axis-labels {
+    display: flex;
+    justify-content: center;
+  }
+  .x-axis-label {
+    width: 30px;
+    text-align: center;
+    margin-right: 2px;
+  }
+  .x-axis-title {
+    text-align: center;
+    margin-top: 10px;
+  }
+</style>
+
+<div class="histogram-wrapper">
+  <% max_value = @histogram.values.max %>
+  <div class="histogram-container">
+    <div class="bars-container">
+      <% @histogram.keys.sort.each do |bin| %>
+        <% frequency = @histogram[bin] %>
+        <div class="bar" style="height: <%= (frequency.to_f / max_value) * @histogram_height %>px;">
+          <div class="bar-label"><%= frequency %></div>
+        </div>
+      <% end %>
+    </div>
+    <div class="x-axis-labels">
+      <% @histogram.keys.sort.each do |bin| %>
+        <div class="x-axis-label"><%= bin %></div>
+      <% end %>
+    </div>
+    <div class="x-axis-title">
+      Elapsed Time / API call
+    </div>
+  </div>
+</div>

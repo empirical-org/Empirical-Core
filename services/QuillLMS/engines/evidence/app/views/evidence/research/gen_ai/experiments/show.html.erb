@@ -36,7 +36,11 @@
     <p>RougeL Sum: <%= @experiment.results.dig('misc_metrics', 'rouge', 'rougeLsum')&.round(2) %></p>
     <p>Experiment duration: <%= experiment_duration(@experiment) %></p>
     <p>Evaluation duration: <%= evaluation_duration(@experiment) %></p>
-    <p>Api call times: <%= @experiment.results['api_call_times'] %></p>
+
+    <% if @experiment.results['api_call_times'] %>
+      <p>Api call times: <%= @experiment.results['api_call_times'] %></p>
+      <%= render 'histogram', histogram: @histogram %>
+    <% end %>
 
     <%= render 'matrix', matrix: @experiment.results['confusion_matrix'], title: 'Confusion Matrix' %>
 
