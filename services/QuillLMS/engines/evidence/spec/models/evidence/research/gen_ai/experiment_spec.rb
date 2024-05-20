@@ -81,8 +81,16 @@ module Evidence
 
               subject
             end
-          end
 
+            it 'measures and records API call times' do
+              # 2 calls for each example: one for the API call and one for the experiment_duration
+              expect(Time.zone).to receive(:now).exactly((num_examples * 2) + 2).times.and_call_original
+
+              subject
+
+              expect(experiment.reload.results['api_call_times'].size).to eq(num_examples)
+            end
+          end
 
           context 'when an error occurs during execution' do
             let(:error_message) { 'Test error' }
