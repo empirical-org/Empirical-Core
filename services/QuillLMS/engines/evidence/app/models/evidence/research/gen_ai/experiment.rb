@@ -80,13 +80,19 @@ module Evidence
         def retry_params = { llm_config_id:, llm_prompt_id:, passage_prompt_id:, num_examples: }
 
         private def create_llm_prompt_responses_feedbacks
-          passage_prompt_responses.testing_data.limit(num_examples).each do |passage_prompt_response|
-            raw_text = llm_client.run(llm_config:, prompt: llm_prompt.feedback_prompt(passage_prompt_response.response))
-            text = Resolver.run(raw_text:)
-            LLMFeedback.create!(experiment: self, raw_text:, text:, passage_prompt_response:)
-          rescue => e
-            experiment_errors << { error: e.message, passage_prompt_response_id: passage_prompt_response.id, raw_text:}.to_json
-            next
+          [].tap do |api_call_times|
+            passage_prompt_responses.testing_data.limit(num_examples).each do |passage_prompt_response|
+              api_call_start_time = Time.zone.now
+              raw_text = llm_client.run(llm_config:, prompt: llm_prompt.feedback_prompt(passage_prompt_response.response))
+              api_call_times << (Time.zone.now - api_call_start_time).round(2)
+
+              text = Resolver.run(raw_text:)
+              LLMFeedback.create!(experiment: self, raw_text:, text:, passage_prompt_response:)
+            rescue => e
+              experiment_errors << { error: e.message, passage_prompt_response_id: passage_prompt_response.id, raw_text: }.to_json
+              next
+            end
+            update_results(api_call_times:)
           end
         end
       end
