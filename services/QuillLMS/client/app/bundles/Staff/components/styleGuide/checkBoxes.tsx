@@ -3,7 +3,6 @@ import _ from 'lodash';
 import { ACTIVE, Checkbox, DISABLED, INACTIVE, INDETERMINATE } from '../../../Shared';
 
 const STATES = [INACTIVE, ACTIVE, INDETERMINATE, DISABLED]
-const MODES = ['On Light', 'On Dark']
 
 const Checkboxes = () => {
   return(
@@ -46,13 +45,13 @@ const Checkboxes = () => {
             <div className="checkboxes">
               <Checkbox
                 label="Text"
-                selected={false}
                 mode="dark"
+                selected={false}
               />
               <Checkbox
                 label="Text"
-                selected={true}
                 mode="dark"
+                selected={true}
               />
             </div>
           </div>

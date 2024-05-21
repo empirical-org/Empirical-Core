@@ -27,19 +27,19 @@ export const Checkbox = ({ label, mode=LIGHT, onClick, state, selected }: checkb
   }
 
   function renderCheckbox() {
-    let checkbox = (<button className={`quill-checkbox unselected ${mode}`} onClick={onClick} role="checkbox" type="button">
-     {renderCheck()}
+    let checkbox = (<button aria-checked={selected} className={`quill-checkbox unselected ${mode}`} onClick={onClick} role="checkbox" type="button">
+      {renderCheck()}
     </button>)
     if (state === INDETERMINATE) {
-      checkbox = (<button className={`quill-checkbox indeterminate ${mode}`} onClick={onClick} role="checkbox" type="button">
+      checkbox = (<button aria-checked={selected} className={`quill-checkbox indeterminate ${mode}`} onClick={onClick} role="checkbox" type="button">
         {renderCheck()}
       </button>)
     } else if (selected) {
-      checkbox = (<button className={`quill-checkbox selected ${mode}`} onClick={onClick} role="checkbox" type="button">
+      checkbox = (<button aria-checked={selected} className={`quill-checkbox selected ${mode}`} onClick={onClick} role="checkbox" type="button">
         {renderCheck()}
       </button>)
     } else if(state === DISABLED) {
-      checkbox = (<button className={`quill-checkbox ${selected ? 'selected' : 'unselected'} ${mode} disabled`} role="checkbox" type="button">
+      checkbox = (<button aria-checked={selected} className={`quill-checkbox ${selected ? 'selected' : 'unselected'} ${mode} disabled`} role="checkbox" type="button">
         {renderCheck()}
       </button>)
     }

@@ -6,6 +6,7 @@ exports[`Checkbox it should render 1`] = `
     class="checkbox-container"
   >
     <button
+      aria-checked="true"
       class="quill-checkbox selected light"
       role="checkbox"
       type="button"
