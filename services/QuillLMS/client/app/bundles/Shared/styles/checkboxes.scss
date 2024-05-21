@@ -5,6 +5,7 @@
   border-radius: 1px;
   cursor: pointer;
   padding: 0px;
+  border-radius: 4px;
 }
 
 .quill-checkbox.selected {
@@ -18,13 +19,24 @@
 }
 
 .quill-checkbox.unselected {
-  border: solid 2px #646464 !important;
+  border: solid 2px $quill-grey-40 !important;
   cursor: pointer;
   background-color: transparent;
 }
 
 .quill-checkbox.disabled {
   cursor: not-allowed;
-  border: solid 2px #9E9E9E;
+  border: solid 2px $quill-grey-15;
   background-color: transparent;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  span:last-of-type {
+    margin-left: 8px;
+    &.disabled {
+      color: $quill-grey-30;
+    }
+  }
 }

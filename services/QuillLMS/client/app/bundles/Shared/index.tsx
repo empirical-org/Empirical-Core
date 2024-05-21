@@ -28,6 +28,7 @@ export {
   LightButtonLoadingSpinner,
   Card,
   CarouselAnimation,
+  Checkbox,
   DataTable,
   ProgressBar,
   DragHandle,

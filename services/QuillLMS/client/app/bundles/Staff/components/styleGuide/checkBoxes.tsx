@@ -1,5 +1,6 @@
 import * as React from 'react';
 import _ from 'lodash';
+import { Checkbox } from '../../../Shared';
 
 const STATES = ['inactive', 'active', 'indeterminate', 'disabled']
 const MODES = ['On Light', 'On Dark']
@@ -15,6 +16,12 @@ const Checkboxes = () => {
             return(
               <div className="option-container">
                 <p className="option-label">{_.capitalize(state)}</p>
+                <Checkbox
+                  label="Text"
+                  state={state}
+                  selected={state === 'active'}
+                  mode="light"
+                />
               </div>
             )
           })}
