@@ -236,7 +236,11 @@ export {
   INTRODUCTION,
   CHECKLIST,
   READ_AND_HIGHLIGHT,
-  ALLOWED_ATTEMPTS
+  ALLOWED_ATTEMPTS,
+  ACTIVE,
+  INACTIVE,
+  INDETERMINATE,
+  DISABLED
 } from './utils/constants'
 
 export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'

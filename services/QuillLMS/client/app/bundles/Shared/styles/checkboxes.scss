@@ -10,18 +10,24 @@
 
 .quill-checkbox.selected {
   background-color: $quill-green !important;
-  color: white;
+  color: $quill-white;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   border: 2px solid transparent;
+  &.dark {
+    background-color: $quill-white !important;
+  }
 }
 
 .quill-checkbox.unselected {
   border: solid 2px $quill-grey-40 !important;
   cursor: pointer;
   background-color: transparent;
+  &.dark {
+    border: solid 2px $quill-white !important;
+  }
 }
 
 .quill-checkbox.disabled {
@@ -30,6 +36,7 @@
   background-color: transparent;
 }
 
+
 .checkbox-container {
   display: flex;
   align-items: center;
@@ -37,6 +44,9 @@
     margin-left: 8px;
     &.disabled {
       color: $quill-grey-30;
+    }
+    &.dark {
+      color: $quill-white;
     }
   }
 }

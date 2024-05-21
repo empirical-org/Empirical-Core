@@ -1,8 +1,8 @@
 import * as React from 'react';
 import _ from 'lodash';
-import { Checkbox } from '../../../Shared';
+import { ACTIVE, Checkbox, DISABLED, INACTIVE, INDETERMINATE } from '../../../Shared';
 
-const STATES = ['inactive', 'active', 'indeterminate', 'disabled']
+const STATES = [INACTIVE, ACTIVE, INDETERMINATE, DISABLED]
 const MODES = ['On Light', 'On Dark']
 
 const Checkboxes = () => {
@@ -18,9 +18,9 @@ const Checkboxes = () => {
                 <p className="option-label">{_.capitalize(state)}</p>
                 <Checkbox
                   label="Text"
+                  onClick={() => {}}
+                  selected={state === ACTIVE}
                   state={state}
-                  selected={state === 'active'}
-                  mode="light"
                 />
               </div>
             )
@@ -28,13 +28,34 @@ const Checkboxes = () => {
         </div>
         <h4 className="style-guide-h4">Modes</h4>
         <div className="options-container">
-          {MODES.map(mode => {
-            return (
-              <div className="option-container">
-                <p className="option-label">{mode}</p>
-              </div>
-            )
-          })}
+          <div className="option-container">
+            <p className="option-label">On Light</p>
+            <div className="checkboxes">
+              <Checkbox
+                label="Text"
+                selected={false}
+              />
+              <Checkbox
+                label="Text"
+                selected={true}
+              />
+            </div>
+          </div>
+          <div className="option-container dark">
+            <p className="option-label">On Dark</p>
+            <div className="checkboxes">
+              <Checkbox
+                label="Text"
+                selected={false}
+                mode="dark"
+              />
+              <Checkbox
+                label="Text"
+                selected={true}
+                mode="dark"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -195,13 +195,17 @@
         &:not(:first-of-type) {
           border-left-width: 0;
         }
+        &.dark {
+          background-color: #454545;
+        }
         .option-label {
           @include text-s;
+          font-size: 13px;
           font-family: "Roboto Mono";
           color: #8B8B8B;
           align-self: flex-start;
         }
-        .checkbox-container {
+        .checkbox-container, .checkboxes {
           margin: auto;
           padding-bottom: 24px;
         }
