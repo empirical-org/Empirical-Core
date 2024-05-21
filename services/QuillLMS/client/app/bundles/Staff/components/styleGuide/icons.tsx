@@ -214,6 +214,8 @@ const iconGroups = [
       { path: "check-circle.svg" },
       { path: "check-small.svg" },
       { path: "check-small-white.svg" },
+      { path: "dash-black.svg" },
+      { path: "dash-white.svg" },
       { path: "clear-enabled.svg" },
       { path: "description-ccss.svg" },
       { path: "description-concept.svg" },

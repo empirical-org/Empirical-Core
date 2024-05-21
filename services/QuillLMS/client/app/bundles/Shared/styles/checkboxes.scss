@@ -30,6 +30,14 @@
   }
 }
 
+.quill-checkbox.indeterminate {
+  cursor: pointer;
+  background-color: $quill-grey-40;
+  &.dark {
+    border: solid 2px $quill-white !important;
+  }
+}
+
 .quill-checkbox.disabled {
   cursor: not-allowed;
   border: solid 2px $quill-grey-15;
