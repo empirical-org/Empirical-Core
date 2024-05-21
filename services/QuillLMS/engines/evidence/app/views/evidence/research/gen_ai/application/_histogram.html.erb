@@ -1,3 +1,5 @@
+<% histogram_height = 100 %>
+
 <style>
   .histogram-wrapper {
     display: flex;
@@ -11,7 +13,7 @@
   .bars-container {
     display: flex;
     align-items: flex-end;
-    height: <%= @histogram_height %>;
+    height: <%= histogram_height %>;
     border-left: 1px solid black;
     border-bottom: 1px solid black;
     margin-bottom: 20px;
@@ -50,7 +52,7 @@
     <div class="bars-container">
       <% @histogram.keys.sort.each do |bin| %>
         <% frequency = @histogram[bin] %>
-        <div class="bar" style="height: <%= (frequency.to_f / max_value) * @histogram_height %>px;">
+        <div class="bar" style="height: <%= (frequency.to_f / max_value) * histogram_height %>px;">
           <div class="bar-label"><%= frequency %></div>
         </div>
       <% end %>

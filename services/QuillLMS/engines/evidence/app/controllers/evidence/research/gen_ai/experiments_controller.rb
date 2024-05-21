@@ -51,8 +51,7 @@ module Evidence
 
         def show
           @experiment = Experiment.find(params[:id])
-          @histogram = HistogramBuilder.run(scores: @experiment.results['api_call_times']) if @experiment&.results&.[]('api_call_times').present?
-          @histogram_height = 100
+          @histogram = @experiment.api_call_times.map(&:round).tally if @experiment.api_call_times.present?
           @next = Experiment.where("id > ?", @experiment.id).order(id: :asc).first
           @previous = Experiment.where("id < ?", @experiment.id).order(id: :desc).first
         end
