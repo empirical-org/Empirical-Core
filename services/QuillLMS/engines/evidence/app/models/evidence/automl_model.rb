@@ -8,6 +8,7 @@
 #  labels               :string           default([]), is an Array
 #  name                 :string           not null
 #  notes                :text             default("")
+#  project              :string           not null
 #  state                :string           not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
