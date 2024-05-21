@@ -5,7 +5,7 @@ require 'rails_helper'
 module Evidence
   module OpenAI
     RSpec.describe Completion do
-      %w[gpt-3.5-turbo-0125 gpt-4-turbo-2024-04-09].each do |version|
+      Evidence::Research::GenAI::LLMConfig::OPEN_AI_VERSIONS.each do |version|
         subject { described_class.new(prompt:, llm_config:) }
 
         let(:prompt) { 'some prompt' }

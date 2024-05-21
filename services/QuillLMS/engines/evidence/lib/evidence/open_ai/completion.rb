@@ -29,7 +29,7 @@ module Evidence
           messages: [
             { role: 'user', content: prompt }
           ],
-        }
+        }.merge(llm_config.request_body_customizations)
       end
     end
   end
