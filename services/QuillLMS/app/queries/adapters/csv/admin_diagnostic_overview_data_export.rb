@@ -51,7 +51,8 @@ module Adapters
 
       def self.format_lambdas
         {
-          average_time_spent: format_as_minutes_string,
+          average_practice_activities_count: format_as_rounded_integer,
+          average_time_spent_seconds: format_as_minutes_string,
           overall_skill_growth: format_as_rounded_integer
         }
       end

@@ -32,7 +32,7 @@ module Adapters
       def self.add_aggregate_record_to_csv(csv, row, sym_columns)
         csv << sym_columns.map { |key| format_cell(key, row[key]) }
         row[:aggregate_rows].each do |agg_row|
-          csv << (['name'] + sym_columns.slice(1..)).map { |key| format_cell(key, row[key]) }
+          csv << ([:name] + sym_columns.slice(1..)).map { |key| format_cell(key, agg_row[key]) }
         end
       end
 
