@@ -35,7 +35,7 @@ module Evidence
         end
 
         def feedback_prompt(response)
-          "#{prompt}\n\nResponse: #{response}\nProvide feedback in the following format: #{FEEDBACK_JSON_SCHEMA}"
+          "#{prompt}\n\nResponse: #{response}\nProvide feedback in the following JSON format: #{FEEDBACK_JSON_SCHEMA}"
         end
 
         def evaluation_prompt(response) = "#{prompt}\n\nResponse: #{response}\nParaphrase:"

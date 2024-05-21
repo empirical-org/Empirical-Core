@@ -47,6 +47,8 @@ module Evidence
         scope :completed, -> { where(status: COMPLETED) }
         scope :failed, -> { where(status: FAILED) }
 
+        store_accessor :results, :api_call_times, :accuracy_identical, :accuracy_optimal_sub_optimal, :confusion_matrix
+
         attr_readonly :llm_config_id, :llm_prompt_id, :passage_prompt_id
 
         attr_accessor :llm_config_ids, :llm_prompt_template_ids, :passage_prompt_ids

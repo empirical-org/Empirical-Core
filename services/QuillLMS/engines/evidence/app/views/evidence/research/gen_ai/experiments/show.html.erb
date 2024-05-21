@@ -27,8 +27,8 @@
   <hr/>
   <h3>Results</h3>
   <% if @experiment.results %>
-    <p>Accuracy (identical): <%= @experiment.results['accuracy_identical'] %></p>
-    <p>Accuracy (sub/optimal): <%= @experiment.results['accuracy_optimal_sub_optimal'] %></p>
+    <p>Accuracy (identical): <%= @experiment.accuracy_identical&.round(2) %></p>
+    <p>Accuracy (sub/optimal): <%= @experiment.accuracy_optimal_sub_optimal&.round(2) %></p>
     <p>Bleu: <%= @experiment.results.dig('misc_metrics', 'bleu', 'bleu')&.round(2) %></p>
     <p>Rouge1: <%= @experiment.results.dig('misc_metrics', 'rouge', 'rouge1')&.round(2) %></p>
     <p>Rouge2: <%= @experiment.results.dig('misc_metrics', 'rouge', 'rouge2')&.round(2) %></p>
@@ -36,9 +36,13 @@
     <p>RougeL Sum: <%= @experiment.results.dig('misc_metrics', 'rouge', 'rougeLsum')&.round(2) %></p>
     <p>Experiment duration: <%= experiment_duration(@experiment) %></p>
     <p>Evaluation duration: <%= evaluation_duration(@experiment) %></p>
-    <p>Api call times: <%= @experiment.results['api_call_times'] %></p>
 
-    <%= render 'matrix', matrix: @experiment.results['confusion_matrix'], title: 'Confusion Matrix' %>
+    <% if @experiment.api_call_times %>
+      <p>Api call times: <%= @experiment.api_call_times %></p>
+      <%= render 'histogram', histogram: @histogram %>
+    <% end %>
+
+    <%= render 'matrix', matrix: @experiment.confusion_matrix, title: 'Confusion Matrix' %>
 
     <table>
       <thead>

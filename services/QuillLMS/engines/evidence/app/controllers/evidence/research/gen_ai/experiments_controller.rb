@@ -13,7 +13,6 @@ module Evidence
               .pluck(:llm_config_id, :llm_prompt_id, :passage_prompt_id, :num_examples)
               .map { |llm_config_id, llm_prompt_id, passage_prompt_id, num_examples| { llm_config_id:, llm_prompt_id:, passage_prompt_id:, num_examples: } }
               .to_set
-
           @experiments = Experiment.all.reject do |experiment|
             experiment.failed? && completed_experiments.include?(
               llm_config_id: experiment.llm_config_id,
@@ -52,6 +51,7 @@ module Evidence
 
         def show
           @experiment = Experiment.find(params[:id])
+          @histogram = @experiment.api_call_times.map(&:round).tally if @experiment.api_call_times.present?
           @next = Experiment.where("id > ?", @experiment.id).order(id: :asc).first
           @previous = Experiment.where("id < ?", @experiment.id).order(id: :desc).first
         end
