@@ -30,9 +30,52 @@ module AdminDiagnosticReports
     end
 
     private def overview_link
-      @payload.except(:diagnostic_id)
+      overview_payload = @payload.except(:diagnostic_id)
 
-      "OVERVIEW TEST" # TODO: return an actual file link
+      pre_assigned = PreDiagnosticAssignedViewQuery.run(**overview_payload)
+      pre_completed = PreDiagnosticCompletedViewQuery.run(**overview_payload)
+      recommendations = DiagnosticRecommendationsQuery.run(**overview_payload)
+      post_assigned = PostDiagnosticAssignedViewQuery.run(**overview_payload)
+      post_completed = PostDiagnosticCompletedViewQuery.run(**overview_payload)
+
+      combined_pre = merge_results(pre_assigned, pre_completed)
+      combined_recommendations = merge_results(combined_pre, recommendations)
+      combined_post = merge_results(post_assigned, post_completed)
+
+      query_results = merge_results(combined_recommendations, combined_post)
+
+      data = Adapters::Csv::AdminDiagnosticOverviewDataExport.to_csv_string(query_results)
+      upload_csv(data)
+    end
+
+    private def merge_results(base_data, supplemental_data)
+      diagnostic_ids = (base_data.map{|row| row[:diagnostic_id]} + supplemental_data.map{|row| row[:diagnostic_id]}).uniq
+
+      unique_base_keys = base_data.first.keys - supplemental_data.first.keys
+      unique_supplemental_keys = supplemental_data.first.keys - base_data.first.keys
+
+      base_data_fallback = unique_base_keys.to_h{|key| [key, nil]}
+      supplemental_data_fallback = unique_supplemental_keys.to_h{|key| [key, nil]}
+
+      merged_data = diagnostic_ids.map do |diagnostic_id|
+        left_data = base_data.find{|row| row[:diagnostic_id] == diagnostic_id} || base_data_fallback
+        right_data = supplemental_data.find{|row| row[:diagnostic_id] == diagnostic_id} || supplemental_data_fallback
+
+        aggregate_rows = merge_aggregate_rows(left_data.delete(:aggregate_rows), right_data.delete(:aggregate_rows))
+
+        left_data.merge(right_data).merge({aggregate_rows:})
+      end
+    end
+
+    private def merge_aggregate_rows(base_data, supplemental_data)
+      base_aggregate_rows = base_data&.group_by{|agg_row| agg_row[:aggregate_id]} || {}
+      supplemental_aggregate_rows = supplemental_data&.group_by{|agg_row| agg_row[:aggregate_id]} || {}
+
+      all_aggregate_ids = (base_aggregate_rows.keys + supplemental_aggregate_rows.keys).uniq
+
+      all_aggregate_ids.map do |aggregate_id|
+        base_aggregate_rows.fetch(aggregate_id, [{}]).first.merge(supplemental_aggregate_rows.fetch(aggregate_id, [{}]).first)
+      end
     end
 
     private def skills_link
