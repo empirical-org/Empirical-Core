@@ -68,13 +68,19 @@ module AdminDiagnosticReports
     end
 
     private def merge_aggregate_rows(base_data, supplemental_data)
-      base_aggregate_rows = base_data&.group_by{|agg_row| agg_row[:aggregate_id]} || {}
-      supplemental_aggregate_rows = supplemental_data&.group_by{|agg_row| agg_row[:aggregate_id]} || {}
+      all_aggregate_ids = ((base_data&.map{|row| row[:aggregate_id]} || []) + (supplemental_data&.map{|row| row[:aggregate_id]} || [])).uniq
 
-      all_aggregate_ids = (base_aggregate_rows.keys + supplemental_aggregate_rows.keys).uniq
+      unique_base_keys = (base_data&.first&.keys || []) - (supplemental_data&.first&.keys || [])
+      unique_supplemental_keys = (supplemental_data&.first&.keys || []) - (base_data&.first&.keys || [])
+
+      base_data_fallback = unique_base_keys.to_h{|key| [key, nil]}
+      supplemental_data_fallback = unique_supplemental_keys.to_h{|key| [key, nil]}
 
       all_aggregate_ids.map do |aggregate_id|
-        base_aggregate_rows.fetch(aggregate_id, [{}]).first.merge(supplemental_aggregate_rows.fetch(aggregate_id, [{}]).first)
+        left_data = base_data&.find{|row| row[:aggregate_id] == aggregate_id} || base_data_fallback
+        right_data = supplemental_data&.find{|row| row[:aggregate_id] == aggregate_id} || supplemental_data_fallback
+
+        left_data.merge(right_data)
       end
     end
 
@@ -103,7 +109,6 @@ module AdminDiagnosticReports
       # store! returns nil on failure, rather than raising an exception.
       # We address this gotcha by manually raising an exception.
       upload_status = uploader.store!(csv_tempfile)
-      puts uploader
       raise CloudUploadError, "Unable to upload CSV for user #{user_id}" unless upload_status
 
       # The response-content-disposition param triggers browser file download instead of screen rendering

@@ -53,12 +53,19 @@ module Adapters
         {
           average_practice_activities_count: format_as_rounded_integer,
           average_time_spent_seconds: format_as_minutes_string,
-          overall_skill_growth: format_as_rounded_integer
+          overall_skill_growth: format_percent_as_integer,
+          pre_students_assigned: format_blank_as_zero,
+          pre_students_completed: format_blank_as_zero,
+          post_students_assigned: format_blank_as_zero,
+          post_students_completed: format_blank_as_zero,
+          students_completed_practice: format_blank_as_zero
         }
       end
 
-      def self.format_as_minutes_string = ->(x) { x.present? ? "#{x.round / 60}:#{x.round % 60}" : x }
-      def self.format_as_rounded_integer = ->(x) { x&.round }
+      def self.format_as_minutes_string = ->(x) { x.present? ? "#{x.round / 60}:#{(x.round % 60).to_s.rjust(2, "0")}" : format_blank_as_zero.call(x) }
+      def self.format_percent_as_integer = ->(x) { x.present? ? format_as_rounded_integer.call(x * 100) : format_blank_as_zero.call(x) }
+      def self.format_as_rounded_integer = ->(x) { x.present? ? x.round : format_blank_as_zero.call(x) }
+      def self.format_blank_as_zero = ->(x) { x.blank? ? 0 : x }
     end
   end
 end
