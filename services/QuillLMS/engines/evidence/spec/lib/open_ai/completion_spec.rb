@@ -5,7 +5,7 @@ require 'rails_helper'
 module Evidence
   module OpenAI
     RSpec.describe Completion do
-      Evidence::Research::GenAI::LLMConfig::OPEN_AI_VERSIONS.each do
+      Evidence::Research::GenAI::LLMConfig::OPEN_AI_VERSIONS.each do |version|
         subject { described_class.new(prompt:, llm_config:) }
 
         let(:prompt) { 'some prompt' }

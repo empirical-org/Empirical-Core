@@ -29,11 +29,33 @@ module Evidence
 
           let(:llm_config) { build(:evidence_research_gen_ai_llm_config, vendor:, version:) }
 
-          context 'when vendor is not GOOGLE' do
-            let(:vendor) { described_class::OPEN_AI }
+          context 'when vendor is not GOOGLE or OPEN_AI' do
+            let(:vendor) { 'any_vendor' }
             let(:version) { 'any_version' }
 
             it { is_expected.to eq({}) }
+          end
+
+          context 'when vendor is OPEN_AI' do
+            let(:vendor) { described_class::OPEN_AI }
+
+            context 'when version is GPT_3_5_TURBO_0125' do
+              let(:version) { described_class::GPT_3_5_TURBO_0125 }
+
+              it { is_expected.to eq described_class::OPEN_AI_JSON_FORMAT_RESPONSES  }
+            end
+
+            context 'when version is GPT_4_TURBO_2024_04_09' do
+              let(:version) { described_class::GPT_4_TURBO_2024_04_09 }
+
+              it { is_expected.to eq described_class::OPEN_AI_JSON_FORMAT_RESPONSES  }
+            end
+
+            context 'when version is GPT_4_O' do
+              let(:version) { described_class::GPT_4_O }
+
+              it { is_expected.to eq described_class::OPEN_AI_JSON_FORMAT_RESPONSES  }
+            end
           end
 
           context 'when vendor is GOOGLE' do
@@ -42,13 +64,13 @@ module Evidence
             context 'when version is GEMINI_1_5_PRO_LATEST' do
               let(:version) { described_class::GEMINI_1_5_PRO_LATEST }
 
-              it { is_expected.to eq described_class::JSON_FORMAT_RESPONSES  }
+              it { is_expected.to eq described_class::GOOGLE_JSON_FORMAT_RESPONSES  }
             end
 
             context 'version is GEMINI_1_5_FLASH_LATEST' do
               let(:version) { described_class::GEMINI_1_5_FLASH_LATEST }
 
-              it { is_expected.to eq described_class::JSON_FORMAT_RESPONSES  }
+              it { is_expected.to eq described_class::GOOGLE_JSON_FORMAT_RESPONSES  }
             end
 
             context 'version is not GEMINI_1_5_PRO_LATEST or GEMINI_1_5_FLASH_LATEST' do
