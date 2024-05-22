@@ -33,6 +33,7 @@ exports[`Checkboxes it should render 1`] = `
             class="checkbox-container"
           >
             <button
+              aria-checked="false"
               class="quill-checkbox unselected light"
               role="checkbox"
               type="button"
@@ -56,6 +57,7 @@ exports[`Checkboxes it should render 1`] = `
             class="checkbox-container"
           >
             <button
+              aria-checked="true"
               class="quill-checkbox selected light"
               role="checkbox"
               type="button"
@@ -84,6 +86,7 @@ exports[`Checkboxes it should render 1`] = `
             class="checkbox-container"
           >
             <button
+              aria-checked="false"
               class="quill-checkbox indeterminate light"
               role="checkbox"
               type="button"
@@ -112,6 +115,7 @@ exports[`Checkboxes it should render 1`] = `
             class="checkbox-container"
           >
             <button
+              aria-checked="false"
               class="quill-checkbox unselected light disabled"
               role="checkbox"
               type="button"
@@ -147,6 +151,7 @@ exports[`Checkboxes it should render 1`] = `
               class="checkbox-container"
             >
               <button
+                aria-checked="false"
                 class="quill-checkbox unselected light"
                 role="checkbox"
                 type="button"
@@ -161,6 +166,7 @@ exports[`Checkboxes it should render 1`] = `
               class="checkbox-container"
             >
               <button
+                aria-checked="true"
                 class="quill-checkbox selected light"
                 role="checkbox"
                 type="button"
@@ -193,6 +199,7 @@ exports[`Checkboxes it should render 1`] = `
               class="checkbox-container"
             >
               <button
+                aria-checked="false"
                 class="quill-checkbox unselected dark"
                 role="checkbox"
                 type="button"
@@ -207,6 +214,7 @@ exports[`Checkboxes it should render 1`] = `
               class="checkbox-container"
             >
               <button
+                aria-checked="true"
                 class="quill-checkbox selected dark"
                 role="checkbox"
                 type="button"
