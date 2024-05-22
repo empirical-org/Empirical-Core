@@ -20,13 +20,13 @@ module AdminDiagnosticReports
     private def base_filters
       @base_filters ||= AdminReportFilterSelection.find_by(user_id: @user.id, report: BASE_REPORT_NAME)
         &.filter_selections
-        &.transform_values { |value| value.fetch('value', nil) }
+        &.transform_values { |value| value.map{|v| v.fetch('value', nil) }.compact }
     end
 
     private def skill_filters
       @skill_filters ||= AdminReportFilterSelection.find_by(user_id: @user.id, report: SKILL_REPORT_NAME)
         &.filter_selections
-        &.transform_values { |value| value.fetch('value', nil) }
+        &.transform_values { |value| value.map{|v| v.fetch('value', nil) }.compact }
     end
 
     private def timeframe
