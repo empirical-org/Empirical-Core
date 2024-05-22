@@ -3,15 +3,21 @@
 class AdminDiagnosticReportsController < ApplicationController
   CACHE_REPORT_NAME = 'admin-diagnostic-overview'
   WORKERS_FOR_ACTIONS = {
-    "report" => AdminDiagnosticReports::DiagnosticOverviewWorker
+    "report" => AdminDiagnosticReports::DiagnosticOverviewWorker,
+    "download" => AdminDiagnosticReports::EnqueueCsvEmailWorker
   }
 
-  before_action :set_query
-  before_action :validate_request
-  before_action :authorize_request
+  before_action :set_query, only: [:report]
+  before_action :validate_request, only: [:report]
+  before_action :authorize_request, only: [:report]
 
   def report
     render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
+  end
+
+  def download
+    WORKERS_FOR_ACTIONS[action_name].perform_async(current_user.id)
+    render json: 'OK'
   end
 
   private def set_query
