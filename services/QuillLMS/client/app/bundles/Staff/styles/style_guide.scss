@@ -170,6 +170,50 @@
   }
 }
 
+#checkboxes {
+  h2 {
+    font-weight: 700;
+  }
+  .states-and-modes-container {
+    h4 {
+      @include display-xl;
+      margin-bottom: 20px;
+    }
+    .options-container {
+      display: flex;
+      &:first-of-type {
+        margin-bottom: 48px;
+      }
+      .option-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 380px;
+        height: 267px;
+        padding: 16px;
+        border: 1px solid #D6D5D6;
+        &:not(:first-of-type) {
+          border-left-width: 0;
+        }
+        &.dark {
+          background-color: #454545;
+        }
+        .option-label {
+          @include text-s;
+          font-size: 13px;
+          font-family: "Roboto Mono";
+          color: #8B8B8B;
+          align-self: flex-start;
+        }
+        .checkbox-container, .checkboxes {
+          margin: auto;
+          padding-bottom: 24px;
+        }
+      }
+    }
+  }
+}
+
 #typography {
   .display-2xl {
     @include display-2xl;

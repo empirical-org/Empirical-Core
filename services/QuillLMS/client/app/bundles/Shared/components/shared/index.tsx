@@ -17,6 +17,10 @@ export {
 } from './card'
 
 export {
+  Checkbox
+} from './checkBox'
+
+export {
   DragHandle
 } from './dragHandle'
 
