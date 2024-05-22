@@ -7,39 +7,36 @@ module Evidence
       DISPLAY_NAME = 'displayName'
       CONFUSION_MATRIX = 'confusionMatrix'
 
-      attr_reader :name
+      ENDPOINT_CLIENT_CLASS = ::Google::Cloud::AIPlatform::V1::EndpointService::Client
+      MODEL_CLIENT_CLASS = ::Google::Cloud::AIPlatform::V1::ModelService::Client
 
-      def initialize(name)
+      attr_reader :name, :project
+
+      def initialize(name:, project:)
         @name = name
+        @project = project
       end
 
       def run
         return {} unless name.present? && endpoint.present? && deployed_model.present?
 
-        {
-          endpoint_external_id: endpoint_external_id,
-          labels: labels,
-          model_external_id: model_external_id,
-        }
+        { endpoint_external_id:, labels:, model_external_id: }
       end
+
 
       private def endpoint
         @endpoint ||=
-          endpoint_client
-            .list_endpoints(parent: parent)
-            .find { |endpoint| endpoint.display_name == name }
+          ClientFetcher
+            .run(client_class: ENDPOINT_CLIENT_CLASS, project:)
+            .list_endpoints(parent:)
+            .find { |ep| ep.display_name == name }
       end
 
-      private def endpoint_client
-        ::Google::Cloud::AIPlatform::V1::EndpointService::Client.new
-      end
-
-      private def endpoint_external_id
-        endpoint.name.split('/').last
-      end
+      private def endpoint_external_id = endpoint.name.split('/').last
 
       private def labels
-        model_client
+        ClientFetcher
+          .run(client_class: MODEL_CLIENT_CLASS, project:)
           .list_model_evaluations(parent: deployed_model.model)
           .first
           .to_h
@@ -54,17 +51,11 @@ module Evidence
         @deployed_model ||= endpoint.deployed_models.find { |model| model.display_name == name }
       end
 
-      private def model_client
-        ::Google::Cloud::AIPlatform::V1::ModelService::Client.new
-      end
+      private def model_external_id = deployed_model.model.split('/').last
 
-      private def model_external_id
-        deployed_model.model.split('/').last
-      end
+      private def parent = "projects/#{project_id}/locations/#{VERTEX_AI_LOCATION}"
 
-      private def parent
-        "projects/#{VERTEX_AI_PROJECT_ID}/locations/#{VERTEX_AI_LOCATION}"
-      end
+      private def project_id = ClientFetcher.project_id(project)
     end
   end
 end

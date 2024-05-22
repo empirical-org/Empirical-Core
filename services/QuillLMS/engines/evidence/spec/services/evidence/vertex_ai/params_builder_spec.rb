@@ -5,9 +5,10 @@ require 'rails_helper'
 module Evidence
   module VertexAI
     RSpec.describe ParamsBuilder do
-      subject { described_class.run(name) }
+      subject { described_class.run(name:, project_id:) }
 
       let(:name) { 'name' }
+      let(:project_id) { 'project_id' }
 
       let(:endpoint_external_id) { 'endpoint_external_id' }
       let(:endpoint_name) { "/projects/project_id/locations/location_id/endpoints/#{endpoint_external_id}" }
@@ -66,8 +67,8 @@ module Evidence
       let(:label2) { 'label2' }
 
       before do
-        allow(::Google::Cloud::AIPlatform::V1::EndpointService::Client).to receive(:new).and_return(endpoint_client)
-        allow(::Google::Cloud::AIPlatform::V1::ModelService::Client).to receive(:new).and_return(model_client)
+        allow(described_class::ENDPOINT_CLIENT_CLASS).to receive(:new).and_return(endpoint_client)
+        allow(described_class::MODEL_CLIENT_CLASS).to receive(:new).and_return(model_client)
       end
 
       context 'when name, endpoint, and model are present' do
