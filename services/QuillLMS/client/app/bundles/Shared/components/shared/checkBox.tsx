@@ -34,12 +34,13 @@ export const Checkbox = ({ label, mode=LIGHT, onClick, state, selected }: checkb
       checkbox = (<button aria-checked={selected} className={`quill-checkbox indeterminate ${mode}`} onClick={onClick} role="checkbox" type="button">
         {renderCheck()}
       </button>)
-    } else if (selected) {
-      checkbox = (<button aria-checked={selected} className={`quill-checkbox selected ${mode}`} onClick={onClick} role="checkbox" type="button">
+
+    } else if (state === DISABLED) {
+      checkbox = (<button aria-checked={selected} className={`quill-checkbox ${selected ? 'selected' : 'unselected'} ${mode} disabled`} role="checkbox" type="button">
         {renderCheck()}
       </button>)
-    } else if(state === DISABLED) {
-      checkbox = (<button aria-checked={selected} className={`quill-checkbox ${selected ? 'selected' : 'unselected'} ${mode} disabled`} role="checkbox" type="button">
+    } else if (selected) {
+      checkbox = (<button aria-checked={selected} className={`quill-checkbox selected ${mode}`} onClick={onClick} role="checkbox" type="button">
         {renderCheck()}
       </button>)
     }
