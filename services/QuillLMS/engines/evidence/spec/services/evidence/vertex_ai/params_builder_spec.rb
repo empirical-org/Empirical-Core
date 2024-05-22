@@ -5,10 +5,10 @@ require 'rails_helper'
 module Evidence
   module VertexAI
     RSpec.describe ParamsBuilder do
-      subject { described_class.run(name:, project_id:) }
+      subject { described_class.run(name:, project:) }
 
       let(:name) { 'name' }
-      let(:project_id) { 'project_id' }
+      let(:project) { 'project' }
 
       let(:endpoint_external_id) { 'endpoint_external_id' }
       let(:endpoint_name) { "/projects/project_id/locations/location_id/endpoints/#{endpoint_external_id}" }

@@ -29,7 +29,7 @@ module Evidence
       context 'matching deployed models found' do
         let(:list_endpoints) { [endpoint1, endpoint2, endpoint3] }
 
-        it { is_expected.to eq [{name3 => vertex_ai_project_id}, {name1 => vertex_ai_project_id}] }
+        it { is_expected.to eq ["#{name3},#{vertex_ai_project_id}", "#{name1},#{vertex_ai_project_id}"] }
       end
 
       context 'no matching deployed models found' do
