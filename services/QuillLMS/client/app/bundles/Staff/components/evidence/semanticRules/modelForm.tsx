@@ -6,7 +6,7 @@ import { DropdownInput, Spinner, TextArea } from '../../../../Shared/index';
 import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { InputEvent } from '../../../interfaces/evidenceInterfaces';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
-import { createModel, fetchDeployedModelNames } from '../../../utils/evidence/modelAPIs';
+import { createModel, fetchDeployedModelNamesAndProjects } from '../../../utils/evidence/modelAPIs';
 
 const ModelForm = ({ location, history, match }) => {
   const { params } = match;
@@ -15,6 +15,7 @@ const ModelForm = ({ location, history, match }) => {
 
   const [errors, setErrors] = React.useState<object>({});
   const [name, setName] = React.useState<string>('');
+  const [project, setProject] = React.useState<string>('');
   const [notes, setNotes] = React.useState<string>('');
   const [nameOptions, setNameOptions] = React.useState<any[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -24,26 +25,30 @@ const ModelForm = ({ location, history, match }) => {
     queryFn: fetchActivity
   });
 
-  const { data: deployedModelNamesData, isError: isNamesError } = useQuery({
-    queryKey: ['deployedModelNames'],
-    queryFn: fetchDeployedModelNames,
+  const { data: deployedModelNamesAndProjectsData, isError: isNamesError } = useQuery({
+    queryKey: ['deployedModelNamesAndProjects'],
+    queryFn: fetchDeployedModelNamesAndProjects,
   });
 
   React.useEffect(() => {
-    if (deployedModelNamesData && deployedModelNamesData.names) {
-      const newOptions = deployedModelNamesData.names.map((name) => ({
-        value: name,
-        label: name,
+    if (deployedModelNamesAndProjectsData && deployedModelNamesAndProjectsData.names_and_projects) {
+      const newOptions = deployedModelNamesAndProjectsData.names_and_projects.map((name_and_project) => ({
+        value: name_and_project,
+        label: name_and_project
       }));
       setNameOptions(newOptions);
     }
-  }, [deployedModelNamesData]);
+  }, [deployedModelNamesAndProjectsData]);
 
   React.useEffect(() => {
   }, [name]);
 
-  function handleSetName(option: { value: string }) {
-    setName(option.value);
+  React.useEffect(() => {
+  }, [project]);
+
+  function handleSetNameAndProject(option: { value: string }) {
+    setName(option.value.split(',')[0]);
+    setProject(option.value.split(',')[1]);
   }
 
   function handleSetNotes(e: InputEvent) {
@@ -57,7 +62,7 @@ const ModelForm = ({ location, history, match }) => {
       setErrors(updatedErrors);
     } else {
       setIsLoading(true);
-      createModel(name, notes, promptId).then((response) => {
+      createModel(name, notes, project, promptId).then((response) => {
         const { error, model } = response;
         if (error) {
           const updatedErrors = {};
@@ -87,11 +92,11 @@ const ModelForm = ({ location, history, match }) => {
       {renderHeader(activityData, header)}
       <Link className="return-link" to={{ pathname: `/activities/${activityId}/semantic-labels`, state: 'returned-to-index' }}>← Return to Semantic Rules Index</Link>
       <DropdownInput
-        handleChange={handleSetName}
+        handleChange={handleSetNameAndProject}
         isSearchable={true}
         label="Name (note: if you're not finding a particular name, ensure that endpoint and model name are identical including leading/trailing whitespace)"
         options={nameOptions}
-        value={nameOptions.find(opt => opt.value === name)}
+        value={nameOptions.find(opt => opt.value.split(',')[0] === name)}
       />
       <TextArea
         characterLimit={1000}
