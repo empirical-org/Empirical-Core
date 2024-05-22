@@ -14,18 +14,19 @@ module Evidence
       ].freeze
 
 
+      PREDICTION_CLIENT_CLASS = ::Google::Cloud::AIPlatform::V1::PredictionService::Client
+
       PREDICTION_NUM_RETRIES = 1
 
-      attr_reader :endpoint_external_id, :text
+      attr_reader :endpoint_external_id, :project, :text
 
-      def initialize(endpoint_external_id, text)
+      def initialize(endpoint_external_id:, project:, text:)
         @endpoint_external_id = endpoint_external_id
+        @project = project
         @text = text
       end
 
-      def run
-        [top_score_label, top_score]
-      end
+      def run = [top_score_label, top_score]
 
       private def confidences
         prediction[CONFIDENCES]
@@ -35,14 +36,14 @@ module Evidence
       end
 
       private def client
-        ::Google::Cloud::AIPlatform::V1::PredictionService::Client.new do |config|
+        ClientFetcher.run(client_class: PREDICTION_CLIENT_CLASS, project: project) do |config|
           config.timeout = PREDICT_API_TIMEOUT
         end
       end
 
-      private def endpoint
-        "projects/#{VERTEX_AI_PROJECT_ID}/locations/#{VERTEX_AI_LOCATION}/endpoints/#{endpoint_external_id}"
-      end
+      private def endpoint = "projects/#{project_id}/locations/#{VERTEX_AI_LOCATION}/endpoints/#{endpoint_external_id}"
+
+      private def project_id = ClientFetcher.project_id(project)
 
       private def instances
         [::Google::Protobuf::Value.new(struct_value: { fields: { content: { string_value: text } } })]
@@ -58,13 +59,11 @@ module Evidence
 
       private def prediction_response
         retry_with_exceptions(PREDICTION_NUM_RETRIES, PREDICTION_EXCEPTION_CLASSES) do
-          client.predict(endpoint: endpoint, instances: instances)
+          client.predict(endpoint:, instances:)
         end
       end
 
-      private def top_score
-        confidences.max
-      end
+      private def top_score = confidences.max
 
       private def top_score_label
         prediction[DISPLAY_NAMES]

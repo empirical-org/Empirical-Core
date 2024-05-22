@@ -5,9 +5,10 @@ require 'rails_helper'
 module Evidence
   module VertexAI
     RSpec.describe TextClassifier do
-      subject { described_class.run(endpoint_external_id, text) }
+      subject { described_class.run(endpoint_external_id:, project:, text:) }
 
       let(:endpoint_external_id) { 'endpoint-external_id' }
+      let(:project) { 'project' }
       let(:prediction_client_class) { ::Google::Cloud::AIPlatform::V1::PredictionService::Client }
       let(:prediction_client) { instance_double(prediction_client_class) }
       let(:text) { 'some text' }
@@ -32,7 +33,7 @@ module Evidence
 
       let(:prediction) { ::Google::Protobuf::Value.new(struct_value: { fields: results }) }
       let(:prediction_response) { ::Google::Cloud::AIPlatform::V1::PredictResponse.new(predictions: [prediction]) }
-      let(:endpoint) { described_class.new(endpoint_external_id, '').send(:endpoint) }
+      let(:endpoint) { described_class.new(endpoint_external_id:, project:, text: '').send(:endpoint) }
       let(:instances) { [::Google::Protobuf::Value.new(struct_value: { fields: { content: { string_value: text } } })] }
 
       before { allow(prediction_client_class).to receive(:new).and_return(prediction_client) }
@@ -41,7 +42,7 @@ module Evidence
         before do
           allow(prediction_client)
             .to receive(:predict)
-            .with(endpoint: endpoint, instances: instances)
+            .with(endpoint:, instances:)
             .and_return(prediction_response)
         end
 
